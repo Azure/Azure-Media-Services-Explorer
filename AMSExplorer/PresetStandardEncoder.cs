@@ -138,4 +138,11 @@ namespace AMSExplorer
             }
         }
     }
+
+    public class Profile
+    {
+        public string Prof { get; set; }
+        public string Desc { get; set; }
+        public bool Automatic { get; set; }
+    }
 }

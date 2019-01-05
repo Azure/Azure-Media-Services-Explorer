@@ -283,13 +283,13 @@
     <value>30, 9</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 20</value>
+    <value>149, 20</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Delete Program(s)</value>
+    <value>Delete Live Output(s)</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -319,10 +319,10 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Delete program(s)</value>
+    <value>Delete live output(s)</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>DeleteProgramChannel</value>
+    <value>DeleteLiveOutputEvent</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

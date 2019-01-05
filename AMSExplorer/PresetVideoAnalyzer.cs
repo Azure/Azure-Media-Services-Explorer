@@ -16,27 +16,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using System.Xml.Linq;
-using System.Security;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System.Globalization;
 
 namespace AMSExplorer
 {
     public partial class PresetVideoAnalyzer : Form
     {
-        private IndexerOptions formOptions = new IndexerOptions(true);
-        private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = false, Keywords = false, SAMI = true, TTML = true, WebVTT = true };
         private string _unique;
         public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-EG", "ru-RU", "hi-IN" };
 
@@ -89,15 +76,7 @@ namespace AMSExplorer
             UpdateTransformLabel();
         }
 
-        private void buttonGenOptions_Click(object sender, EventArgs e)
-        {
-            formOptions.IndexerGenerationOptions = optionsVar;
-            if (formOptions.ShowDialog() == DialogResult.OK)
-            {
-                optionsVar = formOptions.IndexerGenerationOptions;
-            }
-        }
-
+      
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.

@@ -738,6 +738,12 @@
   <data name="fromHttpsSourceWithSelectedTransformToolStripMenuItem.Text" xml:space="preserve">
     <value>From http(s) source with selected transform :</value>
   </data>
+  <data name="selectATransformToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 22</value>
+  </data>
+  <data name="selectATransformToolStripMenuItem.Text" xml:space="preserve">
+    <value>Select a transform...</value>
+  </data>
   <data name="toolStripMenuItem32.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
@@ -923,7 +929,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 408</value>
+    <value>290, 386</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -944,7 +950,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.9, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.10, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1975,7 +1981,7 @@
     <value>dataGridViewTransformsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.9, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.10, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2228,7 +2234,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.9, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.10, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2521,7 +2527,7 @@
     <value>dataGridViewLiveOutputV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.9, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.10, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -2965,13 +2971,13 @@
     <value>17, 56</value>
   </metadata>
   <data name="refreshToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="refreshToolStripMenuItem3.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator20.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 6</value>
+    <value>281, 6</value>
   </data>
   <data name="ContextMenuItemChannelDisplayInfomation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2981,7 +2987,7 @@
 </value>
   </data>
   <data name="ContextMenuItemChannelDisplayInfomation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemChannelDisplayInfomation.Text" xml:space="preserve">
     <value>Live event(s) infomation and settings...</value>
@@ -2993,22 +2999,10 @@
     <value>Alt+T</value>
   </data>
   <data name="loadMetricsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="loadMetricsToolStripMenuItem.Text" xml:space="preserve">
     <value>Load Telemetry...</value>
-  </data>
-  <data name="ContextMenuItemChannelAdAndSlateControl.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="ContextMenuItemChannelAdAndSlateControl.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+A</value>
-  </data>
-  <data name="ContextMenuItemChannelAdAndSlateControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="ContextMenuItemChannelAdAndSlateControl.Text" xml:space="preserve">
-    <value>Live event(s) Ad and Slate control...</value>
   </data>
   <data name="createChannelToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3021,7 +3015,7 @@
     <value>Ctrl+H</value>
   </data>
   <data name="createChannelToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="createChannelToolStripMenuItem1.Text" xml:space="preserve">
     <value>Create live event...</value>
@@ -3040,7 +3034,7 @@
     <value>F9</value>
   </data>
   <data name="ContextMenuItemChannelStart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemChannelStart.Text" xml:space="preserve">
     <value>Start live event(s)</value>
@@ -3056,7 +3050,7 @@
     <value>F10</value>
   </data>
   <data name="ContextMenuItemChannelStop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemChannelStop.Text" xml:space="preserve">
     <value>Stop live event(s)</value>
@@ -3075,7 +3069,7 @@
     <value>Ctrl+Shift+H</value>
   </data>
   <data name="ContextMenuItemChannelReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemChannelReset.Text" xml:space="preserve">
     <value>Reset live event(s)</value>
@@ -3084,7 +3078,7 @@
     <value>False</value>
   </data>
   <data name="cloneChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="cloneChannelsToolStripMenuItem.Text" xml:space="preserve">
     <value>Clone live event(s) to another account...</value>
@@ -3101,13 +3095,13 @@
     <value>Alt+H</value>
   </data>
   <data name="ContextMenuItemChannelDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemChannelDelete.Text" xml:space="preserve">
     <value>Delete live event(s)...</value>
   </data>
   <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 6</value>
+    <value>281, 6</value>
   </data>
   <data name="inputURLMToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 22</value>
@@ -3134,22 +3128,22 @@
     <value>Input 4 Url ({0})...</value>
   </data>
   <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Text" xml:space="preserve">
     <value>Display Input URL</value>
   </data>
   <data name="ContextMenuItemChannelRunOnPremisesLiveEncoder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemChannelRunOnPremisesLiveEncoder.Text" xml:space="preserve">
     <value>Run an on-premises live encoder...</value>
   </data>
   <data name="toolStripSeparator19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 6</value>
+    <value>281, 6</value>
   </data>
   <data name="ContextMenuItemChannelCopyPreviewURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemChannelCopyPreviewURLToClipboard.Text" xml:space="preserve">
     <value>Display Preview URL...</value>
@@ -3171,13 +3165,13 @@
 </value>
   </data>
   <data name="playbackTheProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
+    <value>284, 22</value>
   </data>
   <data name="playbackTheProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>Playback the Preview</value>
   </data>
   <data name="contextMenuStripLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>302, 330</value>
+    <value>285, 308</value>
   </data>
   <data name="&gt;&gt;contextMenuStripLiveEvents.Name" xml:space="preserve">
     <value>contextMenuStripLiveEvents</value>
@@ -3198,7 +3192,7 @@
     <value>dataGridViewLiveEventsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.0.0.9, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.0.0.10, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -3666,7 +3660,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.9, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.10, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -4032,30 +4026,6 @@
   </data>
   <data name="batchUploadToolStripMenuItem.Text" xml:space="preserve">
     <value>Batch upload...</value>
-  </data>
-  <data name="setupAWatchFolderToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="setupAWatchFolderToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACdSURBVDhPpdPBDYJAEIVhIMaYWICVeOBiLVysw4tU
-        oL1ZC1yW9yc7GwOTuCOTfDCZN7ucaFJKu1A81x5SXd4FqL7EOxzhDiPcYYQ7jHCHEaUZ5MzgR7HD7uYC
-        6iVTflP3jFpnmwtaYYGe90Hm7JhnlrFr50pzEvvKW3qx7CbfGbuWlWaUi3RylY9YRs+MjJ2nWFaaf7nD
-        et4vWi81C6mTCPUmg+N4AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="setupAWatchFolderToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+W</value>
-  </data>
-  <data name="setupAWatchFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 22</value>
-  </data>
-  <data name="setupAWatchFolderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Setup a watch folder...</value>
-  </data>
-  <data name="withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 22</value>
   </data>
   <data name="uploadFromASingleFileToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -7870,12 +7840,6 @@
   <data name="&gt;&gt;loadMetricsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelAdAndSlateControl.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelAdAndSlateControl</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemChannelAdAndSlateControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;createChannelToolStripMenuItem1.Name" xml:space="preserve">
     <value>createChannelToolStripMenuItem1</value>
   </data>
@@ -8174,18 +8138,6 @@
     <value>batchUploadToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;batchUploadToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;setupAWatchFolderToolStripMenuItem.Name" xml:space="preserve">
-    <value>setupAWatchFolderToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;setupAWatchFolderToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;withAnExternalAsperaSignantAzCopyToolStripMenuItem.Name" xml:space="preserve">
-    <value>withAnExternalAsperaSignantAzCopyToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;withAnExternalAsperaSignantAzCopyToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;importToolStripMenuItem.Name" xml:space="preserve">
@@ -8541,6 +8493,12 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;selectATransformToolStripMenuItem.Name" xml:space="preserve">
+    <value>selectATransformToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;selectATransformToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>

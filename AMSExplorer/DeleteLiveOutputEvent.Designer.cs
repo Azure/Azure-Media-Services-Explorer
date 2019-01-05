@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class DeleteProgramChannel
+    partial class DeleteLiveOutputEvent
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteProgramChannel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteLiveOutputEvent));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelmain = new System.Windows.Forms.Label();
@@ -85,7 +85,7 @@
             this.label1.ForeColor = System.Drawing.Color.DarkBlue;
             this.label1.Name = "label1";
             // 
-            // DeleteProgramChannel
+            // DeleteLiveOutputEvent
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -97,8 +97,8 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBoxDeleteAsset);
             this.Controls.Add(this.labelmain);
-            this.Name = "DeleteProgramChannel";
-            this.Load += new System.EventHandler(this.DeleteProgramChannel_Load);
+            this.Name = "DeleteLiveOutputEvent";
+            this.Load += new System.EventHandler(this.DeleteLiveOutputEvent_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

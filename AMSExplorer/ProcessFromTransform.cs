@@ -24,26 +24,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Collections;
 using System.IO;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
-    public partial class ProcessFromJobTemplate : Form
+    public partial class ProcessFromTransform : Form
     {
-        private Bitmap bitmap_multitasksinglejob = Bitmaps.modeltaskxenio1;
-        private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
-        private CloudMediaContext _context;
-
         private int sortColumn = -1;
+        private AMSClientV3 _client;
         private int _numberselectedassets = 0;
 
-        public IJobTemplate SelectedJobTemplate
+        public Transform SelectedTransform
         {
             get
             {
-                return listViewTemplates.GetSelectedJobTemplate;
+                return listViewTransforms.GetSelectedTransform;
 
             }
         }
@@ -83,14 +80,14 @@ namespace AMSExplorer
 
 
 
-        public ProcessFromJobTemplate(CloudMediaContext context, int numberselectedassets)
+        public ProcessFromTransform(AMSClientV3 client, int numberselectedassets)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            _client = client;
             _numberselectedassets = numberselectedassets;
             labelWarning.Text = string.Empty;
-            buttonJobOptions.Initialize(_context);
+            //buttonJobOptions.Initialize(_context);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -100,19 +97,15 @@ namespace AMSExplorer
 
         private void listbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonOk.Enabled = listViewTemplates.SelectedItems.Count > 0;
-            buttonDeleteTemplate.Enabled = listViewTemplates.SelectedItems.Count > 0;
+            buttonOk.Enabled = listViewTransforms.SelectedItems.Count > 0;
+            buttonDeleteTemplate.Enabled = listViewTransforms.SelectedItems.Count > 0;
 
-            IJobTemplate jtemp = listViewTemplates.GetSelectedJobTemplate;
-            if (jtemp != null)
-            {
-                labelWarning.Text = (jtemp.NumberofInputAssets == _numberselectedassets) ? string.Empty : "Warning: the number of selected assets is different from the number expected by the template.";
-            }
+          
         }
 
         private void ProcessFromJobTemplate_Load(object sender, EventArgs e)
         {
-            listViewTemplates.LoadTemplates(_context);
+            listViewTransforms.LoadTransforms(_client);
         }
 
 
@@ -127,7 +120,7 @@ namespace AMSExplorer
         private void buttonDeleteTemplate_Click(object sender, EventArgs e)
         {
 
-            listViewTemplates.DeleteSelectedTemplate();
+            listViewTransforms.DeleteSelectedTemplate();
         }
     }
 }

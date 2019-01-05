@@ -1337,354 +1337,6 @@ namespace AMSExplorer
         }
 
 
-
-        private async Task ProcessUploadFileAndMore(List<string> filename, Guid guidTransfer, AssetCreationOptions assetcreationoptions, CancellationToken token, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
-        {
-            // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(guidTransfer);
-            if (token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCancelled(guidTransfer);
-                return;
-            }
-
-            if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
-
-            bool Error = false;
-            IAsset asset = null;
-            var listfiles = new List<WatchFolder.assetfileinJson>();
-
-            if (watchfoldersettings != null && filename.Count == 1
-                && (
-                   (watchfoldersettings.ProcessRohzetXML && (filename[0]).ToLower().EndsWith(".xml"))
-                   ||
-                   (watchfoldersettings.ProcessJSONSemaphore && (filename[0]).ToLower().EndsWith(".json"))
-                   )
-               )
-            {
-                try
-                {
-                    if (filename[0].ToLower().EndsWith(".xml"))
-                    {
-                        listfiles = WatchFolder.GetListFilesFromRohzetXML(filename[0]);
-                    }
-                    else
-                    {
-                        listfiles = WatchFolder.GetListFilesFromJSONIngest(filename[0]);
-                    }
-                }
-                catch (Exception e)
-                {
-                    TextBoxLogWriteLine("Error when reading file '{0}'", filename[0], true);
-                    TextBoxLogWriteLine(e);
-                    DoGridTransferDeclareError(guidTransfer);
-                    Error = true;
-                }
-
-                var listpb = AssetInfo.ReturnFilenamesWithProblem(listfiles.Select(f => Path.GetFileName(f.fileName)).ToList());
-                if (listpb.Count > 0)
-                {
-                    TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
-                    DoGridTransferDeclareError(guidTransfer);
-                    Error = true;
-                }
-                else if (!Error)
-                {
-                    TextBoxLogWriteLine("Starting upload of files '{0}'", string.Join(", ", listfiles.Select(f => f.fileName).ToList()));
-                    try
-                    {
-                        asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
-                                                              storageaccount,
-                                                              assetcreationoptions,
-                                                              token);
-
-                        bool primarySet = false;
-                        foreach (var file in listfiles)
-                        {
-                            IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file.fileName), token);
-                            if (token.IsCancellationRequested) return;
-                            UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, listfiles.IndexOf(file), listfiles.Count);
-                            UploadedAssetFile.Upload(file.fileName);
-                            if (file.isPrimary)
-                            {
-                                UploadedAssetFile.IsPrimary = primarySet = true;
-                                UploadedAssetFile.Update();
-                            }
-                        }
-
-                        if (!primarySet) AssetInfo.SetAFileAsPrimary(asset);
-                    }
-                    catch (Exception e)
-                    {
-                        Error = true;
-                        DoGridTransferDeclareError(guidTransfer, e);
-                        TextBoxLogWriteLine("Error when uploading '{0}'", filename[0], true);
-                        TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Upload error", Path.GetFileName(filename[0]), watchfoldersettings);
-                        if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
-                        {
-                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + filename[0], e.Message))
-                            {
-                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
-                            }
-                        }
-                    }
-                }
-            }
-            else // normal case
-            {
-                var listpb = AssetInfo.ReturnFilenamesWithProblem(filename);
-                if (listpb.Count > 0)
-                {
-                    TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
-                    DoGridTransferDeclareError(guidTransfer);
-                    Error = true;
-                }
-                else
-                {
-                    TextBoxLogWriteLine("Starting upload of file '{0}'", filename[0]);
-                    try
-                    {
-                        asset = await _context.Assets.CreateAsync(Path.GetFileName(filename[0]),
-                                                              storageaccount,
-                                                              assetcreationoptions,
-                                                              token);
-
-                        foreach (var file in filename)
-                        {
-                            IAssetFile UploadedAssetFile = await asset.AssetFiles.CreateAsync(Path.GetFileName(file), token);
-                            if (token.IsCancellationRequested) return;
-                            UploadedAssetFile.UploadProgressChanged += (sender, e) => MyUploadFileRohzetModeProgressChanged(sender, e, guidTransfer, filename.IndexOf(file), filename.Count);
-                            UploadedAssetFile.Upload(file);
-                        }
-
-                        AssetInfo.SetAFileAsPrimary(asset);
-                    }
-                    catch (Exception e)
-                    {
-                        Error = true;
-                        DoGridTransferDeclareError(guidTransfer, e);
-                        TextBoxLogWriteLine("Error when uploading '{0}'.", string.Join(", ", filename), true);
-                        TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Upload error", Path.GetFileName(filename[0]), watchfoldersettings);
-                        if (watchfoldersettings != null && !Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + string.Join(", ", filename), e.Message))
-                        {
-                            TextBoxLogWriteLine("Error when sending Outlook email...", true);
-                        }
-                    }
-                }
-            }
-
-
-            if (!Error && !token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
-                if (watchfoldersettings != null && watchfoldersettings.DeleteFile) //user checked the box "delete the file"
-                {
-                    try
-                    {
-                        File.Delete(filename[0] as string);
-                        TextBoxLogWriteLine("File '{0}' deleted.", filename[0]);
-                    }
-                    catch (Exception e)
-                    {
-                        TextBoxLogWriteLine("Error when deleting '{0}'", filename[0], true);
-                        if (watchfoldersettings.SendEmailToRecipient != null)
-                        {
-                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message))
-                            {
-                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
-                            }
-                        }
-                    }
-
-                    try
-                    {
-                        if (listfiles.Count > 0)
-                        {
-                            listfiles.ForEach(f => File.Delete(f.fileName));
-                            TextBoxLogWriteLine("File(s) '{0}' deleted.", string.Join(", ", listfiles.Select(f => f.fileName).ToList()));
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        TextBoxLogWriteLine("Error when deleting '{0}'", string.Join(", ", listfiles.Select(f => f.fileName).ToList()), true);
-                        if (watchfoldersettings.SendEmailToRecipient != null)
-                        {
-                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting files", string.Join(", ", listfiles.Select(f => f.fileName).ToList()) + "\n\n" + e.Message))
-                            {
-                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
-                            }
-                        }
-                    }
-                }
-
-                if (watchfoldersettings != null && watchfoldersettings.JobTemplate != null) // option with watchfolder to run a job based on a job template
-                {
-                    string jobname = string.Format("Processing of {0} with template {1}", asset.Name, watchfoldersettings.JobTemplate.Name);
-                    List<IAsset> assetlist = new List<IAsset>() { asset };
-                    // if user wants to insert a workflow or other asstes as asset #0
-                    if (watchfoldersettings.TypeInputExtraInput != TypeInputExtraInput.None)
-                    {
-                        if (watchfoldersettings.ExtraInputAssets != null) assetlist.InsertRange(0, watchfoldersettings.ExtraInputAssets);
-                    }
-
-                    TextBoxLogWriteLine(string.Format("Submitting job '{0}'", jobname));
-
-                    // Submit the job
-                    IJob job = _context.Jobs.Create(jobname, watchfoldersettings.JobTemplate, assetlist, Properties.Settings.Default.DefaultJobPriority);
-
-                    try
-                    {
-                        job.Submit();
-                    }
-                    catch (Exception e)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
-                        TextBoxLogWriteLine(e);
-                        Program.WatchFolderCallApi("Job submission error", Path.GetFileName(filename[0]), watchfoldersettings, job: job);
-
-                        if (watchfoldersettings.SendEmailToRecipient != null)
-                        {
-                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message))
-                            {
-                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
-                            }
-                        }
-                        return;
-                    }
-
-                    DoRefreshGridJobV(false);
-
-                    IJob myjob = GetJob(job.Id);
-                    while (myjob.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || myjob.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued || myjob.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled)
-                    {
-                        System.Threading.Thread.Sleep(1000);
-                        myjob = GetJob(job.Id);
-                    }
-                    if (myjob.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
-                    {
-                        // job template does not rename the output assets. As a fix, we do this:
-                        int taskind = 1;
-                        foreach (var task in myjob.Tasks)
-                        {
-                            int outputind = 1;
-                            foreach (var outputasset in task.OutputAssets)
-                            {
-                                IAsset oasset = AssetInfo.GetAsset(outputasset.Id, _context);
-                                try
-                                {
-                                    oasset.Name = string.Format("{0} processed with {1}", asset.Name, watchfoldersettings.JobTemplate.Name);
-                                    if (myjob.Tasks.Count > 1)
-                                    {
-                                        oasset.Name += string.Format(" - task {0}", taskind);
-                                    }
-                                    if (task.OutputAssets.Count > 1)
-                                    {
-                                        oasset.Name += string.Format(" - output asset {0}", outputind);
-                                    }
-                                    oasset.Update();
-                                    TextBoxLogWriteLine("Output asset {0} renamed.", oasset.Name);
-                                }
-                                catch (Exception e)
-                                {
-                                    TextBoxLogWriteLine("Error when renaming an output asset", true);
-                                    TextBoxLogWriteLine(e);
-                                }
-
-                                outputind++;
-                            }
-                            taskind++;
-                        }
-
-
-                        if (watchfoldersettings.PublishOutputAssets) //user wants to publish the output asset when it has been processed by the job 
-                        {
-                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myjob.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
-                            foreach (var oasset in myjob.OutputMediaAssets)
-                            {
-                                ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, oasset, policy, null);
-
-                                StreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_amsClientV3);
-                                StringBuilder sb = new StringBuilder();
-                                Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
-                                string playbackurl = null;
-                                if (SmoothUri != null)
-                                {
-                                    playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _amsClientV3, this,/* oasset*/ null, launchbrowser: false, UISelectSEFiltersAndProtocols: false); // v3 migration
-                                    sb.AppendLine("Link to playback the asset:");
-                                    sb.AppendLine(playbackurl);
-                                    sb.AppendLine();
-                                }
-                                // sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
-
-                                Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset, oasset, job, MyLocator, SmoothUri, playbackurl);
-
-                                if (watchfoldersettings.SendEmailToRecipient != null)
-                                {
-                                    if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString()))
-                                    {
-                                        TextBoxLogWriteLine("Error when sending Outlook email...", true);
-                                    }
-                                }
-                            }
-                        }
-                        else // no publication
-                        {
-                            foreach (var oasset in myjob.OutputMediaAssets)
-                            {
-                                Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset, oasset, job);
-
-                                if (watchfoldersettings.SendEmailToRecipient != null)
-                                {
-                                    StringBuilder sb = new StringBuilder();
-                                    //sb.Append(AssetInfo.GetStat(oasset));
-
-                                    if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString()))
-                                    {
-                                        TextBoxLogWriteLine("Error when sending Outlook email...", true);
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-                    else  // not completed successfuly
-                    {
-                        Program.WatchFolderCallApi("Job Error", Path.GetFileName(filename[0]), watchfoldersettings, asset, null, job);
-
-                        if (watchfoldersettings.SendEmailToRecipient != null)
-                        {
-                            StringBuilder sb = new StringBuilder();
-                            sb.Append((new JobInfo(job, _accountname).GetStats()));
-
-                            if (!Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString()))
-                            {
-                                TextBoxLogWriteLine("Error when sending Outlook email...", true);
-                            }
-                        }
-                    }
-                }
-                else // user selected no processing. Upload successfull
-                {
-                    Program.WatchFolderCallApi(null, Path.GetFileName(filename[0]), watchfoldersettings, asset);
-
-                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        //sb.Append(AssetInfo.GetStat(asset));
-                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
-                    }
-                }
-            }
-            else if (token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCancelled(guidTransfer);
-            }
-            DoRefreshGridAssetV(false);
-        }
-
         private async Task ProcessUploadFileAndMoreV3(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null)
         {
             // If upload in the queue, let's wait our turn
@@ -1701,7 +1353,6 @@ namespace AMSExplorer
 
             bool Error = false;
             Asset asset = null;
-            var listfiles = new List<WatchFolder.assetfileinJson>();
 
             var listpb = AssetInfo.ReturnFilenamesWithProblem(filenames);
             if (listpb.Count > 0)
@@ -5003,162 +4654,6 @@ namespace AMSExplorer
         }
 
 
-
-        private void encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithPremiumWorkflow();
-        }
-
-        private void DoMenuEncodeWithPremiumWorkflow()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            foreach (IAsset asset in SelectedAssets) // check that there is no blueprint in the selected assets
-            {
-                if (IsAWorkflow(asset))
-                {
-                    MessageBox.Show("One of the selected asset(s) is a workflow. Please select only video assets.");
-                    return;
-                }
-            }
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow);
-
-            string taskname = string.Format("{0} - MEPW v{1} - {2}", Constants.NameconvInputasset, Constants.NameconvProcessorversion, Constants.NameconvWorkflow);
-            this.Cursor = Cursors.WaitCursor;
-            EncodingPremium form = new EncodingPremium(_context, processor.Version)
-            {
-                EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
-                EncodingJobName = string.Format("{0} - MEPW - {2}", Constants.NameconvInputasset, Constants.NameconvProcessorversion, Constants.NameconvWorkflow),
-                EncodingOutputAssetName = string.Format("{0} - MEPW v{1} - {2}", Constants.NameconvInputasset, Constants.NameconvProcessorversion, Constants.NameconvWorkflow),
-                EncodingNumberOfInputAssets = SelectedAssets.Count,
-                EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder,
-
-            };
-            form.JobOptions = new JobOptionsVar()
-            {
-                Priority = Properties.Settings.Default.DefaultJobPriority,
-                StorageSelected = string.Empty,
-                TasksOptionsSetting = TaskOptions.None, // we want to force this as encryption is not supported for empty string
-                TasksOptionsSettingReadOnly = true,
-                OutputAssetsCreationOptions = AssetCreationOptions.None
-            };
-
-            DialogResult dialogResult = form.ShowDialog();
-
-            this.Cursor = Cursors.Arrow;
-
-            if (dialogResult == DialogResult.OK)
-            {
-                // multiple jobs: one job for each input asset
-                foreach (IAsset asset in SelectedAssets)
-                {
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, string.Join(" ", form.SelectedPremiumWorkflows.Select(g => g.Name)));
-
-                    IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                    foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each workflow selected, we create a task
-                    {
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name).Replace(Constants.NameconvProcessorversion, processor.Version);
-
-                        ITask task = job.Tasks.AddNew(
-                                    tasknameloc,
-                                   processor,
-                                   form.XMLData,
-                                   form.JobOptions.TasksOptionsSetting
-                                   );
-                        // Specify the graph asset to be encoded, followed by the input video asset to be used
-                        task.InputAssets.Add(graphAsset);
-                        task.InputAssets.Add(asset); // we add one asset
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name).Replace(Constants.NameconvProcessorversion, processor.Version);
-
-                        task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
-                    }
-                    TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
-                    // Submit the job and wait until it is completed. 
-                    try
-                    {
-                        job.Submit();
-                    }
-                    catch (Exception e)
-                    {
-                        // Add useful information to the exception
-                        if (SelectedAssets.Count < 5)
-                        {
-                            MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
-                        TextBoxLogWriteLine(e);
-                        return;
-                    }
-                    dataGridViewJobsV.DoJobProgress(new JobExtension());
-                }
-                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
-                DoRefreshGridJobV(false);
-            }
-        }
-
-
-        private void DoMenuEncodeWithAMESystemPreset()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-            List<IMediaProcessor> Encoders;
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-            DisplayDeprecatedMessageAME();
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            CheckQuicktimeAndDisplayMessage(SelectedAssets);
-
-            Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
-
-            if (Encoders.Count == 0)
-            {
-                var message = string.Format("Processor '{0}' not found in the account.", Constants.AzureMediaEncoder);
-                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxLogWriteLine(message, true);
-                return;
-            }
-
-            EncodingAMEPreset form = new EncodingAMEPreset(_context)
-            {
-                EncodingOutputAssetName = Constants.NameconvInputasset + " - Azure Media encoded",
-                Text = "Azure Media Encoding",
-                EncodingLabel1 = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
-                EncodingJobName = "Azure Media Encoding of " + Constants.NameconvInputasset,
-                EncodingProcessorsList = Encoders,
-            };
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                string taskname = "Azure Media Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvAMEpreset;
-                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(
-                    form.EncodingProcessorSelected,
-                    SelectedAssets,
-                    form.EncodingJobName,
-                    form.JobOptions.Priority,
-                    taskname,
-                    form.EncodingOutputAssetName,
-                    form.EncodingSelectedPreset,
-                    form.JobOptions.OutputAssetsCreationOptions,
-                    form.JobOptions.OutputAssetsFormatOption,
-                    form.JobOptions.TasksOptionsSetting,
-                    form.JobOptions.StorageSelected);
-            }
-        }
-
         private static void CheckQuicktimeAndDisplayMessage(List<IAsset> SelectedAssets)
         {
             if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a) == "MOV (1)"))
@@ -5173,9 +4668,6 @@ namespace AMSExplorer
             // display the update message if a new version is available
             if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
         }
-
-
-
 
 
         private void oSMFToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5369,194 +4861,6 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuVideoAnalyticsFaceRedaction(string processorStr, System.Drawing.Image processorImage, string urlMoreInfo, string preset = null)
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
-            {
-                MessageBox.Show("No asset was selected, or asset is null.");
-            }
-            else
-            {
-                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-                // CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
-
-                // Get the SDK extension method to  get a reference to the processor.
-                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
-
-                var form = new MediaAnalyticsRedaction(_context, processor, processorImage)
-                {
-                    MIJobName = string.Format("Redaction ({0} mode) of {1}", Constants.NameconvRedactionMode, Constants.NameconvInputasset),
-                    MIOutputAssetName = string.Format("{0} - Redacted ({1} mode)", Constants.NameconvInputasset, Constants.NameconvRedactionMode),
-                    MIInputAssetName = (SelectedAssets.Count > 1) ?
-                    string.Format("{0} assets have been selected for redaction.", SelectedAssets.Count)
-                    : string.Format("Asset '{0}' will be redacted.", SelectedAssets.FirstOrDefault().Name)
-                };
-
-                string taskname = string.Format("Redaction ({0} mode) of {1} ", form.RedactionMode(), Constants.NameconvInputasset);
-
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    if (form.RedactionMode() == Constants.FaceRedactionSecondPass)
-                    {
-                        CheckJSONFileExtensionRedactionMode(SelectedAssets);
-                    }
-
-                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                        SelectedAssets,
-                        form.MIJobName.Replace(Constants.NameconvRedactionMode, form.RedactionMode()),
-                        form.JobOptions.Priority,
-                        taskname,
-                        form.MIOutputAssetName.Replace(Constants.NameconvRedactionMode, form.RedactionMode()),
-                         new List<string> { form.JsonConfig() },
-                        form.JobOptions.OutputAssetsCreationOptions,
-                        form.JobOptions.OutputAssetsFormatOption,
-                        form.JobOptions.TasksOptionsSetting,
-                        form.JobOptions.StorageSelected);
-                }
-            }
-        }
-
-        private void DoMenuVideoAnalyticsFaceDetection(string processorStr, System.Drawing.Image processorImage)
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
-            {
-                MessageBox.Show("No asset was selected, or asset is null.");
-            }
-            else
-            {
-                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-                // not needed as ism as primary seems to work ok
-                //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
-
-                // Get the SDK extension method to  get a reference to the processor.
-                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
-
-                var form = new MediaAnalyticsFaceDetection(_context, processor, processorImage, true)
-                {
-                    MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
-                    MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
-                    MIInputAssetName = (SelectedAssets.Count > 1) ?
-                    string.Format("{0} assets have been selected for processing.", SelectedAssets.Count)
-                    : string.Format("Asset '{0}' will be processed.", SelectedAssets.FirstOrDefault().Name)
-                };
-
-                string taskname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
-
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                        SelectedAssets,
-                        form.MIJobName,
-                        form.JobOptions.Priority,
-                        taskname,
-                        form.MIOutputAssetName,
-                        new List<string> { form.JsonConfig() },
-                        form.JobOptions.OutputAssetsCreationOptions,
-                        form.JobOptions.OutputAssetsFormatOption,
-                        form.JobOptions.TasksOptionsSetting,
-                        form.JobOptions.StorageSelected);
-                }
-            }
-        }
-
-        private void DoMenuVideoAnalyticsVideoThumbnails(string processorStr, System.Drawing.Image processorImage)
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
-            {
-                MessageBox.Show("No asset was selected, or asset is null.");
-            }
-            else
-            {
-                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-                // not needed as ism as primary seems to work ok
-                //CheckPrimaryFileExtension(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
-
-                // Get the SDK extension method to  get a reference to the processor.
-                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
-
-                var form = new MediaAnalyticsVideoThumbnails(_context, processor, processorImage, true)
-                {
-                    MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
-                    MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
-                    MIInputAssetName = (SelectedAssets.Count > 1) ?
-                    string.Format("{0} assets have been selected for processing.", SelectedAssets.Count)
-                    : string.Format("Asset '{0}' will be processed.", SelectedAssets.FirstOrDefault().Name)
-                };
-
-                string taskname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
-
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                        SelectedAssets,
-                        form.MIJobName,
-                        form.JobOptions.Priority,
-                        taskname,
-                        form.MIOutputAssetName,
-                        new List<string> { form.JsonConfig() },
-                        form.JobOptions.OutputAssetsCreationOptions,
-                        form.JobOptions.OutputAssetsFormatOption,
-                        form.JobOptions.TasksOptionsSetting,
-                        form.JobOptions.StorageSelected);
-                }
-            }
-        }
-
-        private void DoMenuVideoAnalyticsContentModeration(string processorStr, System.Drawing.Image processorImage, bool preview = true)
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
-            {
-                MessageBox.Show("No asset was selected, or asset is null.");
-            }
-            else
-            {
-                CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-                // CheckPrimaryFileExtensionRedactionMode(SelectedAssets, new[] { ".MOV", ".WMV", ".MP4" });
-
-                // Get the SDK extension method to  get a reference to the processor.
-                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
-
-                var form = new MediaAnalyticsContentModeration(_context, processor, processorImage, preview)
-                {
-                    MIJobName = string.Format("Moderation ({0} mode) of {1}", Constants.NameconvModerationMode, Constants.NameconvInputasset),
-                    //MIOutputAssetName = string.Format("{0} - Analyzed with Content Moderation ({1} mode)", Constants.NameconvInputasset, Constants.NameconvModerationMode),
-                    MIOutputAssetName = string.Format("{0} - Analyzed with Content Moderation", Constants.NameconvInputasset),
-                    MIInputAssetName = (SelectedAssets.Count > 1) ?
-                    string.Format("{0} assets have been selected for moderation.", SelectedAssets.Count)
-                    : string.Format("Asset '{0}' will be analyzed.", SelectedAssets.FirstOrDefault().Name)
-                };
-
-                string taskname = string.Format("Moderation ({0} mode) of {1} ", form.ModerationMode(), Constants.NameconvInputasset);
-
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                    SelectedAssets,
-                    form.MIJobName.Replace(Constants.NameconvModerationMode, form.ModerationMode()),
-                    form.JobOptions.Priority,
-                    taskname,
-                    form.MIOutputAssetName.Replace(Constants.NameconvModerationMode, form.ModerationMode()),
-                     new List<string> { form.JsonConfig() },
-                    form.JobOptions.OutputAssetsCreationOptions,
-                    form.JobOptions.OutputAssetsFormatOption,
-                    form.JobOptions.TasksOptionsSetting,
-                    form.JobOptions.StorageSelected);
-                }
-            }
-        }
-
 
         public void LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, AssetFormatOption myAssetFormatOption, TaskOptions myTaskOptions, string storageaccountname = "")
         {
@@ -5691,212 +4995,6 @@ namespace AMSExplorer
         private void DisplayDeprecatedMessageAME()
         {
             MessageBox.Show("The end of life date for Azure Media Encoder is March 1, 2017.\n\nIt is now recommended to use Media Encoder Standard (MES).\nIt provides better quality and performance, and it supports more input formats.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void DoMenuIndexAssets()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            if (SelectedAssets.FirstOrDefault() == null) return;
-
-            var proposedfiles = CheckSingleFileIndexerV1SupportedExtensions(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets, true);
-
-            // Get the SDK extension method to  get a reference to the Azure Media Indexer.
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
-
-            Indexer form = new Indexer()
-            {
-                IndexerJobName = "Media Indexing of " + Constants.NameconvInputasset,
-                IndexerOutputAssetName = Constants.NameconvInputasset + " - Indexed",
-
-                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
-                SelectedAssets.Count + " assets have been selected for media indexing."
-                :
-                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
-            };
-
-            string taskname = "Media Indexing of " + Constants.NameconvInputasset;
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                var ListConfig = new List<string>();
-                foreach (var asset in SelectedAssets)
-                {
-                    /*                 ListConfig.Add(
-                                                     Indexer.LoadAndUpdateIndexerConfiguration(
-                                                                                                 Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
-                                                                                                 form.IndexerTitle,
-                                                                                                 form.IndexerDescription,
-                                                                                                 form.IndexerLanguage,
-                                                                                                 form.IndexerGenerationOptions,
-                                                                                                 null//proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
-                                                                                                 )
-                                                                                                 );
-                                                                                                 */
-
-                }
-                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
-                            processor,
-                            SelectedAssets,
-                            form.IndexerJobName,
-                            form.JobOptions.Priority,
-                            taskname,
-                            form.IndexerOutputAssetName,
-                            ListConfig,
-                            form.JobOptions.OutputAssetsCreationOptions,
-                            form.JobOptions.OutputAssetsFormatOption,
-                            form.JobOptions.TasksOptionsSetting,
-                            form.JobOptions.StorageSelected,
-                            copySubtitlesToInput: form.CopySubtitlesFilesToInputAsset
-                                );
-
-            }
-        }
-
-
-        private void DoMenuVideoOCR()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            if (SelectedAssets.FirstOrDefault() == null) return;
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            // var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
-
-            // not needed as ism as primary seems to work ok
-            // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
-
-            // Get the SDK extension method to  get a reference to the Azure Media Video OCR.
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR);
-
-            MediaAnalyticsVideoOCR form = new MediaAnalyticsVideoOCR(_context, processor.Version, SelectedAssets.FirstOrDefault(), this)
-            {
-                OCRJobName = "Video OCR of " + Constants.NameconvInputasset,
-                IndexerOutputAssetName = Constants.NameconvInputasset + " - OCR",
-
-                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
-                SelectedAssets.Count + " assets have been selected for video OCR."
-                :
-                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed for OCR.",
-            };
-
-            string taskname = "Video OCR of " + Constants.NameconvInputasset;
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                var ListConfig = new List<string>();
-                foreach (var asset in SelectedAssets)
-                {
-                    ListConfig.Add(form.JsonConfig());
-                }
-                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
-                            processor,
-                            SelectedAssets,
-                            form.OCRJobName,
-                            form.JobOptions.Priority,
-                            taskname,
-                            form.IndexerOutputAssetName,
-                            ListConfig,
-                            form.JobOptions.OutputAssetsCreationOptions,
-                            form.JobOptions.OutputAssetsFormatOption,
-                            form.JobOptions.TasksOptionsSetting,
-                            form.JobOptions.StorageSelected
-                                );
-
-            }
-        }
-
-        private void DoMenuMotionDetection()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            if (SelectedAssets.FirstOrDefault() == null) return;
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            //var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
-
-            // not needed as ism as primary seems to work ok
-            // CheckPrimaryFileExtension(SelectedAssets, new[] { ".MP4", ".WMV" });
-
-            // Get the SDK extension method to get a reference to the Azure Media Media Detector.
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector);
-
-            var form = new MediaAnalyticsMotionDetection(_context, processor.Version, SelectedAssets.FirstOrDefault(), this)
-            {
-                OCRJobName = "Motion detection of " + Constants.NameconvInputasset,
-                IndexerOutputAssetName = Constants.NameconvInputasset + " - Motion detected",
-
-                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
-                SelectedAssets.Count + " assets have been selected for motion detection."
-                :
-                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed for motion detection.",
-            };
-
-            string taskname = "Motion detection of " + Constants.NameconvInputasset;
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                var ListConfig = new List<string>();
-                foreach (var asset in SelectedAssets)
-                {
-                    ListConfig.Add(form.JsonConfig());
-                }
-                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
-                            processor,
-                            SelectedAssets,
-                            form.OCRJobName,
-                            form.JobOptions.Priority,
-                            taskname,
-                            form.IndexerOutputAssetName,
-                            ListConfig,
-                            form.JobOptions.OutputAssetsCreationOptions,
-                            form.JobOptions.OutputAssetsFormatOption,
-                            form.JobOptions.TasksOptionsSetting,
-                            form.JobOptions.StorageSelected
-                                );
-
-            }
-        }
-
-
-        private static void CheckJSONFileExtensionRedactionMode(List<IAsset> SelectedAssets)
-        {
-            bool Warning = false;
-            foreach (var asset in SelectedAssets)
-            {
-                if (asset.AssetFiles.ToList().Where(f => f.Name.ToLowerInvariant().EndsWith("_annotations.json")).FirstOrDefault() == null)
-                // no annotations JSON file in asset
-                {
-                    Warning = true;
-                }
-            }
-
-            if (Warning)
-            {
-                MessageBox.Show("Source asset must contain an input annotations JSON file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
 
@@ -6321,103 +5419,6 @@ namespace AMSExplorer
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
         }
 
-        private void DoMenuEncodeWithAMEAdvanced()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-            List<IMediaProcessor> Encoders;
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            if (SelectedAssets.FirstOrDefault() == null) return;
-
-            DisplayDeprecatedMessageAME();
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            CheckQuicktimeAndDisplayMessage(SelectedAssets);
-
-            string taskname = "Azure Media Encoding (adv) of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
-            Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
-
-            if (Encoders.Count == 0)
-            {
-                var message = string.Format("Processor '{0}' not found in the account.", Constants.AzureMediaEncoder);
-                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextBoxLogWriteLine(message, true);
-                return;
-            }
-
-            EncodingAMEAdv form = new EncodingAMEAdv(_context)
-            {
-                EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. One job will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
-                EncodingProcessorsList = Encoders,
-                EncodingJobName = "Azure Media Encoding (adv) of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + " - Azure Media encoded",
-                EncodingAMEPresetXMLFiles = Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder,
-                SelectedAssets = SelectedAssets
-            };
-
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                // Read and update the configuration XML.
-                //
-                Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = form.EncodingAMEPresetXMLFiles;
-                Program.SaveAndProtectUserConfig();
-
-                string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
-                IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                string tasknameloc = taskname.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvEncodername, form.EncodingProcessorSelected.Name + " v" + form.EncodingProcessorSelected.Version);
-                ITask AMETask = job.Tasks.AddNew(
-                    tasknameloc,
-                  form.EncodingProcessorSelected,// processor,
-                   form.EncodingConfiguration,
-                   form.JobOptions.TasksOptionsSetting);
-
-                AMETask.InputAssets.AddRange(form.SelectedAssets);
-
-                // Add an output asset to contain the results of the job.  
-                string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
-                AMETask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
-
-                // if UserControl wants also aboutToolStripMenuItem thumbnails task
-                if (form.EncodingGenerateThumbnails)
-                {
-                    ITask AMETaskThumbnails = job.Tasks.AddNew(
-                                       tasknameloc,
-                                     form.EncodingProcessorSelected,// processor,
-                                      "Thumbnails",
-                                      form.JobOptions.TasksOptionsSetting
-                                      );
-
-                    AMETaskThumbnails.InputAssets.AddRange(form.SelectedAssets);
-
-                    // Add an output asset to contain the results of the job.  
-                    string outputassetnamelocthumbnails = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name) + " (Thumbnails)";
-                    AMETaskThumbnails.OutputAssets.AddNew(outputassetnamelocthumbnails, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
-                }
-                // Submit the job and wait until it is completed. 
-                try
-                {
-                    job.Submit();
-                }
-                catch (Exception e)
-                {
-                    // Add useful information to the exception
-                    MessageBox.Show("There has been a problem when submitting the job " + jobnameloc + Constants.endline + Program.GetErrorMessage(e));
-                    TextBoxLogWriteLine("There has been a problem when submitting the job {0}", jobnameloc, true);
-                    TextBoxLogWriteLine(e);
-                    return;
-                }
-                TextBoxLogWriteLine("Job '{0}' submitted", jobnameloc);
-                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
-                DoRefreshGridJobV(false);
-                Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
-            }
-        }
 
         private void DoMenuProcessGeneric()
         {
@@ -6670,11 +5671,6 @@ namespace AMSExplorer
                 SetTextBoxJobsPageNumber(GetTextBoxJobsPageNumber() - 1);
             }
             butPrevPageJob.Enabled = GetTextBoxJobsPageNumber() > 0;
-        }
-
-        private void encodeAssetWithAzureMediaEncoderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMESystemPreset();
         }
 
         private void Mainform_FormClosing(object sender, FormClosingEventArgs e)
@@ -7513,195 +6509,6 @@ namespace AMSExplorer
 
         private void setupAWatchFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoWatchFolder();
-        }
-
-        private void DoWatchFolder()
-        {
-            WatchFolder form = new WatchFolder(_context, new List<IAsset>() /* ReturnSelectedAssets() */, MyWatchFolderSettings);
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                MyWatchFolderSettings = form.WatchFolderGetSettings;
-
-                if (!MyWatchFolderSettings.IsOn) // user want to stop the watch folder (if if exists)
-                {
-                    if (MyWatchFolderSettings.Watcher != null)
-                    {
-                        MyWatchFolderSettings.Watcher.EnableRaisingEvents = false;
-                        MyWatchFolderSettings.Watcher = null;
-                    }
-                    toolStripStatusLabelWatchFolder.Visible = false;
-                }
-                else // User wants to active the watch folder
-                {
-                    if (MyWatchFolderSettings.Watcher == null)
-                    {
-                        // Create a new FileSystemWatcher and set its properties.
-                        MyWatchFolderSettings.Watcher = new FileSystemWatcher();
-
-
-                        /* For later development : use notification queue
-                        //create notifcation queue
-                        //create the cloud storage account from name and private key
-
-
-                        // TO DO: check that storage key exist
-                        CloudStorageAccount cloudStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
-
-
-                        //create the cloud queue client from the storage connection string
-                        CloudQueueClient cloudQueueClient = cloudStorageAccount.CreateCloudQueueClient();
-
-                        //get a cloud queue reference
-                        CloudQueue notificationsQueue = cloudQueueClient.GetQueueReference(Constants.AzureNotificationNameWatchFolder);
-
-                        //create the queue if it does not exist
-                        notificationsQueue.CreateIfNotExists();
-
-
-                        //create a notification endpoint and store it the glbal variable
-                        MyWatchFolderSettings.NotificationEndPoint =
-                            _context.NotificationEndPoints
-                                .Create("notificationendpoint", NotificationEndPointType.AzureQueue, Constants.AzureNotificationNameWatchFolder);
-                         */
-
-                    }
-
-                    try
-                    {
-
-                        MyWatchFolderSettings.Watcher.Path = MyWatchFolderSettings.FolderPath;
-                        /* Watch for changes in LastAccess and LastWrite times, and
-                           the renaming of files or directories. */
-                        MyWatchFolderSettings.Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                           | NotifyFilters.FileName; //| NotifyFilters.DirectoryName;
-                                                     // Only watch text files.
-                        MyWatchFolderSettings.Watcher.Filter = "*.*";
-                        MyWatchFolderSettings.Watcher.IncludeSubdirectories = false;
-
-                        // Begin watching.
-                        MyWatchFolderSettings.Watcher.EnableRaisingEvents = true;
-                        toolStripStatusLabelWatchFolder.Visible = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        TextBoxLogWriteLine(ex);
-                        return;
-                    }
-
-
-
-                    MyWatchFolderSettings.Watcher.Created += (s, e) =>
-                    {
-                        try
-                        {
-                            if (!this.seen.ContainsKey(e.FullPath)
-                           || (DateTime.Now - this.seen[e.FullPath]) > this.seenInterval)
-                            {
-                                this.seen[e.FullPath] = DateTime.Now;
-                                ThreadPool.QueueUserWorkItem(
-                                    this.WaitForCreatingProcessToCloseFileThenDoStuff, e.FullPath);
-                            }
-                        }
-
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Error Watcher Creation", true);
-                            TextBoxLogWriteLine(ex);
-                            return;
-                        }
-                    };
-                }
-            }
-        }
-
-
-        private void WaitForCreatingProcessToCloseFileThenDoStuff(object threadContext)
-        {
-            // Make sure the just-found file is done being
-            // written by repeatedly attempting to open it
-            // for exclusive access.
-            var path = (string)threadContext;
-            Thread.Sleep(111);
-
-            //detect whether its a directory or file
-
-            DateTime started = DateTime.Now;
-            DateTime lastLengthChange = DateTime.Now;
-            long lastLength = 0;
-            var noGrowthLimit = new TimeSpan(0, 5, 0);
-            var notFoundLimit = new TimeSpan(0, 0, 1);
-
-            for (int tries = 0; ; ++tries)
-            {
-                try
-                {
-                    // Do Stuff
-                    Debug.WriteLine(path);
-
-                    using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-                    {
-                        var response = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, true);
-                        // Start a worker thread that does uploading.
-                        var myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMore(
-                              new List<string>() { path },
-                              response.Id,
-                              AssetCreationOptions.None,
-                              response.token,
-                              MyWatchFolderSettings),
-                              response.token);
-                    }
-
-                    break;
-
-                }
-                catch (FileNotFoundException)
-                {
-                    // Sometimes the file appears before it is there.
-                    if (DateTime.Now - started > notFoundLimit)
-                    {
-                        // Should be there by now
-                        break;
-                    }
-                }
-                catch (IOException ex)
-                {
-                    // mask in severity, customer, and code
-                    var hr = (Int64)(ex.HResult & 0xA000FFFF);
-                    if (hr != 0x80000020 && hr != 0x80000021)
-                    {
-                        // not a share violation or a lock violation
-                        TextBoxLogWriteLine("Error: Could not read file from disk. Original error : ", true);
-                        TextBoxLogWriteLine(ex);
-                        break;
-                    }
-                }
-
-                try
-                {
-                    var fi = new FileInfo(path);
-                    if (fi.Length > lastLength)
-                    {
-                        lastLength = fi.Length;
-                        lastLengthChange = DateTime.Now;
-                    }
-                }
-                catch
-                {
-                }
-
-                // still locked
-                if (DateTime.Now - lastLengthChange > noGrowthLimit)
-                {
-                    // 5 minutes, still locked, no growth.
-                    TextBoxLogWriteLine("Error: file locked, no growth...", true);
-                    break;
-                }
-
-                Thread.Sleep(500);
-            }
         }
 
 
@@ -8219,19 +7026,12 @@ namespace AMSExplorer
                     string question = (LOList.Count == 1) ? string.Format("There is one live output associated to the {0}.\n{1} the {0} and delete live output '{2}' ?", channelstr, leaction, LOList[0].Name)
                                                         : string.Format("There are {0} live outputs associated to the {1}.\n{2} the c{1} and delete these live outputs ?", LOList.Count, channelstr, leaction);
 
-                    DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete");
+                    DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        /*
-                        await Task.Run(async () =>
-                        {
-                            DoDeleteLiveOutputsEngine(LOList, form.DeleteAsset);
-                        });
-                        */
-
                         await Task.Factory.StartNew(() =>
-                                    DoDeleteLiveOutputsEngine(LOList, form.DeleteAsset)
-                                     );
+                           DoDeleteLiveOutputsEngine(LOList, form.DeleteAsset)
+                            );
                     }
                     else
                     {
@@ -8467,36 +7267,13 @@ namespace AMSExplorer
                 }
             }
         }
+      
 
-
-        private void channToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoDisplayChannelInfo();
-        }
-
-        private void DoDisplayChannelInfo()
+        private void DoDisplayLiveEventInfo()
         {
             DoDisplayLiveEventInfo(ReturnSelectedLiveEvents());
         }
-
-        private void DoDisplayChannelAdSlateControl()
-        {
-            ReturnSelectedChannels().ForEach(c => DoDisplayChannelAdSlateControl(c));
-        }
-
-        private void DoDisplayChannelAdSlateControl(IChannel channel)
-        {
-            if (channel != null && channel.Encoding != null)
-            {
-                ChannelAdSlateControl form = new ChannelAdSlateControl(this)
-                {
-                    MyChannel = channel,
-                    MyContext = _context
-                };
-
-                form.Show();
-            }
-        }
+   
 
         private async void DoDisplayLiveEventInfo(List<LiveEvent> channels)
         {
@@ -8827,7 +7604,7 @@ namespace AMSExplorer
                 string question = (ListOutputs.Count == 1) ? string.Format("Delete the live output '{0}' ?", ListOutputs[0].Name)
                                                         : string.Format("Delete these [0} live outputs ?", ListOutputs.Count);
 
-                DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete");
+                DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     Task.Run(async () =>
@@ -9735,7 +8512,7 @@ namespace AMSExplorer
 
         private void displayChannelInfomationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDisplayChannelInfo();
+            DoDisplayLiveEventInfo();
         }
 
         private void displayProgramInformationToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -11536,22 +10313,6 @@ namespace AMSExplorer
             }
         }
 
-
-        private void encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMESystemPreset();
-        }
-
-        private void encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMEAdvanced();
-        }
-
-        private void encodeAssetsWithPremiumWorkflowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithPremiumWorkflow();
-        }
-
         private void createALocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateLocator(ReturnSelectedAssetsFromProgramsOrAssetsV3());
@@ -12100,18 +10861,13 @@ namespace AMSExplorer
             }
         }
 
-        private void submitFromTemplateToolStripMenuItem_Click(object sender, EventArgs e)
+      
+        private void DoSelectTransformAndSubmitJob()
         {
-            DoSubmitFromTemplate();
-        }
+            var SelectedAssets = ReturnSelectedAssetsV3();
 
-        private void DoSubmitFromTemplate()
-        {
-            List<IAsset> SelectedAssets = new List<IAsset>();// ReturnSelectedAssets();
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            ProcessFromJobTemplate form = new ProcessFromJobTemplate(_context, SelectedAssets.Count)
+            //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+            ProcessFromTransform form = new ProcessFromTransform(_amsClientV3, SelectedAssets.Count)
             {
                 ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
                 Text = "Template based processing",
@@ -12119,32 +10875,20 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string jobname = form.ProcessingJobName.Replace(Constants.NameconvTemplate, form.SelectedJobTemplate.Name);
+                CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, SelectedAssets);
+
+                /*
+                string jobname = form.ProcessingJobName.Replace(Constants.NameconvTemplate, form.SelectedTransform.Name);
                 string assetname = (SelectedAssets.Count == 1) ? SelectedAssets.FirstOrDefault().Name : "Multiple assets";
                 jobname = jobname.Replace(Constants.NameconvInputasset, assetname);
-
-                // Submit the job
-                try
-                {
-                    IJob job = _context.Jobs.Create(jobname, form.SelectedJobTemplate, SelectedAssets, form.JobOptions.Priority);
-                    job.Submit();
-                }
-                catch (Exception e)
-                {
-                    // Add useful information to the exception
-                    MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobname) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error); TextBoxLogWriteLine("There has been a problem when submitting the job {0}", jobname, true);
-                    TextBoxLogWriteLine(e);
-                    return;
-                }
-                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
-                DoRefreshGridJobV(false);
+                */
+             
+               // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
+               
             }
         }
 
-        private void processAssetsWithAJobTemplateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoSubmitFromTemplate();
-        }
+      
 
         private void resubmitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -12700,7 +11444,6 @@ namespace AMSExplorer
 
         private void toolStripMenuItem21_Click(object sender, EventArgs e)
         {
-            DoWatchFolder();
         }
 
         private void runALocalEncoderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -12776,11 +11519,7 @@ namespace AMSExplorer
                 inputURLMToolStripMenuItem2.Text = string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[0].Url.Replace("http://", "https://")).Scheme);
             }
         }
-
-        private void adAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoDisplayChannelAdSlateControl();
-        }
+      
 
         private void contextMenuStripChannels_Opening(object sender, CancelEventArgs e)
         {
@@ -12790,9 +11529,6 @@ namespace AMSExplorer
 
             // channel info
             ContextMenuItemChannelDisplayInfomation.Enabled = oneOrMore;
-
-            // slate control if at least one channel with live transcoding
-            ContextMenuItemChannelAdAndSlateControl.Enabled = false;//channels.Any(c => c.Encoding != null);
 
             // copy input url if only one channel
             ContextMenuItemChannelCopyIngestURLToClipboard.Enabled = single;
@@ -13659,43 +12395,6 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void toolStripMenuItem33_Click(object sender, EventArgs e)
-        {
-            DoMenuIndexAssets();
-        }
-
-        private void toolStripMenuItemFaceDetector_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalyticsFaceDetection(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
-        }
-
-        private void toolStripMenuItemRedactor_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalyticsFaceRedaction(Constants.AzureMediaRedactor, Bitmaps.media_redactor, Constants.LinkMoreYammerAMSPreview);
-
-        }
-
-        private void toolStripMenuItemMotionDetector_Click(object sender, EventArgs e)
-        {
-            DoMenuMotionDetection();
-        }
-
-        private void toolStripMenuItemStabilizer_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
-        }
-
-
-        private void toolStripMenuItem33_Click_1(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMESystemPreset();
-        }
-
-        private void toolStripMenuItem36_Click_1(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMEAdvanced();
-        }
-
 
         private void dataGridViewV_ColumnSortModeChanged(object sender, DataGridViewColumnEventArgs e)
         {
@@ -13754,11 +12453,6 @@ namespace AMSExplorer
         {
             DoMenuDownloadToLocal();
 
-        }
-
-        private void fixSystemBitrateInManifestjan15FixToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoFixSystemBitrate();
         }
 
         private void ProcessUploadFileToAsset(string SafeFileName, string FileName, IAsset MyAsset)
@@ -13942,16 +12636,6 @@ namespace AMSExplorer
         private void editAlternateIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuEditAssetAltId();
-        }
-
-        private void editAlternateIdToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuEditAssetAltId();
-        }
-
-        private void toolStripMenuItemVideoThumbnails_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalyticsVideoThumbnails(Constants.AzureMediaVideoThumbnails, Bitmaps.thumbnails);
         }
 
 
@@ -14176,12 +12860,7 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuItem22_Click_3(object sender, EventArgs e)
-        {
-            DoSubmitFromTemplate();
-
-        }
-
+      
         private void toolStripMenuItem39_Click(object sender, EventArgs e)
         {
             DoMenuProcessGeneric();
@@ -14244,18 +12923,7 @@ namespace AMSExplorer
             DoCancelTransfer();
         }
 
-
-        private void DoMenuContentModerator()
-        {
-            DoMenuVideoAnalyticsContentModeration(Constants.AzureMediaContentModerator, null);
-        }
-
-
-        private void DoMenuVideoAnnotator()
-        {
-            DoMenuVideoAnalytics(Constants.AzureMediaVideoAnnotator, Bitmaps.contentmoderation, Constants.LinkMoreInfoContentModeration);
-        }
-
+    
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoClearTransferts();
@@ -14373,103 +13041,6 @@ namespace AMSExplorer
         private void toolStripMenuItem15_Click(object sender, EventArgs e)
         {
             DoMenuImportFromHttp();
-        }
-
-
-        private void DoConfigureTelemetry()
-        {
-            var currentConfig = _context.MonitoringConfigurations.FirstOrDefault();
-
-            var form = new ConfigureTelemetry(_context, currentConfig);
-            var DR = form.ShowDialog();
-
-            if (DR == DialogResult.OK) // new or update
-            {
-                var config = form.Config;
-
-                var list = new List<ComponentMonitoringSetting>();
-                list.Add(new ComponentMonitoringSetting(MonitoringComponent.Channel, config.MonitorLevelChannel));
-                list.Add(new ComponentMonitoringSetting(MonitoringComponent.StreamingEndpoint, config.MonitorLevelStreamingEndpoint));
-
-
-                if (currentConfig == null) // creation of telemetry configuration
-                {
-                    Task.Run(() =>
-                    {
-                        try
-                        {
-                            TextBoxLogWriteLine("Telemetry configuration...");
-
-                            INotificationEndPoint notificationEndPoint = _context.NotificationEndPoints.Create("monitoring", NotificationEndPointType.AzureTable, _credentials.GetTableEndPoint(config.StorageSelected));
-
-                            TextBoxLogWriteLine("notificationEndpoint created...");
-
-                            IMonitoringConfiguration monitoringConfiguration = _context.MonitoringConfigurations.Create(notificationEndPoint.Id, list);
-                            enableTelemetry = true;
-
-                            TextBoxLogWriteLine("Telemetry configured.");
-                        }
-
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Error when configuring Telemetry.", true);
-                            TextBoxLogWriteLine(ex);
-                        }
-                    });
-                }
-                else // existing telemetry setup - to update now
-                {
-                    Task.Run(() =>
-                    {
-                        try
-                        {
-                            TextBoxLogWriteLine("Telemetry configuration update...");
-                            currentConfig.Settings = list.ToArray();
-                            currentConfig.Update();
-                            enableTelemetry = true;
-
-                            TextBoxLogWriteLine("Telemetry updated.");
-                        }
-
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Error when updating Telemetry.", true);
-                            TextBoxLogWriteLine(ex);
-                        }
-                    });
-
-                }
-
-            }
-            else if (DR == DialogResult.Abort) // delete the config
-            {
-                Task.Run(() =>
-                {
-                    try
-                    {
-                        TextBoxLogWriteLine("Telemetry configuration deletion...");
-
-
-                        if (_context.MonitoringConfigurations.FirstOrDefault() != null)
-                        {
-                            _context.MonitoringConfigurations.FirstOrDefault().Delete();
-                            TextBoxLogWriteLine("Telemetry configuration deleted.");
-                        }
-                        else
-                        {
-                            TextBoxLogWriteLine("Telemetry configuration already deleted.");
-                        }
-                        enableTelemetry = false;
-
-                    }
-
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error when deleting telemetry configuration.", true);
-                        TextBoxLogWriteLine(ex);
-                    }
-                });
-            }
         }
 
 
@@ -14704,8 +13275,11 @@ namespace AMSExplorer
 
         private void toolStripMenuItemSelectedTransform_Click(object sender, EventArgs e)
         {
-            var sel = ReturnSelectedTransforms();
-            var assets = ReturnSelectedAssetsV3();
+            CreateAndSubmitJobs(ReturnSelectedTransforms(), ReturnSelectedAssetsV3());
+        }
+
+        private void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets)
+        {
             foreach (var asset in assets)
             {
                 foreach (var transform in sel)
@@ -14849,6 +13423,11 @@ namespace AMSExplorer
         private void fromHttpsSourceWithSelectedTransformToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateJobFromTransformUsingHttpSource();
+        }
+
+        private void selectATransformToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoSelectTransformAndSubmitJob();
         }
     }
 }

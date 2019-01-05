@@ -343,12 +343,6 @@
     <Compile Include="ChannelRunOnPremisesEncoder.Designer.cs">
       <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelAdSlateControl.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChannelAdSlateControl.Designer.cs">
-      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="CopyAsset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -373,12 +367,6 @@
     <Compile Include="Forms-DynamicEncryption\SelectDeliveryPolicy.Designer.cs">
       <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.Designer.cs">
-      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms-Telemetry\DisplayTelemetry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -390,24 +378,6 @@
     </Compile>
     <Compile Include="Forms-Telemetry\ConfigureTelemetry.Designer.cs">
       <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.Designer.cs">
-      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.Designer.cs">
-      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.Designer.cs">
-      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.cs">
       <SubType>Form</SubType>
@@ -482,18 +452,6 @@
     <Compile Include="DownloadToLocal.Designer.cs">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.Designer.cs">
-      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.Designer.cs">
-      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -555,12 +513,6 @@
     <Compile Include="JobOptions.Designer.cs">
       <DependentUpon>JobOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="IndexerOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IndexerOptions.Designer.cs">
-      <DependentUpon>IndexerOptions.cs</DependentUpon>
-    </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -602,11 +554,11 @@
     <Compile Include="BatchUploadFrame1.Designer.cs">
       <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeleteProgramChannel.cs">
+    <Compile Include="DeleteLiveOutputEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeleteProgramChannel.Designer.cs">
-      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
+    <Compile Include="DeleteLiveOutputEvent.Designer.cs">
+      <DependentUpon>DeleteLiveOutputEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachStorage.cs">
       <SubType>Form</SubType>
@@ -614,14 +566,14 @@
     <Compile Include="AttachStorage.Designer.cs">
       <DependentUpon>AttachStorage.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListViewTemplates.cs">
+    <Compile Include="ListViewTransforms.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ProcessFromJobTemplate.cs">
+    <Compile Include="ProcessFromTransform.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProcessFromJobTemplate.Designer.cs">
-      <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
+    <Compile Include="ProcessFromTransform.Designer.cs">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.cs">
       <SubType>Form</SubType>
@@ -655,12 +607,6 @@
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamingEndpoint.cs" />
-    <Compile Include="Indexer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Indexer.Designer.cs">
-      <DependentUpon>Indexer.cs</DependentUpon>
-    </Compile>
     <Compile Include="ImportHttp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -716,12 +662,6 @@
     <Compile Include="TimeControl.Designer.cs">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WatchFolder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WatchFolder.Designer.cs">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
-    </Compile>
     <Compile Include="CreateLocator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -733,18 +673,6 @@
     </Compile>
     <Compile Include="MultipleProcessor.Designer.cs">
       <DependentUpon>MultipleProcessor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EncodingAMEAdv.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EncodingAMEAdv.Designer.cs">
-      <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EncodingPremium.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EncodingPremium.Designer.cs">
-      <DependentUpon>EncodingPremium.cs</DependentUpon>
     </Compile>
     <Compile Include="JobInformation.cs">
       <SubType>Form</SubType>
@@ -766,12 +694,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EncodingAMEPreset.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EncodingAMEPreset.Designer.cs">
-      <DependentUpon>EncodingAMEPreset.cs</DependentUpon>
-    </Compile>
     <Compile Include="ExportAssetToAzureStorage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -790,87 +712,6 @@
     <None Include="BitmapsPNG\redactor-blur-low.png" />
     <None Include="BitmapsPNG\redactor-blur-med.png" />
     <Content Include="Configurations\SampleSemaphore.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 1080p Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 1080p.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 for iOS.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 SD Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 16x9 SD.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4K Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4K.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 for iOS.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 SD Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 4x3 SD.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 720p Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Multiple Bitrate 720p.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 1080p Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 1080p.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 16x9 SD Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 16x9 SD.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 4K Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 4K.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 4x3 SD Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 4x3 SD.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 720p Audio 5.1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 720p for Android.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate 720p.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate High Quality SD for Android.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\H264 Single Bitrate Low Quality SD for Android.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\AAC Good Quality Audio.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\AAC Audio.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="BitmapsPNG\hyperlapse-large.png" />
@@ -945,12 +786,6 @@
     <Content Include="PremiumWorkflowSamples\Tutorial\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MESPresetFiles\Adaptive Streaming.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MESPresetFiles\Content Adaptive Multiple Bitrate MP4.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\media-services-dvr-filter.png" />
     <None Include="Resources\media-services-livebackoff-filter.png" />
     <None Include="Resources\media-services-multiple-rules-filters.png" />
@@ -1005,9 +840,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BatchUploadFrame2.ja.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChannelAdSlateControl.ja.resx">
-      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTransform.ja.resx">
       <DependentUpon>CreateTransform.cs</DependentUpon>
@@ -1066,8 +898,8 @@
     <EmbeddedResource Include="DeleteKeyAndPolicy.resx">
       <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeleteProgramChannel.ja.resx">
-      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
+    <EmbeddedResource Include="DeleteLiveOutputEvent.ja.resx">
+      <DependentUpon>DeleteLiveOutputEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DisplayBox.ja.resx">
       <DependentUpon>DisplayBox.cs</DependentUpon>
@@ -1087,20 +919,11 @@
     <EmbeddedResource Include="EDL.ja.resx">
       <DependentUpon>EDL.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEAdv.ja.resx">
-      <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEPreset.ja.resx">
-      <DependentUpon>EncodingAMEPreset.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EncodingMES.ja.resx">
       <DependentUpon>EncodingMES.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EncodingMESPickOverlay.ja.resx">
       <DependentUpon>EncodingMESPickOverlay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingPremium.ja.resx">
-      <DependentUpon>EncodingPremium.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportAssetToAzureStorage.ja.resx">
       <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
@@ -1174,9 +997,6 @@
     <EmbeddedResource Include="ChannelRunOnPremisesEncoder.resx">
       <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChannelAdSlateControl.resx">
-      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CopyAsset.resx">
       <DependentUpon>CopyAsset.cs</DependentUpon>
     </EmbeddedResource>
@@ -1198,32 +1018,11 @@
     <EmbeddedResource Include="Forms-DynamicEncryption\SelectDeliveryPolicy.resx">
       <DependentUpon>SelectDeliveryPolicy.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.ja.resx">
-      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsContentModeration.resx">
-      <DependentUpon>MediaAnalyticsContentModeration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.ja.resx">
-      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.ja.resx">
       <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.ja.resx">
-      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.ja.resx">
       <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.ja.resx">
-      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.ja.resx">
-      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.ja.resx">
-      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-Telemetry\ConfigureTelemetry.ja.resx">
       <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
@@ -1237,15 +1036,6 @@
     <EmbeddedResource Include="Forms-Telemetry\ConfigureTelemetry.resx">
       <DependentUpon>ConfigureTelemetry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsRedaction.resx">
-      <DependentUpon>MediaAnalyticsRedaction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsMotionDetection.resx">
-      <DependentUpon>MediaAnalyticsMotionDetection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoOCR.resx">
-      <DependentUpon>MediaAnalyticsVideoOCR.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsPickVideoFileInAsset.resx">
       <DependentUpon>MediaAnalyticsPickVideoFileInAsset.cs</DependentUpon>
     </EmbeddedResource>
@@ -1257,12 +1047,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImportHttp.ja.resx">
       <DependentUpon>ImportHttp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Indexer.ja.resx">
-      <DependentUpon>Indexer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IndexerOptions.ja.resx">
-      <DependentUpon>IndexerOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PresetVideoAnalyzer.ja.resx">
       <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
@@ -1308,8 +1092,8 @@
     <EmbeddedResource Include="Priority.ja.resx">
       <DependentUpon>Priority.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProcessFromJobTemplate.ja.resx">
-      <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
+    <EmbeddedResource Include="ProcessFromTransform.ja.resx">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LiveOutputInformation.ja.resx">
       <DependentUpon>LiveOutputInformation.cs</DependentUpon>
@@ -1362,12 +1146,6 @@
     <EmbeddedResource Include="DownloadToLocal.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsVideoThumbnails.resx">
-      <DependentUpon>MediaAnalyticsVideoThumbnails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsFaceDetection.resx">
-      <DependentUpon>MediaAnalyticsFaceDetection.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms-MediaAnalytics\MediaAnalyticsGeneric.resx">
       <DependentUpon>MediaAnalyticsGeneric.cs</DependentUpon>
     </EmbeddedResource>
@@ -1398,9 +1176,6 @@
     <EmbeddedResource Include="JobOptions.resx">
       <DependentUpon>JobOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IndexerOptions.resx">
-      <DependentUpon>IndexerOptions.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1426,14 +1201,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Bitmaps.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeleteProgramChannel.resx">
-      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
+    <EmbeddedResource Include="DeleteLiveOutputEvent.resx">
+      <DependentUpon>DeleteLiveOutputEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachStorage.resx">
       <DependentUpon>AttachStorage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProcessFromJobTemplate.resx">
-      <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
+    <EmbeddedResource Include="ProcessFromTransform.resx">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.resx">
       <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
@@ -1449,9 +1224,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointInformation.resx">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Indexer.resx">
-      <DependentUpon>Indexer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportHttp.resx">
       <DependentUpon>ImportHttp.cs</DependentUpon>
@@ -1481,24 +1253,12 @@
     <EmbeddedResource Include="TimeControl.resx">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WatchFolder.ja.resx">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WatchFolder.resx">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CreateLocator.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MultipleProcessor.resx">
       <DependentUpon>MultipleProcessor.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEAdv.resx">
-      <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingPremium.resx">
-      <DependentUpon>EncodingPremium.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JobInformation.resx">
       <DependentUpon>JobInformation.cs</DependentUpon>
@@ -1508,9 +1268,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Priority.resx">
       <DependentUpon>Priority.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EncodingAMEPreset.resx">
-      <DependentUpon>EncodingAMEPreset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportAssetToAzureStorage.resx">
       <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
