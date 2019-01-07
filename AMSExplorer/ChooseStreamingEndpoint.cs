@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2018 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -315,6 +315,15 @@ namespace AMSExplorer
             {
                 System.Windows.Forms.Clipboard.SetText(textbox.Text);
             }
+        }
+
+        private void radioButtonHLSCMAF_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkb = (RadioButton)sender;
+
+            if (checkb.Checked)  // to do it one time
+                UpdatePreviewUrl();
+
         }
     }
 }

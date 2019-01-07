@@ -41,6 +41,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBoxBrowser = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonHLSCMAF = new System.Windows.Forms.RadioButton();
             this.checkBoxNoAudioOnly = new System.Windows.Forms.CheckBox();
             this.labelaudiotrackname = new System.Windows.Forms.Label();
             this.textBoxHLSAudioTrackName = new System.Windows.Forms.TextBox();
@@ -53,7 +54,6 @@
             this.label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxPreviewURL = new System.Windows.Forms.TextBox();
-            this.radioButtonHLSCMAF = new System.Windows.Forms.RadioButton();
             this.groupBox4.SuspendLayout();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -162,6 +162,13 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // radioButtonHLSCMAF
+            // 
+            resources.ApplyResources(this.radioButtonHLSCMAF, "radioButtonHLSCMAF");
+            this.radioButtonHLSCMAF.Name = "radioButtonHLSCMAF";
+            this.radioButtonHLSCMAF.UseVisualStyleBackColor = true;
+            this.radioButtonHLSCMAF.CheckedChanged += new System.EventHandler(this.radioButtonHLSCMAF_CheckedChanged);
+            // 
             // checkBoxNoAudioOnly
             // 
             resources.ApplyResources(this.checkBoxNoAudioOnly, "checkBoxNoAudioOnly");
@@ -240,12 +247,6 @@
             resources.ApplyResources(this.textBoxPreviewURL, "textBoxPreviewURL");
             this.textBoxPreviewURL.Name = "textBoxPreviewURL";
             this.textBoxPreviewURL.ReadOnly = true;
-            // 
-            // radioButtonHLSCMAF
-            // 
-            resources.ApplyResources(this.radioButtonHLSCMAF, "radioButtonHLSCMAF");
-            this.radioButtonHLSCMAF.Name = "radioButtonHLSCMAF";
-            this.radioButtonHLSCMAF.UseVisualStyleBackColor = true;
             // 
             // ChooseStreamingEndpoint
             // 

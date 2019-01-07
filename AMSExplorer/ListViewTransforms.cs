@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2018 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,14 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
-using System.IO;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -33,10 +27,8 @@ namespace AMSExplorer
         private AMSClientV3 _client;
         private string _selectedTransformName;
         private IPage<Transform> _transforms;
-        private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.ColumnHeader columnHeaderTransformName;
         private System.Windows.Forms.ColumnHeader columnHeaderTransformDate;
-        private System.Windows.Forms.ColumnHeader columnHeaderNbInputAssets;
         private System.Windows.Forms.ColumnHeader columnHeaderTransformDescription;
 
         public Transform GetSelectedTransform
