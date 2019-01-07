@@ -145,7 +145,6 @@ namespace AMSExplorer
         static private int _pagecount = 1;
         static private int _currentpage = 1;
         public bool _initialized = false;
-        static private bool _refreshedatleastonetime = false;
         static string _orderjobs = OrderJobs.CreatedDescending;
         static string _filterjobsstate = "All";
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
@@ -158,7 +157,6 @@ namespace AMSExplorer
         private string _resourceName;
         private string _accountName;
         private List<string> _transformName = new List<string>();
-        private List<JobEntry> _MyObservJob;
 
         public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
         {
@@ -416,7 +414,6 @@ namespace AMSExplorer
             _MyObservJobV3 = new BindingList<JobEntryV3>(jobs);
 
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservJobV3));
-            _refreshedatleastonetime = true;
 
             Debug.WriteLine("RefreshJobs End");
 

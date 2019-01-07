@@ -30,16 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessFromTransform));
             this.label = new System.Windows.Forms.Label();
-            this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
             this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
             this.buttonDeleteTemplate = new System.Windows.Forms.Button();
             this.labelWarning = new System.Windows.Forms.Label();
             this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelAssetCopy = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -50,11 +47,6 @@
             resources.ApplyResources(this.label, "label");
             this.label.Name = "label";
             // 
-            // textBoxJobName
-            // 
-            resources.ApplyResources(this.textBoxJobName, "textBoxJobName");
-            this.textBoxJobName.Name = "textBoxJobName";
-            // 
             // buttonCancel
             // 
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
@@ -62,12 +54,6 @@
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // buttonOk
             // 
@@ -114,12 +100,6 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Name = "panel1";
             // 
-            // buttonJobOptions
-            // 
-            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
@@ -141,13 +121,10 @@
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.labelAssetCopy);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.listViewTransforms);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.buttonDeleteTemplate);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label);
             this.Name = "ProcessFromTransform";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
@@ -161,16 +138,13 @@
         #endregion
 
         public System.Windows.Forms.Label label;
-        public System.Windows.Forms.TextBox textBoxJobName;
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonOk;
-        public System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileDialogWorkflow;
         private System.Windows.Forms.Button buttonDeleteTemplate;
         private System.Windows.Forms.Label labelWarning;
         private ListViewTransforms listViewTransforms;
         private System.Windows.Forms.Panel panel1;
-        private ButtonJobOptions buttonJobOptions;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labelAssetCopy;
     }

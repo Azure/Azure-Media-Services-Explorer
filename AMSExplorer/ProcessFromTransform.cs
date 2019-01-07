@@ -15,17 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.Collections;
-using System.IO;
 using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
@@ -44,31 +34,7 @@ namespace AMSExplorer
 
             }
         }
-
-        public JobOptionsVar JobOptions
-        {
-            get
-            {
-                return buttonJobOptions.GetSettings();
-            }
-            set
-            {
-                buttonJobOptions.SetSettings(value);
-            }
-        }
-
-        public string ProcessingJobName
-        {
-            get
-            {
-                return textBoxJobName.Text;
-            }
-            set
-            {
-                textBoxJobName.Text = value;
-            }
-        }
-
+     
 
         public string ProcessingPromptText
         {
@@ -77,7 +43,6 @@ namespace AMSExplorer
                 label.Text = value;
             }
         }
-
 
 
         public ProcessFromTransform(AMSClientV3 client, int numberselectedassets)
@@ -99,8 +64,6 @@ namespace AMSExplorer
         {
             buttonOk.Enabled = listViewTransforms.SelectedItems.Count > 0;
             buttonDeleteTemplate.Enabled = listViewTransforms.SelectedItems.Count > 0;
-
-          
         }
 
         private void ProcessFromJobTemplate_Load(object sender, EventArgs e)
@@ -109,12 +72,10 @@ namespace AMSExplorer
         }
 
 
-
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-
 
 
         private void buttonDeleteTemplate_Click(object sender, EventArgs e)

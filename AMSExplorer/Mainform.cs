@@ -206,93 +206,6 @@ namespace AMSExplorer
             // name of the ams acount in the title of the form - useful when several instances to navigate with icons
             this.Text = string.Format(this.Text, _accountname);
 
-
-            /* V2 API CODE
-                        // Let's check storage credentials
-                    if (string.IsNullOrEmpty(_credentials.DefaultStorageKey))
-                    {
-                        havestoragecredentials = false;
-                    }
-                    else
-                    {
-                        bool ret = Program.ConnectToStorage(_context, _credentials);
-                    }
-                    
-
-
-
-
-        try // as this is the first call to MPs
-        {
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null)
-            {
-                AMEPremiumWorkflowPresent = false;
-                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
-                ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
-            }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show("Error message :\n" + ex.Message + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Environment.Exit(0);
-        }
-
-        if (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null)
-        {
-            AMFaceDetectorPresent =
-            ProcessFaceDetectortoolStripMenuItem.Visible =
-            toolStripMenuItemFaceDetector.Visible = false;
-        }
-
-        if (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null)
-        {
-            AMMotionDetectorPresent =
-            ProcessMotionDetectortoolStripMenuItem.Visible =
-            toolStripMenuItemMotionDetector.Visible = false;
-        }
-
-        if (GetLatestMediaProcessorByName(Constants.AzureMediaRedactor) == null)
-        {
-            AMRedactorPresent =
-            ProcessRedactortoolStripMenuItem.Visible =
-            toolStripMenuItemRedactor.Visible = false;
-        }
-
-        if (GetLatestMediaProcessorByName(Constants.AzureMediaStabilizer) == null)
-        {
-            AMStabilizerPresent =
-            ProcessStabilizertoolStripMenuItem.Visible =
-            toolStripMenuItemStabilizer.Visible = false;
-        }
-
-        if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null)
-        {
-            AMVideoThumbnailsPresent =
-            ProcessVideoThumbnailstoolStripMenuItem.Visible =
-            toolStripMenuItemVideoThumbnails.Visible = false;
-        }
-        if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
-        {
-            AMVideoOCRPresent = false;
-            processAssetsWithAzureMediaOCRToolStripMenuItem.Visible =
-            processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Visible = false;
-        }
-        if (GetLatestMediaProcessorByName(Constants.AzureMediaContentModerator) == null)
-        {
-            AMContentModerator =
-            processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Visible =
-            processAssetsWithAzureMediaContentModeratorToolStripMenuItem.Visible = false;
-        }
-        if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoAnnotator) == null)
-        {
-            AMVideoAnnotator =
-            processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Visible =
-            processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Visible = false;
-        }
-
-            */
-
-
             // Timer Auto Refresh
             TimerAutoRefresh = new System.Timers.Timer(Properties.Settings.Default.AutoRefreshTime * 1000);
             TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
@@ -304,14 +217,6 @@ namespace AMSExplorer
 
                 if (se.AsEnumerable().Where(o => o.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
-
-                // Let's check if there is classic streaming endpoints
-                //  if (_context.StreamingEndpoints.AsEnumerable().Any(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic))
-                //     TextBoxLogWriteLine("At least one streaming endpoint is 'Classic'. For the best experience, it is recommended that you migrate it to 'Standard'.", true); // Warning
-
-                // Let's check if there is an old CDN config
-                //   if (_context.StreamingEndpoints.AsEnumerable().Any(o => o.CdnEnabled && o.CdnProvider == null))
-                //      TextBoxLogWriteLine("At least one streaming endpoint uses an old CDN configuration. It is recommended that you migrate to a new enhanced configuration by disabling/re-enabling CDN.", true); // Warning
 
                 // Let's check if there is dynamic packaging for the channels
                 double nbchannels = (double)_amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
@@ -326,23 +231,6 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-            /*
-        // let's check the encoding reserved unit and type
-        try
-        {
-            if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
-                TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1.", true); // Warning
-        }
-        catch // can occur on test account
-        {
-            MediaRUFeatureOn = false;
-            TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units API. Some controls are disabled in the jobs tab.", true); // Warning
-        }
-       
-
-        // let's check telemetry
-        enableTelemetry = _context.MonitoringConfigurations.FirstOrDefault() != null;
-         */
 
             // nb assets limits
             int nbassets = _amsClientV3.AMSclient.Assets.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
@@ -2196,33 +2084,6 @@ namespace AMSExplorer
             return dialogResult;
         }
 
-        public DialogResult? DisplayJobSource(IAsset asset)
-        {
-            throw new NotImplementedException();
-
-
-            DialogResult? dialogResult = null;
-            /*
-           if (asset != null)
-           {
-               var job = _context.Jobs.AsEnumerable().Where(j => j.OutputMediaAssets.Select(o => o.Id).ToList().Contains(asset.Id)).FirstOrDefault();
-
-               if (job != null)
-               {
-                   DisplayInfo(job);
-               }
-
-               else
-               {
-                   MessageBox.Show("Source job was not found.");
-               }
-           }
-            */
-            return dialogResult;
-
-        }
-
-
         public static DialogResult CopyAssetToAzure(ref bool UseDefaultStorage, ref string containername, ref string otherstoragename, ref string otherstoragekey, ref List<IAssetFile> SelectedFiles, ref bool CreateNewContainer, IAsset sourceAsset)
         {
             ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.DefaultStorageKey, sourceAsset, _credentials.ReturnStorageSuffix())
@@ -2779,7 +2640,7 @@ namespace AMSExplorer
             if (dataGridViewStorage.SelectedRows.Count == 1)
             {
                 var row = dataGridViewStorage.SelectedRows[0];
-                var index = dataGridViewStorage.Columns["StrictName"].Index;
+                var index = dataGridViewStorage.Columns["Name"].Index;
                 var storagename = row.Cells[index].Value.ToString();
                 SelectedStorage = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts.Where(s => s.Id.Split('/').Last() == storagename).FirstOrDefault();
             }
@@ -5298,9 +5159,6 @@ namespace AMSExplorer
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
 
-            // let's monitor channels or programs which are in "intermediate" state
-            RestoreChannelsAndProgramsStatusMonitoring();
-
             DisplaySplashDuringLoading = false;
 
             Show();
@@ -5768,9 +5626,6 @@ namespace AMSExplorer
                         mycolor = Color.Black;
                     }
 
-
-
-
                     e.CellStyle.ForeColor = mycolor;
                 }
             }
@@ -5926,12 +5781,6 @@ namespace AMSExplorer
         }
 
 
-        private void toolStripMenuItemDelete_Click(object sender, EventArgs e)
-        {
-            DoMenuDeleteSelectedAssets();
-        }
-
-
         private void toolStripMenuAsset_DropDownOpening(object sender, EventArgs e)
         {
 
@@ -5942,20 +5791,10 @@ namespace AMSExplorer
             DisplayInfo(ReturnSelectedJobsV3().FirstOrDefault());
         }
 
-        private void toolStripMenuJobsCancel_Click(object sender, EventArgs e)
-        {
-            DoCancelJobs();
-        }
-
         private void contextMenuStripJobs_Opening(object sender, CancelEventArgs e)
         {
             bool singleitem = (ReturnSelectedJobsV3().Count == 1);
             ContextMenuItemJobDisplayInfo.Enabled = singleitem;
-        }
-
-        private void toolStripMenuItemJobsDelete_Click(object sender, EventArgs e)
-        {
-            DoDeleteSelectedJobs();
         }
 
         private void richTextBoxLog_TextChanged(object sender, EventArgs e)
@@ -5983,13 +5822,6 @@ namespace AMSExplorer
             }
         }
 
-
-        private void createReportEmailToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCreateJobReportEmail();
-        }
-
-
         private void DoCreateJobReportEmail()
         {
             JobInfo JR = new JobInfo(ReturnSelectedJobs(), _accountname);
@@ -6002,11 +5834,6 @@ namespace AMSExplorer
             StringBuilder SB = JR.GetStats();
             var tokenDisplayForm = new EditorXMLJSON("Job report", SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
-        }
-
-        private void createOutlookReportEmailToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCreateJobReportEmail();
         }
 
         private void DoMenuDisplayAssetInfoFromLocatorID()
@@ -6193,11 +6020,6 @@ namespace AMSExplorer
 
         }
 
-        private void priorityToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoChangeJobPriority();
-        }
-
         private void DoChangeJobPriority()
         {
             var SelectedJobs = ReturnSelectedJobsV3();
@@ -6296,12 +6118,6 @@ namespace AMSExplorer
         }
 
 
-        private void playbackToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-
-        }
-
-
         private bool IsThereALocatorValid(Asset asset, ref AssetStreamingLocator locator, AMSClientV3 client)
         {
 
@@ -6320,11 +6136,6 @@ namespace AMSExplorer
             }
             return valid;
 
-        }
-
-        private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHIFRefPlayer);
         }
 
 
@@ -6353,15 +6164,6 @@ namespace AMSExplorer
             DoCreateAssetReportEmail();
         }
 
-        private void processAssetsadvancedModeWithToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuProcessGeneric();
-        }
-
-        private void processAssetsWithAProcessorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuProcessGeneric();
-        }
 
         private void openOutputAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -6507,11 +6309,6 @@ namespace AMSExplorer
         }
 
 
-        private void setupAWatchFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-
         private void azureMediaServicesDocumentationToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Process.Start(Constants.LinkMoreInfoDocAMS);
@@ -6532,8 +6329,6 @@ namespace AMSExplorer
             AboutBox myabout = new AboutBox();
             myabout.Show();
         }
-
-
 
         private void tabControlMain_Selected(object sender, TabControlEventArgs e)
         {
@@ -6931,49 +6726,6 @@ namespace AMSExplorer
                     );
         }
 
-        // used to monitor program and channels in starting or stopping mode with AMS Explorer is launched
-        private async void RestoreChannelsAndProgramsStatusMonitoring()
-        {
-            return; // migration to V3 API
-            var ProgramsToMonitor = _context.Programs.ToList().Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).ToList();
-            //   foreach (var c in ProgramsToMonitor)
-            //       Task.Run(() => MonitorProgram(c));
-
-
-            var ChannelsToMonitor = _context.Channels.ToList().Where(c => c.State == ChannelState.Starting).ToList();
-            //  foreach (var c in ChannelsToMonitor)
-            //     Task.Run(() => MonitorChannel(c));
-        }
-
-        private void MonitorProgram(LiveEvent channel, LiveOutput program)
-        {
-            if (program.ResourceState == LiveOutputResourceState.Creating || program.ResourceState == LiveOutputResourceState.Deleting)
-            {
-                var state = program.ResourceState;
-                while (program.ResourceState == state)
-                {
-                    System.Threading.Thread.Sleep(1000);
-                    program = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name, program.Name);
-                }
-                if (program != null)
-                    dataGridViewLiveOutputV.BeginInvoke(new Action(() => dataGridViewLiveOutputV.RefreshProgram(channel.Name, program)), null);
-            }
-        }
-
-        private void MonitorChannel(LiveEvent channel)
-        {
-            if (channel.ResourceState == LiveEventResourceState.Deleting || channel.ResourceState == LiveEventResourceState.Starting || channel.ResourceState == LiveEventResourceState.Stopping)
-            {
-                var state = channel.ResourceState;
-                while (channel.ResourceState == state)
-                {
-                    System.Threading.Thread.Sleep(1000);
-                    channel = GetLiveEvent(channel.Name);
-                }
-                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
-            }
-        }
-
 
         internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess, CloudMediaContext context) // used for creation 
         {
@@ -7062,7 +6814,6 @@ namespace AMSExplorer
                                      );
 
             }
-
         }
 
 
@@ -7098,21 +6849,6 @@ namespace AMSExplorer
                 }
                 e.CellStyle.ForeColor = mycolor;
             }
-        }
-
-        private void startChannelsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoStartLiveEvents();
-        }
-
-        private void stopChannelsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoStopOrDeleteLiveEvents(false);
-        }
-
-        private void resetChannelsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoResetChannels();
         }
 
         private async void DoResetChannels()
@@ -7168,10 +6904,6 @@ namespace AMSExplorer
             }
         }
 
-        private void deleteChannelsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoStopOrDeleteLiveEvents(true);
-        }
 
         private void createChannelToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -7267,13 +6999,13 @@ namespace AMSExplorer
                 }
             }
         }
-      
+
 
         private void DoDisplayLiveEventInfo()
         {
             DoDisplayLiveEventInfo(ReturnSelectedLiveEvents());
         }
-   
+
 
         private async void DoDisplayLiveEventInfo(List<LiveEvent> channels)
         {
@@ -7842,57 +7574,6 @@ namespace AMSExplorer
         }
 
 
-
-        private IAsset CreateLiveAssetWithOptionalpecifiedLocatorID(string assetName, string storageaccount, bool createlocator, bool setupdynamicencryption, string LocatorID = null)
-        {
-            bool oktocontinue = true;
-            bool Error = false;
-
-            IAsset newAsset = _context.Assets.Create(assetName, storageaccount, AssetCreationOptions.None);
-
-            if (setupdynamicencryption) // user want to enable Dynamic Encryption on the program's asset. We must do it before locator creation
-            {
-                // if user want to create a locator, force locator and setup dyn encryption, that means he wants to replicate the program from another dc, and so must provide the content key to have a mirror stream 
-                oktocontinue = SetupDynamicEncryption(new List<IAsset> { newAsset }, createlocator && (LocatorID != null));
-            }
-
-            if (oktocontinue)
-            {
-                try
-                {
-                    if (createlocator)
-                    {
-                        TextBoxLogWriteLine("Creating locator for asset '{0}'", newAsset.Name);
-                        IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
-                        if (LocatorID != null)
-                        {
-                            _context.Locators.CreateLocator(LocatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
-                        }
-                        else
-                        {
-                            _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, newAsset, policy, null);
-                        }
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", newAsset.Name, true);
-                    TextBoxLogWriteLine(ex);
-                    Error = true;
-                }
-            }
-            else
-            {
-                newAsset.Delete();
-                Error = true;
-                TextBoxLogWriteLine("User canceled.");
-            }
-            return Error ? null : newAsset;
-        }
-
-
         private async void DoCreateLiveOutput()
         {
             var channel = ReturnSelectedLiveEvents().FirstOrDefault();
@@ -8036,11 +7717,6 @@ namespace AMSExplorer
         }
 
 
-        private void deleteProgramsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoDeleteLiveOutputs();
-        }
-
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             var cellprogramstatevalue = dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["State"].Index].Value;
@@ -8070,11 +7746,6 @@ namespace AMSExplorer
             }
         }
 
-        private void displayProgramInformationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoDisplayLiveOutputInfo();
-
-        }
 
         private void DoDisplayLiveOutputInfo()
         {
@@ -8104,10 +7775,6 @@ namespace AMSExplorer
             }
         }
 
-        private void generateThumbnailsForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoGenerateThumbnails();
-        }
 
         private void DoGenerateThumbnails()
         {
@@ -8220,12 +7887,6 @@ namespace AMSExplorer
                 e.CellStyle.ForeColor = mycolor;
             }
         }
-
-        private void displayOriginInformationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoDisplayStreamingEndpointInfo();
-        }
-
 
         private void DoDisplayStreamingEndpointInfo()
         {
@@ -8393,24 +8054,14 @@ namespace AMSExplorer
             }
         }
 
-        private void startOriginsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoStartStreamingEndpoints();
-        }
 
         private void DoStartStreamingEndpoints()
         {
-
             Task.Run(async () =>
             {
                 DoStartStreamingEndpointEngine(ReturnSelectedStreamingEndpoints());
             }
                    );
-        }
-
-        private void stopOriginsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoStopStreamingEndpoints();
         }
 
         private void DoStopStreamingEndpoints()
@@ -8420,11 +8071,6 @@ namespace AMSExplorer
                 DoStopOrDeleteStreamingEndpointsEngine(ReturnSelectedStreamingEndpoints(), false);
             }
                    );
-        }
-
-        private void deleteOriginsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoDeleteStreamingEndpoints();
         }
 
         private void DoDeleteStreamingEndpoints()
@@ -8496,17 +8142,6 @@ namespace AMSExplorer
                 }
               );
             }
-        }
-
-        private static byte[] GenerateRandomBytes(int length)
-        {
-            var bytes = new byte[length];
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(bytes);
-            }
-
-            return bytes;
         }
 
 
@@ -8631,15 +8266,6 @@ namespace AMSExplorer
         }
 
 
-        private void copyIngestURLToClipboard_Click(object sender, EventArgs e)
-        {
-            string ingest = ReturnSelectedChannels().FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri;
-            System.Windows.Forms.Clipboard.SetText(ingest);
-            TextBoxLogWriteLine("The following ingest URL has been copied to the clipboard :");
-            TextBoxLogWriteLine("<" + ingest + ">");
-
-        }
-
         private void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
         {
             var channel = ReturnSelectedLiveEvents().FirstOrDefault();
@@ -8656,14 +8282,7 @@ namespace AMSExplorer
                     MessageBox.Show($"There is no active preview URL for live event '{channel.Name}'. Maybe no data has arrived so no manifest is available.", "No preview URL", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-
         }
-
-        private void generateThumbnailsForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoGenerateThumbnails();
-        }
-
 
         private void batchUploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -8759,7 +8378,6 @@ namespace AMSExplorer
             Process.Start(Constants.LinkBlogAMS);
         }
 
-
         private void createProgramToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             DoCreateLiveOutput();
@@ -8827,11 +8445,6 @@ namespace AMSExplorer
             DoCreateStreamingEndpoint();
         }
 
-
-        private void setupDynamicEncryptionForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoSetupDynEnc();
-        }
 
         private void DoSetupDynEnc()
         {
@@ -10086,7 +9699,6 @@ namespace AMSExplorer
         }
 
 
-
         private void richTextBoxLog_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             Process.Start(e.LinkText);
@@ -10108,18 +9720,6 @@ namespace AMSExplorer
                 System.Windows.Forms.Clipboard.SetText(richTextBoxLog.Text.Replace("\n", "\r\n"));
             }
 
-        }
-
-        private void mergeSelectedAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyAssetToAnotherAMSAccount();
-        }
-
-
-
-        private void removeDynamicEncryptionForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoRemoveDynEnc();
         }
 
         private void DoRemoveDynEnc()
@@ -10220,8 +9820,6 @@ namespace AMSExplorer
                 }
             }
         }
-
-
 
 
         private void DoRemoveKeys()
@@ -10364,28 +9962,10 @@ namespace AMSExplorer
             Process.Start(Constants.PlayerJWPlayerPartnership);
         }
 
-        private void removeDynamicEncryptionForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoRemoveDynEnc();
-        }
-
-        private void setupDynamicEncryptionForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoSetupDynEnc();
-        }
-
         private void withCustomPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
         }
-
-
-
-        private void withCustomPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
-        }
-
 
         private void DoMenuCreateLocatorOnPrograms()
         {
@@ -10431,12 +10011,6 @@ namespace AMSExplorer
         }
 
 
-        private void displayRelatedAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayAssetInfoOfProgram();
-        }
-
-
         private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoRefreshGridAssetV(false);
@@ -10473,11 +10047,6 @@ namespace AMSExplorer
         }
 
         private async void extendExistingLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await DoRefreshStreamingLocators();
-        }
-
-        private async void extendExistingStreamingLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoRefreshStreamingLocators();
         }
@@ -10638,11 +10207,6 @@ namespace AMSExplorer
             }
         }
 
-        private void recreateProgramsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoResetPrograms();
-        }
-
         private void attachAnotherStoragheAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoAttachAnotherStorageAccount();
@@ -10669,12 +10233,6 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                 }
             }
-        }
-
-
-        private void displayErrorToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            DoDisplayJobError();
         }
 
         private void DoDisplayJobError()
@@ -10839,29 +10397,7 @@ namespace AMSExplorer
             }
         }
 
-        private void saveAsTemplateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoSaveJobAsTemplate();
-        }
 
-        private void DoSaveJobAsTemplate()
-        {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
-            string jobtemplatename = string.Empty;
-            if (SelectedJobs.Count == 1)
-            {
-                if (Program.InputBox("Save as job template", "Job template name:", ref jobtemplatename) == DialogResult.OK)
-                {
-                    IJobTemplate jtemplate = SelectedJobs.FirstOrDefault().SaveAsTemplate(jobtemplatename);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select one job", "Selection", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
-      
         private void DoSelectTransformAndSubmitJob()
         {
             var SelectedAssets = ReturnSelectedAssetsV3();
@@ -10870,34 +10406,14 @@ namespace AMSExplorer
             ProcessFromTransform form = new ProcessFromTransform(_amsClientV3, SelectedAssets.Count)
             {
                 ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
-                Text = "Template based processing",
-                ProcessingJobName = string.Format("Processing of {0} with template {1}", Constants.NameconvInputasset, Constants.NameconvTemplate),
+                Text = "Template based processing"
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
                 CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, SelectedAssets);
 
-                /*
-                string jobname = form.ProcessingJobName.Replace(Constants.NameconvTemplate, form.SelectedTransform.Name);
-                string assetname = (SelectedAssets.Count == 1) ? SelectedAssets.FirstOrDefault().Name : "Multiple assets";
-                jobname = jobname.Replace(Constants.NameconvInputasset, assetname);
-                */
-             
-               // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
-               
+                // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
             }
-        }
-
-      
-
-        private void resubmitToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoJobResubmit();
-        }
-
-        private void saveAsTemplateToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoSaveJobAsTemplate();
         }
 
 
@@ -10932,7 +10448,6 @@ namespace AMSExplorer
             {
                 e.Effect = DragDropEffects.None;
             }
-
         }
 
 
@@ -10961,10 +10476,6 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
         }
 
-        private void withAzureMediaPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
-        }
 
         public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, List<Asset> listassets, string filter = null)
         {
@@ -11049,10 +10560,6 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
         }
 
-        private void withAzureMediaPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayerClear);
-        }
 
         private void withAzureMediaPlayerToolStripMenuItem4_Click(object sender, EventArgs e)
         {
@@ -11062,16 +10569,6 @@ namespace AMSExplorer
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(Constants.DemoCaptionMaker);
-        }
-
-        private void removeKeysForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoRemoveKeys();
-        }
-
-        private void getATestTokenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoGetTestToken();
         }
 
         private void DoGetTestToken()
@@ -11377,8 +10874,6 @@ namespace AMSExplorer
 
             // telemetry
             loadToolStripMenuItem.Enabled = enableTelemetry;
-
-
         }
 
         private void originToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -11519,7 +11014,7 @@ namespace AMSExplorer
                 inputURLMToolStripMenuItem2.Text = string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[0].Url.Replace("http://", "https://")).Scheme);
             }
         }
-      
+
 
         private void contextMenuStripChannels_Opening(object sender, CancelEventArgs e)
         {
@@ -11658,11 +11153,6 @@ namespace AMSExplorer
 
         }
 
-        private void findTheAssetFromTheLocatorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayAssetInfoFromLocatorID();
-        }
-
         private void toolStripMenuItem12_Click_1(object sender, EventArgs e)
         {
             DoRefreshGridFiltersV(false);
@@ -11761,176 +11251,6 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItem22_Click(object sender, EventArgs e)
-        {
-            DoMenuEncodeWithAMEStandard();
-        }
-
-        private void DoMenuEncodeWithAMEStandard()
-        {
-            bool bLiveArchiveAsset = false;
-            bool bFragmented = false;
-
-            List<IAsset> SelectedAssets = new List<IAsset>(); //ReturnSelectedAssets();
-
-            if (SelectedAssets.Count == 0)
-            {
-                MessageBox.Show("No asset was selected");
-                return;
-            }
-
-            if (SelectedAssets.FirstOrDefault() == null) return;
-
-            CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-
-            if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
-            {
-                MessageBox.Show("One of the source asset is a Live stream or archive." + Constants.endline
-                    + "You should use the subclipping UI if you plan to trim the source to make sure that that timestamps are correctly managed." + Constants.endline
-                    + "Overlay is also disabled.", "Live archive asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                bLiveArchiveAsset = true;
-            }
-            else if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_Fragmented)))
-            {
-                MessageBox.Show("One of the source asset is a fragmented asset." + Constants.endline
-                    + "Overlay is disabled.", "Fragmented asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                bFragmented = true;
-            }
-
-            bool MultipleInputAssets = false;
-            if (SelectedAssets.Count > 1)
-            {
-                if (MessageBox.Show("You selected several assets." + Constants.endline + "Do you want to use them as multiple input assets to one single task (to do stitching), or generate one task per input asset." + Constants.endline + Constants.endline
-                    + "Yes : Multiple input assets to one task (for stitching)" + Constants.endline + "No : One task/job per input asset", "Multiple input assets", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    MultipleInputAssets = true;
-            }
-
-            string taskname = string.Format("{0} - MES v{1}", Constants.NameconvInputasset, Constants.NameconvProcessorversion);
-
-            var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
-
-            string label;
-            if (SelectedAssets.Count > 1 && !MultipleInputAssets)
-            {
-                label = string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count));
-            }
-            else if (SelectedAssets.Count > 1 && MultipleInputAssets)
-            {
-                label = string.Format("{0} assets selected. You are going to submit 1 job with 1 task and multiple input assets.", SelectedAssets.Count);
-            }
-            else
-            {
-                label = "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).";
-            }
-
-            EncodingMES form = new EncodingMES(_context,
-                MultipleInputAssets ? SelectedAssets : new List<IAsset>(),
-                processor.Version,
-                disableOverlay: SelectedAssets.Count > 1 ? true : (bLiveArchiveAsset || bFragmented), // as only single asset overlay is supported for now
-                disableSourceTrimming: bLiveArchiveAsset,
-                main: this)
-            {
-                EncodingLabel = label,
-                EncodingJobName = string.Format("{0} - MES", Constants.NameconvInputasset),
-                EncodingOutputAssetName = string.Format("{0} - MES v{1}", Constants.NameconvInputasset, Constants.NameconvProcessorversion),
-                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.MESPresetFilesCurrentFolder,
-                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathMESFiles,
-                SelectedAssets = SelectedAssets
-            };
-
-
-
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                if (MultipleInputAssets) // one job, multiple input assets (stitching)
-                {
-
-                    bool Error = false;
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name);
-                    IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name).Replace(Constants.NameconvProcessorversion, processor.Version);
-                    ITask AMEStandardTask = job.Tasks.AddNew(
-                        tasknameloc,
-                        processor,
-                       form.EncodingConfiguration,
-                       form.JobOptions.TasksOptionsSetting
-                      );
-
-                    AMEStandardTask.InputAssets.AddRange(form.SelectedAssets);
-
-                    // Add an output asset to contain the results of the job.  
-                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, form.SelectedAssets[0].Name).Replace(Constants.NameconvProcessorversion, processor.Version);
-                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
-
-                    // Submit the job  
-                    TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
-                    try
-                    {
-                        job.Submit();
-                    }
-                    catch (Exception e)
-                    {
-                        // Add useful information to the exception
-                        if (SelectedAssets.Count < 5)
-                        {
-                            MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
-                        TextBoxLogWriteLine(e);
-                        Error = true;
-                    }
-                    if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
-
-                }
-                else
-                {
-                    foreach (IAsset asset in form.SelectedAssets)
-                    {
-                        bool Error = false;
-                        string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
-                        IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorversion, processor.Version);
-
-                        ITask AMEStandardTask = job.Tasks.AddNew(
-                            tasknameloc,
-                            processor,
-                           form.EncodingConfiguration,
-                           form.JobOptions.TasksOptionsSetting
-                          );
-
-                        AMEStandardTask.InputAssets.Add(asset);
-
-                        // Add an output asset to contain the results of the job.  
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorversion, processor.Version);
-
-                        AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.OutputAssetsFormatOption);
-
-                        // Submit the job  
-                        TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
-                        try
-                        {
-                            job.Submit();
-                        }
-                        catch (Exception e)
-                        {
-                            // Add useful information to the exception
-                            if (SelectedAssets.Count < 5)
-                            {
-                                MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
-                            TextBoxLogWriteLine(e);
-                            Error = true;
-                        }
-                        if (!Error) Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(new JobExtension()));
-                    }
-                }
-
-                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
-                DoRefreshGridJobV(false);
-            }
-        }
-
         private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
         {
             var filters = ReturnSelectedAccountFilters();
@@ -11981,10 +11301,6 @@ namespace AMSExplorer
             }
         }
 
-        private void duplicateToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoDuplicateFilter();
-        }
 
         private void DoDuplicateFilter()
         {
@@ -12025,20 +11341,9 @@ namespace AMSExplorer
             DoCreateAssetFilter();
         }
 
-        private void createAnAssetFilterToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCreateAssetFilter();
-        }
-
         private void withAzureMediaPlayerToolStripMenuItem2_DropDownOpening(object sender, EventArgs e)
         {
 
-        }
-
-
-        private void toolStripMenuItem26_Click(object sender, EventArgs e)
-        {
-            DoCreateFilter();
         }
 
 
@@ -12096,17 +11401,6 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItem27_Click(object sender, EventArgs e)
-        {
-            DoClonePrograms();
-        }
-
-        private void toolStripMenuItem28_Click(object sender, EventArgs e)
-        {
-            DoCloneChannels();
-        }
-
-
         private void dataGridViewV_VisibleChanged(object sender, EventArgs e)
         {
             Program.dataGridViewV_Resize(sender);
@@ -12139,16 +11433,10 @@ namespace AMSExplorer
             }
         }
 
-        private void subclipLiveStreamsarchivesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoSubClip();
-        }
-
         private void subclipProgramsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoSubClip();
         }
-
 
         private void DoExportMetadata()
         {
@@ -12169,15 +11457,6 @@ namespace AMSExplorer
             DoExportMetadata();
         }
 
-        private void subclipLiveStreamsarchivesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoSubClip();
-        }
-
-        private void storageVersionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoStorageVersion();
-        }
 
         private void DoStorageVersion(string storageId = null)
         {
@@ -12289,26 +11568,6 @@ namespace AMSExplorer
             DoDisplayJobReport();
         }
 
-        private void toolStripMenuItem28_Click_1(object sender, EventArgs e)
-        {
-            DoCreateJobReportEmail();
-        }
-
-        private void copyToClipboardToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoDisplayJobReport();
-        }
-
-        private void copyToClipboardToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            DoDisplayAssetReport();
-        }
-
-        private void toolStripMenuItem29_Click(object sender, EventArgs e)
-        {
-            DoCreateAssetReportEmail();
-        }
-
         private void toolStripMenuItem30_Click(object sender, EventArgs e)
         {
             DoCreateAssetReportEmail();
@@ -12337,11 +11596,6 @@ namespace AMSExplorer
         private void deleteAllAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteAllAssets();
-        }
-
-        private void visibleJobsInGridToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
         private void visibleJobsInGridToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12437,11 +11691,6 @@ namespace AMSExplorer
                     });
                 }
             }
-        }
-
-        private void checkIntegrityOfLiveArchiveToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCheckIntegrityLiveArchive();
         }
 
         private void toolStripMenuItem37_Click_1(object sender, EventArgs e)
@@ -12783,16 +12032,6 @@ namespace AMSExplorer
         }
 
 
-        private void testQueryAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoAccessAssetFilesTest();
-        }
-
-        private void testQueryAllAssetFilesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoAccessAssetTest();
-        }
-
         private enumDisplayProgram ReturnDisplayProgram()
         {
             if (radioButtonChAll.Checked)
@@ -12846,30 +12085,12 @@ namespace AMSExplorer
             panelChannels.Size = new Size(panelChannels.Size.Width, tabPageLive.Size.Height / 2);
         }
 
-        private void toolStripMenuItem38_Click_1(object sender, EventArgs e)
-        {
-        }
-
-        private void toolStripMenuItem38Indexer2_Click(object sender, EventArgs e)
-        {
-        }
-
         private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
         {
             DoCopyOutputURLAssetOrProgramToClipboard();
 
         }
 
-      
-        private void toolStripMenuItem39_Click(object sender, EventArgs e)
-        {
-            DoMenuProcessGeneric();
-        }
-
-        private void toolStripMenuItem40_Click(object sender, EventArgs e)
-        {
-            DoGenerateThumbnails();
-        }
 
         private void toolStripMenuItem41_Click(object sender, EventArgs e)
         {
@@ -12886,20 +12107,6 @@ namespace AMSExplorer
             DoCopyAssetToAnotherAMSAccount();
         }
 
-        private void mergeSelectedAssetsToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoCopyAssetToAnotherAMSAccount();
-        }
-
-        private void checkIntegrityOfLiveArchiveToolStripMenuItem1_Click_1(object sender, EventArgs e)
-        {
-            DoCheckIntegrityLiveArchive();
-        }
-
-        private void fixSystemBitrateInManifestjan15FixToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoFixSystemBitrate();
-        }
 
         private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -12923,7 +12130,7 @@ namespace AMSExplorer
             DoCancelTransfer();
         }
 
-    
+
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoClearTransferts();
@@ -13033,11 +12240,6 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
         }
 
-        private void analyzeAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoAnalyzeAssets(ReturnSelectedAssets(), true);
-        }
-
         private void toolStripMenuItem15_Click(object sender, EventArgs e)
         {
             DoMenuImportFromHttp();
@@ -13076,22 +12278,9 @@ namespace AMSExplorer
             Process.Start(Constants.LinkMoreInfoAMSReleaseNotes);
         }
 
-
-        private void selectedJobsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCancelJobs();
-
-        }
-
-        private void allJobsToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            DoCancelAllJobs();
-        }
-
         private void selectedJobsToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             DoCancelJobs();
-
         }
 
         private void allJobsToolStripMenuItem3_Click(object sender, EventArgs e)
@@ -13453,15 +12642,6 @@ namespace AMSExplorer
         public const string NameAscending = "Name <";
     }
 
-
-    public static class StatusAssets
-    {
-        public const string All = "All";
-        public const string Published = "Published";
-        public const string PublishedExpired = "Published but expired";
-        public const string DynEnc = "With Dyn Enc";
-        public const string Empty = "Empty";
-    }
 
     public static class FilterTime
     {

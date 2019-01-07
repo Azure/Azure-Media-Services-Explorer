@@ -38,8 +38,6 @@ namespace AMSExplorer
 {
     public partial class LiveOutputInformation : Form
     {
-        private IEnumerable<Uri> ValidURIs;
-        private IEnumerable<Uri> NotValidURIs;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
         private Mainform MyMainForm;
         private AMSClientV3 _client;

@@ -134,8 +134,6 @@ namespace AMSExplorer
         static string _statefilter = "All";
         private CredentialsEntryV3 _credentialsV3;
         private AzureMediaServicesClient _client;
-        static CloudMediaContext _context;
-        static private CredentialsEntry _credentialsV2;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ChannelName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);

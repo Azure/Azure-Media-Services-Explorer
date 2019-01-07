@@ -44,8 +44,6 @@ namespace AMSExplorer
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
         static string _statefilter = "All";
-        static CloudMediaContext _context;
-        private AMSClientV3 _client;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ProgramName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
@@ -53,6 +51,7 @@ namespace AMSExplorer
         public string _published = "Published";
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
         static private enumDisplayProgram _anyChannel = enumDisplayProgram.Selected;
+        private AMSClientV3 _client;
 
         public List<string> LiveEventSourceNames
         {

@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
+            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
-            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
@@ -83,6 +83,7 @@
             this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSelectedTransform = new System.Windows.Forms.ToolStripMenuItem();
             this.fromHttpsSourceWithSelectedTransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subclipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -262,7 +263,6 @@
             this.contextMenuStripStorage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStorageAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.storageVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripLog = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -350,7 +350,6 @@
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
-            this.selectATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -497,9 +496,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.AssetNameEquals;
-            searchObject1.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject1;
+            searchObject4.SearchType = AMSExplorer.SearchIn.AssetNameEquals;
+            searchObject4.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject4;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.StateFilter = "";
             this.dataGridViewAssetsV.TimeFilter = "Last week";
@@ -792,6 +791,12 @@
             this.fromHttpsSourceWithSelectedTransformToolStripMenuItem.Name = "fromHttpsSourceWithSelectedTransformToolStripMenuItem";
             resources.ApplyResources(this.fromHttpsSourceWithSelectedTransformToolStripMenuItem, "fromHttpsSourceWithSelectedTransformToolStripMenuItem");
             this.fromHttpsSourceWithSelectedTransformToolStripMenuItem.Click += new System.EventHandler(this.fromHttpsSourceWithSelectedTransformToolStripMenuItem_Click);
+            // 
+            // selectATransformToolStripMenuItem
+            // 
+            this.selectATransformToolStripMenuItem.Name = "selectATransformToolStripMenuItem";
+            resources.ApplyResources(this.selectATransformToolStripMenuItem, "selectATransformToolStripMenuItem");
+            this.selectATransformToolStripMenuItem.Click += new System.EventHandler(this.selectATransformToolStripMenuItem_Click);
             // 
             // subclipToolStripMenuItem
             // 
@@ -1517,9 +1522,9 @@
             this.dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";
             this.dataGridViewLiveOutputV.ReadOnly = true;
             this.dataGridViewLiveOutputV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject2.Text = "";
-            this.dataGridViewLiveOutputV.SearchInName = searchObject2;
+            searchObject1.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject1.Text = "";
+            this.dataGridViewLiveOutputV.SearchInName = searchObject1;
             this.dataGridViewLiveOutputV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewLiveOutputV.TimeFilter = "Last week";
             this.dataGridViewLiveOutputV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
@@ -1821,9 +1826,9 @@
             this.dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             this.dataGridViewLiveEventsV.ReadOnly = true;
             this.dataGridViewLiveEventsV.RowHeadersVisible = false;
-            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject3.Text = "";
-            this.dataGridViewLiveEventsV.SearchInName = searchObject3;
+            searchObject2.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject2.Text = "";
+            this.dataGridViewLiveEventsV.SearchInName = searchObject2;
             this.dataGridViewLiveEventsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewLiveEventsV.TimeFilter = "Last week";
             this.dataGridViewLiveEventsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
@@ -2184,8 +2189,7 @@
             // 
             this.contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
-            this.attachAnotherStorageAccountToolStripMenuItem,
-            this.storageVersionToolStripMenuItem});
+            this.attachAnotherStorageAccountToolStripMenuItem});
             this.contextMenuStripStorage.Name = "contextMenuStripStreamingEndpoints";
             resources.ApplyResources(this.contextMenuStripStorage, "contextMenuStripStorage");
             this.contextMenuStripStorage.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripStorage_Opening);
@@ -2202,12 +2206,6 @@
             this.attachAnotherStorageAccountToolStripMenuItem.Name = "attachAnotherStorageAccountToolStripMenuItem";
             resources.ApplyResources(this.attachAnotherStorageAccountToolStripMenuItem, "attachAnotherStorageAccountToolStripMenuItem");
             this.attachAnotherStorageAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStorageAccountToolStripMenuItem_Click);
-            // 
-            // storageVersionToolStripMenuItem
-            // 
-            this.storageVersionToolStripMenuItem.Name = "storageVersionToolStripMenuItem";
-            resources.ApplyResources(this.storageVersionToolStripMenuItem, "storageVersionToolStripMenuItem");
-            this.storageVersionToolStripMenuItem.Click += new System.EventHandler(this.storageVersionToolStripMenuItem_Click);
             // 
             // richTextBoxLog
             // 
@@ -2794,12 +2792,6 @@
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
             // 
-            // selectATransformToolStripMenuItem
-            // 
-            this.selectATransformToolStripMenuItem.Name = "selectATransformToolStripMenuItem";
-            resources.ApplyResources(this.selectATransformToolStripMenuItem, "selectATransformToolStripMenuItem");
-            this.selectATransformToolStripMenuItem.Click += new System.EventHandler(this.selectATransformToolStripMenuItem_Click);
-            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -3105,7 +3097,6 @@
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
         private System.Windows.Forms.ComboBox comboBoxSearchProgramOption;
         private System.Windows.Forms.ComboBox comboBoxSearchChannelOption;
-        private System.Windows.Forms.ToolStripMenuItem storageVersionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem27;
         private System.Windows.Forms.ToolStripMenuItem copyReportToClipboardToolStripMenuItem;
