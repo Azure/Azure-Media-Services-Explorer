@@ -52,7 +52,6 @@
             this.duplicateFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadASmallFileInTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label4 = new System.Windows.Forms.Label();
-            this.buttonCreateMail = new System.Windows.Forms.Button();
             this.buttonCopyStats = new System.Windows.Forms.Button();
             this.buttonDeleteFile = new System.Windows.Forms.Button();
             this.buttonDownloadFile = new System.Windows.Forms.Button();
@@ -320,13 +319,6 @@
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
             // 
-            // buttonCreateMail
-            // 
-            resources.ApplyResources(this.buttonCreateMail, "buttonCreateMail");
-            this.buttonCreateMail.Name = "buttonCreateMail";
-            this.buttonCreateMail.UseVisualStyleBackColor = true;
-            this.buttonCreateMail.Click += new System.EventHandler(this.buttonCreateMail_Click);
-            // 
             // buttonCopyStats
             // 
             resources.ApplyResources(this.buttonCopyStats, "buttonCopyStats");
@@ -397,7 +389,6 @@
             this.tabPage1.Controls.Add(this.DGAsset);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.buttonCopyStats);
-            this.tabPage1.Controls.Add(this.buttonCreateMail);
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -990,7 +981,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenFile;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadFile;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button buttonCreateMail;
         private System.Windows.Forms.Button buttonCopyStats;
         private System.Windows.Forms.Button buttonDeleteFile;
         private System.Windows.Forms.ToolStripMenuItem deleteFileToolStripMenuItem;
