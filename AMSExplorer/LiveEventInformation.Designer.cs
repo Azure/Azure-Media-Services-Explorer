@@ -96,18 +96,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // DGChannel
+            // DGLiveEvent
             // 
             this.DGLiveEvent.AllowUserToAddRows = false;
             this.DGLiveEvent.AllowUserToDeleteRows = false;
             this.DGLiveEvent.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGLiveEvent, "DGChannel");
+            resources.ApplyResources(this.DGLiveEvent, "DGLiveEvent");
             this.DGLiveEvent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGLiveEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGLiveEvent.ColumnHeadersVisible = false;
             this.DGLiveEvent.ContextMenuStrip = this.contextMenuStripDG;
             this.DGLiveEvent.MultiSelect = false;
-            this.DGLiveEvent.Name = "DGChannel";
+            this.DGLiveEvent.Name = "DGLiveEvent";
             this.DGLiveEvent.ReadOnly = true;
             this.DGLiveEvent.RowHeadersVisible = false;
             // 
@@ -137,11 +137,11 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
-            // tabPageChannelInfo
+            // tabPageLiveEventInfo
             // 
             this.tabPageLiveEventInfo.Controls.Add(this.DGLiveEvent);
-            resources.ApplyResources(this.tabPageLiveEventInfo, "tabPageChannelInfo");
-            this.tabPageLiveEventInfo.Name = "tabPageChannelInfo";
+            resources.ApplyResources(this.tabPageLiveEventInfo, "tabPageLiveEventInfo");
+            this.tabPageLiveEventInfo.Name = "tabPageLiveEventInfo";
             this.tabPageLiveEventInfo.UseVisualStyleBackColor = true;
             // 
             // tabPageSettings
@@ -281,10 +281,10 @@
             this.checkBoxIgnore708.UseVisualStyleBackColor = true;
             this.checkBoxIgnore708.CheckedChanged += new System.EventHandler(this.checkBoxIgnore708_CheckedChanged);
             // 
-            // labelChannelMustBeStopped
+            // labelLiveEventMustBeStopped
             // 
-            resources.ApplyResources(this.labelLiveEventMustBeStopped, "labelChannelMustBeStopped");
-            this.labelLiveEventMustBeStopped.Name = "labelChannelMustBeStopped";
+            resources.ApplyResources(this.labelLiveEventMustBeStopped, "labelLiveEventMustBeStopped");
+            this.labelLiveEventMustBeStopped.Name = "labelLiveEventMustBeStopped";
             // 
             // groupBoxEncoding
             // 
@@ -416,11 +416,12 @@
             resources.ApplyResources(this.webBrowserPreview, "webBrowserPreview");
             this.webBrowserPreview.Name = "webBrowserPreview";
             this.webBrowserPreview.ScriptErrorsSuppressed = true;
+            this.webBrowserPreview.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowserPreview_DocumentCompleted);
             // 
-            // labelChannelName
+            // labelLEName
             // 
-            resources.ApplyResources(this.labelLEName, "labelChannelName");
-            this.labelLEName.Name = "labelChannelName";
+            resources.ApplyResources(this.labelLEName, "labelLEName");
+            this.labelLEName.Name = "labelLEName";
             // 
             // buttonClose
             // 
@@ -445,10 +446,10 @@
             this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Name = "panel1";
             // 
-            // labelChannelStoppedOrStartedSettings
+            // labelLiveEventStoppedOrStartedSettings
             // 
-            resources.ApplyResources(this.labelLiveEventStoppedOrStartedSettings, "labelChannelStoppedOrStartedSettings");
-            this.labelLiveEventStoppedOrStartedSettings.Name = "labelChannelStoppedOrStartedSettings";
+            resources.ApplyResources(this.labelLiveEventStoppedOrStartedSettings, "labelLiveEventStoppedOrStartedSettings");
+            this.labelLiveEventStoppedOrStartedSettings.Name = "labelLiveEventStoppedOrStartedSettings";
             // 
             // openFileDialogSlate
             // 
@@ -464,7 +465,7 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
-            // ChannelInformation
+            // LiveEventInformation
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
@@ -475,7 +476,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelLEName);
             this.Controls.Add(this.tabControl1);
-            this.Name = "ChannelInformation";
+            this.Name = "LiveEventInformation";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LiveEventInformation_FormClosed);
             this.Load += new System.EventHandler(this.LiveEventInformation_Load);

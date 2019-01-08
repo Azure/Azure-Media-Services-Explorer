@@ -7014,7 +7014,7 @@ namespace AMSExplorer
 
             if (firstchannel != null)
             {
-                LiveEventInformation form = new LiveEventInformation(this, _amsClientV3.AMSclient, _amsClientV3.credentialsEntry)
+                LiveEventInformation form = new LiveEventInformation(this, _amsClientV3)
                 {
                     MyLiveEvent = firstchannel,
                     MultipleSelection = multiselection

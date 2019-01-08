@@ -35,8 +35,7 @@ namespace AMSExplorer
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
         private Mainform MyMainForm;
-        private AzureMediaServicesClient _client;
-        private CredentialsEntryV3 _credentials;
+        private AMSClientV3 _client;
         private string defaultEncodingPreset = null;
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string _radioButtonDefaultPreset;
@@ -115,13 +114,12 @@ namespace AMSExplorer
 
 
 
-        public LiveEventInformation(Mainform mainform, AzureMediaServicesClient client, CredentialsEntryV3 credentials)
+        public LiveEventInformation(Mainform mainform, AMSClientV3 client)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
             _client = client;
-            _credentials = credentials;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -460,8 +458,19 @@ namespace AMSExplorer
         {
             if (MyLiveEvent.ResourceState == LiveEventResourceState.Running && MyLiveEvent.Preview != null && MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
             {
-                //string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false, mainForm: MyMainForm);
-                //webBrowserPreview.Url = new Uri(myurl.Replace("https://", "http://"));
+                string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(
+                            typeplayer: PlayerType.AzureMediaPlayerFrame,
+                            path: MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url,
+                            DoNotRewriteURL: true,
+                            client: _client ,
+                            formatamp: AzureMediaPlayerFormats.Auto,
+                            UISelectSEFiltersAndProtocols: false,
+                            mainForm: MyMainForm,
+                            //selectedBrowser: Constants.BrowserIE[1],
+                            launchbrowser: false
+                            );
+
+                webBrowserPreview.Url = new Uri(myurl.Replace("https://", "http://"));
             }
         }
 
@@ -563,6 +572,11 @@ namespace AMSExplorer
         private void checkBoxIgnore708_CheckedChanged(object sender, EventArgs e)
         {
             Modifications.Ignore708Captions = true;
+        }
+
+        private void webBrowserPreview_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
         }
     }
 
