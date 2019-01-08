@@ -18,17 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Net;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Text.RegularExpressions;
-using System.IO;
 using System.Diagnostics;
 using Microsoft.Azure.Management.Media.Models;
 using System.Xml;
@@ -415,6 +408,11 @@ namespace AMSExplorer
         private void buttonGenerateToken_Click(object sender, EventArgs e)
         {
             textBoxToken.Text = Guid.NewGuid().ToString().Replace("-", string.Empty);
+        }
+
+        private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
         }
     }
 }

@@ -39,7 +39,6 @@ namespace AMSExplorer
             set { textBoxDescription.Text = value; }
         }
 
-
         public TimeSpan archiveWindowLength
         {
             get
@@ -53,40 +52,17 @@ namespace AMSExplorer
             }
         }
 
-
-        public bool IsReplica
-        {
-            get
-            {
-                return checkBoxReplica.Checked;
-            }
-        }
-
-
-        public string ReplicaLocatorID
-        {
-            get { return labelLocatorID.Text; }
-
-        }
-
         public string ForceManifestName
         {
             get
             {
-                if (checkBoxReplica.Checked)
+                if (string.IsNullOrWhiteSpace(textBoxManifestName.Text))
                 {
-                    return labelManifestFile.Text;
+                    return null;
                 }
                 else
                 {
-                    if (string.IsNullOrWhiteSpace(textBoxManifestName.Text))
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        return textBoxManifestName.Text.Trim();
-                    }
+                    return textBoxManifestName.Text.Trim();
                 }
             }
         }
@@ -138,9 +114,6 @@ namespace AMSExplorer
         {
             this.Text = string.Format(this.Text, ChannelName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
-            labelManifestFile.Text = string.Empty;
-            labelLocatorID.Text = string.Empty;
-            labelURLFileNameWarning.Text = string.Empty;
 
             foreach (var storage in _client.credentialsEntry.MediaService.StorageAccounts.ToList())
             {
@@ -151,53 +124,6 @@ namespace AMSExplorer
             }
 
             checkProgramName();
-        }
-
-        private void checkBoxReplica_CheckedChanged(object sender, EventArgs e)
-        {
-            textBoxProgramSourceURL.Enabled = checkBoxReplica.Checked;
-            textBoxManifestName.Enabled = checkBoxReplica.Checked;
-            if (checkBoxReplica.Checked)
-            {
-                checkBoxCreateLocator.Checked = true;
-                checkBoxCreateLocator.Enabled = false;
-            }
-            else
-            {
-                checkBoxCreateLocator.Enabled = true;
-            }
-        }
-
-        private void textBoxIProgramSourceURL_TextChanged(object sender, EventArgs e)
-        {
-            string filename = null;
-            string locId = null;
-            bool Error = false;
-            string url = textBoxProgramSourceURL.Text;
-            if (url.EndsWith("/manifest", StringComparison.OrdinalIgnoreCase))
-            {
-                url = url.ToLower().Replace("/manifest", string.Empty);
-            }
-            try
-            {
-                Uri myUri = new Uri(url);
-                filename = System.IO.Path.GetFileNameWithoutExtension((myUri).LocalPath);
-                locId = System.IO.Path.GetDirectoryName((myUri).LocalPath);//.Replace(@"\", Constants.LocatorIdPrefix);
-            }
-            catch
-            {
-                Error = true;
-                labelURLFileNameWarning.Text = AMSExplorer.Properties.Resources.CreateProgram_textBoxIProgramSourceURL_TextChanged_URLCannotBeAnalyzed;
-                labelManifestFile.Text = string.Empty;
-                labelLocatorID.Text = string.Empty;
-            }
-
-            if (!Error)
-            {
-                labelURLFileNameWarning.Text = string.Empty;
-                labelManifestFile.Text = filename;
-                labelLocatorID.Text = locId;
-            }
         }
 
         internal static bool IsProgramNameValid(string name)

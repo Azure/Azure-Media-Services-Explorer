@@ -129,7 +129,6 @@
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.panel1);
             this.Name = "UploadOptions";
-            this.Load += new System.EventHandler(this.UploadOptions_Load);
             this.panel1.ResumeLayout(false);
             this.groupBoxMultifiles.ResumeLayout(false);
             this.groupBoxMultifiles.PerformLayout();

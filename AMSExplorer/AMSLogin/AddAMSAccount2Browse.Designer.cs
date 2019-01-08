@@ -88,7 +88,7 @@
             this.DGAcct.ReadOnly = true;
             this.DGAcct.RowHeadersVisible = false;
             // 
-            // AddAMSAccount2
+            // AddAMSAccount2Browse
             // 
             this.AcceptButton = this.buttonNext;
             resources.ApplyResources(this, "$this");
@@ -99,7 +99,7 @@
             this.Controls.Add(this.treeViewAzureSub);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetName);
-            this.Name = "AddAMSAccount2";
+            this.Name = "AddAMSAccount2Browse";
             this.Load += new System.EventHandler(this.AddAMSAccount2_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGAcct)).EndInit();

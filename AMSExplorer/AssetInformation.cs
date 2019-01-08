@@ -1090,18 +1090,6 @@ namespace AMSExplorer
             tokenDisplayForm.Display();
         }
 
-        private void buttonCreateMail_Click(object sender, EventArgs e)
-        {
-            DoAssetCreateMail();
-        }
-
-        private void DoAssetCreateMail()
-        {
-            AssetInfo MyAssetReport = new AssetInfo(myAssetV3);
-            MyAssetReport.CreateOutlookMail();
-        }
-
-
         private void buttonDeleteFile_Click(object sender, EventArgs e)
         {
             DoDeleteBlobs();

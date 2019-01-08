@@ -22,8 +22,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Net;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
 
@@ -209,15 +207,15 @@ namespace AMSExplorer
                     }
                 }
 
-                if (MyLiveEvent.StreamOptions != null)
+
+
+                string mode = "Default";
+                if (MyLiveEvent.StreamOptions != null && MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency))
                 {
-                    foreach (var option in MyLiveEvent.StreamOptions)
-                    {
-                        DGLiveEvent.Rows.Add("Option", option.Value);
-                    }
-
-
+                    mode = "Low latency";
                 }
+                DGLiveEvent.Rows.Add("Mode", mode);
+
             }
             else // multiselect
             {

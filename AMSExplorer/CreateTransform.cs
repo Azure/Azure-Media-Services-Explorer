@@ -15,42 +15,21 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
     public partial class CreateTransform : Form
     {
-       
-
-      
-     
-      
-
-      
 
         public CreateTransform()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
         }
-
-       
       
         private void CreateLocator_Load(object sender, EventArgs e)
         {
         }
-
-   
     }
 }

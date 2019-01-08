@@ -488,12 +488,6 @@
     <Compile Include="StorageSettings.Designer.cs">
       <DependentUpon>StorageSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Subclipping.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Subclipping.Designer.cs">
-      <DependentUpon>Subclipping.cs</DependentUpon>
-    </Compile>
     <Compile Include="DynManifestFilter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1116,9 +1110,6 @@
     <EmbeddedResource Include="StreamingEndpointInformation.ja.resx">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Subclipping.ja.resx">
-      <DependentUpon>Subclipping.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Thumbnails.ja.resx">
       <DependentUpon>Thumbnails.cs</DependentUpon>
     </EmbeddedResource>
@@ -1163,9 +1154,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StorageSettings.resx">
       <DependentUpon>StorageSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Subclipping.resx">
-      <DependentUpon>Subclipping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DynManifestFilter.resx">
       <DependentUpon>DynManifestFilter.cs</DependentUpon>

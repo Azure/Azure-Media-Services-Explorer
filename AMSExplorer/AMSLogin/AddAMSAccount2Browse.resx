@@ -127,7 +127,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonNext.Location" type="System.Drawing.Point, System.Drawing">
-    <value>329, 14</value>
+    <value>369, 14</value>
   </data>
   <data name="buttonNext.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -154,7 +154,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>448, 14</value>
+    <value>488, 14</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -178,7 +178,7 @@
     <value>0</value>
   </data>
   <data name="labelAssetName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 15</value>
+    <value>15, 22</value>
   </data>
   <data name="labelAssetName.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 15</value>
@@ -187,7 +187,7 @@
     <value>42</value>
   </data>
   <data name="labelAssetName.Text" xml:space="preserve">
-    <value>label2</value>
+    <value>Browse you subscriptions and select an AMS account</value>
   </data>
   <data name="&gt;&gt;labelAssetName.Name" xml:space="preserve">
     <value>labelAssetName</value>
@@ -205,10 +205,10 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 553</value>
+    <value>-2, 507</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 55</value>
+    <value>615, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -229,10 +229,10 @@
     <value>Top, Bottom, Left</value>
   </data>
   <data name="treeViewAzureSub.Location" type="System.Drawing.Point, System.Drawing">
-    <value>38, 58</value>
+    <value>18, 58</value>
   </data>
   <data name="treeViewAzureSub.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 390</value>
+    <value>217, 420</value>
   </data>
   <data name="treeViewAzureSub.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -256,7 +256,7 @@
     <value>241, 58</value>
   </data>
   <data name="DGAcct.Size" type="System.Drawing.Size, System.Drawing">
-    <value>317, 390</value>
+    <value>357, 420</value>
   </data>
   <data name="DGAcct.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
@@ -283,7 +283,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>572, 607</value>
+    <value>612, 561</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -301,7 +301,7 @@
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AddAMSAccount2</value>
+    <value>AddAMSAccount2Browse</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

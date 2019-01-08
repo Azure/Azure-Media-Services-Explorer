@@ -19,13 +19,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
-// Azure Management dependencies
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Microsoft.Rest;
-using System.Threading.Tasks;
 
 namespace AMSExplorer
 {

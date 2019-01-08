@@ -9929,23 +9929,20 @@ namespace AMSExplorer
             if (asset != null)
             {
                 AssetInfo AI = new AssetInfo(asset);
-                IEnumerable<Uri> ValidURIs = AI.GetValidURIs();
-                if (ValidURIs != null && ValidURIs.FirstOrDefault() != null)
+                var ValidURI = AssetInfo.GetValidOnDemandURI(asset, _amsClientV3);
+                if (ValidURI != null)
                 {
-                    string url = ValidURIs.FirstOrDefault().AbsoluteUri;
-
-                    if (true)//_context.StreamingEndpoints.Count() > 1 || (_context.StreamingEndpoints.FirstOrDefault() != null && _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
+                    string url = ValidURI.AbsoluteUri;
+                    var form = new ChooseStreamingEndpoint(_amsClientV3, asset, url);
+                    if (form.ShowDialog() == DialogResult.OK)
                     {
-                        var form = new ChooseStreamingEndpoint(_amsClientV3, asset, url);
-                        if (form.ShowDialog() == DialogResult.OK)
-                        {
-                            url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                     }
+                    else
+                    {
+                        return;
+                    }
+
                     var tokenDisplayForm = new EditorXMLJSON("Output URL", url, false, false, false);
                     tokenDisplayForm.Display();
                 }
@@ -11076,9 +11073,6 @@ namespace AMSExplorer
             // clone program
             cloneToolStripMenuItem.Enabled = oneOrMore;
 
-            // subclip program
-            subclipProgramsToolStripMenuItem.Enabled = oneOrMore;
-
             // secutiry
             securityToolStripMenuItem.Enabled = oneOrMore;
 
@@ -11408,34 +11402,7 @@ namespace AMSExplorer
 
         private void subclipToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoSubClip();
-        }
-
-        private void DoSubClip()
-        {
-            var selectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
-
-            if (selectedAssets.Count > 0)
-            {
-                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive) || AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_Fragmented)))
-                {
-                    MessageBox.Show("Asset(s) should be a live, live archive or pre-fragmented asset." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-
-                Subclipping form = new Subclipping(_context, new List<IAsset>() /* selectedAssets*/, this)
-                {
-                    EncodingJobName = "Subclipping of " + Constants.NameconvInputasset,
-                    EncodingOutputAssetName = Constants.NameconvInputasset + " - Subclipped"
-                };
-
-                form.ShowDialog();
-            }
-        }
-
-        private void subclipProgramsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoSubClip();
+          
         }
 
         private void DoExportMetadata()

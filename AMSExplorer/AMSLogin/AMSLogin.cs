@@ -17,19 +17,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections.Specialized;
-using System.Xml;
-using System.Xml.Linq;
 using System.Diagnostics;
-using System.Configuration;
 using System.Reflection;
-using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using System.IO;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
@@ -37,7 +29,6 @@ using Microsoft.Rest;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.Storage;
-using Microsoft.Azure;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure.Authentication;
 

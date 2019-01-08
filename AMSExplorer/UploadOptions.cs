@@ -14,17 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 
@@ -49,7 +40,6 @@ namespace AMSExplorer
                 return radioButtonSingleAsset.Checked;
             }
         }
-
 
         public UploadOptions(AMSClientV3 amsClient, bool multifilesMode)
         {
@@ -77,11 +67,6 @@ namespace AMSExplorer
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
                 if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
-        }
-
-        private void UploadOptions_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

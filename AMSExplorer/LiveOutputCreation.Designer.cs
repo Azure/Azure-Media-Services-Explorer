@@ -57,16 +57,6 @@
             this.labelCloneLocators = new System.Windows.Forms.Label();
             this.textBoxManifestName = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.labelURLFileNameWarning = new System.Windows.Forms.Label();
-            this.labelManifestFile = new System.Windows.Forms.Label();
-            this.labelLocatorID = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBoxProgramSourceURL = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.checkBoxReplica = new System.Windows.Forms.CheckBox();
             this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
@@ -77,7 +67,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
-            this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -149,7 +138,6 @@
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
@@ -266,73 +254,6 @@
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.labelURLFileNameWarning);
-            this.tabPage2.Controls.Add(this.labelManifestFile);
-            this.tabPage2.Controls.Add(this.labelLocatorID);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.textBoxProgramSourceURL);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.checkBoxReplica);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // labelURLFileNameWarning
-            // 
-            resources.ApplyResources(this.labelURLFileNameWarning, "labelURLFileNameWarning");
-            this.labelURLFileNameWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelURLFileNameWarning.Name = "labelURLFileNameWarning";
-            // 
-            // labelManifestFile
-            // 
-            resources.ApplyResources(this.labelManifestFile, "labelManifestFile");
-            this.labelManifestFile.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelManifestFile.Name = "labelManifestFile";
-            // 
-            // labelLocatorID
-            // 
-            resources.ApplyResources(this.labelLocatorID, "labelLocatorID");
-            this.labelLocatorID.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelLocatorID.Name = "labelLocatorID";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // label8
-            // 
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // textBoxProgramSourceURL
-            // 
-            resources.ApplyResources(this.textBoxProgramSourceURL, "textBoxProgramSourceURL");
-            this.textBoxProgramSourceURL.Name = "textBoxProgramSourceURL";
-            this.textBoxProgramSourceURL.TextChanged += new System.EventHandler(this.textBoxIProgramSourceURL_TextChanged);
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // checkBoxReplica
-            // 
-            resources.ApplyResources(this.checkBoxReplica, "checkBoxReplica");
-            this.checkBoxReplica.Name = "checkBoxReplica";
-            this.checkBoxReplica.UseVisualStyleBackColor = true;
-            this.checkBoxReplica.CheckedChanged += new System.EventHandler(this.checkBoxReplica_CheckedChanged);
-            // 
             // checkBoxDynEnc
             // 
             resources.ApplyResources(this.checkBoxDynEnc, "checkBoxDynEnc");
@@ -351,7 +272,7 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // CreateProgram
+            // LiveOutputCreation
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -367,7 +288,7 @@
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxprogramname);
-            this.Name = "CreateProgram";
+            this.Name = "LiveOutputCreation";
             this.Load += new System.EventHandler(this.LiveOutputCreation_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -378,8 +299,6 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
@@ -403,20 +322,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.NumericUpDown numericUpDownArchiveHours;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown numericUpDownArchiveMinutes;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxProgramSourceURL;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBoxReplica;
-        private System.Windows.Forms.Label labelManifestFile;
-        private System.Windows.Forms.Label labelLocatorID;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
         private System.Windows.Forms.CheckBox checkBoxDynEnc;

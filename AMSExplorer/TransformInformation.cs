@@ -16,16 +16,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-
 
 namespace AMSExplorer
 {
@@ -42,7 +37,6 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
             _mainform = mainform;
-
         }
 
         private void contextMenuStrip_MouseClick(object sender, MouseEventArgs e)
@@ -61,23 +55,6 @@ namespace AMSExplorer
                     System.Windows.Forms.Clipboard.Clear();
                 }
             }
-        }
-
-        private void buttonCopyStats_Click(object sender, EventArgs e)
-        {
-            DoJobStats();
-        }
-
-        public void DoJobStats()
-        {
-            throw new NotImplementedException();
-
-            /*
-            JobInfo JR = new JobInfo(MyJob, _mainform._accountname);
-            StringBuilder SB = JR.GetStats();
-            var tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.JobInformation_DoJobStats_JobReport, SB.ToString(), false, false, false);
-            tokenDisplayForm.Display();
-            */
         }
 
         private void JobInformation_Load(object sender, EventArgs e)
@@ -100,9 +77,6 @@ namespace AMSExplorer
 
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)MyTransform.Created).ToLocalTime().ToString("G"));
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyTransform.LastModified).ToLocalTime().ToString("G"));
-
-
-
 
             bool boutoutsinjobs = (MyTransform.Outputs.Count() > 0);
 
@@ -147,8 +121,6 @@ namespace AMSExplorer
             listViewOutputs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewOutputs.EndUpdate();
         }
-
-
 
         private void buttonCreateMail_Click(object sender, EventArgs e)
         {
@@ -212,11 +184,7 @@ namespace AMSExplorer
                 DGOutputs.Rows.Add("Insights To Extract", pmes.InsightsToExtract);
             }
 
-
             DGOutputs.Rows.Add("Relative Priority", output.RelativePriority);
-
-
-
         }
 
         private void DGTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
