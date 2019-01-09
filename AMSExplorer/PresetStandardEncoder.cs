@@ -86,26 +86,15 @@ namespace AMSExplorer
         private void PresetStandardEncoder_Load(object sender, EventArgs e)
         {
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming, EncoderNamedPreset.AdaptiveStreaming));
-            /*   listboxPresets.Items.Add(EncoderNamedPreset.H264MultipleBitrate1080p);
-               listboxPresets.Items.Add(EncoderNamedPreset.H264MultipleBitrate720p);
-               listboxPresets.Items.Add(EncoderNamedPreset.H264MultipleBitrateSD);
-               listboxPresets.Items.Add(EncoderNamedPreset.H264SingleBitrate1080p);
-               listboxPresets.Items.Add(EncoderNamedPreset.H264SingleBitrate720p);
-               listboxPresets.Items.Add(EncoderNamedPreset.H264SingleBitrateSD);
-               listboxPresets.Items.Add(EncoderNamedPreset.AACGoodQualityAudio);*/
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate1080p, EncoderNamedPreset.H264MultipleBitrate1080p));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate720p, EncoderNamedPreset.H264MultipleBitrate720p));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrateSD, EncoderNamedPreset.H264MultipleBitrateSD));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate1080p, EncoderNamedPreset.H264SingleBitrate1080p));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate720p, EncoderNamedPreset.H264SingleBitrate720p));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrateSD, EncoderNamedPreset.H264SingleBitrateSD));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AACGoodQualityAudio, EncoderNamedPreset.AACGoodQualityAudio));
 
             listboxPresets.SelectedIndex = 0;
-
-            /*
-            // Adaptive streaming as default
-            for (int i = 0; i < listboxPresets.Items.Count; i++)
-            {
-                if (listboxPresets.Items[i].ToString() == EncoderNamedPreset.AdaptiveStreaming.ToString())
-                {
-                    listboxPresets.SelectedIndex = i;
-                }
-            }
-            */
 
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoMediaEncoderBuiltIn));
             UpdateTransformLabel();
