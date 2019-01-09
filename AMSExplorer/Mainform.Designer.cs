@@ -342,13 +342,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelWatchFolder = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelEncRU = new System.Windows.Forms.ToolStripStatusLabel();
             this.label12 = new System.Windows.Forms.Label();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
+            this.storageSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -2180,7 +2180,8 @@
             // 
             this.contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
-            this.attachAnotherStorageAccountToolStripMenuItem});
+            this.attachAnotherStorageAccountToolStripMenuItem,
+            this.storageSettingsToolStripMenuItem});
             this.contextMenuStripStorage.Name = "contextMenuStripStreamingEndpoints";
             resources.ApplyResources(this.contextMenuStripStorage, "contextMenuStripStorage");
             this.contextMenuStripStorage.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripStorage_Opening);
@@ -2724,8 +2725,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelConnection,
-            this.toolStripStatusLabelWatchFolder,
-            this.toolStripStatusLabelEncRU});
+            this.toolStripStatusLabelWatchFolder});
             resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Name = "statusStrip1";
             // 
@@ -2741,14 +2741,6 @@
             this.toolStripStatusLabelWatchFolder.Image = global::AMSExplorer.Bitmaps.watch_folder;
             this.toolStripStatusLabelWatchFolder.Name = "toolStripStatusLabelWatchFolder";
             resources.ApplyResources(this.toolStripStatusLabelWatchFolder, "toolStripStatusLabelWatchFolder");
-            // 
-            // toolStripStatusLabelEncRU
-            // 
-            this.toolStripStatusLabelEncRU.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusLabelEncRU.Name = "toolStripStatusLabelEncRU";
-            resources.ApplyResources(this.toolStripStatusLabelEncRU, "toolStripStatusLabelEncRU");
-            this.toolStripStatusLabelEncRU.Spring = true;
-            this.toolStripStatusLabelEncRU.Tag = "";
             // 
             // label12
             // 
@@ -2782,6 +2774,12 @@
             this.buttonRefreshTab.Name = "buttonRefreshTab";
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
+            // 
+            // storageSettingsToolStripMenuItem
+            // 
+            this.storageSettingsToolStripMenuItem.Name = "storageSettingsToolStripMenuItem";
+            resources.ApplyResources(this.storageSettingsToolStripMenuItem, "storageSettingsToolStripMenuItem");
+            this.storageSettingsToolStripMenuItem.Click += new System.EventHandler(this.storageSettingsToolStripMenuItem_Click);
             // 
             // Mainform
             // 
@@ -3152,7 +3150,6 @@
         private System.Windows.Forms.Button buttonRefreshTab;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem31;
         private DataGridViewTransforms dataGridViewTransformsV;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTransforms;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedTransform;
@@ -3166,6 +3163,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.TextBox textBoxJobsPageNumber;
         private System.Windows.Forms.ToolStripMenuItem selectATransformToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem storageSettingsToolStripMenuItem;
     }
 }
 

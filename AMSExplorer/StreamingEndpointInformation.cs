@@ -131,10 +131,11 @@ namespace AMSExplorer
             get { return (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null; }
         }
 
-        public StreamingEndpointInformation()
+        public StreamingEndpointInformation(StreamingEndpoint streamingEndpoint )
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            MySE = streamingEndpoint;
         }
 
 

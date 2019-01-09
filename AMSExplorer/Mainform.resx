@@ -3701,8 +3701,14 @@
   <data name="attachAnotherStorageAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>Attach/Detach storage accounts...</value>
   </data>
+  <data name="storageSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 22</value>
+  </data>
+  <data name="storageSettingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Storage settings...</value>
+  </data>
   <data name="contextMenuStripStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 48</value>
+    <value>254, 92</value>
   </data>
   <data name="&gt;&gt;contextMenuStripStorage.Name" xml:space="preserve">
     <value>contextMenuStripStorage</value>
@@ -4565,18 +4571,6 @@
   </data>
   <data name="toolStripStatusLabelWatchFolder.Text" xml:space="preserve">
     <value>Watch folder running</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>No</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 17</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.Text" xml:space="preserve">
-    <value>{0} {1} Media RU</value>
-  </data>
-  <data name="toolStripStatusLabelEncRU.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
   </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 617</value>
@@ -8452,12 +8446,6 @@
   <data name="&gt;&gt;toolStripStatusLabelWatchFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripStatusLabelEncRU.Name" xml:space="preserve">
-    <value>toolStripStatusLabelEncRU</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabelEncRU.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
   </data>
@@ -8469,6 +8457,12 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;storageSettingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>storageSettingsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;storageSettingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>

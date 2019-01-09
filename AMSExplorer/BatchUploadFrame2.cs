@@ -125,7 +125,7 @@ namespace AMSExplorer
 
             foreach (var storage in _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts)
             {
-                string sname = storage.Id.Split('/').Last();
+                string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.Type == StorageAccountType.Primary);
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
                 if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;

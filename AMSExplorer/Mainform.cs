@@ -17,6 +17,7 @@
 // Azure Management dependencies
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -39,6 +40,7 @@ using System.Drawing.Drawing2D;
 using System.IdentityModel.Tokens;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -1237,7 +1239,11 @@ namespace AMSExplorer
 
             var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
-            if (storageaccount == null) storageaccount = storAccounts.Where(s => s.Type == StorageAccountType.Primary).First().Id.Split('/').Last(); // no storage account or null, then let's take the default one
+            if (storageaccount == null)
+            {
+                storageaccount = AMSClientV3.GetStorageName(storAccounts.Where(s => s.Type == StorageAccountType.Primary).First().Id);
+                // no storage account or null, then let's take the default one
+            }
 
             bool Error = false;
             Asset asset = null;
@@ -1326,7 +1332,11 @@ namespace AMSExplorer
 
             var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
-            if (storageaccount == null) storageaccount = storAccounts.Where(s => s.Type == StorageAccountType.Primary).First().Id.Split('/').Last(); // no storage account or null, then let's take the default one
+            if (storageaccount == null)
+            {
+                storageaccount = AMSClientV3.GetStorageName(storAccounts.Where(s => s.Type == StorageAccountType.Primary).First().Id);
+                // no storage account or null, then let's take the default one
+            }
 
             bool Error = false;
             Asset asset = null;
@@ -1854,11 +1864,11 @@ namespace AMSExplorer
                                     var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
                                     // Start a worker thread that does uploading.
                                     Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
-                                  new List<string>() { f },
-                                  response.Id,
-                                  response.token,
-                                  storageaccount: form.StorageSelected
-                                  ), response.token);
+                                      new List<string>() { f },
+                                      response.Id,
+                                      response.token,
+                                      storageaccount: form.StorageSelected
+                                      ), response.token);
 
                                     if (i == 10) // let's use a batch of 10 threads at the same time
                                     {
@@ -2635,14 +2645,13 @@ namespace AMSExplorer
 
         private StorageAccount ReturnSelectedStorage()
         {
-
             StorageAccount SelectedStorage = null;
             if (dataGridViewStorage.SelectedRows.Count == 1)
             {
                 var row = dataGridViewStorage.SelectedRows[0];
-                var index = dataGridViewStorage.Columns["Name"].Index;
-                var storagename = row.Cells[index].Value.ToString();
-                SelectedStorage = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts.Where(s => s.Id.Split('/').Last() == storagename).FirstOrDefault();
+                var index = dataGridViewStorage.Columns["Id"].Index;
+                var storagename = AMSClientV3.GetStorageName(row.Cells[index].Value.ToString());
+                SelectedStorage = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts.Where(s => AMSClientV3.GetStorageName(s.Id) == storagename).FirstOrDefault();
             }
 
             return SelectedStorage;
@@ -6527,14 +6536,13 @@ namespace AMSExplorer
                 }
                 */
 
-                var name = storage.Id.Split('/');
-
+                var name = AMSClientV3.GetStorageName(storage.Id);
                 string append = "";
                 if (storage.Type == StorageAccountType.Primary)
                 {
                     append = " (primary)";
                 }
-                int rowi = dataGridViewStorage.Rows.Add(name.Last() + append, storage.Id);
+                int rowi = dataGridViewStorage.Rows.Add(name + append, storage.Id);
 
                 //int rowi = dataGridViewStorage.Rows.Add(names.Last() + append), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "(are the metrics enabled ?)", storage.Name, displaycapacity? capacityPercentageFullTmp : null);
                 if (storage.Type == StorageAccountType.Primary)
@@ -6675,7 +6683,8 @@ namespace AMSExplorer
             List<StreamingEndpoint> SelectedOrigins = new List<StreamingEndpoint>();
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
-                var se = _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString());
+                string seName = Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString();
+                var se = _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, seName);
                 if (se != null)
                 {
                     SelectedOrigins.Add(se);
@@ -7896,9 +7905,8 @@ namespace AMSExplorer
         {
             bool multiselection = streamingendpoints.Count > 1;
 
-            StreamingEndpointInformation form = new StreamingEndpointInformation()
+            StreamingEndpointInformation form = new StreamingEndpointInformation(streamingendpoints.FirstOrDefault())
             {
-                MySE = streamingendpoints.FirstOrDefault(),
                 MultipleSelection = multiselection
             };
 
@@ -11402,7 +11410,7 @@ namespace AMSExplorer
 
         private void subclipToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void DoExportMetadata()
@@ -11428,91 +11436,66 @@ namespace AMSExplorer
         private void DoStorageVersion(string storageId = null)
         {
             string valuekey = "";
+            bool Error = false;
+            ServiceProperties serviceProperties = null;
+            CloudBlobClient blobClient = null;
 
             if (storageId == null)
             {
                 storageId = ReturnSelectedStorage().Id;
             }
 
-            /*
-            if (storageId == _context.DefaultStorageAccount.Name && havestoragecredentials)
+            try
             {
-                valuekey = _credentials.DefaultStorageKey;
-                StorageKeyKnown = true;
-            }
-            */
+                valuekey = _amsClientV3.GetStorageKey(storageId);
+                var storageAccount = new CloudStorageAccount(new StorageCredentials(AMSClientV3.GetStorageName(storageId), valuekey), _amsClientV3.environment.ReturnStorageSuffix(), true);
+                blobClient = storageAccount.CreateCloudBlobClient();
 
-            /*
-            if (true)//(!havestoragecredentials && storageId == _context.DefaultStorageAccount.Name) || (storageId != _context.DefaultStorageAccount.Name))
-            { // No blob credentials. Let's ask the user
-                StorageKeyKnown = false;
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageId + ":", ref valuekey, true) == DialogResult.OK)
+                // Get the current service properties
+                serviceProperties = blobClient.GetServiceProperties();
+            }
+            catch (Exception ex)
+            {
+                Error = true;
+                MessageBox.Show(ex.Message, "Error accessing the storage account", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextBoxLogWriteLine(ex);
+            }
+
+            if (!Error)
+            {
+                var form = new StorageSettings(AMSClientV3.GetStorageName(storageId), serviceProperties);
+
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    StorageKeyKnown = true;
-                    if (storageId == _context.DefaultStorageAccount.Name)
+
+                    // Set the default service version to 2011-08-18 (or a higher version like 2012-03-01)
+                    //serviceProperties.DefaultServiceVersion = "2011-08-18";
+                    try
                     {
-                        _credentials.DefaultStorageKey = valuekey;
-                        havestoragecredentials = true;
+                        TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...",
+                            form.RequestedStorageVersion ?? StorageSettings.noversion,
+                            form.RequestedMetricsLevel.ToString(),
+                            form.RequestedMetricsRetention ?? 0
+                            );
+                        serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
+                        serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
+                        serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
+
+                        // Save the updated service properties
+                        blobClient.SetServiceProperties(serviceProperties);
+                        TextBoxLogWriteLine("Storage settings applied.");
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when setting the storage version.", true);
+                        TextBoxLogWriteLine(ex);
                     }
                 }
-            }
-            */
-            string storageName = storageId.Split('/').Last();
-            if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageName + ":", ref valuekey, true) == DialogResult.OK)
-            {
-                bool Error = false;
-                ServiceProperties serviceProperties = null;
-                CloudBlobClient blobClient = null;
-                try
-                {
-                    var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _amsClientV3.environment.ReturnStorageSuffix(), true);
-                    blobClient = storageAccount.CreateCloudBlobClient();
 
-                    // Get the current service properties
-                    serviceProperties = blobClient.GetServiceProperties();
-                }
-                catch (Exception ex)
-                {
-                    Error = true;
-                    MessageBox.Show("Error when accessing the storage account.\nIs the key correct ?\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    TextBoxLogWriteLine("Error when accessing the storage account.\nIs the key correct ?", true);
-                    TextBoxLogWriteLine(ex);
-                }
-
-                if (!Error)
-                {
-                    var form = new StorageSettings(storageId, serviceProperties);
-
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-
-                        // Set the default service version to 2011-08-18 (or a higher version like 2012-03-01)
-                        //serviceProperties.DefaultServiceVersion = "2011-08-18";
-                        try
-                        {
-                            TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...",
-                                form.RequestedStorageVersion ?? StorageSettings.noversion,
-                                form.RequestedMetricsLevel.ToString(),
-                                form.RequestedMetricsRetention ?? 0
-                                );
-                            serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
-                            serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
-                            serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
-
-                            // Save the updated service properties
-                            blobClient.SetServiceProperties(serviceProperties);
-                            TextBoxLogWriteLine("Storage settings applied.");
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Error when setting the storage version.", true);
-                            TextBoxLogWriteLine(ex);
-                        }
-                    }
-                }
 
             }
         }
+
 
         private void helpToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
@@ -12584,6 +12567,11 @@ namespace AMSExplorer
         private void selectATransformToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoSelectTransformAndSubmitJob();
+        }
+
+        private void storageSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoStorageVersion();
         }
     }
 }

@@ -339,9 +339,6 @@
   <data name="&gt;&gt;radioButtonAddManual.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="comboBoxAADMappingList.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="comboBoxAADMappingList.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 42</value>
   </data>

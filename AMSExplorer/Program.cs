@@ -4830,6 +4830,42 @@ namespace AMSExplorer
 
             return AMSclient;
         }
+
+
+        public string GetStorageKey(string storageId)
+        {
+            string valuekey = "";
+
+            string token = this.accessToken.AccessToken;
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(this.environment.ArmEndpoint + "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}/listKeys?api-version=2016-01-01", this.credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
+            request.Method = "POST";
+            request.Headers["Authorization"] = "Bearer " + token;
+            request.ContentType = "application/json";
+            request.ContentLength = 0;
+
+            //Get the response
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+
+            using (System.IO.StreamReader r = new System.IO.StreamReader(httpResponse.GetResponseStream()))
+            {
+                string jsonResponse = r.ReadToEnd();
+                dynamic data = JsonConvert.DeserializeObject(jsonResponse);
+                valuekey = data.keys[0].value;
+            }
+
+            return valuekey;
+        }
+
+        public static string GetStorageName(string storageId)
+        {
+            return storageId.Split('/').Last();
+        }
+
+        public static string GetStorageResourceName(string storageId)
+        {
+            var split = storageId.Split('/');
+            return storageId.Split('/')[split.Count() - 5];
+        }
     }
 
     public class CredentialsEntryV3 : IEquatable<CredentialsEntryV3>
