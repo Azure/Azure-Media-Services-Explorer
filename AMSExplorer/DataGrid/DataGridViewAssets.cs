@@ -405,7 +405,7 @@ namespace AMSExplorer
         public void RefreshAssets(int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
-            if (pagetodisplay == 0) _currentPageNumberIsMax = false;
+            if (pagetodisplay == 1) _currentPageNumberIsMax = false;
             Debug.WriteLine("RefreshAssets Start");
 
             if (WorkerAnalyzeAssets.IsBusy)
@@ -543,7 +543,7 @@ Properties/StorageId
 
             IPage<Asset> currentPage = null;
 
-            if (pagetodisplay == 0)
+            if (pagetodisplay == 1)
             {
                 firstpage = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);
                 currentPage = firstpage;
@@ -551,7 +551,7 @@ Properties/StorageId
             else
             {
                 currentPage = firstpage;
-                _currentPageNumber = 0;
+                _currentPageNumber = 1;
                 while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
                     _currentPageNumber++;

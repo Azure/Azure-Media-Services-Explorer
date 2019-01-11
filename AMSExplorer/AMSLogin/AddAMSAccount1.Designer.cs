@@ -102,8 +102,8 @@
             // comboBoxAADMappingList
             // 
             this.comboBoxAADMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAADMappingList.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
+            this.comboBoxAADMappingList.FormattingEnabled = true;
             this.comboBoxAADMappingList.Name = "comboBoxAADMappingList";
             // 
             // groupBox1

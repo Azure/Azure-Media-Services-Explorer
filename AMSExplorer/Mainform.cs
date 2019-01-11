@@ -1024,51 +1024,18 @@ namespace AMSExplorer
 
         public void DoRefreshGridAssetV(bool firstime)
         {
-            SetTextBoxAssetsPageNumber(0);
-
             if (firstime)
             {
+                SetTextBoxAssetsPageNumber(1);
+
                 dataGridViewAssetsV.Init(_amsClientV3);
-                //for (int i = 0; i <= 10 /*dataGridViewAssetsV.PageCount*/; i++) comboBoxPageAssets.Items.Add(i);
-                //comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
             }
 
             Debug.WriteLine("DoRefreshGridAssetNotforsttime");
-            // int ComboBackupindex = 0;
-            // int DGpagecount = 0;
-
-            //  dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
-            //  comboBoxPageAssets.Invoke(new Action(() => ComboBackupindex = comboBoxPageAssets.SelectedIndex));
 
             dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber())));
-
-            //dataGridViewAssetsV.Invoke(new Action(() => DGpagecount = dataGridViewAssetsV.PageCount));
-
-            /*
-            if (comboBoxPageAssets.Items.Count < DGpagecount) // more assets, let's add pages
-            {
-                for (int i = comboBoxPageAssets.Items.Count; i < DGpagecount; i++)
-                {
-                    comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Add(i + 1)));
-                }
-            }
-            else if (comboBoxPageAssets.Items.Count > DGpagecount) // less assets, let's remove pages
-            {
-                for (int i = comboBoxPageAssets.Items.Count; i > DGpagecount; i--)
-                {
-                    comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Remove(i)));
-                }
-            }
-            */
-
-            /*
-            if ((dataGridViewAssetsV.CurrentPage <= comboBoxPageAssets.Items.Count) && (comboBoxPageAssets.Items.Count > 0)) // if multiple refresh at the same time, it may happen that comboBoxPageAssets.Items.Count =0 which creates an exception
-            {
-                comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
-            }
-
-            */
+          
 
             //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
         }
@@ -1096,9 +1063,6 @@ namespace AMSExplorer
 
             dataGridViewTransformsV.Invoke(new Action(() => dataGridViewTransformsV.RefreshTransforms()));
 
-
-
-
             //uodate tab nimber of jobs
             //    tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(AMSExplorer.Properties.Resources.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
         }
@@ -1107,43 +1071,15 @@ namespace AMSExplorer
         private void DoRefreshGridJobV(bool firstime)
         {
             if (!dataGridViewJobsV._initialized)
-            //  if (firstime)
-            {
-                dataGridViewJobsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
-            }
+                if (firstime)
+                {
+                    SetTextBoxJobsPageNumber(1);
+                    dataGridViewJobsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+                }
 
             Debug.WriteLine("DoRefreshGridJobVNotforsttime");
-            int backupindex = 0;
-            int pagecount = 0;
 
-            //    dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.JobssPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
-            //   comboBoxPageJobs.Invoke(new Action(() => backupindex = comboBoxPageJobs.SelectedIndex));
-            dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.Refreshjobs(0)));
-            //  dataGridViewJobsV.Invoke(new Action(() => pagecount = dataGridViewJobsV.PageCount));
-
-            /*
-            if (comboBoxPageJobs.Items.Count < pagecount) // more assets, let's add pages
-            {
-                for (int i = comboBoxPageJobs.Items.Count; i < pagecount; i++)
-                {
-                    comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Add(i + 1)));
-                }
-            }
-            else if (comboBoxPageJobs.Items.Count > pagecount) // less assets, let's remove pages
-            {
-                for (int i = comboBoxPageJobs.Items.Count; i > pagecount; i--)
-                {
-                    comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Remove(i)));
-                }
-            }
-
-            if ((dataGridViewJobsV.CurrentPage <= comboBoxPageJobs.Items.Count) && (comboBoxPageJobs.Items.Count > 0)) // if multiple refresh at the same time, it may happen that comboBoxPageJobs.Items.Count =0 which creates an exception
-            {
-                comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
-            }
-            //uodate tab nimber of jobs
-          //  tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(AMSExplorer.Properties.Resources.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
-          */
+            dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.Refreshjobs(GetTextBoxJobsPageNumber())));
         }
 
 
@@ -4399,7 +4335,9 @@ namespace AMSExplorer
 
         private void DoDeleteAllJobs()
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs from selected transforms?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            if (dataGridViewTransformsV.ReturnSelectedTransforms().Count > 1) return;
+
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs from the selected transform?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 Task.Run(async () =>
                 {
@@ -4410,8 +4348,9 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Listing the jobs...");
                     List<Task> deleteTasks = new List<Task>();
 
-                    foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
+                    //   foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
                     {
+                        var transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
                         var listjobs = _amsClientV3.AMSclient.Jobs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name);
                         deleteTasks.AddRange(listjobs.ToList().Select(j => _amsClientV3.AMSclient.Jobs.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name, j.Name)));
                     }
@@ -4441,19 +4380,21 @@ namespace AMSExplorer
 
         private void DoCancelAllJobs()
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs from selected transforms ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            if (dataGridViewTransformsV.ReturnSelectedTransforms().Count > 1) return;
+
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs from the selected transform ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 Task.Run(async () =>
                 {
                     bool Error = false;
 
-
                     // let's build the tasks list
                     TextBoxLogWriteLine("Listing the jobs...");
                     List<Task> deleteTasks = new List<Task>();
 
-                    foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
+                    //  foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
                     {
+                        var transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
                         var listjobs = _amsClientV3.AMSclient.Jobs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name);
                         deleteTasks.AddRange(listjobs.ToList()
                             .Where(j => j.State == Microsoft.Azure.Management.Media.Models.JobState.Processing || j.State == Microsoft.Azure.Management.Media.Models.JobState.Queued || j.State == Microsoft.Azure.Management.Media.Models.JobState.Scheduled)
@@ -4477,7 +4418,6 @@ namespace AMSExplorer
                     DoRefreshGridJobV(false);
                 }
         );
-
             }
         }
 
@@ -5512,32 +5452,40 @@ namespace AMSExplorer
 
         private void butNextPageAsset_Click(object sender, EventArgs e)
         {
-            SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() + 1);
-            if (!butPrevPageAsset.Enabled) butPrevPageAsset.Enabled = true;
+            dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber() + 1);
+            if (!dataGridViewAssetsV.CurrentPageIsMax)
+            {
+                SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() + 1);
+            }
         }
 
         private void butPrevPageAsset_Click(object sender, EventArgs e)
         {
-            if (GetTextBoxAssetsPageNumber() > 0)
+            if (GetTextBoxAssetsPageNumber() > 1)
             {
+                dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber() - 1);
+
                 SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() - 1);
             }
-            butPrevPageAsset.Enabled = GetTextBoxAssetsPageNumber() > 0;
         }
 
         private void butNextPageJob_Click(object sender, EventArgs e)
         {
-            SetTextBoxJobsPageNumber(GetTextBoxJobsPageNumber() + 1);
-            if (!butPrevPageJob.Enabled) butPrevPageJob.Enabled = true;
+            dataGridViewJobsV.Refreshjobs(GetTextBoxJobsPageNumber() + 1);
+            if (!dataGridViewJobsV.CurrentPageIsMax)
+            {
+                SetTextBoxJobsPageNumber(GetTextBoxJobsPageNumber() + 1);
+            }
         }
 
         private void butPrevPageJob_Click(object sender, EventArgs e)
         {
-            if (GetTextBoxJobsPageNumber() > 0)
+            if (GetTextBoxJobsPageNumber() > 1)
             {
+                dataGridViewJobsV.Refreshjobs(GetTextBoxJobsPageNumber() - 1);
+
                 SetTextBoxJobsPageNumber(GetTextBoxJobsPageNumber() - 1);
             }
-            butPrevPageJob.Enabled = GetTextBoxJobsPageNumber() > 0;
         }
 
         private void Mainform_FormClosing(object sender, FormClosingEventArgs e)
@@ -6498,7 +6446,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 2;
+                dataGridViewStorage.ColumnCount = 3;
 
                 /*
                 DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
@@ -6512,10 +6460,13 @@ namespace AMSExplorer
 
                 dataGridViewStorage.Columns[0].Name = "Name";
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
-                dataGridViewStorage.Columns[0].Width = 280;
-                dataGridViewStorage.Columns[1].Name = "Id";
-                dataGridViewStorage.Columns[1].HeaderText = "Id";
-                dataGridViewStorage.Columns[1].Width = 400;
+                dataGridViewStorage.Columns[0].Width = 150;
+                dataGridViewStorage.Columns[1].Name = "Capacity";
+                dataGridViewStorage.Columns[1].HeaderText = "Capacity";
+                dataGridViewStorage.Columns[1].Width = 80;
+                dataGridViewStorage.Columns[2].Name = "Id";
+                dataGridViewStorage.Columns[2].HeaderText = "Id";
+                dataGridViewStorage.Columns[2].Width = 700;
                 /*
                 dataGridViewStorage.Columns[2].Name = "StrictName";
                 dataGridViewStorage.Columns[2].Visible = false;
@@ -6523,10 +6474,20 @@ namespace AMSExplorer
                 */
             }
             dataGridViewStorage.Rows.Clear();
-            //List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
+
             foreach (var storage in amsaccount.StorageAccounts)
             {
-                bool displaycapacity = false;
+
+                long? capacity = null;
+                try
+                {
+                    capacity = _amsClientV3.GetStorageCapacity(storage.Id);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine(ex);
+                }
+
                 /*
                 double? capacityPercentageFullTmp = null;
                 if (storage.BytesUsed != null)
@@ -6542,16 +6503,16 @@ namespace AMSExplorer
                 {
                     append = " (primary)";
                 }
-                int rowi = dataGridViewStorage.Rows.Add(name + append, storage.Id);
+                // int rowi = dataGridViewStorage.Rows.Add(name + append, storage.Id);
 
-                //int rowi = dataGridViewStorage.Rows.Add(names.Last() + append), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "(are the metrics enabled ?)", storage.Name, displaycapacity? capacityPercentageFullTmp : null);
+                int rowi = dataGridViewStorage.Rows.Add(name + append, capacity != null ? AssetInfo.FormatByteSize(capacity) : "(are the metrics enabled ?)", storage.Id);
                 if (storage.Type == StorageAccountType.Primary)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
                     dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
 
                 }
-                if (!displaycapacity)
+                if (capacity == null)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[1].ToolTipText = "Storage Account Metrics are not enabled or no data is available";
                 }
@@ -12286,12 +12247,10 @@ namespace AMSExplorer
 
         private void dataGridViewTransformsV_SelectionChanged(object sender, EventArgs e)
         {
-
             Debug.WriteLine("transform selection changed : begin");
             var SelectedTransforms = dataGridViewTransformsV.ReturnSelectedTransforms();
-            if (SelectedTransforms.Count > 0)
+            if (SelectedTransforms.Count == 1)
             {
-
                 dataGridViewJobsV.TransformSourceNames = SelectedTransforms.Select(c => c.Name).ToList();
 
                 Task.Run(() =>
@@ -12300,7 +12259,6 @@ namespace AMSExplorer
                     DoRefreshGridJobV(false);
                 });
             }
-
         }
 
         private void dataGridViewTransformsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

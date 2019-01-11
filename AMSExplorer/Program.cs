@@ -4835,9 +4835,20 @@ namespace AMSExplorer
         public string GetStorageKey(string storageId)
         {
             string valuekey = "";
+            bool classic = false;
+            string version = "2016-01-01";
 
             string token = this.accessToken.AccessToken;
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(this.environment.ArmEndpoint + "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}/listKeys?api-version=2016-01-01", this.credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
+            if (storageId.Contains("/providers/Microsoft.ClassicStorage/storageAccounts"))
+            {
+                 version = "2015-06-01";
+                classic = true;
+            }
+           
+
+            //            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(this.environment.ArmEndpoint + "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}/listKeys?api-version=2016-01-01", this.credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(this.environment.ArmEndpoint + storageId.Substring(1) + "/listKeys?api-version="+version, this.credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
+
             request.Method = "POST";
             request.Headers["Authorization"] = "Bearer " + token;
             request.ContentType = "application/json";
@@ -4850,7 +4861,7 @@ namespace AMSExplorer
             {
                 string jsonResponse = r.ReadToEnd();
                 dynamic data = JsonConvert.DeserializeObject(jsonResponse);
-                valuekey = data.keys[0].value;
+                valuekey = classic? data.primaryKey : data.keys[0].value;
             }
 
             return valuekey;
@@ -4865,6 +4876,35 @@ namespace AMSExplorer
         {
             var split = storageId.Split('/');
             return storageId.Split('/')[split.Count() - 5];
+        }
+
+
+        public long? GetStorageCapacity (string storageId)
+        {
+            StorageCredentials storageCredentials = new StorageCredentials(AMSClientV3.GetStorageName(storageId), this.GetStorageKey(storageId));
+            CloudStorageAccount cloudStorageAccount = new CloudStorageAccount(storageCredentials, useHttps: true);
+
+            var blobClient = cloudStorageAccount.CreateCloudAnalyticsClient();
+
+            // Convert the dates to the format used in the PartitionKey
+            var start = DateTime.UtcNow.AddDays(-1).ToUniversalTime().ToString("yyyyMMdd'T'HHmm");
+
+            var metricsQuery = blobClient.CreateCapacityQuery();
+
+            var query =
+       from entity in metricsQuery
+       where entity.PartitionKey.CompareTo(start) >= 0
+       select entity;
+
+            var results = query.ToList().Where(m => m.RowKey == "data");
+            if (results.LastOrDefault() != null)
+            {
+                return results.LastOrDefault().Capacity;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 

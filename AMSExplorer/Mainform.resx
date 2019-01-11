@@ -330,9 +330,6 @@
   <data name="butPrevPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="butPrevPageAsset.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="butPrevPageAsset.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1749,9 +1746,6 @@
   <data name="butPrevPageJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="butPrevPageJob.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="butPrevPageJob.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
@@ -1784,9 +1778,6 @@
   </data>
   <data name="butNextPageJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
-  </data>
-  <data name="butNextPageJob.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="butNextPageJob.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -3708,7 +3699,7 @@
     <value>Storage settings...</value>
   </data>
   <data name="contextMenuStripStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 92</value>
+    <value>254, 70</value>
   </data>
   <data name="&gt;&gt;contextMenuStripStorage.Name" xml:space="preserve">
     <value>contextMenuStripStorage</value>
@@ -7996,6 +7987,12 @@
   <data name="&gt;&gt;attachAnotherStorageAccountToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;storageSettingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>storageSettingsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;storageSettingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;copyToClipboardToolStripMenuItem.Name" xml:space="preserve">
     <value>copyToClipboardToolStripMenuItem</value>
   </data>
@@ -8457,12 +8454,6 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;storageSettingsToolStripMenuItem.Name" xml:space="preserve">
-    <value>storageSettingsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;storageSettingsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>

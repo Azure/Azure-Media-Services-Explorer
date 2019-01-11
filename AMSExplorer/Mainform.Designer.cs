@@ -262,6 +262,7 @@
             this.contextMenuStripStorage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStorageAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.storageSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripLog = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -348,7 +349,6 @@
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
-            this.storageSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -439,7 +439,6 @@
             // 
             resources.ApplyResources(this.textBoxAssetsPageNumber, "textBoxAssetsPageNumber");
             this.textBoxAssetsPageNumber.Name = "textBoxAssetsPageNumber";
-            this.textBoxAssetsPageNumber.TextChanged += new System.EventHandler(this.textBoxAssetsPageNumber_TextChanged);
             // 
             // comboBoxSearchAssetOption
             // 
@@ -480,7 +479,6 @@
             resources.ApplyResources(this.butPrevPageAsset, "butPrevPageAsset");
             this.butPrevPageAsset.Name = "butPrevPageAsset";
             this.butPrevPageAsset.UseVisualStyleBackColor = true;
-            this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
             // 
             // dataGridViewAssetsV
             // 
@@ -2199,6 +2197,12 @@
             resources.ApplyResources(this.attachAnotherStorageAccountToolStripMenuItem, "attachAnotherStorageAccountToolStripMenuItem");
             this.attachAnotherStorageAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStorageAccountToolStripMenuItem_Click);
             // 
+            // storageSettingsToolStripMenuItem
+            // 
+            this.storageSettingsToolStripMenuItem.Name = "storageSettingsToolStripMenuItem";
+            resources.ApplyResources(this.storageSettingsToolStripMenuItem, "storageSettingsToolStripMenuItem");
+            this.storageSettingsToolStripMenuItem.Click += new System.EventHandler(this.storageSettingsToolStripMenuItem_Click);
+            // 
             // richTextBoxLog
             // 
             resources.ApplyResources(this.richTextBoxLog, "richTextBoxLog");
@@ -2774,12 +2778,6 @@
             this.buttonRefreshTab.Name = "buttonRefreshTab";
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
-            // 
-            // storageSettingsToolStripMenuItem
-            // 
-            this.storageSettingsToolStripMenuItem.Name = "storageSettingsToolStripMenuItem";
-            resources.ApplyResources(this.storageSettingsToolStripMenuItem, "storageSettingsToolStripMenuItem");
-            this.storageSettingsToolStripMenuItem.Click += new System.EventHandler(this.storageSettingsToolStripMenuItem_Click);
             // 
             // Mainform
             // 

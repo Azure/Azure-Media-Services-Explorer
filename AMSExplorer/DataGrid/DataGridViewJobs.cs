@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System;
@@ -34,6 +35,37 @@ namespace AMSExplorer
 {
     public class DataGridViewJobs : DataGridView
     {
+        static BindingList<JobEntryV3> _MyObservJobV3;
+        static Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new Dictionary<string, CancellationTokenSource>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
+
+        static private int _jobsperpage = 50; //nb of items per page
+        static private int _pagecount = 1;
+        static private int _currentpage = 1;
+        public bool _initialized = false;
+        static string _orderjobs = OrderJobs.CreatedDescending;
+        static string _filterjobsstate = "All";
+        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
+        static private string _timefilter = FilterTime.LastWeek;
+        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
+        static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
+
+        static AzureMediaServicesClient _client;
+        private string _resourceName;
+        private string _accountName;
+        private List<string> _transformName = new List<string>();
+        private bool _currentPageNumberIsMax;
+        private int _currentPageNumber;
+        private IPage<Job> firstpage;
+
+
+        public bool CurrentPageIsMax
+        {
+            get
+            {
+                return _currentPageNumberIsMax;
+            }
+        }
 
         public int JobssPerPage
         {
@@ -138,29 +170,9 @@ namespace AMSExplorer
 
         }
 
-        static BindingList<JobEntryV3> _MyObservJobV3;
-        static Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new Dictionary<string, CancellationTokenSource>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
-
-        static private int _jobsperpage = 50; //nb of items per page
-        static private int _pagecount = 1;
-        static private int _currentpage = 1;
-        public bool _initialized = false;
-        static string _orderjobs = OrderJobs.CreatedDescending;
-        static string _filterjobsstate = "All";
-        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
-        static private string _timefilter = FilterTime.LastWeek;
-        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
-        private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
-        static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
-
-        static AzureMediaServicesClient _client;
-        private string _resourceName;
-        private string _accountName;
-        private List<string> _transformName = new List<string>();
-
         public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
         {
-          //  if (_transformName.Count == 0) return;  // no transform name set
+            //  if (_transformName.Count == 0) return;  // no transform name set
 
             _client = client;
             _resourceName = resourceName;
@@ -196,23 +208,7 @@ namespace AMSExplorer
             this.Columns.Add(col);
 
 
-            /*
-            jobquery = from j in _context.Jobs.Take(0)
-                       orderby j.LastModified descending
-                       select new JobEntry
-                       {
-                           Name = j.Name,
-                           Id = j.Id,
-                           Tasks = j.Tasks.Count,
-                           Priority = j.Priority,
-                           State = j.State,
-                           StartTime = j.StartTime.HasValue ? ((DateTime)j.StartTime).ToLocalTime().ToString("G") : null,
-                           EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString("G") : null,
-                           Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                           Progress = (j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Scheduled || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing || j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Queued) ? j.GetOverallProgress() : 101d
-                       };
-                       */
-
+           
             /*
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
@@ -247,7 +243,8 @@ namespace AMSExplorer
             var myTask = Task.Factory.StartNew(() =>
             {
                 result.AsyncWaitHandle.WaitOne();
-                this.BeginInvoke(new Action(() => {
+                this.BeginInvoke(new Action(() =>
+                {
                     this.Columns["TransformName"].Visible = false;
                     this.Columns["Progress"].DisplayIndex = 5;
                     this.Columns["Progress"].Width = 150;
@@ -277,7 +274,7 @@ namespace AMSExplorer
             SelectedJobs.Reverse();
             return SelectedJobs;
         }
-               
+
 
         public List<string> TransformSourceNames
         {
@@ -294,15 +291,15 @@ namespace AMSExplorer
 
         public void Refreshjobs(int pagetodisplay) // all jobs are refreshed
         {
-            if (!_initialized) return;
+            if ((!_initialized) || _transformName.Count == 0) return;
 
             Debug.WriteLine("Refresh Jobs Start");
 
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-            List<JobEntryV3> jobs = new List<JobEntryV3>();
+            //  List<JobEntryV3> jobs = new List<JobEntryV3>();
 
-          
+
 
             ///////////////////////
             // SORTING
@@ -344,7 +341,7 @@ namespace AMSExplorer
                     break;
 
                 default:
-                    odataQuery.Filter =  string.Format("Properties/state eq Microsoft.Media.JobState'{0}'", _filterjobsstate);
+                    odataQuery.Filter = string.Format("Properties/state eq Microsoft.Media.JobState'{0}'", _filterjobsstate);
                     break;
             }
 
@@ -391,33 +388,50 @@ namespace AMSExplorer
             }
 
 
+            // Paging
+            IPage<Job> currentPage = null;
+            var transform = _transformName.First();
 
-
-            foreach (var t in _transformName)
+            if (pagetodisplay == 1)
             {
-                jobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t, odataQuery).Select(a => new JobEntryV3
+                firstpage = _client.Jobs.List(_resourceName, _accountName, transform, odataQuery);
+                currentPage = firstpage;
+            }
+            else
+            {
+                currentPage = firstpage;
+                _currentPageNumber = 1;
+                while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
-                    Name = a.Name,
-                    Description = a.Description,
-                    LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                    TransformName = t,
-                    Outputs = a.Outputs.Count,
-                    Priority = a.Priority,
-                    State = a.State,
-                    Progress = ReturnProgressJob(a).progress
-                    // progress;  we don't want the progress bar to be displayed
-
+                    _currentPageNumber++;
+                    currentPage = _client.Jobs.ListNext(currentPage.NextPageLink);
                 }
-         ));
+                if (currentPage.NextPageLink == null) _currentPageNumberIsMax = true; // we reached max
             }
 
-            _MyObservJobV3 = new BindingList<JobEntryV3>(jobs);
+
+            var jobs = currentPage.Select(a => new JobEntryV3
+            {
+                Name = a.Name,
+                Description = a.Description,
+                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                TransformName = transform,
+                Outputs = a.Outputs.Count,
+                Priority = a.Priority,
+                State = a.State,
+                Progress = ReturnProgressJob(a).progress
+                // progress;  we don't want the progress bar to be displayed
+
+            }
+         );
+
+            _MyObservJobV3 = new BindingList<JobEntryV3>(jobs.ToList());
 
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservJobV3));
 
             Debug.WriteLine("RefreshJobs End");
 
-            RestoreJobProgress(_transformName);
+            RestoreJobProgress(new List<string> { transform });
 
             this.FindForm().Cursor = Cursors.Default;
         }
