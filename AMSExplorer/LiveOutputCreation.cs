@@ -19,6 +19,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.Media;
 
 namespace AMSExplorer
 {
@@ -115,7 +116,8 @@ namespace AMSExplorer
             this.Text = string.Format(this.Text, ChannelName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
 
-            foreach (var storage in _client.credentialsEntry.MediaService.StorageAccounts.ToList())
+            var storages = _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts;
+            foreach (var storage in storages)
             {
                 bool primary = (storage.Type == StorageAccountType.Primary);
 

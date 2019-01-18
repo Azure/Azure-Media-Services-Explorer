@@ -139,14 +139,13 @@ namespace AMSExplorer
 
             if (response == null) return;
 
-
             // let's save the credentials (SP) They may be updated by the user when connecting
             CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]] = AMSClient.credentialsEntry;
             SaveCredentialsToSettings();
 
             try
-            {
-                var a = await AMSClient.AMSclient.Assets.ListAsync(LoginInfo.ResourceGroup, LoginInfo.AccountName);
+            {   // let's refresh storage accounts
+                AMSClient.credentialsEntry.MediaService.StorageAccounts = AMSClient.AMSclient.Mediaservices.Get(AMSClient.credentialsEntry.ResourceGroup, AMSClient.credentialsEntry.AccountName).StorageAccounts;
                 this.Cursor = Cursors.Default;
 
             }
