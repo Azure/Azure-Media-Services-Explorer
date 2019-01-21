@@ -39,7 +39,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -281,54 +281,8 @@ namespace AMSExplorer
             */
         }
 
-        private long ListAssetKeys()
-        {
-            long size = 0;
-            bool bkeyinasset = (myAsset.ContentKeys.Count() == 0) ? false : true;
-            listViewKeys.Items.Clear();
-            dataGridViewKeys.Rows.Clear();
-            listViewAutPolOptions.Items.Clear();
-            dataGridViewAutPolOption.Rows.Clear();
-            buttonRemoveKey.Enabled = false;
 
-            if (bkeyinasset)
-            {
-                listViewKeys.BeginUpdate();
-                foreach (IContentKey key in myAsset.ContentKeys)
-                {
-                    ListViewItem item;
-                    if (key.Name != null)
-                    {
-                        item = new ListViewItem(key.Name, 0);
-                    }
-                    else
-                    {
-                        item = new ListViewItem("<no name>", 0);
-                    }
-                    listViewKeys.Items.Add(item);
-                }
-                listViewKeys.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                listViewKeys.EndUpdate();
-            }
-            return size;
-        }
-
-        private void ListAssetDeliveryPolicies()
-        {
-            listViewDelPol.Items.Clear();
-            buttonRemoveDelPol.Enabled = false;
-
-            DGDelPol.Rows.Clear();
-            listViewDelPol.BeginUpdate();
-            foreach (var DelPol in myAsset.DeliveryPolicies)
-            {
-                ListViewItem item = new ListViewItem(DelPol.Name, 0);
-                listViewDelPol.Items.Add(item);
-            }
-            listViewDelPol.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            listViewDelPol.EndUpdate();
-        }
-
+      
         private void AssetInformation_Load(object sender, EventArgs e)
         {
             labelAssetNameTitle.Text += myAssetV3.Name;
@@ -338,13 +292,7 @@ namespace AMSExplorer
             DGAsset.ColumnCount = 2;
             DGFiles.ColumnCount = 2;
             DGFiles.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            dataGridViewAutPolOption.ColumnCount = 2;
-            dataGridViewAutPolOption.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGDelPol.ColumnCount = 2;
-            DGDelPol.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            dataGridViewKeys.ColumnCount = 2;
-            dataGridViewKeys.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-
+   
             // Files in asset: headers
             long size = -1;
             /*
@@ -373,10 +321,6 @@ namespace AMSExplorer
             if (size != -1) DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAssetV3.Created).ToLocalTime().ToString("G"));
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAssetV3.LastModified).ToLocalTime().ToString("G"));
-
-
-
-
 
 
             foreach (var se in myStreamingEndpoints)
@@ -858,85 +802,6 @@ namespace AMSExplorer
                     DGFiles.Rows.Add("Prefix", dir.Prefix);
                     DGFiles.Rows.Add("Uri", dir.Uri);
                 }
-            }
-        }
-
-        private void DoDisplayDeliveryPolicyProperties()
-        {
-            if (listViewDelPol.SelectedItems.Count > 0)
-            {
-                IAssetDeliveryPolicy ADP = myAsset.DeliveryPolicies.Skip(listViewDelPol.SelectedIndices[0]).Take(1).FirstOrDefault();
-                DGDelPol.Rows.Clear();
-                DGDelPol.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, ADP.Name);
-                DGDelPol.Rows.Add("Id", ADP.Id);
-                DGDelPol.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, ADP.AssetDeliveryPolicyType);
-                DGDelPol.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayDeliveryPolicyProperties_Protocol, ADP.AssetDeliveryProtocol);
-                if (ADP.AssetDeliveryConfiguration != null)
-                {
-                    int i = 0;
-                    foreach (var conf in ADP.AssetDeliveryConfiguration)
-                    {
-                        DGDelPol.Rows.Add(string.Format("Config #{0}, \"{1}\"", i, conf.Key), conf.Value);
-                        i++;
-                    }
-                }
-            }
-        }
-
-        private void DoDisplayKeyPropertiesAndAutOptions()
-        {
-            buttonRemoveAuthPolOption.Enabled = false;
-            buttonRemoveAuthPol.Enabled = false;
-            buttonGetTestToken.Enabled = false;
-
-            if (listViewKeys.SelectedItems.Count > 0)
-            {
-                IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                dataGridViewKeys.Rows.Clear();
-                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, key.Name != null ? key.Name : "<no name>");
-                dataGridViewKeys.Rows.Add("Id", key.Id);
-                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ContentKeyType, key.ContentKeyType);
-                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_Checksum, key.Checksum);
-                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, key.Created.ToLocalTime().ToString("G"));
-                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, key.LastModified.ToLocalTime().ToString("G"));
-                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyId, key.ProtectionKeyId);
-                dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyType, key.ProtectionKeyType);
-                int i = dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey);
-                DataGridViewButtonCell btn = new DataGridViewButtonCell();
-                dataGridViewKeys.Rows[i].Cells[1] = btn;
-                dataGridViewKeys.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey2;
-                dataGridViewKeys.Rows[i].Cells[1].Tag = Convert.ToBase64String(key.GetClearKeyValue());
-
-                listViewAutPolOptions.Items.Clear();
-                dataGridViewAutPolOption.Rows.Clear();
-
-                if (key.AuthorizationPolicyId != null)
-                {
-                    dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyId, key.AuthorizationPolicyId);
-                    myAuthPolicy = myContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
-                    if (myAuthPolicy != null)
-                    {
-                        buttonRemoveAuthPol.Enabled = true;
-                        dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyName, myAuthPolicy.Name);
-                        listViewAutPolOptions.BeginUpdate();
-                        foreach (var option in myAuthPolicy.Options)
-                        {
-                            ListViewItem item = new ListViewItem((string.IsNullOrEmpty(option.Name) ? AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName : option.Name), 0);
-                            listViewAutPolOptions.Items.Add(item);
-                        }
-                        listViewAutPolOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                        listViewAutPolOptions.EndUpdate();
-                        if (listViewAutPolOptions.Items.Count > 0) listViewAutPolOptions.Items[0].Selected = true;
-                    }
-                }
-                else
-                {
-                    myAuthPolicy = null;
-                }
-            }
-            else
-            {
-                myAuthPolicy = null;
             }
         }
 
@@ -1526,217 +1391,7 @@ namespace AMSExplorer
             BuildLocatorsTree();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void listViewDelPol_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bool bSelect = listViewDelPol.SelectedItems.Count > 0 ? true : false;
-            buttonRemoveDelPol.Enabled = bSelect;
-            DoDisplayDeliveryPolicyProperties();
-        }
-
-        private void buttonRemovePol_Click(object sender, EventArgs e)
-        {
-            DoRemoveDeliveryPol();
-        }
-
-        private void DoRemoveDeliveryPol()
-        {
-            if (listViewDelPol.SelectedItems.Count > 0)
-            {
-                if (listViewDelPol.SelectedItems[0] != null)
-                {
-                    IAssetDeliveryPolicy DP = myAsset.DeliveryPolicies.Skip(listViewDelPol.SelectedIndices[0]).Take(1).FirstOrDefault();
-                    if (DP != null)
-                    {
-                        string DPid = DP.Id;
-                        string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount, DP.Name);
-                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-                        if (DR == DialogResult.Yes || DR == DialogResult.No)
-                        {
-                            string step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Removing;
-
-                            try
-                            {
-                                myAsset.DeliveryPolicies.Remove(DP);
-
-                                if (DR == DialogResult.Yes) // user wants also to delete the policy
-                                {
-                                    step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Deleting;
-                                    IAssetDeliveryPolicy policyrefreshed = myContext.AssetDeliveryPolicies.Where(p => p.Id == DPid).FirstOrDefault();
-                                    if (policyrefreshed != null)
-                                    {
-                                        policyrefreshed.Delete();
-                                    }
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_ErrorWhen0TheDeliveryPolicy, step);
-                                if (e.InnerException != null)
-                                {
-                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
-                                }
-                                MessageBox.Show(messagestr);
-                            }
-                            ListAssetDeliveryPolicies();
-                        }
-                    }
-                }
-            }
-        }
-
-        private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            buttonRemoveKey.Enabled = buttonAddExistingAutPol.Enabled = listViewKeys.SelectedItems.Count > 0;
-            buttonRemoveAuthPol.Enabled = buttonRemoveAuthPolOption.Enabled = buttonGetTestToken.Enabled = false;
-            DoDisplayKeyPropertiesAndAutOptions();
-        }
-
-
-        private void listViewAutPolOption_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DoDisplayAuthorizationPolicyOption();
-        }
-
-        private void DoDisplayAuthorizationPolicyOption()
-        {
-            bool DisplayButGetToken = false;
-
-            if (listViewAutPolOptions.SelectedItems.Count > 0 && myAuthPolicy != null)
-            {
-                dataGridViewAutPolOption.Rows.Clear();
-
-                IContentKeyAuthorizationPolicyOption option = myAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
-                if (option != null) // Token option
-                {
-                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, option.Name != null ? option.Name : AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName);
-                    dataGridViewAutPolOption.Rows.Add("Id", option.Id);
-
-                    // Key delivery configuration
-
-                    int i = dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryConfiguration, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Null);
-                    if (option.KeyDeliveryConfiguration != null)
-                    {
-                        DataGridViewButtonCell btn = new DataGridViewButtonCell();
-                        dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
-                        dataGridViewAutPolOption.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
-                        dataGridViewAutPolOption.Rows[i].Cells[1].Tag = option.KeyDeliveryConfiguration;
-                    }
-
-                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryType, option.KeyDeliveryType);
-
-                    List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
-                    foreach (var restriction in objList_restriction)
-                    {
-                        dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionName, restriction.Name);
-                        dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionKeyRestrictionType, (ContentKeyRestrictionType)restriction.KeyRestrictionType);
-                        if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted)
-                        {
-                            DisplayButGetToken = true;
-                        }
-                        if (restriction.Requirements != null)
-                        {
-                            // Restriction Requirements
-                            i = dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionRequirements, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Null);
-                            if (restriction.Requirements != null)
-                            {
-                                DataGridViewButtonCell btn2 = new DataGridViewButtonCell();
-                                dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
-                                dataGridViewAutPolOption.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
-                                dataGridViewAutPolOption.Rows[i].Cells[1].Tag = restriction.Requirements;
-
-                                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
-                                dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenType, tokenTemplate.TokenType);
-
-                                i = dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_PrimaryVerificationKey, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Null);
-                                if (tokenTemplate.PrimaryVerificationKey != null)
-                                {
-                                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType, (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
-                                    if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
-                                    {
-                                        var verifkey = (SymmetricVerificationKey)tokenTemplate.PrimaryVerificationKey;
-                                        btn2 = new DataGridViewButtonCell();
-                                        dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
-                                        dataGridViewAutPolOption.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeKeyValue;
-                                        dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkey.KeyValue);
-                                    }
-                                }
-
-
-                                foreach (var verifkey in tokenTemplate.AlternateVerificationKeys)
-                                {
-                                    i = dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_AlternateVerificationKey, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Null);
-                                    if (verifkey != null)
-                                    {
-                                        dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType, (verifkey.GetType() == typeof(SymmetricVerificationKey)) ? AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_Symmetric : AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_AsymmetricX509);
-                                        if (verifkey.GetType() == typeof(SymmetricVerificationKey))
-                                        {
-                                            var verifkeySym = (SymmetricVerificationKey)verifkey;
-                                            btn2 = new DataGridViewButtonCell();
-                                            dataGridViewAutPolOption.Rows[i].Cells[1] = btn2;
-                                            dataGridViewAutPolOption.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeKeyValue;
-                                            dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkeySym.KeyValue);
-                                        }
-                                    }
-                                }
-
-                                if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
-                                {
-                                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_OpenIdConnectDiscoveryDocumentUri, tokenTemplate.OpenIdConnectDiscoveryDocument.OpenIdDiscoveryUri);
-                                }
-                                dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenAudience, tokenTemplate.Audience);
-                                dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_TokenIssuer, tokenTemplate.Issuer);
-                                foreach (var claim in tokenTemplate.RequiredClaims)
-                                {
-                                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimType, claim.ClaimType);
-                                    dataGridViewAutPolOption.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimValue, claim.ClaimValue);
-                                }
-                            }
-                        }
-                    }
-                }
-                buttonRemoveAuthPolOption.Enabled = true;
-            }
-            buttonGetTestToken.Enabled = DisplayButGetToken;
-        }
-
-        private void buttonGetTestToken_Click(object sender, EventArgs e)
-        {
-            DoGetTestToken();
-        }
-
-        private void DoGetTestToken()
-        {
-            if (listViewKeys.SelectedItems.Count > 0)
-            {
-                IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                if (key != null)
-                {
-                    IContentKeyAuthorizationPolicy AutPol = myContext.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.AuthorizationPolicyId).FirstOrDefault();
-                    if (AutPol != null)
-                    {
-                        IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
-                        if (AutPolOption != null)
-                        {
-                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(myAsset, myContext, key.ContentKeyType, displayUI: true, optionid: AutPolOption.Id);
-                            if (!string.IsNullOrEmpty(testToken.TokenString))
-                            {
-                                myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithoutBearerIsN0, testToken);
-                                myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithBearerIsN0, Constants.Bearer + testToken);
-                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
-                                MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoGetTestToken_TheTestTokenBelowHasBeenBeCopiedToTheLogWindowAndClipboardNN0, Constants.Bearer + testToken.TokenString), "Test token copied");
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+   
 
         private void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
         {
@@ -1893,82 +1548,16 @@ namespace AMSExplorer
             ShowFileMetadata();
         }
 
-        private void buttonDelKey_Click(object sender, EventArgs e)
-        {
-            DoDemoveKey();
-        }
-
-        private void DoDemoveKey()
-        {
-            if (listViewKeys.SelectedItems.Count > 0)
-            {
-                IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                string keyid = key.Id;
-                string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDemoveKey_ThisWillRemoveTheKey0FromTheAssetNDoYouWantToAlsoDELETETheKeyFromTheAzureMediaServicesAccount, key.Name);
-                DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDemoveKey_KeyRemoval, MessageBoxButtons.YesNoCancel);
-
-                if (DR == DialogResult.Yes || DR == DialogResult.No)
-                {
-                    string step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Removing;
-                    try
-                    {
-                        myAsset.ContentKeys.Remove(key);
-                        if (DR == DialogResult.Yes) // user wants also to delete the key
-                        {
-                            step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Deleting;
-                            IContentKey keyrefreshed = myContext.ContentKeys.Where(k => k.Id == keyid).FirstOrDefault();
-                            if (keyrefreshed != null)
-                            {
-                                keyrefreshed.Delete();
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDemoveKey_ErrorWhen0TheKey, step);
-                        if (e.InnerException != null)
-                        {
-                            messagestr += Constants.endline + Program.GetErrorMessage(e);
-                        }
-                        MessageBox.Show(messagestr);
-                    }
-                    ListAssetKeys();
-                }
-            }
-        }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDemoveKey();
         }
-
-        private void getTestTokenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoGetTestToken();
-        }
-
-        private void removeDeliveryPolicyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoRemoveDeliveryPol();
-        }
-
-        private void contextMenuStripDelPol_Opening(object sender, CancelEventArgs e)
-        {
-            removeDeliveryPolicyToolStripMenuItem.Enabled = (listViewDelPol.SelectedItems.Count > 0);
-        }
+    
 
         private void contextMenuStripKey_Opening(object sender, CancelEventArgs e)
         {
-            removeKeyToolStripMenuItem.Enabled = (listViewKeys.SelectedItems.Count > 0);
         }
-
-        private void contextMenuStripAuthPol_Opening(object sender, CancelEventArgs e)
-        {
-            getTestTokenToolStripMenuItem.Enabled = (listViewAutPolOptions.SelectedItems.Count > 0);
-            removeOptionToolStripMenuItem.Enabled = (listViewAutPolOptions.SelectedItems.Count > 0);
-            removeAuthorizationPolicyToolStripMenuItem.Enabled = (listViewAutPolOptions.Items.Count > 0);
-
-        }
+     
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
         {
@@ -1983,104 +1572,6 @@ namespace AMSExplorer
             duplicateFileToolStripMenuItem.Enabled = selected & NonEncrypted && !bMultiSelect;
 
             deleteAllFilesToolStripMenuItem.Enabled = selected;
-        }
-
-        private void button1_Click_2(object sender, EventArgs e)
-        {
-            DoRemoveAuthPol();
-        }
-
-        private void DoRemoveAuthPol()
-        {
-            if (listViewKeys.SelectedItems.Count > 0)
-            {
-                if (listViewKeys.SelectedItems[0] != null)
-                {
-                    IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                    IContentKeyAuthorizationPolicy AuthPol = myContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
-
-                    if (AuthPol != null)
-                    {
-                        string AuthPolId = AuthPol.Id;
-                        string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount, AuthPol.Name);
-                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-                        if (DR == DialogResult.Yes || DR == DialogResult.No)
-                        {
-                            string step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Removing;
-                            try
-                            {
-                                key.AuthorizationPolicyId = null;
-                                key.Update();
-
-                                if (DR == DialogResult.Yes) // user wants also to delete the auth policy
-                                {
-                                    step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Deleting;
-                                    AuthPol.Delete();
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPol_ErrorWhen0TheAuthorizationPolicy, step);
-                                if (e.InnerException != null)
-                                {
-                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
-                                }
-                                MessageBox.Show(messagestr);
-                            }
-
-                            DoDisplayKeyPropertiesAndAutOptions();
-                        }
-                    }
-                }
-            }
-        }
-
-        private void DoRemoveAuthPolOption()
-        {
-            if (listViewAutPolOptions.SelectedItems.Count > 0)
-            {
-                if (listViewAutPolOptions.SelectedItems[0] != null)
-                {
-
-                    IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                    IContentKeyAuthorizationPolicy AuthPol = myContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
-                    var option = myAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
-
-                    if (option != null)
-                    {
-                        string AuthPolId = AuthPol.Id;
-                        string question = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount, AuthPol.Name);
-                        DialogResult DR = MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_OptionRemoval, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-                        if (DR == DialogResult.Yes || DR == DialogResult.No)
-                        {
-                            string step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Removing;
-                            try
-                            {
-                                AuthPol.Options.Remove(option);
-
-                                if (DR == DialogResult.Yes) // user wants also to delete the option
-                                {
-                                    step = AMSExplorer.Properties.Resources.AssetInformation_DoRemoveDeliveryPol_Deleting;
-                                    option.Delete();
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoRemoveAuthPolOption_ErrorWhen0TheAuthorizationPolicyOption, step);
-                                if (e.InnerException != null)
-                                {
-                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
-                                }
-                                MessageBox.Show(messagestr);
-                            }
-
-                            DoDisplayKeyPropertiesAndAutOptions();
-                        }
-                    }
-                }
-            }
         }
 
         private void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2475,109 +1966,7 @@ namespace AMSExplorer
             BuildLocatorsTree();
         }
 
-        private void button1_Click_5(object sender, EventArgs e)
-        {
-            DoRemoveAuthPolOption();
-        }
-
-        private void removeAuthorizationPolicyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoRemoveAuthPol();
-        }
-
-        private void removeOptionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoRemoveAuthPolOption();
-        }
-
-        private void removeAuthorizationPolicyToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoRemoveAuthPol();
-
-        }
-
-        private void buttonAddExistingDelPol_Click(object sender, EventArgs e)
-        {
-            DoAddExistingDelPol();
-        }
-
-
-        private void DoAddExistingDelPol()
-        {
-
-            var form = new SelectDeliveryPolicy(myContext);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                IAssetDeliveryPolicy DP = form.SelectedPolicy;
-                if (DP != null)
-                {
-
-                    try
-                    {
-                        myAsset.DeliveryPolicies.Add(DP);
-                    }
-
-                    catch (Exception e)
-                    {
-                        string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoAddExistingDelPol_ErrorWhenAttachingTheDeliveryPolicy);
-                        if (e.InnerException != null)
-                        {
-                            messagestr += Constants.endline + Program.GetErrorMessage(e);
-                        }
-                        MessageBox.Show(messagestr);
-                    }
-
-                    ListAssetDeliveryPolicies();
-                }
-            }
-        }
-
-        private void buttonAddExistingAutPol_Click(object sender, EventArgs e)
-        {
-            DoAddExistingAutPol();
-        }
-
-        private void DoAddExistingAutPol()
-        {
-
-            if (listViewKeys.SelectedItems.Count > 0)
-            {
-                if (listViewKeys.SelectedItems[0] != null)
-                {
-                    IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-
-                    var form = new SelectAutPolicy(myContext, key.ContentKeyType);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        var AutPol = form.SelectedPolicy;
-                        if (AutPol != null)
-                        {
-
-
-                            try
-                            {
-                                key.AuthorizationPolicyId = AutPol.Id;
-                                key.Update();
-                            }
-
-                            catch (Exception e)
-                            {
-                                string messagestr = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoAddExistingAutPol_ErrorWhenAttachingAnExistingAuthorizationPolicy);
-                                if (e.InnerException != null)
-                                {
-                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
-                                }
-                                MessageBox.Show(messagestr);
-                            }
-
-                            DoDisplayKeyPropertiesAndAutOptions();
-                        }
-                    }
-
-                }
-            }
-        }
-
+           
         private void tabPageBlobs_Enter(object sender, EventArgs e)
         {
             ListAssetBlobs();
@@ -2601,6 +1990,47 @@ namespace AMSExplorer
                 var filter = _amsClient.AMSclient.AssetFilters.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
                 DoFilterInfo(filter);
             }
+        }
+
+        private void tabPagePolicy_Enter(object sender, EventArgs e)
+        {
+            FillLocatorComboInPolicyTab();
+        }
+
+        private void FillLocatorComboInPolicyTab()
+        {
+            comboBoxPolicyLocators.Items.Clear();
+            comboBoxPolicyLocators.BeginUpdate();
+
+            var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+
+            locators.ToList().ForEach(l => comboBoxPolicyLocators.Items.Add(new Item(l.Name, l.Name)));
+            if (comboBoxPolicyLocators.Items.Count > 0) comboBoxPolicyLocators.SelectedIndex = 0;
+
+            comboBoxPolicyLocators.EndUpdate();
+        }
+
+
+
+        private void DisplayPolicy(string locatorName)
+        {
+            if (locatorName == null) return;
+
+            var locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+
+            var policy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
+
+            var policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
+            textBoxPolicy.Text = policyJson;
+        }
+
+
+        private void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBoxPolicy.Text = string.Empty;
+
+            if (comboBoxPolicyLocators.SelectedItem != null)
+                DisplayPolicy((comboBoxPolicyLocators.SelectedItem as Item).Value);
         }
     }
 

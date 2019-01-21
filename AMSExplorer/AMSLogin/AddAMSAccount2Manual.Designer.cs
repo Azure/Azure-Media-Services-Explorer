@@ -43,6 +43,9 @@
             this.labelADTenant = new System.Windows.Forms.Label();
             this.labelE2 = new System.Windows.Forms.Label();
             this.labelLocation = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxAADAutMode.SuspendLayout();
             this.SuspendLayout();
@@ -123,6 +126,24 @@
             resources.ApplyResources(this.labelLocation, "labelLocation");
             this.labelLocation.Name = "labelLocation";
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Name = "label2";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Name = "label1";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label3.Name = "label3";
+            // 
             // AddAMSAccount2Manual
             // 
             this.AcceptButton = this.buttonNext;
@@ -138,6 +159,9 @@
             this.Controls.Add(this.textBoxLocation);
             this.Controls.Add(this.labelLocation);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Name = "AddAMSAccount2Manual";
             this.Load += new System.EventHandler(this.AddAMSAccount2_Load);
             this.panel1.ResumeLayout(false);
@@ -163,5 +187,8 @@
         public System.Windows.Forms.TextBox textBoxAMSResourceId;
         public System.Windows.Forms.TextBox textBoxAADtenantId;
         public System.Windows.Forms.TextBox textBoxLocation;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -83,33 +83,11 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.buttonAddExistingAutPol = new System.Windows.Forms.Button();
-            this.buttonRemoveAuthPolOption = new System.Windows.Forms.Button();
-            this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
-            this.buttonRemoveKey = new System.Windows.Forms.Button();
-            this.buttonGetTestToken = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dataGridViewAutPolOption = new System.Windows.Forms.DataGridView();
-            this.listViewAutPolOptions = new System.Windows.Forms.ListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStripAuthPol = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.getTestTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeOptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeAuthorizationPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
-            this.listViewKeys = new System.Windows.Forms.ListView();
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPagePolicy = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.buttonAddExistingDelPol = new System.Windows.Forms.Button();
-            this.buttonRemoveDelPol = new System.Windows.Forms.Button();
-            this.DGDelPol = new System.Windows.Forms.DataGridView();
-            this.listViewDelPol = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStripDelPol = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeDeliveryPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.checkBoxHttps = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -124,6 +102,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.textBoxPolicy = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -135,14 +115,8 @@
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.contextMenuStripFilter.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).BeginInit();
-            this.contextMenuStripAuthPol.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
+            this.tabPagePolicy.SuspendLayout();
             this.contextMenuStripKey.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGDelPol)).BeginInit();
-            this.contextMenuStripDelPol.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -377,8 +351,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPagePolicy);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -583,158 +556,29 @@
             resources.ApplyResources(this.playWithThisFilterToolStripMenuItem, "playWithThisFilterToolStripMenuItem");
             this.playWithThisFilterToolStripMenuItem.Click += new System.EventHandler(this.playWithThisFilterToolStripMenuItem_Click);
             // 
-            // tabPage5
+            // tabPagePolicy
             // 
-            this.tabPage5.Controls.Add(this.buttonAddExistingAutPol);
-            this.tabPage5.Controls.Add(this.buttonRemoveAuthPolOption);
-            this.tabPage5.Controls.Add(this.buttonRemoveAuthPol);
-            this.tabPage5.Controls.Add(this.buttonRemoveKey);
-            this.tabPage5.Controls.Add(this.buttonGetTestToken);
-            this.tabPage5.Controls.Add(this.label3);
-            this.tabPage5.Controls.Add(this.dataGridViewAutPolOption);
-            this.tabPage5.Controls.Add(this.listViewAutPolOptions);
-            this.tabPage5.Controls.Add(this.dataGridViewKeys);
-            this.tabPage5.Controls.Add(this.listViewKeys);
-            resources.ApplyResources(this.tabPage5, "tabPage5");
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabPagePolicy.Controls.Add(this.label3);
+            this.tabPagePolicy.Controls.Add(this.textBoxPolicy);
+            this.tabPagePolicy.Controls.Add(this.label5);
+            this.tabPagePolicy.Controls.Add(this.comboBoxPolicyLocators);
+            resources.ApplyResources(this.tabPagePolicy, "tabPagePolicy");
+            this.tabPagePolicy.Name = "tabPagePolicy";
+            this.tabPagePolicy.UseVisualStyleBackColor = true;
+            this.tabPagePolicy.Enter += new System.EventHandler(this.tabPagePolicy_Enter);
             // 
-            // buttonAddExistingAutPol
+            // label5
             // 
-            resources.ApplyResources(this.buttonAddExistingAutPol, "buttonAddExistingAutPol");
-            this.buttonAddExistingAutPol.Name = "buttonAddExistingAutPol";
-            this.buttonAddExistingAutPol.UseVisualStyleBackColor = true;
-            this.buttonAddExistingAutPol.Click += new System.EventHandler(this.buttonAddExistingAutPol_Click);
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
-            // buttonRemoveAuthPolOption
+            // comboBoxPolicyLocators
             // 
-            resources.ApplyResources(this.buttonRemoveAuthPolOption, "buttonRemoveAuthPolOption");
-            this.buttonRemoveAuthPolOption.Name = "buttonRemoveAuthPolOption";
-            this.buttonRemoveAuthPolOption.UseVisualStyleBackColor = true;
-            this.buttonRemoveAuthPolOption.Click += new System.EventHandler(this.button1_Click_5);
-            // 
-            // buttonRemoveAuthPol
-            // 
-            resources.ApplyResources(this.buttonRemoveAuthPol, "buttonRemoveAuthPol");
-            this.buttonRemoveAuthPol.Name = "buttonRemoveAuthPol";
-            this.buttonRemoveAuthPol.UseVisualStyleBackColor = true;
-            this.buttonRemoveAuthPol.Click += new System.EventHandler(this.button1_Click_2);
-            // 
-            // buttonRemoveKey
-            // 
-            resources.ApplyResources(this.buttonRemoveKey, "buttonRemoveKey");
-            this.buttonRemoveKey.Name = "buttonRemoveKey";
-            this.buttonRemoveKey.UseVisualStyleBackColor = true;
-            this.buttonRemoveKey.Click += new System.EventHandler(this.buttonDelKey_Click);
-            // 
-            // buttonGetTestToken
-            // 
-            resources.ApplyResources(this.buttonGetTestToken, "buttonGetTestToken");
-            this.buttonGetTestToken.Name = "buttonGetTestToken";
-            this.buttonGetTestToken.UseVisualStyleBackColor = true;
-            this.buttonGetTestToken.Click += new System.EventHandler(this.buttonGetTestToken_Click);
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // dataGridViewAutPolOption
-            // 
-            this.dataGridViewAutPolOption.AllowUserToAddRows = false;
-            this.dataGridViewAutPolOption.AllowUserToDeleteRows = false;
-            this.dataGridViewAutPolOption.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewAutPolOption, "dataGridViewAutPolOption");
-            this.dataGridViewAutPolOption.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewAutPolOption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAutPolOption.ColumnHeadersVisible = false;
-            this.dataGridViewAutPolOption.ContextMenuStrip = this.contextMenuStripDG;
-            this.dataGridViewAutPolOption.MultiSelect = false;
-            this.dataGridViewAutPolOption.Name = "dataGridViewAutPolOption";
-            this.dataGridViewAutPolOption.ReadOnly = true;
-            this.dataGridViewAutPolOption.RowHeadersVisible = false;
-            this.dataGridViewAutPolOption.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAutPolOption_CellContentClick);
-            // 
-            // listViewAutPolOptions
-            // 
-            resources.ApplyResources(this.listViewAutPolOptions, "listViewAutPolOptions");
-            this.listViewAutPolOptions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3});
-            this.listViewAutPolOptions.ContextMenuStrip = this.contextMenuStripAuthPol;
-            this.listViewAutPolOptions.FullRowSelect = true;
-            this.listViewAutPolOptions.HideSelection = false;
-            this.listViewAutPolOptions.MultiSelect = false;
-            this.listViewAutPolOptions.Name = "listViewAutPolOptions";
-            this.listViewAutPolOptions.UseCompatibleStateImageBehavior = false;
-            this.listViewAutPolOptions.View = System.Windows.Forms.View.Details;
-            this.listViewAutPolOptions.SelectedIndexChanged += new System.EventHandler(this.listViewAutPolOption_SelectedIndexChanged);
-            // 
-            // columnHeader3
-            // 
-            resources.ApplyResources(this.columnHeader3, "columnHeader3");
-            // 
-            // contextMenuStripAuthPol
-            // 
-            this.contextMenuStripAuthPol.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.contextMenuStripAuthPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.getTestTokenToolStripMenuItem,
-            this.removeOptionToolStripMenuItem,
-            this.removeAuthorizationPolicyToolStripMenuItem});
-            this.contextMenuStripAuthPol.Name = "contextMenuStripAuthPol";
-            resources.ApplyResources(this.contextMenuStripAuthPol, "contextMenuStripAuthPol");
-            this.contextMenuStripAuthPol.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAuthPol_Opening);
-            // 
-            // getTestTokenToolStripMenuItem
-            // 
-            this.getTestTokenToolStripMenuItem.Name = "getTestTokenToolStripMenuItem";
-            resources.ApplyResources(this.getTestTokenToolStripMenuItem, "getTestTokenToolStripMenuItem");
-            this.getTestTokenToolStripMenuItem.Click += new System.EventHandler(this.getTestTokenToolStripMenuItem_Click);
-            // 
-            // removeOptionToolStripMenuItem
-            // 
-            this.removeOptionToolStripMenuItem.Name = "removeOptionToolStripMenuItem";
-            resources.ApplyResources(this.removeOptionToolStripMenuItem, "removeOptionToolStripMenuItem");
-            this.removeOptionToolStripMenuItem.Click += new System.EventHandler(this.removeOptionToolStripMenuItem_Click);
-            // 
-            // removeAuthorizationPolicyToolStripMenuItem
-            // 
-            this.removeAuthorizationPolicyToolStripMenuItem.Name = "removeAuthorizationPolicyToolStripMenuItem";
-            resources.ApplyResources(this.removeAuthorizationPolicyToolStripMenuItem, "removeAuthorizationPolicyToolStripMenuItem");
-            this.removeAuthorizationPolicyToolStripMenuItem.Click += new System.EventHandler(this.removeAuthorizationPolicyToolStripMenuItem_Click_1);
-            // 
-            // dataGridViewKeys
-            // 
-            this.dataGridViewKeys.AllowUserToAddRows = false;
-            this.dataGridViewKeys.AllowUserToDeleteRows = false;
-            this.dataGridViewKeys.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
-            this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewKeys.ColumnHeadersVisible = false;
-            this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
-            this.dataGridViewKeys.MultiSelect = false;
-            this.dataGridViewKeys.Name = "dataGridViewKeys";
-            this.dataGridViewKeys.ReadOnly = true;
-            this.dataGridViewKeys.RowHeadersVisible = false;
-            this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick);
-            // 
-            // listViewKeys
-            // 
-            this.listViewKeys.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
-            this.listViewKeys.ContextMenuStrip = this.contextMenuStripKey;
-            this.listViewKeys.FullRowSelect = true;
-            this.listViewKeys.HideSelection = false;
-            resources.ApplyResources(this.listViewKeys, "listViewKeys");
-            this.listViewKeys.MultiSelect = false;
-            this.listViewKeys.Name = "listViewKeys";
-            this.listViewKeys.UseCompatibleStateImageBehavior = false;
-            this.listViewKeys.View = System.Windows.Forms.View.Details;
-            this.listViewKeys.SelectedIndexChanged += new System.EventHandler(this.listViewKeys_SelectedIndexChanged);
-            // 
-            // columnHeader2
-            // 
-            resources.ApplyResources(this.columnHeader2, "columnHeader2");
+            resources.ApplyResources(this.comboBoxPolicyLocators, "comboBoxPolicyLocators");
+            this.comboBoxPolicyLocators.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPolicyLocators.FormattingEnabled = true;
+            this.comboBoxPolicyLocators.Name = "comboBoxPolicyLocators";
+            this.comboBoxPolicyLocators.SelectedIndexChanged += new System.EventHandler(this.comboBoxPolicyLocators_SelectedIndexChanged);
             // 
             // contextMenuStripKey
             // 
@@ -750,79 +594,6 @@
             this.removeKeyToolStripMenuItem.Name = "removeKeyToolStripMenuItem";
             resources.ApplyResources(this.removeKeyToolStripMenuItem, "removeKeyToolStripMenuItem");
             this.removeKeyToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.buttonAddExistingDelPol);
-            this.tabPage4.Controls.Add(this.buttonRemoveDelPol);
-            this.tabPage4.Controls.Add(this.DGDelPol);
-            this.tabPage4.Controls.Add(this.listViewDelPol);
-            resources.ApplyResources(this.tabPage4, "tabPage4");
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // buttonAddExistingDelPol
-            // 
-            resources.ApplyResources(this.buttonAddExistingDelPol, "buttonAddExistingDelPol");
-            this.buttonAddExistingDelPol.Name = "buttonAddExistingDelPol";
-            this.buttonAddExistingDelPol.UseVisualStyleBackColor = true;
-            this.buttonAddExistingDelPol.Click += new System.EventHandler(this.buttonAddExistingDelPol_Click);
-            // 
-            // buttonRemoveDelPol
-            // 
-            resources.ApplyResources(this.buttonRemoveDelPol, "buttonRemoveDelPol");
-            this.buttonRemoveDelPol.Name = "buttonRemoveDelPol";
-            this.buttonRemoveDelPol.UseVisualStyleBackColor = true;
-            this.buttonRemoveDelPol.Click += new System.EventHandler(this.buttonRemovePol_Click);
-            // 
-            // DGDelPol
-            // 
-            this.DGDelPol.AllowUserToAddRows = false;
-            this.DGDelPol.AllowUserToDeleteRows = false;
-            this.DGDelPol.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGDelPol, "DGDelPol");
-            this.DGDelPol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DGDelPol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGDelPol.ColumnHeadersVisible = false;
-            this.DGDelPol.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGDelPol.MultiSelect = false;
-            this.DGDelPol.Name = "DGDelPol";
-            this.DGDelPol.ReadOnly = true;
-            this.DGDelPol.RowHeadersVisible = false;
-            this.DGDelPol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // listViewDelPol
-            // 
-            resources.ApplyResources(this.listViewDelPol, "listViewDelPol");
-            this.listViewDelPol.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listViewDelPol.ContextMenuStrip = this.contextMenuStripDelPol;
-            this.listViewDelPol.FullRowSelect = true;
-            this.listViewDelPol.HideSelection = false;
-            this.listViewDelPol.MultiSelect = false;
-            this.listViewDelPol.Name = "listViewDelPol";
-            this.listViewDelPol.UseCompatibleStateImageBehavior = false;
-            this.listViewDelPol.View = System.Windows.Forms.View.Details;
-            this.listViewDelPol.SelectedIndexChanged += new System.EventHandler(this.listViewDelPol_SelectedIndexChanged);
-            // 
-            // columnHeader1
-            // 
-            resources.ApplyResources(this.columnHeader1, "columnHeader1");
-            // 
-            // contextMenuStripDelPol
-            // 
-            this.contextMenuStripDelPol.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.contextMenuStripDelPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeDeliveryPolicyToolStripMenuItem});
-            this.contextMenuStripDelPol.Name = "contextMenuStripDelPol";
-            resources.ApplyResources(this.contextMenuStripDelPol, "contextMenuStripDelPol");
-            this.contextMenuStripDelPol.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDelPol_Opening);
-            // 
-            // removeDeliveryPolicyToolStripMenuItem
-            // 
-            this.removeDeliveryPolicyToolStripMenuItem.Name = "removeDeliveryPolicyToolStripMenuItem";
-            resources.ApplyResources(this.removeDeliveryPolicyToolStripMenuItem, "removeDeliveryPolicyToolStripMenuItem");
-            this.removeDeliveryPolicyToolStripMenuItem.Click += new System.EventHandler(this.removeDeliveryPolicyToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
@@ -921,6 +692,17 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
+            // textBoxPolicy
+            // 
+            resources.ApplyResources(this.textBoxPolicy, "textBoxPolicy");
+            this.textBoxPolicy.Name = "textBoxPolicy";
+            this.textBoxPolicy.ReadOnly = true;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -948,15 +730,9 @@
             this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.contextMenuStripFilter.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).EndInit();
-            this.contextMenuStripAuthPol.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
+            this.tabPagePolicy.ResumeLayout(false);
+            this.tabPagePolicy.PerformLayout();
             this.contextMenuStripKey.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DGDelPol)).EndInit();
-            this.contextMenuStripDelPol.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1010,33 +786,14 @@
         private System.Windows.Forms.ProgressBar progressBarUpload;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxStreamingEndpoint;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.DataGridView DGDelPol;
-        private System.Windows.Forms.ListView listViewDelPol;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.Button buttonRemoveDelPol;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.DataGridView dataGridViewKeys;
-        private System.Windows.Forms.ListView listViewKeys;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.DataGridView dataGridViewAutPolOption;
-        private System.Windows.Forms.ListView listViewAutPolOptions;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button buttonGetTestToken;
+        private System.Windows.Forms.TabPage tabPagePolicy;
         private System.Windows.Forms.CheckBox checkBoxHttps;
         private System.Windows.Forms.Button buttonAudioVideoAnalysis;
         private System.Windows.Forms.Button buttonFileMetadata;
         private System.Windows.Forms.ToolStripMenuItem showMetadataToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonRemoveKey;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripKey;
         private System.Windows.Forms.ToolStripMenuItem removeKeyToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripAuthPol;
-        private System.Windows.Forms.ToolStripMenuItem getTestTokenToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripDelPol;
-        private System.Windows.Forms.ToolStripMenuItem removeDeliveryPolicyToolStripMenuItem;
-        private System.Windows.Forms.Button buttonRemoveAuthPol;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.DataGridView dataGridViewFilters;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFilter;
@@ -1054,11 +811,10 @@
         private System.Windows.Forms.ToolStripMenuItem deleteAllFilesToolStripMenuItem;
         private System.Windows.Forms.Button buttonEditOnline;
         private System.Windows.Forms.Button buttonGenerateManifest;
-        private System.Windows.Forms.Button buttonRemoveAuthPolOption;
-        private System.Windows.Forms.ToolStripMenuItem removeOptionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeAuthorizationPolicyToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button buttonAddExistingDelPol;
-        private System.Windows.Forms.Button buttonAddExistingAutPol;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBoxPolicyLocators;
+        private System.Windows.Forms.TextBox textBoxPolicy;
+        private System.Windows.Forms.Label label3;
     }
 }

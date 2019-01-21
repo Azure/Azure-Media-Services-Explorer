@@ -421,7 +421,7 @@ namespace AMSExplorer
                     var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
                     var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-                    var subscriptions = subscriptionClient.Subscriptions.List();
+                    var subscriptions = subscriptionClient.Subscriptions.List(); //var t = subscriptionClient.Tenants.List();
 
                     var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
                     if (addaccount2.ShowDialog() == DialogResult.OK)
