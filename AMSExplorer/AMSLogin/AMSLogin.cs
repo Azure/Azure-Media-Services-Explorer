@@ -132,7 +132,7 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error",  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -341,7 +341,7 @@ namespace AMSExplorer
             }
         }
 
-     
+
         private void listBoxAcounts_DoubleClick(object sender, EventArgs e)
         {
             // Proceed to log in to the selected account in the listbox
@@ -421,7 +421,45 @@ namespace AMSExplorer
                     var credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
                     var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-                    var subscriptions = subscriptionClient.Subscriptions.List(); //var t = subscriptionClient.Tenants.List();
+                    var subscriptions = subscriptionClient.Subscriptions.List();
+
+
+                    /*
+                    // test code  - briowser subscription with other tenants
+                    var tenants = subscriptionClient.Tenants.List();
+
+                    foreach (var tenant in tenants)
+                    {
+                        authContext = new AuthenticationContext(
+                   authority: environment.Authority.Replace("common", tenant.TenantId),
+                   validateAuthority: true);
+
+                        try
+                        {
+                            accessToken = await authContext.AcquireTokenAsync(
+                                                                                 resource: environment.AADSettings.TokenAudience.ToString(),
+                                                                                 clientId: environment.ClientApplicationId,
+                                                                                 redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                                 parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
+                                                                                 );
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //return;
+                        }
+
+                        credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+
+                         subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+                        subscriptions = subscriptionClient.Subscriptions.List();
+                        var addaccount3 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
+                        addaccount3.ShowDialog();
+
+                    }
+                                                         
+                    // end test code
+                    */
 
                     var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
                     if (addaccount2.ShowDialog() == DialogResult.OK)
