@@ -73,16 +73,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownMESPrice = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownIndexingPrice = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
             this.textBoxCurrency = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
             this.amspriceslink = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numericUpDownNumbConcurTrans = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.numericUpDownParallelTransThreadCount = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -90,12 +92,6 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numericUpDownNumbConcurTrans = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.numericUpDownParallelTransThreadCount = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
@@ -108,18 +104,16 @@
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumbConcurTrans)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownParallelTransThreadCount)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -476,27 +470,6 @@
             0,
             196608});
             // 
-            // numericUpDownIndexingPrice
-            // 
-            this.numericUpDownIndexingPrice.DecimalPlaces = 2;
-            resources.ApplyResources(this.numericUpDownIndexingPrice, "numericUpDownIndexingPrice");
-            this.numericUpDownIndexingPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
-            this.numericUpDownIndexingPrice.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            131072});
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
             // textBoxCurrency
             // 
             resources.ApplyResources(this.textBoxCurrency, "textBoxCurrency");
@@ -504,39 +477,14 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.numericUpDownPremiumWorkflowPrice);
             this.groupBox4.Controls.Add(this.amspriceslink);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.textBoxCurrency);
             this.groupBox4.Controls.Add(this.numericUpDownMESPrice);
-            this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
-            this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label4);
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // numericUpDownPremiumWorkflowPrice
-            // 
-            this.numericUpDownPremiumWorkflowPrice.DecimalPlaces = 3;
-            resources.ApplyResources(this.numericUpDownPremiumWorkflowPrice, "numericUpDownPremiumWorkflowPrice");
-            this.numericUpDownPremiumWorkflowPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDownPremiumWorkflowPrice.Name = "numericUpDownPremiumWorkflowPrice";
-            this.numericUpDownPremiumWorkflowPrice.Value = new decimal(new int[] {
-            35,
-            0,
-            0,
-            196608});
             // 
             // amspriceslink
             // 
@@ -567,51 +515,6 @@
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.groupBox4);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.groupBox5);
-            this.tabPage3.Controls.Add(this.groupBox3);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Controls.Add(this.textBoxVLCPath);
-            this.groupBox5.Controls.Add(this.label10);
-            this.groupBox5.Controls.Add(this.textBoxffmpegPath);
-            resources.ApplyResources(this.groupBox5, "groupBox5");
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.TabStop = false;
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // textBoxVLCPath
-            // 
-            resources.ApplyResources(this.textBoxVLCPath, "textBoxVLCPath");
-            this.textBoxVLCPath.Name = "textBoxVLCPath";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // textBoxffmpegPath
-            // 
-            resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
-            this.textBoxffmpegPath.Name = "textBoxffmpegPath";
             // 
             // tabPage4
             // 
@@ -670,6 +573,51 @@
             0,
             0});
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox4);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox5);
+            this.tabPage3.Controls.Add(this.groupBox3);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label11);
+            this.groupBox5.Controls.Add(this.textBoxVLCPath);
+            this.groupBox5.Controls.Add(this.label10);
+            this.groupBox5.Controls.Add(this.textBoxffmpegPath);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.TabStop = false;
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // textBoxVLCPath
+            // 
+            resources.ApplyResources(this.textBoxVLCPath, "textBoxVLCPath");
+            this.textBoxVLCPath.Name = "textBoxVLCPath";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // textBoxffmpegPath
+            // 
+            resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
+            this.textBoxffmpegPath.Name = "textBoxffmpegPath";
+            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -696,21 +644,19 @@
             this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumbConcurTrans)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownParallelTransThreadCount)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -747,16 +693,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown numericUpDownMESPrice;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDownIndexingPrice;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxCurrency;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel amspriceslink;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownTokenDuration;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDownPremiumWorkflowPrice;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

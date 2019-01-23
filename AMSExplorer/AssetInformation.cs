@@ -2217,7 +2217,7 @@ namespace AMSExplorer
             {
                 IAssetFile assetFileToEdit = SelectedAssetFiles.FirstOrDefault();
 
-                if (assetFileToEdit.ContentFileSize > 500 * 1024)
+                if (assetFileToEdit.ContentFileSize > 500 * 1000)
                 {
                     MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_FileIsToLargeToEditItOnline);
                     return;

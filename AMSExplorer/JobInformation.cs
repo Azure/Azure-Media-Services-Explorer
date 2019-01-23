@@ -108,7 +108,7 @@ namespace AMSExplorer
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
 
 
-            TaskSizeAndPrice jobSizePrice = JobInfo.CalculateJobSizeAndPrice(MyJob);
+            TaskSize jobSizePrice = JobInfo.CalculateJobSizeAndPrice(MyJob);
             if ((jobSizePrice.InputSize != -1) && (jobSizePrice.OutputSize != -1))
             {
                 DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_InputSize, AssetInfo.FormatByteSize(jobSizePrice.InputSize));
@@ -265,13 +265,11 @@ namespace AMSExplorer
                 DGTasks.Rows.Add("Output asset(s)", "<error, deleted?>");
             }
 
-            TaskSizeAndPrice taskSizePrice = JobInfo.CalculateTaskSizeAndPrice(task, _context);
+            TaskSize taskSizePrice = JobInfo.CalculateTaskSize(task, _context);
             if ((taskSizePrice.InputSize != -1) && (taskSizePrice.OutputSize != -1))
             {
                 DGTasks.Rows.Add("Input size", AssetInfo.FormatByteSize(taskSizePrice.InputSize));
                 DGTasks.Rows.Add("Output size", AssetInfo.FormatByteSize(taskSizePrice.OutputSize));
-                //DGTasks.Rows.Add("Processed size", AssetInfo.FormatByteSize(taskSizePrice.InputSize + taskSizePrice.OutputSize));
-                if (taskSizePrice.Price != -1) DGTasks.Rows.Add("Estimated price", string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, taskSizePrice.Price));
             }
             else
             {

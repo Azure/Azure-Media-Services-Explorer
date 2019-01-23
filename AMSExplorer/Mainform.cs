@@ -98,10 +98,10 @@ namespace AMSExplorer
         private const int maxNbJobs = 50000;
         private bool enableTelemetry = true;
 
-        private static readonly long OneGB = 1024L * 1024L * 1024L;
+        private static readonly long OneGB = 1000L * 1000L * 1000L;
         private static readonly int S1AssetSizeLimit = 325; // GBytes
         private static readonly int S2AssetSizeLimit = 640; // GBytes
-        private static readonly int S3AssetSizeLimit = 240; // GBytes
+        private static readonly int S3AssetSizeLimit = 260; // GBytes
         public string _accountname;
 
         public Mainform()
