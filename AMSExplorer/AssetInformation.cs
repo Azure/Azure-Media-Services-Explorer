@@ -1824,7 +1824,7 @@ namespace AMSExplorer
             {
                 var blobtoedit = (CloudBlockBlob)SelectedBlobs.FirstOrDefault();
 
-                if (blobtoedit.Properties.Length > 500 * 1024)
+                if (blobtoedit.Properties.Length > 500 * 1000)
                 {
                     MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_FileIsToLargeToEditItOnline);
                     return;

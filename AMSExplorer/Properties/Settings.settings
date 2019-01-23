@@ -122,14 +122,8 @@
     <Setting Name="MESPricePerMin" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.015</Value>
     </Setting>
-    <Setting Name="MEPWPricePerMin" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.035</Value>
-    </Setting>
     <Setting Name="HideTaskbarNotifications" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="IndexingPricePerMin2" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.02</Value>
     </Setting>
     <Setting Name="LoginListRPv3JSON" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

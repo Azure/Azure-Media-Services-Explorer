@@ -67,12 +67,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownMESPrice = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownIndexingPrice = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
             this.textBoxCurrency = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
             this.amspriceslink = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -95,9 +91,7 @@
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -416,27 +410,6 @@
             0,
             196608});
             // 
-            // numericUpDownIndexingPrice
-            // 
-            this.numericUpDownIndexingPrice.DecimalPlaces = 2;
-            resources.ApplyResources(this.numericUpDownIndexingPrice, "numericUpDownIndexingPrice");
-            this.numericUpDownIndexingPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
-            this.numericUpDownIndexingPrice.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            131072});
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
             // textBoxCurrency
             // 
             resources.ApplyResources(this.textBoxCurrency, "textBoxCurrency");
@@ -444,39 +417,14 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.numericUpDownPremiumWorkflowPrice);
             this.groupBox4.Controls.Add(this.amspriceslink);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.textBoxCurrency);
             this.groupBox4.Controls.Add(this.numericUpDownMESPrice);
-            this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
-            this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label4);
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // numericUpDownPremiumWorkflowPrice
-            // 
-            this.numericUpDownPremiumWorkflowPrice.DecimalPlaces = 3;
-            resources.ApplyResources(this.numericUpDownPremiumWorkflowPrice, "numericUpDownPremiumWorkflowPrice");
-            this.numericUpDownPremiumWorkflowPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDownPremiumWorkflowPrice.Name = "numericUpDownPremiumWorkflowPrice";
-            this.numericUpDownPremiumWorkflowPrice.Value = new decimal(new int[] {
-            35,
-            0,
-            0,
-            196608});
             // 
             // amspriceslink
             // 
@@ -577,10 +525,8 @@
             this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPremiumWorkflowPrice)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -618,16 +564,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown numericUpDownMESPrice;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDownIndexingPrice;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxCurrency;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel amspriceslink;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownTokenDuration;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDownPremiumWorkflowPrice;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

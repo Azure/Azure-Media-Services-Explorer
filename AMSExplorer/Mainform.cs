@@ -60,7 +60,6 @@ namespace AMSExplorer
         public static string _configurationXMLFiles;
         private static string _HelpFiles;
         public static CredentialsEntry _credentials;
-        //public static CredentialsEntryV3 _amsClientV3.credentialsEntry;
         public static bool havestoragecredentials = true;
 
         // Field for service context.
@@ -73,29 +72,25 @@ namespace AMSExplorer
 
         //Watch folder vars
         private Dictionary<string, DateTime> seen = new Dictionary<string, DateTime>();
-        private TimeSpan seenInterval = new TimeSpan();
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
-        private bool MediaRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
         private enumDisplayProgram backupCheckboxAnychannel = enumDisplayProgram.Selected;
         private bool CheckboxAnychannelChangedByCode = false;
 
         private bool largeAccount = false; // if nb assets > trigger
         private int triggerForLargeAccountNbAssets = 10000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
-        //private int triggerForLargeAccountNbJobs = 5000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
         private const int maxNbAssets = 1000000;
         private const int maxNbJobs = 50000;
         private bool enableTelemetry = true;
 
-        private static readonly long OneGB = 1024L * 1024L * 1024L;
+        private static readonly long OneGB = 1000L * 1000L * 1000L;
         private static readonly int S1AssetSizeLimit = 325; // GBytes
         private static readonly int S2AssetSizeLimit = 640; // GBytes
-        private static readonly int S3AssetSizeLimit = 240; // GBytes
+        private static readonly int S3AssetSizeLimit = 260; // GBytes
         public string _accountname;
-        //private static AzureMediaServicesClient _amsClientV3.AMSclient;
         private static AMSClientV3 _amsClientV3;
 
         const string resetcredentials = "/resetcredentials";
@@ -179,8 +174,6 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-            //_credentials = form.LoginCredentials;
-
             // Get the service context.
             _context = null;// ormLogin.context;// Program.ConnectAndGetNewContext(_credentials, true);
             _amsClientV3 = formLogin.AMSClient;
@@ -244,34 +237,6 @@ namespace AMSExplorer
             if (nbassets > (0.75 * maxNbAssets))
             {
                 TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
-            }
-
-            /*
-            // nb jobs limits
-                var transforms = _amsClientV3.AMSclient.Transforms.List(_amsClientV3.credentialsEntry.ResourceGroup(), _amsClientV3.credentialsEntry.AccountName());
-            int nbjobs = _amsClientV3.AMSclient.Jobs.List(_amsClientV3.credentialsEntry.ResourceGroup(), _amsClientV3.credentialsEntry.AccountName(),"").Count();
-            /*
-            if (nbjobs > triggerForLargeAccountNbJobs)
-            {
-                TextBoxLogWriteLine("This account contains a lot of jobs. Sorting is disabled."); // Warning
-            }
-
-                if (nbjobs > (0.75 * maxNbJobs))
-                {
-                    TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
-                }
-
-                // let's initialize the trackbar and text for nb of transfers
-
-                // hard coded - for tests
-                Properties.Settings.Default.ConcurrentTransfers = 1;
-
-                trackBarConcurrentTransfers.Value = Properties.Settings.Default.ConcurrentTransfers;
-                UpdateLabelConcurrentTransfers();
-
-                ApplySettingsOptions(true);
-                */
-
         }
 
 

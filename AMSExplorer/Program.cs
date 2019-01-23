@@ -1061,7 +1061,7 @@ namespace AMSExplorer
 
         public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 
-        public const long maxSlateJPGFileSize = 3 * 1024 * 1024; // Max 3 MB
+        public const long maxSlateJPGFileSize = 3 * 1000 * 1000; // Max 3 MB
         public const int maxSlateJPGHorizontalResolution = 1920;
         public const int maxSlateJPGVerticalResolution = 1080;
         public const double SlateJPGAspectRatio = 16d / 9d;
@@ -1318,8 +1318,8 @@ namespace AMSExplorer
 
                 if (lSizeinput != -1 && lSizeoutput != -1)
                 {
-                    double lsizeinputprocessed = (double)lSizeinput / (1024 * 1024 * 1024);
-                    double lsizeoutputprocessed = (double)lSizeoutput / (1024 * 1024 * 1024);
+                    double lsizeinputprocessed = (double)lSizeinput / (1000 * 1000 * 1000);
+                    double lsizeoutputprocessed = (double)lSizeoutput / (1000 * 1000 * 1000);
 
                     if (processor != null)
                     {
@@ -2922,8 +2922,8 @@ namespace AMSExplorer
                 if (byteCount == 0)
                     return "0 " + suf[0];
                 long bytes = Math.Abs(byteCount);
-                int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
-                double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+                int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1000)));
+                double num = Math.Round(bytes / Math.Pow(1000, place), 1);
                 return (Math.Sign(byteCount) * num).ToString() + " " + suf[place];
             }
             else return null;
@@ -2933,12 +2933,12 @@ namespace AMSExplorer
         {
             var sizes = new List<unitSize> {
                   new unitSize() { unitn = "B", mult = (long)1 },
-                  new unitSize(){ unitn = "KB", mult = (long)1024 },
-                  new unitSize(){ unitn = "MB", mult = (long)1024*1024 },
-                  new unitSize(){ unitn = "GB", mult = (long)1024*1024*1024 },
-                  new unitSize(){ unitn = "TB", mult = (long)1024*1024*1024*1024 },
-                  new unitSize(){ unitn = "PB", mult = (long)1024*1024*1024 *1024*1024 },
-                  new unitSize(){ unitn = "EB", mult = (long)1024*1024*1024 *1024*1024*1024 }
+                  new unitSize(){ unitn = "KB", mult = (long)1000 },
+                  new unitSize(){ unitn = "MB", mult = (long)1000*1000 },
+                  new unitSize(){ unitn = "GB", mult = (long)1000*1000*1000 },
+                  new unitSize(){ unitn = "TB", mult = (long)1000*1000*1000*1000 },
+                  new unitSize(){ unitn = "PB", mult = (long)1000*1000*1000*1000*1000 },
+                  new unitSize(){ unitn = "EB", mult = (long)1000*1000*1000*1000*1000*1000 }
                   };
 
             if (sizes.Any(s => mystring.EndsWith(" " + s.unitn)))
