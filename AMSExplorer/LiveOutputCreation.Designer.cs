@@ -231,6 +231,7 @@
             resources.ApplyResources(this.checkBoxHLSFragPerSegDefined, "checkBoxHLSFragPerSegDefined");
             this.checkBoxHLSFragPerSegDefined.Name = "checkBoxHLSFragPerSegDefined";
             this.checkBoxHLSFragPerSegDefined.UseVisualStyleBackColor = true;
+            this.checkBoxHLSFragPerSegDefined.CheckedChanged += new System.EventHandler(this.checkBoxHLSFragPerSegDefined_CheckedChanged);
             // 
             // numericUpDownHLSFragPerSeg
             // 

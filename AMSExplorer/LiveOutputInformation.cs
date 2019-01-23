@@ -102,6 +102,7 @@ namespace AMSExplorer
                 DGChannel.Rows.Add("Manifest Name", MyLiveOutput.ManifestName);
                 DGChannel.Rows.Add("Asset Name", MyLiveOutput.AssetName);
                 DGChannel.Rows.Add("Output snapshot time", MyLiveOutput.OutputSnapTime);
+                DGChannel.Rows.Add("Fragments Per Ts Segment", MyLiveOutput.Hls?.FragmentsPerTsSegment);
 
                 /*
                 ProgramInfo PI = new ProgramInfo(MyLiveOutput, MyContext);

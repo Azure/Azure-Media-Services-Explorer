@@ -152,5 +152,10 @@ namespace AMSExplorer
         {
             checkProgramName();
         }
+
+        private void checkBoxHLSFragPerSegDefined_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSegDefined.Checked;
+        }
     }
 }

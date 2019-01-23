@@ -237,6 +237,7 @@ namespace AMSExplorer
             if (nbassets > (0.75 * maxNbAssets))
             {
                 TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
+            }
         }
 
 
@@ -7511,14 +7512,14 @@ namespace AMSExplorer
 
         private async void DoCreateLiveOutput()
         {
-            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
-            if (channel != null)
+            var liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
+            if (liveEvent != null)
             {
                 string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
 
                 LiveOutputCreation form = new LiveOutputCreation(_amsClientV3)
                 {
-                    ChannelName = channel.Name,
+                    ChannelName = liveEvent.Name,
                     archiveWindowLength = new TimeSpan(0, 5, 0),
                     CreateLocator = true,
                     EnableDynEnc = false,
@@ -7547,7 +7548,7 @@ namespace AMSExplorer
                             }
 
                             LiveOutput liveOutput = new LiveOutput(asset.Name, form.archiveWindowLength, null, form.ProgramName, null, form.ProgramDescription, form.ForceManifestName ?? "output", hlsParam);
-                            var liveOutput2 = await _amsClientV3.AMSclient.LiveOutputs.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name, form.ProgramName, liveOutput);
+                            var liveOutput2 = await _amsClientV3.AMSclient.LiveOutputs.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEvent.Name, form.ProgramName, liveOutput);
                             TextBoxLogWriteLine("Live output created.");
                         }
                         catch (Exception ex)
