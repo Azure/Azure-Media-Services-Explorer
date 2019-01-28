@@ -172,31 +172,14 @@ namespace AMSExplorer
 
         public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
         {
-            //  if (_transformName.Count == 0) return;  // no transform name set
+           // if (_transformName.Count == 0) return;  // no transform name set
 
             _client = client;
             _resourceName = resourceName;
             _accountName = accountName;
 
             List<JobEntryV3> jobs = new List<JobEntryV3>();
-            jobs.Add(new JobEntryV3());
-            /*
-
-            foreach (var t in _transformName)
-            {
-                jobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t).Select(a => new JobEntryV3
-                {
-                    Name = a.Name,
-                    Description = a.Description,
-                    LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                    TransformName = t,
-                    Outputs = a.Outputs.Count
-                }
-         ));
-            }
-            */
-
-
+           
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
             {
                 Name = "Progress",
@@ -207,8 +190,6 @@ namespace AMSExplorer
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
             this.Columns.Add(col);
 
-
-           
             /*
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
@@ -296,10 +277,6 @@ namespace AMSExplorer
             Debug.WriteLine("Refresh Jobs Start");
 
             this.FindForm().Cursor = Cursors.WaitCursor;
-
-            //  List<JobEntryV3> jobs = new List<JobEntryV3>();
-
-
 
             ///////////////////////
             // SORTING

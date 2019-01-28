@@ -978,7 +978,6 @@ namespace AMSExplorer
 
         private void DoRefresh()
         {
-
             DoRefreshGridJobV(false);
             DoRefreshGridTransformV(false);
             DoRefreshGridAssetV(false);
@@ -1018,11 +1017,9 @@ namespace AMSExplorer
 
         private void DoRefreshGridTransformV(bool firstime)
         {
-
             if (firstime)
             {
                 dataGridViewTransformsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
-
             }
 
             Debug.WriteLine("DoRefreshGridTransformVNotforsttime");
@@ -6451,7 +6448,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine(ex);
+                    //TextBoxLogWriteLine(ex);
                 }
 
                 /*

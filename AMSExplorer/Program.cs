@@ -4925,7 +4925,6 @@ namespace AMSExplorer
         public bool UseSPAuth = false;
         public string Description;
 
-
         public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironmentV3 environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false)
         {
             MediaService = mediaService;
@@ -4975,8 +4974,6 @@ namespace AMSExplorer
                 EncryptedADSPClientSecret = (value != null) ? EncryptSecret(value) : null;
             }
         }
-
-
 
         public bool Equals(CredentialsEntryV3 other)
         {

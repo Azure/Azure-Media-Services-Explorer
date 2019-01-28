@@ -22,15 +22,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
 {
     public class DataGridViewTransforms : DataGridView
     {
-
         private bool _initialized = false;
-        static private bool _refreshedatleastonetime = false;
 
         private List<string> idsList = new List<string>();
         static AzureMediaServicesClient _client;
@@ -56,6 +55,16 @@ namespace AMSExplorer
             BindingList<TransformEntryV3> MyObservTransformthisPageV3 = new BindingList<TransformEntryV3>(transforms.ToList());
             this.DataSource = MyObservTransformthisPageV3;
 
+            var myTask = Task.Factory.StartNew(() =>
+            {
+                this.BeginInvoke(new Action(() =>
+                {
+                    this.Columns["Name"].Width = 200;
+                    this.Columns["Description"].Width = 150;
+                    this.Columns["LastModified"].Width = 130;
+                }));
+            });
+
             _initialized = true;
         }
 
@@ -79,7 +88,6 @@ namespace AMSExplorer
             _MyObservTransformsV3 = new BindingList<TransformEntryV3>(transforms.ToList());
 
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservTransformsV3));
-            _refreshedatleastonetime = true;
 
             Debug.WriteLine("RefreshTransforms End");
 
