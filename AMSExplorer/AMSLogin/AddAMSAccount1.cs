@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -48,10 +49,17 @@ namespace AMSExplorer
 
         private void AddAMSAccount1_Load(object sender, EventArgs e)
         {
-            comboBoxAADMappingList.Items.Add(new Item("Azure Global", nameof(AzureEnvType.Azure)));
-            comboBoxAADMappingList.Items.Add(new Item("Azure China", nameof(AzureEnvType.AzureChina)));
-            comboBoxAADMappingList.Items.Add(new Item("Azure US Government", nameof(AzureEnvType.AzureUSGovernment)));
+            AzureEnvType[] envs = new AzureEnvType[] { AzureEnvType.Azure, AzureEnvType.AzureChina, AzureEnvType.AzureUSGovernment, AzureEnvType.AzureGermany, AzureEnvType.DevTest };
+
+            foreach (var env in envs)
+            {
+                comboBoxAADMappingList.Items.Add(new Item((new AzureEnvironmentV3(env)).DisplayName, env.ToString()));
+            }
+
             comboBoxAADMappingList.SelectedIndex = 0;
+
+           linkLabelAzCliDoc.Links.Add(new LinkLabel.Link(0, linkLabelAzCliDoc.Text.Length, Constants.LinkAMSAzCli));
+
 
         }
 
@@ -62,7 +70,12 @@ namespace AMSExplorer
 
         private void radioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)
         {
-            //comboBoxAADMappingList.Enabled = !radioButtonJsonCliOutput.Checked;
+            panelEnv.Visible = !radioButtonJsonCliOutput.Checked;
+        }
+
+        private void linkLabelAzCliDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
         }
     }
 

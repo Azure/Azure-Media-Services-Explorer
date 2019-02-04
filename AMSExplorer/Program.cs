@@ -1053,6 +1053,7 @@ namespace AMSExplorer
 
         public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-create-account";
         public const string LinkAMSAADAut = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-get-started-with-aad";
+        public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-cli-how-to#access-the-media-services-api";
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
@@ -4781,7 +4782,9 @@ namespace AMSExplorer
             if (!credentialsEntry.UseSPAuth)
             {
                 // we specify the tenant id if there
-                var authContext = new AuthenticationContext(authority: environment.Authority.Replace("common", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
+                // var authContext = new AuthenticationContext(authority: environment.Authority.Replace("common", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
+                var authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
+
 
                 accessToken = await authContext.AcquireTokenAsync(
                                                                     resource: environment.AADSettings.TokenAudience.ToString(),
@@ -5060,16 +5063,17 @@ namespace AMSExplorer
     public enum AzureEnvType
     {
         Azure = 0,
-        Test,
+        DevTest,
         AzureChina,
         AzureUSGovernment,
+        AzureGermany,
         Custom
     }
 
     public class AzureEnvironmentV3
     {
         public string DisplayName { get; set; }
-        public string Authority { get; set; }
+        //public string Authority { get; set; }
         public Uri ArmEndpoint { get; set; }
         public string ClientApplicationId { get; set; }
         public ActiveDirectoryServiceSettings AADSettings { get; set; }
@@ -5079,18 +5083,17 @@ namespace AMSExplorer
         {
             switch (type)
             {
-                case AzureEnvType.Test:
-
-                    DisplayName = "Test";
-                    Authority = "https://login.windows-ppe.net/common/oauth2/authorize";
+                case AzureEnvType.DevTest:
+                    DisplayName = "Azure Dev/Test";
+                    //Authority = "https://login.windows-ppe.net/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://api-dogfood.resources.windows-int.net/");
-                    ClientApplicationId = "24f03a2b-432b-41f7-bc67-941b965f82ed";
-                    AADSettings = new ActiveDirectoryServiceSettings() { TokenAudience = new Uri("https://management.core.windows.net/"), ValidateAuthority = true };
+                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
+                    AADSettings = new ActiveDirectoryServiceSettings() { TokenAudience = new Uri("https://management.core.windows.net/"), ValidateAuthority = true, AuthenticationEndpoint = new Uri("https://login.windows-ppe.net/common/oauth2/authorize") };
                     break;
 
                 case AzureEnvType.Azure:
-                    DisplayName = "Azure Global";
-                    Authority = "https://login.windows.net/common/oauth2/authorize";
+                    DisplayName = "Azure";
+                    //Authority = "https://login.windows.net/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://management.azure.com/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.Azure;
@@ -5098,7 +5101,7 @@ namespace AMSExplorer
 
                 case AzureEnvType.AzureChina:
                     DisplayName = "Azure China";
-                    Authority = "https://login.chinacloudapi.cn/common/oauth2/authorize";
+                    //Authority = "https://login.chinacloudapi.cn/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://management.chinacloudapi.cn/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureChina;
@@ -5106,25 +5109,29 @@ namespace AMSExplorer
 
                 case AzureEnvType.AzureUSGovernment:
                     DisplayName = "Azure US Government";
-                    Authority = "https://login.microsoftonline.us/common/oauth2/authorize";
-                    ArmEndpoint = new Uri("https://management.core.us-govcloudapi.net/");
+                    //Authority = "https://login.usgovcloudapi.net/common/oauth2/authorize";
+                    ArmEndpoint = new Uri("https://management.usgovcloudapi.net/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureUSGovernment;
                     break;
 
+                case AzureEnvType.AzureGermany:
+                    DisplayName = "Azure Germany";
+                    //Authority = "https://login.cloudapi.de/common/oauth2/authorize";
+                    ArmEndpoint = new Uri("https://management.cloudapi.de/");
+                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
+                    AADSettings = ActiveDirectoryServiceSettings.AzureGermany;
+                    break;
 
                 case AzureEnvType.Custom:
                     DisplayName = "Custom";
-                    Authority = "";
+                    //Authority = "";
                     ArmEndpoint = null;
                     ClientApplicationId = "";
                     AADSettings = new ActiveDirectoryServiceSettings();
                     break;
             }
         }
-
-
-
 
         public string ReturnStorageSuffix()
         {

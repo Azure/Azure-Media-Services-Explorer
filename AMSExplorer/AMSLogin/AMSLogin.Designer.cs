@@ -57,7 +57,7 @@
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelVersion = new System.Windows.Forms.Label();
-            this.buttonConnectFullyInteractive = new System.Windows.Forms.Button();
+            this.buttonPickupAccount = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
@@ -253,12 +253,12 @@
             this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.labelVersion.Name = "labelVersion";
             // 
-            // buttonConnectFullyInteractive
+            // buttonPickupAccount
             // 
-            resources.ApplyResources(this.buttonConnectFullyInteractive, "buttonConnectFullyInteractive");
-            this.buttonConnectFullyInteractive.Name = "buttonConnectFullyInteractive";
-            this.buttonConnectFullyInteractive.UseVisualStyleBackColor = true;
-            this.buttonConnectFullyInteractive.Click += new System.EventHandler(this.buttonConnectFullyInteractive_Click);
+            resources.ApplyResources(this.buttonPickupAccount, "buttonPickupAccount");
+            this.buttonPickupAccount.Name = "buttonPickupAccount";
+            this.buttonPickupAccount.UseVisualStyleBackColor = true;
+            this.buttonPickupAccount.Click += new System.EventHandler(this.buttonPickupAccount_Click);
             // 
             // errorProvider1
             // 
@@ -293,7 +293,7 @@
             this.Controls.Add(this.linkLabelAMSOfflineDoc);
             this.Controls.Add(this.listViewAccounts);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonConnectFullyInteractive);
+            this.Controls.Add(this.buttonPickupAccount);
             this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.accountmgtlink);
             this.Controls.Add(this.buttonImportAll);
@@ -350,7 +350,7 @@
         private System.Windows.Forms.RadioButton radioButtonAADInteractive;
         private System.Windows.Forms.LinkLabel linkLabelAADAut;
         private System.Windows.Forms.ListView listViewAccounts;
-        private System.Windows.Forms.Button buttonConnectFullyInteractive;
+        private System.Windows.Forms.Button buttonPickupAccount;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabelAMSOfflineDoc;

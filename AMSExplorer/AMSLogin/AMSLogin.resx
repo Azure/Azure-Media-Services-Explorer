@@ -855,37 +855,37 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="buttonConnectFullyInteractive.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonPickupAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="buttonConnectFullyInteractive.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="buttonPickupAccount.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="buttonConnectFullyInteractive.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonPickupAccount.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonConnectFullyInteractive.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonPickupAccount.Location" type="System.Drawing.Point, System.Drawing">
     <value>606, 424</value>
   </data>
-  <data name="buttonConnectFullyInteractive.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonPickupAccount.Size" type="System.Drawing.Size, System.Drawing">
     <value>149, 27</value>
   </data>
-  <data name="buttonConnectFullyInteractive.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonPickupAccount.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="buttonConnectFullyInteractive.Text" xml:space="preserve">
+  <data name="buttonPickupAccount.Text" xml:space="preserve">
     <value>Pick-up an account...</value>
   </data>
-  <data name="&gt;&gt;buttonConnectFullyInteractive.Name" xml:space="preserve">
-    <value>buttonConnectFullyInteractive</value>
+  <data name="&gt;&gt;buttonPickupAccount.Name" xml:space="preserve">
+    <value>buttonPickupAccount</value>
   </data>
-  <data name="&gt;&gt;buttonConnectFullyInteractive.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonPickupAccount.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonConnectFullyInteractive.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonPickupAccount.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonConnectFullyInteractive.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonPickupAccount.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

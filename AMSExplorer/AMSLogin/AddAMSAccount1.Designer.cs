@@ -39,10 +39,12 @@
             this.radioButtonAddManual = new System.Windows.Forms.RadioButton();
             this.comboBoxAADMappingList = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.linkLabelAzCliDoc = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panelEnv = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.panelEnv.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonNext
@@ -102,12 +104,13 @@
             // comboBoxAADMappingList
             // 
             this.comboBoxAADMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
             this.comboBoxAADMappingList.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
             this.comboBoxAADMappingList.Name = "comboBoxAADMappingList";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.linkLabelAzCliDoc);
             this.groupBox1.Controls.Add(this.radioButtonAddAMSAccount);
             this.groupBox1.Controls.Add(this.checkBoxSelectUser);
             this.groupBox1.Controls.Add(this.radioButtonJsonCliOutput);
@@ -116,12 +119,24 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // groupBox2
+            // linkLabelAzCliDoc
             // 
-            this.groupBox2.Controls.Add(this.comboBoxAADMappingList);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
+            resources.ApplyResources(this.linkLabelAzCliDoc, "linkLabelAzCliDoc");
+            this.linkLabelAzCliDoc.Name = "linkLabelAzCliDoc";
+            this.linkLabelAzCliDoc.TabStop = true;
+            this.linkLabelAzCliDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAzCliDoc_LinkClicked);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // panelEnv
+            // 
+            this.panelEnv.Controls.Add(this.label1);
+            this.panelEnv.Controls.Add(this.comboBoxAADMappingList);
+            resources.ApplyResources(this.panelEnv, "panelEnv");
+            this.panelEnv.Name = "panelEnv";
             // 
             // AddAMSAccount1
             // 
@@ -130,7 +145,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.panelEnv);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetName);
@@ -139,7 +154,8 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.panelEnv.ResumeLayout(false);
+            this.panelEnv.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -156,6 +172,8 @@
         private System.Windows.Forms.RadioButton radioButtonAddManual;
         public System.Windows.Forms.ComboBox comboBoxAADMappingList;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.LinkLabel linkLabelAzCliDoc;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panelEnv;
     }
 }

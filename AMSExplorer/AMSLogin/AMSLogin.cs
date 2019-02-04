@@ -388,7 +388,7 @@ namespace AMSExplorer
         }
 
 
-        private async void buttonConnectFullyInteractive_Click(object sender, EventArgs e)
+        private async void buttonPickupAccount_Click(object sender, EventArgs e)
         {
             var addaccount1 = new AddAMSAccount1();
             if (addaccount1.ShowDialog() == DialogResult.OK)
@@ -399,8 +399,10 @@ namespace AMSExplorer
                     environment = addaccount1.GetEnvironment();
 
                     var authContext = new AuthenticationContext(
-                    authority: environment.Authority,
-                    validateAuthority: true);
+                       // authority:  environment.Authority,
+                                                                authority: environment.AADSettings.AuthenticationEndpoint.ToString() + "common/oauth2/authorize",
+                                                                validateAuthority: true
+                    );
 
                     AuthenticationResult accessToken;
                     try

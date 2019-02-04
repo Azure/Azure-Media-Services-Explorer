@@ -250,7 +250,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonAddAMSAccount.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="checkBoxSelectUser.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -277,7 +277,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxSelectUser.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="radioButtonJsonCliOutput.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -289,13 +289,13 @@
     <value>20, 110</value>
   </data>
   <data name="radioButtonJsonCliOutput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 19</value>
+    <value>356, 19</value>
   </data>
   <data name="radioButtonJsonCliOutput.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
   </data>
   <data name="radioButtonJsonCliOutput.Text" xml:space="preserve">
-    <value>Use the JSON output from Azure Cli (az ams sp create)</value>
+    <value>Use the JSON output from Azure Cli (az ams account sp create)</value>
   </data>
   <data name="&gt;&gt;radioButtonJsonCliOutput.Name" xml:space="preserve">
     <value>radioButtonJsonCliOutput</value>
@@ -307,7 +307,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonJsonCliOutput.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="radioButtonAddManual.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -337,13 +337,10 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonAddManual.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="comboBoxAADMappingList.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+    <value>4</value>
   </data>
   <data name="comboBoxAADMappingList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 42</value>
+    <value>104, 15</value>
   </data>
   <data name="comboBoxAADMappingList.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 23</value>
@@ -358,13 +355,49 @@
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;comboBoxAADMappingList.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>panelEnv</value>
   </data>
   <data name="&gt;&gt;comboBoxAADMappingList.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="linkLabelAzCliDoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="linkLabelAzCliDoc.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelAzCliDoc.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="linkLabelAzCliDoc.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelAzCliDoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>382, 112</value>
+  </data>
+  <data name="linkLabelAzCliDoc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 15</value>
+  </data>
+  <data name="linkLabelAzCliDoc.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="linkLabelAzCliDoc.Text" xml:space="preserve">
+    <value>documentation</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAzCliDoc.Name" xml:space="preserve">
+    <value>linkLabelAzCliDoc</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAzCliDoc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAzCliDoc.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAzCliDoc.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 50</value>
+    <value>28, 52</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>514, 207</value>
@@ -387,28 +420,55 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 282</value>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>514, 100</value>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>95</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 18</value>
   </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Azure settings</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 15</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
-    <value>groupBox2</value>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>96</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Environment :</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panelEnv</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelEnv.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 275</value>
+  </data>
+  <data name="panelEnv.Size" type="System.Drawing.Size, System.Drawing">
+    <value>458, 54</value>
+  </data>
+  <data name="panelEnv.TabIndex" type="System.Int32, mscorlib">
+    <value>97</value>
+  </data>
+  <data name="&gt;&gt;panelEnv.Name" xml:space="preserve">
+    <value>panelEnv</value>
+  </data>
+  <data name="&gt;&gt;panelEnv.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelEnv.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;panelEnv.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

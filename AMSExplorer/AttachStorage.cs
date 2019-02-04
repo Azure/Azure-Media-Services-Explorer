@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
@@ -62,22 +61,19 @@ namespace AMSExplorer
 
         private void AttachStorage_Load(object sender, EventArgs e)
         {
-
             try
             {
-                //AskServicePrincipalCredentialsIfNeeded();
-                //ConfigWrapper config = new ConfigWrapper(_credentials, AzureSubscriptionID, AMSResourceGroup, "72f988bf-86f1-41af-91ab-2d7cd011db47", new Uri("https://management.core.windows.net/"), "West Europe", new Uri("https://login.microsoftonline.com"), new Uri("https://management.azure.com/"));
                 mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
                 // The default value is 30 seconds for the .NET client SDK
                 mediaClient.LongRunningOperationRetryTimeout = 2;
 
-                mediaService =  mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+                mediaService = mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error when connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                buttonAttach.Enabled = groupBoxStorage.Enabled = false;
+                buttonAttach.Enabled = false;
                 return;
             }
 
@@ -86,7 +82,6 @@ namespace AMSExplorer
 
             storages.ForEach(s =>
             {
-                // if (!(bool)s.IsPrimary)
                 if (s.Type == StorageAccountType.Secondary)
                 {
                     var names = s.Id.Split('/');
@@ -96,91 +91,12 @@ namespace AMSExplorer
                 }
             }
             );
-
-            buttonAttach.Enabled = groupBoxStorage.Enabled = true;
-
-
+            buttonAttach.Enabled = true;
         }
 
-        private void textBoxStorageName_TextChanged(object sender, EventArgs e)
-        {
-            textBoxTXT_Validation(sender, e);
-        }
-
-        private void textBoxTXT_Validation(object sender, EventArgs e)
-        {
-            TextBox mytextbox = (TextBox)sender;
-            mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;
-        }
-
-        private string GetStorageResourceId(string subscriptionId, string resourceGroup, string storageName)
-        {
-            return string.Format("/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}",
-                subscriptionId,
-                resourceGroup,
-                storageName
-                );
-        }
-
-        /*
-        private async Task<IAzureMediaServicesClient> GetMediaClient()
-        {
-            ServiceClientCredentials serviceCreds;
-            if (_credentials.UseAADServicePrincipal)
-            {
-                serviceCreds = await ApplicationTokenProvider.LoginSilentAsync(_credentials.ADTenantDomain, _credentials.ADSPClientId, _credentials.ADSPClientSecret, _credentials.ReturnADSettings());
-            }
-            else
-            {
-                var formSP = new AMSLoginServicePrincipal();
-                if (formSP.ShowDialog() == DialogResult.OK)
-                {
-                    serviceCreds = await ApplicationTokenProvider.LoginSilentAsync(_credentials.ADTenantDomain, formSP.ClientId, formSP.ClientSecret, _credentials.ReturnADSettings());
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
-            return new IAzureMediaServicesClient(serviceCreds);
-        }
-        */
-
-
-
+   
         public void UpdateStorageAccounts()
         {
-            /*
-
-            MediaService mediaServiceNew = new MediaService();
-            mediaServiceNew.ApiEndpoints = mediaService.ApiEndpoints;
-            mediaServiceNew.StorageAccounts = new List<StorageAccount>();
-
-            // build the list of attached storage and remove from the list the ones the user wants to detach
-            foreach (var stor in mediaService.StorageAccounts)
-            {
-                if ((bool)stor.IsPrimary || !StorageResourceIdToDetach.Contains(stor.Id)) // Default cannot be detached
-                {
-                    mediaServiceNew.StorageAccounts.Add(new StorageAccount(id: stor.Id, isPrimary: stor.IsPrimary));
-                }
-            }
-
-            // storage attach
-            foreach (var storId in StorageResourceIdToAttach)
-            {
-                mediaServiceNew.StorageAccounts.Add(new StorageAccount(id: storId, isPrimary: false));
-            }
-
-            string accn = _credentials.ReturnAccountName();
-            mediaClient.MediaService.Update(AMSResourceGroup, _credentials.ReturnAccountName(), mediaServiceNew);
-
-            */
-
-
-           
-
-           
             // storage to detach
             foreach (var stor in mediaService.StorageAccounts.ToList())
             {
@@ -189,7 +105,6 @@ namespace AMSExplorer
                     mediaService.StorageAccounts.Remove(stor);
                 }
             }
-           
 
             // storage to attach
             foreach (var storId in StorageResourceIdToAttach)
