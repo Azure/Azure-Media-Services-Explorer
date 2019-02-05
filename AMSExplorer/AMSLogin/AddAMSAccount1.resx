@@ -232,13 +232,13 @@
     <value>20, 41</value>
   </data>
   <data name="radioButtonAddAMSAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>353, 19</value>
+    <value>283, 19</value>
   </data>
   <data name="radioButtonAddAMSAccount.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="radioButtonAddAMSAccount.Text" xml:space="preserve">
-    <value>Browse your subscriptions and select an Account (Production)</value>
+    <value>Browse your subscriptions and select an Account</value>
   </data>
   <data name="&gt;&gt;radioButtonAddAMSAccount.Name" xml:space="preserve">
     <value>radioButtonAddAMSAccount</value>
