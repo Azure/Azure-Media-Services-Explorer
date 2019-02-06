@@ -268,7 +268,6 @@
             // 
             this.listViewAccounts.FullRowSelect = true;
             resources.ApplyResources(this.listViewAccounts, "listViewAccounts");
-            this.listViewAccounts.MultiSelect = false;
             this.listViewAccounts.Name = "listViewAccounts";
             this.listViewAccounts.ShowItemToolTips = true;
             this.listViewAccounts.UseCompatibleStateImageBehavior = false;

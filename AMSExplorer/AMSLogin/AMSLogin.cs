@@ -90,31 +90,25 @@ namespace AMSExplorer
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
         {
-            int index = listViewAccounts.SelectedIndices[0];
-            if (index > -1)
+            // let's remove the selected items
+
+            for (int i = listViewAccounts.Items.Count - 1; i >= 0; i--)
             {
-                CredentialList.MediaServicesAccounts.RemoveAt(index);
-                SaveCredentialsToSettings();
-
-                listViewAccounts.Items.Clear();
-                CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c));
-
-                if (listViewAccounts.Items.Count > 0)
+                if (listViewAccounts.Items[i].Selected)
                 {
-                    listViewAccounts.Items[0].Selected = true;
-                }
-                else
-                {
-                    buttonDeleteAccountEntry.Enabled = false; // no selected item, so login button not active
+                    listViewAccounts.Items[i].Remove();
+                    CredentialList.MediaServicesAccounts.RemoveAt(i);
                 }
             }
+
+            SaveCredentialsToSettings();
         }
 
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
+            if (listViewAccounts.SelectedIndices.Count != 1) return;
             // code when used from pick-up
             LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
-
 
             if (LoginInfo == null)
             {
@@ -163,7 +157,7 @@ namespace AMSExplorer
 
         private void listViewAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            buttonLogin.Enabled = (listViewAccounts.SelectedIndices.Count == 1); // no selected item, so login button not active
             buttonDeleteAccountEntry.Enabled = (listViewAccounts.SelectedIndices.Count > 0); // no selected item, so login button not active
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
@@ -184,22 +178,6 @@ namespace AMSExplorer
             }
         }
 
-        private void DoClearFields()
-        {
-            textBoxAADtenantId.Text =
-            textBoxAMSResourceId.Text =
-            textBoxLocation.Text =
-              string.Empty;
-
-            radioButtonAADInteractive.Checked = true;
-
-            int i = 0;
-            foreach (var item in listViewAccounts.Items)
-            {
-                listViewAccounts.Items[i].Selected = false;
-                i++;
-            }
-        }
 
         private void DoEnableManualFields(bool enable)
         {
@@ -249,12 +227,16 @@ namespace AMSExplorer
                         else
                         {
                             var copyEntry = new ListCredentialsRPv3();
-                            copyEntry.MediaServicesAccounts.Add(CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]]);
+
+                            for (int i = 0; i < listViewAccounts.SelectedIndices.Count; i++)
+                            {
+                                copyEntry.MediaServicesAccounts.Add(CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[i]]);
+                            }
+
                             System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(copyEntry, settings));
                         }
                     }
                     catch (Exception ex)
-
                     {
                         MessageBox.Show(ex.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -291,13 +273,11 @@ namespace AMSExplorer
                     CredentialList.MediaServicesAccounts.AddRange(ImportedCredentialList.MediaServicesAccounts);
 
                     listViewAccounts.Items.Clear();
-                    //DoClearFields();
                     CredentialList.MediaServicesAccounts.ForEach(c => AddItemToListviewAccounts(c));
                     buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
                     // let's save the list of credentials in settings
                     SaveCredentialsToSettings();
-
                 }
             }
         }
@@ -399,7 +379,7 @@ namespace AMSExplorer
                     environment = addaccount1.GetEnvironment();
 
                     var authContext = new AuthenticationContext(
-                       // authority:  environment.Authority,
+                                                                // authority:  environment.Authority,
                                                                 authority: environment.AADSettings.AuthenticationEndpoint.ToString() + "common/oauth2/authorize",
                                                                 validateAuthority: true
                     );
@@ -426,14 +406,15 @@ namespace AMSExplorer
                     var subscriptions = subscriptionClient.Subscriptions.List();
 
 
-                    /*
+                  /*
                     // test code  - briowser subscription with other tenants
                     var tenants = subscriptionClient.Tenants.List();
 
                     foreach (var tenant in tenants)
                     {
                         authContext = new AuthenticationContext(
-                   authority: environment.Authority.Replace("common", tenant.TenantId),
+                   authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", tenant.TenantId ?? "common"),
+
                    validateAuthority: true);
 
                         try
@@ -453,15 +434,15 @@ namespace AMSExplorer
 
                         credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
-                         subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+                        subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
                         subscriptions = subscriptionClient.Subscriptions.List();
                         var addaccount3 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
                         addaccount3.ShowDialog();
 
                     }
-                                                         
+                */
                     // end test code
-                    */
+                    
 
                     var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
                     if (addaccount2.ShowDialog() == DialogResult.OK)
@@ -578,27 +559,6 @@ namespace AMSExplorer
                     else return;
                 }
             }
-        }
-
-        private void buttonManualEntry_Click(object sender, EventArgs e)
-        {
-            tabControlAMS.Enabled = true;
-            DoClearFields();
-            DoEnableManualFields(true);
-            labelADTenant.Visible = textBoxAADtenantId.Visible = false; // onsly show tenant if SP is used
-            radioButtonAADInteractive.Checked = true;
-            groupBoxAADAutMode.Visible = true;
-        }
-
-        private void radioButtonAADServicePrincipal_CheckedChanged(object sender, EventArgs e)
-        {
-            labelADTenant.Visible = textBoxAADtenantId.Visible = radioButtonAADServicePrincipal.Checked; // onsly show tenant if SP is used
-
-        }
-
-        private void buttonImportSPJson_Click(object sender, EventArgs e)
-        {
-            //  Azure portal / AMS Account / Properties. Example : /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/amsResourceGroup/providers/Microsoft.Media/mediaservices/amsaccount
         }
 
         private void textBoxDescription_TextChanged(object sender, EventArgs e)

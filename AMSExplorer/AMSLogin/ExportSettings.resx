@@ -238,13 +238,13 @@
     <value>61, 45</value>
   </data>
   <data name="radioButtonCurrentEntry.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 19</value>
+    <value>133, 19</value>
   </data>
   <data name="radioButtonCurrentEntry.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>
   </data>
   <data name="radioButtonCurrentEntry.Text" xml:space="preserve">
-    <value>Current entry only</value>
+    <value>Selected entries only</value>
   </data>
   <data name="&gt;&gt;radioButtonCurrentEntry.Name" xml:space="preserve">
     <value>radioButtonCurrentEntry</value>
