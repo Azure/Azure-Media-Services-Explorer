@@ -7267,7 +7267,7 @@ namespace AMSExplorer
             if (ListOutputs.Count > 0)
             {
                 string question = (ListOutputs.Count == 1) ? string.Format("Delete the live output '{0}' ?", ListOutputs[0].Name)
-                                                        : string.Format("Delete these [0} live outputs ?", ListOutputs.Count);
+                                                        : string.Format("Delete these {0} live outputs ?", ListOutputs.Count);
 
                 DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                 if (form.ShowDialog() == DialogResult.OK)

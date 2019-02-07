@@ -36,13 +36,14 @@ namespace AMSExplorer
         private Dictionary<string, IPage<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, IPage<SubscriptionMediaService>>();
         public SubscriptionMediaService selectedAccount = null;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironmentV3 environment)
+        public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironmentV3 environment, string orgName=null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             this.credentials = credentials;
             this.subscriptions = subscriptions;
             this.environment = environment;
+            if (orgName != null) this.Text = orgName;
         }
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)

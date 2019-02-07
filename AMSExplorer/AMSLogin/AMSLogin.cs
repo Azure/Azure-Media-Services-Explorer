@@ -31,6 +31,9 @@ using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure.Authentication;
+using Microsoft.Graph;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
@@ -294,7 +297,7 @@ namespace AMSExplorer
 
         private void accountmgtlink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            System.Diagnostics.Process.Start(e.Link.LinkData as string);
         }
 
         private void AMSLogin_Shown(object sender, EventArgs e)
@@ -406,12 +409,18 @@ namespace AMSExplorer
                     var subscriptions = subscriptionClient.Subscriptions.List();
 
 
-                  /*
+                    /*
                     // test code  - briowser subscription with other tenants
                     var tenants = subscriptionClient.Tenants.List();
 
                     foreach (var tenant in tenants)
                     {
+                        bool error = false;
+                        AuthenticationResult tokenGraph = null;
+
+
+
+
                         authContext = new AuthenticationContext(
                    authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", tenant.TenantId ?? "common"),
 
@@ -419,8 +428,8 @@ namespace AMSExplorer
 
                         try
                         {
-                            accessToken = await authContext.AcquireTokenAsync(
-                                                                                 resource: environment.AADSettings.TokenAudience.ToString(),
+                            tokenGraph = await authContext.AcquireTokenAsync(
+                                                                                 resource:  "https://graph.microsoft.com",// environment.AADSettings.TokenAudience.ToString(),
                                                                                  clientId: environment.ClientApplicationId,
                                                                                  redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
                                                                                  parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
@@ -429,20 +438,66 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            error = true;
                             //return;
                         }
 
-                        credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+                        if (!error)
+                        {
+                            // Graph to get tenant name
 
-                        subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-                        subscriptions = subscriptionClient.Subscriptions.List();
-                        var addaccount3 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
-                        addaccount3.ShowDialog();
+                            var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider((requestMessage) =>
+
+                            {
+
+                                requestMessage
+
+                                    .Headers
+
+                                    .Authorization = new AuthenticationHeaderValue("Bearer", tokenGraph.AccessToken);
+
+
+
+                                return Task.FromResult(0);
+
+                            }));
+
+
+
+                            var org = await graphServiceClient.Organization.Request().GetAsync();
+                            var name = org.First().DisplayName + " "+ org.First().VerifiedDomains.Last().Name;
+                                
+
+
+                            try
+                            {
+                                accessToken = await authContext.AcquireTokenAsync(
+                                                                                     resource: environment.AADSettings.TokenAudience.ToString(),
+                                                                                     clientId: environment.ClientApplicationId,
+                                                                                     redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                                     parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
+                                                                                     );
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //return;
+                            }
+
+                            credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+
+                            subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+                            subscriptions = subscriptionClient.Subscriptions.List();
+                            var addaccount3 = new AddAMSAccount2Browse(credentials, subscriptions, environment, name);
+                            addaccount3.ShowDialog();
+                        }
+
+                       
 
                     }
-                */
+                    */
                     // end test code
-                    
+
 
                     var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
                     if (addaccount2.ShowDialog() == DialogResult.OK)
@@ -569,7 +624,7 @@ namespace AMSExplorer
 
         private void linkLabelAMSOfflineDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(Application.StartupPath + @"\HelpFiles\" + @"AMSv3doc.pdf");
+            System.Diagnostics.Process.Start(Application.StartupPath + @"\HelpFiles\" + @"AMSv3doc.pdf");
         }
     }
 }
