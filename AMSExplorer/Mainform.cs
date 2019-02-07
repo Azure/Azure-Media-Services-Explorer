@@ -7520,9 +7520,10 @@ namespace AMSExplorer
                     archiveWindowLength = new TimeSpan(0, 5, 0),
                     CreateLocator = true,
                     EnableDynEnc = false,
-                    AssetName = "LiveArchive-" + Constants.NameconvChannel + "-" + Constants.NameconvProgram + "-" + uniqueness,
-                    ProgramName = "liveOutput" + uniqueness,
-                    HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment
+                    AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
+                    ProgramName = "LiveOutput-" + uniqueness,
+                    HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
+                    ManifestName = uniqueness
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -7544,7 +7545,7 @@ namespace AMSExplorer
                                 hlsParam = new Hls(fragmentsPerTsSegment: form.HLSFragmentPerSegment);
                             }
 
-                            LiveOutput liveOutput = new LiveOutput(asset.Name, form.archiveWindowLength, null, form.ProgramName, null, form.ProgramDescription, form.ForceManifestName ?? "output", hlsParam);
+                            LiveOutput liveOutput = new LiveOutput(asset.Name, form.archiveWindowLength, null, form.ProgramName, null, form.ProgramDescription, form.ManifestName ?? uniqueness, hlsParam);
                             var liveOutput2 = await _amsClientV3.AMSclient.LiveOutputs.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEvent.Name, form.ProgramName, liveOutput);
                             TextBoxLogWriteLine("Live output created.");
                         }
@@ -7555,8 +7556,6 @@ namespace AMSExplorer
                             TextBoxLogWriteLine(ex);
                         }
                         DoRefreshGridLiveOutputV(false);
-
-
                     }
                     );
                 }

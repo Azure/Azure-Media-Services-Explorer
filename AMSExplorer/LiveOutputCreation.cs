@@ -53,7 +53,7 @@ namespace AMSExplorer
             }
         }
 
-        public string ForceManifestName
+        public string ManifestName
         {
             get
             {
@@ -66,6 +66,7 @@ namespace AMSExplorer
                     return textBoxManifestName.Text.Trim();
                 }
             }
+            set { textBoxManifestName.Text = value; }
         }
 
         public short? HLSFragmentPerSegment
