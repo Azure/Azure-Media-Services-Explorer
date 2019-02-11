@@ -31,10 +31,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security;
 using System.Security.Claims;
 using System.IdentityModel.Tokens;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame4 : Form
+    public partial class DRM_Config_TokenClaims : Form
     {
         private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
@@ -44,31 +45,58 @@ namespace AMSExplorer
                 new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
               };
 
-        public ContentKeyRestrictionType GetKeyRestrictionType
+        public ContentKeyPolicyOption Option
         {
             get
             {
+                List<ContentKeyPolicyRestrictionTokenKey> alternateKeys = null;
+
+                ContentKeyPolicyRestrictionTokenKey primarykey;
+                if (GetDetailedTokenType== ExplorerTokenType.JWTSym || GetDetailedTokenType == ExplorerTokenType.SWTSym)
+                {
+                    primarykey = new ContentKeyPolicySymmetricTokenKey(SymmetricKey);
+                }
+                else
+                {
+                    primarykey = new ContentKeyPolicyX509CertificateTokenKey(GetX509Certificate.RawData);
+
+                }
+
+
+                ContentKeyPolicyOption option = null;
+
                 if (radioButtonOpenAuthPolicy.Checked)
                 {
-                    return ContentKeyRestrictionType.Open;
+                    option = new ContentKeyPolicyOption(
+                                                    new ContentKeyPolicyClearKeyConfiguration(),
+                                                    new ContentKeyPolicyOpenRestriction()
+                                                    );
                 }
                 else // token
                 {
-                    return ContentKeyRestrictionType.TokenRestricted;
-                }
+                    option = new ContentKeyPolicyOption(
+                                                    new ContentKeyPolicyClearKeyConfiguration(),
+                                                    new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey,
+                                                            TokenType, alternateKeys, GetTokenRequiredClaims));
 
+
+                }
+                return option;
             }
         }
 
 
-        public string GetAudience
+
+
+
+        public string Audience
         {
             get
             {
                 return textBoxAudience.Text;
             }
         }
-        public string GetIssuer
+        public string Issuer
         {
             get
             {
@@ -76,35 +104,32 @@ namespace AMSExplorer
             }
         }
 
-        public bool AddContentKeyIdentifierClaim
-        {
-            get
-            {
-                return checkBoxAddContentKeyIdentifierClaim.Checked;
-            }
-        }
 
-        public IList<TokenClaim> GetTokenRequiredClaims
+        public List<ContentKeyPolicyTokenClaim> GetTokenRequiredClaims
         {
             get
             {
-                IList<TokenClaim> mylist = new List<TokenClaim>();
+                List<ContentKeyPolicyTokenClaim> mylist = new List<ContentKeyPolicyTokenClaim>();
                 foreach (var j in TokenClaimsList)
                 {
                     if (!string.IsNullOrEmpty(j.Type))
                     {
-                        mylist.Add(new TokenClaim(j.Type, j.Value));
+                        mylist.Add(new ContentKeyPolicyTokenClaim(j.Type, j.Value));
                     }
                 }
+                if (checkBoxAddContentKeyIdentifierClaim.Checked)
+                {
+                    mylist.Add(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim);
+                };
                 return mylist;
             }
         }
 
-        public TokenType GetTokenType
+        public ContentKeyPolicyRestrictionTokenType TokenType
         {
             get
             {
-                return radioButtonSWT.Checked ? TokenType.SWT : TokenType.JWT;
+                return radioButtonSWT.Checked ? ContentKeyPolicyRestrictionTokenType.Swt : ContentKeyPolicyRestrictionTokenType.Jwt;
             }
         }
 
@@ -132,16 +157,16 @@ namespace AMSExplorer
             }
         }
 
-        public string SymmetricKey
+        public byte[] SymmetricKey
         {
             get
             {
                 if (radioButtonContentKeyHex.Checked)
                 {
-                    return Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxSymKey.Text));
+                    return DynamicEncryption.HexStringToByteArray(textBoxSymKey.Text);
                 }
                 else
-                    return textBoxSymKey.Text;
+                    return Convert.FromBase64String(textBoxSymKey.Text);
             }
         }
 
@@ -162,13 +187,11 @@ namespace AMSExplorer
             }
         }
 
-        private CloudMediaContext _context;
-
-        public AddDynamicEncryptionFrame4(CloudMediaContext context, int step, int option, string DRMName, string tokenSymmetricKey, bool laststep = true)
+     
+        public DRM_Config_TokenClaims(int step, int option, string DRMName, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
 
             this.Text = string.Format(this.Text, step);
             labelStep.Text = string.Format(labelStep.Text, step, option, DRMName);
@@ -189,7 +212,7 @@ namespace AMSExplorer
         }
 
 
-        private void SetupDynEnc_Load(object sender, EventArgs e)
+        private void DRM_Config_TokenClaims_Load(object sender, EventArgs e)
         {
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));

@@ -187,7 +187,7 @@
     <value>42</value>
   </data>
   <data name="labelAssetName.Text" xml:space="preserve">
-    <value>Browse you subscriptions and select an AMS account</value>
+    <value>Select the tenant, browse you subscriptions and select an AMS account</value>
   </data>
   <data name="&gt;&gt;labelAssetName.Name" xml:space="preserve">
     <value>labelAssetName</value>
@@ -199,7 +199,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelAssetName.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -223,16 +223,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="treeViewAzureSub.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left</value>
   </data>
   <data name="treeViewAzureSub.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 58</value>
+    <value>18, 99</value>
   </data>
   <data name="treeViewAzureSub.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 420</value>
+    <value>217, 379</value>
   </data>
   <data name="treeViewAzureSub.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -247,16 +247,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;treeViewAzureSub.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="DGAcct.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="DGAcct.Location" type="System.Drawing.Point, System.Drawing">
-    <value>241, 58</value>
+    <value>241, 99</value>
   </data>
   <data name="DGAcct.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 420</value>
+    <value>357, 379</value>
   </data>
   <data name="DGAcct.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
@@ -271,11 +271,32 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DGAcct.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="comboBoxTenants.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 55</value>
+  </data>
+  <data name="comboBoxTenants.Size" type="System.Drawing.Size, System.Drawing">
+    <value>377, 23</value>
+  </data>
+  <data name="comboBoxTenants.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTenants.Name" xml:space="preserve">
+    <value>comboBoxTenants</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTenants.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTenants.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTenants.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

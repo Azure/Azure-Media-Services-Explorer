@@ -1000,7 +1000,7 @@ namespace AMSExplorer
             Debug.WriteLine("DoRefreshGridAssetNotforsttime");
 
             dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber())));
-          
+
 
             //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
         }
@@ -2345,11 +2345,33 @@ namespace AMSExplorer
                         accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
                     }
 
+                    // DRM
+                    ContentKeyPolicy keyPolicy = null;
+                    if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                    {
+
+                        var formJwt = new DRM_Config_TokenClaims(1, 1, "PlayReady", null, true);
+
+                        if (formJwt.ShowDialog() != DialogResult.OK)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                             keyPolicy = _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdate(
+                                _amsClientV3.credentialsEntry.ResourceGroup,
+                                 _amsClientV3.credentialsEntry.AccountName,
+                                 "keypolicy-"+ Guid.NewGuid().ToString().Substring(0, 13),
+                                 new List<ContentKeyPolicyOption> { formJwt.Option });
+                                                 
+                        }
+                    }
+
                     sbuilder.Clear();
 
                     try
                     {
-                        Task.Factory.StartNew(() => ProcessCreateLocatorV3(form.StreamingPolicyName, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid));
+                        Task.Factory.StartNew(() => ProcessCreateLocatorV3(form.StreamingPolicyName, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid, keyPolicy));
                     }
 
                     catch (Exception e)
@@ -2364,11 +2386,12 @@ namespace AMSExplorer
         }
 
 
-        private void ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID)
+        private void ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy)
         {
             foreach (var AssetToP in assets)
             {
                 StreamingLocator locator = null;
+                string keyPolicyName = keyPolicy != null ? keyPolicy.Name : null;
 
                 try
                 {
@@ -2380,7 +2403,8 @@ namespace AMSExplorer
                         streamingPolicyName: streamingPolicyName,
                         streamingLocatorId: string.IsNullOrEmpty(ForceLocatorGUID) ? (Guid?)null : Guid.Parse(ForceLocatorGUID),
                         startTime: startTime,
-                        endTime: endTime
+                        endTime: endTime,
+                        defaultContentKeyPolicyName: keyPolicyName
                         );
 
 
@@ -8890,7 +8914,7 @@ namespace AMSExplorer
                                                 string OpenIdDoc = null;
                                                 switch (form4.GetDetailedTokenType)
                                                 {
-                                                    case ExplorerTokenType.SWT:
+                                                    case ExplorerTokenType.SWTSym:
                                                     case ExplorerTokenType.JWTSym:
                                                         mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form4.SymmetricKey));
                                                         break;
@@ -9191,7 +9215,7 @@ namespace AMSExplorer
                                             string OpenIdDoc = null;
                                             switch (form4.GetDetailedTokenType)
                                             {
-                                                case ExplorerTokenType.SWT:
+                                                case ExplorerTokenType.SWTSym:
                                                 case ExplorerTokenType.JWTSym:
                                                     mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form4.SymmetricKey));
                                                     break;
@@ -9495,7 +9519,7 @@ namespace AMSExplorer
                                             string OpenIdDoc = null;
                                             switch (form3.GetDetailedTokenType)
                                             {
-                                                case ExplorerTokenType.SWT:
+                                                case ExplorerTokenType.SWTSym:
                                                 case ExplorerTokenType.JWTSym:
                                                     mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
                                                     break;

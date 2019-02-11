@@ -25,6 +25,9 @@ using Microsoft.Rest.Azure;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System.Drawing;
+using System.IdentityModel.Tokens;
+using Microsoft.Azure.Management.ResourceManager;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace AMSExplorer
 {
@@ -32,27 +35,67 @@ namespace AMSExplorer
     {
         private TokenCredentials credentials;
         private AzureEnvironmentV3 environment;
+        private myTenant[] _myTenants;
+        private IPlatformParameters _parameters;
         private IPage<Subscription> subscriptions;
         private Dictionary<string, IPage<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, IPage<SubscriptionMediaService>>();
         public SubscriptionMediaService selectedAccount = null;
+        public string selectedTenantId = null;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironmentV3 environment, string orgName=null)
+        public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironmentV3 environment, myTenant[] myTenants, IPlatformParameters parameters)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             this.credentials = credentials;
             this.subscriptions = subscriptions;
             this.environment = environment;
-            if (orgName != null) this.Text = orgName;
+            _myTenants = myTenants;
+            _parameters = parameters;
         }
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
         {
-            BuildSubTree();
+            _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(t.displayName, t.tenantId)));
+
+            if (_myTenants.Count() > 0)
+            {
+                comboBoxTenants.SelectedIndex = 0;
+            }
         }
 
-        private void BuildSubTree()
+        private async void BuildSubTree()
         {
+            if (comboBoxTenants.SelectedItem == null) return;
+
+            treeViewAzureSub.Nodes.Clear();
+            // let's connect
+
+            selectedTenantId = ((Item)comboBoxTenants.SelectedItem).Value;
+
+            var authContext = new Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext(
+                                                               authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", selectedTenantId ?? "common"),
+                                                                   validateAuthority: true);
+            AuthenticationResult accessToken = null;
+            try
+            {
+                accessToken = await authContext.AcquireTokenAsync(
+                                                                     resource: environment.AADSettings.TokenAudience.ToString(),
+                                                                     clientId: environment.ClientApplicationId,
+                                                                     redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                     parameters: _parameters
+                                                                     );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
+
+            var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+            subscriptions = subscriptionClient.Subscriptions.List();
+
             treeViewAzureSub.BeginUpdate();
             treeViewAzureSub.Nodes.Clear();
             int indexSub = -1;
@@ -109,7 +152,6 @@ namespace AMSExplorer
 
                 // let's display account info
                 DisplayInfoAccount(account);
-
                 selectedAccount = account;
                 buttonNext.Enabled = true;
             }
@@ -132,6 +174,11 @@ namespace AMSExplorer
             DGAcct.Rows.Add("Location", account.Location);
             DGAcct.Rows.Add("Id", account.Id);
             DGAcct.Rows.Add("MediaServiceId", account.MediaServiceId);
+        }
+
+        private void comboBoxTenants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BuildSubTree();
         }
     }
 }

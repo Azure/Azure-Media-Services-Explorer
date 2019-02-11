@@ -34,6 +34,7 @@ using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Graph;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace AMSExplorer
 {
@@ -409,27 +410,41 @@ namespace AMSExplorer
                     var subscriptions = subscriptionClient.Subscriptions.List();
 
 
-                    /*
-                    // test code  - briowser subscription with other tenants
-                    var tenants = subscriptionClient.Tenants.List();
 
-                    foreach (var tenant in tenants)
+                    // test code  - briowser subscription with other tenants
+                    //   var tenants = subscriptionClient.Tenants.List();
+
+                    var tenants = new myTenants();
+                    string URL = environment.ArmEndpoint + "tenants?api-version=2017-08-01";
+
+
+                    HttpClient client = new HttpClient();
+
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken.AccessToken);
+                    HttpResponseMessage response = await client.GetAsync(URL);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var str = await response.Content.ReadAsStringAsync();
+
+                        tenants = (myTenants)JsonConvert.DeserializeObject(str, typeof(myTenants));
+
+                    }
+                    var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants.value, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null));
+                    //addaccount3.ShowDialog();
+                    /*
+                    foreach (var tenant in tenants.value)
                     {
                         bool error = false;
-                        AuthenticationResult tokenGraph = null;
-
-
-
 
                         authContext = new AuthenticationContext(
-                   authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", tenant.TenantId ?? "common"),
-
-                   validateAuthority: true);
+                                                                authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", tenant.tenantId ?? "common"),
+                                                                   validateAuthority: true);
 
                         try
                         {
-                            tokenGraph = await authContext.AcquireTokenAsync(
-                                                                                 resource:  "https://graph.microsoft.com",// environment.AADSettings.TokenAudience.ToString(),
+                            accessToken = await authContext.AcquireTokenAsync(
+                                                                                 resource: environment.AADSettings.TokenAudience.ToString(),
                                                                                  clientId: environment.ClientApplicationId,
                                                                                  redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
                                                                                  parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
@@ -438,68 +453,25 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            error = true;
                             //return;
                         }
 
-                        if (!error)
-                        {
-                            // Graph to get tenant name
+                        credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
-                            var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider((requestMessage) =>
-
-                            {
-
-                                requestMessage
-
-                                    .Headers
-
-                                    .Authorization = new AuthenticationHeaderValue("Bearer", tokenGraph.AccessToken);
+                        subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+                        subscriptions = subscriptionClient.Subscriptions.List();
+                       // var addaccount3 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenant.displayName);
+                       // addaccount3.ShowDialog();
 
 
 
-                                return Task.FromResult(0);
-
-                            }));
-
-
-
-                            var org = await graphServiceClient.Organization.Request().GetAsync();
-                            var name = org.First().DisplayName + " "+ org.First().VerifiedDomains.Last().Name;
-                                
-
-
-                            try
-                            {
-                                accessToken = await authContext.AcquireTokenAsync(
-                                                                                     resource: environment.AADSettings.TokenAudience.ToString(),
-                                                                                     clientId: environment.ClientApplicationId,
-                                                                                     redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                                     parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
-                                                                                     );
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                //return;
-                            }
-
-                            credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
-
-                            subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-                            subscriptions = subscriptionClient.Subscriptions.List();
-                            var addaccount3 = new AddAMSAccount2Browse(credentials, subscriptions, environment, name);
-                            addaccount3.ShowDialog();
-                        }
-
-                       
 
                     }
-                    */
+
                     // end test code
+                    */
 
-
-                    var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment);
+                    //var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, new myTenant[] { },null);
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {
                         // Getting Media Services accounts...
@@ -509,7 +481,7 @@ namespace AMSExplorer
                             environment,
                             addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto,
                             false,
-                            null,
+                            addaccount2.selectedTenantId,
                             false
                             );
                         CredentialList.MediaServicesAccounts.Add(entry);
@@ -626,5 +598,19 @@ namespace AMSExplorer
         {
             System.Diagnostics.Process.Start(Application.StartupPath + @"\HelpFiles\" + @"AMSv3doc.pdf");
         }
+    }
+
+
+    public class myTenant
+    {
+        public string Id { get; set; }
+        public string tenantId { get; set; }
+        public string countryCode { get; set; }
+        public string displayName { get; set; }
+    }
+
+    public class myTenants
+    {
+        public myTenant[] value { get; set; }
     }
 }

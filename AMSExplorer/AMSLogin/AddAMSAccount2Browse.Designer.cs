@@ -37,6 +37,7 @@
             this.treeViewAzureSub = new System.Windows.Forms.TreeView();
             this.DGAcct = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.comboBoxTenants = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGAcct)).BeginInit();
             this.SuspendLayout();
@@ -88,6 +89,14 @@
             this.DGAcct.ReadOnly = true;
             this.DGAcct.RowHeadersVisible = false;
             // 
+            // comboBoxTenants
+            // 
+            this.comboBoxTenants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTenants.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxTenants, "comboBoxTenants");
+            this.comboBoxTenants.Name = "comboBoxTenants";
+            this.comboBoxTenants.SelectedIndexChanged += new System.EventHandler(this.comboBoxTenants_SelectedIndexChanged);
+            // 
             // AddAMSAccount2Browse
             // 
             this.AcceptButton = this.buttonNext;
@@ -95,6 +104,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.comboBoxTenants);
             this.Controls.Add(this.DGAcct);
             this.Controls.Add(this.treeViewAzureSub);
             this.Controls.Add(this.panel1);
@@ -116,5 +126,6 @@
         private System.Windows.Forms.TreeView treeViewAzureSub;
         private System.Windows.Forms.DataGridView DGAcct;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ComboBox comboBoxTenants;
     }
 }

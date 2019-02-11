@@ -40,7 +40,7 @@ namespace AMSExplorer
 
     public enum ExplorerTokenType
     {
-        SWT = 0,
+        SWTSym = 0,
         JWTSym,
         JWTX509,
         JWTOpenID
