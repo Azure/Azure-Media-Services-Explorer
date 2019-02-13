@@ -55,7 +55,7 @@ namespace AMSExplorer
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
         {
-            _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(t.displayName, t.tenantId)));
+            _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(string.Format("{0} ({1})", t.displayName, t.tenantId), t.tenantId)));
 
             if (_myTenants.Count() > 0)
             {

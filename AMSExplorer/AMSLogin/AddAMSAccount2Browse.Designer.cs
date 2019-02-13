@@ -38,6 +38,8 @@
             this.DGAcct = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.comboBoxTenants = new System.Windows.Forms.ComboBox();
+            this.labelADTenant = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGAcct)).BeginInit();
             this.SuspendLayout();
@@ -91,11 +93,21 @@
             // 
             // comboBoxTenants
             // 
+            resources.ApplyResources(this.comboBoxTenants, "comboBoxTenants");
             this.comboBoxTenants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTenants.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxTenants, "comboBoxTenants");
             this.comboBoxTenants.Name = "comboBoxTenants";
             this.comboBoxTenants.SelectedIndexChanged += new System.EventHandler(this.comboBoxTenants_SelectedIndexChanged);
+            // 
+            // labelADTenant
+            // 
+            resources.ApplyResources(this.labelADTenant, "labelADTenant");
+            this.labelADTenant.Name = "labelADTenant";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // AddAMSAccount2Browse
             // 
@@ -104,6 +116,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelADTenant);
             this.Controls.Add(this.comboBoxTenants);
             this.Controls.Add(this.DGAcct);
             this.Controls.Add(this.treeViewAzureSub);
@@ -114,6 +128,7 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGAcct)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -127,5 +142,7 @@
         private System.Windows.Forms.DataGridView DGAcct;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ComboBox comboBoxTenants;
+        private System.Windows.Forms.Label labelADTenant;
+        private System.Windows.Forms.Label label1;
     }
 }

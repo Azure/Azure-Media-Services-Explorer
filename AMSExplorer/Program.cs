@@ -4785,7 +4785,7 @@ namespace AMSExplorer
                 // var authContext = new AuthenticationContext(authority: environment.Authority.Replace("common", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
                 var authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
 
-
+                
                 accessToken = await authContext.AcquireTokenAsync(
                                                                     resource: environment.AADSettings.TokenAudience.ToString(),
                                                                     clientId: environment.ClientApplicationId,
