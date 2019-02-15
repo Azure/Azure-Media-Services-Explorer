@@ -66,8 +66,6 @@ namespace AMSExplorer
                 LiveEventEncoding encodingoption = new LiveEventEncoding()
                 {
                     PresetName = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : null, // default preset or custom
-                                                                                                                     // AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
-                                                                                                                     //  IgnoreCea708ClosedCaptions = checkBoxIgnore708.Checked
                     EncodingType = (LiveEventEncodingType)(Enum.Parse(typeof(LiveEventEncodingType), (string)(comboBoxEncodingType.SelectedItem as Item).Value))
                 };
 

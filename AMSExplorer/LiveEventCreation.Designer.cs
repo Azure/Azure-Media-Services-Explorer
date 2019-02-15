@@ -51,7 +51,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxEncodingType = new System.Windows.Forms.ComboBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
-            this.checkBoxIgnore708 = new System.Windows.Forms.CheckBox();
             this.panelDisplayEncProfile = new System.Windows.Forms.Panel();
             this.dataGridViewVideoProf = new System.Windows.Forms.DataGridView();
             this.dataGridViewAudioProf = new System.Windows.Forms.DataGridView();
@@ -227,7 +226,6 @@
             // 
             // tabPageLiveEncoding
             // 
-            this.tabPageLiveEncoding.Controls.Add(this.checkBoxIgnore708);
             this.tabPageLiveEncoding.Controls.Add(this.panelDisplayEncProfile);
             this.tabPageLiveEncoding.Controls.Add(this.label6);
             this.tabPageLiveEncoding.Controls.Add(this.textBoxCustomPreset);
@@ -236,12 +234,6 @@
             resources.ApplyResources(this.tabPageLiveEncoding, "tabPageLiveEncoding");
             this.tabPageLiveEncoding.Name = "tabPageLiveEncoding";
             this.tabPageLiveEncoding.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxIgnore708
-            // 
-            resources.ApplyResources(this.checkBoxIgnore708, "checkBoxIgnore708");
-            this.checkBoxIgnore708.Name = "checkBoxIgnore708";
-            this.checkBoxIgnore708.UseVisualStyleBackColor = true;
             // 
             // panelDisplayEncProfile
             // 
@@ -460,7 +452,6 @@
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoPrice;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
-        private System.Windows.Forms.CheckBox checkBoxIgnore708;
         private System.Windows.Forms.TabPage tabPageAdv;
         private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
         private System.Windows.Forms.TextBox textBoxKeyFrame;
