@@ -171,7 +171,8 @@ namespace AMSExplorer
         {
             Debug.WriteLine("AssetsInit");
 
-            //IEnumerable<AssetEntry> assetquery;
+            client.RefreshTokenIfNeeded();
+
             _client = client;
 
             var assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3
@@ -283,6 +284,8 @@ namespace AMSExplorer
             Asset asset = null;
 
             var listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
+
+            _client.RefreshTokenIfNeeded();
 
             foreach (AssetEntryV3 AE in listae)
             {
@@ -542,7 +545,7 @@ Properties/StorageId
             }
 
             IPage<Asset> currentPage = null;
-
+            _client.RefreshTokenIfNeeded();
             if (pagetodisplay == 1)
             {
                 firstpage = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);
@@ -627,6 +630,7 @@ Properties/StorageId
         {
             Bitmap returnedImage = null;
             string returnedText = null;
+            client.RefreshTokenIfNeeded();
 
             foreach (var locator in client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName).StreamingLocators)
             {

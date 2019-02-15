@@ -92,6 +92,8 @@ namespace AMSExplorer
         }
         private void LoadTransforms()
         {
+            _client.RefreshTokenIfNeeded();
+
             _transforms = _client.AMSclient.Transforms.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             this.BeginUpdate();
@@ -118,6 +120,7 @@ namespace AMSExplorer
                 {
                     try
                     {
+                        _client.RefreshTokenIfNeeded();
                         _client.AMSclient.Transforms.Delete(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform.Name);
                     }
                     catch

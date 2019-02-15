@@ -172,7 +172,10 @@ namespace AMSExplorer
         public void Init(AMSClientV3 client)
         {
             IEnumerable<LiveOutputEntry> programquery;
+            client.RefreshTokenIfNeeded();
+
             _client = client;
+            _client.RefreshTokenIfNeeded();
 
             var ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
@@ -263,6 +266,8 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
+                _client.RefreshTokenIfNeeded();
+
                 program = _client.AMSclient.LiveOutputs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveeventName, program.Name); //refresh
                 if (program != null)
                 {
@@ -286,6 +291,7 @@ namespace AMSExplorer
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveOutput liveOutputItem;
+            _client.RefreshTokenIfNeeded();
 
             foreach (LiveOutputEntry CE in _MyObservLiveOutputs)
             {
@@ -523,6 +529,7 @@ namespace AMSExplorer
                 }
             }
             */
+            _client.RefreshTokenIfNeeded();
 
             IEnumerable<LiveEvent> ListEvents;
             if (_anyChannel == enumDisplayProgram.None)

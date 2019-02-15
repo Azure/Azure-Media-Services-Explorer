@@ -1800,6 +1800,8 @@ namespace AMSExplorer
         public static StreamingLocator CreatedTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
         {
             StreamingLocator tempLocator = null;
+            _amsClientV3.RefreshTokenIfNeeded();
+
 
             try
             {
@@ -1851,6 +1853,8 @@ namespace AMSExplorer
 
         public static Uri GetValidOnDemandURI(Asset asset, AMSClientV3 _amsClientV3)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
+
             var locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
             var ses = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             var runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
@@ -2395,7 +2399,11 @@ namespace AMSExplorer
                 {
                     response.Error = true;
                 }
-                if (mytemplocator != null) _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
+                if (mytemplocator != null)
+                {
+                    _amsClientV3.RefreshTokenIfNeeded();
+                    _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
+                }
             }
             catch (Exception ex)
             {
@@ -2681,6 +2689,7 @@ namespace AMSExplorer
                 Permissions = AssetContainerPermission.ReadWriteDelete,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
+            _amsClient.RefreshTokenIfNeeded();
 
             string type = "";
             long size = 0;
@@ -3225,6 +3234,7 @@ namespace AMSExplorer
         public static StringBuilder GetDescriptionLocators(Asset MyAsset, AMSClientV3 amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
+            amsClient.RefreshTokenIfNeeded();
 
             var locators = amsClient.AMSclient.Assets.ListStreamingLocators(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name).StreamingLocators;
 
@@ -3560,6 +3570,8 @@ namespace AMSExplorer
 
         internal static StreamingEndpoint GetBestStreamingEndpoint(AMSClientV3 client)
         {
+            client.RefreshTokenIfNeeded();
+
             StreamingEndpoint SESelected = client.AMSclient.StreamingEndpoints.List(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName).AsEnumerable().Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
             if (SESelected == null) SESelected = client.AMSclient.StreamingEndpoints.Get(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
 
@@ -4775,6 +4787,15 @@ namespace AMSExplorer
             credentialsEntry = myCredentialsEntry;
         }
 
+        public void RefreshTokenIfNeeded()
+        {
+            if (accessToken == null) return;
+
+            if (accessToken.ExpiresOn < DateTimeOffset.UtcNow)
+            {
+                Task task = Task.Run(async () => await ConnectAndGetNewClientV3());
+            }
+        }
 
         public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3()
         {
@@ -4785,13 +4806,28 @@ namespace AMSExplorer
                 // var authContext = new AuthenticationContext(authority: environment.Authority.Replace("common", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
                 var authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
 
-                
-                accessToken = await authContext.AcquireTokenAsync(
-                                                                    resource: environment.AADSettings.TokenAudience.ToString(),
-                                                                    clientId: environment.ClientApplicationId,
-                                                                    redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                    parameters: new PlatformParameters(credentialsEntry.PromptUser, null)
-                                                                    );
+                try
+                {
+                    accessToken = await authContext.AcquireTokenSilentAsync(
+                                                               resource: environment.AADSettings.TokenAudience.ToString(),
+                                                               clientId: environment.ClientApplicationId
+                                                                 );
+
+                }
+                catch (AdalException adalException)
+                {
+                    if (adalException.ErrorCode == AdalError.FailedToAcquireTokenSilently
+                        || adalException.ErrorCode == AdalError.InteractionRequired)
+                    {
+                        accessToken = await authContext.AcquireTokenAsync(
+                                                                resource: environment.AADSettings.TokenAudience.ToString(),
+                                                                clientId: environment.ClientApplicationId,
+                                                                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                parameters: new PlatformParameters(credentialsEntry.PromptUser, null)
+                                                                );
+                    }
+                }
+
 
                 credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 

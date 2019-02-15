@@ -63,6 +63,8 @@ namespace AMSExplorer
         {
             try
             {
+                _amsClient.RefreshTokenIfNeeded();
+
                 mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
                 // The default value is 30 seconds for the .NET client SDK

@@ -36,6 +36,7 @@ namespace AMSExplorer
             {
                 string val = (listBoxSE.SelectedItem as Item).Value as string;
                 string seName = val.Split("|".ToCharArray())[0];
+                _client.RefreshTokenIfNeeded();
                 return _client.AMSclient.StreamingEndpoints.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, seName);
             }
         }
@@ -163,6 +164,8 @@ namespace AMSExplorer
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
+            _client.RefreshTokenIfNeeded();
+
             StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_client);
             foreach (var se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
             {

@@ -122,6 +122,8 @@ namespace AMSExplorer
             {
                 this.Close();
             }
+            _client.RefreshTokenIfNeeded();
+
 
             foreach (var storage in _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts)
             {

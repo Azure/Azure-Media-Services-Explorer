@@ -70,6 +70,7 @@ namespace AMSExplorer
 
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
+            _client.RefreshTokenIfNeeded();
             var AssetToDisplayP = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, MyLiveOutput.AssetName);
             if (AssetToDisplayP != null)
             {

@@ -204,6 +204,7 @@ namespace AMSExplorer
                     Permissions = AssetContainerPermission.ReadWriteDelete,
                     ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
                 };
+                _amsClient.RefreshTokenIfNeeded();
 
                 var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
 
@@ -393,6 +394,7 @@ namespace AMSExplorer
 
         private void DisplayAssetFilters()
         {
+            _amsClient.RefreshTokenIfNeeded();
 
             var assetFilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
 
@@ -582,6 +584,8 @@ namespace AMSExplorer
                 TreeViewLocators.BeginUpdate();
                 TreeViewLocators.Nodes.Clear();
                 int indexloc = -1;
+
+                _amsClient.RefreshTokenIfNeeded();
 
                 var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
 
@@ -1251,6 +1255,7 @@ namespace AMSExplorer
                 Permissions = AssetContainerPermission.ReadWrite,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
+            _amsClient.RefreshTokenIfNeeded();
 
             var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
             string uploadSasUrl = response.AssetContainerSasUrls.First();
@@ -1346,6 +1351,8 @@ namespace AMSExplorer
                         bool Error = false;
                         try
                         {
+                            _amsClient.RefreshTokenIfNeeded();
+
                             var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
                             _amsClient.AMSclient.StreamingLocators.Delete(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locators[TreeViewLocators.SelectedNode.Index].Name);
                             //myAsset.Locators[TreeViewLocators.SelectedNode.Index].Delete();
@@ -1581,6 +1588,8 @@ namespace AMSExplorer
         private List<AssetFilter> ReturnSelectedFilters()
         {
             var SelectedFilters = new List<AssetFilter>();
+            _amsClient.RefreshTokenIfNeeded();
+
             var afilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
@@ -1604,6 +1613,8 @@ namespace AMSExplorer
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     FilterCreationInfo filtertoupdate = null;
+                    _amsClient.RefreshTokenIfNeeded();
+
                     try
                     {
                         filtertoupdate = form.GetFilterInfo;
@@ -1641,6 +1652,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                _amsClient.RefreshTokenIfNeeded();
 
                 FilterCreationInfo filterinfo = null;
                 try
@@ -1677,6 +1689,8 @@ namespace AMSExplorer
         private void DoDeleteAssetFilter()
         {
             var filters = ReturnSelectedFilters();
+            _amsClient.RefreshTokenIfNeeded();
+
             try
             {
                 filters.ForEach(f => _amsClient.AMSclient.AssetFilters.Delete(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, f.Name));
@@ -1705,6 +1719,8 @@ namespace AMSExplorer
                 string newfiltername = sourcefilter.Name + AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_Copy;
                 if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter, ref newfiltername) == DialogResult.OK)
                 {
+                    _amsClient.RefreshTokenIfNeeded();
+
                     try
                     {
                         //myAsset.AssetFilters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks);
@@ -1987,6 +2003,8 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
+                _amsClient.RefreshTokenIfNeeded();
+
                 var filter = _amsClient.AMSclient.AssetFilters.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
                 DoFilterInfo(filter);
             }
@@ -2002,6 +2020,7 @@ namespace AMSExplorer
             comboBoxPolicyLocators.Items.Clear();
             comboBoxPolicyLocators.BeginUpdate();
 
+            _amsClient.RefreshTokenIfNeeded();
             var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
 
             locators.ToList().ForEach(l => comboBoxPolicyLocators.Items.Add(new Item(l.Name, l.Name)));

@@ -755,6 +755,7 @@ namespace AMSExplorer
 
         static Asset GetAsset(string assetName)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
             return _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName);
         }
 
@@ -782,27 +783,32 @@ namespace AMSExplorer
 
         static Job GetJob(string transformName, string jobName)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
             return _amsClientV3.AMSclient.Jobs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName, jobName);
         }
 
         static Transform GetTransform(string transformName)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
             return _amsClientV3.AMSclient.Transforms.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName);
         }
 
         static LiveEvent GetLiveEvent(string liveEventName)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
             return _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEventName);
         }
 
         static LiveOutput GetLiveOutput(string liveEventName, string liveOutputName)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
             return _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEventName, liveOutputName);
         }
 
 
         static StreamingEndpoint GetStreamingEndpoint(string seName)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
             return _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, seName);
         }
 
@@ -817,6 +823,7 @@ namespace AMSExplorer
         {
             if (asset != null)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
                 var locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
 
                 foreach (var locator in locators)
@@ -1135,7 +1142,7 @@ namespace AMSExplorer
                 DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
-
+            _amsClientV3.RefreshTokenIfNeeded();
             var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
             if (storageaccount == null)
@@ -1228,7 +1235,7 @@ namespace AMSExplorer
                 DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
-
+            _amsClientV3.RefreshTokenIfNeeded();
             var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
             if (storageaccount == null)
@@ -1616,13 +1623,13 @@ namespace AMSExplorer
             {
                 Directory.CreateDirectory(outputFolderName);
             }
-
+            client.RefreshTokenIfNeeded();
             AssetContainerSas assetContainerSas = await client.AMSclient.Assets.ListContainerSasAsync(
-                client.credentialsEntry.ResourceGroup,
-                client.credentialsEntry.AccountName,
-                assetName,
-                permissions: AssetContainerPermission.Read,
-                expiryTime: DateTime.UtcNow.AddHours(5).ToUniversalTime());
+    client.credentialsEntry.ResourceGroup,
+    client.credentialsEntry.AccountName,
+    assetName,
+    permissions: AssetContainerPermission.Read,
+    expiryTime: DateTime.UtcNow.AddHours(5).ToUniversalTime());
 
             Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
             CloudBlobContainer container = new CloudBlobContainer(containerSasUrl);
@@ -1966,6 +1973,7 @@ namespace AMSExplorer
             {
                 // Refresh the asset.
                 //_context = Program.ConnectAndGetNewContext(_credentials);
+                _amsClientV3.RefreshTokenIfNeeded();
                 asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name);
                 if (asset != null)
                 {
@@ -2275,6 +2283,8 @@ namespace AMSExplorer
 
             if (SelectedJobs.Count > 0)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 string question = "Cancel these " + SelectedJobs.Count + " jobs ?";
                 if (SelectedJobs.Count == 1) question = "Cancel " + SelectedJobs[0].Job.Name + " ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job(s) cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -2335,6 +2345,8 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
                     // The permissions for the locator's access policy.
                     AccessPermissions accessPolicyPermissions = AccessPermissions.Read | AccessPermissions.List;
 
@@ -2358,12 +2370,12 @@ namespace AMSExplorer
                         }
                         else
                         {
-                             keyPolicy = _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdate(
-                                _amsClientV3.credentialsEntry.ResourceGroup,
-                                 _amsClientV3.credentialsEntry.AccountName,
-                                 "keypolicy-"+ Guid.NewGuid().ToString().Substring(0, 13),
-                                 new List<ContentKeyPolicyOption> { formJwt.Option });
-                                                 
+                            keyPolicy = _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdate(
+                               _amsClientV3.credentialsEntry.ResourceGroup,
+                                _amsClientV3.credentialsEntry.AccountName,
+                                "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
+                                new List<ContentKeyPolicyOption> { formJwt.Option });
+
                         }
                     }
 
@@ -2388,6 +2400,8 @@ namespace AMSExplorer
 
         private void ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
+
             foreach (var AssetToP in assets)
             {
                 StreamingLocator locator = null;
@@ -2479,6 +2493,8 @@ namespace AMSExplorer
             }
             else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 return ReturnSelectedLiveOutputs()
                         .Select(p => _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, p.AssetName))
                         .ToList();
@@ -2502,6 +2518,8 @@ namespace AMSExplorer
         private List<Asset> ReturnSelectedAssetsV3()
         {
             List<Asset> SelectedAssets = new List<Asset>();
+            _amsClientV3.RefreshTokenIfNeeded();
+
             try
             {
                 foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
@@ -2550,6 +2568,7 @@ namespace AMSExplorer
         private List<Transform> ReturnSelectedTransforms()
         {
             var SelectedTransforms = new List<Transform>();
+            _amsClientV3.RefreshTokenIfNeeded();
 
             var Transforms = _amsClientV3.AMSclient.Transforms.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
 
@@ -2571,6 +2590,8 @@ namespace AMSExplorer
             StorageAccount SelectedStorage = null;
             if (dataGridViewStorage.SelectedRows.Count == 1)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 var row = dataGridViewStorage.SelectedRows[0];
                 var index = dataGridViewStorage.Columns["Id"].Index;
                 var storagename = AMSClientV3.GetStorageName(row.Cells[index].Value.ToString());
@@ -2582,8 +2603,8 @@ namespace AMSExplorer
 
         private List<AccountFilter> ReturnSelectedAccountFilters()
         {
-
             List<AccountFilter> SelectedFilters = new List<AccountFilter>();
+            _amsClientV3.RefreshTokenIfNeeded();
 
             var aFilters = _amsClientV3.AMSclient.AccountFilters.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
@@ -2620,6 +2641,8 @@ namespace AMSExplorer
                 var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
 
                 if (form.ShowDialog() == DialogResult.OK)
+                    _amsClientV3.RefreshTokenIfNeeded();
+
                 {
                     Task.Run(async () =>
                     {
@@ -2657,6 +2680,8 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
                     Task.Run(async () =>
                     {
                         bool Error = false;
@@ -4295,6 +4320,8 @@ namespace AMSExplorer
                 string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Job.Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
                     Task.Run(async () =>
                     {
                         bool Error = false;
@@ -4326,6 +4353,8 @@ namespace AMSExplorer
 
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs from the selected transform?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 Task.Run(async () =>
                 {
                     bool Error = false;
@@ -4371,6 +4400,8 @@ namespace AMSExplorer
 
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs from the selected transform ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 Task.Run(async () =>
                 {
                     bool Error = false;
@@ -4415,6 +4446,8 @@ namespace AMSExplorer
                 string question = (SelectedTransforms.Count == 1) ? "Delete " + SelectedTransforms[0].Name + " ?" : "Delete these " + SelectedTransforms.Count + " transforms ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Transform deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
                     Task.Run(async () =>
                     {
                         bool Error = false;
@@ -5493,11 +5526,12 @@ namespace AMSExplorer
         }
 
 
-        private void dataGridViewAssetsV_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridViewAssetsV_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-                Asset asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+                _amsClientV3.RefreshTokenIfNeeded();
+                Asset asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                 DisplayInfo(asset);
             }
         }
@@ -5902,6 +5936,7 @@ namespace AMSExplorer
                         case TransferType.UploadFromFile:
                         case TransferType.UploadFromFolder:
                         case TransferType.UploadWithExternalTool:
+                            _amsClientV3.RefreshTokenIfNeeded();
                             Asset asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, location);
                             if (asset != null) DisplayInfo(asset);
                             break;
@@ -5986,6 +6021,7 @@ namespace AMSExplorer
                             try
                             {
                                 JobToProcess.Job.Priority = form.JobPriority;
+                                _amsClientV3.RefreshTokenIfNeeded();
                                 _amsClientV3.AMSclient.Jobs.Update(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job);
                             }
 
@@ -6066,6 +6102,7 @@ namespace AMSExplorer
         {
 
             bool valid = false;
+            client.RefreshTokenIfNeeded();
             var locators = client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, asset.Name).StreamingLocators;
             if (asset != null && locators.Count > 0)
             {
@@ -6378,6 +6415,8 @@ namespace AMSExplorer
 
         private void DoRefreshGridLiveEventV(bool firstime)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
+
             if (firstime)
             {
                 dataGridViewLiveEventsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry);
@@ -6410,6 +6449,7 @@ namespace AMSExplorer
 
         private void DoRefreshGridStreamingEndpointV(bool firstime)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
 
             if (firstime)
             {
@@ -6425,7 +6465,7 @@ namespace AMSExplorer
 
         private void DoRefreshGridStorageV(bool firstime)
         {
-            // return; // migration to V3 API
+            _amsClientV3.RefreshTokenIfNeeded();
             var amsaccount = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             const long OneTBInByte = 1099511627776;
             const long TotalStorageInBytes = OneTBInByte * 500;
@@ -6510,7 +6550,8 @@ namespace AMSExplorer
 
         public void DoRefreshGridFiltersV(bool firstime)
         {
-            //return; // migration to V3 API
+            _amsClientV3.RefreshTokenIfNeeded();
+
             if (firstime)
             {
                 // Storage tab
@@ -6629,6 +6670,8 @@ namespace AMSExplorer
         private List<StreamingEndpoint> ReturnSelectedStreamingEndpoints()
         {
             List<StreamingEndpoint> SelectedOrigins = new List<StreamingEndpoint>();
+            _amsClientV3.RefreshTokenIfNeeded();
+
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
                 string seName = Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString();
@@ -6660,6 +6703,8 @@ namespace AMSExplorer
         private List<LiveOutput> ReturnSelectedLiveOutputs()
         {
             List<LiveOutput> SelectedLiveOutputs = new List<LiveOutput>();
+            _amsClientV3.RefreshTokenIfNeeded();
+
             foreach (DataGridViewRow Row in dataGridViewLiveOutputV.SelectedRows)
             {
                 var liveOutput = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
@@ -6719,6 +6764,7 @@ namespace AMSExplorer
             // delete also if delete = true
             var ListEvents = ReturnSelectedLiveEvents();
             List<LiveOutput> LOList = new List<LiveOutput>();
+            _amsClientV3.RefreshTokenIfNeeded();
 
             foreach (var le in ListEvents)
             {
@@ -6812,6 +6858,7 @@ namespace AMSExplorer
         {
             var ListEvents = ReturnSelectedLiveEvents();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
+            _amsClientV3.RefreshTokenIfNeeded();
 
             foreach (var le in ListEvents)
             {
@@ -6876,6 +6923,8 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 TextBoxLogWriteLine("Channel '{0}' : creating...", form.LiveEventName);
 
                 bool Error = false;
@@ -7111,6 +7160,7 @@ namespace AMSExplorer
                                 }
                             }
                         }
+                        _amsClientV3.RefreshTokenIfNeeded();
 
                         Task.Run(async () =>
                         {
@@ -7154,6 +7204,8 @@ namespace AMSExplorer
 
             if (liveeventsrunning.Count() > 0)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 try
                 {
                     TextBoxLogWriteLine(string.Format("Stopping live event(s) : {0}...", names));
@@ -7194,6 +7246,8 @@ namespace AMSExplorer
 
             if (deleteLiveEvents)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 // delete the channels
                 try
                 {
@@ -7243,6 +7297,8 @@ namespace AMSExplorer
             var names = String.Join(", ", liveevntsstopped.Select(le => le.Name).ToArray());
             if (liveevntsstopped.Count() > 0)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 try
                 {
                     TextBoxLogWriteLine(string.Format("Starting live event(s) : {0}...", names));
@@ -7310,6 +7366,8 @@ namespace AMSExplorer
             var assets = ListOutputs.Select(p => p.AssetName).ToArray();
 
             bool Error = false;
+            _amsClientV3.RefreshTokenIfNeeded();
+
             try
             {   // delete programs
                 ListOutputs.ToList().ForEach(p => TextBoxLogWriteLine("Live output '{0}' : deleting...", p.Name));
@@ -7373,6 +7431,8 @@ namespace AMSExplorer
             var names = String.Join(", ", streamingendpointsstopped.Select(le => le.Name).ToArray());
             if (streamingendpointsstopped.Count() > 0)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 try
                 {
                     TextBoxLogWriteLine(string.Format("Starting streaming endpoint(s) : {0}...", names));
@@ -7417,6 +7477,8 @@ namespace AMSExplorer
 
         private async void DoUpdateAndScaleStreamingEndpointEngine(StreamingEndpoint se, int? units = null)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
+
             try
             {
                 TextBoxLogWriteLine(string.Format("updating streaming endpoint : {0}...", se.Name));
@@ -7450,6 +7512,8 @@ namespace AMSExplorer
 
             if (sesrunning.Count() > 0)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 try
                 {
                     TextBoxLogWriteLine(string.Format("Stopping streaming endpoints(s) : {0}...", names));
@@ -7551,6 +7615,8 @@ namespace AMSExplorer
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
                     string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
                     var newAsset = new Asset() { StorageAccountName = form.StorageSelected };
                     Task.Run(async () =>
@@ -8076,6 +8142,7 @@ namespace AMSExplorer
                                                                  cdnProfile: (form.EnableAzureCDN ? cdnform.Profile : null),
                                                                  location: _amsClientV3.credentialsEntry.MediaService.Location
                                                                  );
+                _amsClientV3.RefreshTokenIfNeeded();
 
                 Task.Run(async () =>
                 {
@@ -8126,6 +8193,8 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 var liveoutput = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
                 if (liveoutput != null)
                 {
@@ -10439,6 +10508,8 @@ namespace AMSExplorer
 
                     if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one (clear streaming) ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                     {
+                        _amsClientV3.RefreshTokenIfNeeded();
+
                         TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                         try
                         {
@@ -11118,6 +11189,8 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 FilterCreationInfo filterinfo = null;
                 try
                 {
@@ -11147,6 +11220,8 @@ namespace AMSExplorer
 
         private void DoDeleteFilter()
         {
+            _amsClientV3.RefreshTokenIfNeeded();
+
             try
             {
                 ReturnSelectedAccountFilters().ForEach(f => _amsClientV3.AMSclient.AccountFilters.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, f.Name));
@@ -11225,6 +11300,8 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 FilterCreationInfo filterinfo = null;
                 try
                 {
@@ -11261,6 +11338,8 @@ namespace AMSExplorer
                 string newfiltername = sourcefilter.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
                     try
                     {
                         _amsClientV3.AMSclient.AccountFilters.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, newfiltername, sourcefilter);
@@ -12277,6 +12356,8 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 TransformOutput[] outputs;
 
                 if (form.AudioOnlyMode)
@@ -12316,6 +12397,8 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                _amsClientV3.RefreshTokenIfNeeded();
+
                 TransformOutput[] outputs;
 
                 outputs = new TransformOutput[]
@@ -12363,6 +12446,8 @@ namespace AMSExplorer
 
         private void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets)
         {
+            _amsClientV3.RefreshTokenIfNeeded();
+
             foreach (var asset in assets)
             {
                 foreach (var transform in sel)
