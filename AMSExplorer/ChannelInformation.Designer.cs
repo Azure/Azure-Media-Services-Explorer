@@ -53,7 +53,6 @@
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
             this.tabPageEncoding = new System.Windows.Forms.TabPage();
-            this.checkBoxIgnore708 = new System.Windows.Forms.CheckBox();
             this.groupBoxVideoStream = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
@@ -318,20 +317,12 @@
             // 
             // tabPageEncoding
             // 
-            this.tabPageEncoding.Controls.Add(this.checkBoxIgnore708);
             this.tabPageEncoding.Controls.Add(this.groupBoxVideoStream);
             this.tabPageEncoding.Controls.Add(this.labelChannelMustBeStopped);
             this.tabPageEncoding.Controls.Add(this.groupBoxEncoding);
             resources.ApplyResources(this.tabPageEncoding, "tabPageEncoding");
             this.tabPageEncoding.Name = "tabPageEncoding";
             this.tabPageEncoding.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxIgnore708
-            // 
-            resources.ApplyResources(this.checkBoxIgnore708, "checkBoxIgnore708");
-            this.checkBoxIgnore708.Name = "checkBoxIgnore708";
-            this.checkBoxIgnore708.UseVisualStyleBackColor = true;
-            this.checkBoxIgnore708.CheckedChanged += new System.EventHandler(this.checkBoxIgnore708_CheckedChanged);
             // 
             // groupBoxVideoStream
             // 
@@ -684,7 +675,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPageEncoding.ResumeLayout(false);
-            this.tabPageEncoding.PerformLayout();
             this.groupBoxVideoStream.ResumeLayout(false);
             this.groupBoxVideoStream.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
@@ -778,7 +768,6 @@
         private System.Windows.Forms.DataGridView dataGridViewAudioProf;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckBox checkBoxIgnore708;
         private System.Windows.Forms.Panel panel2;
     }
 }

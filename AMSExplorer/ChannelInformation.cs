@@ -122,14 +122,6 @@ namespace AMSExplorer
             }
         }
 
-        public bool Ignore708Captions
-        {
-            get
-            {
-                return checkBoxIgnore708.Checked;
-            }
-        }
-
         public ReadOnlyCollection<VideoStream> VideoStreamList
         {
             get
@@ -224,7 +216,6 @@ namespace AMSExplorer
                 if (MyChannel.Encoding != null)
                 {
                     DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingSystemPreset, MyChannel.Encoding.SystemPreset);
-                    DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingIgnoreCEA708, MyChannel.Encoding.IgnoreCea708ClosedCaptions);
                     DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingVideoStreamsCount, MyChannel.Encoding.VideoStreams.Count);
                     DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingAudioStreamsCount, MyChannel.Encoding.AudioStreams.Count);
                     DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_EncodingAdMarkerSource, (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
@@ -332,13 +323,11 @@ namespace AMSExplorer
                         radioButtonCustomPreset.Checked = true;
                         textBoxCustomPreset.Text = MyChannel.Encoding.SystemPreset;
                     }
-                    checkBoxIgnore708.Checked = MyChannel.Encoding.IgnoreCea708ClosedCaptions;
                 }
                 if (MyChannel.State != ChannelState.Stopped)
                 {
                     groupBoxEncoding.Enabled = false; // encoding settings cannot be edited
                     groupBoxVideoStream.Enabled = false;
-                    checkBoxIgnore708.Enabled = false;
                     labelChannelMustBeStopped.Visible = true;
                     labelIndexesChannelMustBeStopped.Visible = true;
                     panelStreamIndexes.Enabled = false; // encoding settings cannot be edited
@@ -505,7 +494,6 @@ namespace AMSExplorer
                 PreviewIPAllowList = false,
                 SystemPreset = false,
                 VideoStreams = false,
-                Ignore708Captions = false
             };
         }
 
@@ -828,11 +816,6 @@ namespace AMSExplorer
         {
             Modifications.CrossDomainPolicy = true;
         }
-
-        private void checkBoxIgnore708_CheckedChanged(object sender, EventArgs e)
-        {
-            Modifications.Ignore708Captions = true;
-        }
     }
 
     public class ExplorerAudioStream
@@ -854,6 +837,5 @@ namespace AMSExplorer
         public bool PreviewIPAllowList { get; set; }
         public bool ClientAccessPolicy { get; set; }
         public bool CrossDomainPolicy { get; set; }
-        public bool Ignore708Captions { get; set; }
     }
 }

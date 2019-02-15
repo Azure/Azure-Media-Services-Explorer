@@ -9342,7 +9342,6 @@ namespace AMSExplorer
                                     channel.Encoding.SystemPreset = form.SystemPreset; // we update the system preset
                                 }
 
-
                                 if (modifications.AudioStreams) // user modified it
                                 {
                                     channel.Encoding.AudioStreams = form.AudioStreamList;
@@ -9351,11 +9350,6 @@ namespace AMSExplorer
                                 if (modifications.VideoStreams) // user modified it
                                 {
                                     channel.Encoding.VideoStreams = form.VideoStreamList;
-                                }
-
-                                if (modifications.Ignore708Captions) // user modified it
-                                {
-                                    channel.Encoding.IgnoreCea708ClosedCaptions = form.Ignore708Captions;
                                 }
                             }
                             else if (channel.EncodingType != ChannelEncodingType.None && channel.State != ChannelState.Stopped)

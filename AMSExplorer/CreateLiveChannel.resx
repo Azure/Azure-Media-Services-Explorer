@@ -750,36 +750,6 @@ over certain network conditions.
   <data name="&gt;&gt;TabSettings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxIgnore708.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="checkBoxIgnore708.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxIgnore708.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 358</value>
-  </data>
-  <data name="checkBoxIgnore708.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 19</value>
-  </data>
-  <data name="checkBoxIgnore708.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="checkBoxIgnore708.Text" xml:space="preserve">
-    <value>Ignore CEA-708 closed captions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnore708.Name" xml:space="preserve">
-    <value>checkBoxIgnore708</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnore708.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnore708.Parent" xml:space="preserve">
-    <value>tabPageLiveEncoding</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnore708.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="panelDisplayEncProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -907,7 +877,7 @@ over certain network conditions.
     <value>tabPageLiveEncoding</value>
   </data>
   <data name="&gt;&gt;panelDisplayEncProfile.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -937,7 +907,7 @@ over certain network conditions.
     <value>tabPageLiveEncoding</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="textBoxCustomPreset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -964,7 +934,7 @@ over certain network conditions.
     <value>tabPageLiveEncoding</value>
   </data>
   <data name="&gt;&gt;textBoxCustomPreset.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="radioButtonCustomPreset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -991,7 +961,7 @@ over certain network conditions.
     <value>tabPageLiveEncoding</value>
   </data>
   <data name="&gt;&gt;radioButtonCustomPreset.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="radioButtonDefaultPreset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1018,7 +988,7 @@ over certain network conditions.
     <value>tabPageLiveEncoding</value>
   </data>
   <data name="&gt;&gt;radioButtonDefaultPreset.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="panelRTP.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -1096,7 +1066,7 @@ over certain network conditions.
     <value>tabPageLiveEncoding</value>
   </data>
   <data name="&gt;&gt;panelRTP.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="tabPageLiveEncoding.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -1591,7 +1561,7 @@ over certain network conditions.
     <value>listViewJPG1</value>
   </data>
   <data name="&gt;&gt;listViewJPG1.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewSlateJPG, AMSExplorer, Version=3.46.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewSlateJPG, AMSExplorer, Version=4.3.4.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewJPG1.Parent" xml:space="preserve">
     <value>panelInsertSlate</value>
