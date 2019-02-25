@@ -1,6 +1,5 @@
-Version 4.3.4.0 (December 20, 2018) brings the following features and improvements :
+Version 4.3.5.0 (February 25, 2019) brings the following features and improvements :
 
-* Multiple transfers bug fix
+* Corrected file and asset size calculation (now 1 GB = 1000 MB)
+* Bug fixes
 * Updated offline documentation
-* [Fix](https://github.com/Azure/Azure-Media-Services-Explorer/pull/104) to "264 Multiple Bitrate 16x9 for iOS" preset
-* Azure Media Hyperlapse was removed from the UI [as announced here](https://azure.microsoft.com/en-us/updates/retirement-of-media-hyperlapse-in-preview-on-march-29-2019/)
