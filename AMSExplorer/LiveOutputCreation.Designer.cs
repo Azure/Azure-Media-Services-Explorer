@@ -54,12 +54,13 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.checkBoxHLSFragPerSegDefined = new System.Windows.Forms.CheckBox();
             this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
-            this.labelCloneLocators = new System.Windows.Forms.Label();
             this.textBoxManifestName = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.textBoxStartRecordTimestamp = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
@@ -217,9 +218,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.textBoxStartRecordTimestamp);
+            this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.checkBoxHLSFragPerSegDefined);
             this.tabPage3.Controls.Add(this.numericUpDownHLSFragPerSeg);
-            this.tabPage3.Controls.Add(this.labelCloneLocators);
             this.tabPage3.Controls.Add(this.textBoxManifestName);
             this.tabPage3.Controls.Add(this.label13);
             resources.ApplyResources(this.tabPage3, "tabPage3");
@@ -238,12 +240,6 @@
             resources.ApplyResources(this.numericUpDownHLSFragPerSeg, "numericUpDownHLSFragPerSeg");
             this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
             this.numericUpDownHLSFragPerSeg.ReadOnly = true;
-            // 
-            // labelCloneLocators
-            // 
-            this.labelCloneLocators.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.labelCloneLocators, "labelCloneLocators");
-            this.labelCloneLocators.Name = "labelCloneLocators";
             // 
             // textBoxManifestName
             // 
@@ -272,6 +268,17 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // textBoxStartRecordTimestamp
+            // 
+            resources.ApplyResources(this.textBoxStartRecordTimestamp, "textBoxStartRecordTimestamp");
+            this.textBoxStartRecordTimestamp.Name = "textBoxStartRecordTimestamp";
+            this.textBoxStartRecordTimestamp.TextChanged += new System.EventHandler(this.textBoxStartRecordTimestamp_TextChanged);
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
             // 
             // LiveOutputCreation
             // 
@@ -334,10 +341,11 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox textBoxManifestName;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label labelCloneLocators;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBoxHLSFragPerSegDefined;
         private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
+        private System.Windows.Forms.TextBox textBoxStartRecordTimestamp;
+        private System.Windows.Forms.Label label6;
     }
 }

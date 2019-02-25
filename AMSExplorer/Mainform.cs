@@ -2322,7 +2322,7 @@ namespace AMSExplorer
 
 
 
-        private void DoCreateLocator(List<Asset> SelectedAssets)
+        private async void DoCreateLocator(List<Asset> SelectedAssets)
         {
             string labelAssetName;
             if (SelectedAssets.Count > 0)
@@ -2347,9 +2347,6 @@ namespace AMSExplorer
                 {
                     _amsClientV3.RefreshTokenIfNeeded();
 
-                    // The permissions for the locator's access policy.
-                    AccessPermissions accessPolicyPermissions = AccessPermissions.Read | AccessPermissions.List;
-
                     // The duration for the locator's access policy.
                     TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
                     if (form.LocatorStartDate != null)
@@ -2370,7 +2367,7 @@ namespace AMSExplorer
                         }
                         else
                         {
-                            keyPolicy = _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdate(
+                            keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(
                                _amsClientV3.credentialsEntry.ResourceGroup,
                                 _amsClientV3.credentialsEntry.AccountName,
                                 "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
@@ -6854,7 +6851,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void DoResetChannels()
+        private async void DoResetLiveEvents()
         {
             var ListEvents = ReturnSelectedLiveEvents();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
@@ -6866,42 +6863,62 @@ namespace AMSExplorer
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
-            var programqueryrunning = LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Running);
+            var liveOutputRunningQuery = LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Running);
 
-            if (LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Creating || p.LiveOutputItem.ResourceState == LiveOutputResourceState.Deleting).Count() > 0) // programs are starting or stopping
-                MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be reset now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            if (LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Creating || p.LiveOutputItem.ResourceState == LiveOutputResourceState.Deleting).Count() > 0) // live outputs are in creation or deletion mode
+                MessageBox.Show("Some live outputs are being created or deleted. Live event(s) cannot be reset now.", "Live event(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
             {
-                if (programqueryrunning.Count() > 0) // some programs are running
+                if (liveOutputRunningQuery.Count() > 0) // some output exists
                 {
-                    if (MessageBox.Show("One or several programs are running which prevents the channel(s) reset. Do you want to stop the program(s) and then reset the channel(s) ?", "Channel reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("One or several live outputs are running which prevents the live event(s) reset. Do you want to delete the live output(s) and then reset the live event(s) ?", "Live event reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-
                         Task.Run(async () =>
-                        {
-                            programqueryrunning.ToList().ForEach(p => TextBoxLogWriteLine("Stopping program '{0}'...", p.LiveOutputItem.Name));
-                            var tasks = programqueryrunning.Select(p => _amsClientV3.AMSclient.LiveOutputs.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, p.LiveEventName, p.LiveOutputItem.Name)).ToArray();
-                            await Task.WhenAll(tasks);
+                         {
+                             try
+                             {
+                                 DoDeleteLiveOutputs(liveOutputRunningQuery.Select(o => o.LiveOutputItem).ToList());
 
-                            // let's reset the channels now that running programs are stopped
-                            var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
-                            await Task.WhenAll(tasksreset);
-                        }
-                        );
+                                 // let's reset the live events now that running output are stopped
+                                 ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
+                                 var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
+                                 await Task.WhenAll(tasksreset);
+                                 ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
+
+                             }
+                             catch (Exception ex)
+                             {
+                                 TextBoxLogWriteLine("Error when reseting live events.", true);
+                                 TextBoxLogWriteLine(ex);
+                             }
+                         }
+                      );
+                      
                     }
                 }
                 else
                 {
-                    string question = (ListEvents.Count == 1) ? string.Format("Reset channel '{0}' ?", ListEvents[0].Name) : string.Format("Reset these {0} channels ?", ListEvents.Count);
+                    string question = (ListEvents.Count == 1) ? string.Format("Reset live event '{0}' ?", ListEvents[0].Name) : string.Format("Reset these {0} live event(s) ?", ListEvents.Count);
 
-                    if (System.Windows.Forms.MessageBox.Show(question, "Channel reset", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    if (System.Windows.Forms.MessageBox.Show(question, "Live event reset", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        // let's reset the channels
+                        // let's reset the events
                         Task.Run(async () =>
                        {
-                           // let's reset the channels now that running programs are stopped
-                           var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
-                           await Task.WhenAll(tasksreset);
+                           try
+                           {
+                               // let's reset the channels now that live outputs are deleted
+                               ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
+                               var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
+                               await Task.WhenAll(tasksreset);
+                               ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
+                           }
+                           catch (Exception ex)
+                           {
+                               TextBoxLogWriteLine("Error when reseting live events.", true);
+                               TextBoxLogWriteLine(ex);
+                           }
+
                        });
                     }
                 }
@@ -7339,10 +7356,10 @@ namespace AMSExplorer
         }
 
 
-        private async void DoDeleteLiveOutputs()
+        private async void DoDeleteLiveOutputs(List<LiveOutput> ListOutputs = null)
         {
             // delete also if delete = true
-            var ListOutputs = ReturnSelectedLiveOutputs();
+            if (ListOutputs == null) ListOutputs = ReturnSelectedLiveOutputs();
 
             if (ListOutputs.Count > 0)
             {
@@ -7352,10 +7369,13 @@ namespace AMSExplorer
                 DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    Task.Run(async () =>
-                    {
-                        DoDeleteLiveOutputsEngine(ListOutputs, form.DeleteAsset);
-                    });
+                    DoDeleteLiveOutputsEngine(ListOutputs, form.DeleteAsset);
+                    /*
+                                        await Task.Run(() =>
+                                        {
+                                            DoDeleteLiveOutputsEngine(ListOutputs, form.DeleteAsset);
+                                        });
+                                        */
                 }
             }
         }
@@ -7619,12 +7639,13 @@ namespace AMSExplorer
 
                     string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
                     var newAsset = new Asset() { StorageAccountName = form.StorageSelected };
+
                     Task.Run(async () =>
                     {
                         try
                         {
                             TextBoxLogWriteLine("Asset creation...");
-                            Asset asset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetname, newAsset);
+                            Asset asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetname, newAsset);
                             TextBoxLogWriteLine("Asset created.");
 
                             TextBoxLogWriteLine("Live output creation...");
@@ -7635,9 +7656,25 @@ namespace AMSExplorer
                                 hlsParam = new Hls(fragmentsPerTsSegment: form.HLSFragmentPerSegment);
                             }
 
-                            LiveOutput liveOutput = new LiveOutput(asset.Name, form.archiveWindowLength, null, form.ProgramName, null, form.ProgramDescription, form.ManifestName ?? uniqueness, hlsParam);
+                            LiveOutput liveOutput = new LiveOutput(
+                                asset.Name,
+                                form.archiveWindowLength,
+                                null,
+                                form.ProgramName,
+                                null,
+                                form.ProgramDescription,
+                                form.ManifestName ?? uniqueness,
+                                hlsParam,
+                                form.StartRecordTimestamp
+                                );
+
                             var liveOutput2 = await _amsClientV3.AMSclient.LiveOutputs.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEvent.Name, form.ProgramName, liveOutput);
                             TextBoxLogWriteLine("Live output created.");
+
+                            if (form.CreateLocator)
+                            {
+                                DoCreateLocator(new List<Asset> { asset });
+                            };
                         }
                         catch (Exception ex)
                         {
@@ -8215,7 +8252,7 @@ namespace AMSExplorer
 
         private void resetChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoResetChannels();
+            DoResetLiveEvents();
         }
 
         private void deleteChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -10072,161 +10109,6 @@ namespace AMSExplorer
             await DoRefreshStreamingLocators();
         }
 
-        private void recreateProgramToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoResetPrograms();
-        }
-
-        private async void DoResetPrograms()
-        {
-            List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.FirstOrDefault() != null)
-            {
-                if (SelectedPrograms.Count > 0)
-                {
-                    string question = (SelectedPrograms.Count == 1) ? string.Format("Reset program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Reset these {0} programs ?", SelectedPrograms.Count);
-                    question += Constants.endline + Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name, locator ID, keys, delivery policies and filters.";
-                    question += Constants.endline + Constants.endline + "WARNING: As the new asset will use the same locator ID, this can create issues. Notes:";
-                    question += Constants.endline + "- Encoder must use incremental timestamps";
-                    question += Constants.endline + "- Locator GUID are cached by the streaming endpoints for 5 minutes";
-                    question += Constants.endline + "- The old live archive manifest could have been be cached";
-
-                    if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                    {
-                        foreach (IProgram myP in SelectedPrograms)
-                        {
-                            if (myP.State != ProgramState.Stopped) // program is not stopped
-                            {
-                                TextBoxLogWriteLine("Program '{0}' must be stopped in order to reset it. Operation aborted.", myP.Name, true);
-                            }
-                            else // program is stopped
-                            {
-                                IAsset asset = myP.Asset;
-                                IAsset newAsset = null;
-
-                                string assetName = asset.Name; // backup the asset name
-                                string assetstorageaccount = asset.StorageAccountName; // backup the storage account name
-                                string programName = myP.Name; // backup program name
-                                string programDesc = myP.Description; // backup program description
-                                TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
-                                var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
-                                IChannel myChannel = myP.Channel;
-                                var ismAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
-
-
-                                if (locator.Count() != 1) // no single locator, we do nothing
-                                {
-                                    TextBoxLogWriteLine("Asset of program '{0}' does not have a single locator. Operation aborted.", myP.Name, true);
-                                }
-                                else if (ismAssetFiles.Count() != 1)
-                                {
-                                    TextBoxLogWriteLine("Asset of program '{0}' does not have a ISM file. Operation aborted.", myP.Name, true);
-                                }
-                                else
-                                {
-                                    string ismName = Path.GetFileNameWithoutExtension(ismAssetFiles.FirstOrDefault().Name);
-                                    string locatorID = locator.FirstOrDefault().Id;
-                                    DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
-
-                                    try
-                                    {
-                                        TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
-                                        myP.Delete();
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
-                                        TextBoxLogWriteLine(ex);
-                                    }
-
-                                    try
-                                    {
-                                        newAsset = _context.Assets.Create(assetName, assetstorageaccount, AssetCreationOptions.None);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the new asset {0}.", assetName, true);
-                                        TextBoxLogWriteLine(ex);
-                                    }
-
-
-
-                                    if (asset != null)
-                                    {
-                                        //let's copy the keys
-                                        foreach (var key in asset.ContentKeys)
-                                        {
-                                            newAsset.ContentKeys.Add(key);
-                                        }
-                                        //let's copy the policies
-                                        foreach (var delpol in asset.DeliveryPolicies)
-                                        {
-                                            newAsset.DeliveryPolicies.Add(delpol);
-                                        }
-                                        //let's copy the filters
-                                        foreach (var filter in asset.AssetFilters)
-                                        {
-                                            try
-                                            {
-                                                newAsset.AssetFilters.Create(filter.Name, filter.PresentationTimeRange, filter.Tracks);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                TextBoxLogWriteLine("There is a problem when copying filter {0} the new asset {1}.", filter.Name, assetName, true);
-                                                TextBoxLogWriteLine(ex);
-                                            }
-                                        }
-
-                                        //delete
-                                        try
-                                        {
-                                            TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
-                                            DeleteAsset(asset);
-                                            if (AssetInfo.GetAsset(asset.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            // Add useful information to the exception
-                                            TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
-                                            TextBoxLogWriteLine(ex);
-                                        }
-                                    }
-
-                                    // let's use the same expiration date than previous locator
-                                    IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
-
-                                    try
-                                    {
-                                        TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
-                                        ILocator locat = _context.Locators.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", asset.Name, true);
-                                        TextBoxLogWriteLine(ex);
-                                    }
-
-                                    ProgramCreationOptions options = new ProgramCreationOptions()
-                                    {
-                                        AssetId = newAsset.Id,
-                                        Name = programName,
-                                        Description = programDesc,
-                                        ArchiveWindowLength = programArchiveWindowLength,
-                                        ManifestName = ismName,
-                                    };
-                                    //  await Task.Run(() => ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created"));
-                                }
-                            }
-                        }
-                        DoRefreshGridLiveOutputV(false);
-                        DoRefreshGridAssetV(false);
-                    }
-                }
-            }
-        }
 
         private void attachAnotherStoragheAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -11077,26 +10959,23 @@ namespace AMSExplorer
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
-            var programs = ReturnSelectedLiveOutputs();
-            bool single = programs.Count == 1;
-            bool oneOrMore = programs.Count > 0;
+            var liveOutputs = ReturnSelectedLiveOutputs();
+            bool single = liveOutputs.Count == 1;
+            bool oneOrMore = liveOutputs.Count > 0;
 
-            // program info if only one program
+            // live output info if only one live output
             ContextMenuItemProgramDisplayInformation.Enabled = oneOrMore;
 
-            // asset info if only one program
+            // asset info if only one live output
             ContextMenuItemProgramDisplayRelatedAssetInformation.Enabled = single;
 
-            // copy program url if only one program
+            // copy live output url if only one live output
             ContextMenuItemProgramCopyTheOutputURLToClipboard.Enabled = single;
 
-            // reset program
-            recreateProgramToolStripMenuItem.Enabled = oneOrMore;
-
-            // delete program
+            // delete live output
             ContextMenuItemProgramDelete.Enabled = oneOrMore;
 
-            // clone program
+            // clone live output
             cloneToolStripMenuItem.Enabled = oneOrMore;
 
             // secutiry

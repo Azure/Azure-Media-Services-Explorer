@@ -88,6 +88,32 @@ namespace AMSExplorer
             set { textBoxAssetName.Text = value; }
         }
 
+        public long? StartRecordTimestamp
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(textBoxStartRecordTimestamp.Text))
+                {
+                    return null;
+                }
+                else
+                {
+                    long? val = null;
+                    try
+                    {
+                        val = long.Parse(textBoxStartRecordTimestamp.Text);
+                    }
+                    catch
+                    {
+
+                    }
+                    return val;
+                }
+            }
+
+            set { textBoxStartRecordTimestamp.Text = value.ToString(); }
+        }
+
         public bool CreateLocator
         {
             get { return checkBoxCreateLocator.Checked; }
@@ -150,6 +176,24 @@ namespace AMSExplorer
             }
         }
 
+
+        private void checkStartRecordingTimestamp()
+        {
+            TextBox tb = textBoxStartRecordTimestamp;
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(tb.Text))
+                    long.Parse(tb.Text);
+                errorProvider1.SetError(tb, String.Empty);
+            }
+            catch
+            {
+                errorProvider1.SetError(tb, "Error. Timestamp should be a long value");
+            }
+        }
+
+
         private void textboxprogramname_TextChanged(object sender, EventArgs e)
         {
             checkProgramName();
@@ -158,6 +202,11 @@ namespace AMSExplorer
         private void checkBoxHLSFragPerSegDefined_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSegDefined.Checked;
+        }
+
+        private void textBoxStartRecordTimestamp_TextChanged(object sender, EventArgs e)
+        {
+            checkStartRecordingTimestamp();
         }
     }
 }

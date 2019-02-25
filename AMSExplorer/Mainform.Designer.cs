@@ -181,7 +181,6 @@
             this.ContextMenuItemProgramDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramDisplayRelatedAssetInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recreateProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
@@ -1539,7 +1538,6 @@
             this.ContextMenuItemProgramDisplayInformation,
             this.ContextMenuItemProgramDisplayRelatedAssetInformation,
             this.createProgramToolStripMenuItem,
-            this.recreateProgramToolStripMenuItem,
             this.cloneToolStripMenuItem,
             this.ContextMenuItemProgramDelete,
             this.toolStripSeparator16,
@@ -1582,13 +1580,6 @@
             resources.ApplyResources(this.createProgramToolStripMenuItem, "createProgramToolStripMenuItem");
             this.createProgramToolStripMenuItem.Name = "createProgramToolStripMenuItem";
             this.createProgramToolStripMenuItem.Click += new System.EventHandler(this.createProgramToolStripMenuItem_Click_1);
-            // 
-            // recreateProgramToolStripMenuItem
-            // 
-            this.recreateProgramToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.refresh;
-            this.recreateProgramToolStripMenuItem.Name = "recreateProgramToolStripMenuItem";
-            resources.ApplyResources(this.recreateProgramToolStripMenuItem, "recreateProgramToolStripMenuItem");
-            this.recreateProgramToolStripMenuItem.Click += new System.EventHandler(this.recreateProgramToolStripMenuItem_Click);
             // 
             // cloneToolStripMenuItem
             // 
@@ -2991,7 +2982,6 @@
         private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem extendExistingLocatorsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem recreateProgramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem attachAnotherStoragheAccountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem3;
