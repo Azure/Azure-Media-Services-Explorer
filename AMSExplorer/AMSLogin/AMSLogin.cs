@@ -31,7 +31,6 @@ using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure.Authentication;
-using Microsoft.Graph;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Net.Http;
