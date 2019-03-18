@@ -289,6 +289,7 @@ namespace AMSExplorer
 
             foreach (AssetEntryV3 AE in listae)
             {
+                System.Threading.Thread.Sleep(1000);
                 try
                 {
                     asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, AE.Name);

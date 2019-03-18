@@ -7253,6 +7253,8 @@ namespace AMSExplorer
                     }
                     //TextBoxLogWriteLine(string.Format("Live event(s) stopped : {0}.", names));
                 }
+
+              
                 catch (Exception ex)
                 {
                     // Add useful information to the exception
@@ -7273,7 +7275,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(string.Format("Deleting live event(s) : {0}...", names2));
                     var states = ListEvents.Select(p => p.ResourceState).ToList();
                     var taskcdel = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
-
+                    
                     while (!taskcdel.All(t => t.IsCompleted))
                     {
                         // refresh the channels
@@ -7295,7 +7297,6 @@ namespace AMSExplorer
                     }
                     TextBoxLogWriteLine(string.Format("Live event(s) deleted : {0}.", names2));
                 }
-
                 catch (Exception ex)
                 {
                     // Add useful information to the exception
