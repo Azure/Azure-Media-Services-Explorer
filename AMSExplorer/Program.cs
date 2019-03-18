@@ -222,10 +222,18 @@ namespace AMSExplorer
 
             while (e != null)
             {
-                s = e.Message;
+                if (e.GetType() == typeof(ApiErrorException))
+                {
+                    s = ((ApiErrorException)e).Body?.Error?.Message;
+                }
+                else
+                {
+                    s = e.Message;
+                }
+               
                 e = e.InnerException;
             }
-            return ParseXml(s);
+            return s;// ParseXml(s);
         }
 
         public static string ParseXml(string strXml)

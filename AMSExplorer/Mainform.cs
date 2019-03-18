@@ -7251,10 +7251,12 @@ namespace AMSExplorer
                         }
                         System.Threading.Thread.Sleep(2000);
                     }
+                    Task.WaitAll(taskcstop);
+
                     //TextBoxLogWriteLine(string.Format("Live event(s) stopped : {0}.", names));
                 }
 
-              
+
                 catch (Exception ex)
                 {
                     // Add useful information to the exception
@@ -7295,6 +7297,7 @@ namespace AMSExplorer
                         }
                         System.Threading.Thread.Sleep(2000);
                     }
+                    Task.WaitAll(taskcdel);
                     TextBoxLogWriteLine(string.Format("Live event(s) deleted : {0}.", names2));
                 }
                 catch (Exception ex)
@@ -7321,10 +7324,10 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine(string.Format("Starting live event(s) : {0}...", names));
                     var states = liveevntsstopped.Select(p => p.ResourceState).ToList();
-                    var taskcstop = liveevntsstopped.Select(c => _amsClientV3.AMSclient.LiveEvents.StartAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
+                    var taskLEStart = liveevntsstopped.Select(c => _amsClientV3.AMSclient.LiveEvents.StartAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                     int complete = 0;
 
-                    while (!taskcstop.All(t => t.IsCompleted) && complete != liveevntsstopped.Count)
+                    while (!taskLEStart.All(t => t.IsCompleted) && complete != liveevntsstopped.Count)
                     {
                         // refresh the channels
 
@@ -7344,6 +7347,7 @@ namespace AMSExplorer
                         }
                         System.Threading.Thread.Sleep(2000);
                     }
+                    Task.WaitAll(taskLEStart);
                 }
                 catch (Exception ex)
                 {
@@ -7414,6 +7418,7 @@ namespace AMSExplorer
                     }
                     System.Threading.Thread.Sleep(2000);
                 }
+                Task.WaitAll(tasks);
                 TextBoxLogWriteLine("Live output(s) deleted.");
             }
             catch (Exception ex)
@@ -7458,10 +7463,10 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine(string.Format("Starting streaming endpoint(s) : {0}...", names));
                     var states = streamingendpointsstopped.Select(p => p.ResourceState).ToList();
-                    var taskcstop = streamingendpointsstopped.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.StartAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
+                    var taskSEStart = streamingendpointsstopped.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.StartAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                     int complete = 0;
 
-                    while (!taskcstop.All(t => t.IsCompleted) && complete != streamingendpointsstopped.Count)
+                    while (!taskSEStart.All(t => t.IsCompleted) && complete != streamingendpointsstopped.Count)
                     {
                         // refresh the channels
 
@@ -7481,6 +7486,8 @@ namespace AMSExplorer
                         }
                         System.Threading.Thread.Sleep(2000);
                     }
+                    Task.WaitAll(taskSEStart);
+
                 }
                 catch (Exception ex)
                 {
@@ -7539,10 +7546,10 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine(string.Format("Stopping streaming endpoints(s) : {0}...", names));
                     var states = sesrunning.Select(p => p.ResourceState).ToList();
-                    var taskcstop = sesrunning.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.StopAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
+                    var taskSEstop = sesrunning.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.StopAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
                     int complete = 0;
-                    while (!taskcstop.All(t => t.IsCompleted) && complete != sesrunning.Count)
+                    while (!taskSEstop.All(t => t.IsCompleted) && complete != sesrunning.Count)
                     {
                         // refresh the streaming endpoints
 
@@ -7563,6 +7570,8 @@ namespace AMSExplorer
                         }
                         System.Threading.Thread.Sleep(2000);
                     }
+                    Task.WaitAll(taskSEstop);
+
                 }
                 catch (Exception ex)
                 {
@@ -7581,9 +7590,9 @@ namespace AMSExplorer
 
                     TextBoxLogWriteLine(string.Format("Deleting streaming endpoints(s) : {0}...", names2));
                     var states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
-                    var taskcdel = ListStreamingEndpoints.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
+                    var taskSEdel = ListStreamingEndpoints.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
-                    while (!taskcdel.All(t => t.IsCompleted))
+                    while (!taskSEdel.All(t => t.IsCompleted))
                     {
                         // refresh the channels
 
@@ -7602,6 +7611,7 @@ namespace AMSExplorer
                         }
                         System.Threading.Thread.Sleep(2000);
                     }
+                    Task.WaitAll(taskSEdel);
                     TextBoxLogWriteLine(string.Format("Streaming endpoint(s) deleted : {0}.", names2));
                 }
 
