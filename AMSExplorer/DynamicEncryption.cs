@@ -768,12 +768,12 @@ namespace AMSExplorer
             if (EnablePersistent)
             {
                 FairPlayConfiguration = Microsoft.WindowsAzure.MediaServices.Client.FairPlay.FairPlayConfiguration.CreateSerializedFairPlayOptionConfiguration(
-                    certificate.Certificate,
+                   certificate.Certificate,
                     certificate.Password,
                     pfxPasswordId,
                     askId,
                     iv,
-                    rentalDuration == 0x9999 ? RentalAndLeaseKeyType.PersistentUnlimited : RentalAndLeaseKeyType.PersistentLimited,
+                    RentalAndLeaseKeyType.PersistentUnlimited,
                     rentalDuration);
             }
             else
