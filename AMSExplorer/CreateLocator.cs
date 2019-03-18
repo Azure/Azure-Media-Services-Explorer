@@ -153,7 +153,8 @@ namespace AMSExplorer
 
         private void CreateLocator_Load(object sender, EventArgs e)
         {
-            comboBoxPolicyName.Items.AddRange(typeof(PredefinedStreamingPolicy).GetFields().Select(field => field.GetValue(field)).ToArray());
+            // as not implemented, we remove MultiDrm policies for now
+            comboBoxPolicyName.Items.AddRange(typeof(PredefinedStreamingPolicy).GetFields().Where(field => !field.GetValue(field).ToString().Contains("MultiDrm")).Select(field => field.GetValue(field)).ToArray());
             comboBoxPolicyName.Text = PredefinedStreamingPolicy.ClearStreamingOnly;
         }
 
