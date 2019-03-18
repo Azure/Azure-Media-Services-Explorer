@@ -6893,7 +6893,7 @@ namespace AMSExplorer
                              }
                          }
                       );
-                      
+
                     }
                 }
                 else
@@ -7277,7 +7277,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(string.Format("Deleting live event(s) : {0}...", names2));
                     var states = ListEvents.Select(p => p.ResourceState).ToList();
                     var taskcdel = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
-                    
+
                     while (!taskcdel.All(t => t.IsCompleted))
                     {
                         // refresh the channels
@@ -9061,10 +9061,10 @@ namespace AMSExplorer
                                                 if (form4.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                                 {
                                                     // let display a test token
-                                                    X509SigningCredentials signingcred = null;
+                                                    Microsoft.IdentityModel.Tokens.X509SigningCredentials signingcred = null;
                                                     if (form4.GetDetailedTokenType == ExplorerTokenType.JWTX509)
                                                     {
-                                                        signingcred = new X509SigningCredentials(form4.GetX509Certificate);
+                                                        signingcred = new Microsoft.IdentityModel.Tokens.X509SigningCredentials(form4.GetX509Certificate);
                                                     }
 
                                                     _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
@@ -9354,10 +9354,10 @@ namespace AMSExplorer
                                             if (form4.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                             {
                                                 // let display a test token
-                                                X509SigningCredentials signingcred = null;
+                                                Microsoft.IdentityModel.Tokens.X509SigningCredentials signingcred = null;
                                                 if (form4.GetDetailedTokenType == ExplorerTokenType.JWTX509)
                                                 {
-                                                    signingcred = new X509SigningCredentials(form4.GetX509Certificate);
+                                                    signingcred = new Microsoft.IdentityModel.Tokens.X509SigningCredentials(form4.GetX509Certificate);
                                                 }
 
                                                 _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
@@ -9657,10 +9657,10 @@ namespace AMSExplorer
                                             if (form3.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                             {
                                                 // let display a test token
-                                                X509SigningCredentials signingcred = null;
+                                                Microsoft.IdentityModel.Tokens.X509SigningCredentials signingcred = null;
                                                 if (form3.GetDetailedTokenType == ExplorerTokenType.JWTX509)
                                                 {
-                                                    signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                                    signingcred = new Microsoft.IdentityModel.Tokens.X509SigningCredentials(form3.GetX509Certificate);
                                                 }
 
                                                 _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
