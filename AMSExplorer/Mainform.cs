@@ -179,7 +179,6 @@ namespace AMSExplorer
             _amsClientV3 = formLogin.AMSClient;
 
             _accountname = _amsClientV3.credentialsEntry.AccountName;
-
             DisplaySplashDuringLoading = true;
             ThreadPool.QueueUserWorkItem((x) =>
             {

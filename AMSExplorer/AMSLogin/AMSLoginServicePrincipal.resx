@@ -150,24 +150,6 @@
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <data name="buttonImport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonImport.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonImport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 15</value>
-  </data>
-  <data name="buttonImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 27</value>
-  </data>
-  <data name="buttonImport.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonImport.Text" xml:space="preserve">
-    <value>Ok</value>
-  </data>
   <data name="&gt;&gt;buttonImport.Name" xml:space="preserve">
     <value>buttonImport</value>
   </data>
@@ -200,6 +182,36 @@
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="buttonImport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonImport.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonImport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 15</value>
+  </data>
+  <data name="buttonImport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 27</value>
+  </data>
+  <data name="buttonImport.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonImport.Text" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="&gt;&gt;buttonImport.Name" xml:space="preserve">
+    <value>buttonImport</value>
+  </data>
+  <data name="&gt;&gt;buttonImport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonImport.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;buttonImport.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>

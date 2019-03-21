@@ -410,9 +410,7 @@ namespace AMSExplorer
 
 
 
-                    // test code  - briowser subscription with other tenants
-                    //   var tenants = subscriptionClient.Tenants.List();
-
+                    // tenants browsing
                     var tenants = new myTenants();
                     string URL = environment.ArmEndpoint + "tenants?api-version=2017-08-01";
 
@@ -470,7 +468,6 @@ namespace AMSExplorer
                     // end test code
                     */
 
-                    //var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, new myTenant[] { },null);
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {
                         // Getting Media Services accounts...

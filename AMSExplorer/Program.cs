@@ -4865,7 +4865,7 @@ namespace AMSExplorer
                         TokenAudience = credentialsEntry.Environment.AADSettings.TokenAudience,
                         ValidateAuthority = true
                     };
-                    var cred = await ApplicationTokenProvider.LoginSilentAsync(this.credentialsEntry.AadTenantId, clientCredential, ActiveDirectoryServiceSettings.Azure);
+                    var cred = await ApplicationTokenProvider.LoginSilentAsync(this.credentialsEntry.AadTenantId, clientCredential, set);
 
                     // Getting Media Services accounts...
                     AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred);
@@ -5133,7 +5133,7 @@ namespace AMSExplorer
                     //Authority = "https://login.windows-ppe.net/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://api-dogfood.resources.windows-int.net/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
-                    AADSettings = new ActiveDirectoryServiceSettings() { TokenAudience = new Uri("https://management.core.windows.net/"), ValidateAuthority = true, AuthenticationEndpoint = new Uri("https://login.windows-ppe.net/common/oauth2/authorize") };
+                    AADSettings = new ActiveDirectoryServiceSettings() { TokenAudience = new Uri("https://management.core.windows.net/"), ValidateAuthority = true, AuthenticationEndpoint = new Uri("https://login.windows-ppe.net/") };
                     break;
 
                 case AzureEnvType.Azure:
