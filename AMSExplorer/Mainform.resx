@@ -947,7 +947,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.16, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.18, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1972,7 +1972,7 @@
     <value>dataGridViewTransformsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.16, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.18, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2225,7 +2225,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.16, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.18, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2267,13 +2267,13 @@
     <value>215, 56</value>
   </metadata>
   <data name="refreshToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
+    <value>276, 22</value>
   </data>
   <data name="refreshToolStripMenuItem4.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 6</value>
+    <value>273, 6</value>
   </data>
   <data name="ContextMenuItemProgramDisplayInformation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2283,13 +2283,13 @@
 </value>
   </data>
   <data name="ContextMenuItemProgramDisplayInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramDisplayInformation.Text" xml:space="preserve">
     <value>Live output information and settings...</value>
   </data>
   <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Text" xml:space="preserve">
     <value>Display related asset information...</value>
@@ -2305,19 +2305,10 @@
     <value>Ctrl+P</value>
   </data>
   <data name="createProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
+    <value>276, 22</value>
   </data>
   <data name="createProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>Create live output...</value>
-  </data>
-  <data name="cloneToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="cloneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
-  </data>
-  <data name="cloneToolStripMenuItem.Text" xml:space="preserve">
-    <value>Clone live output(s) to another account...</value>
   </data>
   <data name="ContextMenuItemProgramDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2331,61 +2322,13 @@
     <value>Alt+P</value>
   </data>
   <data name="ContextMenuItemProgramDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramDelete.Text" xml:space="preserve">
     <value>Delete live output(s)...</value>
   </data>
   <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 6</value>
-  </data>
-  <data name="toolStripMenuItem3.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+D</value>
-  </data>
-  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>447, 22</value>
-  </data>
-  <data name="toolStripMenuItem3.Text" xml:space="preserve">
-    <value>Add a dynamic encryption policy for the asset(s)...</value>
-  </data>
-  <data name="toolStripMenuItem11.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+O</value>
-  </data>
-  <data name="toolStripMenuItem11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>447, 22</value>
-  </data>
-  <data name="toolStripMenuItem11.Text" xml:space="preserve">
-    <value>Get a test token...</value>
-  </data>
-  <data name="toolStripMenuItem9.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+D</value>
-  </data>
-  <data name="toolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>447, 22</value>
-  </data>
-  <data name="toolStripMenuItem9.Text" xml:space="preserve">
-    <value>Remove all dynamic encryption policies for the asset(s)...</value>
-  </data>
-  <data name="toolStripMenuItem10.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Alt+Shift+D</value>
-  </data>
-  <data name="toolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>447, 22</value>
-  </data>
-  <data name="toolStripMenuItem10.Text" xml:space="preserve">
-    <value>Remove keys for the asset(s)...</value>
-  </data>
-  <data name="securityToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="securityToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
-  </data>
-  <data name="securityToolStripMenuItem.Text" xml:space="preserve">
-    <value>Security</value>
-  </data>
-  <data name="toolStripSeparator24.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 6</value>
+    <value>273, 6</value>
   </data>
   <data name="createALocatorToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+L</value>
@@ -2427,13 +2370,13 @@
     <value>Create an asset filter...</value>
   </data>
   <data name="publishToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
+    <value>276, 22</value>
   </data>
   <data name="publishToolStripMenuItem2.Text" xml:space="preserve">
     <value>Publish</value>
   </data>
   <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Text" xml:space="preserve">
     <value>Display Output URL...</value>
@@ -2461,13 +2404,13 @@
 </value>
   </data>
   <data name="ContextMenuItemProgramPlayback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 22</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramPlayback.Text" xml:space="preserve">
     <value>Playback the live output(s)</value>
   </data>
   <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 242</value>
+    <value>277, 192</value>
   </data>
   <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
     <value>contextMenuStripLiveOutputs</value>
@@ -2497,7 +2440,7 @@
     <value>dataGridViewLiveOutputV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.16, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.18, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3162,7 +3105,7 @@
     <value>dataGridViewLiveEventsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.0.0.16, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.0.0.18, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -3630,7 +3573,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.16, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.18, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -7666,12 +7609,6 @@
   <data name="&gt;&gt;createProgramToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cloneToolStripMenuItem.Name" xml:space="preserve">
-    <value>cloneToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;cloneToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;ContextMenuItemProgramDelete.Name" xml:space="preserve">
     <value>ContextMenuItemProgramDelete</value>
   </data>
@@ -7682,42 +7619,6 @@
     <value>toolStripSeparator16</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;securityToolStripMenuItem.Name" xml:space="preserve">
-    <value>securityToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;securityToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
-    <value>toolStripMenuItem3</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem11.Name" xml:space="preserve">
-    <value>toolStripMenuItem11</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem9.Name" xml:space="preserve">
-    <value>toolStripMenuItem9</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem10.Name" xml:space="preserve">
-    <value>toolStripMenuItem10</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator24.Name" xml:space="preserve">
-    <value>toolStripSeparator24</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator24.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;publishToolStripMenuItem2.Name" xml:space="preserve">

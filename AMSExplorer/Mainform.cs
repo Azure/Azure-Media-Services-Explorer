@@ -7963,6 +7963,8 @@ namespace AMSExplorer
         }
         private async void DoDisplayStreamingEndpointInfo(List<StreamingEndpoint> streamingendpoints)
         {
+            if (streamingendpoints.Count == 0) return;
+
             bool multiselection = streamingendpoints.Count > 1;
 
             StreamingEndpointInformation form = new StreamingEndpointInformation(streamingendpoints.FirstOrDefault())
@@ -10066,7 +10068,8 @@ namespace AMSExplorer
 
         private void DoMenuDisplayAssetInfoOfProgram()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedPrograms().Select(p => p.Asset).ToList();
+           var SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
+           // ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             if (SelectedAssets.Count > 0)
             {
                 DisplayInfo(SelectedAssets.FirstOrDefault());
@@ -10984,12 +10987,6 @@ namespace AMSExplorer
 
             // delete live output
             ContextMenuItemProgramDelete.Enabled = oneOrMore;
-
-            // clone live output
-            cloneToolStripMenuItem.Enabled = oneOrMore;
-
-            // secutiry
-            securityToolStripMenuItem.Enabled = oneOrMore;
 
             // publish
             publishToolStripMenuItem2.Enabled = oneOrMore;
@@ -12113,8 +12110,12 @@ namespace AMSExplorer
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new DisplayTelemetry(this, ReturnSelectedStreamingEndpoints().FirstOrDefault(), _context, _credentials);
-            form.Show();
+            var SE = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+            if (SE != null)
+            {
+                var form = new DisplayTelemetry(this, SE, _context, _credentials);
+                form.Show();
+            }
         }
 
         private void loadMetricsToolStripMenuItem_Click(object sender, EventArgs e)

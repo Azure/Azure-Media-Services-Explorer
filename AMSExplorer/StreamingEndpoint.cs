@@ -124,7 +124,9 @@ namespace AMSExplorer
                 var list = new List<StreamingEndpoint>();
                 foreach (var se in _MyObservStreamingEndpoints)
                 {
-                    list.Add(_client.StreamingEndpoints.Get(_resourceName, _accountName, se.Name));
+                    var detailedSE = _client.StreamingEndpoints.Get(_resourceName, _accountName, se.Name);
+                    if (detailedSE != null) // in some rare cases, SE is null in dev/test account
+                        list.Add(detailedSE);
                 }
                 return list;
             }
@@ -256,7 +258,7 @@ namespace AMSExplorer
             if (!_initialized) return;
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
-       
+
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
             streamingendpoints = _client.StreamingEndpoints.List(_resourceName, _accountName);
@@ -280,7 +282,7 @@ namespace AMSExplorer
                                 Description = c.Description,
                                 CDN = (bool)c.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.CdnProvider) ?? "CDN" : string.Empty,
                                 ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)c.ScaleUnits).ToString(),
-                                State =(StreamingEndpointResourceState) c.ResourceState,
+                                State = (StreamingEndpointResourceState)c.ResourceState,
                                 LastModified = ((DateTime)c.LastModified).ToLocalTime(),
                                 Type = StreamingEndpointInformation.ReturnTypeSE(c)
                             };

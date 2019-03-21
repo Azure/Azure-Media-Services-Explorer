@@ -423,34 +423,34 @@
   <data name="&gt;&gt;labelE2.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="labelLocation.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labelRegion.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labelLocation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelRegion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelLocation.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelRegion.Location" type="System.Drawing.Point, System.Drawing">
     <value>43, 105</value>
   </data>
-  <data name="labelLocation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 15</value>
+  <data name="labelRegion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 15</value>
   </data>
-  <data name="labelLocation.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelRegion.TabIndex" type="System.Int32, mscorlib">
     <value>88</value>
   </data>
-  <data name="labelLocation.Text" xml:space="preserve">
-    <value>Location</value>
+  <data name="labelRegion.Text" xml:space="preserve">
+    <value>Region</value>
   </data>
-  <data name="&gt;&gt;labelLocation.Name" xml:space="preserve">
-    <value>labelLocation</value>
+  <data name="&gt;&gt;labelRegion.Name" xml:space="preserve">
+    <value>labelRegion</value>
   </data>
-  <data name="&gt;&gt;labelLocation.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelRegion.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelLocation.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelRegion.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;labelLocation.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelRegion.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">

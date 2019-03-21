@@ -42,7 +42,7 @@
             this.textBoxAADtenantId = new System.Windows.Forms.TextBox();
             this.labelADTenant = new System.Windows.Forms.Label();
             this.labelE2 = new System.Windows.Forms.Label();
-            this.labelLocation = new System.Windows.Forms.Label();
+            this.labelRegion = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -121,10 +121,10 @@
             resources.ApplyResources(this.labelE2, "labelE2");
             this.labelE2.Name = "labelE2";
             // 
-            // labelLocation
+            // labelRegion
             // 
-            resources.ApplyResources(this.labelLocation, "labelLocation");
-            this.labelLocation.Name = "labelLocation";
+            resources.ApplyResources(this.labelRegion, "labelRegion");
+            this.labelRegion.Name = "labelRegion";
             // 
             // label2
             // 
@@ -157,7 +157,7 @@
             this.Controls.Add(this.labelADTenant);
             this.Controls.Add(this.labelE2);
             this.Controls.Add(this.textBoxLocation);
-            this.Controls.Add(this.labelLocation);
+            this.Controls.Add(this.labelRegion);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
@@ -181,7 +181,7 @@
         private System.Windows.Forms.GroupBox groupBoxAADAutMode;
         private System.Windows.Forms.Label labelADTenant;
         private System.Windows.Forms.Label labelE2;
-        private System.Windows.Forms.Label labelLocation;
+        private System.Windows.Forms.Label labelRegion;
         public System.Windows.Forms.RadioButton radioButtonAADServicePrincipal;
         public System.Windows.Forms.RadioButton radioButtonAADInteractive;
         public System.Windows.Forms.TextBox textBoxAMSResourceId;

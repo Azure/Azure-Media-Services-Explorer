@@ -181,15 +181,8 @@
             this.ContextMenuItemProgramDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramDisplayRelatedAssetInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cloneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
-            this.securityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
             this.publishToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.createALocatorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -1538,11 +1531,8 @@
             this.ContextMenuItemProgramDisplayInformation,
             this.ContextMenuItemProgramDisplayRelatedAssetInformation,
             this.createProgramToolStripMenuItem,
-            this.cloneToolStripMenuItem,
             this.ContextMenuItemProgramDelete,
             this.toolStripSeparator16,
-            this.securityToolStripMenuItem,
-            this.toolStripSeparator24,
             this.publishToolStripMenuItem2,
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard,
             this.ContextMenuItemProgramPlayback});
@@ -1581,12 +1571,6 @@
             this.createProgramToolStripMenuItem.Name = "createProgramToolStripMenuItem";
             this.createProgramToolStripMenuItem.Click += new System.EventHandler(this.createProgramToolStripMenuItem_Click_1);
             // 
-            // cloneToolStripMenuItem
-            // 
-            resources.ApplyResources(this.cloneToolStripMenuItem, "cloneToolStripMenuItem");
-            this.cloneToolStripMenuItem.Name = "cloneToolStripMenuItem";
-            this.cloneToolStripMenuItem.Click += new System.EventHandler(this.cloneToolStripMenuItem_Click);
-            // 
             // ContextMenuItemProgramDelete
             // 
             resources.ApplyResources(this.ContextMenuItemProgramDelete, "ContextMenuItemProgramDelete");
@@ -1597,49 +1581,6 @@
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
             resources.ApplyResources(this.toolStripSeparator16, "toolStripSeparator16");
-            // 
-            // securityToolStripMenuItem
-            // 
-            this.securityToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem11,
-            this.toolStripMenuItem9,
-            this.toolStripMenuItem10});
-            resources.ApplyResources(this.securityToolStripMenuItem, "securityToolStripMenuItem");
-            this.securityToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.DRM_protection;
-            this.securityToolStripMenuItem.Name = "securityToolStripMenuItem";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Image = global::AMSExplorer.Bitmaps.DRM_protection;
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            resources.ApplyResources(this.toolStripMenuItem3, "toolStripMenuItem3");
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click_1);
-            // 
-            // toolStripMenuItem11
-            // 
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            resources.ApplyResources(this.toolStripMenuItem11, "toolStripMenuItem11");
-            this.toolStripMenuItem11.Click += new System.EventHandler(this.toolStripMenuItem11_Click);
-            // 
-            // toolStripMenuItem9
-            // 
-            this.toolStripMenuItem9.Image = global::AMSExplorer.Bitmaps.cancel;
-            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            resources.ApplyResources(this.toolStripMenuItem9, "toolStripMenuItem9");
-            this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItem9_Click);
-            // 
-            // toolStripMenuItem10
-            // 
-            this.toolStripMenuItem10.Image = global::AMSExplorer.Bitmaps.cancel;
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            resources.ApplyResources(this.toolStripMenuItem10, "toolStripMenuItem10");
-            this.toolStripMenuItem10.Click += new System.EventHandler(this.toolStripMenuItem10_Click);
-            // 
-            // toolStripSeparator24
-            // 
-            this.toolStripSeparator24.Name = "toolStripSeparator24";
-            resources.ApplyResources(this.toolStripSeparator24, "toolStripSeparator24");
             // 
             // publishToolStripMenuItem2
             // 
@@ -3006,12 +2947,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator31;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator30;
-        private System.Windows.Forms.ToolStripMenuItem securityToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator24;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
         private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableAzureCDNToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem disableAzureCDNToolStripMenuItem;
@@ -3062,7 +2997,6 @@
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem25;
-        private System.Windows.Forms.ToolStripMenuItem cloneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cloneChannelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subclipToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informationToExcelToolStripMenuItem;

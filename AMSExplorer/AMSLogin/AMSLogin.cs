@@ -272,7 +272,23 @@ namespace AMSExplorer
                         // let's purge entries if user does not want to keep them
                     }
 
-                    var ImportedCredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(json, typeof(ListCredentialsRPv3));
+                    ListCredentialsRPv3 ImportedCredentialList = null;
+                    try
+                    {
+                        ImportedCredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(json, typeof(ListCredentialsRPv3));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error when importing json file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (ImportedCredentialList.Version < (new ListCredentialsRPv3()).Version)
+                    {
+                        MessageBox.Show("This file was created with an older version of AMSE. Import is not possible.", "Wrong version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     CredentialList.MediaServicesAccounts.AddRange(ImportedCredentialList.MediaServicesAccounts);
 
                     listViewAccounts.Items.Clear();
