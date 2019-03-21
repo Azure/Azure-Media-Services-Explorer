@@ -3579,9 +3579,10 @@ namespace AMSExplorer
         internal static StreamingEndpoint GetBestStreamingEndpoint(AMSClientV3 client)
         {
             client.RefreshTokenIfNeeded();
-
-            StreamingEndpoint SESelected = client.AMSclient.StreamingEndpoints.List(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName).AsEnumerable().Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
+            var SEList = client.AMSclient.StreamingEndpoints.List(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName).AsEnumerable();
+            StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
             if (SESelected == null) SESelected = client.AMSclient.StreamingEndpoints.Get(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
+            if (SESelected == null) SESelected = SEList.FirstOrDefault();
 
             return SESelected;
         }

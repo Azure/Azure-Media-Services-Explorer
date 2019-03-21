@@ -283,7 +283,7 @@ namespace AMSExplorer
         }
 
 
-      
+
         private void AssetInformation_Load(object sender, EventArgs e)
         {
             labelAssetNameTitle.Text += myAssetV3.Name;
@@ -293,7 +293,7 @@ namespace AMSExplorer
             DGAsset.ColumnCount = 2;
             DGFiles.ColumnCount = 2;
             DGFiles.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-   
+
             // Files in asset: headers
             long size = -1;
             /*
@@ -333,7 +333,11 @@ namespace AMSExplorer
                     comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
                 }
             }
-
+            // if no SE has been selected (there is no SE named "default") then let's select the fist in the list
+            if (myStreamingEndpoints.Count() > 0 && comboBoxStreamingEndpoint.SelectedIndex == -1)
+            {
+                comboBoxStreamingEndpoint.SelectedIndex = 0;
+            }
 
             oktobuildlocator = true;
             // BuildLocatorsTree();
@@ -1398,7 +1402,7 @@ namespace AMSExplorer
             BuildLocatorsTree();
         }
 
-   
+
 
         private void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
         {
@@ -1559,12 +1563,12 @@ namespace AMSExplorer
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
-    
+
 
         private void contextMenuStripKey_Opening(object sender, CancelEventArgs e)
         {
         }
-     
+
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
         {
@@ -1982,7 +1986,7 @@ namespace AMSExplorer
             BuildLocatorsTree();
         }
 
-           
+
         private void tabPageBlobs_Enter(object sender, EventArgs e)
         {
             ListAssetBlobs();
