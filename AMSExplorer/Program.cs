@@ -230,7 +230,7 @@ namespace AMSExplorer
                 {
                     s = e.Message;
                 }
-               
+
                 e = e.InnerException;
             }
             return s;// ParseXml(s);
@@ -1867,7 +1867,7 @@ namespace AMSExplorer
             var ses = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             var runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
             if (runningSes == null) runningSes = ses.FirstOrDefault();
-            if (locators.Count > 0)
+            if (locators.Count > 0 && runningSes != null)
             {
                 var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locators.First().Name).StreamingPaths;
                 var uribuilder = new UriBuilder();
@@ -3296,7 +3296,11 @@ namespace AMSExplorer
 
             if (!string.IsNullOrEmpty(path))
             {
-                StreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(client);
+                StreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpointAsync(client).Result;
+                if (choosenSE == null)
+                {
+                    return null;
+                }
 
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
@@ -3575,13 +3579,12 @@ namespace AMSExplorer
         }
 
 
-
-        internal static StreamingEndpoint GetBestStreamingEndpoint(AMSClientV3 client)
+        internal static async Task<StreamingEndpoint> GetBestStreamingEndpointAsync(AMSClientV3 client)
         {
             client.RefreshTokenIfNeeded();
-            var SEList = client.AMSclient.StreamingEndpoints.List(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName).AsEnumerable();
+            var SEList = (await client.AMSclient.StreamingEndpoints.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)).AsEnumerable();
             StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
-            if (SESelected == null) SESelected = client.AMSclient.StreamingEndpoints.Get(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
+            if (SESelected == null) SESelected = await client.AMSclient.StreamingEndpoints.GetAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
             if (SESelected == null) SESelected = SEList.FirstOrDefault();
 
             return SESelected;

@@ -166,7 +166,7 @@ namespace AMSExplorer
             // SE List
             _client.RefreshTokenIfNeeded();
 
-            StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_client);
+            StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpointAsync(_client).Result;
             foreach (var se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
             {
                 listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Name + "|" + se.HostName));

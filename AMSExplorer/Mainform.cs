@@ -752,10 +752,10 @@ namespace AMSExplorer
             return processors.ToList();
         }
 
-        static Asset GetAsset(string assetName)
+        static async Task<Asset> GetAssetAsync(string assetName)
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            return _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName);
+            return await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetName);
         }
 
 
@@ -780,43 +780,37 @@ namespace AMSExplorer
             return job;
         }
 
-        static Job GetJob(string transformName, string jobName)
+        static async Task<Job> GetJobAsync(string transformName, string jobName)
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            return _amsClientV3.AMSclient.Jobs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName, jobName);
+            return await _amsClientV3.AMSclient.Jobs.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName, jobName);
         }
 
-        static Transform GetTransform(string transformName)
+        static async Task<Transform> GetTransformAsync(string transformName)
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            return _amsClientV3.AMSclient.Transforms.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName);
+            return await _amsClientV3.AMSclient.Transforms.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transformName);
         }
 
-        static LiveEvent GetLiveEvent(string liveEventName)
+        static async Task<LiveEvent> GetLiveEventAsync(string liveEventName)
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            return _amsClientV3.AMSclient.LiveEvents.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEventName);
+            return await _amsClientV3.AMSclient.LiveEvents.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEventName);
         }
 
-        static LiveOutput GetLiveOutput(string liveEventName, string liveOutputName)
+        static async Task<LiveOutput> GetLiveOutputAsync(string liveEventName, string liveOutputName)
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            return _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEventName, liveOutputName);
+            return await _amsClientV3.AMSclient.LiveOutputs.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEventName, liveOutputName);
         }
 
 
-        static StreamingEndpoint GetStreamingEndpoint(string seName)
+        static async Task<StreamingEndpoint> GetStreamingEndpointAsync(string seName)
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            return _amsClientV3.AMSclient.StreamingEndpoints.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, seName);
+            return await _amsClientV3.AMSclient.StreamingEndpoints.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, seName);
         }
-
-
-        static void DeleteAsset(IAsset asset)
-        {
-            // delete the asset
-            asset.Delete();
-        }
+     
 
         public void DeleteLocatorsForAsset(Asset asset)
         {
@@ -1235,7 +1229,7 @@ namespace AMSExplorer
                 return;
             }
             _amsClientV3.RefreshTokenIfNeeded();
-            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+            var storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
 
             if (storageaccount == null)
             {
@@ -1965,7 +1959,7 @@ namespace AMSExplorer
         {
             return null;
         }
-        public DialogResult? DisplayInfo(Asset asset)
+        public async Task<DialogResult?> DisplayInfoAsync(Asset asset)
         {
             DialogResult? dialogResult = null;
             if (asset != null)
@@ -1973,7 +1967,7 @@ namespace AMSExplorer
                 // Refresh the asset.
                 //_context = Program.ConnectAndGetNewContext(_credentials);
                 _amsClientV3.RefreshTokenIfNeeded();
-                asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name);
+                asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name);
                 if (asset != null)
                 {
                     try
@@ -2554,7 +2548,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewJobsV.SelectedRows)
                 SelectedJobs.Add(new JobExtension()
                 {
-                    Job = GetJob(Row.Cells["TransformName"].Value.ToString(), Row.Cells["Name"].Value.ToString()),
+                    Job = GetJobAsync(Row.Cells["TransformName"].Value.ToString(), Row.Cells["Name"].Value.ToString()).Result,
                     TransformName = Row.Cells["TransformName"].Value.ToString()
                 });
             SelectedJobs.Reverse();
@@ -2791,7 +2785,7 @@ namespace AMSExplorer
 
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DisplayInfo(ReturnSelectedAssetsV3().FirstOrDefault());
+            DisplayInfoAsync(ReturnSelectedAssetsV3().FirstOrDefault());
         }
 
 
@@ -5528,7 +5522,7 @@ namespace AMSExplorer
             {
                 _amsClientV3.RefreshTokenIfNeeded();
                 Asset asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
-                DisplayInfo(asset);
+                DisplayInfoAsync(asset);
             }
         }
 
@@ -5612,7 +5606,7 @@ namespace AMSExplorer
                 var row = dataGridViewJobsV.Rows[e.RowIndex];
                 var job = new JobExtension()
                 {
-                    Job = GetJob(row.Cells[dataGridViewJobsV.Columns["TransformName"].Index].Value.ToString(), row.Cells[dataGridViewJobsV.Columns["Name"].Index].Value.ToString()),
+                    Job = GetJobAsync(row.Cells[dataGridViewJobsV.Columns["TransformName"].Index].Value.ToString(), row.Cells[dataGridViewJobsV.Columns["Name"].Index].Value.ToString()).Result,
                     TransformName = row.Cells[dataGridViewJobsV.Columns["TransformName"].Index].Value.ToString()
                 };
 
@@ -5719,7 +5713,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
         {
-            DisplayInfo(ReturnSelectedAssetsV3().FirstOrDefault());
+            DisplayInfoAsync(ReturnSelectedAssetsV3().FirstOrDefault());
         }
 
         private void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
@@ -5913,7 +5907,7 @@ namespace AMSExplorer
             DoOpenTransferDestLocation();
         }
 
-        private void DoOpenTransferDestLocation()
+        private async void DoOpenTransferDestLocation()
         {
             if (dataGridViewTransfer.SelectedRows.Count > 0)
             {
@@ -5933,8 +5927,8 @@ namespace AMSExplorer
                         case TransferType.UploadFromFolder:
                         case TransferType.UploadWithExternalTool:
                             _amsClientV3.RefreshTokenIfNeeded();
-                            Asset asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, location);
-                            if (asset != null) DisplayInfo(asset);
+                            Asset asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, location);
+                            if (asset != null) DisplayInfoAsync(asset);
                             break;
 
                         case TransferType.ExportToAzureStorage:
@@ -6162,9 +6156,9 @@ namespace AMSExplorer
                             if (jobToDisplay.Job.Input.GetType() == typeof(JobInputAsset))
                             {
                                 var jobinputasset = (JobInputAsset)jobToDisplay.Job.Input;
-                                var asset = GetAsset(jobinputasset.AssetName);
+                                var asset = GetAssetAsync(jobinputasset.AssetName);
                                 if (asset != null)
-                                    DisplayInfo(GetAsset(jobinputasset.AssetName));
+                                    DisplayInfoAsync(GetAssetAsync(jobinputasset.AssetName).Result);
                                 else
                                     MessageBox.Show($"Input asset '{jobinputasset.AssetName}' not found.", "Asset error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -6176,9 +6170,9 @@ namespace AMSExplorer
                             if (jobToDisplay.Job.Outputs.FirstOrDefault() != null && (jobToDisplay.Job.Outputs.FirstOrDefault().GetType() == typeof(JobOutputAsset)))
                             {
                                 var joboutputasset = (JobOutputAsset)jobToDisplay.Job.Outputs.FirstOrDefault();
-                                var asset = GetAsset(joboutputasset.AssetName);
+                                var asset = GetAssetAsync(joboutputasset.AssetName);
                                 if (asset != null)
-                                    DisplayInfo(GetAsset(joboutputasset.AssetName));
+                                    DisplayInfoAsync(GetAssetAsync(joboutputasset.AssetName).Result);
                                 else
                                     MessageBox.Show($"Output asset '{joboutputasset.AssetName}' not found.", "Asset error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -6653,7 +6647,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
                 // sometimes, the channel can be null (if just deleted)
-                var liveEvent = GetLiveEvent(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
+                var liveEvent = GetLiveEventAsync(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString()).Result;
                 if (liveEvent != null)
                 {
                     SelectedLiveEvents.Add(liveEvent);
@@ -7235,7 +7229,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in liveeventsrunning)
                         {
-                            var loitemR = GetLiveEvent(loitem.Name);
+                            var loitemR = GetLiveEventAsync(loitem.Name).Result;
                             if (loitemR != null && states[liveeventsrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveeventsrunning.IndexOf(loitem)] = loitemR.ResourceState;
@@ -7283,7 +7277,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in ListEvents)
                         {
-                            var loitemR = GetLiveEvent(loitem.Name);
+                            var loitemR = GetLiveEventAsync(loitem.Name).Result;
                             if (loitemR != null && states[ListEvents.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListEvents.IndexOf(loitem)] = loitemR.ResourceState;
@@ -7332,7 +7326,7 @@ namespace AMSExplorer
 
                         foreach (var loitem in liveevntsstopped)
                         {
-                            var loitemR = GetLiveEvent(loitem.Name);
+                            var loitemR = GetLiveEventAsync(loitem.Name).Result;
                             if (loitemR != null && states[liveevntsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveevntsstopped.IndexOf(loitem)] = loitemR.ResourceState;
@@ -7404,7 +7398,7 @@ namespace AMSExplorer
 
                     foreach (var loitem in ListOutputs)
                     {
-                        var loitemR = GetLiveOutput(LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name);
+                        var loitemR = GetLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name).Result;
                         if (loitemR != null && states[ListOutputs.IndexOf(loitem)] != loitemR.ResourceState)
                         {
                             states[ListOutputs.IndexOf(loitem)] = loitemR.ResourceState;
@@ -8230,7 +8224,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                var channel = GetLiveEvent(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
+                var channel = GetLiveEventAsync(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString()).Result;
                 if (channel != null)
                 {
                     DoDisplayLiveEventInfo((new List<LiveEvent>() { channel }));
@@ -8302,7 +8296,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                StreamingEndpoint se = GetStreamingEndpoint(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString());
+                StreamingEndpoint se = GetStreamingEndpointAsync(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString()).Result;
                 if (se != null)
                 {
                     DoDisplayStreamingEndpointInfo(new List<StreamingEndpoint>() { se });
@@ -10072,7 +10066,7 @@ namespace AMSExplorer
            // ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             if (SelectedAssets.Count > 0)
             {
-                DisplayInfo(SelectedAssets.FirstOrDefault());
+                DisplayInfoAsync(SelectedAssets.FirstOrDefault());
             }
         }
 
@@ -10408,11 +10402,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                         try
                         {
-                            //IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
-                            //ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
                             string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
-                            //var policy = new StreamingPolicy(Guid.NewGuid().ToString(), "strpol" + uniqueness, null, DateTime.Now, null, null, null, null, null);
-                            //var policy2 = _amsClientV3.AMSclient.StreamingPolicies.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, policy.Name, policy);
 
                             StreamingLocator locator = new StreamingLocator(
                                                                             assetName: myAsset.Name,
@@ -12221,7 +12211,7 @@ namespace AMSExplorer
             if (e.RowIndex > -1)
             {
                 var row = dataGridViewTransformsV.Rows[e.RowIndex];
-                var transform = GetTransform(row.Cells[dataGridViewTransformsV.Columns["Name"].Index].Value.ToString());
+                var transform = GetTransformAsync(row.Cells[dataGridViewTransformsV.Columns["Name"].Index].Value.ToString()).Result;
                 if (transform != null)
                 {
                     try

@@ -374,7 +374,7 @@ namespace AMSExplorer
                 }
 
 
-                StreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_amsClient);
+                StreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpointAsync(_amsClient).Result;
 
                 foreach (var se in myStreamingEndpoints)
                 {
@@ -538,6 +538,8 @@ namespace AMSExplorer
             // List<Uri> ProgressiveDownloadUris;
             StreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
             string SelectedSEHostName = ReturnSelectedStreamingEndpointHostname();
+
+            if (SelectedSE == null) return;
 
             UriBuilder uriBuilder = new UriBuilder();
             uriBuilder.Scheme = checkBoxHttps.Checked ? "https" : "http";
