@@ -1231,7 +1231,7 @@ namespace AMSExplorer
                           .OrderByDescending(o => o.CdnEnabled)
                         .Select(
                             o =>
-                                template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
+                                template.BindByPosition(new Uri("https://" + o.HostName), l.ContentAccessComponent,
                                     ismFile.Name)))
                     .ToArray();
 
@@ -1262,7 +1262,7 @@ namespace AMSExplorer
                          .Where(o => (o.State != StreamingEndpointState.Running) || (!StreamingEndpointInformation.CanDoDynPackaging(o)))
                        .Select(
                            o =>
-                               template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
+                               template.BindByPosition(new Uri("https://" + o.HostName), l.ContentAccessComponent,
                                    ismFile.Name)))
                    .ToArray();
 
