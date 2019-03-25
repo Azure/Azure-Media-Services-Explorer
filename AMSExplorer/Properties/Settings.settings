@@ -92,9 +92,6 @@
     <Setting Name="DeleteInstallationFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DisplayIngestManifestIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="SigniantFlightAPIKey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

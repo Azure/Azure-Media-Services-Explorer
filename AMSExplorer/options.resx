@@ -229,7 +229,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayAssetID.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="checkBoxDisplayJobID.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -259,7 +259,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayJobID.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="checkBoxDisplayAssetAltId.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -291,36 +291,6 @@
   <data name="&gt;&gt;checkBoxDisplayAssetAltId.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxDisplayBulkContId.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxDisplayBulkContId.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxDisplayBulkContId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 109</value>
-  </data>
-  <data name="checkBoxDisplayBulkContId.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 19</value>
-  </data>
-  <data name="checkBoxDisplayBulkContId.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="checkBoxDisplayBulkContId.Text" xml:space="preserve">
-    <value>Bulk Container Id</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayBulkContId.Name" xml:space="preserve">
-    <value>checkBoxDisplayBulkContId</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayBulkContId.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayBulkContId.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayBulkContId.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="checkBoxDisplayAssetStorage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -349,7 +319,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayAssetStorage.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="checkBoxAutoRefresh.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -385,7 +355,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoRefresh.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="comboBoxAutoRefreshTime.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -421,7 +391,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;comboBoxAutoRefreshTime.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="checkBoxDisplayOriginID.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -451,7 +421,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayOriginID.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="checkBoxDisplayProgramID.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -481,7 +451,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayProgramID.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="checkBoxDisplayChannelID.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -511,7 +481,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayChannelID.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>

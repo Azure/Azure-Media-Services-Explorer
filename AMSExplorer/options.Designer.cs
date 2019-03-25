@@ -37,7 +37,6 @@
             this.checkBoxDisplayJobID = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisplayAssetAltId = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayBulkContId = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayAssetStorage = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.comboBoxAutoRefreshTime = new System.Windows.Forms.ComboBox();
@@ -136,7 +135,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetAltId);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayBulkContId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetStorage);
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
             this.groupBox1.Controls.Add(this.comboBoxAutoRefreshTime);
@@ -154,12 +152,6 @@
             resources.ApplyResources(this.checkBoxDisplayAssetAltId, "checkBoxDisplayAssetAltId");
             this.checkBoxDisplayAssetAltId.Name = "checkBoxDisplayAssetAltId";
             this.checkBoxDisplayAssetAltId.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDisplayBulkContId
-            // 
-            resources.ApplyResources(this.checkBoxDisplayBulkContId, "checkBoxDisplayBulkContId");
-            this.checkBoxDisplayBulkContId.Name = "checkBoxDisplayBulkContId";
-            this.checkBoxDisplayBulkContId.UseVisualStyleBackColor = true;
             // 
             // checkBoxDisplayAssetStorage
             // 
@@ -580,7 +572,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxffmpegPath;
         private System.Windows.Forms.Label labelcdn;
-        private System.Windows.Forms.CheckBox checkBoxDisplayBulkContId;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetAltId;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown numericUpDownAssetAnalysisStep;
