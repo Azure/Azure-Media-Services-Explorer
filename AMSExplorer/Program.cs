@@ -2690,7 +2690,7 @@ namespace AMSExplorer
             return string.Format("{0} ({1})", type, number);
         }
 
-        public static AssetInfoData GetAssetType(string assetName, AMSClientV3 _amsClient)
+        public async static Task<AssetInfoData> GetAssetTypeAsync(string assetName, AMSClientV3 _amsClient)
         {
             ListContainerSasInput input = new ListContainerSasInput()
             {
@@ -2702,7 +2702,7 @@ namespace AMSExplorer
             string type = "";
             long size = 0;
 
-            var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime).Result;
+            var response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime);
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
 
@@ -2865,12 +2865,12 @@ namespace AMSExplorer
         }
 
 
-        public void CreateOutlookMail()
+        public async Task CreateOutlookMailAsync()
         {
             Exception exception = null;
             try
             {
-                StringBuilder SB = GetStats();
+                StringBuilder SB = await GetStatsAsync();
                 // Let's create the email with Outlook
                 Outlook.Application outlookApp = new Outlook.Application();
                 Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
@@ -2909,9 +2909,9 @@ namespace AMSExplorer
             }
         }
 
-        public void CopyStatsToClipBoard()
+        public async Task CopyStatsToClipBoardAsync()
         {
-            StringBuilder SB = GetStats();
+            StringBuilder SB = await GetStatsAsync();
             Clipboard.SetText((string)SB.ToString());
         }
 
@@ -3032,7 +3032,7 @@ namespace AMSExplorer
         }
 
 
-        public StringBuilder GetStats()
+        public async Task<StringBuilder> GetStatsAsync()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -3041,7 +3041,7 @@ namespace AMSExplorer
                 // Asset Stats
                 foreach (Asset theAsset in SelectedAssetsV3)
                 {
-                    sb.Append(GetStat(theAsset, _amsClient));
+                    sb.Append(await GetStatAsync(theAsset, _amsClient));
                 }
             }
             return sb;
@@ -3139,10 +3139,10 @@ namespace AMSExplorer
             return sb;
         }
         */
-        public static StringBuilder GetStat(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
+        public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
-            var MyAssetTypeInfo = AssetInfo.GetAssetType(MyAsset.Name, _amsClient);
+            var MyAssetTypeInfo = await AssetInfo.GetAssetTypeAsync(MyAsset.Name, _amsClient);
             string MyAssetType = MyAssetTypeInfo.Type;
             bool bfileinasset = (MyAssetTypeInfo.Blobs.Count() == 0) ? false : true;
             long size = -1;
@@ -3286,7 +3286,7 @@ namespace AMSExplorer
 
 
 
-        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string path, AMSClientV3 client, Mainform mainForm,
+        public async static Task<string> DoPlayBackWithStreamingEndpointAsync(PlayerType typeplayer, string path, AMSClientV3 client, Mainform mainForm,
             Asset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "",
@@ -3296,7 +3296,7 @@ namespace AMSExplorer
 
             if (!string.IsNullOrEmpty(path))
             {
-                StreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpointAsync(client).Result;
+                StreamingEndpoint choosenSE = await AssetInfo.GetBestStreamingEndpointAsync(client);
                 if (choosenSE == null)
                 {
                     return null;

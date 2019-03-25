@@ -16,16 +16,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Microsoft.WindowsAzure.MediaServices.Client.Live;
+using Microsoft.Azure.Management.Media.Models;
 
 
 namespace AMSExplorer
@@ -36,16 +28,16 @@ namespace AMSExplorer
     {
 
         public static readonly List<Item> CDNProviders = new List<Item> {
-            new Item("Standard Verizon",  CdnProviderType.StandardVerizon.ToString("F")),
-            new Item("Standard Akamai", CdnProviderType.StandardAkamai.ToString("F")),
-            new Item("Premium Verizon", CdnProviderType.PremiumVerizon.ToString("F"))
+            new Item("Standard Verizon", "StandardVerizon"),
+            new Item("Standard Akamai", "StandardAkamai"),
+            new Item("Premium Verizon", "PremiumVerizon")
                    };
 
-        public CdnProviderType ProviderSelected
+        public string ProviderSelected
         {
             get
             {
-                return (CdnProviderType) Enum.Parse(typeof(CdnProviderType), ((Item)comboBoxProvider.SelectedItem).Value);
+                return (string) ((Item)comboBoxProvider.SelectedItem).Value;
             }
         }
 

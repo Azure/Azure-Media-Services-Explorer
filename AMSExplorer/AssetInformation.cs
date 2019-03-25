@@ -91,7 +91,7 @@ namespace AMSExplorer
 
         }
 
-        private void DoDASHIFPlayer()
+        private async void DoDASHIFPlayer()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -102,7 +102,7 @@ namespace AMSExplorer
                     {
                         case AssetInfo._dash_cmaf:
                         case AssetInfo.format_dash_csf:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.DASHIFRefPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                             break;
 
                         default:
@@ -168,14 +168,14 @@ namespace AMSExplorer
 
 
 
-        private void DoHTMLPlayer()
+        private async void DoHTMLPlayer()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
+                    await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.MP4AzurePage, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                 }
             }
         }
@@ -195,7 +195,7 @@ namespace AMSExplorer
 
 
 
-        private void ListAssetBlobs()
+        private async void ListAssetBlobs()
         {
             if (container == null) //first time
             {
@@ -206,7 +206,7 @@ namespace AMSExplorer
                 };
                 _amsClient.RefreshTokenIfNeeded();
 
-                var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
+                var response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime);
 
                 string uploadSasUrl = response.AssetContainerSasUrls.First();
 
@@ -954,13 +954,13 @@ namespace AMSExplorer
 
         private void buttonCopyStats_Click(object sender, EventArgs e)
         {
-            DoDisplayAssetStats();
+            DoDisplayAssetStatsAsync();
         }
 
-        private void DoDisplayAssetStats()
+        private async void DoDisplayAssetStatsAsync()
         {
             AssetInfo MyAssetReport = new AssetInfo(myAssetV3, _amsClient);
-            StringBuilder SB = MyAssetReport.GetStats();
+            StringBuilder SB = await MyAssetReport.GetStatsAsync();
             var tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
         }
@@ -1103,7 +1103,7 @@ namespace AMSExplorer
             DoAzureMediaPlayer();
         }
 
-        private void DoAzureMediaPlayer()
+        private async void DoAzureMediaPlayer()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -1113,24 +1113,24 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash_csf:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
 
                             break;
 
                         case AssetInfo._smooth:
                         case AssetInfo._smooth_legacy:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._hls_v4:
                         case AssetInfo._hls_v3:
                         case AssetInfo._hls:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._prog_down_http_streaming:
                         case AssetInfo._prog_down_https_SAS:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
                             break;
 
                         default:
@@ -1229,7 +1229,7 @@ namespace AMSExplorer
                 buttonClose.Enabled = false;
                 buttonUpload.Enabled = false;
 
-                CloudBlobContainer container = GetRWContainerOfAsset();
+                CloudBlobContainer container = await GetRWContainerOfAssetAsync();
 
                 int i = 1;
                 foreach (string file in Dialog.FileNames)
@@ -1254,7 +1254,7 @@ namespace AMSExplorer
             }
         }
 
-        private CloudBlobContainer GetRWContainerOfAsset()
+        private async Task<CloudBlobContainer> GetRWContainerOfAssetAsync()
         {
             ListContainerSasInput input = new ListContainerSasInput()
             {
@@ -1263,7 +1263,7 @@ namespace AMSExplorer
             };
             _amsClient.RefreshTokenIfNeeded();
 
-            var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
+            var response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime);
             string uploadSasUrl = response.AssetContainerSasUrls.First();
             var sasUri = new Uri(uploadSasUrl);
             CloudBlobContainer container = new CloudBlobContainer(sasUri);
@@ -1812,7 +1812,7 @@ namespace AMSExplorer
 
         private void DoPlayWithFilter()
         {
-            myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, new List<Asset>() { myAssetV3 }, ReturnSelectedFilters().FirstOrDefault().Name);
+            myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer, new List<Asset>() { myAssetV3 }, ReturnSelectedFilters().FirstOrDefault().Name);
         }
 
         private void playWithThisFilterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1965,7 +1965,7 @@ namespace AMSExplorer
                     progressBarUpload.Visible = true;
                     buttonClose.Enabled = false;
 
-                    CloudBlobContainer container = GetRWContainerOfAsset();
+                    CloudBlobContainer container = await GetRWContainerOfAssetAsync();
 
                     var blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
 

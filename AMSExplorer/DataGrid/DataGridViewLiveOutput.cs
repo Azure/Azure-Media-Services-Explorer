@@ -50,7 +50,7 @@ namespace AMSExplorer
         static BackgroundWorker WorkerRefreshChannels;
         public string _published = "Published";
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
-        static private enumDisplayProgram _anyChannel = enumDisplayProgram.Selected;
+        static private enumDisplayLiveOutput _anyChannel = enumDisplayLiveOutput.Selected;
         private AMSClientV3 _client;
 
         public List<string> LiveEventSourceNames
@@ -95,7 +95,7 @@ namespace AMSExplorer
 
         }
 
-        public enumDisplayProgram DisplayChannel
+        public enumDisplayLiveOutput DisplayChannel
         {
             get
             {
@@ -532,14 +532,14 @@ namespace AMSExplorer
             _client.RefreshTokenIfNeeded();
 
             IEnumerable<LiveEvent> ListEvents;
-            if (_anyChannel == enumDisplayProgram.None)
+            if (_anyChannel == enumDisplayLiveOutput.None)
             {
                 ListEvents = new List<LiveEvent>();
             }
             else
             {
                 ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList()
-                .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && LiveEventSourceNames.Contains(l.Name)));
+                .Where(l => _anyChannel == enumDisplayLiveOutput.Any || (_anyChannel == enumDisplayLiveOutput.Selected && LiveEventSourceNames.Contains(l.Name)));
             }
 
 
