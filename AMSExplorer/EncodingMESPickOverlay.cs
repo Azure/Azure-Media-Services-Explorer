@@ -99,7 +99,7 @@ namespace AMSExplorer
             buttonSelect.Enabled = listViewFiles.SelectedItems.Count > 0;
         }
 
-        private async void DoUpload()
+        private async Task DoUpload()
         {
             OpenFileDialog Dialog = new OpenFileDialog();
             Dialog.Multiselect = true;

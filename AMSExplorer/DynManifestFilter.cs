@@ -23,6 +23,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.Azure.Management.Media.Models;
+using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
@@ -59,7 +60,7 @@ namespace AMSExplorer
             _subclipconfig = subclipconfig;
         }
 
-        private async void FillComboBoxImportFilters(Asset asset)
+        private async Task FillComboBoxImportFilters(Asset asset)
         {
             // combobox for filters
 

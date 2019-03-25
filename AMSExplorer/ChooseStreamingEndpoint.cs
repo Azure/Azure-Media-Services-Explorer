@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
+using System.Threading.Tasks;
 
 namespace AMSExplorer
 {

@@ -492,14 +492,14 @@ namespace AMSExplorer
         public static Uri AllReleaseNotesUrl = null;
         public static string MessageNewVersion = string.Empty;
 
-        public static async void CheckAMSEVersion()
+        public static async Task CheckAMSEVersion()
         {
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompleted(true, sender, e);
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimary));
         }
 
-        public static async void CheckAMSEVersionV3()
+        public static async Task CheckAMSEVersionV3()
         {
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompletedV3(true, sender, e);
