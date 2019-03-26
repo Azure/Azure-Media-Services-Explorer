@@ -28,7 +28,6 @@ using System.Drawing;
 using System.IdentityModel.Tokens;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
@@ -64,7 +63,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task BuildSubTree()
+        private async void BuildSubTree()
         {
             if (comboBoxTenants.SelectedItem == null) return;
 

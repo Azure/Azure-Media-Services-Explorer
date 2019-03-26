@@ -254,7 +254,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, Guid guidTransfer, CancellationToken token, string targetStorage, string targetStorageKey)
+        private async void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, Guid guidTransfer, CancellationToken token, string targetStorage, string targetStorageKey)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(guidTransfer);
@@ -413,7 +413,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, TransferEntryResponse response, string destStorage, string destStorageKey)
+        private async void ProcessImportFromStorageContainerSASUrl(Uri ObjectUrl, string assetname, TransferEntryResponse response, string destStorage, string destStorageKey)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(response.Id);
@@ -1451,7 +1451,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessDownloadAsset(List<IAsset> SelectedAssets, string folder, Guid guidTransfer, DownloadToFolderOption downloadOption, bool openFileExplorer, CancellationToken token)
+        private async void ProcessDownloadAsset(List<IAsset> SelectedAssets, string folder, Guid guidTransfer, DownloadToFolderOption downloadOption, bool openFileExplorer, CancellationToken token)
         {
             // If download in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(guidTransfer);
@@ -2269,7 +2269,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoCancelJobs()
+        private async void DoCancelJobs()
         {
             var SelectedJobs = await ReturnSelectedJobsV3Async();
 
@@ -2314,7 +2314,7 @@ namespace AMSExplorer
 
 
 
-        private async Task DoCreateLocator(List<Asset> SelectedAssets)
+        private async void DoCreateLocator(List<Asset> SelectedAssets)
         {
             string labelAssetName;
             if (SelectedAssets.Count > 0)
@@ -2843,7 +2843,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessImportFromAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IListBlobItem> SelectedBlobs, bool CreateNewAsset, string newassetname, bool CreateOneAssetPerFile, string targetAssetID, TransferEntryResponse response)
+        private async void ProcessImportFromAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IListBlobItem> SelectedBlobs, bool CreateNewAsset, string newassetname, bool CreateOneAssetPerFile, string targetAssetID, TransferEntryResponse response)
         {
             bool Error = false;
 
@@ -3126,7 +3126,7 @@ namespace AMSExplorer
 
 
 
-        private async Task ProcessExportAssetToAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IAssetFile> SelectedFiles, bool CreateNewContainer, TransferEntryResponse response)
+        private async void ProcessExportAssetToAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IAssetFile> SelectedFiles, bool CreateNewContainer, TransferEntryResponse response)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(response.Id);
@@ -3399,7 +3399,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, CloudMediaContext DestinationContext, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false, bool CopyAltId = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, TransferEntryResponse response, CloudMediaContext DestinationContext, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false, bool CopyAltId = false)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(response.Id);
@@ -4107,7 +4107,7 @@ namespace AMSExplorer
 
 
 
-        private async Task ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, LiveOutput sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters, bool copyAltId)
+        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, LiveOutput sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters, bool copyAltId)
         {
             return;
             /*
@@ -4232,7 +4232,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessCloneChannelToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IChannel sourceChannel)
+        private async void ProcessCloneChannelToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IChannel sourceChannel)
         {
             TextBoxLogWriteLine("Starting the channel cloning process...");
 
@@ -5512,7 +5512,7 @@ namespace AMSExplorer
             {
                 _amsClientV3.RefreshTokenIfNeeded();
                 Asset asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
-                await DisplayInfoAsync(asset);
+                DisplayInfoAsync(asset);
             }
         }
 
@@ -5872,7 +5872,7 @@ namespace AMSExplorer
             DoOpenTransferDestLocation();
         }
 
-        private async Task DoOpenTransferDestLocation()
+        private async void DoOpenTransferDestLocation()
         {
             if (dataGridViewTransfer.SelectedRows.Count > 0)
             {
@@ -5954,7 +5954,7 @@ namespace AMSExplorer
 
         }
 
-        private async Task DoChangeJobPriorityAsync()
+        private async void DoChangeJobPriorityAsync()
         {
             var SelectedJobs = await ReturnSelectedJobsV3Async();
 
@@ -6106,7 +6106,7 @@ namespace AMSExplorer
             DoOpenJobAssetAsync(false);
         }
 
-        private async Task DoOpenJobAssetAsync(bool inputasset) // if false, then display first outputasset
+        private async void DoOpenJobAssetAsync(bool inputasset) // if false, then display first outputasset
         {
             var SelectedJobs = await ReturnSelectedJobsV3Async();
             if (SelectedJobs.Count != 0)
@@ -6672,7 +6672,7 @@ namespace AMSExplorer
             return SelectedLiveOutputs;
         }
 
-        private async Task DoStartLiveEvents()
+        private async void DoStartLiveEvents()
         {
             // let's start the live events
 
@@ -6714,7 +6714,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoStopOrDeleteLiveEvents(bool deleteLiveEvents)
+        private async void DoStopOrDeleteLiveEvents(bool deleteLiveEvents)
         {
             // delete also if delete = true
             var ListEvents = await ReturnSelectedLiveEventsAsync();
@@ -6809,7 +6809,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoResetLiveEvents()
+        private async void DoResetLiveEvents()
         {
             var ListEvents = await ReturnSelectedLiveEventsAsync();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
@@ -6889,7 +6889,7 @@ namespace AMSExplorer
             DoCreateLiveEvent();
         }
 
-        private async Task DoCreateLiveEvent()
+        private async void DoCreateLiveEvent()
         {
             LiveEventCreation form = new LiveEventCreation()
             {
@@ -6982,13 +6982,13 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoDisplayLiveEventInfo()
+        private async void DoDisplayLiveEventInfo()
         {
             DoDisplayLiveEventInfo(await ReturnSelectedLiveEventsAsync());
         }
 
 
-        private async Task DoDisplayLiveEventInfo(List<LiveEvent> channels)
+        private async void DoDisplayLiveEventInfo(List<LiveEvent> channels)
         {
             var firstchannel = channels.FirstOrDefault();
             bool multiselection = channels.Count > 1;
@@ -7170,7 +7170,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoStopOrDeleteLiveEventsEngineAsync(List<LiveEvent> ListEvents, bool deleteLiveEvents)
+        private async void DoStopOrDeleteLiveEventsEngineAsync(List<LiveEvent> ListEvents, bool deleteLiveEvents)
         {
 
             // Stop the channels which run
@@ -7269,7 +7269,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoStartLiveEventsEngine(List<LiveEvent> ListEvents)
+        private async void DoStartLiveEventsEngine(List<LiveEvent> ListEvents)
         {
             // Start the channels which are stopped
             var liveevntsstopped = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Stopped).ToList();
@@ -7319,7 +7319,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoDeleteLiveOutputs(List<LiveOutput> ListOutputs = null)
+        private async void DoDeleteLiveOutputs(List<LiveOutput> ListOutputs = null)
         {
             // delete also if delete = true
             if (ListOutputs == null) ListOutputs = ReturnSelectedLiveOutputs();
@@ -7344,7 +7344,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoDeleteLiveOutputsEngine(List<LiveOutput> ListOutputs, bool DeleteAsset)
+        private async void DoDeleteLiveOutputsEngine(List<LiveOutput> ListOutputs, bool DeleteAsset)
         {
             var assets = ListOutputs.Select(p => p.AssetName).ToArray();
 
@@ -7408,7 +7408,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoStartStreamingEndpointEngine(List<StreamingEndpoint> ListStreamingEndpoints)
+        private async void DoStartStreamingEndpointEngine(List<StreamingEndpoint> ListStreamingEndpoints)
         {
             // Start the streaming endpoint which are stopped
             var streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.ResourceState == StreamingEndpointResourceState.Stopped).ToList();
@@ -7461,7 +7461,7 @@ namespace AMSExplorer
 
 
 
-        private async Task DoUpdateAndScaleStreamingEndpointEngine(StreamingEndpoint se, int? units = null)
+        private async void DoUpdateAndScaleStreamingEndpointEngine(StreamingEndpoint se, int? units = null)
         {
             _amsClientV3.RefreshTokenIfNeeded();
 
@@ -7489,7 +7489,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoStopOrDeleteStreamingEndpointsEngine(List<StreamingEndpoint> ListStreamingEndpoints, bool deleteStreamingEndpoints)
+        private async void DoStopOrDeleteStreamingEndpointsEngine(List<StreamingEndpoint> ListStreamingEndpoints, bool deleteStreamingEndpoints)
         {
 
             // Stop the streaming endpoints which run
@@ -7584,7 +7584,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoCreateLiveOutput()
+        private async void DoCreateLiveOutput()
         {
             var liveEvent = (await ReturnSelectedLiveEventsAsync()).FirstOrDefault();
             if (liveEvent != null)
@@ -7780,7 +7780,7 @@ namespace AMSExplorer
             DoDisplayLiveOutputInfo(ReturnSelectedLiveOutputs());
         }
 
-        private async Task DoDisplayLiveOutputInfo(List<LiveOutput> liveoutputs)
+        private async void DoDisplayLiveOutputInfo(List<LiveOutput> liveoutputs)
         {
             bool multiselection = liveoutputs.Count > 1;
             if (liveoutputs.FirstOrDefault() != null)
@@ -7918,9 +7918,9 @@ namespace AMSExplorer
 
         private void DoDisplayStreamingEndpointInfo()
         {
-            DoDisplayStreamingEndpointInfoAsync(ReturnSelectedStreamingEndpoints());
+            DoDisplayStreamingEndpointInfo(ReturnSelectedStreamingEndpoints());
         }
-        private async Task DoDisplayStreamingEndpointInfoAsync(List<StreamingEndpoint> streamingendpoints)
+        private async void DoDisplayStreamingEndpointInfo(List<StreamingEndpoint> streamingendpoints)
         {
             if (streamingendpoints.Count == 0) return;
 
@@ -8124,7 +8124,7 @@ namespace AMSExplorer
             DoCreateStreamingEndpoint();
         }
 
-        private async Task DoCreateStreamingEndpoint()
+        private async void DoCreateStreamingEndpoint()
         {
             var form = new CreateStreamingEndpoint();
             var cdnform = new StreamingEndpointCDNEnable();
@@ -8264,12 +8264,12 @@ namespace AMSExplorer
                 StreamingEndpoint se = await GetStreamingEndpointAsync(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString());
                 if (se != null)
                 {
-                    await DoDisplayStreamingEndpointInfoAsync(new List<StreamingEndpoint>() { se });
+                    DoDisplayStreamingEndpointInfo(new List<StreamingEndpoint>() { se });
                 }
             }
         }
 
-        private async Task DoPlaybackChannelPreview(PlayerType ptype)
+        private async void DoPlaybackChannelPreview(PlayerType ptype)
         {
             foreach (var liveEvent in await ReturnSelectedLiveEventsAsync())
             {
@@ -8321,7 +8321,7 @@ namespace AMSExplorer
             DoBatchUpload();
         }
 
-        private async Task DoBatchUpload()
+        private async void DoBatchUpload()
         {
             BatchUploadFrame1 form = new BatchUploadFrame1();
             if (form.ShowDialog() == DialogResult.OK)
@@ -10087,7 +10087,7 @@ namespace AMSExplorer
             DoAttachAnotherStorageAccount();
         }
 
-        private async Task DoAttachAnotherStorageAccount()
+        private async void DoAttachAnotherStorageAccount()
         {
             AttachStorage form = new AttachStorage(_amsClientV3);
 
@@ -10110,7 +10110,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoDisplayJobErrorAsync()
+        private async void DoDisplayJobErrorAsync()
         {
             var SelectedJobs = await ReturnSelectedJobsV3Async();
             if (SelectedJobs.Count == 1)
@@ -10352,7 +10352,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype, List<Asset> listassets, string filter = null)
+        public async void DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype, List<Asset> listassets, string filter = null)
         {
             foreach (var myAsset in listassets)
             {
@@ -10522,7 +10522,7 @@ namespace AMSExplorer
             DoCopyAssetToAnotherAMSAccount();
         }
 
-        private async Task DoCopyAssetToAnotherAMSAccount()
+        private async void DoCopyAssetToAnotherAMSAccount()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -10868,7 +10868,7 @@ namespace AMSExplorer
             ContextMenuOpeningLiveEventCopyInputUrlAsync();
         }
 
-        private async Task ContextMenuOpeningLiveEventCopyInputUrlAsync()
+        private async void ContextMenuOpeningLiveEventCopyInputUrlAsync()
         {
             var channel = (await ReturnSelectedLiveEventsAsync()).FirstOrDefault();
 
@@ -11527,7 +11527,7 @@ namespace AMSExplorer
             UploadedAssetFile.Upload(FileName as string);
         }
 
-        private async Task DoFixSystemBitrate()
+        private async void DoFixSystemBitrate()
         {
             var dialogResult = System.Windows.Forms.MessageBox.Show(
                 "AMS Explorer will check all manifest files (.ism) modified after Jan 20, 2016.\n\nDo you want to fix the ones with a wrong (too low) systemBitrate attribute ?\n(Yes: fix issues, No: only list issues)",

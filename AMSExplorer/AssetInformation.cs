@@ -91,7 +91,7 @@ namespace AMSExplorer
 
         }
 
-        private async Task DoDASHIFPlayer()
+        private async void DoDASHIFPlayer()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -168,7 +168,7 @@ namespace AMSExplorer
 
 
 
-        private async Task DoHTMLPlayer()
+        private async void DoHTMLPlayer()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -195,7 +195,7 @@ namespace AMSExplorer
 
 
 
-        private async Task ListAssetBlobs()
+        private async void ListAssetBlobs()
         {
             if (container == null) //first time
             {
@@ -887,7 +887,7 @@ namespace AMSExplorer
             DoDownloadBlobs();
         }
 
-        private async Task DoDownloadBlobs()
+        private async void DoDownloadBlobs()
         {
 
             var SelectedBlobs = ReturnSelectedBlobs(false);
@@ -957,7 +957,7 @@ namespace AMSExplorer
             DoDisplayAssetStatsAsync();
         }
 
-        private async Task DoDisplayAssetStatsAsync()
+        private async void DoDisplayAssetStatsAsync()
         {
             AssetInfo MyAssetReport = new AssetInfo(myAssetV3, _amsClient);
             StringBuilder SB = await MyAssetReport.GetStatsAsync();
@@ -1103,7 +1103,7 @@ namespace AMSExplorer
             DoAzureMediaPlayer();
         }
 
-        private async Task DoAzureMediaPlayer()
+        private async void DoAzureMediaPlayer()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -1216,7 +1216,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoUpload()
+        private async void DoUpload()
         {
             OpenFileDialog Dialog = new OpenFileDialog();
             Dialog.Multiselect = true;
@@ -1838,7 +1838,7 @@ namespace AMSExplorer
         /// <summary>
         /// 
         /// </summary>
-        private async Task DoEditFile()
+        private async void DoEditFile()
         {
             var SelectedBlobs = ReturnSelectedBlobs();
 
@@ -1939,7 +1939,7 @@ namespace AMSExplorer
 
         }
 
-        private async Task DoGenerateManifest()
+        private async void DoGenerateManifest()
         {
             try
             {
