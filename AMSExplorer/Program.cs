@@ -2709,15 +2709,25 @@ namespace AMSExplorer
             var sasUri = new Uri(uploadSasUrl);
             var container = new CloudBlobContainer(sasUri);
 
-            var blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).ToList();
-            var blocsc = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
-            var blocsdir = blobs.Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(b => (CloudBlobDirectory)b).ToList();
+            var rootBlobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).ToList();
+            var blocsc = rootBlobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+            var blocsdir = rootBlobs.Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(b => (CloudBlobDirectory)b).ToList();
 
             int number = blocsc.Count;
 
             var ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
             var ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            // size calculation
             blocsc.ForEach(b => size += b.Properties.Length);
+
+            // fragments in subfolders (live archive)
+            foreach (var dir in blocsdir)
+            {
+                var dirRef = container.GetDirectoryReference(dir.Prefix);
+                var subBlobs = dirRef.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+                subBlobs.ForEach(b => size += b.Properties.Length);
+            }
 
             var mp4files = blocsc.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
 
@@ -2761,7 +2771,7 @@ namespace AMSExplorer
             {
                 Size = size,
                 Type = string.Format("{0} ({1})", type, number),
-                Blobs = blobs
+                Blobs = rootBlobs
             };
         }
 

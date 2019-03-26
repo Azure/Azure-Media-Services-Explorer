@@ -285,9 +285,27 @@ namespace AMSExplorer
 
             var listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
 
+
+            // test - let analyze only visible assets
+
+            var visibleRowsCount = this.DisplayedRowCount(true);
+            var firstDisplayedRowIndex = this.FirstDisplayedCell.RowIndex;
+            var lastvisibleRowIndex = (firstDisplayedRowIndex + visibleRowsCount) - 1;
+            var VisibleAssets = new List<String>();
+            for (int rowIndex = firstDisplayedRowIndex; rowIndex <= lastvisibleRowIndex; rowIndex++)
+            {
+                var row = this.Rows[rowIndex];
+
+                var assetname = row.Cells[this.Columns["Name"].Index].Value.ToString();
+                VisibleAssets.Add(assetname);
+            }
+
+            var query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
+            var listae2 = query.ToList();
+
             _client.RefreshTokenIfNeeded();
 
-            foreach (AssetEntryV3 AE in listae)
+            foreach (AssetEntryV3 AE in listae2)
             {
                 System.Threading.Thread.Sleep(1000);
                 try
@@ -404,6 +422,22 @@ namespace AMSExplorer
         public void PurgeCacheAsset(Asset asset)
         {
             cacheAssetentriesV3.Remove(asset.Name);
+        }
+
+        private static Object lockGuard = new Object();
+        public void ReLaunchAnalyze()
+        {
+            if (!_initialized) return;
+
+            lock (lockGuard)
+            {
+                if (WorkerAnalyzeAssets.IsBusy)
+                {
+                    // cancel the analyze.
+                    WorkerAnalyzeAssets.CancelAsync();
+                }
+                AnalyzeItemsInBackground();
+            }
         }
 
         public void RefreshAssets(int pagetodisplay) // all assets are refreshed
@@ -547,6 +581,8 @@ Properties/StorageId
 
             IPage<Asset> currentPage = null;
             _client.RefreshTokenIfNeeded();
+
+
             if (pagetodisplay == 1)
             {
                 firstpage = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);
@@ -564,6 +600,9 @@ Properties/StorageId
                 if (currentPage.NextPageLink == null) _currentPageNumberIsMax = true; // we reached max
             }
 
+
+
+
             /*
             var assets = currentPage.Select(a => new AssetEntryV3
             {
@@ -577,7 +616,7 @@ Properties/StorageId
             );
             */
 
-           
+
             var assets = currentPage.Select(a =>
             (cacheAssetentriesV3.ContainsKey(a.Name)
                && cacheAssetentriesV3[a.Name].LastModified != null
@@ -594,7 +633,7 @@ Properties/StorageId
                 StorageAccountName = a.StorageAccountName
             }
          ));
-          
+
             _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssetV3));

@@ -12499,6 +12499,18 @@ namespace AMSExplorer
         {
             DoStorageVersion();
         }
+
+        private void dataGridViewAssetsV_Scroll(object sender, ScrollEventArgs e)
+        {
+           this.dataGridViewAssetsV.ReLaunchAnalyze();
+           
+        }
+
+        private void dataGridViewAssetsV_SizeChanged(object sender, EventArgs e)
+        {
+            this.dataGridViewAssetsV.ReLaunchAnalyze();
+
+        }
     }
 }
 
