@@ -262,8 +262,9 @@ namespace AMSExplorer
                         var bl = (CloudBlobDirectory)blob;
                         ListViewItem item = new ListViewItem(bl.Prefix, 0);
                         item.ForeColor = Color.DarkGoldenrod;
+                        // let comment as it can be time expensive to the math
+                        //item.SubItems.Add(AssetInfo.FormatByteSize(AssetInfo.GetSizeBlobDirectory(bl)));
                         listViewFiles.Items.Add(item);
-
                     }
 
                 }
@@ -804,6 +805,7 @@ namespace AMSExplorer
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetInfo.FormatByteSize(blob.Properties.Length));
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, blob.Properties.LastModified != null ? ((DateTimeOffset)blob.Properties.LastModified).ToLocalTime().ToString("G") : null);
                     DGFiles.Rows.Add("Uri", blob.Uri);
+                    DGFiles.Rows.Add("MD5", blob.Properties.ContentMD5);
                 }
                 else if (SelectedfBlobs.FirstOrDefault().GetType() == typeof(CloudBlobDirectory))
                 {
@@ -811,6 +813,7 @@ namespace AMSExplorer
 
                     DGFiles.Rows.Add("Prefix", dir.Prefix);
                     DGFiles.Rows.Add("Uri", dir.Uri);
+                    DGFiles.Rows.Add("Size", AssetInfo.FormatByteSize(AssetInfo.GetSizeBlobDirectory(dir)));
                 }
             }
         }

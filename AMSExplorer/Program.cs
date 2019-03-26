@@ -3180,72 +3180,51 @@ namespace AMSExplorer
             sb.AppendLine("Storage account     : " + MyAsset.StorageAccountName);
             sb.AppendLine("Storage Encryption  : " + MyAsset.StorageEncryptionFormat);
 
+            sb.AppendLine("");
 
-            if (true)//MyAsset.State != AssetState.Deleted)
+            foreach (var blob in MyAssetTypeInfo.Blobs)
             {
-                /*
-                sb.AppendLine("IsStreamable        : " + MyAsset.IsStreamable);
-                sb.AppendLine("SupportsDynEnc      : " + MyAsset.SupportsDynamicEncryption);
-                sb.AppendLine("Uri                 : " + MyAsset.Uri.AbsoluteUri);
-                sb.AppendLine("");
-                sb.AppendLine("Storage Name        : " + MyAsset.StorageAccountName);
-                sb.AppendLine("Storage Bytes used  : " + FormatByteSize(MyAsset.StorageAccount.BytesUsed));
-                sb.AppendLine("Storage IsDefault   : " + MyAsset.StorageAccount.IsDefault);
-                sb.AppendLine("");
+                sb.AppendLine("   -----------------------------------------------");
 
-                foreach (IAsset p_asset in MyAsset.ParentAssets)
+                if (blob.GetType() == typeof(CloudBlockBlob))
                 {
-                    sb.AppendLine("Parent asset Name   : " + p_asset.Name);
-                    sb.AppendLine("Parent asset Id     : " + p_asset.Id);
+                    var blobc = blob as CloudBlockBlob;
+                    sb.AppendLine("   Block Blob Name      : " + blobc.Name);
+                    sb.AppendLine("   Type                 : " + blobc.BlobType);
+                    sb.AppendLine("   Blob length          : " + blobc.Properties.Length + " Bytes");
+                    sb.AppendLine("   Content type         : " + blobc.Properties.ContentType);
+                    sb.AppendLine("   Created (UTC)        : " + blobc.Properties.Created?.ToString("G"));
+                    sb.AppendLine("   Last modified (UTC)  : " + blobc.Properties.LastModified?.ToString("G"));
+                    sb.AppendLine("   Server Encrypted     : " + blobc.Properties.IsServerEncrypted);
+                    sb.AppendLine("   Content MD5          : " + blobc.Properties.ContentMD5);
+                    sb.AppendLine("");
+
                 }
-                sb.AppendLine("");
-                foreach (IContentKey key in MyAsset.ContentKeys)
+                else if (blob.GetType() == typeof(CloudBlobDirectory))
                 {
-                    sb.AppendLine("Content key         : " + key.Name);
-                    sb.AppendLine("Content key Id      : " + key.Id);
-                    sb.AppendLine("Content key Type    : " + key.ContentKeyType);
+                    var blobd = blob as CloudBlobDirectory;
+                    sb.AppendLine("   Blob Directory Name  : " + blobd.Prefix);
+                    sb.AppendLine("   Type                 : BlobDirectory" );
+                    sb.AppendLine("   Blob Director length : " + GetSizeBlobDirectory(blobd) + " Bytes");
+                    sb.AppendLine("");
                 }
-                sb.AppendLine("");
-                foreach (var pol in MyAsset.DeliveryPolicies)
-                {
-                    sb.AppendLine("Deliv policy Name   : " + pol.Name);
-                    sb.AppendLine("Deliv policy Id     : " + pol.Id);
-                    sb.AppendLine("Deliv policy Type   : " + pol.AssetDeliveryPolicyType);
-                    sb.AppendLine("Deliv pol Protocol  : " + pol.AssetDeliveryProtocol);
-                }
-                */
-                sb.AppendLine("");
-
-                foreach (var blob in MyAssetTypeInfo.Blobs)
-                {
-                    sb.AppendLine("   -----------------------------------------------");
-
-                    if (blob.GetType() == typeof(CloudBlockBlob))
-                    {
-                        var blobc = blob as CloudBlockBlob;
-                        sb.AppendLine("   Blob Name            : " + blobc.Name);
-                        sb.AppendLine("   Blob Type            : " + blobc.BlobType);
-                        sb.AppendLine("   Blob length          : " + blobc.Properties.Length + " Bytes");
-                        sb.AppendLine("   Content type         : " + blobc.Properties.ContentType);
-                        sb.AppendLine("   Created (UTC)        : " + blobc.Properties.Created?.ToString("G"));
-                        sb.AppendLine("   Last modified (UTC)  : " + blobc.Properties.LastModified?.ToString("G"));
-                        sb.AppendLine("   Server Encrypted     : " + blobc.Properties.IsServerEncrypted);
-                        sb.AppendLine("   Content MD5          : " + blobc.Properties.ContentMD5);
-                        sb.AppendLine("");
-
-                    }
-                    else if (blob.GetType() == typeof(CloudBlobDirectory))
-                    {
-
-                    }
-                }
-                sb.Append(GetDescriptionLocators(MyAsset, _amsClient, SelectedSE));
             }
+            sb.Append(GetDescriptionLocators(MyAsset, _amsClient, SelectedSE));
+
             sb.AppendLine("");
             sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             sb.AppendLine("");
 
             return sb;
+        }
+
+        public static long GetSizeBlobDirectory(CloudBlobDirectory blobd)
+        {
+            long sizeDir = 0;
+            var subBlobs = blobd.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+            subBlobs.ForEach(b => sizeDir += b.Properties.Length);
+
+            return sizeDir;
         }
 
 
