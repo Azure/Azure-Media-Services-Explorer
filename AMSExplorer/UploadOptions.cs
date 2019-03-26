@@ -57,7 +57,7 @@ namespace AMSExplorer
 
         private void ControlsResetToDefault()
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            _amsClientV3.RefreshTokenIfNeeded();
             var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
             comboBoxStorage.Items.Clear();

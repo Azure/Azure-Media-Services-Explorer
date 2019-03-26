@@ -116,21 +116,26 @@ namespace AMSExplorer
             }
         }
 
-        private async void BathUploadFrame2_LoadAsync(object sender, EventArgs e)
+        private void BathUploadFrame2_Load(object sender, EventArgs e)
         {
             if (ErrorConnect)
             {
                 this.Close();
             }
-            await _client.RefreshTokenIfNeededAsync();
+            _client.RefreshTokenIfNeeded();
 
 
-            foreach (var storage in (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts)
+            foreach (var storage in _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.Type == StorageAccountType.Primary);
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
                 if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+
+
+
+//                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
+  //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
         }
 

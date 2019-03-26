@@ -297,7 +297,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxprogramname);
             this.Name = "LiveOutputCreation";
-            this.Load += new System.EventHandler(this.LiveOutputCreation_LoadAsync);
+            this.Load += new System.EventHandler(this.LiveOutputCreation_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

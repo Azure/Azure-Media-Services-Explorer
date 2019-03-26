@@ -97,7 +97,7 @@
             this.comboBoxTenants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTenants.FormattingEnabled = true;
             this.comboBoxTenants.Name = "comboBoxTenants";
-            this.comboBoxTenants.SelectedIndexChanged += new System.EventHandler(this.comboBoxTenants_SelectedIndexChangedAsync);
+            this.comboBoxTenants.SelectedIndexChanged += new System.EventHandler(this.comboBoxTenants_SelectedIndexChanged);
             // 
             // labelADTenant
             // 

@@ -914,7 +914,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panel1);
             this.Name = "DynManifestFilter";
-            this.Load += new System.EventHandler(this.DynManifestFilter_LoadAsync);
+            this.Load += new System.EventHandler(this.DynManifestFilter_Load);
             this.Shown += new System.EventHandler(this.DynManifestFilter_Shown);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

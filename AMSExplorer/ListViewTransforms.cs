@@ -83,22 +83,22 @@ namespace AMSExplorer
 
         }
 
-        public async System.Threading.Tasks.Task LoadTransformsAsync(AMSClientV3 client, string selectedTransformName = null)
+        public void LoadTransforms(AMSClientV3 client, string selectedTransformName = null)
         {
             _client = client;
             _selectedTransformName = selectedTransformName;
 
-            await LoadTransformsAsync();
+            LoadTransforms();
         }
-        private async System.Threading.Tasks.Task LoadTransformsAsync()
+        private void LoadTransforms()
         {
-            await _client.RefreshTokenIfNeededAsync();
+            _client.RefreshTokenIfNeeded();
 
-            _transforms = await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            _transforms = _client.AMSclient.Transforms.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             this.BeginUpdate();
             this.Items.Clear();
-
+            
             foreach (var transform in _transforms)
             {
                 ListViewItem item = new ListViewItem(transform.Name);
@@ -111,7 +111,7 @@ namespace AMSExplorer
             this.EndUpdate();
         }
 
-        public async System.Threading.Tasks.Task DeleteSelectedTemplateAsync()
+        public void DeleteSelectedTemplate()
         {
             var transform = this.GetSelectedTransform;
             if (transform != null)
@@ -120,14 +120,14 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        await _client.RefreshTokenIfNeededAsync();
-                        await _client.AMSclient.Transforms.DeleteAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform.Name);
+                        _client.RefreshTokenIfNeeded();
+                        _client.AMSclient.Transforms.Delete(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform.Name);
                     }
                     catch
                     {
 
                     }
-                    await this.LoadTransformsAsync();
+                    this.LoadTransforms();
                 }
             }
         }

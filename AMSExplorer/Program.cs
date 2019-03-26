@@ -499,7 +499,7 @@ namespace AMSExplorer
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimary));
         }
 
-        public static async Task CheckAMSEVersionV3Async()
+        public static async Task CheckAMSEVersionV3()
         {
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompletedV3(true, sender, e);
@@ -1808,7 +1808,7 @@ namespace AMSExplorer
         public static StreamingLocator CreatedTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
         {
             StreamingLocator tempLocator = null;
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            _amsClientV3.RefreshTokenIfNeeded();
 
 
             try
@@ -1861,7 +1861,7 @@ namespace AMSExplorer
 
         public static Uri GetValidOnDemandURI(Asset asset, AMSClientV3 _amsClientV3)
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            _amsClientV3.RefreshTokenIfNeeded();
 
             var locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
             var ses = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
@@ -2409,7 +2409,7 @@ namespace AMSExplorer
                 }
                 if (mytemplocator != null)
                 {
-                    _amsClientV3.RefreshTokenIfNeededAsync();
+                    _amsClientV3.RefreshTokenIfNeeded();
                     _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
                 }
             }
@@ -2697,7 +2697,7 @@ namespace AMSExplorer
                 Permissions = AssetContainerPermission.ReadWriteDelete,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
-            await _amsClient.RefreshTokenIfNeededAsync();
+            _amsClient.RefreshTokenIfNeeded();
 
             string type = "";
             long size = 0;
@@ -3242,7 +3242,7 @@ namespace AMSExplorer
         public static StringBuilder GetDescriptionLocators(Asset MyAsset, AMSClientV3 amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
-            amsClient.RefreshTokenIfNeededAsync();
+            amsClient.RefreshTokenIfNeeded();
 
             var locators = amsClient.AMSclient.Assets.ListStreamingLocators(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name).StreamingLocators;
 
@@ -3314,8 +3314,8 @@ namespace AMSExplorer
                         var form = new ChooseStreamingEndpoint(client, myasset, path, filter, typeplayer, true);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
-                            choosenSE = await form.GetStreamingEndpointAsync();
-                            path = AssetInfo.RW(path, choosenSE, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
+                            path = AssetInfo.RW(path, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
+                            choosenSE = form.SelectStreamingEndpoint;
                             selectedBrowser = form.ReturnSelectedBrowser;
                         }
                         else
@@ -3581,7 +3581,7 @@ namespace AMSExplorer
 
         internal static async Task<StreamingEndpoint> GetBestStreamingEndpointAsync(AMSClientV3 client)
         {
-            client.RefreshTokenIfNeededAsync();
+            client.RefreshTokenIfNeeded();
             var SEList = (await client.AMSclient.StreamingEndpoints.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)).AsEnumerable();
             StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
             if (SESelected == null) SESelected = await client.AMSclient.StreamingEndpoints.GetAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
@@ -4799,17 +4799,17 @@ namespace AMSExplorer
             credentialsEntry = myCredentialsEntry;
         }
 
-        public async Task RefreshTokenIfNeededAsync()
+        public void RefreshTokenIfNeeded()
         {
             if (accessToken == null) return;
 
             if (accessToken.ExpiresOn < DateTimeOffset.UtcNow)
             {
-                await ConnectAndGetNewClientV3Async();
+                Task task = Task.Run(async () => await ConnectAndGetNewClientV3());
             }
         }
 
-        public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3Async()
+        public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3()
         {
 
             if (!credentialsEntry.UseSPAuth)

@@ -99,7 +99,7 @@ namespace AMSExplorer
             buttonSelect.Enabled = listViewFiles.SelectedItems.Count > 0;
         }
 
-        private async Task DoUploadAsync()
+        private async Task DoUpload()
         {
             OpenFileDialog Dialog = new OpenFileDialog();
             Dialog.Multiselect = true;
@@ -150,9 +150,9 @@ namespace AMSExplorer
             }
         }
 
-        private async void buttonUpload_ClickAsync(object sender, EventArgs e)
+        private void buttonUpload_Click(object sender, EventArgs e)
         {
-           await DoUploadAsync();
+            DoUpload();
         }
     }
 }

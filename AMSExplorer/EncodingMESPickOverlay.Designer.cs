@@ -103,7 +103,7 @@ namespace AMSExplorer
             resources.ApplyResources(this.buttonUpload, "buttonUpload");
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.UseVisualStyleBackColor = true;
-            this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_ClickAsync);
+            this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_Click);
             // 
             // EncodingMESPickOverlay
             // 

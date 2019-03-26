@@ -183,7 +183,7 @@
             // 
             this.deleteLocatorToolStripMenuItem.Name = "deleteLocatorToolStripMenuItem";
             resources.ApplyResources(this.deleteLocatorToolStripMenuItem, "deleteLocatorToolStripMenuItem");
-            this.deleteLocatorToolStripMenuItem.Click += new System.EventHandler(this.deleteLocatorToolStripMenuItem_ClickAsync);
+            this.deleteLocatorToolStripMenuItem.Click += new System.EventHandler(this.deleteLocatorToolStripMenuItem_Click);
             // 
             // toolStripMenuItemOpen
             // 
@@ -195,19 +195,19 @@
             // 
             resources.ApplyResources(this.toolStripMenuItemAzureMediaPlayer, "toolStripMenuItemAzureMediaPlayer");
             this.toolStripMenuItemAzureMediaPlayer.Name = "toolStripMenuItemAzureMediaPlayer";
-            this.toolStripMenuItemAzureMediaPlayer.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_ClickAsync);
+            this.toolStripMenuItemAzureMediaPlayer.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
             // 
             // toolStripMenuItemDASHIF
             // 
             resources.ApplyResources(this.toolStripMenuItemDASHIF, "toolStripMenuItemDASHIF");
             this.toolStripMenuItemDASHIF.Name = "toolStripMenuItemDASHIF";
-            this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.toolStripMenuItemDASHIF_ClickAsync);
+            this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.toolStripMenuItemDASHIF_Click);
             // 
             // toolStripMenuItemPlaybackMP4
             // 
             resources.ApplyResources(this.toolStripMenuItemPlaybackMP4, "toolStripMenuItemPlaybackMP4");
             this.toolStripMenuItemPlaybackMP4.Name = "toolStripMenuItemPlaybackMP4";
-            this.toolStripMenuItemPlaybackMP4.Click += new System.EventHandler(this.toolStripMenuItemPlaybackMP4_ClickAsync);
+            this.toolStripMenuItemPlaybackMP4.Click += new System.EventHandler(this.toolStripMenuItemPlaybackMP4_Click);
             // 
             // TreeViewLocators
             // 
@@ -262,31 +262,31 @@
             // 
             this.toolStripMenuItemDownloadFile.Name = "toolStripMenuItemDownloadFile";
             resources.ApplyResources(this.toolStripMenuItemDownloadFile, "toolStripMenuItemDownloadFile");
-            this.toolStripMenuItemDownloadFile.Click += new System.EventHandler(this.toolStripMenuItemDownloadFile_ClickAsync);
+            this.toolStripMenuItemDownloadFile.Click += new System.EventHandler(this.toolStripMenuItemDownloadFile_Click);
             // 
             // deleteFileToolStripMenuItem
             // 
             this.deleteFileToolStripMenuItem.Name = "deleteFileToolStripMenuItem";
             resources.ApplyResources(this.deleteFileToolStripMenuItem, "deleteFileToolStripMenuItem");
-            this.deleteFileToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_ClickAsync);
+            this.deleteFileToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
             // 
             // deleteAllFilesToolStripMenuItem
             // 
             this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
             resources.ApplyResources(this.deleteAllFilesToolStripMenuItem, "deleteAllFilesToolStripMenuItem");
-            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_ClickAsync);
+            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
             // 
             // duplicateFileToolStripMenuItem
             // 
             this.duplicateFileToolStripMenuItem.Name = "duplicateFileToolStripMenuItem";
             resources.ApplyResources(this.duplicateFileToolStripMenuItem, "duplicateFileToolStripMenuItem");
-            this.duplicateFileToolStripMenuItem.Click += new System.EventHandler(this.duplicateFileToolStripMenuItem_ClickAsync);
+            this.duplicateFileToolStripMenuItem.Click += new System.EventHandler(this.duplicateFileToolStripMenuItem_Click);
             // 
             // uploadASmallFileInTheAssetToolStripMenuItem
             // 
             this.uploadASmallFileInTheAssetToolStripMenuItem.Name = "uploadASmallFileInTheAssetToolStripMenuItem";
             resources.ApplyResources(this.uploadASmallFileInTheAssetToolStripMenuItem, "uploadASmallFileInTheAssetToolStripMenuItem");
-            this.uploadASmallFileInTheAssetToolStripMenuItem.Click += new System.EventHandler(this.uploadASmallFileInTheAssetToolStripMenuItem_ClickAsync);
+            this.uploadASmallFileInTheAssetToolStripMenuItem.Click += new System.EventHandler(this.uploadASmallFileInTheAssetToolStripMenuItem_Click);
             // 
             // label4
             // 
@@ -298,7 +298,7 @@
             resources.ApplyResources(this.buttonCopyStats, "buttonCopyStats");
             this.buttonCopyStats.Name = "buttonCopyStats";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
-            this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_ClickAsync);
+            this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
             // 
             // buttonDeleteFile
             // 
@@ -306,14 +306,14 @@
             this.buttonDeleteFile.Name = "buttonDeleteFile";
             this.toolTip1.SetToolTip(this.buttonDeleteFile, resources.GetString("buttonDeleteFile.ToolTip"));
             this.buttonDeleteFile.UseVisualStyleBackColor = true;
-            this.buttonDeleteFile.Click += new System.EventHandler(this.buttonDeleteFile_ClickAsync);
+            this.buttonDeleteFile.Click += new System.EventHandler(this.buttonDeleteFile_Click);
             // 
             // buttonDownloadFile
             // 
             resources.ApplyResources(this.buttonDownloadFile, "buttonDownloadFile");
             this.buttonDownloadFile.Name = "buttonDownloadFile";
             this.buttonDownloadFile.UseVisualStyleBackColor = true;
-            this.buttonDownloadFile.Click += new System.EventHandler(this.buttonDownloadFile_ClickAsync);
+            this.buttonDownloadFile.Click += new System.EventHandler(this.buttonDownloadFile_Click);
             // 
             // buttonOpenFile
             // 
@@ -390,7 +390,7 @@
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Enter += new System.EventHandler(this.tabPageBlobs_EnterAsync);
+            this.tabPage2.Enter += new System.EventHandler(this.tabPageBlobs_Enter);
             // 
             // buttonGenerateManifest
             // 
@@ -398,7 +398,7 @@
             this.buttonGenerateManifest.Name = "buttonGenerateManifest";
             this.toolTip1.SetToolTip(this.buttonGenerateManifest, resources.GetString("buttonGenerateManifest.ToolTip"));
             this.buttonGenerateManifest.UseVisualStyleBackColor = true;
-            this.buttonGenerateManifest.Click += new System.EventHandler(this.buttonGenerateManifest_ClickAsync);
+            this.buttonGenerateManifest.Click += new System.EventHandler(this.buttonGenerateManifest_Click);
             // 
             // buttonEditOnline
             // 
@@ -406,7 +406,7 @@
             this.buttonEditOnline.Name = "buttonEditOnline";
             this.toolTip1.SetToolTip(this.buttonEditOnline, resources.GetString("buttonEditOnline.ToolTip"));
             this.buttonEditOnline.UseVisualStyleBackColor = true;
-            this.buttonEditOnline.Click += new System.EventHandler(this.buttonEditOnline_ClickAsync);
+            this.buttonEditOnline.Click += new System.EventHandler(this.buttonEditOnline_Click);
             // 
             // buttonDeleteAll
             // 
@@ -414,7 +414,7 @@
             this.buttonDeleteAll.Name = "buttonDeleteAll";
             this.toolTip1.SetToolTip(this.buttonDeleteAll, resources.GetString("buttonDeleteAll.ToolTip"));
             this.buttonDeleteAll.UseVisualStyleBackColor = true;
-            this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_ClickAsync);
+            this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_Click);
             // 
             // buttonFileMetadata
             // 
@@ -436,7 +436,7 @@
             this.buttonUpload.Name = "buttonUpload";
             this.toolTip1.SetToolTip(this.buttonUpload, resources.GetString("buttonUpload.ToolTip"));
             this.buttonUpload.UseVisualStyleBackColor = true;
-            this.buttonUpload.Click += new System.EventHandler(this.button2_ClickAsync);
+            this.buttonUpload.Click += new System.EventHandler(this.button2_Click);
             // 
             // buttonDuplicate
             // 
@@ -444,7 +444,7 @@
             this.buttonDuplicate.Name = "buttonDuplicate";
             this.toolTip1.SetToolTip(this.buttonDuplicate, resources.GetString("buttonDuplicate.ToolTip"));
             this.buttonDuplicate.UseVisualStyleBackColor = true;
-            this.buttonDuplicate.Click += new System.EventHandler(this.button1_Click_1Async);
+            this.buttonDuplicate.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // tabPage6
             // 
@@ -457,42 +457,42 @@
             resources.ApplyResources(this.tabPage6, "tabPage6");
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
-            this.tabPage6.Enter += new System.EventHandler(this.tabPage6_EnterAsync);
+            this.tabPage6.Enter += new System.EventHandler(this.tabPage6_Enter);
             // 
             // buttonPlayFilter
             // 
             resources.ApplyResources(this.buttonPlayFilter, "buttonPlayFilter");
             this.buttonPlayFilter.Name = "buttonPlayFilter";
             this.buttonPlayFilter.UseVisualStyleBackColor = true;
-            this.buttonPlayFilter.Click += new System.EventHandler(this.button1_Click_4Async);
+            this.buttonPlayFilter.Click += new System.EventHandler(this.button1_Click_4);
             // 
             // buttonDuplicateFilter
             // 
             resources.ApplyResources(this.buttonDuplicateFilter, "buttonDuplicateFilter");
             this.buttonDuplicateFilter.Name = "buttonDuplicateFilter";
             this.buttonDuplicateFilter.UseVisualStyleBackColor = true;
-            this.buttonDuplicateFilter.Click += new System.EventHandler(this.button4_ClickAsync);
+            this.buttonDuplicateFilter.Click += new System.EventHandler(this.button4_Click);
             // 
             // buttonDeleteFilter
             // 
             resources.ApplyResources(this.buttonDeleteFilter, "buttonDeleteFilter");
             this.buttonDeleteFilter.Name = "buttonDeleteFilter";
             this.buttonDeleteFilter.UseVisualStyleBackColor = true;
-            this.buttonDeleteFilter.Click += new System.EventHandler(this.buttonDeleteFilter_ClickAsync);
+            this.buttonDeleteFilter.Click += new System.EventHandler(this.buttonDeleteFilter_Click);
             // 
             // buttonCreateAssetFilter
             // 
             resources.ApplyResources(this.buttonCreateAssetFilter, "buttonCreateAssetFilter");
             this.buttonCreateAssetFilter.Name = "buttonCreateAssetFilter";
             this.buttonCreateAssetFilter.UseVisualStyleBackColor = true;
-            this.buttonCreateAssetFilter.Click += new System.EventHandler(this.button2_Click_1Async);
+            this.buttonCreateAssetFilter.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // buttonFilterInfo
             // 
             resources.ApplyResources(this.buttonFilterInfo, "buttonFilterInfo");
             this.buttonFilterInfo.Name = "buttonFilterInfo";
             this.buttonFilterInfo.UseVisualStyleBackColor = true;
-            this.buttonFilterInfo.Click += new System.EventHandler(this.button1_Click_3Async);
+            this.buttonFilterInfo.Click += new System.EventHandler(this.button1_Click_3);
             // 
             // dataGridViewFilters
             // 
@@ -507,8 +507,8 @@
             this.dataGridViewFilters.ReadOnly = true;
             this.dataGridViewFilters.RowHeadersVisible = false;
             this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFilters.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellContentDoubleClickAsync);
-            this.dataGridViewFilters.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellDoubleClickAsync);
+            this.dataGridViewFilters.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellContentDoubleClick);
+            this.dataGridViewFilters.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellDoubleClick);
             // 
             // contextMenuStripFilter
             // 
@@ -527,34 +527,34 @@
             this.filterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
             resources.ApplyResources(this.filterInfoupdateToolStripMenuItem, "filterInfoupdateToolStripMenuItem");
-            this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_ClickAsync);
+            this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
             // 
             // createAnAssetFilterToolStripMenuItem
             // 
             this.createAnAssetFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.create;
             this.createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
             resources.ApplyResources(this.createAnAssetFilterToolStripMenuItem, "createAnAssetFilterToolStripMenuItem");
-            this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_ClickAsync);
+            this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             resources.ApplyResources(this.deleteToolStripMenuItem, "deleteToolStripMenuItem");
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_ClickAsync);
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // duplicateToolStripMenuItem
             // 
             this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
             resources.ApplyResources(this.duplicateToolStripMenuItem, "duplicateToolStripMenuItem");
-            this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_ClickAsync);
+            this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
             // 
             // playWithThisFilterToolStripMenuItem
             // 
             this.playWithThisFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.play;
             this.playWithThisFilterToolStripMenuItem.Name = "playWithThisFilterToolStripMenuItem";
             resources.ApplyResources(this.playWithThisFilterToolStripMenuItem, "playWithThisFilterToolStripMenuItem");
-            this.playWithThisFilterToolStripMenuItem.Click += new System.EventHandler(this.playWithThisFilterToolStripMenuItem_ClickAsync);
+            this.playWithThisFilterToolStripMenuItem.Click += new System.EventHandler(this.playWithThisFilterToolStripMenuItem_Click);
             // 
             // tabPagePolicy
             // 
@@ -610,7 +610,7 @@
             resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
-            this.tabPage3.Enter += new System.EventHandler(this.tabPage3_EnterAsync);
+            this.tabPage3.Enter += new System.EventHandler(this.tabPage3_Enter);
             // 
             // checkBoxHttps
             // 
@@ -619,7 +619,7 @@
             this.checkBoxHttps.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxHttps.Name = "checkBoxHttps";
             this.checkBoxHttps.UseVisualStyleBackColor = true;
-            this.checkBoxHttps.CheckedChanged += new System.EventHandler(this.checkBoxHttps_CheckedChangedAsync);
+            this.checkBoxHttps.CheckedChanged += new System.EventHandler(this.checkBoxHttps_CheckedChanged);
             // 
             // label2
             // 
@@ -632,7 +632,7 @@
             this.comboBoxStreamingEndpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStreamingEndpoint.FormattingEnabled = true;
             this.comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
-            this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChangedAsync);
+            this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChanged);
             // 
             // buttonOpen
             // 
@@ -646,28 +646,28 @@
             resources.ApplyResources(this.buttonDel, "buttonDel");
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.UseVisualStyleBackColor = true;
-            this.buttonDel.Click += new System.EventHandler(this.buttonDel_ClickAsync);
+            this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
             // buttonAzureMediaPlayer
             // 
             resources.ApplyResources(this.buttonAzureMediaPlayer, "buttonAzureMediaPlayer");
             this.buttonAzureMediaPlayer.Name = "buttonAzureMediaPlayer";
             this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
-            this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.button1_ClickAsync);
+            this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonHTML
             // 
             resources.ApplyResources(this.buttonHTML, "buttonHTML");
             this.buttonHTML.Name = "buttonHTML";
             this.buttonHTML.UseVisualStyleBackColor = true;
-            this.buttonHTML.Click += new System.EventHandler(this.buttonHTML_ClickAsync);
+            this.buttonHTML.Click += new System.EventHandler(this.buttonHTML_Click);
             // 
             // buttonDASH
             // 
             resources.ApplyResources(this.buttonDASH, "buttonDASH");
             this.buttonDASH.Name = "buttonDASH";
             this.buttonDASH.UseVisualStyleBackColor = true;
-            this.buttonDASH.Click += new System.EventHandler(this.button3_ClickAsync);
+            this.buttonDASH.Click += new System.EventHandler(this.button3_Click);
             // 
             // label1
             // 
@@ -717,7 +717,7 @@
             this.Name = "AssetInformation";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
-            this.Load += new System.EventHandler(this.AssetInformation_LoadAsync);
+            this.Load += new System.EventHandler(this.AssetInformation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).EndInit();
             this.contextMenuStripDG.ResumeLayout(false);
             this.contextMenuStripLocators.ResumeLayout(false);

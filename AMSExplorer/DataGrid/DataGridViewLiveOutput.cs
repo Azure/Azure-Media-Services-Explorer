@@ -169,20 +169,20 @@ namespace AMSExplorer
 
 
 
-        public async Task InitAsync(AMSClientV3 client)
+        public void Init(AMSClientV3 client)
         {
             IEnumerable<LiveOutputEntry> programquery;
-            await client.RefreshTokenIfNeededAsync();
+            client.RefreshTokenIfNeeded();
 
             _client = client;
-            await _client.RefreshTokenIfNeededAsync();
+            _client.RefreshTokenIfNeeded();
 
-            var ListEvents = (await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).ToList();
+            var ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
 
             foreach (var le in ListEvents)
             {
-                var plist = (await _client.AMSclient.LiveOutputs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, le.Name)).ToList();
+                var plist = _client.AMSclient.LiveOutputs.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, le.Name).ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -230,7 +230,7 @@ namespace AMSExplorer
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
-            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshChannels_DoWorkAsync);
+            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshChannels_DoWork);
 
             _initialized = true;
         }
@@ -248,7 +248,7 @@ namespace AMSExplorer
             }
         }
 
-        public async Task RefreshProgramAsync(string liveeventName, LiveOutput program)
+        public void RefreshProgram(string liveeventName, LiveOutput program)
         {
             int index = -1;
 
@@ -266,9 +266,9 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                await _client.RefreshTokenIfNeededAsync();
+                _client.RefreshTokenIfNeeded();
 
-                program = await _client.AMSclient.LiveOutputs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveeventName, program.Name); //refresh
+                program = _client.AMSclient.LiveOutputs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveeventName, program.Name); //refresh
                 if (program != null)
                 {
                     try // sometimes, index could be wrong id program has been deleted
@@ -286,12 +286,12 @@ namespace AMSExplorer
             }
         }
 
-        private async void WorkerRefreshChannels_DoWorkAsync(object sender, DoWorkEventArgs e)
+        private void WorkerRefreshChannels_DoWork(object sender, DoWorkEventArgs e)
         {
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveOutput liveOutputItem;
-            await _client.RefreshTokenIfNeededAsync();
+            _client.RefreshTokenIfNeeded();
 
             foreach (LiveOutputEntry CE in _MyObservLiveOutputs)
             {
@@ -299,7 +299,7 @@ namespace AMSExplorer
                 liveOutputItem = null;
                 try
                 {
-                    liveOutputItem = await _client.AMSclient.LiveOutputs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.LiveEventName, CE.Name);
+                    liveOutputItem = _client.AMSclient.LiveOutputs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.LiveEventName, CE.Name);
                     if (liveOutputItem != null)
                     {
                         CE.State = liveOutputItem.ResourceState;
@@ -319,8 +319,12 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.Refresh()), null);
         }
 
-      
-        public async Task RefreshLiveOutputsAsync(int pagetodisplay) // all assets are refreshed
+        private void RefreshPrograms() // all assets are refreshed
+        {
+            RefreshPrograms(_currentpage);
+        }
+
+        public void RefreshPrograms(int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
             if (idsList.Count == 0) return;
@@ -525,7 +529,7 @@ namespace AMSExplorer
                 }
             }
             */
-            await _client.RefreshTokenIfNeededAsync();
+            _client.RefreshTokenIfNeeded();
 
             IEnumerable<LiveEvent> ListEvents;
             if (_anyChannel == enumDisplayLiveOutput.None)
@@ -534,7 +538,7 @@ namespace AMSExplorer
             }
             else
             {
-                ListEvents = (await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).ToList()
+                ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList()
                 .Where(l => _anyChannel == enumDisplayLiveOutput.Any || (_anyChannel == enumDisplayLiveOutput.Selected && LiveEventSourceNames.Contains(l.Name)));
             }
 
@@ -543,7 +547,7 @@ namespace AMSExplorer
 
             foreach (var le in ListEvents)
             {
-                var plist = (await _client.AMSclient.LiveOutputs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, le.Name)).ToList();
+                var plist = _client.AMSclient.LiveOutputs.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, le.Name).ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -557,7 +561,7 @@ namespace AMSExplorer
                                    Description = c.LiveOutputItem.Description,
                                    ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
                                    LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
-                                   Published = (DataGridViewAssets.BuildBitmapPublicationAsync(c.LiveOutputItem.AssetName, _client).Result).bitmap,
+                                   Published = DataGridViewAssets.BuildBitmapPublication(c.LiveOutputItem.AssetName, _client).bitmap,
                                    LiveEventName = c.LiveEventName
                                };
 

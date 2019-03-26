@@ -64,7 +64,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task BuildSubTreeAsync()
+        private async Task BuildSubTree()
         {
             if (comboBoxTenants.SelectedItem == null) return;
 
@@ -177,9 +177,9 @@ namespace AMSExplorer
             DGAcct.Rows.Add("MediaServiceId", account.MediaServiceId);
         }
 
-        private async void comboBoxTenants_SelectedIndexChangedAsync(object sender, EventArgs e)
+        private void comboBoxTenants_SelectedIndexChanged(object sender, EventArgs e)
         {
-            await BuildSubTreeAsync();
+            BuildSubTree();
         }
     }
 }
