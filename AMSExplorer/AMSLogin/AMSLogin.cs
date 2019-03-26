@@ -584,11 +584,10 @@ namespace AMSExplorer
                                                         new SubscriptionMediaService(form.textBoxAMSResourceId.Text, accountnamecc, null, null, form.textBoxLocation.Text),
                                                         addaccount1.GetEnvironment(),
                                                         PromptBehavior.Auto,
-                                                        radioButtonAADServicePrincipal.Checked,
+                                                        form.radioButtonAADServicePrincipal.Checked,
                                                         form.textBoxAADtenantId.Text,
                                                         true
                                                         );
-
 
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);
