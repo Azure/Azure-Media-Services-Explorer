@@ -454,11 +454,11 @@ namespace AMSExplorer
             Modifications.PreviewIPAllowList = true;
         }
 
-        private async void tabPage4_Enter(object sender, EventArgs e)
+        private void tabPage4_Enter(object sender, EventArgs e)
         {
             if (MyLiveEvent.ResourceState == LiveEventResourceState.Running && MyLiveEvent.Preview != null && MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
             {
-                string myurl = await AssetInfo.DoPlayBackWithStreamingEndpointAsync(
+                string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(
                             typeplayer: PlayerType.AzureMediaPlayerFrame,
                             path: MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url,
                             DoNotRewriteURL: true,

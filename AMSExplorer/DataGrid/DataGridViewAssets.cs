@@ -277,7 +277,7 @@ namespace AMSExplorer
             _initialized = true;
         }
 
-        private async void WorkerAnalyzeAssets_DoWork(object sender, DoWorkEventArgs e)
+        private void WorkerAnalyzeAssets_DoWork(object sender, DoWorkEventArgs e)
         {
             Debug.WriteLine("WorkerAnalyzeAssets_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -329,7 +329,7 @@ namespace AMSExplorer
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         // var assetfiles =  asset.AssetFiles.ToList();
-                        var data = await AssetInfo.GetAssetTypeAsync(asset.Name, _client);
+                        var data = AssetInfo.GetAssetType(asset.Name, _client);
                         AE.Type = data.Type;
                         AE.SizeLong = data.Size;
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);

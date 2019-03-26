@@ -159,16 +159,15 @@ namespace AMSExplorer
         }
 
 
-        private async void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
+        private void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
         {
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
             _client.RefreshTokenIfNeeded();
 
-            StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_client);
-            var listSE = await _client.AMSclient.StreamingEndpoints.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
-            foreach (var se in listSE)
+            StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpointAsync(_client).Result;
+            foreach (var se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
             {
                 listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Name + "|" + se.HostName));
                 if (se.Id == BestSE.Id) listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;

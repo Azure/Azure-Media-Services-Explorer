@@ -1504,7 +1504,7 @@
             resources.ApplyResources(this.dataGridViewLiveOutputV, "dataGridViewLiveOutputV");
             this.dataGridViewLiveOutputV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLiveOutputV.ContextMenuStrip = this.contextMenuStripLiveOutputs;
-            this.dataGridViewLiveOutputV.DisplayChannel = AMSExplorer.enumDisplayLiveOutput.Selected;
+            this.dataGridViewLiveOutputV.DisplayChannel = AMSExplorer.enumDisplayProgram.Selected;
             this.dataGridViewLiveOutputV.FilterState = "All";
             this.dataGridViewLiveOutputV.ItemsPerPage = 50;
             this.dataGridViewLiveOutputV.LiveEventSourceNames = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewLiveOutputV.LiveEventSourceNames")));
@@ -1864,28 +1864,28 @@
             this.inputURLMToolStripMenuItem1.Name = "inputURLMToolStripMenuItem1";
             resources.ApplyResources(this.inputURLMToolStripMenuItem1, "inputURLMToolStripMenuItem1");
             this.inputURLMToolStripMenuItem1.Tag = "Input 1 Url ({0})...";
-            this.inputURLMToolStripMenuItem1.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboardAsync);
+            this.inputURLMToolStripMenuItem1.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboard);
             // 
             // inputURLMToolStripMenuItem2
             // 
             this.inputURLMToolStripMenuItem2.Name = "inputURLMToolStripMenuItem2";
             resources.ApplyResources(this.inputURLMToolStripMenuItem2, "inputURLMToolStripMenuItem2");
             this.inputURLMToolStripMenuItem2.Tag = "Input 2 Url ({0})...";
-            this.inputURLMToolStripMenuItem2.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboardAsync);
+            this.inputURLMToolStripMenuItem2.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboard);
             // 
             // inputURLMToolStripMenuItem3
             // 
             this.inputURLMToolStripMenuItem3.Name = "inputURLMToolStripMenuItem3";
             resources.ApplyResources(this.inputURLMToolStripMenuItem3, "inputURLMToolStripMenuItem3");
             this.inputURLMToolStripMenuItem3.Tag = "Input 3 Url ({0})...";
-            this.inputURLMToolStripMenuItem3.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboardAsync);
+            this.inputURLMToolStripMenuItem3.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboard);
             // 
             // inputURLMToolStripMenuItem4
             // 
             this.inputURLMToolStripMenuItem4.Name = "inputURLMToolStripMenuItem4";
             resources.ApplyResources(this.inputURLMToolStripMenuItem4, "inputURLMToolStripMenuItem4");
             this.inputURLMToolStripMenuItem4.Tag = "Input 4 Url ({0})...";
-            this.inputURLMToolStripMenuItem4.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboardAsync);
+            this.inputURLMToolStripMenuItem4.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboard);
             // 
             // ContextMenuItemChannelRunOnPremisesLiveEncoder
             // 
