@@ -110,7 +110,7 @@
             this.Controls.Add(this.listViewStorage);
             this.Controls.Add(this.label3);
             this.Name = "AttachStorage";
-            this.Load += new System.EventHandler(this.AttachStorage_Load);
+            this.Load += new System.EventHandler(this.AttachStorage_LoadAsync);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

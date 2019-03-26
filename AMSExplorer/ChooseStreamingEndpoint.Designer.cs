@@ -96,14 +96,14 @@
             resources.ApplyResources(this.radioButtonHttp, "radioButtonHttp");
             this.radioButtonHttp.Name = "radioButtonHttp";
             this.radioButtonHttp.UseVisualStyleBackColor = true;
-            this.radioButtonHttp.CheckedChanged += new System.EventHandler(this.radioButtonHttp_CheckedChanged);
+            this.radioButtonHttp.CheckedChanged += new System.EventHandler(this.radioButtonHttp_CheckedChangedAsync);
             // 
             // listBoxSE
             // 
             resources.ApplyResources(this.listBoxSE, "listBoxSE");
             this.listBoxSE.FormattingEnabled = true;
             this.listBoxSE.Name = "listBoxSE";
-            this.listBoxSE.SelectedIndexChanged += new System.EventHandler(this.listBoxSE_SelectedIndexChanged);
+            this.listBoxSE.SelectedIndexChanged += new System.EventHandler(this.listBoxSE_SelectedIndexChangedAsync);
             // 
             // groupBoxForceLocator
             // 
@@ -122,7 +122,7 @@
             this.listViewFilters.Name = "listViewFilters";
             this.listViewFilters.UseCompatibleStateImageBehavior = false;
             this.listViewFilters.View = System.Windows.Forms.View.List;
-            this.listViewFilters.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewFilters_ItemChecked);
+            this.listViewFilters.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewFilters_ItemCheckedAsync);
             // 
             // label8
             // 
@@ -167,14 +167,14 @@
             resources.ApplyResources(this.radioButtonHLSCMAF, "radioButtonHLSCMAF");
             this.radioButtonHLSCMAF.Name = "radioButtonHLSCMAF";
             this.radioButtonHLSCMAF.UseVisualStyleBackColor = true;
-            this.radioButtonHLSCMAF.CheckedChanged += new System.EventHandler(this.radioButtonHLSCMAF_CheckedChanged);
+            this.radioButtonHLSCMAF.CheckedChanged += new System.EventHandler(this.radioButtonHLSCMAF_CheckedChangedAsync);
             // 
             // checkBoxNoAudioOnly
             // 
             resources.ApplyResources(this.checkBoxNoAudioOnly, "checkBoxNoAudioOnly");
             this.checkBoxNoAudioOnly.Name = "checkBoxNoAudioOnly";
             this.checkBoxNoAudioOnly.UseVisualStyleBackColor = true;
-            this.checkBoxNoAudioOnly.CheckedChanged += new System.EventHandler(this.checkBoxNoAudioOnly_CheckedChanged);
+            this.checkBoxNoAudioOnly.CheckedChanged += new System.EventHandler(this.checkBoxNoAudioOnly_CheckedChangedAsync);
             // 
             // labelaudiotrackname
             // 
@@ -185,42 +185,42 @@
             // 
             resources.ApplyResources(this.textBoxHLSAudioTrackName, "textBoxHLSAudioTrackName");
             this.textBoxHLSAudioTrackName.Name = "textBoxHLSAudioTrackName";
-            this.textBoxHLSAudioTrackName.TextChanged += new System.EventHandler(this.textBoxHLSAudioTrackName_TextChanged);
+            this.textBoxHLSAudioTrackName.TextChanged += new System.EventHandler(this.textBoxHLSAudioTrackName_TextChangedAsync);
             // 
             // radioButtonSmoothLegacy
             // 
             resources.ApplyResources(this.radioButtonSmoothLegacy, "radioButtonSmoothLegacy");
             this.radioButtonSmoothLegacy.Name = "radioButtonSmoothLegacy";
             this.radioButtonSmoothLegacy.UseVisualStyleBackColor = true;
-            this.radioButtonSmoothLegacy.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonSmoothLegacy.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChangedAsync);
             // 
             // radioButtonDASHCSF
             // 
             resources.ApplyResources(this.radioButtonDASHCSF, "radioButtonDASHCSF");
             this.radioButtonDASHCSF.Name = "radioButtonDASHCSF";
             this.radioButtonDASHCSF.UseVisualStyleBackColor = true;
-            this.radioButtonDASHCSF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonDASHCSF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChangedAsync);
             // 
             // radioButtonDASHCMAF
             // 
             resources.ApplyResources(this.radioButtonDASHCMAF, "radioButtonDASHCMAF");
             this.radioButtonDASHCMAF.Name = "radioButtonDASHCMAF";
             this.radioButtonDASHCMAF.UseVisualStyleBackColor = true;
-            this.radioButtonDASHCMAF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonDASHCMAF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChangedAsync);
             // 
             // radioButtonHLSv4
             // 
             resources.ApplyResources(this.radioButtonHLSv4, "radioButtonHLSv4");
             this.radioButtonHLSv4.Name = "radioButtonHLSv4";
             this.radioButtonHLSv4.UseVisualStyleBackColor = true;
-            this.radioButtonHLSv4.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonHLSv4.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChangedAsync);
             // 
             // radioButtonHLSv3
             // 
             resources.ApplyResources(this.radioButtonHLSv3, "radioButtonHLSv3");
             this.radioButtonHLSv3.Name = "radioButtonHLSv3";
             this.radioButtonHLSv3.UseVisualStyleBackColor = true;
-            this.radioButtonHLSv3.CheckedChanged += new System.EventHandler(this.radioButtonHLSv3_CheckedChanged);
+            this.radioButtonHLSv3.CheckedChanged += new System.EventHandler(this.radioButtonHLSv3_CheckedChangedAsync);
             // 
             // radioButtonSmooth
             // 
@@ -229,7 +229,7 @@
             this.radioButtonSmooth.Name = "radioButtonSmooth";
             this.radioButtonSmooth.TabStop = true;
             this.radioButtonSmooth.UseVisualStyleBackColor = true;
-            this.radioButtonSmooth.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonSmooth.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChangedAsync);
             // 
             // label
             // 
@@ -263,7 +263,7 @@
             this.Controls.Add(this.groupBoxForceLocator);
             this.Controls.Add(this.groupBox4);
             this.Name = "ChooseStreamingEndpoint";
-            this.Load += new System.EventHandler(this.ChooseStreamingEndpoint_Load);
+            this.Load += new System.EventHandler(this.ChooseStreamingEndpoint_LoadAsync);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBoxForceLocator.ResumeLayout(false);

@@ -138,13 +138,13 @@ namespace AMSExplorer
             _client = client;
         }
 
-        private void LiveOutputCreation_Load(object sender, EventArgs e)
+        private async void LiveOutputCreation_LoadAsync(object sender, EventArgs e)
         {
             this.Text = string.Format(this.Text, ChannelName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
 
-            _client.RefreshTokenIfNeeded();
-            var storages = _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts;
+            await _client.RefreshTokenIfNeededAsync();
+            var storages = (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts;
             foreach (var storage in storages)
             {
                 bool primary = (storage.Type == StorageAccountType.Primary);

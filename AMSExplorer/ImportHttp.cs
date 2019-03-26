@@ -74,13 +74,13 @@ namespace AMSExplorer
             _uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
         }
 
-        private void ImportHttp_Load(object sender, EventArgs e)
+        private async void ImportHttp_LoadAsync(object sender, EventArgs e)
         {
             labelURLFileNameWarning.Text = string.Empty;
             textBoxAssetName.Text = "import-" + _uniqueness;
 
-            _amsClientV3.RefreshTokenIfNeeded();
-            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+            await _amsClientV3.RefreshTokenIfNeededAsync();
+            var storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
 
             comboBoxStorage.Items.Clear();
             foreach (var storage in storAccounts)

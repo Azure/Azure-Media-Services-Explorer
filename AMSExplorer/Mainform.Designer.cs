@@ -873,7 +873,7 @@
             this.createALocatorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.createALocatorToolStripMenuItem.Name = "createALocatorToolStripMenuItem";
             resources.ApplyResources(this.createALocatorToolStripMenuItem, "createALocatorToolStripMenuItem");
-            this.createALocatorToolStripMenuItem.Click += new System.EventHandler(this.createALocatorToolStripMenuItem_Click);
+            this.createALocatorToolStripMenuItem.Click += new System.EventHandler(this.createALocatorToolStripMenuItem_ClickAsync);
             // 
             // extendExistingLocatorsToolStripMenuItem
             // 
@@ -887,7 +887,7 @@
             this.deleteAllLocatorsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteAllLocatorsToolStripMenuItem.Name = "deleteAllLocatorsToolStripMenuItem";
             resources.ApplyResources(this.deleteAllLocatorsToolStripMenuItem, "deleteAllLocatorsToolStripMenuItem");
-            this.deleteAllLocatorsToolStripMenuItem.Click += new System.EventHandler(this.deleteAllLocatorsToolStripMenuItem_Click);
+            this.deleteAllLocatorsToolStripMenuItem.Click += new System.EventHandler(this.deleteAllLocatorsToolStripMenuItem_ClickAsync);
             // 
             // createAnAssetFilterToolStripMenuItem
             // 
@@ -1597,14 +1597,14 @@
             this.createALocatorToolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.createALocatorToolStripMenuItem2.Name = "createALocatorToolStripMenuItem2";
             resources.ApplyResources(this.createALocatorToolStripMenuItem2, "createALocatorToolStripMenuItem2");
-            this.createALocatorToolStripMenuItem2.Click += new System.EventHandler(this.createALocatorToolStripMenuItem2_Click);
+            this.createALocatorToolStripMenuItem2.Click += new System.EventHandler(this.createALocatorToolStripMenuItem2_ClickAsync);
             // 
             // deleteAllLocatorsToolStripMenuItem1
             // 
             this.deleteAllLocatorsToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteAllLocatorsToolStripMenuItem1.Name = "deleteAllLocatorsToolStripMenuItem1";
             resources.ApplyResources(this.deleteAllLocatorsToolStripMenuItem1, "deleteAllLocatorsToolStripMenuItem1");
-            this.deleteAllLocatorsToolStripMenuItem1.Click += new System.EventHandler(this.deleteAllLocatorsToolStripMenuItem1_Click);
+            this.deleteAllLocatorsToolStripMenuItem1.Click += new System.EventHandler(this.deleteAllLocatorsToolStripMenuItem1_ClickAsync);
             // 
             // toolStripMenuItem25
             // 
@@ -2689,7 +2689,7 @@
             resources.ApplyResources(this.buttonRefresh, "buttonRefresh");
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_ClickAsync);
             // 
             // linkLabelFeedbackAMS
             // 
@@ -2709,7 +2709,7 @@
             resources.ApplyResources(this.buttonRefreshTab, "buttonRefreshTab");
             this.buttonRefreshTab.Name = "buttonRefreshTab";
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
-            this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
+            this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_ClickAsync);
             // 
             // Mainform
             // 

@@ -31,15 +31,13 @@ namespace AMSExplorer
         private string _path;
         private bool _displayBrowserSelection;
         private AMSClientV3 _client;
-        public StreamingEndpoint SelectStreamingEndpoint
+        public async Task<StreamingEndpoint> GetStreamingEndpointAsync()
         {
-            get
-            {
-                string val = (listBoxSE.SelectedItem as Item).Value as string;
-                string seName = val.Split("|".ToCharArray())[0];
-                _client.RefreshTokenIfNeeded();
-                return _client.AMSclient.StreamingEndpoints.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, seName);
-            }
+
+            string val = (listBoxSE.SelectedItem as Item).Value as string;
+            string seName = val.Split("|".ToCharArray())[0];
+            await _client.RefreshTokenIfNeededAsync();
+            return await _client.AMSclient.StreamingEndpoints.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, seName);
         }
 
         public string SelectedFilters
@@ -160,12 +158,12 @@ namespace AMSExplorer
         }
 
 
-        private async void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
+        private async void ChooseStreamingEndpoint_LoadAsync(object sender, EventArgs e)
         {
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
             StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_client);
             var listSE = await _client.AMSclient.StreamingEndpoints.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
@@ -229,7 +227,7 @@ namespace AMSExplorer
             }
             comboBoxBrowser.Visible = _displayBrowserSelection;
 
-            UpdatePreviewUrl();
+            await UpdatePreviewUrlAsync();
         }
 
         static bool IsWindows10()
@@ -241,17 +239,17 @@ namespace AMSExplorer
             return productName.StartsWith("Windows 10");
         }
 
-        private void radioButtonHLSv3_CheckedChanged(object sender, EventArgs e)
+        private async void radioButtonHLSv3_CheckedChangedAsync(object sender, EventArgs e)
         {
             textBoxHLSAudioTrackName.Enabled = checkBoxNoAudioOnly.Enabled = labelaudiotrackname.Enabled = radioButtonHLSv3.Checked;
-            UpdatePreviewUrl();
+            await UpdatePreviewUrlAsync();
         }
 
-        private void UpdatePreviewUrl()
+        private async Task UpdatePreviewUrlAsync()
         {
             try
             {
-                textBoxPreviewURL.Text = AssetInfo.RW(_path, SelectStreamingEndpoint, SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
+                textBoxPreviewURL.Text = AssetInfo.RW(_path, await GetStreamingEndpointAsync(), SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
             }
             catch
             {
@@ -259,51 +257,42 @@ namespace AMSExplorer
             }
         }
 
-        private void listBoxSE_SelectedIndexChanged(object sender, EventArgs e)
+        private async void listBoxSE_SelectedIndexChangedAsync(object sender, EventArgs e)
         {
-            UpdatePreviewUrl();
+            await UpdatePreviewUrlAsync();
         }
 
-        private void radioButtonHttp_CheckedChanged(object sender, EventArgs e)
+        private async void radioButtonHttp_CheckedChangedAsync(object sender, EventArgs e)
         {
-            UpdatePreviewUrl();
+            await UpdatePreviewUrlAsync();
         }
 
-        private void listBoxFilter_SelectedIndexChanged(object sender, EventArgs e)
+
+        private async void textBoxHLSAudioTrackName_TextChangedAsync(object sender, EventArgs e)
         {
-            UpdatePreviewUrl();
+            await UpdatePreviewUrlAsync();
         }
 
-        private void textBoxHLSAudioTrackName_TextChanged(object sender, EventArgs e)
+        private async void checkBoxNoAudioOnly_CheckedChangedAsync(object sender, EventArgs e)
         {
-            UpdatePreviewUrl();
+            await UpdatePreviewUrlAsync();
         }
 
-        private void checkBoxNoAudioOnly_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdatePreviewUrl();
-        }
-
-        private void radioButtonSmooth_CheckedChanged(object sender, EventArgs e)
+        private async void radioButtonSmooth_CheckedChangedAsync(object sender, EventArgs e)
         {
             var checkb = (RadioButton)sender;
 
             if (checkb.Checked)  // to do it one time
-                UpdatePreviewUrl();
+                await UpdatePreviewUrlAsync();
         }
 
 
-
-        private void listViewFilters_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private async void listViewFilters_ItemCheckedAsync(object sender, ItemCheckedEventArgs e)
         {
-            UpdatePreviewUrl();
+            await UpdatePreviewUrlAsync();
         }
 
-        private void toolStripMenuItemFilesCopyClipboard_Click(object sender, EventArgs e)
-        {
-
-        }
-
+    
         private void contextMenuStripURL_MouseClick(object sender, MouseEventArgs e)
         {
             ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
@@ -315,12 +304,12 @@ namespace AMSExplorer
             }
         }
 
-        private void radioButtonHLSCMAF_CheckedChanged(object sender, EventArgs e)
+        private async void radioButtonHLSCMAF_CheckedChangedAsync(object sender, EventArgs e)
         {
             var checkb = (RadioButton)sender;
 
             if (checkb.Checked)  // to do it one time
-                UpdatePreviewUrl();
+                await UpdatePreviewUrlAsync();
 
         }
     }

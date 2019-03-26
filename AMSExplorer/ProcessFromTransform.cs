@@ -68,7 +68,7 @@ namespace AMSExplorer
 
         private void ProcessFromJobTemplate_Load(object sender, EventArgs e)
         {
-            listViewTransforms.LoadTransforms(_client);
+            listViewTransforms.LoadTransformsAsync(_client);
         }
 
 
@@ -81,7 +81,7 @@ namespace AMSExplorer
         private void buttonDeleteTemplate_Click(object sender, EventArgs e)
         {
 
-            listViewTransforms.DeleteSelectedTemplate();
+            listViewTransforms.DeleteSelectedTemplateAsync();
         }
     }
 }

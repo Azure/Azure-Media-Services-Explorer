@@ -125,7 +125,7 @@ namespace AMSExplorer
             AzureMediaServicesClient response = null;
             try
             {
-                response = await AMSClient.ConnectAndGetNewClientV3();
+                response = await AMSClient.ConnectAndGetNewClientV3Async();
             }
             catch (Exception ex)
             {
@@ -316,9 +316,9 @@ namespace AMSExplorer
             System.Diagnostics.Process.Start(e.Link.LinkData as string);
         }
 
-        private void AMSLogin_Shown(object sender, EventArgs e)
+        private async void AMSLogin_ShownAsync(object sender, EventArgs e)
         {
-            Program.CheckAMSEVersionV3();
+            await Program.CheckAMSEVersionV3Async();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

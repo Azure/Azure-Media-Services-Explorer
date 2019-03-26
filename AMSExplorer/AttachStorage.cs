@@ -59,18 +59,18 @@ namespace AMSExplorer
             _amsClient = amsClient;
         }
 
-        private void AttachStorage_Load(object sender, EventArgs e)
+        private async void AttachStorage_LoadAsync(object sender, EventArgs e)
         {
             try
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
                 // The default value is 30 seconds for the .NET client SDK
                 mediaClient.LongRunningOperationRetryTimeout = 2;
 
-                mediaService = mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+                mediaService = await mediaClient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }
             catch (Exception ex)
             {

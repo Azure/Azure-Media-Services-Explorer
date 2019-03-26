@@ -173,7 +173,7 @@
             this.Controls.Add(this.textBoxURL);
             this.Controls.Add(this.label1);
             this.Name = "ImportHttp";
-            this.Load += new System.EventHandler(this.ImportHttp_Load);
+            this.Load += new System.EventHandler(this.ImportHttp_LoadAsync);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);

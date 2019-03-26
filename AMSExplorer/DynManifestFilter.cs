@@ -60,7 +60,7 @@ namespace AMSExplorer
             _subclipconfig = subclipconfig;
         }
 
-        private async Task FillComboBoxImportFilters(Asset asset)
+        private async Task FillComboBoxImportFiltersAsync(Asset asset)
         {
             // combobox for filters
 
@@ -68,7 +68,7 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
             if (asset != null)
             {
                 var filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).Body;
@@ -88,7 +88,7 @@ namespace AMSExplorer
             comboBoxLocatorsFilters.EndUpdate();
         }
 
-        private void DynManifestFilter_Load(object sender, EventArgs e)
+        private async void DynManifestFilter_LoadAsync(object sender, EventArgs e)
         {
             _labelStartTimeDefault = labelStartTimeDefault.Text;
             _labelDefaultEnd = labelDefaultEnd.Text;
@@ -97,7 +97,7 @@ namespace AMSExplorer
 
             _parentassetmanifestdata = new ManifestTimingData();
             tabControl1.TabPages.Remove(tabPageTRRaw);
-            FillComboBoxImportFilters(_parentAsset);
+            await FillComboBoxImportFiltersAsync(_parentAsset);
 
             timeControlDVR.TotalDuration = TimeSpan.FromHours(24);
             timeControlDVR.Max = TimeSpan.FromHours(24);
@@ -965,7 +965,7 @@ namespace AMSExplorer
         private async void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             if (filtername != null)
             {

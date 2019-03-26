@@ -304,7 +304,7 @@
             this.MinimizeBox = false;
             this.Name = "AMSLogin";
             this.Load += new System.EventHandler(this.AMSLogin_Load);
-            this.Shown += new System.EventHandler(this.AMSLogin_Shown);
+            this.Shown += new System.EventHandler(this.AMSLogin_ShownAsync);
             this.tabControlAMS.ResumeLayout(false);
             this.tabPageCredentials.ResumeLayout(false);
             this.tabPageCredentials.PerformLayout();
