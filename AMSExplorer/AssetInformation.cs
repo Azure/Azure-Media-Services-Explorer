@@ -206,7 +206,7 @@ namespace AMSExplorer
                 };
                 _amsClient.RefreshTokenIfNeeded();
 
-                var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
+                var response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
 
                 string uploadSasUrl = response.AssetContainerSasUrls.First();
 
@@ -1263,7 +1263,8 @@ namespace AMSExplorer
             };
             _amsClient.RefreshTokenIfNeeded();
 
-            var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime).Result;
+            var response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
+
             string uploadSasUrl = response.AssetContainerSasUrls.First();
             var sasUri = new Uri(uploadSasUrl);
             CloudBlobContainer container = new CloudBlobContainer(sasUri);

@@ -2702,7 +2702,7 @@ namespace AMSExplorer
             string type = "";
             long size = 0;
 
-            var response = _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime).Result;
+            var response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime)).Result;
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
 
@@ -3296,7 +3296,8 @@ namespace AMSExplorer
 
             if (!string.IsNullOrEmpty(path))
             {
-                StreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpointAsync(client).Result;
+                StreamingEndpoint choosenSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(client)).Result;
+
                 if (choosenSE == null)
                 {
                     return null;
@@ -4805,11 +4806,11 @@ namespace AMSExplorer
 
             if (accessToken.ExpiresOn < DateTimeOffset.UtcNow)
             {
-                Task task = Task.Run(async () => await ConnectAndGetNewClientV3());
+                Task.Run(async () => await ConnectAndGetNewClientV3Async());
             }
         }
 
-        public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3()
+        public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3Async()
         {
 
             if (!credentialsEntry.UseSPAuth)

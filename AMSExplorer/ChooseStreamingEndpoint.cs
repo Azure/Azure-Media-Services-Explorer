@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
+using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
@@ -166,7 +167,8 @@ namespace AMSExplorer
             // SE List
             _client.RefreshTokenIfNeeded();
 
-            StreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpointAsync(_client).Result;
+            StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
+
             foreach (var se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
             {
                 listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Name + "|" + se.HostName));

@@ -125,7 +125,7 @@ namespace AMSExplorer
             AzureMediaServicesClient response = null;
             try
             {
-                response = await AMSClient.ConnectAndGetNewClientV3();
+                response = await AMSClient.ConnectAndGetNewClientV3Async();
             }
             catch (Exception ex)
             {
