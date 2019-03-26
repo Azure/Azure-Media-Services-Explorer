@@ -1805,38 +1805,23 @@ namespace AMSExplorer
             return tempLocator;
         }
 
-        public static StreamingLocator CreatedTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
+        public static async Task<StreamingLocator> CreatedTemporaryOnDemandLocatorAsync(Asset asset, AMSClientV3 _amsClientV3)
         {
             StreamingLocator tempLocator = null;
-            _amsClientV3.RefreshTokenIfNeededAsync();
-
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             try
             {
-                var locatorTask = Task.Factory.StartNew(() =>
-                {
-                    try
-                    {
+                var streamingLocatorName = "templocator-" + Guid.NewGuid().ToString().Substring(0, 13);
 
-                        var streamingLocatorName = "templocator-" + Guid.NewGuid().ToString().Substring(0, 13);
+                tempLocator = new StreamingLocator(
+                    assetName: asset.Name,
+                    streamingPolicyName: PredefinedStreamingPolicy.ClearStreamingOnly,
+                    streamingLocatorId: null,
+                    endTime: DateTime.UtcNow.AddHours(1)
+                    );
 
-                        tempLocator = new StreamingLocator(
-                            assetName: asset.Name,
-                            streamingPolicyName: PredefinedStreamingPolicy.ClearStreamingOnly,
-                            streamingLocatorId: null,
-                            endTime: DateTime.UtcNow.AddHours(1)
-                            );
-
-
-                        _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, tempLocator);
-
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                });
-                locatorTask.Wait();
+                await _amsClientV3.AMSclient.StreamingLocators.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, tempLocator);
             }
             catch (Exception ex)
             {
@@ -1859,17 +1844,17 @@ namespace AMSExplorer
             }
         }
 
-        public static Uri GetValidOnDemandURI(Asset asset, AMSClientV3 _amsClientV3)
+        public static async Task<Uri> GetValidOnDemandURIAsync(Asset asset, AMSClientV3 _amsClientV3)
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
-            var locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
-            var ses = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+            var locators = (await _amsClientV3.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
+            var ses = await _amsClientV3.AMSclient.StreamingEndpoints.ListAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             var runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
             if (runningSes == null) runningSes = ses.FirstOrDefault();
             if (locators.Count > 0 && runningSes != null)
             {
-                var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locators.First().Name).StreamingPaths;
+                var streamingPaths = (await _amsClientV3.AMSclient.StreamingLocators.ListPathsAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locators.First().Name)).StreamingPaths;
                 var uribuilder = new UriBuilder();
                 uribuilder.Host = runningSes.HostName;
                 uribuilder.Path = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming).FirstOrDefault().Paths.FirstOrDefault();
@@ -2315,7 +2300,7 @@ namespace AMSExplorer
         }
 
 
-        static public ManifestTimingData GetManifestTimingData(Asset asset, AMSClientV3 _amsClientV3)
+        static public async Task<ManifestTimingData> GetManifestTimingDataAsync(Asset asset, AMSClientV3 _amsClientV3)
         // Parse the manifest and get data from it
         {
             ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
@@ -2323,12 +2308,12 @@ namespace AMSExplorer
             try
             {
                 StreamingLocator mytemplocator = null;
-                Uri myuri = GetValidOnDemandURI(asset, _amsClientV3);
+                Uri myuri = await GetValidOnDemandURIAsync(asset, _amsClientV3);
 
                 if (myuri == null)
                 {
-                    mytemplocator = CreatedTemporaryOnDemandLocator(asset, _amsClientV3);
-                    myuri = GetValidOnDemandURI(asset, _amsClientV3);
+                    mytemplocator = await CreatedTemporaryOnDemandLocatorAsync(asset, _amsClientV3);
+                    myuri = await GetValidOnDemandURIAsync(asset, _amsClientV3);
                 }
                 if (myuri != null)
                 {
@@ -2409,8 +2394,8 @@ namespace AMSExplorer
                 }
                 if (mytemplocator != null)
                 {
-                    _amsClientV3.RefreshTokenIfNeededAsync();
-                    _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
+                    await _amsClientV3.RefreshTokenIfNeededAsync();
+                    await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
                 }
             }
             catch (Exception ex)
@@ -3229,7 +3214,7 @@ namespace AMSExplorer
 
                     }
                 }
-                sb.Append(GetDescriptionLocators(MyAsset, _amsClient, SelectedSE));
+                sb.Append(GetDescriptionLocatorsAsync(MyAsset, _amsClient, SelectedSE));
             }
             sb.AppendLine("");
             sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -3239,12 +3224,12 @@ namespace AMSExplorer
         }
 
 
-        public static StringBuilder GetDescriptionLocators(Asset MyAsset, AMSClientV3 amsClient, StreamingEndpoint SelectedSE = null)
+        public static async Task<StringBuilder> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
-            amsClient.RefreshTokenIfNeededAsync();
+            await amsClient.RefreshTokenIfNeededAsync();
 
-            var locators = amsClient.AMSclient.Assets.ListStreamingLocators(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name).StreamingLocators;
+            var locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name)).StreamingLocators;
 
             if (locators.Count == 0)
             {
@@ -3253,7 +3238,7 @@ namespace AMSExplorer
 
             foreach (var locatorbase in locators)
             {
-                var locator = amsClient.AMSclient.StreamingLocators.Get(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
+                var locator = await amsClient.AMSclient.StreamingLocators.GetAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
                 sb.AppendLine("Locator Name                    : " + locator.Name);
                 sb.AppendLine("Locator Id                      : " + locator.StreamingLocatorId);
@@ -3262,8 +3247,8 @@ namespace AMSExplorer
                 sb.AppendLine("Streaming Policy Name           : " + locator.StreamingPolicyName);
                 sb.AppendLine("Default Content Key Policy Name : " + locator.DefaultContentKeyPolicyName);
 
-                var streamingPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
-                var downloadPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).DownloadPaths;
+                var streamingPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).StreamingPaths;
+                var downloadPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).DownloadPaths;
 
                 foreach (var path in streamingPaths)
                 {
@@ -3581,7 +3566,7 @@ namespace AMSExplorer
 
         internal static async Task<StreamingEndpoint> GetBestStreamingEndpointAsync(AMSClientV3 client)
         {
-            client.RefreshTokenIfNeededAsync();
+            await client.RefreshTokenIfNeededAsync();
             var SEList = (await client.AMSclient.StreamingEndpoints.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)).AsEnumerable();
             StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
             if (SESelected == null) SESelected = await client.AMSclient.StreamingEndpoints.GetAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");

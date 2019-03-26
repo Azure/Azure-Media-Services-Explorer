@@ -47,7 +47,7 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _amsClientV3 = amsClient;
 
-            ControlsResetToDefault();
+            ControlsResetToDefaultAsync();
 
             if (multifilesMode)
             {
@@ -55,10 +55,10 @@ namespace AMSExplorer
             }
         }
 
-        private void ControlsResetToDefault()
+        private async System.Threading.Tasks.Task ControlsResetToDefaultAsync()
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
-            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+            await _amsClientV3.RefreshTokenIfNeededAsync();
+            var storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
 
             comboBoxStorage.Items.Clear();
             foreach (var storage in storAccounts)

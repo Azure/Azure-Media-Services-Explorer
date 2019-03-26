@@ -799,7 +799,7 @@ namespace AMSExplorer
                     await DoRefreshGridAssetVAsync(false);
                     break;
                 case "tabPageFilters":
-                    DoRefreshGridFiltersV(false);
+                    await DoRefreshGridFiltersVAsync(false);
                     break;
                 case "tabPageTransfers":
                     break;
@@ -808,14 +808,14 @@ namespace AMSExplorer
                     DoRefreshGridJobV(false);
                     break;
                 case "tabPageLive":
-                    DoRefreshGridLiveEventV(false);
-                    DoRefreshGridLiveOutputV(false);
+                    await DoRefreshGridLiveEventVAsync(false);
+                    await DoRefreshGridLiveOutputVAsync(false);
                     break;
                 case "tabPageOrigins":
-                    DoRefreshGridStreamingEndpointV(false);
+                    await DoRefreshGridStreamingEndpointVAsync(false);
                     break;
                 case "tabPageStorage":
-                    DoRefreshGridStorageV(false);
+                    await DoRefreshGridStorageVAsync(false);
                     break;
             }
         }
@@ -825,10 +825,10 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
             DoRefreshGridTransformV(false);
             await DoRefreshGridAssetVAsync(false);
-            DoRefreshGridLiveEventV(false);
-            DoRefreshGridStreamingEndpointV(false);
-            DoRefreshGridStorageV(false);
-            DoRefreshGridFiltersV(false);
+            await DoRefreshGridLiveEventVAsync(false);
+            await DoRefreshGridStreamingEndpointVAsync(false);
+            await DoRefreshGridStorageVAsync(false);
+            await DoRefreshGridFiltersVAsync(false);
         }
 
         public async Task DoRefreshGridAssetVAsync(bool firstime)
@@ -1190,9 +1190,9 @@ namespace AMSExplorer
             DoGridTransferUpdateProgress(progress, guidTransfer);
         }
 
-        private void DoMenuUploadFileToAsset_Step1()
+        private async Task DoMenuUploadFileToAsset_Step1Async()
         {
-            var assets = ReturnSelectedAssetsV3();
+            var assets = await ReturnSelectedAssetsV3Async();
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
@@ -1532,12 +1532,12 @@ namespace AMSExplorer
         }
 
 
-        private void fromMultipleFilesToolStripMenuItem_Click(object sender, EventArgs e) // upload from multiple files
+        private async void fromMultipleFilesToolStripMenuItem_ClickAsync(object sender, EventArgs e) // upload from multiple files
         {
-            DoMenuUploadFromFolder_Step1();
+            await DoMenuUploadFromFolder_Step1Async();
         }
 
-        private void DoMenuUploadFromFolder_Step1()
+        private async Task DoMenuUploadFromFolder_Step1Async()
         {
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true };
 
@@ -1545,7 +1545,7 @@ namespace AMSExplorer
 
             if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                DoMenuUploadFromFolder_Step2Async(openFolderDialog.FileName);
+                await DoMenuUploadFromFolder_Step2Async(openFolderDialog.FileName);
             }
         }
 
@@ -1909,15 +1909,11 @@ namespace AMSExplorer
             return dialogResult;
         }
 
-        private void renameToolStripMenuItem_Click(object sender, EventArgs e)  // RENAME ASSET
-        {
-            DoMenuChangeAssetDescription();
-        }
 
 
-        private void DoMenuChangeAssetDescription()
+        private async Task DoMenuChangeAssetDescriptionAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
 
             if (SelectedAssets.Count > 0)
             {
@@ -1932,7 +1928,7 @@ namespace AMSExplorer
                         try
                         {
                             AssetTORename.Description = value;
-                            _amsClientV3.AMSclient.Assets.Update(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, AssetTORename.Name, AssetTORename);
+                            await _amsClientV3.AMSclient.Assets.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, AssetTORename.Name, AssetTORename);
                         }
                         catch
                         {
@@ -1947,9 +1943,9 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuEditAssetAltId()
+        private async Task DoMenuEditAssetAltIdAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
 
             if (SelectedAssets.Count > 0)
             {
@@ -1964,7 +1960,7 @@ namespace AMSExplorer
                         try
                         {
                             AssetToEditAltId.AlternateId = value;
-                            _amsClientV3.AMSclient.Assets.Update(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
+                            await _amsClientV3.AMSclient.Assets.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
                         }
                         catch
                         {
@@ -1980,9 +1976,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoMenuDownloadToLocal()
+        private async Task DoMenuDownloadToLocalAsync()
         {
-            var SelectedAssets = ReturnSelectedAssetsV3();
+            var SelectedAssets = await ReturnSelectedAssetsV3Async();
             if (SelectedAssets.Count == 0) return;
             var mediaAsset = SelectedAssets.FirstOrDefault();
             if (mediaAsset == null) return;
@@ -2077,11 +2073,10 @@ namespace AMSExplorer
                         string label = string.Format("Download of asset '{0}'", asset.Name);
                         var response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
                         // if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
-                        var myTask = Task.Factory.StartNew(() =>
+
 
                         //ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.Id, form.FolderOption, form.OpenFolderAfterDownload, response.token)
-                        DownloadOutputAssetAsync(_amsClientV3, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload)
-                    , response.token);
+                        await DownloadOutputAssetAsync(_amsClientV3, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload);
 
 
                         if (i == 10) // let's use a batch of 10 threads at the same time
@@ -2286,13 +2281,13 @@ namespace AMSExplorer
         {
             if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)) // we are in the asset tab
             {
-                return ReturnSelectedAssetsV3();
+                return await ReturnSelectedAssetsV3Async();
             }
             else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
             {
                 await _amsClientV3.RefreshTokenIfNeededAsync();
 
-                return ReturnSelectedLiveOutputs()
+                return (await ReturnSelectedLiveOutputsAsync())
                         .Select(p => _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, p.AssetName))
                         .ToList();
             }
@@ -2312,16 +2307,16 @@ namespace AMSExplorer
             return new List<IAsset>();
         }
 
-        private List<Asset> ReturnSelectedAssetsV3()
+        private async Task<List<Asset>> ReturnSelectedAssetsV3Async()
         {
             List<Asset> SelectedAssets = new List<Asset>();
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             try
             {
                 foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
                 {
-                    var asset = _amsClientV3.AMSclient.Assets.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+                    var asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                     if (asset != null)
                     {
                         SelectedAssets.Add(asset);
@@ -2362,12 +2357,12 @@ namespace AMSExplorer
             return SelectedJobs;
         }
 
-        private List<Transform> ReturnSelectedTransforms()
+        private async Task<List<Transform>> ReturnSelectedTransformsAsync()
         {
             var SelectedTransforms = new List<Transform>();
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
-            var Transforms = _amsClientV3.AMSclient.Transforms.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+            var Transforms = await _amsClientV3.AMSclient.Transforms.ListAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
 
             foreach (DataGridViewRow Row in dataGridViewTransformsV.SelectedRows)
             {
@@ -2382,28 +2377,28 @@ namespace AMSExplorer
         }
 
 
-        private StorageAccount ReturnSelectedStorage()
+        private async Task<StorageAccount> ReturnSelectedStorageAsync()
         {
             StorageAccount SelectedStorage = null;
             if (dataGridViewStorage.SelectedRows.Count == 1)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 var row = dataGridViewStorage.SelectedRows[0];
                 var index = dataGridViewStorage.Columns["Id"].Index;
                 var storagename = AMSClientV3.GetStorageName(row.Cells[index].Value.ToString());
-                SelectedStorage = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts.Where(s => AMSClientV3.GetStorageName(s.Id) == storagename).FirstOrDefault();
+                SelectedStorage = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts.Where(s => AMSClientV3.GetStorageName(s.Id) == storagename).FirstOrDefault();
             }
 
             return SelectedStorage;
         }
 
-        private List<AccountFilter> ReturnSelectedAccountFilters()
+        private async Task<List<AccountFilter>> ReturnSelectedAccountFiltersAsync()
         {
             List<AccountFilter> SelectedFilters = new List<AccountFilter>();
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
-            var aFilters = _amsClientV3.AMSclient.AccountFilters.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+            var aFilters = await _amsClientV3.AMSclient.AccountFilters.ListAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filtername = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
@@ -2419,56 +2414,50 @@ namespace AMSExplorer
 
 
 
-        private void selectedAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void selectedAssetToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoMenuDeleteSelectedAssets();
+            await DoMenuDeleteSelectedAssetsAsync();
 
         }
 
-        private void DoMenuDeleteSelectedAssets()
+        private async Task DoMenuDeleteSelectedAssetsAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
-            DoDeleteAssets(SelectedAssets);
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
+            await DoDeleteAssetsAsync(SelectedAssets);
         }
 
-        private void DoDeleteAssets(List<Asset> SelectedAssets)
+        private async Task DoDeleteAssetsAsync(List<Asset> SelectedAssets)
         {
             if (SelectedAssets.Count > 0)
             {
                 var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
 
                 if (form.ShowDialog() == DialogResult.OK)
-                    _amsClientV3.RefreshTokenIfNeededAsync();
+                    await _amsClientV3.RefreshTokenIfNeededAsync();
 
+
+                bool Error = false;
+                try
                 {
-                    Task.Run(async () =>
-                    {
-                        bool Error = false;
-                        try
-                        {
-                            TextBoxLogWriteLine("Deleting asset(s)...");
-                            Task[] deleteTasks = SelectedAssets.Select(a => _amsClientV3.AMSclient.Assets.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, a.Name)).ToArray();
+                    TextBoxLogWriteLine("Deleting asset(s)...");
+                    Task[] deleteTasks = SelectedAssets.Select(a => _amsClientV3.AMSclient.Assets.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, a.Name)).ToArray();
 
-                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                            Task.WaitAll(deleteTasks);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
-                            TextBoxLogWriteLine(ex);
-                            Error = true;
-                        }
-                        if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
-                        DoRefreshGridAssetVAsync(false);
-                    }
-          );
-
+                    //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                    Task.WaitAll(deleteTasks);
                 }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                    TextBoxLogWriteLine(ex);
+                    Error = true;
+                }
+                if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                await DoRefreshGridAssetVAsync(false);
             }
         }
 
-        private void DoDeleteAssets(List<IAsset> SelectedAssets)
+        private async Task DoDeleteAssetsAsync(List<IAsset> SelectedAssets)
         {
 
             if (SelectedAssets.Count > 0)
@@ -2477,30 +2466,26 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    _amsClientV3.RefreshTokenIfNeededAsync();
+                    await _amsClientV3.RefreshTokenIfNeededAsync();
 
-                    Task.Run(async () =>
+                    bool Error = false;
+                    try
                     {
-                        bool Error = false;
-                        try
-                        {
-                            TextBoxLogWriteLine("Deleting asset(s)...");
-                            Task[] deleteTasks = SelectedAssets.Select(a => _amsClientV3.AMSclient.Assets.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, a.Name)).ToArray();
+                        TextBoxLogWriteLine("Deleting asset(s)...");
+                        Task[] deleteTasks = SelectedAssets.Select(a => _amsClientV3.AMSclient.Assets.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, a.Name)).ToArray();
 
-                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                            Task.WaitAll(deleteTasks);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
-                            TextBoxLogWriteLine(ex);
-                            Error = true;
-                        }
-                        if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
-                        DoRefreshGridAssetVAsync(false);
+                        //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                        Task.WaitAll(deleteTasks);
                     }
-          );
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                    await DoRefreshGridAssetVAsync(false);
 
                 }
             }
@@ -2574,7 +2559,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Deletion completed.");
                     }
 
-                    DoRefreshGridAssetVAsync(false);
+                    await DoRefreshGridAssetVAsync(false);
                 }
            );
 
@@ -2593,7 +2578,7 @@ namespace AMSExplorer
 
 
 
-        private void DoMenuImportFromAzureStorage()
+        private async Task DoMenuImportFromAzureStorageAsync()
         {
             string valuekey = "";
             string targetAssetID = "";
@@ -2645,7 +2630,7 @@ namespace AMSExplorer
                     // Start a worker thread that does uploading.
                     var myTask = Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, form.CreateOneAssetPerFile, targetAssetID, response), response.token);
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
-                    DoRefreshGridAssetVAsync(false);
+                    await DoRefreshGridAssetVAsync(false);
                 }
             }
         }
@@ -2929,7 +2914,7 @@ namespace AMSExplorer
                 }
             }
 
-            DoRefreshGridAssetVAsync(false);
+            await DoRefreshGridAssetVAsync(false);
         }
 
 
@@ -3066,7 +3051,7 @@ namespace AMSExplorer
                     {
                         DoGridTransferDeclareCompleted(response.Id, TargetContainer.Uri.AbsoluteUri);
                     }
-                    DoRefreshGridAssetVAsync(false);
+                    await DoRefreshGridAssetVAsync(false);
                 }
             }
             else // Another storage is used
@@ -3202,7 +3187,7 @@ namespace AMSExplorer
                     {
                         DoGridTransferDeclareCompleted(response.Id, TargetContainer.Uri.AbsoluteUri);
                     }
-                    DoRefreshGridAssetVAsync(false);
+                    await DoRefreshGridAssetVAsync(false);
                 }
             }
         }
@@ -3643,7 +3628,7 @@ namespace AMSExplorer
                 DoGridTransferDeclareCancelled(response.Id);
             }
 
-            DoRefreshGridAssetVAsync(false);
+            await DoRefreshGridAssetVAsync(false);
         }
 
 
@@ -3915,7 +3900,7 @@ namespace AMSExplorer
 
 
 
-        private async Task ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, LiveOutput sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters, bool copyAltId)
+        private async Task ProcessCloneProgramToAnotherAMSAccountAsync(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, LiveOutput sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators, bool CloneAssetFilters, bool copyAltId)
         {
             return;
             /*
@@ -4086,62 +4071,59 @@ namespace AMSExplorer
 
         }
 
-        private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void allJobsToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoDeleteAllJobs();
+            await DoDeleteAllJobsAsync();
         }
 
-        private void selectedJobToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void selectedJobToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoDeleteSelectedJobs();
+            await DoDeleteSelectedJobsAsync();
         }
 
-        private void DoDeleteSelectedJobs()
+        private async Task DoDeleteSelectedJobsAsync()
         {
-            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
+            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
-        private void DoDeleteJobs(List<JobExtension> SelectedJobs)
+        private async Task DoDeleteJobsAsync(List<JobExtension> SelectedJobs)
         {
             if (SelectedJobs.Count > 0)
             {
                 string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Job.Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    _amsClientV3.RefreshTokenIfNeededAsync();
+                    await _amsClientV3.RefreshTokenIfNeededAsync();
 
-                    Task.Run(async () =>
+                    bool Error = false;
+                    try
                     {
-                        bool Error = false;
                         Task[] deleteTasks = SelectedJobs.ToList().Select(j => _amsClientV3.AMSclient.Jobs.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, j.TransformName, j.Job.Name)).ToArray();
                         TextBoxLogWriteLine("Deleting job(s)");
-                        try
-                        {
-                            Task.WaitAll(deleteTasks);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
-                            TextBoxLogWriteLine(ex);
-                            Error = true;
-                        }
-                        if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
-                        DoRefreshGridJobV(false);
+                        Task.WaitAll(deleteTasks);
                     }
-           );
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                    DoRefreshGridJobV(false);
+
                 }
             }
         }
 
 
-        private void DoDeleteAllJobs()
+        private async Task DoDeleteAllJobsAsync()
         {
             if (dataGridViewTransformsV.ReturnSelectedTransforms().Count > 1) return;
 
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs from the selected transform?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 Task.Run(async () =>
                 {
@@ -4182,59 +4164,54 @@ namespace AMSExplorer
 
 
 
-        private void DoCancelAllJobs()
+        private async Task DoCancelAllJobsAsync()
         {
             if (dataGridViewTransformsV.ReturnSelectedTransforms().Count > 1) return;
 
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs from the selected transform ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
-                Task.Run(async () =>
+
+                bool Error = false;
+
+                // let's build the tasks list
+                TextBoxLogWriteLine("Listing the jobs...");
+                List<Task> deleteTasks = new List<Task>();
+
+                var transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
+                var listjobs = _amsClientV3.AMSclient.Jobs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name);
+                deleteTasks.AddRange(listjobs.ToList()
+                    .Where(j => j.State == Microsoft.Azure.Management.Media.Models.JobState.Processing || j.State == Microsoft.Azure.Management.Media.Models.JobState.Queued || j.State == Microsoft.Azure.Management.Media.Models.JobState.Scheduled)
+                    .Select(j => _amsClientV3.AMSclient.Jobs.CancelJobAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name, j.Name)));
+
+                TextBoxLogWriteLine(string.Format("Canceling {0} job(s)", deleteTasks.Count));
+                try
                 {
-                    bool Error = false;
-
-                    // let's build the tasks list
-                    TextBoxLogWriteLine("Listing the jobs...");
-                    List<Task> deleteTasks = new List<Task>();
-
-                    //  foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
-                    {
-                        var transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
-                        var listjobs = _amsClientV3.AMSclient.Jobs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name);
-                        deleteTasks.AddRange(listjobs.ToList()
-                            .Where(j => j.State == Microsoft.Azure.Management.Media.Models.JobState.Processing || j.State == Microsoft.Azure.Management.Media.Models.JobState.Queued || j.State == Microsoft.Azure.Management.Media.Models.JobState.Scheduled)
-                            .Select(j => _amsClientV3.AMSclient.Jobs.CancelJobAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name, j.Name)));
-                    }
-
-                    TextBoxLogWriteLine(string.Format("Canceling {0} job(s)", deleteTasks.Count));
-                    try
-                    {
-                        Task.WaitAll(deleteTasks.ToArray());
-                    }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when canceling the job(s)", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
-
-                    if (!Error) TextBoxLogWriteLine("Job(s) canceled.");
-                    DoRefreshGridJobV(false);
+                    Task.WaitAll(deleteTasks.ToArray());
                 }
-        );
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when canceling the job(s)", true);
+                    TextBoxLogWriteLine(ex);
+                    Error = true;
+                }
+
+                if (!Error) TextBoxLogWriteLine("Job(s) canceled.");
+                DoRefreshGridJobV(false);
+
             }
         }
 
-        private void DoDeleteTransforms(List<Transform> SelectedTransforms)
+        private async Task DoDeleteTransformsAsync(List<Transform> SelectedTransforms)
         {
             if (SelectedTransforms.Count > 0)
             {
                 string question = (SelectedTransforms.Count == 1) ? "Delete " + SelectedTransforms[0].Name + " ?" : "Delete these " + SelectedTransforms.Count + " transforms ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Transform deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    _amsClientV3.RefreshTokenIfNeededAsync();
+                    await _amsClientV3.RefreshTokenIfNeededAsync();
 
                     Task.Run(async () =>
                     {
@@ -4793,7 +4770,7 @@ namespace AMSExplorer
 
 
 
-        private void Mainform_Load(object sender, EventArgs e)
+        private async void Mainform_LoadAsync(object sender, EventArgs e)
         {
             Hide();
 
@@ -4909,12 +4886,12 @@ namespace AMSExplorer
             DoRefreshGridTransformV(true);
             DoRefreshGridJobV(true);
             DoGridTransferInit();
-            DoRefreshGridAssetVAsync(true);
-            DoRefreshGridLiveEventV(true);
-            DoRefreshGridLiveOutputV(true);
-            DoRefreshGridStreamingEndpointV(true);
-            DoRefreshGridStorageV(true);
-            DoRefreshGridFiltersV(true);
+            await DoRefreshGridAssetVAsync(true);
+            await DoRefreshGridLiveEventVAsync(true);
+            await DoRefreshGridLiveOutputVAsync(true);
+            await DoRefreshGridStreamingEndpointVAsync(true);
+            await DoRefreshGridStorageVAsync(true);
+            await DoRefreshGridFiltersVAsync(true);
 
             DisplaySplashDuringLoading = false;
 
@@ -4931,7 +4908,7 @@ namespace AMSExplorer
             btna.Cursor = Cursors.Default;
             btna.Text = "X";
             btna.BackColor = SystemColors.Window;
-            btna.Click += Btna_Click;
+            btna.Click += Btna_ClickAsync;
             textBoxAssetSearch.Controls.Add(btna);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             SendMessage(textBoxAssetSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btna.Width << 16));
@@ -4976,10 +4953,10 @@ namespace AMSExplorer
             SendMessage(textBoxSearchNameProgram.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnp.Width << 16));
         }
 
-        private void Btna_Click(object sender, EventArgs e)
+        private async void Btna_ClickAsync(object sender, EventArgs e)
         {
             textBoxAssetSearch.Text = string.Empty;
-            DoAssetSearch();
+            await DoAssetSearchAsync();
         }
         private void Btnj_Click(object sender, EventArgs e)
         {
@@ -4994,7 +4971,7 @@ namespace AMSExplorer
         private void Btnp_Click(object sender, EventArgs e)
         {
             textBoxSearchNameProgram.Text = string.Empty;
-            DoProgramSearch();
+            DoProgramSearchAsync();
         }
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
@@ -5044,20 +5021,20 @@ namespace AMSExplorer
             textBoxJobsPageNumber.Text = number.ToString();
         }
 
-        private void butNextPageAsset_Click(object sender, EventArgs e)
+        private async void butNextPageAsset_ClickAsync(object sender, EventArgs e)
         {
-            dataGridViewAssetsV.RefreshAssetsAsync(GetTextBoxAssetsPageNumber() + 1);
+            await dataGridViewAssetsV.RefreshAssetsAsync(GetTextBoxAssetsPageNumber() + 1);
             if (!dataGridViewAssetsV.CurrentPageIsMax)
             {
                 SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() + 1);
             }
         }
 
-        private void butPrevPageAsset_Click(object sender, EventArgs e)
+        private async void butPrevPageAsset_ClickAsync(object sender, EventArgs e)
         {
             if (GetTextBoxAssetsPageNumber() > 1)
             {
-                dataGridViewAssetsV.RefreshAssetsAsync(GetTextBoxAssetsPageNumber() - 1);
+                await dataGridViewAssetsV.RefreshAssetsAsync(GetTextBoxAssetsPageNumber() - 1);
 
                 SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() - 1);
             }
@@ -5104,19 +5081,19 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
                 Asset asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                 await DisplayInfoAsync(asset);
             }
         }
 
-        private void comboBoxOrderAssets_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxOrderAssets_SelectedIndexChangedAsync(object sender, EventArgs e)
         {
             dataGridViewAssetsV.OrderAssetsInGrid = ((ComboBox)sender).SelectedItem.ToString();
 
             if (dataGridViewAssetsV.Initialized)
             {
-                DoRefreshGridAssetVAsync(false);
+                await DoRefreshGridAssetVAsync(false);
             }
         }
 
@@ -5295,14 +5272,14 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemDisplayInfo_ClickAsync(object sender, EventArgs e)
         {
-            DisplayInfoAsync(ReturnSelectedAssetsV3().FirstOrDefault());
+            await DisplayInfoAsync((await ReturnSelectedAssetsV3Async()).FirstOrDefault());
         }
 
-        private void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripAssets_OpeningAsync(object sender, CancelEventArgs e)
         {
-            var assets = ReturnSelectedAssetsV3();
+            var assets = await ReturnSelectedAssetsV3Async();
             bool singleitem = (assets.Count == 1);
             var firstAsset = assets.FirstOrDefault();
 
@@ -5327,9 +5304,9 @@ namespace AMSExplorer
         }
 
 
-        private void toolStripMenuItemRename_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemRename_ClickAsync(object sender, EventArgs e)
         {
-            DoMenuChangeAssetDescription();
+            await DoMenuChangeAssetDescriptionAsync();
         }
 
 
@@ -5340,7 +5317,7 @@ namespace AMSExplorer
 
         private async void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
         {
-            DisplayInfoAsync((await ReturnSelectedJobsV3Async()).FirstOrDefault());
+            await DisplayInfoAsync((await ReturnSelectedJobsV3Async()).FirstOrDefault());
         }
 
         private async void contextMenuStripJobs_Opening(object sender, CancelEventArgs e)
@@ -5435,18 +5412,18 @@ namespace AMSExplorer
             DoJobSearch();
         }
 
-        private void buttonAssetSearch_Click(object sender, EventArgs e)
+        private async void buttonAssetSearch_ClickAsync(object sender, EventArgs e)
         {
-            DoAssetSearch();
+            await DoAssetSearchAsync();
         }
 
-        private void DoAssetSearch()
+        private async Task DoAssetSearchAsync()
         {
             if (dataGridViewAssetsV.Initialized)
             {
                 SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchAssetOption.SelectedItem as Item).Value);
                 dataGridViewAssetsV.SearchInName = new SearchObject { Text = textBoxAssetSearch.Text, SearchType = stype };
-                DoRefreshGridAssetVAsync(false);
+                await DoRefreshGridAssetVAsync(false);
             }
         }
 
@@ -5461,12 +5438,12 @@ namespace AMSExplorer
         }
 
 
-        private void toolStripMenuItemOpenDest_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemOpenDest_ClickAsync(object sender, EventArgs e)
         {
-            DoOpenTransferDestLocation();
+            await DoOpenTransferDestLocationAsync();
         }
 
-        private async Task DoOpenTransferDestLocation()
+        private async Task DoOpenTransferDestLocationAsync()
         {
             if (dataGridViewTransfer.SelectedRows.Count > 0)
             {
@@ -5485,7 +5462,7 @@ namespace AMSExplorer
                         case TransferType.UploadFromFile:
                         case TransferType.UploadFromFolder:
                         case TransferType.UploadWithExternalTool:
-                            _amsClientV3.RefreshTokenIfNeededAsync();
+                            await _amsClientV3.RefreshTokenIfNeededAsync();
                             Asset asset = await _amsClientV3.AMSclient.Assets.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, location);
                             if (asset != null) await DisplayInfoAsync(asset);
                             break;
@@ -5511,14 +5488,14 @@ namespace AMSExplorer
             }
         }
 
-        private void openDestinationToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void openDestinationToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoOpenTransferDestLocation();
+            await DoOpenTransferDestLocationAsync();
         }
 
-        private void dataGridViewTransfer_DoubleClick(object sender, EventArgs e)
+        private async void dataGridViewTransfer_DoubleClickAsync(object sender, EventArgs e)
         {
-            DoOpenTransferDestLocation();
+            await DoOpenTransferDestLocationAsync();
         }
 
         private void contextMenuStripTransfers_Opening(object sender, CancelEventArgs e)
@@ -5570,7 +5547,7 @@ namespace AMSExplorer
                             try
                             {
                                 JobToProcess.Job.Priority = form.JobPriority;
-                                _amsClientV3.RefreshTokenIfNeededAsync();
+                                await _amsClientV3.RefreshTokenIfNeededAsync();
                                 await _amsClientV3.AMSclient.Jobs.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job);
                             }
 
@@ -5585,12 +5562,12 @@ namespace AMSExplorer
             }
         }
 
-        private void changePriorityToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void changePriorityToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoChangeJobPriorityAsync();
+            await DoChangeJobPriorityAsync();
         }
 
-        private void comboBoxFilterTime_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxFilterTime_SelectedIndexChangedAsync(object sender, EventArgs e)
         {
             dataGridViewAssetsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
 
@@ -5614,7 +5591,7 @@ namespace AMSExplorer
 
             if (dataGridViewAssetsV.Initialized)
             {
-                DoRefreshGridAssetVAsync(false);
+                await DoRefreshGridAssetVAsync(false);
             }
         }
 
@@ -5646,58 +5623,55 @@ namespace AMSExplorer
             }
         }
 
-
-        private bool IsThereALocatorValid(Asset asset, ref AssetStreamingLocator locator, AMSClientV3 client)
+        // return null if no valid streaming locator
+        private async Task<AssetStreamingLocator> IsThereALocatorValidAsync(Asset asset, AMSClientV3 client)
         {
-
-            bool valid = false;
-            client.RefreshTokenIfNeededAsync();
-            var locators = client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, asset.Name).StreamingLocators;
+            AssetStreamingLocator validSE = null;
+            await client.RefreshTokenIfNeededAsync();
+            var locators = (await client.AMSclient.Assets.ListStreamingLocatorsAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
             if (asset != null && locators.Count > 0)
             {
                 var LocatorQuery = locators.Where(l => ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.EndTime > DateTime.UtcNow)).FirstOrDefault();
                 if (LocatorQuery != null)
                 {
                     //OK we can play the content
-                    locator = LocatorQuery;
-                    valid = true;
+                    validSE = LocatorQuery;
                 }
 
             }
-            return valid;
-
+            return validSE;
         }
 
 
-        private void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void withMPEGDASHIFReferencePlayerToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.DASHIFRefPlayer);
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.DASHIFRefPlayer);
         }
 
 
-        private void DoCreateAssetReportEmail()
+        private async Task DoCreateAssetReportEmailAsync()
         {
-            AssetInfo AR = new AssetInfo(ReturnSelectedAssetsV3(), _amsClientV3);
-            AR.CreateOutlookMailAsync();
+            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsV3Async(), _amsClientV3);
+            await AR.CreateOutlookMailAsync();
         }
 
         private async Task DoDisplayAssetReportAsync()
         {
-            AssetInfo AR = new AssetInfo(ReturnSelectedAssetsV3(), _amsClientV3);
+            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsV3Async(), _amsClientV3);
             StringBuilder SB = await AR.GetStatsAsync();
             var tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
         }
 
-        private void createOutlookReportEmailToolStripMenuItem2_Click(object sender, EventArgs e)
+        private async void createOutlookReportEmailToolStripMenuItem2_ClickAsync(object sender, EventArgs e)
         {
-            DoCreateAssetReportEmail();
+            await DoCreateAssetReportEmailAsync();
         }
 
 
-        private void openOutputAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void openOutputAssetToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoOpenJobAssetAsync(false);
+            await DoOpenJobAssetAsync(false);
         }
 
         private async Task DoOpenJobAssetAsync(bool inputasset) // if false, then display first outputasset
@@ -5748,35 +5722,13 @@ namespace AMSExplorer
         }
 
 
-        private void inputAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void inputAssetInformationToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoOpenJobAssetAsync(true);
+            await DoOpenJobAssetAsync(true);
         }
 
-        private void DoCreateTestsAssets()
-        {
-            Task.Run(async () =>
-            {
-                int i = 168744;
-                int c = 0;
-                while (i < 200001)
-                {
-                    // String.Format("{0:00000}", 15);          // "00015"
 
-                    _context.Assets.CreateAsync("Asset-" + string.Format("{0:000000}", i), AssetCreationOptions.None, CancellationToken.None);
-                    i++;
-                    c++;
-                    if (c == 100)
-                    {
-                        Debug.WriteLine(i);
-                        c = 0;
-                    }
-                }
-            }
-                        );
-        }
-
-        private void DoExportAssetToAzureStorage()
+        private async Task DoExportAssetToAzureStorageAsync()
         {
 
             string valuekey = "";
@@ -5806,9 +5758,9 @@ namespace AMSExplorer
                         {
                             var response = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, false);
                             // Start a worker thread that does copy.
-                            Task.Factory.StartNew(() => ProcessExportAssetToAzureStorage(UseDefaultStorage, containername, otherstoragename, otherstoragekey, SelectedFiles, CreateNewContainer, response), response.token);
+                            await ProcessExportAssetToAzureStorage(UseDefaultStorage, containername, otherstoragename, otherstoragekey, SelectedFiles, CreateNewContainer, response);
                             DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
-                            DoRefreshGridAssetVAsync(false);
+                            await DoRefreshGridAssetVAsync(false);
                         }
                     }
                     else if (SelectedAssets.FirstOrDefault().StorageAccountName != _context.DefaultStorageAccount.Name)
@@ -5823,9 +5775,9 @@ namespace AMSExplorer
             }
         }
 
-        private void fromAzureStorageToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void fromAzureStorageToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoMenuImportFromAzureStorage();
+            await DoMenuImportFromAzureStorageAsync();
         }
 
         private void fromASingleHTTPURLAmazonS3EtcToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5833,9 +5785,9 @@ namespace AMSExplorer
             DoMenuImportFromHttp();
         }
 
-        private void toAzureStorageToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void toAzureStorageToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoExportAssetToAzureStorage();
+            await DoExportAssetToAzureStorageAsync();
         }
 
 
@@ -5922,9 +5874,9 @@ namespace AMSExplorer
             }
         }
 
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void refreshToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoRefreshAsync();
+            await DoRefreshAsync();
         }
 
 
@@ -5962,9 +5914,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoRefreshGridLiveEventV(bool firstime)
+        private async Task DoRefreshGridLiveEventVAsync(bool firstime)
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             if (firstime)
             {
@@ -5972,18 +5924,18 @@ namespace AMSExplorer
             }
             dataGridViewLiveEventsV.Invoke(new Action(() => dataGridViewLiveEventsV.RefreshChannels(1)));
 
-            var count = _amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
+            var count = (await _amsClientV3.AMSclient.LiveEvents.ListAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).Count();
             tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, count)));
             labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, count)));
         }
 
-        private void DoRefreshGridLiveOutputV(bool firstime)
+        private async Task DoRefreshGridLiveOutputVAsync(bool firstime)
         {
 
             if (firstime)
             {
                 Debug.WriteLine("DoRefreshGridProgramVforsttime");
-                dataGridViewLiveOutputV.InitAsync(_amsClientV3);
+                await dataGridViewLiveOutputV.InitAsync(_amsClientV3);
             }
             else
             {
@@ -5996,9 +5948,9 @@ namespace AMSExplorer
 
         }
 
-        private void DoRefreshGridStreamingEndpointV(bool firstime)
+        private async Task DoRefreshGridStreamingEndpointVAsync(bool firstime)
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             if (firstime)
             {
@@ -6012,10 +5964,10 @@ namespace AMSExplorer
         }
 
 
-        private void DoRefreshGridStorageV(bool firstime)
+        private async Task DoRefreshGridStorageVAsync(bool firstime)
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
-            var amsaccount = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+            await _amsClientV3.RefreshTokenIfNeededAsync();
+            var amsaccount = await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             const long OneTBInByte = 1099511627776;
             const long TotalStorageInBytes = OneTBInByte * 500;
 
@@ -6097,9 +6049,9 @@ namespace AMSExplorer
         }
 
 
-        public void DoRefreshGridFiltersV(bool firstime)
+        public async Task DoRefreshGridFiltersVAsync(bool firstime)
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             if (firstime)
             {
@@ -6127,7 +6079,7 @@ namespace AMSExplorer
             }
             dataGridViewFilters.Rows.Clear();
 
-            var filters = _amsClientV3.AMSclient.AccountFilters.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+            var filters = await _amsClientV3.AMSclient.AccountFilters.ListAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
             foreach (var filter in filters)
             {
                 string s = null;
@@ -6216,10 +6168,10 @@ namespace AMSExplorer
             return SelectedLiveEvents;
         }
 
-        private List<StreamingEndpoint> ReturnSelectedStreamingEndpoints()
+        private async Task<List<StreamingEndpoint>> ReturnSelectedStreamingEndpointsAsync()
         {
             List<StreamingEndpoint> SelectedOrigins = new List<StreamingEndpoint>();
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
@@ -6249,14 +6201,14 @@ namespace AMSExplorer
             return SelectedPrograms;
         }
 
-        private List<LiveOutput> ReturnSelectedLiveOutputs()
+        private async Task<List<LiveOutput>> ReturnSelectedLiveOutputsAsync()
         {
             List<LiveOutput> SelectedLiveOutputs = new List<LiveOutput>();
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             foreach (DataGridViewRow Row in dataGridViewLiveOutputV.SelectedRows)
             {
-                var liveOutput = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
+                var liveOutput = await _amsClientV3.AMSclient.LiveOutputs.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
                 if (liveOutput != null)
                 {
                     SelectedLiveOutputs.Add(liveOutput);
@@ -6266,15 +6218,10 @@ namespace AMSExplorer
             return SelectedLiveOutputs;
         }
 
-        private async Task DoStartLiveEvents()
+        private async Task DoStartLiveEventsAsync()
         {
             // let's start the live events
-
-            Task.Run(async () =>
-            {
-                DoStartLiveEventsEngine(await ReturnSelectedLiveEventsAsync());
-            }
-                    );
+            await DoStartLiveEventsEngineAsync(await ReturnSelectedLiveEventsAsync());
         }
 
 
@@ -6308,16 +6255,17 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoStopOrDeleteLiveEvents(bool deleteLiveEvents)
+        private async Task DoStopOrDeleteLiveEventsAsync(bool deleteLiveEvents)
         {
             // delete also if delete = true
             var ListEvents = await ReturnSelectedLiveEventsAsync();
             List<LiveOutput> LOList = new List<LiveOutput>();
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             foreach (var le in ListEvents)
             {
-                LOList.AddRange(_amsClientV3.AMSclient.LiveOutputs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, le.Name).ToList());
+                var lo = await _amsClientV3.AMSclient.LiveOutputs.ListAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, le.Name);
+                LOList.AddRange(lo.ToList());
             }
 
             string channelstr = ListEvents.Count > 1 ? "live events" : "live event";
@@ -6334,7 +6282,7 @@ namespace AMSExplorer
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         await Task.Factory.StartNew(() =>
-                           DoDeleteLiveOutputsEngine(LOList, form.DeleteAsset)
+                           DoDeleteLiveOutputsEngineAsync(LOList, form.DeleteAsset)
                             );
                     }
                     else
@@ -6403,15 +6351,15 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoResetLiveEvents()
+        private async Task DoResetLiveEventsAsync()
         {
             var ListEvents = await ReturnSelectedLiveEventsAsync();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             foreach (var le in ListEvents)
             {
-                var plist = _amsClientV3.AMSclient.LiveOutputs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, le.Name).ToList();
+                var plist = (await _amsClientV3.AMSclient.LiveOutputs.ListAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, le.Name)).ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -6429,7 +6377,7 @@ namespace AMSExplorer
                          {
                              try
                              {
-                                 DoDeleteLiveOutputs(liveOutputRunningQuery.Select(o => o.LiveOutputItem).ToList());
+                                 DoDeleteLiveOutputsAsync(liveOutputRunningQuery.Select(o => o.LiveOutputItem).ToList());
 
                                  // let's reset the live events now that running output are stopped
                                  ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
@@ -6478,12 +6426,12 @@ namespace AMSExplorer
         }
 
 
-        private void createChannelToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createChannelToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoCreateLiveEvent();
+            await DoCreateLiveEventAsync();
         }
 
-        private async Task DoCreateLiveEvent()
+        private async Task DoCreateLiveEventAsync()
         {
             LiveEventCreation form = new LiveEventCreation()
             {
@@ -6492,7 +6440,7 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 TextBoxLogWriteLine("Channel '{0}' : creating...", form.LiveEventName);
 
@@ -6569,20 +6517,20 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(ex);
                     }
 
-                    DoRefreshGridLiveEventV(false);
+                    await DoRefreshGridLiveEventVAsync(false);
 
                 }
             }
         }
 
 
-        private async Task DoDisplayLiveEventInfo()
+        private async Task DoDisplayLiveEventInfoAsync()
         {
-            DoDisplayLiveEventInfo(await ReturnSelectedLiveEventsAsync());
+            await DoDisplayLiveEventInfoAsync(await ReturnSelectedLiveEventsAsync());
         }
 
 
-        private async Task DoDisplayLiveEventInfo(List<LiveEvent> channels)
+        private async Task DoDisplayLiveEventInfoAsync(List<LiveEvent> channels)
         {
             var firstchannel = channels.FirstOrDefault();
             bool multiselection = channels.Count > 1;
@@ -6729,15 +6677,11 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                        _amsClientV3.RefreshTokenIfNeededAsync();
+                        await _amsClientV3.RefreshTokenIfNeededAsync();
 
-                        Task.Run(async () =>
-                        {
-                            await _amsClientV3.AMSclient.LiveEvents.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name, channel);
-                            dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
-                            TextBoxLogWriteLine("Live event '{0}' : updated.", channel.Name);
-                        }
-             );
+                        await _amsClientV3.AMSclient.LiveEvents.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name, channel);
+                        dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
+                        TextBoxLogWriteLine("Live event '{0}' : updated.", channel.Name);
                     }
                 }
 
@@ -6752,14 +6696,10 @@ namespace AMSExplorer
                 List<LiveEvent> SelectedChannels = await ReturnSelectedLiveEventsAsync();
                 if (SelectedChannels.Count > 0)
                 {
-
                     dataGridViewLiveOutputV.LiveEventSourceNames = SelectedChannels.Select(c => c.Name).ToList();
 
-                    Task.Run(() =>
-                    {
-                        Debug.WriteLine("channel selection changed : before refresh");
-                        DoRefreshGridLiveOutputV(false);
-                    });
+                    Debug.WriteLine("channel selection changed : before refresh");
+                    await DoRefreshGridLiveOutputVAsync(false);
                 }
             }
         }
@@ -6773,7 +6713,7 @@ namespace AMSExplorer
 
             if (liveeventsrunning.Count() > 0)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 try
                 {
@@ -6819,7 +6759,7 @@ namespace AMSExplorer
 
             if (deleteLiveEvents)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 // delete the channels
                 try
@@ -6844,7 +6784,7 @@ namespace AMSExplorer
                             }
                             else if (loitemR != null)
                             {
-                                DoRefreshGridLiveEventV(false);
+                                await DoRefreshGridLiveEventVAsync(false);
                             }
                         }
                         System.Threading.Thread.Sleep(2000);
@@ -6859,18 +6799,18 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                 }
             }
-            DoRefreshGridLiveEventV(false);
+            await DoRefreshGridLiveEventVAsync(false);
         }
 
 
-        private async Task DoStartLiveEventsEngine(List<LiveEvent> ListEvents)
+        private async Task DoStartLiveEventsEngineAsync(List<LiveEvent> ListEvents)
         {
             // Start the channels which are stopped
             var liveevntsstopped = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Stopped).ToList();
             var names = String.Join(", ", liveevntsstopped.Select(le => le.Name).ToArray());
             if (liveevntsstopped.Count() > 0)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 try
                 {
@@ -6909,14 +6849,14 @@ namespace AMSExplorer
                 }
             }
 
-            DoRefreshGridLiveEventV(false);
+            await DoRefreshGridLiveEventVAsync(false);
         }
 
 
-        private async Task DoDeleteLiveOutputs(List<LiveOutput> ListOutputs = null)
+        private async Task DoDeleteLiveOutputsAsync(List<LiveOutput> ListOutputs = null)
         {
             // delete also if delete = true
-            if (ListOutputs == null) ListOutputs = ReturnSelectedLiveOutputs();
+            if (ListOutputs == null) ListOutputs = await ReturnSelectedLiveOutputsAsync();
 
             if (ListOutputs.Count > 0)
             {
@@ -6926,7 +6866,7 @@ namespace AMSExplorer
                 DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    DoDeleteLiveOutputsEngine(ListOutputs, form.DeleteAsset);
+                    await DoDeleteLiveOutputsEngineAsync(ListOutputs, form.DeleteAsset);
                     /*
                                         await Task.Run(() =>
                                         {
@@ -6938,12 +6878,12 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoDeleteLiveOutputsEngine(List<LiveOutput> ListOutputs, bool DeleteAsset)
+        private async Task DoDeleteLiveOutputsEngineAsync(List<LiveOutput> ListOutputs, bool DeleteAsset)
         {
             var assets = ListOutputs.Select(p => p.AssetName).ToArray();
 
             bool Error = false;
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             try
             {   // delete programs
@@ -6980,7 +6920,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine(ex);
                 //Error = true;
             }
-            DoRefreshGridLiveOutputV(false);
+            await DoRefreshGridLiveOutputVAsync(false);
 
 
             if (DeleteAsset && Error == false)
@@ -6998,7 +6938,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("There is a problem when deleting an asset", true);
                     TextBoxLogWriteLine(ex);
                 }
-                DoRefreshGridAssetVAsync(false);
+                await DoRefreshGridAssetVAsync(false);
             }
         }
 
@@ -7009,7 +6949,7 @@ namespace AMSExplorer
             var names = String.Join(", ", streamingendpointsstopped.Select(le => le.Name).ToArray());
             if (streamingendpointsstopped.Count() > 0)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 try
                 {
@@ -7049,15 +6989,15 @@ namespace AMSExplorer
                 }
             }
 
-            DoRefreshGridStreamingEndpointV(false);
+            await DoRefreshGridStreamingEndpointVAsync(false);
         }
 
 
 
 
-        private async Task DoUpdateAndScaleStreamingEndpointEngine(StreamingEndpoint se, int? units = null)
+        private async Task DoUpdateAndScaleStreamingEndpointEngineAsync(StreamingEndpoint se, int? units = null)
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             try
             {
@@ -7079,7 +7019,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("There is a problem when updating/scaling a streaming endpoint.", true);
                 TextBoxLogWriteLine(ex);
             }
-            DoRefreshGridStreamingEndpointV(false);
+            await DoRefreshGridStreamingEndpointVAsync(false);
         }
 
 
@@ -7092,7 +7032,7 @@ namespace AMSExplorer
 
             if (sesrunning.Count() > 0)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 try
                 {
@@ -7158,7 +7098,7 @@ namespace AMSExplorer
                             }
                             else if (loitemR != null)
                             {
-                                DoRefreshGridStreamingEndpointV(false);
+                                await DoRefreshGridStreamingEndpointVAsync(false);
                             }
                         }
                         System.Threading.Thread.Sleep(2000);
@@ -7174,11 +7114,11 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                 }
             }
-            DoRefreshGridStreamingEndpointV(false);
+            await DoRefreshGridStreamingEndpointVAsync(false);
         }
 
 
-        private async Task DoCreateLiveOutput()
+        private async Task DoCreateLiveOutputAsync()
         {
             var liveEvent = (await ReturnSelectedLiveEventsAsync()).FirstOrDefault();
             if (liveEvent != null)
@@ -7198,7 +7138,7 @@ namespace AMSExplorer
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    _amsClientV3.RefreshTokenIfNeededAsync();
+                    await _amsClientV3.RefreshTokenIfNeededAsync();
 
                     string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
                     var newAsset = new Asset() { StorageAccountName = form.StorageSelected };
@@ -7245,7 +7185,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("There is a problem when creating a live output", true);
                             TextBoxLogWriteLine(ex);
                         }
-                        DoRefreshGridLiveOutputV(false);
+                        await DoRefreshGridLiveOutputVAsync(false);
                     }
                     );
                 }
@@ -7333,9 +7273,9 @@ namespace AMSExplorer
         }
 
 
-        private void createProgramToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void createProgramToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoCreateLiveOutput();
+            await DoCreateLiveOutputAsync();
         }
 
 
@@ -7369,12 +7309,12 @@ namespace AMSExplorer
         }
 
 
-        private void DoDisplayLiveOutputInfo()
+        private async Task DoDisplayLiveOutputInfoAsync()
         {
-            DoDisplayLiveOutputInfo(ReturnSelectedLiveOutputs());
+            DoDisplayLiveOutputInfo(await ReturnSelectedLiveOutputsAsync());
         }
 
-        private async Task DoDisplayLiveOutputInfo(List<LiveOutput> liveoutputs)
+        private void DoDisplayLiveOutputInfo(List<LiveOutput> liveoutputs)
         {
             bool multiselection = liveoutputs.Count > 1;
             if (liveoutputs.FirstOrDefault() != null)
@@ -7510,9 +7450,9 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDisplayStreamingEndpointInfo()
+        private async Task DoDisplayStreamingEndpointInfoAsync()
         {
-            DoDisplayStreamingEndpointInfoAsync(ReturnSelectedStreamingEndpoints());
+            await DoDisplayStreamingEndpointInfoAsync(await ReturnSelectedStreamingEndpointsAsync());
         }
         private async Task DoDisplayStreamingEndpointInfoAsync(List<StreamingEndpoint> streamingendpoints)
         {
@@ -7659,66 +7599,50 @@ namespace AMSExplorer
                             newmode = "Premium";
                         }
 
-                        Task.Run(async () =>
-                        {
-                            DoUpdateAndScaleStreamingEndpointEngine(streamingendpoint, form.GetScaleUnits);
-                        });
-
+                        await DoUpdateAndScaleStreamingEndpointEngineAsync(streamingendpoint, form.GetScaleUnits);
 
                     }
                     else // no scaling
                     {
-                        Task.Run(async () =>
-                        {
-                            DoUpdateAndScaleStreamingEndpointEngine(streamingendpoint);
-                        });
+                        await DoUpdateAndScaleStreamingEndpointEngineAsync(streamingendpoint);
+
                     }
                 }
             }
         }
 
 
-        private void DoStartStreamingEndpoints()
+        private async Task DoStartStreamingEndpointsAsync()
         {
-            Task.Run(async () =>
-            {
-                DoStartStreamingEndpointEngine(ReturnSelectedStreamingEndpoints());
-            }
-                   );
+            await DoStartStreamingEndpointEngine(await ReturnSelectedStreamingEndpointsAsync());
         }
 
-        private void DoStopStreamingEndpoints()
+        private async Task DoStopStreamingEndpointsAsync()
         {
-            Task.Run(async () =>
-            {
-                DoStopOrDeleteStreamingEndpointsEngine(ReturnSelectedStreamingEndpoints(), false);
-            }
-                   );
+            await DoStopOrDeleteStreamingEndpointsEngine(await ReturnSelectedStreamingEndpointsAsync(), false);
+
         }
 
-        private void DoDeleteStreamingEndpoints()
+        private async Task DoDeleteStreamingEndpointsAsync()
         {
-            List<StreamingEndpoint> SelectedOrigins = ReturnSelectedStreamingEndpoints();
+            List<StreamingEndpoint> SelectedOrigins = await ReturnSelectedStreamingEndpointsAsync();
             if (SelectedOrigins.Count > 0)
             {
                 string question = (SelectedOrigins.Count == 1) ? "Delete streaming endpoint " + SelectedOrigins[0].Name + " ?" : "Delete these " + SelectedOrigins.Count + " streaming endpoints ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Streaming endpoint(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    Task.Run(async () =>
-                    {
-                        DoStopOrDeleteStreamingEndpointsEngine(ReturnSelectedStreamingEndpoints(), true);
-                    }
-                  );
+                    await DoStopOrDeleteStreamingEndpointsEngine(await ReturnSelectedStreamingEndpointsAsync(), true);
+
                 }
             }
         }
 
         private void createOriginToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateStreamingEndpoint();
+            DoCreateStreamingEndpointAsync();
         }
 
-        private async Task DoCreateStreamingEndpoint()
+        private async Task DoCreateStreamingEndpointAsync()
         {
             var form = new CreateStreamingEndpoint();
             var cdnform = new StreamingEndpointCDNEnable();
@@ -7762,21 +7686,21 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("There is a problem when creating a streaming endpoint", true);
                         TextBoxLogWriteLine(ex);
                     }
-                    DoRefreshGridStreamingEndpointV(false);
+                    DoRefreshGridStreamingEndpointVAsync(false);
                 }
               );
             }
         }
 
 
-        private void displayChannelInfomationToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void displayChannelInfomationToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoDisplayLiveEventInfo();
+            await DoDisplayLiveEventInfoAsync();
         }
 
-        private void displayProgramInformationToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void displayProgramInformationToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoDisplayLiveOutputInfo();
+            await DoDisplayLiveOutputInfoAsync();
         }
 
         private async void dataGridViewLiveV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -7786,18 +7710,18 @@ namespace AMSExplorer
                 var channel = await GetLiveEventAsync(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
                 if (channel != null)
                 {
-                    DoDisplayLiveEventInfo((new List<LiveEvent>() { channel }));
+                    DoDisplayLiveEventInfoAsync((new List<LiveEvent>() { channel }));
                 }
             }
         }
 
-        private void dataGridViewProgramV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridViewProgramV_CellDoubleClickAsync(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-                _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
-                var liveoutput = _amsClientV3.AMSclient.LiveOutputs.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
+                var liveoutput = await _amsClientV3.AMSclient.LiveOutputs.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
                 if (liveoutput != null)
                 {
                     DoDisplayLiveOutputInfo(new List<LiveOutput>() { liveoutput });
@@ -7805,50 +7729,50 @@ namespace AMSExplorer
             }
         }
 
-        private void startChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void startChannelsToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoStartLiveEvents();
+            await DoStartLiveEventsAsync();
         }
 
-        private void stopChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void stopChannelsToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoStopOrDeleteLiveEvents(false);
+            await DoStopOrDeleteLiveEventsAsync(false);
         }
 
-        private void resetChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void resetChannelsToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoResetLiveEvents();
+            await DoResetLiveEventsAsync();
         }
 
-        private void deleteChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void deleteChannelsToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoStopOrDeleteLiveEvents(true);
+            await DoStopOrDeleteLiveEventsAsync(true);
         }
 
 
-        private void deleteProgramsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteProgramsToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoDeleteLiveOutputs();
+            await DoDeleteLiveOutputsAsync();
         }
 
-        private void displayOriginInformationToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void displayOriginInformationToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoDisplayStreamingEndpointInfo();
+            await DoDisplayStreamingEndpointInfoAsync();
         }
 
-        private void startOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void startOriginsToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoStartStreamingEndpoints();
+            await DoStartStreamingEndpointsAsync();
         }
 
-        private void stopOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void stopOriginsToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoStopStreamingEndpoints();
+            await DoStopStreamingEndpointsAsync();
         }
 
-        private void deleteOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void deleteOriginsToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoDeleteStreamingEndpoints();
+            await DoDeleteStreamingEndpointsAsync();
         }
 
         private async void dataGridViewOriginsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -8006,15 +7930,15 @@ namespace AMSExplorer
 
         private void createProgramToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            DoCreateLiveOutput();
+            DoCreateLiveOutputAsync();
         }
 
         private void createChannelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCreateLiveEvent();
+            DoCreateLiveEventAsync();
         }
 
-        private void comboBoxTimeProgram_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxTimeProgram_SelectedIndexChangedAsync(object sender, EventArgs e)
         {
             dataGridViewLiveOutputV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
 
@@ -8038,37 +7962,37 @@ namespace AMSExplorer
 
             if (dataGridViewLiveOutputV.Initialized)
             {
-                DoRefreshGridLiveOutputV(false);
+                await DoRefreshGridLiveOutputVAsync(false);
             }
         }
 
         private void buttonSetFilterProgram_Click(object sender, EventArgs e)
         {
-            DoProgramSearch();
+            DoProgramSearchAsync();
         }
 
-        private void DoProgramSearch()
+        private async Task DoProgramSearchAsync()
         {
             if (dataGridViewLiveOutputV.Initialized)
             {
                 SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchProgramOption.SelectedItem as Item).Value);
                 dataGridViewLiveOutputV.SearchInName = new SearchObject { Text = textBoxSearchNameProgram.Text, SearchType = stype };
-                DoRefreshGridLiveOutputV(false);
+                await DoRefreshGridLiveOutputVAsync(false);
             }
         }
 
-        private void comboBoxStatusProgram_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxStatusProgram_SelectedIndexChangedAsync(object sender, EventArgs e)
         {
             if (dataGridViewLiveOutputV.Initialized)
             {
                 dataGridViewLiveOutputV.FilterState = ((ComboBox)sender).SelectedItem.ToString();
-                DoRefreshGridLiveOutputV(false);
+                await DoRefreshGridLiveOutputVAsync(false);
             }
         }
 
-        private void createStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createStreamingEndpointToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoCreateStreamingEndpoint();
+            await DoCreateStreamingEndpointAsync();
         }
 
 
@@ -9544,7 +9468,7 @@ namespace AMSExplorer
 
         private async void deleteAllLocatorsToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            var SelectedAssets = ReturnSelectedAssetsV3();
+            var SelectedAssets = await ReturnSelectedAssetsV3Async();
             await DoDeleteAllLocatorsOnAssetsAsync(SelectedAssets);
         }
 
@@ -9555,7 +9479,7 @@ namespace AMSExplorer
             if (asset != null)
             {
                 AssetInfo AI = new AssetInfo(asset);
-                var ValidURI = AssetInfo.GetValidOnDemandURI(asset, _amsClientV3);
+                var ValidURI = await AssetInfo.GetValidOnDemandURIAsync(asset, _amsClientV3);
                 if (ValidURI != null)
                 {
                     string url = ValidURI.AbsoluteUri;
@@ -9594,7 +9518,7 @@ namespace AMSExplorer
         {
             var SelectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
             await DoCreateLocatorAsync(SelectedAssets);
-            DoRefreshGridLiveOutputV(false);
+            await DoRefreshGridLiveOutputVAsync(false);
         }
 
         private async void createALocatorToolStripMenuItem2_ClickAsync(object sender, EventArgs e)
@@ -9604,14 +9528,14 @@ namespace AMSExplorer
 
         private async void deleteAllLocatorsToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-           await DoMenuDeleteAllLocatorsOnProgramsAsync();
+            await DoMenuDeleteAllLocatorsOnProgramsAsync();
         }
 
         private async Task DoMenuDeleteAllLocatorsOnProgramsAsync()
         {
             var SelectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
             await DoDeleteAllLocatorsOnAssetsAsync(SelectedAssets);
-            DoRefreshGridLiveOutputV(false);
+            await DoRefreshGridLiveOutputVAsync(false);
         }
 
         private async Task DoDeleteAllLocatorsOnAssetsAsync(List<Asset> SelectedAssets)
@@ -9661,7 +9585,7 @@ namespace AMSExplorer
             // ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             if (SelectedAssets.Count > 0)
             {
-               await DisplayInfoAsync(SelectedAssets.FirstOrDefault());
+                await DisplayInfoAsync(SelectedAssets.FirstOrDefault());
             }
         }
 
@@ -9671,9 +9595,9 @@ namespace AMSExplorer
         }
 
 
-        private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void refreshToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoRefreshGridAssetVAsync(false);
+            await DoRefreshGridAssetVAsync(false);
         }
 
         private void refreshToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -9681,19 +9605,19 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
         }
 
-        private void refreshToolStripMenuItem3_Click(object sender, EventArgs e)
+        private async void refreshToolStripMenuItem3_ClickAsync(object sender, EventArgs e)
         {
-            DoRefreshGridLiveEventV(false);
+            await DoRefreshGridLiveEventVAsync(false);
         }
 
-        private void refreshToolStripMenuItem4_Click(object sender, EventArgs e)
+        private async void refreshToolStripMenuItem4_ClickAsync(object sender, EventArgs e)
         {
-            DoRefreshGridLiveOutputV(false);
+            await DoRefreshGridLiveOutputVAsync(false);
         }
 
-        private void refreshToolStripMenuItem5_Click(object sender, EventArgs e)
+        private async void refreshToolStripMenuItem5_ClickAsync(object sender, EventArgs e)
         {
-            DoRefreshGridStreamingEndpointV(false);
+            await DoRefreshGridStreamingEndpointVAsync(false);
         }
 
         private void displayErrorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9730,7 +9654,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Processing Attach/Detach Storage account(s)...");
                     form.UpdateStorageAccounts();
                     TextBoxLogWriteLine("Storage account attached/detached.");
-                    DoRefreshGridStorageV(false);
+                    DoRefreshGridStorageVAsync(false);
                 }
                 catch (Exception ex)
                 {
@@ -9903,9 +9827,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoSelectTransformAndSubmitJob()
+        private async Task DoSelectTransformAndSubmitJobAsync()
         {
-            var SelectedAssets = ReturnSelectedAssetsV3();
+            var SelectedAssets = await ReturnSelectedAssetsV3Async();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
             ProcessFromTransform form = new ProcessFromTransform(_amsClientV3, SelectedAssets.Count)
@@ -9915,7 +9839,7 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, SelectedAssets);
+                CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets);
 
                 // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
             }
@@ -9958,7 +9882,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            DoRefreshGridStorageV(false);
+            DoRefreshGridStorageVAsync(false);
         }
 
         private void attachAnotherStorageAccountToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9987,12 +9911,14 @@ namespace AMSExplorer
             foreach (var myAsset in listassets)
             {
                 bool Error = false;
-                if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, _amsClientV3)) // No streaming locator valid
+                PlayBackLocator = await IsThereALocatorValidAsync(myAsset, _amsClientV3);
+
+                if (PlayBackLocator == null) // No streaming locator valid
                 {
 
                     if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one (clear streaming) ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                     {
-                        _amsClientV3.RefreshTokenIfNeededAsync();
+                        await _amsClientV3.RefreshTokenIfNeededAsync();
 
                         TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                         try
@@ -10006,9 +9932,9 @@ namespace AMSExplorer
                                                                             streamingLocatorId: null
                                                                             );
 
-                            locator = _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "loc" + uniqueness, locator);
+                            locator = await _amsClientV3.AMSclient.StreamingLocators.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "loc" + uniqueness, locator);
 
-                            PlayBackLocator = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, myAsset.Name).StreamingLocators.Where(l => l.Name == locator.Name).FirstOrDefault();
+                            PlayBackLocator = await IsThereALocatorValidAsync(myAsset, _amsClientV3);
 
                             dataGridViewAssetsV.PurgeCacheAsset(myAsset);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -10022,7 +9948,8 @@ namespace AMSExplorer
                     }
                 }
 
-                if (!Error && IsThereALocatorValid(myAsset, ref PlayBackLocator, _amsClientV3)) // There is a streaming locator valid
+
+                if (!Error && PlayBackLocator != null) // There is a streaming locator valid now
                 {
                     var MyUri = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, PlayBackLocator.Name)
                         .StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
@@ -10055,7 +9982,7 @@ namespace AMSExplorer
 
         private async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype)
         {
-          await  DoPlaySelectedAssetsOrProgramsWithPlayerAsync(playertype, await ReturnSelectedAssetsFromProgramsOrAssetsV3Async());
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(playertype, await ReturnSelectedAssetsFromProgramsOrAssetsV3Async());
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -10323,12 +10250,12 @@ namespace AMSExplorer
 
         private void enableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeAzureCDN(true);
+            ChangeAzureCDNAsync(true);
         }
 
-        private void ChangeAzureCDN(bool enable)
+        private async Task ChangeAzureCDNAsync(bool enable)
         {
-            StreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+            StreamingEndpoint streamingendpoint = (await ReturnSelectedStreamingEndpointsAsync()).FirstOrDefault();
 
             if (streamingendpoint.ResourceState != StreamingEndpointResourceState.Stopped)
             {
@@ -10340,11 +10267,9 @@ namespace AMSExplorer
             {
                 if (MessageBox.Show(string.Format("Are you sure you want to disable CDN on Streaming Endpoint '{0}' ?", streamingendpoint.Name), "Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    Task.Run(async () =>
-                    {
-                        streamingendpoint.CdnEnabled = false;
-                        DoUpdateAndScaleStreamingEndpointEngine(streamingendpoint);
-                    });
+
+                    streamingendpoint.CdnEnabled = false;
+                    await DoUpdateAndScaleStreamingEndpointEngineAsync(streamingendpoint);
                 }
             }
             else // enable
@@ -10352,28 +10277,25 @@ namespace AMSExplorer
                 var form = new StreamingEndpointCDNEnable();
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    Task.Run(async () =>
-                    {
-                        streamingendpoint.CdnEnabled = true;
-                        streamingendpoint.CdnProvider = form.ProviderSelectedString;
-                        streamingendpoint.CdnProfile = form.Profile;
-                        DoUpdateAndScaleStreamingEndpointEngine(streamingendpoint);
-                    });
 
+                    streamingendpoint.CdnEnabled = true;
+                    streamingendpoint.CdnProvider = form.ProviderSelectedString;
+                    streamingendpoint.CdnProfile = form.Profile;
+                    await DoUpdateAndScaleStreamingEndpointEngineAsync(streamingendpoint);
                 }
             }
         }
 
         private void disableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeAzureCDN(false);
+            ChangeAzureCDNAsync(false);
         }
 
 
         private void contextMenuStripStreaminEndpoints_Opening(object sender, CancelEventArgs e)
         {
             // enable Azure CDN operation if one se selected and in stopped state
-            ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem, enableAzureCDNToolStripMenuItem);
+            ManageMenuOptionsAzureCDNAsync(disableAzureCDNToolStripMenuItem, enableAzureCDNToolStripMenuItem);
 
             // telemetry
             loadToolStripMenuItem.Enabled = enableTelemetry;
@@ -10383,10 +10305,10 @@ namespace AMSExplorer
         {
         }
 
-        private void ManageMenuOptionsAzureCDN(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
+        private async Task ManageMenuOptionsAzureCDNAsync(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
         {
             // enable Azure CDN operation if one se selected and in stopped state
-            List<StreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
+            List<StreamingEndpoint> streamingendpoints = await ReturnSelectedStreamingEndpointsAsync();
 
             if (streamingendpoints.Count == 1)
             {
@@ -10415,13 +10337,13 @@ namespace AMSExplorer
 
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
         {
-            DoExportAssetToAzureStorage();
+            DoExportAssetToAzureStorageAsync();
 
         }
 
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
         {
-            DoMenuImportFromAzureStorage();
+            DoMenuImportFromAzureStorageAsync();
 
         }
 
@@ -10432,7 +10354,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItem19_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromFolder_Step1();
+            DoMenuUploadFromFolder_Step1Async();
         }
 
         private void toolStripMenuItem20_Click(object sender, EventArgs e)
@@ -10555,9 +10477,9 @@ namespace AMSExplorer
         {
         }
 
-        private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripPrograms_OpeningAsync(object sender, CancelEventArgs e)
         {
-            var liveOutputs = ReturnSelectedLiveOutputs();
+            var liveOutputs = await ReturnSelectedLiveOutputsAsync();
             bool single = liveOutputs.Count == 1;
             bool oneOrMore = liveOutputs.Count > 0;
 
@@ -10597,7 +10519,7 @@ namespace AMSExplorer
             {
                 SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchChannelOption.SelectedItem as Item).Value);
                 dataGridViewLiveEventsV.SearchInName = new SearchObject { Text = textBoxSearchNameChannel.Text, SearchType = stype };
-                DoRefreshGridLiveEventV(false);
+                DoRefreshGridLiveEventVAsync(false);
             }
         }
 
@@ -10625,7 +10547,7 @@ namespace AMSExplorer
 
             if (dataGridViewLiveEventsV.Initialized)
             {
-                DoRefreshGridLiveEventV(false);
+                DoRefreshGridLiveEventVAsync(false);
             }
         }
 
@@ -10634,7 +10556,7 @@ namespace AMSExplorer
             if (dataGridViewLiveEventsV.Initialized)
             {
                 dataGridViewLiveEventsV.FilterState = ((ComboBox)sender).SelectedItem.ToString();
-                DoRefreshGridLiveEventV(false);
+                DoRefreshGridLiveEventVAsync(false);
             }
         }
 
@@ -10646,7 +10568,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItem12_Click_1(object sender, EventArgs e)
         {
-            DoRefreshGridFiltersV(false);
+            DoRefreshGridFiltersVAsync(false);
         }
 
         private void toolStripMenuItem16_Click_1(object sender, EventArgs e)
@@ -10680,38 +10602,38 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                     TextBoxLogWriteLine(e);
                 }
-                DoRefreshGridFiltersV(false);
+                DoRefreshGridFiltersVAsync(false);
             }
         }
 
-        private void deleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void deleteToolStripMenuItem1_ClickAsync(object sender, EventArgs e)
         {
-            DoDeleteFilter();
+            await DoDeleteFilterAsync();
         }
 
-        private void DoDeleteFilter()
+        private async Task DoDeleteFilterAsync()
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             try
             {
-                ReturnSelectedAccountFilters().ForEach(f => _amsClientV3.AMSclient.AccountFilters.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, f.Name));
+                (await ReturnSelectedAccountFiltersAsync()).ForEach(f => _amsClientV3.AMSclient.AccountFilters.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, f.Name));
             }
             catch (Exception e)
             {
                 TextBoxLogWriteLine(e);
             }
-            DoRefreshGridFiltersV(false);
+            DoRefreshGridFiltersVAsync(false);
         }
 
-        private void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void filterInfoupdateToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoUpdateFilter();
+            await DoUpdateFilterAsync();
         }
 
-        private void DoUpdateFilter()
+        private async Task DoUpdateFilterAsync()
         {
-            var filter = ReturnSelectedAccountFilters().FirstOrDefault();
+            var filter = (await ReturnSelectedAccountFiltersAsync()).FirstOrDefault();
             DynManifestFilter form = new DynManifestFilter(_amsClientV3, filter);
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -10721,12 +10643,12 @@ namespace AMSExplorer
                 {
                     filterinfotoupdate = form.GetFilterInfo;
 
-                    _amsClientV3.AMSclient.AccountFilters.CreateOrUpdate(
-                        _amsClientV3.credentialsEntry.ResourceGroup,
-                        _amsClientV3.credentialsEntry.AccountName,
-                        filter.Name,
-                        new AccountFilter(presentationTimeRange: filterinfotoupdate.Presentationtimerange, firstQuality: filterinfotoupdate.Firstquality, tracks: filterinfotoupdate.Tracks)
-                        );
+                    await _amsClientV3.AMSclient.AccountFilters.CreateOrUpdateAsync(
+                          _amsClientV3.credentialsEntry.ResourceGroup,
+                          _amsClientV3.credentialsEntry.AccountName,
+                          filter.Name,
+                          new AccountFilter(presentationTimeRange: filterinfotoupdate.Presentationtimerange, firstQuality: filterinfotoupdate.Firstquality, tracks: filterinfotoupdate.Tracks)
+                          );
                     TextBoxLogWriteLine("Account filter '{0}' updated.", filter.Name);
                 }
                 catch (Exception e)
@@ -10734,7 +10656,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Error when updating filter '{0}'.", filter.Name, true);
                     TextBoxLogWriteLine(e);
                 }
-                DoRefreshGridFiltersV(false);
+                DoRefreshGridFiltersVAsync(false);
             }
         }
 
@@ -10742,13 +10664,13 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                DoUpdateFilter();
+                DoUpdateFilterAsync();
             }
         }
 
-        private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripFilters_OpeningAsync(object sender, CancelEventArgs e)
         {
-            var filters = ReturnSelectedAccountFilters();
+            var filters = await ReturnSelectedAccountFiltersAsync();
             bool singleitem = (filters.Count == 1);
             filterInfoupdateToolStripMenuItem.Enabled = singleitem;
         }
@@ -10771,7 +10693,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-               await _amsClientV3.RefreshTokenIfNeededAsync();
+                await _amsClientV3.RefreshTokenIfNeededAsync();
 
                 FilterCreationInfo filterinfo = null;
                 try
@@ -10799,9 +10721,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoDuplicateFilter()
+        private async Task DoDuplicateFilterAsync()
         {
-            var filters = ReturnSelectedAccountFilters();
+            var filters = await ReturnSelectedAccountFiltersAsync();
             if (filters.Count == 1)
             {
                 var sourcefilter = filters.FirstOrDefault();
@@ -10809,35 +10731,35 @@ namespace AMSExplorer
                 string newfiltername = sourcefilter.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
-                    _amsClientV3.RefreshTokenIfNeededAsync();
+                    await _amsClientV3.RefreshTokenIfNeededAsync();
 
                     try
                     {
-                        _amsClientV3.AMSclient.AccountFilters.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, newfiltername, sourcefilter);
+                        await _amsClientV3.AMSclient.AccountFilters.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, newfiltername, sourcefilter);
                         //_context.Filters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks, sourcefilter.FirstQuality);
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show("Error when duplicating asset filter." + Constants.endline + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    DoRefreshGridFiltersV(false);
+                    DoRefreshGridFiltersVAsync(false);
                 }
             }
         }
 
-        private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void duplicateToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoDuplicateFilter();
+            await DoDuplicateFilterAsync();
         }
 
-        private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createAnAssetFilterToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoCreateAssetFilterAsync();
+            await DoCreateAssetFilterAsync();
         }
 
-        private void toolStripMenuItem25_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem25_ClickAsync(object sender, EventArgs e)
         {
-            DoCreateAssetFilterAsync();
+            await DoCreateAssetFilterAsync();
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_DropDownOpening(object sender, EventArgs e)
@@ -10852,29 +10774,7 @@ namespace AMSExplorer
         }
 
 
-        private void cloneToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoClonePrograms();
-        }
 
-        private void DoClonePrograms()
-        {
-            var SelectedPrograms = ReturnSelectedLiveOutputs();
-
-            CopyAsset form = new CopyAsset(_context, 1, CopyAssetBoxMode.CloneProgram, _accountname);
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
-                {
-                    foreach (var program in SelectedPrograms)
-                    {
-                        // Start a worker thread that does asset copy.
-                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.CopyDynEnc, form.RewriteLAURL, form.CloneLocators, form.CloneAssetFilters, form.CopyAlternateId));
-                    }
-                }
-            }
-        }
 
         private void cloneChannelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -10930,7 +10830,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoStorageVersion(string storageId = null)
+        private async Task DoStorageVersionAsync(string storageId = null)
         {
             string valuekey = "";
             bool Error = false;
@@ -10939,7 +10839,7 @@ namespace AMSExplorer
 
             if (storageId == null)
             {
-                storageId = ReturnSelectedStorage().Id;
+                storageId = (await ReturnSelectedStorageAsync()).Id;
             }
 
             try
@@ -11017,7 +10917,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItem30_Click(object sender, EventArgs e)
         {
-            DoCreateAssetReportEmail();
+            DoCreateAssetReportEmailAsync();
         }
 
         private void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
@@ -11027,17 +10927,17 @@ namespace AMSExplorer
 
         private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
+            DoDeleteAssetsAsync(dataGridViewAssetsV.assets.ToList());
         }
 
         private void deleteVisibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
+            DoDeleteAssetsAsync(dataGridViewAssetsV.assets.ToList());
         }
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDeleteSelectedAssets();
+            DoMenuDeleteSelectedAssetsAsync();
         }
 
         private void deleteAllAssetsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -11047,17 +10947,17 @@ namespace AMSExplorer
 
         private void visibleJobsInGridToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
+            DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
         private void allJobsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteAllJobs();
+            DoDeleteAllJobsAsync();
         }
 
         private void selectedJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
+            DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
         private void dataGridViewStorage_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -11065,7 +10965,7 @@ namespace AMSExplorer
             if (e.RowIndex > -1)
             {
                 string storageId = dataGridViewStorage.Rows[e.RowIndex].Cells[dataGridViewStorage.Columns["Id"].Index].Value.ToString();
-                DoStorageVersion(storageId);
+                DoStorageVersionAsync(storageId);
             }
         }
 
@@ -11088,7 +10988,6 @@ namespace AMSExplorer
 
         private void createTestAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateTestsAssets();
         }
 
         private void linkLabelFeedbackAMS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -11142,12 +11041,12 @@ namespace AMSExplorer
 
         private void toolStripMenuItem37_Click_1(object sender, EventArgs e)
         {
-            DoMenuDownloadToLocal();
+            DoMenuDownloadToLocalAsync();
         }
 
         private void toolStripMenuItem38_Click(object sender, EventArgs e)
         {
-            DoMenuDownloadToLocal();
+            DoMenuDownloadToLocalAsync();
 
         }
 
@@ -11331,7 +11230,7 @@ namespace AMSExplorer
 
         private void editAlternateIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuEditAssetAltId();
+            DoMenuEditAssetAltIdAsync();
         }
 
 
@@ -11521,7 +11420,7 @@ namespace AMSExplorer
 
                 Task.Run(() =>
                 {
-                    DoRefreshGridLiveOutputV(false);
+                    DoRefreshGridLiveOutputVAsync(false);
                 });
             }
             CheckboxAnychannelChangedByCode = false;
@@ -11596,7 +11495,7 @@ namespace AMSExplorer
 
         private void filesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFileToAsset_Step1();
+            DoMenuUploadFileToAsset_Step1Async();
         }
 
         private void trackBarConcurrentTransfers_Scroll(object sender, EventArgs e)
@@ -11693,9 +11592,9 @@ namespace AMSExplorer
         }
 
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void loadToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            var SE = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+            var SE = (await ReturnSelectedStreamingEndpointsAsync()).FirstOrDefault();
             if (SE != null)
             {
                 var form = new DisplayTelemetry(this, SE, _context, _credentials);
@@ -11736,7 +11635,7 @@ namespace AMSExplorer
 
         private void allJobsToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            DoCancelAllJobs();
+            DoCancelAllJobsAsync();
         }
 
         private void linkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -11749,7 +11648,7 @@ namespace AMSExplorer
             // user pressed enter. let's apply the filter
             if (e.KeyCode == Keys.Enter)
             {
-                buttonAssetSearch_Click(this, new EventArgs());
+                buttonAssetSearch_ClickAsync(this, new EventArgs());
             }
         }
 
@@ -11897,13 +11796,13 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItem32_DropDownOpening(object sender, EventArgs e)
+        private async void toolStripMenuItem32_DropDownOpeningAsync(object sender, EventArgs e)
         {
-            var sel = ReturnSelectedTransforms();
+            var sel = await ReturnSelectedTransformsAsync();
             if (sel.Count > 0)
             {
-                toolStripMenuItemSelectedTransform.Text = "From selected asset(s) with selected transform : " + string.Join(", ", ReturnSelectedTransforms().Select(t => t.Name));
-                fromHttpsSourceWithSelectedTransformToolStripMenuItem.Text = "From http(s) source with selected transform : " + string.Join(", ", ReturnSelectedTransforms().Select(t => t.Name));
+                toolStripMenuItemSelectedTransform.Text = "From selected asset(s) with selected transform : " + string.Join(", ", (await ReturnSelectedTransformsAsync()).Select(t => t.Name));
+                fromHttpsSourceWithSelectedTransformToolStripMenuItem.Text = "From http(s) source with selected transform : " + string.Join(", ", (await ReturnSelectedTransformsAsync()).Select(t => t.Name));
                 toolStripMenuItemSelectedTransform.Enabled = fromHttpsSourceWithSelectedTransformToolStripMenuItem.Enabled = true;
             }
             else
@@ -11914,14 +11813,14 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItemSelectedTransform_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemSelectedTransform_ClickAsync(object sender, EventArgs e)
         {
-            CreateAndSubmitJobs(ReturnSelectedTransforms(), ReturnSelectedAssetsV3());
+            await CreateAndSubmitJobsAsync(await ReturnSelectedTransformsAsync(), await ReturnSelectedAssetsV3Async());
         }
 
-        private void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets)
+        private async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets)
         {
-            _amsClientV3.RefreshTokenIfNeededAsync();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             foreach (var asset in assets)
             {
@@ -11937,7 +11836,7 @@ namespace AMSExplorer
                     {
 
 
-                        var outputAsset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(
+                        var outputAsset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(
                                                                     _amsClientV3.credentialsEntry.ResourceGroup,
                                                                     _amsClientV3.credentialsEntry.AccountName,
                                                                     outputAssetName,
@@ -11949,7 +11848,7 @@ namespace AMSExplorer
                          {
                     new JobOutputAsset(outputAsset.Name),
                 };
-                        Job job = _amsClientV3.AMSclient.Jobs.Create(
+                        Job job = await _amsClientV3.AMSclient.Jobs.CreateAsync(
                                                                     _amsClientV3.credentialsEntry.ResourceGroup,
                                                                     _amsClientV3.credentialsEntry.AccountName,
                                                                     transform.Name,
@@ -11972,9 +11871,9 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
         }
 
-        private void deleteTransformsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteTransformsToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            DoDeleteTransforms(ReturnSelectedTransforms());
+            DoDeleteTransformsAsync(await ReturnSelectedTransformsAsync());
         }
 
         private void dataGridViewTransformsV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -12004,12 +11903,12 @@ namespace AMSExplorer
 
         private void createJobUsingAnHttpSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateJobFromTransformUsingHttpSource();
+            CreateJobFromTransformUsingHttpSourceAsync();
         }
 
-        private void CreateJobFromTransformUsingHttpSource()
+        private async Task CreateJobFromTransformUsingHttpSourceAsync()
         {
-            var sel = ReturnSelectedTransforms();
+            var sel = await ReturnSelectedTransformsAsync();
 
             var form = new HttpSource();
 
@@ -12027,7 +11926,7 @@ namespace AMSExplorer
                     {
 
 
-                        var outputAsset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(
+                        var outputAsset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(
                                                                     _amsClientV3.credentialsEntry.ResourceGroup,
                                                                     _amsClientV3.credentialsEntry.AccountName,
                                                                     outputAssetName,
@@ -12039,7 +11938,7 @@ namespace AMSExplorer
                          {
                     new JobOutputAsset(outputAsset.Name),
                 };
-                        Job job = _amsClientV3.AMSclient.Jobs.Create(
+                        Job job = await _amsClientV3.AMSclient.Jobs.CreateAsync(
                                                                     _amsClientV3.credentialsEntry.ResourceGroup,
                                                                     _amsClientV3.credentialsEntry.AccountName,
                                                                     transform.Name,
@@ -12065,17 +11964,17 @@ namespace AMSExplorer
 
         private void fromHttpsSourceWithSelectedTransformToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateJobFromTransformUsingHttpSource();
+            CreateJobFromTransformUsingHttpSourceAsync();
         }
 
         private void selectATransformToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoSelectTransformAndSubmitJob();
+            DoSelectTransformAndSubmitJobAsync();
         }
 
         private void storageSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoStorageVersion();
+            DoStorageVersionAsync();
         }
     }
 }
