@@ -189,7 +189,7 @@ namespace AMSExplorer
                 textBoxAssetName.Text = _parentAsset != null ? _parentAsset.Name : string.Empty;
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient);
+                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient);
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
@@ -272,7 +272,7 @@ namespace AMSExplorer
                 textBoxFilterName.Text = _filter_name;
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient);
+                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient);
 
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
 

@@ -420,7 +420,7 @@ namespace AMSExplorer
 
             if (assetFilters.Count() > 0 && myassetmanifesttimingdata == null)
             {
-                myassetmanifesttimingdata = await AssetInfo.GetManifestTimingDataAsync(myAssetV3, _amsClient);
+                myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAssetV3, _amsClient);
             }
 
             foreach (var filter in assetFilters)
@@ -1691,8 +1691,9 @@ namespace AMSExplorer
 
             try
             {
-                Task[] listTasks = filters.Select(f => _amsClient.AMSclient.AssetFilters.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, f.Name)).ToArray();
-                Task.WaitAll(listTasks);
+                var listTasks = new List<Task>();
+                filters.ForEach(f => listTasks.Add(_amsClient.AMSclient.AssetFilters.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, f.Name)));
+                Task.WaitAll(listTasks.ToArray());
             }
 
             catch
