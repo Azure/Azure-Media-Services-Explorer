@@ -229,37 +229,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxDisplayAssetID.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="checkBoxDisplayJobID.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxDisplayJobID.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxDisplayJobID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 84</value>
-  </data>
-  <data name="checkBoxDisplayJobID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 19</value>
-  </data>
-  <data name="checkBoxDisplayJobID.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="checkBoxDisplayJobID.Text" xml:space="preserve">
-    <value>Job Id</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayJobID.Name" xml:space="preserve">
-    <value>checkBoxDisplayJobID</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayJobID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayJobID.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayJobID.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>4</value>
   </data>
   <data name="checkBoxDisplayAssetAltId.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -268,7 +238,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="checkBoxDisplayAssetAltId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>196, 59</value>
+    <value>49, 84</value>
   </data>
   <data name="checkBoxDisplayAssetAltId.Size" type="System.Drawing.Size, System.Drawing">
     <value>118, 19</value>
@@ -298,7 +268,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="checkBoxDisplayAssetStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 209</value>
+    <value>49, 109</value>
   </data>
   <data name="checkBoxDisplayAssetStorage.Size" type="System.Drawing.Size, System.Drawing">
     <value>97, 19</value>
@@ -392,96 +362,6 @@
   </data>
   <data name="&gt;&gt;comboBoxAutoRefreshTime.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="checkBoxDisplayOriginID.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxDisplayOriginID.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxDisplayOriginID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 184</value>
-  </data>
-  <data name="checkBoxDisplayOriginID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 19</value>
-  </data>
-  <data name="checkBoxDisplayOriginID.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="checkBoxDisplayOriginID.Text" xml:space="preserve">
-    <value>Streaming Endpoint Id</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayOriginID.Name" xml:space="preserve">
-    <value>checkBoxDisplayOriginID</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayOriginID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayOriginID.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayOriginID.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxDisplayProgramID.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxDisplayProgramID.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxDisplayProgramID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 159</value>
-  </data>
-  <data name="checkBoxDisplayProgramID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 19</value>
-  </data>
-  <data name="checkBoxDisplayProgramID.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="checkBoxDisplayProgramID.Text" xml:space="preserve">
-    <value>Program Id</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayProgramID.Name" xml:space="preserve">
-    <value>checkBoxDisplayProgramID</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayProgramID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayProgramID.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayProgramID.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="checkBoxDisplayChannelID.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxDisplayChannelID.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxDisplayChannelID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 134</value>
-  </data>
-  <data name="checkBoxDisplayChannelID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 19</value>
-  </data>
-  <data name="checkBoxDisplayChannelID.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="checkBoxDisplayChannelID.Text" xml:space="preserve">
-    <value>Channel Id</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayChannelID.Name" xml:space="preserve">
-    <value>checkBoxDisplayChannelID</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayChannelID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayChannelID.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDisplayChannelID.ZOrder" xml:space="preserve">
-    <value>6</value>
   </data>
   <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>

@@ -420,8 +420,10 @@ namespace AMSExplorer
         {
             Task.Run(() =>
             {
-                var odataQuery = new ODataQuery<Job>();
-                odataQuery.Filter = "Properties/State eq Microsoft.Media.JobState'Queued' or Properties/State eq Microsoft.Media.JobState'Scheduled' or Properties/State eq Microsoft.Media.JobState'Processing' ";
+                var odataQuery = new ODataQuery<Job>
+                {
+                    Filter = "Properties/State eq Microsoft.Media.JobState'Queued' or Properties/State eq Microsoft.Media.JobState'Scheduled' or Properties/State eq Microsoft.Media.JobState'Processing' "
+                };
 
                 List<JobExtension> ActiveAndVisibleJobs = new List<JobExtension>();
                 foreach (var t in transforms)
@@ -573,7 +575,7 @@ namespace AMSExplorer
                     && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled);
 
                     // job finished
-                    myJob = _client.Jobs.Get(_resourceName, _accountName, job.TransformName, job.Job.Name);
+                    myJob =  _client.Jobs.Get(_resourceName, _accountName, job.TransformName, job.Job.Name);
 
                     int index2 = -1;
                     foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
@@ -612,7 +614,8 @@ namespace AMSExplorer
                             Mainform myform = (Mainform)this.FindForm();
 
 
-                            string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
+                            // string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
+                            string status = myJob.State.ToString();
 
                             myform.BeginInvoke(new Action(() =>
                             {

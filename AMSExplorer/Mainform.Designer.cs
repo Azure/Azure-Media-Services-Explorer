@@ -161,7 +161,6 @@
             this.ContextMenuItemJobOpenOutputAsset = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCreateOutlookReportEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.copyReportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemJobChangePriority = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCancel = new System.Windows.Forms.ToolStripMenuItem();
@@ -288,7 +287,6 @@
             this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDownloadToLocal = new System.Windows.Forms.ToolStripMenuItem();
-            this.createTestAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.liveChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runAnOnpremisesLiveEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1389,8 +1387,7 @@
             // ContextMenuItemJobCreateOutlookReportEmail
             // 
             this.ContextMenuItemJobCreateOutlookReportEmail.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyReportToClipboardToolStripMenuItem,
-            this.toolStripMenuItem27});
+            this.copyReportToClipboardToolStripMenuItem});
             resources.ApplyResources(this.ContextMenuItemJobCreateOutlookReportEmail, "ContextMenuItemJobCreateOutlookReportEmail");
             this.ContextMenuItemJobCreateOutlookReportEmail.Name = "ContextMenuItemJobCreateOutlookReportEmail";
             // 
@@ -1399,12 +1396,6 @@
             this.copyReportToClipboardToolStripMenuItem.Name = "copyReportToClipboardToolStripMenuItem";
             resources.ApplyResources(this.copyReportToClipboardToolStripMenuItem, "copyReportToClipboardToolStripMenuItem");
             this.copyReportToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyReportToClipboardToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem27
-            // 
-            resources.ApplyResources(this.toolStripMenuItem27, "toolStripMenuItem27");
-            this.toolStripMenuItem27.Name = "toolStripMenuItem27";
-            this.toolStripMenuItem27.Click += new System.EventHandler(this.toolStripMenuItem27_Click_1);
             // 
             // toolStripSeparator12
             // 
@@ -2230,8 +2221,7 @@
             this.uploadFromASingleFileToolStripMenuItem,
             this.importToolStripMenuItem,
             this.copyAssetFilesToAzureStorageToolStripMenuItem,
-            this.toolStripMenuItemDownloadToLocal,
-            this.createTestAssetsToolStripMenuItem});
+            this.toolStripMenuItemDownloadToLocal});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
             resources.ApplyResources(this.assetToolStripMenuItem, "assetToolStripMenuItem");
             this.assetToolStripMenuItem.DropDownOpening += new System.EventHandler(this.toolStripMenuAsset_DropDownOpening);
@@ -2362,12 +2352,6 @@
             this.toolStripMenuItemDownloadToLocal.Image = global::AMSExplorer.Bitmaps.download;
             this.toolStripMenuItemDownloadToLocal.Name = "toolStripMenuItemDownloadToLocal";
             this.toolStripMenuItemDownloadToLocal.Click += new System.EventHandler(this.toolStripMenuItem38_Click);
-            // 
-            // createTestAssetsToolStripMenuItem
-            // 
-            resources.ApplyResources(this.createTestAssetsToolStripMenuItem, "createTestAssetsToolStripMenuItem");
-            this.createTestAssetsToolStripMenuItem.Name = "createTestAssetsToolStripMenuItem";
-            this.createTestAssetsToolStripMenuItem.Click += new System.EventHandler(this.createTestAssetsToolStripMenuItem_Click);
             // 
             // liveChannelToolStripMenuItem
             // 
@@ -3010,7 +2994,6 @@
         private System.Windows.Forms.ComboBox comboBoxSearchProgramOption;
         private System.Windows.Forms.ComboBox comboBoxSearchChannelOption;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem27;
         private System.Windows.Forms.ToolStripMenuItem copyReportToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem30;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem3;
@@ -3030,7 +3013,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator42;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem33Refresh;
-        private System.Windows.Forms.ToolStripMenuItem createTestAssetsToolStripMenuItem;
         private System.Windows.Forms.LinkLabel linkLabelFeedbackAMS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem33NewBulk;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem36BulkIngestInfo;

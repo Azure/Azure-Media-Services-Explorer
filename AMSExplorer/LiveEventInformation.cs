@@ -232,45 +232,7 @@ namespace AMSExplorer
             }
 
             // comon code - multiselect or only one channel selected
-
-            // Encoding Settings
-            if (false)//MyLiveEvent.Encoding != null && MyLiveEvent.Encoding.EncodingType != LiveEventEncodingType.None)
-            {
-                // default encoding profile name
-                var profileliveselected = AMSEXPlorerLiveProfile.Profiles[0];// AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == MyChannel.EncodingType).FirstOrDefault();
-                if (profileliveselected != null)
-                {
-                    defaultEncodingPreset = profileliveselected.Name;
-                    radioButtonDefaultPreset.Text = string.Format(_radioButtonDefaultPreset, defaultEncodingPreset);
-                }
-
-                if (MyLiveEvent.Encoding != null && MyLiveEvent.Encoding.PresetName != null)
-                {
-                    if (MyLiveEvent.Encoding.PresetName == defaultEncodingPreset)
-                    {
-                        radioButtonDefaultPreset.Checked = true;
-                    }
-                    else
-                    {
-                        radioButtonCustomPreset.Checked = true;
-                        textBoxCustomPreset.Text = MyLiveEvent.Encoding.PresetName;
-                    }
-                    //checkBoxIgnore708.Checked = MyChannel.Encoding..IgnoreCea708ClosedCaptions;
-                }
-                if (MyLiveEvent.ResourceState != LiveEventResourceState.Stopped)
-                {
-                    groupBoxEncoding.Enabled = false; // encoding settings cannot be edited
-                    checkBoxIgnore708.Enabled = false;
-                    labelLiveEventMustBeStopped.Visible = true;
-                }
-
-
-                UpdateProfileGrids();
-            }
-            else
-            {
-                tabControl1.TabPages.Remove(tabPageEncoding); // no encoding channel
-            }
+            tabControl1.TabPages.Remove(tabPageEncoding); // no encoding channel
 
 
             if (MyLiveEvent.Input != null && MyLiveEvent.Input.AccessControl != null && MyLiveEvent.Input.AccessControl.Ip != null)
@@ -462,7 +424,7 @@ namespace AMSExplorer
                             typeplayer: PlayerType.AzureMediaPlayerFrame,
                             path: MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url,
                             DoNotRewriteURL: true,
-                            client: _client ,
+                            client: _client,
                             formatamp: AzureMediaPlayerFormats.Auto,
                             UISelectSEFiltersAndProtocols: false,
                             mainForm: MyMainForm,
@@ -513,9 +475,10 @@ namespace AMSExplorer
                 if (profileliveselected != null)
                 {
                     dataGridViewVideoProf.DataSource = profileliveselected.Video;
-                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>();
-
-                    profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>
+                    {
+                        new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate }
+                    };
 
                     dataGridViewAudioProf.DataSource = profmultiaudio;
                     panelDisplayEncProfile.Visible = true;

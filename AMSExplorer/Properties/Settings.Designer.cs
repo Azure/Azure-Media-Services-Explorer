@@ -62,18 +62,6 @@ namespace AMSExplorer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayJobIDinGrid {
-            get {
-                return ((bool)(this["DisplayJobIDinGrid"]));
-            }
-            set {
-                this["DisplayJobIDinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool useProtectedConfiguration {
             get {
                 return ((bool)(this["useProtectedConfiguration"]));
@@ -92,42 +80,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["NbItemsDisplayedInGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayLiveChannelIDinGrid {
-            get {
-                return ((bool)(this["DisplayLiveChannelIDinGrid"]));
-            }
-            set {
-                this["DisplayLiveChannelIDinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayLiveProgramIDinGrid {
-            get {
-                return ((bool)(this["DisplayLiveProgramIDinGrid"]));
-            }
-            set {
-                this["DisplayLiveProgramIDinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayOriginIDinGrid {
-            get {
-                return ((bool)(this["DisplayOriginIDinGrid"]));
-            }
-            set {
-                this["DisplayOriginIDinGrid"] = value;
             }
         }
         

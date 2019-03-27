@@ -116,8 +116,7 @@ namespace AMSExplorer
                                 Task.Run(async () => { await client.SendAsync(request); }).Wait();
                 */
 
-                var env = credentials.ADCustomSettings == null ?
-                    CredentialsEntry.ReturnADEnvironment(credentials.ADDeploymentName) : credentials.ADCustomSettings;
+                var env = credentials.ADCustomSettings ?? CredentialsEntry.ReturnADEnvironment(credentials.ADDeploymentName);
 
                 AzureAdTokenProvider tokenProvider = null;
 
@@ -492,13 +491,7 @@ namespace AMSExplorer
         public static Uri AllReleaseNotesUrl = null;
         public static string MessageNewVersion = string.Empty;
 
-        public static async void CheckAMSEVersion()
-        {
-            var webClient = new WebClient();
-            webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompleted(true, sender, e);
-            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimary));
-        }
-
+    
         public static async void CheckAMSEVersionV3()
         {
             var webClient = new WebClient();
@@ -1114,8 +1107,10 @@ namespace AMSExplorer
 
         public JobInfo(IJob job, string accountname)
         {
-            SelectedJobs = new List<IJob>();
-            SelectedJobs.Add(job);
+            SelectedJobs = new List<IJob>
+            {
+                job
+            };
             _accountname = accountname;
 
         }
@@ -1345,8 +1340,6 @@ namespace AMSExplorer
                                 //pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.MEPremiumWorkflowPrice;
                                 break;
                             case (MediaProcessorNames.StorageDecryption):
-                            case (MediaProcessorNames.WindowsAzureMediaEncryptor):
-                            case (MediaProcessorNames.WindowsAzureMediaPackager):
                                 // No cost
                                 pricetask = 0;
                                 break;
@@ -1870,9 +1863,11 @@ namespace AMSExplorer
             if (locators.Count > 0 && runningSes != null)
             {
                 var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locators.First().Name).StreamingPaths;
-                var uribuilder = new UriBuilder();
-                uribuilder.Host = runningSes.HostName;
-                uribuilder.Path = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming).FirstOrDefault().Paths.FirstOrDefault();
+                var uribuilder = new UriBuilder
+                {
+                    Host = runningSes.HostName,
+                    Path = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming).FirstOrDefault().Paths.FirstOrDefault()
+                };
                 return uribuilder.Uri;
             }
             else
@@ -2413,7 +2408,7 @@ namespace AMSExplorer
                     _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 response.Error = true;
             }

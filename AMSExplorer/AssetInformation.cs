@@ -47,12 +47,10 @@ namespace AMSExplorer
     {
         public IAsset myAsset;
         public Asset myAssetV3;
-        private CloudMediaContext myContext;
         private AMSClientV3 _amsClient;
         public IEnumerable<StreamingEndpoint> myStreamingEndpoints;
         private ILocator tempLocator = null;
         private ILocator tempMetadaLocator = null;
-        private IContentKeyAuthorizationPolicy myAuthPolicy = null;
         private Mainform myMainForm;
         private bool oktobuildlocator = false;
         private ManifestTimingData myassetmanifesttimingdata = null;
@@ -260,8 +258,10 @@ namespace AMSExplorer
                     else if (blob.GetType() == typeof(CloudBlobDirectory))
                     {
                         var bl = (CloudBlobDirectory)blob;
-                        ListViewItem item = new ListViewItem(bl.Prefix, 0);
-                        item.ForeColor = Color.DarkGoldenrod;
+                        ListViewItem item = new ListViewItem(bl.Prefix, 0)
+                        {
+                            ForeColor = Color.DarkGoldenrod
+                        };
                         // let comment as it can be time expensive to the math
                         //item.SubItems.Add(AssetInfo.FormatByteSize(AssetInfo.GetSizeBlobDirectory(bl)));
                         listViewFiles.Items.Add(item);
@@ -346,49 +346,7 @@ namespace AMSExplorer
 
             return;
 
-            var program = myContext.Programs.Where(p => p.AssetId == myAsset.Id).FirstOrDefault();
-            if (program != null) // Asset is linked to a Program
-            {
-                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ProgramId, program.Id);
-            }
-
-            if (myAsset.State != AssetState.Deleted)
-            {
-                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_IsStreamable, myAsset.IsStreamable);
-                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_SupportsDynamicEncryption, myAsset.SupportsDynamicEncryption);
-                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageUrl, myAsset.Uri);
-                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountName, myAsset.StorageAccount.Name);
-                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountByteUsed, AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
-                DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageAccountIsDefault, myAsset.StorageAccount.IsDefault);
-
-                try
-                {
-                    foreach (IAsset p_asset in myAsset.ParentAssets)
-                    {
-                        DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAsset, p_asset.Name);
-                        DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetId, p_asset.Id);
-                    }
-                }
-                catch
-                {
-                    DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ParentAssetS, AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted);
-                }
-
-
-                StreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpointAsync(_amsClient).Result;
-
-                foreach (var se in myStreamingEndpoints)
-                {
-                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.HostName));
-                    if (se.Name == SESelected.Name) comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
-
-                    foreach (var custom in se.CustomHostNames)
-                    {
-                        comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
-                    }
-                }
-                buttonUpload.Enabled = true;
-            }
+           
 
             oktobuildlocator = true;
             BuildLocatorsTree();
@@ -542,9 +500,11 @@ namespace AMSExplorer
 
             if (SelectedSE == null) return;
 
-            UriBuilder uriBuilder = new UriBuilder();
-            uriBuilder.Scheme = checkBoxHttps.Checked ? "https" : "http";
-            uriBuilder.Host = SelectedSE.HostName;
+            UriBuilder uriBuilder = new UriBuilder
+            {
+                Scheme = checkBoxHttps.Checked ? "https" : "http",
+                Host = SelectedSE.HostName
+            };
 
 
 
@@ -628,8 +588,10 @@ namespace AMSExplorer
                     }
                     if (SelectedSE.ResourceState != StreamingEndpointResourceState.Running) colornode = Color.Red;
 
-                    TreeNode myLocNode = new TreeNode(locator.Name);
-                    myLocNode.ForeColor = colornode;
+                    TreeNode myLocNode = new TreeNode(locator.Name)
+                    {
+                        ForeColor = colornode
+                    };
 
                     TreeViewLocators.Nodes.Add(myLocNode);
 
@@ -1221,8 +1183,10 @@ namespace AMSExplorer
 
         private async void DoUpload()
         {
-            OpenFileDialog Dialog = new OpenFileDialog();
-            Dialog.Multiselect = true;
+            OpenFileDialog Dialog = new OpenFileDialog
+            {
+                Multiselect = true
+            };
             if (Dialog.ShowDialog() == DialogResult.OK)
             {
                 progressBarUpload.Maximum = 100 * (Dialog.FileNames.Count() + 1);
@@ -1273,52 +1237,8 @@ namespace AMSExplorer
             CloudBlobContainer container = new CloudBlobContainer(sasUri);
             return container;
         }
-
-        private void ProcessUploadFileToAsset(string SafeFileName, string FileName, IAsset MyAsset)
-        {
-            try
-            {
-                IAssetFile UploadedAssetFile = MyAsset.AssetFiles.Create(SafeFileName);
-                UploadedAssetFile.UploadProgressChanged += MyUploadProgressChanged;
-                UploadedAssetFile.Upload(FileName as string);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_ProcessUploadFileToAsset_ErrorWhenUploadingTheFile + Constants.endline + Program.GetErrorMessage(ex));
-            }
-        }
-
-        private void MyUploadProgressChanged(object sender, UploadProgressChangedEventArgs e)
-        {
-            try
-            {
-                progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void ProcessDownloadFileToAsset(IAssetFile assetFile, string destfolderpath)
-        {
-            try
-            {
-                assetFile.DownloadProgressChanged += MyDownloadProgressChanged;
-                assetFile.Download(destfolderpath);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
-        private void MyDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
-        }
-
-
+      
+        
         private void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDuplicate();
@@ -1415,6 +1335,7 @@ namespace AMSExplorer
             BuildLocatorsTree();
         }
 
+        /*
         private void buttonAudioVideoAnalysis_Click(object sender, EventArgs e)
         {
             IEnumerable<AssetFileMetadata> manifestAssetFile = myAsset.GetMetadata();
@@ -1454,6 +1375,7 @@ namespace AMSExplorer
                 }
             }
         }
+        */
 
         private void buttonFileMetadata_Click(object sender, EventArgs e)
         {
@@ -1516,27 +1438,6 @@ namespace AMSExplorer
                 }
             }
             */
-        }
-
-        private ILocator GetTemporaryLocator()
-        {
-            if (tempLocator == null) // no temp locator, let's create it
-            {
-                try
-                {
-                    var locatorTask = Task.Factory.StartNew(() =>
-                    {
-                        tempLocator = myContext.Locators.Create(LocatorType.Sas, myAsset, AccessPermissions.Read, TimeSpan.FromHours(1));
-
-                    });
-                    locatorTask.Wait();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_GetTemporaryLocator_ErrorWhenCreatingTheTemporarySASLocatorN + ex.Message);
-                }
-            }
-            return tempLocator;
         }
 
 
@@ -1770,7 +1671,7 @@ namespace AMSExplorer
                     BuildLocatorsTree();
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteAllFiles_ErrorWhenDeletingTheFiles);
                 ListAssetBlobs();

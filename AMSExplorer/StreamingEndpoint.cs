@@ -136,7 +136,6 @@ namespace AMSExplorer
         static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
         static IEnumerable<StreamingEndpoint> streamingendpoints;
         static private bool _initialized = false;
-        static private bool _refreshedatleastonetime = false;
         static string _filterstreamingendpointsstate = "All";
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
@@ -167,7 +166,6 @@ namespace AMSExplorer
 
             SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new SortableBindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
             this.DataSource = MyObservOriginInPage;
-            this.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
             this.Columns["Name"].Width = 300;
             this.Columns["State"].Width = 100;
             this.Columns["CDN"].Width = 120;
@@ -289,7 +287,6 @@ namespace AMSExplorer
 
             _MyObservStreamingEndpoints = new SortableBindingList<StreamingEndpointEntry>(endpointquery.ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservStreamingEndpoints));
-            _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
     }

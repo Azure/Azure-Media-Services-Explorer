@@ -191,7 +191,6 @@ namespace AMSExplorer
                            select new LiveOutputEntry
                            {
                                Name = c.LiveOutputItem.Name,
-                               Id = c.LiveOutputItem.Id,
                                State = c.LiveOutputItem.ResourceState,
                                Description = c.LiveOutputItem.Description,
                                ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
@@ -216,7 +215,6 @@ namespace AMSExplorer
 
             SortableBindingList<LiveOutputEntry> MyObservProgramInPage = new SortableBindingList<LiveOutputEntry>(programquery.Take(0).ToList());
             this.DataSource = MyObservProgramInPage;
-            this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
             //this.Columns["LiveEventName"].Visible = false;
             this.Columns[_published].DisplayIndex = this.ColumnCount - 3;
             this.Columns[_published].DefaultCellStyle.NullValue = null;
@@ -556,7 +554,6 @@ namespace AMSExplorer
                                select new LiveOutputEntry
                                {
                                    Name = c.LiveOutputItem.Name,
-                                   Id = c.LiveOutputItem.Id,
                                    State = c.LiveOutputItem.ResourceState,
                                    Description = c.LiveOutputItem.Description,
                                    ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,

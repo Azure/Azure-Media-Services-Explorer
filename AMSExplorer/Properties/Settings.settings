@@ -11,23 +11,11 @@
     <Setting Name="DisplayAssetIDinGrid" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="DisplayJobIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="useProtectedConfiguration" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="NbItemsDisplayedInGrid" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>
-    </Setting>
-    <Setting Name="DisplayLiveChannelIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DisplayLiveProgramIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DisplayOriginIDinGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AutoRefresh" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

@@ -84,10 +84,10 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPagePolicy = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxPolicy = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
-            this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.checkBoxHttps = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -98,12 +98,12 @@
             this.buttonHTML = new System.Windows.Forms.Button();
             this.buttonDASH = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBoxPolicy = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -116,8 +116,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.contextMenuStripFilter.SuspendLayout();
             this.tabPagePolicy.SuspendLayout();
-            this.contextMenuStripKey.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.contextMenuStripKey.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -371,7 +371,6 @@
             resources.ApplyResources(this.buttonAudioVideoAnalysis, "buttonAudioVideoAnalysis");
             this.buttonAudioVideoAnalysis.Name = "buttonAudioVideoAnalysis";
             this.buttonAudioVideoAnalysis.UseVisualStyleBackColor = true;
-            this.buttonAudioVideoAnalysis.Click += new System.EventHandler(this.buttonAudioVideoAnalysis_Click);
             // 
             // tabPage2
             // 
@@ -422,7 +421,6 @@
             this.buttonFileMetadata.Name = "buttonFileMetadata";
             this.toolTip1.SetToolTip(this.buttonFileMetadata, resources.GetString("buttonFileMetadata.ToolTip"));
             this.buttonFileMetadata.UseVisualStyleBackColor = true;
-            this.buttonFileMetadata.Click += new System.EventHandler(this.buttonFileMetadata_Click);
             // 
             // progressBarUpload
             // 
@@ -567,6 +565,17 @@
             this.tabPagePolicy.UseVisualStyleBackColor = true;
             this.tabPagePolicy.Enter += new System.EventHandler(this.tabPagePolicy_Enter);
             // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // textBoxPolicy
+            // 
+            resources.ApplyResources(this.textBoxPolicy, "textBoxPolicy");
+            this.textBoxPolicy.Name = "textBoxPolicy";
+            this.textBoxPolicy.ReadOnly = true;
+            // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
@@ -579,21 +588,6 @@
             this.comboBoxPolicyLocators.FormattingEnabled = true;
             this.comboBoxPolicyLocators.Name = "comboBoxPolicyLocators";
             this.comboBoxPolicyLocators.SelectedIndexChanged += new System.EventHandler(this.comboBoxPolicyLocators_SelectedIndexChanged);
-            // 
-            // contextMenuStripKey
-            // 
-            this.contextMenuStripKey.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeKeyToolStripMenuItem});
-            this.contextMenuStripKey.Name = "contextMenuStripKey";
-            resources.ApplyResources(this.contextMenuStripKey, "contextMenuStripKey");
-            this.contextMenuStripKey.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripKey_Opening);
-            // 
-            // removeKeyToolStripMenuItem
-            // 
-            this.removeKeyToolStripMenuItem.Name = "removeKeyToolStripMenuItem";
-            resources.ApplyResources(this.removeKeyToolStripMenuItem, "removeKeyToolStripMenuItem");
-            this.removeKeyToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
@@ -674,6 +668,21 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // contextMenuStripKey
+            // 
+            this.contextMenuStripKey.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeKeyToolStripMenuItem});
+            this.contextMenuStripKey.Name = "contextMenuStripKey";
+            resources.ApplyResources(this.contextMenuStripKey, "contextMenuStripKey");
+            this.contextMenuStripKey.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripKey_Opening);
+            // 
+            // removeKeyToolStripMenuItem
+            // 
+            this.removeKeyToolStripMenuItem.Name = "removeKeyToolStripMenuItem";
+            resources.ApplyResources(this.removeKeyToolStripMenuItem, "removeKeyToolStripMenuItem");
+            this.removeKeyToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
             // labelAssetNameTitle
             // 
             resources.ApplyResources(this.labelAssetNameTitle, "labelAssetNameTitle");
@@ -691,17 +700,6 @@
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
-            // 
-            // textBoxPolicy
-            // 
-            resources.ApplyResources(this.textBoxPolicy, "textBoxPolicy");
-            this.textBoxPolicy.Name = "textBoxPolicy";
-            this.textBoxPolicy.ReadOnly = true;
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
             // 
             // AssetInformation
             // 
@@ -732,9 +730,9 @@
             this.contextMenuStripFilter.ResumeLayout(false);
             this.tabPagePolicy.ResumeLayout(false);
             this.tabPagePolicy.PerformLayout();
-            this.contextMenuStripKey.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.contextMenuStripKey.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

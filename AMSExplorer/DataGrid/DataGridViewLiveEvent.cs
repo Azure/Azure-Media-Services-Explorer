@@ -175,7 +175,6 @@ namespace AMSExplorer
                            select new LiveEventEntry
                            {
                                Name = c.Name,
-                               Id = c.Id,
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
                                Encoding = ReturnChannelBitmap(c),
@@ -218,7 +217,6 @@ namespace AMSExplorer
 
             SortableBindingList<LiveEventEntry> MyObservChannelsInPage = new SortableBindingList<LiveEventEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservChannelsInPage;
-            this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
             this.Columns["InputUrl"].HeaderText = "Primary Input Url";
             this.Columns["InputUrl"].Width = 140;
             this.Columns["InputUrl"].SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -466,7 +464,6 @@ namespace AMSExplorer
                        new LiveEventEntry
                        {
                            Name = c.Name,
-                           Id = c.Id,
                            Description = c.Description,
                            InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
                            Encoding = ReturnChannelBitmap(c),

@@ -75,7 +75,7 @@
             resources.ApplyResources(this.buttonLogin, "buttonLogin");
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            this.buttonLogin.Click += new System.EventHandler(this.ButtonLogin_Click);
             // 
             // buttonCancel
             // 
@@ -89,7 +89,7 @@
             resources.ApplyResources(this.buttonDeleteAccountEntry, "buttonDeleteAccountEntry");
             this.buttonDeleteAccountEntry.Name = "buttonDeleteAccountEntry";
             this.buttonDeleteAccountEntry.UseVisualStyleBackColor = true;
-            this.buttonDeleteAccountEntry.Click += new System.EventHandler(this.buttonDeleteAccount_Click);
+            this.buttonDeleteAccountEntry.Click += new System.EventHandler(this.ButtonDeleteAccount_Click);
             // 
             // tabControlAMS
             // 
@@ -204,7 +204,7 @@
             resources.ApplyResources(this.buttonExport, "buttonExport");
             this.buttonExport.Name = "buttonExport";
             this.buttonExport.UseVisualStyleBackColor = true;
-            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            this.buttonExport.Click += new System.EventHandler(this.ButtonExport_Click);
             // 
             // buttonImportAll
             // 
@@ -272,7 +272,7 @@
             this.listViewAccounts.ShowItemToolTips = true;
             this.listViewAccounts.UseCompatibleStateImageBehavior = false;
             this.listViewAccounts.View = System.Windows.Forms.View.List;
-            this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.listViewAccounts_SelectedIndexChanged);
+            this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.ListViewAccounts_SelectedIndexChanged);
             this.listViewAccounts.DoubleClick += new System.EventHandler(this.listBoxAcounts_DoubleClick);
             // 
             // linkLabelAMSOfflineDoc

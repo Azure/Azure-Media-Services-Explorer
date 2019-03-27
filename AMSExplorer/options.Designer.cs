@@ -34,15 +34,11 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
             this.checkBoxDisplayAssetID = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayJobID = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisplayAssetAltId = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayAssetStorage = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.comboBoxAutoRefreshTime = new System.Windows.Forms.ComboBox();
-            this.checkBoxDisplayOriginID = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayProgramID = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayChannelID = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxHideTaskbarNotifications = new System.Windows.Forms.CheckBox();
             this.checkBoxUseAdaptiveStreamingFormat = new System.Windows.Forms.CheckBox();
@@ -126,22 +122,12 @@
             this.checkBoxDisplayAssetID.Name = "checkBoxDisplayAssetID";
             this.checkBoxDisplayAssetID.UseVisualStyleBackColor = true;
             // 
-            // checkBoxDisplayJobID
-            // 
-            resources.ApplyResources(this.checkBoxDisplayJobID, "checkBoxDisplayJobID");
-            this.checkBoxDisplayJobID.Name = "checkBoxDisplayJobID";
-            this.checkBoxDisplayJobID.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetAltId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetStorage);
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
             this.groupBox1.Controls.Add(this.comboBoxAutoRefreshTime);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayOriginID);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayProgramID);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayChannelID);
-            this.groupBox1.Controls.Add(this.checkBoxDisplayJobID);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetID);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
@@ -177,24 +163,6 @@
             resources.GetString("comboBoxAutoRefreshTime.Items2"),
             resources.GetString("comboBoxAutoRefreshTime.Items3")});
             this.comboBoxAutoRefreshTime.Name = "comboBoxAutoRefreshTime";
-            // 
-            // checkBoxDisplayOriginID
-            // 
-            resources.ApplyResources(this.checkBoxDisplayOriginID, "checkBoxDisplayOriginID");
-            this.checkBoxDisplayOriginID.Name = "checkBoxDisplayOriginID";
-            this.checkBoxDisplayOriginID.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDisplayProgramID
-            // 
-            resources.ApplyResources(this.checkBoxDisplayProgramID, "checkBoxDisplayProgramID");
-            this.checkBoxDisplayProgramID.Name = "checkBoxDisplayProgramID";
-            this.checkBoxDisplayProgramID.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDisplayChannelID
-            // 
-            resources.ApplyResources(this.checkBoxDisplayChannelID, "checkBoxDisplayChannelID");
-            this.checkBoxDisplayChannelID.Name = "checkBoxDisplayChannelID";
-            this.checkBoxDisplayChannelID.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -535,12 +503,8 @@
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetID;
-        private System.Windows.Forms.CheckBox checkBoxDisplayJobID;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox checkBoxDisplayOriginID;
-        private System.Windows.Forms.CheckBox checkBoxDisplayProgramID;
-        private System.Windows.Forms.CheckBox checkBoxDisplayChannelID;
         private System.Windows.Forms.CheckBox checkBoxAutoRefresh;
         private System.Windows.Forms.ComboBox comboBoxAutoRefreshTime;
         private System.Windows.Forms.ToolTip toolTip1;

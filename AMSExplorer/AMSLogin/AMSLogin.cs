@@ -91,7 +91,7 @@ namespace AMSExplorer
             listViewAccounts.Items[item.Index].ToolTipText = null;
         }
 
-        private void buttonDeleteAccount_Click(object sender, EventArgs e)
+        private void ButtonDeleteAccount_Click(object sender, EventArgs e)
         {
             // let's remove the selected items
 
@@ -107,7 +107,7 @@ namespace AMSExplorer
             SaveCredentialsToSettings();
         }
 
-        private async void buttonLogin_Click(object sender, EventArgs e)
+        private async void ButtonLogin_Click(object sender, EventArgs e)
         {
             if (listViewAccounts.SelectedIndices.Count != 1) return;
             // code when used from pick-up
@@ -158,7 +158,7 @@ namespace AMSExplorer
         }
 
 
-        private void listViewAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListViewAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonLogin.Enabled = (listViewAccounts.SelectedIndices.Count == 1); // no selected item, so login button not active
             buttonDeleteAccountEntry.Enabled = (listViewAccounts.SelectedIndices.Count > 0); // no selected item, so login button not active
@@ -191,7 +191,7 @@ namespace AMSExplorer
         }
 
 
-        private void buttonExport_Click(object sender, EventArgs e)
+        private void ButtonExport_Click(object sender, EventArgs e)
         {
             bool exportAll = true;
             bool exportSPSecrets = false;
@@ -213,10 +213,12 @@ namespace AMSExplorer
                     properties.Add("ClearADSPClientSecret");
                 jsonResolver.IgnoreProperty(typeof(CredentialsEntryV3), properties.ToArray()); // let's not export encrypted secret and may be clear secret
 
-                JsonSerializerSettings settings = new JsonSerializerSettings();
-                settings.NullValueHandling = NullValueHandling.Ignore;
-                settings.Formatting = Newtonsoft.Json.Formatting.Indented;
-                settings.ContractResolver = jsonResolver;
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Formatting = Newtonsoft.Json.Formatting.Indented,
+                    ContractResolver = jsonResolver
+                };
 
                 DialogResult diares = saveFileDialog1.ShowDialog();
                 if (diares == DialogResult.OK)
@@ -344,7 +346,7 @@ namespace AMSExplorer
         private void listBoxAcounts_DoubleClick(object sender, EventArgs e)
         {
             // Proceed to log in to the selected account in the listbox
-            buttonLogin_Click(sender, e);
+            ButtonLogin_Click(sender, e);
         }
 
 
@@ -557,10 +559,11 @@ namespace AMSExplorer
                                                         true,
                                                         AADtenantId,
                                                         false
-                                                        );
-
-                        entry.ADSPClientId = json.AadClientId;
-                        entry.ClearADSPClientSecret = json.AadSecret;
+                                                        )
+                        {
+                            ADSPClientId = json.AadClientId,
+                            ClearADSPClientSecret = json.AadSecret
+                        };
 
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);

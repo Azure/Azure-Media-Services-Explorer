@@ -41,10 +41,6 @@ namespace AMSExplorer
             Properties.Settings.Default.DisplayAssetIDinGrid = checkBoxDisplayAssetID.Checked;
             Properties.Settings.Default.DisplayAssetAltIDinGrid = checkBoxDisplayAssetAltId.Checked;
             Properties.Settings.Default.DisplayAssetStorageinGrid = checkBoxDisplayAssetStorage.Checked;
-            Properties.Settings.Default.DisplayJobIDinGrid = checkBoxDisplayJobID.Checked;
-            Properties.Settings.Default.DisplayLiveChannelIDinGrid = checkBoxDisplayChannelID.Checked;
-            Properties.Settings.Default.DisplayLiveProgramIDinGrid = checkBoxDisplayProgramID.Checked;
-            Properties.Settings.Default.DisplayOriginIDinGrid = checkBoxDisplayOriginID.Checked;
             Properties.Settings.Default.AutoRefresh = checkBoxAutoRefresh.Checked;
             Properties.Settings.Default.AutoRefreshTime = Convert.ToInt16(comboBoxAutoRefreshTime.SelectedItem);
 
@@ -74,10 +70,6 @@ namespace AMSExplorer
             checkBoxDisplayAssetID.Checked = false;
             checkBoxDisplayAssetAltId.Checked = false;
             checkBoxDisplayAssetStorage.Checked = false;
-            checkBoxDisplayJobID.Checked = false;
-            checkBoxDisplayChannelID.Checked = false;
-            checkBoxDisplayOriginID.Checked = false;
-            checkBoxDisplayProgramID.Checked = false;
             checkBoxAutoRefresh.Checked = false;
             comboBoxAutoRefreshTime.SelectedItem = "60";
 
@@ -115,10 +107,6 @@ namespace AMSExplorer
             checkBoxDisplayAssetID.Checked = Properties.Settings.Default.DisplayAssetIDinGrid;
             checkBoxDisplayAssetAltId.Checked = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             checkBoxDisplayAssetStorage.Checked = Properties.Settings.Default.DisplayAssetStorageinGrid;
-            checkBoxDisplayJobID.Checked = Properties.Settings.Default.DisplayJobIDinGrid;
-            checkBoxDisplayChannelID.Checked = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
-            checkBoxDisplayProgramID.Checked = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
-            checkBoxDisplayOriginID.Checked = Properties.Settings.Default.DisplayOriginIDinGrid;
             checkBoxAutoRefresh.Checked = Properties.Settings.Default.AutoRefresh;
             comboBoxAutoRefreshTime.SelectedItem = Properties.Settings.Default.AutoRefreshTime.ToString();
 

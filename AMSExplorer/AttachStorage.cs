@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
@@ -97,7 +98,7 @@ namespace AMSExplorer
         }
 
    
-        public void UpdateStorageAccounts()
+        public async Task UpdateStorageAccountsAsync()
         {
             // storage to detach
             foreach (var stor in mediaService.StorageAccounts.ToList())
@@ -114,7 +115,7 @@ namespace AMSExplorer
                 mediaService.StorageAccounts.Add(new StorageAccount(StorageAccountType.Secondary, storId));
             }
 
-            mediaClient.Mediaservices.Update(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, mediaService);
+           await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, mediaService);
         }
     }
 }

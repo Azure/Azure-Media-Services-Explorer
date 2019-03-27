@@ -22,7 +22,6 @@ namespace AMSExplorer
 {
     public partial class ProcessFromTransform : Form
     {
-        private int sortColumn = -1;
         private AMSClientV3 _client;
         private int _numberselectedassets = 0;
 

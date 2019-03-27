@@ -56,7 +56,6 @@ namespace AMSExplorer
     {
         //   select new { j.Name, j.Id, j.State, j.StartTime, j.EndTime, j.Tasks[0].PerfMessage, Progress=j.GetOverallProgress() };
         public string Name { get; set; }
-        public string Id { get; set; }
         public LiveEventResourceState? State { get; set; }
         public DateTime? LastModified { get; set; }
         public string Description { get; set; }
@@ -70,7 +69,6 @@ namespace AMSExplorer
     public class LiveOutputEntry
     {
         public string Name { get; set; }
-        public string Id { get; set; }
         public LiveOutputResourceState? State { get; set; }
         public DateTime? LastModified { get; set; }
         public string Description { get; set; }
