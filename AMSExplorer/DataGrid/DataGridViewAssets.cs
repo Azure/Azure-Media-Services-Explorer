@@ -440,7 +440,7 @@ namespace AMSExplorer
             }
         }
 
-        public void RefreshAssets(int pagetodisplay) // all assets are refreshed
+        public async Task RefreshAssetsAsync(int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
             if (pagetodisplay == 1) _currentPageNumberIsMax = false;
@@ -451,7 +451,7 @@ namespace AMSExplorer
                 // cancel the analyze.
                 WorkerAnalyzeAssets.CancelAsync();
             }
-            this.FindForm().Cursor = Cursors.WaitCursor;
+            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
             /*
              * 
@@ -585,7 +585,7 @@ Properties/StorageId
 
             if (pagetodisplay == 1)
             {
-                firstpage = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);
+                firstpage = await _client.AMSclient.Assets.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);
                 currentPage = firstpage;
             }
             else
@@ -595,7 +595,7 @@ Properties/StorageId
                 while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
                     _currentPageNumber++;
-                    currentPage = _client.AMSclient.Assets.ListNext(currentPage.NextPageLink);
+                    currentPage = await _client.AMSclient.Assets.ListNextAsync(currentPage.NextPageLink);
                 }
                 if (currentPage.NextPageLink == null) _currentPageNumberIsMax = true; // we reached max
             }
@@ -641,7 +641,7 @@ Properties/StorageId
             Debug.WriteLine("RefreshAssets End");
             AnalyzeItemsInBackground();
 
-            this.FindForm().Cursor = Cursors.Default;
+            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
 
 

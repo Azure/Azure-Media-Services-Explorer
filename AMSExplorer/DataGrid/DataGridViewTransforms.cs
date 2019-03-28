@@ -69,15 +69,15 @@ namespace AMSExplorer
         }
 
 
-        public void RefreshTransforms() // all transforms are refreshed
+        public async Task RefreshTransformsAsync() // all transforms are refreshed
         {
             if (!_initialized) return;
 
             Debug.WriteLine("Refresh Transforms Start");
 
-            this.FindForm().Cursor = Cursors.WaitCursor;
+            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
-            var transforms = _client.Transforms.List(_resourceName, _accountName).Select(a => new TransformEntryV3
+            var transforms = (await _client.Transforms.ListAsync(_resourceName, _accountName)).Select(a => new TransformEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -91,7 +91,7 @@ namespace AMSExplorer
 
             Debug.WriteLine("RefreshTransforms End");
 
-            this.FindForm().Cursor = Cursors.Default;
+            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
 
         public List<Transform> ReturnSelectedTransforms()

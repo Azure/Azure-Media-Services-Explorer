@@ -319,214 +319,19 @@ namespace AMSExplorer
 
         private void RefreshPrograms() // all assets are refreshed
         {
-            RefreshPrograms(_currentpage);
+            Task.Run(async () => await RefreshLiveOutputsAsync(_currentpage));
+
         }
 
-        public void RefreshPrograms(int pagetodisplay) // all assets are refreshed
+        public async Task RefreshLiveOutputsAsync(int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
             if (idsList.Count == 0) return;
 
             Debug.WriteLine("RefreshPrograms : start");
 
-            this.FindForm().Cursor = Cursors.WaitCursor;
+            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
-            /*
-            _context = context;
-
-            IEnumerable<LiveOutputEntry> programquery;
-            IQueryable<IProgram> programssrv = context.Programs;
-            IEnumerable<IProgram> programs;
-
-            if (_anyChannel == enumDisplayProgram.None)
-            {
-                programs = new List<IProgram>();
-            }
-            else
-            {
-                // DAYS
-                bool filterStartDate = false;
-                bool filterEndDate = false;
-
-                DateTime dateTimeStart = DateTime.UtcNow;
-                DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
-
-                int days = FilterTime.ReturnNumberOfDays(_timefilter);
-
-                if (days > 0)
-                {
-                    filterStartDate = true;
-                    dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
-                }
-                else if (days == -1) // TimeRange
-                {
-                    filterStartDate = true;
-                    filterEndDate = true;
-                    dateTimeStart = _timefilterTimeRange.StartDate;
-                    if (_timefilterTimeRange.EndDate != null) // there is an end time
-                    {
-                        dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
-                    }
-                }
-
-                // STATE
-                bool pFilterOnState = FilterState != "All";
-                ProgramState myStateFilter = ProgramState.Running;
-                if (pFilterOnState)
-                {
-                    myStateFilter = (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter);
-                }
-
-                bool bListEmpty = (idsList.Count == 0);
-
-                // search
-                if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
-                {
-                    bool Error = false;
-
-                    switch (_searchinname.SearchType)
-                    {
-                        case SearchIn.ProgramName:
-                            programssrv = context.Programs.Where(p =>
-                                                    (p.Name.ToLower().Contains(_searchinname.Text.ToLower()))
-                                                      &&
-                                                     (!filterStartDate || p.LastModified > dateTimeStart)
-                                                     &&
-                                                     (!filterEndDate || p.LastModified < dateTimeRangeEnd)
-                                                      );
-                            break;
-
-                        case SearchIn.ProgramId:
-                            string programguid = _searchinname.Text;
-                            if (programguid.StartsWith(Constants.ProgramIdPrefix))
-                            {
-                                programguid = programguid.Substring(Constants.ProgramIdPrefix.Length);
-                            }
-                            try
-                            {
-                                var g = new Guid(programguid);
-                            }
-                            catch
-                            {
-                                Error = true;
-                                MessageBox.Show("Error with program Id. Is it a valid GUID or program Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            if (!Error)
-                            {
-                                programssrv = context.Programs.Where(p =>
-                                                        (p.Id == Constants.ProgramIdPrefix + programguid)
-                                                        // no need to filter the date or ID as user request a specific ID
-                                                        );
-                            }
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    programssrv = context.Programs.Where(p =>
-                                                     (!filterStartDate || p.LastModified > dateTimeStart)
-                                                     &&
-                                                     (!filterEndDate || p.LastModified < dateTimeRangeEnd)
-                                                    );
-
-                    if (idsList.Count == 1 && _anyChannel == enumDisplayProgram.Selected)
-                    {
-                        programssrv = programssrv.Where(p => p.ChannelId == idsList[0]);
-                    }
-                    else if (idsList.Count > 1 && _anyChannel == enumDisplayProgram.Selected)
-                    {
-                        // let's build the query for all the IDs
-                        // The IQueryable data to query.
-                        IQueryable<IProgram> queryableData = programssrv.AsQueryable<IProgram>();
-
-                        // Compose the expression tree that represents the parameter to the predicate.
-                        ParameterExpression pe = Expression.Parameter(typeof(IProgram), "p");
-
-                        List<Expression> exp = new List<Expression>();
-                        foreach (var s in idsList)
-                        {
-                            // ***** Where(p => p.ChannelId == "nb:chid:UUID:29aae99e-66d9-4a54-8cf0-8f652fd0f0ff" || p.ChannelId == "nb:chid:UUID:....)) *****
-                            // Create an expression tree that represents the expression 'p.ChannelId == "nb:chid:UUID:2....
-                            Expression left = Expression.Property(pe, typeof(IProgram).GetProperty("ChannelId"));
-                            Expression right = Expression.Constant(s);
-                            exp.Add(Expression.Equal(left, right));
-                        }
-                        // Combine the expression trees to create an expression tree that represents the
-                        Expression predicateBody = Expression.OrElse(exp[0], exp[1]);
-                        for (int i = 2; i < idsList.Count; i++)
-                        {
-                            predicateBody = Expression.OrElse(predicateBody, exp[i]);
-                        }
-
-                        // Create an expression tree that represents the expression
-                        MethodCallExpression whereCallExpression = Expression.Call(
-                           typeof(Queryable),
-                           "Where",
-                           new Type[] { queryableData.ElementType },
-                           queryableData.Expression,
-                           Expression.Lambda<Func<IProgram, bool>>(predicateBody, new ParameterExpression[] { pe }));
-                        // ***** End Where *****
-
-                        // Create an executable query from the expression tree.
-                        programssrv = queryableData.Provider.CreateQuery<IProgram>(whereCallExpression);
-                    }
-                }
-
-                // let's get all the results locally
-
-                IList<IProgram> aggregateListPrograms = new List<IProgram>();
-                int skipSize = 0;
-                int batchSize = 1000;
-                int currentSkipSize = 0;
-                while (true)
-                {
-                    // Enumerate through all jobs (1000 at a time)
-                    var programsq = programssrv
-                        .Skip(skipSize).Take(batchSize).ToList();
-
-                    currentSkipSize += programsq.Count;
-
-                    foreach (var j in programsq)
-                    {
-                        aggregateListPrograms.Add(j);
-                    }
-
-                    if (currentSkipSize == batchSize)
-                    {
-                        skipSize += batchSize;
-                        currentSkipSize = 0;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                //programs = programssrv.AsEnumerable(); // local query now
-                programs = aggregateListPrograms;
-
-
-                if (pFilterOnState)
-                {
-                    programs = programs.Where(p => p.State.Equals(myStateFilter)); // this query has to be locally. Not supported on the server
-                }
-
-                if ((!string.IsNullOrEmpty(_timefilter)))
-                {
-                    if (_timefilter == FilterTime.First50Items)
-                    {
-                        programs = programs.Take(50);
-
-                    }
-                    else if (_timefilter == FilterTime.First1000Items)
-                    {
-                        programs = programs.Take(1000);
-                    }
-                }
-            }
-            */
             _client.RefreshTokenIfNeeded();
 
             IEnumerable<LiveEvent> ListEvents;
@@ -536,8 +341,9 @@ namespace AMSExplorer
             }
             else
             {
-                ListEvents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).ToList()
-                .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && LiveEventSourceNames.Contains(l.Name)));
+                ListEvents = (await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
+                    .ToList()
+                    .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && LiveEventSourceNames.Contains(l.Name)));
             }
 
 
@@ -545,7 +351,8 @@ namespace AMSExplorer
 
             foreach (var le in ListEvents)
             {
-                var plist = _client.AMSclient.LiveOutputs.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, le.Name).ToList();
+                var plist = (await _client.AMSclient.LiveOutputs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, le.Name))
+                    .ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -567,7 +374,8 @@ namespace AMSExplorer
             _MyObservLiveOutputs = new SortableBindingList<LiveOutputEntry>(programquery.ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservLiveOutputs));
             _refreshedatleastonetime = true;
-            this.FindForm().Cursor = Cursors.Default;
+
+            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
 
             Debug.WriteLine("RefreshPrograms : end");
         }

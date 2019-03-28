@@ -491,7 +491,7 @@ namespace AMSExplorer
         public static Uri AllReleaseNotesUrl = null;
         public static string MessageNewVersion = string.Empty;
 
-    
+
         public static async void CheckAMSEVersionV3()
         {
             var webClient = new WebClient();
@@ -3199,7 +3199,7 @@ namespace AMSExplorer
                 {
                     var blobd = blob as CloudBlobDirectory;
                     sb.AppendLine("   Blob Directory Name  : " + blobd.Prefix);
-                    sb.AppendLine("   Type                 : BlobDirectory" );
+                    sb.AppendLine("   Type                 : BlobDirectory");
                     sb.AppendLine("   Blob Director length : " + GetSizeBlobDirectory(blobd) + " Bytes");
                     sb.AppendLine("");
                 }
@@ -4786,9 +4786,9 @@ namespace AMSExplorer
 
         public void RefreshTokenIfNeeded()
         {
-            if (accessToken == null) return;
-
-            if (accessToken.ExpiresOn < DateTimeOffset.UtcNow)
+            // if end user use interactive authentication, then the token is not renewed automatically after it expired (one hour)
+            // with Service Principal authentication, the token is renewed automatically apparently ! (result of tests)
+            if (accessToken != null && accessToken.ExpiresOn < DateTimeOffset.UtcNow)
             {
                 Task.Run(async () => await ConnectAndGetNewClientV3Async());
             }
@@ -4854,7 +4854,7 @@ namespace AMSExplorer
                         ValidateAuthority = true
                     };
                     var cred = await ApplicationTokenProvider.LoginSilentAsync(this.credentialsEntry.AadTenantId, clientCredential, set);
-
+                                                        
                     // Getting Media Services accounts...
                     AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred);
                     AMSclient.SubscriptionId = _azureSubscriptionId;
@@ -4871,11 +4871,24 @@ namespace AMSExplorer
 
         public string GetStorageKey(string storageId)
         {
-            string valuekey = "";
+            string valuekey = null;
             bool classic = false;
             string version = "2016-01-01";
+            string token = this.accessToken?.AccessToken;
 
-            string token = this.accessToken.AccessToken;
+            // if SP
+            if (this.accessToken == null && this.credentialsEntry.UseSPAuth)
+            {
+                // let's get the current token in Service Principal mode
+                var accessTokenCache = TokenCache.DefaultShared.ReadItems()
+                        .Where(t => t.ClientId == credentialsEntry.ADSPClientId)
+                        .OrderByDescending(t => t.ExpiresOn)
+                        .First();
+                token = accessTokenCache?.AccessToken;
+            }
+
+            if (token == null) return null;
+          
             if (storageId.Contains("/providers/Microsoft.ClassicStorage/storageAccounts"))
             {
                 version = "2015-06-01";
@@ -4891,14 +4904,21 @@ namespace AMSExplorer
             request.ContentType = "application/json";
             request.ContentLength = 0;
 
-            //Get the response
-            var httpResponse = (HttpWebResponse)request.GetResponse();
-
-            using (System.IO.StreamReader r = new System.IO.StreamReader(httpResponse.GetResponseStream()))
+            try
             {
-                string jsonResponse = r.ReadToEnd();
-                dynamic data = JsonConvert.DeserializeObject(jsonResponse);
-                valuekey = classic ? data.primaryKey : data.keys[0].value;
+                //Get the response
+                var httpResponse = (HttpWebResponse)request.GetResponse();
+
+                using (System.IO.StreamReader r = new System.IO.StreamReader(httpResponse.GetResponseStream()))
+                {
+                    string jsonResponse = r.ReadToEnd();
+                    dynamic data = JsonConvert.DeserializeObject(jsonResponse);
+                    valuekey = classic ? data.primaryKey : data.keys[0].value;
+                }
+            }
+            catch // not authorization
+            {
+                return null;
             }
 
             return valuekey;
@@ -4918,7 +4938,18 @@ namespace AMSExplorer
 
         public long? GetStorageCapacity(string storageId)
         {
-            StorageCredentials storageCredentials = new StorageCredentials(AMSClientV3.GetStorageName(storageId), this.GetStorageKey(storageId));
+            string storeKey = null;
+            try
+            {
+                storeKey = this.GetStorageKey(storageId);
+            }
+            catch
+            {
+                return null;
+            }
+            if (storeKey == null) return null;
+
+            StorageCredentials storageCredentials = new StorageCredentials(AMSClientV3.GetStorageName(storageId), storeKey);
             CloudStorageAccount cloudStorageAccount = new CloudStorageAccount(storageCredentials, useHttps: true);
 
             var blobClient = cloudStorageAccount.CreateCloudAnalyticsClient();

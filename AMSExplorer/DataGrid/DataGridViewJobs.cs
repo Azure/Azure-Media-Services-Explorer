@@ -270,13 +270,13 @@ namespace AMSExplorer
         }
 
 
-        public void Refreshjobs(int pagetodisplay) // all jobs are refreshed
+        public async Task RefreshjobsAsync(int pagetodisplay) // all jobs are refreshed
         {
             if ((!_initialized) || _transformName.Count == 0) return;
 
             Debug.WriteLine("Refresh Jobs Start");
 
-            this.FindForm().Cursor = Cursors.WaitCursor;
+            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
             ///////////////////////
             // SORTING
@@ -371,7 +371,7 @@ namespace AMSExplorer
 
             if (pagetodisplay == 1)
             {
-                firstpage = _client.Jobs.List(_resourceName, _accountName, transform, odataQuery);
+                firstpage = await _client.Jobs.ListAsync(_resourceName, _accountName, transform, odataQuery);
                 currentPage = firstpage;
             }
             else
@@ -381,7 +381,7 @@ namespace AMSExplorer
                 while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
                     _currentPageNumber++;
-                    currentPage = _client.Jobs.ListNext(currentPage.NextPageLink);
+                    currentPage = await _client.Jobs.ListNextAsync(currentPage.NextPageLink);
                 }
                 if (currentPage.NextPageLink == null) _currentPageNumberIsMax = true; // we reached max
             }
@@ -410,7 +410,7 @@ namespace AMSExplorer
 
             RestoreJobProgress(new List<string> { transform });
 
-            this.FindForm().Cursor = Cursors.Default;
+            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
 
 

@@ -469,6 +469,7 @@
             resources.ApplyResources(this.butPrevPageAsset, "butPrevPageAsset");
             this.butPrevPageAsset.Name = "butPrevPageAsset";
             this.butPrevPageAsset.UseVisualStyleBackColor = true;
+            this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
             // 
             // dataGridViewAssetsV
             // 

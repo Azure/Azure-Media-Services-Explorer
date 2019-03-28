@@ -142,6 +142,7 @@ namespace AMSExplorer
         static Bitmap StandardEncodingImage = Bitmaps.encodingPremium;
         public string _encoded = "Encoding";
         public string _encodedPreset = "EncodingPreset";
+        public int totalLiveEvents = 0;
 
         private Bitmap ReturnChannelBitmap(LiveEvent channel)
         {
@@ -318,149 +319,21 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.Refresh()), null);
         }
 
-        private void RefreshChannels() // all assets are refreshed
+        private void RefreshLiveEvents() // all assets are refreshed
         {
-            RefreshChannels(_currentpage);
+            Task.Run(async () => await RefreshLiveEventAsync(_currentpage));
         }
 
-        public void RefreshChannels(int pagetodisplay) // all assets are refreshed
+        public async Task RefreshLiveEventAsync(int pagetodisplay) // all assets are refreshed
         {
-
             if (!_initialized) return;
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
-            /*
-            IEnumerable<LiveEventEntry> channelquery;
+            var listLE = await _client.LiveEvents.ListAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+            totalLiveEvents = listLE.Count();
 
-            // DAYS
-            bool filterStartDate = false;
-            bool filterEndDate = false;
-
-            DateTime dateTimeStart = DateTime.UtcNow;
-            DateTime dateTimeRangeEnd = DateTime.UtcNow.AddDays(1);
-
-            int days = FilterTime.ReturnNumberOfDays(_timefilter);
-
-            if (days > 0)
-            {
-                filterStartDate = true;
-                dateTimeStart = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
-            }
-            else if (days == -1) // TimeRange
-            {
-                filterStartDate = true;
-                filterEndDate = true;
-                dateTimeStart = _timefilterTimeRange.StartDate;
-                if (_timefilterTimeRange.EndDate != null) // there is an end time
-                {
-                    dateTimeRangeEnd = (DateTime)_timefilterTimeRange.EndDate;
-                }
-            }
-
-            // STATE
-            bool filterstate = FilterState != "All";
-            ChannelState channelstate = ChannelState.Running;
-            if (filterstate)
-            {
-                channelstate = (ChannelState)Enum.Parse(typeof(ChannelState), FilterState);
-            }
-
-          //  IQueryable<LiveEvent> channelssrv =  _client.LiveEvents;
-
-            // search
-            if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
-            {
-                bool Error = false;
-
-                switch (_searchinname.SearchType)
-                {
-                    case SearchIn.ChannelName:
-                        channelssrv = context.Channels.Where(c =>
-                                                 (c.Name.ToLower().Contains(_searchinname.Text.ToLower()))
-                                                 &&
-                                                 (!filterStartDate || c.LastModified > dateTimeStart)
-                                                 &&
-                                                 (!filterEndDate || c.LastModified < dateTimeRangeEnd)
-                                                 );
-                        break;
-
-                    case SearchIn.ChannelId:
-                        string channelguid = _searchinname.Text;
-                        if (channelguid.StartsWith(Constants.ChannelIdPrefix))
-                        {
-                            channelguid = channelguid.Substring(Constants.ChannelIdPrefix.Length);
-                        }
-                        try
-                        {
-                            var g = new Guid(channelguid);
-                        }
-                        catch
-                        {
-                            Error = true;
-                            MessageBox.Show("Error with channel Id. Is it a valid GUID or channel Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        if (!Error)
-                        {
-                            channelssrv = context.Channels.Where(c =>
-                                                    (c.Id == Constants.ChannelIdPrefix + channelguid)
-                                                    &&
-                                                    (!filterStartDate || c.LastModified > dateTimeStart)
-                                                    &&
-                                                    (!filterEndDate || c.LastModified < dateTimeRangeEnd)
-                                                    );
-                        }
-                        break;
-
-                    default:
-                        break;
-
-                }
-            }
-            else
-            {
-                channelssrv = context.Channels.Where(c =>
-                                                 (!filterStartDate || c.LastModified > dateTimeStart)
-                                                 &&
-                                                 (!filterEndDate || c.LastModified < dateTimeRangeEnd)
-                                                 );
-            }
-
-            /*
-            switch (_orderitems)
-            {
-                case OrderChannels.LastModified:
-                    channelssrv = channelssrv.OrderByDescending(p => p.LastModified);
-                    break;
-
-                case OrderChannels.Name:
-                    channelssrv = channelssrv.OrderBy(p => p.Name);
-                    break;
-
-                case OrderChannels.State:
-                    channelssrv = channelssrv.OrderBy(p => p.State);
-                    break;
-
-                default:
-                    break;
-            }
-            */
-
-            /*
-            IEnumerable<IChannel> channels = channelssrv.AsEnumerable(); // local query now
-
-            if (filterstate)
-            {
-                channels = channels.Where(c => c.State == channelstate); // this query has to be locally. Not supported on the server
-            }
-
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
-            {
-                channels = channels.Take(50);
-            }
-            */
-
-            var channelquery = _client.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName).Select(c =>
+            var channelquery = listLE.Select(c =>
                        new LiveEventEntry
                        {
                            Name = c.Name,
@@ -472,7 +345,8 @@ namespace AMSExplorer
                            PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
                            State = c.ResourceState,
                            LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
-                       });
+                       }
+            );
 
             _MyObservLiveEvent = new SortableBindingList<LiveEventEntry>(channelquery.ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservLiveEvent));
@@ -480,5 +354,4 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
     }
-
 }

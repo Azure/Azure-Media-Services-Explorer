@@ -999,8 +999,11 @@ namespace AMSExplorer
 
             Debug.WriteLine("DoRefreshGridAssetNotforsttime");
 
-            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber())));
-
+            int page = GetTextBoxAssetsPageNumber();
+            Task.Run(async () =>
+            {
+                await dataGridViewAssetsV.RefreshAssetsAsync(page);
+            });
 
             //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
         }
@@ -1010,10 +1013,6 @@ namespace AMSExplorer
             dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
         }
 
-        public void DoPurgeAssetInfoFromCache(IAsset asset)
-        {
-            // dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
-        }
 
         private void DoRefreshGridTransformV(bool firstime)
         {
@@ -1024,10 +1023,10 @@ namespace AMSExplorer
 
             Debug.WriteLine("DoRefreshGridTransformVNotforsttime");
 
-            dataGridViewTransformsV.Invoke(new Action(() => dataGridViewTransformsV.RefreshTransforms()));
-
-            //uodate tab nimber of jobs
-            //    tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(AMSExplorer.Properties.Resources.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
+            Task.Run(async () =>
+            {
+                await dataGridViewTransformsV.RefreshTransformsAsync();
+            });
         }
 
 
@@ -1042,7 +1041,12 @@ namespace AMSExplorer
 
             Debug.WriteLine("DoRefreshGridJobVNotforsttime");
 
-            dataGridViewJobsV.Invoke(new Action(() => dataGridViewJobsV.Refreshjobs(GetTextBoxJobsPageNumber())));
+            int page = GetTextBoxJobsPageNumber();
+            Task.Run(async () =>
+            {
+                await dataGridViewJobsV.RefreshjobsAsync(page);
+            });
+
         }
 
 
@@ -5351,10 +5355,14 @@ namespace AMSExplorer
 
         private void butNextPageAsset_Click(object sender, EventArgs e)
         {
-            dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber() + 1);
+            int page = GetTextBoxAssetsPageNumber() + 1;
+            Task.Run(async () =>
+            {
+                await dataGridViewAssetsV.RefreshAssetsAsync(page);
+            });
             if (!dataGridViewAssetsV.CurrentPageIsMax)
             {
-                SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() + 1);
+                SetTextBoxAssetsPageNumber(page);
             }
         }
 
@@ -5362,18 +5370,26 @@ namespace AMSExplorer
         {
             if (GetTextBoxAssetsPageNumber() > 1)
             {
-                dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber() - 1);
+                int page = GetTextBoxAssetsPageNumber() - 1;
+                Task.Run(async () =>
+                {
+                    await dataGridViewAssetsV.RefreshAssetsAsync(page);
+                });
 
-                SetTextBoxAssetsPageNumber(GetTextBoxAssetsPageNumber() - 1);
+                SetTextBoxAssetsPageNumber(page);
             }
         }
 
         private void butNextPageJob_Click(object sender, EventArgs e)
         {
-            dataGridViewJobsV.Refreshjobs(GetTextBoxJobsPageNumber() + 1);
+            int page = GetTextBoxJobsPageNumber() + 1;
+            Task.Run(async () =>
+            {
+                await dataGridViewJobsV.RefreshjobsAsync(page);
+            });
             if (!dataGridViewJobsV.CurrentPageIsMax)
             {
-                SetTextBoxJobsPageNumber(GetTextBoxJobsPageNumber() + 1);
+                SetTextBoxJobsPageNumber(page);
             }
         }
 
@@ -5381,9 +5397,13 @@ namespace AMSExplorer
         {
             if (GetTextBoxJobsPageNumber() > 1)
             {
-                dataGridViewJobsV.Refreshjobs(GetTextBoxJobsPageNumber() - 1);
+                int page = GetTextBoxJobsPageNumber() - 1;
+                Task.Run(async () =>
+                {
+                    await dataGridViewJobsV.RefreshjobsAsync(page);
+                });
 
-                SetTextBoxJobsPageNumber(GetTextBoxJobsPageNumber() - 1);
+                SetTextBoxJobsPageNumber(page);
             }
         }
 
@@ -6260,11 +6280,20 @@ namespace AMSExplorer
             {
                 dataGridViewLiveEventsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry);
             }
-            dataGridViewLiveEventsV.Invoke(new Action(() => dataGridViewLiveEventsV.RefreshChannels(1)));
 
-            var count = _amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
-            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, count)));
-            labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, count)));
+            Task.Run(async () =>
+            {
+                await dataGridViewLiveEventsV.RefreshLiveEventAsync(1);
+                tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
+                labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
+            });
+            //dataGridViewLiveEventsV.Invoke(new Action(async() => await dataGridViewLiveEventsV.RefreshChannelsAsync(1)));
+
+            //var count = _amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
+
+            //  tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
+            //  labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
+
         }
 
         private void DoRefreshGridLiveOutputV(bool firstime)
@@ -6280,10 +6309,11 @@ namespace AMSExplorer
                 Debug.WriteLine("DoRefreshGridProgramVNotforsttime");
             }
 
-            int backupindex = 0;
-            dataGridViewLiveOutputV.Invoke(new Action(() => dataGridViewLiveOutputV.RefreshPrograms(backupindex + 1)));
-            labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0}/{1})", dataGridViewLiveOutputV.DisplayedCount, 0/*_context.Programs.Count()*/)));
-
+            Task.Run(async () =>
+            {
+                await dataGridViewLiveOutputV.RefreshLiveOutputsAsync(1);
+                labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0})", dataGridViewLiveOutputV.DisplayedCount)));
+            });
         }
 
         private void DoRefreshGridStreamingEndpointV(bool firstime)
@@ -6293,12 +6323,13 @@ namespace AMSExplorer
             if (firstime)
             {
                 dataGridViewStreamingEndpointsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry);
-
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
-            dataGridViewStreamingEndpointsV.Invoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoints()));
-
-            tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
+            Task.Run(async () =>
+            {
+                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointsAsync();
+                tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
+            });
         }
 
 
@@ -6342,15 +6373,7 @@ namespace AMSExplorer
             foreach (var storage in amsaccount.StorageAccounts)
             {
 
-                long? capacity = null;
-                try
-                {
-                    capacity = _amsClientV3.GetStorageCapacity(storage.Id);
-                }
-                catch
-                {
-                    //TextBoxLogWriteLine(ex);
-                }
+                long? capacity = _amsClientV3.GetStorageCapacity(storage.Id);
 
                 /*
                 double? capacityPercentageFullTmp = null;
@@ -7317,7 +7340,10 @@ namespace AMSExplorer
                             if (loitemR != null && states[streamingendpointsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[streamingendpointsstopped.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(loitemR)), null);
+                                Task.Run(async () =>
+                                {
+                                    await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
+                                });
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Running)
                                 {
                                     TextBoxLogWriteLine(string.Format("Streaming endpoint started : {0}.", loitemR.Name));
@@ -7400,7 +7426,11 @@ namespace AMSExplorer
                             if (loitemR != null && states[sesrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[sesrunning.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(loitemR)), null);
+                                Task.Run(async () =>
+                                {
+                                    await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
+                                });
+
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Stopped)
                                 {
                                     TextBoxLogWriteLine(string.Format("Streaming endpoint stopped : {0}.", loitemR.Name));
@@ -7443,7 +7473,10 @@ namespace AMSExplorer
                             if (loitemR != null && states[ListStreamingEndpoints.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListStreamingEndpoints.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(loitemR)), null);
+                                Task.Run(async () =>
+                                {
+                                    await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
+                                });
                             }
                             else if (loitemR != null)
                             {
@@ -8205,7 +8238,7 @@ namespace AMSExplorer
                 {
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
 
-                    Task.Run(async() =>
+                    Task.Run(async () =>
                     {
                         List<Task> MyTasks = new List<Task>();
                         int i = 0;
@@ -11169,11 +11202,21 @@ namespace AMSExplorer
             try
             {
                 valuekey = _amsClientV3.GetStorageKey(storageId);
-                var storageAccount = new CloudStorageAccount(new StorageCredentials(AMSClientV3.GetStorageName(storageId), valuekey), _amsClientV3.environment.ReturnStorageSuffix(), true);
-                blobClient = storageAccount.CreateCloudBlobClient();
+                if (valuekey == null)
+                {
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + AMSClientV3.GetStorageName(storageId) + ":", ref valuekey, true) != DialogResult.OK)
+                    {
+                        Error = true;
+                    }
+                }
+                if (!Error)
+                {
+                    var storageAccount = new CloudStorageAccount(new StorageCredentials(AMSClientV3.GetStorageName(storageId), valuekey), _amsClientV3.environment.ReturnStorageSuffix(), true);
+                    blobClient = storageAccount.CreateCloudBlobClient();
 
-                // Get the current service properties
-                serviceProperties = blobClient.GetServiceProperties();
+                    // Get the current service properties
+                    serviceProperties = blobClient.GetServiceProperties();
+                }
             }
             catch (Exception ex)
             {
@@ -11212,8 +11255,6 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(ex);
                     }
                 }
-
-
             }
         }
 
@@ -11382,7 +11423,7 @@ namespace AMSExplorer
             {
                 bool fixError = dialogResult == System.Windows.Forms.DialogResult.Yes;
 
-                await Task.Run(async() =>
+                await Task.Run(async () =>
                 {
                     List<IAssetFile> manifestFiles = new List<IAssetFile>();
 
@@ -12130,11 +12171,6 @@ namespace AMSExplorer
             }
         }
 
-        private void textBoxAssetsPageNumber_TextChanged(object sender, EventArgs e)
-        {
-            dataGridViewAssetsV.RefreshAssets(GetTextBoxAssetsPageNumber());
-            butNextPageAsset.Enabled = !dataGridViewAssetsV.CurrentPageIsMax;
-        }
 
         private void videoAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
         {

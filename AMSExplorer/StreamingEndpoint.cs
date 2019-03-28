@@ -183,12 +183,12 @@ namespace AMSExplorer
         }
 
 
-        public void RefreshStreamingEndpoint(StreamingEndpoint origin)
+        public async Task RefreshStreamingEndpointAsync(StreamingEndpoint streamingEndpoint)
         {
             int index = -1;
             foreach (StreamingEndpointEntry CE in _MyObservStreamingEndpoints) // let's search for index
             {
-                if (CE.Id == origin.Id)
+                if (CE.Id == streamingEndpoint.Id)
                 {
                     index = _MyObservStreamingEndpoints.IndexOf(CE);
                     break;
@@ -197,17 +197,16 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                origin = _client.StreamingEndpoints.Get(_resourceName, _accountName, origin.Name); //refresh
-                if (origin != null)
+                streamingEndpoint = await _client.StreamingEndpoints.GetAsync(_resourceName, _accountName, streamingEndpoint.Name); //refresh
+                if (streamingEndpoint != null)
                 {
-                    _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)origin.ResourceState;
-                    _MyObservStreamingEndpoints[index].Description = origin.Description;
-                    _MyObservStreamingEndpoints[index].LastModified = ((DateTime)origin.LastModified).ToLocalTime();
-                    _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(origin);
-                    _MyObservStreamingEndpoints[index].CDN = ((bool)origin.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(origin.CdnProvider) ?? "CDN" : string.Empty;
-                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(origin) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)origin.ScaleUnits).ToString();
-                    this.Refresh();
-
+                    _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)streamingEndpoint.ResourceState;
+                    _MyObservStreamingEndpoints[index].Description = streamingEndpoint.Description;
+                    _MyObservStreamingEndpoints[index].LastModified = ((DateTime)streamingEndpoint.LastModified).ToLocalTime();
+                    _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint);
+                    _MyObservStreamingEndpoints[index].CDN = ((bool)streamingEndpoint.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(streamingEndpoint.CdnProvider) ?? "CDN" : string.Empty;
+                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)streamingEndpoint.ScaleUnits).ToString();
+                    this.BeginInvoke(new Action(() => this.Refresh()));
                 }
             }
         }
@@ -251,7 +250,7 @@ namespace AMSExplorer
         }
 
 
-        public void RefreshStreamingEndpoints()
+        public async Task RefreshStreamingEndpointsAsync()
         {
             if (!_initialized) return;
 
@@ -259,8 +258,7 @@ namespace AMSExplorer
 
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
-            streamingendpoints = _client.StreamingEndpoints.List(_resourceName, _accountName);
-
+            streamingendpoints = await _client.StreamingEndpoints.ListAsync(_resourceName, _accountName);
 
             try
             {

@@ -346,7 +346,7 @@ namespace AMSExplorer
 
             return;
 
-           
+
 
             oktobuildlocator = true;
             BuildLocatorsTree();
@@ -488,13 +488,31 @@ namespace AMSExplorer
         }
 
 
+        private void LocTreeAddTextEntryToNode(int indexLoc, int indexNode, string text, string value)
+
+        {
+            TreeViewLocators.Nodes[indexLoc].Nodes[indexNode].Nodes.Add(new TreeNode(
+                     string.Format(text, value)
+                     ));
+        }
+
+        private void LocTreeAddTextEntryToNode(int indexLoc, int indexNode, string text, DateTime value)
+
+        {
+            LocTreeAddTextEntryToNode(indexLoc, indexNode, text, value.ToLocalTime().ToString("G"));
+        }
+
+        private void LocTreeAddTextEntryToNode(int indexLoc, int indexNode, string text, DateTime? value)
+        {
+            if (value != null)
+                LocTreeAddTextEntryToNode(indexLoc, indexNode, text, (DateTime)value);
+        }
+
         private void BuildLocatorsTree()
         {
             // LOCATORS TREE
             if (!oktobuildlocator) return;
 
-            // IEnumerable<IAssetFile> MyAssetFiles;
-            // List<Uri> ProgressiveDownloadUris;
             StreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
             string SelectedSEHostName = ReturnSelectedStreamingEndpointHostname();
 
@@ -506,47 +524,9 @@ namespace AMSExplorer
                 Host = SelectedSE.HostName
             };
 
-
-
-            /*
-            // delivery policies
-            bool protocolDASH, protocolHLS, protocolSmooth, protocolProgressiveDownload;
-
-            if (myAsset.DeliveryPolicies.Count > 0)
-            { // some dynamic encryption, let's analyse the procotols
-
-                protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = false;
-
-                foreach (var pol in myAsset.DeliveryPolicies)
-                {
-                    if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash)
-                    {
-                        protocolDASH = true;
-                    }
-                    if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.HLS) == AssetDeliveryProtocol.HLS)
-                    {
-                        protocolHLS = true;
-                    }
-                    if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.SmoothStreaming) == AssetDeliveryProtocol.SmoothStreaming)
-                    {
-                        protocolSmooth = true;
-                    }
-                    if ((pol.AssetDeliveryProtocol & AssetDeliveryProtocol.ProgressiveDownload) == AssetDeliveryProtocol.ProgressiveDownload)
-                    {
-                        protocolProgressiveDownload = true;
-                    }
-                }
-            }
-            else
-            {
-                protocolDASH = protocolHLS = protocolSmooth = protocolProgressiveDownload = true;
-            }
-            */
-
             if (SelectedSE != null)
             {
                 Color colornodeRU = Color.Black;
-                //string filter = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
 
                 TreeViewLocators.BeginUpdate();
                 TreeViewLocators.Nodes.Clear();
@@ -560,32 +540,13 @@ namespace AMSExplorer
                 {
                     var locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
-                    var streamingPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
-                    var downloadPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name).DownloadPaths;
+                    var listPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
 
                     indexloc++;
-                    Color colornode;
                     string locatorstatus = string.Empty;
                     string SEstatus = string.Empty;
 
-                    switch (AssetInfo.GetPublishedStatusForLocator(locator))
-                    {
-                        case PublishStatus.PublishedActive:
-                            colornode = Color.Black;
-                            locatorstatus = "Active";
-                            break;
-                        case PublishStatus.PublishedExpired:
-                            colornode = Color.Red;
-                            locatorstatus = "Expired";
-                            break;
-                        case PublishStatus.PublishedFuture:
-                            colornode = Color.Blue;
-                            locatorstatus = "Future";
-                            break;
-                        default:
-                            colornode = Color.Black;
-                            break;
-                    }
+                    var colornode = GetLocatorApparence(locator, ref locatorstatus);
                     if (SelectedSE.ResourceState != StreamingEndpointResourceState.Running) colornode = Color.Red;
 
                     TreeNode myLocNode = new TreeNode(locator.Name)
@@ -594,38 +555,21 @@ namespace AMSExplorer
                     };
 
                     TreeViewLocators.Nodes.Add(myLocNode);
-
                     TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_LocatorInformation));
 
-                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                   string.Format("Id: {0}", (locator.StreamingLocatorId))
-                   ));
+                    LocTreeAddTextEntryToNode(indexloc, 0, "Streaming locator Id: {0}", locator.StreamingLocatorId.ToString());
+                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Name0, locator.Name);
+                    LocTreeAddTextEntryToNode(indexloc, 0, "Streaming policy name: {0}", locator.StreamingPolicyName);
+                    LocTreeAddTextEntryToNode(indexloc, 0, "Default content key policy name: {0}", locator.DefaultContentKeyPolicyName);
+                    LocTreeAddTextEntryToNode(indexloc, 0, "Alt media Id: {0}", locator.AlternativeMediaId);
+                    LocTreeAddTextEntryToNode(indexloc, 0, "Created: {0}", locator.Created);
+                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.StartTime);
+                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, locator.EndTime);
 
-                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                        string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Name0, locator.Name)
-                        ));
-
-                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                        string.Format("Policy name: {0}", locator.StreamingPolicyName.ToString())
-                        ));
-
-                    if (locator.StartTime != null)
-                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                           string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, (((DateTime)locator.StartTime).ToLocalTime().ToString("G")))
-                           ));
-
-                    if (locator.EndTime != null)
-                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                         string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, (((DateTime)locator.EndTime).ToLocalTime().ToString("G")))
-                         ));
-
-
-
-                    if (streamingPaths.Count > 0)//locator.Type == LocatorType.OnDemandOrigin)
+                    if (listPaths.StreamingPaths.Count > 0)
                     {
-
                         int indexn = 1;
-                        foreach (var path in streamingPaths)
+                        foreach (var path in listPaths.StreamingPaths)
                         {
                             TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
                             foreach (var p in path.Paths)
@@ -635,120 +579,44 @@ namespace AMSExplorer
                             }
                             indexn = indexn + 1;
                         }
-
-                        /*
-
-                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Path0, AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked, SelectedSEHostName))
-                     ));
-
-                        int indexn = 1;
-
-                        if (
-                            (myAsset.Options == AssetCreationOptions.None && myAsset.DeliveryPolicies.Count == 0)
-                            ||
-                            (myAsset.Options == AssetCreationOptions.StorageEncrypted && protocolProgressiveDownload)
-                            ) // if no dynamic encryption and asset clear, or asset storage encrypted with progressive download decryption
-                        {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
-
-                            foreach (IAssetFile IAF in myAsset.AssetFiles)
-                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode((new Uri(AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked, SelectedSEHostName) + IAF.Name)).AbsoluteUri) { ForeColor = colornodeRU });
-                            indexn++;
-                        }
-
-                        if (myAsset.AssetType == AssetType.MediaServicesHLS)
-                        // It is a static HLS asset, so let's propose only the standard HLS V3 locator
-                        {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(locator.GetHlsUri().AbsoluteUri));
-                            indexn++;
-                        }
-                        else if (myAsset.AssetType == AssetType.SmoothStreaming || myAsset.AssetType == AssetType.MultiBitrateMP4 || myAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
-                        {
-                            if (protocolSmooth && locator.GetSmoothStreamingUri() != null)
-                            {
-                                Color ColorSmooth = ((myAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
-                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.NotSpecified, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
-                                {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = ColorSmooth });
-                                }
-
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.SmoothLegacy, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
-                                {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
-                                }
-                                indexn = indexn + 2;
-                            }
-                            if (protocolDASH && locator.GetMpegDashUri() != null)
-                            {
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash_csf) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.DashCsf, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
-                                {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
-                                }
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash_cmaf) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.DashCmaf, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
-                                {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
-                                }
-                                indexn = indexn + 2;
-                            }
-                            if (protocolHLS && locator.GetHlsUri() != null)
-                            {
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_cmaf) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSCmaf, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
-                                {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
-                                }
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSv4, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
-                                {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
-                                }
-                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetUrisForSpecificProtocol(locator, AMSOutputProtocols.HLSv3, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
-                                {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 2].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
-                                }
-                                indexn = indexn + 3;
-                            }
-                        }
-                        */
                     }
 
-                    if (downloadPaths.Count > 0)//locator.Type == LocatorType.Sas)
+                    if (listPaths.DownloadPaths.Count > 0)
                     {
-
-                        foreach (var p in downloadPaths)
+                        foreach (var p in listPaths.DownloadPaths)
                         {
                             uriBuilder.Path = p;
                             TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uriBuilder.ToString()));
                         }
-
-                        /*
-                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format("Container Path: {0}", locator.Path.Replace("http://", "https://"))
-                     ));
-
-                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_https_SAS));
-
-                        MyAssetFiles = myAsset
-                     .AssetFiles
-                     .ToList();
-
-                        // Generate the Progressive Download URLs for each file. 
-                        ProgressiveDownloadUris =
-                            MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
-                        ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.AbsoluteUri)));
-                        */
                     }
                 }
                 TreeViewLocators.EndUpdate();
             }
+        }
 
+        private static Color GetLocatorApparence(StreamingLocator locator, ref string locatorstatus)
+        {
+            Color colornode;
+            switch (AssetInfo.GetPublishedStatusForLocator(locator))
+            {
+                case PublishStatus.PublishedActive:
+                    colornode = Color.Black;
+                    locatorstatus = "Active";
+                    break;
+                case PublishStatus.PublishedExpired:
+                    colornode = Color.Red;
+                    locatorstatus = "Expired";
+                    break;
+                case PublishStatus.PublishedFuture:
+                    colornode = Color.Blue;
+                    locatorstatus = "Future";
+                    break;
+                default:
+                    colornode = Color.Black;
+                    break;
+            }
+
+            return colornode;
         }
 
         private void DoDisplayFileProperties()
@@ -1125,26 +993,9 @@ namespace AMSExplorer
                 var sourceblob = (CloudBlockBlob)SelectedAssetBlob;
                 try
                 {
-
                     string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, sourceblob.Name);
                     if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile, ref newfilename) == DialogResult.OK)
                     {
-                        /*
-                            IAssetFile AFDup = myAsset.AssetFiles.Create(newfilename);
-                            CloudMediaContext _context = Mainform._context;
-                            CloudStorageAccount storageAccount;
-                            storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.DefaultStorageKey), Mainform._credentials.ReturnStorageSuffix(), true);
-                            var cloudBlobClient = storageAccount.CreateCloudBlobClient();
-                            IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
-                            ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, myAsset, writePolicy);
-
-                            // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                            Uri uploadUri = new Uri(destinationLocator.Path);
-                            string assetTargetContainerName = uploadUri.Segments[1];
-                            CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
-                            var mediaBlobContainer = assetTargetContainer; // same container
-                            */
-
                         CloudBlockBlob sourceCloudBlob, destinationBlob;
 
                         sourceCloudBlob = container.GetBlockBlobReference(sourceblob.Name);
@@ -1237,8 +1088,8 @@ namespace AMSExplorer
             CloudBlobContainer container = new CloudBlobContainer(sasUri);
             return container;
         }
-      
-        
+
+
         private void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDuplicate();
@@ -1272,10 +1123,8 @@ namespace AMSExplorer
         {
             if (TreeViewLocators.SelectedNode != null)
             {
-
                 if (TreeViewLocators.SelectedNode.Parent == null)   // user selected the locator title
                 {
-
                     if (System.Windows.Forms.MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDelLocator_AreYouSureThatYouWantToDeleteThisLocator, AMSExplorer.Properties.Resources.AssetInformation_DoDelLocator_LocatorDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
                         bool Error = false;
@@ -1327,8 +1176,6 @@ namespace AMSExplorer
         {
             BuildLocatorsTree();
         }
-
-
 
         private void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
         {
@@ -1451,13 +1298,11 @@ namespace AMSExplorer
                 if (DG.SelectedCells[0].Value != null)
                 {
                     System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
-
                 }
                 else
                 {
                     System.Windows.Forms.Clipboard.Clear();
                 }
-
             }
         }
 
@@ -1579,7 +1424,6 @@ namespace AMSExplorer
                         new AssetFilter(name: filterinfo.Name, presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
     );
 
-                    //myAsset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Tracks);
                     myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated, filterinfo.Name);
                 }
                 catch (Exception e)
@@ -1634,8 +1478,6 @@ namespace AMSExplorer
 
                     try
                     {
-                        //myAsset.AssetFilters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks);
-
                         _amsClient.AMSclient.AssetFilters.CreateOrUpdate(
                             _amsClient.credentialsEntry.ResourceGroup,
                             _amsClient.credentialsEntry.AccountName,
@@ -1963,6 +1805,4 @@ namespace AMSExplorer
                 DisplayPolicy((comboBoxPolicyLocators.SelectedItem as Item).Value);
         }
     }
-
 }
-
