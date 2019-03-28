@@ -24,18 +24,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.IO;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
-using System.Web;
-using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
-using Microsoft.WindowsAzure.MediaServices.Client.Metadata;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
@@ -45,12 +36,9 @@ namespace AMSExplorer
 {
     public partial class AssetInformation : Form
     {
-        public IAsset myAsset;
         public Asset myAssetV3;
         private AMSClientV3 _amsClient;
         public IEnumerable<StreamingEndpoint> myStreamingEndpoints;
-        private ILocator tempLocator = null;
-        private ILocator tempMetadaLocator = null;
         private Mainform myMainForm;
         private bool oktobuildlocator = false;
         private ManifestTimingData myassetmanifesttimingdata = null;
@@ -651,37 +639,7 @@ namespace AMSExplorer
 
         private void AssetInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // let's delete temporary locators if any
-            if (tempLocator != null)
-            {
-                try
-                {
-                    var locatorTask = Task.Factory.StartNew(() =>
-                   {
-                       tempLocator.Delete();
-                   });
-                    locatorTask.Wait();
-                }
-                catch
-                {
-
-                }
-            }
-            if (tempMetadaLocator != null)
-            {
-                try
-                {
-                    var locatorTask = Task.Factory.StartNew(() =>
-                    {
-                        tempMetadaLocator.Delete();
-                    });
-                    locatorTask.Wait();
-                }
-                catch
-                {
-
-                }
-            }
+       
         }
 
         private void toolStripMenuItemOpenFile_Click(object sender, EventArgs e)
@@ -1326,13 +1284,12 @@ namespace AMSExplorer
         {
             bool selected = listViewFiles.SelectedItems.Count > 0;
             bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
-            bool NonEncrypted = (myAsset.Options == AssetCreationOptions.None || myAsset.Options == AssetCreationOptions.CommonEncryptionProtected);
 
             showMetadataToolStripMenuItem.Enabled = selected && !bMultiSelect;
-            toolStripMenuItemOpenFile.Enabled = selected & NonEncrypted;
+            toolStripMenuItemOpenFile.Enabled = selected ;
             toolStripMenuItemDownloadFile.Enabled = selected;
             deleteFileToolStripMenuItem.Enabled = selected;
-            duplicateFileToolStripMenuItem.Enabled = selected & NonEncrypted && !bMultiSelect;
+            duplicateFileToolStripMenuItem.Enabled = selected && !bMultiSelect;
 
             deleteAllFilesToolStripMenuItem.Enabled = selected;
         }

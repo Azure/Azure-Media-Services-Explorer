@@ -23,15 +23,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security;
 using System.Security.Claims;
 using System.IdentityModel.Tokens;
 using Microsoft.Azure.Management.Media.Models;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AMSExplorer
 {
@@ -52,7 +51,7 @@ namespace AMSExplorer
                 List<ContentKeyPolicyRestrictionTokenKey> alternateKeys = null;
 
                 ContentKeyPolicyRestrictionTokenKey primarykey;
-                if (GetDetailedTokenType== ExplorerTokenType.JWTSym || GetDetailedTokenType == ExplorerTokenType.SWTSym)
+                if (GetDetailedTokenType == ExplorerTokenType.JWTSym || GetDetailedTokenType == ExplorerTokenType.SWTSym)
                 {
                     primarykey = new ContentKeyPolicySymmetricTokenKey(SymmetricKey);
                 }
@@ -85,10 +84,6 @@ namespace AMSExplorer
             }
         }
 
-
-
-
-
         public string Audience
         {
             get
@@ -103,7 +98,6 @@ namespace AMSExplorer
                 return textBoxIssuer.Text;
             }
         }
-
 
         public List<ContentKeyPolicyTokenClaim> GetTokenRequiredClaims
         {
@@ -132,7 +126,6 @@ namespace AMSExplorer
                 return radioButtonSWT.Checked ? ContentKeyPolicyRestrictionTokenType.Swt : ContentKeyPolicyRestrictionTokenType.Jwt;
             }
         }
-
 
         public ExplorerTokenType GetDetailedTokenType
         {
@@ -178,7 +171,6 @@ namespace AMSExplorer
             }
         }
 
-
         public string GetOpenIdDiscoveryDocument
         {
             get
@@ -187,7 +179,6 @@ namespace AMSExplorer
             }
         }
 
-     
         public DRM_Config_TokenClaims(int step, int option, string DRMName, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
@@ -212,6 +203,38 @@ namespace AMSExplorer
         }
 
 
+        public string GetTestToken(string keyIdentifier)
+        {
+            if (radioButtonOpenAuthPolicy.Checked) return null; // open mode
+
+            var tokenSigningKey = new SymmetricSecurityKey(SymmetricKey);
+
+            var signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256, SecurityAlgorithms.Sha256Digest);
+
+
+            Claim[] claims = new Claim[]
+           {
+                new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier)
+           };
+
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer: Issuer,
+                audience: Audience,
+                claims: claims,
+                notBefore: DateTime.Now.AddMinutes(-5),
+                expires: DateTime.Now.AddMinutes(60),
+                signingCredentials: signingcredentials
+                );
+
+
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+
+            return handler.WriteToken(token);
+        }
+
+
+
         private void DRM_Config_TokenClaims_Load(object sender, EventArgs e)
         {
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
@@ -228,8 +251,6 @@ namespace AMSExplorer
             textBoxIssuer.Text = Properties.Settings.Default.DynEncTokenIssuer;
             textBoxAudience.Text = Properties.Settings.Default.DynEncTokenAudience;
         }
-
-
 
         private void radioButtonToken_CheckedChanged(object sender, EventArgs e)
         {
@@ -254,7 +275,6 @@ namespace AMSExplorer
         private void buttonAddClaim_Click(object sender, EventArgs e)
         {
             TokenClaimsList.AddNew();
-
         }
 
         private void buttonDelClaim_Click(object sender, EventArgs e)
@@ -274,7 +294,6 @@ namespace AMSExplorer
 
         private void radioButtonTokenType_CheckedChanged(object sender, EventArgs e)
         {
-
             RadioButton rb = sender as RadioButton;
             if (rb != null && rb.Checked)
             {
@@ -329,7 +348,11 @@ namespace AMSExplorer
         private void GenerateSymKey()
         {
             radioButtonContentKeyBase64.Checked = true;
-            textBoxSymKey.Text = Convert.ToBase64String(new SymmetricVerificationKey().KeyValue);
+
+            byte[] TokenSigningKey = new byte[40];
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            rng.GetBytes(TokenSigningKey);
+            textBoxSymKey.Text = Convert.ToBase64String(new ContentKeyPolicySymmetricTokenKey(TokenSigningKey).KeyValue);
         }
 
         private void radioButtonContentKeyBase64_CheckedChanged(object sender, EventArgs e)

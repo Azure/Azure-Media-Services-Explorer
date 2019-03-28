@@ -18,8 +18,6 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

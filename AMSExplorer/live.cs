@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Configuration;
 using System.IO;
 using System.Threading;
@@ -113,88 +112,6 @@ namespace AMSExplorer
         public string IpV4 { get; set; }
     }
 
-
-
-    public class ProgramInfo
-    {
-        private List<IProgram> SelectedPrograms;
-        private CloudMediaContext _context;
-
-        public ProgramInfo(IProgram program, CloudMediaContext context)
-        {
-            SelectedPrograms = new List<IProgram>();
-            SelectedPrograms.Add(program);
-            _context = context;
-
-        }
-        public ProgramInfo(List<IProgram> MySelectedPrograms, CloudMediaContext context)
-        {
-            SelectedPrograms = MySelectedPrograms;
-            _context = context;
-        }
-
-        public IEnumerable<Uri> GetValidURIs()
-        {
-            IEnumerable<Uri> ValidURIs;
-            IAsset asset = _context.Assets.Where(a => a.Id == SelectedPrograms.FirstOrDefault().AssetId).Single();
-            var ismFile = asset.AssetFiles.AsEnumerable().FirstOrDefault(f => f.Name.EndsWith(".ism"));
-            if (ismFile != null)
-            {
-                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
-
-                var template = new UriTemplate("{contentAccessComponent}/{ismFileName}/manifest");
-                ValidURIs = locators.SelectMany(l =>
-                    _context
-                        .StreamingEndpoints
-                        .AsEnumerable()
-                          .Where(o => (o.State == StreamingEndpointState.Running))
-                          .OrderByDescending(o => o.CdnEnabled)
-                        .Select(
-                            o =>
-                                template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
-                                    ismFile.Name)))
-                    .ToArray();
-
-                return ValidURIs;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public IEnumerable<Uri> GetNotValidURIs()
-        {
-            IEnumerable<Uri> NotValidURIs;
-            IAsset asset = _context.Assets.Where(a => a.Id == SelectedPrograms.FirstOrDefault().AssetId).Single();
-            var ismFile = asset.AssetFiles.AsEnumerable().FirstOrDefault(f => f.Name.EndsWith(".ism"));
-            if (ismFile != null)
-            {
-                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
-
-                var template = new UriTemplate("{contentAccessComponent}/{ismFileName}/manifest");
-
-
-                NotValidURIs = locators.SelectMany(l =>
-                   _context
-                       .StreamingEndpoints
-                       .AsEnumerable()
-                         .Where(o => (o.State != StreamingEndpointState.Running))
-                       .Select(
-                           o =>
-                               template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
-                                   ismFile.Name)))
-                   .ToArray();
-
-                return NotValidURIs;
-
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
 
 
     public enum enumDisplayProgram

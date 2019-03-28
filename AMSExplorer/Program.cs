@@ -22,7 +22,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text;
 using System.Threading;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Globalization;
 using System.Net;
 using System.Web;
@@ -32,8 +31,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Drawing;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Xml.Linq;
 using System.Collections;
 using System.Reflection;
@@ -103,117 +100,7 @@ namespace AMSExplorer
             }
         }
 
-        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false, bool displayErrorMessageAndQuit = true)
-        {
-            CloudMediaContext myContext = null;
-            if (credentials.UseAADInteract || credentials.UseAADServicePrincipal)
-            {
-
-                /*
-                                string requestUrl = string.Format("https://login.microsoftonline.com/{0}/oauth2/logout?post_logout_redirect_uri={1}", credentials.ADTenantDomain, credentials.ADRestAPIEndpoint);
-                                var client = new HttpClient();
-                                var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-                                Task.Run(async () => { await client.SendAsync(request); }).Wait();
-                */
-
-                var env = credentials.ADCustomSettings ?? CredentialsEntry.ReturnADEnvironment(credentials.ADDeploymentName);
-
-                AzureAdTokenProvider tokenProvider = null;
-
-                if (credentials.UseAADInteract)
-                {
-                    var tokenCredentials1 = new AzureAdTokenCredentials(credentials.ADTenantDomain, env);
-                    tokenProvider = new AzureAdTokenProvider(tokenCredentials1);
-                }
-                else // service principal
-                {
-                    AzureAdClientSymmetricKey clientSymmetricKey = new AzureAdClientSymmetricKey(credentials.ADSPClientId, credentials.ADSPClientSecret);
-                    var tokenCredentials2 = new AzureAdTokenCredentials(credentials.ADTenantDomain, clientSymmetricKey, env);
-                    tokenProvider = new AzureAdTokenProvider(tokenCredentials2);
-                }
-                myContext = new CloudMediaContext(new Uri(credentials.ADRestAPIEndpoint), tokenProvider);
-
-            }
-            else
-            {
-                throw new Exception();
-            }
-
-            /*
-            if (false)//refreshToken)
-            {
-                try
-                {
-                    myContext.Credentials.RefreshToken(); // to force connection to WAMS
-                }
-                catch (Exception e)
-                {
-                    // Add useful information to the exception
-                    if (displayErrorMessageAndQuit)
-                    {
-                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        throw e;
-                    }
-                }
-            }
-            */
-
-            return myContext;
-        }
-
-        public static string GetAPIServer(CredentialsEntry credentials)
-        {
-            if (credentials.UsePartnerAPI)
-            {
-                return CredentialsEntry.PartnerAPIServer;
-            }
-            else if (credentials.UseOtherAPI)
-            {
-                return credentials.OtherAPIServer;
-            }
-            else
-            {
-                return Constants.ProdAPIServer;
-            }
-        }
-
-        public static string GetACSBaseAddress(CredentialsEntry credentials)
-        {
-            if (credentials.UsePartnerAPI)
-            {
-                return CredentialsEntry.PartnerACSBaseAddress;
-            }
-            else if (credentials.UseOtherAPI)
-            {
-                return credentials.OtherACSBaseAddress;
-            }
-            else
-            {
-                return Constants.ProdACSBaseAddress;
-            }
-        }
-
-
-        public static bool ConnectToStorage(CloudMediaContext context, CredentialsEntry credentials)
-        {
-            try
-            {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(context.DefaultStorageAccount.Name, credentials.DefaultStorageKey), credentials.ReturnStorageSuffix(), true);
-                CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
-                cloudBlobClient.ListBlobs("testamseexplorer"); // just to test connection
-                return true;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(string.Format("There is a problem when connecting to the Azure storage account.\r\nIs the storage key correct ?\r\n{0}", e.Message), "Storage Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
-
+   
 
         public static string GetErrorMessage(Exception e)
         {
@@ -254,25 +141,7 @@ namespace AMSExplorer
             }
         }
 
-        // Return the new name of Media Reserved Unit
-        public static string ReturnMediaReservedUnitName(ReservedUnitType unitType)
-        {
-            switch (unitType)
-            {
-                case ReservedUnitType.Basic:
-                default:
-                    return "S1";
-
-                case ReservedUnitType.Standard:
-                    return "S2";
-
-                case ReservedUnitType.Premium:
-                    return "S3";
-
-            }
-        }
-
-
+    
         // Detect if this JSON or XML data or other and store in private var
         public static TypeConfig AnalyseConfigurationString(string config)
         {
@@ -293,6 +162,14 @@ namespace AMSExplorer
             {
                 return TypeConfig.Other;
             }
+        }
+
+        public enum TypeConfig
+        {
+            JSON=0,
+            XML,
+            Empty,
+            Other
         }
 
         public static string AnalyzeTextAndReportSyntaxError(string myText)
@@ -713,70 +590,6 @@ namespace AMSExplorer
         }
 
 
-        public static HttpStatusCode WatchFolderCallApi(string error, string sourcefilename, WatchFolderSettings settings, IAsset sourceAsset = null, IAsset outputAsset = null, IJob job = null, ILocator locator = null, Uri publishUrl = null, string playbackUrl = null)
-        {
-            if (settings == null || settings.CallAPIUrl == null) return HttpStatusCode.BadRequest;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(settings.CallAPIUrl);
-            request.Method = "POST";
-            request.ContentType = "application/json; charset=utf-8";
-
-            string body = settings.CallAPJson;
-
-            if (job != null) // let's refresh the job
-            {
-                job = job.GetMediaContext().Jobs.Where(j => j.Id == job.Id).FirstOrDefault();
-            }
-
-            body = body.Replace("\"{Error}\"", error ?? "");
-            body = body.Replace("\"{Source Asset Id}\"", sourceAsset != null ? JsonConvert.ToString(sourceAsset.Id) : "").Replace("\"{Source Asset Name}\"", sourceAsset != null ? JsonConvert.ToString(sourceAsset.Name) : "");
-            body = body.Replace("\"{Source File Name}\"", sourcefilename != null ? JsonConvert.ToString(sourcefilename) : "");
-            body = body.Replace("\"{Output Asset Id}\"", outputAsset != null ? JsonConvert.ToString(outputAsset.Id) : "").Replace("\"{Output Asset Name}\"", outputAsset != null ? JsonConvert.ToString(outputAsset.Name) : "");
-            body = body.Replace("\"{Job Id}\"", job != null ? JsonConvert.ToString(job.Id) : "").Replace("\"{Job State}\"", job != null ? JsonConvert.ToString(job.State.ToString()) : "");
-            body = body.Replace("\"{Locator Id}\"", locator != null ? JsonConvert.ToString(locator.Id) : "").Replace("\"{Publish Url}\"", publishUrl != null ? JsonConvert.ToString(publishUrl.ToString()) : "").Replace("\"{Playback Url}\"", publishUrl != null ? JsonConvert.ToString(playbackUrl) : "");
-
-            /*
-          {
-  "Error": "{Error}",
-  "SourceAssetId": "{Source Asset Id}",
-  "SourceAssetName": "{Source Asset Name}",
-  "SourceFileName": "{Source File Name}",
-  "OutputAssetId": "{Output Asset Id}",
-  "OutputAssetName": "{Output Asset Name}",
-  "JobId": "{Job Id}",
-  "JobState": "{Job State}",
-  "LocatorId": "{Locator Id}",
-  "PublishUrl": "{Publish Url}",
-  "Playback Url": "{Playback Url}"
-}
-      */
-
-            using (Stream requestStream = request.GetRequestStream())
-            {
-                var requestBytes = System.Text.Encoding.ASCII.GetBytes(body);
-                requestStream.Write(requestBytes, 0, requestBytes.Length);
-                requestStream.Close();
-            }
-            HttpWebResponse response = null;
-            try
-            {
-                response = (HttpWebResponse)request.GetResponse();
-            }
-            catch
-            {
-            }
-
-            if (response != null)
-            {
-                return response.StatusCode;
-            }
-            else
-            {
-                return HttpStatusCode.BadRequest;
-            }
-
-        }
-
         public static string ReturnNameForProtocol(LiveEventInputProtocol protocol)
         {
             string name = "";
@@ -1099,7 +912,7 @@ namespace AMSExplorer
 
 
 
-
+    /*
     public class JobInfo
     {
         private List<IJob> SelectedJobs;
@@ -1306,123 +1119,8 @@ namespace AMSExplorer
             };
         }
 
-        public static TaskSizeAndPrice CalculateTaskSizeAndPrice(ITask task, CloudMediaContext context)
-        {
-            IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, context);
-            StringBuilder sb = new StringBuilder();
-
-            long lSizeinput = -1;
-            long lSizeoutput = -1;
-            double pricetask = -1;
-
-            if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
-            {
-                lSizeinput = JobInfo.GetInputFilesSize(task);
-                lSizeoutput = JobInfo.GetOutputFilesSize(task);
-
-                if (lSizeinput != -1 && lSizeoutput != -1)
-                {
-                    double lsizeinputprocessed = (double)lSizeinput / (1000 * 1000 * 1000);
-                    double lsizeoutputprocessed = (double)lSizeoutput / (1000 * 1000 * 1000);
-
-                    if (processor != null)
-                    {
-
-                        switch (processor.Name)
-                        {
-                            case (Constants.AzureMediaEncoder):
-                            case (Constants.AzureMediaEncoderStandard):
-                                // AME or Media Standard Encoding task
-                                //pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.AMEPrice;
-                                break;
-                            case (Constants.AzureMediaEncoderPremiumWorkflow):
-                                // Premium Workflow Encoding task
-                                //pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.MEPremiumWorkflowPrice;
-                                break;
-                            case (MediaProcessorNames.StorageDecryption):
-                                // No cost
-                                pricetask = 0;
-                                break;
-                            case (Constants.AzureMediaIndexer):
-                                // Indexing task
-                                // TO DO: GET DURATION OF CONTENT
-                                //pricetask = ?
-                                break;
-                            case (Constants.AzureMediaHyperlapse):
-                                // Hyperlapse task
-                                // TO DO when final cost 
-                                //pricetask = ?
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-            }
-            return new TaskSizeAndPrice()
-            {
-                InputSize = lSizeinput,
-                OutputSize = lSizeoutput,
-                Price = pricetask
-            };
-
-        }
-
-        private static long ListFilesInAsset(IAsset asset, ref StringBuilder builder)
-        {
-            // Display the files associated with each asset. 
-
-            long assetSize = 0;
-            foreach (IAssetFile fileItem in asset.AssetFiles)
-            {
-                if (fileItem.IsPrimary)
-                {
-                    builder.AppendLine("   ------------(-P-R-I-M-A-R-Y-)------------------");
-                }
-                else
-                {
-                    builder.AppendLine("   -----------------------------------------------");
-                }
-
-                builder.AppendLine("   File Name           : " + fileItem.Name);
-                builder.AppendLine("   Size                : " + fileItem.ContentFileSize + " Bytes");
-                builder.AppendLine("   Last Modified (UTC) : " + fileItem.LastModified.ToString("G"));
-                builder.AppendLine("");
-                assetSize += fileItem.ContentFileSize;
-            }
-            return assetSize;
-        }
-
-        private static void ListAssetInfo(IAsset asset, ref StringBuilder builder)
-        {
-            // Display the info associated with asset. 
-            builder.AppendLine("===============================================");
-            builder.AppendLine("Asset Name          : " + asset.Name);
-            builder.AppendLine("Asset Id            : " + asset.Id);
-            builder.AppendLine("Last Modified (UTC) : " + asset.LastModified.ToString("G"));
-        }
-
-        public static IMediaProcessor GetMediaProcessorFromId(string processorID, CloudMediaContext _context)
-        {
-            bool Error = false;
-            IMediaProcessor processor = null;
-            try
-            {
-                var processorquery =
-                  from p in _context.MediaProcessors
-                  orderby p.Version descending
-                  where p.Id == processorID
-                  select p;
-                // Reference the asset as an IAsset.
-                processor = processorquery.FirstOrDefault(); //lastordefault returns an error so that's why we use first with sorting descending
-            }
-            catch
-            {
-                Error = true;
-            }
-            return Error ? null : processor;
-        }
-
+   
+  
         public StringBuilder GetStats()
         {
             StringBuilder sb = new StringBuilder();
@@ -1611,12 +1309,7 @@ namespace AMSExplorer
                     sb.AppendLine("Output size processed by the job : " + ((MyJobSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.OutputSize) : cannotcalc));
                     sb.AppendLine("Total size processed by the job  : " + ((MyJobSizePrice.InputSize != -1 && MyJobSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.InputSize + MyJobSizePrice.OutputSize) : cannotcalc));
 
-                    /*
-                    if (MyJobSizePrice.Price != -1)
-                    {
-                        sb.AppendLine(string.Format("Estimated cost of the job        : {0} {1:0.00}", Properties.Settings.Default.Currency, MyJobSizePrice.Price));
-                    }
-                    */
+                   
 
                     sb.AppendLine("");
                     sb.AppendLine(section);
@@ -1628,6 +1321,7 @@ namespace AMSExplorer
             return sb;
         }
     }
+    */
 
     public class AssetBitmapAndText
     {
@@ -1638,7 +1332,6 @@ namespace AMSExplorer
 
     public class AssetInfo
     {
-        private List<IAsset> SelectedAssets;
         private List<Asset> SelectedAssetsV3;
         private AMSClientV3 _amsClient;
         public const string Type_Empty = "(empty)";
@@ -1708,97 +1401,9 @@ namespace AMSExplorer
             SelectedAssetsV3 = new List<Asset>() { asset };
         }
 
-
-        public IEnumerable<Uri> GetValidURIs()
-        {
-            var _context = SelectedAssets.FirstOrDefault().GetMediaContext();
-            IEnumerable<Uri> ValidURIs;
-            IAsset asset = SelectedAssets.FirstOrDefault();
-            var ismFile = asset.AssetFiles.AsEnumerable().Where(f => f.Name.EndsWith(".ism")).OrderByDescending(f => f.IsPrimary).FirstOrDefault();
-            if (ismFile != null)
-            {
-                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime > DateTime.UtcNow).OrderByDescending(l => l.ExpirationDateTime);
-
-                var template = new UriTemplate("{contentAccessComponent}/{ismFileName}/manifest");
-                ValidURIs = locators.SelectMany(l =>
-                    _context
-                        .StreamingEndpoints
-                        .AsEnumerable()
-                          .Where(o => (o.State == StreamingEndpointState.Running))
-                          .OrderByDescending(o => o.CdnEnabled)
-                        .Select(
-                            o =>
-                                template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
-                                    ismFile.Name)))
-                    .ToArray();
-
-                return ValidURIs;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public static IEnumerable<Uri> GetURIs(IAsset asset)
-        {
-            var _context = asset.GetMediaContext();
-            IEnumerable<Uri> ValidURIs;
-            var ismFile = asset.AssetFiles.AsEnumerable().Where(f => f.Name.EndsWith(".ism")).OrderByDescending(f => f.IsPrimary).FirstOrDefault();
-            if (ismFile != null)
-            {
-                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime > DateTime.UtcNow).OrderByDescending(l => l.ExpirationDateTime);
-
-                var template = new UriTemplate("{contentAccessComponent}/{ismFileName}/manifest");
-                ValidURIs = locators.SelectMany(l =>
-                    _context
-                        .StreamingEndpoints
-                        .AsEnumerable()
-                          .OrderByDescending(o => o.CdnEnabled)
-                        .Select(
-                            o =>
-                                template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
-                                    ismFile.Name)))
-                    .ToArray();
-
-                return ValidURIs;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-
-        public static ILocator CreatedTemporaryOnDemandLocator(IAsset asset)
-        {
-            ILocator tempLocator = null;
-
-            try
-            {
-                var locatorTask = Task.Factory.StartNew(() =>
-                {
-                    try
-                    {
-                        tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
-
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                });
-                locatorTask.Wait();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return tempLocator;
-        }
-
-        public static StreamingLocator CreatedTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
+ 
+ 
+         public static StreamingLocator CreatedTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
         {
             StreamingLocator tempLocator = null;
             _amsClientV3.RefreshTokenIfNeeded();
@@ -1839,19 +1444,7 @@ namespace AMSExplorer
             return tempLocator;
         }
 
-        public static Uri GetValidOnDemandURI(IAsset asset)
-        {
-            var aivalidurls = new AssetInfo(null/*asset*/).GetValidURIs();
-            if (aivalidurls != null)
-            {
-                return aivalidurls.FirstOrDefault();
-            }
-            else
-            {
-                return null;
-            }
-        }
-
+     
         public static Uri GetValidOnDemandURI(Asset asset, AMSClientV3 _amsClientV3)
         {
             _amsClientV3.RefreshTokenIfNeeded();
@@ -1876,128 +1469,6 @@ namespace AMSExplorer
             }
         }
 
-
-        public static IEnumerable<IAssetFile> GetManifestAssetFiles(IAsset asset)
-        {
-            if (asset == null)
-            {
-                throw new ArgumentNullException("asset", "The asset cannot be null.");
-            }
-
-
-            return asset
-                .AssetFiles
-                .ToList()
-                .Where(af => af.Name.EndsWith(ILocatorExtensions.ManifestFileExtension, StringComparison.OrdinalIgnoreCase))
-                  .ToList();
-        }
-
-
-        public static IEnumerable<Uri> GetUrisForSpecificProtocol(ILocator originLocator, AMSOutputProtocols protocol, StreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
-        {
-            return GetStreamingUris(originLocator, se, filter, https, customhostname, protocol, audiotrack);
-        }
-
-
-
-        private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, StreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols outputprotocol = AMSOutputProtocols.NotSpecified, string audiotrack = null)
-        {
-            const string BaseStreamingUrlTemplate = "{0}/{1}/manifest";
-
-            if (originLocator == null)
-            {
-                throw new ArgumentNullException("locator", "The locator cannot be null.");
-            }
-
-            if (originLocator.Type != LocatorType.OnDemandOrigin)
-            {
-                throw new ArgumentException("The locator type must be on-demand origin.", "originLocator");
-            }
-
-            IEnumerable<Uri> smoothStreamingUri = null;
-            IAsset asset = originLocator.Asset;
-            IEnumerable<IAssetFile> manifestAssetFiles = GetManifestAssetFiles(asset);
-            if (manifestAssetFiles != null)
-            {
-                smoothStreamingUri = manifestAssetFiles.Select(f => new Uri(
-                        string.Format(
-                            CultureInfo.InvariantCulture,
-                            BaseStreamingUrlTemplate,
-                            originLocator.Path.TrimEnd('/'),
-                            f.Name
-                            ),
-                        UriKind.Absolute));
-            }
-
-            string hostname = null;
-            if (customhostname != null)
-            {
-                hostname = customhostname;
-            }
-            else if (se != null)
-            {
-                hostname = se.HostName;
-            }
-
-            smoothStreamingUri = smoothStreamingUri.Select(u => new UriBuilder()
-            {
-                Host = hostname ?? u.Host,
-                Scheme = https ? "https://" : "http://",
-                Path = AssetInfo.AddAudioTrackToUrlString(AssetInfo.AddProtocolFormatInUrlString(AssetInfo.AddFilterToUrlString(u.AbsolutePath, filter), outputprotocol), audiotrack)
-            }.Uri);
-
-            return smoothStreamingUri;
-        }
-
-
-        private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols outputprotocol = AMSOutputProtocols.NotSpecified, string audiotrack = null)
-        {
-            const string BaseStreamingUrlTemplate = "{0}/{1}/manifest";
-
-            if (originLocator == null)
-            {
-                throw new ArgumentNullException("locator", "The locator cannot be null.");
-            }
-
-            if (originLocator.Type != LocatorType.OnDemandOrigin)
-            {
-                throw new ArgumentException("The locator type must be on-demand origin.", "originLocator");
-            }
-
-            IEnumerable<Uri> smoothStreamingUri = null;
-            IAsset asset = originLocator.Asset;
-            IEnumerable<IAssetFile> manifestAssetFiles = GetManifestAssetFiles(asset);
-            if (manifestAssetFiles != null)
-            {
-                smoothStreamingUri = manifestAssetFiles.Select(f => new Uri(
-                        string.Format(
-                            CultureInfo.InvariantCulture,
-                            BaseStreamingUrlTemplate,
-                            originLocator.Path.TrimEnd('/'),
-                            f.Name
-                            ),
-                        UriKind.Absolute));
-            }
-
-            string hostname = null;
-            if (customhostname != null)
-            {
-                hostname = customhostname;
-            }
-            else if (se != null)
-            {
-                hostname = se.HostName;
-            }
-
-            smoothStreamingUri = smoothStreamingUri.Select(u => new UriBuilder()
-            {
-                Host = hostname ?? u.Host,
-                Scheme = https ? "https://" : "http://",
-                Path = AssetInfo.AddAudioTrackToUrlString(AssetInfo.AddProtocolFormatInUrlString(AssetInfo.AddFilterToUrlString(u.AbsolutePath, filter), outputprotocol), audiotrack)
-            }.Uri);
-
-            return smoothStreamingUri;
-        }
 
         public static string GetSmoothLegacy(string smooth_uri)
         {
@@ -2124,129 +1595,14 @@ namespace AMSExplorer
             else return null;
         }
 
-        public static Uri RW(Uri url, IStreamingEndpoint se = null, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
-        {
-            if (url != null)
-            {
-                string path = AddFilterToUrlString(url.AbsolutePath, filters);
-                path = AddProtocolFormatInUrlString(path, protocol);
-
-                if (protocol == AMSOutputProtocols.HLSv3)
-                {
-                    path = AddAudioTrackToUrlString(path, audiotrackname);
-                    if (HLSNoAudioOnly)
-                    {
-                        path = AddHLSNoAudioOnlyModeToUrlString(path);
-                    }
-                }
-
-                string hostname = null;
-                if (customHostName != null)
-                {
-                    hostname = customHostName;
-                }
-                else if (se != null)
-                {
-                    hostname = se.HostName;
-                }
-
-                UriBuilder urib = new UriBuilder()
-                {
-                    Host = hostname ?? url.Host,
-                    Scheme = https ? "https://" : "http://",
-                    Path = path,
-                };
-                return urib.Uri;
-            }
-            else return null;
-        }
-
-
+  
         public static string RW(string path, StreamingEndpoint se, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null)
         {
             return RW(new Uri(path), se, filter, https, customhostname, protocol, audiotrackname).AbsoluteUri;
         }
 
-        public static string RW(string path, IStreamingEndpoint se, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null)
-        {
-            return RW(new Uri(path), se, filter, https, customhostname, protocol, audiotrackname).AbsoluteUri;
-        }
-
-
-        public static long GetSize(IAsset asset)
-        {
-            long size = 0;
-            foreach (IAssetFile objFile in asset.AssetFiles)
-            { size += objFile.ContentFileSize; }
-            return size;
-        }
-
-        public static string GetDynamicEncryptionType(IAsset asset)
-        {
-            if (asset.DeliveryPolicies.Count > 0)
-            {
-                string str = string.Empty;
-                switch (asset.DeliveryPolicies.FirstOrDefault().AssetDeliveryPolicyType)
-                {
-                    case AssetDeliveryPolicyType.Blocked:
-                        str = "Blocked";
-                        break;
-                    case AssetDeliveryPolicyType.DynamicCommonEncryption:
-                        str = "CENC";
-                        break;
-                    case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
-                        str = "AES";
-                        break;
-                    case AssetDeliveryPolicyType.NoDynamicEncryption:
-                        str = "No";
-                        break;
-                    case AssetDeliveryPolicyType.None:
-                    default:
-                        str = string.Empty;
-                        break;
-
-                }
-                return str;
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
-
-        public PublishStatus GetPublishedStatus(LocatorType LocType)
-        {
-            PublishStatus LocPubStatus;
-
-            // if there is one locato for this type
-            if ((SelectedAssets.FirstOrDefault().Locators.Where(l => l.Type == LocType).Count() > 0))
-            {
-                if (!SelectedAssets.FirstOrDefault().Locators.Where(l => (l.Type == LocType)).All(l => (l.ExpirationDateTime < DateTime.UtcNow)))
-                {// not all int the past
-                    var query = SelectedAssets.FirstOrDefault().Locators.Where(l => ((l.Type == LocType) && (l.ExpirationDateTime > DateTime.UtcNow) && (l.StartTime != null)));
-                    // if no locator are valid today but at least one will in the future
-                    if (query.ToList().Count() > 0)
-                    {
-                        LocPubStatus = (query.All(l => (l.StartTime > DateTime.UtcNow))) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
-                    }
-                    else
-                    {
-                        LocPubStatus = PublishStatus.PublishedActive;
-                    }
-                }
-                else      // if all locators are in the past
-                {
-                    LocPubStatus = PublishStatus.PublishedExpired;
-                }
-            }
-            else
-            {
-                LocPubStatus = PublishStatus.NotPublished;
-            }
-            return LocPubStatus;
-        }
-
+      
+   
         public static PublishStatus GetPublishedStatusForLocator(AssetStreamingLocator Locator)
         {
             PublishStatus LocPubStatus;
@@ -2439,6 +1795,7 @@ namespace AMSExplorer
             }
         }
 
+        /*
         static public ManifestSegmentsResponse GetManifestSegmentsList(IAsset asset)
         // Parse the manifest and get data from it
         {
@@ -2563,128 +1920,15 @@ namespace AMSExplorer
             }
             return response;
         }
+        */
 
         public static long ReturnTimestampInTicks(ulong timestamp, ulong? timescale)
         {
             double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
             return (long)((double)timestamp * (double)TimeSpan.TicksPerSecond / timescale2);
         }
-
-        public static IAsset GetAsset(string assetId, CloudMediaContext _context)
-        {
-            IAsset asset;
-
-            try
-            {
-                // Use a LINQ Select query to get an asset.
-                var assetInstance =
-                    from a in _context.Assets
-                    where a.Id == assetId
-                    select a;
-                // Reference the asset as an IAsset.
-                asset = assetInstance.FirstOrDefault();
-            }
-            catch
-            {
-
-                asset = null;
-            }
-
-            return asset;
-        }
-
-
-
-        public static string GetAssetType(IAsset asset)
-        {
-            string type = asset.AssetType.ToString();
-            int assetfilescount = asset.AssetFiles.Count();
-            var AssetFiles = asset.AssetFiles.ToList();
-            int number = assetfilescount;
-
-            switch (asset.AssetType)
-            {
-                case AssetType.MediaServicesHLS:
-                    type = Type_AMSHLS;
-                    break;
-
-                case AssetType.MP4:
-                    break;
-
-                case AssetType.MultiBitrateMP4:
-                    var mp4files = AssetFiles.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
-                    number = mp4files.Count();
-                    type = number == 1 ? Type_Single : Type_Multi;
-                    break;
-
-                case AssetType.SmoothStreaming:
-                    type = Type_Smooth;
-                    var cfffiles = AssetFiles.Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
-                    number = cfffiles.Count();
-
-                    if (number == 0
-                        && AssetFiles.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).Count() == 2
-                        )
-                    {
-                        var fragmentedFilesCount = AssetFiles.Where(f => f.AssetFileOptions == AssetFileOptions.Fragmented).Count();
-                        if (fragmentedFilesCount == AssetFiles.Count - 2)
-                        {
-                            number = AssetFiles.Count - 2;  // tracks - 2 manifest files
-                            type = Type_LiveArchive;
-                        }
-                        else if ((fragmentedFilesCount == AssetFiles.Count - 4)
-                            &&
-                            AssetFiles.Where(f => f.Name.EndsWith("_manifest.xml", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith("_metadata.xml", StringComparison.OrdinalIgnoreCase)).Count() == 2
-                            )
-                        {
-                            number = AssetFiles.Count - 4;  // tracks - 4 manifest files
-                            type = Type_Fragmented;
-                        }
-                    }
-                    break;
-
-                case AssetType.Unknown:
-                    string ext;
-                    string pr = string.Empty;
-
-                    if (assetfilescount == 0) return Type_Empty;
-
-                    if (assetfilescount == 1)
-                    {
-                        number = 1;
-                        ext = Path.GetExtension(AssetFiles.FirstOrDefault().Name.ToUpper());
-                        if (!string.IsNullOrEmpty(ext)) ext = ext.Substring(1);
-                        switch (ext)
-                        {
-                            case "WORKFLOW":
-                                type = Type_Workflow;
-                                break;
-
-                            default:
-                                type = ext;
-                                break;
-                        }
-                    }
-                    else
-                    { // multi files in asset
-                        var ThumbnailsAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)).ToArray();
-                        var XMLAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)).ToArray();
-                        int nonThumbnailFilesCount = AssetFiles.Count - ThumbnailsAssetFiles.Count();
-
-                        if ((ThumbnailsAssetFiles.Count() > 0) && ((nonThumbnailFilesCount == 0) || (XMLAssetFiles.Count() == 1)))
-                        {
-                            type = Type_Thumbnails;
-                            number = ThumbnailsAssetFiles.Count();
-                        }
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-            return string.Format("{0} ({1})", type, number);
-        }
-
+ 
+  
         public static AssetInfoData GetAssetType(string assetName, AMSClientV3 _amsClient)
         {
             ListContainerSasInput input = new ListContainerSasInput()
@@ -2770,171 +2014,14 @@ namespace AMSExplorer
             };
         }
 
-        static public void SetISMFileAsPrimary(IAsset asset)
-        {
-            var ismAssetFiles = asset.AssetFiles.ToList().
-                Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            if (ismAssetFiles.Count() != 0)
-            {
-                if (ismAssetFiles.Where(af => af.IsPrimary).ToList().Count == 0) // if there is a primary .ISM file
-                {
-                    try
-                    {
-                        ismAssetFiles.First().IsPrimary = true;
-                        ismAssetFiles.First().Update();
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                }
-            }
-        }
-
-        static public void SetAFileAsPrimary(IAsset asset)
-        {
-            var files = asset.AssetFiles.ToList();
-            var ismAssetFiles = files.
-                Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            var mp4AssetFiles = files.
-            Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            if (ismAssetFiles.Count() != 0)
-            {
-                if (ismAssetFiles.Where(af => af.IsPrimary).ToList().Count == 0) // if there is a primary .ISM file
-                {
-                    try
-                    {
-                        ismAssetFiles.First().IsPrimary = true;
-                        ismAssetFiles.First().Update();
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                }
-            }
-            else if (mp4AssetFiles.Count() != 0)
-            {
-                if (mp4AssetFiles.Where(af => af.IsPrimary).ToList().Count == 0) // if there is a primary .ISM file
-                {
-                    try
-                    {
-                        mp4AssetFiles.First().IsPrimary = true;
-                        mp4AssetFiles.First().Update();
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                }
-            }
-            else
-            {
-                if (files.Where(af => af.IsPrimary).ToList().Count == 0) // if there is a primary .ISM file
-                {
-                    try
-                    {
-                        files.First().IsPrimary = true;
-                        files.First().Update();
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                }
-            }
-        }
-
-        static public void SetFileAsPrimary(IAsset asset, string assetfilename)
-        {
-            var ismAssetFiles = asset.AssetFiles.ToList().
-                Where(f => f.Name.Equals(assetfilename, StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            if (ismAssetFiles.Count() == 1)
-            {
-                try
-                {
-                    // let's remove primary attribute to another file if any
-                    asset.AssetFiles.Where(af => af.IsPrimary).ToList().ForEach(af => { af.IsPrimary = false; af.Update(); });
-                    ismAssetFiles.First().IsPrimary = true;
-                    ismAssetFiles.First().Update();
-                }
-                catch
-                {
-                    throw;
-                }
-            }
-        }
-
-
-        public void CreateOutlookMail()
-        {
-            Exception exception = null;
-            try
-            {
-                StringBuilder SB = GetStats();
-                // Let's create the email with Outlook
-                Outlook.Application outlookApp = new Outlook.Application();
-                Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
-                if (SelectedAssets.Count == 1)
-                {
-                    string title = "Report: Asset '{0}'";
-                    mailItem.Subject = string.Format(title, SelectedAssets.FirstOrDefault().Name);
-                }
-                else
-                {
-                    mailItem.Subject = string.Format("Report: {0} Assets", SelectedAssets.Count());
-                }
-                mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
-                mailItem.HTMLBody += SB.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
-                mailItem.Display(false);
-            }
-            catch (System.Runtime.InteropServices.COMException ce)
-            {
-                // 0x80040154 Class not registered
-                // This happen if outlook is not installed
-                if (ce.HResult == unchecked((int)0x80040154))
-                {
-                    MessageBox.Show("Please install Office Outlook to use this functionality.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                exception = ce;
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            if (exception != null)
-            {
-                MessageBox.Show("Exception while trying to compose the email." + exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+   
+  
         public void CopyStatsToClipBoard()
         {
             StringBuilder SB = GetStats();
             Clipboard.SetText((string)SB.ToString());
         }
 
-        private static long ListFilesInAsset(IAsset asset, ref StringBuilder builder)
-        {
-            // Display the files associated with each asset. 
-
-            long assetSize = 0;
-            foreach (IAssetFile fileItem in asset.AssetFiles)
-            {
-                if (fileItem.IsPrimary) builder.AppendLine("Primary");
-                builder.AppendLine("Name: " + fileItem.Name);
-                builder.AppendLine("Size: " + fileItem.ContentFileSize + " Bytes");
-                assetSize += fileItem.ContentFileSize;
-                builder.AppendLine("==============");
-            }
-            return assetSize;
-        }
 
         public static String FormatByteSize(long? byteCountl)
         {
@@ -3321,43 +2408,13 @@ namespace AMSExplorer
                     }
                 }
 
-                DynamicEncryption.TokenResult tokenresult = new DynamicEncryption.TokenResult();
+                string tokenresult = null;// new DynamicEncryption.TokenResult();
 
                 if (myasset != null)
                 {
                     keytype = locator != null ? AssetInfo.GetAssetProtection(myasset, client, locator) : AssetProtectionType.None; // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
 
-                    if (false)//DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(/*myasset*/ null, null)) // dynamic encryption with token  V3 migration
-                    {
-                        // user wants perhaps to play an asset with a token, so let's try to generate it
-                        switch (typeplayer)
-                        {
-
-                            case PlayerType.AzureMediaPlayer:
-                            case PlayerType.AzureMediaPlayerFrame:
-                            case PlayerType.CustomPlayer:
-                                switch (keytype)
-                                {
-                                    case AssetProtectionType.None:
-                                        break;
-                                    case AssetProtectionType.AES:
-                                    case AssetProtectionType.PlayReady:
-                                    case AssetProtectionType.Widevine:
-                                    case AssetProtectionType.PlayReadyAndWidevine:
-                                        tokenresult = DynamicEncryption.GetTestToken(/*myasset*/ null, null, displayUI: true); // v3 migration
-                                        if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                                        {
-                                            tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
-                                            //tokenresult.TokenString = Constants.Bearer + tokenresult.TokenString;
-                                        }
-                                        break;
-                                }
-                                break;
-
-                            default:
-                                // no token enabled player
-                                break;
-                        }
+                 
                     }
 
                 }
@@ -3374,10 +2431,10 @@ namespace AMSExplorer
 
                         if (keytype != AssetProtectionType.None)
                         {
-                            bool insertoken = !string.IsNullOrEmpty(tokenresult.TokenString);
+                            bool insertoken = false;// !string.IsNullOrEmpty(tokenresult.TokenString);
 
                             if (insertoken)  // token. Let's analyse the token to find the drm technology used
-                            {
+                            {/*
                                 switch (tokenresult.ContentKeyDeliveryType)
                                 {
                                     case ContentKeyDeliveryType.BaselineHttp:
@@ -3394,10 +2451,11 @@ namespace AMSExplorer
                                         playerurl += string.Format(Constants.AMPWidevine, true.ToString());
                                         playerurl += string.Format(Constants.AMPWidevineToken, tokenresult.TokenString);
                                         break;
-
+                                        
                                     default:
                                         break;
                                 }
+                            */
                             }
                             else // No token. Open mode. Let's look to the key to know the drm technology
                             {
@@ -3449,9 +2507,9 @@ namespace AMSExplorer
                                 default: // auto or other
                                     break;
                             }
-                            if (tokenresult.TokenString != null)
+                            if (false)//tokenresult.TokenString != null)
                             {
-                                playerurl += string.Format(Constants.AMPtokensyntax, tokenresult);
+                                //playerurl += string.Format(Constants.AMPtokensyntax, tokenresult);
                             }
                         }
 
@@ -3529,7 +2587,7 @@ namespace AMSExplorer
 
                     case PlayerType.CustomPlayer:
                         string myurl = Properties.Settings.Default.CustomPlayerUrl;
-                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, tokenresult.TokenString);
+                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, ""/*tokenresult.TokenString*/);
                         break;
                 }
 
@@ -3558,7 +2616,7 @@ namespace AMSExplorer
                         mainForm.TextBoxLogWriteLine("Error when launching the browser.", true);
                     }
                 }
-            }
+           
 
             return FullPlayBackLink;
         }
@@ -3731,20 +2789,7 @@ namespace AMSExplorer
         public double Price { get; set; }
     }
 
-    public class JobEntry
-    {
-        public string Name { get; set; }
-        public string Id { get; set; }
-        public int Tasks { get; set; }
-        public int Priority { get; set; }
-        public Microsoft.WindowsAzure.MediaServices.Client.JobState State { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
-        public string Duration { get; set; }
-        public Double Progress { get; set; }
-    }
-
-
+ 
     public class JobEntryV3
     {
         public string Name { get; set; }
@@ -4372,30 +3417,14 @@ namespace AMSExplorer
     }
 
 
-    public class ACSEndPointMapping
-    {
-        public string Name { get; set; }
-        public string APIServer { get; set; }
-        public string Scope { get; set; }
-        public string ACSBaseAddress { get; set; }
-        public string AzureEndpoint { get; set; }
-        public string ManagementPortal { get; set; }
-    }
-
-
-    public class AADEndPointMapping
+     public class AADEndPointMapping
     {
         public string Name { get; set; }
 
         public string ManagementPortal { get; set; }
     }
 
-    public class ActiveDirectoryServiceSettingsEntry
-    {
-        public string CloudEnvName { get; set; }  // Cloud environnement name, for example "AzureChinaCloudEnvironment"  (AzureEnvironments.AzureChinaCloudEnvironment)
-        public ActiveDirectoryServiceSettings Settings { get; set; }
-    }
-
+  
 
     public class ExplorerOpenIDSample
     {
@@ -4403,338 +3432,15 @@ namespace AMSExplorer
         public string Uri { get; set; }
     }
 
-    public enum EndPointMappingName
-    {
-        AzureGlobal = 0,
-        AzureChina,
-        AzureGovernment
-    }
-
-    public class ListCredentials
-    {
-        public decimal Version = 1;
-        public List<CredentialsEntry> MediaServicesAccounts = new List<CredentialsEntry>();
-    }
-
+  
+  
     public class ListCredentialsRPv3
     {
         public decimal Version = 3;
         public List<CredentialsEntryV3> MediaServicesAccounts = new List<CredentialsEntryV3>();
     }
 
-    public class CredentialsEntry : IEquatable<CredentialsEntry>
-    {
-        public string AccountName { get; set; }
-        public string AccountKey { get; set; }
-        public string ADTenantDomain { get; set; }
-        public string ADRestAPIEndpoint { get; set; }
-        public string ADDeploymentName { get; set; }
-        public AzureEnvironment ADCustomSettings { get; set; }
-        [JsonIgnore] // In order to not export the SP credential
-        public string ADSPClientId { get; set; }
-        [JsonIgnore] // In order to not export the SP credential
-        public string ADSPClientSecret { get; set; }
-        public string DefaultStorageKey { get; set; }
-        public string Description { get; set; }
-        public bool UseAADInteract { get; set; }
-        public bool UseAADServicePrincipal { get; set; }
-        public bool UsePartnerAPI { get; set; }
-        public bool UseOtherAPI { get; set; }
-        public string OtherAPIServer { get; set; }
-        public string OtherScope { get; set; }
-        public string OtherACSBaseAddress { get; set; }
-        public string OtherAzureEndpoint { get; set; }
-        public string OtherManagementPortal { get; set; }
-
-
-        public static readonly int StringsCount = 10; // number of strings
-        public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";
-        public static readonly string PartnerScope = "urn:NimbusPartners";
-        public static readonly string PartnerACSBaseAddress = "https://mediaservices.accesscontrol.windows.net";
-        public static readonly string PartnerAzureEndpoint = "";
-
-        public static readonly string CoreServiceManagement = "https://management.core."; // with Azure endpoint, that gives "https://management.core.windows.net" for Azure Global and "https://management.core.chinacloudapi.cn" for China
-        public static readonly string CoreAttachStorageURL = "https://{0}.blob.core."; // with Azure endpoint, that gives "https://{0}.blob.core.windows.net" for Azure Global and "https://{0}.blob.core.chinacloudapi.cn/" for China
-        public static readonly string CoreStorage = "core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
-        public static readonly string TableStorage = ".table.core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
-
-        public static readonly string GlobalAzureEndpoint = "windows.net";
-        public static readonly string GlobalPortal = "http://portal.azure.com";
-
-        public string ReturnAccountName()
-        {
-            string accName = "";
-
-            if (!this.UseAADInteract && !this.UseAADServicePrincipal)
-            {
-                return this.AccountName;
-            }
-            else if (!string.IsNullOrEmpty(this.ADRestAPIEndpoint))
-            {
-                try
-                {
-                    accName = (new Uri(this.ADRestAPIEndpoint)).Host.Split('.')[0];
-                }
-                catch
-                {
-                }
-            }
-            return accName;
-        }
-
-
-        public static readonly IList<ACSEndPointMapping> ACSMappings = new List<ACSEndPointMapping> {
-            // Global
-            new ACSEndPointMapping() {
-                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureGlobal,
-                APIServer = "https://media.windows.net/API/",
-                Scope = "urn:WindowsAzureMediaServices",
-                ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net",
-                AzureEndpoint = "windows.net",
-                ManagementPortal ="https://portal.azure.com"
-            }, 
-           
-            
-            // China
-            new ACSEndPointMapping() {
-                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureInChina,
-                APIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/",
-                Scope = "urn:WindowsAzureMediaServices",
-                ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn",
-                AzureEndpoint = "chinacloudapi.cn",
-                ManagementPortal ="https://portal.azure.cn"
-            }, 
-           
-            // US Government
-            new ACSEndPointMapping() {
-                Name =AMSExplorer.Properties.Resources.AMSLogin_AzureGovernment,
-                APIServer = "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/",
-                Scope = "urn:WindowsAzureMediaServices",
-                ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net",
-                AzureEndpoint = "usgovcloudapi.net",
-                ManagementPortal ="https://portal.azure.us"
-            }
-        };
-
-
-        public static readonly IList<AADEndPointMapping> AADMappings = new List<AADEndPointMapping> {
-        
-            // Global
-            new AADEndPointMapping() {
-                Name = nameof(AzureEnvironments.AzureCloudEnvironment),
-                ManagementPortal ="https://portal.azure.com"
-            }, 
-                       
-            // China
-            new AADEndPointMapping() {
-                Name = nameof(AzureEnvironments.AzureChinaCloudEnvironment),
-                ManagementPortal ="https://portal.azure.cn"
-            }, 
-           
-            // US Government
-            new AADEndPointMapping() {
-                 Name = nameof(AzureEnvironments.AzureUsGovernmentEnvironment),
-                ManagementPortal ="https://portal.azure.us"
-            },
-
-            // Germany
-            new AADEndPointMapping() {
-                 Name = nameof(AzureEnvironments.AzureGermanCloudEnvironment),
-                ManagementPortal ="https://portal.microsoftazure.de"
-            }
-        };
-
-
-        public static readonly List<ActiveDirectoryServiceSettingsEntry> adSettings = new List<ActiveDirectoryServiceSettingsEntry> {
-            // Global
-            new ActiveDirectoryServiceSettingsEntry() {
-               CloudEnvName = nameof(AzureEnvironments.AzureCloudEnvironment),
-               Settings = new ActiveDirectoryServiceSettings {
-                AuthenticationEndpoint = ActiveDirectoryServiceSettings.Azure.AuthenticationEndpoint,
-               TokenAudience = new Uri("https://management.azure.com", UriKind.Absolute),
-               ValidateAuthority = ActiveDirectoryServiceSettings.Azure.ValidateAuthority
-                   }
-            }, 
-           
-            
-            // China
-           new ActiveDirectoryServiceSettingsEntry() {
-               CloudEnvName = nameof(AzureEnvironments.AzureChinaCloudEnvironment),
-               Settings = new ActiveDirectoryServiceSettings {
-                AuthenticationEndpoint = ActiveDirectoryServiceSettings.AzureChina.AuthenticationEndpoint,
-                   TokenAudience = new Uri("https://management.chinacloudapi.cn", UriKind.Absolute),
-             ValidateAuthority = ActiveDirectoryServiceSettings.AzureChina.ValidateAuthority,
-               }
-           }, 
-           
-            // US Government
-               new ActiveDirectoryServiceSettingsEntry() {
-               CloudEnvName = nameof(AzureEnvironments.AzureCloudEnvironment),
-               Settings = new ActiveDirectoryServiceSettings {
-                  AuthenticationEndpoint = ActiveDirectoryServiceSettings.AzureUSGovernment.AuthenticationEndpoint,
-                 TokenAudience = new Uri("https://management.usgovcloudapi.net", UriKind.Absolute),
-                  ValidateAuthority = ActiveDirectoryServiceSettings.AzureUSGovernment.ValidateAuthority,
-               }
-               },
-
-               // Germany
-                  new ActiveDirectoryServiceSettingsEntry() {
-               CloudEnvName = nameof(AzureEnvironments.AzureGermanCloudEnvironment),
-               Settings = new ActiveDirectoryServiceSettings {
-                  AuthenticationEndpoint = ActiveDirectoryServiceSettings.AzureGermany.AuthenticationEndpoint,
-                 TokenAudience = new Uri("https://management.microsoftazure.de", UriKind.Absolute),
-                 ValidateAuthority = ActiveDirectoryServiceSettings.AzureGermany.ValidateAuthority,
-               }
-                  }
-        };
-
-
-        public CredentialsEntry(string accountname, string accountkey, string adtenantdomain, string adrestapiendpoint, string storagekey, string description, bool useaadinterative, bool useaadserviceprincipal, bool useacspartnerapi, bool useacsotherapi, string acsapiserver, string acsscope, string acsbaseaddress, string acsazureendpoint, string managementportal, string addeploymentname = null, AzureEnvironment adcustomsettings = null, string adspclientid = null, string adspclientsecret = null)
-        {
-            AccountName = accountname;
-            AccountKey = accountkey;
-            ADTenantDomain = string.IsNullOrEmpty(adtenantdomain) ? null : adtenantdomain;
-            ADRestAPIEndpoint = string.IsNullOrEmpty(adrestapiendpoint) ? null : adrestapiendpoint;
-            DefaultStorageKey = storagekey;
-            Description = description;
-            UseAADInteract = useaadinterative;
-            UseAADServicePrincipal = useaadserviceprincipal;
-            UsePartnerAPI = useacspartnerapi;
-            UseOtherAPI = useacsotherapi;
-            OtherAPIServer = string.IsNullOrEmpty(acsapiserver) ? null : acsapiserver;
-            OtherScope = string.IsNullOrEmpty(acsscope) ? null : acsscope;
-            OtherACSBaseAddress = string.IsNullOrEmpty(acsbaseaddress) ? null : acsbaseaddress;
-            OtherAzureEndpoint = string.IsNullOrEmpty(acsazureendpoint) ? null : acsazureendpoint;
-            OtherManagementPortal = string.IsNullOrEmpty(managementportal) ? null : managementportal;
-            ADSPClientId = adspclientid;
-            ADSPClientSecret = adspclientsecret;
-            ADDeploymentName = addeploymentname;
-            ADCustomSettings = adcustomsettings;
-        }
-
-
-
-        public bool Equals(CredentialsEntry other)
-        {
-            return
-                (this.AccountKey ?? "") == (other.AccountKey ?? "")
-                && (this.AccountName ?? "") == (other.AccountName ?? "")
-                && (this.ADRestAPIEndpoint ?? "") == (other.ADRestAPIEndpoint ?? "")
-                && (this.ADTenantDomain ?? "") == (other.ADTenantDomain ?? "")
-                && this.UseAADInteract == other.UseAADInteract
-                && this.UseAADServicePrincipal == other.UseAADServicePrincipal
-                && (this.ADDeploymentName ?? "") == (other.ADDeploymentName ?? "")
-                && (this.ADCustomSettings) == (other.ADCustomSettings)
-                && this.UseOtherAPI == other.UseOtherAPI
-                && this.UsePartnerAPI == other.UsePartnerAPI
-                && (this.Description ?? "") == (other.Description ?? "")
-                && (this.OtherACSBaseAddress ?? "") == (other.OtherACSBaseAddress ?? "")
-                && (this.OtherAPIServer ?? "") == (other.OtherAPIServer ?? "")
-                && (this.OtherAzureEndpoint ?? "") == (other.OtherAzureEndpoint ?? "")
-                && (this.OtherManagementPortal ?? "") == (other.OtherManagementPortal ?? "")
-                && (this.OtherScope ?? "") == (other.OtherScope ?? "")
-                && (this.DefaultStorageKey ?? "") == (other.DefaultStorageKey ?? "")
-                 ;
-        }
-
-        public string GetTableEndPoint(string mediaServicesStorageAccountName)
-        {
-            if (!UseAADInteract && !UseAADServicePrincipal) // ACS Mode
-            {
-                string SampleStorageURLTemplate = UseOtherAPI ?
-                        CredentialsEntry.TableStorage + OtherAzureEndpoint : // ".table.core.chinacloudapi.cn/"
-                        CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // ".table.core.windows.net"
-
-                return "https://" + mediaServicesStorageAccountName + SampleStorageURLTemplate;
-            }
-            else // AAD Mode
-            {
-                if (ADDeploymentName != null) // one of the default
-                {
-                    return "https://" + mediaServicesStorageAccountName + CredentialsEntry.TableStorage + ReturnHostNameTwoSegmentsRight(ReturnADEnvironment(ADDeploymentName).MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
-                }
-                else if (ADCustomSettings != null)
-                {
-                    return "https://" + mediaServicesStorageAccountName + CredentialsEntry.TableStorage + ReturnHostNameTwoSegmentsRight(ADCustomSettings.MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
-                }
-                else // Global
-                {
-                    return "https://" + mediaServicesStorageAccountName + CredentialsEntry.TableStorage + CredentialsEntry.GlobalAzureEndpoint; // "https://accountname.table.core.windows.net"
-
-                }
-            }
-        }
-
-        private string ReturnHostNameTwoSegmentsRight(string myUrl)
-        {
-            var hosts = (new Uri(myUrl)).Host.Split('.');
-            int i = hosts.Count();
-            return hosts[i - 2] + "." + hosts[i - 1];
-        }
-
-
-        public static AzureEnvironment ReturnADEnvironment(string ADDeploymentName) // Return the AzureEnvonment based on name
-        {
-            Type myType = typeof(AzureEnvironments);
-            FieldInfo[] myFields = myType.GetFields(BindingFlags.Static | BindingFlags.Public);
-            var found = myFields.Where(f => f.Name == ADDeploymentName).FirstOrDefault();
-            if (found != null)
-            {
-                return (AzureEnvironment)myFields.Where(f => f.Name == ADDeploymentName).FirstOrDefault().GetValue(myType);
-
-            }
-            else // default
-            {
-                return AzureEnvironments.AzureCloudEnvironment;
-            }
-        }
-
-        public ActiveDirectoryServiceSettings ReturnADSettings() // Return the ActiveDirectoryServiceSettings 
-        {
-            var entry = adSettings.Where(a => a.CloudEnvName == this.ADDeploymentName).FirstOrDefault();
-            if (entry != null)
-            {
-                return entry.Settings;
-            }
-            else
-            {
-                return adSettings[0].Settings;
-            }
-        }
-
-        // return the storage suffix for China, Germany etc, or null for Global Azure
-        public string ReturnStorageSuffix()
-        {
-            /*
-            if (UseOtherAPI)
-                return CoreStorage + OtherAzureEndpoint;
-            else
-                return null;
-                */
-
-
-            if (!UseAADInteract && !UseAADServicePrincipal) // ACS Mode
-            {
-                return UseOtherAPI ? CoreStorage + OtherAzureEndpoint : null;
-            }
-            else // AAD Mode
-            {
-                if (ADDeploymentName != null) // one of the default
-                {
-                    return "core." + ReturnHostNameTwoSegmentsRight(ReturnADEnvironment(ADDeploymentName).MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
-                }
-                else if (ADCustomSettings != null)
-                {
-                    return "core." + ReturnHostNameTwoSegmentsRight(ADCustomSettings.MediaServicesResource); // "https://accountname.table.core.cloudapi.de"
-                }
-                else // Global
-                {
-                    return null;
-                }
-            }
-        }
-    }
-
+ 
     public class LiveOutputUtil
     {
         public static string ReturnLiveEventFromOutput(LiveOutput liveoutput)
@@ -5282,42 +3988,8 @@ namespace AMSExplorer
         SelectedAssets
     }
 
-
-
-    public class WatchFolderSettings
-    {
-        public string FolderPath { get; set; }
-        public bool IsOn { get; set; }
-        public bool DeleteFile { get; set; }
-        public bool PublishOutputAssets { get; set; }
-        public string SendEmailToRecipient { get; set; }
-        public IJobTemplate JobTemplate { get; set; }
-        public List<IAsset> ExtraInputAssets { get; set; }
-        public TypeInputExtraInput TypeInputExtraInput { get; set; }
-        public FileSystemWatcher Watcher { get; set; }
-        public INotificationEndPoint NotificationEndPoint { get; set; }
-        public bool ProcessRohzetXML { get; set; }
-        public bool ProcessJSONSemaphore { get; set; }
-        public string CallAPIUrl { get; set; }
-        public string CallAPJson { get; set; }
-
-
-        public WatchFolderSettings()
-        {
-            FolderPath = string.Empty;
-            IsOn = false;
-            DeleteFile = false;
-            PublishOutputAssets = false;
-            SendEmailToRecipient = null;
-            JobTemplate = null;
-            ExtraInputAssets = null;
-            TypeInputExtraInput = TypeInputExtraInput.None;
-            ProcessRohzetXML = false;
-            CallAPIUrl = null;
-            CallAPJson = null;
-        }
-    }
-
+    
+  
     public class ManifestTimingData
     {
         public TimeSpan AssetDuration { get; set; }
@@ -5388,20 +4060,6 @@ namespace AMSExplorer
         }
     }
 
-    public class GenericTask
-    {
-        public IMediaProcessor Processor;
-        public string ProcessorConfiguration;
-        public TypeInputAssetGeneric InputAssetType;
-        public string InputAsset;
-        public JobOptionsVar TaskOptions;
-    }
-
-    public class GenericTaskAsset
-    {
-        public TypeInputAssetGeneric InputAssetType;
-        public string InputAsset;
-    }
 
     public enum TypeInputAssetGeneric
     {
@@ -5450,7 +4108,7 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Folder { get; set; }
         public string Command { get; set; }
-        public StreamingProtocol? Protocol { get; set; }
+        public LiveEventInputProtocol? Protocol { get; set; }
         public Uri InstallURL { get; set; }
         public bool CanBeRunLocally { get; set; }
         public bool EnableSettings { get; set; }
@@ -5468,26 +4126,6 @@ namespace AMSExplorer
         public bool AIB { get; set; }
         public bool Keywords { get; set; }
         public bool ForFullCaptions { get; set; }
-    }
-
-
-    public class JobOptionsVar
-    {
-        public int Priority { get; set; }
-        public string StorageSelected { get; set; }
-        public TaskOptions TasksOptionsSetting { get; set; }
-        public bool TasksOptionsSettingReadOnly { get; set; }
-        public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
-        public AssetFormatOption OutputAssetsFormatOption { get; set; }
-    }
-
-
-
-    public class ConfigTelemetryVar
-    {
-        public string StorageSelected { get; set; }
-        public MonitoringLevel MonitorLevelChannel { get; set; }
-        public MonitoringLevel MonitorLevelStreamingEndpoint { get; set; }
     }
 
 

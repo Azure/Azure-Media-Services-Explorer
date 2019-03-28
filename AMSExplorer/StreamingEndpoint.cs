@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Configuration;
 using System.IO;
 using System.Threading;

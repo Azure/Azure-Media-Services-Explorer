@@ -24,7 +24,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Xml.Linq;
 using System.Security;
 using Newtonsoft.Json.Linq;

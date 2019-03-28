@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddDynamicEncryptionFrame4));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DRM_Config_TokenClaims));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
@@ -450,7 +450,7 @@
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
             // 
-            // AddDynamicEncryptionFrame4
+            // DRM_Config_TokenClaims
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -462,7 +462,7 @@
             this.Controls.Add(this.labelStep);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxAuthPol);
-            this.Name = "AddDynamicEncryptionFrame4";
+            this.Name = "DRM_Config_TokenClaims";
             this.Load += new System.EventHandler(this.DRM_Config_TokenClaims_Load);
             this.groupBoxAuthPol.ResumeLayout(false);
             this.groupBoxAuthPol.PerformLayout();

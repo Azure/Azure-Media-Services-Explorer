@@ -24,8 +24,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
@@ -65,13 +63,7 @@ namespace AMSExplorer
             }
         }
 
-        public LocatorType LocatorType
-        {
-            get
-            {
-                return (radioButtonOrigin.Checked) ? LocatorType.OnDemandOrigin : LocatorType.Sas;
-            }
-        }
+    
 
         public string ForceLocatorGuid
         {

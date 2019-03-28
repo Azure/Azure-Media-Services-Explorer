@@ -18,8 +18,6 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
-using Microsoft.WindowsAzure.MediaServices.Client;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,7 +43,6 @@ namespace AMSExplorer
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
         public string _assetwarning = "AssetWarning";
 
-        public IEnumerable<IAsset> assets;
         static Dictionary<string, AssetEntryV3> cacheAssetentriesV3 = new Dictionary<string, AssetEntryV3>();
 
         static private int _currentPageNumber = 0;
@@ -408,11 +405,7 @@ namespace AMSExplorer
         }
         */
 
-        public void PurgeCacheAssets(List<IAsset> assets)
-        {
-            // assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Id));
-        }
-
+     
         public void PurgeCacheAssetsV3(List<Asset> assets)
         {
             assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
@@ -766,151 +759,5 @@ Properties/StorageId
 
             return returnedbitmap;
         }
-
-
-
-
-        private AssetBitmapAndText ReturnStaticProtectedBitmap(IAsset asset)
-        {
-            AssetBitmapAndText ABT = new AssetBitmapAndText();
-
-            switch (asset.Options)
-            {
-                case AssetCreationOptions.StorageEncrypted:
-                    ABT.bitmap = storageencryptedimage;
-                    ABT.MouseOverDesc = "Storage encrypted";
-                    break;
-
-                case AssetCreationOptions.CommonEncryptionProtected:
-                    ABT.bitmap = CENCencryptedimage;
-                    ABT.MouseOverDesc = "CENC encrypted";
-                    break;
-
-                case AssetCreationOptions.EnvelopeEncryptionProtected:
-                    ABT.bitmap = envelopeencryptedimage;
-                    ABT.MouseOverDesc = "Envelope encrypted";
-                    break;
-
-                default:
-                    break;
-            }
-            return ABT;
-        }
-
-
-        private static AssetBitmapAndText BuildBitmapAssetFilters(IAsset asset)
-        {
-            if (asset == null || asset.AssetFilters == null) return new AssetBitmapAndText();
-
-            var filcount = asset.AssetFilters.Count();
-
-            if (filcount == 0)
-            {
-                return new AssetBitmapAndText();
-            }
-            else if (filcount == 1)
-            {
-                return new AssetBitmapAndText()
-                {
-                    bitmap = AssetFilterImage,
-                    MouseOverDesc = "1 filter"
-                }; ;
-            }
-            else // >1
-            {
-                return new AssetBitmapAndText()
-                {
-                    bitmap = AssetFiltersImage,
-                    MouseOverDesc = string.Format("{0} filters", filcount)
-                };
-            }
-
-
-        }
-
-
-        private static AssetBitmapAndText BuildBitmapDynEncryption(IAsset asset)
-        {
-            AssetBitmapAndText ABT = new AssetBitmapAndText();
-            AssetEncryptionState assetEncryptionState = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash);
-
-            switch (assetEncryptionState)
-            {
-                case AssetEncryptionState.DynamicCommonEncryption:
-                    ABT.bitmap = CENCencryptedimage;
-                    ABT.MouseOverDesc = "Dynamic Common Encryption (CENC)";
-                    break;
-
-                case AssetEncryptionState.DynamicCommonEncryptionCbcs:
-                    ABT.bitmap = CENCcbcsEncryptedImage;
-                    ABT.MouseOverDesc = "Dynamic Common Encryption (Cbcs)";
-                    break;
-
-                case AssetEncryptionState.DynamicEnvelopeEncryption:
-                    ABT.bitmap = envelopeencryptedimage;
-                    ABT.MouseOverDesc = "Dynamic Envelope Encryption (AES)";
-                    break;
-
-                case AssetEncryptionState.NoDynamicEncryption:
-                    ABT.bitmap = storagedecryptedimage;
-                    ABT.MouseOverDesc = "No Dynamic Encryption";
-                    break;
-
-                case AssetEncryptionState.NoSinglePolicyApplies:
-                    AssetEncryptionState assetEncryptionStateHLS = asset.GetEncryptionState(AssetDeliveryProtocol.HLS);
-                    AssetEncryptionState assetEncryptionStateSmooth = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming);
-                    AssetEncryptionState assetEncryptionStateDash = asset.GetEncryptionState(AssetDeliveryProtocol.Dash);
-                    bool CENCEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicCommonEncryption || assetEncryptionStateSmooth == AssetEncryptionState.DynamicCommonEncryption || assetEncryptionStateDash == AssetEncryptionState.DynamicCommonEncryption);
-                    bool CENCCbcsEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicCommonEncryptionCbcs);
-                    bool EnvelopeEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicEnvelopeEncryption || assetEncryptionStateSmooth == AssetEncryptionState.DynamicEnvelopeEncryption || assetEncryptionStateDash == AssetEncryptionState.DynamicEnvelopeEncryption);
-                    int count = (CENCEnable ? 1 : 0) + (CENCCbcsEnable ? 1 : 0) + (EnvelopeEnable ? 1 : 0);
-                    ABT.bitmap = new Bitmap((envelopeencryptedimage.Width * count), envelopeencryptedimage.Height);
-                    int x = 0;
-
-                    using (Graphics graphicsObject = Graphics.FromImage(ABT.bitmap))
-                    {
-                        if (EnvelopeEnable)
-                        {
-                            graphicsObject.DrawImage(envelopeencryptedimage, new Point(x, 0));
-                            x += envelopeencryptedimage.Width;
-                        }
-
-                        if (CENCEnable)
-                        {
-                            graphicsObject.DrawImage(CENCencryptedimage, new Point(x, 0));
-                            x += CENCencryptedimage.Width;
-                        }
-
-                        if (CENCCbcsEnable)
-                        {
-                            graphicsObject.DrawImage(CENCcbcsEncryptedImage, new Point(x, 0));
-                            x += CENCcbcsEncryptedImage.Width;
-                        }
-                    }
-
-                    /*
-                    if (CENCEnable && EnvelopeEnable)
-                    {
-                        ABT.bitmap = new Bitmap((envelopeencryptedimage.Width + CENCencryptedimage.Width), envelopeencryptedimage.Height);
-                        using (Graphics graphicsObject = Graphics.FromImage(ABT.bitmap))
-                        {
-                            graphicsObject.DrawImage(envelopeencryptedimage, new Point(0, 0));
-                            graphicsObject.DrawImage(CENCencryptedimage, new Point(envelopeencryptedimage.Width, 0));
-                        }
-                    }
-                    else
-                    {
-                        ABT.bitmap = CENCEnable ? CENCencryptedimage : envelopeencryptedimage;
-                    }
-                    */
-                    ABT.MouseOverDesc = "Multiple policies";
-                    break;
-
-                default:
-                    break;
-            }
-            return ABT;
-        }
     }
-
 }

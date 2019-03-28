@@ -597,6 +597,9 @@
   <data name="radioButtonJWTX509.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="radioButtonJWTX509.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="radioButtonJWTX509.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 68</value>
   </data>
@@ -623,6 +626,9 @@
   </data>
   <data name="radioButtonSWT.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="radioButtonSWT.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="radioButtonSWT.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 15</value>
@@ -912,6 +918,9 @@ Specify the content key Authorization Policy Option #{1} for {2}</value>
   </data>
   <data name="radioButtonJWTOpenId.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="radioButtonJWTOpenId.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="radioButtonJWTOpenId.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 95</value>
@@ -1412,7 +1421,7 @@ Specify the content key Authorization Policy Option #{1} for {2}</value>
     <value>Dynamic Encryption - Step {0}</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AddDynamicEncryptionFrame4</value>
+    <value>DRM_Config_TokenClaims</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
