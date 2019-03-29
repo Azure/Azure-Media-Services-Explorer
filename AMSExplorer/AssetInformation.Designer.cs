@@ -104,6 +104,9 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxKeys = new System.Windows.Forms.ComboBox();
+            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -119,6 +122,7 @@
             this.tabPage3.SuspendLayout();
             this.contextMenuStripKey.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
             this.SuspendLayout();
             // 
             // DGAsset
@@ -556,6 +560,9 @@
             // 
             // tabPagePolicy
             // 
+            this.tabPagePolicy.Controls.Add(this.dataGridViewKeys);
+            this.tabPagePolicy.Controls.Add(this.label6);
+            this.tabPagePolicy.Controls.Add(this.comboBoxKeys);
             this.tabPagePolicy.Controls.Add(this.label3);
             this.tabPagePolicy.Controls.Add(this.textBoxPolicy);
             this.tabPagePolicy.Controls.Add(this.label5);
@@ -701,6 +708,35 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // comboBoxKeys
+            // 
+            resources.ApplyResources(this.comboBoxKeys, "comboBoxKeys");
+            this.comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxKeys.FormattingEnabled = true;
+            this.comboBoxKeys.Name = "comboBoxKeys";
+            this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeys_SelectedIndexChanged);
+            // 
+            // dataGridViewKeys
+            // 
+            this.dataGridViewKeys.AllowUserToAddRows = false;
+            this.dataGridViewKeys.AllowUserToDeleteRows = false;
+            this.dataGridViewKeys.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
+            this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewKeys.ColumnHeadersVisible = false;
+            this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
+            this.dataGridViewKeys.MultiSelect = false;
+            this.dataGridViewKeys.Name = "dataGridViewKeys";
+            this.dataGridViewKeys.ReadOnly = true;
+            this.dataGridViewKeys.RowHeadersVisible = false;
+            this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick_1);
+            // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -734,6 +770,7 @@
             this.tabPage3.PerformLayout();
             this.contextMenuStripKey.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -814,5 +851,8 @@
         private System.Windows.Forms.ComboBox comboBoxPolicyLocators;
         private System.Windows.Forms.TextBox textBoxPolicy;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBoxKeys;
+        private System.Windows.Forms.DataGridView dataGridViewKeys;
     }
 }

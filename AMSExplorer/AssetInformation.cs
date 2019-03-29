@@ -44,6 +44,7 @@ namespace AMSExplorer
         private ManifestTimingData myassetmanifesttimingdata = null;
         private CloudBlobContainer container = null;
         private IEnumerable<IListBlobItem> blobs;
+        private List<StreamingLocatorContentKey> contentKeysForCurrentLocator;
 
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient)
         {
@@ -277,22 +278,14 @@ namespace AMSExplorer
         {
             labelAssetNameTitle.Text += myAssetV3.Name;
 
-            //myAssetType = AssetInfo.GetAssetType(myAsset);
-
             DGAsset.ColumnCount = 2;
             DGFiles.ColumnCount = 2;
             DGFiles.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            dataGridViewKeys.ColumnCount = 2;
+            dataGridViewKeys.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
-            // Files in asset: headers
+
             long size = -1;
-            /*
-            if (myAsset.State != AssetState.Deleted)
-            {
-                size = ListAssetFiles();
-                ListAssetDeliveryPolicies();
-                ListAssetKeys();
-            }
-            */
 
             // asset info
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
@@ -331,6 +324,7 @@ namespace AMSExplorer
             oktobuildlocator = true;
             // BuildLocatorsTree();
 
+           
 
             return;
 
@@ -639,7 +633,7 @@ namespace AMSExplorer
 
         private void AssetInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
-       
+
         }
 
         private void toolStripMenuItemOpenFile_Click(object sender, EventArgs e)
@@ -1286,7 +1280,7 @@ namespace AMSExplorer
             bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
 
             showMetadataToolStripMenuItem.Enabled = selected && !bMultiSelect;
-            toolStripMenuItemOpenFile.Enabled = selected ;
+            toolStripMenuItemOpenFile.Enabled = selected;
             toolStripMenuItemDownloadFile.Enabled = selected;
             deleteFileToolStripMenuItem.Enabled = selected;
             duplicateFileToolStripMenuItem.Enabled = selected && !bMultiSelect;
@@ -1759,7 +1753,68 @@ namespace AMSExplorer
             textBoxPolicy.Text = string.Empty;
 
             if (comboBoxPolicyLocators.SelectedItem != null)
-                DisplayPolicy((comboBoxPolicyLocators.SelectedItem as Item).Value);
+            {
+                string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
+                DisplayPolicy(locatorName);
+                FillComboDRMKeys(locatorName);
+            }
+        }
+
+        private void FillComboDRMKeys(string locatorName)
+        {
+            comboBoxKeys.Items.Clear();
+            var response = _amsClient.AMSclient.StreamingLocators.ListContentKeys(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            contentKeysForCurrentLocator = response.ContentKeys.ToList();
+            contentKeysForCurrentLocator.ForEach(k => comboBoxKeys.Items.Add(new Item(k.LabelReferenceInStreamingPolicy, k.Id.ToString())));
+            if (response.ContentKeys.Count > 0)
+            {
+                comboBoxKeys.SelectedIndex = 0;
+            }
+        }
+
+        private void comboBoxKeys_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxKeys.SelectedItem != null)
+            {
+                string keyId = (comboBoxKeys.SelectedItem as Item).Value;
+                DisplayKeyInfo(keyId);
+            }
+        }
+
+        private void DisplayKeyInfo(string keyId)
+        {
+            var key = contentKeysForCurrentLocator.Where(k => k.Id == Guid.Parse(keyId)).FirstOrDefault();
+            if (key == null) return;
+
+            dataGridViewKeys.Rows.Clear();
+            dataGridViewKeys.Rows.Add("LabelReferenceInStreamingPolicy", key.LabelReferenceInStreamingPolicy);
+            dataGridViewKeys.Rows.Add("Id", key.Id);
+            dataGridViewKeys.Rows.Add("PolicyName", key.PolicyName);
+            dataGridViewKeys.Rows.Add("Type", key.Type);
+
+            var tracksJson = JsonConvert.SerializeObject(key.Tracks, Newtonsoft.Json.Formatting.Indented);
+            int i = dataGridViewKeys.Rows.Add("Tracks", "Details");
+            DataGridViewButtonCell btn2 = new DataGridViewButtonCell();
+            dataGridViewKeys.Rows[i].Cells[1] = btn2;
+            dataGridViewKeys.Rows[i].Cells[1].Value = "See details";
+            dataGridViewKeys.Rows[i].Cells[1].Tag = tracksJson;
+
+            i = dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey);
+            DataGridViewButtonCell btn = new DataGridViewButtonCell();
+            dataGridViewKeys.Rows[i].Cells[1] = btn;
+            dataGridViewKeys.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey2;
+            dataGridViewKeys.Rows[i].Cells[1].Tag = key.Value;
+        }
+
+        private void dataGridViewKeys_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            {
+
+                SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
+            }
         }
     }
 }

@@ -543,24 +543,6 @@
   <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="buttonAudioVideoAnalysis.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Location" type="System.Drawing.Point, System.Drawing">
-    <value>717, 470</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 27</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Text" xml:space="preserve">
-    <value>Audio/Video analysis</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;buttonAudioVideoAnalysis.Name" xml:space="preserve">
     <value>buttonAudioVideoAnalysis</value>
   </data>
@@ -810,6 +792,108 @@
   <data name="&gt;&gt;tabPage6.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="dataGridViewKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="dataGridViewKeys.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 342</value>
+  </data>
+  <data name="dataGridViewKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>452, 159</value>
+  </data>
+  <data name="dataGridViewKeys.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewKeys.Name" xml:space="preserve">
+    <value>dataGridViewKeys</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewKeys.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewKeys.Parent" xml:space="preserve">
+    <value>tabPagePolicy</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewKeys.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 316</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 15</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Select key :</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>tabPagePolicy</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="comboBoxKeys.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>System</value>
+  </data>
+  <data name="comboBoxKeys.Location" type="System.Drawing.Point, System.Drawing">
+    <value>105, 313</value>
+  </data>
+  <data name="comboBoxKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 23</value>
+  </data>
+  <data name="comboBoxKeys.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;comboBoxKeys.Name" xml:space="preserve">
+    <value>comboBoxKeys</value>
+  </data>
+  <data name="&gt;&gt;comboBoxKeys.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxKeys.Parent" xml:space="preserve">
+    <value>tabPagePolicy</value>
+  </data>
+  <data name="&gt;&gt;comboBoxKeys.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 53</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Attached policy :</value>
+  </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
   </data>
@@ -820,7 +904,28 @@
     <value>tabPagePolicy</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
+  </data>
+  <data name="textBoxPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxPolicy.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 8.25pt</value>
+  </data>
+  <data name="textBoxPolicy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 71</value>
+  </data>
+  <data name="textBoxPolicy.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxPolicy.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
+  </data>
+  <data name="textBoxPolicy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>851, 215</value>
+  </data>
+  <data name="textBoxPolicy.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
   </data>
   <data name="&gt;&gt;textBoxPolicy.Name" xml:space="preserve">
     <value>textBoxPolicy</value>
@@ -832,7 +937,25 @@
     <value>tabPagePolicy</value>
   </data>
   <data name="&gt;&gt;textBoxPolicy.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 18</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 15</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Select locator :</value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
@@ -844,7 +967,22 @@
     <value>tabPagePolicy</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
+  </data>
+  <data name="comboBoxPolicyLocators.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="comboBoxPolicyLocators.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>System</value>
+  </data>
+  <data name="comboBoxPolicyLocators.Location" type="System.Drawing.Point, System.Drawing">
+    <value>105, 15</value>
+  </data>
+  <data name="comboBoxPolicyLocators.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 23</value>
+  </data>
+  <data name="comboBoxPolicyLocators.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
   </data>
   <data name="&gt;&gt;comboBoxPolicyLocators.Name" xml:space="preserve">
     <value>comboBoxPolicyLocators</value>
@@ -856,7 +994,7 @@
     <value>tabPagePolicy</value>
   </data>
   <data name="&gt;&gt;comboBoxPolicyLocators.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="tabPagePolicy.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -871,7 +1009,7 @@
     <value>4</value>
   </data>
   <data name="tabPagePolicy.Text" xml:space="preserve">
-    <value>Streaming policy</value>
+    <value>Streaming policy &amp; keys</value>
   </data>
   <data name="&gt;&gt;tabPagePolicy.Name" xml:space="preserve">
     <value>tabPagePolicy</value>
@@ -1040,6 +1178,36 @@
   </data>
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
     <value>8</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Location" type="System.Drawing.Point, System.Drawing">
+    <value>717, 470</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 27</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Text" xml:space="preserve">
+    <value>Audio/Video analysis</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;buttonAudioVideoAnalysis.Name" xml:space="preserve">
+    <value>buttonAudioVideoAnalysis</value>
+  </data>
+  <data name="&gt;&gt;buttonAudioVideoAnalysis.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAudioVideoAnalysis.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;buttonAudioVideoAnalysis.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="buttonGenerateManifest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1463,126 +1631,6 @@
   </data>
   <data name="playWithThisFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Play with this filter</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 66</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Attached policy :</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>tabPagePolicy</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="textBoxPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxPolicy.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 8.25pt</value>
-  </data>
-  <data name="textBoxPolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 84</value>
-  </data>
-  <data name="textBoxPolicy.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBoxPolicy.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Both</value>
-  </data>
-  <data name="textBoxPolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>851, 406</value>
-  </data>
-  <data name="textBoxPolicy.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicy.Name" xml:space="preserve">
-    <value>textBoxPolicy</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicy.Parent" xml:space="preserve">
-    <value>tabPagePolicy</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicy.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 18</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 15</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Select locator :</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>tabPagePolicy</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="comboBoxPolicyLocators.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="comboBoxPolicyLocators.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>System</value>
-  </data>
-  <data name="comboBoxPolicyLocators.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 15</value>
-  </data>
-  <data name="comboBoxPolicyLocators.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 23</value>
-  </data>
-  <data name="comboBoxPolicyLocators.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
-  </data>
-  <data name="&gt;&gt;comboBoxPolicyLocators.Name" xml:space="preserve">
-    <value>comboBoxPolicyLocators</value>
-  </data>
-  <data name="&gt;&gt;comboBoxPolicyLocators.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxPolicyLocators.Parent" xml:space="preserve">
-    <value>tabPagePolicy</value>
-  </data>
-  <data name="&gt;&gt;comboBoxPolicyLocators.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="checkBoxHttps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
