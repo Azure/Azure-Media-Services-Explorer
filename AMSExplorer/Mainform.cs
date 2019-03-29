@@ -2241,12 +2241,14 @@ namespace AMSExplorer
         {
             if (SelectedAssets.Count > 0)
             {
-                var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
+                //var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
+                string question = SelectedAssets.Count >  1 ? 
+                    string.Format("Do you want to delete these {0} assets ?", SelectedAssets.Count)
+                    : string.Format("Do you want to delete asset '{0}' ?", SelectedAssets[0].Name);
 
-                if (form.ShowDialog() == DialogResult.OK)
-                    _amsClientV3.RefreshTokenIfNeeded();
-
+                if (MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    _amsClientV3.RefreshTokenIfNeeded();
                     Task.Run(() =>
                     {
                         bool Error = false;
