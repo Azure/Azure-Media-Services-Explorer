@@ -70,6 +70,7 @@ namespace AMSExplorer
         static Bitmap Reddownloadimage = Program.MakeRed(SASlocatorimage);
         static Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         static Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
+        static Bitmap BitmapCancel = Bitmaps.cancel;
 
         static AMSClientV3 _client;
         static BindingList<AssetEntryV3> _MyObservAssetV3;
@@ -286,7 +287,7 @@ namespace AMSExplorer
             // test - let analyze only visible assets
 
             var visibleRowsCount = this.DisplayedRowCount(true);
-            var firstDisplayedRowIndex = this.FirstDisplayedCell.RowIndex;
+            var firstDisplayedRowIndex = (this.FirstDisplayedCell != null) ? this.FirstDisplayedCell.RowIndex : 0;
             var lastvisibleRowIndex = (firstDisplayedRowIndex + visibleRowsCount) - 1;
             var VisibleAssets = new List<String>();
             for (int rowIndex = firstDisplayedRowIndex; rowIndex <= lastvisibleRowIndex; rowIndex++)
@@ -405,7 +406,7 @@ namespace AMSExplorer
         }
         */
 
-     
+
         public void PurgeCacheAssetsV3(List<Asset> assets)
         {
             assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
@@ -664,8 +665,21 @@ Properties/StorageId
             Bitmap returnedImage = null;
             string returnedText = null;
             client.RefreshTokenIfNeeded();
+            IList<AssetStreamingLocator> locators;
+            try
+            {
+                locators = client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName).StreamingLocators;
+            }
+            catch
+            {
+                return new AssetBitmapAndText()
+                {
+                    bitmap = BitmapCancel,
+                    MouseOverDesc = "Error"
+                };
+            }
 
-            foreach (var locator in client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName).StreamingLocators)
+            foreach (var locator in locators)
             {
                 Bitmap newbitmap = null;
                 string newtext = null;

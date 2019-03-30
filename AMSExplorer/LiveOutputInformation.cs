@@ -81,8 +81,11 @@ namespace AMSExplorer
                 };
                 DialogResult dialogResult = form.ShowDialog(this);
             }
+            else
+            {
+                MessageBox.Show(string.Format("Asset '{0}' not found !", MyLiveOutput.AssetName), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
 
         private void LiveOutputInformation_Load(object sender, EventArgs e)
         {

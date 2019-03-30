@@ -1571,7 +1571,6 @@ namespace AMSExplorer
             if (asset != null)
             {
                 // Refresh the asset.
-                //_context = Program.ConnectAndGetNewContext(_credentials);
                 _amsClientV3.RefreshTokenIfNeeded();
                 asset = Task.Run(async () => await GetAssetAsync(asset.Name)).Result;
                 if (asset != null)
@@ -1596,7 +1595,13 @@ namespace AMSExplorer
                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
+
             }
+            else
+            {
+                MessageBox.Show("Asset not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             return dialogResult;
         }
 
@@ -1927,11 +1932,20 @@ namespace AMSExplorer
             string labelAssetName;
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = "A locator will be created for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
+                if (SelectedAssets.Count == 1 && SelectedAssets.FirstOrDefault() == null)
+                {
+                    MessageBox.Show("Asset not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
 
                 if (SelectedAssets.Count > 1)
                 {
                     labelAssetName = "A locator will be created for the " + SelectedAssets.Count.ToString() + " selected assets.";
+                }
+                else
+                {
+                    labelAssetName = "A locator will be created for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
                 }
 
                 CreateLocator form = new CreateLocator()
@@ -2072,6 +2086,12 @@ namespace AMSExplorer
         {
             if (SelectedAssets.Count > 0)
             {
+                if (SelectedAssets.Count == 1 && SelectedAssets[0] == null)
+                {
+                    MessageBox.Show("Asset not found !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 string question = "Delete all locators of these " + SelectedAssets.Count + " assets ?";
                 if (SelectedAssets.Count == 1) question = "Delete all the locators of " + SelectedAssets[0].Name + " ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Locators deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -2242,7 +2262,7 @@ namespace AMSExplorer
             if (SelectedAssets.Count > 0)
             {
                 //var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
-                string question = SelectedAssets.Count >  1 ? 
+                string question = SelectedAssets.Count > 1 ?
                     string.Format("Do you want to delete these {0} assets ?", SelectedAssets.Count)
                     : string.Format("Do you want to delete asset '{0}' ?", SelectedAssets[0].Name);
 
@@ -5639,12 +5659,7 @@ namespace AMSExplorer
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     Task.Run(() => DoDeleteLiveOutputsEngineAsync(ListOutputs, form.DeleteAsset));
-                    /*
-                                        await Task.Run(() =>
-                                        {
-                                            DoDeleteLiveOutputsEngine(ListOutputs, form.DeleteAsset);
-                                        });
-                                        */
+                   
                 }
             }
         }
@@ -6745,7 +6760,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoCopyOutputURLAssetOrProgramToClipboard()
+        private void DoDisplayOutputURLAssetOrProgramToWindow()
         {
             Asset asset = ReturnSelectedAssetsFromProgramsOrAssetsV3().FirstOrDefault();
             if (asset != null)
@@ -6772,6 +6787,10 @@ namespace AMSExplorer
                 {
                     MessageBox.Show(string.Format("No valid URL is available for asset '{0}'.", asset.Name), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Asset not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -7036,68 +7055,71 @@ namespace AMSExplorer
         {
             foreach (var myAsset in listassets)
             {
-                bool Error = false;
-                if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, _amsClientV3)) // No streaming locator valid
+                if (myAsset != null)
                 {
-
-                    if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one (clear streaming) ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                    bool Error = false;
+                    if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, _amsClientV3)) // No streaming locator valid
                     {
-                        _amsClientV3.RefreshTokenIfNeeded();
 
-                        TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
-                        try
+                        if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one (clear streaming) ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                         {
-                            string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                            _amsClientV3.RefreshTokenIfNeeded();
 
-                            StreamingLocator locator = new StreamingLocator(
-                                                                            assetName: myAsset.Name,
-                                                                            streamingPolicyName: PredefinedStreamingPolicy.ClearStreamingOnly,
-                                                                            defaultContentKeyPolicyName: null,
-                                                                            streamingLocatorId: null
-                                                                            );
+                            TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
+                            try
+                            {
+                                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
 
-                            locator = _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "loc" + uniqueness, locator);
+                                StreamingLocator locator = new StreamingLocator(
+                                                                                assetName: myAsset.Name,
+                                                                                streamingPolicyName: PredefinedStreamingPolicy.ClearStreamingOnly,
+                                                                                defaultContentKeyPolicyName: null,
+                                                                                streamingLocatorId: null
+                                                                                );
 
-                            PlayBackLocator = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, myAsset.Name).StreamingLocators.Where(l => l.Name == locator.Name).FirstOrDefault();
+                                locator = _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, "loc" + uniqueness, locator);
 
-                            dataGridViewAssetsV.PurgeCacheAsset(myAsset);
-                            dataGridViewAssetsV.AnalyzeItemsInBackground();
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Error when creating locator for asset '{0}'", myAsset.Name, true); // this could happen if asset is storage protected with no delivery policy
-                            TextBoxLogWriteLine(ex);
-                            Error = true;
+                                PlayBackLocator = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, myAsset.Name).StreamingLocators.Where(l => l.Name == locator.Name).FirstOrDefault();
+
+                                dataGridViewAssetsV.PurgeCacheAsset(myAsset);
+                                dataGridViewAssetsV.AnalyzeItemsInBackground();
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine("Error when creating locator for asset '{0}'", myAsset.Name, true); // this could happen if asset is storage protected with no delivery policy
+                                TextBoxLogWriteLine(ex);
+                                Error = true;
+                            }
                         }
                     }
-                }
 
-                if (!Error && IsThereALocatorValid(myAsset, ref PlayBackLocator, _amsClientV3)) // There is a streaming locator valid
-                {
-                    var MyUri = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, PlayBackLocator.Name)
-                        .StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
-                        .FirstOrDefault().Paths.FirstOrDefault();
-
-                    if (MyUri != null)
+                    if (!Error && IsThereALocatorValid(myAsset, ref PlayBackLocator, _amsClientV3)) // There is a streaming locator valid
                     {
-                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri, _amsClientV3, this, myAsset, false, filter, locator: PlayBackLocator);
-                    }
-                    else
-                    {
-                        /* v3 migration
+                        var MyUri = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, PlayBackLocator.Name)
+                            .StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
+                            .FirstOrDefault().Paths.FirstOrDefault();
 
-                        // there is a streaming locator but the asset cannot be played back with adaptive streaming. It could be a single file in the asset.
-                        // if this is a single MP4 file, we can play it with the streaming locator but as progressive download
-                        if (myAsset.AssetFiles.Count() == 1 && myAsset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".mp4") && (playertype == PlayerType.AzureMediaPlayer))
+                        if (MyUri != null)
                         {
-                            MessageBox.Show(string.Format("The asset '{0}' in a single MP4 file and cannot be played with adaptive streaming as there is no manifest file.\nThe MP4 file will be played through progressive download.", myAsset.Name), "Single MP4 file", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, this, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4, UISelectSEFiltersAndProtocols: false);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri, _amsClientV3, this, myAsset, false, filter, locator: PlayBackLocator);
                         }
                         else
                         {
-                            MessageBox.Show(string.Format("The asset '{0}' does not seem to be playable with adaptive streaming.", myAsset.Name), "Adaptive streaming", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            /* v3 migration
+
+                            // there is a streaming locator but the asset cannot be played back with adaptive streaming. It could be a single file in the asset.
+                            // if this is a single MP4 file, we can play it with the streaming locator but as progressive download
+                            if (myAsset.AssetFiles.Count() == 1 && myAsset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".mp4") && (playertype == PlayerType.AzureMediaPlayer))
+                            {
+                                MessageBox.Show(string.Format("The asset '{0}' in a single MP4 file and cannot be played with adaptive streaming as there is no manifest file.\nThe MP4 file will be played through progressive download.", myAsset.Name), "Single MP4 file", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, this, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4, UISelectSEFiltersAndProtocols: false);
+                            }
+                            else
+                            {
+                                MessageBox.Show(string.Format("The asset '{0}' does not seem to be playable with adaptive streaming.", myAsset.Name), "Adaptive streaming", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+                            */
                         }
-                        */
                     }
                 }
             }
@@ -7518,7 +7540,7 @@ namespace AMSExplorer
 
         private void ContextMenuItemProgramCopyTheOutputURLToClipboard_Click(object sender, EventArgs e)
         {
-            DoCopyOutputURLAssetOrProgramToClipboard();
+            DoDisplayOutputURLAssetOrProgramToWindow();
         }
 
         private void buttonSetFilterChannel_Click(object sender, EventArgs e)
@@ -8103,7 +8125,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
         {
-            DoCopyOutputURLAssetOrProgramToClipboard();
+            DoDisplayOutputURLAssetOrProgramToWindow();
 
         }
 
