@@ -4378,6 +4378,7 @@ namespace AMSExplorer
                                 JobToProcess.Job.Priority = form.JobPriority;
                                 _amsClientV3.RefreshTokenIfNeeded();
                                 _amsClientV3.AMSclient.Jobs.Update(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job);
+                                TextBoxLogWriteLine(string.Format("Job '{0}' updated.", JobToProcess.Job.Name));
                             }
 
                             catch (Exception e)
@@ -5659,7 +5660,7 @@ namespace AMSExplorer
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     Task.Run(() => DoDeleteLiveOutputsEngineAsync(ListOutputs, form.DeleteAsset));
-                   
+
                 }
             }
         }

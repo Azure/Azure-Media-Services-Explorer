@@ -17,6 +17,7 @@
 
 using Microsoft.Azure.Management.Media.Models;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -27,8 +28,23 @@ namespace AMSExplorer
         {
             get
             {
-                //return (Priority?)comboBoxPriority.SelectedValue;
-                return (Priority?)Enum.Parse(typeof(Priority), (string)comboBoxPriority.SelectedItem);
+                Priority p = null;
+                switch (comboBoxPriority.SelectedItem)
+                {
+                    case "Low":
+                        p= Priority.Low;
+                        break;
+                  
+                    case "High":
+                        p= Priority.High;
+                        break;
+
+                    default:
+                        p = Priority.Normal;
+                        break;
+                }
+
+                return p;
             }
 
             set
@@ -41,8 +57,8 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
 
-            var ep = Enum.GetNames(typeof(Priority));
-            comboBoxPriority.Items.AddRange(ep);
+            var ep =  new List<string>() { Priority.Low, Priority.Normal, Priority.High };
+            comboBoxPriority.Items.AddRange(ep.ToArray());
             comboBoxPriority.SelectedIndex = 1;
 
         }
