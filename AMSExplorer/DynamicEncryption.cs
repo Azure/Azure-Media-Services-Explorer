@@ -710,11 +710,6 @@ namespace AMSExplorer
             {
                 protocol = AssetDeliveryProtocol.Dash;
             }
-            // HLS only for FairPlay
-            if (form1.FairPlayPackaging)
-            {
-                protocol = AssetDeliveryProtocol.HLS;
-            }
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
                                                                  name,
