@@ -44,7 +44,7 @@ namespace AMSExplorer
                 {
                     return AssetDeliveryPolicyType.DynamicCommonEncryption;
                 }
-                else if (radioButtonCENCCbcsKey.Checked)
+                else if (radioButtonCbcsKey.Checked)
                 {
                     return AssetDeliveryPolicyType.DynamicCommonEncryptionCbcs;
                 }
@@ -67,7 +67,7 @@ namespace AMSExplorer
                 {
                     return ContentKeyType.EnvelopeEncryption;
                 }
-                else if (radioButtonCENCCbcsKey.Checked)
+                else if (radioButtonCbcsKey.Checked)
                 {
                     return ContentKeyType.CommonEncryptionCbcs;
                 }
@@ -84,11 +84,11 @@ namespace AMSExplorer
             get
             {
                 return (
-                    ((!radioButtonCENCCbcsKey.Checked && checkBoxProtocolDASH.Checked) ? AssetDeliveryProtocol.Dash : AssetDeliveryProtocol.None)
+                    ((checkBoxProtocolDASH.Checked) ? AssetDeliveryProtocol.Dash : AssetDeliveryProtocol.None)
                     |
                     (checkBoxProtocolHLS.Checked ? AssetDeliveryProtocol.HLS : AssetDeliveryProtocol.None)
                     |
-                    ((!radioButtonCENCCbcsKey.Checked && checkBoxProtocolSmooth.Checked) ? AssetDeliveryProtocol.SmoothStreaming : AssetDeliveryProtocol.None)
+                    ((!radioButtonCbcsKey.Checked && checkBoxProtocolSmooth.Checked) ? AssetDeliveryProtocol.SmoothStreaming : AssetDeliveryProtocol.None)
                     |
                     // progressive download only available for dyn decryption
                     ((radioButtonDecryptStorage.Checked && checkBoxProtocolProgressiveDownload.Checked) ? AssetDeliveryProtocol.ProgressiveDownload : AssetDeliveryProtocol.None)
@@ -131,7 +131,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (EnableDynEnc && radioButtonCENCCbcsKey.Checked) ? true : false;
+                return (EnableDynEnc && radioButtonCbcsKey.Checked) ? true : false;
             }
         }
 
@@ -207,14 +207,14 @@ namespace AMSExplorer
 
                 checkBoxSelectPolicies.Visible = true;
             }
-            else if (radioButtonCENCCbcsKey.Checked)
+            else if (radioButtonCbcsKey.Checked)
             {
                 panelPackaging.Visible = true;
                 panelPackagingCENC.Visible = false;
                 checkBoxFairPlayPackaging.Visible = true;
 
                 checkBoxProtocolProgressiveDownload.Visible = false;
-                checkBoxProtocolDASH.Visible = false;
+                checkBoxProtocolDASH.Visible = true;
                 checkBoxProtocolHLS.Visible = true;
                 checkBoxProtocolHLS.Checked = true;
                 checkBoxProtocolHLS.Enabled = false;

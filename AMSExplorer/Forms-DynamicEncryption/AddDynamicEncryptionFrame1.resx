@@ -354,34 +354,34 @@
   <data name="&gt;&gt;pictureBox4.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="radioButtonCENCCbcsKey.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButtonCbcsKey.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="radioButtonCENCCbcsKey.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="radioButtonCbcsKey.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="radioButtonCENCCbcsKey.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="radioButtonCbcsKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>52, 83</value>
   </data>
-  <data name="radioButtonCENCCbcsKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 19</value>
+  <data name="radioButtonCbcsKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 19</value>
   </data>
-  <data name="radioButtonCENCCbcsKey.TabIndex" type="System.Int32, mscorlib">
+  <data name="radioButtonCbcsKey.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
   </data>
-  <data name="radioButtonCENCCbcsKey.Text" xml:space="preserve">
-    <value>Common encryption cbcs (FairPlay)</value>
+  <data name="radioButtonCbcsKey.Text" xml:space="preserve">
+    <value>CBCS (FairPlay)</value>
   </data>
-  <data name="&gt;&gt;radioButtonCENCCbcsKey.Name" xml:space="preserve">
-    <value>radioButtonCENCCbcsKey</value>
+  <data name="&gt;&gt;radioButtonCbcsKey.Name" xml:space="preserve">
+    <value>radioButtonCbcsKey</value>
   </data>
-  <data name="&gt;&gt;radioButtonCENCCbcsKey.Type" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCbcsKey.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioButtonCENCCbcsKey.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCbcsKey.Parent" xml:space="preserve">
     <value>groupBoxKeyType</value>
   </data>
-  <data name="&gt;&gt;radioButtonCENCCbcsKey.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCbcsKey.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="radioButtonNoDynEnc.AutoSize" type="System.Boolean, mscorlib">

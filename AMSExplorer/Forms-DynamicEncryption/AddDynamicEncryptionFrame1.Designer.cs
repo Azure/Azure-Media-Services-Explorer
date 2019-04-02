@@ -38,7 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.radioButtonCENCCbcsKey = new System.Windows.Forms.RadioButton();
+            this.radioButtonCbcsKey = new System.Windows.Forms.RadioButton();
             this.radioButtonNoDynEnc = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.radioButtonDecryptStorage = new System.Windows.Forms.RadioButton();
@@ -114,7 +114,7 @@
             this.groupBoxKeyType.Controls.Add(this.label3);
             this.groupBoxKeyType.Controls.Add(this.label2);
             this.groupBoxKeyType.Controls.Add(this.pictureBox4);
-            this.groupBoxKeyType.Controls.Add(this.radioButtonCENCCbcsKey);
+            this.groupBoxKeyType.Controls.Add(this.radioButtonCbcsKey);
             this.groupBoxKeyType.Controls.Add(this.radioButtonNoDynEnc);
             this.groupBoxKeyType.Controls.Add(this.pictureBox1);
             this.groupBoxKeyType.Controls.Add(this.radioButtonDecryptStorage);
@@ -150,12 +150,12 @@
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.TabStop = false;
             // 
-            // radioButtonCENCCbcsKey
+            // radioButtonCbcsKey
             // 
-            resources.ApplyResources(this.radioButtonCENCCbcsKey, "radioButtonCENCCbcsKey");
-            this.radioButtonCENCCbcsKey.Name = "radioButtonCENCCbcsKey";
-            this.radioButtonCENCCbcsKey.UseVisualStyleBackColor = true;
-            this.radioButtonCENCCbcsKey.CheckedChanged += new System.EventHandler(this.radioButtonControl_CheckedChanged);
+            resources.ApplyResources(this.radioButtonCbcsKey, "radioButtonCbcsKey");
+            this.radioButtonCbcsKey.Name = "radioButtonCbcsKey";
+            this.radioButtonCbcsKey.UseVisualStyleBackColor = true;
+            this.radioButtonCbcsKey.CheckedChanged += new System.EventHandler(this.radioButtonControl_CheckedChanged);
             // 
             // radioButtonNoDynEnc
             // 
@@ -407,7 +407,7 @@
         private System.Windows.Forms.Panel panelPackaging;
         private System.Windows.Forms.CheckBox checkBoxProtocolProgressiveDownload;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.RadioButton radioButtonCENCCbcsKey;
+        private System.Windows.Forms.RadioButton radioButtonCbcsKey;
         private System.Windows.Forms.CheckBox checkBoxFairPlayPackaging;
         private System.Windows.Forms.Panel panelPackagingCENC;
         private System.Windows.Forms.Label label8;
