@@ -120,10 +120,11 @@ namespace AMSExplorer
             // we want to keep the sorting in display
             get
             {
+                _client.RefreshTokenIfNeeded();
                 var list = new List<StreamingEndpoint>();
                 foreach (var se in _MyObservStreamingEndpoints)
                 {
-                    var detailedSE = _client.StreamingEndpoints.Get(_resourceName, _accountName, se.Name);
+                    var detailedSE = _client.AMSclient.StreamingEndpoints.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, se.Name);
                     if (detailedSE != null) // in some rare cases, SE is null in dev/test account
                         list.Add(detailedSE);
                 }
@@ -139,17 +140,14 @@ namespace AMSExplorer
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshStreamingEndpoints;
-        private AzureMediaServicesClient _client;
-        private string _resourceName;
-        private string _accountName;
+        private AMSClientV3 _client;
 
-        public void Init(AzureMediaServicesClient client, CredentialsEntryV3 cred)
+        public void Init(AMSClientV3 client)
         {
             IEnumerable<StreamingEndpointEntry> originquery;
             _client = client;
-            _resourceName = cred.ResourceGroup;
-            _accountName = cred.AccountName;
-            originquery = _client.StreamingEndpoints.List(_resourceName, _accountName).Select(o => new
+            _client.RefreshTokenIfNeeded();
+            originquery = _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(o => new
                           StreamingEndpointEntry
             {
                 Name = o.Name,
@@ -196,7 +194,8 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                streamingEndpoint = await _client.StreamingEndpoints.GetAsync(_resourceName, _accountName, streamingEndpoint.Name); //refresh
+                _client.RefreshTokenIfNeeded();
+                streamingEndpoint = await _client.AMSclient.StreamingEndpoints.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, streamingEndpoint.Name); //refresh
                 if (streamingEndpoint != null)
                 {
                     _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)streamingEndpoint.ResourceState;
@@ -216,14 +215,14 @@ namespace AMSExplorer
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             StreamingEndpoint origin;
+            _client.RefreshTokenIfNeeded();
 
             foreach (StreamingEndpointEntry OE in _MyObservStreamingEndpoints)
             {
-
                 origin = null;
                 try
                 {
-                    origin = _client.StreamingEndpoints.Get(_resourceName, _accountName, origin.Name); //refresh
+                    origin = _client.AMSclient.StreamingEndpoints.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, origin.Name); //refresh
                     if (origin != null)
                     {
 
@@ -257,7 +256,8 @@ namespace AMSExplorer
 
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
-            streamingendpoints = await _client.StreamingEndpoints.ListAsync(_resourceName, _accountName);
+            _client.RefreshTokenIfNeeded();
+            streamingendpoints = await _client.AMSclient.StreamingEndpoints.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             try
             {

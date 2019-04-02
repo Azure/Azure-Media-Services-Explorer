@@ -49,9 +49,7 @@ namespace AMSExplorer
         private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
         static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
 
-        static AzureMediaServicesClient _client;
-        private string _resourceName;
-        private string _accountName;
+        static AMSClientV3 _client;
         private List<string> _transformName = new List<string>();
         private bool _currentPageNumberIsMax;
         private int _currentPageNumber;
@@ -169,13 +167,11 @@ namespace AMSExplorer
 
         }
 
-        public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
+        public void Init(AMSClientV3 client)
         {
            // if (_transformName.Count == 0) return;  // no transform name set
 
             _client = client;
-            _resourceName = resourceName;
-            _accountName = accountName;
 
             List<JobEntryV3> jobs = new List<JobEntryV3>();
            
@@ -241,11 +237,13 @@ namespace AMSExplorer
         public List<JobExtension> ReturnSelectedJobs()
         {
             var SelectedJobs = new List<JobExtension>();
+            _client.RefreshTokenIfNeeded();
+
             foreach (DataGridViewRow Row in this.SelectedRows)
             {
                 string tName = Row.Cells[this.Columns["TransformName"].Index].Value.ToString();
                 // sometimes, the transform can be null (if just deleted)
-                var job = _client.Jobs.Get(_resourceName, _accountName, tName, Row.Cells[this.Columns["Name"].Index].Value.ToString());
+                var job = _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, tName, Row.Cells[this.Columns["Name"].Index].Value.ToString());
                 if (job != null)
                 {
                     SelectedJobs.Add(new JobExtension() { Job = job, TransformName = tName });
@@ -365,12 +363,14 @@ namespace AMSExplorer
 
 
             // Paging
+            _client.RefreshTokenIfNeeded();
+
             IPage<Job> currentPage = null;
             var transform = _transformName.First();
 
             if (pagetodisplay == 1)
             {
-                firstpage = await _client.Jobs.ListAsync(_resourceName, _accountName, transform, odataQuery);
+                firstpage = await _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform, odataQuery);
                 currentPage = firstpage;
             }
             else
@@ -380,7 +380,7 @@ namespace AMSExplorer
                 while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
                     _currentPageNumber++;
-                    currentPage = await _client.Jobs.ListNextAsync(currentPage.NextPageLink);
+                    currentPage = await _client.AMSclient.Jobs.ListNextAsync(currentPage.NextPageLink);
                 }
                 if (currentPage.NextPageLink == null) _currentPageNumberIsMax = true; // we reached max
             }
@@ -417,6 +417,8 @@ namespace AMSExplorer
         // Used to restore job progress. 2 cases: when app is launched or when a job has been created by an external program
         public void RestoreJobProgress(List<string> transforms)  // when app is launched for example, we want to restore job progress updates
         {
+            _client.RefreshTokenIfNeeded();
+
             Task.Run(() =>
             {
                 var odataQuery = new ODataQuery<Job>
@@ -427,7 +429,7 @@ namespace AMSExplorer
                 List<JobExtension> ActiveAndVisibleJobs = new List<JobExtension>();
                 foreach (var t in transforms)
                 {
-                    ActiveAndVisibleJobs.AddRange(_client.Jobs.List(_resourceName, _accountName, t, odataQuery).Select(j => new JobExtension() { Job = j, TransformName = t }));
+                    ActiveAndVisibleJobs.AddRange(_client.AMSclient.Jobs.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, t, odataQuery).Select(j => new JobExtension() { Job = j, TransformName = t }));
                 }
 
 
@@ -474,6 +476,8 @@ namespace AMSExplorer
 
             Debug.WriteLine("launch job monitor : " + job.Job.Name);
 
+            _client.RefreshTokenIfNeeded();
+
             Task.Run(() =>
             {
                 try
@@ -482,7 +486,7 @@ namespace AMSExplorer
 
                     do
                     {
-                        myJob = _client.Jobs.Get(_resourceName, _accountName, job.TransformName, job.Job.Name);
+                        myJob = _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name);
 
                         if (token.IsCancellationRequested == true)
                         {
@@ -574,7 +578,8 @@ namespace AMSExplorer
                     && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled);
 
                     // job finished
-                    myJob =  _client.Jobs.Get(_resourceName, _accountName, job.TransformName, job.Job.Name);
+                    _client.RefreshTokenIfNeeded();
+                    myJob =  _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name);
 
                     int index2 = -1;
                     foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index

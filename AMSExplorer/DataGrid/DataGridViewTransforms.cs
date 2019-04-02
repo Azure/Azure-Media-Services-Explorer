@@ -32,19 +32,15 @@ namespace AMSExplorer
         private bool _initialized = false;
 
         private List<string> idsList = new List<string>();
-        static AzureMediaServicesClient _client;
-        private string _resourceName;
-        private string _accountName;
+        static AMSClientV3 _client;
 
         static BindingList<TransformEntryV3> _MyObservTransformsV3;
 
-        public void Init(AzureMediaServicesClient client, string resourceName, string accountName)
+        public void Init(AMSClientV3 client)
         {
             _client = client;
-            _resourceName = resourceName;
-            _accountName = accountName;
 
-            var transforms = _client.Transforms.List(_resourceName, _accountName).Select(a => new TransformEntryV3
+            var transforms = _client.AMSclient.Transforms.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new TransformEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -77,7 +73,9 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
-            var transforms = (await _client.Transforms.ListAsync(_resourceName, _accountName)).Select(a => new TransformEntryV3
+            _client.RefreshTokenIfNeeded();
+
+            var transforms = (await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).Select(a => new TransformEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -96,11 +94,13 @@ namespace AMSExplorer
 
         public List<Transform> ReturnSelectedTransforms()
         {
+            _client.RefreshTokenIfNeeded();
+
             List<Transform> SelectedTransforms = new List<Transform>();
             foreach (DataGridViewRow Row in this.SelectedRows)
             {
                 // sometimes, the transform can be null (if just deleted)
-                var transform = _client.Transforms.Get(_resourceName, _accountName, Row.Cells[this.Columns["Name"].Index].Value.ToString());
+                var transform = _client.AMSclient.Transforms.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, Row.Cells[this.Columns["Name"].Index].Value.ToString());
                 if (transform != null)
                 {
                     SelectedTransforms.Add(transform);

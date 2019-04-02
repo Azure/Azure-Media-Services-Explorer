@@ -576,7 +576,6 @@ Properties/StorageId
             IPage<Asset> currentPage = null;
             _client.RefreshTokenIfNeeded();
 
-
             if (pagetodisplay == 1)
             {
                 firstpage = await _client.AMSclient.Assets.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);

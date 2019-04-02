@@ -892,7 +892,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewTransformsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+                dataGridViewTransformsV.Init(_amsClientV3);
             }
 
             Debug.WriteLine("DoRefreshGridTransformVNotforsttime");
@@ -910,7 +910,7 @@ namespace AMSExplorer
                 if (firstime)
                 {
                     SetTextBoxJobsPageNumber(1);
-                    dataGridViewJobsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+                    dataGridViewJobsV.Init(_amsClientV3);
                 }
 
             Debug.WriteLine("DoRefreshGridJobVNotforsttime");
@@ -4759,7 +4759,7 @@ namespace AMSExplorer
 
             if (firstime)
             {
-                dataGridViewLiveEventsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry);
+                dataGridViewLiveEventsV.Init(_amsClientV3);
             }
 
             Task.Run(async () =>
@@ -4803,7 +4803,7 @@ namespace AMSExplorer
 
             if (firstime)
             {
-                dataGridViewStreamingEndpointsV.Init(_amsClientV3.AMSclient, _amsClientV3.credentialsEntry);
+                dataGridViewStreamingEndpointsV.Init(_amsClientV3);
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
             Task.Run(async () =>
@@ -8351,8 +8351,6 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _amsClientV3.RefreshTokenIfNeeded();
-
                 TransformOutput[] outputs;
 
                 if (form.AudioOnlyMode)
@@ -8372,6 +8370,8 @@ namespace AMSExplorer
 
                 try
                 {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
                     // Create the Transform with the output defined above
                     var transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
                     TextBoxLogWriteLine("Transform {0} created.", transform.Name); // Warning

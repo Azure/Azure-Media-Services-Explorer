@@ -128,8 +128,7 @@ namespace AMSExplorer
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
         static string _statefilter = "All";
-        private CredentialsEntryV3 _credentialsV3;
-        private AzureMediaServicesClient _client;
+        private AMSClientV3 _client;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ChannelName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
@@ -158,14 +157,13 @@ namespace AMSExplorer
             }
         }
 
-        public void Init(AzureMediaServicesClient client, CredentialsEntryV3 credentials)
+        public void Init(AMSClientV3 client)
         {
             IEnumerable<LiveEventEntry> channelquery;
-            _credentialsV3 = credentials;
 
             _client = client;
 
-            var liveevents = _client.LiveEvents.List(_credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+            var liveevents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             channelquery = from c in liveevents.Take(0)
                            orderby c.LastModified descending
@@ -272,7 +270,8 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                liveEventItem = _client.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, liveEventItem.Name); //refresh
+                _client.RefreshTokenIfNeeded();
+                liveEventItem = _client.AMSclient.LiveEvents.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
@@ -289,13 +288,14 @@ namespace AMSExplorer
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveEvent liveEventInputItem;
 
+            _client.RefreshTokenIfNeeded();
             foreach (LiveEventEntry CE in _MyObservLiveEvent)
             {
 
                 liveEventInputItem = null;
                 try
                 {
-                    liveEventInputItem = _client.LiveEvents.Get(_credentialsV3.ResourceGroup, _credentialsV3.AccountName, CE.Name);
+                    liveEventInputItem = _client.AMSclient.LiveEvents.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.Name);
                     if (liveEventInputItem != null)
                     {
                         CE.State = liveEventInputItem.ResourceState;
@@ -326,7 +326,8 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
-            var listLE = await _client.LiveEvents.ListAsync(_credentialsV3.ResourceGroup, _credentialsV3.AccountName);
+            _client.RefreshTokenIfNeeded();
+            var listLE = await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
             totalLiveEvents = listLE.Count();
 
             var channelquery = listLE.Select(c =>

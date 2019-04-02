@@ -3494,7 +3494,7 @@ namespace AMSExplorer
         {
             // if end user use interactive authentication, then the token is not renewed automatically after it expired (one hour)
             // with Service Principal authentication, the token is renewed automatically apparently ! (result of tests)
-            if (accessToken != null && accessToken.ExpiresOn < DateTimeOffset.UtcNow)
+            if (accessToken != null && accessToken.ExpiresOn < DateTimeOffset.UtcNow.AddMinutes(-3))
             {
                 Task.Run(async () => await ConnectAndGetNewClientV3Async());
             }
