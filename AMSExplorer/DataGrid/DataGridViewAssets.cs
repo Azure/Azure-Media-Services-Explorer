@@ -70,7 +70,7 @@ namespace AMSExplorer
         static Bitmap Reddownloadimage = Program.MakeRed(SASlocatorimage);
         static Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         static Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
-        static Bitmap BitmapCancel = Bitmaps.cancel;
+        static Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
 
         static AMSClientV3 _client;
         static BindingList<AssetEntryV3> _MyObservAssetV3;

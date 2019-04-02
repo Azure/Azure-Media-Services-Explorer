@@ -351,10 +351,6 @@
 		<row><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td>{17DD7C1F-332E-4858-B4BF-C45A63FCCE2D}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsapicodepack1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Microsoft.WindowsAPICodePack.dll</td><td>{75E2F317-1237-4DD7-9540-C730521CC00D}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsapicodepack</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Microsoft.WindowsAzure.Configuration.dll</td><td>{7B965600-3449-4105-B187-0750ACF42042}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.confi</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td>{D23AFCA6-2764-4B28-A8C4-2D19A17391A7}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td>{B2B6F7F1-7291-4A1E-8536-BE390B064357}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>{AE371922-5F35-4397-A87A-32AAC4339C84}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media3</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>{AD9DABEB-EAC3-4C5B-8B90-7E252C596798}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.media2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Microsoft.WindowsAzure.Storage.dll</td><td>{A29AF771-6E35-4757-A174-E693081ACF3C}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.windowsazure.stora</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Newtonsoft.Json.dll</td><td>{91284A64-B509-4F13-B7BA-51F28AB2E456}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>System.Spatial.dll</td><td>{DB74728E-ECA7-4D1A-94DA-9B4FE18FEB16}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.spatial.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1078,10 +1074,6 @@
 		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td></row>
 		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAPICodePack.dll</td></row>
 		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.Configuration.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td></row>
 		<row><td>INSTALLDIR</td><td>Microsoft.WindowsAzure.Storage.dll</td></row>
 		<row><td>INSTALLDIR</td><td>System.Spatial.dll</td></row>
 	</table>
@@ -1915,10 +1907,6 @@
 		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td></row>
 		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAPICodePack.dll</td></row>
 		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.Configuration.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td></row>
 		<row><td>AlwaysInstall</td><td>Microsoft.WindowsAzure.Storage.dll</td></row>
 		<row><td>AlwaysInstall</td><td>Newtonsoft.Json.dll</td></row>
 		<row><td>AlwaysInstall</td><td>System.Spatial.dll</td></row>
@@ -1946,10 +1934,6 @@
 		<row><td>microsoft.windowsapicodepack</td><td>Microsoft.WindowsAPICodePack.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAPICodePack.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAPICodePack.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.windowsapicodepack1</td><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAPICodePack.Shell.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.windowsazure.confi</td><td>Microsoft.WindowsAzure.Configuration.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.Configuration.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.Configuration.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media1</td><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media2</td><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.windowsazure.media3</td><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.windowsazure.stora</td><td>Microsoft.WindowsAzure.Storage.dll</td><td>MICROS~1.DLL|Microsoft.WindowsAzure.Storage.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\Microsoft.WindowsAzure.Storage.dll</td><td>1</td><td/></row>
 		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
 		<row><td>system.spatial.dll</td><td>System.Spatial.dll</td><td>SYSTEM~1.DLL|System.Spatial.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\AMSExplorer\bin\Release\System.Spatial.dll</td><td>1</td><td/></row>
@@ -2108,10 +2092,6 @@
 		<row><td>Microsoft.WindowsAPICodePack.Shell.dll</td><td/><td/><td>_15478500_5E6C_44F1_B8D1_F9BF88094BC5_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Microsoft.WindowsAPICodePack.dll</td><td/><td/><td>_58828D9A_3DAC_4D60_B609_B1D989A4310D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Microsoft.WindowsAzure.Configuration.dll</td><td/><td/><td>_C558F2DB_450C_4149_9AD0_1294DDF26E2E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.d</td><td/><td/><td>_F5470073_A3D8_4165_9CF1_E83FF68AB6F8_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption</td><td/><td/><td>_2C0669E2_04D5_4A3A_93CB_4352282D0900_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</td><td/><td/><td>_FCC02041_4566_4BEF_AB58_527C91A524B5_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.WindowsAzure.MediaServices.Client.dll</td><td/><td/><td>_B51CF298_25ED_453A_95A3_E7089F23ECE6_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Microsoft.WindowsAzure.Storage.dll</td><td/><td/><td>_9A9176E6_0AFA_4C5B_9047_EFD9EBAE5186_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_BB49E352_45A6_43E5_BCAB_B37981193FFF_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>System.Spatial.dll</td><td/><td/><td>_BB44995C_93B9_4C4D_BB6E_63AA82E0FB4D_FILTER</td><td/><td/><td/><td/></row>
@@ -4533,9 +4513,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{596847E4-3DDD-4EE2-A416-377A250D1047}</td><td/></row>
+		<row><td>ProductCode</td><td>{BE70F688-B208-4AE3-98C9-6734D5CC59FD}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer for v3</td><td/></row>
-		<row><td>ProductVersion</td><td>5.0.0.23</td><td/></row>
+		<row><td>ProductVersion</td><td>5.0.0.24</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

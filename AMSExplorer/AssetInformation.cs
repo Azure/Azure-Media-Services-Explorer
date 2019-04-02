@@ -320,21 +320,12 @@ namespace AMSExplorer
             {
                 comboBoxStreamingEndpoint.SelectedIndex = 0;
             }
-
             oktobuildlocator = true;
-            // BuildLocatorsTree();
-
-           
+              
+            //listViewFiles.Tag = -1;
+            //listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparerQuickNoDate.ListView_ColumnClick);
 
             return;
-
-
-
-            oktobuildlocator = true;
-            BuildLocatorsTree();
-
-            listViewFiles.Tag = -1;
-            listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparerQuickNoDate.ListView_ColumnClick);
         }
 
         private void DisplayAssetFilters()
