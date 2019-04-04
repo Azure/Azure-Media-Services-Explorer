@@ -185,10 +185,10 @@ namespace AMSExplorer
                 int i = 0;
                 foreach (var endpoint in MyLiveEvent.Input.Endpoints)
                 {
-                    DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1, MyLiveEvent.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
+                    DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1, MyLiveEvent.Input.Endpoints.Count == 2 ? stringnameurl[i] : string.Empty, endpoint.Protocol), endpoint.Url);
                     if (MyLiveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4)
                     {
-                        DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1SSL, MyLiveEvent.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
+                        DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1SSL, MyLiveEvent.Input.Endpoints.Count == 2 ? stringnameurl[i] : string.Empty, endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
                     }
                     i++;
                 }

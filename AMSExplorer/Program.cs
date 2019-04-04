@@ -104,7 +104,7 @@ namespace AMSExplorer
 
         public static string GetErrorMessage(Exception e)
         {
-            string s = "";
+            string s = string.Empty;
 
             while (e != null)
             {
@@ -333,7 +333,7 @@ namespace AMSExplorer
         {
             if (ss.Length == 0)
             {
-                return "";
+                return string.Empty;
             }
 
             if (ss.Length == 1)
@@ -362,7 +362,7 @@ namespace AMSExplorer
 
         public static string ReturnS(int number)
         {
-            return number > 1 ? "s" : "";
+            return number > 1 ? "s" : string.Empty;
         }
 
         public static Uri AllReleaseNotesUrl = null;
@@ -592,7 +592,7 @@ namespace AMSExplorer
 
         public static string ReturnNameForProtocol(LiveEventInputProtocol protocol)
         {
-            string name = "";
+            string name = string.Empty;
             switch (protocol)
             {
                 case LiveEventInputProtocol.FragmentedMP4:
@@ -1938,7 +1938,7 @@ namespace AMSExplorer
             };
             _amsClient.RefreshTokenIfNeeded();
 
-            string type = "";
+            string type = string.Empty;
             long size = 0;
 
             var response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime)).Result;
@@ -2262,7 +2262,7 @@ namespace AMSExplorer
             sb.AppendLine("Storage account     : " + MyAsset.StorageAccountName);
             sb.AppendLine("Storage Encryption  : " + MyAsset.StorageEncryptionFormat);
 
-            sb.AppendLine("");
+            sb.AppendLine(string.Empty);
 
             foreach (var blob in MyAssetTypeInfo.Blobs)
             {
@@ -2279,7 +2279,7 @@ namespace AMSExplorer
                     sb.AppendLine("   Last modified (UTC)  : " + blobc.Properties.LastModified?.ToString("G"));
                     sb.AppendLine("   Server Encrypted     : " + blobc.Properties.IsServerEncrypted);
                     sb.AppendLine("   Content MD5          : " + blobc.Properties.ContentMD5);
-                    sb.AppendLine("");
+                    sb.AppendLine(string.Empty);
 
                 }
                 else if (blob.GetType() == typeof(CloudBlobDirectory))
@@ -2288,14 +2288,14 @@ namespace AMSExplorer
                     sb.AppendLine("   Blob Directory Name  : " + blobd.Prefix);
                     sb.AppendLine("   Type                 : BlobDirectory");
                     sb.AppendLine("   Blob Director length : " + GetSizeBlobDirectory(blobd) + " Bytes");
-                    sb.AppendLine("");
+                    sb.AppendLine(string.Empty);
                 }
             }
             sb.Append(GetDescriptionLocators(MyAsset, _amsClient, SelectedSE));
 
-            sb.AppendLine("");
+            sb.AppendLine(string.Empty);
             sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            sb.AppendLine("");
+            sb.AppendLine(string.Empty);
 
             return sb;
         }
@@ -2350,7 +2350,7 @@ namespace AMSExplorer
                 }
 
                 sb.AppendLine("==============================================================================");
-                sb.AppendLine("");
+                sb.AppendLine(string.Empty);
             }
             return sb;
         }
@@ -2427,7 +2427,7 @@ namespace AMSExplorer
                     case PlayerType.AzureMediaPlayerFrame:
                     case PlayerType.AzureMediaPlayerClear:
 
-                        string playerurl = "";
+                        string playerurl = string.Empty;
 
                         if (keytype != AssetProtectionType.None)
                         {
@@ -2556,7 +2556,7 @@ namespace AMSExplorer
                         }
                         */
 
-                        string playerurlbase = "";
+                        string playerurlbase = string.Empty;
                         if (typeplayer == PlayerType.AzureMediaPlayer)
                         {
                             playerurlbase = Constants.PlayerAMPToLaunch;
@@ -2587,7 +2587,7 @@ namespace AMSExplorer
 
                     case PlayerType.CustomPlayer:
                         string myurl = Properties.Settings.Default.CustomPlayerUrl;
-                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, ""/*tokenresult.TokenString*/);
+                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, string.Empty /*tokenresult.TokenString*/);
                         break;
                 }
 
@@ -3897,7 +3897,7 @@ namespace AMSExplorer
                     DisplayName = "Custom";
                     //Authority = "";
                     ArmEndpoint = null;
-                    ClientApplicationId = "";
+                    ClientApplicationId = string.Empty;
                     AADSettings = new ActiveDirectoryServiceSettings();
                     break;
             }

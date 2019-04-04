@@ -149,7 +149,7 @@ namespace AMSExplorer
             {
                 bool primary = (storage.Type == StorageAccountType.Primary);
 
-                comboBoxStorage.Items.Add(new Item(AMSClientV3.GetStorageName(storage.Id) + (primary ? " (primary)" : ""), AMSClientV3.GetStorageName(storage.Id)));
+                comboBoxStorage.Items.Add(new Item(AMSClientV3.GetStorageName(storage.Id) + (primary ? " (primary)" : string.Empty), AMSClientV3.GetStorageName(storage.Id)));
                 if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
 

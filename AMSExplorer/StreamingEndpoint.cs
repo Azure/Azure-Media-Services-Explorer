@@ -137,7 +137,7 @@ namespace AMSExplorer
         static IEnumerable<StreamingEndpoint> streamingendpoints;
         static private bool _initialized = false;
         static string _filterstreamingendpointsstate = "All";
-        static private string _searchinname = "";
+        static private string _searchinname = string.Empty;
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshStreamingEndpoints;
         private AMSClientV3 _client;
@@ -154,7 +154,7 @@ namespace AMSExplorer
                 Id = o.Id,
                 Description = o.Description,
                 CDN = ((bool)o.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(o.CdnProvider) ?? "CDN" : string.Empty,
-                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)o.ScaleUnits).ToString(),
+                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : ((int)o.ScaleUnits).ToString(),
                 Type = StreamingEndpointInformation.ReturnTypeSE(o),
                 State = (StreamingEndpointResourceState)o.ResourceState,
                 LastModified = ((DateTime)o.LastModified).ToLocalTime()
@@ -203,7 +203,7 @@ namespace AMSExplorer
                     _MyObservStreamingEndpoints[index].LastModified = ((DateTime)streamingEndpoint.LastModified).ToLocalTime();
                     _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint);
                     _MyObservStreamingEndpoints[index].CDN = ((bool)streamingEndpoint.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(streamingEndpoint.CdnProvider) ?? "CDN" : string.Empty;
-                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)streamingEndpoint.ScaleUnits).ToString();
+                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : ((int)streamingEndpoint.ScaleUnits).ToString();
                     this.BeginInvoke(new Action(() => this.Refresh()));
                 }
             }
@@ -276,7 +276,7 @@ namespace AMSExplorer
                                 Id = c.Id,
                                 Description = c.Description,
                                 CDN = (bool)c.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.CdnProvider) ?? "CDN" : string.Empty,
-                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? "" : ((int)c.ScaleUnits).ToString(),
+                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : ((int)c.ScaleUnits).ToString(),
                                 State = (StreamingEndpointResourceState)c.ResourceState,
                                 LastModified = ((DateTime)c.LastModified).ToLocalTime(),
                                 Type = StreamingEndpointInformation.ReturnTypeSE(c)

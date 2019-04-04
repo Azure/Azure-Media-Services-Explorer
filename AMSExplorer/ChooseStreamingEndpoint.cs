@@ -52,9 +52,9 @@ namespace AMSExplorer
                 {
                     var ff = f as ListViewItem;
                     string v = (f as ListViewItem).SubItems[1].Text;
-                    if (v != "")
+                    if (v != string.Empty)
                     {
-                        filters += (first ? "" : ";") + v;
+                        filters += (first ? string.Empty : ";") + v;
                         first = false;
                     }
                 }

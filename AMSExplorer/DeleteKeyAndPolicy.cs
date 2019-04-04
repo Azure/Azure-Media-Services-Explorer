@@ -55,7 +55,7 @@ namespace AMSExplorer
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            buttonOk.Text = string.Format(buttonOk.Text, nbassets, nbassets > 1 ? "(s)" : "");
+            buttonOk.Text = string.Format(buttonOk.Text, nbassets, nbassets > 1 ? "(s)" : string.Empty);
         }
 
         private void DeleteKeyAndPolicy_Load(object sender, EventArgs e)

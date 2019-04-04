@@ -49,7 +49,7 @@ namespace AMSExplorer
         static private bool _currentPageNumberIsMax = false; // true when we reached the max
         static private bool _initialized = false;
         static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetNameEquals, Text = "" };
-        static private string _statefilter = "";
+        static private string _statefilter = string.Empty;
         static private string _timefilter = FilterTime.AllItems;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static string _orderassets = OrderAssets.CreatedDescending;

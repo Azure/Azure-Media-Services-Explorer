@@ -60,8 +60,8 @@ namespace AMSExplorer
 
         // Field for service context.
         public static string Salt;
-        private string _backuprootfolderupload = "";
-        private string _backuprootfolderdownload = "";
+        private string _backuprootfolderupload = string.Empty;
+        private string _backuprootfolderdownload = string.Empty;
         private StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
         private AssetStreamingLocator PlayBackLocator = null;
 
@@ -113,7 +113,7 @@ namespace AMSExplorer
             if (args.Length > 0 && args.Any(a => a.ToLower() == resetcredentials))
             {
                 // let's clean the list
-                Properties.Settings.Default.LoginListRPv3JSON = "";
+                Properties.Settings.Default.LoginListRPv3JSON = string.Empty;
             }
 
 
@@ -1252,7 +1252,7 @@ namespace AMSExplorer
                 try
                 {
                     i++;
-                    var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : "", asset.Name), TransferType.UploadFromFile, true);
+                    var response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : string.Empty, asset.Name), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     //Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
                     Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(FileNames.ToList(), response.Id, response.token, null, asset.Name), response.token);
@@ -4866,7 +4866,7 @@ namespace AMSExplorer
                 */
 
                 var name = AMSClientV3.GetStorageName(storage.Id);
-                string append = "";
+                string append = string.Empty;
                 if (storage.Type == StorageAccountType.Primary)
                 {
                     append = " (primary)";
@@ -7465,10 +7465,10 @@ namespace AMSExplorer
             inputURLMToolStripMenuItem3.Visible = (channel.Input.Endpoints.Count > 2);
             inputURLMToolStripMenuItem4.Visible = (channel.Input.Endpoints.Count > 3);
 
-            inputURLMToolStripMenuItem1.Text = (channel.Input.Endpoints.Count > 0) ? string.Format((string)inputURLMToolStripMenuItem1.Tag, new Uri(channel.Input.Endpoints[0].Url).Scheme) : "";
-            inputURLMToolStripMenuItem2.Text = (channel.Input.Endpoints.Count > 1) ? string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[1].Url).Scheme) : "";
-            inputURLMToolStripMenuItem3.Text = (channel.Input.Endpoints.Count > 2) ? string.Format((string)inputURLMToolStripMenuItem3.Tag, new Uri(channel.Input.Endpoints[2].Url).Scheme) : "";
-            inputURLMToolStripMenuItem4.Text = (channel.Input.Endpoints.Count > 3) ? string.Format((string)inputURLMToolStripMenuItem4.Tag, new Uri(channel.Input.Endpoints[3].Url).Scheme) : "";
+            inputURLMToolStripMenuItem1.Text = (channel.Input.Endpoints.Count > 0) ? string.Format((string)inputURLMToolStripMenuItem1.Tag, new Uri(channel.Input.Endpoints[0].Url).Scheme) : string.Empty;
+            inputURLMToolStripMenuItem2.Text = (channel.Input.Endpoints.Count > 1) ? string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[1].Url).Scheme) : string.Empty;
+            inputURLMToolStripMenuItem3.Text = (channel.Input.Endpoints.Count > 2) ? string.Format((string)inputURLMToolStripMenuItem3.Tag, new Uri(channel.Input.Endpoints[2].Url).Scheme) : string.Empty;
+            inputURLMToolStripMenuItem4.Text = (channel.Input.Endpoints.Count > 3) ? string.Format((string)inputURLMToolStripMenuItem4.Tag, new Uri(channel.Input.Endpoints[3].Url).Scheme) : string.Empty;
 
             if (channel.Input.Endpoints.Count == 1 && channel.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) //Smooth https
             {
@@ -7846,7 +7846,7 @@ namespace AMSExplorer
 
         private void DoStorageVersion(string storageId = null)
         {
-            string valuekey = "";
+            string valuekey = string.Empty;
             bool Error = false;
             ServiceProperties serviceProperties = null;
             CloudBlobClient blobClient = null;

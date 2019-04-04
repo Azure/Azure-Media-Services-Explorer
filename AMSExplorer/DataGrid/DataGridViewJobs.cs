@@ -43,7 +43,7 @@ namespace AMSExplorer
         public bool _initialized = false;
         static string _orderjobs = OrderJobs.CreatedDescending;
         static string _filterjobsstate = "All";
-        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
+        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = string.Empty };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
