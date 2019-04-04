@@ -11,7 +11,7 @@ There are some nice [Azure Media Services Step-by-Step tutorials](https://www.sl
 
 This solution has been developped with Visual Studio 2015/2017. It contains two projects: "AMSExplorer", the main application, and "SetupAMSExplorer", an InstallShield project that creates a Setup executable (EXE/MSI).
 
-In order to compile this setup project, which is optional, you should install [InstallShield 2018 Lite](https://marketplace.visualstudio.com/items?itemName=Flexera-InstallShield-Lite.TestLite).
+In order to compile this setup project, which is optional, you should install [InstallShield 2018 Lite](https://marketplace.visualstudio.com/items?itemName=Flexera-InstallShield-Lite.InstallShield2018Lite).
 
 Contact: amse@microsoft.com
 
