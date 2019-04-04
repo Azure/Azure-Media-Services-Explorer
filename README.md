@@ -17,6 +17,6 @@ Contact: amse@microsoft.com
 
 Open a bug [here](https://github.com/Azure/Azure-Media-Services-Explorer/issues/new).
 
-![Screen capture](https://user-images.githubusercontent.com/8104205/55551543-5aa37880-56db-11e9-98d5-51eb1e5ae43e.png)
+![Screen capture](https://user-images.githubusercontent.com/8104205/55551917-35fbd080-56dc-11e9-879e-2c18093b2f33.png)
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
