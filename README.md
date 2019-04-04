@@ -5,7 +5,7 @@ Azure Media Services Explorer (AMSE) is a Winforms/C# application for Windows th
 
 See a full description on http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool
 
-**The latest binary for Windows (with a EXE installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
+**The latest binary for Windows (with a EXE installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**. Please note that AMSE v4 is for AMS v2 (master branch), and AMSE v5 is for AMS v3 API (rpv3 branch).
 
 There are some nice [Azure Media Services Step-by-Step tutorials](https://www.slideshare.net/shigeyf/azure-media-services-stepbystep-tutorial-docs-series-agenda) using Azure Media Services Explorer.
 
