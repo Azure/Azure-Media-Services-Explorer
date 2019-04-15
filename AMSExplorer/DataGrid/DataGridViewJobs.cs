@@ -639,7 +639,7 @@ namespace AMSExplorer
                                         }
                                     }
                                 }
-                                //myform.DoRefreshGridAssetV(false);
+                                myform.DoRefreshGridAssetV(false);
                             }));
 
                             this.BeginInvoke(new Action(() =>
