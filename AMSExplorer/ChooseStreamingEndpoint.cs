@@ -50,7 +50,6 @@ namespace AMSExplorer
                 bool first = true;
                 foreach (var f in listViewFilters.CheckedItems)
                 {
-                    var ff = f as ListViewItem;
                     string v = (f as ListViewItem).SubItems[1].Text;
                     if (v != string.Empty)
                     {

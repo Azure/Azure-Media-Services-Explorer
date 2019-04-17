@@ -6838,7 +6838,6 @@ namespace AMSExplorer
         private void DoMenuDisplayAssetInfoOfProgram()
         {
             var SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
-            // ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             if (SelectedAssets.Count > 0)
             {
                 DisplayInfo(SelectedAssets.FirstOrDefault());
@@ -6934,7 +6933,6 @@ namespace AMSExplorer
 
                 if (JobToDisplayP != null)
                 {
-                    // var jobqueue = _context.Jobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Processing).Count();
                     var outputsError = JobToDisplayP.Job.Outputs.Where(o => o.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
                     if (outputsError.Count() > 0)
                     {
@@ -6970,7 +6968,6 @@ namespace AMSExplorer
         {
 
         }
-
 
 
         private void DoSelectTransformAndSubmitJob()
@@ -7772,7 +7769,6 @@ namespace AMSExplorer
                     try
                     {
                         _amsClientV3.AMSclient.AccountFilters.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, newfiltername, sourcefilter);
-                        //_context.Filters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks, sourcefilter.FirstQuality);
                     }
                     catch (Exception e)
                     {
@@ -8705,5 +8701,4 @@ namespace AMSExplorer
         DownloadToLocal,
         UploadWithExternalTool
     }
-
 }

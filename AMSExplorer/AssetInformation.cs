@@ -387,7 +387,6 @@ namespace AMSExplorer
                 }
                 try
                 {
-                    var nbtrack = filter.Tracks.Count;
                     int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
                 }
                 catch
@@ -487,7 +486,6 @@ namespace AMSExplorer
             if (!oktobuildlocator) return;
 
             StreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
-            string SelectedSEHostName = ReturnSelectedStreamingEndpointHostname();
 
             if (SelectedSE == null) return;
 
@@ -517,7 +515,6 @@ namespace AMSExplorer
 
                     indexloc++;
                     string locatorstatus = string.Empty;
-                    string SEstatus = string.Empty;
 
                     var colornode = GetLocatorApparence(locator, ref locatorstatus);
                     if (SelectedSE.ResourceState != StreamingEndpointResourceState.Running) colornode = Color.Red;

@@ -182,7 +182,6 @@ namespace AMSExplorer
                 HeaderText = "Progress"
             };
 
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
             this.Columns.Add(col);
 
             /*

@@ -62,10 +62,8 @@ namespace AMSExplorer
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv3JSON))
             {
-                string s = Properties.Settings.Default.LoginListRPv3JSON;
                 // JSon deserialize
                 CredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv3JSON, typeof(ListCredentialsRPv3));
-
 
                 // Display accounts in the list
                 CredentialList.MediaServicesAccounts.ForEach(c =>
@@ -309,7 +307,6 @@ namespace AMSExplorer
             jsonResolver.IgnoreProperty(typeof(CredentialsEntryV3), "ClearADSPClientSecret"); // let's not save the clear SP secret
             JsonSerializerSettings settings = new JsonSerializerSettings() { ContractResolver = jsonResolver };
             Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList, settings);
-            var t = JsonConvert.SerializeObject(CredentialList, settings);
             Program.SaveAndProtectUserConfig();
         }
 
