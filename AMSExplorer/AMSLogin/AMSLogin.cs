@@ -429,18 +429,14 @@ namespace AMSExplorer
                     var tenants = new myTenants();
                     string URL = environment.ArmEndpoint + "tenants?api-version=2017-08-01";
 
-
                     HttpClient client = new HttpClient();
-
                     client.DefaultRequestHeaders.Remove("Authorization");
                     client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken.AccessToken);
                     HttpResponseMessage response = await client.GetAsync(URL);
                     if (response.IsSuccessStatusCode)
                     {
                         var str = await response.Content.ReadAsStringAsync();
-
                         tenants = (myTenants)JsonConvert.DeserializeObject(str, typeof(myTenants));
-
                     }
                     var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants.value, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null));
                     //addaccount3.ShowDialog();

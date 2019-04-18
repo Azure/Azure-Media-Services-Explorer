@@ -38,6 +38,7 @@ using System.IdentityModel.Tokens;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -80,10 +81,18 @@ namespace AMSExplorer
         private const int maxNbJobs = 50000;
         private bool enableTelemetry = true;
 
+#pragma warning disable CS0414 // The field 'Mainform.OneGB' is assigned but its value is never used
         private static readonly long OneGB = 1000L * 1000L * 1000L;
+#pragma warning restore CS0414 // The field 'Mainform.OneGB' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'Mainform.S1AssetSizeLimit' is assigned but its value is never used
         private static readonly int S1AssetSizeLimit = 325; // GBytes
+#pragma warning restore CS0414 // The field 'Mainform.S1AssetSizeLimit' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'Mainform.S2AssetSizeLimit' is assigned but its value is never used
         private static readonly int S2AssetSizeLimit = 640; // GBytes
+#pragma warning restore CS0414 // The field 'Mainform.S2AssetSizeLimit' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'Mainform.S3AssetSizeLimit' is assigned but its value is never used
         private static readonly int S3AssetSizeLimit = 260; // GBytes
+#pragma warning restore CS0414 // The field 'Mainform.S3AssetSizeLimit' is assigned but its value is never used
         public string _accountname;
         private static AMSClientV3 _amsClientV3;
 
@@ -205,12 +214,13 @@ namespace AMSExplorer
                 if (se.AsEnumerable().Where(o => o.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
 
-                // Let's check if there is dynamic packaging for the channels
+
+                
                 double nbchannels = (double)_amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
                 double nbse = (double)se.Count();
                 if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
                     TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
-
+                    
             }
             catch (Exception ex)
             {
@@ -232,6 +242,40 @@ namespace AMSExplorer
             }
         }
 
+
+        // Test
+        private async Task<object> ListEventsRest()
+        {
+            // tenants browsing
+            // GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/liveEvents?api-version=2018-07-01
+            string URL = _amsClientV3.environment.ArmEndpoint + string.Format("subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents?api-version=2018-07-01",
+                _amsClientV3.credentialsEntry.AzureSubscriptionId,
+                _amsClientV3.credentialsEntry.ResourceGroup,
+                  _amsClientV3.credentialsEntry.AccountName
+                );
+
+            string token = _amsClientV3.accessToken != null ? _amsClientV3.accessToken.AccessToken :
+                TokenCache.DefaultShared.ReadItems()
+    .Where(t => t.ClientId == _amsClientV3.credentialsEntry.ADSPClientId)
+    .OrderByDescending(t => t.ExpiresOn)
+    .First().AccessToken;
+
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Remove("Authorization");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            HttpResponseMessage response = await client.GetAsync(URL);
+
+            object dynObject = null;
+            if (response.IsSuccessStatusCode)
+            {
+                string str = await response.Content.ReadAsStringAsync();
+                var list = JsonConvert.DeserializeObject(str);
+                dynObject = JsonConvert.DeserializeObject(str);
+
+            }
+            return dynObject;
+        }
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
@@ -6885,7 +6929,9 @@ namespace AMSExplorer
             DoDisplayTransferError();
         }
 
+#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         private async void extendExistingLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
+#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             //await DoRefreshStreamingLocators();
         }
@@ -8600,6 +8646,11 @@ namespace AMSExplorer
             this.dataGridViewAssetsV.ReLaunchAnalyze();
 
         }
+    }
+
+    public class ListEvents
+    {
+        public List<object> value;
     }
 }
 
