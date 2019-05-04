@@ -166,7 +166,7 @@ namespace AMSExplorer
             }
         }
 
-        public bool StartChannelNow
+        public bool StartLiveEventNow
         {
             get { return checkBoxStartChannel.Checked; }
             set { checkBoxStartChannel.Checked = value; }

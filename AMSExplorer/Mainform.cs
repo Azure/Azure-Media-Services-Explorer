@@ -72,8 +72,8 @@ namespace AMSExplorer
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
 
-        private enumDisplayProgram backupCheckboxAnychannel = enumDisplayProgram.Selected;
-        private bool CheckboxAnychannelChangedByCode = false;
+        private enumDisplayProgram backupCheckboxAnyLiveEvent = enumDisplayProgram.Selected;
+        private bool CheckboxAnyLiveEventChangedByCode = false;
 
         private bool largeAccount = false; // if nb assets > trigger
         private int triggerForLargeAccountNbAssets = 10000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
@@ -216,10 +216,10 @@ namespace AMSExplorer
 
 
                 
-                double nbchannels = (double)_amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
+                double nbLiveEvents = (double)_amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
                 double nbse = (double)se.Count();
-                if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
-                    TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
+                if (nbse > 0 && nbLiveEvents > 0 && (nbLiveEvents / nbse) > 5)
+                    TextBoxLogWriteLine("There are {0} live events and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 live events.", nbLiveEvents, nbse, true); // Warning
                     
             }
             catch (Exception ex)
@@ -3656,12 +3656,12 @@ namespace AMSExplorer
             comboBoxSearchJobOption.Items.Add(new Item("Search for job Id :", SearchIn.JobId.ToString()));
             comboBoxSearchJobOption.SelectedIndex = 0;
 
-            comboBoxSearchChannelOption.Items.Add(new Item("Search in channel name :", SearchIn.ChannelName.ToString()));
-            comboBoxSearchChannelOption.Items.Add(new Item("Search for channel Id :", SearchIn.ChannelId.ToString()));
-            comboBoxSearchChannelOption.SelectedIndex = 0;
+            comboBoxSearchLiveEventOption.Items.Add(new Item("Search in live event name :", SearchIn.LiveEventName.ToString()));
+            comboBoxSearchLiveEventOption.Items.Add(new Item("Search for live event Id :", SearchIn.LiveEventId.ToString()));
+            comboBoxSearchLiveEventOption.SelectedIndex = 0;
 
-            comboBoxSearchProgramOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
-            comboBoxSearchProgramOption.Items.Add(new Item("Search for program Id :", SearchIn.ProgramId.ToString()));
+            comboBoxSearchProgramOption.Items.Add(new Item("Search in live output name :", SearchIn.LiveOutputName.ToString()));
+            comboBoxSearchProgramOption.Items.Add(new Item("Search for live output Id :", SearchIn.LiveOutputId.ToString()));
             comboBoxSearchProgramOption.SelectedIndex = 0;
 
             comboBoxOrderAssets.Items.AddRange(
@@ -3715,13 +3715,13 @@ namespace AMSExplorer
             comboBoxFilterTimeProgram.SelectedIndex = 0;
 
 
-            comboBoxFilterTimeChannel.Items.AddRange(
+            comboBoxFilterTimeLiveEvent.Items.AddRange(
                 typeof(FilterTime)
                 .GetFields()
                 .Select(i => i.GetValue(null) as string)
                 .ToArray()
                 );
-            comboBoxFilterTimeChannel.SelectedIndex = 0;
+            comboBoxFilterTimeLiveEvent.SelectedIndex = 0;
 
 
             comboBoxStatusProgram.Items.AddRange(
@@ -3733,14 +3733,14 @@ namespace AMSExplorer
             comboBoxStatusProgram.Items[0] = "All";
             comboBoxStatusProgram.SelectedIndex = 0;
 
-            comboBoxStatusChannel.Items.AddRange(
+            comboBoxStatusLiveEvent.Items.AddRange(
               typeof(LiveEventResourceState)
               .GetFields()
               .Select(i => i.Name as string)
               .ToArray()
               );
-            comboBoxStatusChannel.Items[0] = "All";
-            comboBoxStatusChannel.SelectedIndex = 0;
+            comboBoxStatusLiveEvent.Items[0] = "All";
+            comboBoxStatusLiveEvent.SelectedIndex = 0;
 
             AddButtonsToSearchTextBox();
 
@@ -3793,20 +3793,20 @@ namespace AMSExplorer
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             SendMessage(textBoxJobSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnj.Width << 16));
 
-            // let's add a button to channel textbox search
+            // let's add a button to live event textbox search
             var btnc = new Button
             {
-                Size = new Size(18, textBoxSearchNameChannel.ClientSize.Height + 2)
+                Size = new Size(18, textBoxSearchNameLiveEvent.ClientSize.Height + 2)
             };
-            btnc.Location = new Point(textBoxSearchNameChannel.ClientSize.Width - btnc.Width, -1);
+            btnc.Location = new Point(textBoxSearchNameLiveEvent.ClientSize.Width - btnc.Width, -1);
             btnc.Anchor = AnchorStyles.Right;
             btnc.Cursor = Cursors.Default;
             btnc.Text = "X";
             btnc.BackColor = SystemColors.Window;
             btnc.Click += Btnc_Click;
-            textBoxSearchNameChannel.Controls.Add(btnc);
+            textBoxSearchNameLiveEvent.Controls.Add(btnc);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(textBoxSearchNameChannel.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnc.Width << 16));
+            SendMessage(textBoxSearchNameLiveEvent.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnc.Width << 16));
 
             // let's add a button to program textbox search
             var btnp = new Button
@@ -3836,8 +3836,8 @@ namespace AMSExplorer
         }
         private void Btnc_Click(object sender, EventArgs e)
         {
-            textBoxSearchNameChannel.Text = string.Empty;
-            DoChannelSearch();
+            textBoxSearchNameLiveEvent.Text = string.Empty;
+            DoLiveEventSearch();
         }
         private void Btnp_Click(object sender, EventArgs e)
         {
@@ -4706,7 +4706,7 @@ namespace AMSExplorer
             EnableChildItems(ref originToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
             EnableChildItems(ref contextMenuStripStreaminEndpoints, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
 
-            EnableChildItems(ref liveChannelToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
+            EnableChildItems(ref liveLiveEventToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
             EnableChildItems(ref contextMenuStripLiveEvents, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
             EnableChildItems(ref contextMenuStripLiveOutputs, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
 
@@ -4810,14 +4810,8 @@ namespace AMSExplorer
             {
                 await dataGridViewLiveEventsV.RefreshLiveEventAsync(1);
                 tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
-                labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
+                labelLiveEvents.Invoke(new Action(() => labelLiveEvents.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
             });
-            //dataGridViewLiveEventsV.Invoke(new Action(async() => await dataGridViewLiveEventsV.RefreshChannelsAsync(1)));
-
-            //var count = _amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
-
-            //  tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
-            //  labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
 
         }
 
@@ -5025,7 +5019,7 @@ namespace AMSExplorer
             List<LiveEvent> SelectedLiveEvents = new List<LiveEvent>();
             foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
-                // sometimes, the channel can be null (if just deleted)
+                // sometimes, the live event can be null (if just deleted)
                 var liveEvent = Task.Run(async () => await GetLiveEventAsync(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString())).Result;
                 if (liveEvent != null)
                 {
@@ -5096,15 +5090,15 @@ namespace AMSExplorer
                 LOList.AddRange(_amsClientV3.AMSclient.LiveOutputs.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, le.Name).ToList());
             }
 
-            string channelstr = ListEvents.Count > 1 ? "live events" : "live event";
+            string liveEventStr = ListEvents.Count > 1 ? "live events" : "live event";
 
             if (ListEvents.Count > 0)
             {
                 if (LOList.Count > 0) // There are live outputs associated to the live event(s) to be deleted
                 {
                     string leaction = deleteLiveEvents ? "Delete" : "Stop";
-                    string question = (LOList.Count == 1) ? string.Format("There is one live output associated to the {0}.\n{1} the {0} and delete live output '{2}' ?", channelstr, leaction, LOList[0].Name)
-                                                        : string.Format("There are {0} live outputs associated to the {1}.\n{2} the c{1} and delete these live outputs ?", LOList.Count, channelstr, leaction);
+                    string question = (LOList.Count == 1) ? string.Format("There is one live output associated to the {0}.\n{1} the {0} and delete live output '{2}' ?", liveEventStr, leaction, LOList[0].Name)
+                                                        : string.Format("There are {0} live outputs associated to the {1}.\n{2} the c{1} and delete these live outputs ?", LOList.Count, liveEventStr, leaction);
 
                     DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                     if (form.ShowDialog() == DialogResult.OK)
@@ -5131,7 +5125,7 @@ namespace AMSExplorer
                         question = (ListEvents.Count == 1) ? "Stop live event " + ListEvents[0].Name + " ?" : "Stop these " + ListEvents.Count + " live events ?";
                     }
 
-                    if (System.Windows.Forms.MessageBox.Show(question, "C" + channelstr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
+                    if (System.Windows.Forms.MessageBox.Show(question, "C" + liveEventStr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
                     {
                         return;
                     }
@@ -5147,11 +5141,11 @@ namespace AMSExplorer
 
         private void dataGridViewLiveV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            var cellchannelstatevalue = dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["State"].Index].Value;
+            var cellLiveEventStateValue = dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["State"].Index].Value;
 
-            if (cellchannelstatevalue != null)
+            if (cellLiveEventStateValue != null)
             {
-                LiveEventResourceState CS = (LiveEventResourceState)cellchannelstatevalue;
+                LiveEventResourceState CS = (LiveEventResourceState)cellLiveEventStateValue;
                 Color mycolor;
 
                 switch (CS)
@@ -5235,7 +5229,7 @@ namespace AMSExplorer
                        {
                            try
                            {
-                               // let's reset the channels now that live outputs are deleted
+                               // let's reset the live events now that live outputs are deleted
                                ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
                                var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                                await Task.WhenAll(tasksreset);
@@ -5254,7 +5248,7 @@ namespace AMSExplorer
         }
 
 
-        private void createChannelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void createLiveEventToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateLiveEvent();
         }
@@ -5264,16 +5258,15 @@ namespace AMSExplorer
             LiveEventCreation form = new LiveEventCreation()
             {
                 KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval.ToString(),
-                StartChannelNow = true
+                StartLiveEventNow = true
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
                 _amsClientV3.RefreshTokenIfNeeded();
 
-                TextBoxLogWriteLine("Channel '{0}' : creating...", form.LiveEventName);
+                TextBoxLogWriteLine("Live event '{0}' : creating...", form.LiveEventName);
 
                 bool Error = false;
-                //ChannelCreationOptions options = new ChannelCreationOptions();
                 LiveEvent liveEvent = new LiveEvent();
                 try
                 {
@@ -5321,7 +5314,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     Error = true;
-                    TextBoxLogWriteLine("Error with channel settings.", true);
+                    TextBoxLogWriteLine("Error with live event settings.", true);
                     TextBoxLogWriteLine(ex);
                 }
 
@@ -5335,13 +5328,13 @@ namespace AMSExplorer
                                                                          _amsClientV3.credentialsEntry.AccountName,
                                                                          form.LiveEventName,
                                                                          liveEvent,
-                                                                         autoStart: form.StartChannelNow ? true : false)
+                                                                         autoStart: form.StartLiveEventNow ? true : false)
                                                                       );
 
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine("Error with channel creation.", true);
+                        TextBoxLogWriteLine("Error with live event creation.", true);
                         TextBoxLogWriteLine(ex);
                     }
 
@@ -5358,16 +5351,16 @@ namespace AMSExplorer
         }
 
 
-        private void DoDisplayLiveEventInfo(List<LiveEvent> channels)
+        private void DoDisplayLiveEventInfo(List<LiveEvent> liveEvents)
         {
-            var firstchannel = channels.FirstOrDefault();
-            bool multiselection = channels.Count > 1;
+            var firstLiveEvent = liveEvents.FirstOrDefault();
+            bool multiselection = liveEvents.Count > 1;
 
-            if (firstchannel != null)
+            if (firstLiveEvent != null)
             {
                 LiveEventInformation form = new LiveEventInformation(this, _amsClientV3)
                 {
-                    MyLiveEvent = firstchannel,
+                    MyLiveEvent = firstLiveEvent,
                     MultipleSelection = multiselection
                 };
 
@@ -5376,7 +5369,7 @@ namespace AMSExplorer
                     var modifications = form.Modifications;
                     if (multiselection)
                     {
-                        var formSettings = new SettingsSelection("channels", modifications);
+                        var formSettings = new SettingsSelection("live events", modifications);
                         if (formSettings.ShowDialog() != DialogResult.OK)
                         {
                             return;
@@ -5387,36 +5380,36 @@ namespace AMSExplorer
                         }
                     }
 
-                    foreach (var channel in channels)
+                    foreach (var liveEvent in liveEvents)
                     {
-                        TextBoxLogWriteLine("Live event '{0}' : updating...", channel.Name);
+                        TextBoxLogWriteLine("Live event '{0}' : updating...", liveEvent.Name);
 
                         if (modifications.Description) // let' update description if needed
                         {
-                            channel.Description = form.GetLiveEventDescription;
+                            liveEvent.Description = form.GetLiveEventDescription;
                         }
                         if (modifications.KeyFrameInterval)
                         {
-                            channel.Input.KeyFrameIntervalDuration = form.KeyframeInterval;
+                            liveEvent.Input.KeyFrameIntervalDuration = form.KeyframeInterval;
                         }
 
-                        if (channel.Encoding.EncodingType == firstchannel.Encoding.EncodingType)
+                        if (liveEvent.Encoding.EncodingType == firstLiveEvent.Encoding.EncodingType)
                         {
-                            if (channel.Encoding.EncodingType != LiveEventEncodingType.None && channel.Encoding != null && channel.ResourceState == LiveEventResourceState.Stopped)
+                            if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding != null && liveEvent.ResourceState == LiveEventResourceState.Stopped)
                             {
                                 if (modifications.SystemPreset)
                                 {
-                                    channel.Encoding.PresetName = form.PresetName; // we update the system preset
+                                    liveEvent.Encoding.PresetName = form.PresetName; // we update the system preset
                                 }
 
                             }
-                            else if (channel.Encoding.EncodingType != LiveEventEncodingType.None && channel.ResourceState != LiveEventResourceState.Stopped)
+                            else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.ResourceState != LiveEventResourceState.Stopped)
                             {
-                                TextBoxLogWriteLine("Live event '{0}' : must be stoped to update the encoding settings", channel.Name);
+                                TextBoxLogWriteLine("Live event '{0}' : must be stoped to update the encoding settings", liveEvent.Name);
                             }
-                            else if (channel.Encoding.EncodingType != LiveEventEncodingType.None && channel.Encoding == null)
+                            else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding == null)
                             {
-                                TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", channel.Name, true);
+                                TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", liveEvent.Name, true);
                             }
                         }
 
@@ -5427,17 +5420,17 @@ namespace AMSExplorer
                             // Input allow list
                             if (form.GetInputAllowList != null)
                             {
-                                if (channel.Input.AccessControl == null)
+                                if (liveEvent.Input.AccessControl == null)
                                 {
-                                    channel.Input.AccessControl = new LiveEventInputAccessControl();
+                                    liveEvent.Input.AccessControl = new LiveEventInputAccessControl();
                                 }
-                                channel.Input.AccessControl.Ip = form.GetInputAllowList;
+                                liveEvent.Input.AccessControl.Ip = form.GetInputAllowList;
                             }
                             else
                             {
-                                if (channel.Input.AccessControl != null)
+                                if (liveEvent.Input.AccessControl != null)
                                 {
-                                    channel.Input.AccessControl.Ip = null;
+                                    liveEvent.Input.AccessControl.Ip = null;
                                 }
                             }
                         }
@@ -5448,17 +5441,17 @@ namespace AMSExplorer
                             // Preview allow list
                             if (form.GetPreviewAllowList != null)
                             {
-                                if (channel.Preview.AccessControl == null)
+                                if (liveEvent.Preview.AccessControl == null)
                                 {
-                                    channel.Preview.AccessControl = new LiveEventPreviewAccessControl();
+                                    liveEvent.Preview.AccessControl = new LiveEventPreviewAccessControl();
                                 }
-                                channel.Preview.AccessControl.Ip = form.GetPreviewAllowList;
+                                liveEvent.Preview.AccessControl.Ip = form.GetPreviewAllowList;
                             }
                             else
                             {
-                                if (channel.Preview.AccessControl != null)
+                                if (liveEvent.Preview.AccessControl != null)
                                 {
-                                    channel.Preview.AccessControl.Ip = null;
+                                    liveEvent.Preview.AccessControl.Ip = null;
                                 }
                             }
                         }
@@ -5469,18 +5462,18 @@ namespace AMSExplorer
                             // Client Access Policy
                             if (form.GetLiveEventClientPolicy != null)
                             {
-                                if (channel.CrossSiteAccessPolicies == null)
+                                if (liveEvent.CrossSiteAccessPolicies == null)
                                 {
-                                    channel.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
+                                    liveEvent.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
                                 }
-                                channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetLiveEventClientPolicy;
+                                liveEvent.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetLiveEventClientPolicy;
 
                             }
                             else
                             {
-                                if (channel.CrossSiteAccessPolicies != null)
+                                if (liveEvent.CrossSiteAccessPolicies != null)
                                 {
-                                    channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                                    liveEvent.CrossSiteAccessPolicies.ClientAccessPolicy = null;
                                 }
                             }
                         }
@@ -5490,18 +5483,18 @@ namespace AMSExplorer
                             // Cross domain  Policy
                             if (form.GetLiveEventCrossdomainPolicy != null)
                             {
-                                if (channel.CrossSiteAccessPolicies == null)
+                                if (liveEvent.CrossSiteAccessPolicies == null)
                                 {
-                                    channel.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
+                                    liveEvent.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
                                 }
-                                channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetLiveEventCrossdomainPolicy;
+                                liveEvent.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetLiveEventCrossdomainPolicy;
 
                             }
                             else
                             {
-                                if (channel.CrossSiteAccessPolicies != null)
+                                if (liveEvent.CrossSiteAccessPolicies != null)
                                 {
-                                    channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                                    liveEvent.CrossSiteAccessPolicies.CrossDomainPolicy = null;
                                 }
                             }
                         }
@@ -5509,9 +5502,9 @@ namespace AMSExplorer
 
                         Task.Run(async () =>
                         {
-                            await _amsClientV3.AMSclient.LiveEvents.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, channel.Name, channel);
-                            dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(channel)), null);
-                            TextBoxLogWriteLine("Live event '{0}' : updated.", channel.Name);
+                            await _amsClientV3.AMSclient.LiveEvents.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEvent.Name, liveEvent);
+                            dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshLiveEvent(liveEvent)), null);
+                            TextBoxLogWriteLine("Live event '{0}' : updated.", liveEvent.Name);
                         }
              );
                     }
@@ -5524,16 +5517,16 @@ namespace AMSExplorer
         {
             if (radioButtonChSelected.Checked) // only in select mode
             {
-                Debug.WriteLine("channel selection changed : begin");
-                List<LiveEvent> SelectedChannels = ReturnSelectedLiveEvents();
-                if (SelectedChannels.Count > 0)
+                Debug.WriteLine("live event selection changed : begin");
+                List<LiveEvent> SelectedLiveEvents = ReturnSelectedLiveEvents();
+                if (SelectedLiveEvents.Count > 0)
                 {
 
-                    dataGridViewLiveOutputV.LiveEventSourceNames = SelectedChannels.Select(c => c.Name).ToList();
+                    dataGridViewLiveOutputV.LiveEventSourceNames = SelectedLiveEvents.Select(c => c.Name).ToList();
 
                     Task.Run(() =>
                     {
-                        Debug.WriteLine("channel selection changed : before refresh");
+                        Debug.WriteLine("live event selection changed : before refresh");
                         DoRefreshGridLiveOutputV(false);
                     });
                 }
@@ -5543,7 +5536,7 @@ namespace AMSExplorer
         private void DoStopOrDeleteLiveEventsEngine(List<LiveEvent> ListEvents, bool deleteLiveEvents)
         {
 
-            // Stop the channels which run
+            // Stop the live events which run
             var liveeventsrunning = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Running).ToList();
             var names = String.Join(", ", liveeventsrunning.Select(le => le.Name).ToArray());
 
@@ -5560,7 +5553,7 @@ namespace AMSExplorer
                     int complete = 0;
                     while (!taskcstop.All(t => t.IsCompleted) && complete != liveeventsrunning.Count)
                     {
-                        // refresh the channels
+                        // refresh the live events
 
                         foreach (var loitem in liveeventsrunning)
                         {
@@ -5569,7 +5562,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[liveeventsrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveeventsrunning.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(loitemR)), null);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshLiveEvent(loitemR)), null);
                                 if (loitemR.ResourceState == LiveEventResourceState.Stopped)
                                 {
                                     TextBoxLogWriteLine(string.Format("Live event stopped : {0}.", loitemR.Name));
@@ -5598,7 +5591,7 @@ namespace AMSExplorer
             {
                 _amsClientV3.RefreshTokenIfNeeded();
 
-                // delete the channels
+                // delete the live events
                 try
                 {
                     var names2 = String.Join(", ", ListEvents.Select(le => le.Name).ToArray());
@@ -5609,7 +5602,7 @@ namespace AMSExplorer
 
                     while (!taskcdel.All(t => t.IsCompleted))
                     {
-                        // refresh the channels
+                        // refresh the live events
 
                         foreach (var loitem in ListEvents)
                         {
@@ -5617,7 +5610,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[ListEvents.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListEvents.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(loitemR)), null);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshLiveEvent(loitemR)), null);
                             }
                             else if (loitemR != null)
                             {
@@ -5642,7 +5635,7 @@ namespace AMSExplorer
 
         private void DoStartLiveEventsEngine(List<LiveEvent> ListEvents)
         {
-            // Start the channels which are stopped
+            // Start the live events which are stopped
             var liveevntsstopped = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Stopped).ToList();
             var names = String.Join(", ", liveevntsstopped.Select(le => le.Name).ToArray());
             if (liveevntsstopped.Count() > 0)
@@ -5658,7 +5651,7 @@ namespace AMSExplorer
 
                     while (!taskLEStart.All(t => t.IsCompleted) && complete != liveevntsstopped.Count)
                     {
-                        // refresh the channels
+                        // refresh the live events
 
                         foreach (var loitem in liveevntsstopped)
                         {
@@ -5666,7 +5659,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[liveevntsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveevntsstopped.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshChannel(loitemR)), null);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshLiveEvent(loitemR)), null);
                                 if (loitemR.ResourceState == LiveEventResourceState.Running)
                                 {
                                     TextBoxLogWriteLine(string.Format("Live event started : {0}.", loitemR.Name));
@@ -5792,7 +5785,7 @@ namespace AMSExplorer
 
                     while (!taskSEStart.All(t => t.IsCompleted) && complete != streamingendpointsstopped.Count)
                     {
-                        // refresh the channels
+                        // refresh the live events
 
                         foreach (var loitem in streamingendpointsstopped)
                         {
@@ -5925,7 +5918,7 @@ namespace AMSExplorer
 
                     while (!taskSEdel.All(t => t.IsCompleted))
                     {
-                        // refresh the channels
+                        // refresh the live events
 
                         foreach (var loitem in ListStreamingEndpoints)
                         {
@@ -5969,11 +5962,11 @@ namespace AMSExplorer
 
                 LiveOutputCreation form = new LiveOutputCreation(_amsClientV3)
                 {
-                    ChannelName = liveEvent.Name,
-                    archiveWindowLength = new TimeSpan(0, 5, 0),
+                    LiveEventName = liveEvent.Name,
+                    ArchiveWindowLength = new TimeSpan(0, 5, 0),
                     CreateLocator = true,
                     EnableDynEnc = false,
-                    AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
+                    AssetName = Constants.NameconvLiveEvent + "-" + Constants.NameconvLiveOutput,
                     ProgramName = "LiveOutput-" + uniqueness,
                     HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
                     ManifestName = uniqueness
@@ -5982,7 +5975,7 @@ namespace AMSExplorer
                 {
                     _amsClientV3.RefreshTokenIfNeeded();
 
-                    string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
+                    string assetname = form.AssetName.Replace(Constants.NameconvLiveOutput, form.ProgramName).Replace(Constants.NameconvLiveEvent, form.LiveEventName);
                     var newAsset = new Asset() { StorageAccountName = form.StorageSelected };
 
                     Task.Run(async () =>
@@ -6003,7 +5996,7 @@ namespace AMSExplorer
 
                             LiveOutput liveOutput = new LiveOutput(
                                 asset.Name,
-                                form.archiveWindowLength,
+                                form.ArchiveWindowLength,
                                 null,
                                 form.ProgramName,
                                 null,
@@ -6034,84 +6027,6 @@ namespace AMSExplorer
             }
 
 
-            /*
-
-
-
-
-
-                CreateProgram form = new CreateProgram(_context)
-                {
-                    ChannelName = channel.Name,
-                    archiveWindowLength = new TimeSpan(4, 0, 0),
-                    CreateLocator = true,
-                    EnableDynEnc = false,
-                    StartProgram = false,
-                    ProposeStartProgram = (channel.ResourceState == LiveEventResourceState.Running),
-                    AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
-                    ProposeScaleUnit = _context.StreamingEndpoints.AsEnumerable().All(o => StreamingEndpointInformation.ReturnTypeSE(o) == StreamingEndpointInformation.StreamEndpointType.Classic)
-                };
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    if (form.ScaleUnit)
-                    {
-                        Task.Run(async () =>
-                        {
-                            await ScaleStreamingEndpoint(_context.StreamingEndpoints.FirstOrDefault(), 1);
-                        });
-                    }
-
-                    TextBoxLogWriteLine("Creating Program '{0}'...", form.ProgramName);
-                    string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
-                    IAsset NewAsset;
-                    if (form.IsReplica) // special case. We want to create a program with a specific manifest name, locator GUID and encryption key
-                    {
-                        NewAsset = CreateLiveAssetWithOptionalpecifiedLocatorID(assetname, form.StorageSelected, true, form.EnableDynEnc, form.ReplicaLocatorID);
-                    }
-                    else // normal case
-                    {
-                        NewAsset = CreateLiveAssetWithOptionalpecifiedLocatorID(assetname, form.StorageSelected, form.CreateLocator, form.EnableDynEnc);
-                    }
-
-                    if (NewAsset != null)
-                    {
-                        var options = new ProgramCreationOptions()
-                        {
-                            Name = form.ProgramName,
-                            Description = form.ProgramDescription,
-                            ArchiveWindowLength = form.archiveWindowLength,
-                            AssetId = NewAsset.Id,
-                            ManifestName = form.ForceManifestName // if replica is selected or force manifest name is pecified, then we force the manifest name
-                        };
-
-                        var STask = ProgramExecuteAsync(
-                               () =>
-                                   channel.Programs.CreateAsync(options),
-                                  form.ProgramName,
-                                  "created");
-                        await STask;
-
-                        DoRefreshGridProgramV(false);
-
-                        if (form.StartProgram)
-                        {
-                            Task.Run(async () =>
-                            {
-                                // let's start the program now
-                                IProgram program = _context.Programs.Where(p => p.Name == form.ProgramName && p.ChannelId == channel.Id).FirstOrDefault();
-                                await StartProgramASync(program);
-                            }
-                            );
-                        }
-                    }
-                    DoRefreshGridAssetV(false);
-                }
-            }
-            else
-            {
-                MessageBox.Show("No channel has been selected.");
-            }
-            */
         }
 
 
@@ -6463,7 +6378,7 @@ namespace AMSExplorer
         }
 
 
-        private void displayChannelInfomationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void displayLiveEventInfomationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDisplayLiveEventInfo();
         }
@@ -6477,11 +6392,11 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                var channel = Task.Run(async () => await GetLiveEventAsync(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString())).Result;
+                var liveEvent = Task.Run(async () => await GetLiveEventAsync(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString())).Result;
 
-                if (channel != null)
+                if (liveEvent != null)
                 {
-                    DoDisplayLiveEventInfo((new List<LiveEvent>() { channel }));
+                    DoDisplayLiveEventInfo((new List<LiveEvent>() { liveEvent }));
                 }
             }
         }
@@ -6500,22 +6415,22 @@ namespace AMSExplorer
             }
         }
 
-        private void startChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void startLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoStartLiveEvents();
         }
 
-        private void stopChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void stopLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoStopOrDeleteLiveEvents(false);
         }
 
-        private void resetChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void resetLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoResetLiveEvents();
         }
 
-        private void deleteChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void deleteLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoStopOrDeleteLiveEvents(true);
         }
@@ -6559,7 +6474,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoPlaybackChannelPreview(PlayerType ptype)
+        private void DoPlaybackLiveEventPreview(PlayerType ptype)
         {
             foreach (var liveEvent in ReturnSelectedLiveEvents())
             {
@@ -6590,18 +6505,18 @@ namespace AMSExplorer
 
         private void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
         {
-            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
-            if (channel != null && channel.Preview != null)
+            var liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
+            if (liveEvent != null && liveEvent.Preview != null)
             {
-                if (channel.Preview.Endpoints.FirstOrDefault() != null && channel.Preview.Endpoints.FirstOrDefault().Url != null)
+                if (liveEvent.Preview.Endpoints.FirstOrDefault() != null && liveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
                 {
-                    string preview = channel.Preview.Endpoints.FirstOrDefault().Url;
+                    string preview = liveEvent.Preview.Endpoints.FirstOrDefault().Url;
                     EditorXMLJSON DisplayForm = new EditorXMLJSON("Preview URL", preview, false, false, false);
                     DisplayForm.Display();
                 }
                 else
                 {
-                    MessageBox.Show($"There is no active preview URL for live event '{channel.Name}'. Maybe no data has arrived so no manifest is available.", "No preview URL", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show($"There is no active preview URL for live event '{liveEvent.Name}'. Maybe no data has arrived so no manifest is available.", "No preview URL", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
         }
@@ -6705,7 +6620,7 @@ namespace AMSExplorer
             DoCreateLiveOutput();
         }
 
-        private void createChannelToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void createLiveEventToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCreateLiveEvent();
         }
@@ -7182,7 +7097,7 @@ namespace AMSExplorer
 
         private void withAzureMediaPlayerToolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayerClear);
+            DoPlaybackLiveEventPreview(PlayerType.AzureMediaPlayerClear);
         }
 
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7447,10 +7362,10 @@ namespace AMSExplorer
 
         private void runALocalEncoderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChannelRunOnPremisesLiveEncoder();
+            LiveEventRunOnPremisesLiveEncoder();
         }
 
-        private void ChannelRunOnPremisesLiveEncoder()
+        private void LiveEventRunOnPremisesLiveEncoder()
         {
             //  ChannelRunOnPremisesEncoder form = new ChannelRunOnPremisesEncoder(_context, ReturnSelectedChannels());
             //  form.ShowDialog();
@@ -7458,11 +7373,11 @@ namespace AMSExplorer
 
         private void runAnOnpremisesLiveEncoderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChannelRunOnPremisesLiveEncoder();
+            LiveEventRunOnPremisesLiveEncoder();
         }
 
 
-        private void DoCopyChannelInputURLToClipboard(object sender, EventArgs e)
+        private void DoCopyLiveEventInputURLToClipboard(object sender, EventArgs e)
         {
             int index = 0;
             if (sender.GetType() == typeof(ToolStrip))
@@ -7476,16 +7391,16 @@ namespace AMSExplorer
                 index = Convert.ToInt32(send.Name.Last().ToString()) - 1;
             }
 
-            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
+            var liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
 
             string absuri;
-            if (index == 1 && channel.Input.Endpoints.Count == 1 && channel.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) // Smooth https
+            if (index == 1 && liveEvent.Input.Endpoints.Count == 1 && liveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) // Smooth https
             {
-                absuri = channel.Input.Endpoints[0].Url.Replace("http://", "https://");
+                absuri = liveEvent.Input.Endpoints[0].Url.Replace("http://", "https://");
             }
             else
             {
-                absuri = channel.Input.Endpoints[index].Url;
+                absuri = liveEvent.Input.Endpoints[index].Url;
             }
 
             string label = string.Format("Input URL ({0})", index);
@@ -7494,56 +7409,56 @@ namespace AMSExplorer
         }
 
 
-        private void ContextMenuItemChannelCopyIngestURLToClipboard_DropDownOpening(object sender, EventArgs e)
+        private void ContextMenuItemLiveEventCopyIngestURLToClipboard_DropDownOpening(object sender, EventArgs e)
         {
             ContextMenuOpeningLiveEventCopyInputUrl();
         }
 
         private void ContextMenuOpeningLiveEventCopyInputUrl()
         {
-            var channel = ReturnSelectedLiveEvents().FirstOrDefault();
+            var liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
 
-            inputURLMToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 0);
-            inputURLMToolStripMenuItem2.Visible = (channel.Input.Endpoints.Count > 1) || (channel.Input.Endpoints.Count == 1 && channel.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4);
-            inputURLMToolStripMenuItem3.Visible = (channel.Input.Endpoints.Count > 2);
-            inputURLMToolStripMenuItem4.Visible = (channel.Input.Endpoints.Count > 3);
+            inputURLMToolStripMenuItem1.Visible = (liveEvent.Input.Endpoints.Count > 0);
+            inputURLMToolStripMenuItem2.Visible = (liveEvent.Input.Endpoints.Count > 1) || (liveEvent.Input.Endpoints.Count == 1 && liveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4);
+            inputURLMToolStripMenuItem3.Visible = (liveEvent.Input.Endpoints.Count > 2);
+            inputURLMToolStripMenuItem4.Visible = (liveEvent.Input.Endpoints.Count > 3);
 
-            inputURLMToolStripMenuItem1.Text = (channel.Input.Endpoints.Count > 0) ? string.Format((string)inputURLMToolStripMenuItem1.Tag, new Uri(channel.Input.Endpoints[0].Url).Scheme) : string.Empty;
-            inputURLMToolStripMenuItem2.Text = (channel.Input.Endpoints.Count > 1) ? string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[1].Url).Scheme) : string.Empty;
-            inputURLMToolStripMenuItem3.Text = (channel.Input.Endpoints.Count > 2) ? string.Format((string)inputURLMToolStripMenuItem3.Tag, new Uri(channel.Input.Endpoints[2].Url).Scheme) : string.Empty;
-            inputURLMToolStripMenuItem4.Text = (channel.Input.Endpoints.Count > 3) ? string.Format((string)inputURLMToolStripMenuItem4.Tag, new Uri(channel.Input.Endpoints[3].Url).Scheme) : string.Empty;
+            inputURLMToolStripMenuItem1.Text = (liveEvent.Input.Endpoints.Count > 0) ? string.Format((string)inputURLMToolStripMenuItem1.Tag, new Uri(liveEvent.Input.Endpoints[0].Url).Scheme) : string.Empty;
+            inputURLMToolStripMenuItem2.Text = (liveEvent.Input.Endpoints.Count > 1) ? string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(liveEvent.Input.Endpoints[1].Url).Scheme) : string.Empty;
+            inputURLMToolStripMenuItem3.Text = (liveEvent.Input.Endpoints.Count > 2) ? string.Format((string)inputURLMToolStripMenuItem3.Tag, new Uri(liveEvent.Input.Endpoints[2].Url).Scheme) : string.Empty;
+            inputURLMToolStripMenuItem4.Text = (liveEvent.Input.Endpoints.Count > 3) ? string.Format((string)inputURLMToolStripMenuItem4.Tag, new Uri(liveEvent.Input.Endpoints[3].Url).Scheme) : string.Empty;
 
-            if (channel.Input.Endpoints.Count == 1 && channel.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) //Smooth https
+            if (liveEvent.Input.Endpoints.Count == 1 && liveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) //Smooth https
             {
-                inputURLMToolStripMenuItem2.Text = string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(channel.Input.Endpoints[0].Url.Replace("http://", "https://")).Scheme);
+                inputURLMToolStripMenuItem2.Text = string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(liveEvent.Input.Endpoints[0].Url.Replace("http://", "https://")).Scheme);
             }
         }
 
 
-        private void contextMenuStripChannels_Opening(object sender, CancelEventArgs e)
+        private void contextMenuStripLiveEvents_Opening(object sender, CancelEventArgs e)
         {
-            var channels = ReturnSelectedLiveEvents();
-            bool single = channels.Count == 1;
-            bool oneOrMore = channels.Count > 0;
+            var liveEvents = ReturnSelectedLiveEvents();
+            bool single = liveEvents.Count == 1;
+            bool oneOrMore = liveEvents.Count > 0;
 
-            // channel info
-            ContextMenuItemChannelDisplayInfomation.Enabled = oneOrMore;
+            // live event info
+            ContextMenuItemLiveEventDisplayInfomation.Enabled = oneOrMore;
 
-            // copy input url if only one channel
-            ContextMenuItemChannelCopyIngestURLToClipboard.Enabled = single;
+            // copy input url if only one live event
+            ContextMenuItemLiveEventCopyIngestURLToClipboard.Enabled = single;
 
-            // on premises encoder if only one channel
-            ContextMenuItemChannelRunOnPremisesLiveEncoder.Enabled = single;
+            // on premises encoder if only one live event
+            ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Enabled = single;
 
-            // copy preview url if only one channel and preview is available
-            ContextMenuItemChannelCopyPreviewURLToClipboard.Enabled = single && channels.FirstOrDefault().Preview != null;
+            // copy preview url if only one live event and preview is available
+            ContextMenuItemLiveEventCopyPreviewURLToClipboard.Enabled = single && liveEvents.FirstOrDefault().Preview != null;
 
-            // start, stop, reset, delete, clone channel
-            ContextMenuItemChannelStart.Enabled = oneOrMore;
-            ContextMenuItemChannelStop.Enabled = oneOrMore;
-            ContextMenuItemChannelReset.Enabled = oneOrMore;
-            cloneChannelsToolStripMenuItem.Enabled = false;// oneOrMore;
-            ContextMenuItemChannelDelete.Enabled = oneOrMore;
+            // start, stop, reset, delete, clone live event
+            ContextMenuItemLiveEventStart.Enabled = oneOrMore;
+            ContextMenuItemLiveEventStop.Enabled = oneOrMore;
+            ContextMenuItemLiveEventReset.Enabled = oneOrMore;
+            cloneLiveEventsToolStripMenuItem.Enabled = false;// oneOrMore;
+            ContextMenuItemLiveEventDelete.Enabled = oneOrMore;
 
             // playback preview
             playbackTheProgramToolStripMenuItem.Enabled = oneOrMore;
@@ -7552,7 +7467,7 @@ namespace AMSExplorer
             loadMetricsToolStripMenuItem.Enabled = false;// enableTelemetry;
         }
 
-        private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        private void liveLiveEventToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
         }
 
@@ -7587,22 +7502,22 @@ namespace AMSExplorer
             DoDisplayOutputURLAssetOrProgramToWindow();
         }
 
-        private void buttonSetFilterChannel_Click(object sender, EventArgs e)
+        private void buttonSetFilterLiveEvent_Click(object sender, EventArgs e)
         {
-            DoChannelSearch();
+            DoLiveEventSearch();
         }
 
-        private void DoChannelSearch()
+        private void DoLiveEventSearch()
         {
             if (dataGridViewLiveEventsV.Initialized)
             {
-                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchChannelOption.SelectedItem as Item).Value);
-                dataGridViewLiveEventsV.SearchInName = new SearchObject { Text = textBoxSearchNameChannel.Text, SearchType = stype };
+                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchLiveEventOption.SelectedItem as Item).Value);
+                dataGridViewLiveEventsV.SearchInName = new SearchObject { Text = textBoxSearchNameLiveEvent.Text, SearchType = stype };
                 DoRefreshGridLiveEventV(false);
             }
         }
 
-        private void comboBoxFilterTimeChannel_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxFilterTimeLiveEvent_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewLiveEventsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
 
@@ -7611,7 +7526,7 @@ namespace AMSExplorer
                 var form = new TimeRangeSelection()
                 {
                     TimeRange = dataGridViewLiveEventsV.TimeFilterTimeRange,
-                    LabelMain = "Last Modified Time Range of Channels"
+                    LabelMain = "Last Modified Time Range of live events"
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -7630,7 +7545,7 @@ namespace AMSExplorer
             }
         }
 
-        private void comboBoxStatusChannel_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxStatusLiveEvent_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (dataGridViewLiveEventsV.Initialized)
             {
@@ -7851,7 +7766,7 @@ namespace AMSExplorer
             Program.dataGridViewV_Resize(sender);
         }
 
-        private void cloneChannelsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cloneLiveEventsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
@@ -8033,14 +7948,14 @@ namespace AMSExplorer
         {
             if (string.IsNullOrEmpty(textBoxSearchNameProgram.Text))
             {
-                CheckboxAnychannelChangedByCode = true;
-                SetRadiobuttonDisplayProgram(backupCheckboxAnychannel);
+                CheckboxAnyLiveEventChangedByCode = true;
+                SetRadiobuttonDisplayProgram(backupCheckboxAnyLiveEvent);
                 radioButtonChAll.Enabled = radioButtonChNone.Enabled = radioButtonChSelected.Enabled = true;
             }
             else if (radioButtonChAll.Checked) // not empty and checkbox is still enabled
             {
-                CheckboxAnychannelChangedByCode = true;
-                backupCheckboxAnychannel = ReturnDisplayProgram();
+                CheckboxAnyLiveEventChangedByCode = true;
+                backupCheckboxAnyLiveEvent = ReturnDisplayProgram();
                 SetRadiobuttonDisplayProgram(enumDisplayProgram.Any);
                 radioButtonChAll.Enabled = radioButtonChNone.Enabled = radioButtonChSelected.Enabled = false;
             }
@@ -8149,21 +8064,21 @@ namespace AMSExplorer
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (dataGridViewLiveOutputV.Initialized && !CheckboxAnychannelChangedByCode)
+            if (dataGridViewLiveOutputV.Initialized && !CheckboxAnyLiveEventChangedByCode)
             {
-                dataGridViewLiveOutputV.DisplayChannel = ReturnDisplayProgram();
+                dataGridViewLiveOutputV.DisplayLiveEvent = ReturnDisplayProgram();
 
                 Task.Run(() =>
                 {
                     DoRefreshGridLiveOutputV(false);
                 });
             }
-            CheckboxAnychannelChangedByCode = false;
+            CheckboxAnyLiveEventChangedByCode = false;
         }
 
         private void tabPageLive_Resize(object sender, EventArgs e)
         {
-            panelChannels.Size = new Size(panelChannels.Size.Width, tabPageLive.Size.Height / 2);
+            panelLiveEvents.Size = new Size(panelLiveEvents.Size.Width, tabPageLive.Size.Height / 2);
         }
 
         private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
@@ -8323,12 +8238,12 @@ namespace AMSExplorer
             }
         }
 
-        private void textBoxSearchNameChannel_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxSearchNameLiveEvent_KeyDown(object sender, KeyEventArgs e)
         {
             // user pressed enter. let's apply the filter
             if (e.KeyCode == Keys.Enter)
             {
-                buttonSetFilterChannel_Click(this, new EventArgs());
+                buttonSetFilterLiveEvent_Click(this, new EventArgs());
             }
         }
 

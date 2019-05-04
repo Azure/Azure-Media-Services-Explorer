@@ -92,21 +92,21 @@ namespace AMSExplorer
             if (!MultipleSelection)
             {
                 labelProgramName.Text += MyLiveOutput.Name;
-                DGChannel.ColumnCount = 2;
+                DGLiveEvent.ColumnCount = 2;
 
                 // Program info
-                DGChannel.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-                DGChannel.Rows.Add("Name", MyLiveOutput.Name);
-                DGChannel.Rows.Add("Id", MyLiveOutput.Id);
-                DGChannel.Rows.Add("State", MyLiveOutput.ResourceState);
-                DGChannel.Rows.Add("Created", ((DateTime)MyLiveOutput.Created).ToLocalTime().ToString("G"));
-                DGChannel.Rows.Add("Last Modified", ((DateTime)MyLiveOutput.LastModified).ToLocalTime().ToString("G"));
-                DGChannel.Rows.Add("Description", MyLiveOutput.Description);
-                DGChannel.Rows.Add("Archive Window Length", MyLiveOutput.ArchiveWindowLength);
-                DGChannel.Rows.Add("Manifest Name", MyLiveOutput.ManifestName);
-                DGChannel.Rows.Add("Asset Name", MyLiveOutput.AssetName);
-                DGChannel.Rows.Add("Output snap time", MyLiveOutput.OutputSnapTime);
-                DGChannel.Rows.Add("Fragments Per Ts Segment", MyLiveOutput.Hls?.FragmentsPerTsSegment);
+                DGLiveEvent.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+                DGLiveEvent.Rows.Add("Name", MyLiveOutput.Name);
+                DGLiveEvent.Rows.Add("Id", MyLiveOutput.Id);
+                DGLiveEvent.Rows.Add("State", MyLiveOutput.ResourceState);
+                DGLiveEvent.Rows.Add("Created", ((DateTime)MyLiveOutput.Created).ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add("Last Modified", ((DateTime)MyLiveOutput.LastModified).ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add("Description", MyLiveOutput.Description);
+                DGLiveEvent.Rows.Add("Archive Window Length", MyLiveOutput.ArchiveWindowLength);
+                DGLiveEvent.Rows.Add("Manifest Name", MyLiveOutput.ManifestName);
+                DGLiveEvent.Rows.Add("Asset Name", MyLiveOutput.AssetName);
+                DGLiveEvent.Rows.Add("Output snap time", MyLiveOutput.OutputSnapTime);
+                DGLiveEvent.Rows.Add("Fragments Per Ts Segment", MyLiveOutput.Hls?.FragmentsPerTsSegment);
 
                 /*
                 ProgramInfo PI = new ProgramInfo(MyLiveOutput, MyContext);

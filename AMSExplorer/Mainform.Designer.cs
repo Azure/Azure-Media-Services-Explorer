@@ -202,38 +202,38 @@
             this.comboBoxStatusProgram = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
-            this.panelChannels = new System.Windows.Forms.Panel();
+            this.panelLiveEvents = new System.Windows.Forms.Panel();
             this.dataGridViewLiveEventsV = new AMSExplorer.DataGridViewLiveEvent();
             this.contextMenuStripLiveEvents = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContextMenuItemChannelDisplayInfomation = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemLiveEventDisplayInfomation = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMetricsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelStart = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelStop = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelReset = new System.Windows.Forms.ToolStripMenuItem();
-            this.cloneChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemLiveEventStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemLiveEventStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemLiveEventReset = new System.Windows.Forms.ToolStripMenuItem();
+            this.cloneLiveEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemLiveEventDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContextMenuItemChannelCopyIngestURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemLiveEventCopyIngestURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.inputURLMToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.inputURLMToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.inputURLMToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.inputURLMToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemLiveEventRunOnPremisesLiveEncoder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemLiveEventCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.playbackTheProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelChannels = new System.Windows.Forms.Label();
-            this.comboBoxSearchChannelOption = new System.Windows.Forms.ComboBox();
-            this.textBoxSearchNameChannel = new System.Windows.Forms.TextBox();
-            this.buttonSetFilterChannel = new System.Windows.Forms.Button();
+            this.labelLiveEvents = new System.Windows.Forms.Label();
+            this.comboBoxSearchLiveEventOption = new System.Windows.Forms.ComboBox();
+            this.textBoxSearchNameLiveEvent = new System.Windows.Forms.TextBox();
+            this.buttonSetFilterLiveEvent = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.comboBoxStatusChannel = new System.Windows.Forms.ComboBox();
+            this.comboBoxStatusLiveEvent = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.comboBoxFilterTimeChannel = new System.Windows.Forms.ComboBox();
+            this.comboBoxFilterTimeLiveEvent = new System.Windows.Forms.ComboBox();
             this.tabPageOrigins = new System.Windows.Forms.TabPage();
             this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
             this.contextMenuStripStreaminEndpoints = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -287,7 +287,7 @@
             this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDownloadToLocal = new System.Windows.Forms.ToolStripMenuItem();
-            this.liveChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.liveLiveEventToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runAnOnpremisesLiveEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
@@ -363,7 +363,7 @@
             this.panelPrograms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveOutputV)).BeginInit();
             this.contextMenuStripLiveOutputs.SuspendLayout();
-            this.panelChannels.SuspendLayout();
+            this.panelLiveEvents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveEventsV)).BeginInit();
             this.contextMenuStripLiveEvents.SuspendLayout();
             this.tabPageOrigins.SuspendLayout();
@@ -1466,7 +1466,7 @@
             // tabPageLive
             // 
             this.tabPageLive.Controls.Add(this.panelPrograms);
-            this.tabPageLive.Controls.Add(this.panelChannels);
+            this.tabPageLive.Controls.Add(this.panelLiveEvents);
             resources.ApplyResources(this.tabPageLive, "tabPageLive");
             this.tabPageLive.Name = "tabPageLive";
             this.tabPageLive.UseVisualStyleBackColor = true;
@@ -1498,14 +1498,14 @@
             resources.ApplyResources(this.dataGridViewLiveOutputV, "dataGridViewLiveOutputV");
             this.dataGridViewLiveOutputV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLiveOutputV.ContextMenuStrip = this.contextMenuStripLiveOutputs;
-            this.dataGridViewLiveOutputV.DisplayChannel = AMSExplorer.enumDisplayProgram.Selected;
+            this.dataGridViewLiveOutputV.DisplayLiveEvent = AMSExplorer.enumDisplayProgram.Selected;
             this.dataGridViewLiveOutputV.FilterState = "All";
             this.dataGridViewLiveOutputV.ItemsPerPage = 50;
             this.dataGridViewLiveOutputV.LiveEventSourceNames = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewLiveOutputV.LiveEventSourceNames")));
             this.dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";
             this.dataGridViewLiveOutputV.ReadOnly = true;
             this.dataGridViewLiveOutputV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject2.SearchType = AMSExplorer.SearchIn.LiveOutputName;
             searchObject2.Text = "";
             this.dataGridViewLiveOutputV.SearchInName = searchObject2;
             this.dataGridViewLiveOutputV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1716,17 +1716,17 @@
             // 
             // panelChannels
             // 
-            this.panelChannels.Controls.Add(this.dataGridViewLiveEventsV);
-            this.panelChannels.Controls.Add(this.labelChannels);
-            this.panelChannels.Controls.Add(this.comboBoxSearchChannelOption);
-            this.panelChannels.Controls.Add(this.textBoxSearchNameChannel);
-            this.panelChannels.Controls.Add(this.buttonSetFilterChannel);
-            this.panelChannels.Controls.Add(this.label25);
-            this.panelChannels.Controls.Add(this.comboBoxStatusChannel);
-            this.panelChannels.Controls.Add(this.label24);
-            this.panelChannels.Controls.Add(this.comboBoxFilterTimeChannel);
-            resources.ApplyResources(this.panelChannels, "panelChannels");
-            this.panelChannels.Name = "panelChannels";
+            this.panelLiveEvents.Controls.Add(this.dataGridViewLiveEventsV);
+            this.panelLiveEvents.Controls.Add(this.labelLiveEvents);
+            this.panelLiveEvents.Controls.Add(this.comboBoxSearchLiveEventOption);
+            this.panelLiveEvents.Controls.Add(this.textBoxSearchNameLiveEvent);
+            this.panelLiveEvents.Controls.Add(this.buttonSetFilterLiveEvent);
+            this.panelLiveEvents.Controls.Add(this.label25);
+            this.panelLiveEvents.Controls.Add(this.comboBoxStatusLiveEvent);
+            this.panelLiveEvents.Controls.Add(this.label24);
+            this.panelLiveEvents.Controls.Add(this.comboBoxFilterTimeLiveEvent);
+            resources.ApplyResources(this.panelLiveEvents, "panelChannels");
+            this.panelLiveEvents.Name = "panelChannels";
             // 
             // dataGridViewLiveEventsV
             // 
@@ -1734,14 +1734,14 @@
             this.dataGridViewLiveEventsV.AllowUserToDeleteRows = false;
             this.dataGridViewLiveEventsV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewLiveEventsV, "dataGridViewLiveEventsV");
-            this.dataGridViewLiveEventsV.ChannelsPerPage = 50;
+            this.dataGridViewLiveEventsV.LiveEventsPerPage = 50;
             this.dataGridViewLiveEventsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLiveEventsV.ContextMenuStrip = this.contextMenuStripLiveEvents;
             this.dataGridViewLiveEventsV.FilterState = "All";
             this.dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             this.dataGridViewLiveEventsV.ReadOnly = true;
             this.dataGridViewLiveEventsV.RowHeadersVisible = false;
-            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject3.SearchType = AMSExplorer.SearchIn.LiveEventName;
             searchObject3.Text = "";
             this.dataGridViewLiveEventsV.SearchInName = searchObject3;
             this.dataGridViewLiveEventsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1759,23 +1759,23 @@
             this.contextMenuStripLiveEvents.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem3,
             this.toolStripSeparator20,
-            this.ContextMenuItemChannelDisplayInfomation,
+            this.ContextMenuItemLiveEventDisplayInfomation,
             this.loadMetricsToolStripMenuItem,
             this.createChannelToolStripMenuItem1,
-            this.ContextMenuItemChannelStart,
-            this.ContextMenuItemChannelStop,
-            this.ContextMenuItemChannelReset,
-            this.cloneChannelsToolStripMenuItem,
-            this.ContextMenuItemChannelDelete,
+            this.ContextMenuItemLiveEventStart,
+            this.ContextMenuItemLiveEventStop,
+            this.ContextMenuItemLiveEventReset,
+            this.cloneLiveEventsToolStripMenuItem,
+            this.ContextMenuItemLiveEventDelete,
             this.toolStripSeparator14,
-            this.ContextMenuItemChannelCopyIngestURLToClipboard,
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder,
+            this.ContextMenuItemLiveEventCopyIngestURLToClipboard,
+            this.ContextMenuItemLiveEventRunOnPremisesLiveEncoder,
             this.toolStripSeparator19,
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard,
+            this.ContextMenuItemLiveEventCopyPreviewURLToClipboard,
             this.playbackTheProgramToolStripMenuItem});
             this.contextMenuStripLiveEvents.Name = "contextMenuStripChannels";
             resources.ApplyResources(this.contextMenuStripLiveEvents, "contextMenuStripLiveEvents");
-            this.contextMenuStripLiveEvents.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripChannels_Opening);
+            this.contextMenuStripLiveEvents.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLiveEvents_Opening);
             // 
             // refreshToolStripMenuItem3
             // 
@@ -1791,9 +1791,9 @@
             // 
             // ContextMenuItemChannelDisplayInfomation
             // 
-            resources.ApplyResources(this.ContextMenuItemChannelDisplayInfomation, "ContextMenuItemChannelDisplayInfomation");
-            this.ContextMenuItemChannelDisplayInfomation.Name = "ContextMenuItemChannelDisplayInfomation";
-            this.ContextMenuItemChannelDisplayInfomation.Click += new System.EventHandler(this.displayChannelInfomationToolStripMenuItem_Click);
+            resources.ApplyResources(this.ContextMenuItemLiveEventDisplayInfomation, "ContextMenuItemChannelDisplayInfomation");
+            this.ContextMenuItemLiveEventDisplayInfomation.Name = "ContextMenuItemChannelDisplayInfomation";
+            this.ContextMenuItemLiveEventDisplayInfomation.Click += new System.EventHandler(this.displayLiveEventInfomationToolStripMenuItem_Click);
             // 
             // loadMetricsToolStripMenuItem
             // 
@@ -1805,37 +1805,37 @@
             // 
             resources.ApplyResources(this.createChannelToolStripMenuItem1, "createChannelToolStripMenuItem1");
             this.createChannelToolStripMenuItem1.Name = "createChannelToolStripMenuItem1";
-            this.createChannelToolStripMenuItem1.Click += new System.EventHandler(this.createChannelToolStripMenuItem1_Click);
+            this.createChannelToolStripMenuItem1.Click += new System.EventHandler(this.createLiveEventToolStripMenuItem1_Click);
             // 
             // ContextMenuItemChannelStart
             // 
-            resources.ApplyResources(this.ContextMenuItemChannelStart, "ContextMenuItemChannelStart");
-            this.ContextMenuItemChannelStart.Name = "ContextMenuItemChannelStart";
-            this.ContextMenuItemChannelStart.Click += new System.EventHandler(this.startChannelsToolStripMenuItem1_Click);
+            resources.ApplyResources(this.ContextMenuItemLiveEventStart, "ContextMenuItemChannelStart");
+            this.ContextMenuItemLiveEventStart.Name = "ContextMenuItemChannelStart";
+            this.ContextMenuItemLiveEventStart.Click += new System.EventHandler(this.startLiveEventsToolStripMenuItem1_Click);
             // 
             // ContextMenuItemChannelStop
             // 
-            resources.ApplyResources(this.ContextMenuItemChannelStop, "ContextMenuItemChannelStop");
-            this.ContextMenuItemChannelStop.Name = "ContextMenuItemChannelStop";
-            this.ContextMenuItemChannelStop.Click += new System.EventHandler(this.stopChannelsToolStripMenuItem1_Click);
+            resources.ApplyResources(this.ContextMenuItemLiveEventStop, "ContextMenuItemChannelStop");
+            this.ContextMenuItemLiveEventStop.Name = "ContextMenuItemChannelStop";
+            this.ContextMenuItemLiveEventStop.Click += new System.EventHandler(this.stopLiveEventsToolStripMenuItem1_Click);
             // 
             // ContextMenuItemChannelReset
             // 
-            resources.ApplyResources(this.ContextMenuItemChannelReset, "ContextMenuItemChannelReset");
-            this.ContextMenuItemChannelReset.Name = "ContextMenuItemChannelReset";
-            this.ContextMenuItemChannelReset.Click += new System.EventHandler(this.resetChannelsToolStripMenuItem1_Click);
+            resources.ApplyResources(this.ContextMenuItemLiveEventReset, "ContextMenuItemChannelReset");
+            this.ContextMenuItemLiveEventReset.Name = "ContextMenuItemChannelReset";
+            this.ContextMenuItemLiveEventReset.Click += new System.EventHandler(this.resetLiveEventsToolStripMenuItem1_Click);
             // 
             // cloneChannelsToolStripMenuItem
             // 
-            resources.ApplyResources(this.cloneChannelsToolStripMenuItem, "cloneChannelsToolStripMenuItem");
-            this.cloneChannelsToolStripMenuItem.Name = "cloneChannelsToolStripMenuItem";
-            this.cloneChannelsToolStripMenuItem.Click += new System.EventHandler(this.cloneChannelsToolStripMenuItem_Click);
+            resources.ApplyResources(this.cloneLiveEventsToolStripMenuItem, "cloneChannelsToolStripMenuItem");
+            this.cloneLiveEventsToolStripMenuItem.Name = "cloneChannelsToolStripMenuItem";
+            this.cloneLiveEventsToolStripMenuItem.Click += new System.EventHandler(this.cloneLiveEventsToolStripMenuItem_Click);
             // 
             // ContextMenuItemChannelDelete
             // 
-            resources.ApplyResources(this.ContextMenuItemChannelDelete, "ContextMenuItemChannelDelete");
-            this.ContextMenuItemChannelDelete.Name = "ContextMenuItemChannelDelete";
-            this.ContextMenuItemChannelDelete.Click += new System.EventHandler(this.deleteChannelsToolStripMenuItem1_Click);
+            resources.ApplyResources(this.ContextMenuItemLiveEventDelete, "ContextMenuItemChannelDelete");
+            this.ContextMenuItemLiveEventDelete.Name = "ContextMenuItemChannelDelete";
+            this.ContextMenuItemLiveEventDelete.Click += new System.EventHandler(this.deleteLiveEventsToolStripMenuItem1_Click);
             // 
             // toolStripSeparator14
             // 
@@ -1844,49 +1844,49 @@
             // 
             // ContextMenuItemChannelCopyIngestURLToClipboard
             // 
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMenuItemLiveEventCopyIngestURLToClipboard.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.inputURLMToolStripMenuItem1,
             this.inputURLMToolStripMenuItem2,
             this.inputURLMToolStripMenuItem3,
             this.inputURLMToolStripMenuItem4});
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.Name = "ContextMenuItemChannelCopyIngestURLToClipboard";
-            resources.ApplyResources(this.ContextMenuItemChannelCopyIngestURLToClipboard, "ContextMenuItemChannelCopyIngestURLToClipboard");
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.DropDownOpening += new System.EventHandler(this.ContextMenuItemChannelCopyIngestURLToClipboard_DropDownOpening);
+            this.ContextMenuItemLiveEventCopyIngestURLToClipboard.Name = "ContextMenuItemChannelCopyIngestURLToClipboard";
+            resources.ApplyResources(this.ContextMenuItemLiveEventCopyIngestURLToClipboard, "ContextMenuItemChannelCopyIngestURLToClipboard");
+            this.ContextMenuItemLiveEventCopyIngestURLToClipboard.DropDownOpening += new System.EventHandler(this.ContextMenuItemLiveEventCopyIngestURLToClipboard_DropDownOpening);
             // 
             // inputURLMToolStripMenuItem1
             // 
             this.inputURLMToolStripMenuItem1.Name = "inputURLMToolStripMenuItem1";
             resources.ApplyResources(this.inputURLMToolStripMenuItem1, "inputURLMToolStripMenuItem1");
             this.inputURLMToolStripMenuItem1.Tag = "Input 1 Url ({0})...";
-            this.inputURLMToolStripMenuItem1.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboard);
+            this.inputURLMToolStripMenuItem1.Click += new System.EventHandler(this.DoCopyLiveEventInputURLToClipboard);
             // 
             // inputURLMToolStripMenuItem2
             // 
             this.inputURLMToolStripMenuItem2.Name = "inputURLMToolStripMenuItem2";
             resources.ApplyResources(this.inputURLMToolStripMenuItem2, "inputURLMToolStripMenuItem2");
             this.inputURLMToolStripMenuItem2.Tag = "Input 2 Url ({0})...";
-            this.inputURLMToolStripMenuItem2.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboard);
+            this.inputURLMToolStripMenuItem2.Click += new System.EventHandler(this.DoCopyLiveEventInputURLToClipboard);
             // 
             // inputURLMToolStripMenuItem3
             // 
             this.inputURLMToolStripMenuItem3.Name = "inputURLMToolStripMenuItem3";
             resources.ApplyResources(this.inputURLMToolStripMenuItem3, "inputURLMToolStripMenuItem3");
             this.inputURLMToolStripMenuItem3.Tag = "Input 3 Url ({0})...";
-            this.inputURLMToolStripMenuItem3.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboard);
+            this.inputURLMToolStripMenuItem3.Click += new System.EventHandler(this.DoCopyLiveEventInputURLToClipboard);
             // 
             // inputURLMToolStripMenuItem4
             // 
             this.inputURLMToolStripMenuItem4.Name = "inputURLMToolStripMenuItem4";
             resources.ApplyResources(this.inputURLMToolStripMenuItem4, "inputURLMToolStripMenuItem4");
             this.inputURLMToolStripMenuItem4.Tag = "Input 4 Url ({0})...";
-            this.inputURLMToolStripMenuItem4.Click += new System.EventHandler(this.DoCopyChannelInputURLToClipboard);
+            this.inputURLMToolStripMenuItem4.Click += new System.EventHandler(this.DoCopyLiveEventInputURLToClipboard);
             // 
             // ContextMenuItemChannelRunOnPremisesLiveEncoder
             // 
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Name = "ContextMenuItemChannelRunOnPremisesLiveEncoder";
-            resources.ApplyResources(this.ContextMenuItemChannelRunOnPremisesLiveEncoder, "ContextMenuItemChannelRunOnPremisesLiveEncoder");
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Click += new System.EventHandler(this.runALocalEncoderToolStripMenuItem_Click);
+            this.ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Name = "ContextMenuItemChannelRunOnPremisesLiveEncoder";
+            resources.ApplyResources(this.ContextMenuItemLiveEventRunOnPremisesLiveEncoder, "ContextMenuItemChannelRunOnPremisesLiveEncoder");
+            this.ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Click += new System.EventHandler(this.runALocalEncoderToolStripMenuItem_Click);
             // 
             // toolStripSeparator19
             // 
@@ -1895,9 +1895,9 @@
             // 
             // ContextMenuItemChannelCopyPreviewURLToClipboard
             // 
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Name = "ContextMenuItemChannelCopyPreviewURLToClipboard";
-            resources.ApplyResources(this.ContextMenuItemChannelCopyPreviewURLToClipboard, "ContextMenuItemChannelCopyPreviewURLToClipboard");
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Click += new System.EventHandler(this.copyPreviewURLToClipboard_Click);
+            this.ContextMenuItemLiveEventCopyPreviewURLToClipboard.Name = "ContextMenuItemChannelCopyPreviewURLToClipboard";
+            resources.ApplyResources(this.ContextMenuItemLiveEventCopyPreviewURLToClipboard, "ContextMenuItemChannelCopyPreviewURLToClipboard");
+            this.ContextMenuItemLiveEventCopyPreviewURLToClipboard.Click += new System.EventHandler(this.copyPreviewURLToClipboard_Click);
             // 
             // playbackTheProgramToolStripMenuItem
             // 
@@ -1914,29 +1914,29 @@
             // 
             // labelChannels
             // 
-            resources.ApplyResources(this.labelChannels, "labelChannels");
-            this.labelChannels.Name = "labelChannels";
+            resources.ApplyResources(this.labelLiveEvents, "labelChannels");
+            this.labelLiveEvents.Name = "labelChannels";
             // 
             // comboBoxSearchChannelOption
             // 
-            resources.ApplyResources(this.comboBoxSearchChannelOption, "comboBoxSearchChannelOption");
-            this.comboBoxSearchChannelOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSearchChannelOption.FormattingEnabled = true;
-            this.comboBoxSearchChannelOption.Name = "comboBoxSearchChannelOption";
+            resources.ApplyResources(this.comboBoxSearchLiveEventOption, "comboBoxSearchChannelOption");
+            this.comboBoxSearchLiveEventOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchLiveEventOption.FormattingEnabled = true;
+            this.comboBoxSearchLiveEventOption.Name = "comboBoxSearchChannelOption";
             // 
             // textBoxSearchNameChannel
             // 
-            resources.ApplyResources(this.textBoxSearchNameChannel, "textBoxSearchNameChannel");
-            this.textBoxSearchNameChannel.Name = "textBoxSearchNameChannel";
-            this.toolTip1.SetToolTip(this.textBoxSearchNameChannel, resources.GetString("textBoxSearchNameChannel.ToolTip"));
-            this.textBoxSearchNameChannel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearchNameChannel_KeyDown);
+            resources.ApplyResources(this.textBoxSearchNameLiveEvent, "textBoxSearchNameChannel");
+            this.textBoxSearchNameLiveEvent.Name = "textBoxSearchNameChannel";
+            this.toolTip1.SetToolTip(this.textBoxSearchNameLiveEvent, resources.GetString("textBoxSearchNameChannel.ToolTip"));
+            this.textBoxSearchNameLiveEvent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearchNameLiveEvent_KeyDown);
             // 
             // buttonSetFilterChannel
             // 
-            resources.ApplyResources(this.buttonSetFilterChannel, "buttonSetFilterChannel");
-            this.buttonSetFilterChannel.Name = "buttonSetFilterChannel";
-            this.buttonSetFilterChannel.UseVisualStyleBackColor = true;
-            this.buttonSetFilterChannel.Click += new System.EventHandler(this.buttonSetFilterChannel_Click);
+            resources.ApplyResources(this.buttonSetFilterLiveEvent, "buttonSetFilterChannel");
+            this.buttonSetFilterLiveEvent.Name = "buttonSetFilterChannel";
+            this.buttonSetFilterLiveEvent.UseVisualStyleBackColor = true;
+            this.buttonSetFilterLiveEvent.Click += new System.EventHandler(this.buttonSetFilterLiveEvent_Click);
             // 
             // label25
             // 
@@ -1945,11 +1945,11 @@
             // 
             // comboBoxStatusChannel
             // 
-            resources.ApplyResources(this.comboBoxStatusChannel, "comboBoxStatusChannel");
-            this.comboBoxStatusChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStatusChannel.FormattingEnabled = true;
-            this.comboBoxStatusChannel.Name = "comboBoxStatusChannel";
-            this.comboBoxStatusChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusChannel_SelectedIndexChanged);
+            resources.ApplyResources(this.comboBoxStatusLiveEvent, "comboBoxStatusChannel");
+            this.comboBoxStatusLiveEvent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatusLiveEvent.FormattingEnabled = true;
+            this.comboBoxStatusLiveEvent.Name = "comboBoxStatusChannel";
+            this.comboBoxStatusLiveEvent.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusLiveEvent_SelectedIndexChanged);
             // 
             // label24
             // 
@@ -1958,11 +1958,11 @@
             // 
             // comboBoxFilterTimeChannel
             // 
-            resources.ApplyResources(this.comboBoxFilterTimeChannel, "comboBoxFilterTimeChannel");
-            this.comboBoxFilterTimeChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterTimeChannel.FormattingEnabled = true;
-            this.comboBoxFilterTimeChannel.Name = "comboBoxFilterTimeChannel";
-            this.comboBoxFilterTimeChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTimeChannel_SelectedIndexChanged);
+            resources.ApplyResources(this.comboBoxFilterTimeLiveEvent, "comboBoxFilterTimeChannel");
+            this.comboBoxFilterTimeLiveEvent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterTimeLiveEvent.FormattingEnabled = true;
+            this.comboBoxFilterTimeLiveEvent.Name = "comboBoxFilterTimeChannel";
+            this.comboBoxFilterTimeLiveEvent.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTimeLiveEvent_SelectedIndexChanged);
             // 
             // tabPageOrigins
             // 
@@ -2204,7 +2204,7 @@
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assetToolStripMenuItem,
-            this.liveChannelToolStripMenuItem,
+            this.liveLiveEventToolStripMenuItem,
             this.originToolStripMenuItem,
             this.managementToolStripMenuItem,
             this.toolStripMenuItem1,
@@ -2356,20 +2356,20 @@
             // 
             // liveChannelToolStripMenuItem
             // 
-            this.liveChannelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.liveLiveEventToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createChannelToolStripMenuItem,
             this.runAnOnpremisesLiveEncoderToolStripMenuItem,
             this.toolStripSeparator15,
             this.createProgramToolStripMenuItem1});
-            resources.ApplyResources(this.liveChannelToolStripMenuItem, "liveChannelToolStripMenuItem");
-            this.liveChannelToolStripMenuItem.Name = "liveChannelToolStripMenuItem";
-            this.liveChannelToolStripMenuItem.DropDownOpening += new System.EventHandler(this.liveChannelToolStripMenuItem_DropDownOpening);
+            resources.ApplyResources(this.liveLiveEventToolStripMenuItem, "liveChannelToolStripMenuItem");
+            this.liveLiveEventToolStripMenuItem.Name = "liveChannelToolStripMenuItem";
+            this.liveLiveEventToolStripMenuItem.DropDownOpening += new System.EventHandler(this.liveLiveEventToolStripMenuItem_DropDownOpening);
             // 
             // createChannelToolStripMenuItem
             // 
             resources.ApplyResources(this.createChannelToolStripMenuItem, "createChannelToolStripMenuItem");
             this.createChannelToolStripMenuItem.Name = "createChannelToolStripMenuItem";
-            this.createChannelToolStripMenuItem.Click += new System.EventHandler(this.createChannelToolStripMenuItem_Click);
+            this.createChannelToolStripMenuItem.Click += new System.EventHandler(this.createLiveEventToolStripMenuItem_Click);
             // 
             // runAnOnpremisesLiveEncoderToolStripMenuItem
             // 
@@ -2744,8 +2744,8 @@
             this.panelPrograms.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveOutputV)).EndInit();
             this.contextMenuStripLiveOutputs.ResumeLayout(false);
-            this.panelChannels.ResumeLayout(false);
-            this.panelChannels.PerformLayout();
+            this.panelLiveEvents.ResumeLayout(false);
+            this.panelLiveEvents.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiveEventsV)).EndInit();
             this.contextMenuStripLiveEvents.ResumeLayout(false);
             this.tabPageOrigins.ResumeLayout(false);
@@ -2848,7 +2848,7 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageLive;
-        private System.Windows.Forms.ToolStripMenuItem liveChannelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem liveLiveEventToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createChannelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem createProgramToolStripMenuItem1;
@@ -2857,11 +2857,11 @@
         private System.Windows.Forms.ToolStripMenuItem originToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createOriginToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLiveEvents;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemChannelDisplayInfomation;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemChannelStart;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemChannelStop;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemChannelReset;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemChannelDelete;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventDisplayInfomation;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventStart;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventStop;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventReset;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventDelete;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLiveOutputs;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramDisplayInformation;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramDelete;
@@ -2871,8 +2871,8 @@
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemOriginStop;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemOriginDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemChannelCopyIngestURLToClipboard;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemChannelCopyPreviewURLToClipboard;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventCopyIngestURLToClipboard;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventCopyPreviewURLToClipboard;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramPlayback;
         private System.Windows.Forms.ToolStripMenuItem batchUploadToolStripMenuItem;
@@ -2949,14 +2949,14 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem19;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem20;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemChannelRunOnPremisesLiveEncoder;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventRunOnPremisesLiveEncoder;
         private System.Windows.Forms.ToolStripMenuItem runAnOnpremisesLiveEncoderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramCopyTheOutputURLToClipboard;
-        private System.Windows.Forms.Label labelChannels;
+        private System.Windows.Forms.Label labelLiveEvents;
         private DataGridViewLiveEvent dataGridViewLiveEventsV;
         private System.Windows.Forms.Label labelPrograms;
         private System.Windows.Forms.Label label15;
@@ -2966,11 +2966,11 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button buttonSetFilterProgram;
         private System.Windows.Forms.TextBox textBoxSearchNameProgram;
-        private System.Windows.Forms.Button buttonSetFilterChannel;
-        private System.Windows.Forms.TextBox textBoxSearchNameChannel;
+        private System.Windows.Forms.Button buttonSetFilterLiveEvent;
+        private System.Windows.Forms.TextBox textBoxSearchNameLiveEvent;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.ComboBox comboBoxFilterTimeChannel;
-        private System.Windows.Forms.ComboBox comboBoxStatusChannel;
+        private System.Windows.Forms.ComboBox comboBoxFilterTimeLiveEvent;
+        private System.Windows.Forms.ComboBox comboBoxStatusLiveEvent;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
@@ -2984,7 +2984,7 @@
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem25;
-        private System.Windows.Forms.ToolStripMenuItem cloneChannelsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cloneLiveEventsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subclipToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem informationToExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
@@ -2993,7 +2993,7 @@
         private System.Windows.Forms.ComboBox comboBoxSearchAssetOption;
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
         private System.Windows.Forms.ComboBox comboBoxSearchProgramOption;
-        private System.Windows.Forms.ComboBox comboBoxSearchChannelOption;
+        private System.Windows.Forms.ComboBox comboBoxSearchLiveEventOption;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyReportToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem30;
@@ -3028,7 +3028,7 @@
         private System.Windows.Forms.RadioButton radioButtonChSelected;
         private System.Windows.Forms.RadioButton radioButtonChNone;
         private System.Windows.Forms.RadioButton radioButtonChAll;
-        private System.Windows.Forms.Panel panelChannels;
+        private System.Windows.Forms.Panel panelLiveEvents;
         private System.Windows.Forms.Panel panelPrograms;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem38;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;

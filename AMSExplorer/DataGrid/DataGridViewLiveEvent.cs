@@ -30,15 +30,15 @@ namespace AMSExplorer
 {
     public class DataGridViewLiveEvent : DataGridView
     {
-        public int ChannelsPerPage
+        public int LiveEventsPerPage
         {
             get
             {
-                return _channelsperpage;
+                return _liveeventsperpage;
             }
             set
             {
-                _channelsperpage = value;
+                _liveeventsperpage = value;
             }
         }
         public int PageCount
@@ -122,14 +122,14 @@ namespace AMSExplorer
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
         static SortableBindingList<LiveEventEntry> _MyObservLiveEvent;
 
-        static private int _channelsperpage = 50; //nb of items per page
+        static private int _liveeventsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
         static string _statefilter = "All";
         private AMSClientV3 _client;
-        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ChannelName, Text = string.Empty };
+        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.LiveEventName, Text = string.Empty };
         static private string _timefilter = FilterTime.LastWeek;
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static BackgroundWorker WorkerRefreshChannels;
@@ -252,11 +252,11 @@ namespace AMSExplorer
             if ((page <= _pagecount) && (page > 0))
             {
                 _currentpage = page;
-                this.DataSource = new BindingList<LiveEventEntry>(_MyObservLiveEvent.Skip(_channelsperpage * (page - 1)).Take(_channelsperpage).ToList());
+                this.DataSource = new BindingList<LiveEventEntry>(_MyObservLiveEvent.Skip(_liveeventsperpage * (page - 1)).Take(_liveeventsperpage).ToList());
             }
         }
 
-        public void RefreshChannel(LiveEvent liveEventItem)
+        public void RefreshLiveEvent(LiveEvent liveEventItem)
         {
             int index = -1;
             foreach (LiveEventEntry CE in _MyObservLiveEvent) // let's search for index

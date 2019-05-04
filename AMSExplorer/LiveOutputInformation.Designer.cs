@@ -39,7 +39,7 @@
             this.numericUpDownArchiveHours = new System.Windows.Forms.NumericUpDown();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.DGChannel = new System.Windows.Forms.DataGridView();
+            this.DGLiveEvent = new System.Windows.Forms.DataGridView();
             this.buttonDisplayRelatedAsset = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.labelProgramName = new System.Windows.Forms.Label();
@@ -51,7 +51,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -78,7 +78,7 @@
             this.tabPageInfo.Controls.Add(this.numericUpDownArchiveHours);
             this.tabPageInfo.Controls.Add(this.pictureBox1);
             this.tabPageInfo.Controls.Add(this.label5);
-            this.tabPageInfo.Controls.Add(this.DGChannel);
+            this.tabPageInfo.Controls.Add(this.DGLiveEvent);
             resources.ApplyResources(this.tabPageInfo, "tabPageInfo");
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.UseVisualStyleBackColor = true;
@@ -127,18 +127,18 @@
             // 
             // DGChannel
             // 
-            this.DGChannel.AllowUserToAddRows = false;
-            this.DGChannel.AllowUserToDeleteRows = false;
-            this.DGChannel.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGChannel, "DGChannel");
-            this.DGChannel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DGChannel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGChannel.ColumnHeadersVisible = false;
-            this.DGChannel.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGChannel.MultiSelect = false;
-            this.DGChannel.Name = "DGChannel";
-            this.DGChannel.ReadOnly = true;
-            this.DGChannel.RowHeadersVisible = false;
+            this.DGLiveEvent.AllowUserToAddRows = false;
+            this.DGLiveEvent.AllowUserToDeleteRows = false;
+            this.DGLiveEvent.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.DGLiveEvent, "DGChannel");
+            this.DGLiveEvent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGLiveEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGLiveEvent.ColumnHeadersVisible = false;
+            this.DGLiveEvent.ContextMenuStrip = this.contextMenuStripDG;
+            this.DGLiveEvent.MultiSelect = false;
+            this.DGLiveEvent.Name = "DGChannel";
+            this.DGLiveEvent.ReadOnly = true;
+            this.DGLiveEvent.RowHeadersVisible = false;
             // 
             // buttonDisplayRelatedAsset
             // 
@@ -203,7 +203,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -215,7 +215,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
         private System.Windows.Forms.TabPage tabPageInfo;
-        private System.Windows.Forms.DataGridView DGChannel;
+        private System.Windows.Forms.DataGridView DGLiveEvent;
         private System.Windows.Forms.Button buttonDisplayRelatedAsset;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label labelProgramName;

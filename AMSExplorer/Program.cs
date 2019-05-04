@@ -735,8 +735,8 @@ namespace AMSExplorer
         public const string NameconvEncodername = "{Encoder}";
         public const string NameconvProcessorname = "{Processor}";
         public const string NameconvProcessorversion = "{Processor Version}";
-        public const string NameconvChannel = "{LiveEvent}";
-        public const string NameconvProgram = "{LiveOutput}";
+        public const string NameconvLiveEvent = "{LiveEvent}";
+        public const string NameconvLiveOutput = "{LiveOutput}";
         public const string NameconvProtocols = "{Protocols}";
         public const string NameconvContentKeyType = "{Content key type}";
         public const string NameconvManifestURL = "{manifest url}";
@@ -4043,10 +4043,10 @@ namespace AMSExplorer
         TaskName,
         TaskId,
         TaskProcessorId,
-        ChannelName,
-        ChannelId,
-        ProgramName,
-        ProgramId
+        LiveEventName,
+        LiveEventId,
+        LiveOutputName,
+        LiveOutputId
     }
 
     public enum DownloadToFolderOption

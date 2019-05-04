@@ -133,7 +133,7 @@
     <value>4</value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
-    <value>Create Channel</value>
+    <value>Create live event</value>
   </data>
   <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
     <value>buttonOk</value>
@@ -1030,7 +1030,7 @@
     <value>12, 105</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 15</value>
+    <value>182, 15</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>

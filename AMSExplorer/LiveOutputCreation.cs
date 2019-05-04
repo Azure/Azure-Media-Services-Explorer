@@ -25,7 +25,7 @@ namespace AMSExplorer
 {
     public partial class LiveOutputCreation : Form
     {
-        public string ChannelName;
+        public string LiveEventName;
         private AMSClientV3 _client;
 
         public string ProgramName
@@ -40,7 +40,7 @@ namespace AMSExplorer
             set { textBoxDescription.Text = value; }
         }
 
-        public TimeSpan archiveWindowLength
+        public TimeSpan ArchiveWindowLength
         {
             get
             {
@@ -140,7 +140,7 @@ namespace AMSExplorer
 
         private void LiveOutputCreation_Load(object sender, EventArgs e)
         {
-            this.Text = string.Format(this.Text, ChannelName);
+            this.Text = string.Format(this.Text, LiveEventName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
 
             _client.RefreshTokenIfNeeded();
