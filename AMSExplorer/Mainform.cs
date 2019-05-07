@@ -8487,7 +8487,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                JobInputHttp jobInput = new JobInputHttp(files: new[] { form.GetURL.ToString() });
+                JobInputHttp jobInput = new JobInputHttp(files: new[] { form.GetURL.OriginalString });
 
                 foreach (var transform in sel)
                 {
@@ -8497,8 +8497,6 @@ namespace AMSExplorer
 
                     try
                     {
-
-
                         var outputAsset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(
                                                                     _amsClientV3.credentialsEntry.ResourceGroup,
                                                                     _amsClientV3.credentialsEntry.AccountName,
