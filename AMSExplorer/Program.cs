@@ -3630,12 +3630,19 @@ namespace AMSExplorer
        where entity.PartitionKey.CompareTo(start) >= 0
        select entity;
 
-            var results = query.ToList().Where(m => m.RowKey == "data");
-            if (results.LastOrDefault() != null)
+            try
             {
-                return results.LastOrDefault().Capacity;
+                var results = query.ToList().Where(m => m.RowKey == "data");
+                if (results.LastOrDefault() != null)
+                {
+                    return results.LastOrDefault().Capacity;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
+            catch
             {
                 return null;
             }

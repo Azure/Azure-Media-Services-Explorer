@@ -56,6 +56,9 @@
   <PropertyGroup>
     <ApplicationIcon>BitmapsPNG\Azure Explorer_ico.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hyak.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Hyak.Common.1.2.2\lib\net452\Hyak.Common.dll</HintPath>
@@ -496,6 +499,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="app.manifest" />
     <None Include="BitmapsPNG\redactor-blur-black.png" />
     <None Include="BitmapsPNG\redactor-blur-debug.png" />
     <None Include="BitmapsPNG\redactor-blur-high.png" />
