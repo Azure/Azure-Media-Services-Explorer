@@ -63,8 +63,7 @@ namespace AMSExplorer
             }
         }
 
-    
-
+      
         public string ForceLocatorGuid
         {
             get
@@ -104,6 +103,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool SASMode
+        {
+            get
+            {
+                return radioButtonSAS.Checked;
+            }
+        }
+
         public CreateLocator(bool extendlocator = false)
         {
             InitializeComponent();
@@ -113,7 +120,7 @@ namespace AMSExplorer
                 buttonOk.Text = AMSExplorer.Properties.Resources.CreateLocator_CreateLocator_UpdateLocatorS;
                 this.Text = AMSExplorer.Properties.Resources.CreateLocator_CreateLocator_UpdateLocators2;
                 radioButtonSAS.Enabled = false; // only streaming locator can be updated
-                groupBox2.Enabled = false; // do not propose to specificy start date
+                groupBoxStart.Enabled = false; // do not propose to specificy start date
             }
         }
 
@@ -158,6 +165,8 @@ namespace AMSExplorer
 
         private void UpdateLocatorGUID_CheckedChanged(object sender, EventArgs e)
         {
+            groupBoxEnd.Visible =
+            groupBoxStart.Visible =
             groupBoxForceLocator.Visible = radioButtonOrigin.Checked;
             textBoxLocatorGUID.Enabled = checkBoxForLocatorGUID.Checked;
         }

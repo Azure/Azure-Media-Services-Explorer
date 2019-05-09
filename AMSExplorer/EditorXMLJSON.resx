@@ -217,7 +217,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxConfiguration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 460</value>
+    <value>593, 460</value>
   </data>
   <data name="textBoxConfiguration.TabIndex" type="System.Int32, mscorlib">
     <value>67</value>
@@ -267,11 +267,14 @@
   <data name="buttonInsertSample.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <data name="buttonInsertSample.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonInsertSample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 42</value>
+    <value>611, 42</value>
   </data>
   <data name="buttonInsertSample.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 23</value>
+    <value>164, 23</value>
   </data>
   <data name="buttonInsertSample.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
@@ -297,17 +300,20 @@
   <data name="buttonCopyClipboard.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
+  <data name="buttonCopyClipboard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonCopyClipboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 13</value>
+    <value>611, 13</value>
   </data>
   <data name="buttonCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 23</value>
+    <value>164, 23</value>
   </data>
   <data name="buttonCopyClipboard.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
   </data>
   <data name="buttonCopyClipboard.Text" xml:space="preserve">
-    <value>Copy to clipboard</value>
+    <value>Copy all to clipboard</value>
   </data>
   <data name="&gt;&gt;buttonCopyClipboard.Name" xml:space="preserve">
     <value>buttonCopyClipboard</value>
@@ -324,11 +330,14 @@
   <data name="buttonFormat.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <data name="buttonFormat.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonFormat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 71</value>
+    <value>611, 71</value>
   </data>
   <data name="buttonFormat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 23</value>
+    <value>164, 23</value>
   </data>
   <data name="buttonFormat.TabIndex" type="System.Int32, mscorlib">
     <value>81</value>
@@ -352,10 +361,10 @@
     <value>Top, Right</value>
   </data>
   <data name="labelInfoText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 107</value>
+    <value>611, 107</value>
   </data>
   <data name="labelInfoText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 80</value>
+    <value>164, 80</value>
   </data>
   <data name="labelInfoText.TabIndex" type="System.Int32, mscorlib">
     <value>82</value>

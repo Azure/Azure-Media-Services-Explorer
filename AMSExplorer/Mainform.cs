@@ -215,12 +215,12 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
 
 
-                
+
                 double nbLiveEvents = (double)_amsClientV3.AMSclient.LiveEvents.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).Count();
                 double nbse = (double)se.Count();
                 if (nbse > 0 && nbLiveEvents > 0 && (nbLiveEvents / nbse) > 5)
                     TextBoxLogWriteLine("There are {0} live events and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 live events.", nbLiveEvents, nbse, true); // Warning
-                    
+
             }
             catch (Exception ex)
             {
@@ -1970,7 +1970,6 @@ namespace AMSExplorer
         }
 
 
-
         private async void DoCreateLocator(List<Asset> SelectedAssets)
         {
             string labelAssetName;
@@ -2005,73 +2004,112 @@ namespace AMSExplorer
                 {
                     _amsClientV3.RefreshTokenIfNeeded();
 
-                    // The duration for the locator's access policy.
-                    TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
-                    if (form.LocatorStartDate != null)
+                    if (form.SASMode)
                     {
-                        accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
+                        var result = await Task.Run(() =>
+                        ProcessCreateLocatorSAS(SelectedAssets)
+                        );
+
+                        var displayResult = new EditorXMLJSON("SAS Urls", result, false, false, false);
+                        displayResult.ShowDialog();
+
                     }
-
-                    // DRM
-                    ContentKeyPolicy keyPolicy = null;
-                    DRM_Config_TokenClaims formJwt = null;
-                    if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                    else // Streaming
                     {
-
-                        formJwt = new DRM_Config_TokenClaims(1, 1, "PlayReady", null, true);
-
-                        if (formJwt.ShowDialog() != DialogResult.OK)
+                        // The duration for the locator's access policy.
+                        TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
+                        if (form.LocatorStartDate != null)
                         {
-                            return;
+                            accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
                         }
-                        else
+
+                        // DRM
+                        ContentKeyPolicy keyPolicy = null;
+                        DRM_Config_TokenClaims formJwt = null;
+                        if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                         {
-                            keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(
-                               _amsClientV3.credentialsEntry.ResourceGroup,
-                                _amsClientV3.credentialsEntry.AccountName,
-                                "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
-                                new List<ContentKeyPolicyOption> { formJwt.Option });
 
+                            formJwt = new DRM_Config_TokenClaims(1, 1, "PlayReady", null, true);
+
+                            if (formJwt.ShowDialog() != DialogResult.OK)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(
+                                   _amsClientV3.credentialsEntry.ResourceGroup,
+                                    _amsClientV3.credentialsEntry.AccountName,
+                                    "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
+                                    new List<ContentKeyPolicyOption> { formJwt.Option });
+
+                            }
                         }
-                    }
 
-                    sbuilder.Clear();
+                        sbuilder.Clear();
 
-                    try
-                    {
-                        var locatorNames = await Task.Run(() =>
-                        ProcessCreateLocatorV3(form.StreamingPolicyName, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid, keyPolicy));
-
-                        if (formJwt != null && formJwt.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
+                        try
                         {
-                            // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
-                            // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
-                            // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
-                            // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
-                            var response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
-                                    _amsClientV3.credentialsEntry.AccountName, locatorNames.FirstOrDefault());
-                            string keyIdentifier = response.ContentKeys.First().Id.ToString();
-                            TextBoxLogWriteLine("Test token (60 min) : {0}", Constants.Bearer + formJwt.GetTestToken(keyIdentifier));
+                            var listLocators = await Task.Run(() =>
+                            ProcessCreateLocatorV3(form.StreamingPolicyName, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid, keyPolicy));
+
+                            var SEList = await _amsClientV3.AMSclient.StreamingEndpoints.ListAsync(
+                                 _amsClientV3.credentialsEntry.ResourceGroup,
+                                  _amsClientV3.credentialsEntry.AccountName
+                                 );
+
+                            foreach (var loc in listLocators)
+                            {
+                                sbuilder.AppendLine(string.Format("Asset name : {0}", loc.AssetName));
+                                sbuilder.AppendLine("===============" + new string('=', loc.AssetName.Length));
+                                sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
+                                sbuilder.AppendLine(string.Empty);
+                                foreach (var path in loc.Paths)
+                                {
+                                    sbuilder.AppendLine(path.StreamingProtocol);
+                                    foreach (var se in SEList)
+                                    {
+                                        path.Paths.ToList().ForEach(p => sbuilder.AppendLine(se.HostName + p));
+                                    }
+                                    sbuilder.AppendLine(string.Empty);
+                                }
+                                sbuilder.AppendLine(string.Empty);
+                            }
+
+                            if (formJwt != null && formJwt.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
+                            {
+                                // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
+                                // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
+                                // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
+                                // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
+                                var response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
+                                        _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
+                                string keyIdentifier = response.ContentKeys.First().Id.ToString();
+
+                                sbuilder.AppendLine(string.Format("Test token (60 min) : {0}", Constants.Bearer + formJwt.GetTestToken(keyIdentifier)));
+                            }
+
+                            var displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
+                            displayResult.ShowDialog();
+                        }
+
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when creating a locator", true);
+                            TextBoxLogWriteLine(e);
                         }
                     }
-
-                    catch (Exception e)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when creating a locator", true);
-                        TextBoxLogWriteLine(e);
-                    }
-
                 }
             }
         }
 
 
-        private List<string> ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy)
+        private List<LocatorAndUrls> ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy)
         {
             _amsClientV3.RefreshTokenIfNeeded();
 
-            var listLocatorNames = new List<string>();
+            var listLocatorNames = new List<LocatorAndUrls>();
 
             foreach (var AssetToP in assets)
             {
@@ -2083,7 +2121,6 @@ namespace AMSExplorer
                     var uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
                     var streamingLocatorName = "locator-" + uniqueness;
 
-                    listLocatorNames.Add(streamingLocatorName);
 
                     locator = new StreamingLocator(
                         assetName: AssetToP.Name,
@@ -2099,6 +2136,9 @@ namespace AMSExplorer
 
                     TextBoxLogWriteLine("Locator created : {0}", locator.Name);
                     var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locator.Name).StreamingPaths;
+
+                    listLocatorNames.Add(new LocatorAndUrls() { AssetName = AssetToP.Name, LocatorName = streamingLocatorName, Paths = streamingPaths.ToList() });
+
                 }
 
                 catch (Exception ex)
@@ -2114,6 +2154,55 @@ namespace AMSExplorer
 
             return listLocatorNames;
         }
+
+        private async Task<string> ProcessCreateLocatorSAS(List<Asset> assets)
+        {
+            _amsClientV3.RefreshTokenIfNeeded();
+
+            StringBuilder stringLines = new StringBuilder();
+
+            const int ListBlobsSegmentMaxResult = 100;
+
+
+            foreach (var AssetToP in assets)
+            {
+                AssetContainerSas assetContainerSas = await _amsClientV3.AMSclient.Assets.ListContainerSasAsync(
+                                                               _amsClientV3.credentialsEntry.ResourceGroup,
+                                                               _amsClientV3.credentialsEntry.AccountName,
+                                                               AssetToP.Name,
+                                                               permissions: AssetContainerPermission.Read,
+                                                               expiryTime: DateTime.Now.AddHours(24).ToUniversalTime()
+                                                               );
+
+                Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
+                CloudBlobContainer container = new CloudBlobContainer(containerSasUrl);
+
+                stringLines.AppendLine("Asset : " + AssetToP.Name);
+                stringLines.AppendLine("========" + new string('=', AssetToP.Name.Length));
+                stringLines.AppendLine(string.Empty);
+                stringLines.AppendLine("SAS Container Path");
+                stringLines.AppendLine(containerSasUrl.ToString());
+                stringLines.AppendLine(string.Empty);
+
+                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, ListBlobsSegmentMaxResult, null, null, null);
+
+                foreach (IListBlobItem blobItem in segment.Results)
+                {
+                    CloudBlockBlob blob = blobItem as CloudBlockBlob;
+                    if (blob != null)
+                    {
+                        UriBuilder bloburl = new UriBuilder(containerSasUrl);
+                        bloburl.Path += "/" + blob.Name;
+                        stringLines.AppendLine(blob.Name);
+                        stringLines.AppendLine(bloburl.ToString());
+                        stringLines.AppendLine(string.Empty);
+                    }
+                }
+            }
+
+            return stringLines.ToString();
+        }
+
 
         public string AddBracket(string url)
         {

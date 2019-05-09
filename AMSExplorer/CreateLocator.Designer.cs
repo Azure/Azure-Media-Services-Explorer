@@ -32,13 +32,13 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxEnd = new System.Windows.Forms.GroupBox();
             this.radioButtonEndUnlimited = new System.Windows.Forms.RadioButton();
             this.radioButtonEndYear = new System.Windows.Forms.RadioButton();
             this.radioButtonEndCustom = new System.Windows.Forms.RadioButton();
             this.dateTimePickerEndTime = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxStart = new System.Windows.Forms.GroupBox();
             this.checkBoxStartDate = new System.Windows.Forms.CheckBox();
             this.dateTimePickerStartTime = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
@@ -55,8 +55,8 @@
             this.textBoxLocatorGUID = new System.Windows.Forms.TextBox();
             this.checkBoxForLocatorGUID = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxEnd.SuspendLayout();
+            this.groupBoxStart.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -83,16 +83,16 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // groupBox1
+            // groupBoxEnd
             // 
-            this.groupBox1.Controls.Add(this.radioButtonEndUnlimited);
-            this.groupBox1.Controls.Add(this.radioButtonEndYear);
-            this.groupBox1.Controls.Add(this.radioButtonEndCustom);
-            this.groupBox1.Controls.Add(this.dateTimePickerEndTime);
-            this.groupBox1.Controls.Add(this.dateTimePickerEndDate);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
+            this.groupBoxEnd.Controls.Add(this.radioButtonEndUnlimited);
+            this.groupBoxEnd.Controls.Add(this.radioButtonEndYear);
+            this.groupBoxEnd.Controls.Add(this.radioButtonEndCustom);
+            this.groupBoxEnd.Controls.Add(this.dateTimePickerEndTime);
+            this.groupBoxEnd.Controls.Add(this.dateTimePickerEndDate);
+            resources.ApplyResources(this.groupBoxEnd, "groupBoxEnd");
+            this.groupBoxEnd.Name = "groupBoxEnd";
+            this.groupBoxEnd.TabStop = false;
             // 
             // radioButtonEndUnlimited
             // 
@@ -131,14 +131,14 @@
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
             this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
             // 
-            // groupBox2
+            // groupBoxStart
             // 
-            this.groupBox2.Controls.Add(this.checkBoxStartDate);
-            this.groupBox2.Controls.Add(this.dateTimePickerStartTime);
-            this.groupBox2.Controls.Add(this.dateTimePickerStartDate);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
+            this.groupBoxStart.Controls.Add(this.checkBoxStartDate);
+            this.groupBoxStart.Controls.Add(this.dateTimePickerStartTime);
+            this.groupBoxStart.Controls.Add(this.dateTimePickerStartDate);
+            resources.ApplyResources(this.groupBoxStart, "groupBoxStart");
+            this.groupBoxStart.Name = "groupBoxStart";
+            this.groupBoxStart.TabStop = false;
             // 
             // checkBoxStartDate
             // 
@@ -266,15 +266,15 @@
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.labelAssetName);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxStart);
+            this.Controls.Add(this.groupBoxEnd);
             this.Controls.Add(this.label1);
             this.Name = "CreateLocator";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxEnd.ResumeLayout(false);
+            this.groupBoxEnd.PerformLayout();
+            this.groupBoxStart.ResumeLayout(false);
+            this.groupBoxStart.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -292,10 +292,10 @@
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxEnd;
         private System.Windows.Forms.DateTimePicker dateTimePickerEndTime;
         private System.Windows.Forms.DateTimePicker dateTimePickerEndDate;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxStart;
         private System.Windows.Forms.CheckBox checkBoxStartDate;
         private System.Windows.Forms.DateTimePicker dateTimePickerStartTime;
         private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;

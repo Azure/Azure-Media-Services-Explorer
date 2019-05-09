@@ -1366,7 +1366,7 @@ namespace AMSExplorer
         private const string audioTrack_url = "audioTrack={0}";
 
         private const string ManifestFileExtension = ".ism";
-      
+
 
         public AssetInfo(Asset myAsset, AMSClientV3 amsClient)
         {
@@ -1422,7 +1422,7 @@ namespace AMSExplorer
             }
             catch
             {
-                throw ;
+                throw;
             }
 
             return tempLocator;
@@ -4080,6 +4080,13 @@ namespace AMSExplorer
         public bool CanBeRunLocally { get; set; }
         public bool EnableSettings { get; set; }
         public string Comment { get; set; }
+    }
+
+    public class LocatorAndUrls
+    {
+        public List<StreamingPath> Paths { get; set; }
+        public string LocatorName { get; set; }
+        public string AssetName { get; set; }
     }
 
 
