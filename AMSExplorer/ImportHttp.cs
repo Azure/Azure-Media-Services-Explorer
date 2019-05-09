@@ -25,6 +25,7 @@ namespace AMSExplorer
 {
     public partial class ImportHttp : Form
     {
+        private bool _AzureStorageContainerSASListMode;
         private AMSClientV3 _amsClientV3;
         private string _uniqueness;
 
@@ -65,10 +66,12 @@ namespace AMSExplorer
             }
         }
 
-        public ImportHttp(AMSClientV3 amsClient)
+        public ImportHttp(AMSClientV3 amsClient, bool AzureStorageContainerSASListMode = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+
+            _AzureStorageContainerSASListMode = AzureStorageContainerSASListMode;
 
             _amsClientV3 = amsClient;
             _uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
@@ -80,6 +83,15 @@ namespace AMSExplorer
             textBoxAssetName.Text = "import-" + _uniqueness;
 
             _amsClientV3.RefreshTokenIfNeeded();
+
+
+            if (_AzureStorageContainerSASListMode)
+            {
+                labelExamples.Visible = false;
+                labelSASListExample.Visible = true;
+                labelTitle.Text = this.Text = AMSExplorer.Properties.Resources.ImportHttp_ImportHttp_Load_ImportFromSASContainerPath;
+            }
+
             var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
             comboBoxStorage.Items.Clear();

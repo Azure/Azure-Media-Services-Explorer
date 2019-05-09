@@ -630,9 +630,6 @@
   <data name="toolStripMenuItem14.Text" xml:space="preserve">
     <value>Import file(s) from Azure Storage...</value>
   </data>
-  <data name="fromAzureStorageSASContainerPathToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="fromAzureStorageSASContainerPathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+Shift+I</value>
   </data>
@@ -658,13 +655,13 @@
     <value>Import</value>
   </data>
   <data name="exportAssetsInformationToExcelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
+    <value>341, 22</value>
   </data>
   <data name="exportAssetsInformationToExcelToolStripMenuItem.Text" xml:space="preserve">
     <value>Export asset(s) information to Excel or CSV...</value>
   </data>
   <data name="toolStripSeparator37.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 6</value>
+    <value>338, 6</value>
   </data>
   <data name="contextMenuExportFilesToStorage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -679,13 +676,13 @@
     <value>Ctrl+Shift+X</value>
   </data>
   <data name="contextMenuExportFilesToStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
+    <value>341, 22</value>
   </data>
   <data name="contextMenuExportFilesToStorage.Text" xml:space="preserve">
     <value>Export asset file(s) to Azure Storage...</value>
   </data>
   <data name="contextMenuExportToAnotherMediaServicesAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
+    <value>341, 22</value>
   </data>
   <data name="contextMenuExportToAnotherMediaServicesAccount.Text" xml:space="preserve">
     <value>Export to another Azure Media Services Account...</value>
@@ -823,10 +820,10 @@
     <value>Ctrl+L</value>
   </data>
   <data name="createALocatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="createALocatorToolStripMenuItem.Text" xml:space="preserve">
-    <value>Create a locator...</value>
+    <value>Create a streaming locator...</value>
   </data>
   <data name="extendExistingLocatorsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -835,7 +832,7 @@
     <value>Ctrl+Alt+L</value>
   </data>
   <data name="extendExistingLocatorsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="extendExistingLocatorsToolStripMenuItem.Text" xml:space="preserve">
     <value>Extend existing streaming locators...</value>
@@ -844,10 +841,16 @@
     <value>Ctrl+Shift+L</value>
   </data>
   <data name="deleteAllLocatorsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="deleteAllLocatorsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete all locators...</value>
+    <value>Delete all streaming locators...</value>
+  </data>
+  <data name="createASASUrlToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>327, 22</value>
+  </data>
+  <data name="createASASUrlToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a SAS Container Path and SAS Urls...</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -862,13 +865,13 @@
     <value>Alt+F</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Create an asset filter...</value>
   </data>
   <data name="toolStripMenuItem38.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="toolStripMenuItem38.Text" xml:space="preserve">
     <value>Copy the publish URL to clipboard...</value>
@@ -926,7 +929,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 386</value>
+    <value>290, 408</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -947,7 +950,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.0.22, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1564,7 +1567,7 @@
     <value>6, 420</value>
   </data>
   <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 15</value>
+    <value>359, 15</value>
   </data>
   <data name="label22.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -1972,7 +1975,7 @@
     <value>dataGridViewTransformsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.0.22, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2210,7 +2213,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.0.22, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2425,7 +2428,7 @@
     <value>dataGridViewLiveOutputV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.0.22, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -2877,17 +2880,17 @@
   <data name="toolStripSeparator20.Size" type="System.Drawing.Size, System.Drawing">
     <value>281, 6</value>
   </data>
-  <data name="ContextMenuItemChannelDisplayInfomation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ContextMenuItemLiveEventDisplayInfomation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
         aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="ContextMenuItemChannelDisplayInfomation.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemLiveEventDisplayInfomation.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="ContextMenuItemChannelDisplayInfomation.Text" xml:space="preserve">
+  <data name="ContextMenuItemLiveEventDisplayInfomation.Text" xml:space="preserve">
     <value>Live event(s) infomation and settings...</value>
   </data>
   <data name="loadMetricsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
@@ -2918,7 +2921,7 @@
   <data name="createChannelToolStripMenuItem1.Text" xml:space="preserve">
     <value>Create live event...</value>
   </data>
-  <data name="ContextMenuItemChannelStart.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ContextMenuItemLiveEventStart.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADYSURBVDhPpZM7CgJBEETH1MTIQLyniiAiHsHIQDyC
@@ -2928,32 +2931,32 @@
         vp3nHMILA/uduymamO8AAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="ContextMenuItemChannelStart.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="ContextMenuItemLiveEventStart.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>F9</value>
   </data>
-  <data name="ContextMenuItemChannelStart.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemLiveEventStart.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="ContextMenuItemChannelStart.Text" xml:space="preserve">
+  <data name="ContextMenuItemLiveEventStart.Text" xml:space="preserve">
     <value>Start live event(s)</value>
   </data>
-  <data name="ContextMenuItemChannelStop.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ContextMenuItemLiveEventStop.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAoSURBVDhPY/j//z9FGKsgKRjBADJJwaMGjBoAwsPR
         AHIxVkHi8X8GAD4l3jA0VZ0gAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="ContextMenuItemChannelStop.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="ContextMenuItemLiveEventStop.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>F10</value>
   </data>
-  <data name="ContextMenuItemChannelStop.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemLiveEventStop.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="ContextMenuItemChannelStop.Text" xml:space="preserve">
+  <data name="ContextMenuItemLiveEventStop.Text" xml:space="preserve">
     <value>Stop live event(s)</value>
   </data>
-  <data name="ContextMenuItemChannelReset.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ContextMenuItemLiveEventReset.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAD5SURBVDhPpZMxbsJAEEWdioYycAVazkFK6CPRcwki
@@ -2963,25 +2966,25 @@
         8wJr6+PBm8+6ADQSX8LMVdiLwygVgOxnOog/8S224kWwVyiEkF0A1di1vVgejOsAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="ContextMenuItemChannelReset.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="ContextMenuItemLiveEventReset.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+H</value>
   </data>
-  <data name="ContextMenuItemChannelReset.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemLiveEventReset.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="ContextMenuItemChannelReset.Text" xml:space="preserve">
+  <data name="ContextMenuItemLiveEventReset.Text" xml:space="preserve">
     <value>Reset live event(s)</value>
   </data>
-  <data name="cloneChannelsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+  <data name="cloneLiveEventsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="cloneChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cloneLiveEventsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="cloneChannelsToolStripMenuItem.Text" xml:space="preserve">
+  <data name="cloneLiveEventsToolStripMenuItem.Text" xml:space="preserve">
     <value>Clone live event(s) to another account...</value>
   </data>
-  <data name="ContextMenuItemChannelDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ContextMenuItemLiveEventDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
@@ -2989,13 +2992,13 @@
         RFdqjgLw5gAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="ContextMenuItemChannelDelete.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="ContextMenuItemLiveEventDelete.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+H</value>
   </data>
-  <data name="ContextMenuItemChannelDelete.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemLiveEventDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="ContextMenuItemChannelDelete.Text" xml:space="preserve">
+  <data name="ContextMenuItemLiveEventDelete.Text" xml:space="preserve">
     <value>Delete live event(s)...</value>
   </data>
   <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
@@ -3025,25 +3028,25 @@
   <data name="inputURLMToolStripMenuItem4.Text" xml:space="preserve">
     <value>Input 4 Url ({0})...</value>
   </data>
-  <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemLiveEventCopyIngestURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="ContextMenuItemChannelCopyIngestURLToClipboard.Text" xml:space="preserve">
+  <data name="ContextMenuItemLiveEventCopyIngestURLToClipboard.Text" xml:space="preserve">
     <value>Display Input URL</value>
   </data>
-  <data name="ContextMenuItemChannelRunOnPremisesLiveEncoder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="ContextMenuItemChannelRunOnPremisesLiveEncoder.Text" xml:space="preserve">
+  <data name="ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Text" xml:space="preserve">
     <value>Run an on-premises live encoder...</value>
   </data>
   <data name="toolStripSeparator19.Size" type="System.Drawing.Size, System.Drawing">
     <value>281, 6</value>
   </data>
-  <data name="ContextMenuItemChannelCopyPreviewURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContextMenuItemLiveEventCopyPreviewURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 22</value>
   </data>
-  <data name="ContextMenuItemChannelCopyPreviewURLToClipboard.Text" xml:space="preserve">
+  <data name="ContextMenuItemLiveEventCopyPreviewURLToClipboard.Text" xml:space="preserve">
     <value>Display Preview URL...</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
@@ -3090,144 +3093,144 @@
     <value>dataGridViewLiveEventsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.0.0.22, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.0.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+    <value>panelLiveEvents</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="labelChannels.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labelLiveEvents.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labelChannels.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelLiveEvents.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt, style=Bold</value>
   </data>
-  <data name="labelChannels.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelLiveEvents.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelChannels.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelLiveEvents.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 1</value>
   </data>
-  <data name="labelChannels.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 13</value>
   </data>
-  <data name="labelChannels.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelLiveEvents.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
   </data>
-  <data name="labelChannels.Text" xml:space="preserve">
+  <data name="labelLiveEvents.Text" xml:space="preserve">
     <value>Live events</value>
   </data>
-  <data name="&gt;&gt;labelChannels.Name" xml:space="preserve">
-    <value>labelChannels</value>
+  <data name="&gt;&gt;labelLiveEvents.Name" xml:space="preserve">
+    <value>labelLiveEvents</value>
   </data>
-  <data name="&gt;&gt;labelChannels.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelLiveEvents.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelChannels.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+  <data name="&gt;&gt;labelLiveEvents.Parent" xml:space="preserve">
+    <value>panelLiveEvents</value>
   </data>
-  <data name="&gt;&gt;labelChannels.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelLiveEvents.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="comboBoxSearchChannelOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="comboBoxSearchLiveEventOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="comboBoxSearchChannelOption.Enabled" type="System.Boolean, mscorlib">
+  <data name="comboBoxSearchLiveEventOption.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="comboBoxSearchChannelOption.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="comboBoxSearchLiveEventOption.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="comboBoxSearchChannelOption.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="comboBoxSearchLiveEventOption.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 186</value>
   </data>
-  <data name="comboBoxSearchChannelOption.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="comboBoxSearchLiveEventOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 23</value>
   </data>
-  <data name="comboBoxSearchChannelOption.TabIndex" type="System.Int32, mscorlib">
+  <data name="comboBoxSearchLiveEventOption.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
   </data>
-  <data name="&gt;&gt;comboBoxSearchChannelOption.Name" xml:space="preserve">
-    <value>comboBoxSearchChannelOption</value>
+  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Name" xml:space="preserve">
+    <value>comboBoxSearchLiveEventOption</value>
   </data>
-  <data name="&gt;&gt;comboBoxSearchChannelOption.Type" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBoxSearchChannelOption.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Parent" xml:space="preserve">
+    <value>panelLiveEvents</value>
   </data>
-  <data name="&gt;&gt;comboBoxSearchChannelOption.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxSearchLiveEventOption.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="textBoxSearchNameChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="textBoxSearchNameLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <data name="textBoxSearchNameChannel.Enabled" type="System.Boolean, mscorlib">
+  <data name="textBoxSearchNameLiveEvent.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="textBoxSearchNameChannel.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="textBoxSearchNameLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="textBoxSearchNameChannel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="textBoxSearchNameLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
     <value>176, 186</value>
   </data>
-  <data name="textBoxSearchNameChannel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
   </data>
-  <data name="textBoxSearchNameChannel.TabIndex" type="System.Int32, mscorlib">
+  <data name="textBoxSearchNameLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
   </data>
-  <data name="textBoxSearchNameChannel.ToolTip" xml:space="preserve">
+  <data name="textBoxSearchNameLiveEvent.ToolTip" xml:space="preserve">
     <value>Search in channel name and channel Id</value>
   </data>
-  <data name="&gt;&gt;textBoxSearchNameChannel.Name" xml:space="preserve">
-    <value>textBoxSearchNameChannel</value>
+  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Name" xml:space="preserve">
+    <value>textBoxSearchNameLiveEvent</value>
   </data>
-  <data name="&gt;&gt;textBoxSearchNameChannel.Type" xml:space="preserve">
+  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxSearchNameChannel.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Parent" xml:space="preserve">
+    <value>panelLiveEvents</value>
   </data>
-  <data name="&gt;&gt;textBoxSearchNameChannel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;textBoxSearchNameLiveEvent.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="buttonSetFilterChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonSetFilterLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="buttonSetFilterChannel.Enabled" type="System.Boolean, mscorlib">
+  <data name="buttonSetFilterLiveEvent.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="buttonSetFilterChannel.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="buttonSetFilterLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="buttonSetFilterChannel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonSetFilterLiveEvent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSetFilterChannel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonSetFilterLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
     <value>298, 186</value>
   </data>
-  <data name="buttonSetFilterChannel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonSetFilterLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
   </data>
-  <data name="buttonSetFilterChannel.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonSetFilterLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>55</value>
   </data>
-  <data name="buttonSetFilterChannel.Text" xml:space="preserve">
+  <data name="buttonSetFilterLiveEvent.Text" xml:space="preserve">
     <value>Apply</value>
   </data>
-  <data name="&gt;&gt;buttonSetFilterChannel.Name" xml:space="preserve">
-    <value>buttonSetFilterChannel</value>
+  <data name="&gt;&gt;buttonSetFilterLiveEvent.Name" xml:space="preserve">
+    <value>buttonSetFilterLiveEvent</value>
   </data>
-  <data name="&gt;&gt;buttonSetFilterChannel.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonSetFilterLiveEvent.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonSetFilterChannel.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+  <data name="&gt;&gt;buttonSetFilterLiveEvent.Parent" xml:space="preserve">
+    <value>panelLiveEvents</value>
   </data>
-  <data name="&gt;&gt;buttonSetFilterChannel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonSetFilterLiveEvent.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="label25.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -3264,39 +3267,39 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label25.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+    <value>panelLiveEvents</value>
   </data>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="comboBoxStatusChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="comboBoxStatusLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="comboBoxStatusChannel.Enabled" type="System.Boolean, mscorlib">
+  <data name="comboBoxStatusLiveEvent.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="comboBoxStatusChannel.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="comboBoxStatusLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="comboBoxStatusChannel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
     <value>589, 186</value>
   </data>
-  <data name="comboBoxStatusChannel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
   </data>
-  <data name="comboBoxStatusChannel.TabIndex" type="System.Int32, mscorlib">
+  <data name="comboBoxStatusLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
   </data>
-  <data name="&gt;&gt;comboBoxStatusChannel.Name" xml:space="preserve">
-    <value>comboBoxStatusChannel</value>
+  <data name="&gt;&gt;comboBoxStatusLiveEvent.Name" xml:space="preserve">
+    <value>comboBoxStatusLiveEvent</value>
   </data>
-  <data name="&gt;&gt;comboBoxStatusChannel.Type" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxStatusLiveEvent.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBoxStatusChannel.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+  <data name="&gt;&gt;comboBoxStatusLiveEvent.Parent" xml:space="preserve">
+    <value>panelLiveEvents</value>
   </data>
-  <data name="&gt;&gt;comboBoxStatusChannel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxStatusLiveEvent.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="label24.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -3333,63 +3336,63 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label24.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+    <value>panelLiveEvents</value>
   </data>
   <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="comboBoxFilterTimeChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="comboBoxFilterTimeLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="comboBoxFilterTimeChannel.Enabled" type="System.Boolean, mscorlib">
+  <data name="comboBoxFilterTimeLiveEvent.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="comboBoxFilterTimeChannel.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="comboBoxFilterTimeLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="comboBoxFilterTimeChannel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
     <value>429, 186</value>
   </data>
-  <data name="comboBoxFilterTimeChannel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="comboBoxFilterTimeLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
   </data>
-  <data name="comboBoxFilterTimeChannel.TabIndex" type="System.Int32, mscorlib">
+  <data name="comboBoxFilterTimeLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
   </data>
-  <data name="&gt;&gt;comboBoxFilterTimeChannel.Name" xml:space="preserve">
-    <value>comboBoxFilterTimeChannel</value>
+  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Name" xml:space="preserve">
+    <value>comboBoxFilterTimeLiveEvent</value>
   </data>
-  <data name="&gt;&gt;comboBoxFilterTimeChannel.Type" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBoxFilterTimeChannel.Parent" xml:space="preserve">
-    <value>panelChannels</value>
+  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Parent" xml:space="preserve">
+    <value>panelLiveEvents</value>
   </data>
-  <data name="&gt;&gt;comboBoxFilterTimeChannel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="panelChannels.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="panelLiveEvents.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="panelChannels.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="panelLiveEvents.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="panelChannels.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panelLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
     <value>1000, 220</value>
   </data>
-  <data name="panelChannels.TabIndex" type="System.Int32, mscorlib">
+  <data name="panelLiveEvents.TabIndex" type="System.Int32, mscorlib">
     <value>69</value>
   </data>
-  <data name="&gt;&gt;panelChannels.Name" xml:space="preserve">
-    <value>panelChannels</value>
+  <data name="&gt;&gt;panelLiveEvents.Name" xml:space="preserve">
+    <value>panelLiveEvents</value>
   </data>
-  <data name="&gt;&gt;panelChannels.Type" xml:space="preserve">
+  <data name="&gt;&gt;panelLiveEvents.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panelChannels.Parent" xml:space="preserve">
+  <data name="&gt;&gt;panelLiveEvents.Parent" xml:space="preserve">
     <value>tabPageLive</value>
   </data>
-  <data name="&gt;&gt;panelChannels.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;panelLiveEvents.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tabPageLive.Location" type="System.Drawing.Point, System.Drawing">
@@ -3558,7 +3561,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.0.22, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -3952,9 +3955,6 @@
   <data name="fromAzureStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>From Azure Storage...</value>
   </data>
-  <data name="fromAzureStoragecontainerSASUrlToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="fromAzureStoragecontainerSASUrlToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+Shift+I</value>
   </data>
@@ -3989,19 +3989,19 @@
     <value>Import</value>
   </data>
   <data name="informationToExcelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 22</value>
+    <value>375, 22</value>
   </data>
   <data name="informationToExcelToolStripMenuItem.Text" xml:space="preserve">
     <value>Information to Excel or CSV...</value>
   </data>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 6</value>
+    <value>372, 6</value>
   </data>
   <data name="toAnotherAzureMediaServicesAccountToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+C</value>
   </data>
   <data name="toAnotherAzureMediaServicesAccountToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 22</value>
+    <value>375, 22</value>
   </data>
   <data name="toAnotherAzureMediaServicesAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>To another Azure Media Services Account...</value>
@@ -4010,7 +4010,7 @@
     <value>Ctrl+Shift+X</value>
   </data>
   <data name="toAzureStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 22</value>
+    <value>375, 22</value>
   </data>
   <data name="toAzureStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>To Azure Storage...</value>
@@ -4092,13 +4092,13 @@
   <data name="createProgramToolStripMenuItem1.Text" xml:space="preserve">
     <value>Create live output...</value>
   </data>
-  <data name="liveChannelToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+  <data name="liveLiveEventToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="liveChannelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="liveLiveEventToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 20</value>
   </data>
-  <data name="liveChannelToolStripMenuItem.Text" xml:space="preserve">
+  <data name="liveLiveEventToolStripMenuItem.Text" xml:space="preserve">
     <value>Live</value>
   </data>
   <data name="createOriginToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -4189,13 +4189,13 @@
 </value>
   </data>
   <data name="azureMediaBlogToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="azureMediaBlogToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Blog</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 6</value>
+    <value>247, 6</value>
   </data>
   <data name="azureMediaServicesPlayerPageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4206,7 +4206,7 @@
 </value>
   </data>
   <data name="azureMediaServicesPlayerPageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="azureMediaServicesPlayerPageToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Player</value>
@@ -4220,7 +4220,7 @@
 </value>
   </data>
   <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>DASH-IF HTML5 Reference Player</value>
@@ -4234,7 +4234,7 @@
 </value>
   </data>
   <data name="hTML5VideoElementToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="hTML5VideoElementToolStripMenuItem.Text" xml:space="preserve">
     <value>HTML5 Video Element</value>
@@ -4248,34 +4248,34 @@
 </value>
   </data>
   <data name="iVXHLSPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="iVXHLSPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>3iVX HLS Player</value>
   </data>
   <data name="jwPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="jwPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>JW Player</value>
   </data>
   <data name="tHEOPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="tHEOPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>THEOplayer</value>
   </data>
   <data name="toolStripSeparator29.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 6</value>
+    <value>247, 6</value>
   </data>
   <data name="hTML5CaptionMakerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="hTML5CaptionMakerToolStripMenuItem.Text" xml:space="preserve">
     <value>HTML5 Caption Maker</value>
   </data>
   <data name="samplePlayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 20</value>
+    <value>88, 20</value>
   </data>
   <data name="samplePlayersToolStripMenuItem.Text" xml:space="preserve">
     <value>External links</value>
@@ -7306,6 +7306,12 @@
   <data name="&gt;&gt;deleteAllLocatorsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;createASASUrlToolStripMenuItem.Name" xml:space="preserve">
+    <value>createASASUrlToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;createASASUrlToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;createAnAssetFilterToolStripMenuItem.Name" xml:space="preserve">
     <value>createAnAssetFilterToolStripMenuItem</value>
   </data>
@@ -7648,10 +7654,10 @@
   <data name="&gt;&gt;toolStripSeparator20.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelDisplayInfomation.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelDisplayInfomation</value>
+  <data name="&gt;&gt;ContextMenuItemLiveEventDisplayInfomation.Name" xml:space="preserve">
+    <value>ContextMenuItemLiveEventDisplayInfomation</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelDisplayInfomation.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemLiveEventDisplayInfomation.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;loadMetricsToolStripMenuItem.Name" xml:space="preserve">
@@ -7666,34 +7672,34 @@
   <data name="&gt;&gt;createChannelToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelStart.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelStart</value>
+  <data name="&gt;&gt;ContextMenuItemLiveEventStart.Name" xml:space="preserve">
+    <value>ContextMenuItemLiveEventStart</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelStart.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemLiveEventStart.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelStop.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelStop</value>
+  <data name="&gt;&gt;ContextMenuItemLiveEventStop.Name" xml:space="preserve">
+    <value>ContextMenuItemLiveEventStop</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelStop.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemLiveEventStop.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelReset.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelReset</value>
+  <data name="&gt;&gt;ContextMenuItemLiveEventReset.Name" xml:space="preserve">
+    <value>ContextMenuItemLiveEventReset</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelReset.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemLiveEventReset.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cloneChannelsToolStripMenuItem.Name" xml:space="preserve">
-    <value>cloneChannelsToolStripMenuItem</value>
+  <data name="&gt;&gt;cloneLiveEventsToolStripMenuItem.Name" xml:space="preserve">
+    <value>cloneLiveEventsToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;cloneChannelsToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;cloneLiveEventsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelDelete.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelDelete</value>
+  <data name="&gt;&gt;ContextMenuItemLiveEventDelete.Name" xml:space="preserve">
+    <value>ContextMenuItemLiveEventDelete</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelDelete.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemLiveEventDelete.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
@@ -7702,10 +7708,10 @@
   <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelCopyIngestURLToClipboard.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelCopyIngestURLToClipboard</value>
+  <data name="&gt;&gt;ContextMenuItemLiveEventCopyIngestURLToClipboard.Name" xml:space="preserve">
+    <value>ContextMenuItemLiveEventCopyIngestURLToClipboard</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelCopyIngestURLToClipboard.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemLiveEventCopyIngestURLToClipboard.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;inputURLMToolStripMenuItem1.Name" xml:space="preserve">
@@ -7732,10 +7738,10 @@
   <data name="&gt;&gt;inputURLMToolStripMenuItem4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelRunOnPremisesLiveEncoder.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelRunOnPremisesLiveEncoder</value>
+  <data name="&gt;&gt;ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Name" xml:space="preserve">
+    <value>ContextMenuItemLiveEventRunOnPremisesLiveEncoder</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelRunOnPremisesLiveEncoder.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator19.Name" xml:space="preserve">
@@ -7744,10 +7750,10 @@
   <data name="&gt;&gt;toolStripSeparator19.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelCopyPreviewURLToClipboard.Name" xml:space="preserve">
-    <value>ContextMenuItemChannelCopyPreviewURLToClipboard</value>
+  <data name="&gt;&gt;ContextMenuItemLiveEventCopyPreviewURLToClipboard.Name" xml:space="preserve">
+    <value>ContextMenuItemLiveEventCopyPreviewURLToClipboard</value>
   </data>
-  <data name="&gt;&gt;ContextMenuItemChannelCopyPreviewURLToClipboard.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContextMenuItemLiveEventCopyPreviewURLToClipboard.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;playbackTheProgramToolStripMenuItem.Name" xml:space="preserve">
@@ -8020,10 +8026,10 @@
   <data name="&gt;&gt;toolStripMenuItemDownloadToLocal.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;liveChannelToolStripMenuItem.Name" xml:space="preserve">
-    <value>liveChannelToolStripMenuItem</value>
+  <data name="&gt;&gt;liveLiveEventToolStripMenuItem.Name" xml:space="preserve">
+    <value>liveLiveEventToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;liveChannelToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;liveLiveEventToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;createChannelToolStripMenuItem.Name" xml:space="preserve">

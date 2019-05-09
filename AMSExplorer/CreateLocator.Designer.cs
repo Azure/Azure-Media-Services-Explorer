@@ -43,11 +43,8 @@
             this.dateTimePickerStartTime = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.labelAssetName = new System.Windows.Forms.Label();
-            this.radioButtonOrigin = new System.Windows.Forms.RadioButton();
-            this.radioButtonSAS = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.comboBoxPolicyName = new System.Windows.Forms.ComboBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.groupBoxForceLocator = new System.Windows.Forms.GroupBox();
@@ -55,10 +52,10 @@
             this.textBoxLocatorGUID = new System.Windows.Forms.TextBox();
             this.checkBoxForLocatorGUID = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBoxEnd.SuspendLayout();
             this.groupBoxStart.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -167,28 +164,10 @@
             resources.ApplyResources(this.labelAssetName, "labelAssetName");
             this.labelAssetName.Name = "labelAssetName";
             // 
-            // radioButtonOrigin
-            // 
-            resources.ApplyResources(this.radioButtonOrigin, "radioButtonOrigin");
-            this.radioButtonOrigin.Checked = true;
-            this.radioButtonOrigin.Name = "radioButtonOrigin";
-            this.radioButtonOrigin.TabStop = true;
-            this.radioButtonOrigin.UseVisualStyleBackColor = true;
-            this.radioButtonOrigin.CheckedChanged += new System.EventHandler(this.UpdateLocatorGUID_CheckedChanged);
-            // 
-            // radioButtonSAS
-            // 
-            resources.ApplyResources(this.radioButtonSAS, "radioButtonSAS");
-            this.radioButtonSAS.Name = "radioButtonSAS";
-            this.radioButtonSAS.UseVisualStyleBackColor = true;
-            // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.comboBoxPolicyName);
-            this.groupBox4.Controls.Add(this.pictureBox2);
-            this.groupBox4.Controls.Add(this.pictureBox1);
-            this.groupBox4.Controls.Add(this.radioButtonSAS);
-            this.groupBox4.Controls.Add(this.radioButtonOrigin);
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
@@ -198,13 +177,6 @@
             this.comboBoxPolicyName.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxPolicyName, "comboBoxPolicyName");
             this.comboBoxPolicyName.Name = "comboBoxPolicyName";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.SAS_locator;
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -254,6 +226,11 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
             // CreateLocator
             // 
             this.AcceptButton = this.buttonOk;
@@ -262,6 +239,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBoxForceLocator);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.groupBox4);
@@ -277,7 +255,6 @@
             this.groupBoxStart.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBoxForceLocator.ResumeLayout(false);
             this.groupBoxForceLocator.PerformLayout();
@@ -300,10 +277,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerStartTime;
         private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;
         private System.Windows.Forms.Label labelAssetName;
-        private System.Windows.Forms.RadioButton radioButtonOrigin;
-        private System.Windows.Forms.RadioButton radioButtonSAS;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton radioButtonEndUnlimited;
         private System.Windows.Forms.RadioButton radioButtonEndYear;
@@ -315,5 +289,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox comboBoxPolicyName;
+        public System.Windows.Forms.Label label2;
     }
 }

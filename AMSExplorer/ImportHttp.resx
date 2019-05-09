@@ -184,7 +184,7 @@
     <value>33, 45</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 15</value>
+    <value>181, 15</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>

@@ -1259,6 +1259,215 @@ namespace AMSExplorer
         }
 
 
+        private async Task ProcessHttpSASV3(Uri ObjectUrl, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, string destAssetDescription = null)
+        {
+
+            if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
+                return;
+            }
+            _amsClientV3.RefreshTokenIfNeeded();
+            var storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
+
+            if (storageaccount == null)
+            {
+                storageaccount = AMSClientV3.GetStorageName(storAccounts.Where(s => s.Type == StorageAccountType.Primary).First().Id);
+                // no storage account or null, then let's take the default one
+            }
+
+            bool Error = false;
+            bool Canceled = false;
+
+            string ErrorMessage = string.Empty;
+            Asset asset = null;
+            CloudBlobContainer Container = new CloudBlobContainer(ObjectUrl);
+            CloudBlockBlob blockBlob;
+
+            try
+            {
+
+                if (destAssetName == null) destAssetName = "uploaded-" + Guid.NewGuid().ToString().Substring(0, 13);
+                asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, destAssetName, new Asset() { StorageAccountName = storageaccount, Description = destAssetDescription }, token);
+
+
+                ListContainerSasInput input = new ListContainerSasInput()
+                {
+                    Permissions = AssetContainerPermission.ReadWrite,
+                    ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+                };
+
+                var response = Task.Run(async () => await _amsClientV3.AMSclient.Assets.ListContainerSasAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, destAssetName, input.Permissions, input.ExpiryTime)).Result;
+
+                string uploadSasUrl = response.AssetContainerSasUrls.First();
+
+                var sasUri = new Uri(uploadSasUrl);
+                CloudBlobContainer destinationContainer = new CloudBlobContainer(sasUri);
+
+                if (token.IsCancellationRequested) return;
+
+                long Length = 0;
+                foreach (var blob in Container.ListBlobs())
+                {
+                    if (blob.GetType() == typeof(CloudBlockBlob))
+                    {
+                        var blobblock = (CloudBlockBlob)blob;
+                        Length += blobblock.Properties.Length;
+                    }
+                }
+
+                var blobsblock = Container.ListBlobs().Where(b => b.GetType() == typeof(CloudBlockBlob));
+                int nbtotalblobblock = blobsblock.Count();
+                int nbblob = 0;
+                long BytesCopied = 0;
+                foreach (var blob in blobsblock)
+                {
+                    nbblob++;
+                    string fileName = Path.GetFileName(blob.Uri.ToString());
+
+                    blockBlob = destinationContainer.GetBlockBlobReference(fileName);
+                    TextBoxLogWriteLine("Copying file '{0}'....", fileName);
+
+                    var urib = new UriBuilder(ObjectUrl);
+                    urib.Path = urib.Path + "/" + Path.GetFileName(blob.Uri.ToString());
+
+                    string stringOperation = await blockBlob.StartCopyAsync(urib.Uri, token);
+                    bool Cancelled = false;
+
+                    DateTime startTime = DateTime.UtcNow;
+
+                    bool continueLoop = true;
+
+                    while (continueLoop)
+                    {
+                        if (token.IsCancellationRequested && !Cancelled)
+                        {
+                            await blockBlob.AbortCopyAsync(stringOperation);
+                            Cancelled = true;
+                        }
+
+                        blockBlob.FetchAttributes();
+                        var copyStatus = blockBlob.CopyState;
+                        if (copyStatus != null)
+                        {
+                            double percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(nbtotalblobblock)) * 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
+
+                            DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+
+                            if (copyStatus.Status != CopyStatus.Pending)
+                            {
+                                continueLoop = false;
+                                if (copyStatus.Status == CopyStatus.Failed)
+                                {
+                                    Error = true;
+                                    ErrorMessage = copyStatus.StatusDescription;
+                                }
+                                if (copyStatus.Status == CopyStatus.Aborted)
+                                {
+                                    Canceled = true;
+                                }
+                            }
+                        }
+                        System.Threading.Thread.Sleep(1000);
+                    }
+
+                    blockBlob.FetchAttributes();
+
+
+                    DateTime endTime = DateTime.UtcNow;
+                    TimeSpan diffTime = endTime - startTime;
+
+                    BytesCopied += blockBlob.Properties.Length;
+                }
+
+
+                List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
+                List<Task> mylistresults = new List<Task>();
+
+                var blobsdir = Container.ListBlobs().Where(b => b.GetType() == typeof(CloudBlobDirectory));
+                int nbtotalblobdir = blobsdir.Count();
+                int nbblobdir = 0;
+                foreach (var blob in blobsdir)
+                {
+                    nbblobdir++;
+                    string fileName = blob.Uri.Segments[2];
+
+                    CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
+                    ListDirectories.Add(blobdir);
+                    TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
+
+                    var srcBlobList = blobdir.ListBlobs(
+                           useFlatBlobListing: true,
+                           blobListingDetails: BlobListingDetails.None).ToList();
+
+                    var subblocks = srcBlobList.Where(s => s.GetType() == typeof(CloudBlockBlob));
+                    long size = 0;
+                    if (subblocks.Count() > 0) size = subblocks.Sum(s => ((CloudBlockBlob)s).Properties.Length);
+                }
+
+
+                // let's launch the copy of fragblobs
+                double ind = 0;
+                foreach (var dir in ListDirectories)
+                {
+                    TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
+
+                    mylistresults.AddRange(AssetInfo.CopyBlobDirectory(dir, destinationContainer, ObjectUrl.Query, token));
+
+                    if (mylistresults.Count > 0)
+                    {
+                        while (!mylistresults.All(r => r.IsCompleted))
+                        {
+                            Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
+                            double percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
+                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, guidTransfer);
+                        }
+                    }
+                    ind++;
+                    mylistresults.Clear();
+                }
+
+                if (!Error && !Canceled)
+                {
+
+                    DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
+                    DoRefreshGridAssetV(false);
+                }
+                else if (Canceled)
+                {
+
+                    DoGridTransferDeclareCancelled(guidTransfer);
+                    DoRefreshGridAssetV(false);
+                }
+                else // Error!
+                {
+                    DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Error = true;
+                TextBoxLogWriteLine("Error during file import.", true);
+                TextBoxLogWriteLine(ex);
+                DoGridTransferDeclareError(guidTransfer, ex);
+            }
+
+            /*
+            if (!Error && !token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCompleted(guidTransfer, destAssetName);
+            }
+            else if (token.IsCancellationRequested)
+            {
+                DoGridTransferDeclareCancelled(guidTransfer);
+            }
+            */
+            DoRefreshGridAssetV(false);
+        }
+
+
         private void MyUploadFileProgressChanged(Guid guidTransfer, int indexfile, int nbfiles)
         {
             double progress = 100 * (double)indexfile / (double)nbfiles;
@@ -1550,51 +1759,7 @@ namespace AMSExplorer
             }
         }
 
-        /*
-        private void DoMenuImportFromAzureStorageSASContainer()
-        {
-            ImportHttp form = null;// new ImportHttp(_context, true);
 
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                string DestStorage = _context.DefaultStorageAccount.Name;
-                string passwordDestStorage = _credentials.DefaultStorageKey;
-                if (form.StorageSelected != _context.DefaultStorageAccount.Name)
-                {
-                    // Not the default storage, no blob credentials, or another storage. Let's ask the user
-                    string valuekey2 = "";
-                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + form.StorageSelected + ":", ref valuekey2, true) == DialogResult.OK)
-                    {
-                        DestStorage = form.StorageSelected;
-                        passwordDestStorage = valuekey2;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else if (!havestoragecredentials)
-                { // No blob credentials. Let's ask the user
-
-                    string valuekey = "";
-                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
-                    {
-                        _credentials.DefaultStorageKey = passwordDestStorage = valuekey;
-                        havestoragecredentials = true;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-
-                var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", "" ), TransferType.ImportFromHttp, false);
-                // Start a worker thread that does uploading.
-                var myTask = Task.Factory.StartNew(() => ProcessImportFromStorageContainerSASUrlAsync(form.GetURL, form.GetAssetName, response, DestStorage, passwordDestStorage), response.token);
-                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
-            }
-        }
-        */
 
         private void DotabControlMainSwitch(string tab)
         {
@@ -2004,102 +2169,114 @@ namespace AMSExplorer
                 {
                     _amsClientV3.RefreshTokenIfNeeded();
 
-                    if (form.SASMode)
+                    // The duration for the locator's access policy.
+                    TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
+                    if (form.LocatorStartDate != null)
                     {
-                        var result = await Task.Run(() =>
-                        ProcessCreateLocatorSAS(SelectedAssets)
-                        );
-
-                        var displayResult = new EditorXMLJSON("SAS Urls", result, false, false, false);
-                        displayResult.ShowDialog();
-
+                        accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
                     }
-                    else // Streaming
+
+                    // DRM
+                    ContentKeyPolicy keyPolicy = null;
+                    DRM_Config_TokenClaims formJwt = null;
+                    if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
-                        // The duration for the locator's access policy.
-                        TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
-                        if (form.LocatorStartDate != null)
+
+                        formJwt = new DRM_Config_TokenClaims(1, 1, "PlayReady", null, true);
+
+                        if (formJwt.ShowDialog() != DialogResult.OK)
                         {
-                            accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
+                            return;
                         }
-
-                        // DRM
-                        ContentKeyPolicy keyPolicy = null;
-                        DRM_Config_TokenClaims formJwt = null;
-                        if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                        else
                         {
-
-                            formJwt = new DRM_Config_TokenClaims(1, 1, "PlayReady", null, true);
-
-                            if (formJwt.ShowDialog() != DialogResult.OK)
-                            {
-                                return;
-                            }
-                            else
-                            {
-                                keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(
-                                   _amsClientV3.credentialsEntry.ResourceGroup,
-                                    _amsClientV3.credentialsEntry.AccountName,
-                                    "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
-                                    new List<ContentKeyPolicyOption> { formJwt.Option });
-
-                            }
+                            keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(
+                               _amsClientV3.credentialsEntry.ResourceGroup,
+                                _amsClientV3.credentialsEntry.AccountName,
+                                "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
+                                new List<ContentKeyPolicyOption> { formJwt.Option });
                         }
+                    }
 
-                        sbuilder.Clear();
+                    sbuilder.Clear();
 
-                        try
+                    try
+                    {
+                        var listLocators = await Task.Run(() =>
+                        ProcessCreateLocatorV3(form.StreamingPolicyName, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid, keyPolicy));
+
+                        var SEList = await _amsClientV3.AMSclient.StreamingEndpoints.ListAsync(
+                             _amsClientV3.credentialsEntry.ResourceGroup,
+                              _amsClientV3.credentialsEntry.AccountName
+                             );
+
+                        foreach (var loc in listLocators)
                         {
-                            var listLocators = await Task.Run(() =>
-                            ProcessCreateLocatorV3(form.StreamingPolicyName, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid, keyPolicy));
-
-                            var SEList = await _amsClientV3.AMSclient.StreamingEndpoints.ListAsync(
-                                 _amsClientV3.credentialsEntry.ResourceGroup,
-                                  _amsClientV3.credentialsEntry.AccountName
-                                 );
-
-                            foreach (var loc in listLocators)
+                            sbuilder.AppendLine(string.Format("Asset name : {0}", loc.AssetName));
+                            sbuilder.AppendLine("===============" + new string('=', loc.AssetName.Length));
+                            sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
+                            sbuilder.AppendLine(string.Empty);
+                            foreach (var path in loc.Paths)
                             {
-                                sbuilder.AppendLine(string.Format("Asset name : {0}", loc.AssetName));
-                                sbuilder.AppendLine("===============" + new string('=', loc.AssetName.Length));
-                                sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
-                                sbuilder.AppendLine(string.Empty);
-                                foreach (var path in loc.Paths)
+                                sbuilder.AppendLine(path.StreamingProtocol);
+                                foreach (var se in SEList)
                                 {
-                                    sbuilder.AppendLine(path.StreamingProtocol);
-                                    foreach (var se in SEList)
-                                    {
-                                        path.Paths.ToList().ForEach(p => sbuilder.AppendLine(se.HostName + p));
-                                    }
-                                    sbuilder.AppendLine(string.Empty);
+                                    path.Paths.ToList().ForEach(p => sbuilder.AppendLine(se.HostName + p));
                                 }
                                 sbuilder.AppendLine(string.Empty);
                             }
-
-                            if (formJwt != null && formJwt.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
-                            {
-                                // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
-                                // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
-                                // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
-                                // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
-                                var response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
-                                        _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
-                                string keyIdentifier = response.ContentKeys.First().Id.ToString();
-
-                                sbuilder.AppendLine(string.Format("Test token (60 min) : {0}", Constants.Bearer + formJwt.GetTestToken(keyIdentifier)));
-                            }
-
-                            var displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
-                            displayResult.ShowDialog();
+                            sbuilder.AppendLine(string.Empty);
                         }
 
-                        catch (Exception e)
+                        if (formJwt != null && formJwt.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
                         {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when creating a locator", true);
-                            TextBoxLogWriteLine(e);
+                            // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
+                            // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
+                            // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
+                            // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
+                            var response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
+                                    _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
+                            string keyIdentifier = response.ContentKeys.First().Id.ToString();
+
+                            sbuilder.AppendLine(string.Format("Test token (60 min) : {0}", Constants.Bearer + formJwt.GetTestToken(keyIdentifier)));
                         }
+
+                        var displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
+                        displayResult.ShowDialog();
                     }
+
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when creating a locator", true);
+                        TextBoxLogWriteLine(e);
+                    }
+
+                }
+            }
+        }
+
+
+        private async void DoCreateSASUrl(List<Asset> SelectedAssets)
+        {
+            if (SelectedAssets.Count > 0)
+            {
+                if (SelectedAssets.Count == 1 && SelectedAssets.FirstOrDefault() == null)
+                {
+                    MessageBox.Show("Asset not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (MessageBox.Show("Create a SAS Container Path Url and files SAS Urls valid for 24 hours ?", "SAS Urls", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
+                    var result = await Task.Run(() =>
+                    ProcessCreateLocatorSAS(SelectedAssets)
+                    );
+
+                    var displayResult = new EditorXMLJSON("SAS Urls", result, false, false, false);
+                    displayResult.ShowDialog();
                 }
             }
         }
@@ -8276,12 +8453,37 @@ namespace AMSExplorer
 
         private void fromAzureStoragecontainerSASUrlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //DoMenuImportFromAzureStorageSASContainer();
+            DoMenuImportFromAzureStorageSASContainer();
         }
 
         private void fromAzureStorageSASContainerPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //DoMenuImportFromAzureStorageSASContainer();
+            DoMenuImportFromAzureStorageSASContainer();
+        }
+
+        private void DoMenuImportFromAzureStorageSASContainer()
+        {
+            ImportHttp form = new ImportHttp(_amsClientV3, true);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+
+                try
+                {
+                    var response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetURL.LocalPath), TransferType.ImportFromHttp, false);
+                    // Start a worker thread that does uploading.
+                    // ProcessHttpSourceV3
+                    var myTask = Task.Factory.StartNew(() => ProcessHttpSASV3(form.GetURL, response.Id, response.token, form.StorageSelected, form.GetAssetName, form.GetAssetDescription), response.token);
+
+                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                    TextBoxLogWriteLine(ex);
+                }
+
+            }
         }
 
         private void tHEOPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8646,6 +8848,12 @@ namespace AMSExplorer
         private void dataGridViewAssetsV_SizeChanged(object sender, EventArgs e)
         {
             this.dataGridViewAssetsV.ReLaunchAnalyze();
+
+        }
+
+        private void createASASUrlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCreateSASUrl(ReturnSelectedAssetsFromProgramsOrAssetsV3());
 
         }
     }
