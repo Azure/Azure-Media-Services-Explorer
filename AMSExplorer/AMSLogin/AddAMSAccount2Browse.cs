@@ -73,7 +73,7 @@ namespace AMSExplorer
             selectedTenantId = ((Item)comboBoxTenants.SelectedItem).Value;
 
             var authContext = new Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext(
-                                                               authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", selectedTenantId ?? "common"),
+                                                               authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId ?? "common"),
                                                                    validateAuthority: true);
             AuthenticationResult accessToken = null;
             try

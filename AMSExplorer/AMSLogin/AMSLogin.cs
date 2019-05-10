@@ -398,7 +398,7 @@ namespace AMSExplorer
 
                     var authContext = new AuthenticationContext(
                                                                 // authority:  environment.Authority,
-                                                                authority: environment.AADSettings.AuthenticationEndpoint.ToString() + "common/oauth2/authorize",
+                                                                authority: environment.AADSettings.AuthenticationEndpoint.ToString() + "common",
                                                                 validateAuthority: true
                     );
 
@@ -439,45 +439,6 @@ namespace AMSExplorer
                         tenants = (myTenants)JsonConvert.DeserializeObject(str, typeof(myTenants));
                     }
                     var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants.value, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null));
-                    //addaccount3.ShowDialog();
-                    /*
-                    foreach (var tenant in tenants.value)
-                    {
-                        bool error = false;
-
-                        authContext = new AuthenticationContext(
-                                                                authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", tenant.tenantId ?? "common"),
-                                                                   validateAuthority: true);
-
-                        try
-                        {
-                            accessToken = await authContext.AcquireTokenAsync(
-                                                                                 resource: environment.AADSettings.TokenAudience.ToString(),
-                                                                                 clientId: environment.ClientApplicationId,
-                                                                                 redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                                 parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
-                                                                                 );
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            //return;
-                        }
-
-                        credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
-
-                        subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-                        subscriptions = subscriptionClient.Subscriptions.List();
-                       // var addaccount3 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenant.displayName);
-                       // addaccount3.ShowDialog();
-
-
-
-
-                    }
-
-                    // end test code
-                    */
 
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {

@@ -3467,7 +3467,7 @@ namespace AMSExplorer
             {
                 // we specify the tenant id if there
                 // var authContext = new AuthenticationContext(authority: environment.Authority.Replace("common", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
-                var authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}/oauth2/authorize", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
+                var authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
 
                 try
                 {
@@ -3822,7 +3822,6 @@ namespace AMSExplorer
             {
                 case AzureEnvType.DevTest:
                     DisplayName = "Azure Dev/Test";
-                    //Authority = "https://login.windows-ppe.net/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://api-dogfood.resources.windows-int.net/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = new ActiveDirectoryServiceSettings() { TokenAudience = new Uri("https://management.core.windows.net/"), ValidateAuthority = true, AuthenticationEndpoint = new Uri("https://login.windows-ppe.net/") };
@@ -3830,7 +3829,6 @@ namespace AMSExplorer
 
                 case AzureEnvType.Azure:
                     DisplayName = "Azure";
-                    //Authority = "https://login.windows.net/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://management.azure.com/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.Azure;
@@ -3838,7 +3836,6 @@ namespace AMSExplorer
 
                 case AzureEnvType.AzureChina:
                     DisplayName = "Azure China";
-                    //Authority = "https://login.chinacloudapi.cn/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://management.chinacloudapi.cn/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureChina;
@@ -3846,7 +3843,6 @@ namespace AMSExplorer
 
                 case AzureEnvType.AzureUSGovernment:
                     DisplayName = "Azure US Government";
-                    //Authority = "https://login.usgovcloudapi.net/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://management.usgovcloudapi.net/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureUSGovernment;
@@ -3854,7 +3850,6 @@ namespace AMSExplorer
 
                 case AzureEnvType.AzureGermany:
                     DisplayName = "Azure Germany";
-                    //Authority = "https://login.cloudapi.de/common/oauth2/authorize";
                     ArmEndpoint = new Uri("https://management.cloudapi.de/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureGermany;
@@ -3862,7 +3857,6 @@ namespace AMSExplorer
 
                 case AzureEnvType.Custom:
                     DisplayName = "Custom";
-                    //Authority = "";
                     ArmEndpoint = null;
                     ClientApplicationId = string.Empty;
                     AADSettings = new ActiveDirectoryServiceSettings();

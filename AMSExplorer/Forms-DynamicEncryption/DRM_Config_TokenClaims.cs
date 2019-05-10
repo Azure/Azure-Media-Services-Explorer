@@ -207,9 +207,9 @@ namespace AMSExplorer
         {
             if (radioButtonOpenAuthPolicy.Checked) return null; // open mode
 
-            var tokenSigningKey = new SymmetricSecurityKey(SymmetricKey);
+            var tokenSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(SymmetricKey);
 
-            var signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256, SecurityAlgorithms.Sha256Digest);
+            var signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
 
 
             Claim[] claims = new Claim[]
