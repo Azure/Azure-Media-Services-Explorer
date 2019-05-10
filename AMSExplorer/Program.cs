@@ -3486,7 +3486,7 @@ namespace AMSExplorer
                                                                 resource: environment.AADSettings.TokenAudience.ToString(),
                                                                 clientId: environment.ClientApplicationId,
                                                                 redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                parameters: new PlatformParameters(credentialsEntry.PromptUser, null)
+                                                                parameters: new PlatformParameters(credentialsEntry.PromptUser)
                                                                 );
                     }
                 }

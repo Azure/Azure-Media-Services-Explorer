@@ -409,7 +409,7 @@ namespace AMSExplorer
                                                                              resource: environment.AADSettings.TokenAudience.ToString(),
                                                                              clientId: environment.ClientApplicationId,
                                                                              redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                             parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null)
+                                                                             parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto)
                                                                              );
                     }
                     catch (Exception ex)
@@ -438,7 +438,7 @@ namespace AMSExplorer
                         var str = await response.Content.ReadAsStringAsync();
                         tenants = (myTenants)JsonConvert.DeserializeObject(str, typeof(myTenants));
                     }
-                    var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants.value, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto, null));
+                    var addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants.value, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto));
 
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {
