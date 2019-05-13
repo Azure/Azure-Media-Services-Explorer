@@ -223,7 +223,7 @@ namespace AMSExplorer
                 audience: Audience,
                 claims: claims,
                 notBefore: DateTime.Now.AddMinutes(-5),
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDurationInMin),
                 signingCredentials: signingcredentials
                 );
 

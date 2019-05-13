@@ -52,9 +52,10 @@ namespace AMSExplorer
             Properties.Settings.Default.CustomPlayerUrl = textBoxCustomPlayer.Text;
             Properties.Settings.Default.CustomPlayerEnabled = checkBoxEnableCustomPlayer.Checked;
 
-            Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
-            Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
+             Properties.Settings.Default.DefaultSASDurationInHours = (int) numericUpDownSASDuration.Value;
+
+            Properties.Settings.Default.DefaultTokenDurationInMin = (int)numericUpDownTokenDuration.Value;
             Properties.Settings.Default.HideTaskbarNotifications = checkBoxHideTaskbarNotifications.Checked;
             Properties.Settings.Default.MESPricePerMin = numericUpDownMESPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
@@ -79,9 +80,9 @@ namespace AMSExplorer
             textBoxCustomPlayer.Text = string.Format(Constants.PlayerAMPinOptions, Constants.NameconvManifestURL);
             checkBoxEnableCustomPlayer.Checked = false;
 
-            numericUpDownPriority.Value = 10;
             textBoxCurrency.Text = "$";
             numericUpDownLocatorDuration.Value = 3650;
+            numericUpDownSASDuration.Value = 24;
             numericUpDownTokenDuration.Value = 60;
             numericUpDownMESPrice.Value = ((decimal)0.015);
 
@@ -91,8 +92,6 @@ namespace AMSExplorer
             textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
             textBoxVLCPath.Text = @"%programfiles32%\VideoLAN\VLC";
 
-            Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles; // we reset the XML files folders
-            Properties.Settings.Default.MESPresetFilesCurrentFolder = Application.StartupPath + Constants.PathMESFiles; // we reset the XML files folders
             Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
 
@@ -116,9 +115,9 @@ namespace AMSExplorer
             checkBoxEnableCustomPlayer.Checked = Properties.Settings.Default.CustomPlayerEnabled;
             textBoxCustomPlayer.Enabled = checkBoxEnableCustomPlayer.Checked;
 
-            numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
-            numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
+            numericUpDownSASDuration.Value = Properties.Settings.Default.DefaultSASDurationInHours;
+            numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDurationInMin;
             checkBoxHideTaskbarNotifications.Checked = Properties.Settings.Default.HideTaskbarNotifications;
 
             numericUpDownAssetAnalysisStart.Value = Properties.Settings.Default.AssetAnalysisStart;

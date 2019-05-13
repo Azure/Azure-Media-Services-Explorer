@@ -25,18 +25,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string WAMEPresetXMLFilesCurrentFolder {
-            get {
-                return ((string)(this["WAMEPresetXMLFilesCurrentFolder"]));
-            }
-            set {
-                this["WAMEPresetXMLFilesCurrentFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool CallUpgrade {
             get {
@@ -158,18 +146,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int DefaultJobPriority {
-            get {
-                return ((int)(this["DefaultJobPriority"]));
-            }
-            set {
-                this["DefaultJobPriority"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("365")]
         public int DefaultLocatorDurationDays {
             get {
@@ -219,12 +195,12 @@ namespace AMSExplorer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int DefaultTokenDuration {
+        public int DefaultTokenDurationInMin {
             get {
-                return ((int)(this["DefaultTokenDuration"]));
+                return ((int)(this["DefaultTokenDurationInMin"]));
             }
             set {
-                this["DefaultTokenDuration"] = value;
+                this["DefaultTokenDurationInMin"] = value;
             }
         }
         
@@ -410,18 +386,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string MESPresetFilesCurrentFolder {
-            get {
-                return ((string)(this["MESPresetFilesCurrentFolder"]));
-            }
-            set {
-                this["MESPresetFilesCurrentFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool OutputAssetsAdaptiveStreamingFormat {
             get {
@@ -465,6 +429,18 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["LoginListRPv3JSON"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        public int DefaultSASDurationInHours {
+            get {
+                return ((int)(this["DefaultSASDurationInHours"]));
+            }
+            set {
+                this["DefaultSASDurationInHours"] = value;
             }
         }
     }

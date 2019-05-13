@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AMSExplorer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="WAMEPresetXMLFilesCurrentFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="CallUpgrade" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -35,9 +32,6 @@
     <Setting Name="CustomPlayerEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="DefaultJobPriority" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
-    </Setting>
     <Setting Name="DefaultLocatorDurationDays" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
@@ -50,7 +44,7 @@
     <Setting Name="Currency" Type="System.String" Scope="User">
       <Value Profile="(Default)">$</Value>
     </Setting>
-    <Setting Name="DefaultTokenDuration" Type="System.Int32" Scope="User">
+    <Setting Name="DefaultTokenDurationInMin" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="ffmpegPath" Type="System.String" Scope="User">
@@ -98,9 +92,6 @@
     <Setting Name="LoginListJSON" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="MESPresetFilesCurrentFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="OutputAssetsAdaptiveStreamingFormat" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -112,6 +103,9 @@
     </Setting>
     <Setting Name="LoginListRPv3JSON" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DefaultSASDurationInHours" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">24</Value>
     </Setting>
   </Settings>
 </SettingsFile>

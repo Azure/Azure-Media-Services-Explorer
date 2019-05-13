@@ -28,27 +28,19 @@ using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.IdentityModel.Tokens;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Web;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Xml.Linq;
 
 namespace AMSExplorer
 {
@@ -111,7 +103,6 @@ namespace AMSExplorer
             // upgrade settings from previous version
             if (Properties.Settings.Default.CallUpgrade)
             {
-
                 // let's migrate data 
                 Properties.Settings.Default.Upgrade();
 
@@ -124,7 +115,6 @@ namespace AMSExplorer
                 // let's clean the list
                 Properties.Settings.Default.LoginListRPv3JSON = string.Empty;
             }
-
 
             // if installation file has been downloaded, let's delete it now
             if (!string.IsNullOrEmpty(Properties.Settings.Default.DeleteInstallationFile))
@@ -142,22 +132,10 @@ namespace AMSExplorer
             }
             _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
 
-            // AME Standard preset folder
-            if ((Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder)))
-            {
-                Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles;
-            }
-
             // AME Premium Workflow preset folder
             if ((Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
-            }
-
-            // AME Standard preset folder
-            if ((Properties.Settings.Default.MESPresetFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.MESPresetFilesCurrentFolder)))
-            {
-                Properties.Settings.Default.MESPresetFilesCurrentFolder = Application.StartupPath + Constants.PathMESFiles;
             }
 
             // Default Slate Image
@@ -1825,7 +1803,7 @@ namespace AMSExplorer
                                     _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
                             string keyIdentifier = response.ContentKeys.First().Id.ToString();
 
-                            sbuilder.AppendLine(string.Format("Test token (60 min) : {0}", Constants.Bearer + formJwt.GetTestToken(keyIdentifier)));
+                            sbuilder.AppendLine(string.Format("Test token ({0} min) : {1}", Properties.Settings.Default.DefaultTokenDurationInMin, Constants.Bearer + formJwt.GetTestToken(keyIdentifier)));
                         }
 
                         var displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
@@ -1854,7 +1832,7 @@ namespace AMSExplorer
                     return;
                 }
 
-                if (MessageBox.Show("Create a SAS Container Path Url and files SAS Urls valid for 24 hours ?", "SAS Urls", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show(string.Format("Create a SAS Container Path Url and files SAS Urls valid for {0} hours ?", Properties.Settings.Default.DefaultSASDurationInHours), "SAS Urls", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _amsClientV3.RefreshTokenIfNeeded();
 
@@ -1935,7 +1913,7 @@ namespace AMSExplorer
                                                                _amsClientV3.credentialsEntry.AccountName,
                                                                AssetToP.Name,
                                                                permissions: AssetContainerPermission.Read,
-                                                               expiryTime: DateTime.Now.AddHours(24).ToUniversalTime()
+                                                               expiryTime: DateTime.Now.AddHours(Properties.Settings.Default.DefaultSASDurationInHours).ToUniversalTime()
                                                                );
 
                 Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
@@ -2199,7 +2177,7 @@ namespace AMSExplorer
 
         }
 
-          
+
 
         /*
         private void DoMenuImportFromAzureStorage()
@@ -3547,7 +3525,7 @@ namespace AMSExplorer
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
-              
+
 
         private int GetTextBoxAssetsPageNumber()
         {
@@ -6793,34 +6771,6 @@ namespace AMSExplorer
             Process.Start(Constants.DemoCaptionMaker);
         }
 
-        /*
-        private void DoGetTestToken()
-        {
-            bool Error = true;
-            IAsset MyAsset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
-            if (MyAsset != null)
-            {
-                if (DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(MyAsset, _context)) // dynamic encryption with token
-                {
-                    DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(MyAsset, _context, displayUI: true);
-
-                    if (!string.IsNullOrEmpty(testToken.TokenString))
-                    {
-                        TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken.TokenString);
-                        var tokenDisplayForm = new EditorXMLJSON("Authorization test token", Constants.Bearer + testToken.TokenString, false, false);
-                        tokenDisplayForm.Display();
-                        Error = false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("There is no policy defined using the token mode", "No token", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Error = false;
-                }
-            }
-            if (Error) MessageBox.Show("Error when generating the test token", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-*/
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
         {
@@ -8278,11 +8228,6 @@ namespace AMSExplorer
             DoCreateSASUrl(ReturnSelectedAssetsFromProgramsOrAssetsV3());
 
         }
-    }
-
-    public class ListEvents
-    {
-        public List<object> value;
     }
 }
 
