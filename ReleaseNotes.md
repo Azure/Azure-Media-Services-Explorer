@@ -1,7 +1,6 @@
-Version 5.0.1.0 (April 19, 2019) brings the following features and improvements :
+Version 5.0.2.0 (May 13, 2019) brings the following features and improvements :
 
-* Support for [experimental preset for content-aware encoding](https://docs.microsoft.com/en-us/azure/media-services/latest/cae-experimental)
-* Content keys are now displayed in asset info UI
-* Some deadlocks were removed, better management of authentication token renewal
-* AMS v2 SDK has been removed from code and binary, AMS v3 and Storage SDKs updated to latest version
+* Code update to support High DPI screen
+* Support for SAS Urls creation, and asset import from SAS Container path
+* Update to latest ADAL SDK and other librairies
 * Bug fixes
