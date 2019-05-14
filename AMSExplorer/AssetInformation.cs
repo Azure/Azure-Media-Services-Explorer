@@ -321,7 +321,7 @@ namespace AMSExplorer
                 comboBoxStreamingEndpoint.SelectedIndex = 0;
             }
             oktobuildlocator = true;
-              
+
             //listViewFiles.Tag = -1;
             //listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparerQuickNoDate.ListView_ColumnClick);
 
@@ -1723,27 +1723,73 @@ namespace AMSExplorer
 
 
 
-        private void DisplayPolicy(string locatorName)
+        private void DisplayStreamingPolicyAndContentKeyPolicyOfLocator(string locatorName)
         {
-            if (locatorName == null) return;
+            if (locatorName == null)
+            {
+                textBoxStreamingPolicyOfLocator.Text = string.Empty;
+                return;
+            }
 
             var locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
 
             var policy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
 
             var policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
-            textBoxPolicy.Text = policyJson;
+            textBoxStreamingPolicyOfLocator.Text = policyJson;
+
+            DisplayContentKeyPolicyOfStreamingPolicy(locator.StreamingPolicyName);
+
+        }
+
+        private void DisplayContentKeyPolicyOfLocator(string locatorName)
+        {
+            if (locatorName == null)
+            {
+                textBoxContentKeyPolicyOfLocator.Text = string.Empty;
+                return;
+            }
+            var locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+
+            DisplayContentKeyPolicy(locator.DefaultContentKeyPolicyName, textBoxContentKeyPolicyOfLocator);
+        }
+
+        private void DisplayContentKeyPolicyOfStreamingPolicy(string streamingPolicyName)
+        {
+            if (string.IsNullOrEmpty(streamingPolicyName))
+            {
+                textBoxContentKeyPolicyOfStreamingPolicy.Text = string.Empty;
+                return;
+            }
+            var locator = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingPolicyName);
+
+            DisplayContentKeyPolicy(locator.DefaultContentKeyPolicyName, textBoxContentKeyPolicyOfLocator);
+        }
+
+        private void DisplayContentKeyPolicy(string contentKeyPolicyName, TextBox myTextBox)
+        {
+            if (string.IsNullOrEmpty(contentKeyPolicyName))
+            {
+                myTextBox.Text = string.Empty;
+                return;
+            }
+
+            var policy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, contentKeyPolicyName);
+
+            var policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
+            myTextBox.Text = policyJson;
         }
 
 
         private void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBoxPolicy.Text = string.Empty;
+            textBoxStreamingPolicyOfLocator.Text = string.Empty;
 
             if (comboBoxPolicyLocators.SelectedItem != null)
             {
                 string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
-                DisplayPolicy(locatorName);
+                DisplayStreamingPolicyAndContentKeyPolicyOfLocator(locatorName);
+                DisplayContentKeyPolicyOfLocator(locatorName);
                 FillComboDRMKeys(locatorName);
             }
         }
