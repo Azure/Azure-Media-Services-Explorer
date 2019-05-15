@@ -340,6 +340,7 @@
             this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
+            this.faceDetectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -1277,6 +1278,7 @@
             // 
             this.createATransformToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.videoAnalyzerToolStripMenuItem,
+            this.faceDetectorToolStripMenuItem,
             this.mediaEncoderStandardToolStripMenuItem});
             this.createATransformToolStripMenuItem.Name = "createATransformToolStripMenuItem";
             resources.ApplyResources(this.createATransformToolStripMenuItem, "createATransformToolStripMenuItem");
@@ -2707,6 +2709,13 @@
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
             // 
+            // faceDetectorToolStripMenuItem
+            // 
+            this.faceDetectorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.media_redactor;
+            this.faceDetectorToolStripMenuItem.Name = "faceDetectorToolStripMenuItem";
+            resources.ApplyResources(this.faceDetectorToolStripMenuItem, "faceDetectorToolStripMenuItem");
+            this.faceDetectorToolStripMenuItem.Click += new System.EventHandler(this.faceDetectorToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -3081,6 +3090,7 @@
         private System.Windows.Forms.ToolStripMenuItem selectATransformToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem storageSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createASASUrlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem faceDetectorToolStripMenuItem;
     }
 }
 

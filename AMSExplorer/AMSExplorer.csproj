@@ -256,6 +256,12 @@
     <Compile Include="PresetStandardEncoder.Designer.cs">
       <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
     </Compile>
+    <Compile Include="PresetFaceDetector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresetFaceDetector.Designer.cs">
+      <DependentUpon>PresetFaceDetector.cs</DependentUpon>
+    </Compile>
     <Compile Include="TransformInformation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -668,6 +674,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresetStandardEncoder.resx">
       <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetFaceDetector.ja.resx">
+      <DependentUpon>PresetFaceDetector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetFaceDetector.resx">
+      <DependentUpon>PresetFaceDetector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformInformation.ja.resx">
       <DependentUpon>TransformInformation.cs</DependentUpon>
