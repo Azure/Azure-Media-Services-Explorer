@@ -231,6 +231,12 @@
     <Compile Include="DataGrid\DataGridViewTransforms.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -638,6 +644,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTransform.resx">
       <DependentUpon>CreateTransform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.ja.resx">
+      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.resx">
+      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.ja.resx">
       <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>

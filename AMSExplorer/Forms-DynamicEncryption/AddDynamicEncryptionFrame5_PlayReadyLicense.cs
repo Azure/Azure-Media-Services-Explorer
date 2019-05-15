@@ -1,0 +1,410 @@
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2019 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Diagnostics;
+using System.Xml;
+using System.IO;
+using Microsoft.Azure.Management.Media.Models;
+
+namespace AMSExplorer
+{
+    public partial class AddDynamicEncryptionFrame5_PlayReadyLicense : Form
+    {
+        private string PlayReadyPolicyImportedfromXML = null;
+
+        /*
+
+        public string GetLicenseTemplate
+        {
+            get
+            {
+                return checkBoxImportPolicyFile.Checked ? PlayReadyPolicyImportedfromXML : DynamicEncryption.ConfigurePlayReadyLicenseTemplate(GetLicenseTemplateFromControls);
+            }
+        }
+        */
+        private ContentKeyPolicyPlayReadyConfiguration GetPlayReadyConfiguration
+        {
+            get
+            {
+
+                ContentKeyPolicyPlayReadyLicense objContentKeyPolicyPlayReadyLicense;
+
+                /*
+                objContentKeyPolicyPlayReadyLicense = new ContentKeyPolicyPlayReadyLicense
+                {
+                    AllowTestDevices = true,
+                    BeginDate = new DateTime(2016, 1, 1),
+                    ContentKeyLocation = new ContentKeyPolicyPlayReadyContentEncryptionKeyFromHeader(),
+                    ContentType = ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming,
+                    LicenseType = ContentKeyPolicyPlayReadyLicenseType.Persistent,
+                    PlayRight = new ContentKeyPolicyPlayReadyPlayRight
+                    {
+                        ImageConstraintForAnalogComponentVideoRestriction = true,
+                        ExplicitAnalogTelevisionOutputRestriction = new ContentKeyPolicyPlayReadyExplicitAnalogTelevisionRestriction(true, 2),
+                        AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed
+                    }
+                };
+                */
+
+
+                objContentKeyPolicyPlayReadyLicense = new ContentKeyPolicyPlayReadyLicense()
+                {
+                    AllowTestDevices = checkBoxAllowTestDevices.Checked,
+                    ContentKeyLocation = new ContentKeyPolicyPlayReadyContentEncryptionKeyFromHeader(),
+
+                };
+
+                ContentKeyPolicyPlayReadyConfiguration objContentKeyPolicyPlayReadyConfiguration = new ContentKeyPolicyPlayReadyConfiguration
+                {
+                    Licenses = new List<ContentKeyPolicyPlayReadyLicense> { objContentKeyPolicyPlayReadyLicense }
+                };
+
+                if ((string)comboBoxLicenseType.SelectedItem == ContentKeyPolicyPlayReadyLicenseType.NonPersistent)
+                {
+                    objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.NonPersistent;
+                }
+                else if ((string)comboBoxLicenseType.SelectedItem == ContentKeyPolicyPlayReadyLicenseType.Persistent)
+                {
+                    objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.Persistent;
+                }
+                else
+                {
+                    objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.Unknown;
+                }
+
+
+
+                if (checkBoxStartDate.Checked)
+                {
+                    if (radioButtonStartDateAbsolute.Checked)
+                    {
+                        objContentKeyPolicyPlayReadyLicense.BeginDate = (DateTime)dateTimePickerStartDate.Value.ToUniversalTime();
+                    }
+                    else // Relative
+                    {
+                        objContentKeyPolicyPlayReadyLicense.RelativeBeginDate = (TimeSpan)new TimeSpan((int)numericUpDownStartDateDays.Value, (int)numericUpDownStartDateHours.Value, (int)numericUpDownStartDateMinutes.Value, 0);
+                    }
+                }
+
+                if (checkBoxEndDate.Checked)
+                {
+                    if (radioButtonEndDateAbsolute.Checked)
+                    {
+                        objContentKeyPolicyPlayReadyLicense.ExpirationDate = (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
+                    }
+                    else // Relative
+                    {
+                        objContentKeyPolicyPlayReadyLicense.RelativeExpirationDate = (TimeSpan)new TimeSpan((int)numericUpDownEndDateDays.Value, (int)numericUpDownEndDateHours.Value, (int)numericUpDownEndDateMinutes.Value, 0);
+                    }
+                }
+
+                if (checkBoxFPExp.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.FirstPlayExpiration = (TimeSpan)new TimeSpan((int)numericUpDownFPExpDays.Value, (int)numericUpDownFPExpHours.Value, (int)numericUpDownFPExpMinutes.Value, 0);
+
+                if (checkBoxGrace.Checked) objContentKeyPolicyPlayReadyLicense.GracePeriod = (TimeSpan)new TimeSpan((int)numericUpDownGraceDays.Value, (int)numericUpDownGraceHours.Value, (int)numericUpDownGraceMin.Value, 0);
+
+
+                if (objContentKeyPolicyPlayReadyLicense.PlayRight == null) objContentKeyPolicyPlayReadyLicense.PlayRight = new ContentKeyPolicyPlayReadyPlayRight();
+                if (checkBoxCompressedDigitalAudioOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalAudioOpl = (int)numericUpDownCompressedDigitalAudioOPL.Value;
+                if (checkBoxCompressedDigitalVideoOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalVideoOpl = (int)numericUpDownCompressedDigitalVideoOPL.Value;
+                if (checkBoxUncompressedDigitalAudioOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalAudioOpl = (int)numericUpDownUncompressedDigitalAudioOPL.Value;
+                if (checkBoxUncompressedDigitalVideoOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalVideoOpl = (int)numericUpDownUncompressedDigitalVideoOPL.Value;
+                if (checkBoxAnalogVideoOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.AnalogVideoOpl = (int)numericUpDownAnalogVideoOPL.Value;
+
+                objContentKeyPolicyPlayReadyLicense.PlayRight.DigitalVideoOnlyContentRestriction = checkBoxDigitalVideoOnlyContentRestriction.Checked;
+                objContentKeyPolicyPlayReadyLicense.PlayRight.ImageConstraintForAnalogComponentVideoRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
+                objContentKeyPolicyPlayReadyLicense.PlayRight.ImageConstraintForAnalogComputerMonitorRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
+
+
+                if ((string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed;
+                }
+                else if ((string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction;
+                }
+                else if ((string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed;
+                }
+                else
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown;
+                }
+
+
+
+                if ((string)comboBoxContentType.SelectedItem == ContentKeyPolicyPlayReadyContentType.UltraVioletDownload)
+                {
+                    objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.UltraVioletDownload;
+                }
+                else if ((string)comboBoxContentType.SelectedItem == ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming)
+                {
+                    objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming;
+                }
+                else if ((string)comboBoxContentType.SelectedItem == ContentKeyPolicyPlayReadyContentType.Unknown)
+                {
+                    objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.Unknown;
+                }
+                else
+                {
+                    objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.Unspecified;
+                }
+
+
+
+                return objContentKeyPolicyPlayReadyConfiguration;
+            }
+        }
+
+        public string PlayReadOptionName
+        {
+            get
+            {
+                return textBoxPolicyName.Text;
+            }
+            set
+            {
+                textBoxPolicyName.Text = value;
+            }
+        }
+
+
+        public AddDynamicEncryptionFrame5_PlayReadyLicense(int step = -1, int option = -1, bool laststep = true)
+        {
+            InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
+
+            if (step > -1 && option > -1)
+            {
+                this.Text = string.Format(this.Text, step);
+                labelstep.Text = string.Format(labelstep.Text, step, option);
+            }
+            if (!laststep)
+            {
+                buttonOk.Text = "Next";
+                buttonOk.Image = null;
+            }
+        }
+
+
+        private void action_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
+
+        private void PlayReadyLicense_Load(object sender, EventArgs e)
+        {
+            moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, Constants.LinkPlayReadyCompliance));
+            linkLabelPlayReadyPolicy.Links.Add(new LinkLabel.Link(0, linkLabelPlayReadyPolicy.Text.Length, Constants.LinkPlayReadyTemplateInfo));
+
+            comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.NonPersistent);
+            comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Persistent);
+            comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Unknown);
+            comboBoxLicenseType.SelectedIndex = 0;
+
+            comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed);
+            comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction);
+            comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed);
+            comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown);
+            comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndex = 0;
+
+            comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.UltraVioletDownload);
+            comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming);
+            comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unknown);
+            comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unspecified);
+            comboBoxContentType.SelectedIndex = 0;
+
+        }
+
+
+        private void checkBoxStartDate_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonStartDateAbsolute.Enabled = checkBoxStartDate.Checked;
+            radioButtonStartDateRelative.Enabled = checkBoxStartDate.Checked;
+            panelStartDateAbsolute.Enabled = checkBoxStartDate.Checked && radioButtonStartDateAbsolute.Checked;
+            panelStartDateRelative.Enabled = checkBoxStartDate.Checked && radioButtonStartDateRelative.Checked;
+
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void checkBoxEndDate_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonEndDateAbsolute.Enabled = checkBoxEndDate.Checked;
+            radioButtonEndDateRelative.Enabled = checkBoxEndDate.Checked;
+            panelEndDateAbsolute.Enabled = checkBoxStartDate.Checked && radioButtonStartDateAbsolute.Checked;
+            panelEndDateRelative.Enabled = checkBoxStartDate.Checked && radioButtonStartDateRelative.Checked;
+
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void dateTimePickerStartDate_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePickerStartTime.Value = dateTimePickerStartDate.Value;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void dateTimePickerStartTime_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePickerStartDate.Value = dateTimePickerStartTime.Value;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void dateTimePickerEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePickerEndTime.Value = dateTimePickerEndDate.Value;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void dateTimePickerEndTime_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePickerEndDate.Value = dateTimePickerEndTime.Value;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void value_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool Error = false;
+            try
+            {
+                var plt = this.GetPlayReadyConfiguration;
+            }
+            catch (Exception ex)
+            {
+                labelWarning.Text = Program.GetErrorMessage(ex);
+                Error = true;
+            }
+
+            if (!Error) labelWarning.Text = string.Empty;
+
+        }
+
+        private void checkBoxCompressedDigitalAudioOPL_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownCompressedDigitalAudioOPL.Enabled = checkBoxCompressedDigitalAudioOPL.Checked;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void checkBoxCompressedDigitalVideoOPL_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownCompressedDigitalVideoOPL.Enabled = checkBoxCompressedDigitalVideoOPL.Checked;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void checkBoxUncompressedDigitalAudioOPL_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownUncompressedDigitalAudioOPL.Enabled = checkBoxUncompressedDigitalAudioOPL.Checked;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void checkBoxUncompressedDigitalVideoOPL_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownUncompressedDigitalVideoOPL.Enabled = checkBoxUncompressedDigitalVideoOPL.Checked;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void checkBoxAnalogVideoOPL_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownAnalogVideoOPL.Enabled = checkBoxAnalogVideoOPL.Checked;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void comboBoxType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((string)comboBoxLicenseType.SelectedItem == ContentKeyPolicyPlayReadyLicenseType.NonPersistent)  // Non persistent
+            {
+                groupBoxFirstPlay.Enabled = false;
+                checkBoxFPExp.Checked = false;
+                groupBoxEndDate.Enabled = false;
+                checkBoxEndDate.Checked = false;
+                groupBoxStartDate.Enabled = false;
+                checkBoxStartDate.Checked = false;
+            }
+            else
+            {
+                groupBoxFirstPlay.Enabled = true;
+                groupBoxEndDate.Enabled = true;
+                groupBoxStartDate.Enabled = true;
+            }
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void checkBoxFPExp_CheckedChanged(object sender, EventArgs e)
+        {
+            panelFirstPlayExpiration.Enabled = checkBoxFPExp.Checked;
+            value_SelectedIndexChanged(sender, e);
+        }
+
+        private void radioButtonsStartDate_CheckedChanged(object sender, EventArgs e)
+        {
+            panelStartDateAbsolute.Enabled = radioButtonStartDateAbsolute.Checked;
+            panelStartDateRelative.Enabled = radioButtonStartDateRelative.Checked;
+        }
+
+        private void radioButtonsEndDate_CheckedChanged(object sender, EventArgs e)
+        {
+            panelEndDateAbsolute.Enabled = radioButtonEndDateAbsolute.Checked;
+            panelEndDateRelative.Enabled = radioButtonEndDateRelative.Checked;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            tabControlPlayReadySettings.Enabled = !checkBoxImportPolicyFile.Checked;
+            buttonImportXML.Enabled = checkBoxImportPolicyFile.Checked;
+            if (checkBoxImportPolicyFile.Checked && PlayReadyPolicyImportedfromXML == null)
+            {
+                buttonOk.Enabled = false;
+            }
+            else
+            {
+                buttonOk.Enabled = true;
+            }
+        }
+
+        private void buttonImportXML_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogPreset.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    StreamReader streamReader = new StreamReader(openFileDialogPreset.FileName);
+                    PlayReadyPolicyImportedfromXML = streamReader.ReadToEnd();
+                    streamReader.Close();
+                    buttonOk.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read XML from disk. Original error: " + ex.Message);
+                }
+            }
+        }
+
+        private void checkBoxGrace_CheckedChanged(object sender, EventArgs e)
+        {
+            panelGrace.Enabled = checkBoxGrace.Checked;
+            value_SelectedIndexChanged(sender, e);
+        }
+    }
+}
