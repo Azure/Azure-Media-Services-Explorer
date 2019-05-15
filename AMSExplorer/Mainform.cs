@@ -8006,6 +8006,37 @@ namespace AMSExplorer
             }
         }
 
+        private void CreateFaceDetectorTransform()
+        {
+            var form = new PresetFaceDetector();
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                TransformOutput[] outputs;
+
+                outputs = new TransformOutput[]
+                                                 {
+                                                                new TransformOutput( new FaceDetectorPreset( ){ Resolution =  form.AnalysisResolutionMode    }),
+                                                 };
+
+                try
+                {
+                    _amsClientV3.RefreshTokenIfNeeded();
+
+                    // Create the Transform with the output defined above
+                    var transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
+                    TextBoxLogWriteLine("Transform {0} created.", transform.Name); // Warning
+
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when creating the transform.", ex); // Warning
+                }
+
+                DoRefreshGridTransformV(false);
+            }
+        }
+
         private void CreateStandardEncoderTransform()
         {
             var form = new PresetStandardEncoder();
@@ -8227,6 +8258,11 @@ namespace AMSExplorer
         {
             DoCreateSASUrl(ReturnSelectedAssetsFromProgramsOrAssetsV3());
 
+        }
+
+        private void faceDetectorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateFaceDetectorTransform();
         }
     }
 }
