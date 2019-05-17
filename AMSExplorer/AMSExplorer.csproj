@@ -231,11 +231,17 @@
     <Compile Include="DataGrid\DataGridViewTransforms.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.cs">
+    <Compile Include="Forms-DynamicEncryption\DRM_WidevineLicense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
+    <Compile Include="Forms-DynamicEncryption\DRM_WidevineLicense.designer.cs">
+      <DependentUpon>DRM_WidevineLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.designer.cs">
+      <DependentUpon>DRM_PlayReadyLicense.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.cs">
       <SubType>Form</SubType>
@@ -244,6 +250,7 @@
       <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms-DynamicEncryption\DynamicEncryption.cs" />
+    <Compile Include="Forms-DynamicEncryption\WidevineConfiguration.cs" />
     <Compile Include="HttpSource.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -651,11 +658,17 @@
     <EmbeddedResource Include="CreateTransform.resx">
       <DependentUpon>CreateTransform.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.ja.resx">
-      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_WidevineLicense.ja.resx">
+      <DependentUpon>DRM_WidevineLicense.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\AddDynamicEncryptionFrame5_PlayReadyLicense.resx">
-      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_WidevineLicense.resx">
+      <DependentUpon>DRM_WidevineLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.ja.resx">
+      <DependentUpon>DRM_PlayReadyLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.resx">
+      <DependentUpon>DRM_PlayReadyLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.ja.resx">
       <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>

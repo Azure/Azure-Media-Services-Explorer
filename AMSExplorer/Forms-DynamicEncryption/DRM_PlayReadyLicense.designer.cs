@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AddDynamicEncryptionFrame5_PlayReadyLicense
+    partial class DRM_PlayReadyLicense
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddDynamicEncryptionFrame5_PlayReadyLicense));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DRM_PlayReadyLicense));
             this.moreinfocompliance = new System.Windows.Forms.LinkLabel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tabControlPlayReadySettings = new System.Windows.Forms.TabControl();

@@ -30,20 +30,11 @@ using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame5_PlayReadyLicense : Form
+    public partial class DRM_PlayReadyLicense : Form
     {
         private string PlayReadyPolicyImportedfromXML = null;
 
-        /*
-
-        public string GetLicenseTemplate
-        {
-            get
-            {
-                return checkBoxImportPolicyFile.Checked ? PlayReadyPolicyImportedfromXML : DynamicEncryption.ConfigurePlayReadyLicenseTemplate(GetLicenseTemplateFromControls);
-            }
-        }
-        */
+        
         private ContentKeyPolicyPlayReadyConfiguration GetPlayReadyConfiguration
         {
             get
@@ -81,11 +72,11 @@ namespace AMSExplorer
                     Licenses = new List<ContentKeyPolicyPlayReadyLicense> { objContentKeyPolicyPlayReadyLicense }
                 };
 
-                if ((string)comboBoxLicenseType.SelectedItem == ContentKeyPolicyPlayReadyLicenseType.NonPersistent)
+                if (comboBoxLicenseType.SelectedItem.ToString() == ContentKeyPolicyPlayReadyLicenseType.NonPersistent)
                 {
                     objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.NonPersistent;
                 }
-                else if ((string)comboBoxLicenseType.SelectedItem == ContentKeyPolicyPlayReadyLicenseType.Persistent)
+                else if (comboBoxLicenseType.SelectedItem.ToString() == ContentKeyPolicyPlayReadyLicenseType.Persistent)
                 {
                     objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.Persistent;
                 }
@@ -136,16 +127,15 @@ namespace AMSExplorer
                 objContentKeyPolicyPlayReadyLicense.PlayRight.ImageConstraintForAnalogComponentVideoRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
                 objContentKeyPolicyPlayReadyLicense.PlayRight.ImageConstraintForAnalogComputerMonitorRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
 
-
-                if ((string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed)
+                if (comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem?.ToString() == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed.ToString())
                 {
                     objContentKeyPolicyPlayReadyLicense.PlayRight.AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed;
                 }
-                else if ((string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction)
+                else if (comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem?.ToString() == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction)
                 {
                     objContentKeyPolicyPlayReadyLicense.PlayRight.AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction;
                 }
-                else if ((string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed)
+                else if (comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem?.ToString() == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed)
                 {
                     objContentKeyPolicyPlayReadyLicense.PlayRight.AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed;
                 }
@@ -156,15 +146,15 @@ namespace AMSExplorer
 
 
 
-                if ((string)comboBoxContentType.SelectedItem == ContentKeyPolicyPlayReadyContentType.UltraVioletDownload)
+                if (comboBoxContentType.SelectedItem?.ToString() == ContentKeyPolicyPlayReadyContentType.UltraVioletDownload)
                 {
                     objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.UltraVioletDownload;
                 }
-                else if ((string)comboBoxContentType.SelectedItem == ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming)
+                else if (comboBoxContentType.SelectedItem?.ToString() == ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming)
                 {
                     objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming;
                 }
-                else if ((string)comboBoxContentType.SelectedItem == ContentKeyPolicyPlayReadyContentType.Unknown)
+                else if (comboBoxContentType.SelectedItem?.ToString() == ContentKeyPolicyPlayReadyContentType.Unknown)
                 {
                     objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.Unknown;
                 }
@@ -172,7 +162,6 @@ namespace AMSExplorer
                 {
                     objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.Unspecified;
                 }
-
 
 
                 return objContentKeyPolicyPlayReadyConfiguration;
@@ -192,7 +181,7 @@ namespace AMSExplorer
         }
 
 
-        public AddDynamicEncryptionFrame5_PlayReadyLicense(int step = -1, int option = -1, bool laststep = true)
+        public DRM_PlayReadyLicense(int step = -1, int option = -1, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -223,18 +212,19 @@ namespace AMSExplorer
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.NonPersistent);
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Persistent);
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Unknown);
-            comboBoxLicenseType.SelectedIndex = 0;
 
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown);
-            comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndex = 0;
 
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.UltraVioletDownload);
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming);
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unknown);
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unspecified);
+
+            comboBoxLicenseType.SelectedIndex = 0;
+            comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndex = 0;
             comboBoxContentType.SelectedIndex = 0;
 
         }
@@ -333,7 +323,7 @@ namespace AMSExplorer
 
         private void comboBoxType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((string)comboBoxLicenseType.SelectedItem == ContentKeyPolicyPlayReadyLicenseType.NonPersistent)  // Non persistent
+            if (comboBoxLicenseType.SelectedItem.ToString() == ContentKeyPolicyPlayReadyLicenseType.NonPersistent.ToString())  // Non persistent
             {
                 groupBoxFirstPlay.Enabled = false;
                 checkBoxFPExp.Checked = false;

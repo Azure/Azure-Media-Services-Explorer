@@ -148,6 +148,10 @@ namespace AMSExplorer
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
 
+            var formPlayready = new DRM_WidevineLicense();
+            formPlayready.ShowDialog();
+
+
             AMSLogin formLogin = new AMSLogin();
 
             if (formLogin.ShowDialog() == DialogResult.Cancel)
@@ -1746,6 +1750,21 @@ namespace AMSExplorer
                     DRM_Config_TokenClaims formJwt = null;
                     if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
+
+                        if (form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                        {
+                            var formPlayready = new DRM_PlayReadyLicense();
+                            formPlayready.ShowDialog();
+                            var formPlayReadyJwt = new DRM_Config_TokenClaims(1, 1, "Widevine", null, true);
+
+
+
+                            var formWidewine = new DRM_WidevineLicense();
+                            formWidewine.ShowDialog();
+                            var formWidevineJwt = new DRM_Config_TokenClaims(1, 1, "Widevine", null, true);
+
+                        }
+
 
                         formJwt = new DRM_Config_TokenClaims(1, 1, "PlayReady", null, true);
 
