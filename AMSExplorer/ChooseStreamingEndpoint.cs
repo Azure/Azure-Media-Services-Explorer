@@ -20,6 +20,8 @@ using Microsoft.Win32;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Drawing;
 
 namespace AMSExplorer
 {
@@ -159,14 +161,15 @@ namespace AMSExplorer
         }
 
 
-        private void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
+        private async void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
         {
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
             _client.RefreshTokenIfNeeded();
 
-            StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
+           // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
+            StreamingEndpoint BestSE =  await AssetInfo.GetBestStreamingEndpointAsync(_client);
 
             foreach (var se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
             {
@@ -178,14 +181,14 @@ namespace AMSExplorer
                 }
             }
 
-            /*
 
             // Filters
 
             // asset filters
-            var afilters = _asset.AssetFilters.ToList();
-            var afiltersnames = afilters.Select(a => a.Name).ToList();
-            afilters.ForEach(f =>
+            var assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name);
+            var afiltersnames = assetFilters.Select(a => a.Name).ToList();
+
+            assetFilters.ToList().ForEach(f =>
             {
                 var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter)
@@ -194,24 +197,28 @@ namespace AMSExplorer
                 }
                 listViewFilters.Items.Add(lvitem);
             }
-            );
-
-            // global filters
-            _context.Filters.ToList().ForEach(f =>
-           {
-               var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
-               if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count == 0) // only if not already selected (asset filter priority > global filter)
-               {
-                   lvitem.Checked = true;
-               }
-               if (afiltersnames.Contains(f.Name)) // global filter with same name than asset filter
-               {
-                   lvitem.ForeColor = Color.Gray;
-               }
-               listViewFilters.Items.Add(lvitem);
-           }
            );
-           */
+
+
+            // account filters
+            var acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+
+            acctFilters.ToList().ForEach(f =>
+            {
+                var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
+                if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count == 0) // only if not already selected (asset filter priority > account filter)
+                {
+                    lvitem.Checked = true;
+                }
+                if (afiltersnames.Contains(f.Name)) // global filter with same name than asset filter
+                {
+                    lvitem.ForeColor = Color.Gray;
+                }
+                listViewFilters.Items.Add(lvitem);
+            }
+           );
+
+           
 
             if (_playertype == PlayerType.DASHIFRefPlayer)
             {
