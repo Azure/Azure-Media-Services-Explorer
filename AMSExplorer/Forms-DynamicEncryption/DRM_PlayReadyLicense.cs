@@ -35,7 +35,7 @@ namespace AMSExplorer
         private string PlayReadyPolicyImportedfromXML = null;
 
         
-        private ContentKeyPolicyPlayReadyConfiguration GetPlayReadyConfiguration
+        public ContentKeyPolicyPlayReadyConfiguration GetPlayReadyConfiguration
         {
             get
             {

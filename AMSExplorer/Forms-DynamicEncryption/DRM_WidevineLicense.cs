@@ -49,18 +49,15 @@ namespace AMSExplorer
         }
 
 
-        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration()
+        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration
         {
-
-
-
-            ContentKeyPolicyWidevineConfiguration objContentKeyPolicyWidevineConfiguration = new ContentKeyPolicyWidevineConfiguration
+            get
             {
-                WidevineTemplate = textBoxConfiguration.Text
-            };
-            return objContentKeyPolicyWidevineConfiguration;
-
-
+                return new ContentKeyPolicyWidevineConfiguration
+                {
+                    WidevineTemplate = textBoxConfiguration.Text
+                };
+            }
         }
 
         public DRM_WidevineLicense(int step = -1, int option = -1, bool laststep = true)
@@ -84,6 +81,7 @@ namespace AMSExplorer
         {
             _labelWarningJSON = labelWarningJSON.Text;
             linkLabelWidevinePolicy.Links.Add(new LinkLabel.Link(0, linkLabelWidevinePolicy.Text.Length, Constants.LinkWidevineTemplateInfo));
+            radioButtonBasic.Checked = true;
         }
 
 

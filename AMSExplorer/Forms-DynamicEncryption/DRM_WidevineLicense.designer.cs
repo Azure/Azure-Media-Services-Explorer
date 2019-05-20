@@ -55,16 +55,16 @@
             // radioButtonAdvanced
             // 
             resources.ApplyResources(this.radioButtonAdvanced, "radioButtonAdvanced");
+            this.radioButtonAdvanced.Checked = true;
             this.radioButtonAdvanced.Name = "radioButtonAdvanced";
+            this.radioButtonAdvanced.TabStop = true;
             this.radioButtonAdvanced.UseVisualStyleBackColor = true;
             this.radioButtonAdvanced.CheckedChanged += new System.EventHandler(this.radioButtonAdvanced_CheckedChanged);
             // 
             // radioButtonBasic
             // 
             resources.ApplyResources(this.radioButtonBasic, "radioButtonBasic");
-            this.radioButtonBasic.Checked = true;
             this.radioButtonBasic.Name = "radioButtonBasic";
-            this.radioButtonBasic.TabStop = true;
             this.radioButtonBasic.UseVisualStyleBackColor = true;
             // 
             // buttonOk

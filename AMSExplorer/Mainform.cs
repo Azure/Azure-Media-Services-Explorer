@@ -148,10 +148,6 @@ namespace AMSExplorer
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
 
-            var formPlayready = new DRM_WidevineLicense();
-            formPlayready.ShowDialog();
-
-
             AMSLogin formLogin = new AMSLogin();
 
             if (formLogin.ShowDialog() == DialogResult.Cancel)
@@ -1747,39 +1743,80 @@ namespace AMSExplorer
 
                     // DRM
                     ContentKeyPolicy keyPolicy = null;
-                    DRM_Config_TokenClaims formJwt = null;
+                    var formPlayreadyTokenClaims = new List<DRM_Config_TokenClaims>();
+                    var formWidevineTokenClaims = new List<DRM_Config_TokenClaims>();
+                    var formClearKeyTokenClaims = new List<DRM_Config_TokenClaims>();
+                    List<ContentKeyPolicyOption> options = new List<ContentKeyPolicyOption>();
+
                     if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
 
                         if (form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                         {
-                            var formPlayready = new DRM_PlayReadyLicense();
-                            formPlayready.ShowDialog();
-                            var formPlayReadyJwt = new DRM_Config_TokenClaims(1, 1, "Widevine", null, true);
+                            var formCencDelivery = new DRM_CENCDelivery(true, true);
+                            if (formCencDelivery.ShowDialog() != DialogResult.OK) return;
 
+                            // for each PlayReady option
+                            var formPlayready = new List<DRM_PlayReadyLicense>();
 
+                            int step = 0;
+                            for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
+                            {
+                                formPlayreadyTokenClaims.Add(new DRM_Config_TokenClaims(step++, i, "PlayReady", null, true));
+                                if (formPlayreadyTokenClaims[i].ShowDialog() != DialogResult.OK) return;
 
-                            var formWidewine = new DRM_WidevineLicense();
-                            formWidewine.ShowDialog();
-                            var formWidevineJwt = new DRM_Config_TokenClaims(1, 1, "Widevine", null, true);
+                                formPlayready.Add(new DRM_PlayReadyLicense(step++, i));
+                                if (formPlayready[i].ShowDialog() != DialogResult.OK) return;
+
+                                options.Add(
+                                               new ContentKeyPolicyOption()
+                                               {
+                                                   Configuration = formPlayready[i].GetPlayReadyConfiguration,
+                                                   Restriction = formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction
+                                               });
+                            }
+
+                            // for each Widevine option
+                            var formWidevine = new List<DRM_WidevineLicense>();
+
+                            for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
+                            {
+                                formWidevineTokenClaims.Add(new DRM_Config_TokenClaims(step++, i, "Widevine", null, true));
+                                if (formWidevineTokenClaims[i].ShowDialog() != DialogResult.OK) return;
+
+                                formWidevine.Add(new DRM_WidevineLicense(step++, i));
+                                if (formWidevine[i].ShowDialog() != DialogResult.OK) return;
+
+                                options.Add(
+                                            new ContentKeyPolicyOption()
+                                            {
+                                                Configuration = formWidevine[i].GetWidevineConfiguration,
+                                                Restriction = formWidevineTokenClaims[i].GetContentKeyPolicyRestriction
+                                            });
+                            }
 
                         }
-
-
-                        formJwt = new DRM_Config_TokenClaims(1, 1, "PlayReady", null, true);
-
-                        if (formJwt.ShowDialog() != DialogResult.OK)
+                        else if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
                         {
-                            return;
+                            formClearKeyTokenClaims.Add(new DRM_Config_TokenClaims(1, 1, "Cleak Key", null, true));
+                            if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK) return;
+
+                            options.Add(
+                                           new ContentKeyPolicyOption()
+                                           {
+                                               Configuration = new ContentKeyPolicyClearKeyConfiguration(),
+                                               Restriction = formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
+                                           });
+
                         }
-                        else
-                        {
-                            keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(
-                               _amsClientV3.credentialsEntry.ResourceGroup,
-                                _amsClientV3.credentialsEntry.AccountName,
-                                "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
-                                new List<ContentKeyPolicyOption> { formJwt.Option });
-                        }
+
+
+                        keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup,
+                                                _amsClientV3.credentialsEntry.AccountName,
+                                                "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
+                                                options);
+
+
                     }
 
                     sbuilder.Clear();
@@ -1812,18 +1849,9 @@ namespace AMSExplorer
                             sbuilder.AppendLine(string.Empty);
                         }
 
-                        if (formJwt != null && formJwt.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
-                        {
-                            // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
-                            // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
-                            // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
-                            // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
-                            var response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
-                                    _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
-                            string keyIdentifier = response.ContentKeys.First().Id.ToString();
-
-                            sbuilder.AppendLine(string.Format("Test token ({0} min) : {1}", Properties.Settings.Default.DefaultTokenDurationInMin, Constants.Bearer + formJwt.GetTestToken(keyIdentifier)));
-                        }
+                        await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators, "PlayReady");
+                        await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators, "Widevine");
+                        await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators, "Clear Key");
 
                         var displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
                         displayResult.ShowDialog();
@@ -1840,6 +1868,29 @@ namespace AMSExplorer
             }
         }
 
+        private async Task AddTestTokenToSbuilder(List<DRM_Config_TokenClaims> formTokenClaims, List<LocatorAndUrls> listLocators, string DRMTechnology)
+        {
+            foreach (var tokenClaims in formTokenClaims)
+            {
+                if (tokenClaims.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
+                {
+                    // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
+                    // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
+                    // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
+                    // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
+                    var response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
+                            _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
+                    string keyIdentifier = response.ContentKeys.First().Id.ToString();
+
+                    sbuilder.AppendLine(string.Format("Test token for {0}, Option {1} (valid {2} min) :",
+                        DRMTechnology,
+                        formTokenClaims.IndexOf(tokenClaims) + 1,
+                        Properties.Settings.Default.DefaultTokenDurationInMin));
+                    sbuilder.AppendLine(Constants.Bearer + tokenClaims.GetTestToken(keyIdentifier));
+                    sbuilder.AppendLine(string.Empty);
+                }
+            }
+        }
 
         private async void DoCreateSASUrl(List<Asset> SelectedAssets)
         {

@@ -44,43 +44,30 @@ namespace AMSExplorer
                 new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
               };
 
-        public ContentKeyPolicyOption Option
+        public ContentKeyPolicyRestriction GetContentKeyPolicyRestriction
         {
             get
             {
-                List<ContentKeyPolicyRestrictionTokenKey> alternateKeys = null;
-
-                ContentKeyPolicyRestrictionTokenKey primarykey;
-                if (GetDetailedTokenType == ExplorerTokenType.JWTSym || GetDetailedTokenType == ExplorerTokenType.SWTSym)
-                {
-                    primarykey = new ContentKeyPolicySymmetricTokenKey(SymmetricKey);
-                }
-                else
-                {
-                    primarykey = new ContentKeyPolicyX509CertificateTokenKey(GetX509Certificate.RawData);
-
-                }
-
-
-                ContentKeyPolicyOption option = null;
-
                 if (radioButtonOpenAuthPolicy.Checked)
                 {
-                    option = new ContentKeyPolicyOption(
-                                                    new ContentKeyPolicyClearKeyConfiguration(),
-                                                    new ContentKeyPolicyOpenRestriction()
-                                                    );
+                    return new ContentKeyPolicyOpenRestriction();
                 }
                 else // token
                 {
-                    option = new ContentKeyPolicyOption(
-                                                    new ContentKeyPolicyClearKeyConfiguration(),
-                                                    new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey,
-                                                            TokenType, alternateKeys, GetTokenRequiredClaims));
+                    List<ContentKeyPolicyRestrictionTokenKey> alternateKeys = null;
 
+                    ContentKeyPolicyRestrictionTokenKey primarykey;
+                    if (GetDetailedTokenType == ExplorerTokenType.JWTSym || GetDetailedTokenType == ExplorerTokenType.SWTSym)
+                    {
+                        primarykey = new ContentKeyPolicySymmetricTokenKey(SymmetricKey);
+                    }
+                    else
+                    {
+                        primarykey = new ContentKeyPolicyX509CertificateTokenKey(GetX509Certificate.RawData);
+                    }
 
+                    return new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType, alternateKeys, GetTokenRequiredClaims);
                 }
-                return option;
             }
         }
 
