@@ -553,6 +553,8 @@ namespace AMSExplorer
 
                     if (listPaths.DownloadPaths.Count > 0)
                     {
+                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode("Download") { ForeColor = colornodeRU });
+
                         foreach (var p in listPaths.DownloadPaths)
                         {
                             uriBuilder.Path = p;
