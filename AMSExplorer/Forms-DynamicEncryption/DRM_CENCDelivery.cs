@@ -28,65 +28,11 @@ namespace AMSExplorer
 {
     public partial class DRM_CENCDelivery : Form
     {
-        private readonly string _PlayReadyTestLAURL = "http://playready-testserver.azurewebsites.net/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
-        private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
-
-
-        public Uri PlayReadyLAurl
-        {
-            get
-            {
-                Uri myuri = null;
-                try
-                {
-                    myuri = new Uri(textBoxPRLAurl.Text);
-                }
-                catch
-                {
-
-                }
-
-                return myuri;
-            }
-            set
-            {
-                textBoxPRLAurl.Text = value.ToString();
-            }
-        }
-
-        public bool PlayReadyLAurlEncodeForSL
-        {
-            get
-            {
-                return checkBoxEncodingSL.Enabled ? checkBoxEncodingSL.Checked : false;
-            }
-
-        }
-
-        public string WidevineLAurl
-        {
-            get
-            {
-                string myuri = null;
-                if (_WidevinePackagingEnabled)
-                {
-                    myuri = textBoxWVLAurl.Text.Trim();
-                }
-                return myuri;
-            }
-            set
-            {
-                textBoxWVLAurl.Text = value.ToString();
-            }
-        }
-
-
-
         public int GetNumberOfAuthorizationPolicyOptionsPlayReady // if 0, then no authorization policy. If > 0, then renturn the number of options
         {
             get
             {
-                if (radioButtonExternalPRServer.Checked && radioButtonExternalPRServer.Checked || !_PlayReadyPackagingEnabled)
+                if (!checkBoxPlayReady.Checked  || !_PlayReadyPackagingEnabled)
                 {
                     return 0;
                 }
@@ -101,7 +47,7 @@ namespace AMSExplorer
         {
             get
             {
-                if ((radioButtonExternalWVServer.Checked && radioButtonExternalWVServer.Checked) || !_WidevinePackagingEnabled)
+                if (!checkBoxWidevine.Checked || !_WidevinePackagingEnabled)
                 {
                     return 0;
                 }
@@ -112,18 +58,10 @@ namespace AMSExplorer
             }
         }
 
-        public bool WidevineFinalLAurl
-        {
-            get
-            {
-                return checkBoxWidevineFinalExtURL.Checked;
-            }
-        }
-
         private bool _PlayReadyPackagingEnabled;
         private bool _WidevinePackagingEnabled;
 
-        public DRM_CENCDelivery( bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled)
+        public DRM_CENCDelivery(bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -132,7 +70,7 @@ namespace AMSExplorer
         }
 
 
-        private void AddDynamicEncryptionFrame3_Load(object sender, EventArgs e)
+        private void DRM_CENCDelivery_Load(object sender, EventArgs e)
         {
             groupBoxPlayReady.Enabled = _PlayReadyPackagingEnabled;
             groupBoxWidevine.Enabled = _WidevinePackagingEnabled;
@@ -143,26 +81,5 @@ namespace AMSExplorer
         {
 
         }
-
-        private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
-        {
-            textBoxPRLAurl.Text = _PlayReadyTestLAURL;
-
-        }
-
-        private void radioButtonExternalPRServer_CheckedChanged(object sender, EventArgs e)
-        {
-            panelExternalPlayReady.Enabled = radioButtonExternalPRServer.Checked;
-            numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalPRServer.Checked;
-
-        }
-
-        private void radioButtonExternalWVServer_CheckedChanged(object sender, EventArgs e)
-        {
-            panelExternalWidevine.Enabled = radioButtonExternalWVServer.Checked;
-            numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalWVServer.Checked;
-        }
-
-
     }
 }

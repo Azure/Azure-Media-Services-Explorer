@@ -180,14 +180,14 @@
     <value>26, 21</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 42</value>
+    <value>328, 42</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Step 3
-License delivery</value>
+License delivery from Azure Media Services</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -199,7 +199,7 @@ License delivery</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -224,250 +224,40 @@ License delivery</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panelExternalPlayReady.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxPRLAurl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxPRLAurl.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="textBoxPRLAurl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 33</value>
-  </data>
-  <data name="textBoxPRLAurl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 23</value>
-  </data>
-  <data name="textBoxPRLAurl.TabIndex" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="&gt;&gt;textBoxPRLAurl.Name" xml:space="preserve">
-    <value>textBoxPRLAurl</value>
-  </data>
-  <data name="&gt;&gt;textBoxPRLAurl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxPRLAurl.Parent" xml:space="preserve">
-    <value>panelExternalPlayReady</value>
-  </data>
-  <data name="&gt;&gt;textBoxPRLAurl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonPlayReadyTestSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 72</value>
-  </data>
-  <data name="buttonPlayReadyTestSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 37</value>
-  </data>
-  <data name="buttonPlayReadyTestSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="buttonPlayReadyTestSettings.Text" xml:space="preserve">
-    <value>Use PlayReady Test Server</value>
-  </data>
-  <data name="&gt;&gt;buttonPlayReadyTestSettings.Name" xml:space="preserve">
-    <value>buttonPlayReadyTestSettings</value>
-  </data>
-  <data name="&gt;&gt;buttonPlayReadyTestSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonPlayReadyTestSettings.Parent" xml:space="preserve">
-    <value>panelExternalPlayReady</value>
-  </data>
-  <data name="&gt;&gt;buttonPlayReadyTestSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label7.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>453, 36</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 15</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>(Url)</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>panelExternalPlayReady</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxEncodingSL.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="checkBoxEncodingSL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxEncodingSL.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="checkBoxEncodingSL.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxEncodingSL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>485, 37</value>
-  </data>
-  <data name="checkBoxEncodingSL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 19</value>
-  </data>
-  <data name="checkBoxEncodingSL.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="checkBoxEncodingSL.Text" xml:space="preserve">
-    <value>Encoding for SL</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEncodingSL.Name" xml:space="preserve">
-    <value>checkBoxEncodingSL</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEncodingSL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEncodingSL.Parent" xml:space="preserve">
-    <value>panelExternalPlayReady</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEncodingSL.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 13</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>License Acquisition Url :</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>panelExternalPlayReady</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="panelExternalPlayReady.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="checkBoxPlayReady.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="panelExternalPlayReady.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 81</value>
+  <data name="checkBoxPlayReady.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 45</value>
   </data>
-  <data name="panelExternalPlayReady.Size" type="System.Drawing.Size, System.Drawing">
-    <value>597, 127</value>
+  <data name="checkBoxPlayReady.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 19</value>
   </data>
-  <data name="panelExternalPlayReady.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
+  <data name="checkBoxPlayReady.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
   </data>
-  <data name="&gt;&gt;panelExternalPlayReady.Name" xml:space="preserve">
-    <value>panelExternalPlayReady</value>
+  <data name="checkBoxPlayReady.Text" xml:space="preserve">
+    <value>PlayReady license delivery with</value>
   </data>
-  <data name="&gt;&gt;panelExternalPlayReady.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;checkBoxPlayReady.Name" xml:space="preserve">
+    <value>checkBoxPlayReady</value>
   </data>
-  <data name="&gt;&gt;panelExternalPlayReady.Parent" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxPlayReady.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPlayReady.Parent" xml:space="preserve">
     <value>groupBoxPlayReady</value>
   </data>
-  <data name="&gt;&gt;panelExternalPlayReady.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxPlayReady.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="radioButtonDeliverPRfromAMS.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonDeliverPRfromAMS.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="radioButtonDeliverPRfromAMS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 34</value>
-  </data>
-  <data name="radioButtonDeliverPRfromAMS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 19</value>
-  </data>
-  <data name="radioButtonDeliverPRfromAMS.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="radioButtonDeliverPRfromAMS.Text" xml:space="preserve">
-    <value>From Azure Media Services with</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDeliverPRfromAMS.Name" xml:space="preserve">
-    <value>radioButtonDeliverPRfromAMS</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDeliverPRfromAMS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDeliverPRfromAMS.Parent" xml:space="preserve">
-    <value>groupBoxPlayReady</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDeliverPRfromAMS.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radioButtonExternalPRServer.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonExternalPRServer.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="radioButtonExternalPRServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 59</value>
-  </data>
-  <data name="radioButtonExternalPRServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 19</value>
-  </data>
-  <data name="radioButtonExternalPRServer.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="radioButtonExternalPRServer.Text" xml:space="preserve">
-    <value>An external PlayReady server is used</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExternalPRServer.Name" xml:space="preserve">
-    <value>radioButtonExternalPRServer</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExternalPRServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExternalPRServer.Parent" xml:space="preserve">
-    <value>groupBoxPlayReady</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExternalPRServer.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="numericUpDownNbOptionsPlayReady.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="numericUpDownNbOptionsPlayReady.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 34</value>
+    <value>240, 44</value>
   </data>
   <data name="numericUpDownNbOptionsPlayReady.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -485,7 +275,7 @@ License delivery</value>
     <value>groupBoxPlayReady</value>
   </data>
   <data name="&gt;&gt;numericUpDownNbOptionsPlayReady.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -494,7 +284,7 @@ License delivery</value>
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 38</value>
+    <value>300, 48</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 15</value>
@@ -515,7 +305,7 @@ License delivery</value>
     <value>groupBoxPlayReady</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="groupBoxPlayReady.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>
@@ -524,7 +314,7 @@ License delivery</value>
     <value>12, 87</value>
   </data>
   <data name="groupBoxPlayReady.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 226</value>
+    <value>645, 125</value>
   </data>
   <data name="groupBoxPlayReady.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -542,7 +332,7 @@ License delivery</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBoxPlayReady.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -557,7 +347,7 @@ License delivery</value>
     <value>69</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>Having more than one option is useful if you want to support several types of tokens, or want to deliver various PlayReady licenses based on token claims.</value>
+    <value>Having more than one option is useful if you want to support several types of tokens, or want to deliver various PlayReady and Widevine licenses based on token claims.</value>
   </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
@@ -569,13 +359,40 @@ License delivery</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxWidevine.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxWidevine.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 46</value>
+  </data>
+  <data name="checkBoxWidevine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 19</value>
+  </data>
+  <data name="checkBoxWidevine.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="checkBoxWidevine.Text" xml:space="preserve">
+    <value>Widevine license delivery with</value>
+  </data>
+  <data name="&gt;&gt;checkBoxWidevine.Name" xml:space="preserve">
+    <value>checkBoxWidevine</value>
+  </data>
+  <data name="&gt;&gt;checkBoxWidevine.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxWidevine.Parent" xml:space="preserve">
+    <value>groupBoxWidevine</value>
+  </data>
+  <data name="&gt;&gt;checkBoxWidevine.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="numericUpDownNbOptionsWidevine.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="numericUpDownNbOptionsWidevine.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 32</value>
+    <value>240, 42</value>
   </data>
   <data name="numericUpDownNbOptionsWidevine.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -593,153 +410,6 @@ License delivery</value>
     <value>groupBoxWidevine</value>
   </data>
   <data name="&gt;&gt;numericUpDownNbOptionsWidevine.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panelExternalWidevine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="checkBoxWidevineFinalExtURL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxWidevineFinalExtURL.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="checkBoxWidevineFinalExtURL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 62</value>
-  </data>
-  <data name="checkBoxWidevineFinalExtURL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>402, 19</value>
-  </data>
-  <data name="checkBoxWidevineFinalExtURL.TabIndex" type="System.Int32, mscorlib">
-    <value>98</value>
-  </data>
-  <data name="checkBoxWidevineFinalExtURL.Text" xml:space="preserve">
-    <value>Final URL (the keyid will not be added to URL by the dynamic packager)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxWidevineFinalExtURL.Name" xml:space="preserve">
-    <value>checkBoxWidevineFinalExtURL</value>
-  </data>
-  <data name="&gt;&gt;checkBoxWidevineFinalExtURL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxWidevineFinalExtURL.Parent" xml:space="preserve">
-    <value>panelExternalWidevine</value>
-  </data>
-  <data name="&gt;&gt;checkBoxWidevineFinalExtURL.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="textBoxWVLAurl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxWVLAurl.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="textBoxWVLAurl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 33</value>
-  </data>
-  <data name="textBoxWVLAurl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 23</value>
-  </data>
-  <data name="textBoxWVLAurl.TabIndex" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="&gt;&gt;textBoxWVLAurl.Name" xml:space="preserve">
-    <value>textBoxWVLAurl</value>
-  </data>
-  <data name="&gt;&gt;textBoxWVLAurl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxWVLAurl.Parent" xml:space="preserve">
-    <value>panelExternalWidevine</value>
-  </data>
-  <data name="&gt;&gt;textBoxWVLAurl.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>453, 36</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>(Url)</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>panelExternalWidevine</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 13</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 15</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>License Acquisition Url :</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>panelExternalWidevine</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panelExternalWidevine.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="panelExternalWidevine.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 82</value>
-  </data>
-  <data name="panelExternalWidevine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>597, 90</value>
-  </data>
-  <data name="panelExternalWidevine.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="&gt;&gt;panelExternalWidevine.Name" xml:space="preserve">
-    <value>panelExternalWidevine</value>
-  </data>
-  <data name="&gt;&gt;panelExternalWidevine.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelExternalWidevine.Parent" xml:space="preserve">
-    <value>groupBoxWidevine</value>
-  </data>
-  <data name="&gt;&gt;panelExternalWidevine.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
@@ -749,7 +419,7 @@ License delivery</value>
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 36</value>
+    <value>300, 46</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 15</value>
@@ -772,74 +442,14 @@ License delivery</value>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="radioButtonExternalWVServer.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonExternalWVServer.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="radioButtonExternalWVServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 57</value>
-  </data>
-  <data name="radioButtonExternalWVServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 19</value>
-  </data>
-  <data name="radioButtonExternalWVServer.TabIndex" type="System.Int32, mscorlib">
-    <value>82</value>
-  </data>
-  <data name="radioButtonExternalWVServer.Text" xml:space="preserve">
-    <value>An external Widevine server is used</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExternalWVServer.Name" xml:space="preserve">
-    <value>radioButtonExternalWVServer</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExternalWVServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExternalWVServer.Parent" xml:space="preserve">
-    <value>groupBoxWidevine</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExternalWVServer.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="radioButtonDeliverWVFromAMS.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonDeliverWVFromAMS.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="radioButtonDeliverWVFromAMS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 32</value>
-  </data>
-  <data name="radioButtonDeliverWVFromAMS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 19</value>
-  </data>
-  <data name="radioButtonDeliverWVFromAMS.TabIndex" type="System.Int32, mscorlib">
-    <value>82</value>
-  </data>
-  <data name="radioButtonDeliverWVFromAMS.Text" xml:space="preserve">
-    <value>From Azure Media Services with</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDeliverWVFromAMS.Name" xml:space="preserve">
-    <value>radioButtonDeliverWVFromAMS</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDeliverWVFromAMS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDeliverWVFromAMS.Parent" xml:space="preserve">
-    <value>groupBoxWidevine</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDeliverWVFromAMS.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="groupBoxWidevine.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>
   </data>
   <data name="groupBoxWidevine.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 338</value>
+    <value>12, 255</value>
   </data>
   <data name="groupBoxWidevine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 203</value>
+    <value>645, 125</value>
   </data>
   <data name="groupBoxWidevine.TabIndex" type="System.Int32, mscorlib">
     <value>71</value>
@@ -857,7 +467,124 @@ License delivery</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBoxWidevine.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="checkBox1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 46</value>
+  </data>
+  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 19</value>
+  </data>
+  <data name="checkBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="checkBox1.Text" xml:space="preserve">
+    <value>FairPlay license delivery with</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.Name" xml:space="preserve">
+    <value>checkBox1</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>240, 42</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 23</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Name" xml:space="preserve">
+    <value>numericUpDownNbOptionsFairPlay</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 46</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>option(s)</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBox1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 9pt, style=Bold</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 413</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 125</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>FairPlay</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -878,7 +605,7 @@ License delivery</value>
     <value>Dynamic Encryption - Step 3</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AddDynamicEncryptionFrame3_CENCDelivery</value>
+    <value>DRM_CENCDelivery</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

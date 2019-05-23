@@ -44,7 +44,6 @@
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.labelAssetName = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.comboBoxPolicyName = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.groupBoxForceLocator = new System.Windows.Forms.GroupBox();
@@ -52,6 +51,7 @@
             this.textBoxLocatorGUID = new System.Windows.Forms.TextBox();
             this.checkBoxForLocatorGUID = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxPolicyName = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBoxEnd.SuspendLayout();
             this.groupBoxStart.SuspendLayout();
@@ -172,12 +172,6 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
-            // comboBoxPolicyName
-            // 
-            this.comboBoxPolicyName.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxPolicyName, "comboBoxPolicyName");
-            this.comboBoxPolicyName.Name = "comboBoxPolicyName";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.streaming_locator;
@@ -225,6 +219,12 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
+            // 
+            // comboBoxPolicyName
+            // 
+            this.comboBoxPolicyName.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxPolicyName, "comboBoxPolicyName");
+            this.comboBoxPolicyName.Name = "comboBoxPolicyName";
             // 
             // label2
             // 
@@ -288,7 +288,7 @@
         private System.Windows.Forms.TextBox textBoxLocatorGUID;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBoxPolicyName;
         public System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxPolicyName;
     }
 }
