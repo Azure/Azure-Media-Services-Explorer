@@ -99,7 +99,31 @@ namespace AMSExplorer
         {
             get
             {
-                return (string)comboBoxPolicyName.Text;
+                if (radioButtonClearStream.Checked)
+                {
+                    return PredefinedStreamingPolicy.ClearStreamingOnly;
+                }
+                else if (radioButtonDownload.Checked)
+                {
+                    return PredefinedStreamingPolicy.DownloadOnly;
+                }
+                else if (radioButtonDownloadAndClear.Checked)
+                {
+                    return PredefinedStreamingPolicy.DownloadAndClearStreaming;
+                }
+                else if (radioButtonClearKey.Checked)
+                {
+                    return PredefinedStreamingPolicy.ClearKey;
+                }
+                else if (radioButtonMultiDRMCENC.Checked)
+                {
+                    return PredefinedStreamingPolicy.MultiDrmCencStreaming;
+                }
+                else // if (radioButtonMultiDRM.Checked)
+                {
+                    return PredefinedStreamingPolicy.MultiDrmStreaming;
+                }
+
             }
         }
 
@@ -145,9 +169,6 @@ namespace AMSExplorer
 
         private void CreateLocator_Load(object sender, EventArgs e)
         {
-            // as not implemented, we remove MultiDrm policies for now
-            comboBoxPolicyName.Items.AddRange(typeof(PredefinedStreamingPolicy).GetFields().Select(field => field.GetValue(field)).ToArray());
-            comboBoxPolicyName.Text = PredefinedStreamingPolicy.ClearStreamingOnly;
         }
 
         private void radioButtonEndCustom_CheckedChanged(object sender, EventArgs e)
@@ -161,6 +182,51 @@ namespace AMSExplorer
             groupBoxEnd.Visible =
             groupBoxStart.Visible =
             textBoxLocatorGUID.Enabled = checkBoxForLocatorGUID.Checked;
+        }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButtonMultiDRM_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButtonMultiDRMCENC_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButtonClearKey_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
