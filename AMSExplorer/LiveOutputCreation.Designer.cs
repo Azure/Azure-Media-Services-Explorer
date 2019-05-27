@@ -52,15 +52,14 @@
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownArchiveHours = new System.Windows.Forms.NumericUpDown();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBoxStartRecordTimestamp = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.checkBoxHLSFragPerSegDefined = new System.Windows.Forms.CheckBox();
             this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
             this.textBoxManifestName = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.textBoxStartRecordTimestamp = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
@@ -228,6 +227,17 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // textBoxStartRecordTimestamp
+            // 
+            resources.ApplyResources(this.textBoxStartRecordTimestamp, "textBoxStartRecordTimestamp");
+            this.textBoxStartRecordTimestamp.Name = "textBoxStartRecordTimestamp";
+            this.textBoxStartRecordTimestamp.TextChanged += new System.EventHandler(this.textBoxStartRecordTimestamp_TextChanged);
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
             // checkBoxHLSFragPerSegDefined
             // 
             resources.ApplyResources(this.checkBoxHLSFragPerSegDefined, "checkBoxHLSFragPerSegDefined");
@@ -251,12 +261,6 @@
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
             // 
-            // checkBoxDynEnc
-            // 
-            resources.ApplyResources(this.checkBoxDynEnc, "checkBoxDynEnc");
-            this.checkBoxDynEnc.Name = "checkBoxDynEnc";
-            this.checkBoxDynEnc.UseVisualStyleBackColor = true;
-            // 
             // panel1
             // 
             resources.ApplyResources(this.panel1, "panel1");
@@ -269,17 +273,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // textBoxStartRecordTimestamp
-            // 
-            resources.ApplyResources(this.textBoxStartRecordTimestamp, "textBoxStartRecordTimestamp");
-            this.textBoxStartRecordTimestamp.Name = "textBoxStartRecordTimestamp";
-            this.textBoxStartRecordTimestamp.TextChanged += new System.EventHandler(this.textBoxStartRecordTimestamp_TextChanged);
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
             // LiveOutputCreation
             // 
             this.AcceptButton = this.buttonOk;
@@ -288,7 +281,6 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.checkBoxDynEnc);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBoxCreateLocator);
@@ -336,7 +328,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
-        private System.Windows.Forms.CheckBox checkBoxDynEnc;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox textBoxManifestName;

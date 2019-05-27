@@ -40,7 +40,7 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxPolicyName.Text;
+                return string.IsNullOrWhiteSpace(textBoxPolicyName.Text) ? null : textBoxPolicyName.Text;
             }
             set
             {

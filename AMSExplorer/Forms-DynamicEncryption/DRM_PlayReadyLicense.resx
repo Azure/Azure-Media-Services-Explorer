@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreinfocompliance.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>6</value>
   </data>
   <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1903,7 +1903,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControlPlayReadySettings.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>4</value>
   </data>
   <data name="textBoxPolicyName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1927,7 +1927,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxPolicyName.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>3</value>
   </data>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1954,7 +1954,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>5</value>
   </data>
   <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2014,7 +2014,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelWarning.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>2</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -2038,7 +2038,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>1</value>
   </data>
   <data name="labelstep.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2069,96 +2069,6 @@ Specify the PlayReady license template for option #{1}</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelstep.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="checkBoxImportPolicyFile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="checkBoxImportPolicyFile.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxImportPolicyFile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 115</value>
-  </data>
-  <data name="checkBoxImportPolicyFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 19</value>
-  </data>
-  <data name="checkBoxImportPolicyFile.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="checkBoxImportPolicyFile.Text" xml:space="preserve">
-    <value>Use a PlayReady policy file</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImportPolicyFile.Name" xml:space="preserve">
-    <value>checkBoxImportPolicyFile</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImportPolicyFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImportPolicyFile.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImportPolicyFile.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttonImportXML.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="buttonImportXML.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonImportXML.Location" type="System.Drawing.Point, System.Drawing">
-    <value>495, 112</value>
-  </data>
-  <data name="buttonImportXML.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 27</value>
-  </data>
-  <data name="buttonImportXML.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
-  </data>
-  <data name="buttonImportXML.Text" xml:space="preserve">
-    <value>Import XML...</value>
-  </data>
-  <data name="&gt;&gt;buttonImportXML.Name" xml:space="preserve">
-    <value>buttonImportXML</value>
-  </data>
-  <data name="&gt;&gt;buttonImportXML.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonImportXML.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonImportXML.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="linkLabelPlayReadyPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="linkLabelPlayReadyPolicy.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="linkLabelPlayReadyPolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>608, 118</value>
-  </data>
-  <data name="linkLabelPlayReadyPolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 15</value>
-  </data>
-  <data name="linkLabelPlayReadyPolicy.TabIndex" type="System.Int32, mscorlib">
-    <value>88</value>
-  </data>
-  <data name="linkLabelPlayReadyPolicy.Text" xml:space="preserve">
-    <value>More info</value>
-  </data>
-  <data name="&gt;&gt;linkLabelPlayReadyPolicy.Name" xml:space="preserve">
-    <value>linkLabelPlayReadyPolicy</value>
-  </data>
-  <data name="&gt;&gt;linkLabelPlayReadyPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabelPlayReadyPolicy.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;linkLabelPlayReadyPolicy.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="openFileDialogPreset.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -2192,7 +2102,7 @@ Specify the PlayReady license template for option #{1}</value>
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AddDynamicEncryptionFrame5_PlayReadyLicense</value>
+    <value>DRM_PlayReadyLicense</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

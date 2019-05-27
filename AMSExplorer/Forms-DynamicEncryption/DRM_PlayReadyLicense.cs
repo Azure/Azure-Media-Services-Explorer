@@ -34,7 +34,7 @@ namespace AMSExplorer
     {
         private string PlayReadyPolicyImportedfromXML = null;
 
-        
+
         public ContentKeyPolicyPlayReadyConfiguration GetPlayReadyConfiguration
         {
             get
@@ -163,7 +163,6 @@ namespace AMSExplorer
                     objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.Unspecified;
                 }
 
-
                 return objContentKeyPolicyPlayReadyConfiguration;
             }
         }
@@ -172,7 +171,7 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxPolicyName.Text;
+                return string.IsNullOrWhiteSpace(textBoxPolicyName.Text) ? null : textBoxPolicyName.Text;
             }
             set
             {
@@ -207,21 +206,20 @@ namespace AMSExplorer
         private void PlayReadyLicense_Load(object sender, EventArgs e)
         {
             moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, Constants.LinkPlayReadyCompliance));
-            linkLabelPlayReadyPolicy.Links.Add(new LinkLabel.Link(0, linkLabelPlayReadyPolicy.Text.Length, Constants.LinkPlayReadyTemplateInfo));
 
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.NonPersistent);
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Persistent);
-            comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Unknown);
+            //comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Unknown);
 
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed);
-            comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown);
+            //comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown);
 
+            comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unspecified);
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.UltraVioletDownload);
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming);
-            comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unknown);
-            comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unspecified);
+            //comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unknown);
 
             comboBoxLicenseType.SelectedIndex = 0;
             comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndex = 0;
@@ -357,38 +355,6 @@ namespace AMSExplorer
         {
             panelEndDateAbsolute.Enabled = radioButtonEndDateAbsolute.Checked;
             panelEndDateRelative.Enabled = radioButtonEndDateRelative.Checked;
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            tabControlPlayReadySettings.Enabled = !checkBoxImportPolicyFile.Checked;
-            buttonImportXML.Enabled = checkBoxImportPolicyFile.Checked;
-            if (checkBoxImportPolicyFile.Checked && PlayReadyPolicyImportedfromXML == null)
-            {
-                buttonOk.Enabled = false;
-            }
-            else
-            {
-                buttonOk.Enabled = true;
-            }
-        }
-
-        private void buttonImportXML_Click(object sender, EventArgs e)
-        {
-            if (openFileDialogPreset.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    StreamReader streamReader = new StreamReader(openFileDialogPreset.FileName);
-                    PlayReadyPolicyImportedfromXML = streamReader.ReadToEnd();
-                    streamReader.Close();
-                    buttonOk.Enabled = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read XML from disk. Original error: " + ex.Message);
-                }
-            }
         }
 
         private void checkBoxGrace_CheckedChanged(object sender, EventArgs e)

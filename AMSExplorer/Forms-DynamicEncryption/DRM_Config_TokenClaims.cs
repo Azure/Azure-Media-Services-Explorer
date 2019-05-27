@@ -100,6 +100,7 @@ namespace AMSExplorer
             }
         }
 
+        
         public ContentKeyPolicyRestrictionTokenType TokenType
         {
             get
@@ -107,26 +108,34 @@ namespace AMSExplorer
                 return radioButtonSWT.Checked ? ContentKeyPolicyRestrictionTokenType.Swt : ContentKeyPolicyRestrictionTokenType.Jwt;
             }
         }
+        
 
         public ExplorerTokenType GetDetailedTokenType
         {
             get
             {
-                if (radioButtonSWT.Checked)
+                if (radioButtonOpenAuthPolicy.Checked)
                 {
-                    return ExplorerTokenType.SWTSym;
-                }
-                else if (radioButtonJWTSymmetric.Checked)
-                {
-                    return ExplorerTokenType.JWTSym;
-                }
-                else if (radioButtonJWTX509.Checked)
-                {
-                    return ExplorerTokenType.JWTX509;
+                    return ExplorerTokenType.NoToken;
                 }
                 else
                 {
-                    return ExplorerTokenType.JWTOpenID;
+                    if (radioButtonSWT.Checked)
+                    {
+                        return ExplorerTokenType.SWTSym;
+                    }
+                    else if (radioButtonJWTSymmetric.Checked)
+                    {
+                        return ExplorerTokenType.JWTSym;
+                    }
+                    else if (radioButtonJWTX509.Checked)
+                    {
+                        return ExplorerTokenType.JWTX509;
+                    }
+                    else
+                    {
+                        return ExplorerTokenType.JWTOpenID;
+                    }
                 }
             }
         }

@@ -1752,7 +1752,6 @@ namespace AMSExplorer
                     int left = form.Left;
                     int top = form.Top;
 
-
                     if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
                         string tokenSymKey = Properties.Settings.Default.DynEncTokenSymKeyv3;
@@ -1763,7 +1762,6 @@ namespace AMSExplorer
                             var formCencDelivery = new DRM_CENCDelivery(true, true) { Left = left, Top = top };
                             if (formCencDelivery.ShowDialog() != DialogResult.OK) return;
 
-
                             int step = 1;
                             SavePositionOfForm(formCencDelivery, out left, out top);
 
@@ -1772,12 +1770,16 @@ namespace AMSExplorer
 
                             for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
                             {
-                                formPlayreadyTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, true) { Left = left, Top = top });
+                                bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1) && (formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine == 0);
+
+                                formPlayreadyTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, false)
+                                { Left = left, Top = top });
+
                                 if (formPlayreadyTokenClaims[i].ShowDialog() != DialogResult.OK) return;
                                 tokenSymKey = formPlayreadyTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
                                 SavePositionOfForm(formPlayreadyTokenClaims[i], out left, out top);
 
-                                formPlayready.Add(new DRM_PlayReadyLicense(step++, i + 1) { Left = left, Top = top });
+                                formPlayready.Add(new DRM_PlayReadyLicense(step++, i + 1, laststep) { Left = left, Top = top });
                                 if (formPlayready[i].ShowDialog() != DialogResult.OK) return;
                                 SavePositionOfForm(formPlayready[i], out left, out top);
 
@@ -1785,7 +1787,8 @@ namespace AMSExplorer
                                                new ContentKeyPolicyOption()
                                                {
                                                    Configuration = formPlayready[i].GetPlayReadyConfiguration,
-                                                   Restriction = formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction
+                                                   Restriction = formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction,
+                                                   Name = formPlayready[i].PlayReadOptionName
                                                });
                             }
 
@@ -1794,12 +1797,14 @@ namespace AMSExplorer
 
                             for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
                             {
-                                formWidevineTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, true) { Left = left, Top = top });
+                                bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine - 1);
+
+                                formWidevineTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, false) { Left = left, Top = top });
                                 if (formWidevineTokenClaims[i].ShowDialog() != DialogResult.OK) return;
                                 tokenSymKey = formWidevineTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
                                 SavePositionOfForm(formWidevineTokenClaims[i], out left, out top);
-                                
-                                formWidevine.Add(new DRM_WidevineLicense(step++, i + 1) { Left = left, Top = top });
+
+                                formWidevine.Add(new DRM_WidevineLicense(step++, i + 1, laststep) { Left = left, Top = top });
                                 if (formWidevine[i].ShowDialog() != DialogResult.OK) return;
                                 SavePositionOfForm(formWidevine[i], out left, out top);
 
@@ -1807,7 +1812,8 @@ namespace AMSExplorer
                                             new ContentKeyPolicyOption()
                                             {
                                                 Configuration = formWidevine[i].GetWidevineConfiguration,
-                                                Restriction = formWidevineTokenClaims[i].GetContentKeyPolicyRestriction
+                                                Restriction = formWidevineTokenClaims[i].GetContentKeyPolicyRestriction,
+                                                Name = formWidevine[i].WidevinePolicyName
                                             });
                             }
 
@@ -1826,16 +1832,22 @@ namespace AMSExplorer
 
                         }
 
-                        Properties.Settings.Default.DynEncTokenAudiencev3 = tokenSymKey;
+                        Properties.Settings.Default.DynEncTokenSymKeyv3 = tokenSymKey;
                         Program.SaveAndProtectUserConfig();
 
-
-                        keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup,
-                                                _amsClientV3.credentialsEntry.AccountName,
-                                                "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
-                                                options);
-
-
+                        try
+                        {
+                            keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup,
+                        _amsClientV3.credentialsEntry.AccountName,
+                        "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
+                        options);
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when creating the content key policy.", true);
+                            TextBoxLogWriteLine(e);
+                        }
                     }
 
                     sbuilder.Clear();
@@ -1911,7 +1923,7 @@ namespace AMSExplorer
         {
             foreach (var tokenClaims in formTokenClaims)
             {
-                if (tokenClaims.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
+                if (tokenClaims.GetDetailedTokenType == ExplorerTokenType.JWTSym)
                 {
                     // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
                     // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
@@ -5740,7 +5752,6 @@ namespace AMSExplorer
                     LiveEventName = liveEvent.Name,
                     ArchiveWindowLength = new TimeSpan(0, 5, 0),
                     CreateLocator = true,
-                    EnableDynEnc = false,
                     AssetName = Constants.NameconvLiveEvent + "-" + Constants.NameconvLiveOutput,
                     ProgramName = "LiveOutput-" + uniqueness,
                     HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,

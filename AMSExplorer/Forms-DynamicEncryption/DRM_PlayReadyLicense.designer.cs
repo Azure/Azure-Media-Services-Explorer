@@ -33,6 +33,15 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tabControlPlayReadySettings = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panelGrace = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.numericUpDownGraceMin = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownGraceHours = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownGraceDays = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxGrace = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxContentType = new System.Windows.Forms.ComboBox();
             this.groupBoxEndDate = new System.Windows.Forms.GroupBox();
@@ -97,21 +106,14 @@
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelstep = new System.Windows.Forms.Label();
-            this.checkBoxImportPolicyFile = new System.Windows.Forms.CheckBox();
-            this.buttonImportXML = new System.Windows.Forms.Button();
-            this.linkLabelPlayReadyPolicy = new System.Windows.Forms.LinkLabel();
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panelGrace = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.numericUpDownGraceMin = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownGraceHours = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownGraceDays = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxGrace = new System.Windows.Forms.CheckBox();
             this.tabControlPlayReadySettings.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panelGrace.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceHours)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceDays)).BeginInit();
             this.groupBoxEndDate.SuspendLayout();
             this.panelEndDateAbsolute.SuspendLayout();
             this.panelEndDateRelative.SuspendLayout();
@@ -136,11 +138,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCompressedDigitalVideoOPL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCompressedDigitalAudioOPL)).BeginInit();
             this.panel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.panelGrace.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceHours)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceDays)).BeginInit();
             this.SuspendLayout();
             // 
             // moreinfocompliance
@@ -178,6 +175,82 @@
             resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.panelGrace);
+            this.groupBox1.Controls.Add(this.checkBoxGrace);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // panelGrace
+            // 
+            this.panelGrace.Controls.Add(this.label12);
+            this.panelGrace.Controls.Add(this.label14);
+            this.panelGrace.Controls.Add(this.label15);
+            this.panelGrace.Controls.Add(this.numericUpDownGraceMin);
+            this.panelGrace.Controls.Add(this.numericUpDownGraceHours);
+            this.panelGrace.Controls.Add(this.numericUpDownGraceDays);
+            resources.ApplyResources(this.panelGrace, "panelGrace");
+            this.panelGrace.Name = "panelGrace";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // numericUpDownGraceMin
+            // 
+            resources.ApplyResources(this.numericUpDownGraceMin, "numericUpDownGraceMin");
+            this.numericUpDownGraceMin.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.numericUpDownGraceMin.Name = "numericUpDownGraceMin";
+            // 
+            // numericUpDownGraceHours
+            // 
+            resources.ApplyResources(this.numericUpDownGraceHours, "numericUpDownGraceHours");
+            this.numericUpDownGraceHours.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.numericUpDownGraceHours.Name = "numericUpDownGraceHours";
+            // 
+            // numericUpDownGraceDays
+            // 
+            resources.ApplyResources(this.numericUpDownGraceDays, "numericUpDownGraceDays");
+            this.numericUpDownGraceDays.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownGraceDays.Name = "numericUpDownGraceDays";
+            this.numericUpDownGraceDays.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // checkBoxGrace
+            // 
+            resources.ApplyResources(this.checkBoxGrace, "checkBoxGrace");
+            this.checkBoxGrace.Name = "checkBoxGrace";
+            this.checkBoxGrace.UseVisualStyleBackColor = true;
+            this.checkBoxGrace.CheckedChanged += new System.EventHandler(this.checkBoxGrace_CheckedChanged);
             // 
             // label1
             // 
@@ -729,118 +802,18 @@
             this.labelstep.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelstep.Name = "labelstep";
             // 
-            // checkBoxImportPolicyFile
-            // 
-            resources.ApplyResources(this.checkBoxImportPolicyFile, "checkBoxImportPolicyFile");
-            this.checkBoxImportPolicyFile.Name = "checkBoxImportPolicyFile";
-            this.checkBoxImportPolicyFile.UseVisualStyleBackColor = true;
-            this.checkBoxImportPolicyFile.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // buttonImportXML
-            // 
-            resources.ApplyResources(this.buttonImportXML, "buttonImportXML");
-            this.buttonImportXML.Name = "buttonImportXML";
-            this.buttonImportXML.UseVisualStyleBackColor = true;
-            this.buttonImportXML.Click += new System.EventHandler(this.buttonImportXML_Click);
-            // 
-            // linkLabelPlayReadyPolicy
-            // 
-            resources.ApplyResources(this.linkLabelPlayReadyPolicy, "linkLabelPlayReadyPolicy");
-            this.linkLabelPlayReadyPolicy.Name = "linkLabelPlayReadyPolicy";
-            this.linkLabelPlayReadyPolicy.TabStop = true;
-            this.linkLabelPlayReadyPolicy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.action_LinkClicked);
-            // 
             // openFileDialogPreset
             // 
             this.openFileDialogPreset.DefaultExt = "xml";
             resources.ApplyResources(this.openFileDialogPreset, "openFileDialogPreset");
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.panelGrace);
-            this.groupBox1.Controls.Add(this.checkBoxGrace);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // panelGrace
-            // 
-            this.panelGrace.Controls.Add(this.label12);
-            this.panelGrace.Controls.Add(this.label14);
-            this.panelGrace.Controls.Add(this.label15);
-            this.panelGrace.Controls.Add(this.numericUpDownGraceMin);
-            this.panelGrace.Controls.Add(this.numericUpDownGraceHours);
-            this.panelGrace.Controls.Add(this.numericUpDownGraceDays);
-            resources.ApplyResources(this.panelGrace, "panelGrace");
-            this.panelGrace.Name = "panelGrace";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // numericUpDownGraceMin
-            // 
-            resources.ApplyResources(this.numericUpDownGraceMin, "numericUpDownGraceMin");
-            this.numericUpDownGraceMin.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.numericUpDownGraceMin.Name = "numericUpDownGraceMin";
-            // 
-            // numericUpDownGraceHours
-            // 
-            resources.ApplyResources(this.numericUpDownGraceHours, "numericUpDownGraceHours");
-            this.numericUpDownGraceHours.Maximum = new decimal(new int[] {
-            23,
-            0,
-            0,
-            0});
-            this.numericUpDownGraceHours.Name = "numericUpDownGraceHours";
-            // 
-            // numericUpDownGraceDays
-            // 
-            resources.ApplyResources(this.numericUpDownGraceDays, "numericUpDownGraceDays");
-            this.numericUpDownGraceDays.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownGraceDays.Name = "numericUpDownGraceDays";
-            this.numericUpDownGraceDays.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // checkBoxGrace
-            // 
-            resources.ApplyResources(this.checkBoxGrace, "checkBoxGrace");
-            this.checkBoxGrace.Name = "checkBoxGrace";
-            this.checkBoxGrace.UseVisualStyleBackColor = true;
-            this.checkBoxGrace.CheckedChanged += new System.EventHandler(this.checkBoxGrace_CheckedChanged);
-            // 
-            // AddDynamicEncryptionFrame5_PlayReadyLicense
+            // DRM_PlayReadyLicense
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.linkLabelPlayReadyPolicy);
-            this.Controls.Add(this.buttonImportXML);
-            this.Controls.Add(this.checkBoxImportPolicyFile);
             this.Controls.Add(this.labelstep);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
@@ -848,11 +821,18 @@
             this.Controls.Add(this.tabControlPlayReadySettings);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.moreinfocompliance);
-            this.Name = "AddDynamicEncryptionFrame5_PlayReadyLicense";
+            this.Name = "DRM_PlayReadyLicense";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);
             this.tabControlPlayReadySettings.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.panelGrace.ResumeLayout(false);
+            this.panelGrace.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceHours)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceDays)).EndInit();
             this.groupBoxEndDate.ResumeLayout(false);
             this.groupBoxEndDate.PerformLayout();
             this.panelEndDateAbsolute.ResumeLayout(false);
@@ -884,13 +864,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCompressedDigitalVideoOPL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCompressedDigitalAudioOPL)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.panelGrace.ResumeLayout(false);
-            this.panelGrace.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceHours)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraceDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -964,9 +937,6 @@
         private System.Windows.Forms.Panel panelStartDateAbsolute;
         private System.Windows.Forms.Panel panelFirstPlayExpiration;
         private System.Windows.Forms.Label labelstep;
-        private System.Windows.Forms.CheckBox checkBoxImportPolicyFile;
-        private System.Windows.Forms.Button buttonImportXML;
-        private System.Windows.Forms.LinkLabel linkLabelPlayReadyPolicy;
         private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxContentType;

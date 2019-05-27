@@ -46,7 +46,7 @@ namespace AMSExplorer
 
     public enum ExplorerTokenType
     {
-        SWT = 0,
+        NoToken = 0,
         SWTSym,
         JWTSym,
         JWTX509,
@@ -68,8 +68,8 @@ namespace AMSExplorer
             return randomBytes;
         }
 
-       
-    
+
+
 
         static public PFXCertificate GetCertificateFromFile(bool informuser = false, X509KeyStorageFlags flags = X509KeyStorageFlags.DefaultKeySet)
         {
@@ -120,7 +120,7 @@ namespace AMSExplorer
             return new PFXCertificate { Certificate = cert, Password = password };
         }
 
-   
+
         public static byte[] HexStringToByteArray(string hex)
         {
             return Enumerable.Range(0, hex.Length)
