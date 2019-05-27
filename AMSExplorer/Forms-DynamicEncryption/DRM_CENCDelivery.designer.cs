@@ -34,14 +34,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxPlayReady = new System.Windows.Forms.GroupBox();
+            this.checkBoxPlayReady = new System.Windows.Forms.CheckBox();
             this.numericUpDownNbOptionsPlayReady = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBoxWidevine = new System.Windows.Forms.GroupBox();
+            this.checkBoxWidevine = new System.Windows.Forms.CheckBox();
             this.numericUpDownNbOptionsWidevine = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.checkBoxPlayReady = new System.Windows.Forms.CheckBox();
-            this.checkBoxWidevine = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.numericUpDownNbOptionsFairPlay = new System.Windows.Forms.NumericUpDown();
@@ -93,6 +93,14 @@
             this.groupBoxPlayReady.Name = "groupBoxPlayReady";
             this.groupBoxPlayReady.TabStop = false;
             // 
+            // checkBoxPlayReady
+            // 
+            resources.ApplyResources(this.checkBoxPlayReady, "checkBoxPlayReady");
+            this.checkBoxPlayReady.Checked = true;
+            this.checkBoxPlayReady.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPlayReady.Name = "checkBoxPlayReady";
+            this.checkBoxPlayReady.UseVisualStyleBackColor = true;
+            // 
             // numericUpDownNbOptionsPlayReady
             // 
             resources.ApplyResources(this.numericUpDownNbOptionsPlayReady, "numericUpDownNbOptionsPlayReady");
@@ -133,6 +141,14 @@
             this.groupBoxWidevine.Name = "groupBoxWidevine";
             this.groupBoxWidevine.TabStop = false;
             // 
+            // checkBoxWidevine
+            // 
+            resources.ApplyResources(this.checkBoxWidevine, "checkBoxWidevine");
+            this.checkBoxWidevine.Checked = true;
+            this.checkBoxWidevine.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxWidevine.Name = "checkBoxWidevine";
+            this.checkBoxWidevine.UseVisualStyleBackColor = true;
+            // 
             // numericUpDownNbOptionsWidevine
             // 
             resources.ApplyResources(this.numericUpDownNbOptionsWidevine, "numericUpDownNbOptionsWidevine");
@@ -157,20 +173,6 @@
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            // 
-            // checkBoxPlayReady
-            // 
-            resources.ApplyResources(this.checkBoxPlayReady, "checkBoxPlayReady");
-            this.checkBoxPlayReady.Checked = true;
-            this.checkBoxPlayReady.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPlayReady.Name = "checkBoxPlayReady";
-            this.checkBoxPlayReady.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxWidevine
-            // 
-            resources.ApplyResources(this.checkBoxWidevine, "checkBoxWidevine");
-            this.checkBoxWidevine.Name = "checkBoxWidevine";
-            this.checkBoxWidevine.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 

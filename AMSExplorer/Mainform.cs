@@ -1748,25 +1748,38 @@ namespace AMSExplorer
                     var formClearKeyTokenClaims = new List<DRM_Config_TokenClaims>();
                     List<ContentKeyPolicyOption> options = new List<ContentKeyPolicyOption>();
 
+                    // let's preserve location of windows
+                    int left = form.Left;
+                    int top = form.Top;
+
+
                     if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
+                        string tokenSymKey = Properties.Settings.Default.DynEncTokenSymKeyv3;
+                        if (string.IsNullOrWhiteSpace(tokenSymKey)) tokenSymKey = null;
 
                         if (form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                         {
-                            var formCencDelivery = new DRM_CENCDelivery(true, true);
+                            var formCencDelivery = new DRM_CENCDelivery(true, true) { Left = left, Top = top };
                             if (formCencDelivery.ShowDialog() != DialogResult.OK) return;
+
+
+                            int step = 1;
+                            SavePositionOfForm(formCencDelivery, out left, out top);
 
                             // for each PlayReady option
                             var formPlayready = new List<DRM_PlayReadyLicense>();
 
-                            int step = 0;
                             for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
                             {
-                                formPlayreadyTokenClaims.Add(new DRM_Config_TokenClaims(step++, i, "PlayReady", null, true));
+                                formPlayreadyTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, true) { Left = left, Top = top });
                                 if (formPlayreadyTokenClaims[i].ShowDialog() != DialogResult.OK) return;
+                                tokenSymKey = formPlayreadyTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
+                                SavePositionOfForm(formPlayreadyTokenClaims[i], out left, out top);
 
-                                formPlayready.Add(new DRM_PlayReadyLicense(step++, i));
+                                formPlayready.Add(new DRM_PlayReadyLicense(step++, i + 1) { Left = left, Top = top });
                                 if (formPlayready[i].ShowDialog() != DialogResult.OK) return;
+                                SavePositionOfForm(formPlayready[i], out left, out top);
 
                                 options.Add(
                                                new ContentKeyPolicyOption()
@@ -1781,11 +1794,14 @@ namespace AMSExplorer
 
                             for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
                             {
-                                formWidevineTokenClaims.Add(new DRM_Config_TokenClaims(step++, i, "Widevine", null, true));
+                                formWidevineTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, true) { Left = left, Top = top });
                                 if (formWidevineTokenClaims[i].ShowDialog() != DialogResult.OK) return;
-
-                                formWidevine.Add(new DRM_WidevineLicense(step++, i));
+                                tokenSymKey = formWidevineTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
+                                SavePositionOfForm(formWidevineTokenClaims[i], out left, out top);
+                                
+                                formWidevine.Add(new DRM_WidevineLicense(step++, i + 1) { Left = left, Top = top });
                                 if (formWidevine[i].ShowDialog() != DialogResult.OK) return;
+                                SavePositionOfForm(formWidevine[i], out left, out top);
 
                                 options.Add(
                                             new ContentKeyPolicyOption()
@@ -1798,7 +1814,7 @@ namespace AMSExplorer
                         }
                         else if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
                         {
-                            formClearKeyTokenClaims.Add(new DRM_Config_TokenClaims(1, 1, "Cleak Key", null, true));
+                            formClearKeyTokenClaims.Add(new DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
                             if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK) return;
 
                             options.Add(
@@ -1809,6 +1825,9 @@ namespace AMSExplorer
                                            });
 
                         }
+
+                        Properties.Settings.Default.DynEncTokenAudiencev3 = tokenSymKey;
+                        Program.SaveAndProtectUserConfig();
 
 
                         keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup,
@@ -1833,16 +1852,31 @@ namespace AMSExplorer
 
                         foreach (var loc in listLocators)
                         {
+                            var paths = await _amsClientV3.AMSclient.StreamingLocators.ListPathsAsync(
+                            _amsClientV3.credentialsEntry.ResourceGroup,
+                             _amsClientV3.credentialsEntry.AccountName,
+                             loc.LocatorName
+                            );
+
                             sbuilder.AppendLine(string.Format("Asset name : {0}", loc.AssetName));
                             sbuilder.AppendLine("===============" + new string('=', loc.AssetName.Length));
                             sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
                             sbuilder.AppendLine(string.Empty);
-                            foreach (var path in loc.Paths)
+                            foreach (var path in paths.StreamingPaths)
                             {
-                                sbuilder.AppendLine(path.StreamingProtocol);
+                                sbuilder.AppendLine(path.StreamingProtocol + " :");
                                 foreach (var se in SEList)
                                 {
-                                    path.Paths.ToList().ForEach(p => sbuilder.AppendLine(se.HostName + p));
+                                    path.Paths.ToList().ForEach(p => sbuilder.AppendLine("https://" + se.HostName + p));
+                                }
+                                sbuilder.AppendLine(string.Empty);
+                            }
+                            foreach (var path in paths.DownloadPaths)
+                            {
+                                sbuilder.AppendLine("Download :");
+                                foreach (var se in SEList)
+                                {
+                                    sbuilder.AppendLine("https://" + se.HostName + path);
                                 }
                                 sbuilder.AppendLine(string.Empty);
                             }
@@ -1863,9 +1897,14 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("There is a problem when creating a locator", true);
                         TextBoxLogWriteLine(e);
                     }
-
                 }
             }
+        }
+
+        private static void SavePositionOfForm(Form myForm, out int left, out int top)
+        {
+            left = myForm.Left;
+            top = myForm.Top;
         }
 
         private async Task AddTestTokenToSbuilder(List<DRM_Config_TokenClaims> formTokenClaims, List<LocatorAndUrls> listLocators, string DRMTechnology)
@@ -7783,7 +7822,7 @@ namespace AMSExplorer
             }
             CheckboxAnyLiveEventChangedByCode = false;
         }
-             
+
 
         private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
         {

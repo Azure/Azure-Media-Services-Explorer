@@ -201,6 +201,90 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="&gt;&gt;radioButtonEndUnlimited.Name" xml:space="preserve">
+    <value>radioButtonEndUnlimited</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndUnlimited.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndUnlimited.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndUnlimited.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndYear.Name" xml:space="preserve">
+    <value>radioButtonEndYear</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndYear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndYear.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndYear.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndCustom.Name" xml:space="preserve">
+    <value>radioButtonEndCustom</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndCustom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndCustom.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndCustom.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndTime.Name" xml:space="preserve">
+    <value>dateTimePickerEndTime</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndTime.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndTime.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndDate.Name" xml:space="preserve">
+    <value>dateTimePickerEndDate</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndDate.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndDate.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBoxEnd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>286, 178</value>
+  </data>
+  <data name="groupBoxEnd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>257, 208</value>
+  </data>
+  <data name="groupBoxEnd.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="groupBoxEnd.Text" xml:space="preserve">
+    <value>End date/time</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEnd.Name" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEnd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEnd.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEnd.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <data name="radioButtonEndUnlimited.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -330,29 +414,65 @@
   <data name="&gt;&gt;dateTimePickerEndDate.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="groupBoxEnd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>286, 178</value>
+  <data name="&gt;&gt;checkBoxStartDate.Name" xml:space="preserve">
+    <value>checkBoxStartDate</value>
   </data>
-  <data name="groupBoxEnd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 208</value>
+  <data name="&gt;&gt;checkBoxStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="groupBoxEnd.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;checkBoxStartDate.Parent" xml:space="preserve">
+    <value>groupBoxStart</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStartDate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Name" xml:space="preserve">
+    <value>dateTimePickerStartTime</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Parent" xml:space="preserve">
+    <value>groupBoxStart</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartDate.Name" xml:space="preserve">
+    <value>dateTimePickerStartDate</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartDate.Parent" xml:space="preserve">
+    <value>groupBoxStart</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartDate.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="groupBoxEnd.Text" xml:space="preserve">
-    <value>End date/time</value>
+  <data name="groupBoxStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 178</value>
   </data>
-  <data name="&gt;&gt;groupBoxEnd.Name" xml:space="preserve">
-    <value>groupBoxEnd</value>
+  <data name="groupBoxStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>257, 208</value>
   </data>
-  <data name="&gt;&gt;groupBoxEnd.Type" xml:space="preserve">
+  <data name="groupBoxStart.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBoxStart.Text" xml:space="preserve">
+    <value>Start date/time</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStart.Name" xml:space="preserve">
+    <value>groupBoxStart</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStart.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBoxEnd.Parent" xml:space="preserve">
+  <data name="&gt;&gt;groupBoxStart.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;groupBoxEnd.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="&gt;&gt;groupBoxStart.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="checkBoxStartDate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -432,30 +552,6 @@
   <data name="&gt;&gt;dateTimePickerStartDate.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="groupBoxStart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 178</value>
-  </data>
-  <data name="groupBoxStart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 208</value>
-  </data>
-  <data name="groupBoxStart.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBoxStart.Text" xml:space="preserve">
-    <value>Start date/time</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStart.Name" xml:space="preserve">
-    <value>groupBoxStart</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStart.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStart.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
   <data name="labelAssetName.Location" type="System.Drawing.Point, System.Drawing">
     <value>40, 15</value>
   </data>
@@ -479,60 +575,6 @@
   </data>
   <data name="&gt;&gt;labelAssetName.ZOrder" xml:space="preserve">
     <value>5</value>
-  </data>
-  <data name="pictureBox11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="pictureBox11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>257, 47</value>
-  </data>
-  <data name="pictureBox11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox11.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
-  </data>
-  <data name="pictureBox11.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="&gt;&gt;pictureBox11.Name" xml:space="preserve">
-    <value>pictureBox11</value>
-  </data>
-  <data name="&gt;&gt;pictureBox11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox11.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;pictureBox11.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="pictureBox10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="pictureBox10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 22</value>
-  </data>
-  <data name="pictureBox10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox10.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
-  </data>
-  <data name="pictureBox10.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="&gt;&gt;pictureBox10.Name" xml:space="preserve">
-    <value>pictureBox10</value>
-  </data>
-  <data name="&gt;&gt;pictureBox10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox10.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;pictureBox10.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="pictureBox9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -559,7 +601,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;pictureBox9.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="pictureBox8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -586,7 +628,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;pictureBox8.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="pictureBox7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -613,7 +655,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;pictureBox7.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="pictureBox6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -640,13 +682,13 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;pictureBox6.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="pictureBox5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="pictureBox5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 47</value>
+    <value>13, 47</value>
   </data>
   <data name="pictureBox5.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -667,7 +709,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;pictureBox5.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="pictureBox4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -694,13 +736,13 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;pictureBox4.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="pictureBox3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="pictureBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 47</value>
+    <value>29, 47</value>
   </data>
   <data name="pictureBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -721,7 +763,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;pictureBox3.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="pictureBox2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -748,7 +790,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>7</value>
   </data>
   <data name="radioButtonDownloadAndClear.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -778,7 +820,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonDownloadAndClear.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="radioButtonDownload.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -808,7 +850,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonDownload.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="radioButtonMultiDRM.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -841,7 +883,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonMultiDRM.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="radioButtonMultiDRMCENC.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -871,7 +913,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonMultiDRMCENC.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="radioButtonClearKey.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -901,7 +943,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonClearKey.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>12</value>
   </data>
   <data name="radioButtonClearStream.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -928,7 +970,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonClearStream.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>13</value>
   </data>
   <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 47</value>
@@ -1011,6 +1053,66 @@
   <data name="groupBoxForceLocator.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>groupBoxForceLocator</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBoxLocatorGUID.Name" xml:space="preserve">
+    <value>textBoxLocatorGUID</value>
+  </data>
+  <data name="&gt;&gt;textBoxLocatorGUID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxLocatorGUID.Parent" xml:space="preserve">
+    <value>groupBoxForceLocator</value>
+  </data>
+  <data name="&gt;&gt;textBoxLocatorGUID.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxForLocatorGUID.Name" xml:space="preserve">
+    <value>checkBoxForLocatorGUID</value>
+  </data>
+  <data name="&gt;&gt;checkBoxForLocatorGUID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxForLocatorGUID.Parent" xml:space="preserve">
+    <value>groupBoxForceLocator</value>
+  </data>
+  <data name="&gt;&gt;checkBoxForLocatorGUID.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBoxForceLocator.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 392</value>
+  </data>
+  <data name="groupBoxForceLocator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>528, 91</value>
+  </data>
+  <data name="groupBoxForceLocator.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="groupBoxForceLocator.Text" xml:space="preserve">
+    <value>Advanced user only</value>
+  </data>
+  <data name="&gt;&gt;groupBoxForceLocator.Name" xml:space="preserve">
+    <value>groupBoxForceLocator</value>
+  </data>
+  <data name="&gt;&gt;groupBoxForceLocator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxForceLocator.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxForceLocator.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
     <value>184, 24</value>
   </data>
@@ -1087,30 +1189,6 @@
     <value>groupBoxForceLocator</value>
   </data>
   <data name="&gt;&gt;checkBoxForLocatorGUID.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="groupBoxForceLocator.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 392</value>
-  </data>
-  <data name="groupBoxForceLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>528, 91</value>
-  </data>
-  <data name="groupBoxForceLocator.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="groupBoxForceLocator.Text" xml:space="preserve">
-    <value>Advanced user only</value>
-  </data>
-  <data name="&gt;&gt;groupBoxForceLocator.Name" xml:space="preserve">
-    <value>groupBoxForceLocator</value>
-  </data>
-  <data name="&gt;&gt;groupBoxForceLocator.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxForceLocator.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxForceLocator.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">

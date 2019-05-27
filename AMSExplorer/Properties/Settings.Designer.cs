@@ -266,25 +266,25 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://testacs")]
-        public string DynEncTokenIssuer {
+        [global::System.Configuration.DefaultSettingValueAttribute("myIssuer")]
+        public string DynEncTokenIssuerv3 {
             get {
-                return ((string)(this["DynEncTokenIssuer"]));
+                return ((string)(this["DynEncTokenIssuerv3"]));
             }
             set {
-                this["DynEncTokenIssuer"] = value;
+                this["DynEncTokenIssuerv3"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("urn:test")]
-        public string DynEncTokenAudience {
+        [global::System.Configuration.DefaultSettingValueAttribute("myAudience")]
+        public string DynEncTokenAudiencev3 {
             get {
-                return ((string)(this["DynEncTokenAudience"]));
+                return ((string)(this["DynEncTokenAudiencev3"]));
             }
             set {
-                this["DynEncTokenAudience"] = value;
+                this["DynEncTokenAudiencev3"] = value;
             }
         }
         
@@ -441,6 +441,18 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["DefaultSASDurationInHours"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DynEncTokenSymKeyv3 {
+            get {
+                return ((string)(this["DynEncTokenSymKeyv3"]));
+            }
+            set {
+                this["DynEncTokenSymKeyv3"] = value;
             }
         }
     }
