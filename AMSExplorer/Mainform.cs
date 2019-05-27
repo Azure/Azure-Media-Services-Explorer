@@ -7713,11 +7713,7 @@ namespace AMSExplorer
             }
             CheckboxAnyLiveEventChangedByCode = false;
         }
-
-        private void tabPageLive_Resize(object sender, EventArgs e)
-        {
-            panelLiveEvents.Size = new Size(panelLiveEvents.Size.Width, tabPageLive.Size.Height / 2);
-        }
+             
 
         private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
         {

@@ -1960,7 +1960,7 @@
     <value>Create job from transform using a http source...</value>
   </data>
   <data name="contextMenuStripTransforms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 98</value>
+    <value>326, 76</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTransforms.Name" xml:space="preserve">
     <value>contextMenuStripTransforms</value>
@@ -2254,621 +2254,43 @@
   <data name="&gt;&gt;tabPageJobs.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="dataGridViewLiveOutputV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <metadata name="contextMenuStripLiveOutputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>215, 56</value>
-  </metadata>
-  <data name="refreshToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 22</value>
-  </data>
-  <data name="refreshToolStripMenuItem4.Text" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
-  <data name="toolStripSeparator21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 6</value>
-  </data>
-  <data name="ContextMenuItemProgramDisplayInformation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
-        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="ContextMenuItemProgramDisplayInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 22</value>
-  </data>
-  <data name="ContextMenuItemProgramDisplayInformation.Text" xml:space="preserve">
-    <value>Live output information and settings...</value>
-  </data>
-  <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 22</value>
-  </data>
-  <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Text" xml:space="preserve">
-    <value>Display related asset information...</value>
-  </data>
-  <data name="createProgramToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
-        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="createProgramToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+P</value>
-  </data>
-  <data name="createProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 22</value>
-  </data>
-  <data name="createProgramToolStripMenuItem.Text" xml:space="preserve">
-    <value>Create live output...</value>
-  </data>
-  <data name="ContextMenuItemProgramDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="ContextMenuItemProgramDelete.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+P</value>
-  </data>
-  <data name="ContextMenuItemProgramDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 22</value>
-  </data>
-  <data name="ContextMenuItemProgramDelete.Text" xml:space="preserve">
-    <value>Delete live output(s)...</value>
-  </data>
-  <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 6</value>
-  </data>
-  <data name="createALocatorToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+L</value>
-  </data>
-  <data name="createALocatorToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 22</value>
-  </data>
-  <data name="createALocatorToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Create a locator...</value>
-  </data>
-  <data name="deleteAllLocatorsToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+L</value>
-  </data>
-  <data name="deleteAllLocatorsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 22</value>
-  </data>
-  <data name="deleteAllLocatorsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Delete all locators...</value>
-  </data>
-  <data name="toolStripMenuItem25.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripMenuItem25.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAKJJREFUOE+1kkEOgzAMBPPzvLYS0BMcOCGlHpOgJCzlQGtpUFjbIwQEq/SQ4/AS
-        lN6c2Yx+JkTjTqB6EENK9C8l3wTRd7lUkiE3C0rAjC83gkoyGlcCesey79Q3HuySyegFZM2yz/eBh7vk
-        bRQB59Oyz6oQrNa8DKuaARmCFd+9CGY1AzIEq+YdqBmQIWQBT7E8EYD/vmoGZAi/EnCAfwlS+ADPru1k
-        aHS3GgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="toolStripMenuItem25.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F</value>
-  </data>
-  <data name="toolStripMenuItem25.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 22</value>
-  </data>
-  <data name="toolStripMenuItem25.Text" xml:space="preserve">
-    <value>Create an asset filter...</value>
-  </data>
-  <data name="publishToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 22</value>
-  </data>
-  <data name="publishToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Publish</value>
-  </data>
-  <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 22</value>
-  </data>
-  <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Text" xml:space="preserve">
-    <value>Display Output URL...</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 22</value>
-  </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem2.Text" xml:space="preserve">
-    <value>with Azure Media Player</value>
-  </data>
-  <data name="withCustomPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 22</value>
-  </data>
-  <data name="withCustomPlayerToolStripMenuItem2.Text" xml:space="preserve">
-    <value>with Custom Player</value>
-  </data>
-  <data name="ContextMenuItemProgramPlayback.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
-        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
-        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
-        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
-        o+4AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="ContextMenuItemProgramPlayback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 22</value>
-  </data>
-  <data name="ContextMenuItemProgramPlayback.Text" xml:space="preserve">
-    <value>Playback the live output(s)</value>
-  </data>
-  <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 192</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
-    <value>contextMenuStripLiveOutputs</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripLiveOutputs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewLiveOutputV.LiveEventSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
-        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
-        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
-        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
-        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
-</value>
-  </data>
-  <data name="dataGridViewLiveOutputV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 18</value>
-  </data>
-  <data name="dataGridViewLiveOutputV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>992, 150</value>
-  </data>
-  <data name="dataGridViewLiveOutputV.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveOutputV.Name" xml:space="preserve">
-    <value>dataGridViewLiveOutputV</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.2.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewLiveOutputV.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelPrograms.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelPrograms.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 8.25pt, style=Bold</value>
-  </data>
-  <data name="labelPrograms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelPrograms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 2</value>
-  </data>
-  <data name="labelPrograms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 13</value>
-  </data>
-  <data name="labelPrograms.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="labelPrograms.Text" xml:space="preserve">
-    <value>Live outputs</value>
-  </data>
-  <data name="&gt;&gt;labelPrograms.Name" xml:space="preserve">
-    <value>labelPrograms</value>
-  </data>
-  <data name="&gt;&gt;labelPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelPrograms.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;labelPrograms.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radioButtonChNone.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="radioButtonChNone.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonChNone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonChNone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>941, 176</value>
-  </data>
-  <data name="radioButtonChNone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 19</value>
-  </data>
-  <data name="radioButtonChNone.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="radioButtonChNone.Text" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChNone.Name" xml:space="preserve">
-    <value>radioButtonChNone</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChNone.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChNone.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChNone.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="comboBoxSearchProgramOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="comboBoxSearchProgramOption.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxSearchProgramOption.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxSearchProgramOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 174</value>
-  </data>
-  <data name="comboBoxSearchProgramOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 23</value>
-  </data>
-  <data name="comboBoxSearchProgramOption.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchProgramOption.Name" xml:space="preserve">
-    <value>comboBoxSearchProgramOption</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchProgramOption.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchProgramOption.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchProgramOption.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="radioButtonChAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="radioButtonChAll.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonChAll.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonChAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>896, 176</value>
-  </data>
-  <data name="radioButtonChAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 19</value>
-  </data>
-  <data name="radioButtonChAll.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="radioButtonChAll.Text" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChAll.Name" xml:space="preserve">
-    <value>radioButtonChAll</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChAll.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChAll.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="textBoxSearchNameProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxSearchNameProgram.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxSearchNameProgram.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="textBoxSearchNameProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>176, 174</value>
-  </data>
-  <data name="textBoxSearchNameProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 23</value>
-  </data>
-  <data name="textBoxSearchNameProgram.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
-  </data>
-  <data name="textBoxSearchNameProgram.ToolTip" xml:space="preserve">
-    <value>Search in program name, program Id and asset Id</value>
-  </data>
-  <data name="&gt;&gt;textBoxSearchNameProgram.Name" xml:space="preserve">
-    <value>textBoxSearchNameProgram</value>
-  </data>
-  <data name="&gt;&gt;textBoxSearchNameProgram.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxSearchNameProgram.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;textBoxSearchNameProgram.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label14.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label14.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>734, 178</value>
-  </data>
-  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 15</value>
-  </data>
-  <data name="label14.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>For events :</value>
-  </data>
-  <data name="&gt;&gt;label14.Name" xml:space="preserve">
-    <value>label14</value>
-  </data>
-  <data name="&gt;&gt;label14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="buttonSetFilterProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonSetFilterProgram.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonSetFilterProgram.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="buttonSetFilterProgram.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonSetFilterProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 174</value>
-  </data>
-  <data name="buttonSetFilterProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 23</value>
-  </data>
-  <data name="buttonSetFilterProgram.TabIndex" type="System.Int32, mscorlib">
-    <value>48</value>
-  </data>
-  <data name="buttonSetFilterProgram.Text" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="&gt;&gt;buttonSetFilterProgram.Name" xml:space="preserve">
-    <value>buttonSetFilterProgram</value>
-  </data>
-  <data name="&gt;&gt;buttonSetFilterProgram.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSetFilterProgram.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;buttonSetFilterProgram.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="radioButtonChSelected.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="radioButtonChSelected.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonChSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonChSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>821, 176</value>
-  </data>
-  <data name="radioButtonChSelected.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 19</value>
-  </data>
-  <data name="radioButtonChSelected.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="radioButtonChSelected.Text" xml:space="preserve">
-    <value>Selected</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChSelected.Name" xml:space="preserve">
-    <value>radioButtonChSelected</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChSelected.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChSelected.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;radioButtonChSelected.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="label16.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label16.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>539, 178</value>
-  </data>
-  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 15</value>
-  </data>
-  <data name="label16.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="label16.Text" xml:space="preserve">
-    <value>Status :</value>
-  </data>
-  <data name="&gt;&gt;label16.Name" xml:space="preserve">
-    <value>label16</value>
-  </data>
-  <data name="&gt;&gt;label16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="comboBoxStatusProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxStatusProgram.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxStatusProgram.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxStatusProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>590, 174</value>
-  </data>
-  <data name="comboBoxStatusProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
-  </data>
-  <data name="comboBoxStatusProgram.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStatusProgram.Name" xml:space="preserve">
-    <value>comboBoxStatusProgram</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStatusProgram.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStatusProgram.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStatusProgram.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="label15.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label15.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label15.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>385, 178</value>
-  </data>
-  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
-  </data>
-  <data name="label15.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>Filter :</value>
-  </data>
-  <data name="&gt;&gt;label15.Name" xml:space="preserve">
-    <value>label15</value>
-  </data>
-  <data name="&gt;&gt;label15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="comboBoxFilterTimeProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxFilterTimeProgram.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxFilterTimeProgram.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxFilterTimeProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>430, 174</value>
-  </data>
-  <data name="comboBoxFilterTimeProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
-  </data>
-  <data name="comboBoxFilterTimeProgram.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;comboBoxFilterTimeProgram.Name" xml:space="preserve">
-    <value>comboBoxFilterTimeProgram</value>
-  </data>
-  <data name="&gt;&gt;comboBoxFilterTimeProgram.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxFilterTimeProgram.Parent" xml:space="preserve">
-    <value>panelPrograms</value>
-  </data>
-  <data name="&gt;&gt;comboBoxFilterTimeProgram.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="panelPrograms.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="splitContainerLive.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="panelPrograms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 223</value>
+  <data name="splitContainerLive.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="panelPrograms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1000, 212</value>
+  <data name="splitContainerLive.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
   </data>
-  <data name="panelPrograms.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
+  <data name="comboBoxSearchLiveEventOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;panelPrograms.Name" xml:space="preserve">
-    <value>panelPrograms</value>
+  <data name="comboBoxSearchLiveEventOption.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;panelPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="comboBoxSearchLiveEventOption.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="&gt;&gt;panelPrograms.Parent" xml:space="preserve">
-    <value>tabPageLive</value>
+  <data name="comboBoxSearchLiveEventOption.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 186</value>
   </data>
-  <data name="&gt;&gt;panelPrograms.ZOrder" xml:space="preserve">
+  <data name="comboBoxSearchLiveEventOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 23</value>
+  </data>
+  <data name="comboBoxSearchLiveEventOption.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Name" xml:space="preserve">
+    <value>comboBoxSearchLiveEventOption</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchLiveEventOption.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="dataGridViewLiveEventsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -3087,10 +2509,10 @@
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dataGridViewLiveEventsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 17</value>
+    <value>8, 18</value>
   </data>
   <data name="dataGridViewLiveEventsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>995, 163</value>
+    <value>984, 162</value>
   </data>
   <data name="dataGridViewLiveEventsV.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3102,10 +2524,43 @@
     <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.0.2.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
+    <value>splitContainerLive.Panel1</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="textBoxSearchNameLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxSearchNameLiveEvent.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxSearchNameLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="textBoxSearchNameLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 186</value>
+  </data>
+  <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 23</value>
+  </data>
+  <data name="textBoxSearchNameLiveEvent.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="textBoxSearchNameLiveEvent.ToolTip" xml:space="preserve">
+    <value>Search in channel name and channel Id</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Name" xml:space="preserve">
+    <value>textBoxSearchNameLiveEvent</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel1</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameLiveEvent.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="labelLiveEvents.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3117,7 +2572,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelLiveEvents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 1</value>
+    <value>5, 2</value>
   </data>
   <data name="labelLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 13</value>
@@ -3135,72 +2590,9 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelLiveEvents.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
+    <value>splitContainerLive.Panel1</value>
   </data>
   <data name="&gt;&gt;labelLiveEvents.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="comboBoxSearchLiveEventOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="comboBoxSearchLiveEventOption.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxSearchLiveEventOption.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxSearchLiveEventOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 186</value>
-  </data>
-  <data name="comboBoxSearchLiveEventOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 23</value>
-  </data>
-  <data name="comboBoxSearchLiveEventOption.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Name" xml:space="preserve">
-    <value>comboBoxSearchLiveEventOption</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchLiveEventOption.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchLiveEventOption.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textBoxSearchNameLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxSearchNameLiveEvent.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxSearchNameLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="textBoxSearchNameLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>176, 186</value>
-  </data>
-  <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
-  </data>
-  <data name="textBoxSearchNameLiveEvent.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="textBoxSearchNameLiveEvent.ToolTip" xml:space="preserve">
-    <value>Search in channel name and channel Id</value>
-  </data>
-  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Name" xml:space="preserve">
-    <value>textBoxSearchNameLiveEvent</value>
-  </data>
-  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxSearchNameLiveEvent.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
-  </data>
-  <data name="&gt;&gt;textBoxSearchNameLiveEvent.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -3216,7 +2608,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>298, 186</value>
+    <value>301, 186</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -3234,10 +2626,40 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonSetFilterLiveEvent.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
+    <value>splitContainerLive.Panel1</value>
   </data>
   <data name="&gt;&gt;buttonSetFilterLiveEvent.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="comboBoxFilterTimeLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="comboBoxFilterTimeLiveEvent.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="comboBoxFilterTimeLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>427, 186</value>
+  </data>
+  <data name="comboBoxFilterTimeLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 23</value>
+  </data>
+  <data name="comboBoxFilterTimeLiveEvent.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Name" xml:space="preserve">
+    <value>comboBoxFilterTimeLiveEvent</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="label25.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -3255,7 +2677,7 @@
     <value>NoControl</value>
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
-    <value>538, 190</value>
+    <value>546, 190</value>
   </data>
   <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -3273,39 +2695,9 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label25.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
+    <value>splitContainerLive.Panel1</value>
   </data>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="comboBoxStatusLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxStatusLiveEvent.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxStatusLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>589, 186</value>
-  </data>
-  <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
-  </data>
-  <data name="comboBoxStatusLiveEvent.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStatusLiveEvent.Name" xml:space="preserve">
-    <value>comboBoxStatusLiveEvent</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStatusLiveEvent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStatusLiveEvent.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStatusLiveEvent.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="label24.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -3342,64 +2734,678 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label24.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
+    <value>splitContainerLive.Panel1</value>
   </data>
   <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="comboBoxFilterTimeLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="comboBoxStatusLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="comboBoxFilterTimeLiveEvent.Enabled" type="System.Boolean, mscorlib">
+  <data name="comboBoxStatusLiveEvent.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="comboBoxFilterTimeLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="comboBoxStatusLiveEvent.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>429, 186</value>
+  <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>597, 186</value>
   </data>
-  <data name="comboBoxFilterTimeLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+  <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 23</value>
   </data>
-  <data name="comboBoxFilterTimeLiveEvent.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
+  <data name="comboBoxStatusLiveEvent.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
   </data>
-  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Name" xml:space="preserve">
-    <value>comboBoxFilterTimeLiveEvent</value>
+  <data name="&gt;&gt;comboBoxStatusLiveEvent.Name" xml:space="preserve">
+    <value>comboBoxStatusLiveEvent</value>
   </data>
-  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Type" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxStatusLiveEvent.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.Parent" xml:space="preserve">
-    <value>panelLiveEvents</value>
+  <data name="&gt;&gt;comboBoxStatusLiveEvent.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel1</value>
   </data>
-  <data name="&gt;&gt;comboBoxFilterTimeLiveEvent.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxStatusLiveEvent.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="panelLiveEvents.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+  <data name="&gt;&gt;splitContainerLive.Panel1.Name" xml:space="preserve">
+    <value>splitContainerLive.Panel1</value>
   </data>
-  <data name="panelLiveEvents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="&gt;&gt;splitContainerLive.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="panelLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1000, 220</value>
+  <data name="&gt;&gt;splitContainerLive.Panel1.Parent" xml:space="preserve">
+    <value>splitContainerLive</value>
   </data>
-  <data name="panelLiveEvents.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
+  <data name="&gt;&gt;splitContainerLive.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;panelLiveEvents.Name" xml:space="preserve">
-    <value>panelLiveEvents</value>
+  <data name="labelPrograms.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;panelLiveEvents.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="labelPrograms.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 8.25pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;panelLiveEvents.Parent" xml:space="preserve">
+  <data name="labelPrograms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelPrograms.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 2</value>
+  </data>
+  <data name="labelPrograms.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 13</value>
+  </data>
+  <data name="labelPrograms.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="labelPrograms.Text" xml:space="preserve">
+    <value>Live outputs</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Name" xml:space="preserve">
+    <value>labelPrograms</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButtonChNone.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="radioButtonChNone.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonChNone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonChNone.Location" type="System.Drawing.Point, System.Drawing">
+    <value>938, 183</value>
+  </data>
+  <data name="radioButtonChNone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 19</value>
+  </data>
+  <data name="radioButtonChNone.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="radioButtonChNone.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChNone.Name" xml:space="preserve">
+    <value>radioButtonChNone</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChNone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChNone.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChNone.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="dataGridViewLiveOutputV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="contextMenuStripLiveOutputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>215, 56</value>
+  </metadata>
+  <data name="refreshToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="refreshToolStripMenuItem4.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="toolStripSeparator21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 6</value>
+  </data>
+  <data name="ContextMenuItemProgramDisplayInformation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
+        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="ContextMenuItemProgramDisplayInformation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="ContextMenuItemProgramDisplayInformation.Text" xml:space="preserve">
+    <value>Live output information and settings...</value>
+  </data>
+  <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Text" xml:space="preserve">
+    <value>Display related asset information...</value>
+  </data>
+  <data name="createProgramToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="createProgramToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+P</value>
+  </data>
+  <data name="createProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="createProgramToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create live output...</value>
+  </data>
+  <data name="ContextMenuItemProgramDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="ContextMenuItemProgramDelete.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+P</value>
+  </data>
+  <data name="ContextMenuItemProgramDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="ContextMenuItemProgramDelete.Text" xml:space="preserve">
+    <value>Delete live output(s)...</value>
+  </data>
+  <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 6</value>
+  </data>
+  <data name="createALocatorToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+L</value>
+  </data>
+  <data name="createALocatorToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 22</value>
+  </data>
+  <data name="createALocatorToolStripMenuItem2.Text" xml:space="preserve">
+    <value>Create a locator...</value>
+  </data>
+  <data name="deleteAllLocatorsToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+L</value>
+  </data>
+  <data name="deleteAllLocatorsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 22</value>
+  </data>
+  <data name="deleteAllLocatorsToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Delete all locators...</value>
+  </data>
+  <data name="toolStripMenuItem25.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripMenuItem25.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAKJJREFUOE+1kkEOgzAMBPPzvLYS0BMcOCGlHpOgJCzlQGtpUFjbIwQEq/SQ4/AS
+        lN6c2Yx+JkTjTqB6EENK9C8l3wTRd7lUkiE3C0rAjC83gkoyGlcCesey79Q3HuySyegFZM2yz/eBh7vk
+        bRQB59Oyz6oQrNa8DKuaARmCFd+9CGY1AzIEq+YdqBmQIWQBT7E8EYD/vmoGZAi/EnCAfwlS+ADPru1k
+        aHS3GgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="toolStripMenuItem25.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F</value>
+  </data>
+  <data name="toolStripMenuItem25.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 22</value>
+  </data>
+  <data name="toolStripMenuItem25.Text" xml:space="preserve">
+    <value>Create an asset filter...</value>
+  </data>
+  <data name="publishToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="publishToolStripMenuItem2.Text" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+  <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Text" xml:space="preserve">
+    <value>Display Output URL...</value>
+  </data>
+  <data name="withAzureMediaPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 22</value>
+  </data>
+  <data name="withAzureMediaPlayerToolStripMenuItem2.Text" xml:space="preserve">
+    <value>with Azure Media Player</value>
+  </data>
+  <data name="withCustomPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 22</value>
+  </data>
+  <data name="withCustomPlayerToolStripMenuItem2.Text" xml:space="preserve">
+    <value>with Custom Player</value>
+  </data>
+  <data name="ContextMenuItemProgramPlayback.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
+        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
+        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
+        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
+        o+4AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="ContextMenuItemProgramPlayback.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="ContextMenuItemProgramPlayback.Text" xml:space="preserve">
+    <value>Playback the live output(s)</value>
+  </data>
+  <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 192</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
+    <value>contextMenuStripLiveOutputs</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLiveOutputs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewLiveOutputV.LiveEventSourceNames" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
+        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
+        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
+        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
+        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
+</value>
+  </data>
+  <data name="dataGridViewLiveOutputV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 18</value>
+  </data>
+  <data name="dataGridViewLiveOutputV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>984, 156</value>
+  </data>
+  <data name="dataGridViewLiveOutputV.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Name" xml:space="preserve">
+    <value>dataGridViewLiveOutputV</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.2.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewLiveOutputV.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonChAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="radioButtonChAll.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonChAll.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonChAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>893, 183</value>
+  </data>
+  <data name="radioButtonChAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 19</value>
+  </data>
+  <data name="radioButtonChAll.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="radioButtonChAll.Text" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChAll.Name" xml:space="preserve">
+    <value>radioButtonChAll</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChAll.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChAll.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="comboBoxSearchProgramOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="comboBoxSearchProgramOption.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="comboBoxSearchProgramOption.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="comboBoxSearchProgramOption.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 180</value>
+  </data>
+  <data name="comboBoxSearchProgramOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 23</value>
+  </data>
+  <data name="comboBoxSearchProgramOption.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchProgramOption.Name" xml:space="preserve">
+    <value>comboBoxSearchProgramOption</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchProgramOption.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchProgramOption.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchProgramOption.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="label14.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label14.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>744, 184</value>
+  </data>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 15</value>
+  </data>
+  <data name="label14.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>For events :</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="textBoxSearchNameProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxSearchNameProgram.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxSearchNameProgram.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="textBoxSearchNameProgram.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 180</value>
+  </data>
+  <data name="textBoxSearchNameProgram.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="textBoxSearchNameProgram.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="textBoxSearchNameProgram.ToolTip" xml:space="preserve">
+    <value>Search in program name, program Id and asset Id</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameProgram.Name" xml:space="preserve">
+    <value>textBoxSearchNameProgram</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameProgram.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;textBoxSearchNameProgram.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="radioButtonChSelected.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="radioButtonChSelected.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonChSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonChSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>818, 183</value>
+  </data>
+  <data name="radioButtonChSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 19</value>
+  </data>
+  <data name="radioButtonChSelected.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="radioButtonChSelected.Text" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChSelected.Name" xml:space="preserve">
+    <value>radioButtonChSelected</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChSelected.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonChSelected.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="buttonSetFilterProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonSetFilterProgram.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonSetFilterProgram.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="buttonSetFilterProgram.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonSetFilterProgram.Location" type="System.Drawing.Point, System.Drawing">
+    <value>302, 180</value>
+  </data>
+  <data name="buttonSetFilterProgram.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 23</value>
+  </data>
+  <data name="buttonSetFilterProgram.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="buttonSetFilterProgram.Text" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterProgram.Name" xml:space="preserve">
+    <value>buttonSetFilterProgram</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterProgram.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;buttonSetFilterProgram.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="label16.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label16.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>546, 184</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 15</value>
+  </data>
+  <data name="label16.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>Status :</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="comboBoxStatusProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="comboBoxStatusProgram.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="comboBoxStatusProgram.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="comboBoxStatusProgram.Location" type="System.Drawing.Point, System.Drawing">
+    <value>597, 180</value>
+  </data>
+  <data name="comboBoxStatusProgram.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 23</value>
+  </data>
+  <data name="comboBoxStatusProgram.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusProgram.Name" xml:space="preserve">
+    <value>comboBoxStatusProgram</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusProgram.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStatusProgram.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="comboBoxFilterTimeProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="comboBoxFilterTimeProgram.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="comboBoxFilterTimeProgram.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="comboBoxFilterTimeProgram.Location" type="System.Drawing.Point, System.Drawing">
+    <value>427, 180</value>
+  </data>
+  <data name="comboBoxFilterTimeProgram.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 23</value>
+  </data>
+  <data name="comboBoxFilterTimeProgram.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeProgram.Name" xml:space="preserve">
+    <value>comboBoxFilterTimeProgram</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeProgram.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeProgram.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterTimeProgram.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="label15.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label15.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="label15.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>384, 184</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label15.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Filter :</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;splitContainerLive.Panel2.Name" xml:space="preserve">
+    <value>splitContainerLive.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitContainerLive.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainerLive.Panel2.Parent" xml:space="preserve">
+    <value>splitContainerLive</value>
+  </data>
+  <data name="&gt;&gt;splitContainerLive.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitContainerLive.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1000, 432</value>
+  </data>
+  <data name="splitContainerLive.SplitterDistance" type="System.Int32, mscorlib">
+    <value>216</value>
+  </data>
+  <data name="splitContainerLive.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;splitContainerLive.Name" xml:space="preserve">
+    <value>splitContainerLive</value>
+  </data>
+  <data name="&gt;&gt;splitContainerLive.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainerLive.Parent" xml:space="preserve">
     <value>tabPageLive</value>
   </data>
-  <data name="&gt;&gt;panelLiveEvents.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;splitContainerLive.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="tabPageLive.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 27</value>
@@ -6991,6 +6997,9 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1020, 639</value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>{0} - Azure Media Services Explorer</value>
   </data>
@@ -7426,6 +7435,12 @@
   <data name="&gt;&gt;videoAnalyzerToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;faceDetectorToolStripMenuItem.Name" xml:space="preserve">
+    <value>faceDetectorToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;faceDetectorToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;mediaEncoderStandardToolStripMenuItem.Name" xml:space="preserve">
     <value>mediaEncoderStandardToolStripMenuItem</value>
   </data>
@@ -7558,96 +7573,6 @@
   <data name="&gt;&gt;allJobsToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;refreshToolStripMenuItem4.Name" xml:space="preserve">
-    <value>refreshToolStripMenuItem4</value>
-  </data>
-  <data name="&gt;&gt;refreshToolStripMenuItem4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator21.Name" xml:space="preserve">
-    <value>toolStripSeparator21</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator21.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramDisplayInformation.Name" xml:space="preserve">
-    <value>ContextMenuItemProgramDisplayInformation</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramDisplayInformation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramDisplayRelatedAssetInformation.Name" xml:space="preserve">
-    <value>ContextMenuItemProgramDisplayRelatedAssetInformation</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramDisplayRelatedAssetInformation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;createProgramToolStripMenuItem.Name" xml:space="preserve">
-    <value>createProgramToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;createProgramToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramDelete.Name" xml:space="preserve">
-    <value>ContextMenuItemProgramDelete</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramDelete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
-    <value>toolStripSeparator16</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;publishToolStripMenuItem2.Name" xml:space="preserve">
-    <value>publishToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;publishToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;createALocatorToolStripMenuItem2.Name" xml:space="preserve">
-    <value>createALocatorToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;createALocatorToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteAllLocatorsToolStripMenuItem1.Name" xml:space="preserve">
-    <value>deleteAllLocatorsToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;deleteAllLocatorsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem25.Name" xml:space="preserve">
-    <value>toolStripMenuItem25</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem25.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramCopyTheOutputURLToClipboard.Name" xml:space="preserve">
-    <value>ContextMenuItemProgramCopyTheOutputURLToClipboard</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramCopyTheOutputURLToClipboard.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramPlayback.Name" xml:space="preserve">
-    <value>ContextMenuItemProgramPlayback</value>
-  </data>
-  <data name="&gt;&gt;ContextMenuItemProgramPlayback.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem2.Name" xml:space="preserve">
-    <value>withAzureMediaPlayerToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;withCustomPlayerToolStripMenuItem2.Name" xml:space="preserve">
-    <value>withCustomPlayerToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;withCustomPlayerToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;refreshToolStripMenuItem3.Name" xml:space="preserve">
     <value>refreshToolStripMenuItem3</value>
   </data>
@@ -7772,6 +7697,96 @@
     <value>withAzureMediaPlayerToolStripMenuItem4</value>
   </data>
   <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;refreshToolStripMenuItem4.Name" xml:space="preserve">
+    <value>refreshToolStripMenuItem4</value>
+  </data>
+  <data name="&gt;&gt;refreshToolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator21.Name" xml:space="preserve">
+    <value>toolStripSeparator21</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramDisplayInformation.Name" xml:space="preserve">
+    <value>ContextMenuItemProgramDisplayInformation</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramDisplayInformation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramDisplayRelatedAssetInformation.Name" xml:space="preserve">
+    <value>ContextMenuItemProgramDisplayRelatedAssetInformation</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramDisplayRelatedAssetInformation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;createProgramToolStripMenuItem.Name" xml:space="preserve">
+    <value>createProgramToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;createProgramToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramDelete.Name" xml:space="preserve">
+    <value>ContextMenuItemProgramDelete</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramDelete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
+    <value>toolStripSeparator16</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;publishToolStripMenuItem2.Name" xml:space="preserve">
+    <value>publishToolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;publishToolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;createALocatorToolStripMenuItem2.Name" xml:space="preserve">
+    <value>createALocatorToolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;createALocatorToolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deleteAllLocatorsToolStripMenuItem1.Name" xml:space="preserve">
+    <value>deleteAllLocatorsToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;deleteAllLocatorsToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem25.Name" xml:space="preserve">
+    <value>toolStripMenuItem25</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramCopyTheOutputURLToClipboard.Name" xml:space="preserve">
+    <value>ContextMenuItemProgramCopyTheOutputURLToClipboard</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramCopyTheOutputURLToClipboard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramPlayback.Name" xml:space="preserve">
+    <value>ContextMenuItemProgramPlayback</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuItemProgramPlayback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem2.Name" xml:space="preserve">
+    <value>withAzureMediaPlayerToolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;withCustomPlayerToolStripMenuItem2.Name" xml:space="preserve">
+    <value>withCustomPlayerToolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;withCustomPlayerToolStripMenuItem2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;refreshToolStripMenuItem5.Name" xml:space="preserve">
@@ -8313,12 +8328,6 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;faceDetectorToolStripMenuItem.Name" xml:space="preserve">
-    <value>faceDetectorToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;faceDetectorToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>
