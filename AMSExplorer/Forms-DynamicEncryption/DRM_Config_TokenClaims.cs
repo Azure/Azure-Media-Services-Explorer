@@ -18,19 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using System.Security;
 using System.Security.Claims;
-using System.IdentityModel.Tokens;
 using Microsoft.Azure.Management.Media.Models;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
 
 namespace AMSExplorer
 {
@@ -44,43 +38,30 @@ namespace AMSExplorer
                 new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
               };
 
-        public ContentKeyPolicyOption Option
+        public ContentKeyPolicyRestriction GetContentKeyPolicyRestriction
         {
             get
             {
-                List<ContentKeyPolicyRestrictionTokenKey> alternateKeys = null;
-
-                ContentKeyPolicyRestrictionTokenKey primarykey;
-                if (GetDetailedTokenType == ExplorerTokenType.JWTSym || GetDetailedTokenType == ExplorerTokenType.SWTSym)
-                {
-                    primarykey = new ContentKeyPolicySymmetricTokenKey(SymmetricKey);
-                }
-                else
-                {
-                    primarykey = new ContentKeyPolicyX509CertificateTokenKey(GetX509Certificate.RawData);
-
-                }
-
-
-                ContentKeyPolicyOption option = null;
-
                 if (radioButtonOpenAuthPolicy.Checked)
                 {
-                    option = new ContentKeyPolicyOption(
-                                                    new ContentKeyPolicyClearKeyConfiguration(),
-                                                    new ContentKeyPolicyOpenRestriction()
-                                                    );
+                    return new ContentKeyPolicyOpenRestriction();
                 }
                 else // token
                 {
-                    option = new ContentKeyPolicyOption(
-                                                    new ContentKeyPolicyClearKeyConfiguration(),
-                                                    new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey,
-                                                            TokenType, alternateKeys, GetTokenRequiredClaims));
+                    List<ContentKeyPolicyRestrictionTokenKey> alternateKeys = null;
 
+                    ContentKeyPolicyRestrictionTokenKey primarykey;
+                    if (GetDetailedTokenType == ExplorerTokenType.JWTSym || GetDetailedTokenType == ExplorerTokenType.SWTSym)
+                    {
+                        primarykey = new ContentKeyPolicySymmetricTokenKey(SymmetricKey);
+                    }
+                    else
+                    {
+                        primarykey = new ContentKeyPolicyX509CertificateTokenKey(GetX509Certificate.RawData);
+                    }
 
+                    return new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType, alternateKeys, GetTokenRequiredClaims);
                 }
-                return option;
             }
         }
 
@@ -217,20 +198,20 @@ namespace AMSExplorer
                 new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier)
            };
 
+           
+                JwtSecurityToken token = new JwtSecurityToken(
+                                                            issuer: Issuer,
+                                                            audience: Audience,
+                                                            claims: claims,
+                                                            notBefore: DateTime.Now.AddMinutes(-5),
+                                                            expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDurationInMin),
+                                                            signingCredentials: signingcredentials
+                                                            );
 
-            JwtSecurityToken token = new JwtSecurityToken(
-                issuer: Issuer,
-                audience: Audience,
-                claims: claims,
-                notBefore: DateTime.Now.AddMinutes(-5),
-                expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDurationInMin),
-                signingCredentials: signingcredentials
-                );
 
+                JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
 
-            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-
-            return handler.WriteToken(token);
+                return handler.WriteToken(token);
         }
 
 
@@ -248,8 +229,8 @@ namespace AMSExplorer
             }
             comboBoxMappingList.SelectedIndex = 0;
 
-            textBoxIssuer.Text = Properties.Settings.Default.DynEncTokenIssuer;
-            textBoxAudience.Text = Properties.Settings.Default.DynEncTokenAudience;
+            textBoxIssuer.Text = Properties.Settings.Default.DynEncTokenIssuerv3;
+            textBoxAudience.Text = Properties.Settings.Default.DynEncTokenAudiencev3;
         }
 
         private void radioButtonToken_CheckedChanged(object sender, EventArgs e)
@@ -261,8 +242,8 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DynEncTokenIssuer = textBoxIssuer.Text;
-            Properties.Settings.Default.DynEncTokenAudience = textBoxAudience.Text;
+            Properties.Settings.Default.DynEncTokenIssuerv3 = textBoxIssuer.Text;
+            Properties.Settings.Default.DynEncTokenAudiencev3 = textBoxAudience.Text;
             Program.SaveAndProtectUserConfig();
         }
 

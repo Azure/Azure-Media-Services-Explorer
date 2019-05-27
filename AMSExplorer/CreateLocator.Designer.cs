@@ -44,7 +44,20 @@
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.labelAssetName = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.comboBoxPolicyName = new System.Windows.Forms.ComboBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.radioButtonDownloadAndClear = new System.Windows.Forms.RadioButton();
+            this.radioButtonDownload = new System.Windows.Forms.RadioButton();
+            this.radioButtonMultiDRM = new System.Windows.Forms.RadioButton();
+            this.radioButtonMultiDRMCENC = new System.Windows.Forms.RadioButton();
+            this.radioButtonClearKey = new System.Windows.Forms.RadioButton();
+            this.radioButtonClearStream = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.groupBoxForceLocator = new System.Windows.Forms.GroupBox();
@@ -52,10 +65,17 @@
             this.textBoxLocatorGUID = new System.Windows.Forms.TextBox();
             this.checkBoxForLocatorGUID = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBoxEnd.SuspendLayout();
             this.groupBoxStart.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -166,17 +186,124 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Controls.Add(this.comboBoxPolicyName);
+            this.groupBox4.Controls.Add(this.pictureBox9);
+            this.groupBox4.Controls.Add(this.pictureBox8);
+            this.groupBox4.Controls.Add(this.pictureBox7);
+            this.groupBox4.Controls.Add(this.pictureBox6);
+            this.groupBox4.Controls.Add(this.pictureBox5);
+            this.groupBox4.Controls.Add(this.pictureBox4);
+            this.groupBox4.Controls.Add(this.pictureBox3);
+            this.groupBox4.Controls.Add(this.pictureBox2);
+            this.groupBox4.Controls.Add(this.radioButtonDownloadAndClear);
+            this.groupBox4.Controls.Add(this.radioButtonDownload);
+            this.groupBox4.Controls.Add(this.radioButtonMultiDRM);
+            this.groupBox4.Controls.Add(this.radioButtonMultiDRMCENC);
+            this.groupBox4.Controls.Add(this.radioButtonClearKey);
+            this.groupBox4.Controls.Add(this.radioButtonClearStream);
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
-            // comboBoxPolicyName
+            // pictureBox9
             // 
-            this.comboBoxPolicyName.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxPolicyName, "comboBoxPolicyName");
-            this.comboBoxPolicyName.Name = "comboBoxPolicyName";
+            this.pictureBox9.Image = global::AMSExplorer.Bitmaps.DRM_protection_Cbcs;
+            resources.ApplyResources(this.pictureBox9, "pictureBox9");
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.TabStop = false;
+            this.pictureBox9.Click += new System.EventHandler(this.pictureBox9_Click);
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::AMSExplorer.Bitmaps.DRM_protection;
+            resources.ApplyResources(this.pictureBox8, "pictureBox8");
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.TabStop = false;
+            this.pictureBox8.Click += new System.EventHandler(this.pictureBox8_Click);
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::AMSExplorer.Bitmaps.DRM_protection;
+            resources.ApplyResources(this.pictureBox7, "pictureBox7");
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.TabStop = false;
+            this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click);
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::AMSExplorer.Bitmaps.envelope_encryption;
+            resources.ApplyResources(this.pictureBox6, "pictureBox6");
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.TabStop = false;
+            this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::AMSExplorer.Bitmaps.download;
+            resources.ApplyResources(this.pictureBox5, "pictureBox5");
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.download;
+            resources.ApplyResources(this.pictureBox4, "pictureBox4");
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            resources.ApplyResources(this.pictureBox3, "pictureBox3");
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
+            // radioButtonDownloadAndClear
+            // 
+            resources.ApplyResources(this.radioButtonDownloadAndClear, "radioButtonDownloadAndClear");
+            this.radioButtonDownloadAndClear.Name = "radioButtonDownloadAndClear";
+            this.radioButtonDownloadAndClear.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonDownload
+            // 
+            resources.ApplyResources(this.radioButtonDownload, "radioButtonDownload");
+            this.radioButtonDownload.Name = "radioButtonDownload";
+            this.radioButtonDownload.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonMultiDRM
+            // 
+            resources.ApplyResources(this.radioButtonMultiDRM, "radioButtonMultiDRM");
+            this.radioButtonMultiDRM.Name = "radioButtonMultiDRM";
+            this.radioButtonMultiDRM.UseVisualStyleBackColor = true;
+            this.radioButtonMultiDRM.CheckedChanged += new System.EventHandler(this.radioButtonMultiDRM_CheckedChanged);
+            // 
+            // radioButtonMultiDRMCENC
+            // 
+            resources.ApplyResources(this.radioButtonMultiDRMCENC, "radioButtonMultiDRMCENC");
+            this.radioButtonMultiDRMCENC.Name = "radioButtonMultiDRMCENC";
+            this.radioButtonMultiDRMCENC.UseVisualStyleBackColor = true;
+            this.radioButtonMultiDRMCENC.CheckedChanged += new System.EventHandler(this.radioButtonMultiDRMCENC_CheckedChanged);
+            // 
+            // radioButtonClearKey
+            // 
+            resources.ApplyResources(this.radioButtonClearKey, "radioButtonClearKey");
+            this.radioButtonClearKey.Name = "radioButtonClearKey";
+            this.radioButtonClearKey.UseVisualStyleBackColor = true;
+            this.radioButtonClearKey.CheckedChanged += new System.EventHandler(this.radioButtonClearKey_CheckedChanged);
+            // 
+            // radioButtonClearStream
+            // 
+            resources.ApplyResources(this.radioButtonClearStream, "radioButtonClearStream");
+            this.radioButtonClearStream.Checked = true;
+            this.radioButtonClearStream.Name = "radioButtonClearStream";
+            this.radioButtonClearStream.TabStop = true;
+            this.radioButtonClearStream.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
@@ -226,11 +353,6 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
             // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
             // CreateLocator
             // 
             this.AcceptButton = this.buttonOk;
@@ -255,6 +377,14 @@
             this.groupBoxStart.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBoxForceLocator.ResumeLayout(false);
             this.groupBoxForceLocator.PerformLayout();
@@ -288,7 +418,19 @@
         private System.Windows.Forms.TextBox textBoxLocatorGUID;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBoxPolicyName;
-        public System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton radioButtonDownload;
+        private System.Windows.Forms.RadioButton radioButtonMultiDRM;
+        private System.Windows.Forms.RadioButton radioButtonMultiDRMCENC;
+        private System.Windows.Forms.RadioButton radioButtonClearKey;
+        private System.Windows.Forms.RadioButton radioButtonClearStream;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.RadioButton radioButtonDownloadAndClear;
+        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.PictureBox pictureBox6;
     }
 }

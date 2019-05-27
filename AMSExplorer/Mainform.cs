@@ -1743,24 +1743,99 @@ namespace AMSExplorer
 
                     // DRM
                     ContentKeyPolicy keyPolicy = null;
-                    DRM_Config_TokenClaims formJwt = null;
+                    var formPlayreadyTokenClaims = new List<DRM_Config_TokenClaims>();
+                    var formWidevineTokenClaims = new List<DRM_Config_TokenClaims>();
+                    var formClearKeyTokenClaims = new List<DRM_Config_TokenClaims>();
+                    List<ContentKeyPolicyOption> options = new List<ContentKeyPolicyOption>();
+
+                    // let's preserve location of windows
+                    int left = form.Left;
+                    int top = form.Top;
+
+
                     if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
+                        string tokenSymKey = Properties.Settings.Default.DynEncTokenSymKeyv3;
+                        if (string.IsNullOrWhiteSpace(tokenSymKey)) tokenSymKey = null;
 
-                        formJwt = new DRM_Config_TokenClaims(1, 1, "PlayReady", null, true);
+                        if (form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                        {
+                            var formCencDelivery = new DRM_CENCDelivery(true, true) { Left = left, Top = top };
+                            if (formCencDelivery.ShowDialog() != DialogResult.OK) return;
 
-                        if (formJwt.ShowDialog() != DialogResult.OK)
-                        {
-                            return;
+
+                            int step = 1;
+                            SavePositionOfForm(formCencDelivery, out left, out top);
+
+                            // for each PlayReady option
+                            var formPlayready = new List<DRM_PlayReadyLicense>();
+
+                            for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
+                            {
+                                formPlayreadyTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, true) { Left = left, Top = top });
+                                if (formPlayreadyTokenClaims[i].ShowDialog() != DialogResult.OK) return;
+                                tokenSymKey = formPlayreadyTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
+                                SavePositionOfForm(formPlayreadyTokenClaims[i], out left, out top);
+
+                                formPlayready.Add(new DRM_PlayReadyLicense(step++, i + 1) { Left = left, Top = top });
+                                if (formPlayready[i].ShowDialog() != DialogResult.OK) return;
+                                SavePositionOfForm(formPlayready[i], out left, out top);
+
+                                options.Add(
+                                               new ContentKeyPolicyOption()
+                                               {
+                                                   Configuration = formPlayready[i].GetPlayReadyConfiguration,
+                                                   Restriction = formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction
+                                               });
+                            }
+
+                            // for each Widevine option
+                            var formWidevine = new List<DRM_WidevineLicense>();
+
+                            for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
+                            {
+                                formWidevineTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, true) { Left = left, Top = top });
+                                if (formWidevineTokenClaims[i].ShowDialog() != DialogResult.OK) return;
+                                tokenSymKey = formWidevineTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
+                                SavePositionOfForm(formWidevineTokenClaims[i], out left, out top);
+                                
+                                formWidevine.Add(new DRM_WidevineLicense(step++, i + 1) { Left = left, Top = top });
+                                if (formWidevine[i].ShowDialog() != DialogResult.OK) return;
+                                SavePositionOfForm(formWidevine[i], out left, out top);
+
+                                options.Add(
+                                            new ContentKeyPolicyOption()
+                                            {
+                                                Configuration = formWidevine[i].GetWidevineConfiguration,
+                                                Restriction = formWidevineTokenClaims[i].GetContentKeyPolicyRestriction
+                                            });
+                            }
+
                         }
-                        else
+                        else if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
                         {
-                            keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(
-                               _amsClientV3.credentialsEntry.ResourceGroup,
-                                _amsClientV3.credentialsEntry.AccountName,
-                                "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
-                                new List<ContentKeyPolicyOption> { formJwt.Option });
+                            formClearKeyTokenClaims.Add(new DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
+                            if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK) return;
+
+                            options.Add(
+                                           new ContentKeyPolicyOption()
+                                           {
+                                               Configuration = new ContentKeyPolicyClearKeyConfiguration(),
+                                               Restriction = formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
+                                           });
+
                         }
+
+                        Properties.Settings.Default.DynEncTokenAudiencev3 = tokenSymKey;
+                        Program.SaveAndProtectUserConfig();
+
+
+                        keyPolicy = await _amsClientV3.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup,
+                                                _amsClientV3.credentialsEntry.AccountName,
+                                                "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
+                                                options);
+
+
                     }
 
                     sbuilder.Clear();
@@ -1777,34 +1852,40 @@ namespace AMSExplorer
 
                         foreach (var loc in listLocators)
                         {
+                            var paths = await _amsClientV3.AMSclient.StreamingLocators.ListPathsAsync(
+                            _amsClientV3.credentialsEntry.ResourceGroup,
+                             _amsClientV3.credentialsEntry.AccountName,
+                             loc.LocatorName
+                            );
+
                             sbuilder.AppendLine(string.Format("Asset name : {0}", loc.AssetName));
                             sbuilder.AppendLine("===============" + new string('=', loc.AssetName.Length));
                             sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
                             sbuilder.AppendLine(string.Empty);
-                            foreach (var path in loc.Paths)
+                            foreach (var path in paths.StreamingPaths)
                             {
-                                sbuilder.AppendLine(path.StreamingProtocol);
+                                sbuilder.AppendLine(path.StreamingProtocol + " :");
                                 foreach (var se in SEList)
                                 {
-                                    path.Paths.ToList().ForEach(p => sbuilder.AppendLine(se.HostName + p));
+                                    path.Paths.ToList().ForEach(p => sbuilder.AppendLine("https://" + se.HostName + p));
+                                }
+                                sbuilder.AppendLine(string.Empty);
+                            }
+                            foreach (var path in paths.DownloadPaths)
+                            {
+                                sbuilder.AppendLine("Download :");
+                                foreach (var se in SEList)
+                                {
+                                    sbuilder.AppendLine("https://" + se.HostName + path);
                                 }
                                 sbuilder.AppendLine(string.Empty);
                             }
                             sbuilder.AppendLine(string.Empty);
                         }
 
-                        if (formJwt != null && formJwt.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
-                        {
-                            // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
-                            // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
-                            // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
-                            // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
-                            var response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
-                                    _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
-                            string keyIdentifier = response.ContentKeys.First().Id.ToString();
-
-                            sbuilder.AppendLine(string.Format("Test token ({0} min) : {1}", Properties.Settings.Default.DefaultTokenDurationInMin, Constants.Bearer + formJwt.GetTestToken(keyIdentifier)));
-                        }
+                        await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators, "PlayReady");
+                        await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators, "Widevine");
+                        await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators, "Clear Key");
 
                         var displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
                         displayResult.ShowDialog();
@@ -1816,11 +1897,39 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("There is a problem when creating a locator", true);
                         TextBoxLogWriteLine(e);
                     }
-
                 }
             }
         }
 
+        private static void SavePositionOfForm(Form myForm, out int left, out int top)
+        {
+            left = myForm.Left;
+            top = myForm.Top;
+        }
+
+        private async Task AddTestTokenToSbuilder(List<DRM_Config_TokenClaims> formTokenClaims, List<LocatorAndUrls> listLocators, string DRMTechnology)
+        {
+            foreach (var tokenClaims in formTokenClaims)
+            {
+                if (tokenClaims.TokenType == ContentKeyPolicyRestrictionTokenType.Jwt)
+                {
+                    // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
+                    // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
+                    // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
+                    // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
+                    var response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
+                            _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
+                    string keyIdentifier = response.ContentKeys.First().Id.ToString();
+
+                    sbuilder.AppendLine(string.Format("Test token for {0}, Option {1} (valid {2} min) :",
+                        DRMTechnology,
+                        formTokenClaims.IndexOf(tokenClaims) + 1,
+                        Properties.Settings.Default.DefaultTokenDurationInMin));
+                    sbuilder.AppendLine(Constants.Bearer + tokenClaims.GetTestToken(keyIdentifier));
+                    sbuilder.AppendLine(string.Empty);
+                }
+            }
+        }
 
         private async void DoCreateSASUrl(List<Asset> SelectedAssets)
         {
@@ -7713,7 +7822,7 @@ namespace AMSExplorer
             }
             CheckboxAnyLiveEventChangedByCode = false;
         }
-             
+
 
         private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
         {

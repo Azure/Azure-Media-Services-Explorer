@@ -62,11 +62,11 @@
     <Setting Name="DefaultSlateCurrentFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DynEncTokenIssuer" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://testacs</Value>
+    <Setting Name="DynEncTokenIssuerv3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">myIssuer</Value>
     </Setting>
-    <Setting Name="DynEncTokenAudience" Type="System.String" Scope="User">
-      <Value Profile="(Default)">urn:test</Value>
+    <Setting Name="DynEncTokenAudiencev3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">myAudience</Value>
     </Setting>
     <Setting Name="DefaultLocatorDurationDaysNew" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3650</Value>
@@ -106,6 +106,9 @@
     </Setting>
     <Setting Name="DefaultSASDurationInHours" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">24</Value>
+    </Setting>
+    <Setting Name="DynEncTokenSymKeyv3" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

@@ -861,9 +861,9 @@ namespace AMSExplorer
         public const string LinkMoreInfoVideoSummarization = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-video-summarization";
         public const string LinkMoreInfoContentModeration = "https://azure.microsoft.com/en-us/blog/content-moderator-azure-media-analytics/";
 
-        public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-playready-license-template-overview";
+        public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/playready-license-template-overview";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
-        public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-widevine-license-template-overview";
+        public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/widevine-license-template-overview";
 
         public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-create-account";
         public const string LinkAMSAADAut = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-get-started-with-aad";

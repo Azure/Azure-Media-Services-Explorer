@@ -95,8 +95,8 @@ namespace AMSExplorer
             Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
 
-            Properties.Settings.Default.DynEncTokenIssuer = "http://testacs";
-            Properties.Settings.Default.DynEncTokenAudience = "urn:test";
+            Properties.Settings.Default.DynEncTokenIssuerv3 = "http://testacs";
+            Properties.Settings.Default.DynEncTokenAudiencev3 = "urn:test";
 
             Program.SaveAndProtectUserConfig();
         }
