@@ -134,7 +134,9 @@ namespace AMSExplorer
         static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         static BackgroundWorker WorkerRefreshChannels;
         static Bitmap EncodingImage = Bitmaps.encoding;
-        static Bitmap StandardEncodingImage = Bitmaps.encodingPremium;
+        static Bitmap StandardEncodingImage = Bitmaps.encoding;
+        static Bitmap StandardEncodingPremium = Bitmaps.encodingPremium;
+
         public string _encoded = "Encoding";
         public string _encodedPreset = "EncodingPreset";
         public int totalLiveEvents = 0;
