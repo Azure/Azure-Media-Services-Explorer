@@ -1984,7 +1984,6 @@ namespace AMSExplorer
                     var uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
                     var streamingLocatorName = "locator-" + uniqueness;
 
-
                     locator = new StreamingLocator(
                         assetName: AssetToP.Name,
                         streamingPolicyName: streamingPolicyName,
@@ -1993,7 +1992,6 @@ namespace AMSExplorer
                         endTime: endTime,
                         defaultContentKeyPolicyName: keyPolicyName
                         );
-
 
                     locator = _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, locator);
 
