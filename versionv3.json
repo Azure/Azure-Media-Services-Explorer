@@ -1,6 +1,6 @@
 {
     "Version": "5.0.3.0",
-    "ReleaseNotesUrl": "https://rawgit.com/Azure/Azure-Media-Services-Explorer/rpv3/ReleaseNotes.html",
-    "AllReleaseNotesUrl": "https://rawgit.com/Azure/Azure-Media-Services-Explorer/rpv3/AllReleaseNotes.html",
+    "ReleaseNotesUrl": "https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/ReleaseNotes.html",
+    "AllReleaseNotesUrl": "https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/AllReleaseNotes.html",
     "BinaryUrl": "https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.0.3.0.exe"
 }
