@@ -536,12 +536,12 @@ namespace AMSExplorer
                     LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.StartTime);
                     LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, locator.EndTime);
 
+                    int indexn = 1;
                     if (listPaths.StreamingPaths.Count > 0)
                     {
-                        int indexn = 1;
                         foreach (var path in listPaths.StreamingPaths)
                         {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
+                           TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
                             foreach (var p in path.Paths)
                             {
                                 uriBuilder.Path = p;
@@ -558,7 +558,7 @@ namespace AMSExplorer
                         foreach (var p in listPaths.DownloadPaths)
                         {
                             uriBuilder.Path = p;
-                            TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uriBuilder.ToString()));
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uriBuilder.ToString()));
                         }
                     }
                 }
