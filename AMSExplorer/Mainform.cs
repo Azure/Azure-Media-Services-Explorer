@@ -77,10 +77,10 @@ namespace AMSExplorer
         private static readonly long OneGB = 1000L * 1000L * 1000L;
 #pragma warning restore CS0414 // The field 'Mainform.OneGB' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'Mainform.S1AssetSizeLimit' is assigned but its value is never used
-        private static readonly int S1AssetSizeLimit = 325; // GBytes
+        private static readonly int S1AssetSizeLimit = 26; // GBytes
 #pragma warning restore CS0414 // The field 'Mainform.S1AssetSizeLimit' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'Mainform.S2AssetSizeLimit' is assigned but its value is never used
-        private static readonly int S2AssetSizeLimit = 640; // GBytes
+        private static readonly int S2AssetSizeLimit = 60; // GBytes
 #pragma warning restore CS0414 // The field 'Mainform.S2AssetSizeLimit' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'Mainform.S3AssetSizeLimit' is assigned but its value is never used
         private static readonly int S3AssetSizeLimit = 260; // GBytes
