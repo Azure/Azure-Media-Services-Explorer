@@ -99,8 +99,8 @@ namespace AMSExplorer
         private bool enableTelemetry = true;
 
         private static readonly long OneGB = 1000L * 1000L * 1000L;
-        private static readonly int S1AssetSizeLimit = 325; // GBytes
-        private static readonly int S2AssetSizeLimit = 640; // GBytes
+        private static readonly int S1AssetSizeLimit = 26; // GBytes
+        private static readonly int S2AssetSizeLimit = 60; // GBytes
         private static readonly int S3AssetSizeLimit = 260; // GBytes
         public string _accountname;
 
