@@ -1,7 +1,7 @@
 Azure-Media-Services-Explorer for v2
 ====================================
 
-Azure Media Services Explorer (AMSE) is a Winforms/C# application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services](https://azure.microsoft.com/en-us/services/media-services/).
+Azure Media Services Explorer (AMSE) is a Winforms/C# application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services v2](https://azure.microsoft.com/en-us/services/media-services/).
 
 See a full description on http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool
 
