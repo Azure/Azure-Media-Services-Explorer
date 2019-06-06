@@ -205,14 +205,12 @@ namespace AMSExplorer
                     }
                 }
 
-
-
                 string mode = "Default";
                 if (MyLiveEvent.StreamOptions != null && MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency))
                 {
                     mode = "Low latency";
                 }
-                DGLiveEvent.Rows.Add("Mode", mode);
+                DGLiveEvent.Rows.Add("Latency mode", mode);
 
             }
             else // multiselect
@@ -227,8 +225,6 @@ namespace AMSExplorer
                     checkBoxKeyFrameIntDefined.Checked = true;
                     textBoxKeyFrame.Text = MyLiveEvent.Input.KeyFrameIntervalDuration;
                 }
-
-
             }
 
             // comon code - multiselect or only one channel selected

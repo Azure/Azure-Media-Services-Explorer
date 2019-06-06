@@ -159,7 +159,7 @@ namespace AMSExplorer
             new LiveProfile()
             {
                 Type = LiveEventEncodingType.Standard,
-                Name ="Default720p",
+                Name ="default720p",
                 Video = new List<LiveVideoProfile>()
                 {
                     new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, MaxFPS=30, Profile= "High", OutputStreamName= "Video_1280x720_3500kbps"},
@@ -177,7 +177,7 @@ namespace AMSExplorer
             new LiveProfile()
             {
                 Type = LiveEventEncodingType.Premium1080p,
-                Name ="Default1080p",
+                Name ="default1080p",
                 Video = new List<LiveVideoProfile>()
                 {
                         new LiveVideoProfile(){Codec = "H.264", Bitrate= 5500, Width= 1920, Height= 1080, MaxFPS=30, Profile= "High", OutputStreamName= "Video_1920x1080_5500kbps"},

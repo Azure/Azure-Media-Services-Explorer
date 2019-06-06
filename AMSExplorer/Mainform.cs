@@ -5186,6 +5186,7 @@ namespace AMSExplorer
 
                         if (liveEvent.Encoding.EncodingType == firstLiveEvent.Encoding.EncodingType)
                         {
+                          
                             if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding != null && liveEvent.ResourceState == LiveEventResourceState.Stopped)
                             {
                                 if (modifications.SystemPreset)
@@ -5202,7 +5203,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", liveEvent.Name, true);
                             }
-                        }
+                        }  
 
 
 
@@ -5293,9 +5294,19 @@ namespace AMSExplorer
 
                         Task.Run(async () =>
                         {
-                            await _amsClientV3.AMSclient.LiveEvents.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEvent.Name, liveEvent);
-                            dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshLiveEvent(liveEvent)), null);
-                            TextBoxLogWriteLine("Live event '{0}' : updated.", liveEvent.Name);
+                            try
+                            {
+                                await _amsClientV3.AMSclient.LiveEvents.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEvent.Name, liveEvent);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshLiveEvent(liveEvent)), null);
+                                TextBoxLogWriteLine("Live event '{0}' : updated.", liveEvent.Name);
+                            }
+
+                            catch (Exception ex)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when updating a live event.", true);
+                                TextBoxLogWriteLine(ex);
+                            }
                         }
              );
                     }
