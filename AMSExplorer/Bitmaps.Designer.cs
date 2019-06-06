@@ -193,6 +193,16 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clear {
+            get {
+                object obj = ResourceManager.GetObject("clear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap contentmoderation {
             get {
                 object obj = ResourceManager.GetObject("contentmoderation", resourceCulture);
@@ -546,106 +556,6 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap media_stabilizer {
             get {
                 object obj = ResourceManager.GetObject("media_stabilizer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modeltaskxenio1 {
-            get {
-                object obj = ResourceManager.GetObject("modeltaskxenio1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modeltaskxenio11 {
-            get {
-                object obj = ResourceManager.GetObject("modeltaskxenio11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modeltaskxenio2 {
-            get {
-                object obj = ResourceManager.GetObject("modeltaskxenio2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modeltaskxenio21 {
-            get {
-                object obj = ResourceManager.GetObject("modeltaskxenio21", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modetaskjob1 {
-            get {
-                object obj = ResourceManager.GetObject("modetaskjob1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modetaskjob11 {
-            get {
-                object obj = ResourceManager.GetObject("modetaskjob11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modetaskjob2 {
-            get {
-                object obj = ResourceManager.GetObject("modetaskjob2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modetaskjob21 {
-            get {
-                object obj = ResourceManager.GetObject("modetaskjob21", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modetaskjob3 {
-            get {
-                object obj = ResourceManager.GetObject("modetaskjob3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modetaskjob31 {
-            get {
-                object obj = ResourceManager.GetObject("modetaskjob31", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

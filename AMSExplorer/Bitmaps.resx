@@ -127,9 +127,6 @@
   <data name="media_services_trim_filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\media-services-trim-filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="modetaskjob1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modetaskjob1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Azure_Explorer_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\Azure Explorer_ico.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,9 +141,6 @@
   </data>
   <data name="upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\upload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="modeltaskxenio11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modeltaskxenio1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="filters" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\filters.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,17 +172,11 @@
   <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="modetaskjob3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modetaskjob3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AzureMedia_Full_Color_64_opaque" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\AzureMedia_Full-Color-64-opaque.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="modeltaskxenio1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modeltaskxenio1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="output_asset_information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\output_asset_information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,14 +196,8 @@
   <data name="copy_to_clipboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\copy_to_clipboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="modeltaskxenio2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modeltaskxenio2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Input_asset_information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\Input_asset_information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="modetaskjob11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modetaskjob1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -283,17 +265,8 @@
   <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="modetaskjob2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modetaskjob2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="DefaultAzurePortalSlate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SlateJPG\DefaultAzurePortalSlate.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="modeltaskxenio21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modeltaskxenio2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="modetaskjob31" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modetaskjob3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="storage_encryption" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\storage_encryption.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -303,9 +276,6 @@
   </data>
   <data name="change_priority" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\change_priority.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="modetaskjob21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\modetaskjob2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="face_detector" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\face_detector.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -372,5 +342,8 @@
   </data>
   <data name="redactor_blur_med" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\redactor-blur-med.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\clear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

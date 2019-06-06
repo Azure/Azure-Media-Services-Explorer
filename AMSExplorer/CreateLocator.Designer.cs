@@ -252,14 +252,14 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.clear;
             resources.ApplyResources(this.pictureBox3, "pictureBox3");
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.clear;
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;

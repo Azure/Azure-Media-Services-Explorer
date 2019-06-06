@@ -570,6 +570,7 @@
     <None Include="IconsPNG\XY.png" />
     <None Include="IconsPNG\XYRect.png" />
     <None Include="IconsPNG\DRM_protection_Cbcs.png" />
+    <Content Include="IconsPNG\Clear.png" />
     <Content Include="Manifest\Manifest.ism">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

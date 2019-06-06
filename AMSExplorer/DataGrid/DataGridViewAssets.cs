@@ -56,6 +56,7 @@ namespace AMSExplorer
         static BackgroundWorker WorkerAnalyzeAssets;
 
         static Bitmap cancelimage = Bitmaps.cancel;
+        static Bitmap clearimage = Bitmaps.clear;
         static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
         static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
         static Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
@@ -334,8 +335,8 @@ namespace AMSExplorer
                         //SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         //OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
 
-                        /*
-                        AssetBitmapAndText assetBitmapAndText = ReturnStaticProtectedBitmap(asset);
+                       /*
+                     AssetBitmapAndText assetBitmapAndText = ReturnStaticProtectedBitmap(asset);
                         AE.StaticEncryption = assetBitmapAndText.bitmap;
                         AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
                         */
@@ -351,10 +352,12 @@ namespace AMSExplorer
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
                         AE.AssetWarning = (AE.SizeLong == 0);// || assetfiles.Any(f => f.ContentFileSize == 0));
 
-                        /*
+                        assetBitmapAndText = BuildBitmapDynEncryption(asset.Name, _client);
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;
-                        AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
-                        */
+                        //AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
+
+
+                       
 
                         /*
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
@@ -684,10 +687,8 @@ Properties/StorageId
                 string newtext = null;
                 PublishStatus Status = AssetInfo.GetPublishedStatusForLocator(locator);
 
-                //switch (locator.StreamingPolicyName)
                 {
 
-                    //                    case (LocatorType.OnDemandOrigin):
                     switch (Status)
                     {
                         case PublishStatus.PublishedActive:
@@ -709,36 +710,7 @@ Properties/StorageId
                         default:
                             break;
                     }
-                    //break;
-                    /*
-                                        case (LocatorType.Sas):
-                                            switch (Status)
-                                            {
-                                                case PublishStatus.PublishedActive:
-                                                    newbitmap = SASlocatorimage;
-                                                    newtext = "Active SAS locator";
-                                                    break;
-
-                                                case PublishStatus.PublishedExpired:
-                                                    newbitmap = Reddownloadimage;
-                                                    newtext = "Expired SAS locator";
-                                                    break;
-
-                                                case PublishStatus.PublishedFuture:
-                                                    newbitmap = Bluedownloadimage;
-                                                    newtext = "Future SAS locator";
-                                                    break;
-
-                                                case PublishStatus.NotPublished:
-                                                default:
-                                                    break;
-                                            }
-                                            break;
-
-
-                                        default:
-                                            break;
-                                            */
+                  
                 }
 
                 returnedImage = AddBitmap(returnedImage, newbitmap);
@@ -751,6 +723,67 @@ Properties/StorageId
                 MouseOverDesc = returnedText ?? "Not published"
             };
         }
+
+
+        public static AssetBitmapAndText BuildBitmapDynEncryption(string assetName, AMSClientV3 client)
+        {
+            client.RefreshTokenIfNeeded();
+            IList<AssetStreamingLocator> locators;
+            try
+            {
+                locators = client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName).StreamingLocators;
+            }
+            catch
+            {
+                return new AssetBitmapAndText()
+                {
+                    bitmap = BitmapCancel,
+                    MouseOverDesc = "Error"
+                };
+            }
+
+            AssetBitmapAndText ABT = new AssetBitmapAndText();
+
+            var ClearEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearStreamingOnly || l.StreamingPolicyName == PredefinedStreamingPolicy.DownloadAndClearStreaming);
+            var CENCEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
+            var CENCCbcsEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming );
+            var EnvelopeEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey);
+
+
+            int count = (ClearEnable ? 1 : 0) + (CENCEnable ? 1 : 0) + (CENCCbcsEnable ? 1 : 0) + (EnvelopeEnable ? 1 : 0);
+            ABT.bitmap = new Bitmap((envelopeencryptedimage.Width * count), envelopeencryptedimage.Height);
+            int x = 0;
+
+            using (Graphics graphicsObject = Graphics.FromImage(ABT.bitmap))
+            {
+                if (ClearEnable)
+                {
+                    graphicsObject.DrawImage(clearimage, new Point(x, 0));
+                    x += envelopeencryptedimage.Width;
+                }
+
+                if (EnvelopeEnable)
+                {
+                    graphicsObject.DrawImage(envelopeencryptedimage, new Point(x, 0));
+                    x += envelopeencryptedimage.Width;
+                }
+
+                if (CENCEnable)
+                {
+                    graphicsObject.DrawImage(CENCencryptedimage, new Point(x, 0));
+                    x += CENCencryptedimage.Width;
+                }
+
+                if (CENCCbcsEnable)
+                {
+                    graphicsObject.DrawImage(CENCcbcsEncryptedImage, new Point(x, 0));
+                    x += CENCcbcsEncryptedImage.Width;
+                }
+            }
+
+            return ABT;
+        }
+
 
         private static Bitmap AddBitmap(Bitmap bitmap1, Bitmap bitmap2)
         {
