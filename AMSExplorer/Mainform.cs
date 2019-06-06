@@ -3555,6 +3555,9 @@ namespace AMSExplorer
 
             UpdateLabelConcurrentTransfers();
 
+            // making sure the visible assets are analyzed
+            dataGridViewAssetsV.ReLaunchAnalyze();
+
             Show();
         }
 
@@ -4933,7 +4936,7 @@ namespace AMSExplorer
                 LiveEventResourceState CS = (LiveEventResourceState)cellLiveEventStateValue;
                 Color mycolor;
 
-               
+
                 switch (CS)
                 {
                     case nameof(LiveEventResourceState.Deleting):
@@ -4955,7 +4958,7 @@ namespace AMSExplorer
                         mycolor = Color.Black;
                         break;
                 }
-               
+
 
 
 
@@ -5186,7 +5189,7 @@ namespace AMSExplorer
 
                         if (liveEvent.Encoding.EncodingType == firstLiveEvent.Encoding.EncodingType)
                         {
-                          
+
                             if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding != null && liveEvent.ResourceState == LiveEventResourceState.Stopped)
                             {
                                 if (modifications.SystemPreset)
@@ -5203,7 +5206,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", liveEvent.Name, true);
                             }
-                        }  
+                        }
 
 
 
