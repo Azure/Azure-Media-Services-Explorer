@@ -129,8 +129,10 @@ namespace AMSExplorer
             public int Bitrate { get; set; }
             public int Width { get; set; }
             public int Height { get; set; }
+            public int MaxFPS { get; set; }
             public string Profile { get; set; }
             public string OutputStreamName { get; set; }
+
         }
 
         public class LiveAudioProfile
@@ -156,45 +158,41 @@ namespace AMSExplorer
         {
             new LiveProfile()
             {
-                Type = LiveEventEncodingType.Basic,
+                Type = LiveEventEncodingType.Standard,
                 Name ="Default720p",
                 Video = new List<LiveVideoProfile>()
                 {
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, Profile= "High", OutputStreamName= "Video_1280x720_3500kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 2200, Width= 960, Height= 540, Profile= "Main", OutputStreamName= "Video_960x540_2200kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 1350, Width= 704, Height= 396, Profile= "Main", OutputStreamName= "Video_704x396_1350kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 850, Width= 512, Height= 288, Profile= "Main", OutputStreamName= "Video_512x288_850kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 550, Width= 384, Height= 216, Profile= "Main", OutputStreamName= "Video_384x216_550kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 350, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_350kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_200kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, MaxFPS=30, Profile= "High", OutputStreamName= "Video_1280x720_3500kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 2200, Width= 960, Height= 540, MaxFPS=30, Profile= "High", OutputStreamName= "Video_960x540_2200kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 1350, Width= 704, Height= 396, MaxFPS=30, Profile= "High", OutputStreamName= "Video_704x396_1350kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 850, Width= 512, Height= 288, MaxFPS=30, Profile= "High", OutputStreamName= "Video_512x288_850kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 550, Width= 384, Height= 216, MaxFPS=30, Profile= "High", OutputStreamName= "Video_384x216_550kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, MaxFPS=30, Profile= "High", OutputStreamName= "Video_340x192_200kbps"},
                         },
                 Audio = new LiveAudioProfile()
                     {
-                    Codec= "AAC-LC", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo"
+                        Codec= "AAC-LC", Bitrate= 128, SamplingRate= 48, Channels= "Stereo"
                     }
-            }
-            /*,
-             new LiveProfile()
+            },
+            new LiveProfile()
             {
-                Type = LiveEventEncodingType.Premium,
+                Type = LiveEventEncodingType.Premium1080p,
                 Name ="Default1080p",
                 Video = new List<LiveVideoProfile>()
                 {
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 6000, Width= 1920, Height= 1080, Profile= "High", OutputStreamName= "Video_1920x1080_6000kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, Profile= "High", OutputStreamName= "Video_1280x720_3500kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 2200, Width= 960, Height= 540, Profile= "Main", OutputStreamName= "Video_960x540_2200kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 1350, Width= 704, Height= 396, Profile= "Main", OutputStreamName= "Video_704x396_1350kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 850, Width= 512, Height= 288, Profile= "Main", OutputStreamName= "Video_512x288_850kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 550, Width= 384, Height= 216, Profile= "Main", OutputStreamName= "Video_384x216_550kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 350, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_350kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_200kbps"},
+                        new LiveVideoProfile(){Codec = "H.264", Bitrate= 5500, Width= 1920, Height= 1080, MaxFPS=30, Profile= "High", OutputStreamName= "Video_1920x1080_5500kbps"},
+                        new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, MaxFPS=30, Profile= "High", OutputStreamName= "Video_1280x720_3500kbps"},
+                        new LiveVideoProfile(){Codec = "H.264", Bitrate= 2200, Width= 960, Height= 540, MaxFPS=30, Profile= "High", OutputStreamName= "Video_960x540_2200kbps"},
+                        new LiveVideoProfile(){Codec = "H.264", Bitrate= 1350, Width= 704, Height= 396, MaxFPS=30, Profile= "High", OutputStreamName= "Video_704x396_1350kbps"},
+                        new LiveVideoProfile(){Codec = "H.264", Bitrate= 850, Width= 512, Height= 288, MaxFPS=30, Profile= "High", OutputStreamName= "Video_512x288_850kbps"},
+                        new LiveVideoProfile(){Codec = "H.264", Bitrate= 550, Width= 384, Height= 216, MaxFPS=30, Profile= "High", OutputStreamName= "Video_384x216_550kbps"},
+                        new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, MaxFPS=30, Profile= "High", OutputStreamName= "Video_340x192_200kbps"},
                         },
                 Audio = new LiveAudioProfile()
                     {
-                    Codec= "AAC-LC", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo"
+                        Codec= "AAC-LC", Bitrate= 128, SamplingRate= 48, Channels= "Stereo"
                     }
-            }
-            */
+                }
         };
     }
 

@@ -152,7 +152,7 @@ namespace AMSExplorer
                 // se info
                 DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
                 DGOrigin.Rows.Add("Name", MySE.Name);
-                DGOrigin.Rows.Add("ResourceState", (StreamingEndpointResourceState)MySE.ResourceState);
+                DGOrigin.Rows.Add("ResourceState", MySE.ResourceState);
                 DGOrigin.Rows.Add("Description", MySE.Description);
                 DGOrigin.Rows.Add("HostName", MySE.HostName);
                 DGOrigin.Rows.Add("CDNEnabled", MySE.CdnEnabled);

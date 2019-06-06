@@ -66,7 +66,7 @@ namespace AMSExplorer
                 LiveEventEncoding encodingoption = new LiveEventEncoding()
                 {
                     PresetName = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : null, // default preset or custom
-                    EncodingType = (LiveEventEncodingType)(Enum.Parse(typeof(LiveEventEncodingType), (string)(comboBoxEncodingType.SelectedItem as Item).Value))
+                    EncodingType = (LiveEventEncodingType)(comboBoxEncodingType.SelectedItem as Item).Value
                 };
 
                 return encodingoption;
@@ -78,7 +78,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (LiveEventInputProtocol)(Enum.Parse(typeof(LiveEventInputProtocol), (comboBoxProtocolInput.SelectedItem as Item).Value));
+                return (LiveEventInputProtocol)(comboBoxProtocolInput.SelectedItem as Item).Value;
             }
         }
 
@@ -189,9 +189,10 @@ namespace AMSExplorer
             FillComboProtocols();
 
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
-            comboBoxEncodingType.Items.Add(new Item(LiveEventEncodingType.None.ToString(), Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.None)));
-            comboBoxEncodingType.Items.Add(new Item(LiveEventEncodingType.Standard.ToString(), Enum.GetName(typeof(LiveEventEncodingType), LiveEventEncodingType.Standard)));
-           
+            comboBoxEncodingType.Items.Add(new Item(nameof(LiveEventEncodingType.None), nameof(LiveEventEncodingType.None)));
+            comboBoxEncodingType.Items.Add(new Item(nameof(LiveEventEncodingType.Standard), nameof(LiveEventEncodingType.Standard)));
+            comboBoxEncodingType.Items.Add(new Item(nameof(LiveEventEncodingType.Premium1080p), nameof(LiveEventEncodingType.Premium1080p)));
+
             comboBoxEncodingType.SelectedIndex = 0;
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
@@ -260,8 +261,8 @@ namespace AMSExplorer
         private void FillComboProtocols()
         {
             comboBoxProtocolInput.Items.Clear();
-            comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(LiveEventInputProtocol.FragmentedMP4), Enum.GetName(typeof(LiveEventInputProtocol), LiveEventInputProtocol.FragmentedMP4)));
-            comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(LiveEventInputProtocol.RTMP), Enum.GetName(typeof(LiveEventInputProtocol), LiveEventInputProtocol.RTMP)));
+            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.FragmentedMP4), nameof(LiveEventInputProtocol.FragmentedMP4)));
+            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.RTMP), nameof(LiveEventInputProtocol.RTMP)));
             comboBoxProtocolInput.SelectedIndex = 1;
         }
       
@@ -306,24 +307,16 @@ namespace AMSExplorer
             }
         }
 
-        private string ReturnLiveEncodingProfile()
-        {
-            if (Encoding.EncodingType != LiveEventEncodingType.None)
-            {
-                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : null;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
+     
         private void UpdateProfileGrids()
         {
-            string encodingprofile = ReturnLiveEncodingProfile();
-            if (encodingprofile != null)
+            bool displayEncProfile = false;
+           // string encodingprofile = ReturnLiveEncodingProfile();
+            var myEncoding = Encoding;
+            //   if (encodingprofile != null)
+            if (radioButtonDefaultPreset.Checked && myEncoding.EncodingType != LiveEventEncodingType.None)
             {
-                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Name == encodingprofile).FirstOrDefault();
+                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == myEncoding.EncodingType).FirstOrDefault();
                 if (profileliveselected != null)
                 {
                     dataGridViewVideoProf.DataSource = profileliveselected.Video;
@@ -333,14 +326,16 @@ namespace AMSExplorer
 
                     dataGridViewAudioProf.DataSource = profmultiaudio;
                     panelDisplayEncProfile.Visible = true;
-                }
-                else
-                {
-                    dataGridViewVideoProf.DataSource = null;
-                    dataGridViewAudioProf.DataSource = null;
-                    panelDisplayEncProfile.Visible = false;
+                    displayEncProfile = true;
                 }
             }
+            if (!displayEncProfile)
+            {
+                dataGridViewVideoProf.DataSource = null;
+                dataGridViewAudioProf.DataSource = null;
+                panelDisplayEncProfile.Visible = false;
+            }
+            
         }
 
      

@@ -135,7 +135,7 @@ namespace AMSExplorer
         static BackgroundWorker WorkerRefreshChannels;
         static Bitmap EncodingImage = Bitmaps.encoding;
         static Bitmap StandardEncodingImage = Bitmaps.encoding;
-        static Bitmap StandardEncodingPremium = Bitmaps.encodingPremium;
+        static Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
 
         public string _encoded = "Encoding";
         public string _encodedPreset = "EncodingPreset";
@@ -143,20 +143,44 @@ namespace AMSExplorer
 
         private Bitmap ReturnChannelBitmap(LiveEvent channel)
         {
+          
             switch (channel.Encoding.EncodingType)
             {
-                case LiveEventEncodingType.None:
+                case nameof(LiveEventEncodingType.None):
                     return null;
 
-                case LiveEventEncodingType.Basic:
+                case nameof(LiveEventEncodingType.Basic):
                     return EncodingImage;
 
-                case LiveEventEncodingType.Standard:
+                case nameof(LiveEventEncodingType.Standard):
                     return StandardEncodingImage;
+
+                case nameof(LiveEventEncodingType.Premium1080p):
+                    return PremiumEncodingImage;
 
                 default:
                     return null;
             }
+           
+
+            /*
+            if (channel.Encoding.EncodingType == LiveEventEncodingType.None)
+            {
+                return null;
+            }
+            else if (channel.Encoding.EncodingType == LiveEventEncodingType.Standard)
+            {
+                return StandardEncodingImage;
+            }
+            else if (channel.Encoding.EncodingType == LiveEventEncodingType.Premium1080p)
+            {
+                return PremiumEncodingImage;
+            }
+            else
+            {
+                return EncodingImage;
+            }
+            */
         }
 
         public void Init(AMSClientV3 client)

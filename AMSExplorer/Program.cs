@@ -591,22 +591,7 @@ namespace AMSExplorer
             }
         }
 
-
-        public static string ReturnNameForProtocol(LiveEventInputProtocol protocol)
-        {
-            string name = string.Empty;
-            switch (protocol)
-            {
-                case LiveEventInputProtocol.FragmentedMP4:
-                    name = AMSExplorer.Properties.Resources.Program_ReturnNameForProtocol_FragmentedMP4Smooth;
-                    break;
-
-                case LiveEventInputProtocol.RTMP:
-                    name = AMSExplorer.Properties.Resources.Program_ReturnNameForProtocol_RTMP;
-                    break;
-            }
-            return name;
-        }
+    
 
         public class LiveOutputExt
         {

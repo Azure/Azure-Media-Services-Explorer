@@ -4933,27 +4933,33 @@ namespace AMSExplorer
                 LiveEventResourceState CS = (LiveEventResourceState)cellLiveEventStateValue;
                 Color mycolor;
 
+               
                 switch (CS)
                 {
-                    case LiveEventResourceState.Deleting:
+                    case nameof(LiveEventResourceState.Deleting):
                         mycolor = Color.Red;
                         break;
-                    case LiveEventResourceState.Stopping:
+                    case nameof(LiveEventResourceState.Stopping):
                         mycolor = Color.OrangeRed;
                         break;
-                    case LiveEventResourceState.Starting:
+                    case nameof(LiveEventResourceState.Starting):
                         mycolor = Color.DarkCyan;
                         break;
-                    case LiveEventResourceState.Stopped:
+                    case nameof(LiveEventResourceState.Stopped):
                         mycolor = Color.Blue;
                         break;
-                    case LiveEventResourceState.Running:
+                    case nameof(LiveEventResourceState.Running):
                         mycolor = Color.Green;
                         break;
                     default:
                         mycolor = Color.Black;
                         break;
                 }
+               
+
+
+
+
                 e.CellStyle.ForeColor = mycolor;
             }
         }
@@ -5831,13 +5837,13 @@ namespace AMSExplorer
 
                 switch (PS)
                 {
-                    case LiveOutputResourceState.Deleting:
+                    case nameof(LiveOutputResourceState.Deleting):
                         mycolor = Color.OrangeRed;
                         break;
-                    case LiveOutputResourceState.Creating:
+                    case nameof(LiveOutputResourceState.Creating):
                         mycolor = Color.DarkCyan;
                         break;
-                    case LiveOutputResourceState.Running:
+                    case nameof(LiveOutputResourceState.Running):
                         mycolor = Color.Green;
                         break;
 
@@ -5890,19 +5896,19 @@ namespace AMSExplorer
 
                 switch (SES)
                 {
-                    case StreamingEndpointResourceState.Deleting:
+                    case nameof(StreamingEndpointResourceState.Deleting):
                         mycolor = Color.Red;
                         break;
-                    case StreamingEndpointResourceState.Stopping:
+                    case nameof(StreamingEndpointResourceState.Stopping):
                         mycolor = Color.OrangeRed;
                         break;
-                    case StreamingEndpointResourceState.Starting:
+                    case nameof(StreamingEndpointResourceState.Starting):
                         mycolor = Color.DarkCyan;
                         break;
-                    case StreamingEndpointResourceState.Stopped:
+                    case nameof(StreamingEndpointResourceState.Stopped):
                         mycolor = Color.Red;
                         break;
-                    case StreamingEndpointResourceState.Running:
+                    case nameof(StreamingEndpointResourceState.Running):
                         mycolor = Color.Green;
                         break;
                     default:
