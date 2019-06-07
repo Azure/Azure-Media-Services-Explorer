@@ -577,7 +577,7 @@ Properties/StorageId
             }
 
             IPage<Asset> currentPage = null;
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
             if (pagetodisplay == 1)
             {

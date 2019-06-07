@@ -591,7 +591,7 @@ namespace AMSExplorer
             }
         }
 
-    
+
 
         public class LiveOutputExt
         {
@@ -2569,7 +2569,7 @@ namespace AMSExplorer
 
         internal static async Task<StreamingEndpoint> GetBestStreamingEndpointAsync(AMSClientV3 client)
         {
-            client.RefreshTokenIfNeeded();
+            await client.RefreshTokenIfNeededAsync();
             var SEList = (await client.AMSclient.StreamingEndpoints.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)).AsEnumerable();
             StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
             if (SESelected == null) SESelected = await client.AMSclient.StreamingEndpoints.GetAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
@@ -3446,6 +3446,17 @@ namespace AMSExplorer
             }
         }
 
+
+        public async Task RefreshTokenIfNeededAsync()
+        {
+            // if end user use interactive authentication, then the token is not renewed automatically after it expired (one hour)
+            // with Service Principal authentication, the token is renewed automatically apparently ! (result of tests)
+            if (accessToken != null && accessToken.ExpiresOn.ToUniversalTime() < DateTimeOffset.UtcNow.AddMinutes(-3))
+            {
+                await ConnectAndGetNewClientV3Async();
+            }
+        }
+
         public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3Async()
         {
 
@@ -3547,8 +3558,6 @@ namespace AMSExplorer
                 classic = true;
             }
 
-
-            //            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(this.environment.ArmEndpoint + "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}/listKeys?api-version=2016-01-01", this.credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(this.environment.ArmEndpoint + storageId.Substring(1) + "/listKeys?api-version=" + version, this.credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
 
             request.Method = "POST";

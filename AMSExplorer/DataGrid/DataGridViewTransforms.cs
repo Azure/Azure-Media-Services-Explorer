@@ -73,7 +73,7 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
             var transforms = (await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).Select(a => new TransformEntryV3
             {

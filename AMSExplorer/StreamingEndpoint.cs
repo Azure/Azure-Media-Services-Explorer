@@ -194,7 +194,7 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                _client.RefreshTokenIfNeeded();
+                await _client.RefreshTokenIfNeededAsync();
                 streamingEndpoint = await _client.AMSclient.StreamingEndpoints.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, streamingEndpoint.Name); //refresh
                 if (streamingEndpoint != null)
                 {
@@ -256,7 +256,7 @@ namespace AMSExplorer
 
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
             streamingendpoints = await _client.AMSclient.StreamingEndpoints.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             try

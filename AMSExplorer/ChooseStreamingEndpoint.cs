@@ -166,10 +166,10 @@ namespace AMSExplorer
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
-           // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
-            StreamingEndpoint BestSE =  await AssetInfo.GetBestStreamingEndpointAsync(_client);
+            // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
+            StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_client);
 
             foreach (var se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
             {
@@ -218,7 +218,7 @@ namespace AMSExplorer
             }
            );
 
-           
+
 
             if (_playertype == PlayerType.DASHIFRefPlayer)
             {

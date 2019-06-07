@@ -330,7 +330,7 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
             IEnumerable<LiveEvent> ListEvents;
             if (_anyChannel == enumDisplayProgram.None)

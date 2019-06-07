@@ -67,7 +67,7 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
             if (asset != null)
             {
                 var filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).Body;
@@ -964,7 +964,7 @@ namespace AMSExplorer
         private async void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             if (filtername != null)
             {

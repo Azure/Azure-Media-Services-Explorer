@@ -143,7 +143,7 @@ namespace AMSExplorer
 
         private Bitmap ReturnChannelBitmap(LiveEvent channel)
         {
-          
+
             switch (channel.Encoding.EncodingType)
             {
                 case nameof(LiveEventEncodingType.None):
@@ -161,7 +161,7 @@ namespace AMSExplorer
                 default:
                     return null;
             }
-           
+
 
             /*
             if (channel.Encoding.EncodingType == LiveEventEncodingType.None)
@@ -352,7 +352,7 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
             var listLE = await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
             totalLiveEvents = listLE.Count();
 

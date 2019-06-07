@@ -362,7 +362,7 @@ namespace AMSExplorer
 
 
             // Paging
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
             IPage<Job> currentPage = null;
             var transform = _transformName.First();
