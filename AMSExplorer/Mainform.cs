@@ -4993,14 +4993,14 @@ namespace AMSExplorer
                          {
                              try
                              {
-                                 DoDeleteLiveOutputs(liveOutputRunningQuery.Select(o => o.LiveOutputItem).ToList());
+                                 await DoDeleteLiveOutputs(liveOutputRunningQuery.Select(o => o.LiveOutputItem).ToList());
 
                                  // let's reset the live events now that running output are stopped
                                  ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
                                  var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                                  await Task.WhenAll(tasksreset);
                                  ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
-
+                                 ListEvents.ToList().ForEach(e => this.Notify("Live event reset", string.Format("Live event '{0}' has been reset.", e.Name), false));
                              }
                              catch (Exception ex)
                              {
@@ -5028,6 +5028,7 @@ namespace AMSExplorer
                                var tasksreset = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.ResetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                                await Task.WhenAll(tasksreset);
                                ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
+                               ListEvents.ToList().ForEach(e => this.Notify("Live event reset", string.Format("Live event '{0}' has been reset.", e.Name), false));
                            }
                            catch (Exception ex)
                            {
@@ -5488,7 +5489,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoDeleteLiveOutputs(List<LiveOutput> ListOutputs = null)
+        private async Task DoDeleteLiveOutputs(List<LiveOutput> ListOutputs = null)
         {
             // delete also if delete = true
             if (ListOutputs == null) ListOutputs = ReturnSelectedLiveOutputs();
@@ -5501,8 +5502,7 @@ namespace AMSExplorer
                 DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    Task.Run(() => DoDeleteLiveOutputsEngineAsync(ListOutputs, form.DeleteAsset));
-
+                    await DoDeleteLiveOutputsEngineAsync(ListOutputs, form.DeleteAsset);
                 }
             }
         }
@@ -6242,7 +6242,10 @@ namespace AMSExplorer
 
         private void deleteProgramsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteLiveOutputs();
+            Task.Run(async () =>
+            {
+                await DoDeleteLiveOutputs();
+            });
         }
 
         private void displayOriginInformationToolStripMenuItem1_Click(object sender, EventArgs e)
