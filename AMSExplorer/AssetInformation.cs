@@ -535,6 +535,7 @@ namespace AMSExplorer
                     LocTreeAddTextEntryToNode(indexloc, 0, "Created: {0}", locator.Created);
                     LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.StartTime);
                     LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, locator.EndTime);
+                    LocTreeAddTextEntryToNode(indexloc, 0, "Filters: {0}", string.Join(", ", locator.Filters.ToArray()));
 
                     int indexn = 1;
                     if (listPaths.StreamingPaths.Count > 0)

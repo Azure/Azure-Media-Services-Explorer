@@ -24,11 +24,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
     public partial class CreateLocator : Form
     {
+        private List<Asset> _SelectedAssets;
+        private AMSClientV3 _client;
+
         public DateTime? LocatorStartDate
         {
             get
@@ -63,7 +67,7 @@ namespace AMSExplorer
             }
         }
 
-      
+
         public string ForceLocatorGuid
         {
             get
@@ -127,12 +131,14 @@ namespace AMSExplorer
             }
         }
 
-       
 
-        public CreateLocator(bool extendlocator = false)
+
+        public CreateLocator(AMSClientV3 client, List<Asset> SelectedAssets, bool extendlocator = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            _SelectedAssets = SelectedAssets;
+            _client = client;
             if (extendlocator) // dialog box used to extend locator expiration date
             {
                 buttonOk.Text = AMSExplorer.Properties.Resources.CreateLocator_CreateLocator_UpdateLocatorS;
@@ -167,8 +173,65 @@ namespace AMSExplorer
             dateTimePickerStartTime.Enabled = checkBoxStartDate.Checked;
         }
 
-        private void CreateLocator_Load(object sender, EventArgs e)
+        public List<string> SelectedFilters
         {
+            get
+            {
+                var list = new List<string>();
+                string filters = string.Empty;
+                foreach (var f in listViewFilters.CheckedItems)
+                {
+                    string v = (f as ListViewItem).SubItems[1].Text;
+                    if (v != string.Empty)
+                    {
+                        list.Add(v);
+                    }
+                }
+                if (string.IsNullOrEmpty(filters))
+                {
+                    filters = null;
+                }
+                return list.Count > 0 ? list : null;
+            }
+        }
+
+        private async void CreateLocator_Load(object sender, EventArgs e)
+        {
+            // Filters
+
+            var afiltersnames = new List<string>();
+
+            // asset filters
+            if (_SelectedAssets.Count == 1)
+            {
+                labelNoAssetFilter.Visible = false;
+                var assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
+                afiltersnames = assetFilters.Select(a => a.Name).ToList();
+
+                assetFilters.ToList().ForEach(f =>
+                {
+                    var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
+                    listViewFilters.Items.Add(lvitem);
+                }
+               );
+            }
+
+
+
+            // account filters
+            var acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+
+            acctFilters.ToList().ForEach(f =>
+            {
+                var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
+
+                if (afiltersnames.Contains(f.Name)) // global filter with same name than asset filter
+                {
+                    lvitem.ForeColor = Color.Gray;
+                }
+                listViewFilters.Items.Add(lvitem);
+            }
+           );
         }
 
         private void radioButtonEndCustom_CheckedChanged(object sender, EventArgs e)

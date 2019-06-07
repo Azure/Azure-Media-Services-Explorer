@@ -1721,7 +1721,7 @@ namespace AMSExplorer
                     labelAssetName = "A locator will be created for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
                 }
 
-                CreateLocator form = new CreateLocator()
+                CreateLocator formCreateLocator = new CreateLocator(_amsClientV3, SelectedAssets)
                 {
                     LocatorStartDate = DateTime.UtcNow.AddMinutes(-5),
                     LocatorEndDate = DateTime.UtcNow.AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
@@ -1730,15 +1730,15 @@ namespace AMSExplorer
                     LocWarning = string.Empty
                 };
 
-                if (form.ShowDialog() == DialogResult.OK)
+                if (formCreateLocator.ShowDialog() == DialogResult.OK)
                 {
                     _amsClientV3.RefreshTokenIfNeeded();
 
                     // The duration for the locator's access policy.
-                    TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
-                    if (form.LocatorStartDate != null)
+                    TimeSpan accessPolicyDuration = formCreateLocator.LocatorEndDate.Subtract(DateTime.UtcNow);
+                    if (formCreateLocator.LocatorStartDate != null)
                     {
-                        accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
+                        accessPolicyDuration = formCreateLocator.LocatorEndDate.Subtract((DateTime)formCreateLocator.LocatorStartDate);
                     }
 
                     // DRM
@@ -1749,15 +1749,15 @@ namespace AMSExplorer
                     List<ContentKeyPolicyOption> options = new List<ContentKeyPolicyOption>();
 
                     // let's preserve location of windows
-                    int left = form.Left;
-                    int top = form.Top;
+                    int left = formCreateLocator.Left;
+                    int top = formCreateLocator.Top;
 
-                    if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                    if (formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
                         string tokenSymKey = Properties.Settings.Default.DynEncTokenSymKeyv3;
                         if (string.IsNullOrWhiteSpace(tokenSymKey)) tokenSymKey = null;
 
-                        if (form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || form.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                        if (formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                         {
                             var formCencDelivery = new DRM_CENCDelivery(true, true) { Left = left, Top = top };
                             if (formCencDelivery.ShowDialog() != DialogResult.OK) return;
@@ -1818,7 +1818,7 @@ namespace AMSExplorer
                             }
 
                         }
-                        else if (form.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
+                        else if (formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
                         {
                             formClearKeyTokenClaims.Add(new DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
                             if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK) return;
@@ -1855,7 +1855,7 @@ namespace AMSExplorer
                     try
                     {
                         var listLocators = await Task.Run(() =>
-                        ProcessCreateLocatorV3(form.StreamingPolicyName, SelectedAssets, form.LocatorStartDate, form.LocatorEndDate, form.ForceLocatorGuid, keyPolicy));
+                        ProcessCreateLocatorV3(formCreateLocator.StreamingPolicyName, SelectedAssets, formCreateLocator.LocatorStartDate, formCreateLocator.LocatorEndDate, formCreateLocator.ForceLocatorGuid, keyPolicy, formCreateLocator.SelectedFilters));
 
                         var SEList = await _amsClientV3.AMSclient.StreamingEndpoints.ListAsync(
                              _amsClientV3.credentialsEntry.ResourceGroup,
@@ -1968,7 +1968,7 @@ namespace AMSExplorer
         }
 
 
-        private List<LocatorAndUrls> ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy)
+        private List<LocatorAndUrls> ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy, List<string> listFilters=null)
         {
             _amsClientV3.RefreshTokenIfNeeded();
 
@@ -1990,7 +1990,8 @@ namespace AMSExplorer
                         streamingLocatorId: string.IsNullOrEmpty(ForceLocatorGUID) ? (Guid?)null : Guid.Parse(ForceLocatorGUID),
                         startTime: startTime,
                         endTime: endTime,
-                        defaultContentKeyPolicyName: keyPolicyName
+                        defaultContentKeyPolicyName: keyPolicyName,
+                        filters: listFilters
                         );
 
                     locator = _amsClientV3.AMSclient.StreamingLocators.Create(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, locator);
