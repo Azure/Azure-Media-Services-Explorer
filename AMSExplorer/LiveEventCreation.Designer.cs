@@ -44,12 +44,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControlLiveChannel = new System.Windows.Forms.TabControl();
             this.TabSettings = new System.Windows.Forms.TabPage();
-            this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonTranscodingPremium = new System.Windows.Forms.RadioButton();
             this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
+            this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
+            this.radioButtonTranscodingStd = new System.Windows.Forms.RadioButton();
+            this.radioButtonTranscodingNone = new System.Windows.Forms.RadioButton();
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
             this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxEncodingType = new System.Windows.Forms.ComboBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
             this.panelDisplayEncProfile = new System.Windows.Forms.Panel();
             this.dataGridViewVideoProf = new System.Windows.Forms.DataGridView();
@@ -76,6 +78,7 @@
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tabPageLiveEncoding.SuspendLayout();
             this.panelDisplayEncProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
@@ -170,19 +173,41 @@
             // 
             // TabSettings
             // 
-            this.TabSettings.Controls.Add(this.moreinfoLiveStreamingProfilelink);
-            this.TabSettings.Controls.Add(this.moreinfoLiveEncodingProfilelink);
+            this.TabSettings.Controls.Add(this.groupBox1);
             this.TabSettings.Controls.Add(this.checkBoxRestrictPreviewIP);
             this.TabSettings.Controls.Add(this.textBoxRestrictPreviewIP);
-            this.TabSettings.Controls.Add(this.label2);
             this.TabSettings.Controls.Add(this.label4);
-            this.TabSettings.Controls.Add(this.comboBoxEncodingType);
             this.TabSettings.Controls.Add(this.comboBoxProtocolInput);
             this.TabSettings.Controls.Add(this.checkBoxRestrictIngestIP);
             this.TabSettings.Controls.Add(this.textBoxRestrictIngestIP);
             resources.ApplyResources(this.TabSettings, "TabSettings");
             this.TabSettings.Name = "TabSettings";
             this.TabSettings.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioButtonTranscodingPremium);
+            this.groupBox1.Controls.Add(this.moreinfoLiveEncodingProfilelink);
+            this.groupBox1.Controls.Add(this.moreinfoLiveStreamingProfilelink);
+            this.groupBox1.Controls.Add(this.radioButtonTranscodingStd);
+            this.groupBox1.Controls.Add(this.radioButtonTranscodingNone);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // radioButtonTranscodingPremium
+            // 
+            resources.ApplyResources(this.radioButtonTranscodingPremium, "radioButtonTranscodingPremium");
+            this.radioButtonTranscodingPremium.Name = "radioButtonTranscodingPremium";
+            this.radioButtonTranscodingPremium.UseVisualStyleBackColor = true;
+            this.radioButtonTranscodingPremium.CheckedChanged += new System.EventHandler(this.radioButtonTranscodingNone_CheckedChanged);
+            // 
+            // moreinfoLiveEncodingProfilelink
+            // 
+            resources.ApplyResources(this.moreinfoLiveEncodingProfilelink, "moreinfoLiveEncodingProfilelink");
+            this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
+            this.moreinfoLiveEncodingProfilelink.TabStop = true;
+            this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
             // moreinfoLiveStreamingProfilelink
             // 
@@ -191,12 +216,21 @@
             this.moreinfoLiveStreamingProfilelink.TabStop = true;
             this.moreinfoLiveStreamingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
-            // moreinfoLiveEncodingProfilelink
+            // radioButtonTranscodingStd
             // 
-            resources.ApplyResources(this.moreinfoLiveEncodingProfilelink, "moreinfoLiveEncodingProfilelink");
-            this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
-            this.moreinfoLiveEncodingProfilelink.TabStop = true;
-            this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            resources.ApplyResources(this.radioButtonTranscodingStd, "radioButtonTranscodingStd");
+            this.radioButtonTranscodingStd.Checked = true;
+            this.radioButtonTranscodingStd.Name = "radioButtonTranscodingStd";
+            this.radioButtonTranscodingStd.TabStop = true;
+            this.radioButtonTranscodingStd.UseVisualStyleBackColor = true;
+            this.radioButtonTranscodingStd.CheckedChanged += new System.EventHandler(this.radioButtonTranscodingNone_CheckedChanged);
+            // 
+            // radioButtonTranscodingNone
+            // 
+            resources.ApplyResources(this.radioButtonTranscodingNone, "radioButtonTranscodingNone");
+            this.radioButtonTranscodingNone.Name = "radioButtonTranscodingNone";
+            this.radioButtonTranscodingNone.UseVisualStyleBackColor = true;
+            this.radioButtonTranscodingNone.CheckedChanged += new System.EventHandler(this.radioButtonTranscodingNone_CheckedChanged);
             // 
             // checkBoxRestrictPreviewIP
             // 
@@ -210,19 +244,6 @@
             resources.ApplyResources(this.textBoxRestrictPreviewIP, "textBoxRestrictPreviewIP");
             this.textBoxRestrictPreviewIP.Name = "textBoxRestrictPreviewIP";
             this.textBoxRestrictPreviewIP.TextChanged += new System.EventHandler(this.textBoxIP_TextChanged);
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // comboBoxEncodingType
-            // 
-            this.comboBoxEncodingType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxEncodingType.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxEncodingType, "comboBoxEncodingType");
-            this.comboBoxEncodingType.Name = "comboBoxEncodingType";
-            this.comboBoxEncodingType.SelectedIndexChanged += new System.EventHandler(this.comboBoxEncodingType_SelectedIndexChanged);
             // 
             // tabPageLiveEncoding
             // 
@@ -401,6 +422,8 @@
             this.tabControlLiveChannel.ResumeLayout(false);
             this.TabSettings.ResumeLayout(false);
             this.TabSettings.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tabPageLiveEncoding.ResumeLayout(false);
             this.tabPageLiveEncoding.PerformLayout();
             this.panelDisplayEncProfile.ResumeLayout(false);
@@ -432,8 +455,6 @@
         private System.Windows.Forms.TabControl tabControlLiveChannel;
         private System.Windows.Forms.TabPage TabSettings;
         private System.Windows.Forms.TabPage tabPageLiveEncoding;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBoxEncodingType;
         private System.Windows.Forms.CheckBox checkBoxRestrictPreviewIP;
         private System.Windows.Forms.TextBox textBoxRestrictPreviewIP;
         private System.Windows.Forms.ToolTip toolTip1;
@@ -460,5 +481,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxToken;
         private System.Windows.Forms.Button buttonGenerateToken;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton radioButtonTranscodingPremium;
+        private System.Windows.Forms.RadioButton radioButtonTranscodingStd;
+        private System.Windows.Forms.RadioButton radioButtonTranscodingNone;
     }
 }

@@ -63,10 +63,20 @@ namespace AMSExplorer
         {
             get
             {
+                LiveEventEncodingType type = LiveEventEncodingType.None;
+                if (radioButtonTranscodingStd.Checked)
+                {
+                    type = LiveEventEncodingType.Standard;
+                }
+                else if (radioButtonTranscodingPremium.Checked)
+                {
+                    type = LiveEventEncodingType.Premium1080p;
+                }
+
                 LiveEventEncoding encodingoption = new LiveEventEncoding()
                 {
                     PresetName = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : null, // default preset or custom
-                    EncodingType = (LiveEventEncodingType)(comboBoxEncodingType.SelectedItem as Item).Value
+                    EncodingType = type
                 };
 
                 return encodingoption;
@@ -188,14 +198,7 @@ namespace AMSExplorer
         {
             FillComboProtocols();
 
-            //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
-            comboBoxEncodingType.Items.Add(new Item(nameof(LiveEventEncodingType.None), nameof(LiveEventEncodingType.None)));
-            comboBoxEncodingType.Items.Add(new Item(nameof(LiveEventEncodingType.Standard), nameof(LiveEventEncodingType.Standard)));
-            comboBoxEncodingType.Items.Add(new Item(nameof(LiveEventEncodingType.Premium1080p), nameof(LiveEventEncodingType.Premium1080p)));
-
-            comboBoxEncodingType.SelectedIndex = 0;
-
-            tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
+            //tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
 
             moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
@@ -225,7 +228,7 @@ namespace AMSExplorer
 
         private void comboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            
         }
 
         private void comboBoxEncodingType_SelectedIndexChanged(object sender, EventArgs e)
@@ -335,7 +338,6 @@ namespace AMSExplorer
                 dataGridViewAudioProf.DataSource = null;
                 panelDisplayEncProfile.Visible = false;
             }
-            
         }
 
      
@@ -395,7 +397,6 @@ namespace AMSExplorer
 
         private void radioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
         {
-
         }
 
         private void buttonGenerateToken_Click(object sender, EventArgs e)
@@ -406,6 +407,42 @@ namespace AMSExplorer
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
+        }
+
+        private void radioButtonTranscodingNone_CheckedChanged(object sender, EventArgs e)
+        {
+          
+            UpdateUIBasedOnLEMode(sender as RadioButton);
+        }
+
+        private void UpdateUIBasedOnLEMode(RadioButton radio)
+        {
+            if (!InitPhase && radio.Checked)
+            {
+                moreinfoLiveEncodingProfilelink.Visible = !(Encoding.EncodingType == LiveEventEncodingType.None);
+                moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
+
+                // let's display the encoding tab if encoding has been choosen
+                if (Encoding.EncodingType == LiveEventEncodingType.None)
+                {
+                    if (EncodingTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
+                        EncodingTabDisplayed = false;
+                    }
+                    FillComboProtocols();
+                }
+                else
+                {
+                    FillComboProtocols();
+                    UpdateProfileGrids();
+                    if (!EncodingTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
+                        EncodingTabDisplayed = true;
+                    }
+                }
+            }
         }
     }
 }
