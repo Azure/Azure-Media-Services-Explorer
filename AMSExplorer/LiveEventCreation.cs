@@ -146,7 +146,6 @@ namespace AMSExplorer
                 {
                     throw;
                 }
-
             }
         }
 
@@ -199,7 +198,6 @@ namespace AMSExplorer
             FillComboProtocols();
 
             //tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
-
             moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
@@ -229,36 +227,6 @@ namespace AMSExplorer
         private void comboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
         {
             
-        }
-
-        private void comboBoxEncodingType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!InitPhase)
-            {
-                moreinfoLiveEncodingProfilelink.Visible = !(Encoding.EncodingType == LiveEventEncodingType.None);
-                moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
-
-                // let's display the encoding tab if encoding has been choosen
-                if (Encoding.EncodingType == LiveEventEncodingType.None)
-                {
-                    if (EncodingTabDisplayed)
-                    {
-                        tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
-                        EncodingTabDisplayed = false;
-                    }
-                    FillComboProtocols();
-                }
-                else
-                {
-                    FillComboProtocols();
-                    UpdateProfileGrids();
-                    if (!EncodingTabDisplayed)
-                    {
-                        tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
-                        EncodingTabDisplayed = true;
-                    }
-                }
-            }
         }
 
         private void FillComboProtocols()
