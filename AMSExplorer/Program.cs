@@ -122,26 +122,7 @@ namespace AMSExplorer
             return s;// ParseXml(s);
         }
 
-        public static string ParseXml(string strXml)
-        {
-            try
-            {
-                var message = XDocument
-                    .Parse(strXml)
-                    .Descendants()
-                    .Where(d => d.Name.LocalName == "message")
-                    .Select(d => d.Value)
-                    .SingleOrDefault();
-
-                return message;
-            }
-            catch
-            {
-                return strXml;
-            }
-        }
-
-
+    
         // Detect if this JSON or XML data or other and store in private var
         public static TypeConfig AnalyseConfigurationString(string config)
         {
@@ -3735,7 +3716,6 @@ namespace AMSExplorer
                  */
         }
 
-
         private string EncryptSecret(string clientSecretClear)
         {
             // Create the original data to be encrypted
@@ -3937,15 +3917,7 @@ namespace AMSExplorer
         PlayReadyAndWidevine
     }
 
-    public enum TypeInputExtraInput
-    {
-        None = 0,
-        SelectedWorkflow,
-        SelectedAssets
-    }
-
-
-
+   
     public class ManifestTimingData
     {
         public TimeSpan AssetDuration { get; set; }
@@ -3958,22 +3930,7 @@ namespace AMSExplorer
         public bool DiscontinuityDetected { get; set; }
     }
 
-    public class SubClipTrimmingDataXMLSerialized
-    {
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
-        public string Duration { get; set; }
-    }
-
-    public class SubClipTrimmingDataTimeSpan
-    {
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-        public TimeSpan Duration { get; set; }
-        public TimeSpan Offset { get; set; }
-    }
-
-
+   
     public class FilterCreationInfo
     {
         public string Name { get; set; }  // contains the full configuration for subclipping
@@ -4015,14 +3972,7 @@ namespace AMSExplorer
             return Name;
         }
     }
-
-
-    public enum TypeInputAssetGeneric
-    {
-        InputJobAssets = 0,
-        SpecificAssetID,
-        TaskOutputAsset
-    }
+ 
 
     public enum SearchIn
     {
@@ -4059,18 +4009,6 @@ namespace AMSExplorer
     }
 
 
-    public class LocalEncoder
-    {
-        public string Name { get; set; }
-        public string Folder { get; set; }
-        public string Command { get; set; }
-        public LiveEventInputProtocol? Protocol { get; set; }
-        public Uri InstallURL { get; set; }
-        public bool CanBeRunLocally { get; set; }
-        public bool EnableSettings { get; set; }
-        public string Comment { get; set; }
-    }
-
     public class LocatorAndUrls
     {
         public List<StreamingPath> Paths { get; set; }
@@ -4078,21 +4016,7 @@ namespace AMSExplorer
         public string AssetName { get; set; }
     }
 
-
-
-
-    public class IndexerOptionsVar
-    {
-        public bool WebVTT { get; set; }
-        public bool SAMI { get; set; }
-        public bool TTML { get; set; }
-        public bool AIB { get; set; }
-        public bool Keywords { get; set; }
-        public bool ForFullCaptions { get; set; }
-    }
-
-
-
+       
     public sealed class FilterPropertyFourCCValue
     {
         public static readonly string mp4a = "mp4a";
@@ -4121,32 +4045,7 @@ namespace AMSExplorer
         public string oper { get; set; }
         public string value { get; set; }
     }
-    static class JSONExtensions
-    {
-        public static JToken RemoveFields(this JToken token, string[] fields)
-        {
-            JContainer container = token as JContainer;
-            if (container == null) return token;
-
-            List<JToken> removeList = new List<JToken>();
-            foreach (JToken el in container.Children())
-            {
-                JProperty p = el as JProperty;
-                if (p != null && fields.Contains(p.Name))
-                {
-                    removeList.Add(el);
-                }
-                el.RemoveFields(fields);
-            }
-
-            foreach (JToken el in removeList)
-            {
-                el.Remove();
-            }
-
-            return token;
-        }
-    }
+   
 
     public class ListViewItemComparer : IComparer
     {
