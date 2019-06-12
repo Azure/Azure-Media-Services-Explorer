@@ -542,7 +542,7 @@ namespace AMSExplorer
                     {
                         foreach (var path in listPaths.StreamingPaths)
                         {
-                           TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
                             foreach (var p in path.Paths)
                             {
                                 uriBuilder.Path = p;

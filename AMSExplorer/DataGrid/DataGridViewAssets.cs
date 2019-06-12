@@ -358,7 +358,7 @@ namespace AMSExplorer
 
                         //assetBitmapAndText = BuildBitmapAssetFilters(asset.Name, _client);
                         int? afcount = ReturnNumberAssetFilters(asset.Name, _client);
-                        AE.Filters = afcount > 0 ? afcount: null;
+                        AE.Filters = afcount > 0 ? afcount : null;
                         //AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         cacheAssetentriesV3[asset.Name] = AE; // let's put it in cache (or update the cache)

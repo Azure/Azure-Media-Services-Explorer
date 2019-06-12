@@ -1,8 +1,8 @@
-Version 5.0.3.0 (June 3, 2019) brings the following features and improvements :
+Version 5.0.4.0 (June 12, 2019) brings the following features and improvements :
 
-* Support for face detector preset
-* Major update on content protection for AMS v3 :
-  * More info for content protection in asset info (streaming policy, content keys, content key policy)
-  * When creating a locator: support for all predefined streaming policies (except FairPlay), with setup of options for PlayReady and Widevine for CENC policy
-* Bug fixes : interactive token renewal, filters are back in streaming endpoint selection, download only locator display fix
-* Solve an issue with High DPI screen and Live tab
+* Support for [Premium Live encoder](https://azure.microsoft.com/en-us/updates/premium-live-encoder-now-supports-streaming-at-1080p-and-30-frames-per-second/) when creating a live event. This encoder supports up to 1080p and 30 frames per second
+  * Live event creation UI updated with default preset info
+* Redesign of locator creation UI to support [associated filters](https://docs.microsoft.com/bs-latn-ba/azure/media-services/latest/filters-concept#associating-filters-with-streaming-locator)
+* Number of filters and publication expiration now displayed in asset list
+* Media SDK update to latest version
+* Bug fixes

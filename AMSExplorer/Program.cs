@@ -346,7 +346,7 @@ namespace AMSExplorer
             return number > 1 ? "s" : string.Empty;
         }
 
-   
+
         public static string MessageNewVersion = string.Empty;
 
 #pragma warning disable 1998
@@ -2233,6 +2233,7 @@ namespace AMSExplorer
                 sb.AppendLine("End Time                        : " + locator.EndTime?.ToLongDateString());
                 sb.AppendLine("Streaming Policy Name           : " + locator.StreamingPolicyName);
                 sb.AppendLine("Default Content Key Policy Name : " + locator.DefaultContentKeyPolicyName);
+                sb.AppendLine("Associated filters              : " + string.Join(", ", locator.Filters.ToArray()));
 
                 var streamingPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
                 var downloadPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).DownloadPaths;
