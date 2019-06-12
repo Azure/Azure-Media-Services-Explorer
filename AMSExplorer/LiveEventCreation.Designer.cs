@@ -219,16 +219,16 @@
             // radioButtonTranscodingStd
             // 
             resources.ApplyResources(this.radioButtonTranscodingStd, "radioButtonTranscodingStd");
-            this.radioButtonTranscodingStd.Checked = true;
             this.radioButtonTranscodingStd.Name = "radioButtonTranscodingStd";
-            this.radioButtonTranscodingStd.TabStop = true;
             this.radioButtonTranscodingStd.UseVisualStyleBackColor = true;
             this.radioButtonTranscodingStd.CheckedChanged += new System.EventHandler(this.radioButtonTranscodingNone_CheckedChanged);
             // 
             // radioButtonTranscodingNone
             // 
             resources.ApplyResources(this.radioButtonTranscodingNone, "radioButtonTranscodingNone");
+            this.radioButtonTranscodingNone.Checked = true;
             this.radioButtonTranscodingNone.Name = "radioButtonTranscodingNone";
+            this.radioButtonTranscodingNone.TabStop = true;
             this.radioButtonTranscodingNone.UseVisualStyleBackColor = true;
             this.radioButtonTranscodingNone.CheckedChanged += new System.EventHandler(this.radioButtonTranscodingNone_CheckedChanged);
             // 

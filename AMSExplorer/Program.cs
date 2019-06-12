@@ -122,7 +122,7 @@ namespace AMSExplorer
             return s;// ParseXml(s);
         }
 
-    
+
         // Detect if this JSON or XML data or other and store in private var
         public static TypeConfig AnalyseConfigurationString(string config)
         {
@@ -349,10 +349,9 @@ namespace AMSExplorer
         public static Uri AllReleaseNotesUrl = null;
         public static string MessageNewVersion = string.Empty;
 
-
-#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-        public static async void CheckAMSEVersionV3()
-#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+#pragma warning disable 1998
+        public static async Task CheckAMSEVersionAsync()
+#pragma warning restore 1998
         {
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompletedV3(true, sender, e);
@@ -360,54 +359,6 @@ namespace AMSExplorer
         }
 
 
-        public static void DownloadVersionRequestCompleted(bool firsttry, object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e.Error == null)
-            {
-                try
-                {
-                    Uri BinaryUrl = null;
-                    Uri ReleaseNotesUrl = null;
-
-                    var xmlversion = XDocument.Parse(e.Result);
-                    Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
-                    var RelNotesUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("ReleaseNotesUrl").FirstOrDefault();
-                    var AllRelNotesUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("AllReleaseNotesUrl").FirstOrDefault();
-                    var BinaryUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("BinaryUrl").FirstOrDefault();
-
-                    if (RelNotesUrlXML != null)
-                    {
-                        ReleaseNotesUrl = new Uri(RelNotesUrlXML.Value.ToString());
-                    }
-                    if (AllRelNotesUrlXML != null)
-                    {
-                        AllReleaseNotesUrl = new Uri(AllRelNotesUrlXML.Value.ToString());
-                    }
-                    if (BinaryUrlXML != null)
-                    {
-                        BinaryUrl = new Uri(BinaryUrlXML.Value.ToString());
-                    }
-
-                    Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
-                    if (versionAMSEGitHub > versionAMSELocal)
-                    {
-                        MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
-                        var form = new SoftwareUpdate(ReleaseNotesUrl, versionAMSEGitHub, BinaryUrl);
-                        form.ShowDialog();
-                    }
-                }
-                catch
-                {
-
-                }
-            }
-            else if (firsttry)
-            {
-                var webClient = new WebClient();
-                webClient.DownloadStringCompleted += (sender2, e2) => DownloadVersionRequestCompleted(false, sender2, e2);
-                webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionSecondary));
-            }
-        }
 
         public static void DownloadVersionRequestCompletedV3(bool firsttry, object sender, DownloadStringCompletedEventArgs e)
         {
@@ -666,9 +617,6 @@ namespace AMSExplorer
 
     public class Constants
     {
-        public const string GitHubAMSEVersionPrimary = "https://amsexplorer.azureedge.net/release/version.xml";
-        public const string GitHubAMSEVersionSecondary = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
-
         public const string GitHubAMSEVersionPrimaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/versionv3.json";
 
@@ -3917,7 +3865,7 @@ namespace AMSExplorer
         PlayReadyAndWidevine
     }
 
-   
+
     public class ManifestTimingData
     {
         public TimeSpan AssetDuration { get; set; }
@@ -3930,7 +3878,7 @@ namespace AMSExplorer
         public bool DiscontinuityDetected { get; set; }
     }
 
-   
+
     public class FilterCreationInfo
     {
         public string Name { get; set; }  // contains the full configuration for subclipping
@@ -3972,7 +3920,7 @@ namespace AMSExplorer
             return Name;
         }
     }
- 
+
 
     public enum SearchIn
     {
@@ -4016,7 +3964,7 @@ namespace AMSExplorer
         public string AssetName { get; set; }
     }
 
-       
+
     public sealed class FilterPropertyFourCCValue
     {
         public static readonly string mp4a = "mp4a";
@@ -4045,7 +3993,7 @@ namespace AMSExplorer
         public string oper { get; set; }
         public string value { get; set; }
     }
-   
+
 
     public class ListViewItemComparer : IComparer
     {

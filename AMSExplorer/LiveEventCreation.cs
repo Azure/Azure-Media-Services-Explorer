@@ -197,7 +197,7 @@ namespace AMSExplorer
         {
             FillComboProtocols();
 
-            //tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
+            tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
             moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));

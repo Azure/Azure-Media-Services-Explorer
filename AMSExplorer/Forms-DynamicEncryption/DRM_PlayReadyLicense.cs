@@ -32,8 +32,6 @@ namespace AMSExplorer
 {
     public partial class DRM_PlayReadyLicense : Form
     {
-        private string PlayReadyPolicyImportedfromXML = null;
-
 
         public ContentKeyPolicyPlayReadyConfiguration GetPlayReadyConfiguration
         {

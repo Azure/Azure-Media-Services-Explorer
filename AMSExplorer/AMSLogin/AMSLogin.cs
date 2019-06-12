@@ -315,9 +315,12 @@ namespace AMSExplorer
             System.Diagnostics.Process.Start(e.Link.LinkData as string);
         }
 
-        private void AMSLogin_Shown(object sender, EventArgs e)
+        private async void AMSLogin_ShownAsync(object sender, EventArgs e)
         {
-            Program.CheckAMSEVersionV3();
+            //await Task.Run(() => Program.CheckAMSEVersionAsync()).ConfigureAwait(false); //let not wait for this task - no need
+
+           await Program.CheckAMSEVersionAsync();
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
