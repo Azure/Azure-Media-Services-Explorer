@@ -1243,6 +1243,7 @@ namespace AMSExplorer
     {
         public Bitmap bitmap;
         public string MouseOverDesc;
+        public IList<AssetStreamingLocator> Locators;
     }
 
 
@@ -3118,8 +3119,8 @@ namespace AMSExplorer
             }
         }
 
-        private Bitmap _Filters = null;
-        public Bitmap Filters
+        private int? _Filters = null;
+        public int? Filters
         {
             get
             { return _Filters; }

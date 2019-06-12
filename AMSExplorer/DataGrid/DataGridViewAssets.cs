@@ -181,7 +181,8 @@ namespace AMSExplorer
                 Type = a.Type,
                 AlternateId = a.AlternateId,
                 Created = ((DateTime)a.Created).ToLocalTime().ToString("G"),
-                StorageAccountName = a.StorageAccountName
+                StorageAccountName = a.StorageAccountName,
+                Filters = null
             }
             );
 
@@ -220,6 +221,7 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol3);
 
+            /*
             DataGridViewImageColumn imageCol4 = new DataGridViewImageColumn()
             {
                 DefaultCellStyle = cellstyle,
@@ -227,6 +229,7 @@ namespace AMSExplorer
                 DataPropertyName = _filter,
             };
             this.Columns.Add(imageCol4);
+            */
 
             //BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
             BindingList<AssetEntryV3> MyObservAssethisPageV3 = new BindingList<AssetEntryV3>(assets.ToList());
@@ -330,16 +333,6 @@ namespace AMSExplorer
                         AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
                         AE.Name = asset.Name;
                         // AE.StorageAccountName = asset.StorageAccountName;
-                        // AE.StorageEncryptionFormat = asset.StorageEncryptionFormat;
-
-                        //SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
-                        //OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
-
-                       /*
-                     AssetBitmapAndText assetBitmapAndText = ReturnStaticProtectedBitmap(asset);
-                        AE.StaticEncryption = assetBitmapAndText.bitmap;
-                        AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
-                        */
 
                         var assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
                         AE.Publication = assetBitmapAndText.bitmap;
@@ -356,19 +349,17 @@ namespace AMSExplorer
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;
                         //AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
 
+                        if (assetBitmapAndText.Locators != null)
+                        {
+                            DateTime? LocDate = assetBitmapAndText.Locators.Any() ? (DateTime?)assetBitmapAndText.Locators.Min(l => l.EndTime).ToLocalTime() : null;
+                            AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString() : null;
+                            AE.LocatorExpirationDateWarning = LocDate.HasValue ? (LocDate < DateTime.Now.ToLocalTime()) : false;
+                        }
 
-                       
-
-                        /*
-                        DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                        AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString() : null;
-                        AE.LocatorExpirationDateWarning = LocDate.HasValue ? (LocDate < DateTime.Now.ToLocalTime()) : false;
-                        */
-
-                        /*
-                        AE.Filters = assetBitmapAndText.bitmap;
-                        AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
-                        */
+                        //assetBitmapAndText = BuildBitmapAssetFilters(asset.Name, _client);
+                        int? afcount = ReturnNumberAssetFilters(asset.Name, _client);
+                        AE.Filters = afcount > 0 ? afcount: null;
+                        //AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         cacheAssetentriesV3[asset.Name] = AE; // let's put it in cache (or update the cache)
                     }
@@ -710,7 +701,7 @@ Properties/StorageId
                         default:
                             break;
                     }
-                  
+
                 }
 
                 returnedImage = AddBitmap(returnedImage, newbitmap);
@@ -742,15 +733,26 @@ Properties/StorageId
                 };
             }
 
-            AssetBitmapAndText ABT = new AssetBitmapAndText();
+            if (locators.Count == 0)
+            {
+                return new AssetBitmapAndText();
+            }
+
+            AssetBitmapAndText ABT = new AssetBitmapAndText() { Locators = locators };
 
             var ClearEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearStreamingOnly || l.StreamingPolicyName == PredefinedStreamingPolicy.DownloadAndClearStreaming);
             var CENCEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
-            var CENCCbcsEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming );
+            var CENCCbcsEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
             var EnvelopeEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey);
 
 
             int count = (ClearEnable ? 1 : 0) + (CENCEnable ? 1 : 0) + (CENCCbcsEnable ? 1 : 0) + (EnvelopeEnable ? 1 : 0);
+
+            if (count == 0)
+            {
+                return new AssetBitmapAndText();
+            }
+
             ABT.bitmap = new Bitmap((envelopeencryptedimage.Width * count), envelopeencryptedimage.Height);
             int x = 0;
 
@@ -782,6 +784,24 @@ Properties/StorageId
             }
 
             return ABT;
+        }
+
+
+        public static int? ReturnNumberAssetFilters(string assetName, AMSClientV3 client)
+        {
+            client.RefreshTokenIfNeeded();
+            IPage<AssetFilter> filters;
+            try
+            {
+                filters = client.AMSclient.AssetFilters.List(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName);
+            }
+            catch
+            {
+                return null;
+            }
+
+            return filters.Count();
+
         }
 
 
