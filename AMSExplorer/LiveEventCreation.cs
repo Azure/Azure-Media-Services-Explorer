@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using Microsoft.Azure.Management.Media.Models;
 using System.Xml;
+using System.Drawing;
 
 namespace AMSExplorer
 {
@@ -34,6 +35,7 @@ namespace AMSExplorer
         private bool InitPhase = true;
         private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string defaultLanguageString = "und";
+        private AMSClientV3 _client;
 
         public string LiveEventName
         {
@@ -82,7 +84,7 @@ namespace AMSExplorer
                 return encodingoption;
             }
         }
-      
+
 
         public LiveEventInputProtocol Protocol
         {
@@ -187,10 +189,11 @@ namespace AMSExplorer
             set { textBoxToken.Text = value; }
         }
 
-        public LiveEventCreation()
+        public LiveEventCreation(AMSClientV3 client)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            _client = client;
         }
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
@@ -222,11 +225,48 @@ namespace AMSExplorer
                 checkIPAddress(textBoxRestrictIngestIP);
             }
         }
-    
+
 
         private void comboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            UpdateLabelSyntax();
+        }
+
+        private void UpdateLabelSyntax()
+        {
+            string url = string.Empty;
+            if (Protocol == LiveEventInputProtocol.RTMP)
+            {
+                if (checkBoxVanityUrl.Checked)
+                {
+                    url = "rtmp(s)://<live event name>-<ams account name>-<region abbrev name>.channel.media.azure.net:<port>/live/<access token>";
+                }
+                else
+                {
+                    url = "rtmp(s)://<random 128bit hex string>.channel.media.azure.net:<port>/live/<access token>";
+                }
+            }
+            else // smooth
+            {
+                if (checkBoxVanityUrl.Checked)
+                {
+                    url = "http(s)://<live event name>-<ams account name>-<region abbrev name>.channel.media.azure.net/<access token>/ingest.isml";
+                }
+                else
+                {
+                    url = "http(s)://<random 128bit hex string>.channel.media.azure.net/<access token>/ingest.isml";
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(AccessToken))
+            {
+                url = url.Replace("<access token>", AccessToken);
+            }
+
+            url = url.Replace("<live event name>", LiveEventName);
+            url = url.Replace("<ams account name>", _client.credentialsEntry.AccountName);
+
+            labelUrlSyntax.Text = url;
         }
 
         private void FillComboProtocols()
@@ -236,7 +276,7 @@ namespace AMSExplorer
             comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.RTMP), nameof(LiveEventInputProtocol.RTMP)));
             comboBoxProtocolInput.SelectedIndex = 1;
         }
-      
+
 
         private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
         {
@@ -251,14 +291,14 @@ namespace AMSExplorer
             }
         }
 
-       
+
 
         internal static bool IsLiveEventNameValid(string name)
         {
             Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,30}[a-zA-Z0-9])?$", RegexOptions.Compiled);
             return (reg.IsMatch(name));
         }
-     
+
 
         private void checkIPAddress(TextBox tb)
         {
@@ -278,11 +318,11 @@ namespace AMSExplorer
             }
         }
 
-     
+
         private void UpdateProfileGrids()
         {
             bool displayEncProfile = false;
-           // string encodingprofile = ReturnLiveEncodingProfile();
+            // string encodingprofile = ReturnLiveEncodingProfile();
             var myEncoding = Encoding;
             //   if (encodingprofile != null)
             if (radioButtonDefaultPreset.Checked && myEncoding.EncodingType != LiveEventEncodingType.None)
@@ -308,7 +348,7 @@ namespace AMSExplorer
             }
         }
 
-     
+
         private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
         {
             UpdateProfileGrids();
@@ -329,6 +369,7 @@ namespace AMSExplorer
         private void textboxchannelname_TextChanged(object sender, EventArgs e)
         {
             checkChannelName();
+            UpdateLabelSyntax();
         }
 
         private void checkChannelName()
@@ -356,12 +397,12 @@ namespace AMSExplorer
                 errorProvider1.SetError(textBoxKeyFrame, String.Empty);
             }
         }
-     
+
         private void textBoxIP_TextChanged(object sender, EventArgs e)
         {
             checkIPAddress((TextBox)sender);
         }
-      
+
 
         private void radioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
         {
@@ -379,7 +420,7 @@ namespace AMSExplorer
 
         private void radioButtonTranscodingNone_CheckedChanged(object sender, EventArgs e)
         {
-          
+
             UpdateUIBasedOnLEMode(sender as RadioButton);
         }
 
@@ -411,6 +452,16 @@ namespace AMSExplorer
                     }
                 }
             }
+        }
+
+        private void checkBoxVanityUrl_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateLabelSyntax();
+        }
+
+        private void textBoxToken_TextChanged(object sender, EventArgs e)
+        {
+            UpdateLabelSyntax();
         }
     }
 }

@@ -5051,7 +5051,7 @@ namespace AMSExplorer
 
         private async void DoCreateLiveEvent()
         {
-            LiveEventCreation form = new LiveEventCreation()
+            LiveEventCreation form = new LiveEventCreation(_amsClientV3)
             {
                 KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval.ToString(),
                 StartLiveEventNow = true

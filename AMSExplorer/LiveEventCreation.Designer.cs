@@ -63,6 +63,8 @@
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
             this.tabPageAdv = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelUrlSyntax = new System.Windows.Forms.Label();
             this.buttonGenerateToken = new System.Windows.Forms.Button();
             this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
             this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
@@ -327,6 +329,8 @@
             // 
             // tabPageAdv
             // 
+            this.tabPageAdv.Controls.Add(this.label1);
+            this.tabPageAdv.Controls.Add(this.labelUrlSyntax);
             this.tabPageAdv.Controls.Add(this.buttonGenerateToken);
             this.tabPageAdv.Controls.Add(this.checkBoxKeyFrameIntDefined);
             this.tabPageAdv.Controls.Add(this.textBoxKeyFrame);
@@ -337,6 +341,18 @@
             resources.ApplyResources(this.tabPageAdv, "tabPageAdv");
             this.tabPageAdv.Name = "tabPageAdv";
             this.tabPageAdv.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Name = "label1";
+            // 
+            // labelUrlSyntax
+            // 
+            resources.ApplyResources(this.labelUrlSyntax, "labelUrlSyntax");
+            this.labelUrlSyntax.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelUrlSyntax.Name = "labelUrlSyntax";
             // 
             // buttonGenerateToken
             // 
@@ -368,6 +384,7 @@
             resources.ApplyResources(this.checkBoxVanityUrl, "checkBoxVanityUrl");
             this.checkBoxVanityUrl.Name = "checkBoxVanityUrl";
             this.checkBoxVanityUrl.UseVisualStyleBackColor = true;
+            this.checkBoxVanityUrl.CheckedChanged += new System.EventHandler(this.checkBoxVanityUrl_CheckedChanged);
             // 
             // label7
             // 
@@ -378,6 +395,7 @@
             // 
             resources.ApplyResources(this.textBoxToken, "textBoxToken");
             this.textBoxToken.Name = "textBoxToken";
+            this.textBoxToken.TextChanged += new System.EventHandler(this.textBoxToken_TextChanged);
             // 
             // labelWarning
             // 
@@ -485,5 +503,7 @@
         private System.Windows.Forms.RadioButton radioButtonTranscodingPremium;
         private System.Windows.Forms.RadioButton radioButtonTranscodingStd;
         private System.Windows.Forms.RadioButton radioButtonTranscodingNone;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelUrlSyntax;
     }
 }
