@@ -1,4 +1,4 @@
-Version 5.0.4.0 (June 12, 2019) brings the following features and improvements :
+Version 5.0.4.1 (June 12, 2019) brings the following features and improvements :
 
 * Support for [Premium Live encoder](https://azure.microsoft.com/en-us/updates/premium-live-encoder-now-supports-streaming-at-1080p-and-30-frames-per-second/) when creating a live event. This encoder supports up to 1080p and 30 frames per second
   * Live event creation UI updated with default preset info
