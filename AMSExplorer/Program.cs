@@ -346,7 +346,7 @@ namespace AMSExplorer
             return number > 1 ? "s" : string.Empty;
         }
 
-        public static Uri AllReleaseNotesUrl = null;
+   
         public static string MessageNewVersion = string.Empty;
 
 #pragma warning disable 1998
@@ -724,7 +724,8 @@ namespace AMSExplorer
         public const string Bearer = "Bearer ";
         public const string strUnits = "{0} unit{1}";
 
-        public const string LinkMoreInfoAMSReleaseNotes = @"https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-release-notes";
+        public const string LinkAzureUpdates = @"https://azure.microsoft.com/en-us/updates/?product=cdn,media-services";
+        public const string LinkMoreInfoAMSReleaseNotes = @"https://docs.microsoft.com/en-us/azure/media-services/latest/release-notes";
         public const string LinkMoreInfoDocAMS = @"https://docs.microsoft.com/en-us/azure/media-services/";
         public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
@@ -786,6 +787,8 @@ namespace AMSExplorer
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
         public const string LinkReportBugAMSE = @"https://github.com/Azure/Azure-Media-Services-Explorer/issues";
+        public const string LinkAMSEReleaseNotes = @"https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/AllReleaseNotes.html";
+
 
         public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 

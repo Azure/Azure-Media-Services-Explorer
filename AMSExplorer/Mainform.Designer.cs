@@ -304,12 +304,12 @@
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.samplePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAzureUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaBlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.azureMediaServicesPlayerPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hTML5VideoElementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iVXHLSPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jwPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tHEOPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
@@ -2487,18 +2487,24 @@
             // samplePlayersToolStripMenuItem
             // 
             this.samplePlayersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemAzureUpdates,
             this.azureMediaBlogToolStripMenuItem,
             this.toolStripSeparator1,
             this.azureMediaServicesPlayerPageToolStripMenuItem,
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem,
             this.hTML5VideoElementToolStripMenuItem,
-            this.iVXHLSPlayerToolStripMenuItem,
             this.jwPlayerToolStripMenuItem,
             this.tHEOPlayerToolStripMenuItem,
             this.toolStripSeparator29,
             this.hTML5CaptionMakerToolStripMenuItem});
             this.samplePlayersToolStripMenuItem.Name = "samplePlayersToolStripMenuItem";
             resources.ApplyResources(this.samplePlayersToolStripMenuItem, "samplePlayersToolStripMenuItem");
+            // 
+            // toolStripMenuItemAzureUpdates
+            // 
+            resources.ApplyResources(this.toolStripMenuItemAzureUpdates, "toolStripMenuItemAzureUpdates");
+            this.toolStripMenuItemAzureUpdates.Name = "toolStripMenuItemAzureUpdates";
+            this.toolStripMenuItemAzureUpdates.Click += new System.EventHandler(this.toolStripMenuItemAzureUpdates_Click_1);
             // 
             // azureMediaBlogToolStripMenuItem
             // 
@@ -2528,12 +2534,6 @@
             resources.ApplyResources(this.hTML5VideoElementToolStripMenuItem, "hTML5VideoElementToolStripMenuItem");
             this.hTML5VideoElementToolStripMenuItem.Name = "hTML5VideoElementToolStripMenuItem";
             this.hTML5VideoElementToolStripMenuItem.Click += new System.EventHandler(this.hTML5VideoElementToolStripMenuItem_Click);
-            // 
-            // iVXHLSPlayerToolStripMenuItem
-            // 
-            resources.ApplyResources(this.iVXHLSPlayerToolStripMenuItem, "iVXHLSPlayerToolStripMenuItem");
-            this.iVXHLSPlayerToolStripMenuItem.Name = "iVXHLSPlayerToolStripMenuItem";
-            this.iVXHLSPlayerToolStripMenuItem.Click += new System.EventHandler(this.iVXHLSPlayerToolStripMenuItem_Click);
             // 
             // jwPlayerToolStripMenuItem
             // 
@@ -2820,7 +2820,6 @@
         private System.Windows.Forms.ToolStripMenuItem allAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem samplePlayersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dASHIFHTML5ReferencePlayerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iVXHLSPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelConnection;
@@ -3117,6 +3116,7 @@
         private System.Windows.Forms.SplitContainer splitContainerLive;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAzureUpdates;
     }
 }
 

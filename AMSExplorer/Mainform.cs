@@ -7655,13 +7655,13 @@ namespace AMSExplorer
 
         private void helpToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            explorerReleaseNotesToolStripMenuItem.Enabled = (Program.AllReleaseNotesUrl != null);
+            explorerReleaseNotesToolStripMenuItem.Enabled = (Constants.LinkAMSEReleaseNotes != null);
         }
 
         private void explorerReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Program.AllReleaseNotesUrl != null)
-                Process.Start(Program.AllReleaseNotesUrl.ToString());
+            
+                Process.Start(Constants.LinkAMSEReleaseNotes);
         }
 
 
@@ -8401,6 +8401,13 @@ namespace AMSExplorer
         private void faceDetectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateFaceDetectorTransform();
+        }
+
+ 
+        private void toolStripMenuItemAzureUpdates_Click_1(object sender, EventArgs e)
+        {
+            Process.Start(Constants.LinkAzureUpdates);
+
         }
     }
 }
