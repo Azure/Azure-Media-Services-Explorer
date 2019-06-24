@@ -275,6 +275,12 @@
     <Compile Include="PresetFaceDetector.Designer.cs">
       <DependentUpon>PresetFaceDetector.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProcessFromTransform2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcessFromTransform2.Designer.cs">
+      <DependentUpon>ProcessFromTransform2.cs</DependentUpon>
+    </Compile>
     <Compile Include="TransformInformation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -706,6 +712,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PresetFaceDetector.resx">
       <DependentUpon>PresetFaceDetector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessFromTransform2.ja.resx">
+      <DependentUpon>ProcessFromTransform2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessFromTransform2.resx">
+      <DependentUpon>ProcessFromTransform2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformInformation.ja.resx">
       <DependentUpon>TransformInformation.cs</DependentUpon>

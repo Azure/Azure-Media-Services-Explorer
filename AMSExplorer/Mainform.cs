@@ -1968,7 +1968,7 @@ namespace AMSExplorer
         }
 
 
-        private List<LocatorAndUrls> ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy, List<string> listFilters=null)
+        private List<LocatorAndUrls> ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy, List<string> listFilters = null)
         {
             _amsClientV3.RefreshTokenIfNeeded();
 
@@ -5295,7 +5295,7 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                         _amsClientV3.RefreshTokenIfNeeded();
+                        _amsClientV3.RefreshTokenIfNeeded();
 
                         Task.Run(async () =>
                         {
@@ -6744,14 +6744,11 @@ namespace AMSExplorer
             var SelectedAssets = ReturnSelectedAssetsV3();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-            ProcessFromTransform form = new ProcessFromTransform(_amsClientV3, SelectedAssets.Count)
-            {
-                ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
-                Text = "Template based processing"
-            };
+            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, SelectedAssets);
+           
             if (form.ShowDialog() == DialogResult.OK)
             {
-                CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, SelectedAssets);
+                CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime);
 
                 // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
             }
@@ -7660,8 +7657,8 @@ namespace AMSExplorer
 
         private void explorerReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-                Process.Start(Constants.LinkAMSEReleaseNotes);
+
+            Process.Start(Constants.LinkAMSEReleaseNotes);
         }
 
 
@@ -8228,7 +8225,7 @@ namespace AMSExplorer
             CreateAndSubmitJobs(ReturnSelectedTransforms(), ReturnSelectedAssetsV3());
         }
 
-        private void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets)
+        private void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null)
         {
             _amsClientV3.RefreshTokenIfNeeded();
 
@@ -8240,7 +8237,7 @@ namespace AMSExplorer
                     string jobName = $"job-{uniqueness}";
                     string outputAssetName = $"output-{uniqueness}";
 
-                    JobInputAsset jobInput = new JobInputAsset(asset.Name);
+                    JobInputAsset jobInput = new JobInputAsset(asset.Name, start: start, end: end);
 
                     try
                     {
@@ -8280,6 +8277,59 @@ namespace AMSExplorer
             }
             DoRefreshGridJobV(false);
         }
+
+        private void CreateAndSubmitJobs(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null)
+        {
+            _amsClientV3.RefreshTokenIfNeeded();
+
+
+            foreach (var transform in sel)
+            {
+                string uniqueness = Guid.NewGuid().ToString("N");
+                string jobName = $"job-{uniqueness}";
+                string outputAssetName = $"output-{uniqueness}";
+
+                JobInputHttp jobInput = new JobInputHttp(files: new[] { url }, start: start, end: end);
+
+                try
+                {
+
+
+                    var outputAsset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(
+                                                                _amsClientV3.credentialsEntry.ResourceGroup,
+                                                                _amsClientV3.credentialsEntry.AccountName,
+                                                                outputAssetName,
+                                                                new Asset()
+                                                                );
+
+
+                    JobOutput[] jobOutputs =
+                     {
+                    new JobOutputAsset(outputAsset.Name),
+                };
+                    Job job = _amsClientV3.AMSclient.Jobs.Create(
+                                                                _amsClientV3.credentialsEntry.ResourceGroup,
+                                                                _amsClientV3.credentialsEntry.AccountName,
+                                                                transform.Name,
+                                                                jobName,
+                                                                new Job
+                                                                {
+                                                                    Input = jobInput,
+                                                                    Outputs = jobOutputs,
+                                                                });
+                    TextBoxLogWriteLine("Job {0} created.", job.Name); // Warning
+
+                    dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when creating output asset or submitting the job.", ex); // Warning
+                }
+            }
+
+            DoRefreshGridJobV(false);
+        }
+
 
         private void deleteTransformsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -8315,54 +8365,18 @@ namespace AMSExplorer
         {
             var sel = ReturnSelectedTransforms();
 
-            var form = new HttpSource();
-
+            //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, null)
+            {
+                //ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
+                Text = "Template based processing"
+            };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                JobInputHttp jobInput = new JobInputHttp(files: new[] { form.GetURL.OriginalString });
+                CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
 
-                foreach (var transform in sel)
-                {
-                    string uniqueness = Guid.NewGuid().ToString("N");
-                    string jobName = $"job-{uniqueness}";
-                    string outputAssetName = $"output-{uniqueness}";
-
-                    try
-                    {
-                        var outputAsset = _amsClientV3.AMSclient.Assets.CreateOrUpdate(
-                                                                    _amsClientV3.credentialsEntry.ResourceGroup,
-                                                                    _amsClientV3.credentialsEntry.AccountName,
-                                                                    outputAssetName,
-                                                                    new Asset()
-                                                                    );
-
-
-                        JobOutput[] jobOutputs =
-                         {
-                    new JobOutputAsset(outputAsset.Name),
-                };
-                        Job job = _amsClientV3.AMSclient.Jobs.Create(
-                                                                    _amsClientV3.credentialsEntry.ResourceGroup,
-                                                                    _amsClientV3.credentialsEntry.AccountName,
-                                                                    transform.Name,
-                                                                    jobName,
-                                                                    new Job
-                                                                    {
-                                                                        Input = jobInput,
-                                                                        Outputs = jobOutputs,
-                                                                    });
-                        TextBoxLogWriteLine("Job {0} created.", job.Name); // Warning
-
-                        dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error when creating output asset or submitting the job.", ex); // Warning
-                    }
-                }
+                // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
             }
-
-            DoRefreshGridJobV(false);
         }
 
         private void fromHttpsSourceWithSelectedTransformToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8403,7 +8417,7 @@ namespace AMSExplorer
             CreateFaceDetectorTransform();
         }
 
- 
+
         private void toolStripMenuItemAzureUpdates_Click_1(object sender, EventArgs e)
         {
             Process.Start(Constants.LinkAzureUpdates);
