@@ -32,11 +32,11 @@ namespace AMSExplorer
     public partial class JobInformation : Form
     {
         public Job MyJob;
-        private AzureMediaServicesClient _client;
+        private AMSClientV3 _client;
         private Mainform _mainform;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
-        public JobInformation(Mainform mainform, AzureMediaServicesClient client)
+        public JobInformation(Mainform mainform, AMSClientV3 client)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -88,6 +88,9 @@ namespace AMSExplorer
             DGOutputs.ColumnCount = 2;
             DGOutputs.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
+            dataGridInput.ColumnCount = 2;
+            dataGridInput.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+
             DGErrors.ColumnCount = 3;
             DGErrors.Columns[0].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Task;
             DGErrors.Columns[1].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_ErrorDetail;
@@ -132,6 +135,15 @@ namespace AMSExplorer
             }
             */
 
+
+            // input asset
+
+            var inputLabel = "input";
+            listBoxInput.Items.Add(inputLabel);
+            listBoxInput.SelectedIndex = 0;
+
+            // output assets
+
             bool boutoutsinjobs = (MyJob.Outputs.Count() > 0);
 
             int index = 1;
@@ -142,6 +154,7 @@ namespace AMSExplorer
                     // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
                     var outputLabel = "output #" + index;
                     listBoxOutputs.Items.Add(outputLabel);
+
                     if (output.Error != null && output.Error.Details != null)
                     {
                         for (int i = 0; i < output.Error.Details.Count(); i++)
@@ -149,69 +162,12 @@ namespace AMSExplorer
                             DGErrors.Rows.Add(outputLabel, output.Error.Details[i].Message, output.Error.Details[i].Code);
                         }
                     }
-
-
                 }
                 listBoxOutputs.SelectedIndex = 0;
             }
 
-            ListJobAssets();
         }
 
-        private void ListJobAssets()
-        {
-            listViewInputAssets.BeginUpdate();
-            try
-            {
-                
-                //ListViewItem item = new ListViewItem(MyJob.Input....Label, 0);
-                //item.SubItems.Add(AssetInfo.GetAssetType(asset));
-                //listViewInputAssets.Items.Add(item);
-
-            }
-            catch
-            {
-                //   ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
-                // listViewInputAssets.Items.Add(item);
-            }
-            listViewInputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            listViewInputAssets.EndUpdate();
-
-            listViewOutputs.BeginUpdate();
-            try
-            {
-                int index = 1;
-                foreach (var output in MyJob.Outputs)
-                {
-                    ListViewItem item = new ListViewItem("output #" + index, 0);
-                    //item.SubItems.Add(output.Progress);
-                    listViewOutputs.Items.Add(item);
-                }
-            }
-            catch
-            {
-                //ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
-                //listViewOutputs.Items.Add(item);
-            }
-            listViewOutputs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            listViewOutputs.EndUpdate();
-        }
-
-
-
-        private void buttonCreateMail_Click(object sender, EventArgs e)
-        {
-            DoJobCreateMail();
-        }
-
-        private void DoJobCreateMail()
-        {
-            throw new NotImplementedException();
-            /*
-            JobInfo JR = new JobInfo(MyJob, _mainform._accountname);
-            JR.CreateOutlookMail();
-            */
-        }
 
         private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -239,6 +195,14 @@ namespace AMSExplorer
 
             DGOutputs.Rows.Add("Progress", output.Progress);
             DGOutputs.Rows.Add("State", output.State);
+
+            if (output.GetType() == typeof(JobOutputAsset))
+            {
+                var outputA = output as JobOutputAsset;
+                DGOutputs.Rows.Add("Asset name", outputA.AssetName);
+                DGOutputs.Rows.Add("Asset type", AssetInfo.GetAssetType(outputA.AssetName, _client).Type);
+            }
+
 
             if (output.Error != null && output.Error.Details != null)
             {
@@ -271,35 +235,91 @@ namespace AMSExplorer
 
         private void DisplayAssetInfo(bool input)
         {
-            throw new NotImplementedException();
 
-            /*
-            IAsset asset;
+            string assetName = null;
 
             if (input)
             {
-                var index = listViewInputAssets.SelectedIndices[0];
-                asset = MyJob.Input..InputMediaAssets[index];
+                if (MyJob.Input.GetType() == typeof(JobInputAsset))
+                {
+                    var inputAsset = MyJob.Input as JobInputAsset;
+                    assetName = inputAsset.AssetName;
+                }
+
             }
-            else
+            else  // output
             {
-                var index = listViewOutputs.SelectedIndices[0];
-                asset = MyJob.OutputMediaAssets[index];
+                var index = listBoxOutputs.SelectedIndices[0];
+
+                if (MyJob.Outputs[index].GetType() == typeof(JobOutputAsset))
+                {
+                    var outputAsset = MyJob.Outputs[index] as JobOutputAsset;
+                    assetName = outputAsset.AssetName;
+                }
             }
 
-            AssetInformation form = new AssetInformation(_mainform, _context)
+            if (assetName != null)
             {
-                myAsset = asset,
-                myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
-            };
-            DialogResult dialogResult = form.ShowDialog(this);
-            */
+                _client.RefreshTokenIfNeeded();
+                var asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, assetName);
 
+                AssetInformation form = new AssetInformation(_mainform, _client)
+                {
+                    myAssetV3 = asset,
+                    myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
+                };
+                DialogResult dialogResult = form.ShowDialog(this);
+            }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DisplayAssetInfo(false);
+        }
+
+        private void listBoxInput_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridInput.Rows.Clear();
+
+            if (MyJob.Input.GetType() == typeof(JobInputAsset))
+            {
+                var inputA = MyJob.Input as JobInputAsset;
+                dataGridInput.Rows.Add("Input type", "asset");
+                dataGridInput.Rows.Add("Asset name", inputA.AssetName);
+                dataGridInput.Rows.Add("Asset type", AssetInfo.GetAssetType(inputA.AssetName, _client).Type);
+                if (inputA.Start != null && inputA.Start.GetType()== typeof(AbsoluteClipTime))
+                {
+                    var startA = inputA.Start as AbsoluteClipTime;
+                    dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
+                }
+                if (inputA.End != null && inputA.End.GetType() == typeof(AbsoluteClipTime))
+                {
+                    var endA = inputA.End as AbsoluteClipTime;
+                    dataGridInput.Rows.Add("Absolute Clip Time End", endA.Time.ToString());
+                }
+                dataGridInput.Rows.Add("Label", inputA.Label);
+                dataGridInput.Rows.Add("Files", string.Join(Constants.endline, inputA.Files));
+            }
+            else if (MyJob.Input.GetType() == typeof(JobInputHttp))
+            {
+                var inputH = MyJob.Input as JobInputHttp;
+                dataGridInput.Rows.Add("Input type", "http");
+                dataGridInput.Rows.Add("Base Url", inputH.BaseUri);
+                if (inputH.Start != null && inputH.Start.GetType() == typeof(AbsoluteClipTime))
+                {
+                    var startA = inputH.Start as AbsoluteClipTime;
+                    dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
+                }
+                if (inputH.End != null && inputH.End.GetType() == typeof(AbsoluteClipTime))
+                {
+                    var endA = inputH.End as AbsoluteClipTime;
+                    dataGridInput.Rows.Add("Absolute Clip Time End", endA.Time.ToString());
+                }
+                dataGridInput.Rows.Add("Label", inputH.Label);
+                dataGridInput.Rows.Add("Files", string.Join(Constants.endline, inputH.Files));
+
+
+            }
         }
     }
 }

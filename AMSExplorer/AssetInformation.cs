@@ -305,6 +305,11 @@ namespace AMSExplorer
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAssetV3.Created).ToLocalTime().ToString("G"));
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAssetV3.LastModified).ToLocalTime().ToString("G"));
 
+            if (myStreamingEndpoints == null)
+            {
+                _amsClient.RefreshTokenIfNeeded();
+                myStreamingEndpoints = _amsClient.AMSclient.StreamingEndpoints.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            }
 
             foreach (var se in myStreamingEndpoints)
             {

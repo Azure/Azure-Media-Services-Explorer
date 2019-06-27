@@ -1413,7 +1413,7 @@ namespace AMSExplorer
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    JobInformation form = new JobInformation(this, _amsClientV3.AMSclient)
+                    JobInformation form = new JobInformation(this, _amsClientV3)
                     {
                         MyJob = job.Job
                         //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
@@ -6748,7 +6748,14 @@ namespace AMSExplorer
            
             if (form.ShowDialog() == DialogResult.OK)
             {
-                CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime);
+                if (form.SelectedAssetsMode) // assets selected
+                {
+                    CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime);
+                }
+                else // http source url instead
+                {
+                    CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
+                }
 
                 // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
             }
@@ -8205,24 +8212,17 @@ namespace AMSExplorer
 
         private void toolStripMenuItem32_DropDownOpening(object sender, EventArgs e)
         {
+            /*
             var sel = ReturnSelectedTransforms();
             if (sel.Count > 0)
             {
-                toolStripMenuItemSelectedTransform.Text = "From selected asset(s) with selected transform : " + string.Join(", ", ReturnSelectedTransforms().Select(t => t.Name));
                 fromHttpsSourceWithSelectedTransformToolStripMenuItem.Text = "From http(s) source with selected transform : " + string.Join(", ", ReturnSelectedTransforms().Select(t => t.Name));
-                toolStripMenuItemSelectedTransform.Enabled = fromHttpsSourceWithSelectedTransformToolStripMenuItem.Enabled = true;
             }
             else
             {
-                toolStripMenuItemSelectedTransform.Text = "From selected asset(s) with selected transform : (no selection)";
                 fromHttpsSourceWithSelectedTransformToolStripMenuItem.Text = "From http(s) source with selected transform : (no selection)";
-                toolStripMenuItemSelectedTransform.Enabled = fromHttpsSourceWithSelectedTransformToolStripMenuItem.Enabled = false;
             }
-        }
-
-        private void toolStripMenuItemSelectedTransform_Click(object sender, EventArgs e)
-        {
-            CreateAndSubmitJobs(ReturnSelectedTransforms(), ReturnSelectedAssetsV3());
+            */
         }
 
         private void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null)
@@ -8366,7 +8366,7 @@ namespace AMSExplorer
             var sel = ReturnSelectedTransforms();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, null)
+            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, null, sel)
             {
                 //ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
                 Text = "Template based processing"

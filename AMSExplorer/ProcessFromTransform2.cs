@@ -25,6 +25,7 @@ namespace AMSExplorer
     public partial class ProcessFromTransform2 : Form
     {
         private AMSClientV3 _client;
+        private List<Transform> _listPreSelectedTransforms;
         private int _numberselectedassets = 0;
         private List<Asset> _listAssets;
 
@@ -101,17 +102,21 @@ namespace AMSExplorer
         }
 
 
-        public ProcessFromTransform2(AMSClientV3 client, List<Asset> listAssets = null)
+        public ProcessFromTransform2(AMSClientV3 client, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
-            _numberselectedassets = listAssets.Count;
+            _listPreSelectedTransforms = listPreSelectedTransforms;
 
             if (listAssets == null || listAssets.Count == 0)
             {
                 radioButtonHttpSource.Checked = true;
                 radioButtonSelectedAssets.Enabled = false;
+            }
+            else
+            {
+                _numberselectedassets = listAssets.Count;
             }
 
             //buttonJobOptions.Initialize(_context);
@@ -139,7 +144,7 @@ namespace AMSExplorer
 
         private void ProcessFromJobTemplate_Load(object sender, EventArgs e)
         {
-            listViewTransforms.LoadTransforms(_client);
+            listViewTransforms.LoadTransforms(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
             UpdateLabeltext();
             labelURLFileNameWarning.Text = string.Empty;
             UpdateStatusButtonOk();

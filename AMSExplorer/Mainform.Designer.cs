@@ -81,7 +81,6 @@
             this.toolStripMenuItem37 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemSelectedTransform = new System.Windows.Forms.ToolStripMenuItem();
             this.fromHttpsSourceWithSelectedTransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subclipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -768,19 +767,12 @@
             // toolStripMenuItem32
             // 
             this.toolStripMenuItem32.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemSelectedTransform,
             this.fromHttpsSourceWithSelectedTransformToolStripMenuItem,
             this.selectATransformToolStripMenuItem});
             this.toolStripMenuItem32.Image = global::AMSExplorer.Bitmaps.encoding;
             this.toolStripMenuItem32.Name = "toolStripMenuItem32";
             resources.ApplyResources(this.toolStripMenuItem32, "toolStripMenuItem32");
             this.toolStripMenuItem32.DropDownOpening += new System.EventHandler(this.toolStripMenuItem32_DropDownOpening);
-            // 
-            // toolStripMenuItemSelectedTransform
-            // 
-            this.toolStripMenuItemSelectedTransform.Name = "toolStripMenuItemSelectedTransform";
-            resources.ApplyResources(this.toolStripMenuItemSelectedTransform, "toolStripMenuItemSelectedTransform");
-            this.toolStripMenuItemSelectedTransform.Click += new System.EventHandler(this.toolStripMenuItemSelectedTransform_Click);
             // 
             // fromHttpsSourceWithSelectedTransformToolStripMenuItem
             // 
@@ -3099,7 +3091,6 @@
         private DataGridViewTransforms dataGridViewTransformsV;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTransforms;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedTransform;
         private System.Windows.Forms.ToolStripMenuItem deleteTransformsToolStripMenuItem;
         private System.Windows.Forms.TextBox textBoxAssetsPageNumber;
         private System.Windows.Forms.ToolStripMenuItem createATransformToolStripMenuItem;

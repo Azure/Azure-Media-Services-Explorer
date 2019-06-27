@@ -41,34 +41,29 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.listViewOutputs = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripOutputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.listViewInputAssets = new System.Windows.Forms.ListView();
-            this.ListViewAssetName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ListViewAssetType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripInputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.DGOutputs = new System.Windows.Forms.DataGridView();
             this.labelJobNameTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.dataGridInput = new System.Windows.Forms.DataGridView();
+            this.listBoxInput = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGJob)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.contextMenuStripOutputAsset.SuspendLayout();
             this.contextMenuStripInputAsset.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGOutputs)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridInput)).BeginInit();
             this.SuspendLayout();
             // 
             // DGErrors
@@ -134,6 +129,7 @@
             // listBoxOutputs
             // 
             resources.ApplyResources(this.listBoxOutputs, "listBoxOutputs");
+            this.listBoxOutputs.ContextMenuStrip = this.contextMenuStripOutputAsset;
             this.listBoxOutputs.FormattingEnabled = true;
             this.listBoxOutputs.Name = "listBoxOutputs";
             this.listBoxOutputs.SelectedIndexChanged += new System.EventHandler(this.listBoxOutputs_SelectedIndexChanged);
@@ -142,7 +138,7 @@
             // 
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -163,37 +159,6 @@
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.listViewOutputs);
-            this.tabPage3.Controls.Add(this.label2);
-            this.tabPage3.Controls.Add(this.label1);
-            this.tabPage3.Controls.Add(this.listViewInputAssets);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // listViewOutputs
-            // 
-            resources.ApplyResources(this.listViewOutputs, "listViewOutputs");
-            this.listViewOutputs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listViewOutputs.ContextMenuStrip = this.contextMenuStripOutputAsset;
-            this.listViewOutputs.FullRowSelect = true;
-            this.listViewOutputs.HideSelection = false;
-            this.listViewOutputs.Name = "listViewOutputs";
-            this.listViewOutputs.UseCompatibleStateImageBehavior = false;
-            this.listViewOutputs.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            resources.ApplyResources(this.columnHeader1, "columnHeader1");
-            // 
-            // columnHeader2
-            // 
-            resources.ApplyResources(this.columnHeader2, "columnHeader2");
-            // 
             // contextMenuStripOutputAsset
             // 
             this.contextMenuStripOutputAsset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -207,37 +172,6 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // listViewInputAssets
-            // 
-            resources.ApplyResources(this.listViewInputAssets, "listViewInputAssets");
-            this.listViewInputAssets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ListViewAssetName,
-            this.ListViewAssetType});
-            this.listViewInputAssets.ContextMenuStrip = this.contextMenuStripInputAsset;
-            this.listViewInputAssets.FullRowSelect = true;
-            this.listViewInputAssets.HideSelection = false;
-            this.listViewInputAssets.Name = "listViewInputAssets";
-            this.listViewInputAssets.UseCompatibleStateImageBehavior = false;
-            this.listViewInputAssets.View = System.Windows.Forms.View.Details;
-            // 
-            // ListViewAssetName
-            // 
-            resources.ApplyResources(this.ListViewAssetName, "ListViewAssetName");
-            // 
-            // ListViewAssetType
-            // 
-            resources.ApplyResources(this.ListViewAssetType, "ListViewAssetType");
             // 
             // contextMenuStripInputAsset
             // 
@@ -289,6 +223,37 @@
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Name = "panel1";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.dataGridInput);
+            this.tabPage4.Controls.Add(this.listBoxInput);
+            resources.ApplyResources(this.tabPage4, "tabPage4");
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // dataGridInput
+            // 
+            this.dataGridInput.AllowUserToAddRows = false;
+            this.dataGridInput.AllowUserToDeleteRows = false;
+            this.dataGridInput.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridInput, "dataGridInput");
+            this.dataGridInput.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridInput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridInput.ColumnHeadersVisible = false;
+            this.dataGridInput.ContextMenuStrip = this.contextMenuStrip;
+            this.dataGridInput.MultiSelect = false;
+            this.dataGridInput.Name = "dataGridInput";
+            this.dataGridInput.ReadOnly = true;
+            this.dataGridInput.RowHeadersVisible = false;
+            // 
+            // listBoxInput
+            // 
+            resources.ApplyResources(this.listBoxInput, "listBoxInput");
+            this.listBoxInput.ContextMenuStrip = this.contextMenuStripInputAsset;
+            this.listBoxInput.FormattingEnabled = true;
+            this.listBoxInput.Name = "listBoxInput";
+            this.listBoxInput.SelectedIndexChanged += new System.EventHandler(this.listBoxInput_SelectedIndexChanged);
+            // 
             // JobInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -307,13 +272,13 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.contextMenuStripOutputAsset.ResumeLayout(false);
             this.contextMenuStripInputAsset.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGOutputs)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridInput)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -335,18 +300,12 @@
         private System.Windows.Forms.Label labelJobNameTitle;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView DGOutputs;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.ListView listViewOutputs;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listViewInputAssets;
-        private System.Windows.Forms.ColumnHeader ListViewAssetName;
-        private System.Windows.Forms.ColumnHeader ListViewAssetType;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripInputAsset;
         private System.Windows.Forms.ToolStripMenuItem assetInformationToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOutputAsset;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.DataGridView dataGridInput;
+        private System.Windows.Forms.ListBox listBoxInput;
     }
 }
