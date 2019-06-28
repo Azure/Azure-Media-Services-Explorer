@@ -947,11 +947,6 @@
     <None Include="BitmapsPNG\Azure Explorer.png" />
     <None Include="BitmapsPNG\Azure Explorer_ico.ico" />
     <None Include="BitmapsPNG\AzureMedia_Full-Color-64-opaque.png" />
-    <None Include="BitmapsPNG\modeltaskxenio1.png" />
-    <None Include="BitmapsPNG\modeltaskxenio2.png" />
-    <None Include="BitmapsPNG\modetaskjob1.png" />
-    <None Include="BitmapsPNG\modetaskjob2.png" />
-    <None Include="BitmapsPNG\modetaskjob3.png" />
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
