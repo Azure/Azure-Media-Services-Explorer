@@ -3930,6 +3930,7 @@ namespace AMSExplorer
     public enum SearchIn
     {
         AssetNameEquals = 0,
+        AssetNameStartsWith,
         AssetNameGreaterThan,
         AssetNameLessThan,
         AssetId,
@@ -3966,6 +3967,7 @@ namespace AMSExplorer
     {
         public List<StreamingPath> Paths { get; set; }
         public string LocatorName { get; set; }
+        public Guid? LocatorId { get; set; }
         public string AssetName { get; set; }
     }
 

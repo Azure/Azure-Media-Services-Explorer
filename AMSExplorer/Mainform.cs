@@ -1700,7 +1700,7 @@ namespace AMSExplorer
         }
 
 
-        private async void DoCreateLocator(List<Asset> SelectedAssets)
+        private async void DoCreateLocator(List<Asset> SelectedAssets, string LiveAssetManifest = null)
         {
             string labelAssetName;
             if (SelectedAssets.Count > 0)
@@ -1879,7 +1879,28 @@ namespace AMSExplorer
                                 sbuilder.AppendLine(path.StreamingProtocol + " :");
                                 foreach (var se in SEList)
                                 {
-                                    path.Paths.ToList().ForEach(p => sbuilder.AppendLine("https://" + se.HostName + p));
+                                    if (path.Paths.Count == 0 && LiveAssetManifest != null) // live output without data yet so API does not return valid URLs. Let's build them as we know the manifest name
+                                    {
+                                        string formatSyntax = null;
+                                        string syntax = "(format={0})";
+                                        if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash)
+                                        {
+                                            formatSyntax = AssetInfo.format_dash_csf;
+                                        }
+                                        else if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Hls)
+                                        {
+                                            formatSyntax = AssetInfo.format_hls_v4;
+                                        }
+                                        else
+                                        {
+                                            syntax = "";
+                                        }
+                                        sbuilder.AppendLine("https://" + se.HostName + "/" + loc.LocatorId.ToString() + "/" + LiveAssetManifest + ".ism/manifest" + string.Format(syntax, formatSyntax) );
+                                    }
+                                    else
+                                    {
+                                        path.Paths.ToList().ForEach(p => sbuilder.AppendLine("https://" + se.HostName + p));
+                                    }
                                 }
                                 sbuilder.AppendLine(string.Empty);
                             }
@@ -1998,8 +2019,7 @@ namespace AMSExplorer
 
                     TextBoxLogWriteLine("Locator created : {0}", locator.Name);
                     var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locator.Name).StreamingPaths;
-
-                    listLocatorNames.Add(new LocatorAndUrls() { AssetName = AssetToP.Name, LocatorName = streamingLocatorName, Paths = streamingPaths.ToList() });
+                    listLocatorNames.Add(new LocatorAndUrls() { AssetName = AssetToP.Name, LocatorName = streamingLocatorName, LocatorId = locator.StreamingLocatorId, Paths = streamingPaths.ToList() });
 
                 }
 
@@ -3441,6 +3461,7 @@ namespace AMSExplorer
             toolStripStatusLabelWatchFolder.Visible = false;
 
             comboBoxSearchAssetOption.Items.Add(new Item("Asset name (equals) :", SearchIn.AssetNameEquals.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Asset name (starts with) :", SearchIn.AssetNameStartsWith.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Asset name (greater than) :", SearchIn.AssetNameGreaterThan.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Asset name (less than) :", SearchIn.AssetNameLessThan.ToString()));
 
@@ -5783,12 +5804,13 @@ namespace AMSExplorer
                     string assetname = form.AssetName.Replace(Constants.NameconvLiveOutput, form.ProgramName).Replace(Constants.NameconvLiveEvent, form.LiveEventName);
                     var newAsset = new Asset() { StorageAccountName = form.StorageSelected };
 
+                    Asset asset = null;
                     Task.Run(async () =>
                     {
                         try
                         {
                             TextBoxLogWriteLine("Asset creation...");
-                            Asset asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetname, newAsset);
+                            asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetname, newAsset);
                             TextBoxLogWriteLine("Asset created.");
 
                             TextBoxLogWriteLine("Live output creation...");
@@ -5816,8 +5838,17 @@ namespace AMSExplorer
 
                             if (form.CreateLocator)
                             {
-                                DoCreateLocator(new List<Asset> { asset });
-                            };
+                                try
+                                {
+                                    DoCreateLocator(new List<Asset> { asset }, form.ManifestName);
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when publishing the asset of the live output", true);
+                                    TextBoxLogWriteLine(ex);
+                                }
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -5825,21 +5856,17 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("There is a problem when creating a live output", true);
                             TextBoxLogWriteLine(ex);
                         }
+
                         DoRefreshGridLiveOutputV(false);
-                    }
-                    );
+                    });
                 }
             }
-
-
         }
-
 
         private void createProgramToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCreateLiveOutput();
         }
-
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -6745,7 +6772,7 @@ namespace AMSExplorer
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
             ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, SelectedAssets);
-           
+
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.SelectedAssetsMode) // assets selected
@@ -6973,7 +7000,7 @@ namespace AMSExplorer
                 var newdestinationcredentials = form.DestinationLoginCredentials;
 
                 // for service principal, the SP crednetials are asked in the previous form
-               
+
 
                 bool usercanceled = false;
                 var storagekeys = BuildStorageKeyDictionary(SelectedAssets, newdestinationcredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey, form.DestinationStorageAccount);

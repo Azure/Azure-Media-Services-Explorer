@@ -442,7 +442,7 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
 
             /*
-             * 
+              
 
 Property
 Name	Filtering	Ordering
@@ -501,6 +501,11 @@ Properties/StorageId
                     // Search on Asset name Equals
                     case SearchIn.AssetNameEquals:
                         odataQuery.Filter = "name eq " + search;
+                        break;
+
+                    // Search on Asset name Greater than
+                    case SearchIn.AssetNameStartsWith:
+                        odataQuery.Filter = "name gt " + search + " and name lt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) + 1) + "'";
                         break;
 
                     // Search on Asset name Greater than
