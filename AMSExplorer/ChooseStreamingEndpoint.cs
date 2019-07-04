@@ -22,6 +22,7 @@ using Microsoft.Azure.Management.Media;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace AMSExplorer
 {
@@ -33,6 +34,8 @@ namespace AMSExplorer
         private string _path;
         private bool _displayBrowserSelection;
         private AMSClientV3 _client;
+        private IList<AssetStreamingLocator> _locators;
+
         public StreamingEndpoint SelectStreamingEndpoint
         {
             get
@@ -147,6 +150,15 @@ namespace AMSExplorer
             }
         }
 
+        public string UpdatedPath
+        {
+            get
+            {
+                return _path;
+            }
+        }
+
+
 
         public ChooseStreamingEndpoint(AMSClientV3 client, Asset asset, string path, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
         {
@@ -236,6 +248,33 @@ namespace AMSExplorer
             comboBoxBrowser.Visible = _displayBrowserSelection;
 
             UpdatePreviewUrl();
+
+            FillLocatorComboInPolicyTab();
+        }
+
+
+        private void FillLocatorComboInPolicyTab()
+        {
+            comboBoxPolicyLocators.Items.Clear();
+            comboBoxPolicyLocators.BeginUpdate();
+
+            _client.RefreshTokenIfNeeded();
+            _locators = _client.AMSclient.Assets.ListStreamingLocators(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name).StreamingLocators;
+
+            int index = 0;
+            foreach (var locator in _locators.ToList())
+            {
+                index = comboBoxPolicyLocators.Items.Add(new Item(locator.Name, locator.Name));
+                if (_path.Contains(locator.StreamingLocatorId.ToString()))
+                {
+                    comboBoxPolicyLocators.SelectedIndex = index;
+                }
+            }
+            comboBoxPolicyLocators.EndUpdate();
+
+
+
+
         }
 
         static bool IsWindows10()
@@ -327,7 +366,21 @@ namespace AMSExplorer
 
             if (checkb.Checked)  // to do it one time
                 UpdatePreviewUrl();
+        }
 
+        private void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
+
+            var locator = _locators[comboBoxPolicyLocators.SelectedIndex];
+
+            // _path = "/" + locator.StreamingLocatorId.ToString() + _path.Substring(_path.IndexOf('/', 2));
+
+            _path = _client.AMSclient.StreamingLocators.ListPaths(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, locator.Name)
+            .StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
+            .FirstOrDefault().Paths.FirstOrDefault();
+
+            UpdatePreviewUrl();
         }
     }
 }

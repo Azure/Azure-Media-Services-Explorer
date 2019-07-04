@@ -2282,7 +2282,7 @@ namespace AMSExplorer
                     var form = new ChooseStreamingEndpoint(client, myasset, path, filter, typeplayer, true);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        path = AssetInfo.RW(path, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
+                        path = AssetInfo.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                         choosenSE = form.SelectStreamingEndpoint;
                         selectedBrowser = form.ReturnSelectedBrowser;
                     }

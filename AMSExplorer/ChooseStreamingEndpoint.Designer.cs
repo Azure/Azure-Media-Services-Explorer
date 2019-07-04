@@ -54,6 +54,7 @@
             this.label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxPreviewURL = new System.Windows.Forms.TextBox();
+            this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.groupBox4.SuspendLayout();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -79,6 +80,7 @@
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.radioButtonHttps);
             this.groupBox4.Controls.Add(this.radioButtonHttp);
+            this.groupBox4.Controls.Add(this.comboBoxPolicyLocators);
             this.groupBox4.Controls.Add(this.listBoxSE);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
@@ -119,6 +121,7 @@
             this.listViewFilters.CheckBoxes = true;
             this.listViewFilters.FullRowSelect = true;
             this.listViewFilters.GridLines = true;
+            this.listViewFilters.HideSelection = false;
             this.listViewFilters.Name = "listViewFilters";
             this.listViewFilters.UseCompatibleStateImageBehavior = false;
             this.listViewFilters.View = System.Windows.Forms.View.List;
@@ -248,6 +251,14 @@
             this.textBoxPreviewURL.Name = "textBoxPreviewURL";
             this.textBoxPreviewURL.ReadOnly = true;
             // 
+            // comboBoxPolicyLocators
+            // 
+            resources.ApplyResources(this.comboBoxPolicyLocators, "comboBoxPolicyLocators");
+            this.comboBoxPolicyLocators.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPolicyLocators.FormattingEnabled = true;
+            this.comboBoxPolicyLocators.Name = "comboBoxPolicyLocators";
+            this.comboBoxPolicyLocators.SelectedIndexChanged += new System.EventHandler(this.comboBoxPolicyLocators_SelectedIndexChanged);
+            // 
             // ChooseStreamingEndpoint
             // 
             this.AcceptButton = this.buttonOk;
@@ -302,5 +313,6 @@
         private System.Windows.Forms.ListView listViewFilters;
         private System.Windows.Forms.ComboBox comboBoxBrowser;
         private System.Windows.Forms.RadioButton radioButtonHLSCMAF;
+        private System.Windows.Forms.ComboBox comboBoxPolicyLocators;
     }
 }
