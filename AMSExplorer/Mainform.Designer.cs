@@ -128,21 +128,8 @@
             this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
-            this.textBoxJobsPageNumber = new System.Windows.Forms.TextBox();
-            this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
-            this.comboBoxSearchJobOption = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.comboBoxFilterJobsTime = new System.Windows.Forms.ComboBox();
-            this.buttonJobSearch = new System.Windows.Forms.Button();
-            this.textBoxJobSearch = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxStateJobs = new System.Windows.Forms.ComboBox();
-            this.butPrevPageJob = new System.Windows.Forms.Button();
-            this.butNextPageJob = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
+            this.splitContainerTransformJobs = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewTransformsV = new AMSExplorer.DataGridViewTransforms();
             this.contextMenuStripTransforms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.createATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -152,6 +139,10 @@
             this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.createJobUsingAnHttpSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
+            this.label22 = new System.Windows.Forms.Label();
             this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
             this.contextMenuStripJobs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -172,6 +163,20 @@
             this.selectedJobsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visibleJobsInGridToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.allJobsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxJobsPageNumber = new System.Windows.Forms.TextBox();
+            this.butNextPageJob = new System.Windows.Forms.Button();
+            this.comboBoxSearchJobOption = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.butPrevPageJob = new System.Windows.Forms.Button();
+            this.comboBoxStateJobs = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
+            this.comboBoxFilterJobsTime = new System.Windows.Forms.ComboBox();
+            this.textBoxJobSearch = new System.Windows.Forms.TextBox();
+            this.buttonJobSearch = new System.Windows.Forms.Button();
             this.tabPageLive = new System.Windows.Forms.TabPage();
             this.splitContainerLive = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -357,8 +362,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
             this.contextMenuStripTransfers.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerTransformJobs)).BeginInit();
+            this.splitContainerTransformJobs.Panel1.SuspendLayout();
+            this.splitContainerTransformJobs.Panel2.SuspendLayout();
+            this.splitContainerTransformJobs.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransformsV)).BeginInit();
             this.contextMenuStripTransforms.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
             this.contextMenuStripJobs.SuspendLayout();
             this.tabPageLive.SuspendLayout();
@@ -1128,131 +1139,41 @@
             // tabPageJobs
             // 
             this.tabPageJobs.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageJobs.Controls.Add(this.textBoxJobsPageNumber);
-            this.tabPageJobs.Controls.Add(this.linkLabelMoreInfoMediaUnits);
-            this.tabPageJobs.Controls.Add(this.comboBoxSearchJobOption);
-            this.tabPageJobs.Controls.Add(this.label11);
-            this.tabPageJobs.Controls.Add(this.label22);
-            this.tabPageJobs.Controls.Add(this.comboBoxFilterJobsTime);
-            this.tabPageJobs.Controls.Add(this.buttonJobSearch);
-            this.tabPageJobs.Controls.Add(this.textBoxJobSearch);
-            this.tabPageJobs.Controls.Add(this.label6);
-            this.tabPageJobs.Controls.Add(this.comboBoxStateJobs);
-            this.tabPageJobs.Controls.Add(this.butPrevPageJob);
-            this.tabPageJobs.Controls.Add(this.butNextPageJob);
-            this.tabPageJobs.Controls.Add(this.label4);
-            this.tabPageJobs.Controls.Add(this.label2);
-            this.tabPageJobs.Controls.Add(this.comboBoxOrderJobs);
-            this.tabPageJobs.Controls.Add(this.dataGridViewTransformsV);
-            this.tabPageJobs.Controls.Add(this.dataGridViewJobsV);
+            this.tabPageJobs.Controls.Add(this.splitContainerTransformJobs);
             resources.ApplyResources(this.tabPageJobs, "tabPageJobs");
             this.tabPageJobs.Name = "tabPageJobs";
             // 
-            // textBoxJobsPageNumber
+            // splitContainerTransformJobs
             // 
-            resources.ApplyResources(this.textBoxJobsPageNumber, "textBoxJobsPageNumber");
-            this.textBoxJobsPageNumber.Name = "textBoxJobsPageNumber";
+            this.splitContainerTransformJobs.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerTransformJobs.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.splitContainerTransformJobs, "splitContainerTransformJobs");
+            this.splitContainerTransformJobs.Name = "splitContainerTransformJobs";
             // 
-            // linkLabelMoreInfoMediaUnits
+            // splitContainerTransformJobs.Panel1
             // 
-            resources.ApplyResources(this.linkLabelMoreInfoMediaUnits, "linkLabelMoreInfoMediaUnits");
-            this.linkLabelMoreInfoMediaUnits.Name = "linkLabelMoreInfoMediaUnits";
-            this.linkLabelMoreInfoMediaUnits.TabStop = true;
-            this.toolTip1.SetToolTip(this.linkLabelMoreInfoMediaUnits, resources.GetString("linkLabelMoreInfoMediaUnits.ToolTip"));
-            this.linkLabelMoreInfoMediaUnits.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoMediaUnits_LinkClicked);
+            this.splitContainerTransformJobs.Panel1.Controls.Add(this.tableLayoutPanel3);
             // 
-            // comboBoxSearchJobOption
+            // splitContainerTransformJobs.Panel2
             // 
-            resources.ApplyResources(this.comboBoxSearchJobOption, "comboBoxSearchJobOption");
-            this.comboBoxSearchJobOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSearchJobOption.FormattingEnabled = true;
-            this.comboBoxSearchJobOption.Name = "comboBoxSearchJobOption";
+            this.splitContainerTransformJobs.Panel2.Controls.Add(this.tableLayoutPanel4);
             // 
-            // label11
+            // tableLayoutPanel3
             // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.Name = "label22";
-            // 
-            // comboBoxFilterJobsTime
-            // 
-            resources.ApplyResources(this.comboBoxFilterJobsTime, "comboBoxFilterJobsTime");
-            this.comboBoxFilterJobsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterJobsTime.FormattingEnabled = true;
-            this.comboBoxFilterJobsTime.Name = "comboBoxFilterJobsTime";
-            this.comboBoxFilterJobsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterJobsTime_SelectedIndexChanged);
-            // 
-            // buttonJobSearch
-            // 
-            resources.ApplyResources(this.buttonJobSearch, "buttonJobSearch");
-            this.buttonJobSearch.Name = "buttonJobSearch";
-            this.buttonJobSearch.UseVisualStyleBackColor = true;
-            this.buttonJobSearch.Click += new System.EventHandler(this.buttonJobSearch_Click);
-            // 
-            // textBoxJobSearch
-            // 
-            resources.ApplyResources(this.textBoxJobSearch, "textBoxJobSearch");
-            this.textBoxJobSearch.Name = "textBoxJobSearch";
-            this.toolTip1.SetToolTip(this.textBoxJobSearch, resources.GetString("textBoxJobSearch.ToolTip"));
-            this.textBoxJobSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxJobSearch_KeyDown);
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // comboBoxStateJobs
-            // 
-            resources.ApplyResources(this.comboBoxStateJobs, "comboBoxStateJobs");
-            this.comboBoxStateJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStateJobs.FormattingEnabled = true;
-            this.comboBoxStateJobs.Name = "comboBoxStateJobs";
-            this.comboBoxStateJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxStateJobs_SelectedIndexChanged);
-            // 
-            // butPrevPageJob
-            // 
-            resources.ApplyResources(this.butPrevPageJob, "butPrevPageJob");
-            this.butPrevPageJob.Name = "butPrevPageJob";
-            this.butPrevPageJob.UseVisualStyleBackColor = true;
-            this.butPrevPageJob.Click += new System.EventHandler(this.butPrevPageJob_Click);
-            // 
-            // butNextPageJob
-            // 
-            resources.ApplyResources(this.butNextPageJob, "butNextPageJob");
-            this.butNextPageJob.Name = "butNextPageJob";
-            this.butNextPageJob.UseVisualStyleBackColor = true;
-            this.butNextPageJob.Click += new System.EventHandler(this.butNextPageJob_Click);
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // comboBoxOrderJobs
-            // 
-            resources.ApplyResources(this.comboBoxOrderJobs, "comboBoxOrderJobs");
-            this.comboBoxOrderJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOrderJobs.FormattingEnabled = true;
-            this.comboBoxOrderJobs.Name = "comboBoxOrderJobs";
-            this.comboBoxOrderJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderJobs_SelectedIndexChanged);
+            resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
+            this.tableLayoutPanel3.Controls.Add(this.dataGridViewTransformsV, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label7, 0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
             // dataGridViewTransformsV
             // 
             this.dataGridViewTransformsV.AllowUserToAddRows = false;
             this.dataGridViewTransformsV.AllowUserToDeleteRows = false;
             this.dataGridViewTransformsV.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewTransformsV, "dataGridViewTransformsV");
             this.dataGridViewTransformsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewTransformsV, 2);
             this.dataGridViewTransformsV.ContextMenuStrip = this.contextMenuStripTransforms;
+            resources.ApplyResources(this.dataGridViewTransformsV, "dataGridViewTransformsV");
             this.dataGridViewTransformsV.Name = "dataGridViewTransformsV";
             this.dataGridViewTransformsV.ReadOnly = true;
             this.dataGridViewTransformsV.RowHeadersVisible = false;
@@ -1260,6 +1181,8 @@
             this.dataGridViewTransformsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTransformsV_CellDoubleClick);
             this.dataGridViewTransformsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewTransformsV_RowPostPaint);
             this.dataGridViewTransformsV.SelectionChanged += new System.EventHandler(this.dataGridViewTransformsV_SelectionChanged);
+            this.dataGridViewTransformsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
+            this.dataGridViewTransformsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
             // 
             // contextMenuStripTransforms
             // 
@@ -1320,14 +1243,57 @@
             resources.ApplyResources(this.createJobUsingAnHttpSourceToolStripMenuItem, "createJobUsingAnHttpSourceToolStripMenuItem");
             this.createJobUsingAnHttpSourceToolStripMenuItem.Click += new System.EventHandler(this.createJobUsingAnHttpSourceToolStripMenuItem_Click);
             // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // tableLayoutPanel4
+            // 
+            resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
+            this.tableLayoutPanel4.Controls.Add(this.label9, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.textBoxJobsPageNumber, 11, 2);
+            this.tableLayoutPanel4.Controls.Add(this.dataGridViewJobsV, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.butNextPageJob, 12, 2);
+            this.tableLayoutPanel4.Controls.Add(this.comboBoxSearchJobOption, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.label11, 3, 2);
+            this.tableLayoutPanel4.Controls.Add(this.butPrevPageJob, 10, 2);
+            this.tableLayoutPanel4.Controls.Add(this.comboBoxStateJobs, 6, 2);
+            this.tableLayoutPanel4.Controls.Add(this.label6, 5, 2);
+            this.tableLayoutPanel4.Controls.Add(this.label2, 9, 2);
+            this.tableLayoutPanel4.Controls.Add(this.label4, 7, 2);
+            this.tableLayoutPanel4.Controls.Add(this.comboBoxOrderJobs, 8, 2);
+            this.tableLayoutPanel4.Controls.Add(this.comboBoxFilterJobsTime, 4, 2);
+            this.tableLayoutPanel4.Controls.Add(this.textBoxJobSearch, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.buttonJobSearch, 2, 2);
+            this.tableLayoutPanel4.Controls.Add(this.linkLabelMoreInfoMediaUnits, 6, 3);
+            this.tableLayoutPanel4.Controls.Add(this.label22, 1, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            // 
+            // linkLabelMoreInfoMediaUnits
+            // 
+            resources.ApplyResources(this.linkLabelMoreInfoMediaUnits, "linkLabelMoreInfoMediaUnits");
+            this.tableLayoutPanel4.SetColumnSpan(this.linkLabelMoreInfoMediaUnits, 2);
+            this.linkLabelMoreInfoMediaUnits.Name = "linkLabelMoreInfoMediaUnits";
+            this.linkLabelMoreInfoMediaUnits.TabStop = true;
+            this.toolTip1.SetToolTip(this.linkLabelMoreInfoMediaUnits, resources.GetString("linkLabelMoreInfoMediaUnits.ToolTip"));
+            this.linkLabelMoreInfoMediaUnits.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoMediaUnits_LinkClicked);
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.tableLayoutPanel4.SetColumnSpan(this.label22, 5);
+            this.label22.Name = "label22";
+            // 
             // dataGridViewJobsV
             // 
             this.dataGridViewJobsV.AllowUserToAddRows = false;
             this.dataGridViewJobsV.AllowUserToDeleteRows = false;
             this.dataGridViewJobsV.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewJobsV, "dataGridViewJobsV");
             this.dataGridViewJobsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel4.SetColumnSpan(this.dataGridViewJobsV, 13);
             this.dataGridViewJobsV.ContextMenuStrip = this.contextMenuStripJobs;
+            resources.ApplyResources(this.dataGridViewJobsV, "dataGridViewJobsV");
             this.dataGridViewJobsV.FilterJobsState = "All";
             this.dataGridViewJobsV.JobssPerPage = 50;
             this.dataGridViewJobsV.Name = "dataGridViewJobsV";
@@ -1477,6 +1443,95 @@
             this.allJobsToolStripMenuItem1.Name = "allJobsToolStripMenuItem1";
             resources.ApplyResources(this.allJobsToolStripMenuItem1, "allJobsToolStripMenuItem1");
             this.allJobsToolStripMenuItem1.Click += new System.EventHandler(this.allJobsToolStripMenuItem1_Click);
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // textBoxJobsPageNumber
+            // 
+            resources.ApplyResources(this.textBoxJobsPageNumber, "textBoxJobsPageNumber");
+            this.textBoxJobsPageNumber.Name = "textBoxJobsPageNumber";
+            // 
+            // butNextPageJob
+            // 
+            resources.ApplyResources(this.butNextPageJob, "butNextPageJob");
+            this.butNextPageJob.Name = "butNextPageJob";
+            this.butNextPageJob.UseVisualStyleBackColor = true;
+            this.butNextPageJob.Click += new System.EventHandler(this.butNextPageJob_Click);
+            // 
+            // comboBoxSearchJobOption
+            // 
+            resources.ApplyResources(this.comboBoxSearchJobOption, "comboBoxSearchJobOption");
+            this.comboBoxSearchJobOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchJobOption.FormattingEnabled = true;
+            this.comboBoxSearchJobOption.Name = "comboBoxSearchJobOption";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // butPrevPageJob
+            // 
+            resources.ApplyResources(this.butPrevPageJob, "butPrevPageJob");
+            this.butPrevPageJob.Name = "butPrevPageJob";
+            this.butPrevPageJob.UseVisualStyleBackColor = true;
+            this.butPrevPageJob.Click += new System.EventHandler(this.butPrevPageJob_Click);
+            // 
+            // comboBoxStateJobs
+            // 
+            resources.ApplyResources(this.comboBoxStateJobs, "comboBoxStateJobs");
+            this.comboBoxStateJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStateJobs.FormattingEnabled = true;
+            this.comboBoxStateJobs.Name = "comboBoxStateJobs";
+            this.comboBoxStateJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxStateJobs_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // comboBoxOrderJobs
+            // 
+            resources.ApplyResources(this.comboBoxOrderJobs, "comboBoxOrderJobs");
+            this.comboBoxOrderJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderJobs.FormattingEnabled = true;
+            this.comboBoxOrderJobs.Name = "comboBoxOrderJobs";
+            this.comboBoxOrderJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderJobs_SelectedIndexChanged);
+            // 
+            // comboBoxFilterJobsTime
+            // 
+            resources.ApplyResources(this.comboBoxFilterJobsTime, "comboBoxFilterJobsTime");
+            this.comboBoxFilterJobsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterJobsTime.FormattingEnabled = true;
+            this.comboBoxFilterJobsTime.Name = "comboBoxFilterJobsTime";
+            this.comboBoxFilterJobsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterJobsTime_SelectedIndexChanged);
+            // 
+            // textBoxJobSearch
+            // 
+            resources.ApplyResources(this.textBoxJobSearch, "textBoxJobSearch");
+            this.textBoxJobSearch.Name = "textBoxJobSearch";
+            this.toolTip1.SetToolTip(this.textBoxJobSearch, resources.GetString("textBoxJobSearch.ToolTip"));
+            this.textBoxJobSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxJobSearch_KeyDown);
+            // 
+            // buttonJobSearch
+            // 
+            resources.ApplyResources(this.buttonJobSearch, "buttonJobSearch");
+            this.buttonJobSearch.Name = "buttonJobSearch";
+            this.buttonJobSearch.UseVisualStyleBackColor = true;
+            this.buttonJobSearch.Click += new System.EventHandler(this.buttonJobSearch_Click);
             // 
             // tabPageLive
             // 
@@ -1754,7 +1809,6 @@
             // tableLayoutPanel2
             // 
             resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(this.labelPrograms, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButtonChNone, 10, 2);
             this.tableLayoutPanel2.Controls.Add(this.dataGridViewLiveOutputV, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.radioButtonChAll, 9, 2);
@@ -1767,6 +1821,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label16, 5, 2);
             this.tableLayoutPanel2.Controls.Add(this.label15, 3, 2);
             this.tableLayoutPanel2.Controls.Add(this.comboBoxFilterTimeProgram, 4, 2);
+            this.tableLayoutPanel2.Controls.Add(this.labelPrograms, 0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
             // labelPrograms
@@ -2765,9 +2820,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
             this.contextMenuStripTransfers.ResumeLayout(false);
             this.tabPageJobs.ResumeLayout(false);
-            this.tabPageJobs.PerformLayout();
+            this.splitContainerTransformJobs.Panel1.ResumeLayout(false);
+            this.splitContainerTransformJobs.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerTransformJobs)).EndInit();
+            this.splitContainerTransformJobs.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransformsV)).EndInit();
             this.contextMenuStripTransforms.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
             this.contextMenuStripJobs.ResumeLayout(false);
             this.tabPageLive.ResumeLayout(false);
@@ -3108,6 +3170,11 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAzureUpdates;
+        private System.Windows.Forms.SplitContainer splitContainerTransformJobs;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
     }
 }
 

@@ -56,7 +56,7 @@ namespace AMSExplorer
                 this.BeginInvoke(new Action(() =>
                 {
                     this.Columns["Name"].Width = 200;
-                    this.Columns["Description"].Width = 150;
+                    this.Columns["Description"].Width = 200;
                     this.Columns["LastModified"].Width = 130;
                 }));
             });

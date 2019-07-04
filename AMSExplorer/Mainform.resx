@@ -920,7 +920,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 408</value>
+    <value>290, 386</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -1407,506 +1407,17 @@
   <data name="&gt;&gt;tabPageTransfers.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="textBoxJobsPageNumber.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="splitContainerTransformJobs.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="textBoxJobsPageNumber.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="splitContainerTransformJobs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="textBoxJobsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>941, 385</value>
+  <data name="splitContainerTransformJobs.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
   </data>
-  <data name="textBoxJobsPageNumber.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 23</value>
-  </data>
-  <data name="textBoxJobsPageNumber.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
-  </data>
-  <data name="textBoxJobsPageNumber.Text" xml:space="preserve">
-    <value>99</value>
-  </data>
-  <data name="textBoxJobsPageNumber.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="&gt;&gt;textBoxJobsPageNumber.Name" xml:space="preserve">
-    <value>textBoxJobsPageNumber</value>
-  </data>
-  <data name="&gt;&gt;textBoxJobsPageNumber.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxJobsPageNumber.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;textBoxJobsPageNumber.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="linkLabelMoreInfoMediaUnits.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="linkLabelMoreInfoMediaUnits.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="linkLabelMoreInfoMediaUnits.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="linkLabelMoreInfoMediaUnits.Location" type="System.Drawing.Point, System.Drawing">
-    <value>368, 420</value>
-  </data>
-  <data name="linkLabelMoreInfoMediaUnits.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 15</value>
-  </data>
-  <data name="linkLabelMoreInfoMediaUnits.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="linkLabelMoreInfoMediaUnits.Text" xml:space="preserve">
-    <value>Scaling processing</value>
-  </data>
-  <data name="linkLabelMoreInfoMediaUnits.ToolTip" xml:space="preserve">
-    <value>Provide your feedback on Azure Media Services !</value>
-  </data>
-  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Name" xml:space="preserve">
-    <value>linkLabelMoreInfoMediaUnits</value>
-  </data>
-  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="comboBoxSearchJobOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="comboBoxSearchJobOption.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxSearchJobOption.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxSearchJobOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 384</value>
-  </data>
-  <data name="comboBoxSearchJobOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 23</value>
-  </data>
-  <data name="comboBoxSearchJobOption.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchJobOption.Name" xml:space="preserve">
-    <value>comboBoxSearchJobOption</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchJobOption.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchJobOption.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;comboBoxSearchJobOption.ZOrder" xml:space="preserve">
+  <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
-  </data>
-  <data name="label11.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>327, 388</value>
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
-  </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Filter :</value>
-  </data>
-  <data name="&gt;&gt;label11.Name" xml:space="preserve">
-    <value>label11</value>
-  </data>
-  <data name="&gt;&gt;label11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label22.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="label22.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 420</value>
-  </data>
-  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>359, 15</value>
-  </data>
-  <data name="label22.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="label22.Text" xml:space="preserve">
-    <value>To scale Media Reserved Units, use AMSE for v2 or the Azure portal.</value>
-  </data>
-  <data name="&gt;&gt;label22.Name" xml:space="preserve">
-    <value>label22</value>
-  </data>
-  <data name="&gt;&gt;label22.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="comboBoxFilterJobsTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxFilterJobsTime.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxFilterJobsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 384</value>
-  </data>
-  <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
-  </data>
-  <data name="comboBoxFilterJobsTime.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="&gt;&gt;comboBoxFilterJobsTime.Name" xml:space="preserve">
-    <value>comboBoxFilterJobsTime</value>
-  </data>
-  <data name="&gt;&gt;comboBoxFilterJobsTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxFilterJobsTime.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;comboBoxFilterJobsTime.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="buttonJobSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonJobSearch.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonJobSearch.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="buttonJobSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonJobSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 384</value>
-  </data>
-  <data name="buttonJobSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 23</value>
-  </data>
-  <data name="buttonJobSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>36</value>
-  </data>
-  <data name="buttonJobSearch.Text" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="&gt;&gt;buttonJobSearch.Name" xml:space="preserve">
-    <value>buttonJobSearch</value>
-  </data>
-  <data name="&gt;&gt;buttonJobSearch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonJobSearch.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;buttonJobSearch.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="textBoxJobSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxJobSearch.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxJobSearch.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="textBoxJobSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>160, 384</value>
-  </data>
-  <data name="textBoxJobSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 23</value>
-  </data>
-  <data name="textBoxJobSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="textBoxJobSearch.ToolTip" xml:space="preserve">
-    <value>Search in job name and job Id</value>
-  </data>
-  <data name="&gt;&gt;textBoxJobSearch.Name" xml:space="preserve">
-    <value>textBoxJobSearch</value>
-  </data>
-  <data name="&gt;&gt;textBoxJobSearch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxJobSearch.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;textBoxJobSearch.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>482, 388</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>State :</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="comboBoxStateJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxStateJobs.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>524, 384</value>
-  </data>
-  <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
-  </data>
-  <data name="comboBoxStateJobs.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStateJobs.Name" xml:space="preserve">
-    <value>comboBoxStateJobs</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStateJobs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStateJobs.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStateJobs.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="butPrevPageJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="butPrevPageJob.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="butPrevPageJob.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>907, 384</value>
-  </data>
-  <data name="butPrevPageJob.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 23</value>
-  </data>
-  <data name="butPrevPageJob.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="butPrevPageJob.Text" xml:space="preserve">
-    <value>&lt;</value>
-  </data>
-  <data name="&gt;&gt;butPrevPageJob.Name" xml:space="preserve">
-    <value>butPrevPageJob</value>
-  </data>
-  <data name="&gt;&gt;butPrevPageJob.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;butPrevPageJob.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;butPrevPageJob.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="butNextPageJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="butNextPageJob.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="butNextPageJob.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>972, 384</value>
-  </data>
-  <data name="butNextPageJob.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 23</value>
-  </data>
-  <data name="butNextPageJob.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="butNextPageJob.Text" xml:space="preserve">
-    <value>&gt;</value>
-  </data>
-  <data name="&gt;&gt;butNextPageJob.Name" xml:space="preserve">
-    <value>butNextPageJob</value>
-  </data>
-  <data name="&gt;&gt;butNextPageJob.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;butNextPageJob.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;butNextPageJob.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>651, 388</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Order by :</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>862, 388</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Page :</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="comboBoxOrderJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="comboBoxOrderJobs.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="comboBoxOrderJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>713, 384</value>
-  </data>
-  <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
-  </data>
-  <data name="comboBoxOrderJobs.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;comboBoxOrderJobs.Name" xml:space="preserve">
-    <value>comboBoxOrderJobs</value>
-  </data>
-  <data name="&gt;&gt;comboBoxOrderJobs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxOrderJobs.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
-  </data>
-  <data name="&gt;&gt;comboBoxOrderJobs.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="dataGridViewTransformsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left</value>
   </data>
   <metadata name="contextMenuStripTransforms.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>837, 56</value>
@@ -1959,11 +1470,14 @@
   <data name="&gt;&gt;contextMenuStripTransforms.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="dataGridViewTransformsV.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="dataGridViewTransformsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 7</value>
+    <value>3, 27</value>
   </data>
   <data name="dataGridViewTransformsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>371, 371</value>
+    <value>990, 149</value>
   </data>
   <data name="dataGridViewTransformsV.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -1975,13 +1489,160 @@
     <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.4.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
+    <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>0</value>
   </data>
-  <data name="dataGridViewJobsV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="label7.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 8.25pt, style=Bold</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 5</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 13</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Transforms</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanel3.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>996, 179</value>
+  </data>
+  <data name="tableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.Name" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.Parent" xml:space="preserve">
+    <value>splitContainerTransformJobs.Panel1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewTransformsV" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="label7" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,13,96648,Percent,86,03352" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Panel1.Name" xml:space="preserve">
+    <value>splitContainerTransformJobs.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Panel1.Parent" xml:space="preserve">
+    <value>splitContainerTransformJobs</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel4.ColumnCount" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 8.25pt, style=Bold</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 6</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 13</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>Jobs</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxJobsPageNumber.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="textBoxJobsPageNumber.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxJobsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
+    <value>937, 196</value>
+  </data>
+  <data name="textBoxJobsPageNumber.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 23</value>
+  </data>
+  <data name="textBoxJobsPageNumber.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="textBoxJobsPageNumber.Text" xml:space="preserve">
+    <value>99</value>
+  </data>
+  <data name="textBoxJobsPageNumber.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobsPageNumber.Name" xml:space="preserve">
+    <value>textBoxJobsPageNumber</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobsPageNumber.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobsPageNumber.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobsPageNumber.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <metadata name="contextMenuStripJobs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>649, 17</value>
@@ -2188,11 +1849,14 @@
   <data name="&gt;&gt;contextMenuStripJobs.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="dataGridViewJobsV.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="dataGridViewJobsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>386, 6</value>
+    <value>3, 29</value>
   </data>
   <data name="dataGridViewJobsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>614, 372</value>
+    <value>990, 161</value>
   </data>
   <data name="dataGridViewJobsV.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -2213,10 +1877,535 @@
     <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.4.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
-    <value>tabPageJobs</value>
+    <value>tableLayoutPanel4</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="butNextPageJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="butNextPageJob.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="butNextPageJob.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
+    <value>969, 196</value>
+  </data>
+  <data name="butNextPageJob.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 21</value>
+  </data>
+  <data name="butNextPageJob.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="butNextPageJob.Text" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="&gt;&gt;butNextPageJob.Name" xml:space="preserve">
+    <value>butNextPageJob</value>
+  </data>
+  <data name="&gt;&gt;butNextPageJob.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;butNextPageJob.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;butNextPageJob.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="comboBoxSearchJobOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="comboBoxSearchJobOption.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="comboBoxSearchJobOption.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="comboBoxSearchJobOption.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 196</value>
+  </data>
+  <data name="comboBoxSearchJobOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 23</value>
+  </data>
+  <data name="comboBoxSearchJobOption.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchJobOption.Name" xml:space="preserve">
+    <value>comboBoxSearchJobOption</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchJobOption.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchJobOption.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSearchJobOption.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="label11.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>317, 199</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Filter :</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="butPrevPageJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="butPrevPageJob.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="butPrevPageJob.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
+    <value>901, 196</value>
+  </data>
+  <data name="butPrevPageJob.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 21</value>
+  </data>
+  <data name="butPrevPageJob.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="butPrevPageJob.Text" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageJob.Name" xml:space="preserve">
+    <value>butPrevPageJob</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageJob.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageJob.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;butPrevPageJob.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="comboBoxStateJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="comboBoxStateJobs.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>521, 196</value>
+  </data>
+  <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 23</value>
+  </data>
+  <data name="comboBoxStateJobs.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStateJobs.Name" xml:space="preserve">
+    <value>comboBoxStateJobs</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStateJobs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStateJobs.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStateJobs.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>472, 199</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>State :</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>856, 199</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Page :</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>649, 199</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Order by :</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="comboBoxOrderJobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="comboBoxOrderJobs.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="comboBoxOrderJobs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>715, 196</value>
+  </data>
+  <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 23</value>
+  </data>
+  <data name="comboBoxOrderJobs.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderJobs.Name" xml:space="preserve">
+    <value>comboBoxOrderJobs</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderJobs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderJobs.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;comboBoxOrderJobs.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="comboBoxFilterJobsTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="comboBoxFilterJobsTime.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="comboBoxFilterJobsTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>363, 196</value>
+  </data>
+  <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 23</value>
+  </data>
+  <data name="comboBoxFilterJobsTime.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterJobsTime.Name" xml:space="preserve">
+    <value>comboBoxFilterJobsTime</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterJobsTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterJobsTime.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFilterJobsTime.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="textBoxJobSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxJobSearch.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxJobSearch.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="textBoxJobSearch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 196</value>
+  </data>
+  <data name="textBoxJobSearch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 23</value>
+  </data>
+  <data name="textBoxJobSearch.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="textBoxJobSearch.ToolTip" xml:space="preserve">
+    <value>Search in job name and job Id</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobSearch.Name" xml:space="preserve">
+    <value>textBoxJobSearch</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobSearch.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;textBoxJobSearch.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="buttonJobSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonJobSearch.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonJobSearch.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="buttonJobSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonJobSearch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 196</value>
+  </data>
+  <data name="buttonJobSearch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 21</value>
+  </data>
+  <data name="buttonJobSearch.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="buttonJobSearch.Text" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="&gt;&gt;buttonJobSearch.Name" xml:space="preserve">
+    <value>buttonJobSearch</value>
+  </data>
+  <data name="&gt;&gt;buttonJobSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonJobSearch.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;buttonJobSearch.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="linkLabelMoreInfoMediaUnits.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="linkLabelMoreInfoMediaUnits.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelMoreInfoMediaUnits.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelMoreInfoMediaUnits.Location" type="System.Drawing.Point, System.Drawing">
+    <value>521, 223</value>
+  </data>
+  <data name="linkLabelMoreInfoMediaUnits.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 15</value>
+  </data>
+  <data name="linkLabelMoreInfoMediaUnits.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="linkLabelMoreInfoMediaUnits.Text" xml:space="preserve">
+    <value>Scaling processing</value>
+  </data>
+  <data name="linkLabelMoreInfoMediaUnits.ToolTip" xml:space="preserve">
+    <value>Provide your feedback on Azure Media Services !</value>
+  </data>
+  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Name" xml:space="preserve">
+    <value>linkLabelMoreInfoMediaUnits</value>
+  </data>
+  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;linkLabelMoreInfoMediaUnits.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="label22.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 223</value>
+  </data>
+  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 15</value>
+  </data>
+  <data name="label22.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>To scale Media Reserved Units, use AMSE for v2 or the Azure portal.</value>
+  </data>
+  <data name="&gt;&gt;label22.Name" xml:space="preserve">
+    <value>label22</value>
+  </data>
+  <data name="&gt;&gt;label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
     <value>16</value>
+  </data>
+  <data name="tableLayoutPanel4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanel4.RowCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="tableLayoutPanel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>996, 241</value>
+  </data>
+  <data name="tableLayoutPanel4.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel4.Name" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel4.Parent" xml:space="preserve">
+    <value>splitContainerTransformJobs.Panel2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel4.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label9" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobsPageNumber" Row="2" RowSpan="1" Column="11" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewJobsV" Row="1" RowSpan="1" Column="0" ColumnSpan="13" /&gt;&lt;Control Name="butNextPageJob" Row="2" RowSpan="1" Column="12" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchJobOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="butPrevPageJob" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStateJobs" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label2" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="label4" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOrderJobs" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterJobsTime" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobSearch" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonJobSearch" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="linkLabelMoreInfoMediaUnits" Row="3" RowSpan="1" Column="6" ColumnSpan="2" /&gt;&lt;Control Name="label22" Row="3" RowSpan="1" Column="1" ColumnSpan="5" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,59,30233,Percent,40,69767,Absolute,58,Absolute,46,Absolute,109,Absolute,49,Absolute,128,Absolute,66,Absolute,115,Absolute,71,Absolute,34,Absolute,33,Absolute,30" /&gt;&lt;Rows Styles="Percent,13,4715,Percent,86,5285,Absolute,27,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Panel2.Name" xml:space="preserve">
+    <value>splitContainerTransformJobs.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Panel2.Parent" xml:space="preserve">
+    <value>splitContainerTransformJobs</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitContainerTransformJobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1000, 432</value>
+  </data>
+  <data name="splitContainerTransformJobs.SplitterDistance" type="System.Int32, mscorlib">
+    <value>183</value>
+  </data>
+  <data name="splitContainerTransformJobs.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Name" xml:space="preserve">
+    <value>splitContainerTransformJobs</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.Parent" xml:space="preserve">
+    <value>tabPageJobs</value>
+  </data>
+  <data name="&gt;&gt;splitContainerTransformJobs.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="tabPageJobs.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 27</value>
@@ -2473,10 +2662,10 @@
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dataGridViewLiveEventsV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 18</value>
+    <value>3, 27</value>
   </data>
   <data name="dataGridViewLiveEventsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>990, 161</value>
+    <value>990, 152</value>
   </data>
   <data name="dataGridViewLiveEventsV.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2503,10 +2692,10 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>845, 185</value>
+    <value>843, 185</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 23</value>
+    <value>150, 23</value>
   </data>
   <data name="comboBoxStatusLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
@@ -2539,7 +2728,7 @@
     <value>NoControl</value>
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
-    <value>794, 189</value>
+    <value>792, 189</value>
   </data>
   <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -2572,7 +2761,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>650, 185</value>
+    <value>648, 185</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 23</value>
@@ -2605,7 +2794,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>526, 186</value>
+    <value>524, 186</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -2638,10 +2827,10 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxSearchNameLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>153, 186</value>
+    <value>152, 186</value>
   </data>
   <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 23</value>
+    <value>366, 23</value>
   </data>
   <data name="textBoxSearchNameLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
@@ -2674,7 +2863,7 @@
     <value>3, 186</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 23</value>
+    <value>143, 23</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
@@ -2691,6 +2880,9 @@
   <data name="&gt;&gt;comboBoxSearchLiveEventOption.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="labelLiveEvents.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
   <data name="labelLiveEvents.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2701,7 +2893,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelLiveEvents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
+    <value>3, 5</value>
   </data>
   <data name="labelLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 13</value>
@@ -2740,7 +2932,7 @@
     <value>NoControl</value>
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>605, 189</value>
+    <value>603, 189</value>
   </data>
   <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2791,7 +2983,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewLiveEventsV" Row="1" RowSpan="1" Column="0" ColumnSpan="7" /&gt;&lt;Control Name="comboBoxStatusLiveEvent" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label25" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeLiveEvent" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterLiveEvent" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameLiveEvent" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchLiveEventOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLiveEvents" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label24" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,28,67924,Percent,71,32076,Absolute,69,Absolute,55,Absolute,123,Absolute,72,Absolute,153" /&gt;&lt;Rows Styles="Percent,8,241758,Percent,91,75824,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewLiveEventsV" Row="1" RowSpan="1" Column="0" ColumnSpan="7" /&gt;&lt;Control Name="comboBoxStatusLiveEvent" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label25" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeLiveEvent" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterLiveEvent" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameLiveEvent" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchLiveEventOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLiveEvents" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label24" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,28,67924,Percent,71,32076,Absolute,69,Absolute,55,Absolute,123,Absolute,72,Absolute,155" /&gt;&lt;Rows Styles="Percent,13,18681,Percent,86,81319,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerLive.Panel1.Name" xml:space="preserve">
     <value>splitContainerLive.Panel1</value>
@@ -2808,39 +3000,6 @@
   <data name="tableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="labelPrograms.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelPrograms.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 8.25pt, style=Bold</value>
-  </data>
-  <data name="labelPrograms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelPrograms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="labelPrograms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 13</value>
-  </data>
-  <data name="labelPrograms.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="labelPrograms.Text" xml:space="preserve">
-    <value>Live outputs</value>
-  </data>
-  <data name="&gt;&gt;labelPrograms.Name" xml:space="preserve">
-    <value>labelPrograms</value>
-  </data>
-  <data name="&gt;&gt;labelPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelPrograms.Parent" xml:space="preserve">
-    <value>tableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;labelPrograms.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="radioButtonChNone.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
@@ -2851,7 +3010,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonChNone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>921, 183</value>
+    <value>919, 183</value>
   </data>
   <data name="radioButtonChNone.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 19</value>
@@ -2872,7 +3031,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;radioButtonChNone.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="dataGridViewLiveOutputV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -3042,10 +3201,10 @@
 </value>
   </data>
   <data name="dataGridViewLiveOutputV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 20</value>
+    <value>3, 27</value>
   </data>
   <data name="dataGridViewLiveOutputV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>990, 155</value>
+    <value>990, 148</value>
   </data>
   <data name="dataGridViewLiveOutputV.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -3060,7 +3219,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="radioButtonChAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -3072,7 +3231,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonChAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>869, 183</value>
+    <value>867, 183</value>
   </data>
   <data name="radioButtonChAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 19</value>
@@ -3093,7 +3252,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;radioButtonChAll.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="comboBoxSearchProgramOption.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
@@ -3108,7 +3267,7 @@
     <value>3, 181</value>
   </data>
   <data name="comboBoxSearchProgramOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
+    <value>139, 23</value>
   </data>
   <data name="comboBoxSearchProgramOption.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -3123,7 +3282,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;comboBoxSearchProgramOption.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="radioButtonChSelected.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
@@ -3135,7 +3294,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonChSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>787, 183</value>
+    <value>785, 183</value>
   </data>
   <data name="radioButtonChSelected.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 19</value>
@@ -3156,7 +3315,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;radioButtonChSelected.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="label14.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -3171,7 +3330,7 @@
     <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>714, 185</value>
+    <value>712, 185</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 15</value>
@@ -3192,7 +3351,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="textBoxSearchNameProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -3204,10 +3363,10 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxSearchNameProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>149, 182</value>
+    <value>148, 182</value>
   </data>
   <data name="textBoxSearchNameProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>118, 23</value>
+    <value>117, 23</value>
   </data>
   <data name="textBoxSearchNameProgram.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
@@ -3225,7 +3384,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;textBoxSearchNameProgram.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="buttonSetFilterProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -3240,7 +3399,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonSetFilterProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>273, 181</value>
+    <value>271, 181</value>
   </data>
   <data name="buttonSetFilterProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -3261,7 +3420,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;buttonSetFilterProgram.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="comboBoxStatusProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
@@ -3273,7 +3432,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxStatusProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>579, 181</value>
+    <value>577, 181</value>
   </data>
   <data name="comboBoxStatusProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 23</value>
@@ -3291,7 +3450,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;comboBoxStatusProgram.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="label16.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -3309,7 +3468,7 @@
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>528, 185</value>
+    <value>526, 185</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -3330,7 +3489,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="label15.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -3348,7 +3507,7 @@
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>341, 185</value>
+    <value>339, 185</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -3369,7 +3528,7 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
@@ -3381,7 +3540,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>386, 181</value>
+    <value>384, 181</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 23</value>
@@ -3399,6 +3558,42 @@
     <value>tableLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;comboBoxFilterTimeProgram.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="labelPrograms.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="labelPrograms.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelPrograms.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelPrograms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelPrograms.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 5</value>
+  </data>
+  <data name="labelPrograms.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 13</value>
+  </data>
+  <data name="labelPrograms.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="labelPrograms.Text" xml:space="preserve">
+    <value>Live outputs</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Name" xml:space="preserve">
+    <value>labelPrograms</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;labelPrograms.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
   <data name="tableLayoutPanel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -3429,7 +3624,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelPrograms" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonChNone" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewLiveOutputV" Row="1" RowSpan="1" Column="0" ColumnSpan="11" /&gt;&lt;Control Name="radioButtonChAll" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchProgramOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonChSelected" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="label14" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameProgram" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterProgram" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStatusProgram" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label16" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label15" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeProgram" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,54,15162,Percent,45,84838,Absolute,66,Absolute,47,Absolute,135,Absolute,58,Absolute,132,Absolute,76,Absolute,82,Absolute,52,Absolute,77" /&gt;&lt;Rows Styles="Percent,9,550562,Percent,90,44944,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="radioButtonChNone" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewLiveOutputV" Row="1" RowSpan="1" Column="0" ColumnSpan="11" /&gt;&lt;Control Name="radioButtonChAll" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchProgramOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonChSelected" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="label14" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameProgram" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterProgram" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStatusProgram" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label16" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label15" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeProgram" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="labelPrograms" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,54,15162,Percent,45,84838,Absolute,66,Absolute,47,Absolute,135,Absolute,58,Absolute,132,Absolute,76,Absolute,82,Absolute,52,Absolute,79" /&gt;&lt;Rows Styles="Percent,13,48315,Percent,86,51685,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerLive.Panel2.Name" xml:space="preserve">
     <value>splitContainerLive.Panel2</value>
