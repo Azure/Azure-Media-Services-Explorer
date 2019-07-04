@@ -1439,11 +1439,8 @@ namespace AMSExplorer
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    TransformInformation form = new TransformInformation(this, _amsClientV3.AMSclient)
-                    {
-                        MyTransform = t
-                        //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
-                    };
+                    TransformInformation form = new TransformInformation(this, _amsClientV3.AMSclient, t);
+                  
                     dialogResult = form.ShowDialog(this);
                 }
                 finally

@@ -26,17 +26,18 @@ namespace AMSExplorer
 {
     public partial class TransformInformation : Form
     {
-        public Transform MyTransform;
+        private Transform _transform;
         private AzureMediaServicesClient _client;
         private Mainform _mainform;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
-        public TransformInformation(Mainform mainform, AzureMediaServicesClient client)
+        public TransformInformation(Mainform mainform, AzureMediaServicesClient client, Transform transform)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
             _mainform = mainform;
+            _transform = transform;
         }
 
         private void contextMenuStrip_MouseClick(object sender, MouseEventArgs e)
@@ -57,110 +58,43 @@ namespace AMSExplorer
             }
         }
 
-        private void JobInformation_Load(object sender, EventArgs e)
+        private void TransformInformation_Load(object sender, EventArgs e)
         {
-            labelJobNameTitle.Text += MyTransform.Name;
+            labelJobNameTitle.Text += _transform.Name;
 
             DGTransform.ColumnCount = 2;
             DGOutputs.ColumnCount = 2;
             DGOutputs.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
-            DGErrors.ColumnCount = 3;
-            DGErrors.Columns[0].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Task;
-            DGErrors.Columns[1].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_ErrorDetail;
-            DGErrors.Columns[2].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Code;
-
             DGTransform.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, MyTransform.Name);
-            DGTransform.Rows.Add("Description", MyTransform.Description);
-            DGTransform.Rows.Add("Id", MyTransform.Id);
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _transform.Name);
+            DGTransform.Rows.Add("Description", _transform.Description);
+            DGTransform.Rows.Add("Id", _transform.Id);
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)_transform.Created).ToLocalTime().ToString("G"));
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)_transform.LastModified).ToLocalTime().ToString("G"));
 
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)MyTransform.Created).ToLocalTime().ToString("G"));
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyTransform.LastModified).ToLocalTime().ToString("G"));
-
-            bool boutoutsinjobs = (MyTransform.Outputs.Count() > 0);
+            bool boutoutsintransform = (_transform.Outputs.Count() > 0);
 
             int index = 1;
-            if (boutoutsinjobs)
+            if (boutoutsintransform)
             {
-                foreach (var output in MyTransform.Outputs)
+                foreach (var output in _transform.Outputs)
                 {
                     // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
                     var outputLabel = "output #" + index;
                     listBoxOutputs.Items.Add(outputLabel);
-
-
-
                 }
                 listBoxOutputs.SelectedIndex = 0;
             }
-
-            ListJobAssets();
-        }
-
-        private void ListJobAssets()
-        {
-
-
-            listViewOutputs.BeginUpdate();
-            try
-            {
-                int index = 1;
-                foreach (var output in MyTransform.Outputs)
-                {
-                    ListViewItem item = new ListViewItem("output #" + index, 0);
-                    //item.SubItems.Add(output.Progress);
-                    listViewOutputs.Items.Add(item);
-                }
-            }
-            catch
-            {
-                //ListViewItem item = new ListViewItem(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_ErrorDeleted, 0);
-                //listViewOutputs.Items.Add(item);
-            }
-            listViewOutputs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            listViewOutputs.EndUpdate();
-        }
-
-        private void buttonCreateMail_Click(object sender, EventArgs e)
-        {
-            DoJobCreateMail();
-        }
-
-        private void DoJobCreateMail()
-        {
-            throw new NotImplementedException();
-            /*
-            JobInfo JR = new JobInfo(MyJob, _mainform._accountname);
-            JR.CreateOutlookMail();
-            */
         }
 
         private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var output = MyTransform.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
+            var output = _transform.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
 
             DGOutputs.Rows.Clear();
 
-            //  DGTasks.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, task.Name);
-
-            /*
-             int i = DGOutputs.Rows.Add("Preset", "");
-             DataGridViewButtonCell btn = new DataGridViewButtonCell();
-             DGOutputs.Rows[i].Cells[1] = btn;
-             DGOutputs.Rows[i].Cells[1].Value = "see preset";
-             DGOutputs.Rows[i].Cells[1].Tag = output.Preset;
-             */
-
-            /*
-            i = DGOutputs.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_listBoxTasks_SelectedIndexChanged_Body, "");
-            btn = new DataGridViewButtonCell();
-            DGOutputs.Rows[i].Cells[1] = btn;
-            DGOutputs.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue;
-            DGOutputs.Rows[i].Cells[1].Tag = task.TaskBody;
-            */
             DGOutputs.Rows.Add("Preset type", output.Preset.GetType().ToString());
-
 
             if (output.Preset.GetType() == typeof(BuiltInStandardEncoderPreset))
             {
@@ -182,6 +116,11 @@ namespace AMSExplorer
                 var pmes = (VideoAnalyzerPreset)output.Preset;
                 DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
                 DGOutputs.Rows.Add("Insights To Extract", pmes.InsightsToExtract);
+            }
+            else if (output.Preset.GetType() == typeof(FaceDetectorPreset))
+            {
+                var pmes = (FaceDetectorPreset)output.Preset;
+                DGOutputs.Rows.Add("Resolution", pmes.Resolution.HasValue ? pmes.Resolution.Value.ToString() : string.Empty);
             }
 
             DGOutputs.Rows.Add("Relative Priority", output.RelativePriority);
