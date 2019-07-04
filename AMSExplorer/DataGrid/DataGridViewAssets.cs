@@ -495,36 +495,42 @@ Properties/StorageId
             ///////////////////////
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
-                string search = "'" + _searchinname.Text + "'";
+                string search = _searchinname.Text;
+
                 switch (_searchinname.SearchType)
                 {
                     // Search on Asset name Equals
                     case SearchIn.AssetNameEquals:
+                        search = "'" + search + "'";
                         odataQuery.Filter = "name eq " + search;
                         break;
 
-                    // Search on Asset name Greater than
+                    // Search on Asset name starts with
                     case SearchIn.AssetNameStartsWith:
-                        odataQuery.Filter = "name gt " + search + " and name lt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) + 1) + "'";
+                        search = "'" + search + "'";
+                        odataQuery.Filter = "name gt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) - 1) + new String('z', 262 - search.Length) + "'" + " and name lt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) + 1) + "'";
                         break;
 
                     // Search on Asset name Greater than
                     case SearchIn.AssetNameGreaterThan:
+                        search = "'" + search + "'";
                         odataQuery.Filter = "name gt " + search;
                         break;
 
                     // Search on Asset name Less than
                     case SearchIn.AssetNameLessThan:
+                        search = "'" + search + "'";
                         odataQuery.Filter = "name lt " + search;
                         break;
 
                     // Search on Asset aternate id
                     case SearchIn.AssetAltId:
-                        odataQuery.Filter = "Properties/AlternateId eq " + search;
+                        search = "'" + search + "'";
+                        odataQuery.Filter = "properties/alternateid eq " + search;
                         break;
 
                     case SearchIn.AssetId:
-                        odataQuery.Filter = "Properties/AssetId eq " + search;
+                        odataQuery.Filter = "properties/assetid eq " + search;
                         break;
 
                     default:
@@ -561,7 +567,7 @@ Properties/StorageId
                 {
                     odataQuery.Filter = odataQuery.Filter + " and ";
                 }
-                odataQuery.Filter = odataQuery.Filter + $"Properties/Created gt {dateTimeStart.ToString("o")}";
+                odataQuery.Filter = odataQuery.Filter + $"properties/created gt {dateTimeStart.ToString("o")}";
             }
             if (filterEndDate)
             {
@@ -569,7 +575,7 @@ Properties/StorageId
                 {
                     odataQuery.Filter = odataQuery.Filter + " and ";
                 }
-                odataQuery.Filter = odataQuery.Filter + $"Properties/Created lt {dateTimeRangeEnd.ToString("o")}";
+                odataQuery.Filter = odataQuery.Filter + $"properties/created lt {dateTimeRangeEnd.ToString("o")}";
             }
 
             IPage<Asset> currentPage = null;
