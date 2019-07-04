@@ -1,3 +1,14 @@
+Version 5.0.5.0 (July 4, 2019) brings the following features and improvements :
+
+* Support for time trimming when submitting a job from a transform (for MES presets)
+* Redesign of the job submit UI, transform info UI, job info UI, Transforms/Jobs panel UI
+* Fixes an issue when filtering assets based on assetid
+* Adds support for filtering assets using a beginwith method on asset name
+* It's now possible to select the locator in the UI when playing back an asset
+* Displays the streaming URLs when a live output has been created and no data has yet arrived in it
+* Bug fixes
+
+
 Version 5.0.4.1 (June 12, 2019) brings the following features and improvements :
 
 * Support for [Premium Live encoder](https://azure.microsoft.com/en-us/updates/premium-live-encoder-now-supports-streaming-at-1080p-and-30-frames-per-second/) when creating a live event. This encoder supports up to 1080p and 30 frames per second
