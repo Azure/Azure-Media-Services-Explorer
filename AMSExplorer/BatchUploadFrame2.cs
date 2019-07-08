@@ -66,6 +66,16 @@ namespace AMSExplorer
             }
         }
 
+        public int BlockSize
+        {
+            get
+            {
+                int x = 4;
+                bool success = Int32.TryParse((string)comboBoxBlockSize.Text, out x);
+                return success ? x : 4;
+            }
+        }
+
         public BatchUploadFrame2(string BatchFolderPath, bool BatchProcessFiles, bool BatchProcessSubFolders, AMSClientV3 client)
         {
             InitializeComponent();
@@ -134,9 +144,14 @@ namespace AMSExplorer
 
 
 
-//                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
-  //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                //                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
+                //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
+
+            var listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64, 128 };
+            comboBoxBlockSize.Items.Clear();
+            listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
+            comboBoxBlockSize.SelectedIndex = 3;
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)

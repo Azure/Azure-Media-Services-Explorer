@@ -43,6 +43,9 @@
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxBlockSize = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -100,6 +103,7 @@
             // 
             resources.ApplyResources(this.checkedListBoxFolders, "checkedListBoxFolders");
             this.checkedListBoxFolders.CheckBoxes = true;
+            this.checkedListBoxFolders.HideSelection = false;
             this.checkedListBoxFolders.Name = "checkedListBoxFolders";
             this.checkedListBoxFolders.UseCompatibleStateImageBehavior = false;
             this.checkedListBoxFolders.View = System.Windows.Forms.View.List;
@@ -123,6 +127,7 @@
             resources.ApplyResources(this.checkedListBoxFiles, "checkedListBoxFiles");
             this.checkedListBoxFiles.CheckBoxes = true;
             this.checkedListBoxFiles.GridLines = true;
+            this.checkedListBoxFiles.HideSelection = false;
             this.checkedListBoxFiles.Name = "checkedListBoxFiles";
             this.checkedListBoxFiles.UseCompatibleStateImageBehavior = false;
             this.checkedListBoxFiles.View = System.Windows.Forms.View.List;
@@ -161,6 +166,32 @@
             this.panel1.Controls.Add(this.buttonUpload);
             this.panel1.Name = "panel1";
             // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Name = "label4";
+            // 
+            // comboBoxBlockSize
+            // 
+            this.comboBoxBlockSize.FormattingEnabled = true;
+            this.comboBoxBlockSize.Items.AddRange(new object[] {
+            resources.GetString("comboBoxBlockSize.Items"),
+            resources.GetString("comboBoxBlockSize.Items1"),
+            resources.GetString("comboBoxBlockSize.Items2"),
+            resources.GetString("comboBoxBlockSize.Items3"),
+            resources.GetString("comboBoxBlockSize.Items4"),
+            resources.GetString("comboBoxBlockSize.Items5"),
+            resources.GetString("comboBoxBlockSize.Items6"),
+            resources.GetString("comboBoxBlockSize.Items7")});
+            resources.ApplyResources(this.comboBoxBlockSize, "comboBoxBlockSize");
+            this.comboBoxBlockSize.Name = "comboBoxBlockSize";
+            // 
             // BatchUploadFrame2
             // 
             this.AcceptButton = this.buttonUpload;
@@ -168,6 +199,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.comboBoxBlockSize);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
@@ -202,5 +236,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListView checkedListBoxFolders;
         private System.Windows.Forms.ListView checkedListBoxFiles;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBoxBlockSize;
     }
 }

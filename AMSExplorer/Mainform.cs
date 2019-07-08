@@ -572,7 +572,7 @@ namespace AMSExplorer
                 {
                     var response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected), response.token);
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize), response.token);
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
@@ -593,7 +593,7 @@ namespace AMSExplorer
                         i++;
                         var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(new List<string>() { file }, response.Id, response.token, form.StorageSelected), response.token);
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: form.BlockSize), response.token);
 
                         if (i == 10) // let's use a batch of 10 threads at the same time
                         {
@@ -615,7 +615,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessUploadFileAndMoreV3(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null)
+        private async Task ProcessUploadFileAndMoreV3(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, int blocksize = 4)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(guidTransfer);
@@ -680,7 +680,8 @@ namespace AMSExplorer
 
                         var blob = container.GetBlockBlobReference(filename);
                         if (filename.ToLower().EndsWith(".mp4")) blob.Properties.ContentType = "video/mp4";
-                        //Console.WriteLine("Uploading File to container: {0}", sasUri);
+
+                        blob.StreamWriteSizeInBytes = blocksize * 1024 * 1024; // blocksize
 
                         await blob.UploadFromFileAsync(file, token);
 
@@ -1240,7 +1241,8 @@ namespace AMSExplorer
                               filePaths.ToList(),
                               response.Id,
                               response.token,
-                              storageaccount: form.StorageSelected
+                              storageaccount: form.StorageSelected,
+                              blocksize: form.BlockSize
                               ), response.token);
 
                     }
@@ -1261,7 +1263,8 @@ namespace AMSExplorer
                                       new List<string>() { f },
                                       response.Id,
                                       response.token,
-                                      storageaccount: form.StorageSelected
+                                      storageaccount: form.StorageSelected,
+                                      blocksize: form.BlockSize
                                       ), response.token);
 
                                     if (i == 10) // let's use a batch of 10 threads at the same time
@@ -1440,7 +1443,7 @@ namespace AMSExplorer
                 {
                     this.Cursor = Cursors.WaitCursor;
                     TransformInformation form = new TransformInformation(this, _amsClientV3.AMSclient, t);
-                  
+
                     dialogResult = form.ShowDialog(this);
                 }
                 finally
@@ -1892,7 +1895,7 @@ namespace AMSExplorer
                                         {
                                             syntax = "";
                                         }
-                                        sbuilder.AppendLine("https://" + se.HostName + "/" + loc.LocatorId.ToString() + "/" + LiveAssetManifest + ".ism/manifest" + string.Format(syntax, formatSyntax) );
+                                        sbuilder.AppendLine("https://" + se.HostName + "/" + loc.LocatorId.ToString() + "/" + LiveAssetManifest + ".ism/manifest" + string.Format(syntax, formatSyntax));
                                     }
                                     else
                                     {
@@ -6385,7 +6388,8 @@ namespace AMSExplorer
                                       filePaths.ToList(),
                                       response.Id,
                                       response.token,
-                                      storageaccount: form2.StorageSelected
+                                      storageaccount: form2.StorageSelected,
+                                      blocksize: form2.BlockSize
                                       ), response.token);
 
                             MyTasks.Add(myTask);
@@ -6410,7 +6414,8 @@ namespace AMSExplorer
                                       new List<string>() { file },
                                       response.Id,
                                       response.token,
-                                      storageaccount: form2.StorageSelected
+                                      storageaccount: form2.StorageSelected,
+                                      blocksize: form2.BlockSize
                                       ), response.token);
 
                             MyTasks.Add(myTask);

@@ -247,7 +247,7 @@
     <value>7, 20</value>
   </data>
   <data name="checkedListBoxFolders.Size" type="System.Drawing.Size, System.Drawing">
-    <value>587, 142</value>
+    <value>587, 138</value>
   </data>
   <data name="checkedListBoxFolders.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -268,7 +268,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonFolderDeselAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 168</value>
+    <value>101, 164</value>
   </data>
   <data name="buttonFolderDeselAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -295,7 +295,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonFolderSelAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 168</value>
+    <value>7, 164</value>
   </data>
   <data name="buttonFolderSelAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -337,7 +337,7 @@
     <value>7, 30</value>
   </data>
   <data name="checkedListBoxFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>587, 124</value>
+    <value>587, 119</value>
   </data>
   <data name="checkedListBoxFiles.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -358,7 +358,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonFileDeselAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 159</value>
+    <value>101, 154</value>
   </data>
   <data name="buttonFileDeselAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -385,7 +385,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonFileSelAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 159</value>
+    <value>7, 154</value>
   </data>
   <data name="buttonFileSelAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -421,10 +421,10 @@
     <value>1</value>
   </data>
   <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>607, 405</value>
+    <value>607, 397</value>
   </data>
   <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
-    <value>198</value>
+    <value>194</value>
   </data>
   <data name="splitContainer1.SplitterWidth" type="System.Int32, mscorlib">
     <value>5</value>
@@ -442,7 +442,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="label33.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -451,7 +451,7 @@
     <value>True</value>
   </data>
   <data name="label33.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 436</value>
+    <value>12, 424</value>
   </data>
   <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 15</value>
@@ -472,13 +472,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="comboBoxStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <data name="comboBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 455</value>
+    <value>14, 442</value>
   </data>
   <data name="comboBoxStorage.Size" type="System.Drawing.Size, System.Drawing">
     <value>327, 23</value>
@@ -496,7 +496,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBoxStorage.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -520,7 +520,112 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>358, 424</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Block size upload (MB) :</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>331, 468</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 15</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>A value higher than 4 MB will enable high-throughput</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxBlockSize.Items" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxBlockSize.Items1" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="comboBoxBlockSize.Items2" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="comboBoxBlockSize.Items3" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="comboBoxBlockSize.Items4" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="comboBoxBlockSize.Items5" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="comboBoxBlockSize.Items6" xml:space="preserve">
+    <value>64</value>
+  </data>
+  <data name="comboBoxBlockSize.Items7" xml:space="preserve">
+    <value>128</value>
+  </data>
+  <data name="comboBoxBlockSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>359, 442</value>
+  </data>
+  <data name="comboBoxBlockSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 23</value>
+  </data>
+  <data name="comboBoxBlockSize.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="&gt;&gt;comboBoxBlockSize.Name" xml:space="preserve">
+    <value>comboBoxBlockSize</value>
+  </data>
+  <data name="&gt;&gt;comboBoxBlockSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxBlockSize.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxBlockSize.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

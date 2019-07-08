@@ -38,6 +38,9 @@
             this.radioButtonOneAssetPerFile = new System.Windows.Forms.RadioButton();
             this.radioButtonSingleAsset = new System.Windows.Forms.RadioButton();
             this.groupBoxMultifiles = new System.Windows.Forms.GroupBox();
+            this.comboBoxBlockSize = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
@@ -106,6 +109,32 @@
             this.groupBoxMultifiles.Name = "groupBoxMultifiles";
             this.groupBoxMultifiles.TabStop = false;
             // 
+            // comboBoxBlockSize
+            // 
+            this.comboBoxBlockSize.FormattingEnabled = true;
+            this.comboBoxBlockSize.Items.AddRange(new object[] {
+            resources.GetString("comboBoxBlockSize.Items"),
+            resources.GetString("comboBoxBlockSize.Items1"),
+            resources.GetString("comboBoxBlockSize.Items2"),
+            resources.GetString("comboBoxBlockSize.Items3"),
+            resources.GetString("comboBoxBlockSize.Items4"),
+            resources.GetString("comboBoxBlockSize.Items5"),
+            resources.GetString("comboBoxBlockSize.Items6"),
+            resources.GetString("comboBoxBlockSize.Items7")});
+            resources.ApplyResources(this.comboBoxBlockSize, "comboBoxBlockSize");
+            this.comboBoxBlockSize.Name = "comboBoxBlockSize";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Name = "label1";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
             // dataGridViewTextBoxColumn1
             // 
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
@@ -123,6 +152,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBoxBlockSize);
             this.Controls.Add(this.groupBoxMultifiles);
             this.Controls.Add(this.labelJobOptions);
             this.Controls.Add(this.label33);
@@ -150,5 +182,8 @@
         private System.Windows.Forms.RadioButton radioButtonOneAssetPerFile;
         private System.Windows.Forms.RadioButton radioButtonSingleAsset;
         private System.Windows.Forms.GroupBox groupBoxMultifiles;
+        private System.Windows.Forms.ComboBox comboBoxBlockSize;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

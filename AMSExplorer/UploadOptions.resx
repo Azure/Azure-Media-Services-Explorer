@@ -121,6 +121,9 @@
   <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
+  <data name="buttonCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>273, 15</value>
@@ -153,6 +156,9 @@
   <data name="buttonOk.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
+  <data name="buttonOk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 15</value>
   </data>
@@ -181,7 +187,7 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 257</value>
+    <value>-2, 303</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>403, 55</value>
@@ -199,13 +205,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="label33.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label33.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label33.Location" type="System.Drawing.Point, System.Drawing">
-    <value>44, 45</value>
+    <value>40, 50</value>
   </data>
   <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 15</value>
@@ -226,10 +235,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="comboBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 63</value>
+    <value>41, 68</value>
   </data>
   <data name="comboBoxStorage.Size" type="System.Drawing.Size, System.Drawing">
     <value>221, 23</value>
@@ -247,13 +256,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBoxStorage.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="labelJobOptions.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labelJobOptions.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 11.25pt</value>
+  </data>
+  <data name="labelJobOptions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelJobOptions.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 9</value>
@@ -277,10 +289,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelJobOptions.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="radioButtonOneAssetPerFile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="radioButtonOneAssetPerFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="radioButtonOneAssetPerFile.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 34</value>
@@ -309,6 +324,9 @@
   <data name="radioButtonSingleAsset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="radioButtonSingleAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="radioButtonSingleAsset.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 59</value>
   </data>
@@ -334,7 +352,7 @@
     <value>1</value>
   </data>
   <data name="groupBoxMultifiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 138</value>
+    <value>16, 190</value>
   </data>
   <data name="groupBoxMultifiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>372, 100</value>
@@ -358,6 +376,111 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBoxMultifiles.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="comboBoxBlockSize.Items" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxBlockSize.Items1" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="comboBoxBlockSize.Items2" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="comboBoxBlockSize.Items3" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="comboBoxBlockSize.Items4" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="comboBoxBlockSize.Items5" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="comboBoxBlockSize.Items6" xml:space="preserve">
+    <value>64</value>
+  </data>
+  <data name="comboBoxBlockSize.Items7" xml:space="preserve">
+    <value>128</value>
+  </data>
+  <data name="comboBoxBlockSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 125</value>
+  </data>
+  <data name="comboBoxBlockSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 23</value>
+  </data>
+  <data name="comboBoxBlockSize.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="&gt;&gt;comboBoxBlockSize.Name" xml:space="preserve">
+    <value>comboBoxBlockSize</value>
+  </data>
+  <data name="&gt;&gt;comboBoxBlockSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxBlockSize.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxBlockSize.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 151</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>A value higher than 4 MB will enable high-throughput</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 107</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Block size upload (MB) :</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
@@ -373,7 +496,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>400, 313</value>
+    <value>400, 359</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>

@@ -14,6 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
@@ -41,6 +43,17 @@ namespace AMSExplorer
             }
         }
 
+        public int BlockSize
+        {
+            get
+            {
+                int x = 4;
+                bool success = Int32.TryParse((string)comboBoxBlockSize.Text, out x);
+                return success ? x : 4;
+            }
+        }
+
+
         public UploadOptions(AMSClientV3 amsClient, bool multifilesMode)
         {
             InitializeComponent();
@@ -53,6 +66,11 @@ namespace AMSExplorer
             {
                 groupBoxMultifiles.Visible = true;
             }
+
+            var listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64, 128 };
+            comboBoxBlockSize.Items.Clear();
+            listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
+            comboBoxBlockSize.SelectedIndex = 3;
         }
 
         private void ControlsResetToDefault()
