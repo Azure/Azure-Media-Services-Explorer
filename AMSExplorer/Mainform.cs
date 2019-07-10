@@ -6570,7 +6570,7 @@ namespace AMSExplorer
                     var form = new ChooseStreamingEndpoint(_amsClientV3, asset, url);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        url = AssetInfo.RW(new Uri(form.UpdatedPath), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
+                        url = AssetInfo.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                     }
                     else
                     {
