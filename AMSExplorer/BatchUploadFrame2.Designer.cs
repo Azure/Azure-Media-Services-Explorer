@@ -179,6 +179,7 @@
             // 
             // comboBoxBlockSize
             // 
+            resources.ApplyResources(this.comboBoxBlockSize, "comboBoxBlockSize");
             this.comboBoxBlockSize.FormattingEnabled = true;
             this.comboBoxBlockSize.Items.AddRange(new object[] {
             resources.GetString("comboBoxBlockSize.Items"),
@@ -189,7 +190,6 @@
             resources.GetString("comboBoxBlockSize.Items5"),
             resources.GetString("comboBoxBlockSize.Items6"),
             resources.GetString("comboBoxBlockSize.Items7")});
-            resources.ApplyResources(this.comboBoxBlockSize, "comboBoxBlockSize");
             this.comboBoxBlockSize.Name = "comboBoxBlockSize";
             // 
             // BatchUploadFrame2

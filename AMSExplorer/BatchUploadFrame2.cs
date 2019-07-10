@@ -148,7 +148,7 @@ namespace AMSExplorer
                 //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
 
-            var listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64, 128 };
+            var listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
             comboBoxBlockSize.Items.Clear();
             listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
             comboBoxBlockSize.SelectedIndex = 3;

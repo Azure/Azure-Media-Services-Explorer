@@ -67,7 +67,7 @@ namespace AMSExplorer
                 groupBoxMultifiles.Visible = true;
             }
 
-            var listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64, 128 };
+            var listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
             comboBoxBlockSize.Items.Clear();
             listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
             comboBoxBlockSize.SelectedIndex = 3;

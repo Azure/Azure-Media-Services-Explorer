@@ -337,7 +337,7 @@
     <value>7, 30</value>
   </data>
   <data name="checkedListBoxFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>587, 119</value>
+    <value>587, 118</value>
   </data>
   <data name="checkedListBoxFiles.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -358,7 +358,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonFileDeselAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 154</value>
+    <value>101, 153</value>
   </data>
   <data name="buttonFileDeselAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -385,7 +385,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonFileSelAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 154</value>
+    <value>7, 153</value>
   </data>
   <data name="buttonFileSelAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -522,6 +522,9 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -552,6 +555,9 @@
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -581,6 +587,9 @@
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="comboBoxBlockSize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="comboBoxBlockSize.Items" xml:space="preserve">
     <value>1</value>
