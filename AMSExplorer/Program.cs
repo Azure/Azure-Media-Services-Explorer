@@ -52,6 +52,7 @@ using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.Rest.Azure.Authentication;
 using System.Security.Cryptography;
 using Newtonsoft.Json.Serialization;
+using System.Net.Http;
 
 namespace AMSExplorer
 {
@@ -3352,6 +3353,23 @@ namespace AMSExplorer
     }
 
 
+    public class UserAgentAdditionHandler : DelegatingHandler
+    {
+        public UserAgentAdditionHandler(string userAgentString)
+        {
+            UserAgentString = userAgentString;
+        }
+
+        public string UserAgentString { get; }
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            request.Headers.Add("User-Agent", UserAgentString);
+            return base.SendAsync(request, cancellationToken).Result;
+        }
+    }
+
+
 
     public class AMSClientV3
     {
@@ -3393,6 +3411,8 @@ namespace AMSExplorer
 
         public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3Async()
         {
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            var userAgent = new[] { new UserAgentAdditionHandler("AMSE/" + version) };
 
             if (!credentialsEntry.UseSPAuth)
             {
@@ -3426,7 +3446,7 @@ namespace AMSExplorer
                 credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
                 // Getting Media Services accounts...
-                AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
+                AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials, userAgent);
                 AMSclient.SubscriptionId = _azureSubscriptionId;
             }
 
@@ -3453,7 +3473,7 @@ namespace AMSExplorer
                     var cred = await ApplicationTokenProvider.LoginSilentAsync(this.credentialsEntry.AadTenantId, clientCredential, set);
 
                     // Getting Media Services accounts...
-                    AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred);
+                    AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred, userAgent);
                     AMSclient.SubscriptionId = _azureSubscriptionId;
                 }
                 else
