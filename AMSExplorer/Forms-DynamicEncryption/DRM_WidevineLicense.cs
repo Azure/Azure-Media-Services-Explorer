@@ -14,21 +14,11 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.Xml;
-using System.IO;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Microsoft.Azure.Management.Media.Models;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {

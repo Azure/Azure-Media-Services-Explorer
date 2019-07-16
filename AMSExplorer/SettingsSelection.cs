@@ -16,26 +16,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Diagnostics;
-using Newtonsoft.Json.Linq;
-using System.Xml.Linq;
-using System.IO;
-using System.Net;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
     public partial class SettingsSelection : Form
     {
         private object _modifications;
-       
+
         public object SettingsObject // return the modifications object with changed done by user
         {
             get
@@ -77,7 +66,7 @@ namespace AMSExplorer
 
         }
 
-      
+
 
         private void buttonOk_Click(object sender, EventArgs e)
         {

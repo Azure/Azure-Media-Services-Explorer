@@ -14,17 +14,13 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 
 namespace AMSExplorer
@@ -287,7 +283,7 @@ namespace AMSExplorer
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
                 dataGridInput.Rows.Add("Asset type", AssetInfo.GetAssetType(inputA.AssetName, _client).Type);
-                if (inputA.Start != null && inputA.Start.GetType()== typeof(AbsoluteClipTime))
+                if (inputA.Start != null && inputA.Start.GetType() == typeof(AbsoluteClipTime))
                 {
                     var startA = inputA.Start as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());

@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -169,12 +168,12 @@ namespace AMSExplorer
 
         public void Init(AMSClientV3 client)
         {
-           // if (_transformName.Count == 0) return;  // no transform name set
+            // if (_transformName.Count == 0) return;  // no transform name set
 
             _client = client;
 
             List<JobEntryV3> jobs = new List<JobEntryV3>();
-           
+
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
             {
                 Name = "Progress",
@@ -578,7 +577,7 @@ namespace AMSExplorer
 
                     // job finished
                     _client.RefreshTokenIfNeeded();
-                    myJob =  _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name);
+                    myJob = _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name);
 
                     int index2 = -1;
                     foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index

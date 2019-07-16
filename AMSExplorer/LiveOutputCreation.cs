@@ -14,12 +14,11 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Linq;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using System;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {

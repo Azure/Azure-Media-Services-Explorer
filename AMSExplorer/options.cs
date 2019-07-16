@@ -15,15 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 
 namespace AMSExplorer
@@ -53,7 +46,7 @@ namespace AMSExplorer
             Properties.Settings.Default.CustomPlayerEnabled = checkBoxEnableCustomPlayer.Checked;
 
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
-             Properties.Settings.Default.DefaultSASDurationInHours = (int) numericUpDownSASDuration.Value;
+            Properties.Settings.Default.DefaultSASDurationInHours = (int)numericUpDownSASDuration.Value;
 
             Properties.Settings.Default.DefaultTokenDurationInMin = (int)numericUpDownTokenDuration.Value;
             Properties.Settings.Default.HideTaskbarNotifications = checkBoxHideTaskbarNotifications.Checked;

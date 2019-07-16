@@ -15,13 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -144,11 +137,11 @@ namespace AMSExplorer
             {
                 TimeSpan ts = TimeStampWithoutOffset;
                 //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-                double timescale2 =(double) (timescale ?? TimeSpan.TicksPerSecond);
+                double timescale2 = (double)(timescale ?? TimeSpan.TicksPerSecond);
                 return (long)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * (timescale2 / (double)TimeSpan.TicksPerSecond)));
             }
         }
-        
+
         public long ScaledTimeStampWithOffset
         {
             get
@@ -161,7 +154,7 @@ namespace AMSExplorer
             }
         }
 
-        
+
         public void SetScaledTimeStamp(long? value, long valueIfNull)
         {
             if (value == 0)
@@ -180,7 +173,7 @@ namespace AMSExplorer
                 SetTimeStamp(ts);
             }
         }
-      
+
 
         public TimeSpan TimeStampWithoutOffset
         {
@@ -199,7 +192,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
         public TimeSpan GetOffSetAsTimeSpan()
         {
             //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;

@@ -15,10 +15,10 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AMSExplorer
 {
@@ -56,7 +56,7 @@ namespace AMSExplorer
             labelWarningJSON.Text = string.Empty;
             buttonFormat.Visible = DisplayFormatButton;
 
-            if (infoText!=null)
+            if (infoText != null)
             {
                 labelInfoText.Text = infoText;
                 labelInfoText.Visible = true;

@@ -15,28 +15,22 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace AMSExplorer
 {
     partial class Splash : Form
     {
-       
+
         public Splash(string account)
         {
             InitializeComponent();
             labelConnecting.Text = string.Format(labelConnecting.Text, account);
-           
+
         }
 
-       
+
 
         #region Assembly Attribute Accessors
 
@@ -127,8 +121,8 @@ namespace AMSExplorer
             System.Drawing.Pen myPen = new System.Drawing.Pen(System.Drawing.Color.DarkGray, 1);
             System.Drawing.Graphics formGraphics;
             formGraphics = this.CreateGraphics();
-            formGraphics.DrawRectangle(myPen, 0, 0, this.Width-1 , this.Height-1 );
+            formGraphics.DrawRectangle(myPen, 0, 0, this.Width - 1, this.Height - 1);
         }
-             
+
     }
 }

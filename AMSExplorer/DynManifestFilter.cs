@@ -14,15 +14,15 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {

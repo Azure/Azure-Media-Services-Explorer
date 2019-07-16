@@ -14,16 +14,16 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
-using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
@@ -131,7 +131,7 @@ namespace AMSExplorer
             get { return (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null; }
         }
 
-        public StreamingEndpointInformation(StreamingEndpoint streamingEndpoint )
+        public StreamingEndpointInformation(StreamingEndpoint streamingEndpoint)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -309,7 +309,7 @@ namespace AMSExplorer
 
         public enum StreamEndpointType
         {
-            Standard=0,
+            Standard = 0,
             Premium
         }
 

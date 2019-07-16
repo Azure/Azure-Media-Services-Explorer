@@ -32,11 +32,11 @@ namespace AMSExplorer
                 switch (comboBoxPriority.SelectedItem)
                 {
                     case "Low":
-                        p= Priority.Low;
+                        p = Priority.Low;
                         break;
-                  
+
                     case "High":
-                        p= Priority.High;
+                        p = Priority.High;
                         break;
 
                     default:
@@ -57,7 +57,7 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
 
-            var ep =  new List<string>() { Priority.Low, Priority.Normal, Priority.High };
+            var ep = new List<string>() { Priority.Low, Priority.Normal, Priority.High };
             comboBoxPriority.Items.AddRange(ep.ToArray());
             comboBoxPriority.SelectedIndex = 1;
 

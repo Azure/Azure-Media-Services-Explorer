@@ -15,13 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -32,7 +25,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (!checkBoxPlayReady.Checked  || !_PlayReadyPackagingEnabled)
+                if (!checkBoxPlayReady.Checked || !_PlayReadyPackagingEnabled)
                 {
                     return 0;
                 }

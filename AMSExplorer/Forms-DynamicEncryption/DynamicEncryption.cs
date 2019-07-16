@@ -15,26 +15,10 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.IO;
-using System.Threading;
-using Microsoft.WindowsAzure;
 using System.Security.Cryptography;
-using System.Runtime.Serialization.Json;
-using System.Net;
-using System.Xml.Linq;
-using System.Web;
-using System.Globalization;
-using System.Security;
-using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
-using System.IdentityModel.Tokens;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace AMSExplorer
 {

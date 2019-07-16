@@ -14,45 +14,43 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Globalization;
-using System.Net;
-using System.Web;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.ResourceManager;
+using Microsoft.Azure.Management.Storage;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Rest;
+using Microsoft.Rest.Azure.Authentication;
+using Microsoft.Win32;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using System.Drawing;
-using System.Diagnostics;
-using System.Xml.Linq;
-using System.Collections;
-using System.Reflection;
-using System.Runtime.Serialization;
-using Microsoft.Win32;
-using System.ComponentModel;
-using Newtonsoft.Json.Linq;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Rest;
-using Microsoft.Azure.Management.ResourceManager;
-using Microsoft.Azure;
-using Microsoft.Azure.Management.Storage;
-using Microsoft.Azure.Management.Storage.Models;
-using Microsoft.Rest.Azure.Authentication;
-using System.Security.Cryptography;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
+using System.Windows.Forms;
+using System.Xml.Linq;
+using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace AMSExplorer
 {

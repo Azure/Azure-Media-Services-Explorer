@@ -14,37 +14,16 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Security.Cryptography;
-using Microsoft.WindowsAzure;
-using System.Configuration;
-using System.IO;
-using System.Threading;
-using System.Globalization;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.Web;
-using System.Xml;
-using System.Xml.Linq;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
-using System.Collections.ObjectModel;
-using System.Drawing.Drawing2D;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using System.Collections.Specialized;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {

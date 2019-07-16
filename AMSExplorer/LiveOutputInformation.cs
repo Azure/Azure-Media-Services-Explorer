@@ -15,13 +15,13 @@
 //---------------------------------------------------------------------------------------------
 
 
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.Media;
 
 namespace AMSExplorer
 {

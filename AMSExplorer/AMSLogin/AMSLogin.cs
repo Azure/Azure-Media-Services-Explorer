@@ -14,26 +14,23 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.ResourceManager;
+using Microsoft.Azure.Management.Storage;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Rest;
+using Microsoft.Rest.Azure.Authentication;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.Reflection;
-using Newtonsoft.Json;
 using System.IO;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Rest;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.ResourceManager;
-using Microsoft.Azure.Management.Storage;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Rest.Azure.Authentication;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Net.Http;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
@@ -319,7 +316,7 @@ namespace AMSExplorer
         {
             //await Task.Run(() => Program.CheckAMSEVersionAsync()).ConfigureAwait(false); //let not wait for this task - no need
 
-           await Program.CheckAMSEVersionAsync();
+            await Program.CheckAMSEVersionAsync();
 
         }
 

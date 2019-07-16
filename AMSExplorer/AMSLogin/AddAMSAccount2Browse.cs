@@ -14,20 +14,19 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.ResourceManager;
+using Microsoft.Azure.Management.ResourceManager.Models;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Rest;
+using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Microsoft.Azure.Management.ResourceManager.Models;
-using Microsoft.Rest;
-using Microsoft.Rest.Azure;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
-using System.Drawing;
-using System.IdentityModel.Tokens;
-using Microsoft.Azure.Management.ResourceManager;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace AMSExplorer
 {

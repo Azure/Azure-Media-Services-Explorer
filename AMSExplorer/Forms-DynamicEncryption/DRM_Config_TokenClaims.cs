@@ -14,17 +14,17 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Windows.Forms;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using System.Security.Claims;
-using Microsoft.Azure.Management.Media.Models;
-using System.IdentityModel.Tokens.Jwt;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
@@ -100,7 +100,7 @@ namespace AMSExplorer
             }
         }
 
-        
+
         public ContentKeyPolicyRestrictionTokenType TokenType
         {
             get
@@ -108,7 +108,7 @@ namespace AMSExplorer
                 return radioButtonSWT.Checked ? ContentKeyPolicyRestrictionTokenType.Swt : ContentKeyPolicyRestrictionTokenType.Jwt;
             }
         }
-        
+
 
         public ExplorerTokenType GetDetailedTokenType
         {
@@ -207,20 +207,20 @@ namespace AMSExplorer
                 new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier)
            };
 
-           
-                JwtSecurityToken token = new JwtSecurityToken(
-                                                            issuer: Issuer,
-                                                            audience: Audience,
-                                                            claims: claims,
-                                                            notBefore: DateTime.Now.AddMinutes(-5),
-                                                            expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDurationInMin),
-                                                            signingCredentials: signingcredentials
-                                                            );
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                                                        issuer: Issuer,
+                                                        audience: Audience,
+                                                        claims: claims,
+                                                        notBefore: DateTime.Now.AddMinutes(-5),
+                                                        expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDurationInMin),
+                                                        signingCredentials: signingcredentials
+                                                        );
 
 
-                JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
 
-                return handler.WriteToken(token);
+            return handler.WriteToken(token);
         }
 
 

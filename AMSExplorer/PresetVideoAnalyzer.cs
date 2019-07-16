@@ -16,9 +16,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Diagnostics;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
@@ -76,7 +76,7 @@ namespace AMSExplorer
             UpdateTransformLabel();
         }
 
-      
+
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.

@@ -18,8 +18,6 @@
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Rest.Azure;
-using Microsoft.Rest.Azure.OData;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;

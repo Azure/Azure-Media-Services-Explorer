@@ -14,13 +14,13 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.IO;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
@@ -91,6 +91,6 @@ namespace AMSExplorer
         {
         }
 
-     
+
     }
 }

@@ -14,11 +14,11 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System.Linq;
-using System.Windows.Forms;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
@@ -98,7 +98,7 @@ namespace AMSExplorer
 
             this.BeginUpdate();
             this.Items.Clear();
-            
+
             foreach (var transform in _transforms)
             {
                 ListViewItem item = new ListViewItem(transform.Name);

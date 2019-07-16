@@ -20,7 +20,7 @@ namespace AMSExplorer
 {
     public partial class ExportSettings : Form
     {
-      
+
         public ExportSettings()
         {
             InitializeComponent();

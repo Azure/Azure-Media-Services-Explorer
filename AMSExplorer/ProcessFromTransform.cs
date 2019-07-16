@@ -14,9 +14,9 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Windows.Forms;
-using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {
@@ -33,7 +33,7 @@ namespace AMSExplorer
 
             }
         }
-     
+
 
         public string ProcessingPromptText
         {

@@ -58,7 +58,7 @@ namespace AMSExplorer
 
             comboBoxAADMappingList.SelectedIndex = 0;
 
-           linkLabelAzCliDoc.Links.Add(new LinkLabel.Link(0, linkLabelAzCliDoc.Text.Length, Constants.LinkAMSAzCli));
+            linkLabelAzCliDoc.Links.Add(new LinkLabel.Link(0, linkLabelAzCliDoc.Text.Length, Constants.LinkAMSAzCli));
 
 
         }

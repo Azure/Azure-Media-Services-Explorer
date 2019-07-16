@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -23,7 +16,7 @@ namespace AMSExplorer
             label1.Text = label;
             if (nbseconds != null)
             {
-                nbsecond = (int) nbseconds;
+                nbsecond = (int)nbseconds;
                 button1.Enabled = false;
                 timer1.Interval = 1000;
                 timer1.Tick += new EventHandler(MyTimer_Tick);
