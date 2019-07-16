@@ -1,9 +1,10 @@
 ---
 page_type: sample
 languages:
-  - csharp
+- csharp
 products:
-  - azure-media-services
+- azure
+- azure-media-services
 ---
 
 # Azure Media Services Explorer (for AMS v3)
