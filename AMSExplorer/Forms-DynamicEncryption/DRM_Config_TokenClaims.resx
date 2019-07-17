@@ -537,31 +537,31 @@
   <data name="&gt;&gt;buttongenerateContentKey.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="checkBoxAddContentKeyIdentifierClaim.AutoSize" type="System.Boolean, mscorlib">
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxAddContentKeyIdentifierClaim.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 17</value>
   </data>
-  <data name="checkBoxAddContentKeyIdentifierClaim.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 19</value>
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.Size" type="System.Drawing.Size, System.Drawing">
+    <value>223, 19</value>
   </data>
-  <data name="checkBoxAddContentKeyIdentifierClaim.TabIndex" type="System.Int32, mscorlib">
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
   </data>
-  <data name="checkBoxAddContentKeyIdentifierClaim.Text" xml:space="preserve">
-    <value>Add Content Key Identifier Claim</value>
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.Text" xml:space="preserve">
+    <value>Requires Content Key Identifier Claim</value>
   </data>
-  <data name="&gt;&gt;checkBoxAddContentKeyIdentifierClaim.Name" xml:space="preserve">
-    <value>checkBoxAddContentKeyIdentifierClaim</value>
+  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Name" xml:space="preserve">
+    <value>checkBoxRequiresContentKeyIdentifierClaim</value>
   </data>
-  <data name="&gt;&gt;checkBoxAddContentKeyIdentifierClaim.Type" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBoxAddContentKeyIdentifierClaim.Parent" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Parent" xml:space="preserve">
     <value>tabPage3</value>
   </data>
-  <data name="&gt;&gt;checkBoxAddContentKeyIdentifierClaim.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="radioButtonJWTSymmetric.AutoSize" type="System.Boolean, mscorlib">
@@ -1537,21 +1537,6 @@ Specify the content key Authorization Policy Option #{1} for {2}</value>
   <data name="tabControlTokenProperties.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>329, 144</value>
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Example : myAudience</value>
-  </data>
-  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
   <data name="&gt;&gt;label11.Name" xml:space="preserve">
     <value>label11</value>
   </data>
@@ -1563,21 +1548,6 @@ Specify the content key Authorization Policy Option #{1} for {2}</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>329, 74</value>
-  </data>
-  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
-  <data name="label10.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>Example : myIssuer</value>
-  </data>
-  <data name="label10.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
   </data>
   <data name="&gt;&gt;label10.Name" xml:space="preserve">
     <value>label10</value>
@@ -1617,6 +1587,18 @@ Specify the content key Authorization Policy Option #{1} for {2}</value>
   </data>
   <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 45</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 22</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Other claims :</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
@@ -1678,29 +1660,59 @@ Specify the content key Authorization Policy Option #{1} for {2}</value>
   <data name="&gt;&gt;tabControlTokenProperties.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 45</value>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>329, 144</value>
   </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>294, 22</value>
   </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Other claims :</value>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Example : myAudience</value>
   </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
+  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tabPage3</value>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>329, 74</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 22</value>
+  </data>
+  <data name="label10.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Example : myIssuer</value>
+  </data>
+  <data name="label10.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

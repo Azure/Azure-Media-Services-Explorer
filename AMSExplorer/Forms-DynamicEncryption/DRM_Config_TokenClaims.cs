@@ -92,7 +92,7 @@ namespace AMSExplorer
                         mylist.Add(new ContentKeyPolicyTokenClaim(j.Type, j.Value));
                     }
                 }
-                if (checkBoxAddContentKeyIdentifierClaim.Checked)
+                if (checkBoxRequiresContentKeyIdentifierClaim.Checked)
                 {
                     mylist.Add(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim);
                 };

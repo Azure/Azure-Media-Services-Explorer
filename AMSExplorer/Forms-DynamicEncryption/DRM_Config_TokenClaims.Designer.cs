@@ -41,7 +41,7 @@
             this.radioButtonContentKeyHex = new System.Windows.Forms.RadioButton();
             this.textBoxSymKey = new System.Windows.Forms.TextBox();
             this.buttongenerateContentKey = new System.Windows.Forms.Button();
-            this.checkBoxAddContentKeyIdentifierClaim = new System.Windows.Forms.CheckBox();
+            this.checkBoxRequiresContentKeyIdentifierClaim = new System.Windows.Forms.CheckBox();
             this.radioButtonJWTSymmetric = new System.Windows.Forms.RadioButton();
             this.panelJWT = new System.Windows.Forms.Panel();
             this.moreinfocGenX509 = new System.Windows.Forms.LinkLabel();
@@ -182,13 +182,13 @@
             this.buttongenerateContentKey.UseVisualStyleBackColor = true;
             this.buttongenerateContentKey.Click += new System.EventHandler(this.buttongenerateContentKey_Click);
             // 
-            // checkBoxAddContentKeyIdentifierClaim
+            // checkBoxRequiresContentKeyIdentifierClaim
             // 
-            resources.ApplyResources(this.checkBoxAddContentKeyIdentifierClaim, "checkBoxAddContentKeyIdentifierClaim");
-            this.checkBoxAddContentKeyIdentifierClaim.Checked = true;
-            this.checkBoxAddContentKeyIdentifierClaim.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAddContentKeyIdentifierClaim.Name = "checkBoxAddContentKeyIdentifierClaim";
-            this.checkBoxAddContentKeyIdentifierClaim.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.checkBoxRequiresContentKeyIdentifierClaim, "checkBoxRequiresContentKeyIdentifierClaim");
+            this.checkBoxRequiresContentKeyIdentifierClaim.Checked = true;
+            this.checkBoxRequiresContentKeyIdentifierClaim.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRequiresContentKeyIdentifierClaim.Name = "checkBoxRequiresContentKeyIdentifierClaim";
+            this.checkBoxRequiresContentKeyIdentifierClaim.UseVisualStyleBackColor = true;
             // 
             // radioButtonJWTSymmetric
             // 
@@ -436,7 +436,7 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Controls.Add(this.checkBoxAddContentKeyIdentifierClaim);
+            this.tabPage3.Controls.Add(this.checkBoxRequiresContentKeyIdentifierClaim);
             this.tabPage3.Controls.Add(this.dataGridViewTokenClaims);
             this.tabPage3.Controls.Add(this.buttonAddClaim);
             this.tabPage3.Controls.Add(this.buttonDelClaim);
@@ -513,7 +513,7 @@
         private System.Windows.Forms.Panel panelJWT;
         private System.Windows.Forms.LinkLabel moreinfocGenX509;
         private System.Windows.Forms.RadioButton radioButtonJWTSymmetric;
-        private System.Windows.Forms.CheckBox checkBoxAddContentKeyIdentifierClaim;
+        private System.Windows.Forms.CheckBox checkBoxRequiresContentKeyIdentifierClaim;
         private System.Windows.Forms.Label labelStep;
         public System.Windows.Forms.TextBox textBoxSymKey;
         private System.Windows.Forms.Button buttongenerateContentKey;
