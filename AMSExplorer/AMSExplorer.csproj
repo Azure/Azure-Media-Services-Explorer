@@ -209,12 +209,6 @@
     <Compile Include="AMSLogin\ExportSettings.Designer.cs">
       <DependentUpon>ExportSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateTransform.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CreateTransform.Designer.cs">
-      <DependentUpon>CreateTransform.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataGrid\DataGridViewLiveOutput.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -263,6 +257,12 @@
     </Compile>
     <Compile Include="Forms-DynamicEncryption\DynamicEncryption.cs" />
     <Compile Include="Forms-DynamicEncryption\WidevineConfiguration.cs" />
+    <Compile Include="TransformTypeCreation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransformTypeCreation.Designer.cs">
+      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
+    </Compile>
     <Compile Include="HttpSource.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -439,12 +439,6 @@
     </Compile>
     <Compile Include="ListViewTransforms.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ProcessFromTransform.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProcessFromTransform.Designer.cs">
-      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateStreamingEndpoint.cs">
       <SubType>Form</SubType>
@@ -671,12 +665,6 @@
     <EmbeddedResource Include="BatchUploadFrame2.ja.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateTransform.ja.resx">
-      <DependentUpon>CreateTransform.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateTransform.resx">
-      <DependentUpon>CreateTransform.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCDelivery.ja.resx">
       <DependentUpon>DRM_CENCDelivery.cs</DependentUpon>
     </EmbeddedResource>
@@ -706,6 +694,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.resx">
       <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformTypeCreation.ja.resx">
+      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformTypeCreation.resx">
+      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HttpSource.ja.resx">
       <DependentUpon>HttpSource.cs</DependentUpon>
@@ -826,9 +820,6 @@
     <EmbeddedResource Include="Priority.ja.resx">
       <DependentUpon>Priority.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProcessFromTransform.ja.resx">
-      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="LiveOutputInformation.ja.resx">
       <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </EmbeddedResource>
@@ -907,9 +898,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AttachStorage.resx">
       <DependentUpon>AttachStorage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProcessFromTransform.resx">
-      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>

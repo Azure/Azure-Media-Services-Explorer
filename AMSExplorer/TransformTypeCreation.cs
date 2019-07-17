@@ -14,22 +14,45 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class CreateTransform : Form
+    public enum simpleTransformType
+    {
+        encode = 0,
+        analyze,
+        facedetection
+    }
+
+    public partial class TransformTypeCreation : Form
     {
 
-        public CreateTransform()
+        public simpleTransformType TransformType
+        {
+            get
+            {
+                if (radioButtonEncoding.Checked)
+                    return simpleTransformType.encode;
+                else if (radioButtonAVAnalyze.Checked)
+                    return simpleTransformType.analyze;
+                else
+                    return simpleTransformType.facedetection;
+            }
+        }
+
+
+        public TransformTypeCreation()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
-        private void CreateLocator_Load(object sender, EventArgs e)
+        private void TransformTypeCreation_Load(object sender, EventArgs e)
         {
+
         }
     }
 }

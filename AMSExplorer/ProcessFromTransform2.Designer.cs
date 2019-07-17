@@ -40,21 +40,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonCreateNewTransform = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.textBoxURL = new System.Windows.Forms.TextBox();
             this.radioButtonHttpSource = new System.Windows.Forms.RadioButton();
             this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
-            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
+            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -129,7 +129,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.buttonCreateNewTransform);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.listViewTransforms);
             this.tabPage1.Controls.Add(this.label1);
@@ -137,6 +137,13 @@
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // buttonCreateNewTransform
+            // 
+            resources.ApplyResources(this.buttonCreateNewTransform, "buttonCreateNewTransform");
+            this.buttonCreateNewTransform.Name = "buttonCreateNewTransform";
+            this.buttonCreateNewTransform.UseVisualStyleBackColor = true;
+            this.buttonCreateNewTransform.Click += new System.EventHandler(this.ButtonCreateNewTransform_Click);
             // 
             // groupBox1
             // 
@@ -174,18 +181,6 @@
             this.radioButtonSelectedAssets.Name = "radioButtonSelectedAssets";
             this.radioButtonSelectedAssets.TabStop = true;
             this.radioButtonSelectedAssets.UseVisualStyleBackColor = true;
-            // 
-            // listViewTransforms
-            // 
-            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
-            this.listViewTransforms.FullRowSelect = true;
-            this.listViewTransforms.HideSelection = false;
-            this.listViewTransforms.MultiSelect = false;
-            this.listViewTransforms.Name = "listViewTransforms";
-            this.listViewTransforms.Tag = -1;
-            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
-            this.listViewTransforms.View = System.Windows.Forms.View.Details;
-            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -233,6 +228,18 @@
             this.checkBoxSourceTrimmingStart.UseVisualStyleBackColor = true;
             this.checkBoxSourceTrimmingStart.CheckStateChanged += new System.EventHandler(this.checkBoxSourceTrimmingStart_CheckStateChanged);
             // 
+            // listViewTransforms
+            // 
+            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
+            this.listViewTransforms.FullRowSelect = true;
+            this.listViewTransforms.HideSelection = false;
+            this.listViewTransforms.MultiSelect = false;
+            this.listViewTransforms.Name = "listViewTransforms";
+            this.listViewTransforms.Tag = -1;
+            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
+            this.listViewTransforms.View = System.Windows.Forms.View.Details;
+            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
+            // 
             // timeControlEndTime
             // 
             this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
@@ -262,12 +269,6 @@
             this.timeControlStartTime.TimeScale = null;
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Name = "label2";
             // 
             // ProcessFromTransform2
             // 
@@ -324,6 +325,6 @@
         private System.Windows.Forms.RadioButton radioButtonSelectedAssets;
         private System.Windows.Forms.TextBox textBoxURL;
         private System.Windows.Forms.Label labelURLFileNameWarning;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonCreateNewTransform;
     }
 }

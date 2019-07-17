@@ -124,7 +124,7 @@
             0});
             this.numericUpDownTokenUse.Name = "numericUpDownTokenUse";
             this.numericUpDownTokenUse.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});

@@ -6777,7 +6777,7 @@ namespace AMSExplorer
             var SelectedAssets = ReturnSelectedAssetsV3();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, SelectedAssets);
+            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, this, SelectedAssets);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -8140,7 +8140,7 @@ namespace AMSExplorer
         }
 
 
-        private void CreateVideoAnalyzerTransform()
+        public void CreateVideoAnalyzerTransform()
         {
             var form = new PresetVideoAnalyzer();
 
@@ -8181,7 +8181,7 @@ namespace AMSExplorer
             }
         }
 
-        private void CreateFaceDetectorTransform()
+        public void CreateFaceDetectorTransform()
         {
             var form = new PresetFaceDetector();
 
@@ -8212,7 +8212,7 @@ namespace AMSExplorer
             }
         }
 
-        private void CreateStandardEncoderTransform()
+        public void CreateStandardEncoderTransform()
         {
             var form = new PresetStandardEncoder();
 
@@ -8399,7 +8399,7 @@ namespace AMSExplorer
             var sel = ReturnSelectedTransforms();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, null, sel)
+            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, this, null, sel)
             {
                 //ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
                 Text = "Template based processing"

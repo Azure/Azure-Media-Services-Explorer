@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -28,6 +29,7 @@ namespace AMSExplorer
         private List<Transform> _listPreSelectedTransforms;
         private int _numberselectedassets = 0;
         private List<Asset> _listAssets;
+        private AMSExplorer.Mainform _myMainform;
 
         public Transform SelectedTransform
         {
@@ -102,7 +104,7 @@ namespace AMSExplorer
         }
 
 
-        public ProcessFromTransform2(AMSClientV3 client, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null)
+        public ProcessFromTransform2(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -123,6 +125,7 @@ namespace AMSExplorer
 
             this.Text = "Template based processing";
             _listAssets = listAssets;
+            _myMainform = myMainForm;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -256,6 +259,33 @@ namespace AMSExplorer
             {
                 labelURLFileNameWarning.Text = string.Empty;
             }
+        }
+
+        private void ButtonCreateNewTransform_Click(object sender, EventArgs e)
+        {
+            var form = new TransformTypeCreation();
+            form.ShowDialog();
+
+            if (form.DialogResult == DialogResult.OK)
+            {
+                switch (form.TransformType)
+                {
+                    case simpleTransformType.analyze:
+                        _myMainform.CreateVideoAnalyzerTransform();
+                        break;
+
+                    case simpleTransformType.encode:
+                        _myMainform.CreateStandardEncoderTransform();
+                        break;
+                    case simpleTransformType.facedetection:
+                        _myMainform.CreateFaceDetectorTransform();
+                        break;
+
+                }
+            }
+
+            listViewTransforms.LoadTransforms(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
+
         }
     }
 }

@@ -85,14 +85,6 @@
             this.selectATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subclipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator31 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator30 = new System.Windows.Forms.ToolStripSeparator();
             this.publishToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.createALocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extendExistingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,8 +133,8 @@
             this.createJobUsingAnHttpSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
-            this.label22 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxJobsPageNumber = new System.Windows.Forms.TextBox();
             this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
             this.contextMenuStripJobs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -163,8 +155,6 @@
             this.selectedJobsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visibleJobsInGridToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.allJobsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBoxJobsPageNumber = new System.Windows.Forms.TextBox();
             this.butNextPageJob = new System.Windows.Forms.Button();
             this.comboBoxSearchJobOption = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -177,6 +167,8 @@
             this.comboBoxFilterJobsTime = new System.Windows.Forms.ComboBox();
             this.textBoxJobSearch = new System.Windows.Forms.TextBox();
             this.buttonJobSearch = new System.Windows.Forms.Button();
+            this.linkLabelMoreInfoMediaUnits = new System.Windows.Forms.LinkLabel();
+            this.label22 = new System.Windows.Forms.Label();
             this.tabPageLive = new System.Windows.Forms.TabPage();
             this.splitContainerLive = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -212,7 +204,6 @@
             this.labelLiveEvents = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelPrograms = new System.Windows.Forms.Label();
             this.radioButtonChNone = new System.Windows.Forms.RadioButton();
             this.dataGridViewLiveOutputV = new AMSExplorer.DataGridViewLiveOutput();
             this.contextMenuStripLiveOutputs = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -241,6 +232,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
+            this.labelPrograms = new System.Windows.Forms.Label();
             this.tabPageOrigins = new System.Windows.Forms.TabPage();
             this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
             this.contextMenuStripStreaminEndpoints = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -537,8 +529,6 @@
             this.toolStripMenuItem32,
             this.subclipToolStripMenuItem,
             this.toolStripSeparator6,
-            this.toolStripMenuItem4,
-            this.toolStripSeparator30,
             this.publishToolStripMenuItem1,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
@@ -778,8 +768,8 @@
             // toolStripMenuItem32
             // 
             this.toolStripMenuItem32.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fromHttpsSourceWithSelectedTransformToolStripMenuItem,
-            this.selectATransformToolStripMenuItem});
+            this.selectATransformToolStripMenuItem,
+            this.fromHttpsSourceWithSelectedTransformToolStripMenuItem});
             this.toolStripMenuItem32.Image = global::AMSExplorer.Bitmaps.encoding;
             this.toolStripMenuItem32.Name = "toolStripMenuItem32";
             resources.ApplyResources(this.toolStripMenuItem32, "toolStripMenuItem32");
@@ -809,63 +799,6 @@
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem6,
-            this.toolStripMenuItem7,
-            this.toolStripMenuItem8,
-            this.toolStripSeparator31,
-            this.toolStripMenuItem13});
-            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
-            this.toolStripMenuItem4.Image = global::AMSExplorer.Bitmaps.DRM_protection;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Image = global::AMSExplorer.Bitmaps.DRM_protection;
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            resources.ApplyResources(this.toolStripMenuItem6, "toolStripMenuItem6");
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Image = global::AMSExplorer.Bitmaps.cancel;
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            resources.ApplyResources(this.toolStripMenuItem7, "toolStripMenuItem7");
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
-            // 
-            // toolStripMenuItem8
-            // 
-            this.toolStripMenuItem8.Image = global::AMSExplorer.Bitmaps.cancel;
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            resources.ApplyResources(this.toolStripMenuItem8, "toolStripMenuItem8");
-            this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
-            // 
-            // toolStripSeparator31
-            // 
-            this.toolStripSeparator31.Name = "toolStripSeparator31";
-            resources.ApplyResources(this.toolStripSeparator31, "toolStripSeparator31");
-            // 
-            // toolStripMenuItem13
-            // 
-            this.toolStripMenuItem13.Image = global::AMSExplorer.Bitmaps.storage_decryption;
-            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            resources.ApplyResources(this.toolStripMenuItem13, "toolStripMenuItem13");
-            this.toolStripMenuItem13.Click += new System.EventHandler(this.toolStripMenuItem13_Click);
-            // 
-            // toolStripSeparator30
-            // 
-            this.toolStripSeparator30.Name = "toolStripSeparator30";
-            resources.ApplyResources(this.toolStripSeparator30, "toolStripSeparator30");
             // 
             // publishToolStripMenuItem1
             // 
@@ -1270,20 +1203,15 @@
             this.tableLayoutPanel4.Controls.Add(this.label22, 1, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             // 
-            // linkLabelMoreInfoMediaUnits
+            // label9
             // 
-            resources.ApplyResources(this.linkLabelMoreInfoMediaUnits, "linkLabelMoreInfoMediaUnits");
-            this.tableLayoutPanel4.SetColumnSpan(this.linkLabelMoreInfoMediaUnits, 2);
-            this.linkLabelMoreInfoMediaUnits.Name = "linkLabelMoreInfoMediaUnits";
-            this.linkLabelMoreInfoMediaUnits.TabStop = true;
-            this.toolTip1.SetToolTip(this.linkLabelMoreInfoMediaUnits, resources.GetString("linkLabelMoreInfoMediaUnits.ToolTip"));
-            this.linkLabelMoreInfoMediaUnits.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoMediaUnits_LinkClicked);
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
             // 
-            // label22
+            // textBoxJobsPageNumber
             // 
-            resources.ApplyResources(this.label22, "label22");
-            this.tableLayoutPanel4.SetColumnSpan(this.label22, 5);
-            this.label22.Name = "label22";
+            resources.ApplyResources(this.textBoxJobsPageNumber, "textBoxJobsPageNumber");
+            this.textBoxJobsPageNumber.Name = "textBoxJobsPageNumber";
             // 
             // dataGridViewJobsV
             // 
@@ -1444,16 +1372,6 @@
             resources.ApplyResources(this.allJobsToolStripMenuItem1, "allJobsToolStripMenuItem1");
             this.allJobsToolStripMenuItem1.Click += new System.EventHandler(this.allJobsToolStripMenuItem1_Click);
             // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // textBoxJobsPageNumber
-            // 
-            resources.ApplyResources(this.textBoxJobsPageNumber, "textBoxJobsPageNumber");
-            this.textBoxJobsPageNumber.Name = "textBoxJobsPageNumber";
-            // 
             // butNextPageJob
             // 
             resources.ApplyResources(this.butNextPageJob, "butNextPageJob");
@@ -1532,6 +1450,21 @@
             this.buttonJobSearch.Name = "buttonJobSearch";
             this.buttonJobSearch.UseVisualStyleBackColor = true;
             this.buttonJobSearch.Click += new System.EventHandler(this.buttonJobSearch_Click);
+            // 
+            // linkLabelMoreInfoMediaUnits
+            // 
+            resources.ApplyResources(this.linkLabelMoreInfoMediaUnits, "linkLabelMoreInfoMediaUnits");
+            this.tableLayoutPanel4.SetColumnSpan(this.linkLabelMoreInfoMediaUnits, 2);
+            this.linkLabelMoreInfoMediaUnits.Name = "linkLabelMoreInfoMediaUnits";
+            this.linkLabelMoreInfoMediaUnits.TabStop = true;
+            this.toolTip1.SetToolTip(this.linkLabelMoreInfoMediaUnits, resources.GetString("linkLabelMoreInfoMediaUnits.ToolTip"));
+            this.linkLabelMoreInfoMediaUnits.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelMoreInfoMediaUnits_LinkClicked);
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.tableLayoutPanel4.SetColumnSpan(this.label22, 5);
+            this.label22.Name = "label22";
             // 
             // tabPageLive
             // 
@@ -1824,11 +1757,6 @@
             this.tableLayoutPanel2.Controls.Add(this.labelPrograms, 0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
-            // labelPrograms
-            // 
-            resources.ApplyResources(this.labelPrograms, "labelPrograms");
-            this.labelPrograms.Name = "labelPrograms";
-            // 
             // radioButtonChNone
             // 
             resources.ApplyResources(this.radioButtonChNone, "radioButtonChNone");
@@ -2049,6 +1977,11 @@
             this.comboBoxFilterTimeProgram.FormattingEnabled = true;
             this.comboBoxFilterTimeProgram.Name = "comboBoxFilterTimeProgram";
             this.comboBoxFilterTimeProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxTimeProgram_SelectedIndexChanged);
+            // 
+            // labelPrograms
+            // 
+            resources.ApplyResources(this.labelPrograms, "labelPrograms");
+            this.labelPrograms.Name = "labelPrograms";
             // 
             // tabPageOrigins
             // 
@@ -3022,14 +2955,6 @@
         private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem hTML5CaptionMakerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator31;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator30;
         private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableAzureCDNToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem disableAzureCDNToolStripMenuItem;
