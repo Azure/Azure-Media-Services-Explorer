@@ -40,25 +40,26 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelURLFileNameWarning = new System.Windows.Forms.Label();
+            this.textBoxURL = new System.Windows.Forms.TextBox();
+            this.radioButtonHttpSource = new System.Windows.Forms.RadioButton();
+            this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
+            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
-            this.radioButtonHttpSource = new System.Windows.Forms.RadioButton();
-            this.textBoxURL = new System.Windows.Forms.TextBox();
-            this.labelURLFileNameWarning = new System.Windows.Forms.Label();
-            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label
@@ -128,6 +129,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.listViewTransforms);
             this.tabPage1.Controls.Add(this.label1);
@@ -135,6 +137,55 @@
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.labelURLFileNameWarning);
+            this.groupBox1.Controls.Add(this.textBoxURL);
+            this.groupBox1.Controls.Add(this.radioButtonHttpSource);
+            this.groupBox1.Controls.Add(this.radioButtonSelectedAssets);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // labelURLFileNameWarning
+            // 
+            resources.ApplyResources(this.labelURLFileNameWarning, "labelURLFileNameWarning");
+            this.labelURLFileNameWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelURLFileNameWarning.Name = "labelURLFileNameWarning";
+            // 
+            // textBoxURL
+            // 
+            resources.ApplyResources(this.textBoxURL, "textBoxURL");
+            this.textBoxURL.Name = "textBoxURL";
+            this.textBoxURL.TextChanged += new System.EventHandler(this.textBoxURL_TextChanged);
+            // 
+            // radioButtonHttpSource
+            // 
+            resources.ApplyResources(this.radioButtonHttpSource, "radioButtonHttpSource");
+            this.radioButtonHttpSource.Name = "radioButtonHttpSource";
+            this.radioButtonHttpSource.UseVisualStyleBackColor = true;
+            this.radioButtonHttpSource.CheckedChanged += new System.EventHandler(this.radioButtonHttpSource_CheckedChanged);
+            // 
+            // radioButtonSelectedAssets
+            // 
+            resources.ApplyResources(this.radioButtonSelectedAssets, "radioButtonSelectedAssets");
+            this.radioButtonSelectedAssets.Checked = true;
+            this.radioButtonSelectedAssets.Name = "radioButtonSelectedAssets";
+            this.radioButtonSelectedAssets.TabStop = true;
+            this.radioButtonSelectedAssets.UseVisualStyleBackColor = true;
+            // 
+            // listViewTransforms
+            // 
+            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
+            this.listViewTransforms.FullRowSelect = true;
+            this.listViewTransforms.HideSelection = false;
+            this.listViewTransforms.MultiSelect = false;
+            this.listViewTransforms.Name = "listViewTransforms";
+            this.listViewTransforms.Tag = -1;
+            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
+            this.listViewTransforms.View = System.Windows.Forms.View.Details;
+            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -182,55 +233,6 @@
             this.checkBoxSourceTrimmingStart.UseVisualStyleBackColor = true;
             this.checkBoxSourceTrimmingStart.CheckStateChanged += new System.EventHandler(this.checkBoxSourceTrimmingStart_CheckStateChanged);
             // 
-            // groupBox1
-            // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.labelURLFileNameWarning);
-            this.groupBox1.Controls.Add(this.textBoxURL);
-            this.groupBox1.Controls.Add(this.radioButtonHttpSource);
-            this.groupBox1.Controls.Add(this.radioButtonSelectedAssets);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // radioButtonSelectedAssets
-            // 
-            resources.ApplyResources(this.radioButtonSelectedAssets, "radioButtonSelectedAssets");
-            this.radioButtonSelectedAssets.Checked = true;
-            this.radioButtonSelectedAssets.Name = "radioButtonSelectedAssets";
-            this.radioButtonSelectedAssets.TabStop = true;
-            this.radioButtonSelectedAssets.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonHttpSource
-            // 
-            resources.ApplyResources(this.radioButtonHttpSource, "radioButtonHttpSource");
-            this.radioButtonHttpSource.Name = "radioButtonHttpSource";
-            this.radioButtonHttpSource.UseVisualStyleBackColor = true;
-            this.radioButtonHttpSource.CheckedChanged += new System.EventHandler(this.radioButtonHttpSource_CheckedChanged);
-            // 
-            // textBoxURL
-            // 
-            resources.ApplyResources(this.textBoxURL, "textBoxURL");
-            this.textBoxURL.Name = "textBoxURL";
-            this.textBoxURL.TextChanged += new System.EventHandler(this.textBoxURL_TextChanged);
-            // 
-            // labelURLFileNameWarning
-            // 
-            resources.ApplyResources(this.labelURLFileNameWarning, "labelURLFileNameWarning");
-            this.labelURLFileNameWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelURLFileNameWarning.Name = "labelURLFileNameWarning";
-            // 
-            // listViewTransforms
-            // 
-            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
-            this.listViewTransforms.FullRowSelect = true;
-            this.listViewTransforms.HideSelection = false;
-            this.listViewTransforms.MultiSelect = false;
-            this.listViewTransforms.Name = "listViewTransforms";
-            this.listViewTransforms.Tag = -1;
-            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
-            this.listViewTransforms.View = System.Windows.Forms.View.Details;
-            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
-            // 
             // timeControlEndTime
             // 
             this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
@@ -261,6 +263,12 @@
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Name = "label2";
+            // 
             // ProcessFromTransform2
             // 
             this.AcceptButton = this.buttonOk;
@@ -280,10 +288,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,5 +324,6 @@
         private System.Windows.Forms.RadioButton radioButtonSelectedAssets;
         private System.Windows.Forms.TextBox textBoxURL;
         private System.Windows.Forms.Label labelURLFileNameWarning;
+        private System.Windows.Forms.Label label2;
     }
 }

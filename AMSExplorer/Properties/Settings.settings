@@ -44,9 +44,6 @@
     <Setting Name="Currency" Type="System.String" Scope="User">
       <Value Profile="(Default)">$</Value>
     </Setting>
-    <Setting Name="DefaultTokenDurationInMin" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">60</Value>
-    </Setting>
     <Setting Name="ffmpegPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%programfiles32%\ffmpeg\bin</Value>
     </Setting>

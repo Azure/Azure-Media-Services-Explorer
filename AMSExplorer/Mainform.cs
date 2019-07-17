@@ -1914,9 +1914,15 @@ namespace AMSExplorer
                             sbuilder.AppendLine(string.Empty);
                         }
 
-                        await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators, "PlayReady");
-                        await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators, "Widevine");
-                        await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators, "Clear Key");
+
+                        var formTokenProperties = new DRM_GenerateToken();
+                        formTokenProperties.ShowDialog();
+                        if (formTokenProperties.DialogResult == DialogResult.OK)
+                        {
+                            await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators, "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
+                            await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators, "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
+                            await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators, "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
+                        }
 
                         var displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
                         displayResult.ShowDialog();
@@ -1938,7 +1944,7 @@ namespace AMSExplorer
             top = myForm.Top;
         }
 
-        private async Task AddTestTokenToSbuilder(List<DRM_Config_TokenClaims> formTokenClaims, List<LocatorAndUrls> listLocators, string DRMTechnology)
+        private async Task AddTestTokenToSbuilder(List<DRM_Config_TokenClaims> formTokenClaims, List<LocatorAndUrls> listLocators, string DRMTechnology, int tokenDuration, int? tokenUse)
         {
             foreach (var tokenClaims in formTokenClaims)
             {
@@ -1955,8 +1961,8 @@ namespace AMSExplorer
                     sbuilder.AppendLine(string.Format("Test token for {0}, Option {1} (valid {2} min) :",
                         DRMTechnology,
                         formTokenClaims.IndexOf(tokenClaims) + 1,
-                        Properties.Settings.Default.DefaultTokenDurationInMin));
-                    sbuilder.AppendLine(Constants.Bearer + tokenClaims.GetTestToken(keyIdentifier));
+                        tokenDuration));
+                    sbuilder.AppendLine(Constants.Bearer + tokenClaims.GetTestToken(keyIdentifier,tokenClaims.GetTokenRequiredClaims,  tokenDuration, tokenUse));
                     sbuilder.AppendLine(string.Empty);
                 }
             }

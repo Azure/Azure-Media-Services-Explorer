@@ -194,18 +194,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int DefaultTokenDurationInMin {
-            get {
-                return ((int)(this["DefaultTokenDurationInMin"]));
-            }
-            set {
-                this["DefaultTokenDurationInMin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("%programfiles32%\\ffmpeg\\bin")]
         public string ffmpegPath {
             get {

@@ -48,7 +48,6 @@ namespace AMSExplorer
             Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultSASDurationInHours = (int)numericUpDownSASDuration.Value;
 
-            Properties.Settings.Default.DefaultTokenDurationInMin = (int)numericUpDownTokenDuration.Value;
             Properties.Settings.Default.HideTaskbarNotifications = checkBoxHideTaskbarNotifications.Checked;
             Properties.Settings.Default.MESPricePerMin = numericUpDownMESPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
@@ -76,7 +75,6 @@ namespace AMSExplorer
             textBoxCurrency.Text = "$";
             numericUpDownLocatorDuration.Value = 3650;
             numericUpDownSASDuration.Value = 24;
-            numericUpDownTokenDuration.Value = 60;
             numericUpDownMESPrice.Value = ((decimal)0.015);
 
             numericUpDownAssetAnalysisStart.Value = 10;
@@ -110,7 +108,6 @@ namespace AMSExplorer
 
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
             numericUpDownSASDuration.Value = Properties.Settings.Default.DefaultSASDurationInHours;
-            numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDurationInMin;
             checkBoxHideTaskbarNotifications.Checked = Properties.Settings.Default.HideTaskbarNotifications;
 
             numericUpDownAssetAnalysisStart.Value = Properties.Settings.Default.AssetAnalysisStart;

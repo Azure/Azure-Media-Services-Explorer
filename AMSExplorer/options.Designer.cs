@@ -40,6 +40,8 @@
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.comboBoxAutoRefreshTime = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDownSASDuration = new System.Windows.Forms.NumericUpDown();
             this.checkBoxHideTaskbarNotifications = new System.Windows.Forms.CheckBox();
             this.checkBoxUseAdaptiveStreamingFormat = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -47,8 +49,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownAssetAnalysisStart = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownTokenDuration = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDownLocatorDuration = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -72,13 +72,11 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownSASDuration = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSASDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -89,7 +87,6 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSASDuration)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -173,13 +170,36 @@
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.numericUpDownAssetAnalysisStart);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.numericUpDownTokenDuration);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.numericUpDownLocatorDuration);
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // numericUpDownSASDuration
+            // 
+            resources.ApplyResources(this.numericUpDownSASDuration, "numericUpDownSASDuration");
+            this.numericUpDownSASDuration.Maximum = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            this.numericUpDownSASDuration.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownSASDuration.Name = "numericUpDownSASDuration";
+            this.numericUpDownSASDuration.Value = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
             // 
             // checkBoxHideTaskbarNotifications
             // 
@@ -234,31 +254,6 @@
             this.numericUpDownAssetAnalysisStart.Name = "numericUpDownAssetAnalysisStart";
             this.numericUpDownAssetAnalysisStart.Value = new decimal(new int[] {
             10,
-            0,
-            0,
-            0});
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // numericUpDownTokenDuration
-            // 
-            resources.ApplyResources(this.numericUpDownTokenDuration, "numericUpDownTokenDuration");
-            this.numericUpDownTokenDuration.Maximum = new decimal(new int[] {
-            36500,
-            0,
-            0,
-            0});
-            this.numericUpDownTokenDuration.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownTokenDuration.Name = "numericUpDownTokenDuration";
-            this.numericUpDownTokenDuration.Value = new decimal(new int[] {
-            5,
             0,
             0,
             0});
@@ -435,31 +430,6 @@
             resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
             this.textBoxffmpegPath.Name = "textBoxffmpegPath";
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // numericUpDownSASDuration
-            // 
-            resources.ApplyResources(this.numericUpDownSASDuration, "numericUpDownSASDuration");
-            this.numericUpDownSASDuration.Maximum = new decimal(new int[] {
-            24,
-            0,
-            0,
-            0});
-            this.numericUpDownSASDuration.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownSASDuration.Name = "numericUpDownSASDuration";
-            this.numericUpDownSASDuration.Value = new decimal(new int[] {
-            24,
-            0,
-            0,
-            0});
-            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -475,9 +445,9 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSASDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAssetAnalysisStart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -491,7 +461,6 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSASDuration)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -520,8 +489,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel amspriceslink;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDownTokenDuration;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

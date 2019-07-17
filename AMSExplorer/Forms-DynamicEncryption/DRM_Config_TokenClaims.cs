@@ -193,7 +193,7 @@ namespace AMSExplorer
         }
 
 
-        public string GetTestToken(string keyIdentifier)
+        public string GetTestToken(string keyIdentifier, List<ContentKeyPolicyTokenClaim> requiredClaims, int tokenDuration, int? tokenUse)
         {
             if (radioButtonOpenAuthPolicy.Checked) return null; // open mode
 
@@ -201,19 +201,25 @@ namespace AMSExplorer
 
             var signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
 
+            var claims = new List<Claim>();
 
-            Claim[] claims = new Claim[]
-           {
-                new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier)
-           };
+            if (requiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
+            {
+                claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
+            }
+
+            if (tokenUse != null)
+            {
+                claims.Add(new Claim("urn:microsoft:azure:mediaservices:maxuses", ((int)tokenUse).ToString()));
+            }
 
 
             JwtSecurityToken token = new JwtSecurityToken(
                                                         issuer: Issuer,
                                                         audience: Audience,
-                                                        claims: claims,
+                                                        claims: claims.Count > 0 ? claims : null,
                                                         notBefore: DateTime.Now.AddMinutes(-5),
-                                                        expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDurationInMin),
+                                                        expires: DateTime.Now.AddMinutes(tokenDuration),
                                                         signingCredentials: signingcredentials
                                                         );
 

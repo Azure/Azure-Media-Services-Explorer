@@ -237,6 +237,12 @@
     <Compile Include="Forms-DynamicEncryption\DRM_CENCDelivery.designer.cs">
       <DependentUpon>DRM_CENCDelivery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms-DynamicEncryption\DRM_GenerateToken.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms-DynamicEncryption\DRM_GenerateToken.designer.cs">
+      <DependentUpon>DRM_GenerateToken.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms-DynamicEncryption\DRM_WidevineLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -676,6 +682,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCDelivery.resx">
       <DependentUpon>DRM_CENCDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_GenerateToken.ja.resx">
+      <DependentUpon>DRM_GenerateToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_GenerateToken.resx">
+      <DependentUpon>DRM_GenerateToken.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_WidevineLicense.ja.resx">
       <DependentUpon>DRM_WidevineLicense.cs</DependentUpon>
