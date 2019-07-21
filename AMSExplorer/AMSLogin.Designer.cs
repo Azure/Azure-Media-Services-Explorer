@@ -97,6 +97,7 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
             this.linkLabelPDFDocumentation = new System.Windows.Forms.LinkLabel();
+            this.linkLabelAMSforV3 = new System.Windows.Forms.LinkLabel();
             this.tabControlAMS.SuspendLayout();
             this.tabPageCredentials.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -549,6 +550,7 @@
             // 
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.linkLabelAMSforV3);
             this.panel1.Controls.Add(this.labelVersion);
             this.panel1.Controls.Add(this.buttonLogin);
             this.panel1.Controls.Add(this.buttonCancel);
@@ -567,8 +569,9 @@
             // 
             // listViewAccounts
             // 
-            this.listViewAccounts.FullRowSelect = true;
             resources.ApplyResources(this.listViewAccounts, "listViewAccounts");
+            this.listViewAccounts.FullRowSelect = true;
+            this.listViewAccounts.HideSelection = false;
             this.listViewAccounts.MultiSelect = false;
             this.listViewAccounts.Name = "listViewAccounts";
             this.listViewAccounts.ShowItemToolTips = true;
@@ -583,6 +586,13 @@
             this.linkLabelPDFDocumentation.Name = "linkLabelPDFDocumentation";
             this.linkLabelPDFDocumentation.TabStop = true;
             this.linkLabelPDFDocumentation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelPDFDocumentation_LinkClicked);
+            // 
+            // linkLabelAMSforV3
+            // 
+            resources.ApplyResources(this.linkLabelAMSforV3, "linkLabelAMSforV3");
+            this.linkLabelAMSforV3.Name = "linkLabelAMSforV3";
+            this.linkLabelAMSforV3.TabStop = true;
+            this.linkLabelAMSforV3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelAMSforV3_LinkClicked);
             // 
             // AMSLogin
             // 
@@ -697,5 +707,6 @@
         private System.Windows.Forms.LinkLabel linkLabelAADAut;
         private System.Windows.Forms.ListView listViewAccounts;
         private System.Windows.Forms.LinkLabel linkLabelPDFDocumentation;
+        private System.Windows.Forms.LinkLabel linkLabelAMSforV3;
     }
 }

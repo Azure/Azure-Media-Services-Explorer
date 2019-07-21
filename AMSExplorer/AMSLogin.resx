@@ -148,7 +148,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;buttonLogin.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -178,7 +178,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>293, 17</value>
@@ -886,7 +886,7 @@
     <value>17, 143</value>
   </data>
   <data name="labelE2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 15</value>
+    <value>250, 15</value>
   </data>
   <data name="labelE2.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -2358,6 +2358,18 @@
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
+  <data name="&gt;&gt;linkLabelAMSforV3.Name" xml:space="preserve">
+    <value>linkLabelAMSforV3</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSforV3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSforV3.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSforV3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;labelVersion.Name" xml:space="preserve">
     <value>labelVersion</value>
   </data>
@@ -2368,7 +2380,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>-1, 467</value>
@@ -2398,13 +2410,13 @@
     <value>15, 21</value>
   </data>
   <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 15</value>
+    <value>179, 15</value>
   </data>
   <data name="labelVersion.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
-    <value>Version {0} for Media Services v2</value>
+    <value>Version {0} for Media Services v2.</value>
   </data>
   <data name="&gt;&gt;labelVersion.Name" xml:space="preserve">
     <value>labelVersion</value>
@@ -2416,7 +2428,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>293, 17</value>
@@ -2465,6 +2477,9 @@
   </data>
   <data name="&gt;&gt;linkLabelPDFDocumentation.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="listViewAccounts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
   </data>
   <data name="listViewAccounts.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 50</value>
@@ -2525,5 +2540,41 @@
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="linkLabelAMSforV3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="linkLabelAMSforV3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelAMSforV3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="linkLabelAMSforV3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelAMSforV3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>231, 21</value>
+  </data>
+  <data name="linkLabelAMSforV3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 15</value>
+  </data>
+  <data name="linkLabelAMSforV3.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="linkLabelAMSforV3.Text" xml:space="preserve">
+    <value>Try the new version for the v3 API.</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSforV3.Name" xml:space="preserve">
+    <value>linkLabelAMSforV3</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSforV3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSforV3.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSforV3.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
 </root>

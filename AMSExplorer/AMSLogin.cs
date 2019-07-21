@@ -118,6 +118,7 @@ namespace AMSExplorer
 
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
             linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSAADAut));
+            linkLabelAMSforV3.Links.Add(new LinkLabel.Link(0, linkLabelAMSforV3.Text.Length, Constants.LinkAMSE));
 
             foreach (var map in CredentialsEntry.ACSMappings)
             {
@@ -891,7 +892,12 @@ namespace AMSExplorer
 
         private void linkLabelPDFDocumentation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(Application.StartupPath +@"\HelpFiles\" + @"0917d328eed74498bf9ed9dea98ef737.pdf");
+            Process.Start(Application.StartupPath + @"\HelpFiles\" + @"0917d328eed74498bf9ed9dea98ef737.pdf");
+        }
+
+        private void LinkLabelAMSforV3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
         }
     }
 }
