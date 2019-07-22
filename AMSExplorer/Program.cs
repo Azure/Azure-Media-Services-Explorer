@@ -4117,7 +4117,6 @@ namespace AMSExplorer
         AssetName = 0,
         AssetId,
         AssetAltId,
-        AssetFileName,
         AssetFileId,
         LocatorId,
         JobName,

@@ -181,7 +181,7 @@
     <value>17, 35</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>693, 45</value>
+    <value>694, 45</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -632,37 +632,6 @@ You must keep the application opened.</value>
   <data name="&gt;&gt;buttonTestEmail.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="radioButtonInsertWorkflowAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="radioButtonInsertWorkflowAsset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonInsertWorkflowAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 51</value>
-  </data>
-  <data name="radioButtonInsertWorkflowAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 34</value>
-  </data>
-  <data name="radioButtonInsertWorkflowAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <data name="radioButtonInsertWorkflowAsset.Text" xml:space="preserve">
-    <value>Insert a workflow asset
-as first asset</value>
-  </data>
-  <data name="&gt;&gt;radioButtonInsertWorkflowAsset.Name" xml:space="preserve">
-    <value>radioButtonInsertWorkflowAsset</value>
-  </data>
-  <data name="&gt;&gt;radioButtonInsertWorkflowAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonInsertWorkflowAsset.Parent" xml:space="preserve">
-    <value>panelInsertAsset</value>
-  </data>
-  <data name="&gt;&gt;radioButtonInsertWorkflowAsset.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="radioButtonInsertSelectedAssets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -692,7 +661,7 @@ before the uploaded asset</value>
     <value>panelInsertAsset</value>
   </data>
   <data name="&gt;&gt;radioButtonInsertSelectedAssets.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="groupBoxProcess.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -729,33 +698,6 @@ before the uploaded asset</value>
   </data>
   <data name="panelInsertAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
-  </data>
-  <data name="listViewWorkflows1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="listViewWorkflows1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="listViewWorkflows1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>196, 6</value>
-  </data>
-  <data name="listViewWorkflows1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>520, 116</value>
-  </data>
-  <data name="listViewWorkflows1.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="&gt;&gt;listViewWorkflows1.Name" xml:space="preserve">
-    <value>listViewWorkflows1</value>
-  </data>
-  <data name="&gt;&gt;listViewWorkflows1.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewWorkflows, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;listViewWorkflows1.Parent" xml:space="preserve">
-    <value>panelInsertAsset</value>
-  </data>
-  <data name="&gt;&gt;listViewWorkflows1.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="panelInsertAsset.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -827,7 +769,7 @@ before the uploaded asset</value>
     <value>listViewTemplates</value>
   </data>
   <data name="&gt;&gt;listViewTemplates.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewTemplates, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewTemplates, AMSExplorer, Version=4.3.6.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewTemplates.Parent" xml:space="preserve">
     <value>groupBoxProcess</value>

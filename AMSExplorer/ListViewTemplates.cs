@@ -143,14 +143,13 @@ namespace AMSExplorer
     class ListViewWorkflows : ListView
     {
         private CloudMediaContext _context;
-        private IAsset _selectedworkflow;
+        private string _selectedworkflowId = null;
         private System.Windows.Forms.ColumnHeader columnHeaderWorkflowFileName;
         private System.Windows.Forms.ColumnHeader columnHeaderLastModified;
         private System.Windows.Forms.ColumnHeader columnHeaderSize;
         private System.Windows.Forms.ColumnHeader columnHeaderAssetName;
         private System.Windows.Forms.ColumnHeader columnHeaderAssetId;
 
-        public bool PartialQueryLast2Months = false;
         public string ErrorQuery = null;
 
 
@@ -220,70 +219,51 @@ namespace AMSExplorer
             this.columnHeaderAssetId.Text = "Asset Id";
         }
 
-        public void LoadWorkflows(CloudMediaContext context, IAsset selectedworkflow = null)
+        public void LoadWorkflows(CloudMediaContext context, List<string> assetIdList, string selectedworkflowId = null)
         {
             _context = context;
-            _selectedworkflow = selectedworkflow;
-            LoadWorkflows();
+            _selectedworkflowId = selectedworkflowId;
+            LoadWorkflows(assetIdList);
         }
 
-        private void LoadWorkflows() // return true if no error or false if partial query was done
+        private void LoadWorkflows(List<string> assetIdList) // return true if no error or false if partial query was done
         {
             this.BeginUpdate();
             this.Items.Clear();
 
             // Server side request
-            IAssetFile[] query = new IAssetFile[] { };
+            var listAssets = new List<IAsset>();
+            ErrorQuery = null;
 
-            if (_context.Files.Count() < 1000000)
+            try
             {
-                try
+                assetIdList.ForEach(id =>
                 {
-                    query = _context.Files.Where(f => (
-                                   f.Name.EndsWith(".workflow")
-                                     )).ToArray();
-                }
-
-                catch (Exception ex)
-                {
-                    ErrorQuery = Program.GetErrorMessage(ex);
-                }
+                    listAssets.Add(_context.Assets.Where(a => a.Id == id).FirstOrDefault());
+                });
             }
-            else // to many files. In that case let's try to look up only the last two months
-            {
-                try
-                {
-                    query = _context.Files.Where(f =>
-                    (f.LastModified > DateTime.UtcNow.AddMonths(-2))
-                    &&
-                    (f.Name.EndsWith(".workflow"))
-                                     ).ToArray();
-                    PartialQueryLast2Months = true;
-                }
 
-                catch (Exception ex)
-                {
-                    ErrorQuery = Program.GetErrorMessage(ex);
-                }
+            catch (Exception ex)
+            {
+                ErrorQuery = Program.GetErrorMessage(ex);
             }
 
 
-            if (ErrorQuery == null)
+            foreach (var asset in listAssets)
             {
-                foreach (IAssetFile file in query)
+                if (asset.AssetFiles.Count() == 1)
                 {
-                    if (file.Asset.AssetFiles.Count() == 1)
-                    {
-                        ListViewItem item = new ListViewItem(file.Name, 0);
-                        item.SubItems.Add(file.LastModified.ToLocalTime().ToString("G"));
-                        item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
-                        item.SubItems.Add(file.Asset.Name);
-                        item.SubItems.Add(file.Asset.Id);
-                        if (_selectedworkflow != null && _selectedworkflow.Id == file.Asset.Id) item.Selected = true;
-                        this.Items.Add(item);
-                    }
+                    var file = asset.AssetFiles.FirstOrDefault();
+                    ListViewItem item = new ListViewItem(file.Name, 0);
+                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString("G"));
+                    item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
+                    item.SubItems.Add(file.Asset.Name);
+                    item.SubItems.Add(file.Asset.Id);
+                    if (_selectedworkflowId != null && _selectedworkflowId == file.Asset.Id) item.Selected = true;
+                    this.Items.Add(item);
                 }
             }
+
 
             this.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             this.EndUpdate();

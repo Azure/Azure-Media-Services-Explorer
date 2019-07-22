@@ -57,14 +57,10 @@ namespace AMSExplorer
                 if (checkBoAddAssetsToInput.Checked)
                 {
                     settings.ExtraInputAssets = new List<IAsset>();
-                    if (radioButtonInsertWorkflowAsset.Checked)
-                    {
-                        settings.ExtraInputAssets.Add(listViewWorkflows1.GetSelectedWorkflow.FirstOrDefault());
-                    }
-                    else // selected assets
-                    {
-                        settings.ExtraInputAssets.AddRange(_SelectedAssets);
-                    }
+                    // selected assets
+
+                    settings.ExtraInputAssets.AddRange(_SelectedAssets);
+
                 }
                 else
                 {
@@ -129,10 +125,7 @@ namespace AMSExplorer
                 {
                     radioButtonInsertSelectedAssets.Checked = true;
                 }
-                else
-                {
-                    radioButtonInsertWorkflowAsset.Checked = true;
-                }
+              
             }
 
             // publish
@@ -238,29 +231,7 @@ namespace AMSExplorer
             }
         }
 
-        private void radioButtonInsertWorkflowAsset_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonInsertWorkflowAsset.Checked)
-            {
-                listViewWorkflows1.Enabled = true;
-                listViewWorkflows1.LoadWorkflows(_context, _WatchFolderSettings.TypeInputExtraInput == TypeInputExtraInput.SelectedWorkflow ? _WatchFolderSettings.ExtraInputAssets.FirstOrDefault() : null);
-                if (listViewWorkflows1.ErrorQuery != null)
-                {
-                    MessageBox.Show("Error when querying workflow files in the account.\n" + listViewWorkflows1.ErrorQuery, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (listViewWorkflows1.PartialQueryLast2Months)
-                {
-                    MessageBox.Show("There are too many files in the account. Only the workflow files from the last two months are displayed.", "Too many files", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            else
-            {
-                listViewWorkflows1.Items.Clear();
-                listViewWorkflows1.Enabled = false;
-            }
-            CheckCompatibilityTemplate();
-        }
-
+      
         private void checkBoAddAssetsToInput_CheckedChanged(object sender, EventArgs e)
         {
             panelInsertAsset.Enabled = checkBoAddAssetsToInput.Checked;

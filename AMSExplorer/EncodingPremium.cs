@@ -39,7 +39,7 @@ namespace AMSExplorer
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
         private CloudMediaContext _context;
         private string _processorVersion;
-
+        private List<string> listWorkflowsId = new List<string>();
 
         public string XMLData
         {
@@ -149,17 +149,11 @@ namespace AMSExplorer
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoPremiumEncoder));
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
-            listViewWorkflows.LoadWorkflows(_context);
-
-            if (listViewWorkflows.ErrorQuery!=null)
+            if (listViewWorkflows.ErrorQuery != null)
             {
                 MessageBox.Show("Error when querying workflow files in the account.\n" + listViewWorkflows.ErrorQuery, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (listViewWorkflows.PartialQueryLast2Months)
-            {
-                MessageBox.Show("There are too many files in the account. Only the workflow files from the last two months are displayed.", "Too many files", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
+           
             UpdateJobSummary();
         }
 
@@ -197,19 +191,21 @@ namespace AMSExplorer
                 progressBarUpload.Visible = true;
                 buttonCancel.Enabled = false;
                 buttonUpload.Enabled = false;
+                IAsset asset = null;
                 foreach (string file in openFileDialogWorkflow.FileNames)
                 {
-                    await Task.Factory.StartNew(() => ProcessUploadFile(file));
+                    asset = await Task.Factory.StartNew(() => ProcessUploadFile(file));
                 }
                 progressBarUpload.Visible = false;
                 buttonCancel.Enabled = true;
                 buttonUpload.Enabled = true;
-                listViewWorkflows.LoadWorkflows(_context);
+                listWorkflowsId.Add(asset.Id);
+                listViewWorkflows.LoadWorkflows(_context, listWorkflowsId, asset.Id);
             }
         }
 
 
-        private void ProcessUploadFile(string fileName, string storageaccount = null)
+        private IAsset ProcessUploadFile(string fileName, string storageaccount = null)
         {
             string safeFileName = Path.GetFileName(fileName);
             if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
@@ -230,12 +226,19 @@ namespace AMSExplorer
             catch
             {
             }
+            return asset;
         }
 
         private void listViewWorkflows_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateJobSummary();
             buttonOk.Enabled = listViewWorkflows.SelectedItems.Count > 0;
+        }
+
+        private void ButtonLoadWorkflow_Click(object sender, EventArgs e)
+        {
+            listWorkflowsId.Add(textBoxWorkflowAssetId.Text);
+            listViewWorkflows.LoadWorkflows(_context, listWorkflowsId, textBoxWorkflowAssetId.Text);
         }
     }
 }

@@ -4716,7 +4716,7 @@ namespace AMSExplorer
             Process.Start(Constants.PlayerDASHIFList);
         }
 
-      
+
         private void encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuEncodeWithPremiumWorkflow();
@@ -6241,7 +6241,6 @@ namespace AMSExplorer
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset name :", SearchIn.AssetName.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search for asset Id :", SearchIn.AssetId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset alt Id :", SearchIn.AssetAltId.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in file name :", SearchIn.AssetFileName.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search for file Id :", SearchIn.AssetFileId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search for locator Id :", SearchIn.LocatorId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search for program Id :", SearchIn.ProgramId.ToString()));
@@ -16805,51 +16804,6 @@ namespace AMSExplorer
                         }
                         break;
 
-
-                    // Search on Asset file name
-                    case SearchIn.AssetFileName:
-                        IList<string> assetFileListID = new List<string>();
-
-                        while (true)
-                        {
-                            // Enumerate through all asset files (1000 at a time)
-                            var filesq = context.Files
-                                .Skip(skipSize).Take(batchSize).ToList();
-
-                            currentSkipSize += filesq.Count;
-                            var filesq2 = filesq.Where(f => f.Name.ToLower().Contains(strsearch)).Select(f => f.ParentAssetId);
-
-                            foreach (var a in filesq2)
-                            {
-                                assetFileListID.Add(a);
-                            }
-
-                            if (currentSkipSize == batchSize)
-                            {
-                                skipSize += batchSize;
-                                currentSkipSize = 0;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        var assetlist = new List<IAsset>();
-                        foreach (var a in assetFileListID.Distinct())
-                        {
-                            assetlist.Add(AssetInfo.GetAsset(a, context));
-                        }
-
-                        SwitchedToLocalQuery = true;
-                        assets = assetlist.Where(a =>
-                                (!filterStartDate || a.LastModified > dateTimeStart)
-                                &&
-                                (!filterEndDate || a.LastModified < dateTimeRangeEnd)
-                                );
-
-
-                        break;
 
                     // Search on Asset file ID
                     case SearchIn.AssetFileId:

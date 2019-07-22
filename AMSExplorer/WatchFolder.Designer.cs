@@ -48,12 +48,10 @@
             this.checkBoxSendEMail = new System.Windows.Forms.CheckBox();
             this.textBoxEMail = new System.Windows.Forms.TextBox();
             this.buttonTestEmail = new System.Windows.Forms.Button();
-            this.radioButtonInsertWorkflowAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonInsertSelectedAssets = new System.Windows.Forms.RadioButton();
             this.groupBoxProcess = new System.Windows.Forms.GroupBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panelInsertAsset = new System.Windows.Forms.Panel();
-            this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
             this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
@@ -209,13 +207,6 @@
             this.buttonTestEmail.UseVisualStyleBackColor = true;
             this.buttonTestEmail.Click += new System.EventHandler(this.buttonTestEmail_Click);
             // 
-            // radioButtonInsertWorkflowAsset
-            // 
-            resources.ApplyResources(this.radioButtonInsertWorkflowAsset, "radioButtonInsertWorkflowAsset");
-            this.radioButtonInsertWorkflowAsset.Name = "radioButtonInsertWorkflowAsset";
-            this.radioButtonInsertWorkflowAsset.UseVisualStyleBackColor = true;
-            this.radioButtonInsertWorkflowAsset.CheckedChanged += new System.EventHandler(this.radioButtonInsertWorkflowAsset_CheckedChanged);
-            // 
             // radioButtonInsertSelectedAssets
             // 
             resources.ApplyResources(this.radioButtonInsertSelectedAssets, "radioButtonInsertSelectedAssets");
@@ -244,21 +235,8 @@
             // panelInsertAsset
             // 
             resources.ApplyResources(this.panelInsertAsset, "panelInsertAsset");
-            this.panelInsertAsset.Controls.Add(this.listViewWorkflows1);
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertSelectedAssets);
-            this.panelInsertAsset.Controls.Add(this.radioButtonInsertWorkflowAsset);
             this.panelInsertAsset.Name = "panelInsertAsset";
-            // 
-            // listViewWorkflows1
-            // 
-            resources.ApplyResources(this.listViewWorkflows1, "listViewWorkflows1");
-            this.listViewWorkflows1.FullRowSelect = true;
-            this.listViewWorkflows1.HideSelection = false;
-            this.listViewWorkflows1.MultiSelect = false;
-            this.listViewWorkflows1.Name = "listViewWorkflows1";
-            this.listViewWorkflows1.Tag = -1;
-            this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
-            this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
             // 
             // checkBoAddAssetsToInput
             // 
@@ -427,8 +405,6 @@
         private System.Windows.Forms.CheckBox checkBoxSendEMail;
         private System.Windows.Forms.TextBox textBoxEMail;
         private System.Windows.Forms.Button buttonTestEmail;
-        private ListViewWorkflows listViewWorkflows1;
-        private System.Windows.Forms.RadioButton radioButtonInsertWorkflowAsset;
         private System.Windows.Forms.RadioButton radioButtonInsertSelectedAssets;
         private System.Windows.Forms.GroupBox groupBoxProcess;
         private System.Windows.Forms.CheckBox checkBoAddAssetsToInput;
