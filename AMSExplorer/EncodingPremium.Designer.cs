@@ -48,14 +48,12 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonPremiumXMLData = new AMSExplorer.ButtonPremiumXMLData();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxWorkflowAssetId = new System.Windows.Forms.TextBox();
             this.buttonLoadWorkflow = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
+            this.buttonPremiumXMLData = new AMSExplorer.ButtonPremiumXMLData();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -179,17 +177,29 @@
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
-            // buttonPremiumXMLData
+            // buttonLoadWorkflow
             // 
-            resources.ApplyResources(this.buttonPremiumXMLData, "buttonPremiumXMLData");
-            this.buttonPremiumXMLData.Name = "buttonPremiumXMLData";
-            this.buttonPremiumXMLData.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.buttonLoadWorkflow, "buttonLoadWorkflow");
+            this.buttonLoadWorkflow.Name = "buttonLoadWorkflow";
+            this.buttonLoadWorkflow.UseVisualStyleBackColor = true;
+            this.buttonLoadWorkflow.Click += new System.EventHandler(this.ButtonLoadWorkflow_Click);
             // 
-            // buttonJobOptions
+            // groupBox1
             // 
-            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.buttonLoadWorkflow);
+            this.groupBox1.Controls.Add(this.progressBarUpload);
+            this.groupBox1.Controls.Add(this.buttonUpload);
+            this.groupBox1.Controls.Add(this.listViewWorkflows);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Name = "label4";
             // 
             // listViewWorkflows
             // 
@@ -202,40 +212,17 @@
             this.listViewWorkflows.View = System.Windows.Forms.View.Details;
             this.listViewWorkflows.SelectedIndexChanged += new System.EventHandler(this.listViewWorkflows_SelectedIndexChanged);
             // 
-            // label4
+            // buttonPremiumXMLData
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.buttonPremiumXMLData, "buttonPremiumXMLData");
+            this.buttonPremiumXMLData.Name = "buttonPremiumXMLData";
+            this.buttonPremiumXMLData.UseVisualStyleBackColor = true;
             // 
-            // textBoxWorkflowAssetId
+            // buttonJobOptions
             // 
-            resources.ApplyResources(this.textBoxWorkflowAssetId, "textBoxWorkflowAssetId");
-            this.textBoxWorkflowAssetId.Name = "textBoxWorkflowAssetId";
-            // 
-            // buttonLoadWorkflow
-            // 
-            resources.ApplyResources(this.buttonLoadWorkflow, "buttonLoadWorkflow");
-            this.buttonLoadWorkflow.Name = "buttonLoadWorkflow";
-            this.buttonLoadWorkflow.UseVisualStyleBackColor = true;
-            this.buttonLoadWorkflow.Click += new System.EventHandler(this.ButtonLoadWorkflow_Click);
-            // 
-            // groupBox1
-            // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.textBoxWorkflowAssetId);
-            this.groupBox1.Controls.Add(this.buttonLoadWorkflow);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.progressBarUpload);
-            this.groupBox1.Controls.Add(this.buttonUpload);
-            this.groupBox1.Controls.Add(this.listViewWorkflows);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.buttonJobOptions, "buttonJobOptions");
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // EncodingPremium
             // 
@@ -268,7 +255,6 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,10 +284,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labelProcessorVersion;
         private System.Windows.Forms.PictureBox pictureBox1;
-        public System.Windows.Forms.Label label4;
-        public System.Windows.Forms.TextBox textBoxWorkflowAssetId;
         private System.Windows.Forms.Button buttonLoadWorkflow;
         private System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
     }
 }

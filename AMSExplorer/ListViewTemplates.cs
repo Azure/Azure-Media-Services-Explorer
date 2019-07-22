@@ -251,7 +251,7 @@ namespace AMSExplorer
 
             foreach (var asset in listAssets)
             {
-                if (asset.AssetFiles.Count() == 1)
+                if (asset != null && asset.AssetFiles.Count() == 1)
                 {
                     var file = asset.AssetFiles.FirstOrDefault();
                     ListViewItem item = new ListViewItem(file.Name, 0);

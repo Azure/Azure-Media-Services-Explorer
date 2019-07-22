@@ -27,6 +27,7 @@ using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Collections;
 using System.IO;
+using Microsoft.Office.Interop.Excel;
 
 namespace AMSExplorer
 {
@@ -114,6 +115,15 @@ namespace AMSExplorer
             buttonPremiumXMLData.Initialize();
             pictureBoxJob.Image = bitmap_multitasksmultijobs;
             _processorVersion = processorVersion;
+
+            // list workflows from the last 3 days
+            listWorkflowsId = context.Assets
+                .Where(a => a.LastModified > DateTime.Today.AddDays(-3))
+                .AsEnumerable()
+                .Where(a => a.AssetFiles.Count() == 1 && a.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".workflow"))
+                .Select(a => a.Id)
+                .ToList();
+            listViewWorkflows.LoadWorkflows(_context, listWorkflowsId);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -153,7 +163,7 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Error when querying workflow files in the account.\n" + listViewWorkflows.ErrorQuery, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
             UpdateJobSummary();
         }
 
@@ -218,7 +228,7 @@ namespace AMSExplorer
                                                       Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                       (af, p) =>
                                                       {
-                                                          progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)p.Progress), null);
+                                                          progressBarUpload.BeginInvoke(new System.Action(() => progressBarUpload.Value = (int)p.Progress), null);
                                                       }
                                                       );
                 AssetInfo.SetFileAsPrimary(asset, safeFileName);
@@ -237,8 +247,38 @@ namespace AMSExplorer
 
         private void ButtonLoadWorkflow_Click(object sender, EventArgs e)
         {
-            listWorkflowsId.Add(textBoxWorkflowAssetId.Text);
-            listViewWorkflows.LoadWorkflows(_context, listWorkflowsId, textBoxWorkflowAssetId.Text);
+
+            string assetid = "";
+            if (Program.InputBox("Workflow asset Id", "Please enter the asset ID of the asset that contains the workflow :", ref assetid, false) != DialogResult.OK)
+            {
+                return;
+            }
+
+            // let's check asset id
+            bool error = false;
+
+            if (!assetid.StartsWith(Constants.AssetIdPrefix))
+            {
+                error = true;
+            }
+
+            try
+            {
+                var myGuid = Guid.Parse(assetid.Substring(Constants.AssetIdPrefix.Length));
+            }
+            catch
+            {
+                error = true;
+                MessageBox.Show("Wrong asset id format", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (!error && !listWorkflowsId.Contains(assetid))
+            {
+                listWorkflowsId.Add(assetid);
+                listViewWorkflows.LoadWorkflows(_context, listWorkflowsId, assetid);
+
+            }
+
         }
     }
 }
