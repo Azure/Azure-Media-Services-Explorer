@@ -832,7 +832,7 @@ namespace AMSExplorer
     public class Constants
     {
         public const string GitHubAMSEVersionPrimary = "https://amsexplorer.azureedge.net/release/version.xml";
-        public const string GitHubAMSEVersionSecondary = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
+        public const string GitHubAMSEVersionSecondary = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/AMSv2/version.xml";
 
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
