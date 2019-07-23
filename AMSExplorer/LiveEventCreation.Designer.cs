@@ -53,7 +53,6 @@
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
             this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
-            this.panelDisplayEncProfile = new System.Windows.Forms.Panel();
             this.dataGridViewVideoProf = new System.Windows.Forms.DataGridView();
             this.dataGridViewAudioProf = new System.Windows.Forms.DataGridView();
             this.label16 = new System.Windows.Forms.Label();
@@ -77,16 +76,17 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panelPresetLiveEncoding = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPageLiveEncoding.SuspendLayout();
-            this.panelDisplayEncProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
             this.tabPageAdv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.panelPresetLiveEncoding.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -249,7 +249,7 @@
             // 
             // tabPageLiveEncoding
             // 
-            this.tabPageLiveEncoding.Controls.Add(this.panelDisplayEncProfile);
+            this.tabPageLiveEncoding.Controls.Add(this.panelPresetLiveEncoding);
             this.tabPageLiveEncoding.Controls.Add(this.label6);
             this.tabPageLiveEncoding.Controls.Add(this.textBoxCustomPreset);
             this.tabPageLiveEncoding.Controls.Add(this.radioButtonCustomPreset);
@@ -257,15 +257,6 @@
             resources.ApplyResources(this.tabPageLiveEncoding, "tabPageLiveEncoding");
             this.tabPageLiveEncoding.Name = "tabPageLiveEncoding";
             this.tabPageLiveEncoding.UseVisualStyleBackColor = true;
-            // 
-            // panelDisplayEncProfile
-            // 
-            resources.ApplyResources(this.panelDisplayEncProfile, "panelDisplayEncProfile");
-            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewVideoProf);
-            this.panelDisplayEncProfile.Controls.Add(this.dataGridViewAudioProf);
-            this.panelDisplayEncProfile.Controls.Add(this.label16);
-            this.panelDisplayEncProfile.Controls.Add(this.label17);
-            this.panelDisplayEncProfile.Name = "panelDisplayEncProfile";
             // 
             // dataGridViewVideoProf
             // 
@@ -418,6 +409,15 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // panelPresetLiveEncoding
+            // 
+            resources.ApplyResources(this.panelPresetLiveEncoding, "panelPresetLiveEncoding");
+            this.panelPresetLiveEncoding.Controls.Add(this.dataGridViewVideoProf);
+            this.panelPresetLiveEncoding.Controls.Add(this.label17);
+            this.panelPresetLiveEncoding.Controls.Add(this.dataGridViewAudioProf);
+            this.panelPresetLiveEncoding.Controls.Add(this.label16);
+            this.panelPresetLiveEncoding.Name = "panelPresetLiveEncoding";
+            // 
             // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
@@ -444,13 +444,13 @@
             this.groupBox1.PerformLayout();
             this.tabPageLiveEncoding.ResumeLayout(false);
             this.tabPageLiveEncoding.PerformLayout();
-            this.panelDisplayEncProfile.ResumeLayout(false);
-            this.panelDisplayEncProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
             this.tabPageAdv.ResumeLayout(false);
             this.tabPageAdv.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.panelPresetLiveEncoding.ResumeLayout(false);
+            this.panelPresetLiveEncoding.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -490,7 +490,6 @@
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoPrice;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panelDisplayEncProfile;
         private System.Windows.Forms.TabPage tabPageAdv;
         private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
         private System.Windows.Forms.TextBox textBoxKeyFrame;
@@ -505,5 +504,6 @@
         private System.Windows.Forms.RadioButton radioButtonTranscodingNone;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelUrlSyntax;
+        private System.Windows.Forms.Panel panelPresetLiveEncoding;
     }
 }

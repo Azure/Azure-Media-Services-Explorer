@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSExplorer.Properties;
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
@@ -335,7 +336,8 @@ namespace AMSExplorer
                     profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = defaultLanguageString, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
 
                     dataGridViewAudioProf.DataSource = profmultiaudio;
-                    panelDisplayEncProfile.Visible = true;
+                    panelPresetLiveEncoding.Visible = true;
+
                     displayEncProfile = true;
                 }
             }
@@ -343,9 +345,11 @@ namespace AMSExplorer
             {
                 dataGridViewVideoProf.DataSource = null;
                 dataGridViewAudioProf.DataSource = null;
-                panelDisplayEncProfile.Visible = false;
+                panelPresetLiveEncoding.Visible = false;
             }
         }
+
+      
 
 
         private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
@@ -419,7 +423,6 @@ namespace AMSExplorer
 
         private void radioButtonTranscodingNone_CheckedChanged(object sender, EventArgs e)
         {
-
             UpdateUIBasedOnLEMode(sender as RadioButton);
         }
 
@@ -442,13 +445,13 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    FillComboProtocols();
-                    UpdateProfileGrids();
                     if (!EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
                         EncodingTabDisplayed = true;
                     }
+                    FillComboProtocols();
+                    UpdateProfileGrids();
                 }
             }
         }
