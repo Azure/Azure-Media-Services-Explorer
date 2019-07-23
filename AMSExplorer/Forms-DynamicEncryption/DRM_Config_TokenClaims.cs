@@ -38,6 +38,15 @@ namespace AMSExplorer
                 new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
               };
 
+
+        public bool NeedToken
+        {
+            get
+            {
+                return !radioButtonOpenAuthPolicy.Checked;
+            }
+        }
+
         public ContentKeyPolicyRestriction GetContentKeyPolicyRestriction
         {
             get

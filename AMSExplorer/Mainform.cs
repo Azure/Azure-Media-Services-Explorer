@@ -1916,13 +1916,17 @@ namespace AMSExplorer
                         }
 
 
-                        var formTokenProperties = new DRM_GenerateToken();
-                        formTokenProperties.ShowDialog();
-                        if (formTokenProperties.DialogResult == DialogResult.OK)
+                        // need test token ?
+                        if (formPlayreadyTokenClaims.Any(t => t.NeedToken) || formWidevineTokenClaims.Any(t => t.NeedToken) || formClearKeyTokenClaims.Any(t => t.NeedToken))
                         {
-                            await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators, "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
-                            await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators, "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
-                            await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators, "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
+                            var formTokenProperties = new DRM_GenerateToken();
+                            formTokenProperties.ShowDialog();
+                            if (formTokenProperties.DialogResult == DialogResult.OK)
+                            {
+                                await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators, "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
+                                await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators, "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
+                                await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators, "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
+                            }
                         }
 
                         var displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
