@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace AMSExplorer
 {
@@ -75,7 +76,7 @@ namespace AMSExplorer
             get { return (checkBoxcrossdomains.Checked) ? textBoxCrossDomPolicy.Text : null; }
         }
 
-        public string KeyframeInterval
+        public string KeyframeIntervalSerialized
         {
             get
             {
@@ -84,7 +85,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        ts = textBoxKeyFrame.Text;
+                        ts = XmlConvert.ToString(TimeSpan.FromSeconds(double.Parse(textBoxKeyFrame.Text)));
                     }
                     catch
                     {
@@ -170,11 +171,11 @@ namespace AMSExplorer
                 }
 
 
-                if (MyLiveEvent.Input.KeyFrameIntervalDuration != null)
+                if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
                 {
                     DGLiveEvent.Rows.Add("Key Frame Interval Duration", MyLiveEvent.Input.KeyFrameIntervalDuration);
                     checkBoxKeyFrameIntDefined.Checked = true;
-                    textBoxKeyFrame.Text = MyLiveEvent.Input.KeyFrameIntervalDuration;
+                    textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
                 }
 
                 string[] stringnameurl = new string[] { AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Primary, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Secondary };
@@ -219,10 +220,10 @@ namespace AMSExplorer
                 tabControl1.TabPages.Remove(tabPageLiveEventInfo); // no channel info page
                 tabControl1.TabPages.Remove(tabPagePreview); // no channel info page
 
-                if (MyLiveEvent.Input.KeyFrameIntervalDuration != null)
+                if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
                 {
                     checkBoxKeyFrameIntDefined.Checked = true;
-                    textBoxKeyFrame.Text = MyLiveEvent.Input.KeyFrameIntervalDuration;
+                    textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
                 }
             }
 
@@ -444,7 +445,7 @@ namespace AMSExplorer
 
         private void checkKeyFrameValue()
         {
-            if (checkBoxKeyFrameIntDefined.Checked && KeyframeInterval == null)
+            if (checkBoxKeyFrameIntDefined.Checked && KeyframeIntervalSerialized == null)
             {
                 errorProvider1.SetError(textBoxKeyFrame, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
             }

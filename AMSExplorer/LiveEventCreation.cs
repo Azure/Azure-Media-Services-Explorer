@@ -94,7 +94,7 @@ namespace AMSExplorer
             }
         }
 
-        public string KeyframeInterval
+        public string KeyframeIntervalSerialized
         {
             get
             {
@@ -103,7 +103,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        ts = TimeSpan.Parse(textBoxKeyFrame.Text);
+                        ts = TimeSpan.FromSeconds(double.Parse(textBoxKeyFrame.Text));
                         return XmlConvert.ToString(ts);
                     }
                     catch
@@ -117,10 +117,12 @@ namespace AMSExplorer
                     return null;
                 }
             }
+          
             set
             {
-                textBoxKeyFrame.Text = TimeSpan.Parse(value).ToString();
+                textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(value)).TotalSeconds.ToString();
             }
+           
         }
 
 
@@ -322,9 +324,7 @@ namespace AMSExplorer
         private void UpdateProfileGrids()
         {
             bool displayEncProfile = false;
-            // string encodingprofile = ReturnLiveEncodingProfile();
             var myEncoding = Encoding;
-            //   if (encodingprofile != null)
             if (radioButtonDefaultPreset.Checked && myEncoding.EncodingType != LiveEventEncodingType.None)
             {
                 var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == myEncoding.EncodingType).FirstOrDefault();
@@ -348,8 +348,6 @@ namespace AMSExplorer
                 panelPresetLiveEncoding.Visible = false;
             }
         }
-
-      
 
 
         private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
@@ -391,7 +389,7 @@ namespace AMSExplorer
 
         private void checkKeyFrameValue()
         {
-            if (checkBoxKeyFrameIntDefined.Checked && KeyframeInterval == null)
+            if (checkBoxKeyFrameIntDefined.Checked && KeyframeIntervalSerialized == null)
             {
                 errorProvider1.SetError(textBoxKeyFrame, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
             }

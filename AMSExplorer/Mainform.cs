@@ -39,6 +39,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace AMSExplorer
 {
@@ -1962,7 +1963,7 @@ namespace AMSExplorer
                         DRMTechnology,
                         formTokenClaims.IndexOf(tokenClaims) + 1,
                         tokenDuration));
-                    sbuilder.AppendLine(Constants.Bearer + tokenClaims.GetTestToken(keyIdentifier,tokenClaims.GetTokenRequiredClaims,  tokenDuration, tokenUse));
+                    sbuilder.AppendLine(Constants.Bearer + tokenClaims.GetTestToken(keyIdentifier, tokenClaims.GetTokenRequiredClaims, tokenDuration, tokenUse));
                     sbuilder.AppendLine(string.Empty);
                 }
             }
@@ -5078,7 +5079,7 @@ namespace AMSExplorer
         {
             LiveEventCreation form = new LiveEventCreation(_amsClientV3)
             {
-                KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval.ToString(),
+                KeyframeIntervalSerialized = XmlConvert.ToString(Properties.Settings.Default.LiveKeyFrameInterval),
                 StartLiveEventNow = true
             };
             if (form.ShowDialog() == DialogResult.OK)
@@ -5106,7 +5107,7 @@ namespace AMSExplorer
                     {
                         StreamingProtocol = form.Protocol,
                         AccessToken = form.AccessToken,
-                        KeyFrameIntervalDuration = form.KeyframeInterval,
+                        KeyFrameIntervalDuration = form.KeyframeIntervalSerialized,
                         AccessControl = new LiveEventInputAccessControl(
                                                                             ip: new IPAccessControl
                                                                             (
@@ -5124,11 +5125,11 @@ namespace AMSExplorer
                                               input: liveEventInput,
                                               preview: liveEventPreview,
                                               streamOptions: new List<StreamOptionsFlag?>()
-                                              {
+                                                          {
                                                 // Set this to Default or Low Latency
-                                               form.LowLatencyMode ?  StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
-                                              }
-                                                );
+                                               form.LowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
+                                                          }
+                                                            );
 
                 }
 
@@ -5211,7 +5212,7 @@ namespace AMSExplorer
                         }
                         if (modifications.KeyFrameInterval)
                         {
-                            liveEvent.Input.KeyFrameIntervalDuration = form.KeyframeInterval;
+                            liveEvent.Input.KeyFrameIntervalDuration = form.KeyframeIntervalSerialized;
                         }
 
                         if (liveEvent.Encoding.EncodingType == firstLiveEvent.Encoding.EncodingType)
