@@ -267,6 +267,7 @@
             // listViewAccounts
             // 
             this.listViewAccounts.FullRowSelect = true;
+            this.listViewAccounts.HideSelection = false;
             resources.ApplyResources(this.listViewAccounts, "listViewAccounts");
             this.listViewAccounts.Name = "listViewAccounts";
             this.listViewAccounts.ShowItemToolTips = true;
