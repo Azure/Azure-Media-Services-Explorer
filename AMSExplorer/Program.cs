@@ -3372,13 +3372,13 @@ namespace AMSExplorer
     public class AMSClientV3
     {
         public AzureMediaServicesClient AMSclient;
-        public AuthenticationResult accessToken;
+        public AuthenticationResult accessToken, accessTokenForRestV2;
         public CredentialsEntryV3 credentialsEntry;
         public TokenCredentials credentials;
-        public AzureEnvironmentV3 environment;
+        public AzureEnvironment environment;
         private string _azureSubscriptionId;
 
-        public AMSClientV3(AzureEnvironmentV3 myEnvironment, string azureSubscriptionId, CredentialsEntryV3 myCredentialsEntry)
+        public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV3 myCredentialsEntry)
         {
             environment = myEnvironment;
             _azureSubscriptionId = azureSubscriptionId;
@@ -3415,7 +3415,6 @@ namespace AMSExplorer
             if (!credentialsEntry.UseSPAuth)
             {
                 // we specify the tenant id if there
-                // var authContext = new AuthenticationContext(authority: environment.Authority.Replace("common", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
                 var authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
 
                 try
@@ -3433,6 +3432,14 @@ namespace AMSExplorer
                     {
                         accessToken = await authContext.AcquireTokenAsync(
                                                                 resource: environment.AADSettings.TokenAudience.ToString(),
+                                                                clientId: environment.ClientApplicationId,
+                                                                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                                parameters: new PlatformParameters(credentialsEntry.PromptUser)
+                                                                );
+
+                      
+                        accessTokenForRestV2 = await authContext.AcquireTokenAsync(
+                                                                resource: environment.MediaServicesV2Resource,
                                                                 clientId: environment.ClientApplicationId,
                                                                 redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
                                                                 parameters: new PlatformParameters(credentialsEntry.PromptUser)
@@ -3469,7 +3476,7 @@ namespace AMSExplorer
                         ValidateAuthority = true
                     };
                     var cred = await ApplicationTokenProvider.LoginSilentAsync(this.credentialsEntry.AadTenantId, clientCredential, set);
-
+                   
                     // Getting Media Services accounts...
                     AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred, userAgent);
                     AMSclient.SubscriptionId = _azureSubscriptionId;
@@ -3606,13 +3613,13 @@ namespace AMSExplorer
         public string EncryptedADSPClientSecret;
 
         public string AadTenantId;
-        public AzureEnvironmentV3 Environment;
+        public AzureEnvironment Environment;
         public PromptBehavior PromptUser;
         public bool ManualConfig = false;
         public bool UseSPAuth = false;
         public string Description;
 
-        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironmentV3 environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false)
+        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironment environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false)
         {
             MediaService = mediaService;
             Environment = environment;
@@ -3753,16 +3760,17 @@ namespace AMSExplorer
         Custom
     }
 
-    public class AzureEnvironmentV3
+    public class AzureEnvironment
     {
         public string DisplayName { get; set; }
         //public string Authority { get; set; }
         public Uri ArmEndpoint { get; set; }
         public string ClientApplicationId { get; set; }
+        public string MediaServicesV2Resource { get; set; }
         public ActiveDirectoryServiceSettings AADSettings { get; set; }
 
 
-        public AzureEnvironmentV3(AzureEnvType type)
+        public AzureEnvironment(AzureEnvType type)
         {
             switch (type)
             {
@@ -3771,6 +3779,7 @@ namespace AMSExplorer
                     ArmEndpoint = new Uri("https://api-dogfood.resources.windows-int.net/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = new ActiveDirectoryServiceSettings() { TokenAudience = new Uri("https://management.core.windows.net/"), ValidateAuthority = true, AuthenticationEndpoint = new Uri("https://login.windows-ppe.net/") };
+                    MediaServicesV2Resource = "https://rest.media.azure-test.net";
                     break;
 
                 case AzureEnvType.Azure:
@@ -3778,6 +3787,7 @@ namespace AMSExplorer
                     ArmEndpoint = new Uri("https://management.azure.com/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.Azure;
+                    MediaServicesV2Resource = "https://rest.media.azure.net";
                     break;
 
                 case AzureEnvType.AzureChina:
@@ -3785,6 +3795,7 @@ namespace AMSExplorer
                     ArmEndpoint = new Uri("https://management.chinacloudapi.cn/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureChina;
+                    MediaServicesV2Resource = "https://rest.media.chinacloudapi.cn";
                     break;
 
                 case AzureEnvType.AzureUSGovernment:
@@ -3792,6 +3803,7 @@ namespace AMSExplorer
                     ArmEndpoint = new Uri("https://management.usgovcloudapi.net/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureUSGovernment;
+                    MediaServicesV2Resource = "https://rest.media.usgovcloudapi.net";
                     break;
 
                 case AzureEnvType.AzureGermany:
@@ -3799,6 +3811,7 @@ namespace AMSExplorer
                     ArmEndpoint = new Uri("https://management.cloudapi.de/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureGermany;
+                    MediaServicesV2Resource = "https://rest.media.cloudapi.de";
                     break;
 
                 case AzureEnvType.Custom:
@@ -3806,6 +3819,7 @@ namespace AMSExplorer
                     ArmEndpoint = null;
                     ClientApplicationId = string.Empty;
                     AADSettings = new ActiveDirectoryServiceSettings();
+                    MediaServicesV2Resource = null;
                     break;
             }
         }

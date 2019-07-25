@@ -53,7 +53,7 @@ namespace AMSExplorer
 
             foreach (var env in envs)
             {
-                comboBoxAADMappingList.Items.Add(new Item((new AzureEnvironmentV3(env)).DisplayName, env.ToString()));
+                comboBoxAADMappingList.Items.Add(new Item((new AzureEnvironment(env)).DisplayName, env.ToString()));
             }
 
             comboBoxAADMappingList.SelectedIndex = 0;
@@ -63,9 +63,9 @@ namespace AMSExplorer
 
         }
 
-        public AzureEnvironmentV3 GetEnvironment()
+        public AzureEnvironment GetEnvironment()
         {
-            return new AzureEnvironmentV3((AzureEnvType)Enum.Parse(typeof(AzureEnvType), (string)(comboBoxAADMappingList.SelectedItem as Item).Value));
+            return new AzureEnvironment((AzureEnvType)Enum.Parse(typeof(AzureEnvType), (string)(comboBoxAADMappingList.SelectedItem as Item).Value));
         }
 
         private void radioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)

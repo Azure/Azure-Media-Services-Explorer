@@ -33,7 +33,7 @@ namespace AMSExplorer
     public partial class AddAMSAccount2Browse : Form
     {
         private TokenCredentials credentials;
-        private AzureEnvironmentV3 environment;
+        private AzureEnvironment environment;
         private myTenant[] _myTenants;
         private IPlatformParameters _parameters;
         private IPage<Subscription> subscriptions;
@@ -41,7 +41,7 @@ namespace AMSExplorer
         public SubscriptionMediaService selectedAccount = null;
         public string selectedTenantId = null;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironmentV3 environment, myTenant[] myTenants, IPlatformParameters parameters)
+        public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironment environment, myTenant[] myTenants, IPlatformParameters parameters)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

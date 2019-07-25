@@ -257,6 +257,7 @@
     </Compile>
     <Compile Include="Forms-DynamicEncryption\DynamicEncryption.cs" />
     <Compile Include="Forms-DynamicEncryption\WidevineConfiguration.cs" />
+    <Compile Include="MediaRUv2.cs" />
     <Compile Include="TransformTypeCreation.cs">
       <SubType>Form</SubType>
     </Compile>

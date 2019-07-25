@@ -41,7 +41,7 @@ namespace AMSExplorer
         public string accountName;
 
         private CredentialsEntryV3 LoginInfo;
-        private AzureEnvironmentV3 environment;
+        private AzureEnvironment environment;
 
         public AMSClientV3 AMSClient { get; private set; }
 
@@ -504,7 +504,7 @@ namespace AMSExplorer
                             ValidateAuthority = true
                         };
 
-                        var env = new AzureEnvironmentV3(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
+                        var env = new AzureEnvironment(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
 
                         var entry = new CredentialsEntryV3(
                                                         new SubscriptionMediaService(resourceId, json.AccountName, null, null, json.Region),

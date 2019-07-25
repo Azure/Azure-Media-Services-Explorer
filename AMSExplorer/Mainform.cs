@@ -17,6 +17,7 @@
 // Azure Management dependencies
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Data.OData.Metadata;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAzure.Storage;
@@ -24,6 +25,7 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,8 +34,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -86,8 +91,10 @@ namespace AMSExplorer
 #pragma warning restore CS0414 // The field 'Mainform.S3AssetSizeLimit' is assigned but its value is never used
         public string _accountname;
         private static AMSClientV3 _amsClientV3;
-
+        private MediaRU _mediaRUContext;
         const string resetcredentials = "/resetcredentials";
+
+        public bool MediaRUFeatureOn = true;
 
         public Mainform(string[] args)
         {
@@ -217,7 +224,40 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
             }
+
+
+
+
+            // let's check the encoding reserved unit and type
+            try
+            {
+                // Management of media reserved units
+                _mediaRUContext = new MediaRU(_amsClientV3);
+                var result = _mediaRUContext.GetInfoMediaRU(_amsClientV3).GetAwaiter().GetResult();
+
+                if ((result.CurrentReservedUnits == 0) && (result.ReservedUnitType != 0))
+                    TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1.", true); // Warning
+
+
+                comboBoxEncodingRU.Items.Add(new Item("S1", "0"));
+                comboBoxEncodingRU.Items.Add(new Item("S2", "1"));
+                comboBoxEncodingRU.Items.Add(new Item("S3", "2"));
+                comboBoxEncodingRU.SelectedIndex = result.ReservedUnitType;
+
+
+            }
+            catch (Exception ex)// can occur on test account
+            {
+                MediaRUFeatureOn = false;
+                comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
+                TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units v2 API. Some controls are disabled in the transforms/jobs tab.", true); // Warning
+            }
+
         }
+
+
+
+
 
 
         // Test
@@ -231,11 +271,11 @@ namespace AMSExplorer
                   _amsClientV3.credentialsEntry.AccountName
                 );
 
-            string token = _amsClientV3.accessToken != null ? _amsClientV3.accessToken.AccessToken :
+            string token = _amsClientV3.accessTokenForRestV2 != null ? _amsClientV3.accessTokenForRestV2.AccessToken :
                 TokenCache.DefaultShared.ReadItems()
-    .Where(t => t.ClientId == _amsClientV3.credentialsEntry.ADSPClientId)
-    .OrderByDescending(t => t.ExpiresOn)
-    .First().AccessToken;
+        .Where(t => t.ClientId == _amsClientV3.credentialsEntry.ADSPClientId)
+        .OrderByDescending(t => t.ExpiresOn)
+        .First().AccessToken;
 
 
             HttpClient client = new HttpClient();
@@ -527,8 +567,25 @@ namespace AMSExplorer
             Task.Run(async () =>
             {
                 await dataGridViewJobsV.RefreshjobsAsync(page);
+                if (MediaRUFeatureOn)
+                {
+                    InfoMediaRU mediaReserverdUnitsInfo = null;
+                    try
+                    {
+                        mediaReserverdUnitsInfo = await _mediaRUContext.GetInfoMediaRU(_amsClientV3);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine(ex);
+                    }
+                    if (mediaReserverdUnitsInfo != null)
+                    {
+                        this.BeginInvoke(new Action(() => trackBarEncodingRU.Maximum = mediaReserverdUnitsInfo.MaxReservableUnits));
+                        this.BeginInvoke(new Action(() => trackBarEncodingRU.Value = mediaReserverdUnitsInfo.CurrentReservedUnits));
+                        this.BeginInvoke(new Action(() => UpdateLabelProcessorUnits()));
+                    }
+                }
             });
-
         }
 
 
@@ -1113,11 +1170,11 @@ namespace AMSExplorer
             }
             await _amsClientV3.RefreshTokenIfNeededAsync();
             AssetContainerSas assetContainerSas = await client.AMSclient.Assets.ListContainerSasAsync(
-    client.credentialsEntry.ResourceGroup,
-    client.credentialsEntry.AccountName,
-    assetName,
-    permissions: AssetContainerPermission.Read,
-    expiryTime: DateTime.UtcNow.AddHours(5).ToUniversalTime());
+        client.credentialsEntry.ResourceGroup,
+        client.credentialsEntry.AccountName,
+        assetName,
+        permissions: AssetContainerPermission.Read,
+        expiryTime: DateTime.UtcNow.AddHours(5).ToUniversalTime());
 
             Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
             CloudBlobContainer container = new CloudBlobContainer(containerSasUrl);
@@ -1259,12 +1316,12 @@ namespace AMSExplorer
                                     var response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
                                     // Start a worker thread that does uploading.
                                     Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
-                                      new List<string>() { f },
-                                      response.Id,
-                                      response.token,
-                                      storageaccount: form.StorageSelected,
-                                      blocksize: form.BlockSize
-                                      ), response.token);
+                              new List<string>() { f },
+                              response.Id,
+                              response.token,
+                              storageaccount: form.StorageSelected,
+                              blocksize: form.BlockSize
+                              ), response.token);
 
                                     if (i == 10) // let's use a batch of 10 threads at the same time
                                     {
@@ -3110,7 +3167,7 @@ namespace AMSExplorer
                                         }
                                         i++;
                                     }
-                                  
+
                                 }
 
                                 var timestampsinmanifest = manifestdatacurrenttrack.Select(a => a.timestamp).ToList();
@@ -3399,8 +3456,8 @@ namespace AMSExplorer
 
 
         /*      
-       private static void CheckAssetSizeRegardingMediaUnit(List<IAsset> SelectedAssets, bool Indexer = false)
-       {
+        private static void CheckAssetSizeRegardingMediaUnit(List<IAsset> SelectedAssets, bool Indexer = false)
+        {
            bool Warning = false;
 
            // let's find the limit
@@ -3442,8 +3499,8 @@ namespace AMSExplorer
                }
 
            }
-       }
-       */
+        }
+        */
 
 
 
@@ -3463,7 +3520,7 @@ namespace AMSExplorer
             Hide();
 
             linkLabelFeedbackAMS.Links.Add(new LinkLabel.Link(0, linkLabelFeedbackAMS.Text.Length, Constants.LinkFeedbackAMS));
-            linkLabelMoreInfoMediaUnits.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoMediaUnits.Text.Length, Constants.LinkInfoMediaUnit));
+            //linkLabelMoreInfoMediaUnits.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoMediaUnits.Text.Length, Constants.LinkInfoMediaUnit));
 
             //comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
 
@@ -8460,6 +8517,80 @@ namespace AMSExplorer
         {
             Process.Start(Constants.LinkAzureUpdates);
 
+        }
+
+        private void ButtonUpdateEncodingRU_Click(object sender, EventArgs e)
+        {
+
+            DoUpdateMediaRU();
+        }
+
+        private async void DoUpdateMediaRU()
+        {
+            bool oktocontinue = true;
+
+            if (trackBarEncodingRU.Value == 0 && (((Item)comboBoxEncodingRU.SelectedItem).Name != "S1"))
+            // user selected 0 with a non S1 hardware...
+            {
+                if (MessageBox.Show("You selected 0 unit but the encoding type is not S1. Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                {
+                    oktocontinue = false;
+                }
+            }
+
+            if (oktocontinue)
+            {
+                TextBoxLogWriteLine(string.Format("Updating to {0} {1} Media Reserved Unit{2}...", (int)trackBarEncodingRU.Value, ((Item)comboBoxEncodingRU.SelectedItem).Name, (int)trackBarEncodingRU.Value > 1 ? "s" : string.Empty));
+
+                trackBarEncodingRU.Enabled = false;
+                comboBoxEncodingRU.Enabled = false;
+                buttonUpdateEncodingRU.Enabled = false;
+
+
+                try
+                {
+                    await _mediaRUContext.SetMediaRU(_amsClientV3, (int)trackBarEncodingRU.Value, int.Parse(((Item)comboBoxEncodingRU.SelectedItem).Value));
+                    TextBoxLogWriteLine("Media Reserved Unit(s) updated.");
+
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when updating Media Reserved Unit(s).", true);
+                    TextBoxLogWriteLine(ex);
+                }
+
+                DoRefreshGridJobV(false);
+                trackBarEncodingRU.Enabled = true;
+                comboBoxEncodingRU.Enabled = true;
+                buttonUpdateEncodingRU.Enabled = true;
+            }
+        }
+
+        private void TrackBarEncodingRU_Scroll(object sender, EventArgs e)
+        {
+            UpdateLabelProcessorUnits();
+        }
+
+        private void UpdateLabelProcessorUnits()
+        {
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 1 ? "s" : string.Empty);
+        }
+
+        private void TrackBarEncodingRU_ValueChanged(object sender, EventArgs e)
+        {
+            RUEncodingUpdateControls();
+        }
+
+        private void RUEncodingUpdateControls()
+        {
+            // If RU is set to 0, let's switch to S1
+            if (trackBarEncodingRU.Value == 0)
+            {
+
+                comboBoxEncodingRU.SelectedIndex = 0;
+
+
+            }
         }
     }
 }
