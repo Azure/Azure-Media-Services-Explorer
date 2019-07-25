@@ -133,7 +133,7 @@ namespace AMSExplorer
                 _filter_name = accFilter.Name;
                 filtertracks = ConvertFilterTracksToInternalVar(accFilter.Tracks);
 
-                _timescale = accFilter.PresentationTimeRange.Timescale ?? _timescale;
+                _timescale = accFilter.PresentationTimeRange?.Timescale ?? _timescale;
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
                 buttonOk.Text = "Update Filter";
                 buttonOk.Enabled = true; // we can enable the button
@@ -144,16 +144,16 @@ namespace AMSExplorer
 
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
 
-                checkBoxStartTime.Checked = accFilter.PresentationTimeRange.StartTimestamp != null;
-                checkBoxEndTime.Checked = accFilter.PresentationTimeRange.EndTimestamp != null;
-                checkBoxPresentationWindowDuration.Checked = accFilter.PresentationTimeRange.PresentationWindowDuration != null;
-                checkBoxLiveBackoff.Checked = accFilter.PresentationTimeRange.LiveBackoffDuration != null;
+                checkBoxStartTime.Checked = accFilter.PresentationTimeRange?.StartTimestamp != null;
+                checkBoxEndTime.Checked = accFilter.PresentationTimeRange?.EndTimestamp != null;
+                checkBoxPresentationWindowDuration.Checked = accFilter.PresentationTimeRange?.PresentationWindowDuration != null;
+                checkBoxLiveBackoff.Checked = accFilter.PresentationTimeRange?.LiveBackoffDuration != null;
 
-                timeControlStart.SetScaledTimeStamp(accFilter.PresentationTimeRange.StartTimestamp, 0);
-                timeControlEnd.SetScaledTimeStamp(accFilter.PresentationTimeRange.EndTimestamp, 0);
-                timeControlDVR.SetScaledTimeStamp(accFilter.PresentationTimeRange.PresentationWindowDuration, 0);
+                timeControlStart.SetScaledTimeStamp(accFilter.PresentationTimeRange?.StartTimestamp, 0);
+                timeControlEnd.SetScaledTimeStamp(accFilter.PresentationTimeRange?.EndTimestamp, 0);
+                timeControlDVR.SetScaledTimeStamp(accFilter.PresentationTimeRange?.PresentationWindowDuration, 0);
 
-                if (accFilter.PresentationTimeRange.LiveBackoffDuration != null)
+                if (accFilter.PresentationTimeRange?.LiveBackoffDuration != null)
                 {
                     var backoff = TimeSpan.FromTicks((long)(accFilter.PresentationTimeRange.LiveBackoffDuration / _timescale) * TimeSpan.TicksPerSecond);
                     numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
@@ -166,7 +166,7 @@ namespace AMSExplorer
                     numericUpDownFirstQualityBitrate.Value = accFilter.FirstQuality.Bitrate;
                 }
 
-                checkBoxForValueForLive.Checked = accFilter.PresentationTimeRange.ForceEndTimestamp ?? false;
+                checkBoxForValueForLive.Checked = accFilter.PresentationTimeRange?.ForceEndTimestamp ?? false;
 
             }
 
@@ -307,16 +307,16 @@ namespace AMSExplorer
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                 }
 
-                checkBoxStartTime.Checked = assetFilter.PresentationTimeRange.StartTimestamp != null;
-                checkBoxEndTime.Checked = assetFilter.PresentationTimeRange.EndTimestamp != null;
-                checkBoxPresentationWindowDuration.Checked = assetFilter.PresentationTimeRange.PresentationWindowDuration != null;
-                checkBoxLiveBackoff.Checked = assetFilter.PresentationTimeRange.LiveBackoffDuration != null;
+                checkBoxStartTime.Checked = assetFilter.PresentationTimeRange?.StartTimestamp != null;
+                checkBoxEndTime.Checked = assetFilter.PresentationTimeRange?.EndTimestamp != null;
+                checkBoxPresentationWindowDuration.Checked = assetFilter.PresentationTimeRange?.PresentationWindowDuration != null;
+                checkBoxLiveBackoff.Checked = assetFilter.PresentationTimeRange?.LiveBackoffDuration != null;
 
-                timeControlStart.SetScaledTimeStamp(assetFilter.PresentationTimeRange.StartTimestamp, 0);
-                timeControlEnd.SetScaledTimeStamp(assetFilter.PresentationTimeRange.EndTimestamp, 0);  // we don't want to pass the max value to the control (overflow)
-                timeControlDVR.SetScaledTimeStamp(assetFilter.PresentationTimeRange.PresentationWindowDuration, 0);
+                timeControlStart.SetScaledTimeStamp(assetFilter.PresentationTimeRange?.StartTimestamp, 0);
+                timeControlEnd.SetScaledTimeStamp(assetFilter.PresentationTimeRange?.EndTimestamp, 0);  // we don't want to pass the max value to the control (overflow)
+                timeControlDVR.SetScaledTimeStamp(assetFilter.PresentationTimeRange?.PresentationWindowDuration, 0);
 
-                if (assetFilter.PresentationTimeRange.LiveBackoffDuration != null)
+                if (assetFilter.PresentationTimeRange?.LiveBackoffDuration != null)
                 {
                     var backoff = TimeSpan.FromTicks((long)(assetFilter.PresentationTimeRange.LiveBackoffDuration / _timescale) * TimeSpan.TicksPerSecond);
                     numericUpDownBackoffSeconds.Value = Convert.ToDecimal(backoff.TotalSeconds);
@@ -329,7 +329,7 @@ namespace AMSExplorer
                     numericUpDownFirstQualityBitrate.Value = assetFilter.FirstQuality.Bitrate;
                 }
 
-                checkBoxForValueForLive.Checked = assetFilter.PresentationTimeRange.ForceEndTimestamp ?? false;
+                checkBoxForValueForLive.Checked = assetFilter.PresentationTimeRange?.ForceEndTimestamp ?? false;
             }
 
             // Common code
@@ -409,13 +409,13 @@ namespace AMSExplorer
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_GlobalFilter);
 
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate, accfilter.FirstQuality == null ? Constants.stringNull : accfilter.FirstQuality.Bitrate.ToString());
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, accfilter.PresentationTimeRange.Timescale.ToString());
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, accfilter.PresentationTimeRange.StartTimestamp.ToString());
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, accfilter.PresentationTimeRange.EndTimestamp.ToString());
-                DGInfo.Rows.Add("Force end timestamp", accfilter.PresentationTimeRange.ForceEndTimestamp);
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, accfilter.PresentationTimeRange?.Timescale.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, accfilter.PresentationTimeRange?.StartTimestamp.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, accfilter.PresentationTimeRange?.EndTimestamp.ToString());
+                DGInfo.Rows.Add("Force end timestamp", accfilter.PresentationTimeRange?.ForceEndTimestamp);
 
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, accfilter.PresentationTimeRange.PresentationWindowDuration.ToString());
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, accfilter.PresentationTimeRange.LiveBackoffDuration.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, accfilter.PresentationTimeRange?.PresentationWindowDuration.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, accfilter.PresentationTimeRange?.LiveBackoffDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, accfilter.Tracks.Count);
             }
             else
@@ -427,13 +427,13 @@ namespace AMSExplorer
                 DGInfo.Rows.Add("Id", assetfilter.Id);
 
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate, assetfilter.FirstQuality == null ? Constants.stringNull : assetfilter.FirstQuality.Bitrate.ToString());
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, assetfilter.PresentationTimeRange.Timescale.ToString());
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, assetfilter.PresentationTimeRange.StartTimestamp.ToString());
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, assetfilter.PresentationTimeRange.EndTimestamp.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, assetfilter.PresentationTimeRange?.Timescale.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, assetfilter.PresentationTimeRange?.StartTimestamp.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, assetfilter.PresentationTimeRange?.EndTimestamp.ToString());
                 DGInfo.Rows.Add("Force end timestamp", assetfilter.PresentationTimeRange.ForceEndTimestamp);
 
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, assetfilter.PresentationTimeRange.PresentationWindowDuration.ToString());
-                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, assetfilter.PresentationTimeRange.LiveBackoffDuration.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, assetfilter.PresentationTimeRange?.PresentationWindowDuration.ToString());
+                DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, assetfilter.PresentationTimeRange?.LiveBackoffDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_TrackCount, assetfilter.Tracks.Count);
             }
         }
