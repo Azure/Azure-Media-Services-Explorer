@@ -246,7 +246,7 @@ namespace AMSExplorer
 
 
             }
-            catch (Exception ex)// can occur on test account
+            catch // can occur on test account
             {
                 MediaRUFeatureOn = false;
                 comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
