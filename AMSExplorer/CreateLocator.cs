@@ -27,15 +27,12 @@ namespace AMSExplorer
 {
     public partial class CreateLocator : Form
     {
-        private List<Asset> _SelectedAssets;
-        private AMSClientV3 _client;
+        private readonly List<Asset> _SelectedAssets;
+        private readonly AMSClientV3 _client;
 
         public DateTime? LocatorStartDate
         {
-            get
-            {
-                return (checkBoxStartDate.Checked) ? (DateTime)dateTimePickerStartDate.Value.ToUniversalTime() : (Nullable<DateTime>)null;
-            }
+            get => (checkBoxStartDate.Checked) ? dateTimePickerStartDate.Value.ToUniversalTime() : (Nullable<DateTime>)null;
             set
             {
                 dateTimePickerStartDate.Value = ((DateTime)value).ToLocalTime();
@@ -45,22 +42,31 @@ namespace AMSExplorer
 
         public bool LocatorHasStartDate
         {
-            get { return checkBoxStartDate.Checked; }
-            set { checkBoxStartDate.Checked = value; }
+            get => checkBoxStartDate.Checked;
+            set => checkBoxStartDate.Checked = value;
         }
 
         public DateTime LocatorEndDate
         {
             get
             {
-                if (radioButtonEndCustom.Checked) return dateTimePickerEndDate.Value.ToUniversalTime();
-                else if (radioButtonEndYear.Checked) return DateTime.UtcNow.AddYears(1);
-                else return DateTime.UtcNow.AddYears(100);
+                if (radioButtonEndCustom.Checked)
+                {
+                    return dateTimePickerEndDate.Value.ToUniversalTime();
+                }
+                else if (radioButtonEndYear.Checked)
+                {
+                    return DateTime.UtcNow.AddYears(1);
+                }
+                else
+                {
+                    return DateTime.UtcNow.AddYears(100);
+                }
             }
             set
             {
-                dateTimePickerEndDate.Value = ((DateTime)value).ToLocalTime();
-                dateTimePickerEndTime.Value = ((DateTime)value).ToLocalTime();
+                dateTimePickerEndDate.Value = value.ToLocalTime();
+                dateTimePickerEndTime.Value = value.ToLocalTime();
             }
         }
 
@@ -82,18 +88,12 @@ namespace AMSExplorer
 
         public string LocAssetName
         {
-            set
-            {
-                labelAssetName.Text = value;
-            }
+            set => labelAssetName.Text = value;
         }
 
         public string LocWarning
         {
-            set
-            {
-                labelWarning.Text = value;
-            }
+            set => labelWarning.Text = value;
         }
 
         public string StreamingPolicyName
@@ -133,13 +133,13 @@ namespace AMSExplorer
         public CreateLocator(AMSClientV3 client, List<Asset> SelectedAssets, bool extendlocator = false)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _SelectedAssets = SelectedAssets;
             _client = client;
             if (extendlocator) // dialog box used to extend locator expiration date
             {
                 buttonOk.Text = AMSExplorer.Properties.Resources.CreateLocator_CreateLocator_UpdateLocatorS;
-                this.Text = AMSExplorer.Properties.Resources.CreateLocator_CreateLocator_UpdateLocators2;
+                Text = AMSExplorer.Properties.Resources.CreateLocator_CreateLocator_UpdateLocators2;
                 groupBoxStart.Enabled = false; // do not propose to specificy start date
             }
         }
@@ -174,9 +174,9 @@ namespace AMSExplorer
         {
             get
             {
-                var list = new List<string>();
+                List<string> list = new List<string>();
                 string filters = string.Empty;
-                foreach (var f in listViewFilters.CheckedItems)
+                foreach (object f in listViewFilters.CheckedItems)
                 {
                     string v = (f as ListViewItem).SubItems[1].Text;
                     if (v != string.Empty)
@@ -196,18 +196,18 @@ namespace AMSExplorer
         {
             // Filters
 
-            var afiltersnames = new List<string>();
+            List<string> afiltersnames = new List<string>();
 
             // asset filters
             if (_SelectedAssets.Count == 1)
             {
                 labelNoAssetFilter.Visible = false;
-                var assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
+                Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
                 afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
                 assetFilters.ToList().ForEach(f =>
                 {
-                    var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
+                    ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
                     listViewFilters.Items.Add(lvitem);
                 }
                );
@@ -216,11 +216,11 @@ namespace AMSExplorer
 
 
             // account filters
-            var acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<AccountFilter> acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             acctFilters.ToList().ForEach(f =>
             {
-                var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
+                ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
 
                 if (afiltersnames.Contains(f.Name)) // global filter with same name than asset filter
                 {

@@ -60,24 +60,13 @@ namespace AMSExplorer
             }
         }
 
-        protected override bool SupportsSortingCore
-        {
-            get
-            {
+        protected override bool SupportsSortingCore =>
                 // indeed we do
-                return true;
-            }
-        }
+                true;
 
-        protected override ListSortDirection SortDirectionCore
-        {
-            get { return _sortDirectionValue; }
-        }
+        protected override ListSortDirection SortDirectionCore => _sortDirectionValue;
 
-        protected override PropertyDescriptor SortPropertyCore
-        {
-            get { return _sortPropertyValue; }
-        }
+        protected override PropertyDescriptor SortPropertyCore => _sortPropertyValue;
 
         private bool IsComparable(Type type)
         {

@@ -23,7 +23,7 @@ namespace AMSExplorer
 {
     public partial class SettingsSelection : Form
     {
-        private object _modifications;
+        private readonly object _modifications;
 
         public object SettingsObject // return the modifications object with changed done by user
         {
@@ -42,17 +42,17 @@ namespace AMSExplorer
         public SettingsSelection(string itemName, object modifications)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             label5.Text = string.Format(label5.Text, itemName);
 
             _modifications = modifications;
 
-            var dico = new Dictionary<string, bool>();
+            Dictionary<string, bool> dico = new Dictionary<string, bool>();
 
             IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
             foreach (PropertyInfo info in props)
             {
-                var lvitem = new ListViewItem(info.Name);
+                ListViewItem lvitem = new ListViewItem(info.Name);
                 if ((bool)info.GetValue(modifications))
                 {
                     lvitem.Checked = true;

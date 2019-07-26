@@ -49,7 +49,7 @@ namespace AMSExplorer
         /// </summary>
         public DataGridViewProgressBarCell()
         {
-            this.ValueType = typeof(int);
+            ValueType = typeof(int);
         }
 
         /// <summary>
@@ -74,11 +74,14 @@ namespace AMSExplorer
 
             int progressVal;
             if (value != null)
+            {
                 //progressVal = (int)value;
                 progressVal = (int)((double)value);
-
+            }
             else
+            {
                 progressVal = 0;
+            }
 
             // Draws the cell grid
             base.Paint(g, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, (paintParts & ~DataGridViewPaintParts.ContentForeground));
@@ -128,8 +131,8 @@ namespace AMSExplorer
 
                 if (null == cellStyle)
                 {
-                    fontPlacement.Y = cellBounds.Y + topMargin + (((float)imgHeight - fontSize.Height) / 2);
-                    fontPlacement.X = cellBounds.X + leftMargin + (((float)imgWidth - fontSize.Width) / 2);
+                    fontPlacement.Y = cellBounds.Y + topMargin + ((imgHeight - fontSize.Height) / 2);
+                    fontPlacement.X = cellBounds.X + leftMargin + ((imgWidth - fontSize.Width) / 2);
                 }
                 else
                 {
@@ -156,7 +159,7 @@ namespace AMSExplorer
                         case DataGridViewContentAlignment.NotSet:
                         default:
                             {
-                                fontPlacement.Y = cellBounds.Y + topMargin + (((float)imgHeight - fontSize.Height) / 2);
+                                fontPlacement.Y = cellBounds.Y + topMargin + ((imgHeight - fontSize.Height) / 2);
                                 break;
                             }
                     }
@@ -184,7 +187,7 @@ namespace AMSExplorer
                         case DataGridViewContentAlignment.NotSet:
                         default:
                             {
-                                fontPlacement.X = cellBounds.X + leftMargin + (((float)imgWidth - fontSize.Width) / 2);
+                                fontPlacement.X = cellBounds.X + leftMargin + ((imgWidth - fontSize.Width) / 2);
                                 break;
                             }
                     }

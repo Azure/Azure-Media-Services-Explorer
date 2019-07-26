@@ -42,128 +42,71 @@ namespace AMSExplorer
         public string _locatorexpirationdate = "LocatorExpirationDate";
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
         public string _assetwarning = "AssetWarning";
+        private static readonly Dictionary<string, AssetEntryV3> cacheAssetentriesV3 = new Dictionary<string, AssetEntryV3>();
 
-        static Dictionary<string, AssetEntryV3> cacheAssetentriesV3 = new Dictionary<string, AssetEntryV3>();
-
-        static private int _currentPageNumber = 0;
-        static private bool _currentPageNumberIsMax = false; // true when we reached the max
-        static private bool _initialized = false;
-        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetNameEquals, Text = "" };
-        static private string _statefilter = string.Empty;
-        static private string _timefilter = FilterTime.AllItems;
-        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
-        static string _orderassets = OrderAssets.CreatedDescending;
-        static BackgroundWorker WorkerAnalyzeAssets;
-
-        static Bitmap cancelimage = Bitmaps.cancel;
-        static Bitmap clearimage = Bitmaps.clear;
-        static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
-        static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
-        static Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
-        static Bitmap CENCencryptedimage = Bitmaps.DRM_protection;
-        static Bitmap CENCcbcsEncryptedImage = Bitmaps.DRM_protection_Cbcs;
-        static Bitmap unsupportedencryptedimage = Bitmaps.help;
-        static Bitmap SASlocatorimage = Bitmaps.SAS_locator;
-        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
-        static Bitmap AssetFilterImage = Bitmaps.filter;
-        static Bitmap AssetFiltersImage = Bitmaps.filters;
-        static Bitmap Redstreamimage = Program.MakeRed(Streaminglocatorimage);
-        static Bitmap Reddownloadimage = Program.MakeRed(SASlocatorimage);
-        static Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
-        static Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
-        static Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
-
-        static AMSClientV3 _client;
-        static BindingList<AssetEntryV3> _MyObservAssetV3;
+        private static int _currentPageNumber = 0;
+        private static bool _currentPageNumberIsMax = false; // true when we reached the max
+        private static bool _initialized = false;
+        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetNameEquals, Text = "" };
+        private static string _statefilter = string.Empty;
+        private static string _timefilter = FilterTime.AllItems;
+        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static string _orderassets = OrderAssets.CreatedDescending;
+        private static BackgroundWorker WorkerAnalyzeAssets;
+        private static readonly Bitmap cancelimage = Bitmaps.cancel;
+        private static readonly Bitmap clearimage = Bitmaps.clear;
+        private static readonly Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
+        private static readonly Bitmap storageencryptedimage = Bitmaps.storage_encryption;
+        private static readonly Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
+        private static readonly Bitmap CENCencryptedimage = Bitmaps.DRM_protection;
+        private static readonly Bitmap CENCcbcsEncryptedImage = Bitmaps.DRM_protection_Cbcs;
+        private static readonly Bitmap unsupportedencryptedimage = Bitmaps.help;
+        private static readonly Bitmap SASlocatorimage = Bitmaps.SAS_locator;
+        private static readonly Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
+        private static readonly Bitmap AssetFilterImage = Bitmaps.filter;
+        private static readonly Bitmap AssetFiltersImage = Bitmaps.filters;
+        private static readonly Bitmap Redstreamimage = Program.MakeRed(Streaminglocatorimage);
+        private static readonly Bitmap Reddownloadimage = Program.MakeRed(SASlocatorimage);
+        private static readonly Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
+        private static readonly Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
+        private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
+        private static AMSClientV3 _client;
+        private static BindingList<AssetEntryV3> _MyObservAssetV3;
         private IPage<Asset> firstpage;
 
-        public int CurrentPage
-        {
-            get
-            {
-                return _currentPageNumber;
-            }
-        }
+        public int CurrentPage => _currentPageNumber;
 
-        public bool CurrentPageIsMax
-        {
-            get
-            {
-                return _currentPageNumberIsMax;
-            }
-        }
+        public bool CurrentPageIsMax => _currentPageNumberIsMax;
 
         public string OrderAssetsInGrid
         {
-            get
-            {
-                return _orderassets;
-            }
-            set
-            {
-                _orderassets = value;
-            }
+            get => _orderassets;
+            set => _orderassets = value;
         }
-        public bool Initialized
-        {
-            get
-            {
-                return _initialized;
-            }
-        }
+        public bool Initialized => _initialized;
         public SearchObject SearchInName
         {
-            get
-            {
-                return _searchinname;
-            }
-            set
-            {
-                _searchinname = value;
-            }
+            get => _searchinname;
+            set => _searchinname = value;
         }
 
 
         public string StateFilter
         {
-            get
-            {
-                return _statefilter;
-            }
-            set
-            {
-                _statefilter = value;
-            }
+            get => _statefilter;
+            set => _statefilter = value;
         }
         public string TimeFilter
         {
-            get
-            {
-                return _timefilter;
-            }
-            set
-            {
-                _timefilter = value;
-            }
+            get => _timefilter;
+            set => _timefilter = value;
         }
         public TimeRangeValue TimeFilterTimeRange
         {
-            get
-            {
-                return _timefilterTimeRange;
-            }
-            set
-            {
-                _timefilterTimeRange = value;
-            }
+            get => _timefilterTimeRange;
+            set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount
-        {
-            get
-            {
-                return _MyObservAssetV3.Count();
-            }
-        }
+        public int DisplayedCount => _MyObservAssetV3.Count();
 
 
         public void Init(AMSClientV3 client)
@@ -174,13 +117,13 @@ namespace AMSExplorer
 
             _client = client;
 
-            var assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3
+            IEnumerable<AssetEntryV3> assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3
             {
                 Name = a.Name,
                 AssetId = a.AssetId,
                 Type = a.Type,
                 AlternateId = a.AlternateId,
-                Created = ((DateTime)a.Created).ToLocalTime().ToString("G"),
+                Created = a.Created.ToLocalTime().ToString("G"),
                 StorageAccountName = a.StorageAccountName,
                 Filters = null
             }
@@ -211,7 +154,7 @@ namespace AMSExplorer
                 Name = _publication,
                 DataPropertyName = _publication,
             };
-            this.Columns.Add(imageCol);
+            Columns.Add(imageCol);
 
             DataGridViewImageColumn imageCol3 = new DataGridViewImageColumn()
             {
@@ -219,7 +162,7 @@ namespace AMSExplorer
                 Name = _dynEnc,
                 DataPropertyName = _dynEnc,
             };
-            this.Columns.Add(imageCol3);
+            Columns.Add(imageCol3);
 
             /*
             DataGridViewImageColumn imageCol4 = new DataGridViewImageColumn()
@@ -235,46 +178,46 @@ namespace AMSExplorer
             BindingList<AssetEntryV3> MyObservAssethisPageV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
 
-            this.DataSource = MyObservAssethisPageV3;
+            DataSource = MyObservAssethisPageV3;
 
-            int lastColumn_sIndex = this.Columns.GetLastColumn(DataGridViewElementStates.Visible, DataGridViewElementStates.None).DisplayIndex;
-            this.Columns[_dynEncMouseOver].Visible = false;
-            this.Columns[_publicationMouseOver].Visible = false;
-            this.Columns[_filterMouseOver].Visible = false;
+            int lastColumn_sIndex = Columns.GetLastColumn(DataGridViewElementStates.Visible, DataGridViewElementStates.None).DisplayIndex;
+            Columns[_dynEncMouseOver].Visible = false;
+            Columns[_publicationMouseOver].Visible = false;
+            Columns[_filterMouseOver].Visible = false;
 
-            this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
-            this.Columns[_assetwarning].Visible = false; // used to store warning and put color in red
-            this.Columns["Type"].HeaderText = "Type (streams nb)";
-            this.Columns["Created"].HeaderText = "Created";
-            this.Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
-            this.Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
-            this.Columns["SizeLong"].Visible = false;
-            this.Columns[_filter].DisplayIndex = lastColumn_sIndex;
-            this.Columns[_filter].DefaultCellStyle.NullValue = null;
-            this.Columns[_publication].DisplayIndex = lastColumn_sIndex - 1;
-            this.Columns[_publication].DefaultCellStyle.NullValue = null;
-            this.Columns[_dynEnc].DisplayIndex = lastColumn_sIndex - 2;
-            this.Columns[_dynEnc].DefaultCellStyle.NullValue = null;
+            Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
+            Columns[_assetwarning].Visible = false; // used to store warning and put color in red
+            Columns["Type"].HeaderText = "Type (streams nb)";
+            Columns["Created"].HeaderText = "Created";
+            Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+            Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
+            Columns["SizeLong"].Visible = false;
+            Columns[_filter].DisplayIndex = lastColumn_sIndex;
+            Columns[_filter].DefaultCellStyle.NullValue = null;
+            Columns[_publication].DisplayIndex = lastColumn_sIndex - 1;
+            Columns[_publication].DefaultCellStyle.NullValue = null;
+            Columns[_dynEnc].DisplayIndex = lastColumn_sIndex - 2;
+            Columns[_dynEnc].DefaultCellStyle.NullValue = null;
 
-            this.Columns[_dynEnc].HeaderText = "Dynamic Encryption";
+            Columns[_dynEnc].HeaderText = "Dynamic Encryption";
 
-            this.Columns["Type"].Width = 140;
-            this.Columns["Size"].Width = 80;
-            this.Columns[_dynEnc].Width = 80;
-            this.Columns[_publication].Width = 90;
-            this.Columns[_filter].Width = 50;
-            this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
-            this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
-            this.Columns[_locatorexpirationdate].Width = 130;
-            this.Columns["Created"].Width = 140;
-            this.Columns["AlternateId"].Width = 300;
-            this.Columns["StorageAccountName"].Width = 140;
+            Columns["Type"].Width = 140;
+            Columns["Size"].Width = 80;
+            Columns[_dynEnc].Width = 80;
+            Columns[_publication].Width = 90;
+            Columns[_filter].Width = 50;
+            Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
+            Columns[_locatorexpirationdate].DisplayIndex = Columns.Count - 1;
+            Columns[_locatorexpirationdate].Width = 130;
+            Columns["Created"].Width = 140;
+            Columns["AlternateId"].Width = 300;
+            Columns["StorageAccountName"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
                 WorkerSupportsCancellation = true
             };
-            WorkerAnalyzeAssets.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerAnalyzeAssets_DoWork);
+            WorkerAnalyzeAssets.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerAnalyzeAssets_DoWork);
 
             _initialized = true;
         }
@@ -285,25 +228,25 @@ namespace AMSExplorer
             BackgroundWorker worker = sender as BackgroundWorker;
             Asset asset = null;
 
-            var listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
+            List<AssetEntryV3> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
 
 
             // test - let analyze only visible assets
 
-            var visibleRowsCount = this.DisplayedRowCount(true);
-            var firstDisplayedRowIndex = (this.FirstDisplayedCell != null) ? this.FirstDisplayedCell.RowIndex : 0;
-            var lastvisibleRowIndex = (firstDisplayedRowIndex + visibleRowsCount) - 1;
-            var VisibleAssets = new List<String>();
+            int visibleRowsCount = DisplayedRowCount(true);
+            int firstDisplayedRowIndex = (FirstDisplayedCell != null) ? FirstDisplayedCell.RowIndex : 0;
+            int lastvisibleRowIndex = (firstDisplayedRowIndex + visibleRowsCount) - 1;
+            List<string> VisibleAssets = new List<string>();
             for (int rowIndex = firstDisplayedRowIndex; rowIndex <= lastvisibleRowIndex; rowIndex++)
             {
-                var row = this.Rows[rowIndex];
+                DataGridViewRow row = Rows[rowIndex];
 
-                var assetname = row.Cells[this.Columns["Name"].Index].Value.ToString();
+                string assetname = row.Cells[Columns["Name"].Index].Value.ToString();
                 VisibleAssets.Add(assetname);
             }
 
-            var query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
-            var listae2 = query.ToList();
+            IEnumerable<AssetEntryV3> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
+            List<AssetEntryV3> listae2 = query.ToList();
 
             _client.RefreshTokenIfNeeded();
 
@@ -334,12 +277,12 @@ namespace AMSExplorer
                         AE.Name = asset.Name;
                         // AE.StorageAccountName = asset.StorageAccountName;
 
-                        var assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
+                        AssetBitmapAndText assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         // var assetfiles =  asset.AssetFiles.ToList();
-                        var data = AssetInfo.GetAssetType(asset.Name, _client);
+                        AssetInfoData data = AssetInfo.GetAssetType(asset.Name, _client);
                         AE.Type = data.Type;
                         AE.SizeLong = data.Size;
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
@@ -375,7 +318,7 @@ namespace AMSExplorer
                 }
 
             }
-            this.BeginInvoke(new Action(() => this.Refresh()), null);
+            BeginInvoke(new Action(() => Refresh()), null);
         }
 
         /*
@@ -412,10 +355,13 @@ namespace AMSExplorer
             cacheAssetentriesV3.Remove(asset.Name);
         }
 
-        private static Object lockGuard = new Object();
+        private static readonly object lockGuard = new object();
         public void ReLaunchAnalyze()
         {
-            if (!_initialized) return;
+            if (!_initialized)
+            {
+                return;
+            }
 
             lock (lockGuard)
             {
@@ -430,8 +376,16 @@ namespace AMSExplorer
 
         public async Task RefreshAssetsAsync(int pagetodisplay) // all assets are refreshed
         {
-            if (!_initialized) return;
-            if (pagetodisplay == 1) _currentPageNumberIsMax = false;
+            if (!_initialized)
+            {
+                return;
+            }
+
+            if (pagetodisplay == 1)
+            {
+                _currentPageNumberIsMax = false;
+            }
+
             Debug.WriteLine("RefreshAssets Start");
 
             if (WorkerAnalyzeAssets.IsBusy)
@@ -439,7 +393,7 @@ namespace AMSExplorer
                 // cancel the analyze.
                 WorkerAnalyzeAssets.CancelAsync();
             }
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
             /*
               
@@ -463,7 +417,7 @@ Properties/StorageId
             ///////////////////////
             // SORTING
             ///////////////////////
-            var odataQuery = new ODataQuery<Asset>();
+            ODataQuery<Asset> odataQuery = new ODataQuery<Asset>();
 
             switch (_orderassets)
             {
@@ -508,7 +462,7 @@ Properties/StorageId
                     // Search on Asset name starts with
                     case SearchIn.AssetNameStartsWith:
                         search = "'" + search + "'";
-                        odataQuery.Filter = "name gt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) - 1) + new String('z', 262 - search.Length) + "'" + " and name lt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) + 1) + "'";
+                        odataQuery.Filter = "name gt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) - 1) + new string('z', 262 - search.Length) + "'" + " and name lt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) + 1) + "'";
                         break;
 
                     // Search on Asset name Greater than
@@ -595,7 +549,10 @@ Properties/StorageId
                     _currentPageNumber++;
                     currentPage = await _client.AMSclient.Assets.ListNextAsync(currentPage.NextPageLink);
                 }
-                if (currentPage.NextPageLink == null) _currentPageNumberIsMax = true; // we reached max
+                if (currentPage.NextPageLink == null)
+                {
+                    _currentPageNumberIsMax = true; // we reached max
+                }
             }
 
 
@@ -615,7 +572,7 @@ Properties/StorageId
             */
 
 
-            var assets = currentPage.Select(a =>
+            IEnumerable<AssetEntryV3> assets = currentPage.Select(a =>
             (cacheAssetentriesV3.ContainsKey(a.Name)
                && cacheAssetentriesV3[a.Name].LastModified != null
                && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
@@ -626,20 +583,20 @@ Properties/StorageId
                 Description = a.Description,
                 AssetId = a.AssetId,
                 AlternateId = a.AlternateId,
-                Created = ((DateTime)a.Created).ToLocalTime().ToString("G"),
-                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                Created = a.Created.ToLocalTime().ToString("G"),
+                LastModified = a.LastModified.ToLocalTime().ToString("G"),
                 StorageAccountName = a.StorageAccountName
             }
          ));
 
             _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssetV3));
+            BeginInvoke(new Action(() => DataSource = _MyObservAssetV3));
 
             Debug.WriteLine("RefreshAssets End");
             AnalyzeItemsInBackground();
 
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
 
 
@@ -683,7 +640,7 @@ Properties/StorageId
                 };
             }
 
-            foreach (var locator in locators)
+            foreach (AssetStreamingLocator locator in locators)
             {
                 Bitmap newbitmap = null;
                 string newtext = null;
@@ -751,10 +708,10 @@ Properties/StorageId
 
             AssetBitmapAndText ABT = new AssetBitmapAndText() { Locators = locators };
 
-            var ClearEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearStreamingOnly || l.StreamingPolicyName == PredefinedStreamingPolicy.DownloadAndClearStreaming);
-            var CENCEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
-            var CENCCbcsEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
-            var EnvelopeEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey);
+            bool ClearEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearStreamingOnly || l.StreamingPolicyName == PredefinedStreamingPolicy.DownloadAndClearStreaming);
+            bool CENCEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
+            bool CENCCbcsEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
+            bool EnvelopeEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey);
 
 
             int count = (ClearEnable ? 1 : 0) + (CENCEnable ? 1 : 0) + (CENCCbcsEnable ? 1 : 0) + (EnvelopeEnable ? 1 : 0);

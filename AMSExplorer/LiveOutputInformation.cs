@@ -28,15 +28,15 @@ namespace AMSExplorer
     public partial class LiveOutputInformation : Form
     {
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
-        private Mainform MyMainForm;
-        private AMSClientV3 _client;
+        private readonly Mainform MyMainForm;
+        private readonly AMSClientV3 _client;
         public bool MultipleSelection = false;
         public LiveOutput MyLiveOutput;
 
         public LiveOutputInformation(Mainform mainform, AMSClientV3 client)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
             _client = client;
         }
@@ -71,7 +71,7 @@ namespace AMSExplorer
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
             _client.RefreshTokenIfNeeded();
-            var AssetToDisplayP = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, MyLiveOutput.AssetName);
+            Asset AssetToDisplayP = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, MyLiveOutput.AssetName);
             if (AssetToDisplayP != null)
             {
                 AssetInformation form = new AssetInformation(MyMainForm, _client)

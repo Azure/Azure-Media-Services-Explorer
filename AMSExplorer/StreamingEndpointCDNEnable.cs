@@ -32,21 +32,9 @@ namespace AMSExplorer
             new Item("Premium Verizon", "PremiumVerizon")
                    };
 
-        public string ProviderSelected
-        {
-            get
-            {
-                return ((Item)comboBoxProvider.SelectedItem).Value.ToString();
-            }
-        }
+        public string ProviderSelected => ((Item)comboBoxProvider.SelectedItem).Value.ToString();
 
-        public string ProviderSelectedString
-        {
-            get
-            {
-                return ((Item)comboBoxProvider.SelectedItem).Value;
-            }
-        }
+        public string ProviderSelectedString => ((Item)comboBoxProvider.SelectedItem).Value;
 
 
         public string Profile
@@ -69,7 +57,7 @@ namespace AMSExplorer
         public StreamingEndpointCDNEnable()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             ControlsResetToDefault();
 
@@ -80,7 +68,7 @@ namespace AMSExplorer
         {
             comboBoxProvider.Items.Clear();
 
-            foreach (var provider in CDNProviders)
+            foreach (Item provider in CDNProviders)
             {
                 comboBoxProvider.Items.Add(provider);
             }

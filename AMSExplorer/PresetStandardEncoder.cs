@@ -27,7 +27,7 @@ namespace AMSExplorer
 
     public partial class PresetStandardEncoder : Form
     {
-        private string _unique;
+        private readonly string _unique;
 
         public readonly IList<Profile> Profiles = new List<Profile> {
             new Profile() {Prof=@"AdaptiveStreaming", Desc="Auto-generate a bitrate ladder (bitrate-resolution pairs) based on the input resolution and bitrate. This built-in encoder setting, or preset, will never exceed the input resolution and bitrate. For example, if the input is 720p at 3 Mbps, output remains 720p at best, and will start at rates lower than 3 Mbps. The output contains an audio-only MP4 file with stereo audio encoded at 128 kbps.", Automatic=true},
@@ -46,35 +46,16 @@ namespace AMSExplorer
             return Profiles.Where(p => p.Prof == name).FirstOrDefault();
         }
 
-        public EncoderNamedPreset BuiltInPreset
-        {
-            get
-            {
-                return (EncoderNamedPreset)((listboxPresets.SelectedItem as Item).Value);
+        public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
 
-            }
-        }
+        public string TransformName => textBoxTransformName.Text;
 
-        public string TransformName
-        {
-            get
-            {
-                return textBoxTransformName.Text;
-            }
-        }
-
-        public string Description
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
-            }
-        }
+        public string Description => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
 
         public PresetStandardEncoder()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _unique = Guid.NewGuid().ToString().Substring(0, 13);
         }
 
@@ -112,7 +93,7 @@ namespace AMSExplorer
         {
             UpdateTransformLabel();
 
-            var profile = Profiles.Where(p => p.Prof == listboxPresets.SelectedItem.ToString()).FirstOrDefault();
+            Profile profile = Profiles.Where(p => p.Prof == listboxPresets.SelectedItem.ToString()).FirstOrDefault();
             if (profile != null)
             {
                 richTextBoxDesc.Text = profile.Desc;

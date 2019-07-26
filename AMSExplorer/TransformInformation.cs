@@ -26,15 +26,15 @@ namespace AMSExplorer
 {
     public partial class TransformInformation : Form
     {
-        private Transform _transform;
-        private AzureMediaServicesClient _client;
-        private Mainform _mainform;
+        private readonly Transform _transform;
+        private readonly AzureMediaServicesClient _client;
+        private readonly Mainform _mainform;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
         public TransformInformation(Mainform mainform, AzureMediaServicesClient client, Transform transform)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
             _mainform = mainform;
             _transform = transform;
@@ -70,18 +70,18 @@ namespace AMSExplorer
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _transform.Name);
             DGTransform.Rows.Add("Description", _transform.Description);
             DGTransform.Rows.Add("Id", _transform.Id);
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)_transform.Created).ToLocalTime().ToString("G"));
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)_transform.LastModified).ToLocalTime().ToString("G"));
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _transform.Created.ToLocalTime().ToString("G"));
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _transform.LastModified.ToLocalTime().ToString("G"));
 
             bool boutoutsintransform = (_transform.Outputs.Count() > 0);
 
             int index = 1;
             if (boutoutsintransform)
             {
-                foreach (var output in _transform.Outputs)
+                foreach (TransformOutput output in _transform.Outputs)
                 {
                     // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
-                    var outputLabel = "output #" + index;
+                    string outputLabel = "output #" + index;
                     listBoxOutputs.Items.Add(outputLabel);
                 }
                 listBoxOutputs.SelectedIndex = 0;
@@ -90,7 +90,7 @@ namespace AMSExplorer
 
         private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var output = _transform.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
+            TransformOutput output = _transform.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
 
             DGOutputs.Rows.Clear();
 
@@ -98,28 +98,28 @@ namespace AMSExplorer
 
             if (output.Preset.GetType() == typeof(BuiltInStandardEncoderPreset))
             {
-                var pmes = (BuiltInStandardEncoderPreset)output.Preset;
+                BuiltInStandardEncoderPreset pmes = (BuiltInStandardEncoderPreset)output.Preset;
                 DGOutputs.Rows.Add("Preset name", pmes.PresetName);
             }
             else if (output.Preset.GetType() == typeof(AudioAnalyzerPreset))
             {
-                var pmes = (AudioAnalyzerPreset)output.Preset;
+                AudioAnalyzerPreset pmes = (AudioAnalyzerPreset)output.Preset;
                 DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
             }
             else if (output.Preset.GetType() == typeof(StandardEncoderPreset))
             {
-                var pmes = (StandardEncoderPreset)output.Preset;
+                StandardEncoderPreset pmes = (StandardEncoderPreset)output.Preset;
                 // DGOutputs.Rows.Add("Audio language", pmes.);
             }
             else if (output.Preset.GetType() == typeof(VideoAnalyzerPreset))
             {
-                var pmes = (VideoAnalyzerPreset)output.Preset;
+                VideoAnalyzerPreset pmes = (VideoAnalyzerPreset)output.Preset;
                 DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
                 DGOutputs.Rows.Add("Insights To Extract", pmes.InsightsToExtract);
             }
             else if (output.Preset.GetType() == typeof(FaceDetectorPreset))
             {
-                var pmes = (FaceDetectorPreset)output.Preset;
+                FaceDetectorPreset pmes = (FaceDetectorPreset)output.Preset;
                 DGOutputs.Rows.Add("Resolution", pmes.Resolution.HasValue ? pmes.Resolution.Value.ToString() : string.Empty);
             }
 
@@ -128,7 +128,7 @@ namespace AMSExplorer
 
         private void DGTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
+            DataGridView senderGrid = (DataGridView)sender;
             if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
             {
                 SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
@@ -137,7 +137,7 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            var editform = new EditorXMLJSON(dataname, key, false, false);
+            EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false, false);
             editform.Display();
         }
 

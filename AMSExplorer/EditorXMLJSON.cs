@@ -24,22 +24,20 @@ namespace AMSExplorer
 {
     public partial class EditorXMLJSON : Form
     {
-        string savedConfig;
-        string defaultConfig;
+        private string savedConfig;
+        private readonly string defaultConfig;
 
-        public string TextData
-        {
-            get
-            {
-                return textBoxConfiguration.Text;
-            }
-        }
+        public string TextData => textBoxConfiguration.Text;
 
         public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false, bool DisplayFormatButton = true, string infoText = null)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
-            if (title != null) this.Text = title;
+            Icon = Bitmaps.Azure_Explorer_ico;
+            if (title != null)
+            {
+                Text = title;
+            }
+
             textBoxConfiguration.Text = savedConfig = defaultConfig = (text == null ? string.Empty : text);
             if (editMode)
             {
@@ -65,7 +63,7 @@ namespace AMSExplorer
 
         public DialogResult Display()
         {
-            DialogResult DR = this.ShowDialog();
+            DialogResult DR = ShowDialog();
             if (DR == DialogResult.OK)
             {
                 savedConfig = textBoxConfiguration.Text;
@@ -112,13 +110,13 @@ namespace AMSExplorer
         }
     }
 
-    class ButtonPremiumXMLData : Button
+    internal class ButtonPremiumXMLData : Button
     {
-        EditorXMLJSON myPremiumXML;
+        private EditorXMLJSON myPremiumXML;
 
         public ButtonPremiumXMLData()
         {
-            this.Click += ButtonXML_Click;
+            Click += ButtonXML_Click;
         }
 
         public void Initialize()
@@ -126,7 +124,7 @@ namespace AMSExplorer
             myPremiumXML = new EditorXMLJSON(editMode: true, showSamplePremium: true);
         }
 
-        void ButtonXML_Click(object sender, EventArgs e)
+        private void ButtonXML_Click(object sender, EventArgs e)
         {
             myPremiumXML.Display();
         }

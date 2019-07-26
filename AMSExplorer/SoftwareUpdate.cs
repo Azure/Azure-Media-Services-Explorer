@@ -25,14 +25,14 @@ namespace AMSExplorer
 {
     public partial class SoftwareUpdate : Form
     {
-        Uri _urlRelNotes;
-        Version _newVersion;
-        Uri _binaryUrl;
+        private readonly Uri _urlRelNotes;
+        private readonly Version _newVersion;
+        private readonly Uri _binaryUrl;
 
         public SoftwareUpdate(Uri urlRelNotes, Version newVersion, Uri binaryUrl)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _urlRelNotes = urlRelNotes;
             _newVersion = newVersion;
             _binaryUrl = binaryUrl;
@@ -40,7 +40,11 @@ namespace AMSExplorer
 
         private void SoftwareUpdate_Load(object sender, EventArgs e)
         {
-            if (_urlRelNotes != null) webBrowser1.Url = _urlRelNotes;
+            if (_urlRelNotes != null)
+            {
+                webBrowser1.Url = _urlRelNotes;
+            }
+
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkAMSE));
             label5.Text = string.Format(label5.Text, _newVersion);
         }
@@ -55,8 +59,8 @@ namespace AMSExplorer
         {
             progressBar1.Visible = true;
             buttonOk.Enabled = false;
-            var webClientB = new WebClient();
-            var filename = System.IO.Path.GetFileName(_binaryUrl.LocalPath);
+            WebClient webClientB = new WebClient();
+            string filename = System.IO.Path.GetFileName(_binaryUrl.LocalPath);
 
             webClientB.DownloadFileCompleted += DownloadFileCompletedBinary(filename);
             webClientB.DownloadProgressChanged += WebClientB_DownloadProgressChanged;

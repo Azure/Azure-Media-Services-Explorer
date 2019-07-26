@@ -33,18 +33,18 @@ namespace AMSExplorer
     public partial class AddAMSAccount2Browse : Form
     {
         private TokenCredentials credentials;
-        private AzureEnvironment environment;
-        private myTenant[] _myTenants;
-        private IPlatformParameters _parameters;
+        private readonly AzureEnvironment environment;
+        private readonly myTenant[] _myTenants;
+        private readonly IPlatformParameters _parameters;
         private IPage<Subscription> subscriptions;
-        private Dictionary<string, IPage<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, IPage<SubscriptionMediaService>>();
+        private readonly Dictionary<string, IPage<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, IPage<SubscriptionMediaService>>();
         public SubscriptionMediaService selectedAccount = null;
         public string selectedTenantId = null;
 
         public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironment environment, myTenant[] myTenants, IPlatformParameters parameters)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             this.credentials = credentials;
             this.subscriptions = subscriptions;
             this.environment = environment;
@@ -64,14 +64,17 @@ namespace AMSExplorer
 
         private async void BuildSubTree()
         {
-            if (comboBoxTenants.SelectedItem == null) return;
+            if (comboBoxTenants.SelectedItem == null)
+            {
+                return;
+            }
 
             treeViewAzureSub.Nodes.Clear();
             // let's connect
 
             selectedTenantId = ((Item)comboBoxTenants.SelectedItem).Value;
 
-            var authContext = new Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext(
+            AuthenticationContext authContext = new Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext(
                                                                authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId ?? "common"),
                                                                    validateAuthority: true);
             AuthenticationResult accessToken = null;
@@ -92,14 +95,14 @@ namespace AMSExplorer
 
             credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
-            var subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+            SubscriptionClient subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
             subscriptions = subscriptionClient.Subscriptions.List();
 
             treeViewAzureSub.BeginUpdate();
             treeViewAzureSub.Nodes.Clear();
             int indexSub = -1;
 
-            foreach (var sub in subscriptions)
+            foreach (Subscription sub in subscriptions)
             {
                 indexSub++;
                 TreeNode mySubNode = new TreeNode(sub.DisplayName);
@@ -113,41 +116,44 @@ namespace AMSExplorer
 
         private void treeViewAzureSub_MouseClick(object sender, MouseEventArgs e)
         {
-            var hitTest = treeViewAzureSub.HitTest(e.Location);
+            TreeViewHitTestInfo hitTest = treeViewAzureSub.HitTest(e.Location);
             if (hitTest.Location == TreeViewHitTestLocations.PlusMinus && hitTest.Node.IsExpanded)
             {
                 // user clicked on the '+' button
 
-                this.Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
 
-                var selectedSubscription = subscriptions.Where(s => s.DisplayName == hitTest.Node.Text).FirstOrDefault();
+                Subscription selectedSubscription = subscriptions.Where(s => s.DisplayName == hitTest.Node.Text).FirstOrDefault();
 
                 // Getting Media Services accounts...
-                var mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
-
-                mediaServicesClient.SubscriptionId = selectedSubscription.SubscriptionId;
-                var mediaServicesAccounts = mediaServicesClient.Mediaservices.ListBySubscription();
+                AzureMediaServicesClient mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
+                {
+                    SubscriptionId = selectedSubscription.SubscriptionId
+                };
+                IPage<SubscriptionMediaService> mediaServicesAccounts = mediaServicesClient.Mediaservices.ListBySubscription();
 
                 // let's save the data
                 allAMSAccountsPerSub[mediaServicesClient.SubscriptionId] = mediaServicesAccounts;
 
                 treeViewAzureSub.BeginUpdate();
                 hitTest.Node.Nodes.Clear();
-                foreach (var mediaAcct in mediaServicesAccounts)
+                foreach (SubscriptionMediaService mediaAcct in mediaServicesAccounts)
                 {
-                    var node = new TreeNode(mediaAcct.Name);
-                    node.Tag = mediaAcct.Id;
+                    TreeNode node = new TreeNode(mediaAcct.Name)
+                    {
+                        Tag = mediaAcct.Id
+                    };
                     hitTest.Node.Nodes.Add(node);
                 }
                 treeViewAzureSub.EndUpdate();
-                this.Cursor = Cursors.Arrow;
+                Cursor = Cursors.Arrow;
                 buttonNext.Enabled = false;
 
             }
             else if (hitTest.Location == TreeViewHitTestLocations.Label && hitTest.Node.Level == 1)
             {
-                var accounts = allAMSAccountsPerSub[(string)hitTest.Node.Parent.Tag];
-                var account = accounts.Where(a => a.Id == (string)hitTest.Node.Tag).FirstOrDefault();
+                IPage<SubscriptionMediaService> accounts = allAMSAccountsPerSub[(string)hitTest.Node.Parent.Tag];
+                SubscriptionMediaService account = accounts.Where(a => a.Id == (string)hitTest.Node.Tag).FirstOrDefault();
 
                 // let's display account info
                 DisplayInfoAccount(account);

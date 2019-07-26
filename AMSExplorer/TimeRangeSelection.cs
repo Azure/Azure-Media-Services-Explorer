@@ -24,10 +24,7 @@ namespace AMSExplorer
 
         public TimeRangeValue TimeRange
         {
-            get
-            {
-                return new TimeRangeValue(TimeRangeStartDate, TimeRangeEndDate);
-            }
+            get => new TimeRangeValue(TimeRangeStartDate, TimeRangeEndDate);
             set
             {
                 TimeRangeStartDate = value.StartDate;
@@ -37,14 +34,11 @@ namespace AMSExplorer
 
         public DateTime TimeRangeStartDate
         {
-            get
-            {
-                return (DateTime)dateTimePickerStartDate.Value.ToUniversalTime();
-            }
+            get => dateTimePickerStartDate.Value.ToUniversalTime();
             set
             {
-                dateTimePickerStartDate.Value = ((DateTime)value).ToLocalTime();
-                dateTimePickerStartTime.Value = ((DateTime)value).ToLocalTime();
+                dateTimePickerStartDate.Value = value.ToLocalTime();
+                dateTimePickerStartTime.Value = value.ToLocalTime();
             }
         }
 
@@ -53,8 +47,14 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonEndCustom.Checked) return dateTimePickerEndDate.Value.ToUniversalTime();
-                else return (Nullable<DateTime>)null;  // now
+                if (radioButtonEndCustom.Checked)
+                {
+                    return dateTimePickerEndDate.Value.ToUniversalTime();
+                }
+                else
+                {
+                    return null;  // now
+                }
             }
             set
             {
@@ -74,17 +74,14 @@ namespace AMSExplorer
 
         public string LabelMain
         {
-            set
-            {
-                labelMain.Text = value;
-            }
+            set => labelMain.Text = value;
         }
 
 
         public TimeRangeSelection()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             dateTimePickerEndDate.Value = DateTime.Now.Date.AddDays(1);
             dateTimePickerEndTime.Value = DateTime.Now.Date.AddDays(1);

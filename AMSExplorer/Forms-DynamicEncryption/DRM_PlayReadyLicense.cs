@@ -81,11 +81,11 @@ namespace AMSExplorer
                 {
                     if (radioButtonStartDateAbsolute.Checked)
                     {
-                        objContentKeyPolicyPlayReadyLicense.BeginDate = (DateTime)dateTimePickerStartDate.Value.ToUniversalTime();
+                        objContentKeyPolicyPlayReadyLicense.BeginDate = dateTimePickerStartDate.Value.ToUniversalTime();
                     }
                     else // Relative
                     {
-                        objContentKeyPolicyPlayReadyLicense.RelativeBeginDate = (TimeSpan)new TimeSpan((int)numericUpDownStartDateDays.Value, (int)numericUpDownStartDateHours.Value, (int)numericUpDownStartDateMinutes.Value, 0);
+                        objContentKeyPolicyPlayReadyLicense.RelativeBeginDate = new TimeSpan((int)numericUpDownStartDateDays.Value, (int)numericUpDownStartDateHours.Value, (int)numericUpDownStartDateMinutes.Value, 0);
                     }
                 }
 
@@ -93,25 +93,53 @@ namespace AMSExplorer
                 {
                     if (radioButtonEndDateAbsolute.Checked)
                     {
-                        objContentKeyPolicyPlayReadyLicense.ExpirationDate = (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
+                        objContentKeyPolicyPlayReadyLicense.ExpirationDate = dateTimePickerEndDate.Value.ToUniversalTime();
                     }
                     else // Relative
                     {
-                        objContentKeyPolicyPlayReadyLicense.RelativeExpirationDate = (TimeSpan)new TimeSpan((int)numericUpDownEndDateDays.Value, (int)numericUpDownEndDateHours.Value, (int)numericUpDownEndDateMinutes.Value, 0);
+                        objContentKeyPolicyPlayReadyLicense.RelativeExpirationDate = new TimeSpan((int)numericUpDownEndDateDays.Value, (int)numericUpDownEndDateHours.Value, (int)numericUpDownEndDateMinutes.Value, 0);
                     }
                 }
 
-                if (checkBoxFPExp.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.FirstPlayExpiration = (TimeSpan)new TimeSpan((int)numericUpDownFPExpDays.Value, (int)numericUpDownFPExpHours.Value, (int)numericUpDownFPExpMinutes.Value, 0);
+                if (checkBoxFPExp.Checked)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.FirstPlayExpiration = new TimeSpan((int)numericUpDownFPExpDays.Value, (int)numericUpDownFPExpHours.Value, (int)numericUpDownFPExpMinutes.Value, 0);
+                }
 
-                if (checkBoxGrace.Checked) objContentKeyPolicyPlayReadyLicense.GracePeriod = (TimeSpan)new TimeSpan((int)numericUpDownGraceDays.Value, (int)numericUpDownGraceHours.Value, (int)numericUpDownGraceMin.Value, 0);
+                if (checkBoxGrace.Checked)
+                {
+                    objContentKeyPolicyPlayReadyLicense.GracePeriod = new TimeSpan((int)numericUpDownGraceDays.Value, (int)numericUpDownGraceHours.Value, (int)numericUpDownGraceMin.Value, 0);
+                }
 
+                if (objContentKeyPolicyPlayReadyLicense.PlayRight == null)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight = new ContentKeyPolicyPlayReadyPlayRight();
+                }
 
-                if (objContentKeyPolicyPlayReadyLicense.PlayRight == null) objContentKeyPolicyPlayReadyLicense.PlayRight = new ContentKeyPolicyPlayReadyPlayRight();
-                if (checkBoxCompressedDigitalAudioOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalAudioOpl = (int)numericUpDownCompressedDigitalAudioOPL.Value;
-                if (checkBoxCompressedDigitalVideoOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalVideoOpl = (int)numericUpDownCompressedDigitalVideoOPL.Value;
-                if (checkBoxUncompressedDigitalAudioOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalAudioOpl = (int)numericUpDownUncompressedDigitalAudioOPL.Value;
-                if (checkBoxUncompressedDigitalVideoOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalVideoOpl = (int)numericUpDownUncompressedDigitalVideoOPL.Value;
-                if (checkBoxAnalogVideoOPL.Checked) objContentKeyPolicyPlayReadyLicense.PlayRight.AnalogVideoOpl = (int)numericUpDownAnalogVideoOPL.Value;
+                if (checkBoxCompressedDigitalAudioOPL.Checked)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalAudioOpl = (int)numericUpDownCompressedDigitalAudioOPL.Value;
+                }
+
+                if (checkBoxCompressedDigitalVideoOPL.Checked)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalVideoOpl = (int)numericUpDownCompressedDigitalVideoOPL.Value;
+                }
+
+                if (checkBoxUncompressedDigitalAudioOPL.Checked)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalAudioOpl = (int)numericUpDownUncompressedDigitalAudioOPL.Value;
+                }
+
+                if (checkBoxUncompressedDigitalVideoOPL.Checked)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalVideoOpl = (int)numericUpDownUncompressedDigitalVideoOPL.Value;
+                }
+
+                if (checkBoxAnalogVideoOPL.Checked)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.AnalogVideoOpl = (int)numericUpDownAnalogVideoOPL.Value;
+                }
 
                 objContentKeyPolicyPlayReadyLicense.PlayRight.DigitalVideoOnlyContentRestriction = checkBoxDigitalVideoOnlyContentRestriction.Checked;
                 objContentKeyPolicyPlayReadyLicense.PlayRight.ImageConstraintForAnalogComponentVideoRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
@@ -159,25 +187,19 @@ namespace AMSExplorer
 
         public string PlayReadOptionName
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(textBoxPolicyName.Text) ? null : textBoxPolicyName.Text;
-            }
-            set
-            {
-                textBoxPolicyName.Text = value;
-            }
+            get => string.IsNullOrWhiteSpace(textBoxPolicyName.Text) ? null : textBoxPolicyName.Text;
+            set => textBoxPolicyName.Text = value;
         }
 
 
         public DRM_PlayReadyLicense(int step = -1, int option = -1, bool laststep = true)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             if (step > -1 && option > -1)
             {
-                this.Text = string.Format(this.Text, step);
+                Text = string.Format(Text, step);
                 labelstep.Text = string.Format(labelstep.Text, step, option);
             }
             if (!laststep)
@@ -267,7 +289,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                var plt = this.GetPlayReadyConfiguration;
+                ContentKeyPolicyPlayReadyConfiguration plt = GetPlayReadyConfiguration;
             }
             catch (Exception ex)
             {
@@ -275,8 +297,10 @@ namespace AMSExplorer
                 Error = true;
             }
 
-            if (!Error) labelWarning.Text = string.Empty;
-
+            if (!Error)
+            {
+                labelWarning.Text = string.Empty;
+            }
         }
 
         private void checkBoxCompressedDigitalAudioOPL_CheckedChanged(object sender, EventArgs e)

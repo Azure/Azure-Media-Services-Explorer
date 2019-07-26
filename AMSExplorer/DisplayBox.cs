@@ -5,14 +5,14 @@ namespace AMSExplorer
 {
     public partial class DisplayBox : Form
     {
-        int nbsecond = 0;
+        private int nbsecond = 0;
 
         public DisplayBox(string title, string label, int? nbseconds = null)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
-            this.Text = title;
+            Text = title;
             label1.Text = label;
             if (nbseconds != null)
             {
@@ -26,7 +26,7 @@ namespace AMSExplorer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void MyTimer_Tick(object sender, EventArgs e)

@@ -45,80 +45,50 @@ namespace AMSExplorer
 
         public string FilterStreamingEndpointsState
         {
-            get
-            {
-                return _filterstreamingendpointsstate;
-            }
-            set
-            {
-                _filterstreamingendpointsstate = value;
-            }
+            get => _filterstreamingendpointsstate;
+            set => _filterstreamingendpointsstate = value;
 
         }
         public string SearchInName
         {
-            get
-            {
-                return _searchinname;
-            }
-            set
-            {
-                _searchinname = value;
-            }
+            get => _searchinname;
+            set => _searchinname = value;
 
         }
-        public bool Initialized
-        {
-            get
-            {
-                return _initialized;
-            }
-
-        }
+        public bool Initialized => _initialized;
         public string TimeFilter
         {
-            get
-            {
-                return _timefilter;
-            }
-            set
-            {
-                _timefilter = value;
-            }
+            get => _timefilter;
+            set => _timefilter = value;
         }
-        public int DisplayedCount
-        {
-            get
-            {
-                return _MyObservStreamingEndpoints.Count();
-            }
-
-        }
+        public int DisplayedCount => _MyObservStreamingEndpoints.Count();
         public List<StreamingEndpoint> DisplayedStreamingEndpoints
         {
             // we want to keep the sorting in display
             get
             {
                 _client.RefreshTokenIfNeeded();
-                var list = new List<StreamingEndpoint>();
-                foreach (var se in _MyObservStreamingEndpoints)
+                List<StreamingEndpoint> list = new List<StreamingEndpoint>();
+                foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
                 {
-                    var detailedSE = _client.AMSclient.StreamingEndpoints.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, se.Name);
+                    StreamingEndpoint detailedSE = _client.AMSclient.StreamingEndpoints.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, se.Name);
                     if (detailedSE != null) // in some rare cases, SE is null in dev/test account
+                    {
                         list.Add(detailedSE);
+                    }
                 }
                 return list;
             }
         }
 
-        private List<StatusInfo> ListStatus = new List<StatusInfo>();
-        static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
-        static IEnumerable<StreamingEndpoint> streamingendpoints;
-        static private bool _initialized = false;
-        static string _filterstreamingendpointsstate = "All";
-        static private string _searchinname = string.Empty;
-        static private string _timefilter = FilterTime.LastWeek;
-        static BackgroundWorker WorkerRefreshStreamingEndpoints;
+        private readonly List<StatusInfo> ListStatus = new List<StatusInfo>();
+        private static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
+        private static IEnumerable<StreamingEndpoint> streamingendpoints;
+        private static bool _initialized = false;
+        private static string _filterstreamingendpointsstate = "All";
+        private static string _searchinname = string.Empty;
+        private static string _timefilter = FilterTime.LastWeek;
+        private static BackgroundWorker WorkerRefreshStreamingEndpoints;
         private AMSClientV3 _client;
 
         public void Init(AMSClientV3 client)
@@ -133,7 +103,7 @@ namespace AMSExplorer
                 Id = o.Id,
                 Description = o.Description,
                 CDN = ((bool)o.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(o.CdnProvider) ?? "CDN" : string.Empty,
-                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : ((int)o.ScaleUnits).ToString(),
+                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : o.ScaleUnits.ToString(),
                 Type = StreamingEndpointInformation.ReturnTypeSE(o),
                 State = (StreamingEndpointResourceState)o.ResourceState,
                 LastModified = ((DateTime)o.LastModified).ToLocalTime()
@@ -141,19 +111,21 @@ namespace AMSExplorer
 
 
             SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new SortableBindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
-            this.DataSource = MyObservOriginInPage;
-            this.Columns["Name"].Width = 300;
-            this.Columns["State"].Width = 100;
-            this.Columns["CDN"].Width = 120;
-            this.Columns["Description"].Width = 230;
-            this.Columns["ScaleUnits"].Width = 100;
-            this.Columns["ScaleUnits"].HeaderText = "Streaming Units";
-            this.Columns["LastModified"].Width = 150;
-            this.Columns["LastModified"].HeaderText = "Last modified";
+            DataSource = MyObservOriginInPage;
+            Columns["Name"].Width = 300;
+            Columns["State"].Width = 100;
+            Columns["CDN"].Width = 120;
+            Columns["Description"].Width = 230;
+            Columns["ScaleUnits"].Width = 100;
+            Columns["ScaleUnits"].HeaderText = "Streaming Units";
+            Columns["LastModified"].Width = 150;
+            Columns["LastModified"].HeaderText = "Last modified";
 
-            WorkerRefreshStreamingEndpoints = new BackgroundWorker();
-            WorkerRefreshStreamingEndpoints.WorkerSupportsCancellation = true;
-            WorkerRefreshStreamingEndpoints.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshStreamingEndpoints_DoWork);
+            WorkerRefreshStreamingEndpoints = new BackgroundWorker
+            {
+                WorkerSupportsCancellation = true
+            };
+            WorkerRefreshStreamingEndpoints.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshStreamingEndpoints_DoWork);
 
             _initialized = true;
         }
@@ -182,8 +154,8 @@ namespace AMSExplorer
                     _MyObservStreamingEndpoints[index].LastModified = ((DateTime)streamingEndpoint.LastModified).ToLocalTime();
                     _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint);
                     _MyObservStreamingEndpoints[index].CDN = ((bool)streamingEndpoint.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(streamingEndpoint.CdnProvider) ?? "CDN" : string.Empty;
-                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : ((int)streamingEndpoint.ScaleUnits).ToString();
-                    this.BeginInvoke(new Action(() => this.Refresh()));
+                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : streamingEndpoint.ScaleUnits.ToString();
+                    BeginInvoke(new Action(() => Refresh()));
                 }
             }
         }
@@ -208,7 +180,7 @@ namespace AMSExplorer
                         OE.State = (StreamingEndpointResourceState)origin.ResourceState;
 
                         //if ((i % 5) == 0) this.BeginInvoke(new Action(() => this.Refresh()), null);
-                        this.BeginInvoke(new Action(() => this.Refresh()), null);
+                        BeginInvoke(new Action(() => Refresh()), null);
                         //i++;
                     }
                 }
@@ -223,15 +195,18 @@ namespace AMSExplorer
                 }
 
             }
-            this.BeginInvoke(new Action(() => this.Refresh()), null);
+            BeginInvoke(new Action(() => Refresh()), null);
         }
 
 
         public async Task RefreshStreamingEndpointsAsync()
         {
-            if (!_initialized) return;
+            if (!_initialized)
+            {
+                return;
+            }
 
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
@@ -255,15 +230,15 @@ namespace AMSExplorer
                                 Id = c.Id,
                                 Description = c.Description,
                                 CDN = (bool)c.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.CdnProvider) ?? "CDN" : string.Empty,
-                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : ((int)c.ScaleUnits).ToString(),
+                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : c.ScaleUnits.ToString(),
                                 State = (StreamingEndpointResourceState)c.ResourceState,
                                 LastModified = ((DateTime)c.LastModified).ToLocalTime(),
                                 Type = StreamingEndpointInformation.ReturnTypeSE(c)
                             };
 
             _MyObservStreamingEndpoints = new SortableBindingList<StreamingEndpointEntry>(endpointquery.ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservStreamingEndpoints));
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+            BeginInvoke(new Action(() => DataSource = _MyObservStreamingEndpoints));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
     }
 }

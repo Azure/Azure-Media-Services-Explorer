@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Office.Interop.Excel;
 using System;
 using System.Windows.Forms;
 
@@ -35,11 +34,17 @@ namespace AMSExplorer
             get
             {
                 if (radioButtonEncoding.Checked)
+                {
                     return simpleTransformType.encode;
+                }
                 else if (radioButtonAVAnalyze.Checked)
+                {
                     return simpleTransformType.analyze;
+                }
                 else
+                {
                     return simpleTransformType.facedetection;
+                }
             }
         }
 
@@ -47,7 +52,7 @@ namespace AMSExplorer
         public TransformTypeCreation()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void TransformTypeCreation_Load(object sender, EventArgs e)

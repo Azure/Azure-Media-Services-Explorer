@@ -25,37 +25,19 @@ namespace AMSExplorer
     {
         public string BatchFolder
         {
-            get
-            {
-                return textBoxFolder.Text;
-            }
-            set
-            {
-                textBoxFolder.Text = value;
-            }
+            get => textBoxFolder.Text;
+            set => textBoxFolder.Text = value;
         }
 
         public bool BatchProcessSubFolders
         {
-            get
-            {
-                return checkBoxSubFolder.Checked;
-            }
-            set
-            {
-                checkBoxSubFolder.Checked = value;
-            }
+            get => checkBoxSubFolder.Checked;
+            set => checkBoxSubFolder.Checked = value;
         }
         public bool BatchProcessFiles
         {
-            get
-            {
-                return checkBoxProcessFiles.Checked;
-            }
-            set
-            {
-                checkBoxProcessFiles.Checked = value;
-            }
+            get => checkBoxProcessFiles.Checked;
+            set => checkBoxProcessFiles.Checked = value;
         }
 
         public BatchUploadFrame1()
@@ -81,7 +63,7 @@ namespace AMSExplorer
             if (!Directory.Exists(textBoxFolder.Text))
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist, AMSExplorer.Properties.Resources.BatchUploadFrame1_buttonNext_Click_Folder, MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                this.DialogResult = DialogResult.None;
+                DialogResult = DialogResult.None;
             }
         }
     }

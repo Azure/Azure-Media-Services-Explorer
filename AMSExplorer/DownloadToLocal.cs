@@ -26,41 +26,23 @@ namespace AMSExplorer
 {
     public partial class DownloadToLocal : Form
     {
-        private IEnumerable<Asset> _selassets;
-        private string _backupfolder;
+        private readonly IEnumerable<Asset> _selassets;
+        private readonly string _backupfolder;
 
         public string FolderPath
         {
-            get
-            {
-                return textBoxFolderPath.Text;
-            }
-            set
-            {
-                textBoxFolderPath.Text = value;
-            }
+            get => textBoxFolderPath.Text;
+            set => textBoxFolderPath.Text = value;
         }
 
-        public DownloadToFolderOption FolderOption
-        {
-            get
-            {
-                return checkBoxCreateSubfolder.Checked ? DownloadToFolderOption.SubfolderAssetName : DownloadToFolderOption.DoNotCreateSubfolder;
-            }
-        }
+        public DownloadToFolderOption FolderOption => checkBoxCreateSubfolder.Checked ? DownloadToFolderOption.SubfolderAssetName : DownloadToFolderOption.DoNotCreateSubfolder;
 
-        public bool OpenFolderAfterDownload
-        {
-            get
-            {
-                return checkBoxOpenFileAfterExport.Checked;
-            }
-        }
+        public bool OpenFolderAfterDownload => checkBoxOpenFileAfterExport.Checked;
 
         public DownloadToLocal(IEnumerable<Asset> selassets, string backupfolder)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _selassets = selassets;
             _backupfolder = backupfolder;
         }

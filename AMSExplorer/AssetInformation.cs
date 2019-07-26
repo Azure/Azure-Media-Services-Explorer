@@ -37,9 +37,9 @@ namespace AMSExplorer
     public partial class AssetInformation : Form
     {
         public Asset myAssetV3;
-        private AMSClientV3 _amsClient;
+        private readonly AMSClientV3 _amsClient;
         public IEnumerable<StreamingEndpoint> myStreamingEndpoints;
-        private Mainform myMainForm;
+        private readonly Mainform myMainForm;
         private bool oktobuildlocator = false;
         private ManifestTimingData myassetmanifesttimingdata = null;
         private CloudBlobContainer container = null;
@@ -49,7 +49,7 @@ namespace AMSExplorer
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             myMainForm = mainform;
             _amsClient = amsClient;
         }
@@ -193,11 +193,11 @@ namespace AMSExplorer
                 };
                 _amsClient.RefreshTokenIfNeeded();
 
-                var response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
+                AssetContainerSas response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
 
                 string uploadSasUrl = response.AssetContainerSasUrls.First();
 
-                var sasUri = new Uri(uploadSasUrl);
+                Uri sasUri = new Uri(uploadSasUrl);
                 container = new CloudBlobContainer(sasUri);
             }
 
@@ -218,12 +218,12 @@ namespace AMSExplorer
             if (blobs.Count() > 0)
             {
                 listViewFiles.BeginUpdate();
-                foreach (var blob in blobs)
+                foreach (IListBlobItem blob in blobs)
                 {
 
                     if (blob.GetType() == typeof(CloudBlockBlob))
                     {
-                        var bl = (CloudBlockBlob)blob;
+                        CloudBlockBlob bl = (CloudBlockBlob)blob;
                         //  bl.FetchAttributes();
 
                         ListViewItem item = new ListViewItem(bl.Name, 0);
@@ -246,7 +246,7 @@ namespace AMSExplorer
                     }
                     else if (blob.GetType() == typeof(CloudBlobDirectory))
                     {
-                        var bl = (CloudBlobDirectory)blob;
+                        CloudBlobDirectory bl = (CloudBlobDirectory)blob;
                         ListViewItem item = new ListViewItem(bl.Prefix, 0)
                         {
                             ForeColor = Color.DarkGoldenrod
@@ -301,9 +301,13 @@ namespace AMSExplorer
             DGAsset.Rows.Add("StorageEncryptionFormat", myAssetV3.StorageEncryptionFormat);
             DGAsset.Rows.Add("Type", myAssetV3.Type);
 
-            if (size != -1) DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)myAssetV3.Created).ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)myAssetV3.LastModified).ToLocalTime().ToString("G"));
+            if (size != -1)
+            {
+                DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
+            }
+
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, myAssetV3.Created.ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, myAssetV3.LastModified.ToLocalTime().ToString("G"));
 
             if (myStreamingEndpoints == null)
             {
@@ -311,11 +315,15 @@ namespace AMSExplorer
                 myStreamingEndpoints = _amsClient.AMSclient.StreamingEndpoints.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }
 
-            foreach (var se in myStreamingEndpoints)
+            foreach (StreamingEndpoint se in myStreamingEndpoints)
             {
                 comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.HostName));
-                if (se.Name == "default") comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
-                foreach (var custom in se.CustomHostNames)
+                if (se.Name == "default")
+                {
+                    comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
+                }
+
+                foreach (string custom in se.CustomHostNames)
                 {
                     comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
                 }
@@ -337,7 +345,7 @@ namespace AMSExplorer
         {
             _amsClient.RefreshTokenIfNeeded();
 
-            var assetFilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
 
             dataGridViewFilters.ColumnCount = 6;
             dataGridViewFilters.Columns[0].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
@@ -360,7 +368,7 @@ namespace AMSExplorer
                 myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAssetV3, _amsClient);
             }
 
-            foreach (var filter in assetFilters)
+            foreach (AssetFilter filter in assetFilters)
             {
                 string s = null;
                 string e = null;
@@ -369,18 +377,18 @@ namespace AMSExplorer
 
                 if (filter.PresentationTimeRange != null)
                 {
-                    var start = filter.PresentationTimeRange.StartTimestamp;
-                    var end = filter.PresentationTimeRange.EndTimestamp;
-                    var dvr = filter.PresentationTimeRange.PresentationWindowDuration;
-                    var backoff = filter.PresentationTimeRange.LiveBackoffDuration;
+                    long? start = filter.PresentationTimeRange.StartTimestamp;
+                    long? end = filter.PresentationTimeRange.EndTimestamp;
+                    long? dvr = filter.PresentationTimeRange.PresentationWindowDuration;
+                    long? backoff = filter.PresentationTimeRange.LiveBackoffDuration;
 
                     double dscale = (filter.PresentationTimeRange.Timescale != null) ?
                         (double)filter.PresentationTimeRange.Timescale
-                        : (double)TimeSpan.TicksPerSecond;
+                        : TimeSpan.TicksPerSecond;
 
                     double dscaleoffset = (!myassetmanifesttimingdata.Error && myassetmanifesttimingdata.TimeScale != null) ?
                         (double)myassetmanifesttimingdata.TimeScale
-                        : (double)TimeSpan.TicksPerSecond;
+                        : TimeSpan.TicksPerSecond;
 
                     s = ReturnFilterTextWithOffSet(start, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "min");
                     e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "max");
@@ -424,8 +432,8 @@ namespace AMSExplorer
             }
             else
             {
-                var value2 = (double)value / scalevalue;
-                var offset2 = (double)offset / scaleoffset;
+                double value2 = (double)value / scalevalue;
+                double offset2 = offset / scaleoffset;
                 value2 -= offset2;
                 return TimeSpan.FromSeconds(value2).ToString(@"d\.hh\:mm\:ss");
             }
@@ -452,7 +460,10 @@ namespace AMSExplorer
                 return myStreamingEndpoints.Where(se => se.HostName == hostname).FirstOrDefault();
 
             }
-            else return null;
+            else
+            {
+                return null;
+            }
         }
 
         private string ReturnSelectedStreamingEndpointHostname()
@@ -461,7 +472,10 @@ namespace AMSExplorer
             {
                 return ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
             }
-            else return null;
+            else
+            {
+                return null;
+            }
         }
 
 
@@ -482,17 +496,25 @@ namespace AMSExplorer
         private void LocTreeAddTextEntryToNode(int indexLoc, int indexNode, string text, DateTime? value)
         {
             if (value != null)
+            {
                 LocTreeAddTextEntryToNode(indexLoc, indexNode, text, (DateTime)value);
+            }
         }
 
         private void BuildLocatorsTree()
         {
             // LOCATORS TREE
-            if (!oktobuildlocator) return;
+            if (!oktobuildlocator)
+            {
+                return;
+            }
 
             StreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
 
-            if (SelectedSE == null) return;
+            if (SelectedSE == null)
+            {
+                return;
+            }
 
             UriBuilder uriBuilder = new UriBuilder
             {
@@ -510,19 +532,22 @@ namespace AMSExplorer
 
                 _amsClient.RefreshTokenIfNeeded();
 
-                var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+                IList<AssetStreamingLocator> locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
 
-                foreach (var locatorbase in locators)
+                foreach (AssetStreamingLocator locatorbase in locators)
                 {
-                    var locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorbase.Name);
+                    StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
-                    var listPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
+                    ListPathsResponse listPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
 
                     indexloc++;
                     string locatorstatus = string.Empty;
 
-                    var colornode = GetLocatorApparence(locator, ref locatorstatus);
-                    if (SelectedSE.ResourceState != StreamingEndpointResourceState.Running) colornode = Color.Red;
+                    Color colornode = GetLocatorApparence(locator, ref locatorstatus);
+                    if (SelectedSE.ResourceState != StreamingEndpointResourceState.Running)
+                    {
+                        colornode = Color.Red;
+                    }
 
                     TreeNode myLocNode = new TreeNode(locator.Name)
                     {
@@ -545,10 +570,10 @@ namespace AMSExplorer
                     int indexn = 1;
                     if (listPaths.StreamingPaths.Count > 0)
                     {
-                        foreach (var path in listPaths.StreamingPaths)
+                        foreach (StreamingPath path in listPaths.StreamingPaths)
                         {
                             TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
-                            foreach (var p in path.Paths)
+                            foreach (string p in path.Paths)
                             {
                                 uriBuilder.Path = p;
                                 TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uriBuilder.ToString()) { ForeColor = colornodeRU });
@@ -561,7 +586,7 @@ namespace AMSExplorer
                     {
                         TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode("Download") { ForeColor = colornodeRU });
 
-                        foreach (var p in listPaths.DownloadPaths)
+                        foreach (string p in listPaths.DownloadPaths)
                         {
                             uriBuilder.Path = p;
                             TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uriBuilder.ToString()));
@@ -599,7 +624,7 @@ namespace AMSExplorer
 
         private void DoDisplayFileProperties()
         {
-            var SelectedfBlobs = ReturnSelectedBlobs();
+            List<IListBlobItem> SelectedfBlobs = ReturnSelectedBlobs();
             DGFiles.Rows.Clear();
 
 
@@ -607,7 +632,7 @@ namespace AMSExplorer
             {
                 if (SelectedfBlobs.FirstOrDefault().GetType() == typeof(CloudBlockBlob))
                 {
-                    var blob = (CloudBlockBlob)SelectedfBlobs.FirstOrDefault();
+                    CloudBlockBlob blob = (CloudBlockBlob)SelectedfBlobs.FirstOrDefault();
 
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, blob.Name);
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetInfo.FormatByteSize(blob.Properties.Length));
@@ -617,7 +642,7 @@ namespace AMSExplorer
                 }
                 else if (SelectedfBlobs.FirstOrDefault().GetType() == typeof(CloudBlobDirectory))
                 {
-                    var dir = (CloudBlobDirectory)SelectedfBlobs.FirstOrDefault();
+                    CloudBlobDirectory dir = (CloudBlobDirectory)SelectedfBlobs.FirstOrDefault();
 
                     DGFiles.Rows.Add("Prefix", dir.Prefix);
                     DGFiles.Rows.Add("Uri", dir.Uri);
@@ -671,7 +696,7 @@ namespace AMSExplorer
         private async void DoDownloadBlobs()
         {
 
-            var SelectedBlobs = ReturnSelectedBlobs(false);
+            List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs(false);
 
             if (SelectedBlobs.Count > 0)
             {
@@ -679,7 +704,7 @@ namespace AMSExplorer
                 if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     // let's check if this overwites existing files
-                    var listfiles = SelectedBlobs.ToList().Where(f => File.Exists(openFolderDialog.FileName + @"\\" + (f as CloudBlockBlob).Name)).Select(f => openFolderDialog.FileName + @"\\" + (f as CloudBlockBlob).Name).ToList();
+                    List<string> listfiles = SelectedBlobs.ToList().Where(f => File.Exists(openFolderDialog.FileName + @"\\" + (f as CloudBlockBlob).Name)).Select(f => openFolderDialog.FileName + @"\\" + (f as CloudBlockBlob).Name).ToList();
                     if (listfiles.Count > 0)
                     {
                         string text;
@@ -717,7 +742,7 @@ namespace AMSExplorer
                     {
                         //foreach (var blob in SelectedBlobs)
                         {
-                            var response = myMainForm.DoGridTransferAddItem(string.Format("Download of blob(s) from asset '{0}'", myAssetV3.Name), TransferType.DownloadToLocal, true);
+                            TransferEntryResponse response = myMainForm.DoGridTransferAddItem(string.Format("Download of blob(s) from asset '{0}'", myAssetV3.Name), TransferType.DownloadToLocal, true);
                             // Start a worker thread that does downloading.
                             //myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, response);
                             await myMainForm.DownloadOutputAssetAsync(_amsClient, myAssetV3.Name, openFolderDialog.FileName, response, DownloadToFolderOption.DoNotCreateSubfolder, false, SelectedBlobs.Select(f => (f as CloudBlockBlob).Name).ToList());
@@ -742,7 +767,7 @@ namespace AMSExplorer
         {
             AssetInfo MyAssetReport = new AssetInfo(myAssetV3, _amsClient);
             StringBuilder SB = MyAssetReport.GetStats();
-            var tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, false, false);
+            EditorXMLJSON tokenDisplayForm = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
         }
 
@@ -753,7 +778,7 @@ namespace AMSExplorer
 
         private void DoDeleteBlobs()
         {
-            var SelectedBlobs = ReturnSelectedBlobs().Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b);
+            IEnumerable<CloudBlockBlob> SelectedBlobs = ReturnSelectedBlobs().Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b);
 
             if (SelectedBlobs.Count() > 0)
             {
@@ -763,7 +788,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        foreach (var blob in SelectedBlobs)
+                        foreach (CloudBlockBlob blob in SelectedBlobs)
                         {
                             blob.Delete();
                         }
@@ -934,11 +959,11 @@ namespace AMSExplorer
         private void DoDuplicate()
         {
 
-            var SelectedAssetBlob = ReturnSelectedBlobs().FirstOrDefault();
+            IListBlobItem SelectedAssetBlob = ReturnSelectedBlobs().FirstOrDefault();
 
             if (SelectedAssetBlob != null && SelectedAssetBlob.GetType() == typeof(CloudBlockBlob))
             {
-                var sourceblob = (CloudBlockBlob)SelectedAssetBlob;
+                CloudBlockBlob sourceblob = (CloudBlockBlob)SelectedAssetBlob;
                 try
                 {
                     string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, sourceblob.Name);
@@ -1000,13 +1025,16 @@ namespace AMSExplorer
                 int i = 1;
                 foreach (string file in Dialog.FileNames)
                 {
-                    var blob = container.GetBlockBlobReference(Path.GetFileName(file));
-                    if (file.ToLower().EndsWith(".mp4")) blob.Properties.ContentType = "video/mp4";
+                    CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(file));
+                    if (file.ToLower().EndsWith(".mp4"))
+                    {
+                        blob.Properties.ContentType = "video/mp4";
+                    }
                     //Console.WriteLine("Uploading File to container: {0}", sasUri);
 
                     await Task.Factory.StartNew(() => blob.UploadFromFile(file));
                     //blob.UploadFromFile(file);
-                    progressBarUpload.Value = (int)(100 * i);
+                    progressBarUpload.Value = 100 * i;
                     i++;
 
                     //await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(file), file, myAssetV3));
@@ -1029,10 +1057,10 @@ namespace AMSExplorer
             };
             _amsClient.RefreshTokenIfNeeded();
 
-            var response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
+            AssetContainerSas response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
-            var sasUri = new Uri(uploadSasUrl);
+            Uri sasUri = new Uri(uploadSasUrl);
             CloudBlobContainer container = new CloudBlobContainer(sasUri);
             return container;
         }
@@ -1080,7 +1108,7 @@ namespace AMSExplorer
                         {
                             _amsClient.RefreshTokenIfNeeded();
 
-                            var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+                            IList<AssetStreamingLocator> locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
                             _amsClient.AMSclient.StreamingLocators.Delete(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locators[TreeViewLocators.SelectedNode.Index].Name);
                             //myAsset.Locators[TreeViewLocators.SelectedNode.Index].Delete();
                         }
@@ -1091,7 +1119,10 @@ namespace AMSExplorer
                             MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDelLocator_ErrorWhenTryingToDeleteTheLocator);
                             Error = true;
                         }
-                        if (!Error) BuildLocatorsTree();
+                        if (!Error)
+                        {
+                            BuildLocatorsTree();
+                        }
                     }
                 }
 
@@ -1180,11 +1211,11 @@ namespace AMSExplorer
 
         private List<IListBlobItem> ReturnSelectedBlobs(bool returnAlsoDirectory = true)
         {
-            var Selection = new List<IListBlobItem>();
+            List<IListBlobItem> Selection = new List<IListBlobItem>();
 
             foreach (int selectedindex in listViewFiles.SelectedIndices)
             {
-                var AF = blobs.Where(af =>
+                IListBlobItem AF = blobs.Where(af =>
                 (af.GetType() == typeof(CloudBlockBlob) && ((CloudBlockBlob)af).Name == listViewFiles.Items[selectedindex].Text)
                 ||
                 (returnAlsoDirectory && (af.GetType() == typeof(CloudBlobDirectory) && ((CloudBlobDirectory)af).Prefix == listViewFiles.Items[selectedindex].Text))
@@ -1290,10 +1321,10 @@ namespace AMSExplorer
         }
         private List<AssetFilter> ReturnSelectedFilters()
         {
-            var SelectedFilters = new List<AssetFilter>();
+            List<AssetFilter> SelectedFilters = new List<AssetFilter>();
             _amsClient.RefreshTokenIfNeeded();
 
-            var afilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            Microsoft.Rest.Azure.IPage<AssetFilter> afilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filterName = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
@@ -1307,7 +1338,7 @@ namespace AMSExplorer
         }
         private void DoFilterInfo(AssetFilter filter = null)
         {
-            var filters = ReturnSelectedFilters();
+            List<AssetFilter> filters = ReturnSelectedFilters();
             if (filter != null || filters.Count == 1)
             {
                 filter = filter ?? filters.FirstOrDefault();
@@ -1390,7 +1421,7 @@ namespace AMSExplorer
 
         private void DoDeleteAssetFilter()
         {
-            var filters = ReturnSelectedFilters();
+            List<AssetFilter> filters = ReturnSelectedFilters();
             _amsClient.RefreshTokenIfNeeded();
 
             try
@@ -1413,10 +1444,10 @@ namespace AMSExplorer
 
         private void DoDuplicateFilter()
         {
-            var filters = ReturnSelectedFilters();
+            List<AssetFilter> filters = ReturnSelectedFilters();
             if (filters.Count == 1)
             {
-                var sourcefilter = filters.FirstOrDefault();
+                AssetFilter sourcefilter = filters.FirstOrDefault();
 
                 string newfiltername = sourcefilter.Name + AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_Copy;
                 if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter, ref newfiltername) == DialogResult.OK)
@@ -1450,10 +1481,10 @@ namespace AMSExplorer
                 string question = "Delete all blobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    var Array = blobs.ToArray();
+                    IListBlobItem[] Array = blobs.ToArray();
                     for (int i = 0; i < Array.Count(); i++)
                     {
-                        var blob = Array[i];
+                        IListBlobItem blob = Array[i];
                         ((CloudBlockBlob)blob).Delete();
                     }
                     ListAssetBlobs();
@@ -1534,11 +1565,11 @@ namespace AMSExplorer
         /// </summary>
         private async void DoEditFile()
         {
-            var SelectedBlobs = ReturnSelectedBlobs();
+            List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs();
 
             if (SelectedBlobs.Count == 1 && SelectedBlobs.FirstOrDefault() != null && SelectedBlobs.FirstOrDefault().GetType() == typeof(CloudBlockBlob))
             {
-                var blobtoedit = (CloudBlockBlob)SelectedBlobs.FirstOrDefault();
+                CloudBlockBlob blobtoedit = (CloudBlockBlob)SelectedBlobs.FirstOrDefault();
 
                 if (blobtoedit.Properties.Length > 500 * 1000)
                 {
@@ -1561,7 +1592,7 @@ namespace AMSExplorer
 
                     progressBarUpload.Visible = false;
 
-                    var editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, blobtoedit.Name), contentstring, true, false);
+                    EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, blobtoedit.Name), contentstring, true, false);
                     if (editform.Display() == DialogResult.OK)
                     { // OK
 
@@ -1595,13 +1626,13 @@ namespace AMSExplorer
 
         private void SeeClearKey(string key)
         {
-            var editform = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_Value, key.ToString(), false, false);
+            EditorXMLJSON editform = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_Value, key.ToString(), false, false);
             editform.Display();
         }
 
         private void dataGridViewKeys_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
+            DataGridView senderGrid = (DataGridView)sender;
 
             if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
             {
@@ -1614,7 +1645,7 @@ namespace AMSExplorer
 
         private void dataGridViewAutPolOption_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
+            DataGridView senderGrid = (DataGridView)sender;
             if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
             {
                 SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
@@ -1623,7 +1654,7 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            var editform = new EditorXMLJSON(dataname, key, false, false);
+            EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false, false);
             editform.Display();
         }
 
@@ -1637,9 +1668,9 @@ namespace AMSExplorer
         {
             try
             {
-                var smildata = Program.LoadAndUpdateManifestTemplate(myAssetV3, _amsClient, container);
+                Program.ManifestGenerated smildata = Program.LoadAndUpdateManifestTemplate(myAssetV3, _amsClient, container);
 
-                var editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,
+                EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,
                     AMSExplorer.Properties.Resources.AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedManifestAsTheToolMakesGuesses);
 
                 if (editform.Display() == DialogResult.OK)
@@ -1653,7 +1684,7 @@ namespace AMSExplorer
                         File.Delete(filePath);
                     }
 
-                    var doc = XDocument.Parse(editform.TextData);
+                    XDocument doc = XDocument.Parse(editform.TextData);
                     doc.Save(filePath);
 
                     progressBarUpload.Visible = true;
@@ -1661,7 +1692,7 @@ namespace AMSExplorer
 
                     CloudBlobContainer container = GetRWContainerOfAsset();
 
-                    var blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
+                    CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
 
                     await Task.Factory.StartNew(() => blob.UploadFromFile(filePath));
 
@@ -1705,7 +1736,7 @@ namespace AMSExplorer
             {
                 _amsClient.RefreshTokenIfNeeded();
 
-                var filter = _amsClient.AMSclient.AssetFilters.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
+                AssetFilter filter = _amsClient.AMSclient.AssetFilters.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
                 DoFilterInfo(filter);
             }
         }
@@ -1721,10 +1752,13 @@ namespace AMSExplorer
             comboBoxPolicyLocators.BeginUpdate();
 
             _amsClient.RefreshTokenIfNeeded();
-            var locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+            IList<AssetStreamingLocator> locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
 
             locators.ToList().ForEach(l => comboBoxPolicyLocators.Items.Add(new Item(l.Name, l.Name)));
-            if (comboBoxPolicyLocators.Items.Count > 0) comboBoxPolicyLocators.SelectedIndex = 0;
+            if (comboBoxPolicyLocators.Items.Count > 0)
+            {
+                comboBoxPolicyLocators.SelectedIndex = 0;
+            }
 
             comboBoxPolicyLocators.EndUpdate();
         }
@@ -1739,11 +1773,11 @@ namespace AMSExplorer
                 return;
             }
 
-            var locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
 
-            var policy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
+            StreamingPolicy policy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
 
-            var policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
+            string policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
             textBoxStreamingPolicyOfLocator.Text = policyJson;
 
             DisplayContentKeyPolicyOfStreamingPolicy(locator.StreamingPolicyName);
@@ -1757,7 +1791,7 @@ namespace AMSExplorer
                 textBoxContentKeyPolicyOfLocator.Text = string.Empty;
                 return;
             }
-            var locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
 
             DisplayContentKeyPolicy(locator.DefaultContentKeyPolicyName, textBoxContentKeyPolicyOfLocator);
         }
@@ -1769,7 +1803,7 @@ namespace AMSExplorer
                 textBoxContentKeyPolicyOfStreamingPolicy.Text = string.Empty;
                 return;
             }
-            var locator = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingPolicyName);
+            StreamingPolicy locator = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingPolicyName);
 
             DisplayContentKeyPolicy(locator.DefaultContentKeyPolicyName, textBoxContentKeyPolicyOfLocator);
         }
@@ -1782,9 +1816,9 @@ namespace AMSExplorer
                 return;
             }
 
-            var policy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, contentKeyPolicyName);
+            ContentKeyPolicy policy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, contentKeyPolicyName);
 
-            var policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
+            string policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
             myTextBox.Text = policyJson;
         }
 
@@ -1805,7 +1839,7 @@ namespace AMSExplorer
         private void FillComboDRMKeys(string locatorName)
         {
             comboBoxKeys.Items.Clear();
-            var response = _amsClient.AMSclient.StreamingLocators.ListContentKeys(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            ListContentKeysResponse response = _amsClient.AMSclient.StreamingLocators.ListContentKeys(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
             contentKeysForCurrentLocator = response.ContentKeys.ToList();
             contentKeysForCurrentLocator.ForEach(k => comboBoxKeys.Items.Add(new Item(k.LabelReferenceInStreamingPolicy, k.Id.ToString())));
             if (response.ContentKeys.Count > 0)
@@ -1825,8 +1859,11 @@ namespace AMSExplorer
 
         private void DisplayKeyInfo(string keyId)
         {
-            var key = contentKeysForCurrentLocator.Where(k => k.Id == Guid.Parse(keyId)).FirstOrDefault();
-            if (key == null) return;
+            StreamingLocatorContentKey key = contentKeysForCurrentLocator.Where(k => k.Id == Guid.Parse(keyId)).FirstOrDefault();
+            if (key == null)
+            {
+                return;
+            }
 
             dataGridViewKeys.Rows.Clear();
             dataGridViewKeys.Rows.Add("LabelReferenceInStreamingPolicy", key.LabelReferenceInStreamingPolicy);
@@ -1834,7 +1871,7 @@ namespace AMSExplorer
             dataGridViewKeys.Rows.Add("PolicyName", key.PolicyName);
             dataGridViewKeys.Rows.Add("Type", key.Type);
 
-            var tracksJson = JsonConvert.SerializeObject(key.Tracks, Newtonsoft.Json.Formatting.Indented);
+            string tracksJson = JsonConvert.SerializeObject(key.Tracks, Newtonsoft.Json.Formatting.Indented);
             int i = dataGridViewKeys.Rows.Add("Tracks", "Details");
             DataGridViewButtonCell btn2 = new DataGridViewButtonCell();
             dataGridViewKeys.Rows[i].Cells[1] = btn2;
@@ -1850,7 +1887,7 @@ namespace AMSExplorer
 
         private void dataGridViewKeys_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
+            DataGridView senderGrid = (DataGridView)sender;
 
             if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
             {

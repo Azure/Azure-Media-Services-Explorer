@@ -24,7 +24,7 @@ namespace AMSExplorer
         private long? timescale;
         private ulong scaledoffset = 0;
         private TimeSpan min = new TimeSpan(0);
-        private TimeSpan max = new TimeSpan(Int64.MaxValue);
+        private TimeSpan max = new TimeSpan(long.MaxValue);
         private bool donotfirechangeevent = false;
         private TimeSpan _TotalDuration = TimeSpan.FromHours(24); // default max for DVR
         private bool _displaytrackbar = false;
@@ -52,22 +52,22 @@ namespace AMSExplorer
                 donotfirechangeevent = false;
             }
 
-            this.OnNumValueChanged(EventArgs.Empty);
+            OnNumValueChanged(EventArgs.Empty);
         }
 
 
         private void HandleTrackBarValueChanged(object sender, EventArgs e)
         {
             donotfirechangeevent = true;
-            double scale = (timescale == null) ? 1d : ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
+            double scale = (timescale == null) ? 1d : TimeSpan.TicksPerSecond / ((double)timescale);
             SetTimeStamp(TimeSpan.FromTicks((long)(_TotalDuration.Ticks * ((double)trackBarTime.Value) / 1000d)));
             donotfirechangeevent = false;
-            this.OnNumValueChanged(EventArgs.Empty);
+            OnNumValueChanged(EventArgs.Empty);
         }
 
         protected virtual void OnNumValueChanged(EventArgs e)
         {
-            EventHandler handler = this.ValueChanged;
+            EventHandler handler = ValueChanged;
             if (handler != null && !donotfirechangeevent)
             {
                 handler(this, e);
@@ -76,40 +76,37 @@ namespace AMSExplorer
 
         public long? TimeScale
         {
-            get { return timescale; }
-            set { timescale = value; }
+            get => timescale;
+            set => timescale = value;
         }
 
         public ulong ScaledFirstTimestampOffset // timestamp of first video chunk in manifest
         {
-            get { return scaledoffset; }
-            set { scaledoffset = value; }
+            get => scaledoffset;
+            set => scaledoffset = value;
         }
 
         public TimeSpan TotalDuration
         {
-            get { return _TotalDuration; }
-            set { _TotalDuration = value; }
+            get => _TotalDuration;
+            set => _TotalDuration = value;
         }
 
         public string Label1
         {
-            get { return label1.Text; }
-            set { label1.Text = value; }
+            get => label1.Text;
+            set => label1.Text = value;
         }
 
         public string Label2
         {
-            get { return label2.Text; }
-            set { label2.Text = value; }
+            get => label2.Text;
+            set => label2.Text = value;
         }
 
         public bool DisplayTrackBar
         {
-            get
-            {
-                return _displaytrackbar;
-            }
+            get => _displaytrackbar;
             set
             {
                 trackBarTime.Visible = value;
@@ -120,14 +117,14 @@ namespace AMSExplorer
 
         public TimeSpan Min
         {
-            get { return min; }
-            set { min = value; }
+            get => min;
+            set => min = value;
         }
 
         public TimeSpan Max
         {
-            get { return max; }
-            set { max = value; }
+            get => max;
+            set => max = value;
         }
 
 
@@ -137,8 +134,8 @@ namespace AMSExplorer
             {
                 TimeSpan ts = TimeStampWithoutOffset;
                 //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-                double timescale2 = (double)(timescale ?? TimeSpan.TicksPerSecond);
-                return (long)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * (timescale2 / (double)TimeSpan.TicksPerSecond)));
+                double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+                return Convert.ToInt64(Math.Truncate(ts.Ticks * (timescale2 / TimeSpan.TicksPerSecond)));
             }
         }
 
@@ -148,9 +145,9 @@ namespace AMSExplorer
             {
                 TimeSpan ts = TimeStampWithOffset;
                 // double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-                double timescale2 = (double)(timescale ?? TimeSpan.TicksPerSecond);
+                double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
 
-                return (long)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * (timescale2 / (double)TimeSpan.TicksPerSecond)));
+                return Convert.ToInt64(Math.Truncate(ts.Ticks * (timescale2 / TimeSpan.TicksPerSecond)));
             }
         }
 
@@ -166,39 +163,27 @@ namespace AMSExplorer
                 long valueToUse = value ?? valueIfNull;
 
                 //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-                double timescale2 = (double)(timescale ?? TimeSpan.TicksPerSecond);
+                double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
 
-                double scale = ((double)TimeSpan.TicksPerSecond) / (timescale2);
-                TimeSpan ts = new TimeSpan(Convert.ToInt64((((double)valueToUse) - (double)ScaledFirstTimestampOffset) * scale));
+                double scale = TimeSpan.TicksPerSecond / (timescale2);
+                TimeSpan ts = new TimeSpan(Convert.ToInt64((valueToUse - (double)ScaledFirstTimestampOffset) * scale));
                 SetTimeStamp(ts);
             }
         }
 
 
-        public TimeSpan TimeStampWithoutOffset
-        {
-            get
-            {
-                return new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
-            }
-        }
+        public TimeSpan TimeStampWithoutOffset => new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
 
 
-        public TimeSpan TimeStampWithOffset
-        {
-            get
-            {
-                return GetOffSetAsTimeSpan() + new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
-            }
-        }
+        public TimeSpan TimeStampWithOffset => GetOffSetAsTimeSpan() + new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
 
 
         public TimeSpan GetOffSetAsTimeSpan()
         {
             //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-            double timescale2 = (double)(timescale ?? TimeSpan.TicksPerSecond);
+            double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
 
-            return new TimeSpan((long)((double)TimeSpan.TicksPerSecond * (double)ScaledFirstTimestampOffset / (timescale2)));
+            return new TimeSpan((long)(TimeSpan.TicksPerSecond * (double)ScaledFirstTimestampOffset / (timescale2)));
         }
 
 
@@ -206,9 +191,9 @@ namespace AMSExplorer
         {
             donotfirechangeevent = true;
             // trackbar update
-            if (this.DisplayTrackBar)
+            if (DisplayTrackBar)
             {
-                double scale = (timescale == null) ? 1d : ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
+                double scale = (timescale == null) ? 1d : TimeSpan.TicksPerSecond / ((double)timescale);
                 trackBarTime.Value = (int)(value.TotalMilliseconds / _TotalDuration.TotalMilliseconds * 1000d);
             }
 
@@ -216,7 +201,7 @@ namespace AMSExplorer
             numericUpDownHours.Value = value.Hours;
             numericUpDownMinutes.Value = value.Minutes;
             donotfirechangeevent = false;
-            numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + ((double)value.Milliseconds) / 1000d);
+            numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + value.Milliseconds / 1000d);
         }
     }
 }

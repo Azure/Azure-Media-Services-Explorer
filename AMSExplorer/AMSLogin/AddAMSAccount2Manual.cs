@@ -25,7 +25,7 @@ namespace AMSExplorer
         public AddAMSAccount2Manual()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)

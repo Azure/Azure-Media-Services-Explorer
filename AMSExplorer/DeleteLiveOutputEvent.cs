@@ -21,20 +21,14 @@ namespace AMSExplorer
 {
     public partial class DeleteLiveOutputEvent : Form
     {
-        public bool DeleteAsset
-        {
-            get
-            {
-                return checkBoxDeleteAsset.Checked;
-            }
-        }
+        public bool DeleteAsset => checkBoxDeleteAsset.Checked;
 
         public DeleteLiveOutputEvent(string label, string title)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             labelmain.Text = label;
-            this.Text = title;
+            Text = title;
             buttonOk.Text = title;
         }
 

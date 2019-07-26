@@ -23,21 +23,15 @@ namespace AMSExplorer
     {
         public Uri GetURL
         {
-            get
-            {
-                return new Uri(textBoxURL.Text);
-            }
+            get => new Uri(textBoxURL.Text);
 
-            set
-            {
-                textBoxURL.Text = value.ToString();
-            }
+            set => textBoxURL.Text = value.ToString();
         }
 
         public HttpSource()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void HttpSource_Load(object sender, EventArgs e)
@@ -50,7 +44,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                Uri myUri = this.GetURL;
+                Uri myUri = GetURL;
             }
             catch
             {

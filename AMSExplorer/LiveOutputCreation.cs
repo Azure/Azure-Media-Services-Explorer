@@ -25,26 +25,23 @@ namespace AMSExplorer
     public partial class LiveOutputCreation : Form
     {
         public string LiveEventName;
-        private AMSClientV3 _client;
+        private readonly AMSClientV3 _client;
 
         public string ProgramName
         {
-            get { return textboxprogramname.Text; }
-            set { textboxprogramname.Text = value; }
+            get => textboxprogramname.Text;
+            set => textboxprogramname.Text = value;
         }
 
         public string ProgramDescription
         {
-            get { return textBoxDescription.Text; }
-            set { textBoxDescription.Text = value; }
+            get => textBoxDescription.Text;
+            set => textBoxDescription.Text = value;
         }
 
         public TimeSpan ArchiveWindowLength
         {
-            get
-            {
-                return new TimeSpan((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0);
-            }
+            get => new TimeSpan((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0);
             set
             {
                 numericUpDownArchiveHours.Value = value.Hours;
@@ -65,26 +62,25 @@ namespace AMSExplorer
                     return textBoxManifestName.Text.Trim();
                 }
             }
-            set { textBoxManifestName.Text = value; }
+            set => textBoxManifestName.Text = value;
         }
 
         public short? HLSFragmentPerSegment
         {
-            get
-            {
-                return checkBoxHLSFragPerSegDefined.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
-            }
+            get => checkBoxHLSFragPerSegDefined.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
             set
             {
                 if (value != null)
+                {
                     numericUpDownHLSFragPerSeg.Value = (short)value;
+                }
             }
         }
 
         public string AssetName
         {
-            get { return textBoxAssetName.Text; }
-            set { textBoxAssetName.Text = value; }
+            get => textBoxAssetName.Text;
+            set => textBoxAssetName.Text = value;
         }
 
         public long? StartRecordTimestamp
@@ -110,40 +106,40 @@ namespace AMSExplorer
                 }
             }
 
-            set { textBoxStartRecordTimestamp.Text = value.ToString(); }
+            set => textBoxStartRecordTimestamp.Text = value.ToString();
         }
 
         public bool CreateLocator
         {
-            get { return checkBoxCreateLocator.Checked; }
-            set { checkBoxCreateLocator.Checked = value; }
+            get => checkBoxCreateLocator.Checked;
+            set => checkBoxCreateLocator.Checked = value;
         }
 
-        public string StorageSelected
-        {
-            get { return ((Item)comboBoxStorage.SelectedItem).Value; }
-        }
+        public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
 
         public LiveOutputCreation(AMSClientV3 client)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
         }
 
         private void LiveOutputCreation_Load(object sender, EventArgs e)
         {
-            this.Text = string.Format(this.Text, LiveEventName);
+            Text = string.Format(Text, LiveEventName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
 
             _client.RefreshTokenIfNeeded();
-            var storages = _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts;
-            foreach (var storage in storages)
+            System.Collections.Generic.IList<StorageAccount> storages = _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts;
+            foreach (StorageAccount storage in storages)
             {
                 bool primary = (storage.Type == StorageAccountType.Primary);
 
                 comboBoxStorage.Items.Add(new Item(AMSClientV3.GetStorageName(storage.Id) + (primary ? " (primary)" : string.Empty), AMSClientV3.GetStorageName(storage.Id)));
-                if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                if (primary)
+                {
+                    comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                }
             }
 
             checkProgramName();
@@ -165,7 +161,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(tb, String.Empty);
+                errorProvider1.SetError(tb, string.Empty);
             }
         }
 
@@ -177,8 +173,11 @@ namespace AMSExplorer
             try
             {
                 if (!string.IsNullOrWhiteSpace(tb.Text))
+                {
                     long.Parse(tb.Text);
-                errorProvider1.SetError(tb, String.Empty);
+                }
+
+                errorProvider1.SetError(tb, string.Empty);
             }
             catch
             {

@@ -28,36 +28,24 @@ namespace AMSExplorer
 
         public string WidevinePolicyName
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(textBoxPolicyName.Text) ? null : textBoxPolicyName.Text;
-            }
-            set
-            {
-                textBoxPolicyName.Text = value;
-            }
+            get => string.IsNullOrWhiteSpace(textBoxPolicyName.Text) ? null : textBoxPolicyName.Text;
+            set => textBoxPolicyName.Text = value;
         }
 
 
-        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration
+        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration => new ContentKeyPolicyWidevineConfiguration
         {
-            get
-            {
-                return new ContentKeyPolicyWidevineConfiguration
-                {
-                    WidevineTemplate = textBoxConfiguration.Text
-                };
-            }
-        }
+            WidevineTemplate = textBoxConfiguration.Text
+        };
 
         public DRM_WidevineLicense(int step = -1, int option = -1, bool laststep = true)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             if (step > -1 && option > -1)
             {
-                this.Text = string.Format(this.Text, step);
+                Text = string.Format(Text, step);
                 labelstep.Text = string.Format(labelstep.Text, step, option);
             }
             if (!laststep)
@@ -120,14 +108,14 @@ namespace AMSExplorer
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
             bool Error = false;
-            var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
+            Program.TypeConfig type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
             if (type == Program.TypeConfig.JSON)
             {
                 // Let's check JSON syntax and that it conforms to the widevine template class
 
                 try
                 {
-                    var jo = JObject.Parse(textBoxConfiguration.Text);
+                    JObject jo = JObject.Parse(textBoxConfiguration.Text);
                     WidevineTemplate jow = Newtonsoft.Json.JsonConvert.DeserializeObject<WidevineTemplate>(textBoxConfiguration.Text);
 
                 }

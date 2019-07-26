@@ -32,19 +32,19 @@ namespace AMSExplorer
         public LiveEvent MyLiveEvent;
         public bool MultipleSelection = false;
         public ExplorerLiveEventModifications Modifications = new ExplorerLiveEventModifications();
-        private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
-        private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
-        private Mainform MyMainForm;
-        private AMSClientV3 _client;
-        private string defaultEncodingPreset = null;
-        private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
+        private readonly BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
+        private readonly BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
+        private readonly Mainform MyMainForm;
+        private readonly AMSClientV3 _client;
+        private readonly string defaultEncodingPreset = null;
+        private readonly BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private string _radioButtonDefaultPreset;
 
         public IPAccessControl GetInputAllowList
         {
             get
             {
-                var ipac = new IPAccessControl(InputEndpointSettingList);
+                IPAccessControl ipac = new IPAccessControl(InputEndpointSettingList);
                 return (checkBoxInputSet.Checked) ? ipac : null;
             }
         }
@@ -53,28 +53,16 @@ namespace AMSExplorer
         {
             get
             {
-                var ipac = new IPAccessControl(PreviewEndpointSettingList);
+                IPAccessControl ipac = new IPAccessControl(PreviewEndpointSettingList);
                 return (checkBoxPreviewSet.Checked) ? ipac : null;
             }
         }
 
-        public string GetLiveEventDescription
-        {
-            get
-            {
-                return textboxchannedesc.Text;
-            }
-        }
+        public string GetLiveEventDescription => textboxchannedesc.Text;
 
-        public string GetLiveEventClientPolicy
-        {
-            get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
-        }
+        public string GetLiveEventClientPolicy => (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null;
 
-        public string GetLiveEventCrossdomainPolicy
-        {
-            get { return (checkBoxcrossdomains.Checked) ? textBoxCrossDomPolicy.Text : null; }
-        }
+        public string GetLiveEventCrossdomainPolicy => (checkBoxcrossdomains.Checked) ? textBoxCrossDomPolicy.Text : null;
 
         public string KeyframeIntervalSerialized
         {
@@ -96,28 +84,16 @@ namespace AMSExplorer
         }
 
 
-        public string PresetName
-        {
-            get
-            {
-                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
-            }
-        }
+        public string PresetName => radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
 
-        public bool Ignore708Captions
-        {
-            get
-            {
-                return checkBoxIgnore708.Checked;
-            }
-        }
+        public bool Ignore708Captions => checkBoxIgnore708.Checked;
 
 
 
         public LiveEventInformation(Mainform mainform, AMSClientV3 client)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
             _client = client;
         }
@@ -183,7 +159,7 @@ namespace AMSExplorer
                 DGLiveEvent.Rows.Add("Vanity Url", MyLiveEvent.VanityUrl);
 
                 int i = 0;
-                foreach (var endpoint in MyLiveEvent.Input.Endpoints)
+                foreach (LiveEventEndpoint endpoint in MyLiveEvent.Input.Endpoints)
                 {
                     DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1, MyLiveEvent.Input.Endpoints.Count == 2 ? stringnameurl[i] : string.Empty, endpoint.Protocol), endpoint.Url);
                     if (MyLiveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4)
@@ -199,7 +175,7 @@ namespace AMSExplorer
 
                 if (MyLiveEvent.Preview != null)
                 {
-                    foreach (var endpoint in MyLiveEvent.Preview.Endpoints)
+                    foreach (LiveEventEndpoint endpoint in MyLiveEvent.Preview.Endpoints)
                     {
                         DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_PreviewURL0, endpoint.Protocol), endpoint.Url);
                     }
@@ -234,7 +210,7 @@ namespace AMSExplorer
             if (MyLiveEvent.Input != null && MyLiveEvent.Input.AccessControl != null && MyLiveEvent.Input.AccessControl.Ip != null)
             {
                 checkBoxInputSet.Checked = true;
-                foreach (var endpoint in MyLiveEvent.Input.AccessControl.Ip.Allow)
+                foreach (IPRange endpoint in MyLiveEvent.Input.AccessControl.Ip.Allow)
                 {
                     InputEndpointSettingList.Add(endpoint);
                 }
@@ -246,7 +222,7 @@ namespace AMSExplorer
             if (MyLiveEvent.Preview != null && MyLiveEvent.Preview.AccessControl != null && MyLiveEvent.Preview.AccessControl.Ip != null)
             {
                 checkBoxPreviewSet.Checked = true;
-                foreach (var endpoint in MyLiveEvent.Preview.AccessControl.Ip.Allow)
+                foreach (IPRange endpoint in MyLiveEvent.Preview.AccessControl.Ip.Allow)
                 {
                     PreviewEndpointSettingList.Add(endpoint);
                 }
@@ -292,7 +268,7 @@ namespace AMSExplorer
             };
         }
 
-        void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
             MessageBox.Show("Wrong format");
@@ -451,7 +427,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(textBoxKeyFrame, String.Empty);
+                errorProvider1.SetError(textBoxKeyFrame, string.Empty);
             }
         }
 
@@ -467,7 +443,7 @@ namespace AMSExplorer
             string encodingprofile = ReturnLiveEncodingProfile();
             if (encodingprofile != null)
             {
-                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Name == encodingprofile).FirstOrDefault();
+                AMSEXPlorerLiveProfile.LiveProfile profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Name == encodingprofile).FirstOrDefault();
                 if (profileliveselected != null)
                 {
                     dataGridViewVideoProf.DataSource = profileliveselected.Video;

@@ -14,10 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -25,26 +22,14 @@ namespace AMSExplorer
     public partial class DRM_GenerateToken : Form
     {
 
-        public int TokenDuration
-        {
-            get
-            {
-                return Decimal.ToInt32(numericUpDownTokenDuration.Value);
-            }
-        }
+        public int TokenDuration => decimal.ToInt32(numericUpDownTokenDuration.Value);
 
-        public int? TokenUse
-        {
-            get
-            {
-                return checkBoxTokenUse.Checked ? (int?)Decimal.ToInt32(numericUpDownTokenUse.Value) : null;
-            }
-        }
+        public int? TokenUse => checkBoxTokenUse.Checked ? (int?)decimal.ToInt32(numericUpDownTokenUse.Value) : null;
 
         public DRM_GenerateToken()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
         }
 

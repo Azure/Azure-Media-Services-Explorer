@@ -24,21 +24,9 @@ namespace AMSExplorer
     public partial class PresetFaceDetector : Form
     {
 
-        public string TransformName
-        {
-            get
-            {
-                return textBoxTransformName.Text;
-            }
-        }
+        public string TransformName => textBoxTransformName.Text;
 
-        public string Description
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
-            }
-        }
+        public string Description => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
 
         public AnalysisResolution AnalysisResolutionMode
         {
@@ -64,7 +52,7 @@ namespace AMSExplorer
         public PresetFaceDetector()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void PresetFaceDetector_Load(object sender, EventArgs e)

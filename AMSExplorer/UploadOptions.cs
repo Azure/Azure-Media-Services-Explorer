@@ -16,7 +16,6 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -24,30 +23,17 @@ namespace AMSExplorer
 {
     public partial class UploadOptions : Form
     {
-        private AMSClientV3 _amsClientV3;
+        private readonly AMSClientV3 _amsClientV3;
 
-        public string StorageSelected
-        {
-            get
-            {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
-            }
-        }
+        public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
 
-        public bool SingleAsset
-        {
-            get
-            {
-                return radioButtonSingleAsset.Checked;
-            }
-        }
+        public bool SingleAsset => radioButtonSingleAsset.Checked;
 
         public int BlockSize
         {
             get
             {
-                int x = 4;
-                bool success = Int32.TryParse((string)comboBoxBlockSize.Text, out x);
+                bool success = int.TryParse(comboBoxBlockSize.Text, out int x);
                 return success ? x : 4;
             }
         }
@@ -56,7 +42,7 @@ namespace AMSExplorer
         public UploadOptions(AMSClientV3 amsClient, bool multifilesMode)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _amsClientV3 = amsClient;
 
             ControlsResetToDefault();
@@ -66,7 +52,7 @@ namespace AMSExplorer
                 groupBoxMultifiles.Visible = true;
             }
 
-            var listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
+            List<int> listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
             comboBoxBlockSize.Items.Clear();
             listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
             comboBoxBlockSize.SelectedIndex = 3;
@@ -75,15 +61,18 @@ namespace AMSExplorer
         private void ControlsResetToDefault()
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+            IList<StorageAccount> storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
             comboBoxStorage.Items.Clear();
-            foreach (var storage in storAccounts)
+            foreach (StorageAccount storage in storAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.Type == StorageAccountType.Primary);
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname));
-                if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                if (primary)
+                {
+                    comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                }
             }
         }
     }

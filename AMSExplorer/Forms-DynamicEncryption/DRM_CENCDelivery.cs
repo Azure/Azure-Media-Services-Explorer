@@ -51,13 +51,13 @@ namespace AMSExplorer
             }
         }
 
-        private bool _PlayReadyPackagingEnabled;
-        private bool _WidevinePackagingEnabled;
+        private readonly bool _PlayReadyPackagingEnabled;
+        private readonly bool _WidevinePackagingEnabled;
 
         public DRM_CENCDelivery(bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _PlayReadyPackagingEnabled = PlayReadyPackagingEnabled;
             _WidevinePackagingEnabled = WidevinePackagingEnabled;
         }

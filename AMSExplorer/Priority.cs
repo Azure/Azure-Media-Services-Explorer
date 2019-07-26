@@ -47,17 +47,14 @@ namespace AMSExplorer
                 return p;
             }
 
-            set
-            {
-                comboBoxPriority.SelectedIndex = comboBoxPriority.Items.IndexOf(value);
-            }
+            set => comboBoxPriority.SelectedIndex = comboBoxPriority.Items.IndexOf(value);
         }
         public PriorityForm()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
-            var ep = new List<string>() { Priority.Low, Priority.Normal, Priority.High };
+            List<string> ep = new List<string>() { Priority.Low, Priority.Normal, Priority.High };
             comboBoxPriority.Items.AddRange(ep.ToArray());
             comboBoxPriority.SelectedIndex = 1;
 

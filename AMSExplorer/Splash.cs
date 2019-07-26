@@ -20,7 +20,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    partial class Splash : Form
+    internal partial class Splash : Form
     {
 
         public Splash(string account)
@@ -51,13 +51,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string AssemblyDescription
         {
@@ -120,8 +114,8 @@ namespace AMSExplorer
         {
             System.Drawing.Pen myPen = new System.Drawing.Pen(System.Drawing.Color.DarkGray, 1);
             System.Drawing.Graphics formGraphics;
-            formGraphics = this.CreateGraphics();
-            formGraphics.DrawRectangle(myPen, 0, 0, this.Width - 1, this.Height - 1);
+            formGraphics = CreateGraphics();
+            formGraphics.DrawRectangle(myPen, 0, 0, Width - 1, Height - 1);
         }
 
     }

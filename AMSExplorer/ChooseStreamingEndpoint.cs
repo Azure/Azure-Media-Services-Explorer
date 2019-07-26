@@ -27,12 +27,12 @@ namespace AMSExplorer
 {
     public partial class ChooseStreamingEndpoint : Form
     {
-        Asset _asset;
-        string _filter;
-        PlayerType _playertype;
+        private readonly Asset _asset;
+        private readonly string _filter;
+        private readonly PlayerType _playertype;
         private string _path;
-        private bool _displayBrowserSelection;
-        private AMSClientV3 _client;
+        private readonly bool _displayBrowserSelection;
+        private readonly AMSClientV3 _client;
         private IList<AssetStreamingLocator> _locators;
 
         public StreamingEndpoint SelectStreamingEndpoint
@@ -52,7 +52,7 @@ namespace AMSExplorer
             {
                 string filters = string.Empty;
                 bool first = true;
-                foreach (var f in listViewFilters.CheckedItems)
+                foreach (object f in listViewFilters.CheckedItems)
                 {
                     string v = (f as ListViewItem).SubItems[1].Text;
                     if (v != string.Empty)
@@ -78,22 +78,9 @@ namespace AMSExplorer
             }
         }
 
-        public string ReturnSelectedBrowser
-        {
-            get
-            {
-                return (comboBoxBrowser.SelectedItem as Item).Value as string;
+        public string ReturnSelectedBrowser => (comboBoxBrowser.SelectedItem as Item).Value as string;
 
-            }
-        }
-
-        public bool ReturnHttps
-        {
-            get
-            {
-                return radioButtonHttps.Checked;
-            }
-        }
+        public bool ReturnHttps => radioButtonHttps.Checked;
 
         public string ReturnHLSAudioTrackName
         {
@@ -104,17 +91,13 @@ namespace AMSExplorer
                     return textBoxHLSAudioTrackName.Text;
                 }
                 else
+                {
                     return null;
+                }
             }
         }
 
-        public bool ReturnHLSNoAudioOnlyMode
-        {
-            get
-            {
-                return checkBoxNoAudioOnly.Checked;
-            }
-        }
+        public bool ReturnHLSNoAudioOnlyMode => checkBoxNoAudioOnly.Checked;
 
         public AMSOutputProtocols ReturnStreamingProtocol
         {
@@ -149,20 +132,14 @@ namespace AMSExplorer
             }
         }
 
-        public string UpdatedPath
-        {
-            get
-            {
-                return _path;
-            }
-        }
+        public string UpdatedPath => _path;
 
 
 
         public ChooseStreamingEndpoint(AMSClientV3 client, Asset asset, string path, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
             _asset = asset;
             _filter = filter;
@@ -182,11 +159,15 @@ namespace AMSExplorer
             // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
             StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_client);
 
-            foreach (var se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
+            foreach (StreamingEndpoint se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
             {
                 listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Name + "|" + se.HostName));
-                if (se.Id == BestSE.Id) listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;
-                foreach (var custom in se.CustomHostNames)
+                if (se.Id == BestSE.Id)
+                {
+                    listBoxSE.SelectedIndex = listBoxSE.Items.Count - 1;
+                }
+
+                foreach (string custom in se.CustomHostNames)
                 {
                     listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), se.Name + "|" + custom));
                 }
@@ -196,12 +177,12 @@ namespace AMSExplorer
             // Filters
 
             // asset filters
-            var assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name);
-            var afiltersnames = assetFilters.Select(a => a.Name).ToList();
+            Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name);
+            List<string> afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
             assetFilters.ToList().ForEach(f =>
             {
-                var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
+                ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter)
                 {
                     lvitem.Checked = true;
@@ -212,11 +193,11 @@ namespace AMSExplorer
 
 
             // account filters
-            var acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<AccountFilter> acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             acctFilters.ToList().ForEach(f =>
             {
-                var lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
+                ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count == 0) // only if not already selected (asset filter priority > account filter)
                 {
                     lvitem.Checked = true;
@@ -239,7 +220,11 @@ namespace AMSExplorer
             comboBoxBrowser.Items.Add(new Item(AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser, string.Empty));
             if (_displayBrowserSelection)
             { // let's add the browser options to lplayback the content (IE, Edge, Chrome...)
-                if (IsWindows10()) comboBoxBrowser.Items.Add(new Item(Constants.BrowserEdge[0], Constants.BrowserEdge[1]));
+                if (IsWindows10())
+                {
+                    comboBoxBrowser.Items.Add(new Item(Constants.BrowserEdge[0], Constants.BrowserEdge[1]));
+                }
+
                 comboBoxBrowser.Items.Add(new Item(Constants.BrowserIE[0], Constants.BrowserIE[1]));
                 comboBoxBrowser.Items.Add(new Item(Constants.BrowserChrome[0], Constants.BrowserChrome[1]));
                 comboBoxBrowser.SelectedIndex = 0;
@@ -261,7 +246,7 @@ namespace AMSExplorer
             _locators = _client.AMSclient.Assets.ListStreamingLocators(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name).StreamingLocators;
 
             int index = 0;
-            foreach (var locator in _locators.ToList())
+            foreach (AssetStreamingLocator locator in _locators.ToList())
             {
                 index = comboBoxPolicyLocators.Items.Add(new Item(locator.Name, locator.Name));
                 if (_path.Contains(locator.StreamingLocatorId.ToString()))
@@ -276,9 +261,9 @@ namespace AMSExplorer
 
         }
 
-        static bool IsWindows10()
+        private static bool IsWindows10()
         {
-            var reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+            RegistryKey reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
 
             string productName = (string)reg.GetValue("ProductName");
 
@@ -330,10 +315,12 @@ namespace AMSExplorer
 
         private void radioButtonSmooth_CheckedChanged(object sender, EventArgs e)
         {
-            var checkb = (RadioButton)sender;
+            RadioButton checkb = (RadioButton)sender;
 
             if (checkb.Checked)  // to do it one time
+            {
                 UpdatePreviewUrl();
+            }
         }
 
 
@@ -361,17 +348,19 @@ namespace AMSExplorer
 
         private void radioButtonHLSCMAF_CheckedChanged(object sender, EventArgs e)
         {
-            var checkb = (RadioButton)sender;
+            RadioButton checkb = (RadioButton)sender;
 
             if (checkb.Checked)  // to do it one time
+            {
                 UpdatePreviewUrl();
+            }
         }
 
         private void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
         {
             //string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
 
-            var locator = _locators[comboBoxPolicyLocators.SelectedIndex];
+            AssetStreamingLocator locator = _locators[comboBoxPolicyLocators.SelectedIndex];
 
             // _path = "/" + locator.StreamingLocatorId.ToString() + _path.Substring(_path.IndexOf('/', 2));
 

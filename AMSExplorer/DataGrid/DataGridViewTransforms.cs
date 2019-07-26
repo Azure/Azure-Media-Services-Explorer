@@ -31,33 +31,32 @@ namespace AMSExplorer
     {
         private bool _initialized = false;
 
-        private List<string> idsList = new List<string>();
-        static AMSClientV3 _client;
-
-        static BindingList<TransformEntryV3> _MyObservTransformsV3;
+        private readonly List<string> idsList = new List<string>();
+        private static AMSClientV3 _client;
+        private static BindingList<TransformEntryV3> _MyObservTransformsV3;
 
         public void Init(AMSClientV3 client)
         {
             _client = client;
 
-            var transforms = _client.AMSclient.Transforms.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new TransformEntryV3
+            IEnumerable<TransformEntryV3> transforms = _client.AMSclient.Transforms.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new TransformEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
-                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G")
+                LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
             );
 
             BindingList<TransformEntryV3> MyObservTransformthisPageV3 = new BindingList<TransformEntryV3>(transforms.ToList());
-            this.DataSource = MyObservTransformthisPageV3;
+            DataSource = MyObservTransformthisPageV3;
 
-            var myTask = Task.Factory.StartNew(() =>
+            Task myTask = Task.Factory.StartNew(() =>
             {
-                this.BeginInvoke(new Action(() =>
+                BeginInvoke(new Action(() =>
                 {
-                    this.Columns["Name"].Width = 200;
-                    this.Columns["Description"].Width = 200;
-                    this.Columns["LastModified"].Width = 130;
+                    Columns["Name"].Width = 200;
+                    Columns["Description"].Width = 200;
+                    Columns["LastModified"].Width = 130;
                 }));
             });
 
@@ -67,29 +66,32 @@ namespace AMSExplorer
 
         public async Task RefreshTransformsAsync() // all transforms are refreshed
         {
-            if (!_initialized) return;
+            if (!_initialized)
+            {
+                return;
+            }
 
             Debug.WriteLine("Refresh Transforms Start");
 
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
             await _client.RefreshTokenIfNeededAsync();
 
-            var transforms = (await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).Select(a => new TransformEntryV3
+            IEnumerable<TransformEntryV3> transforms = (await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).Select(a => new TransformEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
-                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G")
+                LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
           );
 
             _MyObservTransformsV3 = new BindingList<TransformEntryV3>(transforms.ToList());
 
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservTransformsV3));
+            BeginInvoke(new Action(() => DataSource = _MyObservTransformsV3));
 
             Debug.WriteLine("RefreshTransforms End");
 
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
 
         public List<Transform> ReturnSelectedTransforms()
@@ -97,10 +99,10 @@ namespace AMSExplorer
             _client.RefreshTokenIfNeeded();
 
             List<Transform> SelectedTransforms = new List<Transform>();
-            foreach (DataGridViewRow Row in this.SelectedRows)
+            foreach (DataGridViewRow Row in SelectedRows)
             {
                 // sometimes, the transform can be null (if just deleted)
-                var transform = _client.AMSclient.Transforms.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, Row.Cells[this.Columns["Name"].Index].Value.ToString());
+                Transform transform = _client.AMSclient.Transforms.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, Row.Cells[Columns["Name"].Index].Value.ToString());
                 if (transform != null)
                 {
                     SelectedTransforms.Add(transform);

@@ -32,110 +32,54 @@ namespace AMSExplorer
     {
         public int LiveEventsPerPage
         {
-            get
-            {
-                return _liveeventsperpage;
-            }
-            set
-            {
-                _liveeventsperpage = value;
-            }
+            get => _liveeventsperpage;
+            set => _liveeventsperpage = value;
         }
-        public int PageCount
-        {
-            get
-            {
-                return _pagecount;
-            }
-
-        }
-        public int CurrentPage
-        {
-            get
-            {
-                return _currentpage;
-            }
-
-        }
+        public int PageCount => _pagecount;
+        public int CurrentPage => _currentpage;
 
         public string FilterState
         {
-            get
-            {
-                return _statefilter;
-            }
-            set
-            {
-                _statefilter = value;
-            }
+            get => _statefilter;
+            set => _statefilter = value;
 
         }
         public SearchObject SearchInName
         {
-            get
-            {
-                return _searchinname;
-            }
-            set
-            {
-                _searchinname = value;
-            }
+            get => _searchinname;
+            set => _searchinname = value;
 
         }
-        public bool Initialized
-        {
-            get
-            {
-                return _initialized;
-            }
-        }
+        public bool Initialized => _initialized;
         public string TimeFilter
         {
-            get
-            {
-                return _timefilter;
-            }
-            set
-            {
-                _timefilter = value;
-            }
+            get => _timefilter;
+            set => _timefilter = value;
         }
         public TimeRangeValue TimeFilterTimeRange
         {
-            get
-            {
-                return _timefilterTimeRange;
-            }
-            set
-            {
-                _timefilterTimeRange = value;
-            }
+            get => _timefilterTimeRange;
+            set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount
-        {
-            get
-            {
-                return _MyObservLiveEvent.Count();
-            }
-        }
+        public int DisplayedCount => _MyObservLiveEvent.Count();
 
-        private List<StatusInfo> ListStatus = new List<StatusInfo>();
-        static SortableBindingList<LiveEventEntry> _MyObservLiveEvent;
+        private readonly List<StatusInfo> ListStatus = new List<StatusInfo>();
+        private static SortableBindingList<LiveEventEntry> _MyObservLiveEvent;
 
-        static private int _liveeventsperpage = 50; //nb of items per page
-        static private int _pagecount = 1;
-        static private int _currentpage = 1;
-        static private bool _initialized = false;
-        static private bool _refreshedatleastonetime = false;
-        static string _statefilter = "All";
+        private static int _liveeventsperpage = 50; //nb of items per page
+        private static readonly int _pagecount = 1;
+        private static int _currentpage = 1;
+        private static bool _initialized = false;
+        private static bool _refreshedatleastonetime = false;
+        private static string _statefilter = "All";
         private AMSClientV3 _client;
-        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.LiveEventName, Text = string.Empty };
-        static private string _timefilter = FilterTime.LastWeek;
-        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
-        static BackgroundWorker WorkerRefreshChannels;
-        static Bitmap EncodingImage = Bitmaps.encoding;
-        static Bitmap StandardEncodingImage = Bitmaps.encoding;
-        static Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
+        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.LiveEventName, Text = string.Empty };
+        private static string _timefilter = FilterTime.LastWeek;
+        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static BackgroundWorker WorkerRefreshChannels;
+        private static readonly Bitmap EncodingImage = Bitmaps.encoding;
+        private static readonly Bitmap StandardEncodingImage = Bitmaps.encoding;
+        private static readonly Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
 
         public string _encoded = "Encoding";
         public string _encodedPreset = "EncodingPreset";
@@ -189,7 +133,7 @@ namespace AMSExplorer
 
             _client = client;
 
-            var liveevents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<LiveEvent> liveevents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             channelquery = from c in liveevents.Take(0)
                            orderby c.LastModified descending
@@ -234,37 +178,39 @@ namespace AMSExplorer
                 Name = _encoded,
                 DataPropertyName = _encoded,
             };
-            this.Columns.Add(imageCol);
+            Columns.Add(imageCol);
 
             SortableBindingList<LiveEventEntry> MyObservChannelsInPage = new SortableBindingList<LiveEventEntry>(channelquery.Take(0).ToList());
-            this.DataSource = MyObservChannelsInPage;
-            this.Columns["InputUrl"].HeaderText = "Primary Input Url";
-            this.Columns["InputUrl"].Width = 140;
-            this.Columns["InputUrl"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            this.Columns["InputProtocol"].HeaderText = "Input Protocol (input nb)";
-            this.Columns["InputProtocol"].Width = 180;
-            this.Columns["PreviewUrl"].Width = 120;
-            this.Columns["PreviewUrl"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            DataSource = MyObservChannelsInPage;
+            Columns["InputUrl"].HeaderText = "Primary Input Url";
+            Columns["InputUrl"].Width = 140;
+            Columns["InputUrl"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            Columns["InputProtocol"].HeaderText = "Input Protocol (input nb)";
+            Columns["InputProtocol"].Width = 180;
+            Columns["PreviewUrl"].Width = 120;
+            Columns["PreviewUrl"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
-            this.Columns[_encoded].DisplayIndex = this.ColumnCount - 4;
-            this.Columns[_encoded].DefaultCellStyle.NullValue = null;
-            this.Columns[_encoded].HeaderText = "Cloud Encoding";
-            this.Columns[_encoded].Width = 100;
+            Columns[_encoded].DisplayIndex = ColumnCount - 4;
+            Columns[_encoded].DefaultCellStyle.NullValue = null;
+            Columns[_encoded].HeaderText = "Cloud Encoding";
+            Columns[_encoded].Width = 100;
 
-            this.Columns[_encodedPreset].DisplayIndex = this.ColumnCount - 3;
-            this.Columns[_encodedPreset].DefaultCellStyle.NullValue = null;
-            this.Columns[_encodedPreset].HeaderText = "Preset";
-            this.Columns[_encodedPreset].Width = 100;
+            Columns[_encodedPreset].DisplayIndex = ColumnCount - 3;
+            Columns[_encodedPreset].DefaultCellStyle.NullValue = null;
+            Columns[_encodedPreset].HeaderText = "Preset";
+            Columns[_encodedPreset].Width = 100;
 
-            this.Columns["LastModified"].Width = 140;
-            this.Columns["LastModified"].HeaderText = "Last modified";
+            Columns["LastModified"].Width = 140;
+            Columns["LastModified"].HeaderText = "Last modified";
 
-            this.Columns["State"].Width = 75;
-            this.Columns["Description"].Width = 110;
+            Columns["State"].Width = 75;
+            Columns["Description"].Width = 110;
 
-            WorkerRefreshChannels = new BackgroundWorker();
-            WorkerRefreshChannels.WorkerSupportsCancellation = true;
-            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshChannels_DoWork);
+            WorkerRefreshChannels = new BackgroundWorker
+            {
+                WorkerSupportsCancellation = true
+            };
+            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshChannels_DoWork);
 
             _initialized = true;
         }
@@ -272,13 +218,20 @@ namespace AMSExplorer
 
         public void DisplayPage(int page)
         {
-            if (!_initialized) return;
-            if (!_refreshedatleastonetime) return;
+            if (!_initialized)
+            {
+                return;
+            }
+
+            if (!_refreshedatleastonetime)
+            {
+                return;
+            }
 
             if ((page <= _pagecount) && (page > 0))
             {
                 _currentpage = page;
-                this.DataSource = new BindingList<LiveEventEntry>(_MyObservLiveEvent.Skip(_liveeventsperpage * (page - 1)).Take(_liveeventsperpage).ToList());
+                DataSource = new BindingList<LiveEventEntry>(_MyObservLiveEvent.Skip(_liveeventsperpage * (page - 1)).Take(_liveeventsperpage).ToList());
             }
         }
 
@@ -303,7 +256,7 @@ namespace AMSExplorer
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
                     _MyObservLiveEvent[index].Description = liveEventItem.Description;
                     _MyObservLiveEvent[index].LastModified = liveEventItem.LastModified != null ? (DateTime?)((DateTime)liveEventItem.LastModified).ToLocalTime() : null;
-                    this.Refresh();
+                    Refresh();
                 }
             }
         }
@@ -325,7 +278,7 @@ namespace AMSExplorer
                     if (liveEventInputItem != null)
                     {
                         CE.State = liveEventInputItem.ResourceState;
-                        this.BeginInvoke(new Action(() => this.Refresh()), null);
+                        BeginInvoke(new Action(() => Refresh()), null);
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -338,7 +291,7 @@ namespace AMSExplorer
                     return;
                 }
             }
-            this.BeginInvoke(new Action(() => this.Refresh()), null);
+            BeginInvoke(new Action(() => Refresh()), null);
         }
 
         private void RefreshLiveEvents() // all assets are refreshed
@@ -348,15 +301,18 @@ namespace AMSExplorer
 
         public async Task RefreshLiveEventAsync(int pagetodisplay) // all assets are refreshed
         {
-            if (!_initialized) return;
+            if (!_initialized)
+            {
+                return;
+            }
 
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
             await _client.RefreshTokenIfNeededAsync();
-            var listLE = await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<LiveEvent> listLE = await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
             totalLiveEvents = listLE.Count();
 
-            var channelquery = listLE.Select(c =>
+            IEnumerable<LiveEventEntry> channelquery = listLE.Select(c =>
                        new LiveEventEntry
                        {
                            Name = c.Name,
@@ -372,9 +328,9 @@ namespace AMSExplorer
             );
 
             _MyObservLiveEvent = new SortableBindingList<LiveEventEntry>(channelquery.ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservLiveEvent));
+            BeginInvoke(new Action(() => DataSource = _MyObservLiveEvent));
             _refreshedatleastonetime = true;
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
     }
 }

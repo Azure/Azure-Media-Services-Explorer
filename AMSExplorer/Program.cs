@@ -38,7 +38,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -54,21 +53,21 @@ using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace AMSExplorer
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         /// 
 
-        const string languageparam = "/language:";
+        private const string languageparam = "/language:";
 
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
             {
-                var language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
+                string language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language, false);
             }
             Application.EnableVisualStyles();
@@ -155,13 +154,13 @@ namespace AMSExplorer
         public static string AnalyzeTextAndReportSyntaxError(string myText)
         {
             string strReturn = string.Empty;
-            var type = Program.AnalyseConfigurationString(myText);
+            TypeConfig type = Program.AnalyseConfigurationString(myText);
             if (type == TypeConfig.JSON)
             {
                 // Let's check JSON syntax
                 try
                 {
-                    var jo = JObject.Parse(myText);
+                    JObject jo = JObject.Parse(myText);
                 }
                 catch (Exception ex)
                 {
@@ -172,7 +171,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var xml = XElement.Load(new StringReader(myText));
+                    XElement xml = XElement.Load(new StringReader(myText));
                 }
                 catch (Exception ex)
                 {
@@ -187,7 +186,7 @@ namespace AMSExplorer
         {
             try
             {
-                var doc = XDocument.Parse(xml);
+                XDocument doc = XDocument.Parse(xml);
                 return doc.Declaration + Environment.NewLine + doc.ToString();
             }
             catch (Exception)
@@ -198,7 +197,7 @@ namespace AMSExplorer
 
         public static string AnalyzeAndIndentXMLJSON(string myText)
         {
-            var type = Program.AnalyseConfigurationString(myText);
+            TypeConfig type = Program.AnalyseConfigurationString(myText);
             if (type == TypeConfig.JSON)
             {
                 // Let's check JSON syntax
@@ -226,12 +225,12 @@ namespace AMSExplorer
 
         public static ManifestGenerated LoadAndUpdateManifestTemplate(Asset asset, AMSClientV3 amsClient, CloudBlobContainer container)
         {
-            var blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c => c as CloudBlockBlob);
+            IEnumerable<CloudBlockBlob> blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c => c as CloudBlockBlob);
 
 
-            var mp4AssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
-            var m4aAssetFiles = blobs.Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
-            var mediaAssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] mp4AssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] m4aAssetFiles = blobs.Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] mediaAssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             if (mediaAssetFiles.Count() != 0)
             {
@@ -241,13 +240,13 @@ namespace AMSExplorer
 
                 XNamespace ns = "http://www.w3.org/2001/SMIL20/Language";
 
-                var bodyxml = doc.Element(ns + "smil");
-                var body2 = bodyxml.Element(ns + "body");
+                XElement bodyxml = doc.Element(ns + "smil");
+                XElement body2 = bodyxml.Element(ns + "body");
 
-                var switchxml = body2.Element(ns + "switch");
+                XElement switchxml = body2.Element(ns + "switch");
 
                 // audio tracks (m4a)
-                foreach (var file in m4aAssetFiles)
+                foreach (CloudBlockBlob file in m4aAssetFiles)
                 {
                     switchxml.Add(new XElement(ns + "audio", new XAttribute("src", file.Name), new XAttribute("title", Path.GetFileNameWithoutExtension(file.Name))));
                 }
@@ -255,13 +254,13 @@ namespace AMSExplorer
                 if (m4aAssetFiles.Count() == 0)
                 {
                     // audio track(s)
-                    var mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
+                    IEnumerable<CloudBlockBlob> mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
                                                                (f.Name.ToLower().Contains("audio") && !f.Name.ToLower().Contains("video"))
                                                                ||
                                                                (f.Name.ToLower().Contains("aac") && !f.Name.ToLower().Contains("h264"))
                                                                );
 
-                    var mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.Properties.Length);
+                    IOrderedEnumerable<CloudBlockBlob> mp4AudioAssetFilesSize = mp4AssetFiles.OrderBy(f => f.Properties.Length);
 
                     string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
                     switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
@@ -273,7 +272,7 @@ namespace AMSExplorer
                 }
 
                 // video tracks
-                foreach (var file in mp4AssetFiles)
+                foreach (CloudBlockBlob file in mp4AssetFiles)
                 {
                     if (file.Name != mp4fileuniqueaudio) // we don't put the unique audio file as a video track
                     {
@@ -352,7 +351,7 @@ namespace AMSExplorer
         public static async Task CheckAMSEVersionAsync()
 #pragma warning restore 1998
         {
-            var webClient = new WebClient();
+            WebClient webClient = new WebClient();
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompletedV3(true, sender, e);
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimaryV3));
         }
@@ -367,15 +366,15 @@ namespace AMSExplorer
                 {
                     dynamic data = JsonConvert.DeserializeObject(e.Result);
                     Version versionAMSEGitHub = new Version((string)data.Version);
-                    var RelNotesUrl = new Uri((string)data.ReleaseNotesUrl);
-                    var AllRelNotesUrl = new Uri((string)data.AllReleaseNotesUrl);
-                    var BinaryUrl = new Uri((string)data.BinaryUrl);
+                    Uri RelNotesUrl = new Uri((string)data.ReleaseNotesUrl);
+                    Uri AllRelNotesUrl = new Uri((string)data.AllReleaseNotesUrl);
+                    Uri BinaryUrl = new Uri((string)data.BinaryUrl);
 
                     Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
                     if (versionAMSEGitHub > versionAMSELocal)
                     {
                         MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
-                        var form = new SoftwareUpdate(RelNotesUrl, versionAMSEGitHub, BinaryUrl);
+                        SoftwareUpdate form = new SoftwareUpdate(RelNotesUrl, versionAMSEGitHub, BinaryUrl);
                         form.ShowDialog();
                     }
                 }
@@ -386,7 +385,7 @@ namespace AMSExplorer
             }
             else if (firsttry)
             {
-                var webClient = new WebClient();
+                WebClient webClient = new WebClient();
                 webClient.DownloadStringCompleted += (sender2, e2) => DownloadVersionRequestCompletedV3(false, sender2, e2);
                 webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionSecondaryV3));
             }
@@ -536,11 +535,13 @@ namespace AMSExplorer
         {
             // don't change the registry if running in-proc inside Visual Studio
             if (LicenseManager.UsageMode != LicenseUsageMode.Runtime)
+            {
                 return;
+            }
 
-            var appName = System.IO.Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            string appName = System.IO.Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
 
-            var featureControlRegKey = @"HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\";
+            string featureControlRegKey = @"HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\";
 
             Registry.SetValue(featureControlRegKey + "FEATURE_BROWSER_EMULATION",
                 appName, GetBrowserEmulationMode(), RegistryValueKind.DWord);
@@ -565,20 +566,21 @@ namespace AMSExplorer
 
         }
 
-
-        static UInt32 GetBrowserEmulationMode()
+        private static uint GetBrowserEmulationMode()
         {
             int browserVersion = 0;
-            using (var ieKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Internet Explorer",
+            using (RegistryKey ieKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Internet Explorer",
                 RegistryKeyPermissionCheck.ReadSubTree,
                 System.Security.AccessControl.RegistryRights.QueryValues))
             {
-                var version = ieKey.GetValue("svcVersion");
+                object version = ieKey.GetValue("svcVersion");
                 if (null == version)
                 {
                     version = ieKey.GetValue("Version");
                     if (null == version)
+                    {
                         throw new ApplicationException("Microsoft Internet Explorer is required!");
+                    }
                 }
                 int.TryParse(version.ToString().Split('.')[0], out browserVersion);
             }
@@ -588,7 +590,7 @@ namespace AMSExplorer
                 throw new ApplicationException("Unsupported version of Microsoft Internet Explorer!");
             }
 
-            UInt32 mode = 11000; // Internet Explorer 11. Webpages containing standards-based !DOCTYPE directives are displayed in IE11 Standards mode. 
+            uint mode = 11000; // Internet Explorer 11. Webpages containing standards-based !DOCTYPE directives are displayed in IE11 Standards mode. 
 
             switch (browserVersion)
             {
@@ -1248,8 +1250,8 @@ namespace AMSExplorer
 
     public class AssetInfo
     {
-        private List<Asset> SelectedAssetsV3;
-        private AMSClientV3 _amsClient;
+        private readonly List<Asset> SelectedAssetsV3;
+        private readonly AMSClientV3 _amsClient;
         public const string Type_Empty = "(empty)";
         public const string Type_Workflow = "Workflow";
         public const string Type_Single = "Single Bitrate MP4";
@@ -1312,12 +1314,12 @@ namespace AMSExplorer
 
             try
             {
-                var locatorTask = Task.Factory.StartNew(() =>
+                Task locatorTask = Task.Factory.StartNew(() =>
                 {
                     try
                     {
 
-                        var streamingLocatorName = "templocator-" + Guid.NewGuid().ToString().Substring(0, 13);
+                        string streamingLocatorName = "templocator-" + Guid.NewGuid().ToString().Substring(0, 13);
 
                         tempLocator = new StreamingLocator(
                             assetName: asset.Name,
@@ -1350,14 +1352,18 @@ namespace AMSExplorer
         {
             _amsClientV3.RefreshTokenIfNeeded();
 
-            var locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
-            var ses = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
-            var runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
-            if (runningSes == null) runningSes = ses.FirstOrDefault();
+            IList<AssetStreamingLocator> locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
+            Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+            StreamingEndpoint runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
+            if (runningSes == null)
+            {
+                runningSes = ses.FirstOrDefault();
+            }
+
             if (locators.Count > 0 && runningSes != null)
             {
-                var streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locators.First().Name).StreamingPaths;
-                var uribuilder = new UriBuilder
+                IList<StreamingPath> streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locators.First().Name).StreamingPaths;
+                UriBuilder uribuilder = new UriBuilder
                 {
                     Host = runningSes.HostName,
                     Path = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming).FirstOrDefault().Paths.FirstOrDefault()
@@ -1493,7 +1499,10 @@ namespace AMSExplorer
                 };
                 return urib.Uri;
             }
-            else return null;
+            else
+            {
+                return null;
+            }
         }
 
 
@@ -1548,17 +1557,17 @@ namespace AMSExplorer
             return LocPubStatus;
         }
 
-        static public TimeSpan ReturnTimeSpanOnGOP(ManifestTimingData data, TimeSpan ts)
+        public static TimeSpan ReturnTimeSpanOnGOP(ManifestTimingData data, TimeSpan ts)
         {
-            var response = ts;
+            TimeSpan response = ts;
             ulong timestamp = (ulong)(ts.TotalSeconds * data.TimeScale);
 
             int i = 0;
-            foreach (var t in data.TimestampList)
+            foreach (ulong t in data.TimestampList)
             {
                 if (t < timestamp && i < (data.TimestampList.Count - 1) && timestamp < data.TimestampList[i + 1])
                 {
-                    response = TimeSpan.FromSeconds((double)t / (double)data.TimeScale);
+                    response = TimeSpan.FromSeconds(t / (double)data.TimeScale);
                     break;
                 }
                 i++;
@@ -1567,7 +1576,7 @@ namespace AMSExplorer
         }
 
 
-        static public ManifestTimingData GetManifestTimingData(Asset asset, AMSClientV3 _amsClientV3)
+        public static ManifestTimingData GetManifestTimingData(Asset asset, AMSClientV3 _amsClientV3)
         // Parse the manifest and get data from it
         {
             ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
@@ -1585,8 +1594,8 @@ namespace AMSExplorer
                 if (myuri != null)
                 {
                     XDocument manifest = XDocument.Load(myuri.ToString());
-                    var smoothmedia = manifest.Element("SmoothStreamingMedia");
-                    var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                    XElement smoothmedia = manifest.Element("SmoothStreamingMedia");
+                    IEnumerable<XElement> videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
 
                     // TIMESCALE
                     string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
@@ -1612,7 +1621,7 @@ namespace AMSExplorer
                     ulong durationpreviouschunk = 0;
                     ulong durationchunk;
                     int repeatchunk;
-                    foreach (var chunk in videotrack.Elements("c"))
+                    foreach (XElement chunk in videotrack.Elements("c"))
                     {
                         durationchunk = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
                         repeatchunk = chunk.Attribute("r") != null ? int.Parse(chunk.Attribute("r").Value) : 1;
@@ -1647,12 +1656,12 @@ namespace AMSExplorer
                     if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
                     { // Live asset.... No duration to read (but we can read scaling and compute duration if no gap)
                         response.IsLive = true;
-                        response.AssetDuration = TimeSpan.FromSeconds((double)totalduration / ((double)timescale));
+                        response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
                     }
                     else
                     {
                         //totalduration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
-                        response.AssetDuration = TimeSpan.FromSeconds((double)totalduration / ((double)timescale));
+                        response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
                     }
                 }
                 else
@@ -1691,8 +1700,8 @@ namespace AMSExplorer
 
             public ManifestSegmentsResponse()
             {
-                this.videoSegments = new List<ManifestSegmentData>();
-                this.videoBitrates = new List<int>();
+                videoSegments = new List<ManifestSegmentData>();
+                videoBitrates = new List<int>();
             }
         }
 
@@ -1826,7 +1835,7 @@ namespace AMSExplorer
         public static long ReturnTimestampInTicks(ulong timestamp, ulong? timescale)
         {
             double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-            return (long)((double)timestamp * (double)TimeSpan.TicksPerSecond / timescale2);
+            return (long)(timestamp * (double)TimeSpan.TicksPerSecond / timescale2);
         }
 
 
@@ -1842,34 +1851,34 @@ namespace AMSExplorer
             string type = string.Empty;
             long size = 0;
 
-            var response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime)).Result;
+            AssetContainerSas response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime)).Result;
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
 
-            var sasUri = new Uri(uploadSasUrl);
-            var container = new CloudBlobContainer(sasUri);
+            Uri sasUri = new Uri(uploadSasUrl);
+            CloudBlobContainer container = new CloudBlobContainer(sasUri);
 
-            var rootBlobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).ToList();
-            var blocsc = rootBlobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
-            var blocsdir = rootBlobs.Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(b => (CloudBlobDirectory)b).ToList();
+            List<IListBlobItem> rootBlobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).ToList();
+            List<CloudBlockBlob> blocsc = rootBlobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+            List<CloudBlobDirectory> blocsdir = rootBlobs.Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(b => (CloudBlobDirectory)b).ToList();
 
             int number = blocsc.Count;
 
-            var ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
-            var ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             // size calculation
             blocsc.ForEach(b => size += b.Properties.Length);
 
             // fragments in subfolders (live archive)
-            foreach (var dir in blocsdir)
+            foreach (CloudBlobDirectory dir in blocsdir)
             {
-                var dirRef = container.GetDirectoryReference(dir.Prefix);
-                var subBlobs = dirRef.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+                CloudBlobDirectory dirRef = container.GetDirectoryReference(dir.Prefix);
+                List<CloudBlockBlob> subBlobs = dirRef.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
                 subBlobs.ForEach(b => size += b.Properties.Length);
             }
 
-            var mp4files = blocsc.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] mp4files = blocsc.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             if (mp4files.Count() > 0 && ismcfiles.Count() == 1 && ismfiles.Count() == 1)  // Multi bitrate MP4
             {
@@ -1877,8 +1886,10 @@ namespace AMSExplorer
                 type = number == 1 ? Type_Single : Type_Multi;
             }
 
-            else if (blocsc.Count == 0) return new AssetInfoData() { Size = size, Type = Type_Empty };
-
+            else if (blocsc.Count == 0)
+            {
+                return new AssetInfoData() { Size = size, Type = Type_Empty };
+            }
             else if (ismcfiles.Count() == 1 && ismfiles.Count() == 1 && blocsdir.Count > 0)
             {
                 type = Type_LiveArchive;
@@ -1888,8 +1899,12 @@ namespace AMSExplorer
             else if (blocsc.Count == 1)
             {
                 number = 1;
-                var ext = Path.GetExtension(blocsc.FirstOrDefault().Name.ToUpper());
-                if (!string.IsNullOrEmpty(ext)) ext = ext.Substring(1);
+                string ext = Path.GetExtension(blocsc.FirstOrDefault().Name.ToUpper());
+                if (!string.IsNullOrEmpty(ext))
+                {
+                    ext = ext.Substring(1);
+                }
+
                 switch (ext)
                 {
                     case "WORKFLOW":
@@ -1920,31 +1935,37 @@ namespace AMSExplorer
         public void CopyStatsToClipBoard()
         {
             StringBuilder SB = GetStats();
-            Clipboard.SetText((string)SB.ToString());
+            Clipboard.SetText(SB.ToString());
         }
 
 
-        public static String FormatByteSize(long? byteCountl)
+        public static string FormatByteSize(long? byteCountl)
         {
             if (byteCountl.HasValue == true)
             {
                 long byteCount = (long)byteCountl;
                 string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" }; //Longs run out around EB
                 if (byteCount == 0)
+                {
                     return "0 " + suf[0];
+                }
+
                 long bytes = Math.Abs(byteCount);
                 int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1000)));
                 double num = Math.Round(bytes / Math.Pow(1000, place), 1);
                 return (Math.Sign(byteCount) * num).ToString() + " " + suf[place];
             }
-            else return null;
+            else
+            {
+                return null;
+            }
         }
 
         public static long? Inverse_FormatByteSize(string mystring)
         {
-            var sizes = new List<unitSize> {
-                  new unitSize() { unitn = "B", mult = (long)1 },
-                  new unitSize(){ unitn = "KB", mult = (long)1000 },
+            List<unitSize> sizes = new List<unitSize> {
+                  new unitSize() { unitn = "B", mult = 1 },
+                  new unitSize(){ unitn = "KB", mult = 1000 },
                   new unitSize(){ unitn = "MB", mult = (long)1000*1000 },
                   new unitSize(){ unitn = "GB", mult = (long)1000*1000*1000 },
                   new unitSize(){ unitn = "TB", mult = (long)1000*1000*1000*1000 },
@@ -1954,12 +1975,12 @@ namespace AMSExplorer
 
             if (sizes.Any(s => mystring.EndsWith(" " + s.unitn)))
             {
-                var val = mystring.Substring(0, mystring.Length - 2).Trim();
+                string val = mystring.Substring(0, mystring.Length - 2).Trim();
                 try
                 {
-                    var valdouble = double.Parse(val);
-                    var myunit = mystring.Substring(mystring.Length - 2, 2).Trim();
-                    var mymult = sizes.Where(s => s.unitn == myunit).FirstOrDefault().mult;
+                    double valdouble = double.Parse(val);
+                    string myunit = mystring.Substring(mystring.Length - 2, 2).Trim();
+                    long mymult = sizes.Where(s => s.unitn == myunit).FirstOrDefault().mult;
                     return (long)(valdouble * mymult);
                 }
                 catch
@@ -2135,13 +2156,13 @@ namespace AMSExplorer
         public static StringBuilder GetStat(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
-            var MyAssetTypeInfo = AssetInfo.GetAssetType(MyAsset.Name, _amsClient);
+            AssetInfoData MyAssetTypeInfo = AssetInfo.GetAssetType(MyAsset.Name, _amsClient);
             bool bfileinasset = (MyAssetTypeInfo.Blobs.Count() == 0) ? false : true;
             long size = -1;
             if (bfileinasset)
             {
                 size = 0;
-                foreach (var blob in MyAssetTypeInfo.Blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)))
+                foreach (IListBlobItem blob in MyAssetTypeInfo.Blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)))
                 {
                     size += (blob as CloudBlockBlob).Properties.Length;
                 }
@@ -2155,7 +2176,10 @@ namespace AMSExplorer
 
             sb.AppendLine("Alternate ID        : " + MyAsset.AlternateId);
             if (size != -1)
+            {
                 sb.AppendLine("Size                : " + FormatByteSize(size));
+            }
+
             sb.AppendLine("Container           : " + MyAsset.Container);
             sb.AppendLine("Created (UTC)       : " + MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
             sb.AppendLine("Last Modified (UTC) : " + MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
@@ -2164,13 +2188,13 @@ namespace AMSExplorer
 
             sb.AppendLine(string.Empty);
 
-            foreach (var blob in MyAssetTypeInfo.Blobs)
+            foreach (IListBlobItem blob in MyAssetTypeInfo.Blobs)
             {
                 sb.AppendLine("   -----------------------------------------------");
 
                 if (blob.GetType() == typeof(CloudBlockBlob))
                 {
-                    var blobc = blob as CloudBlockBlob;
+                    CloudBlockBlob blobc = blob as CloudBlockBlob;
                     sb.AppendLine("   Block Blob Name      : " + blobc.Name);
                     sb.AppendLine("   Type                 : " + blobc.BlobType);
                     sb.AppendLine("   Blob length          : " + blobc.Properties.Length + " Bytes");
@@ -2184,7 +2208,7 @@ namespace AMSExplorer
                 }
                 else if (blob.GetType() == typeof(CloudBlobDirectory))
                 {
-                    var blobd = blob as CloudBlobDirectory;
+                    CloudBlobDirectory blobd = blob as CloudBlobDirectory;
                     sb.AppendLine("   Blob Directory Name  : " + blobd.Prefix);
                     sb.AppendLine("   Type                 : BlobDirectory");
                     sb.AppendLine("   Blob Director length : " + GetSizeBlobDirectory(blobd) + " Bytes");
@@ -2203,7 +2227,7 @@ namespace AMSExplorer
         public static long GetSizeBlobDirectory(CloudBlobDirectory blobd)
         {
             long sizeDir = 0;
-            var subBlobs = blobd.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+            List<CloudBlockBlob> subBlobs = blobd.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
             subBlobs.ForEach(b => sizeDir += b.Properties.Length);
 
             return sizeDir;
@@ -2215,16 +2239,16 @@ namespace AMSExplorer
             StringBuilder sb = new StringBuilder();
             amsClient.RefreshTokenIfNeeded();
 
-            var locators = amsClient.AMSclient.Assets.ListStreamingLocators(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name).StreamingLocators;
+            IList<AssetStreamingLocator> locators = amsClient.AMSclient.Assets.ListStreamingLocators(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name).StreamingLocators;
 
             if (locators.Count == 0)
             {
                 sb.AppendLine("No streaming locator created for this asset.");
             }
 
-            foreach (var locatorbase in locators)
+            foreach (AssetStreamingLocator locatorbase in locators)
             {
-                var locator = amsClient.AMSclient.StreamingLocators.Get(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
+                StreamingLocator locator = amsClient.AMSclient.StreamingLocators.Get(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
                 sb.AppendLine("Locator Name                    : " + locator.Name);
                 sb.AppendLine("Locator Id                      : " + locator.StreamingLocatorId);
@@ -2234,18 +2258,18 @@ namespace AMSExplorer
                 sb.AppendLine("Default Content Key Policy Name : " + locator.DefaultContentKeyPolicyName);
                 sb.AppendLine("Associated filters              : " + string.Join(", ", locator.Filters.ToArray()));
 
-                var streamingPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
-                var downloadPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).DownloadPaths;
+                IList<StreamingPath> streamingPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
+                IList<string> downloadPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).DownloadPaths;
 
-                foreach (var path in streamingPaths)
+                foreach (StreamingPath path in streamingPaths)
                 {
-                    foreach (var p in path.Paths)
+                    foreach (string p in path.Paths)
                     {
-                        sb.AppendLine(path.StreamingProtocol.ToString() + " " + path.EncryptionScheme + new String(' ', 30 - path.StreamingProtocol.ToString().Length - path.EncryptionScheme.ToString().Length) + " : " + p);
+                        sb.AppendLine(path.StreamingProtocol.ToString() + " " + path.EncryptionScheme + new string(' ', 30 - path.StreamingProtocol.ToString().Length - path.EncryptionScheme.ToString().Length) + " : " + p);
                     }
                 }
 
-                foreach (var path in downloadPaths)
+                foreach (string path in downloadPaths)
                 {
                     sb.AppendLine("Download                        : " + path);
                 }
@@ -2278,7 +2302,7 @@ namespace AMSExplorer
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
                 {
-                    var form = new ChooseStreamingEndpoint(client, myasset, path, filter, typeplayer, true);
+                    ChooseStreamingEndpoint form = new ChooseStreamingEndpoint(client, myasset, path, filter, typeplayer, true);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         path = AssetInfo.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
@@ -2503,10 +2527,17 @@ namespace AMSExplorer
         internal static async Task<StreamingEndpoint> GetBestStreamingEndpointAsync(AMSClientV3 client)
         {
             await client.RefreshTokenIfNeededAsync();
-            var SEList = (await client.AMSclient.StreamingEndpoints.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)).AsEnumerable();
+            IEnumerable<StreamingEndpoint> SEList = (await client.AMSclient.StreamingEndpoints.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)).AsEnumerable();
             StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
-            if (SESelected == null) SESelected = await client.AMSclient.StreamingEndpoints.GetAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
-            if (SESelected == null) SESelected = SEList.FirstOrDefault();
+            if (SESelected == null)
+            {
+                SESelected = await client.AMSclient.StreamingEndpoints.GetAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
+            }
+
+            if (SESelected == null)
+            {
+                SESelected = SEList.FirstOrDefault();
+            }
 
             return SESelected;
         }
@@ -2517,20 +2548,24 @@ namespace AMSExplorer
 
             List<Task> mylistresults = new List<Task>();
 
-            var srcBlobList = srcDirectory.ListBlobs(
+            List<IListBlobItem> srcBlobList = srcDirectory.ListBlobs(
                 useFlatBlobListing: true,
                 blobListingDetails: BlobListingDetails.None).ToList();
 
-            foreach (var src in srcBlobList)
+            foreach (IListBlobItem src in srcBlobList)
             {
-                var srcBlob = src as ICloudBlob;
+                ICloudBlob srcBlob = src as ICloudBlob;
 
                 // Create appropriate destination blob type to match the source blob
                 CloudBlob destBlob;
                 if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
+                {
                     destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
+                }
                 else
+                {
                     destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
+                }
 
                 // copy using src blob as SAS
                 mylistresults.Add(destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), token));
@@ -2680,7 +2715,7 @@ namespace AMSExplorer
         public string LastModified { get; set; }
         public string EndTime { get; set; }
         public string Duration { get; set; }
-        public Double Progress { get; set; }
+        public double Progress { get; set; }
     }
 
     public class JobExtension
@@ -2694,8 +2729,7 @@ namespace AMSExplorer
         public string _Name;
         public string Name
         {
-            get
-            { return _Name; }
+            get => _Name;
             set
             {
                 if (value != _Name)
@@ -2710,8 +2744,7 @@ namespace AMSExplorer
         public string _AlternateId;
         public string AlternateId
         {
-            get
-            { return _AlternateId; }
+            get => _AlternateId;
             set
             {
                 if (value != _AlternateId)
@@ -2725,8 +2758,7 @@ namespace AMSExplorer
         public string _Type;
         public string Type
         {
-            get
-            { return _Type; }
+            get => _Type;
             set
             {
                 if (value != _Type)
@@ -2739,8 +2771,7 @@ namespace AMSExplorer
         private string _LastModified;
         public string LastModified
         {
-            get
-            { return _LastModified; }
+            get => _LastModified;
             set
             {
                 if (value != _LastModified)
@@ -2753,8 +2784,7 @@ namespace AMSExplorer
         private string _Size;
         public string Size
         {
-            get
-            { return _Size; }
+            get => _Size;
             set
             {
                 if (value != _Size)
@@ -2767,8 +2797,7 @@ namespace AMSExplorer
         private long _SizeLong;
         public long SizeLong
         {
-            get
-            { return _SizeLong; }
+            get => _SizeLong;
             set
             {
                 if (value != _SizeLong)
@@ -2783,8 +2812,7 @@ namespace AMSExplorer
         public Bitmap _StaticEncryption = null;
         public Bitmap StaticEncryption
         {
-            get
-            { return _StaticEncryption; }
+            get => _StaticEncryption;
             set
             {
                 if (value != _StaticEncryption)
@@ -2797,8 +2825,7 @@ namespace AMSExplorer
         private string _StaticEncryptionMouseOver;
         public string StaticEncryptionMouseOver
         {
-            get
-            { return _StaticEncryptionMouseOver; }
+            get => _StaticEncryptionMouseOver;
             set
             {
                 if (value != _StaticEncryptionMouseOver)
@@ -2811,8 +2838,7 @@ namespace AMSExplorer
         private Bitmap _DynamicEncryption;
         public Bitmap DynamicEncryption
         {
-            get
-            { return _DynamicEncryption; }
+            get => _DynamicEncryption;
             set
             {
                 if (value != _DynamicEncryption)
@@ -2825,8 +2851,7 @@ namespace AMSExplorer
         private string _DynamicEncryptionMouseOver;
         public string DynamicEncryptionMouseOver
         {
-            get
-            { return _DynamicEncryptionMouseOver; }
+            get => _DynamicEncryptionMouseOver;
             set
             {
                 if (value != _DynamicEncryptionMouseOver)
@@ -2840,8 +2865,7 @@ namespace AMSExplorer
 
         public Bitmap Publication
         {
-            get
-            { return _Publication; }
+            get => _Publication;
             set
             {
                 if (value != _Publication)
@@ -2855,8 +2879,7 @@ namespace AMSExplorer
         private Bitmap _Filters = null;
         public Bitmap Filters
         {
-            get
-            { return _Filters; }
+            get => _Filters;
             set
             {
                 if (value != _Filters)
@@ -2869,8 +2892,7 @@ namespace AMSExplorer
         private string _FiltersMouseOver;
         public string FiltersMouseOver
         {
-            get
-            { return _FiltersMouseOver; }
+            get => _FiltersMouseOver;
             set
             {
                 if (value != _FiltersMouseOver)
@@ -2883,8 +2905,7 @@ namespace AMSExplorer
         private string _PublicationMouseOver;
         public string PublicationMouseOver
         {
-            get
-            { return _PublicationMouseOver; }
+            get => _PublicationMouseOver;
             set
             {
                 if (value != _PublicationMouseOver)
@@ -2897,8 +2918,7 @@ namespace AMSExplorer
         private string _LocatorExpirationDate;
         public string LocatorExpirationDate
         {
-            get
-            { return _LocatorExpirationDate; }
+            get => _LocatorExpirationDate;
             set
             {
                 if (value != _LocatorExpirationDate)
@@ -2911,8 +2931,7 @@ namespace AMSExplorer
         private bool _LocatorExpirationDateWarning;
         public bool LocatorExpirationDateWarning
         {
-            get
-            { return _LocatorExpirationDateWarning; }
+            get => _LocatorExpirationDateWarning;
             set
             {
                 if (value != _LocatorExpirationDateWarning)
@@ -2926,8 +2945,7 @@ namespace AMSExplorer
         private bool _AssetWarning;
         public bool AssetWarning
         {
-            get
-            { return _AssetWarning; }
+            get => _AssetWarning;
             set
             {
                 if (value != _AssetWarning)
@@ -2941,7 +2959,7 @@ namespace AMSExplorer
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged([CallerMemberName] String p = "")
+        private void NotifyPropertyChanged([CallerMemberName] string p = "")
         {
             if (PropertyChanged != null)
             {
@@ -2956,8 +2974,7 @@ namespace AMSExplorer
         public string _Name;
         public string Name
         {
-            get
-            { return _Name; }
+            get => _Name;
             set
             {
                 if (value != _Name)
@@ -2971,8 +2988,7 @@ namespace AMSExplorer
         public string _StorageAccountName;
         public string StorageAccountName
         {
-            get
-            { return _StorageAccountName; }
+            get => _StorageAccountName;
             set
             {
                 if (value != _StorageAccountName)
@@ -2986,8 +3002,7 @@ namespace AMSExplorer
         public string _Description;
         public string Description
         {
-            get
-            { return _Description; }
+            get => _Description;
             set
             {
                 if (value != _Description)
@@ -3003,8 +3018,7 @@ namespace AMSExplorer
         public string _AlternateId;
         public string AlternateId
         {
-            get
-            { return _AlternateId; }
+            get => _AlternateId;
             set
             {
                 if (value != _AlternateId)
@@ -3018,8 +3032,7 @@ namespace AMSExplorer
         public string _Type;
         public string Type
         {
-            get
-            { return _Type; }
+            get => _Type;
             set
             {
                 if (value != _Type)
@@ -3034,8 +3047,7 @@ namespace AMSExplorer
         private string _Created;
         public string Created
         {
-            get
-            { return _Created; }
+            get => _Created;
             set
             {
                 if (value != _Created)
@@ -3049,8 +3061,7 @@ namespace AMSExplorer
         private string _Size;
         public string Size
         {
-            get
-            { return _Size; }
+            get => _Size;
             set
             {
                 if (value != _Size)
@@ -3063,8 +3074,7 @@ namespace AMSExplorer
         private long _SizeLong;
         public long SizeLong
         {
-            get
-            { return _SizeLong; }
+            get => _SizeLong;
             set
             {
                 if (value != _SizeLong)
@@ -3078,8 +3088,7 @@ namespace AMSExplorer
         private Bitmap _DynamicEncryption;
         public Bitmap DynamicEncryption
         {
-            get
-            { return _DynamicEncryption; }
+            get => _DynamicEncryption;
             set
             {
                 if (value != _DynamicEncryption)
@@ -3092,8 +3101,7 @@ namespace AMSExplorer
         private string _DynamicEncryptionMouseOver;
         public string DynamicEncryptionMouseOver
         {
-            get
-            { return _DynamicEncryptionMouseOver; }
+            get => _DynamicEncryptionMouseOver;
             set
             {
                 if (value != _DynamicEncryptionMouseOver)
@@ -3107,8 +3115,7 @@ namespace AMSExplorer
 
         public Bitmap Publication
         {
-            get
-            { return _Publication; }
+            get => _Publication;
             set
             {
                 if (value != _Publication)
@@ -3122,8 +3129,7 @@ namespace AMSExplorer
         private int? _Filters = null;
         public int? Filters
         {
-            get
-            { return _Filters; }
+            get => _Filters;
             set
             {
                 if (value != _Filters)
@@ -3136,8 +3142,7 @@ namespace AMSExplorer
         private string _FiltersMouseOver;
         public string FiltersMouseOver
         {
-            get
-            { return _FiltersMouseOver; }
+            get => _FiltersMouseOver;
             set
             {
                 if (value != _FiltersMouseOver)
@@ -3150,8 +3155,7 @@ namespace AMSExplorer
         private string _PublicationMouseOver;
         public string PublicationMouseOver
         {
-            get
-            { return _PublicationMouseOver; }
+            get => _PublicationMouseOver;
             set
             {
                 if (value != _PublicationMouseOver)
@@ -3164,8 +3168,7 @@ namespace AMSExplorer
         private string _LocatorExpirationDate;
         public string LocatorExpirationDate
         {
-            get
-            { return _LocatorExpirationDate; }
+            get => _LocatorExpirationDate;
             set
             {
                 if (value != _LocatorExpirationDate)
@@ -3178,8 +3181,7 @@ namespace AMSExplorer
         private bool _LocatorExpirationDateWarning;
         public bool LocatorExpirationDateWarning
         {
-            get
-            { return _LocatorExpirationDateWarning; }
+            get => _LocatorExpirationDateWarning;
             set
             {
                 if (value != _LocatorExpirationDateWarning)
@@ -3193,8 +3195,7 @@ namespace AMSExplorer
         private bool _AssetWarning;
         public bool AssetWarning
         {
-            get
-            { return _AssetWarning; }
+            get => _AssetWarning;
             set
             {
                 if (value != _AssetWarning)
@@ -3208,8 +3209,7 @@ namespace AMSExplorer
         private string _LastModified;
         public string LastModified
         {
-            get
-            { return _LastModified; }
+            get => _LastModified;
             set
             {
                 if (value != _LastModified)
@@ -3223,7 +3223,7 @@ namespace AMSExplorer
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged([CallerMemberName] String p = "")
+        private void NotifyPropertyChanged([CallerMemberName] string p = "")
         {
             if (PropertyChanged != null)
             {
@@ -3239,8 +3239,7 @@ namespace AMSExplorer
         public string _Name;
         public string Name
         {
-            get
-            { return _Name; }
+            get => _Name;
             set
             {
                 if (value != _Name)
@@ -3254,8 +3253,7 @@ namespace AMSExplorer
         public string _Description;
         public string Description
         {
-            get
-            { return _Description; }
+            get => _Description;
             set
             {
                 if (value != _Description)
@@ -3270,8 +3268,7 @@ namespace AMSExplorer
         private string _LastModified;
         public string LastModified
         {
-            get
-            { return _LastModified; }
+            get => _LastModified;
             set
             {
                 if (value != _LastModified)
@@ -3284,7 +3281,7 @@ namespace AMSExplorer
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged([CallerMemberName] String p = "")
+        private void NotifyPropertyChanged([CallerMemberName] string p = "")
         {
             if (PropertyChanged != null)
             {
@@ -3324,7 +3321,7 @@ namespace AMSExplorer
         public static string ReturnLiveEventFromOutput(LiveOutput liveoutput)
 
         {
-            var idParts = liveoutput.Id.Split('/');
+            string[] idParts = liveoutput.Id.Split('/');
             return idParts[10];
         }
     }
@@ -3351,14 +3348,14 @@ namespace AMSExplorer
     }
 
 
-       public class AMSClientV3
+    public class AMSClientV3
     {
         public AzureMediaServicesClient AMSclient;
         public AuthenticationResult accessToken, accessTokenForRestV2;
         public CredentialsEntryV3 credentialsEntry;
         public TokenCredentials credentials;
         public AzureEnvironment environment;
-        private string _azureSubscriptionId;
+        private readonly string _azureSubscriptionId;
 
         public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV3 myCredentialsEntry)
         {
@@ -3394,7 +3391,7 @@ namespace AMSExplorer
             if (!credentialsEntry.UseSPAuth)
             {
                 // we specify the tenant id if there
-                var authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
+                AuthenticationContext authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
 
                 try
                 {
@@ -3416,7 +3413,7 @@ namespace AMSExplorer
                                                                 parameters: new PlatformParameters(credentialsEntry.PromptUser)
                                                                 );
 
-                      
+
                         accessTokenForRestV2 = await authContext.AcquireTokenAsync(
                                                                 resource: environment.MediaServicesV2Resource,
                                                                 clientId: environment.ClientApplicationId,
@@ -3430,16 +3427,20 @@ namespace AMSExplorer
                 credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
                 // Getting Media Services accounts...
-                AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials);
-                AMSclient.SubscriptionId = _azureSubscriptionId;
+                AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
+                {
+                    SubscriptionId = _azureSubscriptionId
+                };
             }
 
             else // Service Principal
             {
                 // other code for service principal
-                var form = new AMSLoginServicePrincipal();
-                form.ClientId = credentialsEntry.ADSPClientId;
-                form.ClientSecret = credentialsEntry.ClearADSPClientSecret;
+                AMSLoginServicePrincipal form = new AMSLoginServicePrincipal
+                {
+                    ClientId = credentialsEntry.ADSPClientId,
+                    ClientSecret = credentialsEntry.ClearADSPClientSecret
+                };
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -3448,17 +3449,19 @@ namespace AMSExplorer
 
                     ClientCredential clientCredential = new ClientCredential(credentialsEntry.ADSPClientId, credentialsEntry.ClearADSPClientSecret);
 
-                    var set = new ActiveDirectoryServiceSettings()
+                    ActiveDirectoryServiceSettings set = new ActiveDirectoryServiceSettings()
                     {
                         AuthenticationEndpoint = credentialsEntry.Environment.AADSettings.AuthenticationEndpoint,
                         TokenAudience = credentialsEntry.Environment.AADSettings.TokenAudience,
                         ValidateAuthority = true
                     };
-                    var cred = await ApplicationTokenProvider.LoginSilentAsync(this.credentialsEntry.AadTenantId, clientCredential, set);
-                   
+                    ServiceClientCredentials cred = await ApplicationTokenProvider.LoginSilentAsync(credentialsEntry.AadTenantId, clientCredential, set);
+
                     // Getting Media Services accounts...
-                    AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred);
-                    AMSclient.SubscriptionId = _azureSubscriptionId;
+                    AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, cred)
+                    {
+                        SubscriptionId = _azureSubscriptionId
+                    };
                 }
                 else
                 {
@@ -3477,20 +3480,23 @@ namespace AMSExplorer
             string valuekey = null;
             bool classic = false;
             string version = "2016-01-01";
-            string token = this.accessToken?.AccessToken;
+            string token = accessToken?.AccessToken;
 
             // if SP
-            if (this.accessToken == null && this.credentialsEntry.UseSPAuth)
+            if (accessToken == null && credentialsEntry.UseSPAuth)
             {
                 // let's get the current token in Service Principal mode
-                var accessTokenCache = TokenCache.DefaultShared.ReadItems()
+                TokenCacheItem accessTokenCache = TokenCache.DefaultShared.ReadItems()
                         .Where(t => t.ClientId == credentialsEntry.ADSPClientId)
                         .OrderByDescending(t => t.ExpiresOn)
                         .First();
                 token = accessTokenCache?.AccessToken;
             }
 
-            if (token == null) return null;
+            if (token == null)
+            {
+                return null;
+            }
 
             if (storageId.Contains("/providers/Microsoft.ClassicStorage/storageAccounts"))
             {
@@ -3498,7 +3504,7 @@ namespace AMSExplorer
                 classic = true;
             }
 
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(this.environment.ArmEndpoint + storageId.Substring(1) + "/listKeys?api-version=" + version, this.credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(environment.ArmEndpoint + storageId.Substring(1) + "/listKeys?api-version=" + version, credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
 
             request.Method = "POST";
             request.Headers["Authorization"] = "Bearer " + token;
@@ -3508,7 +3514,7 @@ namespace AMSExplorer
             try
             {
                 //Get the response
-                var httpResponse = (HttpWebResponse)request.GetResponse();
+                HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
 
                 using (System.IO.StreamReader r = new System.IO.StreamReader(httpResponse.GetResponseStream()))
                 {
@@ -3532,7 +3538,7 @@ namespace AMSExplorer
 
         public static string GetStorageResourceName(string storageId)
         {
-            var split = storageId.Split('/');
+            string[] split = storageId.Split('/');
             return storageId.Split('/')[split.Count() - 5];
         }
 
@@ -3542,32 +3548,35 @@ namespace AMSExplorer
             string storeKey = null;
             try
             {
-                storeKey = this.GetStorageKey(storageId);
+                storeKey = GetStorageKey(storageId);
             }
             catch
             {
                 return null;
             }
-            if (storeKey == null) return null;
+            if (storeKey == null)
+            {
+                return null;
+            }
 
             StorageCredentials storageCredentials = new StorageCredentials(AMSClientV3.GetStorageName(storageId), storeKey);
             CloudStorageAccount cloudStorageAccount = new CloudStorageAccount(storageCredentials, useHttps: true);
 
-            var blobClient = cloudStorageAccount.CreateCloudAnalyticsClient();
+            Microsoft.WindowsAzure.Storage.Analytics.CloudAnalyticsClient blobClient = cloudStorageAccount.CreateCloudAnalyticsClient();
 
             // Convert the dates to the format used in the PartitionKey
-            var start = DateTime.UtcNow.AddDays(-1).ToUniversalTime().ToString("yyyyMMdd'T'HHmm");
+            string start = DateTime.UtcNow.AddDays(-1).ToUniversalTime().ToString("yyyyMMdd'T'HHmm");
 
-            var metricsQuery = blobClient.CreateCapacityQuery();
+            Microsoft.WindowsAzure.Storage.Table.TableQuery<Microsoft.WindowsAzure.Storage.Analytics.CapacityEntity> metricsQuery = blobClient.CreateCapacityQuery();
 
-            var query =
+            IQueryable<Microsoft.WindowsAzure.Storage.Analytics.CapacityEntity> query =
        from entity in metricsQuery
        where entity.PartitionKey.CompareTo(start) >= 0
        select entity;
 
             try
             {
-                var results = query.ToList().Where(m => m.RowKey == "data");
+                IEnumerable<Microsoft.WindowsAzure.Storage.Analytics.CapacityEntity> results = query.ToList().Where(m => m.RowKey == "data");
                 if (results.LastOrDefault() != null)
                 {
                     return results.LastOrDefault().Capacity;
@@ -3610,19 +3619,13 @@ namespace AMSExplorer
             AadTenantId = tenantId;
         }
 
-        public string AccountName
-        {
-            get
-            {
-                return MediaService.Name;
-            }
-        }
+        public string AccountName => MediaService.Name;
 
         public string ResourceGroup
         {
             get
             {
-                var idParts = MediaService.Id.Split('/');
+                string[] idParts = MediaService.Id.Split('/');
                 return idParts[4];
             }
         }
@@ -3631,7 +3634,7 @@ namespace AMSExplorer
         {
             get
             {
-                var idParts = MediaService.Id.Split('/');
+                string[] idParts = MediaService.Id.Split('/');
                 return idParts[2];
             }
         }
@@ -3639,15 +3642,8 @@ namespace AMSExplorer
         //  A contract is used to ignore this property when saveing settings to disk
         public string ClearADSPClientSecret
         {
-            get
-            {
-
-                return EncryptedADSPClientSecret != null ? DecryptSecret(EncryptedADSPClientSecret) : null;
-            }
-            set
-            {
-                EncryptedADSPClientSecret = (value != null) ? EncryptSecret(value) : null;
-            }
+            get => EncryptedADSPClientSecret != null ? DecryptSecret(EncryptedADSPClientSecret) : null;
+            set => EncryptedADSPClientSecret = (value != null) ? EncryptSecret(value) : null;
         }
 
         public bool Equals(CredentialsEntryV3 other)
@@ -3697,7 +3693,7 @@ namespace AMSExplorer
 
         }
 
-        static byte[] s_aditionalEntropy = { 9, 1, 4, 5, 5 };
+        private static readonly byte[] s_aditionalEntropy = { 9, 1, 4, 5, 5 };
 
         public static byte[] Protect(byte[] data)
         {
@@ -3812,7 +3808,7 @@ namespace AMSExplorer
 
         private string ReturnHostNameTwoSegmentsRight(string myUrl)
         {
-            var hosts = (new Uri(myUrl)).Host.Split('.');
+            string[] hosts = (new Uri(myUrl)).Host.Split('.');
             int i = hosts.Count();
             return hosts[i - 2] + "." + hosts[i - 1];
         }
@@ -3919,7 +3915,7 @@ namespace AMSExplorer
 
     }
 
-    class HostNameClass
+    internal class HostNameClass
     {
         public string HostName { get; set; }
     }
@@ -4017,8 +4013,8 @@ namespace AMSExplorer
 
     public class ListViewItemComparer : IComparer
     {
-        private int col;
-        private SortOrder order;
+        private readonly int col;
+        private readonly SortOrder order;
         public ListViewItemComparer()
         {
             col = 0;
@@ -4044,18 +4040,24 @@ namespace AMSExplorer
             // Parse the two objects passed as a parameter as a DateTime.
             try
             {
-                var firstSize = AssetInfo.Inverse_FormatByteSize(sx);
-                var secondSize = AssetInfo.Inverse_FormatByteSize(sy);
+                long? firstSize = AssetInfo.Inverse_FormatByteSize(sx);
+                long? secondSize = AssetInfo.Inverse_FormatByteSize(sy);
                 if (firstSize != null && secondSize != null)
                 {
-                    var firstSizel = (long)firstSize;
-                    var secondSizel = (long)secondSize;
+                    long firstSizel = (long)firstSize;
+                    long secondSizel = (long)secondSize;
                     if (firstSizel < secondSizel)
+                    {
                         returnVal = -1;
+                    }
                     else if (firstSizel > secondSizel)
+                    {
                         returnVal = 1;
+                    }
                     else
+                    {
                         returnVal = 0;
+                    }
                 }
                 else
                 {
@@ -4090,25 +4092,27 @@ namespace AMSExplorer
                 */
 
                 // Parse the two objects passed as a parameter as a DateTime.
-                DateTime firstDate, secondDate;
-                if (DateTime.TryParse(sx, out firstDate) && DateTime.TryParse(sy, out secondDate))
+                if (DateTime.TryParse(sx, out DateTime firstDate) && DateTime.TryParse(sy, out DateTime secondDate))
                 {
                     returnVal = DateTime.Compare(firstDate, secondDate);
                 }
                 else
                 {
-                    returnVal = String.Compare(sx, sy);
+                    returnVal = string.Compare(sx, sy);
                 }
             }
 
             // Determine whether the sort order is descending.
             if (order == SortOrder.Descending)
+            {
                 // Invert the value returned by String.Compare.
                 returnVal *= -1;
+            }
+
             return returnVal;
         }
 
-        static public void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        public static void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             ListView ThisListView = (ListView)sender;
             // Determine whether the column is the same as the last column clicked.
@@ -4123,9 +4127,13 @@ namespace AMSExplorer
             {
                 // Determine what the last sort order was and change it.
                 if (ThisListView.Sorting == SortOrder.Ascending)
+                {
                     ThisListView.Sorting = SortOrder.Descending;
+                }
                 else
+                {
                     ThisListView.Sorting = SortOrder.Ascending;
+                }
             }
 
             // Call the sort method to manually sort.
@@ -4139,8 +4147,8 @@ namespace AMSExplorer
 
     public class ListViewItemComparerQuickNoDate : IComparer
     {
-        private int col;
-        private SortOrder order;
+        private readonly int col;
+        private readonly SortOrder order;
         public ListViewItemComparerQuickNoDate()
         {
             col = 0;
@@ -4166,19 +4174,24 @@ namespace AMSExplorer
             // Parse the two objects passed as a parameter as a DateTime.
             try
             {
-                var firstSize = AssetInfo.Inverse_FormatByteSize(sx);
-                var secondSize = AssetInfo.Inverse_FormatByteSize(sy);
+                long? firstSize = AssetInfo.Inverse_FormatByteSize(sx);
+                long? secondSize = AssetInfo.Inverse_FormatByteSize(sy);
                 if (firstSize != null && secondSize != null)
                 {
-                    var firstSizel = (long)firstSize;
-                    var secondSizel = (long)secondSize;
+                    long firstSizel = (long)firstSize;
+                    long secondSizel = (long)secondSize;
                     if (firstSizel < secondSizel)
+                    {
                         returnVal = -1;
+                    }
                     else if (firstSizel > secondSizel)
+                    {
                         returnVal = 1;
+                    }
                     else
+                    {
                         returnVal = 0;
-
+                    }
                 }
                 else
                 {
@@ -4194,18 +4207,21 @@ namespace AMSExplorer
             if (Error)
             {
                 // Compare the two items as a string.
-                returnVal = String.Compare(sx, sy);
+                returnVal = string.Compare(sx, sy);
             }
 
 
             // Determine whether the sort order is descending.
             if (order == SortOrder.Descending)
+            {
                 // Invert the value returned by String.Compare.
                 returnVal *= -1;
+            }
+
             return returnVal;
         }
 
-        static public void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        public static void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             ListView ThisListView = (ListView)sender;
             // Determine whether the column is the same as the last column clicked.
@@ -4220,9 +4236,13 @@ namespace AMSExplorer
             {
                 // Determine what the last sort order was and change it.
                 if (ThisListView.Sorting == SortOrder.Ascending)
+                {
                     ThisListView.Sorting = SortOrder.Descending;
+                }
                 else
+                {
                     ThisListView.Sorting = SortOrder.Ascending;
+                }
             }
 
             // Call the sort method to manually sort.
@@ -4249,23 +4269,29 @@ namespace AMSExplorer
         public void IgnoreProperty(Type type, params string[] jsonPropertyNames)
         {
             if (!_ignores.ContainsKey(type))
+            {
                 _ignores[type] = new HashSet<string>();
+            }
 
-            foreach (var prop in jsonPropertyNames)
+            foreach (string prop in jsonPropertyNames)
+            {
                 _ignores[type].Add(prop);
+            }
         }
 
         public void RenameProperty(Type type, string propertyName, string newJsonPropertyName)
         {
             if (!_renames.ContainsKey(type))
+            {
                 _renames[type] = new Dictionary<string, string>();
+            }
 
             _renames[type][propertyName] = newJsonPropertyName;
         }
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
-            var property = base.CreateProperty(member, memberSerialization);
+            JsonProperty property = base.CreateProperty(member, memberSerialization);
 
             if (IsIgnored(property.DeclaringType, property.PropertyName))
             {
@@ -4273,8 +4299,10 @@ namespace AMSExplorer
                 property.Ignored = true;
             }
 
-            if (IsRenamed(property.DeclaringType, property.PropertyName, out var newJsonPropertyName))
+            if (IsRenamed(property.DeclaringType, property.PropertyName, out string newJsonPropertyName))
+            {
                 property.PropertyName = newJsonPropertyName;
+            }
 
             return property;
         }
@@ -4282,16 +4310,17 @@ namespace AMSExplorer
         private bool IsIgnored(Type type, string jsonPropertyName)
         {
             if (!_ignores.ContainsKey(type))
+            {
                 return false;
+            }
 
             return _ignores[type].Contains(jsonPropertyName);
         }
 
         private bool IsRenamed(Type type, string jsonPropertyName, out string newJsonPropertyName)
         {
-            Dictionary<string, string> renames;
 
-            if (!_renames.TryGetValue(type, out renames) || !renames.TryGetValue(jsonPropertyName, out newJsonPropertyName))
+            if (!_renames.TryGetValue(type, out Dictionary<string, string> renames) || !renames.TryGetValue(jsonPropertyName, out newJsonPropertyName))
             {
                 newJsonPropertyName = null;
                 return false;

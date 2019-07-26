@@ -30,7 +30,7 @@ namespace AMSExplorer
 {
     public partial class DRM_Config_TokenClaims : Form
     {
-        private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
+        private readonly BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
 
         public readonly List<ExplorerOpenIDSample> ListOpenIDSampleUris = new List<ExplorerOpenIDSample> {
@@ -39,13 +39,7 @@ namespace AMSExplorer
               };
 
 
-        public bool NeedToken
-        {
-            get
-            {
-                return !radioButtonOpenAuthPolicy.Checked;
-            }
-        }
+        public bool NeedToken => !radioButtonOpenAuthPolicy.Checked;
 
         public ContentKeyPolicyRestriction GetContentKeyPolicyRestriction
         {
@@ -74,27 +68,15 @@ namespace AMSExplorer
             }
         }
 
-        public string Audience
-        {
-            get
-            {
-                return textBoxAudience.Text;
-            }
-        }
-        public string Issuer
-        {
-            get
-            {
-                return textBoxIssuer.Text;
-            }
-        }
+        public string Audience => textBoxAudience.Text;
+        public string Issuer => textBoxIssuer.Text;
 
         public List<ContentKeyPolicyTokenClaim> GetTokenRequiredClaims
         {
             get
             {
                 List<ContentKeyPolicyTokenClaim> mylist = new List<ContentKeyPolicyTokenClaim>();
-                foreach (var j in TokenClaimsList)
+                foreach (MyTokenClaim j in TokenClaimsList)
                 {
                     if (!string.IsNullOrEmpty(j.Type))
                     {
@@ -110,13 +92,7 @@ namespace AMSExplorer
         }
 
 
-        public ContentKeyPolicyRestrictionTokenType TokenType
-        {
-            get
-            {
-                return radioButtonSWT.Checked ? ContentKeyPolicyRestrictionTokenType.Swt : ContentKeyPolicyRestrictionTokenType.Jwt;
-            }
-        }
+        public ContentKeyPolicyRestrictionTokenType TokenType => radioButtonSWT.Checked ? ContentKeyPolicyRestrictionTokenType.Swt : ContentKeyPolicyRestrictionTokenType.Jwt;
 
 
         public ExplorerTokenType GetDetailedTokenType
@@ -158,32 +134,22 @@ namespace AMSExplorer
                     return DynamicEncryption.HexStringToByteArray(textBoxSymKey.Text);
                 }
                 else
+                {
                     return Convert.FromBase64String(textBoxSymKey.Text);
+                }
             }
         }
 
-        public X509Certificate2 GetX509Certificate
-        {
-            get
-            {
-                return radioButtonJWTX509.Checked ? cert : null;
-            }
-        }
+        public X509Certificate2 GetX509Certificate => radioButtonJWTX509.Checked ? cert : null;
 
-        public string GetOpenIdDiscoveryDocument
-        {
-            get
-            {
-                return radioButtonJWTOpenId.Checked ? textBoxOpenIdDocument.Text : null;
-            }
-        }
+        public string GetOpenIdDiscoveryDocument => radioButtonJWTOpenId.Checked ? textBoxOpenIdDocument.Text : null;
 
         public DRM_Config_TokenClaims(int step, int option, string DRMName, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
-            this.Text = string.Format(this.Text, step);
+            Text = string.Format(Text, step);
             labelStep.Text = string.Format(labelStep.Text, step, option, DRMName);
 
             if (!laststep)
@@ -204,13 +170,16 @@ namespace AMSExplorer
 
         public string GetTestToken(string keyIdentifier, List<ContentKeyPolicyTokenClaim> requiredClaims, int tokenDuration, int? tokenUse)
         {
-            if (radioButtonOpenAuthPolicy.Checked) return null; // open mode
+            if (radioButtonOpenAuthPolicy.Checked)
+            {
+                return null; // open mode
+            }
 
-            var tokenSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(SymmetricKey);
+            Microsoft.IdentityModel.Tokens.SymmetricSecurityKey tokenSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(SymmetricKey);
 
-            var signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
+            Microsoft.IdentityModel.Tokens.SigningCredentials signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
 
-            var claims = new List<Claim>();
+            List<Claim> claims = new List<Claim>();
 
             if (requiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
             {
@@ -247,7 +216,7 @@ namespace AMSExplorer
             tabControlTokenType.TabPages.Remove(tabPageTokenX509);
             tabControlTokenType.TabPages.Remove(tabPageOpenId);
 
-            foreach (var map in ListOpenIDSampleUris)
+            foreach (ExplorerOpenIDSample map in ListOpenIDSampleUris)
             {
                 comboBoxMappingList.Items.Add(map.Name);
             }
@@ -336,7 +305,9 @@ namespace AMSExplorer
                 }
             }
             if (!found)
+            {
                 tabControlTokenType.TabPages.Add(tabToAdd);
+            }
         }
 
         private void UpdateButtonOk()
@@ -394,7 +365,7 @@ namespace AMSExplorer
 
         private void buttonAddMapping_Click(object sender, EventArgs e)
         {
-            var entry = ListOpenIDSampleUris.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
+            ExplorerOpenIDSample entry = ListOpenIDSampleUris.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
             textBoxOpenIdDocument.Text = entry.Uri;
         }
     }

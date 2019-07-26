@@ -33,138 +33,67 @@ namespace AMSExplorer
 {
     public class DataGridViewJobs : DataGridView
     {
-        static BindingList<JobEntryV3> _MyObservJobV3;
-        static Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new Dictionary<string, CancellationTokenSource>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
+        private static BindingList<JobEntryV3> _MyObservJobV3;
+        private static readonly Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new Dictionary<string, CancellationTokenSource>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
 
-        static private int _jobsperpage = 50; //nb of items per page
-        static private int _pagecount = 1;
-        static private int _currentpage = 1;
+        private static int _jobsperpage = 50; //nb of items per page
+        private static readonly int _pagecount = 1;
+        private static readonly int _currentpage = 1;
         public bool _initialized = false;
-        static string _orderjobs = OrderJobs.CreatedDescending;
-        static string _filterjobsstate = "All";
-        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = string.Empty };
-        static private string _timefilter = FilterTime.LastWeek;
-        static private TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static string _orderjobs = OrderJobs.CreatedDescending;
+        private static string _filterjobsstate = "All";
+        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = string.Empty };
+        private static string _timefilter = FilterTime.LastWeek;
+        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
-        static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
-
-        static AMSClientV3 _client;
+        private static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
+        private static AMSClientV3 _client;
         private List<string> _transformName = new List<string>();
         private bool _currentPageNumberIsMax;
         private int _currentPageNumber;
         private IPage<Job> firstpage;
 
 
-        public bool CurrentPageIsMax
-        {
-            get
-            {
-                return _currentPageNumberIsMax;
-            }
-        }
+        public bool CurrentPageIsMax => _currentPageNumberIsMax;
 
         public int JobssPerPage
         {
-            get
-            {
-                return _jobsperpage;
-            }
-            set
-            {
-                _jobsperpage = value;
-            }
+            get => _jobsperpage;
+            set => _jobsperpage = value;
         }
-        public int PageCount
-        {
-            get
-            {
-                return _pagecount;
-            }
-
-        }
-        public int CurrentPage
-        {
-            get
-            {
-                return _currentpage;
-            }
-
-        }
+        public int PageCount => _pagecount;
+        public int CurrentPage => _currentpage;
         public string OrderJobsInGrid
         {
-            get
-            {
-                return _orderjobs;
-            }
-            set
-            {
-                _orderjobs = value;
-            }
+            get => _orderjobs;
+            set => _orderjobs = value;
 
         }
         public string FilterJobsState
         {
-            get
-            {
-                return _filterjobsstate;
-            }
-            set
-            {
-                _filterjobsstate = value;
-            }
+            get => _filterjobsstate;
+            set => _filterjobsstate = value;
 
         }
         public SearchObject SearchInName
         {
-            get
-            {
-                return _searchinname;
-            }
-            set
-            {
-                _searchinname = value;
-            }
+            get => _searchinname;
+            set => _searchinname = value;
 
         }
-        public bool Initialized
-        {
-            get
-            {
-                return _initialized;
-            }
-
-        }
+        public bool Initialized => _initialized;
         public string TimeFilter
         {
-            get
-            {
-                return _timefilter;
-            }
-            set
-            {
-                _timefilter = value;
-            }
+            get => _timefilter;
+            set => _timefilter = value;
         }
 
         public TimeRangeValue TimeFilterTimeRange
         {
-            get
-            {
-                return _timefilterTimeRange;
-            }
-            set
-            {
-                _timefilterTimeRange = value;
-            }
+            get => _timefilterTimeRange;
+            set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount
-        {
-            get
-            {
-                return _MyObservJobV3.Count();
-            }
-
-        }
+        public int DisplayedCount => _MyObservJobV3.Count();
 
         public void Init(AMSClientV3 client)
         {
@@ -181,7 +110,7 @@ namespace AMSExplorer
                 HeaderText = "Progress"
             };
 
-            this.Columns.Add(col);
+            Columns.Add(col);
 
             /*
 
@@ -211,20 +140,20 @@ namespace AMSExplorer
             */
 
             BindingList<JobEntryV3> MyObservJobthisPageV3 = new BindingList<JobEntryV3>(jobs);
-            var result = this.BeginInvoke(new Action(() => this.DataSource = MyObservJobthisPageV3));
+            IAsyncResult result = BeginInvoke(new Action(() => DataSource = MyObservJobthisPageV3));
             //this.DataSource = MyObservJobthisPageV3;
 
-            var myTask = Task.Factory.StartNew(() =>
+            Task myTask = Task.Factory.StartNew(() =>
             {
                 result.AsyncWaitHandle.WaitOne();
-                this.BeginInvoke(new Action(() =>
+                BeginInvoke(new Action(() =>
                 {
-                    this.Columns["TransformName"].Visible = false;
-                    this.Columns["Progress"].DisplayIndex = 5;
-                    this.Columns["Progress"].Width = 150;
-                    this.Columns["Outputs"].Width = 80;
-                    this.Columns["Priority"].Width = 50;
-                    this.Columns["State"].Width = 80;
+                    Columns["TransformName"].Visible = false;
+                    Columns["Progress"].DisplayIndex = 5;
+                    Columns["Progress"].Width = 150;
+                    Columns["Outputs"].Width = 80;
+                    Columns["Priority"].Width = 50;
+                    Columns["State"].Width = 80;
 
                 }));
             });
@@ -234,14 +163,14 @@ namespace AMSExplorer
 
         public List<JobExtension> ReturnSelectedJobs()
         {
-            var SelectedJobs = new List<JobExtension>();
+            List<JobExtension> SelectedJobs = new List<JobExtension>();
             _client.RefreshTokenIfNeeded();
 
-            foreach (DataGridViewRow Row in this.SelectedRows)
+            foreach (DataGridViewRow Row in SelectedRows)
             {
-                string tName = Row.Cells[this.Columns["TransformName"].Index].Value.ToString();
+                string tName = Row.Cells[Columns["TransformName"].Index].Value.ToString();
                 // sometimes, the transform can be null (if just deleted)
-                var job = _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, tName, Row.Cells[this.Columns["Name"].Index].Value.ToString());
+                Job job = _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, tName, Row.Cells[Columns["Name"].Index].Value.ToString());
                 if (job != null)
                 {
                     SelectedJobs.Add(new JobExtension() { Job = job, TransformName = tName });
@@ -254,29 +183,26 @@ namespace AMSExplorer
 
         public List<string> TransformSourceNames
         {
-            get
-            {
-                return _transformName;
-            }
-            set
-            {
-                _transformName = value;
-            }
+            get => _transformName;
+            set => _transformName = value;
         }
 
 
         public async Task RefreshjobsAsync(int pagetodisplay) // all jobs are refreshed
         {
-            if ((!_initialized) || _transformName.Count == 0) return;
+            if ((!_initialized) || _transformName.Count == 0)
+            {
+                return;
+            }
 
             Debug.WriteLine("Refresh Jobs Start");
 
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
             ///////////////////////
             // SORTING
             ///////////////////////
-            var odataQuery = new ODataQuery<Job>();
+            ODataQuery<Job> odataQuery = new ODataQuery<Job>();
 
             switch (_orderjobs)
             {
@@ -364,7 +290,7 @@ namespace AMSExplorer
             await _client.RefreshTokenIfNeededAsync();
 
             IPage<Job> currentPage = null;
-            var transform = _transformName.First();
+            string transform = _transformName.First();
 
             if (pagetodisplay == 1)
             {
@@ -380,15 +306,18 @@ namespace AMSExplorer
                     _currentPageNumber++;
                     currentPage = await _client.AMSclient.Jobs.ListNextAsync(currentPage.NextPageLink);
                 }
-                if (currentPage.NextPageLink == null) _currentPageNumberIsMax = true; // we reached max
+                if (currentPage.NextPageLink == null)
+                {
+                    _currentPageNumberIsMax = true; // we reached max
+                }
             }
 
 
-            var jobs = currentPage.Select(a => new JobEntryV3
+            IEnumerable<JobEntryV3> jobs = currentPage.Select(a => new JobEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
-                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                LastModified = a.LastModified.ToLocalTime().ToString("G"),
                 TransformName = transform,
                 Outputs = a.Outputs.Count,
                 Priority = a.Priority,
@@ -401,13 +330,13 @@ namespace AMSExplorer
 
             _MyObservJobV3 = new BindingList<JobEntryV3>(jobs.ToList());
 
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservJobV3));
+            BeginInvoke(new Action(() => DataSource = _MyObservJobV3));
 
             Debug.WriteLine("RefreshJobs End");
 
             RestoreJobProgress(new List<string> { transform });
 
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+            BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
 
 
@@ -419,13 +348,13 @@ namespace AMSExplorer
 
             Task.Run(() =>
             {
-                var odataQuery = new ODataQuery<Job>
+                ODataQuery<Job> odataQuery = new ODataQuery<Job>
                 {
                     Filter = "Properties/State eq Microsoft.Media.JobState'Queued' or Properties/State eq Microsoft.Media.JobState'Scheduled' or Properties/State eq Microsoft.Media.JobState'Processing' "
                 };
 
                 List<JobExtension> ActiveAndVisibleJobs = new List<JobExtension>();
-                foreach (var t in transforms)
+                foreach (string t in transforms)
                 {
                     ActiveAndVisibleJobs.AddRange(_client.AMSclient.Jobs.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, t, odataQuery).Select(j => new JobExtension() { Job = j, TransformName = t }));
                 }
@@ -435,7 +364,7 @@ namespace AMSExplorer
                 List<string> listToCancel = new List<string>();
                 try
                 {
-                    foreach (var jobmonitored in _MyListJobsMonitored)
+                    foreach (KeyValuePair<string, CancellationTokenSource> jobmonitored in _MyListJobsMonitored)
                     {
                         if (ActiveAndVisibleJobs.Where(j => j.Job.Name == jobmonitored.Key).FirstOrDefault() == null)
                         {
@@ -450,11 +379,11 @@ namespace AMSExplorer
                     JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
 
                     // let's monitor job that are not yet monitored
-                    foreach (var job in ActiveAndVisibleJobs)
+                    foreach (JobExtension job in ActiveAndVisibleJobs)
                     {
                         if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
                         {
-                            this.DoJobProgress(job); // token will be added to dictionnary in this function
+                            DoJobProgress(job); // token will be added to dictionnary in this function
                         }
                     }
                 }
@@ -467,8 +396,8 @@ namespace AMSExplorer
 
         public void DoJobProgress(JobExtension job)
         {
-            var tokenSource = new CancellationTokenSource();
-            var token = tokenSource.Token;
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationToken token = tokenSource.Token;
 
             _MyListJobsMonitored.Add(job.Job.Name, tokenSource); // to track the task and be able to cancel it later
 
@@ -503,7 +432,7 @@ namespace AMSExplorer
 
                         if (index >= 0) // we found it
                         { // we update the observation collection
-                            var progress = ReturnProgressJob(myJob);
+                            JobProgressInfo progress = ReturnProgressJob(myJob);
 
                             _MyObservJobV3[index].Progress = progress.progress;
                             _MyObservJobV3[index].Priority = myJob.Priority;
@@ -540,15 +469,15 @@ namespace AMSExplorer
                                     indexdisplayed = _MyObservJobV3.IndexOf(je);
                                     try
                                     {
-                                        this.BeginInvoke(new Action(() =>
+                                        BeginInvoke(new Action(() =>
                                         {
-                                            this.Rows[indexdisplayed].Cells[this.Columns["Progress"].Index].ToolTipText = progress.sb.ToString(); // mouse hover info
+                                            Rows[indexdisplayed].Cells[Columns["Progress"].Index].ToolTipText = progress.sb.ToString(); // mouse hover info
                                             if (progress.progress != 0)
                                             {
                                                 //  this.Rows[indexdisplayed].Cells[this.Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
                                                 //      this.Rows[indexdisplayed].Cells[this.Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
                                             }
-                                            this.Refresh();
+                                            Refresh();
                                         }));
                                     }
                                     catch
@@ -604,7 +533,10 @@ namespace AMSExplorer
                                 sb2.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(output.Progress).ToString(), output.Label));
                             }
                         }
-                        if (myJob.Outputs.Count > 0) progress2 = progress2 / myJob.Outputs.Count;
+                        if (myJob.Outputs.Count > 0)
+                        {
+                            progress2 = progress2 / myJob.Outputs.Count;
+                        }
 
                         _MyObservJobV3[index2].Progress = 101d; // progress;  we don't want the progress bar to be displayed
                         _MyObservJobV3[index2].Priority = myJob.Priority;
@@ -613,7 +545,7 @@ namespace AMSExplorer
                         if (_MyListJobsMonitored.ContainsKey(myJob.Name)) // we want to display only one time
                         {
                             _MyListJobsMonitored.Remove(myJob.Name); // let's remove from the list of monitored jobs
-                            Mainform myform = (Mainform)this.FindForm();
+                            Mainform myform = (Mainform)FindForm();
 
 
                             // string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
@@ -625,7 +557,7 @@ namespace AMSExplorer
                                 myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJobV3[index2].Name, status), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
                                 if (myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error)
                                 {
-                                    foreach (var output in myJob.Outputs)
+                                    foreach (JobOutput output in myJob.Outputs)
                                     {
 
                                         if (output.Error != null && output.Error.Details != null)
@@ -640,9 +572,9 @@ namespace AMSExplorer
                                 myform.DoRefreshGridAssetV(false);
                             }));
 
-                            this.BeginInvoke(new Action(() =>
+                            BeginInvoke(new Action(() =>
                             {
-                                this.Refresh();
+                                Refresh();
                             }));
 
                         }
@@ -660,7 +592,7 @@ namespace AMSExplorer
 
         private static JobProgressInfo ReturnProgressJob(Job myJob)
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             double progress = 0;
             for (int i = 0; i < myJob.Outputs.Count; i++)
             {
@@ -673,7 +605,10 @@ namespace AMSExplorer
                     sb.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(output.Progress).ToString(), output.Label));
                 }
             }
-            if (myJob.Outputs.Count > 0) progress = progress / myJob.Outputs.Count;
+            if (myJob.Outputs.Count > 0)
+            {
+                progress = progress / myJob.Outputs.Count;
+            }
 
             if (myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Processing)
             {

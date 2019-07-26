@@ -25,13 +25,13 @@ namespace AMSExplorer
     {
         public string StreamingEndpointName
         {
-            get { return textboxSEName.Text; }
-            set { textboxSEName.Text = value; }
+            get => textboxSEName.Text;
+            set => textboxSEName.Text = value;
         }
         public string StreamingEndpointDescription
         {
-            get { return textBoxOriginDescription.Text; }
-            set { textBoxOriginDescription.Text = value; }
+            get => textBoxOriginDescription.Text;
+            set => textBoxOriginDescription.Text = value;
         }
 
         public int scaleUnits
@@ -49,18 +49,12 @@ namespace AMSExplorer
             }
         }
 
-        public bool EnableAzureCDN
-        {
-            get
-            {
-                return checkBoxEnableAzureCDN.Checked;
-            }
-        }
+        public bool EnableAzureCDN => checkBoxEnableAzureCDN.Checked;
 
         public CreateStreamingEndpoint()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
         }
 
 
@@ -92,7 +86,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(tb, String.Empty);
+                errorProvider1.SetError(tb, string.Empty);
             }
         }
 

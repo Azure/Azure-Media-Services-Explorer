@@ -23,27 +23,15 @@ namespace AMSExplorer
     public partial class AddAMSAccount1 : Form
     {
 
-        public bool SelectUser
-        {
-            get
-            {
-                return checkBoxSelectUser.Checked;
-            }
-        }
+        public bool SelectUser => checkBoxSelectUser.Checked;
 
-        public AddAccountMode SelectedMode
-        {
-            get
-            {
-                return radioButtonAddAMSAccount.Checked ? AddAccountMode.BrowseSubscriptions : (radioButtonJsonCliOutput.Checked ? AddAccountMode.FromAzureCliJson : AddAccountMode.ManualEntry);
-            }
-        }
+        public AddAccountMode SelectedMode => radioButtonAddAMSAccount.Checked ? AddAccountMode.BrowseSubscriptions : (radioButtonJsonCliOutput.Checked ? AddAccountMode.FromAzureCliJson : AddAccountMode.ManualEntry);
 
 
         public AddAMSAccount1()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
         }
 
@@ -51,7 +39,7 @@ namespace AMSExplorer
         {
             AzureEnvType[] envs = new AzureEnvType[] { AzureEnvType.Azure, AzureEnvType.AzureChina, AzureEnvType.AzureUSGovernment, AzureEnvType.AzureGermany, AzureEnvType.DevTest };
 
-            foreach (var env in envs)
+            foreach (AzureEnvType env in envs)
             {
                 comboBoxAADMappingList.Items.Add(new Item((new AzureEnvironment(env)).DisplayName, env.ToString()));
             }
@@ -65,7 +53,7 @@ namespace AMSExplorer
 
         public AzureEnvironment GetEnvironment()
         {
-            return new AzureEnvironment((AzureEnvType)Enum.Parse(typeof(AzureEnvType), (string)(comboBoxAADMappingList.SelectedItem as Item).Value));
+            return new AzureEnvironment((AzureEnvType)Enum.Parse(typeof(AzureEnvType), (comboBoxAADMappingList.SelectedItem as Item).Value));
         }
 
         private void radioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)

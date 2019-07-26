@@ -16,7 +16,6 @@
 
 using Microsoft.Azure.Management.Media.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -25,59 +24,28 @@ namespace AMSExplorer
 {
     public partial class ProcessFromTransform2 : Form
     {
-        private AMSClientV3 _client;
-        private List<Transform> _listPreSelectedTransforms;
-        private int _numberselectedassets = 0;
-        private List<Asset> _listAssets;
-        private AMSExplorer.Mainform _myMainform;
+        private readonly AMSClientV3 _client;
+        private readonly List<Transform> _listPreSelectedTransforms;
+        private readonly int _numberselectedassets = 0;
+        private readonly List<Asset> _listAssets;
+        private readonly AMSExplorer.Mainform _myMainform;
 
-        public Transform SelectedTransform
-        {
-            get
-            {
-                return listViewTransforms.GetSelectedTransform;
+        public Transform SelectedTransform => listViewTransforms.GetSelectedTransform;
 
-            }
-        }
+        public bool SelectedAssetsMode => radioButtonSelectedAssets.Checked;
 
-        public bool SelectedAssetsMode
-        {
-            get
-            {
-                return radioButtonSelectedAssets.Checked;
-
-            }
-        }
-
-        public bool HttpSourceMode
-        {
-            get
-            {
-                return radioButtonHttpSource.Checked;
-
-            }
-        }
+        public bool HttpSourceMode => radioButtonHttpSource.Checked;
 
         public Uri GetURL
         {
-            get
-            {
-                return radioButtonHttpSource.Checked ? new Uri(textBoxURL.Text) : null;
-            }
+            get => radioButtonHttpSource.Checked ? new Uri(textBoxURL.Text) : null;
 
-            set
-            {
-                textBoxURL.Text = value.ToString();
-            }
+            set => textBoxURL.Text = value.ToString();
         }
 
 
 
-        public ClipTime StartClipTime
-        {
-            get
-            {
-                return checkBoxSourceTrimmingStart.Checked ?
+        public ClipTime StartClipTime => checkBoxSourceTrimmingStart.Checked ?
 
                     new AbsoluteClipTime()
                     {
@@ -85,14 +53,8 @@ namespace AMSExplorer
                     }
                     :
                     null;
-            }
-        }
 
-        public ClipTime EndClipTime
-        {
-            get
-            {
-                return checkBoxSourceTrimmingEnd.Checked ?
+        public ClipTime EndClipTime => checkBoxSourceTrimmingEnd.Checked ?
 
                    new AbsoluteClipTime()
                    {
@@ -100,14 +62,12 @@ namespace AMSExplorer
                    }
                    :
                    null;
-            }
-        }
 
 
         public ProcessFromTransform2(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
             _listPreSelectedTransforms = listPreSelectedTransforms;
 
@@ -123,7 +83,7 @@ namespace AMSExplorer
 
             //buttonJobOptions.Initialize(_context);
 
-            this.Text = "Template based processing";
+            Text = "Template based processing";
             _listAssets = listAssets;
             _myMainform = myMainForm;
         }
@@ -243,7 +203,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                Uri myUri = this.GetURL;
+                Uri myUri = GetURL;
             }
             catch
             {
@@ -263,7 +223,7 @@ namespace AMSExplorer
 
         private void ButtonCreateNewTransform_Click(object sender, EventArgs e)
         {
-            var form = new TransformTypeCreation();
+            TransformTypeCreation form = new TransformTypeCreation();
             form.ShowDialog();
 
             if (form.DialogResult == DialogResult.OK)

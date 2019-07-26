@@ -23,51 +23,27 @@ namespace AMSExplorer
 {
     public partial class ImportHttp : Form
     {
-        private bool _AzureStorageContainerSASListMode;
-        private AMSClientV3 _amsClientV3;
-        private string _uniqueness;
+        private readonly bool _AzureStorageContainerSASListMode;
+        private readonly AMSClientV3 _amsClientV3;
+        private readonly string _uniqueness;
 
         public Uri GetURL
         {
-            get
-            {
-                return new Uri(textBoxURL.Text);
-            }
+            get => new Uri(textBoxURL.Text);
 
-            set
-            {
-                textBoxURL.Text = value.ToString();
-            }
+            set => textBoxURL.Text = value.ToString();
         }
 
-        public string GetAssetName
-        {
-            get
-            {
-                return textBoxAssetName.Text;
-            }
-        }
+        public string GetAssetName => textBoxAssetName.Text;
 
-        public string GetAssetDescription
-        {
-            get
-            {
-                return textBoxDescription.Text;
-            }
-        }
+        public string GetAssetDescription => textBoxDescription.Text;
 
-        public string StorageSelected
-        {
-            get
-            {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
-            }
-        }
+        public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
 
         public ImportHttp(AMSClientV3 amsClient, bool AzureStorageContainerSASListMode = false)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             _AzureStorageContainerSASListMode = AzureStorageContainerSASListMode;
 
@@ -87,18 +63,21 @@ namespace AMSExplorer
             {
                 labelExamples.Visible = false;
                 labelSASListExample.Visible = true;
-                labelTitle.Text = this.Text = AMSExplorer.Properties.Resources.ImportHttp_ImportHttp_Load_ImportFromSASContainerPath;
+                labelTitle.Text = Text = AMSExplorer.Properties.Resources.ImportHttp_ImportHttp_Load_ImportFromSASContainerPath;
             }
 
-            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+            System.Collections.Generic.IList<StorageAccount> storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
             comboBoxStorage.Items.Clear();
-            foreach (var storage in storAccounts)
+            foreach (StorageAccount storage in storAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.Type == StorageAccountType.Primary);
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname));
-                if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                if (primary)
+                {
+                    comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                }
             }
         }
 
@@ -107,7 +86,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                Uri myUri = this.GetURL;
+                Uri myUri = GetURL;
             }
             catch
             {

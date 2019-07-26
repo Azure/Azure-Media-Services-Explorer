@@ -28,14 +28,14 @@ namespace AMSExplorer
     public partial class JobInformation : Form
     {
         public Job MyJob;
-        private AMSClientV3 _client;
-        private Mainform _mainform;
+        private readonly AMSClientV3 _client;
+        private readonly Mainform _mainform;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
         public JobInformation(Mainform mainform, AMSClientV3 client)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
             _mainform = mainform;
 
@@ -111,8 +111,8 @@ namespace AMSExplorer
             */
 
             // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_CPUDuration, MyJob.RunningDuration);
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)MyJob.Created).ToLocalTime().ToString("G"));
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyJob.LastModified).ToLocalTime().ToString("G"));
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, MyJob.Created.ToLocalTime().ToString("G"));
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, MyJob.LastModified.ToLocalTime().ToString("G"));
             // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
 
             /*
@@ -134,7 +134,7 @@ namespace AMSExplorer
 
             // input asset
 
-            var inputLabel = "input";
+            string inputLabel = "input";
             listBoxInput.Items.Add(inputLabel);
             listBoxInput.SelectedIndex = 0;
 
@@ -145,10 +145,10 @@ namespace AMSExplorer
             int index = 1;
             if (boutoutsinjobs)
             {
-                foreach (var output in MyJob.Outputs)
+                foreach (JobOutput output in MyJob.Outputs)
                 {
                     // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
-                    var outputLabel = "output #" + index;
+                    string outputLabel = "output #" + index;
                     listBoxOutputs.Items.Add(outputLabel);
 
                     if (output.Error != null && output.Error.Details != null)
@@ -167,7 +167,7 @@ namespace AMSExplorer
 
         private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var output = MyJob.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
+            JobOutput output = MyJob.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
 
             DGOutputs.Rows.Clear();
 
@@ -194,7 +194,7 @@ namespace AMSExplorer
 
             if (output.GetType() == typeof(JobOutputAsset))
             {
-                var outputA = output as JobOutputAsset;
+                JobOutputAsset outputA = output as JobOutputAsset;
                 DGOutputs.Rows.Add("Asset name", outputA.AssetName);
                 DGOutputs.Rows.Add("Asset type", AssetInfo.GetAssetType(outputA.AssetName, _client).Type);
             }
@@ -211,7 +211,7 @@ namespace AMSExplorer
 
         private void DGTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
+            DataGridView senderGrid = (DataGridView)sender;
             if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
             {
                 SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
@@ -220,7 +220,7 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            var editform = new EditorXMLJSON(dataname, key, false, false);
+            EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false, false);
             editform.Display();
         }
 
@@ -238,18 +238,18 @@ namespace AMSExplorer
             {
                 if (MyJob.Input.GetType() == typeof(JobInputAsset))
                 {
-                    var inputAsset = MyJob.Input as JobInputAsset;
+                    JobInputAsset inputAsset = MyJob.Input as JobInputAsset;
                     assetName = inputAsset.AssetName;
                 }
 
             }
             else  // output
             {
-                var index = listBoxOutputs.SelectedIndices[0];
+                int index = listBoxOutputs.SelectedIndices[0];
 
                 if (MyJob.Outputs[index].GetType() == typeof(JobOutputAsset))
                 {
-                    var outputAsset = MyJob.Outputs[index] as JobOutputAsset;
+                    JobOutputAsset outputAsset = MyJob.Outputs[index] as JobOutputAsset;
                     assetName = outputAsset.AssetName;
                 }
             }
@@ -257,7 +257,7 @@ namespace AMSExplorer
             if (assetName != null)
             {
                 _client.RefreshTokenIfNeeded();
-                var asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, assetName);
+                Asset asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, assetName);
 
                 AssetInformation form = new AssetInformation(_mainform, _client)
                 {
@@ -279,18 +279,18 @@ namespace AMSExplorer
 
             if (MyJob.Input.GetType() == typeof(JobInputAsset))
             {
-                var inputA = MyJob.Input as JobInputAsset;
+                JobInputAsset inputA = MyJob.Input as JobInputAsset;
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
                 dataGridInput.Rows.Add("Asset type", AssetInfo.GetAssetType(inputA.AssetName, _client).Type);
                 if (inputA.Start != null && inputA.Start.GetType() == typeof(AbsoluteClipTime))
                 {
-                    var startA = inputA.Start as AbsoluteClipTime;
+                    AbsoluteClipTime startA = inputA.Start as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
                 }
                 if (inputA.End != null && inputA.End.GetType() == typeof(AbsoluteClipTime))
                 {
-                    var endA = inputA.End as AbsoluteClipTime;
+                    AbsoluteClipTime endA = inputA.End as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time End", endA.Time.ToString());
                 }
                 dataGridInput.Rows.Add("Label", inputA.Label);
@@ -298,17 +298,17 @@ namespace AMSExplorer
             }
             else if (MyJob.Input.GetType() == typeof(JobInputHttp))
             {
-                var inputH = MyJob.Input as JobInputHttp;
+                JobInputHttp inputH = MyJob.Input as JobInputHttp;
                 dataGridInput.Rows.Add("Input type", "http");
                 dataGridInput.Rows.Add("Base Url", inputH.BaseUri);
                 if (inputH.Start != null && inputH.Start.GetType() == typeof(AbsoluteClipTime))
                 {
-                    var startA = inputH.Start as AbsoluteClipTime;
+                    AbsoluteClipTime startA = inputH.Start as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
                 }
                 if (inputH.End != null && inputH.End.GetType() == typeof(AbsoluteClipTime))
                 {
-                    var endA = inputH.End as AbsoluteClipTime;
+                    AbsoluteClipTime endA = inputH.End as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time End", endA.Time.ToString());
                 }
                 dataGridInput.Rows.Add("Label", inputH.Label);

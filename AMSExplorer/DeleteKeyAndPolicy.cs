@@ -21,33 +21,15 @@ namespace AMSExplorer
 {
     public partial class DeleteKeyAndPolicy : Form
     {
-        public bool DeleteKeys
-        {
-            get
-            {
-                return checkBoxDeleteKeys.Checked;
-            }
-        }
-        public bool DeleteDeliveryPolicies
-        {
-            get
-            {
-                return checkBoxDeleteDeliveryPol.Checked;
-            }
-        }
+        public bool DeleteKeys => checkBoxDeleteKeys.Checked;
+        public bool DeleteDeliveryPolicies => checkBoxDeleteDeliveryPol.Checked;
 
-        public bool DeleteAuthorizationPolicies
-        {
-            get
-            {
-                return checkBoxDeleteAutPol.Checked;
-            }
-        }
+        public bool DeleteAuthorizationPolicies => checkBoxDeleteAutPol.Checked;
 
         public DeleteKeyAndPolicy(int nbassets)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             buttonOk.Text = string.Format(buttonOk.Text, nbassets, nbassets > 1 ? "(s)" : string.Empty);
         }
 

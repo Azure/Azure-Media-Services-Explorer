@@ -28,14 +28,14 @@ namespace AMSExplorer
     {
         private IAzureMediaServicesClient mediaClient;
         private MediaService mediaService;
-        private AMSClientV3 _amsClient;
+        private readonly AMSClientV3 _amsClient;
 
         public List<string> StorageResourceIdToDetach
         {
             get
             {
-                var storages = new List<string>();
-                foreach (var stor in listViewStorage.CheckedItems)
+                List<string> storages = new List<string>();
+                foreach (object stor in listViewStorage.CheckedItems)
                 {
                     string storeId = (stor as ListViewItem).SubItems[1].Text;
                     storages.Add(storeId);
@@ -44,19 +44,13 @@ namespace AMSExplorer
             }
         }
 
-        public List<string> StorageResourceIdToAttach
-        {
-            get
-            {
-                return textBoxAttachStorage.Text.Split(new[] { Environment.NewLine },
+        public List<string> StorageResourceIdToAttach => textBoxAttachStorage.Text.Split(new[] { Environment.NewLine },
                                StringSplitOptions.RemoveEmptyEntries).ToList();
-            }
-        }
 
         public AttachStorage(AMSClientV3 amsClient)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _amsClient = amsClient;
         }
 
@@ -80,16 +74,18 @@ namespace AMSExplorer
                 return;
             }
 
-            var storages = mediaService.StorageAccounts.ToList();
+            List<StorageAccount> storages = mediaService.StorageAccounts.ToList();
             listViewStorage.Items.Clear();
 
             storages.ForEach(s =>
             {
                 if (s.Type == StorageAccountType.Secondary)
                 {
-                    var names = s.Id.Split('/');
-                    var lvitem = new ListViewItem(new string[] { names.Last(), s.Id });
-                    lvitem.ToolTipText = s.Id;
+                    string[] names = s.Id.Split('/');
+                    ListViewItem lvitem = new ListViewItem(new string[] { names.Last(), s.Id })
+                    {
+                        ToolTipText = s.Id
+                    };
                     listViewStorage.Items.Add(lvitem);
                 }
             }
@@ -101,7 +97,7 @@ namespace AMSExplorer
         public async Task UpdateStorageAccountsAsync()
         {
             // storage to detach
-            foreach (var stor in mediaService.StorageAccounts.ToList())
+            foreach (StorageAccount stor in mediaService.StorageAccounts.ToList())
             {
                 if (StorageResourceIdToDetach.Contains(stor.Id))
                 {
@@ -110,7 +106,7 @@ namespace AMSExplorer
             }
 
             // storage to attach
-            foreach (var storId in StorageResourceIdToAttach)
+            foreach (string storId in StorageResourceIdToAttach)
             {
                 mediaService.StorageAccounts.Add(new StorageAccount(StorageAccountType.Secondary, storId));
             }

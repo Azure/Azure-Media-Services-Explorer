@@ -24,47 +24,23 @@ namespace AMSExplorer
 {
     public partial class PresetVideoAnalyzer : Form
     {
-        private string _unique;
+        private readonly string _unique;
         public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-EG", "ru-RU", "hi-IN" };
 
 
-        public string Language
-        {
-            get
-            {
-                return checkBoxAutoLanguage.Checked ? null : ((Item)comboBoxLanguage.SelectedItem).Value as string;
-            }
-        }
+        public string Language => checkBoxAutoLanguage.Checked ? null : ((Item)comboBoxLanguage.SelectedItem).Value as string;
 
-        public string TransformName
-        {
-            get
-            {
-                return textBoxTransformName.Text;
-            }
-        }
+        public string TransformName => textBoxTransformName.Text;
 
-        public string Description
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
-            }
-        }
+        public string Description => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
 
-        public bool AudioOnlyMode
-        {
-            get
-            {
-                return radioButtonAudioOnly.Checked;
-            }
-        }
+        public bool AudioOnlyMode => radioButtonAudioOnly.Checked;
 
 
         public PresetVideoAnalyzer()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _unique = Guid.NewGuid().ToString().Substring(0, 13);
         }
 

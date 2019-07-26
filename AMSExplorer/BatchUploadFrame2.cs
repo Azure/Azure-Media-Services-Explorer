@@ -27,17 +27,17 @@ namespace AMSExplorer
 {
     public partial class BatchUploadFrame2 : Form
     {
-        private AMSClientV3 _client;
-        private List<string> folders;
-        private List<string> files;
-        private bool ErrorConnect = false;
+        private readonly AMSClientV3 _client;
+        private readonly List<string> folders;
+        private readonly List<string> files;
+        private readonly bool ErrorConnect = false;
 
         public List<string> BatchSelectedFolders
         {
             get
             {
                 List<string> selectedfolders = new List<string>();
-                foreach (var f in checkedListBoxFolders.CheckedItems)
+                foreach (object f in checkedListBoxFolders.CheckedItems)
                 {
                     selectedfolders.Add(folders[checkedListBoxFolders.Items.IndexOf((ListViewItem)f)]);
                 }
@@ -50,7 +50,7 @@ namespace AMSExplorer
             get
             {
                 List<string> selectedfiles = new List<string>();
-                foreach (var f in checkedListBoxFiles.CheckedItems)
+                foreach (object f in checkedListBoxFiles.CheckedItems)
                 {
                     selectedfiles.Add(files[checkedListBoxFiles.Items.IndexOf((ListViewItem)f)]);
                 }
@@ -58,20 +58,13 @@ namespace AMSExplorer
             }
         }
 
-        public string StorageSelected
-        {
-            get
-            {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
-            }
-        }
+        public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
 
         public int BlockSize
         {
             get
             {
-                int x = 4;
-                bool success = Int32.TryParse((string)comboBoxBlockSize.Text, out x);
+                bool success = int.TryParse(comboBoxBlockSize.Text, out int x);
                 return success ? x : 4;
             }
         }
@@ -79,7 +72,7 @@ namespace AMSExplorer
         public BatchUploadFrame2(string BatchFolderPath, bool BatchProcessFiles, bool BatchProcessSubFolders, AMSClientV3 client)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
 
             folders = Directory.GetDirectories(BatchFolderPath).ToList();
@@ -89,9 +82,9 @@ namespace AMSExplorer
             {
                 if (BatchProcessFiles)
                 {
-                    foreach (var file in files)
+                    foreach (string file in files)
                     {
-                        var it = checkedListBoxFiles.Items.Add(Path.GetFileName(file));
+                        ListViewItem it = checkedListBoxFiles.Items.Add(Path.GetFileName(file));
                         it.Checked = true;
                         if (!AssetInfo.AssetFileNameIsOk(Path.GetFileName(file)))
                         {
@@ -105,11 +98,11 @@ namespace AMSExplorer
 
                     string s;
                     int filecount;
-                    foreach (var folder in folders)
+                    foreach (string folder in folders)
                     {
                         filecount = Directory.GetFiles(folder).Count();
                         s = filecount > 1 ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01Files : AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01File;
-                        var it = checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount));
+                        ListViewItem it = checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount));
                         it.Checked = true;
                         if (AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(folder).ToList()).Count > 0)
                         {
@@ -121,7 +114,7 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 ErrorConnect = true;
-                this.DialogResult = DialogResult.None;
+                DialogResult = DialogResult.None;
                 MessageBox.Show(AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_ErrorWhenReadingFilesOrFolders + Constants.endline + e.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -130,17 +123,20 @@ namespace AMSExplorer
         {
             if (ErrorConnect)
             {
-                this.Close();
+                Close();
             }
             _client.RefreshTokenIfNeeded();
 
 
-            foreach (var storage in _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts)
+            foreach (StorageAccount storage in _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.Type == StorageAccountType.Primary);
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
-                if (primary) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                if (primary)
+                {
+                    comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                }
 
 
 
@@ -148,7 +144,7 @@ namespace AMSExplorer
                 //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
 
-            var listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
+            List<int> listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
             comboBoxBlockSize.Items.Clear();
             listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
             comboBoxBlockSize.SelectedIndex = 3;

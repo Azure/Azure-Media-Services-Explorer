@@ -22,31 +22,19 @@ namespace AMSExplorer
     {
         public string ClientId
         {
-            get
-            {
-                return textBoxClientId.Text;
-            }
-            set
-            {
-                textBoxClientId.Text = value;
-            }
+            get => textBoxClientId.Text;
+            set => textBoxClientId.Text = value;
         }
 
         public string ClientSecret
         {
-            get
-            {
-                return textBoxClientSecret.Text;
-            }
-            set
-            {
-                textBoxClientSecret.Text = value;
-            }
+            get => textBoxClientSecret.Text;
+            set => textBoxClientSecret.Text = value;
         }
         public AMSLoginServicePrincipal()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
         }
     }

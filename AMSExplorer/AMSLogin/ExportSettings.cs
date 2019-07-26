@@ -24,7 +24,7 @@ namespace AMSExplorer
         public ExportSettings()
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
         }
     }

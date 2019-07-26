@@ -37,11 +37,11 @@ namespace AMSExplorer
         JWTOpenID
     }
 
-    class DynamicEncryption
+    internal class DynamicEncryption
     {
 
 
-        static public byte[] GetRandomBuffer(int size)
+        public static byte[] GetRandomBuffer(int size)
         {
             byte[] randomBytes = new byte[size];
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
@@ -55,7 +55,7 @@ namespace AMSExplorer
 
 
 
-        static public PFXCertificate GetCertificateFromFile(bool informuser = false, X509KeyStorageFlags flags = X509KeyStorageFlags.DefaultKeySet)
+        public static PFXCertificate GetCertificateFromFile(bool informuser = false, X509KeyStorageFlags flags = X509KeyStorageFlags.DefaultKeySet)
         {
             X509Certificate2 cert = null;
             string password = string.Empty;
@@ -113,14 +113,14 @@ namespace AMSExplorer
                              .ToArray();
         }
 
-        static public string ByteArrayToHexString(byte[] bytes)
+        public static string ByteArrayToHexString(byte[] bytes)
         {
             return string.Join(string.Empty, Array.ConvertAll(bytes, b => b.ToString("X2")));
         }
 
 
 
-        static public byte[] GeneratePlayReadyContentKey(byte[] keySeed, Guid keyId)
+        public static byte[] GeneratePlayReadyContentKey(byte[] keySeed, Guid keyId)
         {
             const int DRM_AES_KEYSIZE_128 = 16;
             byte[] contentKey = new byte[DRM_AES_KEYSIZE_128];

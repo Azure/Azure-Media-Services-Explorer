@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using AMSExplorer.Properties;
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
@@ -33,32 +32,32 @@ namespace AMSExplorer
     {
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
-        private BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
-        private string defaultLanguageString = "und";
-        private AMSClientV3 _client;
+        private readonly BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
+        private readonly string defaultLanguageString = "und";
+        private readonly AMSClientV3 _client;
 
         public string LiveEventName
         {
-            get { return textboxchannelname.Text; }
-            set { textboxchannelname.Text = value; }
+            get => textboxchannelname.Text;
+            set => textboxchannelname.Text = value;
         }
 
         public string LiveEventDescription
         {
-            get { return textBoxDescription.Text; }
-            set { textBoxDescription.Text = value; }
+            get => textBoxDescription.Text;
+            set => textBoxDescription.Text = value;
         }
 
         public bool VanityUrl
         {
-            get { return checkBoxVanityUrl.Checked; }
-            set { checkBoxVanityUrl.Checked = value; }
+            get => checkBoxVanityUrl.Checked;
+            set => checkBoxVanityUrl.Checked = value;
         }
 
         public bool LowLatencyMode
         {
-            get { return checkBoxLowLatency.Checked; }
-            set { checkBoxLowLatency.Checked = value; }
+            get => checkBoxLowLatency.Checked;
+            set => checkBoxLowLatency.Checked = value;
         }
 
         public LiveEventEncoding Encoding
@@ -86,13 +85,7 @@ namespace AMSExplorer
         }
 
 
-        public LiveEventInputProtocol Protocol
-        {
-            get
-            {
-                return (LiveEventInputProtocol)(comboBoxProtocolInput.SelectedItem as Item).Value;
-            }
-        }
+        public LiveEventInputProtocol Protocol => (comboBoxProtocolInput.SelectedItem as Item).Value;
 
         public string KeyframeIntervalSerialized
         {
@@ -117,12 +110,9 @@ namespace AMSExplorer
                     return null;
                 }
             }
-          
-            set
-            {
-                textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(value)).TotalSeconds.ToString();
-            }
-           
+
+            set => textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(value)).TotalSeconds.ToString();
+
         }
 
 
@@ -181,20 +171,20 @@ namespace AMSExplorer
 
         public bool StartLiveEventNow
         {
-            get { return checkBoxStartChannel.Checked; }
-            set { checkBoxStartChannel.Checked = value; }
+            get => checkBoxStartChannel.Checked;
+            set => checkBoxStartChannel.Checked = value;
         }
 
         public string AccessToken
         {
-            get { return string.IsNullOrWhiteSpace(textBoxToken.Text) ? null : textBoxToken.Text; }
-            set { textBoxToken.Text = value; }
+            get => string.IsNullOrWhiteSpace(textBoxToken.Text) ? null : textBoxToken.Text;
+            set => textBoxToken.Text = value;
         }
 
         public LiveEventCreation(AMSClientV3 client)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
         }
 
@@ -210,7 +200,8 @@ namespace AMSExplorer
             checkChannelName();
             InitPhase = false;
         }
-        void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+
+        private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MessageBox.Show(AMSExplorer.Properties.Resources.CreateLiveChannel_dataGridView_DataError_WrongFormat);
         }
@@ -220,7 +211,7 @@ namespace AMSExplorer
             textBoxRestrictIngestIP.Enabled = checkBoxRestrictIngestIP.Checked;
             if (!checkBoxRestrictIngestIP.Checked)
             {
-                errorProvider1.SetError(textBoxRestrictIngestIP, String.Empty);
+                errorProvider1.SetError(textBoxRestrictIngestIP, string.Empty);
             }
             else
             {
@@ -285,7 +276,7 @@ namespace AMSExplorer
             textBoxRestrictPreviewIP.Enabled = checkBoxRestrictPreviewIP.Checked;
             if (!checkBoxRestrictPreviewIP.Checked)
             {
-                errorProvider1.SetError(textBoxRestrictPreviewIP, String.Empty);
+                errorProvider1.SetError(textBoxRestrictPreviewIP, string.Empty);
             }
             else
             {
@@ -316,7 +307,7 @@ namespace AMSExplorer
             }
             if (!Error)
             {
-                errorProvider1.SetError(tb, String.Empty);
+                errorProvider1.SetError(tb, string.Empty);
             }
         }
 
@@ -324,16 +315,17 @@ namespace AMSExplorer
         private void UpdateProfileGrids()
         {
             bool displayEncProfile = false;
-            var myEncoding = Encoding;
+            LiveEventEncoding myEncoding = Encoding;
             if (radioButtonDefaultPreset.Checked && myEncoding.EncodingType != LiveEventEncodingType.None)
             {
-                var profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == myEncoding.EncodingType).FirstOrDefault();
+                AMSEXPlorerLiveProfile.LiveProfile profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == myEncoding.EncodingType).FirstOrDefault();
                 if (profileliveselected != null)
                 {
                     dataGridViewVideoProf.DataSource = profileliveselected.Video;
-                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>();
-
-                    profmultiaudio.Add(new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = defaultLanguageString, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>
+                    {
+                        new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = defaultLanguageString, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate }
+                    };
 
                     dataGridViewAudioProf.DataSource = profmultiaudio;
                     panelPresetLiveEncoding.Visible = true;
@@ -383,7 +375,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(tb, String.Empty);
+                errorProvider1.SetError(tb, string.Empty);
             }
         }
 
@@ -395,7 +387,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(textBoxKeyFrame, String.Empty);
+                errorProvider1.SetError(textBoxKeyFrame, string.Empty);
             }
         }
 

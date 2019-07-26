@@ -34,9 +34,9 @@ namespace AMSExplorer
         public ExplorerSEModifications Modifications = new ExplorerSEModifications();
 
         private string MaxCacheAgeInitial;
-        private BindingList<IPRange> endpointSettingList = new BindingList<IPRange>();
-        private BindingList<AkamaiSignatureHeaderAuthenticationKey> AkamaiSettingList = new BindingList<AkamaiSignatureHeaderAuthenticationKey>();
-        private BindingList<HostNameClass> CustomHostNamesList = new BindingList<HostNameClass>()
+        private readonly BindingList<IPRange> endpointSettingList = new BindingList<IPRange>();
+        private readonly BindingList<AkamaiSignatureHeaderAuthenticationKey> AkamaiSettingList = new BindingList<AkamaiSignatureHeaderAuthenticationKey>();
+        private readonly BindingList<HostNameClass> CustomHostNamesList = new BindingList<HostNameClass>()
         {
             AllowNew = true
         };
@@ -56,41 +56,25 @@ namespace AMSExplorer
             }
         }
 
-        public IPAccessControl GetStreamingAllowList
-        {
-            get
-            {
-                return (checkBoxStreamingIPlistSet.Checked) ? new IPAccessControl(endpointSettingList) : null;
-            }
-        }
+        public IPAccessControl GetStreamingAllowList => (checkBoxStreamingIPlistSet.Checked) ? new IPAccessControl(endpointSettingList) : null;
 
-        public AkamaiAccessControl GetStreamingAkamaiList
-        {
-            get
-            {
-                return (checkBoxAkamai.Checked) ? new AkamaiAccessControl(AkamaiSettingList) : null;
-            }
-        }
+        public AkamaiAccessControl GetStreamingAkamaiList => (checkBoxAkamai.Checked) ? new AkamaiAccessControl(AkamaiSettingList) : null;
 
         public IList<string> GetStreamingCustomHostnames
         {
             get
             {
                 IList<string> mylist = new List<string>();
-                foreach (var j in CustomHostNamesList)
+                foreach (HostNameClass j in CustomHostNamesList)
+                {
                     mylist.Add(j.HostName);
+                }
 
                 return mylist;
             }
         }
 
-        public string GetOriginDescription
-        {
-            get
-            {
-                return textboxorigindesc.Text;
-            }
-        }
+        public string GetOriginDescription => textboxorigindesc.Text;
 
 
         public long? MaxCacheAge
@@ -111,30 +95,17 @@ namespace AMSExplorer
 
         }
 
-        public IList<IPRange> IPv4AllowList
-        {
-            get
-            {
-                return endpointSettingList;
-            }
-        }
+        public IList<IPRange> IPv4AllowList => endpointSettingList;
 
 
-        public string GetOriginClientPolicy
-        {
-            get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
+        public string GetOriginClientPolicy => (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null;
 
-        }
-
-        public string GetOriginCrossdomaintPolicy
-        {
-            get { return (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null; }
-        }
+        public string GetOriginCrossdomaintPolicy => (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null;
 
         public StreamingEndpointInformation(StreamingEndpoint streamingEndpoint)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             MySE = streamingEndpoint;
         }
 
@@ -175,7 +146,7 @@ namespace AMSExplorer
             // Custom Hostnames binding to control
             if (MySE.CustomHostNames != null)
             {
-                foreach (var hostname in MySE.CustomHostNames)
+                foreach (string hostname in MySE.CustomHostNames)
                 {
                     CustomHostNamesList.Add(new HostNameClass() { HostName = hostname });
                 }
@@ -191,7 +162,7 @@ namespace AMSExplorer
 
             if (!MultipleSelection)
             {
-                var type = ReturnTypeSE(MySE);
+                StreamEndpointType type = ReturnTypeSE(MySE);
                 DGOrigin.Rows.Add("Type", type);
                 DGOrigin.Rows.Add("ScaleUnits", MySE.ScaleUnits);
 
@@ -229,7 +200,7 @@ namespace AMSExplorer
                 if (MySE.AccessControl.Ip != null)
                 {
                     checkBoxStreamingIPlistSet.Checked = true;
-                    foreach (var endpoint in MySE.AccessControl.Ip.Allow)
+                    foreach (IPRange endpoint in MySE.AccessControl.Ip.Allow)
                     {
                         endpointSettingList.Add(endpoint);
                     }
@@ -237,7 +208,7 @@ namespace AMSExplorer
                 if (MySE.AccessControl.Akamai != null)
                 {
                     checkBoxAkamai.Checked = true;
-                    foreach (var setting in MySE.AccessControl.Akamai.AkamaiSignatureHeaderAuthenticationKeyList)
+                    foreach (AkamaiSignatureHeaderAuthenticationKey setting in MySE.AccessControl.Akamai.AkamaiSignatureHeaderAuthenticationKeyList)
                     {
                         AkamaiSettingList.Add(setting);
                     }
@@ -279,7 +250,7 @@ namespace AMSExplorer
             };
         }
 
-        static public StreamEndpointType ReturnTypeSE(StreamingEndpoint mySE)
+        public static StreamEndpointType ReturnTypeSE(StreamingEndpoint mySE)
         {
             if (mySE.ScaleUnits > 0)
             {
@@ -292,11 +263,14 @@ namespace AMSExplorer
         }
 
 
-        static public string ReturnDisplayedProvider(string cdnprovider)
+        public static string ReturnDisplayedProvider(string cdnprovider)
         {
-            if (cdnprovider == null) return null;
+            if (cdnprovider == null)
+            {
+                return null;
+            }
 
-            var cdnp = StreamingEndpointCDNEnable.CDNProviders.Where(p => p.Value == cdnprovider).FirstOrDefault();
+            Item cdnp = StreamingEndpointCDNEnable.CDNProviders.Where(p => p.Value == cdnprovider).FirstOrDefault();
             if (cdnp != null)
             {
                 return cdnp.Name;
@@ -313,7 +287,7 @@ namespace AMSExplorer
             Premium
         }
 
-        void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MessageBox.Show("Wrong format");
         }
@@ -472,7 +446,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(textBoxMaxCacheAge, String.Empty);
+                errorProvider1.SetError(textBoxMaxCacheAge, string.Empty);
             }
         }
 
