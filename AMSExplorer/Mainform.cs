@@ -149,7 +149,7 @@ namespace AMSExplorer
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
 
-            AMSLogin formLogin = new AMSLogin();
+            AmsLogin formLogin = new AmsLogin();
 
             if (formLogin.ShowDialog() == DialogResult.Cancel)
             {
@@ -157,7 +157,7 @@ namespace AMSExplorer
             }
 
             // Get the service context.
-            _amsClientV3 = formLogin.AMSClient;
+            _amsClientV3 = formLogin.AmsClient;
 
             _accountname = _amsClientV3.credentialsEntry.AccountName;
             DisplaySplashDuringLoading = true;

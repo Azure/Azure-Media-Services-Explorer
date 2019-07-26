@@ -34,7 +34,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class AMSLogin : Form
+    public partial class AmsLogin : Form
     {
         private ListCredentialsRPv3 CredentialList = new ListCredentialsRPv3();
 
@@ -43,9 +43,9 @@ namespace AMSExplorer
         private CredentialsEntryV3 LoginInfo;
         private AzureEnvironment environment;
 
-        public AMSClientV3 AMSClient { get; private set; }
+        public AMSClientV3 AmsClient { get; private set; }
 
-        public AMSLogin()
+        public AmsLogin()
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -118,12 +118,12 @@ namespace AMSExplorer
                 return;
             }
 
-            AMSClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo);
+            AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo);
 
             AzureMediaServicesClient response = null;
             try
             {
-                response = await AMSClient.ConnectAndGetNewClientV3Async();
+                response = await AmsClient.ConnectAndGetNewClientV3Async();
             }
             catch (Exception ex)
             {
@@ -138,12 +138,12 @@ namespace AMSExplorer
             }
 
             // let's save the credentials (SP) They may be updated by the user when connecting
-            CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]] = AMSClient.credentialsEntry;
+            CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]] = AmsClient.credentialsEntry;
             SaveCredentialsToSettings();
 
             try
             {   // let's refresh storage accounts
-                AMSClient.credentialsEntry.MediaService.StorageAccounts = AMSClient.AMSclient.Mediaservices.Get(AMSClient.credentialsEntry.ResourceGroup, AMSClient.credentialsEntry.AccountName).StorageAccounts;
+                AmsClient.credentialsEntry.MediaService.StorageAccounts = AmsClient.AMSclient.Mediaservices.Get(AmsClient.credentialsEntry.ResourceGroup, AmsClient.credentialsEntry.AccountName).StorageAccounts;
                 Cursor = Cursors.Default;
 
             }

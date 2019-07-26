@@ -93,27 +93,27 @@ namespace AMSExplorer
         private InfoMediaRU _myanswer = null;
         private dynamic _restEndpoint = null;
 
-        public MediaRU(AMSClientV3 _amsClientV3)
+        public MediaRU(AMSClientV3 AmsClientV3)
         {
             _client.DefaultRequestHeaders.Add("x-ms-version", "2.19");
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _client.DefaultRequestHeaders.Add("DataServiceVersion", "3.0;NetFx");
             _client.DefaultRequestHeaders.Add("MaxDataServiceVersion", "3.0;NetFx");
 
-            GetRestAPIEndpointforAccountv2(_amsClientV3).GetAwaiter().GetResult();
+            GetRestAPIEndpointforAccountv2(AmsClientV3).GetAwaiter().GetResult();
         }
 
-        private async Task GetRestAPIEndpointforAccountv2(AMSClientV3 _amsClientV3)
+        private async Task GetRestAPIEndpointforAccountv2(AMSClientV3 AmsClientV3)
         {
             // This method get the RESTApiEndpoint URL
-            string token = _amsClientV3.accessToken?.AccessToken;
+            string token = AmsClientV3.accessToken?.AccessToken;
 
             // if SP
-            if (_amsClientV3.accessToken == null && _amsClientV3.credentialsEntry.UseSPAuth)
+            if (AmsClientV3.accessToken == null && AmsClientV3.credentialsEntry.UseSPAuth)
             {
                 // let's get the current token in Service Principal mode
                 TokenCacheItem accessTokenCache = TokenCache.DefaultShared.ReadItems()
-                        .Where(t => t.ClientId == _amsClientV3.credentialsEntry.ADSPClientId)
+                        .Where(t => t.ClientId == AmsClientV3.credentialsEntry.ADSPClientId)
                         .OrderByDescending(t => t.ExpiresOn)
                         .First();
                 token = accessTokenCache?.AccessToken;
@@ -124,7 +124,7 @@ namespace AMSExplorer
                 return;
             }
 
-            string URL = _amsClientV3.environment.ArmEndpoint + _amsClientV3.credentialsEntry.MediaService.Id.Substring(1) + "?api-version=2015-10-01";
+            string URL = AmsClientV3.environment.ArmEndpoint + AmsClientV3.credentialsEntry.MediaService.Id.Substring(1) + "?api-version=2015-10-01";
 
             HttpClient client = new HttpClient();
 
@@ -139,24 +139,24 @@ namespace AMSExplorer
             }
         }
 
-        private async Task GetRefreshTokenIfNeeded(AMSClientV3 _amsClientV3)
+        private async Task GetRefreshTokenIfNeeded(AMSClientV3 AmsClientV3)
         {
             // If Service Principal mode, let's authenticate now (if token expired or first time)
-            if (_amsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
+            if (AmsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
             {
                 HttpClient client = new HttpClient();
 
-                string URLAut = string.Format(_amsClientV3.environment.AADSettings.AuthenticationEndpoint + "/{0}/oauth2/token", _amsClientV3.credentialsEntry.AadTenantId);
+                string URLAut = string.Format(AmsClientV3.environment.AADSettings.AuthenticationEndpoint + "/{0}/oauth2/token", AmsClientV3.credentialsEntry.AadTenantId);
 
                 // if end user used the sp cli output then we don't know the MediaSercices Resource. Let's guess it.
-                if (string.IsNullOrEmpty(_amsClientV3.environment.MediaServicesV2Resource))
+                if (string.IsNullOrEmpty(AmsClientV3.environment.MediaServicesV2Resource))
                 {
                     string[] names = Enum.GetNames(typeof(AzureEnvType));
                     IEnumerable<AzureEnvironment> envs = names.Select(n => new AzureEnvironment((AzureEnvType)Enum.Parse(typeof(AzureEnvType), n)));
-                    _amsClientV3.environment.MediaServicesV2Resource = envs.Where(e => e.ArmEndpoint == _amsClientV3.environment.ArmEndpoint).FirstOrDefault()?.MediaServicesV2Resource;
+                    AmsClientV3.environment.MediaServicesV2Resource = envs.Where(e => e.ArmEndpoint == AmsClientV3.environment.ArmEndpoint).FirstOrDefault()?.MediaServicesV2Resource;
                 }
 
-                if (string.IsNullOrEmpty(_amsClientV3.environment.MediaServicesV2Resource))
+                if (string.IsNullOrEmpty(AmsClientV3.environment.MediaServicesV2Resource))
                 {
                     // not found the resource url
                     return;
@@ -165,13 +165,21 @@ namespace AMSExplorer
                 Dictionary<string, string> values = new Dictionary<string, string>
                                                             {
                                                                 { "grant_type", "client_credentials" },
-                                                                { "client_id", _amsClientV3.credentialsEntry.ADSPClientId },
-                                                                { "client_secret", _amsClientV3.credentialsEntry.ClearADSPClientSecret },
-                                                                { "resource", _amsClientV3.environment.MediaServicesV2Resource }
+                                                                { "client_id", AmsClientV3.credentialsEntry.ADSPClientId },
+                                                                { "client_secret", AmsClientV3.credentialsEntry.ClearADSPClientSecret },
+                                                                { "resource", AmsClientV3.environment.MediaServicesV2Resource }
                                                             };
 
                 FormUrlEncodedContent content = new FormUrlEncodedContent(values);
                 HttpResponseMessage response = await client.PostAsync(URLAut, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string message = await response.Content.ReadAsStringAsync();
+                    dynamic jsonMessage = JObject.Parse(message);
+                    throw new Exception(response.ReasonPhrase + " " + jsonMessage?.error_description);
+                }
+
                 string responseStringAut = await response.Content.ReadAsStringAsync();
                 dynamic json = JObject.Parse(responseStringAut);
                 _tokenSP = json.access_token;
@@ -180,14 +188,14 @@ namespace AMSExplorer
             }
         }
 
-        public async Task<InfoMediaRU> GetInfoMediaRU(AMSClientV3 _amsClientV3)
+        public async Task<InfoMediaRU> GetInfoMediaRU(AMSClientV3 AmsClientV3)
         {
 
-            await GetRefreshTokenIfNeeded(_amsClientV3);
+            await GetRefreshTokenIfNeeded(AmsClientV3);
 
             string URL = _restEndpoint + "EncodingReservedUnitTypes";
 
-            string token = _amsClientV3.accessTokenForRestV2 != null ? _amsClientV3.accessTokenForRestV2.AccessToken : _tokenSP;
+            string token = AmsClientV3.accessTokenForRestV2 != null ? AmsClientV3.accessTokenForRestV2.AccessToken : _tokenSP;
 
             _client.DefaultRequestHeaders.Remove("Authorization");
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
@@ -198,31 +206,31 @@ namespace AMSExplorer
 
         }
 
-        public async Task SetMediaRU(AMSClientV3 _amsClientV3, int? number, int? reservedunitype)
+        public async Task SetMediaRU(AMSClientV3 AmsClientV3, int? Number, int? ReservedUniType)
         {
             if (_myanswer == null)
             {
                 throw new Exception();
             }
 
-            await GetRefreshTokenIfNeeded(_amsClientV3);
+            await GetRefreshTokenIfNeeded(AmsClientV3);
 
             string URL = _restEndpoint + "EncodingReservedUnitTypes(guid'" + _myanswer.AccountId.ToString() + "')";
 
-            string token = _amsClientV3.accessTokenForRestV2 != null ? _amsClientV3.accessTokenForRestV2.AccessToken : _tokenSP;
+            string token = AmsClientV3.accessTokenForRestV2 != null ? AmsClientV3.accessTokenForRestV2.AccessToken : _tokenSP;
 
             _client.DefaultRequestHeaders.Remove("Authorization");
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             dynamic myObject = (dynamic)new JObject();
-            if (number != null)
+            if (Number != null)
             {
-                myObject.CurrentReservedUnits = (int)number;
+                myObject.CurrentReservedUnits = (int)Number;
             }
 
-            if (reservedunitype != null)
+            if (ReservedUniType != null)
             {
-                myObject.ReservedUnitType = (int)reservedunitype;
+                myObject.ReservedUnitType = (int)ReservedUniType;
             }
 
             StringContent content = new StringContent(myObject.ToString(), Encoding.UTF8, "application/json");
@@ -233,7 +241,6 @@ namespace AMSExplorer
                 string message = await response.Content.ReadAsStringAsync();
                 dynamic json = JObject.Parse(message);
                 throw new Exception(response.ReasonPhrase + " " + json?["odata.error"]?.message?.value);
-
             }
         }
     }

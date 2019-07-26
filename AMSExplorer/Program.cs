@@ -3436,7 +3436,7 @@ namespace AMSExplorer
             else // Service Principal
             {
                 // other code for service principal
-                AMSLoginServicePrincipal form = new AMSLoginServicePrincipal
+                AmsLoginServicePrincipal form = new AmsLoginServicePrincipal
                 {
                     ClientId = credentialsEntry.ADSPClientId,
                     ClientSecret = credentialsEntry.ClearADSPClientSecret

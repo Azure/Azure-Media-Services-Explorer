@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class AMSLoginServicePrincipal : Form
+    public partial class AmsLoginServicePrincipal : Form
     {
         public string ClientId
         {
@@ -31,7 +31,7 @@ namespace AMSExplorer
             get => textBoxClientSecret.Text;
             set => textBoxClientSecret.Text = value;
         }
-        public AMSLoginServicePrincipal()
+        public AmsLoginServicePrincipal()
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;

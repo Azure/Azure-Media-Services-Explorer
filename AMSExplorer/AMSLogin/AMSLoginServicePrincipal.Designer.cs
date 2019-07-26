@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AMSLoginServicePrincipal
+    partial class AmsLoginServicePrincipal
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AMSLoginServicePrincipal));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AmsLoginServicePrincipal));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonImport = new System.Windows.Forms.Button();
