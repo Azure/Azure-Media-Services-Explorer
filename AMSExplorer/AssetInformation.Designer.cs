@@ -84,11 +84,19 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPagePolicy = new System.Windows.Forms.TabPage();
-            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxKeys = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.textBoxStreamingPolicyOfLocator = new System.Windows.Forms.TextBox();
+            this.textBoxContentKeyPolicyOfStreamingPolicy = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBoxContentKeyPolicyOfLocator = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.comboBoxKeys = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -107,14 +115,11 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBoxContentKeyPolicyOfStreamingPolicy = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBoxContentKeyPolicyOfLocator = new System.Windows.Forms.TextBox();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.buttonGetDRMToken = new System.Windows.Forms.Button();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -127,14 +132,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.contextMenuStripFilter.SuspendLayout();
             this.tabPagePolicy.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.contextMenuStripKey.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGAsset
@@ -580,6 +586,90 @@
             this.tabPagePolicy.UseVisualStyleBackColor = true;
             this.tabPagePolicy.Enter += new System.EventHandler(this.tabPagePolicy_Enter);
             // 
+            // tabControl2
+            // 
+            resources.ApplyResources(this.tabControl2, "tabControl2");
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage7);
+            this.tabControl2.Controls.Add(this.tabPage8);
+            this.tabControl2.Multiline = true;
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.textBoxStreamingPolicyOfLocator);
+            this.tabPage5.Controls.Add(this.textBoxContentKeyPolicyOfStreamingPolicy);
+            this.tabPage5.Controls.Add(this.label7);
+            this.tabPage5.Controls.Add(this.label3);
+            resources.ApplyResources(this.tabPage5, "tabPage5");
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // textBoxStreamingPolicyOfLocator
+            // 
+            resources.ApplyResources(this.textBoxStreamingPolicyOfLocator, "textBoxStreamingPolicyOfLocator");
+            this.textBoxStreamingPolicyOfLocator.Name = "textBoxStreamingPolicyOfLocator";
+            this.textBoxStreamingPolicyOfLocator.ReadOnly = true;
+            // 
+            // textBoxContentKeyPolicyOfStreamingPolicy
+            // 
+            resources.ApplyResources(this.textBoxContentKeyPolicyOfStreamingPolicy, "textBoxContentKeyPolicyOfStreamingPolicy");
+            this.textBoxContentKeyPolicyOfStreamingPolicy.Name = "textBoxContentKeyPolicyOfStreamingPolicy";
+            this.textBoxContentKeyPolicyOfStreamingPolicy.ReadOnly = true;
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.textBoxContentKeyPolicyOfLocator);
+            this.tabPage4.Controls.Add(this.label8);
+            resources.ApplyResources(this.tabPage4, "tabPage4");
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // textBoxContentKeyPolicyOfLocator
+            // 
+            resources.ApplyResources(this.textBoxContentKeyPolicyOfLocator, "textBoxContentKeyPolicyOfLocator");
+            this.textBoxContentKeyPolicyOfLocator.Name = "textBoxContentKeyPolicyOfLocator";
+            this.textBoxContentKeyPolicyOfLocator.ReadOnly = true;
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.comboBoxKeys);
+            this.tabPage7.Controls.Add(this.label6);
+            this.tabPage7.Controls.Add(this.dataGridViewKeys);
+            resources.ApplyResources(this.tabPage7, "tabPage7");
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxKeys
+            // 
+            this.comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboBoxKeys, "comboBoxKeys");
+            this.comboBoxKeys.FormattingEnabled = true;
+            this.comboBoxKeys.Name = "comboBoxKeys";
+            this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeys_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
             // dataGridViewKeys
             // 
             this.dataGridViewKeys.AllowUserToAddRows = false;
@@ -595,30 +685,6 @@
             this.dataGridViewKeys.ReadOnly = true;
             this.dataGridViewKeys.RowHeadersVisible = false;
             this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick_1);
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // comboBoxKeys
-            // 
-            this.comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBoxKeys, "comboBoxKeys");
-            this.comboBoxKeys.FormattingEnabled = true;
-            this.comboBoxKeys.Name = "comboBoxKeys";
-            this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeys_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // textBoxStreamingPolicyOfLocator
-            // 
-            resources.ApplyResources(this.textBoxStreamingPolicyOfLocator, "textBoxStreamingPolicyOfLocator");
-            this.textBoxStreamingPolicyOfLocator.Name = "textBoxStreamingPolicyOfLocator";
-            this.textBoxStreamingPolicyOfLocator.ReadOnly = true;
             // 
             // label5
             // 
@@ -745,64 +811,39 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
-            // textBoxContentKeyPolicyOfStreamingPolicy
+            // buttonGetDRMToken
             // 
-            resources.ApplyResources(this.textBoxContentKeyPolicyOfStreamingPolicy, "textBoxContentKeyPolicyOfStreamingPolicy");
-            this.textBoxContentKeyPolicyOfStreamingPolicy.Name = "textBoxContentKeyPolicyOfStreamingPolicy";
-            this.textBoxContentKeyPolicyOfStreamingPolicy.ReadOnly = true;
+            resources.ApplyResources(this.buttonGetDRMToken, "buttonGetDRMToken");
+            this.buttonGetDRMToken.Name = "buttonGetDRMToken";
+            this.buttonGetDRMToken.UseVisualStyleBackColor = true;
+            this.buttonGetDRMToken.Click += new System.EventHandler(this.ButtonGetDRMToken_Click);
             // 
-            // label7
+            // tabPage8
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
+            this.tabPage8.Controls.Add(this.label10);
+            this.tabPage8.Controls.Add(this.label9);
+            this.tabPage8.Controls.Add(this.comboBoxOptions);
+            this.tabPage8.Controls.Add(this.buttonGetDRMToken);
+            resources.ApplyResources(this.tabPage8, "tabPage8");
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // comboBoxOptions
             // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
+            this.comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOptions.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxOptions, "comboBoxOptions");
+            this.comboBoxOptions.Name = "comboBoxOptions";
             // 
-            // textBoxContentKeyPolicyOfLocator
+            // label9
             // 
-            resources.ApplyResources(this.textBoxContentKeyPolicyOfLocator, "textBoxContentKeyPolicyOfLocator");
-            this.textBoxContentKeyPolicyOfLocator.Name = "textBoxContentKeyPolicyOfLocator";
-            this.textBoxContentKeyPolicyOfLocator.ReadOnly = true;
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
             // 
-            // tabControl2
+            // label10
             // 
-            resources.ApplyResources(this.tabControl2, "tabControl2");
-            this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Controls.Add(this.tabPage7);
-            this.tabControl2.Multiline = true;
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.textBoxContentKeyPolicyOfLocator);
-            this.tabPage4.Controls.Add(this.label8);
-            resources.ApplyResources(this.tabPage4, "tabPage4");
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.textBoxStreamingPolicyOfLocator);
-            this.tabPage5.Controls.Add(this.textBoxContentKeyPolicyOfStreamingPolicy);
-            this.tabPage5.Controls.Add(this.label7);
-            this.tabPage5.Controls.Add(this.label3);
-            resources.ApplyResources(this.tabPage5, "tabPage5");
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.comboBoxKeys);
-            this.tabPage7.Controls.Add(this.label6);
-            this.tabPage7.Controls.Add(this.dataGridViewKeys);
-            resources.ApplyResources(this.tabPage7, "tabPage7");
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
             // 
             // AssetInformation
             // 
@@ -833,18 +874,20 @@
             this.contextMenuStripFilter.ResumeLayout(false);
             this.tabPagePolicy.ResumeLayout(false);
             this.tabPagePolicy.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.contextMenuStripKey.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.tabControl2.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -936,5 +979,10 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Button buttonGetDRMToken;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.ComboBox comboBoxOptions;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }

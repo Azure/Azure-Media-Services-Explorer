@@ -54,7 +54,6 @@ namespace AMSExplorer
         public static string Salt;
         private string _backuprootfolderupload = string.Empty;
         private string _backuprootfolderdownload = string.Empty;
-        private readonly StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
         private AssetStreamingLocator PlayBackLocator = null;
 
         //Watch folder vars
@@ -1794,6 +1793,8 @@ namespace AMSExplorer
         private async void DoCreateLocator(List<Asset> SelectedAssets, string LiveAssetManifest = null)
         {
             string labelAssetName;
+            StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
+
             if (SelectedAssets.Count > 0)
             {
                 if (SelectedAssets.Count == 1 && SelectedAssets.FirstOrDefault() == null)
@@ -1834,9 +1835,9 @@ namespace AMSExplorer
 
                     // DRM
                     ContentKeyPolicy keyPolicy = null;
-                    List<DRM_Config_TokenClaims> formPlayreadyTokenClaims = new List<DRM_Config_TokenClaims>();
-                    List<DRM_Config_TokenClaims> formWidevineTokenClaims = new List<DRM_Config_TokenClaims>();
-                    List<DRM_Config_TokenClaims> formClearKeyTokenClaims = new List<DRM_Config_TokenClaims>();
+                    List<form_DRM_Config_TokenClaims> formPlayreadyTokenClaims = new List<form_DRM_Config_TokenClaims>();
+                    List<form_DRM_Config_TokenClaims> formWidevineTokenClaims = new List<form_DRM_Config_TokenClaims>();
+                    List<form_DRM_Config_TokenClaims> formClearKeyTokenClaims = new List<form_DRM_Config_TokenClaims>();
                     List<ContentKeyPolicyOption> options = new List<ContentKeyPolicyOption>();
 
                     // let's preserve location of windows
@@ -1869,7 +1870,7 @@ namespace AMSExplorer
                             {
                                 bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1) && (formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine == 0);
 
-                                formPlayreadyTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, false)
+                                formPlayreadyTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, false)
                                 { Left = left, Top = top });
 
                                 if (formPlayreadyTokenClaims[i].ShowDialog() != DialogResult.OK)
@@ -1904,7 +1905,7 @@ namespace AMSExplorer
                             {
                                 bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine - 1);
 
-                                formWidevineTokenClaims.Add(new DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, false) { Left = left, Top = top });
+                                formWidevineTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, false) { Left = left, Top = top });
                                 if (formWidevineTokenClaims[i].ShowDialog() != DialogResult.OK)
                                 {
                                     return;
@@ -1933,7 +1934,7 @@ namespace AMSExplorer
                         }
                         else if (formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
                         {
-                            formClearKeyTokenClaims.Add(new DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
+                            formClearKeyTokenClaims.Add(new form_DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
                             if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK)
                             {
                                 return;
@@ -2060,9 +2061,9 @@ namespace AMSExplorer
                             formTokenProperties.ShowDialog();
                             if (formTokenProperties.DialogResult == DialogResult.OK)
                             {
-                                await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators, "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
-                                await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators, "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
-                                await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators, "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse);
+                                sbuilder.Append(await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators.FirstOrDefault(), "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators.FirstOrDefault(), "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators.FirstOrDefault(), "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
                             }
                         }
 
@@ -2086,9 +2087,10 @@ namespace AMSExplorer
             top = myForm.Top;
         }
 
-        private async Task AddTestTokenToSbuilder(List<DRM_Config_TokenClaims> formTokenClaims, List<LocatorAndUrls> listLocators, string DRMTechnology, int tokenDuration, int? tokenUse)
+        public async Task<StringBuilder> AddTestTokenToSbuilder(List<form_DRM_Config_TokenClaims> formTokenClaims, LocatorAndUrls myLocator, string DRMTechnology, int tokenDuration, int? tokenUse)
         {
-            foreach (DRM_Config_TokenClaims tokenClaims in formTokenClaims)
+            StringBuilder sbuilder = new StringBuilder();
+            foreach (form_DRM_Config_TokenClaims tokenClaims in formTokenClaims)
             {
                 if (tokenClaims.GetDetailedTokenType == ExplorerTokenType.JWTSym)
                 {
@@ -2097,7 +2099,7 @@ namespace AMSExplorer
                     // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
                     // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
                     ListContentKeysResponse response = await _amsClientV3.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClientV3.credentialsEntry.ResourceGroup,
-                            _amsClientV3.credentialsEntry.AccountName, listLocators.FirstOrDefault().LocatorName);
+                            _amsClientV3.credentialsEntry.AccountName, myLocator.LocatorName);
                     string keyIdentifier = response.ContentKeys.First().Id.ToString();
 
                     sbuilder.AppendLine(string.Format("Test token for {0}, Option {1} (valid {2} min) :",
@@ -2108,6 +2110,7 @@ namespace AMSExplorer
                     sbuilder.AppendLine(string.Empty);
                 }
             }
+            return sbuilder;
         }
 
         private async void DoCreateSASUrl(List<Asset> SelectedAssets)

@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class DRM_Config_TokenClaims
+    partial class form_DRM_Config_TokenClaims
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DRM_Config_TokenClaims));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form_DRM_Config_TokenClaims));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();

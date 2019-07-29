@@ -28,7 +28,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class DRM_Config_TokenClaims : Form
+    public partial class form_DRM_Config_TokenClaims : Form
     {
         private readonly BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
@@ -144,7 +144,7 @@ namespace AMSExplorer
 
         public string GetOpenIdDiscoveryDocument => radioButtonJWTOpenId.Checked ? textBoxOpenIdDocument.Text : null;
 
-        public DRM_Config_TokenClaims(int step, int option, string DRMName, string tokenSymmetricKey, bool laststep = true)
+        public form_DRM_Config_TokenClaims(int step, int option, string DRMName, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;

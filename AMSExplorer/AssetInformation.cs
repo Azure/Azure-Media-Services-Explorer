@@ -16,6 +16,8 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Data.OData;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
@@ -25,8 +27,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1843,6 +1847,42 @@ namespace AMSExplorer
                 DisplayStreamingPolicyAndContentKeyPolicyOfLocator(locatorName);
                 DisplayContentKeyPolicyOfLocator(locatorName);
                 FillComboDRMKeys(locatorName);
+                FillComboContentKeyOptions(locatorName);
+            }
+        }
+
+        private void FillComboContentKeyOptions(string locatorName)
+        {
+            comboBoxOptions.Items.Clear();
+            StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            StreamingPolicy spolicy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
+
+            // let's find active key policy
+            ContentKeyPolicy ckpolicy = null;
+            if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+            {
+                ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
+            }
+            else if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+            {
+                ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
+            }
+
+            if (ckpolicy == null) return;
+
+            if (ckpolicy.Options.First().Restriction.GetType() != typeof(ContentKeyPolicyTokenRestriction)) return;
+
+            foreach (var o in ckpolicy.Options)
+            {
+                if (o.Restriction.GetType() == typeof(ContentKeyPolicyTokenRestriction))
+                {
+                    comboBoxOptions.Items.Add(new Item(string.Format("{0} ({1}) {2}", o.Name, o.PolicyOptionId, o.Configuration.GetType().Name), o.PolicyOptionId.ToString()));
+                }
+            }
+
+            if (ckpolicy.Options.Count > 0)
+            {
+                comboBoxOptions.SelectedIndex = 0;
             }
         }
 
@@ -1904,6 +1944,91 @@ namespace AMSExplorer
 
                 SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
             }
+        }
+
+        private async void ButtonGetDRMToken_Click(object sender, EventArgs e)
+        {
+            await GetDRMTestTokenAsync();
+        }
+
+        private async Task GetDRMTestTokenAsync()
+        {
+            if (comboBoxPolicyLocators.SelectedItem == null)
+            {
+                return;
+            }
+
+            StringBuilder sbuilder = new StringBuilder();
+
+            string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
+            StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            StreamingPolicy spolicy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
+
+            // let's find active key policy
+            ContentKeyPolicyProperties ckpolicy = null;
+            if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+            {
+                ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecrets(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
+            }
+            else if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+            {
+                ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecrets(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
+            }
+
+            if (ckpolicy == null) return;
+
+            Guid optionId = Guid.Parse((comboBoxOptions.SelectedItem as Item).Value);
+
+            
+            ContentKeyPolicyTokenRestriction ckrestriction = (ContentKeyPolicyTokenRestriction)ckpolicy.Options.Where(o=> o.PolicyOptionId == optionId).FirstOrDefault()?.Restriction;
+
+            // we support only symetric key
+            if (ckrestriction.PrimaryVerificationKey.GetType() != typeof(ContentKeyPolicySymmetricTokenKey)) return;
+
+            ContentKeyPolicySymmetricTokenKey SymKey = (ContentKeyPolicySymmetricTokenKey)ckrestriction.PrimaryVerificationKey;
+
+            ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
+                    _amsClient.credentialsEntry.AccountName, locatorName);
+            string keyIdentifier = response.ContentKeys.First().Id.ToString();
+
+            DRM_GenerateToken formTokenProperties = new DRM_GenerateToken();
+            formTokenProperties.ShowDialog();
+            if (formTokenProperties.DialogResult == DialogResult.OK)
+            {
+                Microsoft.IdentityModel.Tokens.SymmetricSecurityKey tokenSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(SymKey.KeyValue);
+
+                Microsoft.IdentityModel.Tokens.SigningCredentials signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
+
+                List<Claim> claims = new List<Claim>();
+
+                if (ckrestriction.RequiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
+                {
+                    claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
+                }
+
+                if (formTokenProperties.TokenUse != null)
+                {
+                    claims.Add(new Claim("urn:microsoft:azure:mediaservices:maxuses", ((int)formTokenProperties.TokenUse).ToString()));
+                }
+
+
+                JwtSecurityToken token = new JwtSecurityToken(
+                                                            issuer: ckrestriction.Issuer,
+                                                            audience: ckrestriction.Audience,
+                                                            claims: claims.Count > 0 ? claims : null,
+                                                            notBefore: DateTime.Now.AddMinutes(-5),
+                                                            expires: DateTime.Now.AddMinutes(formTokenProperties.TokenDuration),
+                                                            signingCredentials: signingcredentials
+                                                            );
+
+
+                JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+
+                sbuilder.Append("Bearer " + handler.WriteToken(token));
+            }
+
+            EditorXMLJSON displayResult = new EditorXMLJSON("Test token", sbuilder.ToString(), false, false, false);
+            displayResult.ShowDialog();
         }
     }
 }
