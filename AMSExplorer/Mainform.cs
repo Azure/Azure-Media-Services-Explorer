@@ -1990,8 +1990,12 @@ namespace AMSExplorer
                             sbuilder.AppendLine("===============" + new string('=', loc.AssetName.Length));
                             sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
                             sbuilder.AppendLine(string.Empty);
+
+
                             foreach (StreamingPath path in paths.StreamingPaths)
                             {
+                                string appendExtension = string.Empty;
+
                                 sbuilder.AppendLine(path.StreamingProtocol + " :");
                                 foreach (StreamingEndpoint se in SEList)
                                 {
@@ -2002,24 +2006,40 @@ namespace AMSExplorer
                                         if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash)
                                         {
                                             formatSyntax = AssetInfo.format_dash_csf;
+                                            appendExtension = Constants.mpd;
                                         }
                                         else if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Hls)
                                         {
                                             formatSyntax = AssetInfo.format_hls_v4;
+                                            appendExtension = Constants.m3u8;
                                         }
                                         else
                                         {
-                                            syntax = "";
+                                            appendExtension = syntax = string.Empty;
                                         }
-                                        sbuilder.AppendLine("https://" + se.HostName + "/" + loc.LocatorId.ToString() + "/" + LiveAssetManifest + ".ism/manifest" + string.Format(syntax, formatSyntax));
+                                        sbuilder.AppendLine("https://" + se.HostName + "/" + loc.LocatorId.ToString() + "/" + LiveAssetManifest + ".ism/manifest" + string.Format(syntax, formatSyntax) + appendExtension);
                                     }
                                     else
                                     {
-                                        path.Paths.ToList().ForEach(p => sbuilder.AppendLine("https://" + se.HostName + p));
+                                        foreach (var p in path.Paths)
+                                        {
+                                            appendExtension = string.Empty;
+                                            if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash && !p.EndsWith(Constants.mpd))
+                                            {
+                                                appendExtension = Constants.mpd;
+                                            }
+                                            else if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Hls && !p.EndsWith(Constants.m3u8))
+                                            {
+                                                appendExtension = Constants.m3u8;
+                                            }
+                                            sbuilder.AppendLine("https://" + se.HostName + p + appendExtension);
+                                        }
+
                                     }
                                 }
                                 sbuilder.AppendLine(string.Empty);
                             }
+
                             foreach (string path in paths.DownloadPaths)
                             {
                                 sbuilder.AppendLine("Download :");

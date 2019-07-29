@@ -570,12 +570,22 @@ namespace AMSExplorer
                     int indexn = 1;
                     if (listPaths.StreamingPaths.Count > 0)
                     {
+                        string appendExtension = string.Empty;
                         foreach (StreamingPath path in listPaths.StreamingPaths)
                         {
                             TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
                             foreach (string p in path.Paths)
                             {
-                                uriBuilder.Path = p;
+                                appendExtension = string.Empty;
+                                if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash && !p.EndsWith(Constants.mpd))
+                                {
+                                    appendExtension = Constants.mpd;
+                                }
+                                else if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Hls && !p.EndsWith(Constants.m3u8))
+                                {
+                                    appendExtension = Constants.m3u8;
+                                }
+                                uriBuilder.Path = p + appendExtension;
                                 TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uriBuilder.ToString()) { ForeColor = colornodeRU });
                             }
                             indexn = indexn + 1;

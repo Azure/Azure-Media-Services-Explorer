@@ -710,7 +710,8 @@ namespace AMSExplorer
         public static readonly string[] BrowserEdge = { "Microsoft Edge", "microsoft-edge:" };
         public static readonly string[] BrowserIE = { "Internet Explorer", "iexplore.exe" };
         public static readonly string[] BrowserChrome = { "Google Chrome", "chrome.exe" };
-
+        internal static string mpd = ".mpd";
+        internal static string m3u8 = ".m3u8";
         public const string AssetIdPrefix = "nb:cid:UUID:";
         public const string AssetFileIdPrefix = "nb:cid:UUID:";
         public const string ContentKeyIdPrefix = "nb:kid:UUID:";
@@ -1417,19 +1418,19 @@ namespace AMSExplorer
             switch (protocol)
             {
                 case AMSOutputProtocols.DashCsf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf));
+                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf)) + Constants.mpd;
 
                 case AMSOutputProtocols.DashCmaf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_cmaf));
+                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_cmaf)) + Constants.mpd;
 
                 case AMSOutputProtocols.HLSv3:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v3));
+                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v3)) + Constants.m3u8;
 
                 case AMSOutputProtocols.HLSv4:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v4));
+                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v4)) + Constants.m3u8;
 
                 case AMSOutputProtocols.HLSCmaf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_cmaf));
+                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_cmaf)) + Constants.m3u8;
 
                 case AMSOutputProtocols.SmoothLegacy:
                     return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_smooth_legacy));
@@ -1446,6 +1447,19 @@ namespace AMSExplorer
 
             const string querystr = "/manifest(";
 
+            // let's remove temporary the extension
+            string streamExtension = string.Empty;
+            if (urlstr.EndsWith(Constants.mpd))
+            {
+                streamExtension = Constants.mpd;
+                urlstr = urlstr.Substring(0, urlstr.Length - Constants.mpd.Length);
+            }
+            else if (urlstr.EndsWith(Constants.m3u8))
+            {
+                streamExtension = Constants.m3u8;
+                urlstr = urlstr.Substring(0, urlstr.Length - Constants.m3u8.Length);
+            }
+
             if (urlstr.Contains(querystr)) // there is already a parameter
             {
                 int pos = urlstr.IndexOf(querystr, 0);
@@ -1453,10 +1467,10 @@ namespace AMSExplorer
             }
             else
             {
-                urlstr += string.Format("({0})", parameter);
+                urlstr = urlstr + string.Format("({0})", parameter);
             }
 
-            return urlstr;
+            return urlstr + streamExtension; // we restore the extension
         }
 
         public static Uri RW(string path, StreamingEndpoint se, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
