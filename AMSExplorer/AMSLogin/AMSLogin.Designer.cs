@@ -33,8 +33,6 @@
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonDeleteAccountEntry = new System.Windows.Forms.Button();
-            this.tabControlAMS = new System.Windows.Forms.TabControl();
-            this.tabPageCredentials = new System.Windows.Forms.TabPage();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabelAADAut = new System.Windows.Forms.LinkLabel();
@@ -47,7 +45,6 @@
             this.labelE2 = new System.Windows.Forms.Label();
             this.textBoxLocation = new System.Windows.Forms.TextBox();
             this.labelLocation = new System.Windows.Forms.Label();
-            this.tabPageAAD = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonExport = new System.Windows.Forms.Button();
             this.buttonImportAll = new System.Windows.Forms.Button();
@@ -62,8 +59,6 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
             this.linkLabelAMSOfflineDoc = new System.Windows.Forms.LinkLabel();
-            this.tabControlAMS.SuspendLayout();
-            this.tabPageCredentials.SuspendLayout();
             this.groupBoxAADAutMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
@@ -90,30 +85,6 @@
             this.buttonDeleteAccountEntry.Name = "buttonDeleteAccountEntry";
             this.buttonDeleteAccountEntry.UseVisualStyleBackColor = true;
             this.buttonDeleteAccountEntry.Click += new System.EventHandler(this.ButtonDeleteAccount_Click);
-            // 
-            // tabControlAMS
-            // 
-            resources.ApplyResources(this.tabControlAMS, "tabControlAMS");
-            this.tabControlAMS.Controls.Add(this.tabPageCredentials);
-            this.tabControlAMS.Controls.Add(this.tabPageAAD);
-            this.tabControlAMS.Name = "tabControlAMS";
-            this.tabControlAMS.SelectedIndex = 0;
-            // 
-            // tabPageCredentials
-            // 
-            this.tabPageCredentials.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageCredentials.Controls.Add(this.textBoxDescription);
-            this.tabPageCredentials.Controls.Add(this.label1);
-            this.tabPageCredentials.Controls.Add(this.linkLabelAADAut);
-            this.tabPageCredentials.Controls.Add(this.groupBoxAADAutMode);
-            this.tabPageCredentials.Controls.Add(this.textBoxAMSResourceId);
-            this.tabPageCredentials.Controls.Add(this.textBoxAADtenantId);
-            this.tabPageCredentials.Controls.Add(this.labelADTenant);
-            this.tabPageCredentials.Controls.Add(this.labelE2);
-            this.tabPageCredentials.Controls.Add(this.textBoxLocation);
-            this.tabPageCredentials.Controls.Add(this.labelLocation);
-            resources.ApplyResources(this.tabPageCredentials, "tabPageCredentials");
-            this.tabPageCredentials.Name = "tabPageCredentials";
             // 
             // textBoxDescription
             // 
@@ -187,12 +158,6 @@
             resources.ApplyResources(this.labelLocation, "labelLocation");
             this.labelLocation.Name = "labelLocation";
             // 
-            // tabPageAAD
-            // 
-            resources.ApplyResources(this.tabPageAAD, "tabPageAAD");
-            this.tabPageAAD.Name = "tabPageAAD";
-            this.tabPageAAD.UseVisualStyleBackColor = true;
-            // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
@@ -250,7 +215,7 @@
             // labelVersion
             // 
             resources.ApplyResources(this.labelVersion, "labelVersion");
-            this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlText;
             this.labelVersion.Name = "labelVersion";
             // 
             // buttonPickupAccount
@@ -283,32 +248,38 @@
             this.linkLabelAMSOfflineDoc.TabStop = true;
             this.linkLabelAMSOfflineDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAMSOfflineDoc_LinkClicked);
             // 
-            // AMSLogin
+            // AmsLogin
             // 
             this.AcceptButton = this.buttonLogin;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.linkLabelAMSOfflineDoc);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.listViewAccounts);
+            this.Controls.Add(this.linkLabelAADAut);
+            this.Controls.Add(this.groupBoxAADAutMode);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.textBoxAMSResourceId);
             this.Controls.Add(this.buttonPickupAccount);
+            this.Controls.Add(this.textBoxAADtenantId);
             this.Controls.Add(this.pictureBoxJob);
+            this.Controls.Add(this.labelADTenant);
             this.Controls.Add(this.accountmgtlink);
+            this.Controls.Add(this.labelE2);
             this.Controls.Add(this.buttonImportAll);
+            this.Controls.Add(this.textBoxLocation);
             this.Controls.Add(this.buttonExport);
+            this.Controls.Add(this.labelLocation);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.tabControlAMS);
             this.Controls.Add(this.buttonDeleteAccountEntry);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AMSLogin";
+            this.Name = "AmsLogin";
             this.Load += new System.EventHandler(this.AMSLogin_Load);
             this.Shown += new System.EventHandler(this.AMSLogin_ShownAsync);
-            this.tabControlAMS.ResumeLayout(false);
-            this.tabPageCredentials.ResumeLayout(false);
-            this.tabPageCredentials.PerformLayout();
             this.groupBoxAADAutMode.ResumeLayout(false);
             this.groupBoxAADAutMode.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
@@ -325,8 +296,6 @@
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonDeleteAccountEntry;
-        private System.Windows.Forms.TabControl tabControlAMS;
-        private System.Windows.Forms.TabPage tabPageCredentials;
         private System.Windows.Forms.TextBox textBoxLocation;
         private System.Windows.Forms.Label labelLocation;
         private System.Windows.Forms.Label labelE2;
@@ -344,7 +313,6 @@
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.TextBox textBoxAMSResourceId;
         private System.Windows.Forms.TextBox textBoxAADtenantId;
-        private System.Windows.Forms.TabPage tabPageAAD;
         private System.Windows.Forms.GroupBox groupBoxAADAutMode;
         private System.Windows.Forms.RadioButton radioButtonAADServicePrincipal;
         private System.Windows.Forms.RadioButton radioButtonAADInteractive;

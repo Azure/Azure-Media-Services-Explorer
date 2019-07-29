@@ -425,7 +425,7 @@
             // 
             // tabPageAssets
             // 
-            this.tabPageAssets.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageAssets.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tabPageAssets.Controls.Add(this.textBoxAssetsPageNumber);
             this.tabPageAssets.Controls.Add(this.comboBoxSearchAssetOption);
             this.tabPageAssets.Controls.Add(this.label10);
@@ -921,10 +921,10 @@
             // 
             // tabPageFilters
             // 
+            this.tabPageFilters.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tabPageFilters.Controls.Add(this.dataGridViewFilters);
             resources.ApplyResources(this.tabPageFilters, "tabPageFilters");
             this.tabPageFilters.Name = "tabPageFilters";
-            this.tabPageFilters.UseVisualStyleBackColor = true;
             // 
             // dataGridViewFilters
             // 
@@ -998,6 +998,7 @@
             // 
             // tableLayoutPanelTransfers
             // 
+            this.tableLayoutPanelTransfers.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanelTransfers, "tableLayoutPanelTransfers");
             this.tableLayoutPanelTransfers.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanelTransfers.Controls.Add(this.dataGridViewTransfer, 0, 1);
@@ -1107,6 +1108,7 @@
             // 
             // tableLayoutPanel3
             // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
             this.tableLayoutPanel3.Controls.Add(this.dataGridViewTransformsV, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.label7, 0, 0);
@@ -1197,6 +1199,7 @@
             // 
             // tableLayoutPanel4
             // 
+            this.tableLayoutPanel4.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
             this.tableLayoutPanel4.Controls.Add(this.label13, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.label9, 0, 0);
@@ -1533,6 +1536,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewLiveEventsV, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.comboBoxStatusLiveEvent, 6, 2);
@@ -1785,6 +1789,7 @@
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
             this.tableLayoutPanel2.Controls.Add(this.radioButtonChNone, 10, 2);
             this.tableLayoutPanel2.Controls.Add(this.dataGridViewLiveOutputV, 0, 1);
@@ -2029,10 +2034,10 @@
             // 
             // tabPageOrigins
             // 
+            this.tabPageOrigins.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tabPageOrigins.Controls.Add(this.dataGridViewStreamingEndpointsV);
             resources.ApplyResources(this.tabPageOrigins, "tabPageOrigins");
             this.tabPageOrigins.Name = "tabPageOrigins";
-            this.tabPageOrigins.UseVisualStyleBackColor = true;
             // 
             // dataGridViewStreamingEndpointsV
             // 
@@ -2141,10 +2146,10 @@
             // 
             // tabPageStorage
             // 
+            this.tabPageStorage.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tabPageStorage.Controls.Add(this.dataGridViewStorage);
             resources.ApplyResources(this.tabPageStorage, "tabPageStorage");
             this.tabPageStorage.Name = "tabPageStorage";
-            this.tabPageStorage.UseVisualStyleBackColor = true;
             // 
             // dataGridViewStorage
             // 
@@ -2195,7 +2200,7 @@
             // richTextBoxLog
             // 
             resources.ApplyResources(this.richTextBoxLog, "richTextBoxLog");
-            this.richTextBoxLog.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.richTextBoxLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
             this.richTextBoxLog.ContextMenuStrip = this.contextMenuStripLog;
             this.richTextBoxLog.Name = "richTextBoxLog";
             this.richTextBoxLog.ReadOnly = true;
@@ -2260,11 +2265,12 @@
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(167)))), ((int)(((byte)(223)))));
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Name = "label5";
             // 
             // menuStripMain
             // 
+            this.menuStripMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assetToolStripMenuItem,
             this.liveLiveEventToolStripMenuItem,
@@ -2731,7 +2737,7 @@
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
-            this.label12.ForeColor = System.Drawing.Color.DarkCyan;
+            this.label12.ForeColor = System.Drawing.Color.DarkBlue;
             this.label12.Name = "label12";
             // 
             // buttonRefresh
@@ -2765,7 +2771,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Controls.Add(this.buttonRefreshTab);
             this.Controls.Add(this.linkLabelFeedbackAMS);
             this.Controls.Add(this.splitContainerMain);
