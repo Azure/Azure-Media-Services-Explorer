@@ -230,8 +230,8 @@ namespace AMSExplorer
             try
             {
                 // Management of media reserved units
-                _mediaRUContext = new MediaRU(_amsClientV3);
-                InfoMediaRU result = _mediaRUContext.GetInfoMediaRU(_amsClientV3).GetAwaiter().GetResult();
+                _mediaRUContext = new MediaRU();
+                InfoMediaRU result = _mediaRUContext.GetInfoMediaRU(_amsClientV3);
 
                 if ((result.CurrentReservedUnits == 0) && (result.ReservedUnitType != 0))
                 {
@@ -563,7 +563,7 @@ namespace AMSExplorer
                     InfoMediaRU mediaReserverdUnitsInfo = null;
                     try
                     {
-                        mediaReserverdUnitsInfo = await _mediaRUContext.GetInfoMediaRU(_amsClientV3);
+                        mediaReserverdUnitsInfo = await _mediaRUContext.GetInfoMediaRUAsync(_amsClientV3);
                     }
                     catch (Exception ex)
                     {
@@ -8722,7 +8722,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    await _mediaRUContext.SetMediaRU(_amsClientV3, trackBarEncodingRU.Value, int.Parse(((Item)comboBoxEncodingRU.SelectedItem).Value));
+                    await _mediaRUContext.SetMediaRUAsync(_amsClientV3, trackBarEncodingRU.Value, int.Parse(((Item)comboBoxEncodingRU.SelectedItem).Value));
                     TextBoxLogWriteLine("Media Reserved Unit(s) updated.");
 
                 }

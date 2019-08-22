@@ -93,18 +93,19 @@ namespace AMSExplorer
         private InfoMediaRU _myanswer = null;
         private dynamic _restEndpoint = null;
 
-        public MediaRU(AMSClientV3 AmsClientV3)
+        public MediaRU()
         {
             _client.DefaultRequestHeaders.Add("x-ms-version", "2.19");
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _client.DefaultRequestHeaders.Add("DataServiceVersion", "3.0;NetFx");
             _client.DefaultRequestHeaders.Add("MaxDataServiceVersion", "3.0;NetFx");
 
-            GetRestAPIEndpointforAccountv2(AmsClientV3).GetAwaiter().GetResult();
         }
 
-        private async Task GetRestAPIEndpointforAccountv2(AMSClientV3 AmsClientV3)
+        private async Task GetRestAPIEndpointforAccountv2IfNeeded(AMSClientV3 AmsClientV3)
         {
+            if (_restEndpoint != null) return; // we already know the restpoint, no need to get it
+
             // This method get the RESTApiEndpoint URL
             string token = AmsClientV3.accessToken?.AccessToken;
 
@@ -128,7 +129,10 @@ namespace AMSExplorer
 
             HttpClient client = new HttpClient();
 
-            client.DefaultRequestHeaders.Remove("Authorization");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             HttpResponseMessage response = await client.GetAsync(URL);
             if (response.IsSuccessStatusCode)
@@ -139,7 +143,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task GetRefreshTokenIfNeeded(AMSClientV3 AmsClientV3)
+        private async Task GetRefreshTokenIfNeededAsync(AMSClientV3 AmsClientV3)
         {
             // If Service Principal mode, let's authenticate now (if token expired or first time)
             if (AmsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
@@ -188,10 +192,16 @@ namespace AMSExplorer
             }
         }
 
-        public async Task<InfoMediaRU> GetInfoMediaRU(AMSClientV3 AmsClientV3)
+        public InfoMediaRU GetInfoMediaRU(AMSClientV3 AmsClientV3)
+        {
+            return Task.Run(() => GetInfoMediaRUAsync(AmsClientV3)).GetAwaiter().GetResult();
+        }
+
+        public async Task<InfoMediaRU> GetInfoMediaRUAsync(AMSClientV3 AmsClientV3)
         {
 
-            await GetRefreshTokenIfNeeded(AmsClientV3);
+            await GetRefreshTokenIfNeededAsync(AmsClientV3);
+            await GetRestAPIEndpointforAccountv2IfNeeded(AmsClientV3);
 
             string URL = _restEndpoint + "EncodingReservedUnitTypes";
 
@@ -206,14 +216,20 @@ namespace AMSExplorer
 
         }
 
-        public async Task SetMediaRU(AMSClientV3 AmsClientV3, int? Number, int? ReservedUniType)
+        public void SetMediaRU(AMSClientV3 AmsClientV3, int? Number, int? ReservedUniType)
+        {
+            Task.Run(() => SetMediaRUAsync(AmsClientV3, Number, ReservedUniType)).GetAwaiter().GetResult();
+        }
+
+        public async Task SetMediaRUAsync(AMSClientV3 AmsClientV3, int? Number, int? ReservedUniType)
         {
             if (_myanswer == null)
             {
                 throw new Exception();
             }
 
-            await GetRefreshTokenIfNeeded(AmsClientV3);
+            await GetRefreshTokenIfNeededAsync(AmsClientV3);
+            await GetRestAPIEndpointforAccountv2IfNeeded(AmsClientV3);
 
             string URL = _restEndpoint + "EncodingReservedUnitTypes(guid'" + _myanswer.AccountId.ToString() + "')";
 
