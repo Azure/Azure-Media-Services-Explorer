@@ -175,7 +175,6 @@ namespace AMSExplorer
             get
             {
                 List<string> list = new List<string>();
-                string filters = string.Empty;
                 foreach (object f in listViewFilters.CheckedItems)
                 {
                     string v = (f as ListViewItem).SubItems[1].Text;
@@ -183,10 +182,6 @@ namespace AMSExplorer
                     {
                         list.Add(v);
                     }
-                }
-                if (string.IsNullOrEmpty(filters))
-                {
-                    filters = null;
                 }
                 return list.Count > 0 ? list : null;
             }

@@ -28,7 +28,7 @@ namespace AMSExplorer
         {
             get
             {
-                Priority p = null;
+                Priority p;
                 switch (comboBoxPriority.SelectedItem)
                 {
                     case "Low":

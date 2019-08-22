@@ -220,8 +220,8 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false, false);
-            editform.Display();
+            using (EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false, false))
+                editform.Display();
         }
 
         private void assetInformationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -259,12 +259,14 @@ namespace AMSExplorer
                 _client.RefreshTokenIfNeeded();
                 Asset asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, assetName);
 
-                AssetInformation form = new AssetInformation(_mainform, _client)
+                using (AssetInformation form = new AssetInformation(_mainform, _client)
                 {
                     myAssetV3 = asset,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
-                };
-                DialogResult dialogResult = form.ShowDialog(this);
+                })
+                {
+                    DialogResult dialogResult = form.ShowDialog(this);
+                }
             }
         }
 

@@ -93,13 +93,11 @@ namespace AMSExplorer
                 Error = true;
                 labelURLFileNameWarning.Text = AMSExplorer.Properties.Resources.ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL;
                 buttonImport.Enabled = false;
-                return;
             }
-
-            buttonImport.Enabled = true;
 
             if (!Error)
             {
+                buttonImport.Enabled = true;
                 labelURLFileNameWarning.Text = string.Empty;
                 textBoxDescription.Text = "Imported from : " + GetURL.AbsoluteUri;
             }

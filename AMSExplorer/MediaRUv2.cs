@@ -102,7 +102,7 @@ namespace AMSExplorer
 
         }
 
-        private async Task GetRestAPIEndpointforAccountv2IfNeeded(AMSClientV3 AmsClientV3)
+        private async Task GetRestAPIEndpointforAccountv2IfNeededAsync(AMSClientV3 AmsClientV3)
         {
             if (_restEndpoint != null) return; // we already know the restpoint, no need to get it
 
@@ -127,19 +127,20 @@ namespace AMSExplorer
 
             string URL = AmsClientV3.environment.ArmEndpoint + AmsClientV3.credentialsEntry.MediaService.Id.Substring(1) + "?api-version=2015-10-01";
 
-            HttpClient client = new HttpClient();
-
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            HttpResponseMessage response = await client.GetAsync(URL);
-            if (response.IsSuccessStatusCode)
+            using (HttpClient client = new HttpClient())
             {
-                string str = await response.Content.ReadAsStringAsync();
-                dynamic json = JObject.Parse(str);
-                _restEndpoint = json.properties.apiEndpoints[0].endpoint;
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                HttpResponseMessage response = await client.GetAsync(URL);
+                if (response.IsSuccessStatusCode)
+                {
+                    string str = await response.Content.ReadAsStringAsync();
+                    dynamic json = JObject.Parse(str);
+                    _restEndpoint = json.properties.apiEndpoints[0].endpoint;
+                }
             }
         }
 
@@ -148,7 +149,7 @@ namespace AMSExplorer
             // If Service Principal mode, let's authenticate now (if token expired or first time)
             if (AmsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
             {
-                HttpClient client = new HttpClient();
+               
 
                 string URLAut = string.Format(AmsClientV3.environment.AADSettings.AuthenticationEndpoint + "/{0}/oauth2/token", AmsClientV3.credentialsEntry.AadTenantId);
 
@@ -175,20 +176,23 @@ namespace AMSExplorer
                                                             };
 
                 FormUrlEncodedContent content = new FormUrlEncodedContent(values);
-                HttpResponseMessage response = await client.PostAsync(URLAut, content);
 
-                if (!response.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    string message = await response.Content.ReadAsStringAsync();
-                    dynamic jsonMessage = JObject.Parse(message);
-                    throw new Exception(response.ReasonPhrase + " " + jsonMessage?.error_description);
-                }
+                    HttpResponseMessage response = await client.PostAsync(URLAut, content);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        string message = await response.Content.ReadAsStringAsync();
+                        dynamic jsonMessage = JObject.Parse(message);
+                        throw new Exception(response.ReasonPhrase + " " + jsonMessage?.error_description);
+                    }
 
-                string responseStringAut = await response.Content.ReadAsStringAsync();
-                dynamic json = JObject.Parse(responseStringAut);
-                _tokenSP = json.access_token;
-                string expirein = json.expires_in;
-                _tokenSPExpirationTime = DateTime.Now.AddSeconds(double.Parse(expirein));
+                    string responseStringAut = await response.Content.ReadAsStringAsync();
+                    dynamic json = JObject.Parse(responseStringAut);
+                    _tokenSP = json.access_token;
+                    string expirein = json.expires_in;
+                    _tokenSPExpirationTime = DateTime.Now.AddSeconds(double.Parse(expirein));
+                }
             }
         }
 
@@ -201,7 +205,7 @@ namespace AMSExplorer
         {
 
             await GetRefreshTokenIfNeededAsync(AmsClientV3);
-            await GetRestAPIEndpointforAccountv2IfNeeded(AmsClientV3);
+            await GetRestAPIEndpointforAccountv2IfNeededAsync(AmsClientV3);
 
             string URL = _restEndpoint + "EncodingReservedUnitTypes";
 
@@ -229,7 +233,7 @@ namespace AMSExplorer
             }
 
             await GetRefreshTokenIfNeededAsync(AmsClientV3);
-            await GetRestAPIEndpointforAccountv2IfNeeded(AmsClientV3);
+            await GetRestAPIEndpointforAccountv2IfNeededAsync(AmsClientV3);
 
             string URL = _restEndpoint + "EncodingReservedUnitTypes(guid'" + _myanswer.AccountId.ToString() + "')";
 

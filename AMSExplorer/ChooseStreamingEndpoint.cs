@@ -244,21 +244,15 @@ namespace AMSExplorer
 
             _client.RefreshTokenIfNeeded();
             _locators = _client.AMSclient.Assets.ListStreamingLocators(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name).StreamingLocators;
-
-            int index = 0;
             foreach (AssetStreamingLocator locator in _locators.ToList())
             {
-                index = comboBoxPolicyLocators.Items.Add(new Item(locator.Name, locator.Name));
+                int index = comboBoxPolicyLocators.Items.Add(new Item(locator.Name, locator.Name));
                 if (_path.Contains(locator.StreamingLocatorId.ToString()))
                 {
                     comboBoxPolicyLocators.SelectedIndex = index;
                 }
             }
             comboBoxPolicyLocators.EndUpdate();
-
-
-
-
         }
 
         private static bool IsWindows10()
