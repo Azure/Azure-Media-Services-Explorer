@@ -142,20 +142,20 @@ namespace AMSExplorer
                 }
             }
 
-            checkProgramName();
+            checkLiveOutputName();
         }
 
-        internal static bool IsProgramNameValid(string name)
+        internal static bool IsLiveOutputNameValid(string name)
         {
-            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9- ]{0,254}[a-zA-Z0-9])?$", RegexOptions.Compiled);
-            return (reg.IsMatch(name));
+            Regex reg = new Regex(@"^([a-zA-Z0-9])+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
+            return (name.Length > 0 && name.Length < 257 && reg.IsMatch(name));
         }
 
-        private void checkProgramName()
+        private void checkLiveOutputName()
         {
             TextBox tb = textboxprogramname;
 
-            if (!IsProgramNameValid(tb.Text))
+            if (!IsLiveOutputNameValid(tb.Text))
             {
                 errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateProgram_checkProgramName_ProgramNameIsNotValid);
             }
@@ -188,7 +188,7 @@ namespace AMSExplorer
 
         private void textboxprogramname_TextChanged(object sender, EventArgs e)
         {
-            checkProgramName();
+            checkLiveOutputName();
         }
 
         private void checkBoxHLSFragPerSegDefined_CheckedChanged(object sender, EventArgs e)

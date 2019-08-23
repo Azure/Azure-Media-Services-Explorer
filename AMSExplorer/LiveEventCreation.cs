@@ -288,8 +288,8 @@ namespace AMSExplorer
 
         internal static bool IsLiveEventNameValid(string name)
         {
-            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,30}[a-zA-Z0-9])?$", RegexOptions.Compiled);
-            return (reg.IsMatch(name));
+            Regex reg = new Regex(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
+            return (name.Length > 0 && name.Length < 33 && reg.IsMatch(name));
         }
 
 

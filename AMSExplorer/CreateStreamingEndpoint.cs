@@ -92,8 +92,8 @@ namespace AMSExplorer
 
         internal static bool IsSENameValid(string name)
         {
-            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,22}[a-zA-Z0-9])?$", RegexOptions.Compiled);
-            return (reg.IsMatch(name));
+            Regex reg = new Regex(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
+            return (name.Length > 0 && name.Length < 25 && reg.IsMatch(name));
         }
 
         private void textboxSEName_TextChanged(object sender, EventArgs e)
