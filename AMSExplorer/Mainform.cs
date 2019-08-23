@@ -7002,7 +7002,7 @@ namespace AMSExplorer
             List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, this, SelectedAssets);
+            ProcessFromTransform form = new ProcessFromTransform(_amsClientV3, this, SelectedAssets);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -8454,10 +8454,22 @@ namespace AMSExplorer
 
                 TransformOutput[] outputs;
 
-                outputs = new TransformOutput[]
-                                                 {
+                if (!form.UseCustomCopyPreset)
+                {
+                    outputs = new TransformOutput[]
+                                                     {
                                                                 new TransformOutput( new BuiltInStandardEncoderPreset( ){ PresetName= form.BuiltInPreset }),
-                                                 };
+                                                     };
+
+                }
+                else
+                {
+                    outputs = new TransformOutput[]
+                                                    {
+                                                                new TransformOutput(form.CustomCopyPreset),
+                                                    };
+
+                }
 
                 try
                 {
@@ -8634,7 +8646,7 @@ namespace AMSExplorer
             List<Transform> sel = ReturnSelectedTransforms();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-            ProcessFromTransform2 form = new ProcessFromTransform2(_amsClientV3, this, null, sel)
+            ProcessFromTransform form = new ProcessFromTransform(_amsClientV3, this, null, sel)
             {
                 //ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
                 Text = "Template based processing"

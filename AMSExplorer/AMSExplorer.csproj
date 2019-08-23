@@ -284,12 +284,6 @@
     <Compile Include="TransformTypeCreation.Designer.cs">
       <DependentUpon>TransformTypeCreation.cs</DependentUpon>
     </Compile>
-    <Compile Include="HttpSource.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HttpSource.Designer.cs">
-      <DependentUpon>HttpSource.cs</DependentUpon>
-    </Compile>
     <Compile Include="PresetStandardEncoder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,11 +296,11 @@
     <Compile Include="PresetFaceDetector.Designer.cs">
       <DependentUpon>PresetFaceDetector.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProcessFromTransform2.cs">
+    <Compile Include="ProcessFromTransform.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProcessFromTransform2.Designer.cs">
-      <DependentUpon>ProcessFromTransform2.cs</DependentUpon>
+    <Compile Include="ProcessFromTransform.Designer.cs">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </Compile>
     <Compile Include="TransformInformation.cs">
       <SubType>Form</SubType>
@@ -722,12 +716,6 @@
     <EmbeddedResource Include="TransformTypeCreation.resx">
       <DependentUpon>TransformTypeCreation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HttpSource.ja.resx">
-      <DependentUpon>HttpSource.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HttpSource.resx">
-      <DependentUpon>HttpSource.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PresetStandardEncoder.ja.resx">
       <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
     </EmbeddedResource>
@@ -740,11 +728,11 @@
     <EmbeddedResource Include="PresetFaceDetector.resx">
       <DependentUpon>PresetFaceDetector.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProcessFromTransform2.ja.resx">
-      <DependentUpon>ProcessFromTransform2.cs</DependentUpon>
+    <EmbeddedResource Include="ProcessFromTransform.ja.resx">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProcessFromTransform2.resx">
-      <DependentUpon>ProcessFromTransform2.cs</DependentUpon>
+    <EmbeddedResource Include="ProcessFromTransform.resx">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformInformation.ja.resx">
       <DependentUpon>TransformInformation.cs</DependentUpon>

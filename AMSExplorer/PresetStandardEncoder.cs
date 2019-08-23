@@ -48,6 +48,39 @@ namespace AMSExplorer
 
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
 
+        public bool UseCustomCopyPreset
+        {
+            get
+            {
+                return radioButtonCustom.Checked;
+            }
+        }
+
+        public StandardEncoderPreset CustomCopyPreset
+        {
+            get
+            {
+                return new StandardEncoderPreset(
+                  codecs: new Codec[]
+                  {
+                        // Add an Audio layer for the audio copy
+                        new CopyAudio(),                 
+                        // Next, add a Video for the video copy
+                       new CopyVideo()
+                   },
+                    // Specify the format for the output files - one for video+audio, and another for the thumbnails
+                    formats: new Format[]
+                    {
+
+                        new Mp4Format(
+                            filenamePattern:"Archive-{Basename}{Extension}"
+                        )
+                    });
+            }
+        }
+
+
+
         public string TransformName => textBoxTransformName.Text;
 
         public string Description => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
@@ -85,8 +118,15 @@ namespace AMSExplorer
 
         private void UpdateTransformLabel()
         {
+            if (UseCustomCopyPreset)
+            {
+                textBoxTransformName.Text = "StandardEncoder-CopyVideoAudio";
+            }
+            else
+            {
+                textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();
 
-            textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();// + "-" + _unique;
+            }
         }
 
         private void listboxPresets_SelectedIndexChanged(object sender, EventArgs e)
@@ -102,6 +142,12 @@ namespace AMSExplorer
             {
                 richTextBoxDesc.Text = string.Empty;
             }
+        }
+
+        private void RadioButtonCustom_CheckedChanged(object sender, EventArgs e)
+        {
+            listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonBuiltin.Checked;
+            UpdateTransformLabel();
         }
     }
 

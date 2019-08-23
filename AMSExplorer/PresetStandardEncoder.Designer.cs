@@ -34,7 +34,6 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,6 +45,8 @@
             this.listboxPresets = new System.Windows.Forms.ListBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.radioButtonBuiltin = new System.Windows.Forms.RadioButton();
+            this.radioButtonCustom = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -78,11 +79,6 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
             // 
             // moreinfoprofilelink
             // 
@@ -142,12 +138,29 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // radioButtonBuiltin
+            // 
+            resources.ApplyResources(this.radioButtonBuiltin, "radioButtonBuiltin");
+            this.radioButtonBuiltin.Checked = true;
+            this.radioButtonBuiltin.Name = "radioButtonBuiltin";
+            this.radioButtonBuiltin.TabStop = true;
+            this.radioButtonBuiltin.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonCustom
+            // 
+            resources.ApplyResources(this.radioButtonCustom, "radioButtonCustom");
+            this.radioButtonCustom.Name = "radioButtonCustom";
+            this.radioButtonCustom.UseVisualStyleBackColor = true;
+            this.radioButtonCustom.CheckedChanged += new System.EventHandler(this.RadioButtonCustom_CheckedChanged);
+            // 
             // PresetStandardEncoder
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.radioButtonCustom);
+            this.Controls.Add(this.radioButtonBuiltin);
             this.Controls.Add(this.listboxPresets);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.richTextBoxDesc);
@@ -156,7 +169,6 @@
             this.Controls.Add(this.textBoxTransformName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.moreinfoprofilelink);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label34);
             this.Name = "PresetStandardEncoder";
@@ -175,7 +187,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         public System.Windows.Forms.Label label34;
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         private System.Windows.Forms.Label label1;
@@ -185,5 +196,7 @@
         private System.Windows.Forms.RichTextBox richTextBoxDesc;
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.ListBox listboxPresets;
+        private System.Windows.Forms.RadioButton radioButtonBuiltin;
+        private System.Windows.Forms.RadioButton radioButtonCustom;
     }
 }

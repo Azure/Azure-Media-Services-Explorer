@@ -22,7 +22,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class ProcessFromTransform2 : Form
+    public partial class ProcessFromTransform : Form
     {
         private readonly AMSClientV3 _client;
         private readonly List<Transform> _listPreSelectedTransforms;
@@ -64,7 +64,7 @@ namespace AMSExplorer
                    null;
 
 
-        public ProcessFromTransform2(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null)
+        public ProcessFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
