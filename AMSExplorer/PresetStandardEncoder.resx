@@ -282,6 +282,9 @@
   <data name="&gt;&gt;moreinfoprofilelink.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -312,6 +315,9 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="textBoxTransformName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
   <data name="textBoxTransformName.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 293</value>
   </data>
@@ -333,6 +339,9 @@
   <data name="&gt;&gt;textBoxTransformName.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="textBoxDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
   <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 353</value>
   </data>
@@ -353,6 +362,9 @@
   </data>
   <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -385,7 +397,7 @@
     <value>6</value>
   </data>
   <data name="richTextBoxDesc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="richTextBoxDesc.Location" type="System.Drawing.Point, System.Drawing">
     <value>308, 103</value>
@@ -437,6 +449,9 @@
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="listboxPresets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
   </data>
   <data name="listboxPresets.ItemHeight" type="System.Int32, mscorlib">
     <value>15</value>
@@ -494,6 +509,9 @@
   </data>
   <data name="&gt;&gt;radioButtonBuiltin.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="radioButtonCustom.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="radioButtonCustom.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>

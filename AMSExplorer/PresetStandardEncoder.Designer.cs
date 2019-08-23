@@ -123,8 +123,8 @@
             // 
             // listboxPresets
             // 
-            this.listboxPresets.FormattingEnabled = true;
             resources.ApplyResources(this.listboxPresets, "listboxPresets");
+            this.listboxPresets.FormattingEnabled = true;
             this.listboxPresets.Name = "listboxPresets";
             this.listboxPresets.SelectedIndexChanged += new System.EventHandler(this.listboxPresets_SelectedIndexChanged);
             // 
