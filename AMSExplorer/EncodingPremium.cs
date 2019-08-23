@@ -27,7 +27,6 @@ using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Collections;
 using System.IO;
-using Microsoft.Office.Interop.Excel;
 
 namespace AMSExplorer
 {

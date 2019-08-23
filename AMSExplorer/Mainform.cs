@@ -43,12 +43,7 @@ using System.Timers;
 using System.IdentityModel.Tokens;
 using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using Microsoft.WindowsAPICodePack.Dialogs;
-
-// Azure Management dependencies
-using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Rest;
 
 namespace AMSExplorer
 {
@@ -9278,14 +9273,8 @@ namespace AMSExplorer
         {
             if (channel != null && channel.Encoding != null)
             {
-                ChannelAdSlateControl form = new ChannelAdSlateControl(this)
-                {
-                    MyChannel = channel,
-                    MyContext = _context
-                };
-
+                ChannelAdSlateControl form = new ChannelAdSlateControl(this, _context, channel);
                 form.Show();
-
             }
         }
 

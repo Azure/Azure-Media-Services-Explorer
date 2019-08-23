@@ -46,9 +46,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCueId = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonLoadJPG = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
             this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
@@ -216,9 +215,8 @@
             // groupBox2
             // 
             resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.buttonLoadJPG);
             this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.textBoxJPGSearch);
             this.groupBox2.Controls.Add(this.progressBarUpload);
             this.groupBox2.Controls.Add(this.buttonUploadSlate);
             this.groupBox2.Controls.Add(this.listViewJPG1);
@@ -229,23 +227,18 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // buttonLoadJPG
+            // 
+            resources.ApplyResources(this.buttonLoadJPG, "buttonLoadJPG");
+            this.buttonLoadJPG.Name = "buttonLoadJPG";
+            this.buttonLoadJPG.UseVisualStyleBackColor = true;
+            this.buttonLoadJPG.Click += new System.EventHandler(this.ButtonLoadJPG_Click);
+            // 
             // label15
             // 
             resources.ApplyResources(this.label15, "label15");
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label15.Name = "label15";
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
-            // textBoxJPGSearch
-            // 
-            resources.ApplyResources(this.textBoxJPGSearch, "textBoxJPGSearch");
-            this.textBoxJPGSearch.Name = "textBoxJPGSearch";
-            this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
             // progressBarUpload
             // 
@@ -305,6 +298,7 @@
             // 
             // contextMenuStripDG
             // 
+            this.contextMenuStripDG.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
@@ -414,8 +408,6 @@
         private System.Windows.Forms.Button buttonShowSLate;
         private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
         private ListViewSlateJPG listViewJPG1;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBoxJPGSearch;
         private System.Windows.Forms.SplitContainer splitContainerBox;
         private System.Windows.Forms.CheckBox checkBoxPreviewStream;
         private System.Windows.Forms.WebBrowser webBrowserPreview;
@@ -428,5 +420,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.SplitContainer splitContainerPreviews;
         private System.Windows.Forms.LinkLabel moreinfoLiveEncodingProfilelink;
+        private System.Windows.Forms.Button buttonLoadJPG;
     }
 }

@@ -26,32 +26,26 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.IO;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
-using System.Web;
-using System.Net;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Text.RegularExpressions;
 
 
 namespace AMSExplorer
 {
     public partial class ChannelAdSlateControl : Form
     {
-        public IChannel MyChannel;
-        public CloudMediaContext MyContext;
-        private Mainform MyMainForm;
+        private IChannel _myChannel;
+        private CloudMediaContext _myContext;
+        private Mainform _myMainForm;
         private Dictionary<IAsset, ILocator> ListLocators = new Dictionary<IAsset, ILocator>(); // to store locators for JPEG files
         string labelSlatePreviewInfoText;
+        private List<string> _assetIdList;
 
-        public ChannelAdSlateControl(Mainform mainform)
+        public ChannelAdSlateControl(Mainform mainform, CloudMediaContext myContext, IChannel myChannel)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            MyMainForm = mainform;
+            _myMainForm = mainform;
+            _myContext = myContext;
+            _myChannel = myChannel;
 
             labelSlatePreviewInfoText = labelSlatePreviewInfo.Text;
             labelSlatePreviewInfo.Text = "";
@@ -78,11 +72,21 @@ namespace AMSExplorer
 
         private void ChannelAdSlateControl_Load(object sender, EventArgs e)
         {
-            labelChannelName.Text += MyChannel.Name;
-            listViewJPG1.LoadJPGs(MyContext, null, MyChannel.Slate);
+            labelChannelName.Text += _myChannel.Name;
+            listViewJPG1.LoadJPGs(_myContext, _assetIdList, null, _myChannel.Slate);
             textBoxCueId.Text = GenerateRandomCueId();
             moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
 
+
+            // list jpg from the last 3 days
+            _assetIdList = _myContext.Assets
+                .Where(a => a.LastModified > DateTime.Today.AddDays(-3))
+                .AsEnumerable()
+                .Where(a => a.AssetFiles.Count() == 1 && a.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".jpg"))
+                .Select(a => a.Id)
+                .ToList();
+
+            listViewJPG1.LoadJPGs(_myContext, _assetIdList);
         }
 
         private string GenerateRandomCueId()
@@ -153,7 +157,8 @@ namespace AMSExplorer
                     progressBarUpload.Visible = false;
 
                     buttonUploadSlate.Enabled = true;
-                    listViewJPG1.LoadJPGs(MyContext, asset, MyChannel.Slate);
+                    _assetIdList.Add(asset.Id);
+                    listViewJPG1.LoadJPGs(_myContext, _assetIdList, asset.Id, _myChannel.Slate);
                 }
             }
         }
@@ -163,11 +168,11 @@ namespace AMSExplorer
         private IAsset ProcessUploadFile(string fileName, string storageAccount = null)
         {
             string safeFileName = Path.GetFileName(fileName);
-            if (storageAccount == null) storageAccount = MyContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
+            if (storageAccount == null) storageAccount = _myContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
             IAsset asset = null;
             try
             {
-                asset = MyContext.Assets.CreateFromFile(
+                asset = _myContext.Assets.CreateFromFile(
                                                       fileName,
                                                       storageAccount,
                                                       AssetCreationOptions.None,
@@ -207,8 +212,8 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 Error = true;
-                MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput, MyChannel.Name, true);
-                MyMainForm.TextBoxLogWriteLine(e);
+                _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput, _myChannel.Name, true);
+                _myMainForm.TextBoxLogWriteLine(e);
             }
 
             if (!Error)
@@ -225,23 +230,23 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         Error = true;
-                        MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput, MyChannel.Name, true);
-                        MyMainForm.TextBoxLogWriteLine(e);
+                        _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput, _myChannel.Name, true);
+                        _myMainForm.TextBoxLogWriteLine(e);
                     }
                 }
                 if (!Error)
                 {
-                    MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0SendingADSignal, MyChannel.Name);
+                    _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0SendingADSignal, _myChannel.Name);
 
                     try
                     {
-                        await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
+                        await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(_myChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, _myChannel, "advertising " + cueid.ToString() + " sent", _myContext, _myMainForm));
                     }
                     catch (Exception e)
                     {
                         Error = true;
-                        MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal, MyChannel.Name, true);
-                        MyMainForm.TextBoxLogWriteLine(e);
+                        _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal, _myChannel.Name, true);
+                        _myMainForm.TextBoxLogWriteLine(e);
                     }
                     if (!Error) textBoxCueId.Text = GenerateRandomCueId();
 
@@ -261,25 +266,25 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 Error = true;
-                MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput, MyChannel.Name, true);
-                MyMainForm.TextBoxLogWriteLine(e);
+                _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput, _myChannel.Name, true);
+                _myMainForm.TextBoxLogWriteLine(e);
             }
 
             if (!Error)
             {
                 TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
-                MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal, MyChannel.Name);
+                _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal, _myChannel.Name);
 
                 try
                 {
                     string jpg_id = listViewJPG1.GetSelectedJPG.FirstOrDefault().Id;
-                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_SlateShown, MyContext, MyMainForm));
+                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(_myChannel.SendShowSlateOperationAsync, ts, jpg_id, _myChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_SlateShown, _myContext, _myMainForm));
                 }
                 catch (Exception e)
                 {
                     Error = true;
-                    MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate, MyChannel.Name, true);
-                    MyMainForm.TextBoxLogWriteLine(e);
+                    _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate, _myChannel.Name, true);
+                    _myMainForm.TextBoxLogWriteLine(e);
 
                 }
             }
@@ -287,16 +292,16 @@ namespace AMSExplorer
 
         private async void HideSlate()
         {
-            MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal, MyChannel.Name);
+            _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal, _myChannel.Name);
 
             try
             {
-                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_SlateHidden, MyContext, MyMainForm));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(_myChannel.SendHideSlateOperationAsync, _myChannel, AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_SlateHidden, _myContext, _myMainForm));
             }
             catch (Exception e)
             {
-                MyMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate, MyChannel.Name, true);
-                MyMainForm.TextBoxLogWriteLine(e);
+                _myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate, _myChannel.Name, true);
+                _myMainForm.TextBoxLogWriteLine(e);
             }
         }
 
@@ -317,10 +322,6 @@ namespace AMSExplorer
 
         }
 
-        private void textBoxJPGSearch_TextChanged(object sender, EventArgs e)
-        {
-            listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
-        }
 
         private void progressBarUpload_Click(object sender, EventArgs e)
         {
@@ -331,9 +332,9 @@ namespace AMSExplorer
         {
             if (checkBoxPreviewStream.Checked)
             {
-                if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
+                if (_myChannel.State == ChannelState.Running && _myChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                 {
-                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false, mainForm: MyMainForm);
+                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: _myChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: _myContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false, mainForm: _myMainForm);
                     webBrowserPreview.Url = new Uri(myurl);
                 }
             }
@@ -411,7 +412,7 @@ namespace AMSExplorer
             {
                 var locatorTask = Task.Factory.StartNew(() =>
                 {
-                    newlocator = MyContext.Locators.Create(LocatorType.Sas, MyAsset, AccessPermissions.Read, TimeSpan.FromHours(1));
+                    newlocator = _myContext.Locators.Create(LocatorType.Sas, MyAsset, AccessPermissions.Read, TimeSpan.FromHours(1));
                 });
                 locatorTask.Wait();
             }
@@ -524,6 +525,42 @@ namespace AMSExplorer
             else
             {
                 errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void ButtonLoadJPG_Click(object sender, EventArgs e)
+        {
+            string assetid = "";
+            if (Program.InputBox("JPG asset Id", "Please enter the asset ID of the asset that contains the JPG :", ref assetid, false) != DialogResult.OK)
+            {
+                return;
+            }
+
+            // let's check asset id
+            bool error = false;
+
+            if (!assetid.StartsWith(Constants.AssetIdPrefix))
+            {
+                error = true;
+            }
+
+            try
+            {
+                var myGuid = Guid.Parse(assetid.Substring(Constants.AssetIdPrefix.Length));
+            }
+            catch
+            {
+                error = true;
+                MessageBox.Show("Wrong asset id format", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (!error)
+            {
+                if (!_assetIdList.Contains(assetid))
+                {
+                    _assetIdList.Add(assetid);
+                }
+                listViewJPG1.LoadJPGs(_myContext, _assetIdList, assetid);
             }
         }
     }

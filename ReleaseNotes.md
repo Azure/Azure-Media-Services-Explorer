@@ -1,4 +1,4 @@
-Version 4.3.7.0 (July 22, 2019) brings the following features and improvements :
+Version 4.3.8.0 (August 23, 2019) brings the following features and improvements :
 
-* Updated the query to get workflow assets for Premium Encoder UI
+* Updated the query to list JPG assets for Slate insertion with live encoding channels
 * Updated offline documentation

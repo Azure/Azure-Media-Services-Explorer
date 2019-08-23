@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -45,8 +44,6 @@ using Newtonsoft.Json.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using System.Net.Http;
 using Microsoft.Rest.Azure.Authentication;
 
 namespace AMSExplorer
@@ -98,14 +95,6 @@ namespace AMSExplorer
             CloudMediaContext myContext = null;
             if (credentials.UseAADInteract || credentials.UseAADServicePrincipal)
             {
-
-                /*
-                                string requestUrl = string.Format("https://login.microsoftonline.com/{0}/oauth2/logout?post_logout_redirect_uri={1}", credentials.ADTenantDomain, credentials.ADRestAPIEndpoint);
-                                var client = new HttpClient();
-                                var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-                                Task.Run(async () => { await client.SendAsync(request); }).Wait();
-                */
-
                 var env = credentials.ADCustomSettings == null ?
                     CredentialsEntry.ReturnADEnvironment(credentials.ADDeploymentName) : credentials.ADCustomSettings;
 
@@ -129,29 +118,6 @@ namespace AMSExplorer
             {
                 throw new Exception();
             }
-
-            /*
-            if (false)//refreshToken)
-            {
-                try
-                {
-                    myContext.Credentials.RefreshToken(); // to force connection to WAMS
-                }
-                catch (Exception e)
-                {
-                    // Add useful information to the exception
-                    if (displayErrorMessageAndQuit)
-                    {
-                        MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        throw e;
-                    }
-                }
-            }
-            */
 
             myContext.NumberOfConcurrentTransfers = Properties.Settings.Default.NumberOfConcurrentTransfers;
             myContext.ParallelTransferThreadCount = Properties.Settings.Default.ParallelTransferThreadCount;

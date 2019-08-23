@@ -42,6 +42,7 @@ namespace AMSExplorer
         private string defaultEncodingPreset = "";
         private string defaultLanguageString = "und";
         private string _radioButtonDefaultPreset;
+        private List<string> _assetIdList;
 
         public string ChannelName
         {
@@ -323,7 +324,7 @@ namespace AMSExplorer
                 moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
 
                 // let's display the encoding tab if encoding has been choosen
-                if (EncodingType == ChannelEncodingType.None) 
+                if (EncodingType == ChannelEncodingType.None)
                 {
                     if (EncodingTabDisplayed)
                     {
@@ -449,7 +450,8 @@ namespace AMSExplorer
                     progressBarUpload.Visible = false;
                     buttonCancel.Enabled = true;
                     buttonUploadSlate.Enabled = true;
-                    listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
+                    _assetIdList.Add(asset.Id);
+                    listViewJPG1.LoadJPGs(MyContext, _assetIdList, asset.Id);
                 }
             }
         }
@@ -499,15 +501,21 @@ namespace AMSExplorer
 
             if (checkBoxInsertSlateOnAdMarker.Checked)
             {
-                listViewJPG1.LoadJPGs(MyContext);
+
+                // list jpg from the last 3 days
+                _assetIdList = MyContext.Assets
+                    .Where(a => a.LastModified > DateTime.Today.AddDays(-3))
+                    .AsEnumerable()
+                    .Where(a => a.AssetFiles.Count() == 1 && a.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".jpg"))
+                    .Select(a => a.Id)
+                    .ToList();
+
+
+                listViewJPG1.LoadJPGs(MyContext, _assetIdList);
             }
 
         }
 
-        private void textBoxJPGSearch_TextChanged(object sender, EventArgs e)
-        {
-            listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
-        }
 
         private void checkBoxAdInsertSlate_Validating(object sender, CancelEventArgs e)
         {
@@ -594,7 +602,7 @@ namespace AMSExplorer
                 {
                     dataGridViewVideoProf.DataSource = null;
                     dataGridViewAudioProf.DataSource = null;
-                    panelDisplayEncProfile.Visible = false; 
+                    panelDisplayEncProfile.Visible = false;
                 }
             }
         }
@@ -694,7 +702,41 @@ namespace AMSExplorer
         {
 
         }
+
+        private void ButtonLoadJPG_Click(object sender, EventArgs e)
+        {
+            string assetid = "";
+            if (Program.InputBox("JPG asset Id", "Please enter the asset ID of the asset that contains the JPG :", ref assetid, false) != DialogResult.OK)
+            {
+                return;
+            }
+
+            // let's check asset id
+            bool error = false;
+
+            if (!assetid.StartsWith(Constants.AssetIdPrefix))
+            {
+                error = true;
+            }
+
+            try
+            {
+                var myGuid = Guid.Parse(assetid.Substring(Constants.AssetIdPrefix.Length));
+            }
+            catch
+            {
+                error = true;
+                MessageBox.Show("Wrong asset id format", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (!error)
+            {
+                if (!_assetIdList.Contains(assetid))
+                {
+                    _assetIdList.Add(assetid);
+                }
+                listViewJPG1.LoadJPGs(MyContext, _assetIdList, assetid);
+            }
+        }
     }
-
-
 }

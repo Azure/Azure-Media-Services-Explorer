@@ -172,7 +172,7 @@
     <value>23, 23</value>
   </data>
   <data name="webBrowserPreview.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 292</value>
+    <value>279, 291</value>
   </data>
   <data name="webBrowserPreview.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -235,10 +235,10 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="labelSlatePreviewInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 179</value>
+    <value>3, 174</value>
   </data>
   <data name="labelSlatePreviewInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 16</value>
+    <value>287, 16</value>
   </data>
   <data name="labelSlatePreviewInfo.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -271,7 +271,7 @@
     <value>7, 23</value>
   </data>
   <data name="pictureBoxPreviewSlate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 152</value>
+    <value>279, 147</value>
   </data>
   <data name="pictureBoxPreviewSlate.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
@@ -307,10 +307,10 @@
     <value>1</value>
   </data>
   <data name="splitContainerPreviews.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 538</value>
+    <value>290, 538</value>
   </data>
   <data name="splitContainerPreviews.SplitterDistance" type="System.Int32, mscorlib">
-    <value>326</value>
+    <value>325</value>
   </data>
   <data name="splitContainerPreviews.SplitterWidth" type="System.Int32, mscorlib">
     <value>5</value>
@@ -388,7 +388,7 @@
     <value>MiddleLeft</value>
   </data>
   <data name="buttonInsertAD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 67</value>
+    <value>325, 67</value>
   </data>
   <data name="buttonInsertAD.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 27</value>
@@ -424,7 +424,7 @@
     <value>MiddleLeft</value>
   </data>
   <data name="buttonInsertAdAndSlate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 100</value>
+    <value>325, 100</value>
   </data>
   <data name="buttonInsertAdAndSlate.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 27</value>
@@ -574,7 +574,7 @@
     <value>9, 3</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 145</value>
+    <value>556, 145</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -597,6 +597,39 @@
   <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="buttonLoadJPG.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonLoadJPG.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="buttonLoadJPG.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonLoadJPG.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 235</value>
+  </data>
+  <data name="buttonLoadJPG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 27</value>
+  </data>
+  <data name="buttonLoadJPG.TabIndex" type="System.Int32, mscorlib">
+    <value>89</value>
+  </data>
+  <data name="buttonLoadJPG.Text" xml:space="preserve">
+    <value>Select an existing asset...</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadJPG.Name" xml:space="preserve">
+    <value>buttonLoadJPG</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadJPG.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadJPG.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadJPG.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label15.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -604,7 +637,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 265</value>
+    <value>17, 265</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>521, 15</value>
@@ -628,76 +661,16 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 239</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 15</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Search in name or Id :</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="textBoxJPGSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="progressBarUpload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <data name="textBoxJPGSearch.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="textBoxJPGSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>145, 235</value>
-  </data>
-  <data name="textBoxJPGSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 23</value>
-  </data>
-  <data name="textBoxJPGSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>82</value>
-  </data>
-  <data name="&gt;&gt;textBoxJPGSearch.Name" xml:space="preserve">
-    <value>textBoxJPGSearch</value>
-  </data>
-  <data name="&gt;&gt;textBoxJPGSearch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxJPGSearch.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;textBoxJPGSearch.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="progressBarUpload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
   <data name="progressBarUpload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 235</value>
+    <value>346, 234</value>
   </data>
   <data name="progressBarUpload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 27</value>
+    <value>191, 27</value>
   </data>
   <data name="progressBarUpload.TabIndex" type="System.Int32, mscorlib">
     <value>81</value>
@@ -715,25 +688,25 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;progressBarUpload.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="buttonUploadSlate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+    <value>Bottom, Left</value>
   </data>
   <data name="buttonUploadSlate.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="buttonUploadSlate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>435, 235</value>
+    <value>194, 234</value>
   </data>
   <data name="buttonUploadSlate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 27</value>
+    <value>147, 27</value>
   </data>
   <data name="buttonUploadSlate.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
   </data>
   <data name="buttonUploadSlate.Text" xml:space="preserve">
-    <value>Upload a file...</value>
+    <value>Upload a new file...</value>
   </data>
   <data name="buttonUploadSlate.ToolTip" xml:space="preserve">
     <value>Upload a new slate image</value>
@@ -748,7 +721,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;buttonUploadSlate.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="listViewJPG1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -760,7 +733,7 @@
     <value>15, 28</value>
   </data>
   <data name="listViewJPG1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 200</value>
+    <value>523, 200</value>
   </data>
   <data name="listViewJPG1.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -769,13 +742,13 @@
     <value>listViewJPG1</value>
   </data>
   <data name="&gt;&gt;listViewJPG1.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewSlateJPG, AMSExplorer, Version=3.46.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewSlateJPG, AMSExplorer, Version=4.3.7.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewJPG1.Parent" xml:space="preserve">
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;listViewJPG1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="buttonHideSlate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -787,7 +760,7 @@
     <value>MiddleLeft</value>
   </data>
   <data name="buttonHideSlate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 333</value>
+    <value>325, 333</value>
   </data>
   <data name="buttonHideSlate.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 27</value>
@@ -811,7 +784,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;buttonHideSlate.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="buttonShowSLate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -823,7 +796,7 @@
     <value>MiddleLeft</value>
   </data>
   <data name="buttonShowSLate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 300</value>
+    <value>325, 300</value>
   </data>
   <data name="buttonShowSLate.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 27</value>
@@ -847,7 +820,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;buttonShowSLate.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -880,7 +853,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="textBoxSlateDuration.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -913,7 +886,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;textBoxSlateDuration.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="groupBox2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>
@@ -922,7 +895,7 @@
     <value>9, 167</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 367</value>
+    <value>556, 367</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -958,7 +931,7 @@
     <value>882, 538</value>
   </data>
   <data name="splitContainerBox.SplitterDistance" type="System.Int32, mscorlib">
-    <value>291</value>
+    <value>290</value>
   </data>
   <data name="splitContainerBox.SplitterWidth" type="System.Int32, mscorlib">
     <value>5</value>

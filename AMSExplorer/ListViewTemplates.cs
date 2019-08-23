@@ -276,13 +276,15 @@ namespace AMSExplorer
     class ListViewSlateJPG : ListView
     {
         private CloudMediaContext _context;
-        private IAsset _selectedJPGAsset;
+        private string _selectedJPGId = null;
         private ChannelSlate _channelslate;
         private System.Windows.Forms.ColumnHeader columnHeaderJPGFileName;
         private System.Windows.Forms.ColumnHeader columnHeaderLastModified;
         private System.Windows.Forms.ColumnHeader columnHeaderSize;
         private System.Windows.Forms.ColumnHeader columnHeaderAssetName;
         private System.Windows.Forms.ColumnHeader columnHeaderAssetId;
+
+        public string ErrorQuery = null;
 
         public List<IAsset> GetSelectedJPG
         {
@@ -350,61 +352,56 @@ namespace AMSExplorer
             this.columnHeaderAssetId.Text = "Asset Id";
         }
 
-        public void LoadJPGs(CloudMediaContext context, IAsset selectedJPG = null, ChannelSlate channelslate = null)
+        public void LoadJPGs(CloudMediaContext context, List<string> assetIdList = null, string selectedJPGId = null, ChannelSlate channelslate = null)
         {
             _context = context;
-            _selectedJPGAsset = selectedJPG;
+            _selectedJPGId = selectedJPGId;
             _channelslate = channelslate;
-            LoadJPGs();
+            LoadJPGs(assetIdList);
         }
 
-        public void LoadJPGs(string searchstring = "")
+        private void LoadJPGs(List<string> assetIdList)
         {
             this.BeginUpdate();
             this.Items.Clear();
 
-            string searchlower = searchstring.ToLower();
-            bool bsearchempty = string.IsNullOrEmpty(searchstring);
+            // Server side request
+            var listAssets = new List<IAsset>();
+            ErrorQuery = null;
 
-            // this query is done in the back-end
-            var query = _context.Files.Where(f =>
-                        f.Name.EndsWith(Constants.SlateJPGExtension)
-                        &&
-                        f.IsPrimary
-                        &&
-                        f.ContentFileSize <= Constants.maxSlateJPGFileSize
-                        &&
-                        (bsearchempty || f.Name.Contains(searchlower))
-                        ).AsEnumerable();
-
-            // local query
-            query = query.Where(f =>
-            bsearchempty || (f.Id.ToLower().Contains(searchlower) || f.Asset.Name.ToLower().Contains(searchlower) || f.Asset.Id.ToLower().Contains(searchlower)));
-
-            string defaultslateassetid = null;
-            if (_channelslate != null && _channelslate.DefaultSlateAssetId != null)
+            try
             {
-                defaultslateassetid = _channelslate.DefaultSlateAssetId;
+                assetIdList.ForEach(id =>
+                {
+                    listAssets.Add(_context.Assets.Where(a => a.Id == id).FirstOrDefault());
+                });
             }
 
-            foreach (IAssetFile file in query)
+            catch (Exception ex)
             {
-                if (file.Asset.AssetFiles.Count() == 1)
-                {
-                    bool bdefaultchannelslate = defaultslateassetid == file.ParentAssetId;
+                ErrorQuery = Program.GetErrorMessage(ex);
+            }
 
-                    ListViewItem item = new ListViewItem(file.Name + ((bdefaultchannelslate) ? " (default channel slate)" : string.Empty), 0);
+
+            foreach (var asset in listAssets)
+            {
+                if (asset != null && asset.AssetFiles.Count() == 1)
+                {
+                    var file = asset.AssetFiles.FirstOrDefault();
+                    ListViewItem item = new ListViewItem(file.Name, 0);
                     item.SubItems.Add(file.LastModified.ToLocalTime().ToString("G"));
                     item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
                     item.SubItems.Add(file.Asset.Name);
                     item.SubItems.Add(file.Asset.Id);
-                    if (_selectedJPGAsset != null && _selectedJPGAsset.Id == file.Asset.Id) item.Selected = true;
-                    if (bdefaultchannelslate) item.ForeColor = Color.Blue;
+                    if (_selectedJPGId != null && _selectedJPGId == file.Asset.Id) item.Selected = true;
                     this.Items.Add(item);
                 }
             }
+
+
             this.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             this.EndUpdate();
+
         }
 
         public static bool AreClose(double value1, double value2)

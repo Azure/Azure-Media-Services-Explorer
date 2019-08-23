@@ -85,12 +85,10 @@
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
             this.tabPageAdConfig = new System.Windows.Forms.TabPage();
-            this.panelInsertSlate = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
-            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
-            this.label15 = new System.Windows.Forms.Label();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
+            this.panelInsertSlate = new System.Windows.Forms.Panel();
+            this.buttonLoadJPG = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBoxInsertSlateOnAdMarker = new System.Windows.Forms.CheckBox();
@@ -102,6 +100,7 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -523,6 +522,7 @@
             // 
             // tabPageAdConfig
             // 
+            this.tabPageAdConfig.Controls.Add(this.progressBarUpload);
             this.tabPageAdConfig.Controls.Add(this.panelInsertSlate);
             this.tabPageAdConfig.Controls.Add(this.checkBoxInsertSlateOnAdMarker);
             this.tabPageAdConfig.Controls.Add(this.label8);
@@ -532,51 +532,33 @@
             this.tabPageAdConfig.Name = "tabPageAdConfig";
             this.tabPageAdConfig.UseVisualStyleBackColor = true;
             // 
-            // panelInsertSlate
-            // 
-            this.panelInsertSlate.Controls.Add(this.label14);
-            this.panelInsertSlate.Controls.Add(this.textBoxJPGSearch);
-            this.panelInsertSlate.Controls.Add(this.listViewJPG1);
-            this.panelInsertSlate.Controls.Add(this.label15);
-            this.panelInsertSlate.Controls.Add(this.progressBarUpload);
-            this.panelInsertSlate.Controls.Add(this.buttonUploadSlate);
-            this.panelInsertSlate.Controls.Add(this.label10);
-            resources.ApplyResources(this.panelInsertSlate, "panelInsertSlate");
-            this.panelInsertSlate.Name = "panelInsertSlate";
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
-            // textBoxJPGSearch
-            // 
-            resources.ApplyResources(this.textBoxJPGSearch, "textBoxJPGSearch");
-            this.textBoxJPGSearch.Name = "textBoxJPGSearch";
-            this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
-            // 
-            // listViewJPG1
-            // 
-            resources.ApplyResources(this.listViewJPG1, "listViewJPG1");
-            this.listViewJPG1.FullRowSelect = true;
-            this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.MultiSelect = false;
-            this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Tag = -1;
-            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
-            this.listViewJPG1.View = System.Windows.Forms.View.Details;
-            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
-            // 
-            // label15
-            // 
-            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
             // progressBarUpload
             // 
             resources.ApplyResources(this.progressBarUpload, "progressBarUpload");
             this.progressBarUpload.Name = "progressBarUpload";
+            // 
+            // panelInsertSlate
+            // 
+            resources.ApplyResources(this.panelInsertSlate, "panelInsertSlate");
+            this.panelInsertSlate.Controls.Add(this.buttonLoadJPG);
+            this.panelInsertSlate.Controls.Add(this.listViewJPG1);
+            this.panelInsertSlate.Controls.Add(this.label15);
+            this.panelInsertSlate.Controls.Add(this.buttonUploadSlate);
+            this.panelInsertSlate.Controls.Add(this.label10);
+            this.panelInsertSlate.Name = "panelInsertSlate";
+            // 
+            // buttonLoadJPG
+            // 
+            resources.ApplyResources(this.buttonLoadJPG, "buttonLoadJPG");
+            this.buttonLoadJPG.Name = "buttonLoadJPG";
+            this.buttonLoadJPG.UseVisualStyleBackColor = true;
+            this.buttonLoadJPG.Click += new System.EventHandler(this.ButtonLoadJPG_Click);
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label15.Name = "label15";
             // 
             // buttonUploadSlate
             // 
@@ -636,6 +618,18 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // listViewJPG1
+            // 
+            resources.ApplyResources(this.listViewJPG1, "listViewJPG1");
+            this.listViewJPG1.FullRowSelect = true;
+            this.listViewJPG1.HideSelection = false;
+            this.listViewJPG1.MultiSelect = false;
+            this.listViewJPG1.Name = "listViewJPG1";
+            this.listViewJPG1.Tag = -1;
+            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
+            this.listViewJPG1.View = System.Windows.Forms.View.Details;
+            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
             // 
             // CreateLiveChannel
             // 
@@ -740,8 +734,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
         private System.Windows.Forms.ProgressBar progressBarUpload;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBoxJPGSearch;
         private ListViewSlateJPG listViewJPG1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.DataGridView dataGridViewVideoProf;
@@ -761,5 +753,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panelDisplayEncProfile;
         private System.Windows.Forms.Label labelRTPWarning;
+        private System.Windows.Forms.Button buttonLoadJPG;
     }
 }
