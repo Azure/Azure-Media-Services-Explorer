@@ -197,7 +197,17 @@ namespace AMSExplorer
                 };
                 _amsClient.RefreshTokenIfNeeded();
 
-                AssetContainerSas response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
+                AssetContainerSas response = null;
+                try
+                {
+                    response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 string uploadSasUrl = response.AssetContainerSasUrls.First();
 
@@ -536,7 +546,17 @@ namespace AMSExplorer
 
                 _amsClient.RefreshTokenIfNeeded();
 
-                IList<AssetStreamingLocator> locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+                IList<AssetStreamingLocator> locators = null;
+                try
+                {
+                    locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 foreach (AssetStreamingLocator locatorbase in locators)
                 {
@@ -1777,7 +1797,17 @@ namespace AMSExplorer
             comboBoxPolicyLocators.BeginUpdate();
 
             _amsClient.RefreshTokenIfNeeded();
-            IList<AssetStreamingLocator> locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+
+            IList<AssetStreamingLocator> locators = null;
+            try
+            {
+                locators = _amsClient.AMSclient.Assets.ListStreamingLocators(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name).StreamingLocators;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             locators.ToList().ForEach(l => comboBoxPolicyLocators.Items.Add(new Item(l.Name, l.Name)));
             if (comboBoxPolicyLocators.Items.Count > 0)

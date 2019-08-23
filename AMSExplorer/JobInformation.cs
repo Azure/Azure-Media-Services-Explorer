@@ -196,7 +196,7 @@ namespace AMSExplorer
             {
                 JobOutputAsset outputA = output as JobOutputAsset;
                 DGOutputs.Rows.Add("Asset name", outputA.AssetName);
-                DGOutputs.Rows.Add("Asset type", AssetInfo.GetAssetType(outputA.AssetName, _client).Type);
+                DGOutputs.Rows.Add("Asset type", AssetInfo.GetAssetType(outputA.AssetName, _client)?.Type);
             }
 
 
@@ -284,7 +284,7 @@ namespace AMSExplorer
                 JobInputAsset inputA = MyJob.Input as JobInputAsset;
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
-                dataGridInput.Rows.Add("Asset type", AssetInfo.GetAssetType(inputA.AssetName, _client).Type);
+                dataGridInput.Rows.Add("Asset type", AssetInfo.GetAssetType(inputA.AssetName, _client)?.Type);
                 if (inputA.Start != null && inputA.Start.GetType() == typeof(AbsoluteClipTime))
                 {
                     AbsoluteClipTime startA = inputA.Start as AbsoluteClipTime;

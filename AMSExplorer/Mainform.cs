@@ -8777,6 +8777,29 @@ namespace AMSExplorer
 
             }
         }
+
+        private void ListAuthorizedOperationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListAuthorizedOperations();
+        }
+
+        private void ListAuthorizedOperations()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("All API operations :");
+            sb.AppendLine("See https://docs.microsoft.com/en-us/azure/media-services/latest/rbac-overview for more info");
+            sb.AppendLine("============================================================================================");
+            TextBoxLogWriteLine("Listing operations....");
+
+            foreach (Microsoft.Azure.Management.Media.Models.Operation a in _amsClientV3.AMSclient.Operations.List())
+            {
+                sb.AppendLine($"{a.Name} - {a.Display.Operation} - {a.Display.Description}");
+            }
+            TextBoxLogWriteLine("Listing operations completed.");
+
+            var form = new EditorXMLJSON("API operations (RBAC)", sb.ToString(), false, false, false);
+            form.ShowDialog();
+        }
     }
 }
 

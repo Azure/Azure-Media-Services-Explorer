@@ -283,10 +283,13 @@ namespace AMSExplorer
 
                         // var assetfiles =  asset.AssetFiles.ToList();
                         AssetInfoData data = AssetInfo.GetAssetType(asset.Name, _client);
-                        AE.Type = data.Type;
-                        AE.SizeLong = data.Size;
-                        AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
-                        AE.AssetWarning = (AE.SizeLong == 0);// || assetfiles.Any(f => f.ContentFileSize == 0));
+                        if (data != null)
+                        {
+                            AE.Type = data.Type;
+                            AE.SizeLong = data.Size;
+                            AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
+                            AE.AssetWarning = (AE.SizeLong == 0);
+                        }
 
                         assetBitmapAndText = BuildBitmapDynEncryption(asset.Name, _client);
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;

@@ -1865,7 +1865,16 @@ namespace AMSExplorer
             string type = string.Empty;
             long size = 0;
 
-            AssetContainerSas response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime)).Result;
+            AssetContainerSas response = null;
+            try
+            {
+                response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime)).Result;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
 
@@ -2171,6 +2180,11 @@ namespace AMSExplorer
         {
             StringBuilder sb = new StringBuilder();
             AssetInfoData MyAssetTypeInfo = AssetInfo.GetAssetType(MyAsset.Name, _amsClient);
+            if (MyAssetTypeInfo == null)
+            {
+                sb.AppendLine("Error accessing asset type info");
+                return sb;
+            }
             bool bfileinasset = (MyAssetTypeInfo.Blobs.Count() == 0) ? false : true;
             long size = -1;
             if (bfileinasset)

@@ -301,6 +301,7 @@
             this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureManagementPortalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listAuthorizedOperationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -2476,7 +2477,8 @@
             // 
             this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.azureManagementPortalToolStripMenuItem1,
-            this.attachAnotherStoragheAccountToolStripMenuItem});
+            this.attachAnotherStoragheAccountToolStripMenuItem,
+            this.listAuthorizedOperationsToolStripMenuItem});
             this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
             resources.ApplyResources(this.managementToolStripMenuItem, "managementToolStripMenuItem");
             // 
@@ -2492,6 +2494,12 @@
             this.attachAnotherStoragheAccountToolStripMenuItem.Name = "attachAnotherStoragheAccountToolStripMenuItem";
             resources.ApplyResources(this.attachAnotherStoragheAccountToolStripMenuItem, "attachAnotherStoragheAccountToolStripMenuItem");
             this.attachAnotherStoragheAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStoragheAccountToolStripMenuItem_Click);
+            // 
+            // listAuthorizedOperationsToolStripMenuItem
+            // 
+            this.listAuthorizedOperationsToolStripMenuItem.Name = "listAuthorizedOperationsToolStripMenuItem";
+            resources.ApplyResources(this.listAuthorizedOperationsToolStripMenuItem, "listAuthorizedOperationsToolStripMenuItem");
+            this.listAuthorizedOperationsToolStripMenuItem.Click += new System.EventHandler(this.ListAuthorizedOperationsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -3157,6 +3165,7 @@
         private System.Windows.Forms.TrackBar trackBarEncodingRU;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox comboBoxEncodingRU;
+        private System.Windows.Forms.ToolStripMenuItem listAuthorizedOperationsToolStripMenuItem;
     }
 }
 
