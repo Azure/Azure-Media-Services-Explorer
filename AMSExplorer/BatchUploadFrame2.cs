@@ -86,7 +86,7 @@ namespace AMSExplorer
                     {
                         ListViewItem it = checkedListBoxFiles.Items.Add(Path.GetFileName(file));
                         it.Checked = true;
-                        if (!AssetInfo.AssetFileNameIsOk(Path.GetFileName(file)))
+                        if (!AssetInfo.BlobNameForAMSIsOk(Path.GetFileName(file)))
                         {
                             it.ForeColor = Color.Red;
                         }

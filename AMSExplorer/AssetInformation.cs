@@ -49,6 +49,7 @@ namespace AMSExplorer
         private CloudBlobContainer container = null;
         private IEnumerable<IListBlobItem> blobs;
         private List<StreamingLocatorContentKey> contentKeysForCurrentLocator;
+        private AssetContainerSas _assetContainerSas = null;
 
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient)
         {
@@ -696,7 +697,7 @@ namespace AMSExplorer
             DoOpenFiles();
         }
 
-        private void DoOpenFiles()
+        private async Task DoOpenFiles()
         {
             /*
             var SelectedAssetFiles = ReturnSelectedBlobs();
@@ -720,6 +721,58 @@ namespace AMSExplorer
                 }
             }
             */
+
+
+
+            List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs();
+
+
+
+            try
+            {
+                AssetContainerSas assetContainerSas = await GetTemporaryAssetContainerSasAsync();
+                Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
+
+                foreach (var blob in SelectedBlobs)
+                {
+                    if (blob.GetType() == typeof(CloudBlockBlob))
+                    {
+                        CloudBlockBlob blobtoopen = (CloudBlockBlob)blob;
+                        //Generate the shared access signature on the blob, setting the constraints directly on the signature.
+                        Process.Start(blobtoopen.Uri + containerSasUrl.Query);
+                    }
+                }
+            }
+
+            catch
+            {
+                MessageBox.Show("Error when creating the SAS URL for blob");
+            }
+
+        }
+
+        private async Task<AssetContainerSas> GetTemporaryAssetContainerSasAsync()
+        {
+            if (_assetContainerSas == null)
+            {
+                try
+                {
+                    _assetContainerSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(
+                                                                                                     _amsClient.credentialsEntry.ResourceGroup,
+                                                                                                     _amsClient.credentialsEntry.AccountName,
+                                                                                                     myAssetV3.Name,
+                                                                                                     permissions: AssetContainerPermission.Read,
+                                                                                                     expiryTime: DateTime.UtcNow.AddHours(1).ToUniversalTime());
+
+                }
+
+                catch
+                {
+
+                }
+            }
+
+            return _assetContainerSas;
         }
 
         private void toolStripMenuItemDownloadFile_Click(object sender, EventArgs e)

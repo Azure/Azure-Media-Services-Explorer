@@ -2647,17 +2647,17 @@ namespace AMSExplorer
         private static readonly char[] NtfsInvalidChars = System.IO.Path.GetInvalidFileNameChars();
 
 
-        public static bool AssetFileNameIsOk(string filename)
+        public static bool BlobNameForAMSIsOk(string filename)
         {
-            // check if the filename is compatible with AMS
-            // Validates if the asset file name conforms to the following requirements
-            // AssetFile name must be a valid blob name.
-            // AssetFile name must be a valid NTFS file name.
-            // AssetFile name length must be limited to 248 characters. 
-            // AssetFileName should not contain the following characters: + % and #
-            // AssetFileName should not contain only space(s)
-            // AssetFileName should not start with certain prefixes restricted by NTFS such as CON1, PRN ... 
-            // An AssetFileName constructed using the above mentioned criteria shall be encoded, streamed and played back successfully.
+            // check if the blob name is compatible with AMS
+            // Validates if the blob name conforms to the following requirements
+            // blob name must be a valid blob name.
+            // blob name must be a valid NTFS file name.
+            // blob name length must be limited to 248 characters. 
+            // blob should not contain the following characters: [ ] { } + % and #
+            // blob should not contain only space(s)
+            // blob should not start with certain prefixes restricted by NTFS such as CON1, PRN ... 
+            // A blob constructed using the above mentioned criteria shall be encoded, streamed and played back successfully.
 
             if (string.IsNullOrWhiteSpace(filename))
             {
@@ -2678,7 +2678,7 @@ namespace AMSExplorer
                 return false;
             }
 
-            if (filename.IndexOfAny(NtfsInvalidChars) > 0 || Regex.IsMatch(filename, @"[+%#]+"))
+            if (filename.IndexOfAny(NtfsInvalidChars) > 0 || Regex.IsMatch(filename, @"[+%#]+{}"))
             {
                 return false;
             }
@@ -2699,7 +2699,7 @@ namespace AMSExplorer
             List<string> listreturn = new List<string>();
             foreach (string f in filenames)
             {
-                if (!AssetFileNameIsOk(f))
+                if (!BlobNameForAMSIsOk(f))
                 {
                     listreturn.Add(Path.GetFileName(f));
                 }
