@@ -696,6 +696,9 @@
   <data name="saveFileDialog1.Filter" xml:space="preserve">
     <value>json file (*.json)|*.json</value>
   </data>
+  <data name="accountmgtlink.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="accountmgtlink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -817,7 +820,7 @@
     <value>0</value>
   </data>
   <data name="buttonPickupAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+    <value>Bottom, Right</value>
   </data>
   <data name="buttonPickupAccount.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -867,6 +870,9 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>784, 523</value>
   </data>
+  <data name="linkLabelAMSOfflineDoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="linkLabelAMSOfflineDoc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -899,6 +905,9 @@
   </data>
   <data name="&gt;&gt;linkLabelAMSOfflineDoc.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="listViewAccounts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
   </data>
   <data name="listViewAccounts.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 50</value>
