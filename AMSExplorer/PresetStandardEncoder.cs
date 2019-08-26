@@ -27,6 +27,7 @@ namespace AMSExplorer
 
     public partial class PresetStandardEncoder : Form
     {
+        static public readonly string  CopyVideoAudioTransformName = "StandardEncoder-CopyVideoAudio";
         private readonly string _unique;
 
         public readonly IList<Profile> Profiles = new List<Profile> {
@@ -120,7 +121,7 @@ namespace AMSExplorer
         {
             if (UseCustomCopyPreset)
             {
-                textBoxTransformName.Text = "StandardEncoder-CopyVideoAudio";
+                textBoxTransformName.Text = CopyVideoAudioTransformName;
             }
             else
             {

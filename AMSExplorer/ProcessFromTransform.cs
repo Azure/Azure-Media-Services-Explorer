@@ -29,6 +29,8 @@ namespace AMSExplorer
         private readonly int _numberselectedassets = 0;
         private readonly List<Asset> _listAssets;
         private readonly AMSExplorer.Mainform _myMainform;
+        private readonly TimeSpan? _start;
+        private readonly TimeSpan? _end;
 
         public Transform SelectedTransform => listViewTransforms.GetSelectedTransform;
 
@@ -64,7 +66,7 @@ namespace AMSExplorer
                    null;
 
 
-        public ProcessFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null)
+        public ProcessFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? start = null, TimeSpan? end = null, bool noHttpSourceMode = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -81,11 +83,18 @@ namespace AMSExplorer
                 _numberselectedassets = listAssets.Count;
             }
 
+            if (noHttpSourceMode)
+            {
+                radioButtonHttpSource.Enabled = false;
+            }
+
             //buttonJobOptions.Initialize(_context);
 
             Text = "Template based processing";
             _listAssets = listAssets;
             _myMainform = myMainForm;
+            _start = start;
+            _end = end;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -111,6 +120,17 @@ namespace AMSExplorer
             UpdateLabeltext();
             labelURLFileNameWarning.Text = string.Empty;
             UpdateStatusButtonOk();
+
+            if (_start != null)
+            {
+                timeControlStartTime.SetTimeStamp((TimeSpan)_start);
+                checkBoxSourceTrimmingStart.CheckState = CheckState.Checked;
+            }
+            if (_end != null)
+            {
+                timeControlEndTime.SetTimeStamp((TimeSpan)_end);
+                checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
+            }
 
         }
 

@@ -49,7 +49,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace AMSExplorer
 {
@@ -498,31 +497,7 @@ namespace AMSExplorer
             }
         }
 
-
-        public static bool CreateAndSendOutlookMail(string RecipientEmailAddress, string Subject, string Body)
-        {
-            // Let's create the email with Outlook
-            try
-            {
-                Outlook.Application outlookApp = new Outlook.Application();
-                Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
-
-                mailItem.To = RecipientEmailAddress;
-                mailItem.Subject = Subject;
-                mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
-                mailItem.HTMLBody += Body.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
-                mailItem.Display(false);
-                mailItem.Send();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-
-
+              
         public class LiveOutputExt
         {
             public LiveOutput LiveOutputItem { get; set; }
@@ -3930,16 +3905,13 @@ namespace AMSExplorer
     }
     public class SubClipConfiguration
     {
-        public string Configuration { get; set; }  // contains the full configuration for subclipping
         public bool Reencode { get; set; }
         public bool Trimming { get; set; }
         public bool CreateAssetFilter { get; set; }
 
-        public List<ExplorerEDLEntryInOut> InOutForReencode { get; set; }
 
-        public TimeSpan OffsetForReencode { get; set; }
-        public TimeSpan StartTimeForAssetFilter { get; set; }
-        public TimeSpan EndTimeForAssetFilter { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
 
     }
 

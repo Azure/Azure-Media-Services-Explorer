@@ -7793,7 +7793,28 @@ namespace AMSExplorer
 
         private void subclipToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            DoSubClip();
+        }
 
+        private void DoSubClip()
+        {
+            var selectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
+            if (selectedAssets.Count > 0)
+            {
+                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a.Name, _amsClientV3).Type.StartsWith(AssetInfo.Type_LiveArchive) || AssetInfo.GetAssetType(a.Name, _amsClientV3).Type.StartsWith(AssetInfo.Type_Fragmented)))
+                {
+                    MessageBox.Show("Asset(s) should be a live, live archive or pre-fragmented asset." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+
+                Subclipping form = new Subclipping(_amsClientV3, selectedAssets, this)
+                {
+                    EncodingJobName = "Subclipping of " + Constants.NameconvInputasset,
+                    EncodingOutputAssetName = Constants.NameconvInputasset + " - Subclipped"
+                };
+
+                form.ShowDialog();
+            }
         }
 
         private void DoExportMetadata()
@@ -8453,6 +8474,48 @@ namespace AMSExplorer
             }
         }
 
+        public Transform CreateAndGetCopyCodecTransformIfNeeded()
+        {
+            Transform myTransform = null;
+            _amsClientV3.RefreshTokenIfNeeded();
+
+            bool found = true;
+            try
+            {
+                myTransform = _amsClientV3.AMSclient.Transforms.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName);
+            }
+            catch
+            {
+                found = false;
+            }
+
+            if (!found | myTransform == null)
+            {
+                TransformOutput[] outputs;
+                PresetStandardEncoder form = new PresetStandardEncoder();
+
+                outputs = new TransformOutput[]
+                                                {
+                                                                new TransformOutput(form.CustomCopyPreset),
+                                                };
+
+                try
+                {
+                    // Create the Transform with the output defined above
+                    myTransform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.Description);
+                    TextBoxLogWriteLine("Transform {0} created.", myTransform.Name); // Warning
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when creating the transform.", ex); // Warning
+                }
+
+                DoRefreshGridTransformV(false);
+            }
+
+            return myTransform;
+        }
+
         private void toolStripMenuItem32_DropDownOpening(object sender, EventArgs e)
         {
             /*
@@ -8468,7 +8531,7 @@ namespace AMSExplorer
             */
         }
 
-        private void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null)
+        public void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null)
         {
             _amsClientV3.RefreshTokenIfNeeded();
 

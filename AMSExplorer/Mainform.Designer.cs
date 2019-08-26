@@ -794,9 +794,9 @@
             // 
             // subclipToolStripMenuItem
             // 
-            resources.ApplyResources(this.subclipToolStripMenuItem, "subclipToolStripMenuItem");
             this.subclipToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.subclipping;
             this.subclipToolStripMenuItem.Name = "subclipToolStripMenuItem";
+            resources.ApplyResources(this.subclipToolStripMenuItem, "subclipToolStripMenuItem");
             this.subclipToolStripMenuItem.Click += new System.EventHandler(this.subclipToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
