@@ -1992,7 +1992,6 @@ namespace AMSExplorer
                             sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
                             sbuilder.AppendLine(string.Empty);
 
-
                             foreach (StreamingPath path in paths.StreamingPaths)
                             {
                                 string appendExtension = string.Empty;
@@ -7426,62 +7425,29 @@ namespace AMSExplorer
         }
 
 
-        private void DoCopyLiveEventInputURLToClipboard(object sender, EventArgs e)
+        private void DoCopyLiveEventInputURLsToClipboard()
         {
-            int index = 0;
-            if (sender.GetType() == typeof(ToolStrip))
-            {
-                ToolStrip send = (ToolStrip)sender;
-                index = Convert.ToInt32(send.Name.Last().ToString()) - 1;
-            }
-            if (sender.GetType() == typeof(ToolStripMenuItem))
-            {
-                ToolStripMenuItem send = (ToolStripMenuItem)sender;
-                index = Convert.ToInt32(send.Name.Last().ToString()) - 1;
-            }
-
             LiveEvent liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
 
-            string absuri;
-            if (index == 1 && liveEvent.Input.Endpoints.Count == 1 && liveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) // Smooth https
+            StringBuilder sbuilder = new StringBuilder();
+            sbuilder.AppendLine(string.Format("Input URLs for live event name : {0}", liveEvent.Name));
+            sbuilder.AppendLine("=================================" + new string('=', liveEvent.Name.Length));
+
+            foreach (var endpoint in liveEvent.Input.Endpoints)
             {
-                absuri = liveEvent.Input.Endpoints[0].Url.Replace("http://", "https://");
-            }
-            else
-            {
-                absuri = liveEvent.Input.Endpoints[index].Url;
+                sbuilder.AppendLine(string.Empty);
+                sbuilder.AppendLine(endpoint.Url);
+                if (liveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4)
+                {
+                    sbuilder.AppendLine(string.Empty);
+                    sbuilder.AppendLine(endpoint.Url.Replace("http://", "https://"));
+                }
             }
 
-            string label = string.Format("Input URL ({0})", index);
-            EditorXMLJSON DisplayForm = new EditorXMLJSON(label, absuri, false, false, false);
+            EditorXMLJSON DisplayForm = new EditorXMLJSON("Input URLs", sbuilder.ToString(), false, false, false);
             DisplayForm.Display();
         }
 
-
-        private void ContextMenuItemLiveEventCopyIngestURLToClipboard_DropDownOpening(object sender, EventArgs e)
-        {
-            ContextMenuOpeningLiveEventCopyInputUrl();
-        }
-
-        private void ContextMenuOpeningLiveEventCopyInputUrl()
-        {
-            LiveEvent liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
-
-            inputURLMToolStripMenuItem1.Visible = (liveEvent.Input.Endpoints.Count > 0);
-            inputURLMToolStripMenuItem2.Visible = (liveEvent.Input.Endpoints.Count > 1) || (liveEvent.Input.Endpoints.Count == 1 && liveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4);
-            inputURLMToolStripMenuItem3.Visible = (liveEvent.Input.Endpoints.Count > 2);
-            inputURLMToolStripMenuItem4.Visible = (liveEvent.Input.Endpoints.Count > 3);
-
-            inputURLMToolStripMenuItem1.Text = (liveEvent.Input.Endpoints.Count > 0) ? string.Format((string)inputURLMToolStripMenuItem1.Tag, new Uri(liveEvent.Input.Endpoints[0].Url).Scheme) : string.Empty;
-            inputURLMToolStripMenuItem2.Text = (liveEvent.Input.Endpoints.Count > 1) ? string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(liveEvent.Input.Endpoints[1].Url).Scheme) : string.Empty;
-            inputURLMToolStripMenuItem3.Text = (liveEvent.Input.Endpoints.Count > 2) ? string.Format((string)inputURLMToolStripMenuItem3.Tag, new Uri(liveEvent.Input.Endpoints[2].Url).Scheme) : string.Empty;
-            inputURLMToolStripMenuItem4.Text = (liveEvent.Input.Endpoints.Count > 3) ? string.Format((string)inputURLMToolStripMenuItem4.Tag, new Uri(liveEvent.Input.Endpoints[3].Url).Scheme) : string.Empty;
-
-            if (liveEvent.Input.Endpoints.Count == 1 && liveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4) //Smooth https
-            {
-                inputURLMToolStripMenuItem2.Text = string.Format((string)inputURLMToolStripMenuItem2.Tag, new Uri(liveEvent.Input.Endpoints[0].Url.Replace("http://", "https://")).Scheme);
-            }
-        }
 
 
         private void contextMenuStripLiveEvents_Opening(object sender, CancelEventArgs e)
@@ -8799,6 +8765,11 @@ namespace AMSExplorer
 
             var form = new EditorXMLJSON("API operations (RBAC)", sb.ToString(), false, false, false);
             form.ShowDialog();
+        }
+
+        private void ContextMenuItemLiveEventCopyIngestURLToClipboard_Click(object sender, EventArgs e)
+        {
+            DoCopyLiveEventInputURLsToClipboard();
         }
     }
 }

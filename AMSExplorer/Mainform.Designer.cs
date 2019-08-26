@@ -191,10 +191,6 @@
             this.ContextMenuItemLiveEventDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemLiveEventCopyIngestURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.inputURLMToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.inputURLMToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.inputURLMToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.inputURLMToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemLiveEventRunOnPremisesLiveEncoder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemLiveEventCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -1668,42 +1664,9 @@
             // 
             // ContextMenuItemLiveEventCopyIngestURLToClipboard
             // 
-            this.ContextMenuItemLiveEventCopyIngestURLToClipboard.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.inputURLMToolStripMenuItem1,
-            this.inputURLMToolStripMenuItem2,
-            this.inputURLMToolStripMenuItem3,
-            this.inputURLMToolStripMenuItem4});
             this.ContextMenuItemLiveEventCopyIngestURLToClipboard.Name = "ContextMenuItemLiveEventCopyIngestURLToClipboard";
             resources.ApplyResources(this.ContextMenuItemLiveEventCopyIngestURLToClipboard, "ContextMenuItemLiveEventCopyIngestURLToClipboard");
-            this.ContextMenuItemLiveEventCopyIngestURLToClipboard.DropDownOpening += new System.EventHandler(this.ContextMenuItemLiveEventCopyIngestURLToClipboard_DropDownOpening);
-            // 
-            // inputURLMToolStripMenuItem1
-            // 
-            this.inputURLMToolStripMenuItem1.Name = "inputURLMToolStripMenuItem1";
-            resources.ApplyResources(this.inputURLMToolStripMenuItem1, "inputURLMToolStripMenuItem1");
-            this.inputURLMToolStripMenuItem1.Tag = "Input 1 Url ({0})...";
-            this.inputURLMToolStripMenuItem1.Click += new System.EventHandler(this.DoCopyLiveEventInputURLToClipboard);
-            // 
-            // inputURLMToolStripMenuItem2
-            // 
-            this.inputURLMToolStripMenuItem2.Name = "inputURLMToolStripMenuItem2";
-            resources.ApplyResources(this.inputURLMToolStripMenuItem2, "inputURLMToolStripMenuItem2");
-            this.inputURLMToolStripMenuItem2.Tag = "Input 2 Url ({0})...";
-            this.inputURLMToolStripMenuItem2.Click += new System.EventHandler(this.DoCopyLiveEventInputURLToClipboard);
-            // 
-            // inputURLMToolStripMenuItem3
-            // 
-            this.inputURLMToolStripMenuItem3.Name = "inputURLMToolStripMenuItem3";
-            resources.ApplyResources(this.inputURLMToolStripMenuItem3, "inputURLMToolStripMenuItem3");
-            this.inputURLMToolStripMenuItem3.Tag = "Input 3 Url ({0})...";
-            this.inputURLMToolStripMenuItem3.Click += new System.EventHandler(this.DoCopyLiveEventInputURLToClipboard);
-            // 
-            // inputURLMToolStripMenuItem4
-            // 
-            this.inputURLMToolStripMenuItem4.Name = "inputURLMToolStripMenuItem4";
-            resources.ApplyResources(this.inputURLMToolStripMenuItem4, "inputURLMToolStripMenuItem4");
-            this.inputURLMToolStripMenuItem4.Tag = "Input 4 Url ({0})...";
-            this.inputURLMToolStripMenuItem4.Click += new System.EventHandler(this.DoCopyLiveEventInputURLToClipboard);
+            this.ContextMenuItemLiveEventCopyIngestURLToClipboard.Click += new System.EventHandler(this.ContextMenuItemLiveEventCopyIngestURLToClipboard_Click);
             // 
             // ContextMenuItemLiveEventRunOnPremisesLiveEncoder
             // 
@@ -3032,10 +2995,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemLiveEventRunOnPremisesLiveEncoder;
         private System.Windows.Forms.ToolStripMenuItem runAnOnpremisesLiveEncoderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem inputURLMToolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramCopyTheOutputURLToClipboard;
         private System.Windows.Forms.Label labelLiveEvents;
         private DataGridViewLiveEvent dataGridViewLiveEventsV;
