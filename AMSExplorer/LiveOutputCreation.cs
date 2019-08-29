@@ -27,7 +27,7 @@ namespace AMSExplorer
         public string LiveEventName;
         private readonly AMSClientV3 _client;
 
-        public string ProgramName
+        public string LiveOutputName
         {
             get => textboxprogramname.Text;
             set => textboxprogramname.Text = value;
