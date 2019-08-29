@@ -92,6 +92,7 @@ namespace AMSExplorer
 
         public Mainform(string[] args)
         {
+            this.Font = new Font("Segoe UI", 9);
             InitializeComponent();
 
             // for player control embedded in UI

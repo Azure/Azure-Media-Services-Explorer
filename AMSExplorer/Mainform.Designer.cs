@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
-            AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
+            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
+            AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
@@ -491,15 +491,17 @@
             this.dataGridViewAssetsV.AllowUserToDeleteRows = false;
             this.dataGridViewAssetsV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewAssetsV, "dataGridViewAssetsV");
+            this.dataGridViewAssetsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewAssetsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewAssetsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAssetsV.ContextMenuStrip = this.contextMenuStripAssets;
             this.dataGridViewAssetsV.Name = "dataGridViewAssetsV";
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.AssetNameEquals;
-            searchObject1.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject1;
+            searchObject3.SearchType = AMSExplorer.SearchIn.AssetNameEquals;
+            searchObject3.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject3;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.StateFilter = "";
             this.dataGridViewAssetsV.TimeFilter = "Last week";
@@ -929,6 +931,8 @@
             this.dataGridViewFilters.AllowUserToDeleteRows = false;
             this.dataGridViewFilters.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewFilters, "dataGridViewFilters");
+            this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewFilters.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilters;
             this.dataGridViewFilters.Name = "dataGridViewFilters";
@@ -1014,6 +1018,8 @@
             this.dataGridViewTransfer.AllowUserToDeleteRows = false;
             this.dataGridViewTransfer.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewTransfer, "dataGridViewTransfer");
+            this.dataGridViewTransfer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewTransfer.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewTransfer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanelTransfers.SetColumnSpan(this.dataGridViewTransfer, 2);
             this.dataGridViewTransfer.ContextMenuStrip = this.contextMenuStripTransfers;
@@ -1116,6 +1122,8 @@
             this.dataGridViewTransformsV.AllowUserToAddRows = false;
             this.dataGridViewTransformsV.AllowUserToDeleteRows = false;
             this.dataGridViewTransformsV.AllowUserToResizeRows = false;
+            this.dataGridViewTransformsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewTransformsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewTransformsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewTransformsV, 2);
             this.dataGridViewTransformsV.ContextMenuStrip = this.contextMenuStripTransforms;
@@ -1241,6 +1249,8 @@
             this.dataGridViewJobsV.AllowUserToAddRows = false;
             this.dataGridViewJobsV.AllowUserToDeleteRows = false;
             this.dataGridViewJobsV.AllowUserToResizeRows = false;
+            this.dataGridViewJobsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewJobsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewJobsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel4.SetColumnSpan(this.dataGridViewJobsV, 13);
             this.dataGridViewJobsV.ContextMenuStrip = this.contextMenuStripJobs;
@@ -1552,7 +1562,8 @@
             this.dataGridViewLiveEventsV.AllowUserToDeleteRows = false;
             this.dataGridViewLiveEventsV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewLiveEventsV, "dataGridViewLiveEventsV");
-            this.dataGridViewLiveEventsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewLiveEventsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewLiveEventsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewLiveEventsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridViewLiveEventsV, 7);
             this.dataGridViewLiveEventsV.ContextMenuStrip = this.contextMenuStripLiveEvents;
@@ -1561,9 +1572,9 @@
             this.dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             this.dataGridViewLiveEventsV.ReadOnly = true;
             this.dataGridViewLiveEventsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.LiveEventName;
-            searchObject2.Text = "";
-            this.dataGridViewLiveEventsV.SearchInName = searchObject2;
+            searchObject4.SearchType = AMSExplorer.SearchIn.LiveEventName;
+            searchObject4.Text = "";
+            this.dataGridViewLiveEventsV.SearchInName = searchObject4;
             this.dataGridViewLiveEventsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewLiveEventsV.TimeFilter = "Last week";
             this.dataGridViewLiveEventsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
@@ -1783,7 +1794,8 @@
             this.dataGridViewLiveOutputV.AllowUserToDeleteRows = false;
             this.dataGridViewLiveOutputV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewLiveOutputV, "dataGridViewLiveOutputV");
-            this.dataGridViewLiveOutputV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewLiveOutputV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewLiveOutputV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewLiveOutputV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel2.SetColumnSpan(this.dataGridViewLiveOutputV, 11);
             this.dataGridViewLiveOutputV.ContextMenuStrip = this.contextMenuStripLiveOutputs;
@@ -1794,9 +1806,9 @@
             this.dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";
             this.dataGridViewLiveOutputV.ReadOnly = true;
             this.dataGridViewLiveOutputV.RowHeadersVisible = false;
-            searchObject3.SearchType = AMSExplorer.SearchIn.LiveOutputName;
-            searchObject3.Text = "";
-            this.dataGridViewLiveOutputV.SearchInName = searchObject3;
+            searchObject1.SearchType = AMSExplorer.SearchIn.LiveOutputName;
+            searchObject1.Text = "";
+            this.dataGridViewLiveOutputV.SearchInName = searchObject1;
             this.dataGridViewLiveOutputV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewLiveOutputV.TimeFilter = "Last week";
             this.dataGridViewLiveOutputV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
@@ -2009,6 +2021,8 @@
             this.dataGridViewStreamingEndpointsV.AllowUserToDeleteRows = false;
             this.dataGridViewStreamingEndpointsV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewStreamingEndpointsV, "dataGridViewStreamingEndpointsV");
+            this.dataGridViewStreamingEndpointsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewStreamingEndpointsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewStreamingEndpointsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStreamingEndpointsV.ContextMenuStrip = this.contextMenuStripStreaminEndpoints;
             this.dataGridViewStreamingEndpointsV.FilterStreamingEndpointsState = "All";
@@ -2121,6 +2135,8 @@
             this.dataGridViewStorage.AllowUserToDeleteRows = false;
             this.dataGridViewStorage.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewStorage, "dataGridViewStorage");
+            this.dataGridViewStorage.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewStorage.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewStorage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStorage.ContextMenuStrip = this.contextMenuStripStorage;
             this.dataGridViewStorage.Name = "dataGridViewStorage";
@@ -2741,7 +2757,7 @@
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Controls.Add(this.buttonRefreshTab);
             this.Controls.Add(this.linkLabelFeedbackAMS);

@@ -64,13 +64,13 @@ namespace AMSExplorer
         [STAThread]
         private static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
             {
                 string language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language, false);
             }
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainform(args));
         }
 
@@ -497,7 +497,7 @@ namespace AMSExplorer
             }
         }
 
-              
+
         public class LiveOutputExt
         {
             public LiveOutput LiveOutputItem { get; set; }
@@ -3230,7 +3230,14 @@ namespace AMSExplorer
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(p));
+                try
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(p));
+                }
+                catch
+                {
+
+                }
             }
         }
 
