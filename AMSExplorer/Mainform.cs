@@ -3486,7 +3486,7 @@ namespace AMSExplorer
                             .Select(j => _amsClientV3.AMSclient.Jobs.CancelJobAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, transform.Name, j.Name)));
                     }
 
-                    TextBoxLogWriteLine(string.Format("Canceling {0} job(s)", deleteTasks.Count));
+                    TextBoxLogWriteLine("Canceling {0} job(s)...", deleteTasks.Count);
                     try
                     {
                         Task.WaitAll(deleteTasks.ToArray());
@@ -3494,7 +3494,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when canceling the job(s)", true);
+                        TextBoxLogWriteLine("There is a problem when canceling the job(s).", true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
@@ -3523,7 +3523,7 @@ namespace AMSExplorer
                     {
                         bool Error = false;
                         Task[] deleteTasks = SelectedTransforms.ToList().Select(t => _amsClientV3.AMSclient.Transforms.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, t.Name)).ToArray();
-                        TextBoxLogWriteLine("Deleting transform(s)");
+                        TextBoxLogWriteLine("Deleting transform(s)...");
                         try
                         {
                             Task.WaitAll(deleteTasks);
@@ -3531,7 +3531,7 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the transform(s)", true);
+                            TextBoxLogWriteLine("There is a problem when deleting the transform(s).", true);
                             TextBoxLogWriteLine(ex);
                             Error = true;
                         }
@@ -4437,13 +4437,13 @@ namespace AMSExplorer
                         if (JobToProcess != null)
                         {
                             //delete
-                            TextBoxLogWriteLine(string.Format("Changing priority to {0} for job '{1}'.", form.JobPriority, JobToProcess.Job.Name));
+                            TextBoxLogWriteLine("Changing priority to {0} for job '{1}'.", form.JobPriority, JobToProcess.Job.Name);
                             try
                             {
                                 JobToProcess.Job.Priority = form.JobPriority;
                                 _amsClientV3.RefreshTokenIfNeeded();
                                 _amsClientV3.AMSclient.Jobs.Update(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job);
-                                TextBoxLogWriteLine(string.Format("Job '{0}' updated.", JobToProcess.Job.Name));
+                                TextBoxLogWriteLine("Job '{0}' updated.", JobToProcess.Job.Name);
                             }
 
                             catch (Exception e)
@@ -5303,7 +5303,7 @@ namespace AMSExplorer
             {
                 await _amsClientV3.RefreshTokenIfNeededAsync();
 
-                TextBoxLogWriteLine("Live event '{0}' : creating...", form.LiveEventName);
+                TextBoxLogWriteLine("Creating live event '{0}'...", form.LiveEventName);
 
                 bool Error = false;
                 LiveEvent liveEvent = new LiveEvent();
@@ -5369,7 +5369,7 @@ namespace AMSExplorer
                                                                          liveEvent,
                                                                          autoStart: form.StartLiveEventNow ? true : false)
                                                                       );
-
+                        TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
                     }
                     catch (Exception ex)
                     {
@@ -5596,7 +5596,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    TextBoxLogWriteLine(string.Format("Stopping live event(s) : {0}...", names));
+                    TextBoxLogWriteLine("Stopping live event(s) : {0}...", names);
                     List<LiveEventResourceState?> states = liveeventsrunning.Select(p => p.ResourceState).ToList();
                     Task[] taskcstop = liveeventsrunning.Select(c => _amsClientV3.AMSclient.LiveEvents.StopAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
@@ -5615,7 +5615,7 @@ namespace AMSExplorer
                                 dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshLiveEvent(loitemR)), null);
                                 if (loitemR.ResourceState == LiveEventResourceState.Stopped)
                                 {
-                                    TextBoxLogWriteLine(string.Format("Live event stopped : {0}.", loitemR.Name));
+                                    TextBoxLogWriteLine("Live event stopped : {0}.", loitemR.Name);
                                     complete++;
                                 }
                             }
@@ -5646,7 +5646,7 @@ namespace AMSExplorer
                 {
                     string names2 = string.Join(", ", ListEvents.Select(le => le.Name).ToArray());
 
-                    TextBoxLogWriteLine(string.Format("Deleting live event(s) : {0}...", names2));
+                    TextBoxLogWriteLine("Deleting live event(s) : {0}...", names2);
                     List<LiveEventResourceState?> states = ListEvents.Select(p => p.ResourceState).ToList();
                     Task[] taskcdel = ListEvents.Select(c => _amsClientV3.AMSclient.LiveEvents.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
@@ -5670,12 +5670,12 @@ namespace AMSExplorer
                         System.Threading.Thread.Sleep(2000);
                     }
                     Task.WaitAll(taskcdel);
-                    TextBoxLogWriteLine(string.Format("Live event(s) deleted : {0}.", names2));
+                    TextBoxLogWriteLine("Live event(s) deleted : {0}.", names2);
                 }
                 catch (Exception ex)
                 {
                     // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when deleting a live event", true);
+                    TextBoxLogWriteLine("There is a problem when deleting a live event.", true);
                     TextBoxLogWriteLine(ex);
                 }
             }
@@ -5694,7 +5694,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    TextBoxLogWriteLine(string.Format("Starting live event(s) : {0}...", names));
+                    TextBoxLogWriteLine("Starting live event(s) : {0}...", names);
                     List<LiveEventResourceState?> states = liveevntsstopped.Select(p => p.ResourceState).ToList();
                     Task[] taskLEStart = liveevntsstopped.Select(c => _amsClientV3.AMSclient.LiveEvents.StartAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                     int complete = 0;
@@ -5712,7 +5712,7 @@ namespace AMSExplorer
                                 dataGridViewLiveEventsV.BeginInvoke(new Action(() => dataGridViewLiveEventsV.RefreshLiveEvent(loitemR)), null);
                                 if (loitemR.ResourceState == LiveEventResourceState.Running)
                                 {
-                                    TextBoxLogWriteLine(string.Format("Live event started : {0}.", loitemR.Name));
+                                    TextBoxLogWriteLine("Live event started : {0}.", loitemR.Name);
                                     complete++;
                                 }
                             }
@@ -5793,7 +5793,7 @@ namespace AMSExplorer
             catch (Exception ex)
             {
                 // Add useful information to the exception
-                TextBoxLogWriteLine("There is a problem when deleting a live output", true);
+                TextBoxLogWriteLine("There is a problem when deleting a live output.", true);
                 TextBoxLogWriteLine(ex);
                 //Error = true;
             }
@@ -5812,7 +5812,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when deleting an asset", true);
+                    TextBoxLogWriteLine("There is a problem when deleting an asset.", true);
                     TextBoxLogWriteLine(ex);
                 }
                 DoRefreshGridAssetV(false);
@@ -5830,7 +5830,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    TextBoxLogWriteLine(string.Format("Starting streaming endpoint(s) : {0}...", names));
+                    TextBoxLogWriteLine("Starting streaming endpoint(s) : {0}...", names);
                     List<StreamingEndpointResourceState?> states = streamingendpointsstopped.Select(p => p.ResourceState).ToList();
                     Task[] taskSEStart = streamingendpointsstopped.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.StartAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
                     int complete = 0;
@@ -5851,7 +5851,7 @@ namespace AMSExplorer
                                 });
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Running)
                                 {
-                                    TextBoxLogWriteLine(string.Format("Streaming endpoint started : {0}.", loitemR.Name));
+                                    TextBoxLogWriteLine("Streaming endpoint started : {0}.", loitemR.Name);
                                     complete++;
                                 }
                             }
@@ -5881,15 +5881,15 @@ namespace AMSExplorer
 
             try
             {
-                TextBoxLogWriteLine(string.Format("updating streaming endpoint : {0}...", se.Name));
+                TextBoxLogWriteLine("Updating streaming endpoint '{0}'...", se.Name);
                 await _amsClientV3.AMSclient.StreamingEndpoints.UpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, se.Name, se);
-                TextBoxLogWriteLine(string.Format("Streaming endpoint updated : {0}.", se.Name));
+                TextBoxLogWriteLine("Streaming endpoint '{0}' updated.", se.Name);
 
                 if (units != null)
                 {
-                    TextBoxLogWriteLine(string.Format("scaling streaming endpoint : {0}...", se.Name));
+                    TextBoxLogWriteLine("Scaling streaming endpoint '{0}'...", se.Name);
                     await _amsClientV3.AMSclient.StreamingEndpoints.ScaleAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, se.Name, units);
-                    TextBoxLogWriteLine(string.Format("Streaming endpoint scaled : {0}.", se.Name));
+                    TextBoxLogWriteLine("Streaming endpoint '{0}' scaled.", se.Name);
                 }
 
             }
@@ -5916,7 +5916,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    TextBoxLogWriteLine(string.Format("Stopping streaming endpoints(s) : {0}...", names));
+                    TextBoxLogWriteLine("Stopping streaming endpoints(s) : {0}...", names);
                     List<StreamingEndpointResourceState?> states = sesrunning.Select(p => p.ResourceState).ToList();
                     Task[] taskSEstop = sesrunning.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.StopAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
@@ -5938,7 +5938,7 @@ namespace AMSExplorer
 
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Stopped)
                                 {
-                                    TextBoxLogWriteLine(string.Format("Streaming endpoint stopped : {0}.", loitemR.Name));
+                                    TextBoxLogWriteLine("Streaming endpoint '{0}' stopped.", loitemR.Name);
                                     complete++;
                                 }
                             }
@@ -5964,7 +5964,7 @@ namespace AMSExplorer
                 {
                     string names2 = string.Join(", ", ListStreamingEndpoints.Select(le => le.Name).ToArray());
 
-                    TextBoxLogWriteLine(string.Format("Deleting streaming endpoints(s) : {0}...", names2));
+                    TextBoxLogWriteLine("Deleting streaming endpoints(s) : {0}...", names2);
                     List<StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
                     Task[] taskSEdel = ListStreamingEndpoints.Select(c => _amsClientV3.AMSclient.StreamingEndpoints.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, c.Name)).ToArray();
 
@@ -5991,13 +5991,13 @@ namespace AMSExplorer
                         System.Threading.Thread.Sleep(2000);
                     }
                     Task.WaitAll(taskSEdel);
-                    TextBoxLogWriteLine(string.Format("Streaming endpoint(s) deleted : {0}.", names2));
+                    TextBoxLogWriteLine("Streaming endpoint(s) deleted : {0}.", names2);
                 }
 
                 catch (Exception ex)
                 {
                     // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when deleting a streaming endpoint", true);
+                    TextBoxLogWriteLine("There is a problem when deleting a streaming endpoint.", true);
                     TextBoxLogWriteLine(ex);
                 }
             }
@@ -6018,7 +6018,7 @@ namespace AMSExplorer
                     ArchiveWindowLength = new TimeSpan(0, 5, 0),
                     CreateLocator = true,
                     AssetName = Constants.NameconvLiveEvent + "-" + Constants.NameconvLiveOutput,
-                    ProgramName = "LiveOutput-" + uniqueness,
+                    LiveOutputName = "LiveOutput-" + uniqueness,
                     HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
                     ManifestName = uniqueness
                 };
@@ -6026,7 +6026,7 @@ namespace AMSExplorer
                 {
                     _amsClientV3.RefreshTokenIfNeeded();
 
-                    string assetname = form.AssetName.Replace(Constants.NameconvLiveOutput, form.ProgramName).Replace(Constants.NameconvLiveEvent, form.LiveEventName);
+                    string assetname = form.AssetName.Replace(Constants.NameconvLiveOutput, form.LiveOutputName).Replace(Constants.NameconvLiveEvent, form.LiveEventName);
                     Asset newAsset = new Asset() { StorageAccountName = form.StorageSelected };
 
                     Asset asset = null;
@@ -6034,11 +6034,11 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            TextBoxLogWriteLine("Asset creation...");
+                            TextBoxLogWriteLine("Creating asset '{0}'...", assetname);
                             asset = await _amsClientV3.AMSclient.Assets.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, assetname, newAsset);
-                            TextBoxLogWriteLine("Asset created.");
+                            TextBoxLogWriteLine("Asset '{0}' created.", assetname);
 
-                            TextBoxLogWriteLine("Live output creation...");
+                            TextBoxLogWriteLine("Creating live output '{0}'...", form.LiveOutputName);
 
                             Hls hlsParam = null;
                             if (form.HLSFragmentPerSegment != null)
@@ -6050,7 +6050,7 @@ namespace AMSExplorer
                                 asset.Name,
                                 form.ArchiveWindowLength,
                                 null,
-                                form.ProgramName,
+                                form.LiveOutputName,
                                 null,
                                 form.ProgramDescription,
                                 form.ManifestName ?? uniqueness,
@@ -6058,8 +6058,8 @@ namespace AMSExplorer
                                 form.StartRecordTimestamp
                                 );
 
-                            LiveOutput liveOutput2 = await _amsClientV3.AMSclient.LiveOutputs.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEvent.Name, form.ProgramName, liveOutput);
-                            TextBoxLogWriteLine("Live output created.");
+                            LiveOutput liveOutput2 = await _amsClientV3.AMSclient.LiveOutputs.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, liveEvent.Name, form.LiveOutputName, liveOutput);
+                            TextBoxLogWriteLine("Live output '{0}' created.", liveOutput2.Name);
 
                             if (form.CreateLocator)
                             {
@@ -6070,7 +6070,7 @@ namespace AMSExplorer
                                 catch (Exception ex)
                                 {
                                     // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when publishing the asset of the live output", true);
+                                    TextBoxLogWriteLine("There is a problem when publishing the asset of the live output.", true);
                                     TextBoxLogWriteLine(ex);
                                 }
                             }
@@ -6078,7 +6078,7 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when creating a live output", true);
+                            TextBoxLogWriteLine("There is a problem when creating a live output.", true);
                             TextBoxLogWriteLine(ex);
                         }
 
@@ -6428,7 +6428,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when creating a streaming endpoint", true);
+                        TextBoxLogWriteLine("There is a problem when creating a streaming endpoint.", true);
                         TextBoxLogWriteLine(ex);
                     }
                     DoRefreshGridStreamingEndpointV(false);
