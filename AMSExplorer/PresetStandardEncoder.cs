@@ -27,7 +27,7 @@ namespace AMSExplorer
 
     public partial class PresetStandardEncoder : Form
     {
-        static public readonly string  CopyVideoAudioTransformName = "StandardEncoder-CopyVideoAudio";
+        static public readonly string  CopyVideoAudioTransformName = "StandardEncoder-AMSE-CopyVideoAudio";
         private readonly string _unique;
 
         public readonly IList<Profile> Profiles = new List<Profile> {

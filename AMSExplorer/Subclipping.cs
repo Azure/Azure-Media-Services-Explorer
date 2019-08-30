@@ -141,6 +141,14 @@ namespace AMSExplorer
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoSubClipAMSE));
             CheckIfErrorTimeControls();
             DisplayAccuracy();
+            GenerateUniqueNamesForJobAndOutput();
+        }
+
+        private void GenerateUniqueNamesForJobAndOutput()
+        {
+            string uniqueness = Guid.NewGuid().ToString("N");
+            EncodingJobName = "subclipping-job-" + uniqueness;
+            EncodingOutputAssetName = "subclipped-" + uniqueness;
         }
 
         private SubClipTrimmingDataTimeSpan GetSubClipTrimmingDataTimeSpan()
@@ -243,8 +251,8 @@ namespace AMSExplorer
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
-            ResetConfigJSON();
             UpdateDurationText();
+            UpdateJSONInfo();
         }
 
 
@@ -256,8 +264,8 @@ namespace AMSExplorer
         private void timeControlStart_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
-            ResetConfigJSON();
             UpdateDurationText();
+            UpdateJSONInfo();
         }
 
         private void UpdateDurationText()
@@ -280,7 +288,6 @@ namespace AMSExplorer
              checkBoxTrimming.Checked;
 
             CheckIfErrorTimeControls();
-            ResetConfigJSON();
             PlaybackAsset();
         }
 
@@ -307,6 +314,7 @@ namespace AMSExplorer
                 if (checkBoxTrimming.Checked) // with trimming
                 {
                     sourceEntry.StartTime = timeControlStart.TimeStampWithOffset;
+                    sourceEntry.EndTime = timeControlEnd.TimeStampWithOffset;
                     sourceEntry.Duration = timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset;
                 }
                 obj.Subclips.Add(sourceEntry);
@@ -330,15 +338,13 @@ namespace AMSExplorer
             {
                 checkBoxTrimming.Checked = true;
                 checkBoxTrimming.Enabled = false;
-                textBoxConfiguration.Enabled = panelJob.Visible = false;
+                panelJob.Visible = false;
                 UpdateButtonOk();
-                ResetConfigJSON();
                 DisplayAccuracy();
-                label3.Visible = textBoxConfiguration.Visible = false;
 
                 if (senderr.Name == radioButtonClipWithReencode.Name) //reencoding
                 {
-                    panelEDL.Visible = true;
+                    panelEDL.Visible = false; // true;  // no EDL for now in AMS v3
                 }
                 else
                 {
@@ -350,13 +356,13 @@ namespace AMSExplorer
             {
                 checkBoxTrimming.Checked = backupCheckboxTrim;
                 checkBoxTrimming.Enabled = true;
-                textBoxConfiguration.Enabled = panelJob.Visible = true;
+                panelJob.Visible = true;
                 UpdateButtonOk();
-                ResetConfigJSON();
                 DisplayAccuracy();
-                label3.Visible = textBoxConfiguration.Visible = true;
                 panelEDL.Visible = true;
             }
+
+            UpdateJSONInfo();
         }
 
         private void UpdateButtonOk()
@@ -388,13 +394,6 @@ namespace AMSExplorer
                 labeloutputasset.Text = _labeloutoutputasset;
             }
         }
-
-
-        private void ResetConfigJSON()
-        {
-            textBoxConfiguration.Text = string.Empty;
-        }
-
 
         private void Subclipping_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -539,25 +538,29 @@ namespace AMSExplorer
             }
             else // no reencode or asset filter but stream copy
             {
+                ClipTime startTime = null;
+                ClipTime endTime = null;
 
-                var startTime =
-                new AbsoluteClipTime()
+                if (checkBoxTrimming.Checked)
                 {
-                    Time = subclipConfig.StartTime
-                };
+                    startTime = new AbsoluteClipTime()
+                    {
+                        Time = subclipConfig.StartTime
+                    };
 
-                var endTime =
-               new AbsoluteClipTime()
-               {
-                   Time = subclipConfig.EndTime
-               };
+                    endTime = new AbsoluteClipTime()
+                    {
+                        Time = subclipConfig.EndTime
+                    };
+                }
 
                 var transform = _mainform.CreateAndGetCopyCodecTransformIfNeeded();
-                _mainform.CreateAndSubmitJobs(new List<Transform>() { transform }, _selectedAssets, startTime, endTime);
+                _mainform.CreateAndSubmitJobs(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, EncodingOutputAssetName);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
+
+            GenerateUniqueNamesForJobAndOutput();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -574,7 +577,6 @@ namespace AMSExplorer
         private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)
         {
             buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
-            ResetConfigJSON();
         }
     }
 

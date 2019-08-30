@@ -7810,12 +7810,7 @@ namespace AMSExplorer
                     MessageBox.Show("Asset(s) should be a live, live archive or pre-fragmented asset." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-
-                Subclipping form = new Subclipping(_amsClientV3, selectedAssets, this)
-                {
-                    EncodingJobName = "Subclipping of " + Constants.NameconvInputasset,
-                    EncodingOutputAssetName = Constants.NameconvInputasset + " - Subclipped"
-                };
+                Subclipping form = new Subclipping(_amsClientV3, selectedAssets, this);
 
                 form.ShowDialog();
             }
@@ -8535,7 +8530,7 @@ namespace AMSExplorer
             */
         }
 
-        public void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null)
+        public void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, string outputAssetName = null)
         {
             _amsClientV3.RefreshTokenIfNeeded();
 
@@ -8544,8 +8539,10 @@ namespace AMSExplorer
                 foreach (Transform transform in sel)
                 {
                     string uniqueness = Guid.NewGuid().ToString("N");
-                    string jobName = $"job-{uniqueness}";
-                    string outputAssetName = $"output-{uniqueness}";
+                    if (jobName == null)
+                        jobName = $"job-{uniqueness}";
+                    if (outputAssetName == null)
+                        outputAssetName = $"output-{uniqueness}";
 
                     JobInputAsset jobInput = new JobInputAsset(asset.Name, start: start, end: end);
 

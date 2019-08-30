@@ -33,7 +33,7 @@ namespace AMSExplorer
 {
     public class DataGridViewJobs : DataGridView
     {
-        private static BindingList<JobEntryV3> _MyObservJobV3;
+        private static BindingList<JobEntryV3> _MyObservJobV3 = new BindingList<JobEntryV3>();
         private static readonly Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new Dictionary<string, CancellationTokenSource>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
 
         private static int _jobsperpage = 50; //nb of items per page
