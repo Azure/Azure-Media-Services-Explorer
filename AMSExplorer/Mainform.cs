@@ -1408,12 +1408,16 @@ namespace AMSExplorer
 
 
 
-        private void DotabControlMainSwitch(string tab)
+        private void DotabControlMainSwitch(string tab, Transform transform = null)
         {
             foreach (TabPage page in tabControlMain.TabPages)
             {
                 if (page.Text.Contains(tab))
                 {
+                    if (transform != null)
+                    {
+                        dataGridViewTransformsV.SelectTransform(transform);
+                    }
                     tabControlMain.BeginInvoke(new Action(() => tabControlMain.SelectedTab = page), null);
                     break;
                 }
@@ -7014,7 +7018,7 @@ namespace AMSExplorer
                     CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
                 }
 
-                // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs, form.SelectedTransform);
             }
         }
 
@@ -8388,7 +8392,7 @@ namespace AMSExplorer
 
                     // Create the Transform with the output defined above
                     Transform transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
-                    TextBoxLogWriteLine("Transform {0} created.", transform.Name); // Warning
+                    TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
 
                 }
                 catch (Exception ex)
@@ -8419,7 +8423,7 @@ namespace AMSExplorer
 
                     // Create the Transform with the output defined above
                     Transform transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
-                    TextBoxLogWriteLine("Transform {0} created.", transform.Name); // Warning
+                    TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
 
                 }
                 catch (Exception ex)
@@ -8462,7 +8466,7 @@ namespace AMSExplorer
                 {
                     // Create the Transform with the output defined above
                     Transform transform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
-                    TextBoxLogWriteLine("Transform {0} created.", transform.Name); // Warning
+                    TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
 
                 }
                 catch (Exception ex)
@@ -8503,7 +8507,7 @@ namespace AMSExplorer
                 {
                     // Create the Transform with the output defined above
                     myTransform = _amsClientV3.AMSclient.Transforms.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.Description);
-                    TextBoxLogWriteLine("Transform {0} created.", myTransform.Name); // Warning
+                    TextBoxLogWriteLine("Transform '{0}' created.", myTransform.Name); // Warning
                 }
                 catch (Exception ex)
                 {
@@ -8571,7 +8575,7 @@ namespace AMSExplorer
                                                                         Input = jobInput,
                                                                         Outputs = jobOutputs,
                                                                     });
-                        TextBoxLogWriteLine("Job {0} created.", job.Name); // Warning
+                        TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
 
                         dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
                     }
@@ -8623,7 +8627,7 @@ namespace AMSExplorer
                                                                     Input = jobInput,
                                                                     Outputs = jobOutputs,
                                                                 });
-                    TextBoxLogWriteLine("Job {0} created.", job.Name); // Warning
+                    TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
 
                     dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
                 }
@@ -8684,7 +8688,7 @@ namespace AMSExplorer
             {
                 CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
 
-                // DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs);
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs, form.SelectedTransform);
             }
         }
 

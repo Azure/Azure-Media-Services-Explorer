@@ -111,5 +111,18 @@ namespace AMSExplorer
             SelectedTransforms.Reverse();
             return SelectedTransforms;
         }
+
+        public void SelectTransform(Transform transform)
+        {
+            ClearSelection();
+            foreach (DataGridViewRow Row in Rows)
+            {
+                if ((string)Row.Cells[0].Value == transform.Name)
+                {
+                    Row.Selected = true;
+                    break;
+                }
+            }
+        }
     }
 }
