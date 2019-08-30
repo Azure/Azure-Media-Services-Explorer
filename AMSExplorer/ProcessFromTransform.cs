@@ -267,5 +267,10 @@ namespace AMSExplorer
             listViewTransforms.LoadTransforms(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
 
         }
+
+        private void ProcessFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+        }
     }
 }

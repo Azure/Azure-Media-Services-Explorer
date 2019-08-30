@@ -46,13 +46,13 @@
             this.textBoxURL = new System.Windows.Forms.TextBox();
             this.radioButtonHttpSource = new System.Windows.Forms.RadioButton();
             this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
+            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
-            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
@@ -182,6 +182,18 @@
             this.radioButtonSelectedAssets.TabStop = true;
             this.radioButtonSelectedAssets.UseVisualStyleBackColor = true;
             // 
+            // listViewTransforms
+            // 
+            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
+            this.listViewTransforms.FullRowSelect = true;
+            this.listViewTransforms.HideSelection = false;
+            this.listViewTransforms.MultiSelect = false;
+            this.listViewTransforms.Name = "listViewTransforms";
+            this.listViewTransforms.Tag = -1;
+            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
+            this.listViewTransforms.View = System.Windows.Forms.View.Details;
+            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label6);
@@ -228,18 +240,6 @@
             this.checkBoxSourceTrimmingStart.UseVisualStyleBackColor = true;
             this.checkBoxSourceTrimmingStart.CheckStateChanged += new System.EventHandler(this.checkBoxSourceTrimmingStart_CheckStateChanged);
             // 
-            // listViewTransforms
-            // 
-            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
-            this.listViewTransforms.FullRowSelect = true;
-            this.listViewTransforms.HideSelection = false;
-            this.listViewTransforms.MultiSelect = false;
-            this.listViewTransforms.Name = "listViewTransforms";
-            this.listViewTransforms.Tag = -1;
-            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
-            this.listViewTransforms.View = System.Windows.Forms.View.Details;
-            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
-            // 
             // timeControlEndTime
             // 
             this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
@@ -270,11 +270,11 @@
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
-            // ProcessFromTransform2
+            // ProcessFromTransform
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.tabControl1);
@@ -282,9 +282,10 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label);
-            this.Name = "ProcessFromTransform2";
+            this.Name = "ProcessFromTransform";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.ProcessFromJobTemplate_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ProcessFromTransform_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+    <value>Bottom, Left</value>
   </data>
   <data name="label.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -562,7 +562,7 @@
     <value>listViewTransforms</value>
   </data>
   <data name="&gt;&gt;listViewTransforms.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewTransforms, AMSExplorer, Version=5.0.5.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewTransforms, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewTransforms.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -738,9 +738,6 @@
   <data name="timeControlEndTime.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="timeControlEndTime.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="timeControlEndTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>53, 113</value>
   </data>
@@ -754,7 +751,7 @@
     <value>timeControlEndTime</value>
   </data>
   <data name="&gt;&gt;timeControlEndTime.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.5.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEndTime.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -764,9 +761,6 @@
   </data>
   <data name="timeControlStartTime.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
-  </data>
-  <data name="timeControlStartTime.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="timeControlStartTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>53, 59</value>
@@ -781,7 +775,7 @@
     <value>timeControlStartTime</value>
   </data>
   <data name="&gt;&gt;timeControlStartTime.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.5.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStartTime.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -841,16 +835,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>784, 561</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
@@ -865,7 +856,7 @@
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ProcessFromTransform2</value>
+    <value>ProcessFromTransform</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

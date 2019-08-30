@@ -103,6 +103,7 @@
             this.DGLiveEvent.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGLiveEvent, "DGLiveEvent");
             this.DGLiveEvent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGLiveEvent.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGLiveEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGLiveEvent.ColumnHeadersVisible = false;
             this.DGLiveEvent.ContextMenuStrip = this.contextMenuStripDG;
@@ -209,6 +210,8 @@
             // 
             this.dataGridViewInputIP.AllowUserToAddRows = false;
             this.dataGridViewInputIP.AllowUserToDeleteRows = false;
+            this.dataGridViewInputIP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewInputIP.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewInputIP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             resources.ApplyResources(this.dataGridViewInputIP, "dataGridViewInputIP");
             this.dataGridViewInputIP.Name = "dataGridViewInputIP";
@@ -220,6 +223,8 @@
             // 
             this.dataGridViewPreviewIP.AllowUserToAddRows = false;
             this.dataGridViewPreviewIP.AllowUserToDeleteRows = false;
+            this.dataGridViewPreviewIP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewPreviewIP.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewPreviewIP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             resources.ApplyResources(this.dataGridViewPreviewIP, "dataGridViewPreviewIP");
             this.dataGridViewPreviewIP.Name = "dataGridViewPreviewIP";
@@ -312,6 +317,7 @@
             this.dataGridViewVideoProf.AllowUserToDeleteRows = false;
             resources.ApplyResources(this.dataGridViewVideoProf, "dataGridViewVideoProf");
             this.dataGridViewVideoProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewVideoProf.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewVideoProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewVideoProf.Name = "dataGridViewVideoProf";
             this.dataGridViewVideoProf.ReadOnly = true;
@@ -323,6 +329,7 @@
             this.dataGridViewAudioProf.AllowUserToDeleteRows = false;
             resources.ApplyResources(this.dataGridViewAudioProf, "dataGridViewAudioProf");
             this.dataGridViewAudioProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewAudioProf.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewAudioProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAudioProf.Name = "dataGridViewAudioProf";
             this.dataGridViewAudioProf.ReadOnly = true;
@@ -469,7 +476,7 @@
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.Controls.Add(this.panel2);
@@ -481,6 +488,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LiveEventInformation_FormClosed);
             this.Load += new System.EventHandler(this.LiveEventInformation_Load);
             this.Shown += new System.EventHandler(this.LiveEventInformation_Shown);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.LiveEventInformation_DpiChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).EndInit();
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

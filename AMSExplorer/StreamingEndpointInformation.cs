@@ -489,6 +489,11 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
 
         }
+
+        private void StreamingEndpointInformation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(new List<Control> { textBoxClientPolicy, textBoxCrossDomPolicy, labelSEName }, e);
+        }
     }
 
     public class ExplorerSEModifications

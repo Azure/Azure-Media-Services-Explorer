@@ -319,5 +319,10 @@ namespace AMSExplorer
 
             }
         }
+
+        private void JobInformation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelJobNameTitle, e);
+        }
     }
 }

@@ -89,10 +89,10 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // AMSLoginServicePrincipal
+            // AmsLoginServicePrincipal
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.label1);
@@ -101,7 +101,8 @@
             this.Controls.Add(this.textBoxClientId);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
-            this.Name = "AMSLoginServicePrincipal";
+            this.Name = "AmsLoginServicePrincipal";
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AmsLoginServicePrincipal_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

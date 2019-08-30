@@ -180,6 +180,7 @@ namespace AMSExplorer
             Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name);
             List<string> afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
+            listViewFilters.BeginUpdate();
             assetFilters.ToList().ForEach(f =>
             {
                 ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
@@ -190,7 +191,6 @@ namespace AMSExplorer
                 listViewFilters.Items.Add(lvitem);
             }
            );
-
 
             // account filters
             Microsoft.Rest.Azure.IPage<AccountFilter> acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
@@ -209,7 +209,7 @@ namespace AMSExplorer
                 listViewFilters.Items.Add(lvitem);
             }
            );
-
+            listViewFilters.EndUpdate();
 
 
             if (_playertype == PlayerType.DASHIFRefPlayer)
@@ -363,6 +363,11 @@ namespace AMSExplorer
             .FirstOrDefault().Paths.FirstOrDefault();
 
             UpdatePreviewUrl();
+        }
+
+        private void ChooseStreamingEndpoint_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(label5, e);
         }
     }
 }

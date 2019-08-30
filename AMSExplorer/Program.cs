@@ -98,6 +98,16 @@ namespace AMSExplorer
         }
 
 
+        public static void UpdatedSizeFontAfterDPIChange(Control control, DpiChangedEventArgs e)
+        {
+            UpdatedSizeFontAfterDPIChange(new List<Control> { control }, e);
+        }
+
+        public static void UpdatedSizeFontAfterDPIChange(List<Control> controls, DpiChangedEventArgs e)
+        {
+            float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
+            controls.ForEach(c => c.Font = new Font(c.Font.Name, c.Font.Size * factor));
+        }
 
         public static string GetErrorMessage(Exception e)
         {
@@ -2974,6 +2984,14 @@ namespace AMSExplorer
 
     public class AssetEntryV3 : INotifyPropertyChanged
     {
+
+        private SynchronizationContext syncContext;
+
+        public AssetEntryV3(SynchronizationContext mysyncContext)
+        {
+            syncContext = mysyncContext;
+        }
+
         public string _Name;
         public string Name
         {
@@ -3226,13 +3244,23 @@ namespace AMSExplorer
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         private void NotifyPropertyChanged([CallerMemberName] string p = "")
         {
             if (PropertyChanged != null)
             {
                 try
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs(p));
+                    var handler = PropertyChanged;
+                   
+                        if (syncContext != null)
+                            syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
+                        else
+                            handler(this, new PropertyChangedEventArgs(p));
+                    
+
+
+                    //PropertyChanged(this, new PropertyChangedEventArgs(p));
                 }
                 catch
                 {

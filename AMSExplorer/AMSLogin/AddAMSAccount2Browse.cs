@@ -185,5 +185,10 @@ namespace AMSExplorer
         {
             BuildSubTree();
         }
+
+        private void AddAMSAccount2Browse_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(label2, e);
+        }
     }
 }

@@ -34,10 +34,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.textBoxAttachStorage = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.listViewStorage = new System.Windows.Forms.ListView();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxAttachStorage = new System.Windows.Forms.TextBox();
             this.labelAssetCopy = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +64,13 @@
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // textBoxAttachStorage
+            // 
+            this.textBoxAttachStorage.AcceptsReturn = true;
+            resources.ApplyResources(this.textBoxAttachStorage, "textBoxAttachStorage");
+            this.textBoxAttachStorage.Name = "textBoxAttachStorage";
+            this.toolTip1.SetToolTip(this.textBoxAttachStorage, resources.GetString("textBoxAttachStorage.ToolTip"));
+            // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
@@ -75,6 +82,7 @@
             this.listViewStorage.CheckBoxes = true;
             this.listViewStorage.FullRowSelect = true;
             this.listViewStorage.GridLines = true;
+            this.listViewStorage.HideSelection = false;
             this.listViewStorage.Name = "listViewStorage";
             this.listViewStorage.UseCompatibleStateImageBehavior = false;
             this.listViewStorage.View = System.Windows.Forms.View.List;
@@ -83,13 +91,6 @@
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            // 
-            // textBoxAttachStorage
-            // 
-            this.textBoxAttachStorage.AcceptsReturn = true;
-            resources.ApplyResources(this.textBoxAttachStorage, "textBoxAttachStorage");
-            this.textBoxAttachStorage.Name = "textBoxAttachStorage";
-            this.toolTip1.SetToolTip(this.textBoxAttachStorage, resources.GetString("textBoxAttachStorage.ToolTip"));
             // 
             // labelAssetCopy
             // 
@@ -101,7 +102,7 @@
             // 
             this.AcceptButton = this.buttonAttach;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.labelAssetCopy);
             this.Controls.Add(this.textBoxAttachStorage);
@@ -111,6 +112,7 @@
             this.Controls.Add(this.label3);
             this.Name = "AttachStorage";
             this.Load += new System.EventHandler(this.AttachStorage_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AttachStorage_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -97,6 +97,11 @@
             this.comboBoxKeys = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
+            this.buttonGetDRMToken = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -115,11 +120,9 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonGetDRMToken = new System.Windows.Forms.Button();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -137,10 +140,13 @@
             this.tabPage4.SuspendLayout();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
+            this.tabPage8.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.contextMenuStripKey.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tabPage8.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGAsset
@@ -150,6 +156,7 @@
             this.DGAsset.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGAsset, "DGAsset");
             this.DGAsset.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGAsset.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGAsset.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGAsset.ColumnHeadersVisible = false;
             this.DGAsset.ContextMenuStrip = this.contextMenuStripDG;
@@ -245,6 +252,7 @@
             this.DGFiles.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGFiles, "DGFiles");
             this.DGFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGFiles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGFiles.ColumnHeadersVisible = false;
             this.DGFiles.ContextMenuStrip = this.contextMenuStripDG;
@@ -521,6 +529,7 @@
             this.dataGridViewFilters.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewFilters, "dataGridViewFilters");
             this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewFilters.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilter;
             this.dataGridViewFilters.Name = "dataGridViewFilters";
@@ -599,10 +608,7 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.textBoxStreamingPolicyOfLocator);
-            this.tabPage5.Controls.Add(this.textBoxContentKeyPolicyOfStreamingPolicy);
-            this.tabPage5.Controls.Add(this.label7);
-            this.tabPage5.Controls.Add(this.label3);
+            this.tabPage5.Controls.Add(this.tableLayoutPanel1);
             resources.ApplyResources(this.tabPage5, "tabPage5");
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -631,8 +637,7 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.textBoxContentKeyPolicyOfLocator);
-            this.tabPage4.Controls.Add(this.label8);
+            this.tabPage4.Controls.Add(this.tableLayoutPanel2);
             resources.ApplyResources(this.tabPage4, "tabPage4");
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -650,17 +655,15 @@
             // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.comboBoxKeys);
-            this.tabPage7.Controls.Add(this.label6);
-            this.tabPage7.Controls.Add(this.dataGridViewKeys);
+            this.tabPage7.Controls.Add(this.tableLayoutPanel3);
             resources.ApplyResources(this.tabPage7, "tabPage7");
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // comboBoxKeys
             // 
-            this.comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             resources.ApplyResources(this.comboBoxKeys, "comboBoxKeys");
+            this.comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxKeys.FormattingEnabled = true;
             this.comboBoxKeys.Name = "comboBoxKeys";
             this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeys_SelectedIndexChanged);
@@ -675,16 +678,52 @@
             this.dataGridViewKeys.AllowUserToAddRows = false;
             this.dataGridViewKeys.AllowUserToDeleteRows = false;
             this.dataGridViewKeys.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
             this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewKeys.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewKeys.ColumnHeadersVisible = false;
+            this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewKeys, 2);
             this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
-            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
             this.dataGridViewKeys.MultiSelect = false;
             this.dataGridViewKeys.Name = "dataGridViewKeys";
             this.dataGridViewKeys.ReadOnly = true;
             this.dataGridViewKeys.RowHeadersVisible = false;
             this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick_1);
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.label10);
+            this.tabPage8.Controls.Add(this.label9);
+            this.tabPage8.Controls.Add(this.comboBoxOptions);
+            this.tabPage8.Controls.Add(this.buttonGetDRMToken);
+            resources.ApplyResources(this.tabPage8, "tabPage8");
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // comboBoxOptions
+            // 
+            this.comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOptions.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxOptions, "comboBoxOptions");
+            this.comboBoxOptions.Name = "comboBoxOptions";
+            // 
+            // buttonGetDRMToken
+            // 
+            resources.ApplyResources(this.buttonGetDRMToken, "buttonGetDRMToken");
+            this.buttonGetDRMToken.Name = "buttonGetDRMToken";
+            this.buttonGetDRMToken.UseVisualStyleBackColor = true;
+            this.buttonGetDRMToken.Click += new System.EventHandler(this.ButtonGetDRMToken_Click);
             // 
             // label5
             // 
@@ -811,45 +850,35 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
-            // buttonGetDRMToken
+            // tableLayoutPanel1
             // 
-            resources.ApplyResources(this.buttonGetDRMToken, "buttonGetDRMToken");
-            this.buttonGetDRMToken.Name = "buttonGetDRMToken";
-            this.buttonGetDRMToken.UseVisualStyleBackColor = true;
-            this.buttonGetDRMToken.Click += new System.EventHandler(this.ButtonGetDRMToken_Click);
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxContentKeyPolicyOfStreamingPolicy, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxStreamingPolicyOfLocator, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 2);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
-            // tabPage8
+            // tableLayoutPanel2
             // 
-            this.tabPage8.Controls.Add(this.label10);
-            this.tabPage8.Controls.Add(this.label9);
-            this.tabPage8.Controls.Add(this.comboBoxOptions);
-            this.tabPage8.Controls.Add(this.buttonGetDRMToken);
-            resources.ApplyResources(this.tabPage8, "tabPage8");
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
+            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBoxContentKeyPolicyOfLocator, 0, 1);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
-            // comboBoxOptions
+            // tableLayoutPanel3
             // 
-            this.comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOptions.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxOptions, "comboBoxOptions");
-            this.comboBoxOptions.Name = "comboBoxOptions";
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
+            resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
+            this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.dataGridViewKeys, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.comboBoxKeys, 1, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.Controls.Add(this.panel2);
@@ -860,6 +889,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
             this.Load += new System.EventHandler(this.AssetInformation_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AssetInformation_DpiChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).EndInit();
             this.contextMenuStripDG.ResumeLayout(false);
             this.contextMenuStripLocators.ResumeLayout(false);
@@ -876,18 +906,21 @@
             this.tabPagePolicy.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.contextMenuStripKey.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -984,5 +1017,8 @@
         private System.Windows.Forms.ComboBox comboBoxOptions;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
     }
 }

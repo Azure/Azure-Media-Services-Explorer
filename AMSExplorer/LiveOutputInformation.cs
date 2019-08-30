@@ -147,5 +147,10 @@ namespace AMSExplorer
         {
 
         }
+
+        private void LiveOutputInformation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelProgramName, e);
+        }
     }
 }

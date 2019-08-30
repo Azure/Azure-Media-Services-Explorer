@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PresetVideoAnalyzer));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.label34 = new System.Windows.Forms.Label();
+            this.labelAVAnalyzer = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -70,11 +70,11 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
-            // label34
+            // labelAVAnalyzer
             // 
-            resources.ApplyResources(this.label34, "label34");
-            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Name = "label34";
+            resources.ApplyResources(this.labelAVAnalyzer, "labelAVAnalyzer");
+            this.labelAVAnalyzer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
+            this.labelAVAnalyzer.Name = "labelAVAnalyzer";
             // 
             // panel1
             // 
@@ -178,7 +178,7 @@
             // PresetVideoAnalyzer
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.groupBox2);
@@ -190,9 +190,10 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label34);
+            this.Controls.Add(this.labelAVAnalyzer);
             this.Name = "PresetVideoAnalyzer";
             this.Load += new System.EventHandler(this.PresetVideoAnalyzer_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetVideoAnalyzer_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -209,7 +210,7 @@
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        public System.Windows.Forms.Label label34;
+        public System.Windows.Forms.Label labelAVAnalyzer;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.ToolTip toolTip1;

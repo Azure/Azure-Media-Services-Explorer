@@ -150,6 +150,11 @@ namespace AMSExplorer
             listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonBuiltin.Checked;
             UpdateTransformLabel();
         }
+
+        private void PresetStandardEncoder_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelMES, e);
+        }
     }
 
     public class Profile

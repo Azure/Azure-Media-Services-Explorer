@@ -608,8 +608,7 @@ namespace AMSExplorer
 
         private void AmsLogin_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            labelenteramsacct.Font = new Font(labelenteramsacct.Font.Name, labelenteramsacct.Font.Size * (float)e.DeviceDpiNew / (float)e.DeviceDpiOld);
-            labelenteramsacct.Refresh();
+            Program.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
         }
     }
 

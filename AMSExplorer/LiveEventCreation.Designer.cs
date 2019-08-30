@@ -54,9 +54,9 @@
             this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
             this.dataGridViewVideoProf = new System.Windows.Forms.DataGridView();
+            this.label17 = new System.Windows.Forms.Label();
             this.dataGridViewAudioProf = new System.Windows.Forms.DataGridView();
             this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
@@ -76,7 +76,8 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.panelPresetLiveEncoding = new System.Windows.Forms.Panel();
+            this.panelPresetLiveEncoding = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -87,6 +88,7 @@
             this.tabPageAdv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panelPresetLiveEncoding.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -249,11 +251,7 @@
             // 
             // tabPageLiveEncoding
             // 
-            this.tabPageLiveEncoding.Controls.Add(this.panelPresetLiveEncoding);
-            this.tabPageLiveEncoding.Controls.Add(this.label6);
-            this.tabPageLiveEncoding.Controls.Add(this.textBoxCustomPreset);
-            this.tabPageLiveEncoding.Controls.Add(this.radioButtonCustomPreset);
-            this.tabPageLiveEncoding.Controls.Add(this.radioButtonDefaultPreset);
+            this.tabPageLiveEncoding.Controls.Add(this.tableLayoutPanel1);
             resources.ApplyResources(this.tabPageLiveEncoding, "tabPageLiveEncoding");
             this.tabPageLiveEncoding.Name = "tabPageLiveEncoding";
             this.tabPageLiveEncoding.UseVisualStyleBackColor = true;
@@ -264,10 +262,16 @@
             this.dataGridViewVideoProf.AllowUserToDeleteRows = false;
             resources.ApplyResources(this.dataGridViewVideoProf, "dataGridViewVideoProf");
             this.dataGridViewVideoProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewVideoProf.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewVideoProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewVideoProf.Name = "dataGridViewVideoProf";
             this.dataGridViewVideoProf.ReadOnly = true;
             this.dataGridViewVideoProf.RowHeadersVisible = false;
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
             // 
             // dataGridViewAudioProf
             // 
@@ -275,6 +279,7 @@
             this.dataGridViewAudioProf.AllowUserToDeleteRows = false;
             resources.ApplyResources(this.dataGridViewAudioProf, "dataGridViewAudioProf");
             this.dataGridViewAudioProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewAudioProf.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewAudioProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAudioProf.Name = "dataGridViewAudioProf";
             this.dataGridViewAudioProf.ReadOnly = true;
@@ -284,11 +289,6 @@
             // 
             resources.ApplyResources(this.label16, "label16");
             this.label16.Name = "label16";
-            // 
-            // label17
-            // 
-            resources.ApplyResources(this.label17, "label17");
-            this.label17.Name = "label17";
             // 
             // label6
             // 
@@ -335,14 +335,14 @@
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
             // labelUrlSyntax
             // 
-            resources.ApplyResources(this.labelUrlSyntax, "labelUrlSyntax");
             this.labelUrlSyntax.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelUrlSyntax, "labelUrlSyntax");
             this.labelUrlSyntax.Name = "labelUrlSyntax";
             // 
             // buttonGenerateToken
@@ -412,17 +412,27 @@
             // panelPresetLiveEncoding
             // 
             resources.ApplyResources(this.panelPresetLiveEncoding, "panelPresetLiveEncoding");
-            this.panelPresetLiveEncoding.Controls.Add(this.dataGridViewVideoProf);
-            this.panelPresetLiveEncoding.Controls.Add(this.label17);
-            this.panelPresetLiveEncoding.Controls.Add(this.dataGridViewAudioProf);
-            this.panelPresetLiveEncoding.Controls.Add(this.label16);
+            this.panelPresetLiveEncoding.Controls.Add(this.dataGridViewAudioProf, 0, 3);
+            this.panelPresetLiveEncoding.Controls.Add(this.dataGridViewVideoProf, 0, 1);
+            this.panelPresetLiveEncoding.Controls.Add(this.label16, 0, 0);
+            this.panelPresetLiveEncoding.Controls.Add(this.label17, 0, 2);
             this.panelPresetLiveEncoding.Name = "panelPresetLiveEncoding";
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.textBoxCustomPreset, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panelPresetLiveEncoding, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.radioButtonDefaultPreset, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.radioButtonCustomPreset, 0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.linkLabelMoreInfoPrice);
@@ -443,7 +453,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPageLiveEncoding.ResumeLayout(false);
-            this.tabPageLiveEncoding.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
             this.tabPageAdv.ResumeLayout(false);
@@ -451,6 +460,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panelPresetLiveEncoding.ResumeLayout(false);
             this.panelPresetLiveEncoding.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -504,6 +515,7 @@
         private System.Windows.Forms.RadioButton radioButtonTranscodingNone;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelUrlSyntax;
-        private System.Windows.Forms.Panel panelPresetLiveEncoding;
+        private System.Windows.Forms.TableLayoutPanel panelPresetLiveEncoding;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

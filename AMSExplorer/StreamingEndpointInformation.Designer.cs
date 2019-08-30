@@ -102,6 +102,7 @@
             this.DGOrigin.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGOrigin, "DGOrigin");
             this.DGOrigin.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGOrigin.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGOrigin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGOrigin.ColumnHeadersVisible = false;
             this.DGOrigin.ContextMenuStrip = this.contextMenuStripOI;
@@ -234,6 +235,8 @@
             // 
             this.dataGridViewAkamai.AllowUserToAddRows = false;
             this.dataGridViewAkamai.AllowUserToDeleteRows = false;
+            this.dataGridViewAkamai.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewAkamai.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewAkamai.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             resources.ApplyResources(this.dataGridViewAkamai, "dataGridViewAkamai");
             this.dataGridViewAkamai.Name = "dataGridViewAkamai";
@@ -283,6 +286,8 @@
             // 
             this.dataGridViewIP.AllowUserToAddRows = false;
             this.dataGridViewIP.AllowUserToDeleteRows = false;
+            this.dataGridViewIP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewIP.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewIP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             resources.ApplyResources(this.dataGridViewIP, "dataGridViewIP");
             this.dataGridViewIP.Name = "dataGridViewIP";
@@ -326,6 +331,7 @@
             this.dataGridViewCustomHostname.AllowUserToAddRows = false;
             this.dataGridViewCustomHostname.AllowUserToDeleteRows = false;
             this.dataGridViewCustomHostname.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCustomHostname.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewCustomHostname.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCustomHostname.ColumnHeadersVisible = false;
             resources.ApplyResources(this.dataGridViewCustomHostname, "dataGridViewCustomHostname");
@@ -469,7 +475,7 @@
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.Controls.Add(this.panel2);
@@ -481,6 +487,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
             this.Load += new System.EventHandler(this.StreamingEndpointInformation_Load);
             this.Shown += new System.EventHandler(this.OriginInformation_Shown);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.StreamingEndpointInformation_DpiChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).EndInit();
             this.contextMenuStripOI.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

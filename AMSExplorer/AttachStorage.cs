@@ -113,5 +113,10 @@ namespace AMSExplorer
 
             await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, mediaService);
         }
+
+        private void AttachStorage_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+        }
     }
 }

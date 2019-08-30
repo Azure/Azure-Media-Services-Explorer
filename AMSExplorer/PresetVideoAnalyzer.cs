@@ -87,5 +87,10 @@ namespace AMSExplorer
             comboBoxLanguage.Enabled = !checkBoxAutoLanguage.Checked;
             UpdateTransformLabel();
         }
+
+        private void PresetVideoAnalyzer_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelAVAnalyzer, e);
+        }
     }
 }

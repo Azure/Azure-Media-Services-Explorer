@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddAMSAccount2Browse));
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelAssetName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.treeViewAzureSub = new System.Windows.Forms.TreeView();
             this.DGAcct = new System.Windows.Forms.DataGridView();
@@ -40,6 +39,7 @@
             this.comboBoxTenants = new System.Windows.Forms.ComboBox();
             this.labelADTenant = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGAcct)).BeginInit();
             this.SuspendLayout();
@@ -57,11 +57,6 @@
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // labelAssetName
-            // 
-            resources.ApplyResources(this.labelAssetName, "labelAssetName");
-            this.labelAssetName.Name = "labelAssetName";
             // 
             // panel1
             // 
@@ -84,6 +79,7 @@
             this.DGAcct.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGAcct, "DGAcct");
             this.DGAcct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGAcct.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGAcct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGAcct.ColumnHeadersVisible = false;
             this.DGAcct.MultiSelect = false;
@@ -109,22 +105,29 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label2.Name = "label2";
+            // 
             // AddAMSAccount2Browse
             // 
             this.AcceptButton = this.buttonNext;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelADTenant);
             this.Controls.Add(this.comboBoxTenants);
             this.Controls.Add(this.DGAcct);
             this.Controls.Add(this.treeViewAzureSub);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelAssetName);
             this.Name = "AddAMSAccount2Browse";
             this.Load += new System.EventHandler(this.AddAMSAccount2_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AddAMSAccount2Browse_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGAcct)).EndInit();
             this.ResumeLayout(false);
@@ -136,7 +139,6 @@
 
         public System.Windows.Forms.Button buttonNext;
         public System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label labelAssetName;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TreeView treeViewAzureSub;
         private System.Windows.Forms.DataGridView DGAcct;
@@ -144,5 +146,6 @@
         private System.Windows.Forms.ComboBox comboBoxTenants;
         private System.Windows.Forms.Label labelADTenant;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

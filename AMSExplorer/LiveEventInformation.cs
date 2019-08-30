@@ -513,6 +513,11 @@ namespace AMSExplorer
         {
 
         }
+
+        private void LiveEventInformation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelLEName, e);
+        }
     }
 
     public class ExplorerAudioStream

@@ -83,6 +83,10 @@ namespace AMSExplorer
 
         }
 
+        private void StreamingEndpointCDNEnable_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelJobOptions, e);
+        }
     }
 
 }

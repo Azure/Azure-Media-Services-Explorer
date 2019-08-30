@@ -576,6 +576,11 @@ namespace AMSExplorer
             buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
             ResetConfigJSON();
         }
+
+        private void Subclipping_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange(labelGen, e);
+        }
     }
 
 

@@ -25,6 +25,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -73,6 +74,7 @@ namespace AMSExplorer
         private static AMSClientV3 _client;
         private static BindingList<AssetEntryV3> _MyObservAssetV3;
         private IPage<Asset> firstpage;
+        private SynchronizationContext _syncontext;
 
         public int CurrentPage => _currentPageNumber;
 
@@ -109,15 +111,17 @@ namespace AMSExplorer
         public int DisplayedCount => _MyObservAssetV3.Count();
 
 
-        public void Init(AMSClientV3 client)
+        public void Init(AMSClientV3 client, SynchronizationContext syncontext)
         {
             Debug.WriteLine("AssetsInit");
+
+            _syncontext = syncontext;
 
             client.RefreshTokenIfNeeded();
 
             _client = client;
 
-            IEnumerable<AssetEntryV3> assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3
+            IEnumerable<AssetEntryV3> assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3(_syncontext)
             {
                 Name = a.Name,
                 AssetId = a.AssetId,
@@ -580,7 +584,7 @@ Properties/StorageId
                && cacheAssetentriesV3[a.Name].LastModified != null
                && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
                cacheAssetentriesV3[a.Name] :
-            new AssetEntryV3
+            new AssetEntryV3(_syncontext)
             {
                 Name = a.Name,
                 Description = a.Description,

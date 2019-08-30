@@ -505,7 +505,7 @@ namespace AMSExplorer
             {
                 SetTextBoxAssetsPageNumber(1);
 
-                dataGridViewAssetsV.Init(_amsClientV3);
+                dataGridViewAssetsV.Init(_amsClientV3, SynchronizationContext.Current);
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
             }
 
@@ -8834,6 +8834,11 @@ namespace AMSExplorer
         private void ContextMenuItemLiveEventCopyIngestURLToClipboard_Click(object sender, EventArgs e)
         {
             DoCopyLiveEventInputURLsToClipboard();
+        }
+
+        private void Mainform_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            Program.UpdatedSizeFontAfterDPIChange( new List<Control> { labelAMSBig, menuStripMain, contextMenuStripTransfers, contextMenuStripAssets, contextMenuStripJobs, contextMenuStripLiveEvents, contextMenuStripLiveOutputs, contextMenuStripStreaminEndpoints, contextMenuStripLog, contextMenuStripTransforms, contextMenuStripStorage, contextMenuStripFilters, statusStrip1 }, e);
         }
     }
 }
