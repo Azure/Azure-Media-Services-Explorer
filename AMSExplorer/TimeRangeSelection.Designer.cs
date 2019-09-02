@@ -148,7 +148,7 @@
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.label49);
@@ -157,7 +157,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "TimeRangeSelection";
-            this.Load += new System.EventHandler(this.CreateLocator_Load);
+            this.Load += new System.EventHandler(this.TimeRangeSelection_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

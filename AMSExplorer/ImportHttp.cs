@@ -53,6 +53,7 @@ namespace AMSExplorer
 
         private void ImportHttp_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
             labelURLFileNameWarning.Text = string.Empty;
             textBoxAssetName.Text = "import-" + _uniqueness;
 
@@ -101,6 +102,11 @@ namespace AMSExplorer
                 labelURLFileNameWarning.Text = string.Empty;
                 textBoxDescription.Text = "Imported from : " + GetURL.AbsoluteUri;
             }
+        }
+
+        private void ImportHttp_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

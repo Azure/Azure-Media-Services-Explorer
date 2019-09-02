@@ -47,17 +47,17 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTR = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label39 = new System.Windows.Forms.Label();
+            this.textBoxDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxForValueForLive = new System.Windows.Forms.CheckBox();
             this.labelDefaultBakckoff = new System.Windows.Forms.Label();
             this.numericUpDownBackoffSeconds = new System.Windows.Forms.NumericUpDown();
             this.labelStartTimeDefault = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.labelDefaultEnd = new System.Windows.Forms.Label();
             this.labelDefaultDVR = new System.Windows.Forms.Label();
-            this.textBoxDurationTime = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabPageTRRaw = new System.Windows.Forms.TabPage();
             this.checkBoxForValueLiveRaw = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
@@ -134,10 +134,10 @@
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackoffSeconds)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabPageTRRaw.SuspendLayout();
             this.tabPageTF.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstQualityBitrate)).BeginInit();
@@ -243,9 +243,9 @@
             // 
             // timeControlDVR
             // 
+            resources.ApplyResources(this.timeControlDVR, "timeControlDVR");
             this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlDVR.DisplayTrackBar = true;
-            resources.ApplyResources(this.timeControlDVR, "timeControlDVR");
             this.timeControlDVR.Label1 = "";
             this.timeControlDVR.Label2 = "DVR Window :";
             this.timeControlDVR.Max = System.TimeSpan.Parse("24.00:00:00");
@@ -295,7 +295,6 @@
             // tableLayoutPanel2
             // 
             resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(this.pictureBox3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.textBoxDurationTime, 3, 4);
             this.tableLayoutPanel2.Controls.Add(this.checkBoxForValueForLive, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.timeControlStart, 2, 0);
@@ -303,7 +302,6 @@
             this.tableLayoutPanel2.Controls.Add(this.checkBoxStartTime, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.numericUpDownBackoffSeconds, 3, 9);
             this.tableLayoutPanel2.Controls.Add(this.labelStartTimeDefault, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox2, 0, 9);
             this.tableLayoutPanel2.Controls.Add(this.checkBoxEndTime, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.checkBoxPresentationWindowDuration, 1, 6);
@@ -313,20 +311,16 @@
             this.tableLayoutPanel2.Controls.Add(this.labelDefaultDVR, 2, 7);
             this.tableLayoutPanel2.Controls.Add(this.timeControlEnd, 2, 3);
             this.tableLayoutPanel2.Controls.Add(this.label39, 3, 3);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox3, 0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
-            // pictureBox3
+            // textBoxDurationTime
             // 
-            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.media_services_subclips_filter;
-            resources.ApplyResources(this.pictureBox3, "pictureBox3");
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.TabStop = false;
-            // 
-            // label39
-            // 
-            resources.ApplyResources(this.label39, "label39");
-            this.label39.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label39.Name = "label39";
+            resources.ApplyResources(this.textBoxDurationTime, "textBoxDurationTime");
+            this.textBoxDurationTime.Name = "textBoxDurationTime";
+            this.textBoxDurationTime.ReadOnly = true;
+            this.tableLayoutPanel2.SetRowSpan(this.textBoxDurationTime, 2);
             // 
             // checkBoxForValueForLive
             // 
@@ -355,13 +349,6 @@
             resources.ApplyResources(this.labelStartTimeDefault, "labelStartTimeDefault");
             this.labelStartTimeDefault.Name = "labelStartTimeDefault";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.media_services_dvr_filter;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.media_services_livebackoff_filter;
@@ -379,11 +366,26 @@
             resources.ApplyResources(this.labelDefaultDVR, "labelDefaultDVR");
             this.labelDefaultDVR.Name = "labelDefaultDVR";
             // 
-            // textBoxDurationTime
+            // label39
             // 
-            resources.ApplyResources(this.textBoxDurationTime, "textBoxDurationTime");
-            this.textBoxDurationTime.Name = "textBoxDurationTime";
-            this.textBoxDurationTime.ReadOnly = true;
+            resources.ApplyResources(this.label39, "label39");
+            this.label39.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label39.Name = "label39";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.media_services_dvr_filter;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            resources.ApplyResources(this.pictureBox3, "pictureBox3");
+            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.media_services_subclips_filter;
+            this.pictureBox3.Name = "pictureBox3";
+            this.tableLayoutPanel2.SetRowSpan(this.pictureBox3, 5);
+            this.pictureBox3.TabStop = false;
             // 
             // tabPageTRRaw
             // 
@@ -927,10 +929,10 @@
             this.tabPageTR.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackoffSeconds)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabPageTRRaw.ResumeLayout(false);
             this.tabPageTRRaw.PerformLayout();
             this.tabPageTF.ResumeLayout(false);

@@ -33,7 +33,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxDeleteKeys = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.checkBoxDeleteAutPol = new System.Windows.Forms.CheckBox();
             this.checkBoxDeleteDeliveryPol = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -68,11 +68,11 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Name = "panel1";
             // 
-            // label1
+            // labelTitle
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.labelTitle, "labelTitle");
+            this.labelTitle.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelTitle.Name = "labelTitle";
             // 
             // checkBoxDeleteAutPol
             // 
@@ -96,17 +96,18 @@
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBoxDeleteDeliveryPol);
             this.Controls.Add(this.checkBoxDeleteAutPol);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBoxDeleteKeys);
             this.Name = "DeleteKeyAndPolicy";
             this.Load += new System.EventHandler(this.DeleteKeyAndPolicy_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DeleteKeyAndPolicy_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -119,7 +120,7 @@
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.CheckBox checkBoxDeleteKeys;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.CheckBox checkBoxDeleteAutPol;
         private System.Windows.Forms.CheckBox checkBoxDeleteDeliveryPol;
         private System.Windows.Forms.Label label2;

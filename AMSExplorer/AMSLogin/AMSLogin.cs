@@ -606,7 +606,7 @@ namespace AMSExplorer
 
         private void AmsLogin_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-           DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
         }
     }
 

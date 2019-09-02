@@ -108,9 +108,9 @@ namespace AMSExplorer
             dateTimePickerEndDate.Value = dateTimePickerEndTime.Value;
         }
 
-        private void CreateLocator_Load(object sender, EventArgs e)
+        private void TimeRangeSelection_Load(object sender, EventArgs e)
         {
-
+            DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void radioButtonEndCustom_CheckedChanged(object sender, EventArgs e)

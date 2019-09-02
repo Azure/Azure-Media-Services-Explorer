@@ -133,7 +133,7 @@
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.numericUpDownTokenUse);
@@ -145,6 +145,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "DRM_GenerateToken";
             this.Load += new System.EventHandler(this.DRM_WidevineLicense_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_GenerateToken_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenUse)).EndInit();

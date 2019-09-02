@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -108,6 +109,7 @@ namespace AMSExplorer
 
         private void Splash_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void Splash_Paint(object sender, PaintEventArgs e)
@@ -118,5 +120,9 @@ namespace AMSExplorer
             formGraphics.DrawRectangle(myPen, 0, 0, Width - 1, Height - 1);
         }
 
+        private void Splash_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, labelConnecting }, e, this);
+        }
     }
 }

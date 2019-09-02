@@ -61,7 +61,7 @@ namespace AMSExplorer
         /// 
 
         private const string languageparam = "/language:";
-           
+
 
 
         [STAThread]
@@ -101,7 +101,7 @@ namespace AMSExplorer
         }
 
 
-     
+
 
         public static string GetErrorMessage(Exception e)
         {
@@ -4448,14 +4448,16 @@ namespace AMSExplorer
 
         public static void UpdatedSizeFontAfterDPIChange(Control control, DpiChangedEventArgs e)
         {
-            UpdatedSizeFontAfterDPIChange(new List<Control> { control }, e);
+            UpdatedSizeFontAfterDPIChange(new List<Control> { control }, e, null);
         }
 
-        public static void UpdatedSizeFontAfterDPIChange(List<Control> controls, DpiChangedEventArgs e)
+        public static void UpdatedSizeFontAfterDPIChange(List<Control> controls, DpiChangedEventArgs e, Form currentForm)
         {
+            if (currentForm != null) currentForm.SuspendLayout();
             Debug.Print($"Old DPI: {e.DeviceDpiOld}, new DPI {e.DeviceDpiNew}");
             float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
             controls.ForEach(c => c.Font = new Font(c.Font.Name, c.Font.Size * factor));
+            if (currentForm != null) currentForm.ResumeLayout();
         }
     }
 

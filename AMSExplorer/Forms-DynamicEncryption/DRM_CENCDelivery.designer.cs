@@ -89,6 +89,7 @@
             this.groupBoxPlayReady.Controls.Add(this.checkBoxPlayReady);
             this.groupBoxPlayReady.Controls.Add(this.numericUpDownNbOptionsPlayReady);
             this.groupBoxPlayReady.Controls.Add(this.label2);
+            this.groupBoxPlayReady.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBoxPlayReady, "groupBoxPlayReady");
             this.groupBoxPlayReady.Name = "groupBoxPlayReady";
             this.groupBoxPlayReady.TabStop = false;
@@ -98,12 +99,14 @@
             resources.ApplyResources(this.checkBoxPlayReady, "checkBoxPlayReady");
             this.checkBoxPlayReady.Checked = true;
             this.checkBoxPlayReady.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPlayReady.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxPlayReady.Name = "checkBoxPlayReady";
             this.checkBoxPlayReady.UseVisualStyleBackColor = true;
             // 
             // numericUpDownNbOptionsPlayReady
             // 
             resources.ApplyResources(this.numericUpDownNbOptionsPlayReady, "numericUpDownNbOptionsPlayReady");
+            this.numericUpDownNbOptionsPlayReady.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownNbOptionsPlayReady.Maximum = new decimal(new int[] {
             10,
             0,
@@ -124,12 +127,13 @@
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label2.Name = "label2";
             // 
             // label8
             // 
-            resources.ApplyResources(this.label8, "label8");
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
             // 
             // groupBoxWidevine
@@ -137,6 +141,7 @@
             this.groupBoxWidevine.Controls.Add(this.checkBoxWidevine);
             this.groupBoxWidevine.Controls.Add(this.numericUpDownNbOptionsWidevine);
             this.groupBoxWidevine.Controls.Add(this.label6);
+            this.groupBoxWidevine.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBoxWidevine, "groupBoxWidevine");
             this.groupBoxWidevine.Name = "groupBoxWidevine";
             this.groupBoxWidevine.TabStop = false;
@@ -146,12 +151,14 @@
             resources.ApplyResources(this.checkBoxWidevine, "checkBoxWidevine");
             this.checkBoxWidevine.Checked = true;
             this.checkBoxWidevine.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxWidevine.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxWidevine.Name = "checkBoxWidevine";
             this.checkBoxWidevine.UseVisualStyleBackColor = true;
             // 
             // numericUpDownNbOptionsWidevine
             // 
             resources.ApplyResources(this.numericUpDownNbOptionsWidevine, "numericUpDownNbOptionsWidevine");
+            this.numericUpDownNbOptionsWidevine.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownNbOptionsWidevine.Maximum = new decimal(new int[] {
             10,
             0,
@@ -172,6 +179,7 @@
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label6.Name = "label6";
             // 
             // groupBox1
@@ -180,18 +188,21 @@
             this.groupBox1.Controls.Add(this.numericUpDownNbOptionsFairPlay);
             this.groupBox1.Controls.Add(this.label3);
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.ForeColor = System.Drawing.Color.DarkBlue;
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // checkBox1
             // 
             resources.ApplyResources(this.checkBox1, "checkBox1");
+            this.checkBox1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // numericUpDownNbOptionsFairPlay
             // 
             resources.ApplyResources(this.numericUpDownNbOptionsFairPlay, "numericUpDownNbOptionsFairPlay");
+            this.numericUpDownNbOptionsFairPlay.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownNbOptionsFairPlay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -212,13 +223,14 @@
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label3.Name = "label3";
             // 
             // DRM_CENCDelivery
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.groupBox1);
@@ -229,6 +241,7 @@
             this.Controls.Add(this.label1);
             this.Name = "DRM_CENCDelivery";
             this.Load += new System.EventHandler(this.DRM_CENCDelivery_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_CENCDelivery_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.groupBoxPlayReady.ResumeLayout(false);
             this.groupBoxPlayReady.PerformLayout();

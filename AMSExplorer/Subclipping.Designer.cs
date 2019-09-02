@@ -53,11 +53,14 @@
             this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
             this.panelEDL = new System.Windows.Forms.Panel();
             this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
             this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
             this.textBoxDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.labelAccurate = new System.Windows.Forms.Label();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
+            this.timeControlStart = new AMSExplorer.TimeControl();
+            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
             this.checkBoxTrimming = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -75,9 +78,6 @@
             this.panelJob = new System.Windows.Forms.Panel();
             this.labelGen = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
-            this.timeControlStart = new AMSExplorer.TimeControl();
-            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageJSON.SuspendLayout();
@@ -224,12 +224,11 @@
             // groupBoxTrimming
             // 
             resources.ApplyResources(this.groupBoxTrimming, "groupBoxTrimming");
-            this.groupBoxTrimming.Controls.Add(this.panelEDL);
-            this.groupBoxTrimming.Controls.Add(this.textBoxDurationTime);
-            this.groupBoxTrimming.Controls.Add(this.label7);
             this.groupBoxTrimming.Controls.Add(this.labelAccurate);
+            this.groupBoxTrimming.Controls.Add(this.label7);
             this.groupBoxTrimming.Controls.Add(this.webBrowserPreview);
             this.groupBoxTrimming.Controls.Add(this.timeControlStart);
+            this.groupBoxTrimming.Controls.Add(this.textBoxDurationTime);
             this.groupBoxTrimming.Controls.Add(this.timeControlEnd);
             this.groupBoxTrimming.Controls.Add(this.checkBoxPreviewStream);
             this.groupBoxTrimming.Controls.Add(this.checkBoxTrimming);
@@ -250,6 +249,13 @@
             this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
             this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
             this.buttonAddEDLEntry.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // buttonShowEDL
+            // 
+            resources.ApplyResources(this.buttonShowEDL, "buttonShowEDL");
+            this.buttonShowEDL.Name = "buttonShowEDL";
+            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
+            this.buttonShowEDL.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseEDL
             // 
@@ -280,6 +286,36 @@
             resources.ApplyResources(this.webBrowserPreview, "webBrowserPreview");
             this.webBrowserPreview.Name = "webBrowserPreview";
             this.webBrowserPreview.ScriptErrorsSuppressed = true;
+            // 
+            // timeControlStart
+            // 
+            resources.ApplyResources(this.timeControlStart, "timeControlStart");
+            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStart.DisplayTrackBar = true;
+            this.timeControlStart.Label1 = "";
+            this.timeControlStart.Label2 = "Start time :";
+            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStart.TimeScale = null;
+            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
+            // 
+            // timeControlEnd
+            // 
+            resources.ApplyResources(this.timeControlEnd, "timeControlEnd");
+            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEnd.DisplayTrackBar = true;
+            this.timeControlEnd.Label1 = "";
+            this.timeControlEnd.Label2 = "End time :";
+            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEnd.TimeScale = null;
+            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // checkBoxPreviewStream
             // 
@@ -381,6 +417,7 @@
             // panelJob
             // 
             resources.ApplyResources(this.panelJob, "panelJob");
+            this.panelJob.Controls.Add(this.panelEDL);
             this.panelJob.Controls.Add(this.textboxoutputassetname);
             this.panelJob.Controls.Add(this.textBoxJobName);
             this.panelJob.Controls.Add(this.labeloutputasset);
@@ -398,43 +435,6 @@
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
-            // 
-            // buttonShowEDL
-            // 
-            resources.ApplyResources(this.buttonShowEDL, "buttonShowEDL");
-            this.buttonShowEDL.Name = "buttonShowEDL";
-            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
-            this.buttonShowEDL.UseVisualStyleBackColor = true;
-            // 
-            // timeControlStart
-            // 
-            resources.ApplyResources(this.timeControlStart, "timeControlStart");
-            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayTrackBar = true;
-            this.timeControlStart.Label1 = "";
-            this.timeControlStart.Label2 = "Start time :";
-            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStart.TimeScale = null;
-            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
-            // 
-            // timeControlEnd
-            // 
-            resources.ApplyResources(this.timeControlEnd, "timeControlEnd");
-            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayTrackBar = true;
-            this.timeControlEnd.Label1 = "";
-            this.timeControlEnd.Label2 = "End time :";
-            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEnd.TimeScale = null;
-            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // Subclipping
             // 

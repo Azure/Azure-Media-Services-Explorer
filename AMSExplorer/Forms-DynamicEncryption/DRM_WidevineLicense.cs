@@ -57,6 +57,8 @@ namespace AMSExplorer
 
         private void DRM_WidevineLicense_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             _labelWarningJSON = labelWarningJSON.Text;
             linkLabelWidevinePolicy.Links.Add(new LinkLabel.Link(0, linkLabelWidevinePolicy.Text.Length, Constants.LinkWidevineTemplateInfo));
             radioButtonBasic.Checked = true;
@@ -133,6 +135,11 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
 
+        }
+
+        private void DRM_WidevineLicense_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelstep, textBoxConfiguration }, e, this);
         }
     }
 }

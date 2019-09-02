@@ -78,7 +78,7 @@
             // 
             this.AcceptButton = this.buttonUpdate;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.comboBoxPriority);
@@ -86,6 +86,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "PriorityForm";
             this.Load += new System.EventHandler(this.Priority_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PriorityForm_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

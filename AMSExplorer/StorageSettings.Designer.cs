@@ -164,7 +164,7 @@ namespace AMSExplorer
             // 
             this.AcceptButton = this.buttonUpdate;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.label4);
@@ -176,6 +176,7 @@ namespace AMSExplorer
             this.Controls.Add(this.label1);
             this.Name = "StorageSettings";
             this.Load += new System.EventHandler(this.StorageVersion_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.StorageSettings_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -8839,7 +8839,7 @@ namespace AMSExplorer
 
         private void Mainform_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange( new List<Control> { labelAMSBig, menuStripMain, contextMenuStripTransfers, contextMenuStripAssets, contextMenuStripJobs, contextMenuStripLiveEvents, contextMenuStripLiveOutputs, contextMenuStripStreaminEndpoints, contextMenuStripLog, contextMenuStripTransforms, contextMenuStripStorage, contextMenuStripFilters, statusStrip1 }, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange( new List<Control> { labelAMSBig, menuStripMain, contextMenuStripTransfers, contextMenuStripAssets, contextMenuStripJobs, contextMenuStripLiveEvents, contextMenuStripLiveOutputs, contextMenuStripStreaminEndpoints, contextMenuStripLog, contextMenuStripTransforms, contextMenuStripStorage, contextMenuStripFilters, statusStrip1 }, e, this);
         }
     }
 }

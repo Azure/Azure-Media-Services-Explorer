@@ -34,7 +34,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxProvider = new System.Windows.Forms.ComboBox();
-            this.labelJobOptions = new System.Windows.Forms.Label();
+            this.labelCDNOptions = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
@@ -77,11 +77,11 @@
             resources.ApplyResources(this.comboBoxProvider, "comboBoxProvider");
             this.comboBoxProvider.Name = "comboBoxProvider";
             // 
-            // labelJobOptions
+            // labelCDNOptions
             // 
-            resources.ApplyResources(this.labelJobOptions, "labelJobOptions");
-            this.labelJobOptions.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelJobOptions.Name = "labelJobOptions";
+            resources.ApplyResources(this.labelCDNOptions, "labelCDNOptions");
+            this.labelCDNOptions.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelCDNOptions.Name = "labelCDNOptions";
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -105,8 +105,8 @@
             // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
             this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
             // StreamingEndpointCDNEnable
@@ -119,12 +119,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxProfile);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.labelJobOptions);
+            this.Controls.Add(this.labelCDNOptions);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxProvider);
             this.Controls.Add(this.panel1);
             this.Name = "StreamingEndpointCDNEnable";
-            this.Load += new System.EventHandler(this.UploadOptions_Load);
+            this.Load += new System.EventHandler(this.StreamingEndpointCDNEnable_Load);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.StreamingEndpointCDNEnable_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -141,7 +141,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxProvider;
-        private System.Windows.Forms.Label labelJobOptions;
+        private System.Windows.Forms.Label labelCDNOptions;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxProfile;
         private System.Windows.Forms.Label label2;

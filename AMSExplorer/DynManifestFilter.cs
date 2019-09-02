@@ -1091,7 +1091,7 @@ namespace AMSExplorer
 
         private void DynManifestFilter_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelFilterTitle, labeltime1, labeltime2, labeltime3, labeltime4, labeltime5, checkBoxLiveBackoff, timeControlStart, timeControlEnd, timeControlDVR, contextMenuStripInfo }, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelFilterTitle, labeltime1, labeltime2, labeltime3, labeltime4, labeltime5, checkBoxLiveBackoff, timeControlStart, timeControlEnd, timeControlDVR, contextMenuStripInfo }, e, this);
         }
     }
 }

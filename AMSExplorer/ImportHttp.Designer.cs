@@ -161,7 +161,7 @@
             // 
             this.AcceptButton = this.buttonImport;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.labelSASListExample);
@@ -174,6 +174,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ImportHttp";
             this.Load += new System.EventHandler(this.ImportHttp_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ImportHttp_DpiChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);

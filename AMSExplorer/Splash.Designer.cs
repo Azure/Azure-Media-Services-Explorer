@@ -31,7 +31,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labelConnecting = new System.Windows.Forms.Label();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,18 +54,18 @@
             this.logoPictureBox.Name = "logoPictureBox";
             this.logoPictureBox.TabStop = false;
             // 
-            // label1
+            // labelTitle
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.labelTitle, "labelTitle");
+            this.labelTitle.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelTitle.Name = "labelTitle";
             // 
             // Splash
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.logoPictureBox);
             this.Controls.Add(this.labelConnecting);
             this.Controls.Add(this.progressBar1);
@@ -76,6 +76,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.Splash_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Splash_DpiChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Splash_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.ResumeLayout(false);
@@ -87,7 +88,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label labelConnecting;
         private System.Windows.Forms.PictureBox logoPictureBox;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTitle;
 
     }
 }

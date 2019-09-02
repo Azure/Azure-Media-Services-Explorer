@@ -581,7 +581,7 @@ namespace AMSExplorer
 
         private void Subclipping_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelGen, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelGen, timeControlStart, timeControlEnd, textBoxConfiguration }, e, this);
         }
     }
 

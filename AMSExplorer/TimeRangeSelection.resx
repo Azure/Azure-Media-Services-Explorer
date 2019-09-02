@@ -420,14 +420,11 @@
   <data name="label49.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label49.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt</value>
-  </data>
   <data name="label49.Location" type="System.Drawing.Point, System.Drawing">
     <value>241, 273</value>
   </data>
   <data name="label49.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 13</value>
+    <value>99, 15</value>
   </data>
   <data name="label49.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -451,7 +448,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>572, 353</value>

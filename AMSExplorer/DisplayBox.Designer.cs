@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayBox));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
@@ -41,10 +41,10 @@
             // 
             this.timer1.Interval = 5000;
             // 
-            // label1
+            // labelTitle
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.labelTitle, "labelTitle");
+            this.labelTitle.Name = "labelTitle";
             // 
             // button1
             // 
@@ -64,15 +64,17 @@
             // 
             this.AcceptButton = this.button1;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelTitle);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DisplayBox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.Load += new System.EventHandler(this.DisplayBox_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DisplayBox_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -81,7 +83,7 @@
         #endregion
 
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
     }

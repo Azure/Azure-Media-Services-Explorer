@@ -272,7 +272,7 @@ namespace AMSExplorer
 
         private void ProcessFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, timeControlStartTime, timeControlEndTime }, e, this);
         }
     }
 }

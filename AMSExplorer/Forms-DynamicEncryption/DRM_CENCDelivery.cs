@@ -65,6 +65,8 @@ namespace AMSExplorer
 
         private void DRM_CENCDelivery_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             groupBoxPlayReady.Enabled = _PlayReadyPackagingEnabled;
             groupBoxWidevine.Enabled = _WidevinePackagingEnabled;
         }
@@ -72,6 +74,12 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void DRM_CENCDelivery_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(label1, e);
 
         }
     }

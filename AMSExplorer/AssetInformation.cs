@@ -2131,7 +2131,7 @@ namespace AMSExplorer
 
         private void AssetInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e, this);
         }
     }
 }

@@ -114,6 +114,7 @@
             resources.ApplyResources(this.groupBoxAuthPol, "groupBoxAuthPol");
             this.groupBoxAuthPol.Controls.Add(this.radioButtonTokenAuthPolicy);
             this.groupBoxAuthPol.Controls.Add(this.radioButtonOpenAuthPolicy);
+            this.groupBoxAuthPol.ForeColor = System.Drawing.Color.DarkBlue;
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
             this.groupBoxAuthPol.TabStop = false;
             // 
@@ -121,6 +122,7 @@
             // 
             resources.ApplyResources(this.radioButtonTokenAuthPolicy, "radioButtonTokenAuthPolicy");
             this.radioButtonTokenAuthPolicy.Checked = true;
+            this.radioButtonTokenAuthPolicy.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonTokenAuthPolicy.Name = "radioButtonTokenAuthPolicy";
             this.radioButtonTokenAuthPolicy.TabStop = true;
             this.radioButtonTokenAuthPolicy.UseVisualStyleBackColor = true;
@@ -129,6 +131,7 @@
             // radioButtonOpenAuthPolicy
             // 
             resources.ApplyResources(this.radioButtonOpenAuthPolicy, "radioButtonOpenAuthPolicy");
+            this.radioButtonOpenAuthPolicy.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonOpenAuthPolicy.Name = "radioButtonOpenAuthPolicy";
             this.radioButtonOpenAuthPolicy.UseVisualStyleBackColor = true;
             this.radioButtonOpenAuthPolicy.CheckedChanged += new System.EventHandler(this.radioButtonOpen_CheckedChanged);
@@ -450,11 +453,11 @@
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
             // 
-            // DRM_Config_TokenClaims
+            // form_DRM_Config_TokenClaims
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.tabControlTokenProperties);
@@ -462,8 +465,9 @@
             this.Controls.Add(this.labelStep);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxAuthPol);
-            this.Name = "DRM_Config_TokenClaims";
+            this.Name = "form_DRM_Config_TokenClaims";
             this.Load += new System.EventHandler(this.DRM_Config_TokenClaims_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Form_DRM_Config_TokenClaims_DpiChanged);
             this.groupBoxAuthPol.ResumeLayout(false);
             this.groupBoxAuthPol.PerformLayout();
             this.panelSymKey.ResumeLayout(false);

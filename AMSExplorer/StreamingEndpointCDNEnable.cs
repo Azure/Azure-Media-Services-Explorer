@@ -78,14 +78,14 @@ namespace AMSExplorer
         }
 
 
-        private void UploadOptions_Load(object sender, EventArgs e)
+        private void StreamingEndpointCDNEnable_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void StreamingEndpointCDNEnable_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobOptions, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelCDNOptions, e);
         }
     }
 

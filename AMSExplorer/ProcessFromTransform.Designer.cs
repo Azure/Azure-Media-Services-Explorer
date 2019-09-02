@@ -36,7 +36,7 @@
             this.buttonDeleteTemplate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.labelAssetCopy = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -108,11 +108,11 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
-            // labelAssetCopy
+            // labelTitle
             // 
-            resources.ApplyResources(this.labelAssetCopy, "labelAssetCopy");
-            this.labelAssetCopy.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelAssetCopy.Name = "labelAssetCopy";
+            resources.ApplyResources(this.labelTitle, "labelTitle");
+            this.labelTitle.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelTitle.Name = "labelTitle";
             // 
             // label1
             // 
@@ -242,9 +242,9 @@
             // 
             // timeControlEndTime
             // 
+            resources.ApplyResources(this.timeControlEndTime, "timeControlEndTime");
             this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlEndTime.DisplayTrackBar = false;
-            resources.ApplyResources(this.timeControlEndTime, "timeControlEndTime");
             this.timeControlEndTime.Label1 = "";
             this.timeControlEndTime.Label2 = "End time";
             this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
@@ -257,9 +257,9 @@
             // 
             // timeControlStartTime
             // 
+            resources.ApplyResources(this.timeControlStartTime, "timeControlStartTime");
             this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlStartTime.DisplayTrackBar = false;
-            resources.ApplyResources(this.timeControlStartTime, "timeControlStartTime");
             this.timeControlStartTime.Label1 = "";
             this.timeControlStartTime.Label2 = "Start time";
             this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
@@ -278,7 +278,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.labelAssetCopy);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label);
@@ -309,7 +309,7 @@
         private ListViewTransforms listViewTransforms;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label labelAssetCopy;
+        private System.Windows.Forms.Label labelTitle;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;

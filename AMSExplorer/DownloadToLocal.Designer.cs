@@ -39,7 +39,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonBrowseFile = new System.Windows.Forms.Button();
             this.textBoxFolderPath = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -117,11 +117,11 @@
             resources.ApplyResources(this.textBoxFolderPath, "textBoxFolderPath");
             this.textBoxFolderPath.Name = "textBoxFolderPath";
             // 
-            // label5
+            // labelTitle
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.labelTitle, "labelTitle");
+            this.labelTitle.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelTitle.Name = "labelTitle";
             // 
             // DownloadToLocal
             // 
@@ -130,13 +130,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetName);
             this.Controls.Add(this.groupBox2);
             this.Name = "DownloadToLocal";
             this.Load += new System.EventHandler(this.DownloadToLocal_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DownloadToLocal_DpiChanged);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -159,6 +160,6 @@
         private System.Windows.Forms.TextBox textBoxFolderPath;
         private System.Windows.Forms.CheckBox checkBoxOpenFileAfterExport;
         private System.Windows.Forms.CheckBox checkBoxCreateSubfolder;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelTitle;
     }
 }
