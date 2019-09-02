@@ -135,6 +135,8 @@ namespace AMSExplorer
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             _buttonOk = buttonOk.Text;
             _labelAccurate = labelAccurate.Text;
             _labeloutoutputasset = labeloutputasset.Text;
@@ -579,7 +581,7 @@ namespace AMSExplorer
 
         private void Subclipping_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(labelGen, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelGen, e);
         }
     }
 

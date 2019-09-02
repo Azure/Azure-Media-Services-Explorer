@@ -116,6 +116,8 @@ namespace AMSExplorer
 
         private void ProcessFromJobTemplate_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             listViewTransforms.LoadTransforms(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
             UpdateLabeltext();
             labelURLFileNameWarning.Text = string.Empty;
@@ -270,7 +272,7 @@ namespace AMSExplorer
 
         private void ProcessFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
         }
     }
 }

@@ -300,54 +300,6 @@
   <data name="&gt;&gt;linkLabelAADAut.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;radioButtonAADServicePrincipal.Name" xml:space="preserve">
-    <value>radioButtonAADServicePrincipal</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADServicePrincipal.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADServicePrincipal.Parent" xml:space="preserve">
-    <value>groupBoxAADAutMode</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADServicePrincipal.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADInteractive.Name" xml:space="preserve">
-    <value>radioButtonAADInteractive</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADInteractive.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADInteractive.Parent" xml:space="preserve">
-    <value>groupBoxAADAutMode</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADInteractive.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBoxAADAutMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>296, 50</value>
-  </data>
-  <data name="groupBoxAADAutMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 82</value>
-  </data>
-  <data name="groupBoxAADAutMode.TabIndex" type="System.Int32, mscorlib">
-    <value>82</value>
-  </data>
-  <data name="groupBoxAADAutMode.Text" xml:space="preserve">
-    <value>Authentication Mode</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAADAutMode.Name" xml:space="preserve">
-    <value>groupBoxAADAutMode</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAADAutMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAADAutMode.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAADAutMode.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="radioButtonAADServicePrincipal.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -411,9 +363,30 @@
   <data name="&gt;&gt;radioButtonAADInteractive.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>293, 17</value>
-  </metadata>
+  <data name="groupBoxAADAutMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>296, 50</value>
+  </data>
+  <data name="groupBoxAADAutMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 82</value>
+  </data>
+  <data name="groupBoxAADAutMode.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="groupBoxAADAutMode.Text" xml:space="preserve">
+    <value>Authentication Mode</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAADAutMode.Name" xml:space="preserve">
+    <value>groupBoxAADAutMode</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAADAutMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAADAutMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAADAutMode.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="textBoxAMSResourceId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -429,6 +402,9 @@
   <data name="textBoxAMSResourceId.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>293, 17</value>
+  </metadata>
   <data name="textBoxAMSResourceId.ToolTip" xml:space="preserve">
     <value>Found in Azure portal / AMS Account / Properties. Example : /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/amsResourceGroup/providers/Microsoft.Media/mediaservices/amsaccount</value>
   </data>
@@ -762,6 +738,21 @@
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
+  <data name="labelVersion.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelVersion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 21</value>
+  </data>
+  <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 15</value>
+  </data>
+  <data name="labelVersion.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="labelVersion.Text" xml:space="preserve">
+    <value>Version {0} for Media Services v3</value>
+  </data>
   <data name="&gt;&gt;labelVersion.Name" xml:space="preserve">
     <value>labelVersion</value>
   </data>
@@ -795,33 +786,6 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="labelVersion.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 21</value>
-  </data>
-  <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 15</value>
-  </data>
-  <data name="labelVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="labelVersion.Text" xml:space="preserve">
-    <value>Version {0} for Media Services v3</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.Name" xml:space="preserve">
-    <value>labelVersion</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="buttonPickupAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -852,9 +816,6 @@
   <data name="&gt;&gt;buttonPickupAccount.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>293, 17</value>
-  </metadata>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>390, 17</value>
   </metadata>

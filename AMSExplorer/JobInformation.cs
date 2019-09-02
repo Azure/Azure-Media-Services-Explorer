@@ -78,6 +78,8 @@ namespace AMSExplorer
 
         private void JobInformation_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             labelJobNameTitle.Text += MyJob.Name;
 
             DGJob.ColumnCount = 2;
@@ -322,7 +324,7 @@ namespace AMSExplorer
 
         private void JobInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(labelJobNameTitle, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobNameTitle, e);
         }
     }
 }

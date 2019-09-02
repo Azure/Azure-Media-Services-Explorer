@@ -291,6 +291,8 @@ namespace AMSExplorer
 
         private void AssetInformation_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             labelAssetNameTitle.Text += myAssetV3.Name;
 
             DGAsset.ColumnCount = 2;
@@ -2129,7 +2131,7 @@ namespace AMSExplorer
 
         private void AssetInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e);
         }
     }
 }

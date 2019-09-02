@@ -56,6 +56,8 @@ namespace AMSExplorer
 
         private void AttachStorage_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             try
             {
                 _amsClient.RefreshTokenIfNeeded();
@@ -116,7 +118,7 @@ namespace AMSExplorer
 
         private void AttachStorage_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
         }
     }
 }

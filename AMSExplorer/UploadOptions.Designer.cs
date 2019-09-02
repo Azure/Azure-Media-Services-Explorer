@@ -149,7 +149,7 @@
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.label2);
@@ -161,6 +161,8 @@
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.panel1);
             this.Name = "UploadOptions";
+            this.Load += new System.EventHandler(this.UploadOptions_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.UploadOptions_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.groupBoxMultifiles.ResumeLayout(false);
             this.groupBoxMultifiles.PerformLayout();

@@ -37,6 +37,8 @@ namespace AMSExplorer
 
         private void AddAMSAccount1_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             AzureEnvType[] envs = new AzureEnvType[] { AzureEnvType.Azure, AzureEnvType.AzureChina, AzureEnvType.AzureUSGovernment, AzureEnvType.AzureGermany, AzureEnvType.DevTest };
 
             foreach (AzureEnvType env in envs)
@@ -47,8 +49,6 @@ namespace AMSExplorer
             comboBoxAADMappingList.SelectedIndex = 0;
 
             linkLabelAzCliDoc.Links.Add(new LinkLabel.Link(0, linkLabelAzCliDoc.Text.Length, Constants.LinkAMSAzCli));
-
-
         }
 
         public AzureEnvironment GetEnvironment()

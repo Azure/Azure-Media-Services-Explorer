@@ -75,5 +75,15 @@ namespace AMSExplorer
                 }
             }
         }
+
+        private void UploadOptions_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobOptions, e);
+        }
+
+        private void UploadOptions_Load(object sender, System.EventArgs e)
+        {
+            DpiUtils.InitPerMonitorDpi(this);
+        }
     }
 }

@@ -119,6 +119,8 @@ namespace AMSExplorer
 
         private void LiveEventInformation_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             _radioButtonDefaultPreset = radioButtonDefaultPreset.Text;
 
             if (!MultipleSelection) // one channel
@@ -516,7 +518,7 @@ namespace AMSExplorer
 
         private void LiveEventInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(labelLEName, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelLEName, e);
         }
     }
 

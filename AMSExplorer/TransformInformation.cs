@@ -60,6 +60,8 @@ namespace AMSExplorer
 
         private void TransformInformation_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             labelJobNameTitle.Text += _transform.Name;
 
             DGTransform.ColumnCount = 2;
@@ -177,6 +179,11 @@ namespace AMSExplorer
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DisplayAssetInfo(false);
+        }
+
+        private void TransformInformation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobNameTitle, e);
         }
     }
 }

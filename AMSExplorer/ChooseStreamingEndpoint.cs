@@ -151,6 +151,8 @@ namespace AMSExplorer
 
         private async void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
@@ -367,7 +369,7 @@ namespace AMSExplorer
 
         private void ChooseStreamingEndpoint_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(label5, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
         }
     }
 }

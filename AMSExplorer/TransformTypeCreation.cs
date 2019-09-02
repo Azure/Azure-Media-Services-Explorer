@@ -57,7 +57,12 @@ namespace AMSExplorer
 
         private void TransformTypeCreation_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+        }
 
+        private void TransformTypeCreation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

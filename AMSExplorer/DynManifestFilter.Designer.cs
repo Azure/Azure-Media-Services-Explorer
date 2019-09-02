@@ -46,18 +46,18 @@
             this.timeControlEnd = new AMSExplorer.TimeControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTR = new System.Windows.Forms.TabPage();
-            this.checkBoxForValueForLive = new System.Windows.Forms.CheckBox();
-            this.textBoxDurationTime = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label39 = new System.Windows.Forms.Label();
+            this.checkBoxForValueForLive = new System.Windows.Forms.CheckBox();
             this.labelDefaultBakckoff = new System.Windows.Forms.Label();
-            this.labelDefaultDVR = new System.Windows.Forms.Label();
-            this.labelDefaultEnd = new System.Windows.Forms.Label();
+            this.numericUpDownBackoffSeconds = new System.Windows.Forms.NumericUpDown();
             this.labelStartTimeDefault = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label42 = new System.Windows.Forms.Label();
-            this.numericUpDownBackoffSeconds = new System.Windows.Forms.NumericUpDown();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.labelDefaultEnd = new System.Windows.Forms.Label();
+            this.labelDefaultDVR = new System.Windows.Forms.Label();
+            this.textBoxDurationTime = new System.Windows.Forms.TextBox();
             this.tabPageTRRaw = new System.Windows.Forms.TabPage();
             this.checkBoxForValueLiveRaw = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
@@ -66,15 +66,15 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.textBoxRawTimescale = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.labeltime1 = new System.Windows.Forms.Label();
             this.textBoxRawBackoff = new System.Windows.Forms.TextBox();
             this.textBoxRawDVR = new System.Windows.Forms.TextBox();
             this.textBoxRawEnd = new System.Windows.Forms.TextBox();
             this.textBoxRawStart = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labeltime5 = new System.Windows.Forms.Label();
+            this.labeltime4 = new System.Windows.Forms.Label();
+            this.labeltime3 = new System.Windows.Forms.Label();
+            this.labeltime2 = new System.Windows.Forms.Label();
             this.tabPageTF = new System.Windows.Forms.TabPage();
             this.numericUpDownFirstQualityBitrate = new System.Windows.Forms.NumericUpDown();
             this.checkBoxFirstQualityBitrate = new System.Windows.Forms.CheckBox();
@@ -133,9 +133,10 @@
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackoffSeconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPageTRRaw.SuspendLayout();
             this.tabPageTF.SuspendLayout();
@@ -194,6 +195,7 @@
             // checkBoxLiveBackoff
             // 
             resources.ApplyResources(this.checkBoxLiveBackoff, "checkBoxLiveBackoff");
+            this.tableLayoutPanel2.SetColumnSpan(this.checkBoxLiveBackoff, 2);
             this.checkBoxLiveBackoff.Name = "checkBoxLiveBackoff";
             this.toolTip1.SetToolTip(this.checkBoxLiveBackoff, resources.GetString("checkBoxLiveBackoff.ToolTip"));
             this.checkBoxLiveBackoff.UseVisualStyleBackColor = true;
@@ -241,9 +243,9 @@
             // 
             // timeControlDVR
             // 
-            resources.ApplyResources(this.timeControlDVR, "timeControlDVR");
             this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlDVR.DisplayTrackBar = true;
+            resources.ApplyResources(this.timeControlDVR, "timeControlDVR");
             this.timeControlDVR.Label1 = "";
             this.timeControlDVR.Label2 = "DVR Window :";
             this.timeControlDVR.Max = System.TimeSpan.Parse("24.00:00:00");
@@ -284,41 +286,41 @@
             // 
             // tabPageTR
             // 
-            this.tabPageTR.Controls.Add(this.checkBoxForValueForLive);
-            this.tabPageTR.Controls.Add(this.textBoxDurationTime);
-            this.tabPageTR.Controls.Add(this.label39);
-            this.tabPageTR.Controls.Add(this.labelDefaultBakckoff);
-            this.tabPageTR.Controls.Add(this.labelDefaultDVR);
-            this.tabPageTR.Controls.Add(this.labelDefaultEnd);
-            this.tabPageTR.Controls.Add(this.labelStartTimeDefault);
-            this.tabPageTR.Controls.Add(this.pictureBox1);
-            this.tabPageTR.Controls.Add(this.pictureBox3);
-            this.tabPageTR.Controls.Add(this.timeControlStart);
-            this.tabPageTR.Controls.Add(this.label42);
-            this.tabPageTR.Controls.Add(this.numericUpDownBackoffSeconds);
-            this.tabPageTR.Controls.Add(this.checkBoxLiveBackoff);
-            this.tabPageTR.Controls.Add(this.timeControlDVR);
-            this.tabPageTR.Controls.Add(this.checkBoxPresentationWindowDuration);
-            this.tabPageTR.Controls.Add(this.timeControlEnd);
-            this.tabPageTR.Controls.Add(this.checkBoxEndTime);
-            this.tabPageTR.Controls.Add(this.checkBoxStartTime);
-            this.tabPageTR.Controls.Add(this.pictureBox2);
+            this.tabPageTR.Controls.Add(this.tableLayoutPanel2);
             resources.ApplyResources(this.tabPageTR, "tabPageTR");
             this.tabPageTR.Name = "tabPageTR";
             this.tabPageTR.UseVisualStyleBackColor = true;
             this.tabPageTR.Click += new System.EventHandler(this.tabPage1_Click);
             // 
-            // checkBoxForValueForLive
+            // tableLayoutPanel2
             // 
-            resources.ApplyResources(this.checkBoxForValueForLive, "checkBoxForValueForLive");
-            this.checkBoxForValueForLive.Name = "checkBoxForValueForLive";
-            this.checkBoxForValueForLive.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox3, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBoxDurationTime, 3, 4);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxForValueForLive, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.timeControlStart, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.labelDefaultBakckoff, 2, 10);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxStartTime, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.numericUpDownBackoffSeconds, 3, 9);
+            this.tableLayoutPanel2.Controls.Add(this.labelStartTimeDefault, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox2, 0, 9);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxEndTime, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxPresentationWindowDuration, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.timeControlDVR, 2, 6);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxLiveBackoff, 1, 9);
+            this.tableLayoutPanel2.Controls.Add(this.labelDefaultEnd, 2, 4);
+            this.tableLayoutPanel2.Controls.Add(this.labelDefaultDVR, 2, 7);
+            this.tableLayoutPanel2.Controls.Add(this.timeControlEnd, 2, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label39, 3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
-            // textBoxDurationTime
+            // pictureBox3
             // 
-            resources.ApplyResources(this.textBoxDurationTime, "textBoxDurationTime");
-            this.textBoxDurationTime.Name = "textBoxDurationTime";
-            this.textBoxDurationTime.ReadOnly = true;
+            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.media_services_subclips_filter;
+            resources.ApplyResources(this.pictureBox3, "pictureBox3");
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.TabStop = false;
             // 
             // label39
             // 
@@ -326,20 +328,27 @@
             this.label39.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label39.Name = "label39";
             // 
+            // checkBoxForValueForLive
+            // 
+            resources.ApplyResources(this.checkBoxForValueForLive, "checkBoxForValueForLive");
+            this.checkBoxForValueForLive.Name = "checkBoxForValueForLive";
+            this.checkBoxForValueForLive.UseVisualStyleBackColor = true;
+            // 
             // labelDefaultBakckoff
             // 
             resources.ApplyResources(this.labelDefaultBakckoff, "labelDefaultBakckoff");
             this.labelDefaultBakckoff.Name = "labelDefaultBakckoff";
             // 
-            // labelDefaultDVR
+            // numericUpDownBackoffSeconds
             // 
-            resources.ApplyResources(this.labelDefaultDVR, "labelDefaultDVR");
-            this.labelDefaultDVR.Name = "labelDefaultDVR";
-            // 
-            // labelDefaultEnd
-            // 
-            resources.ApplyResources(this.labelDefaultEnd, "labelDefaultEnd");
-            this.labelDefaultEnd.Name = "labelDefaultEnd";
+            this.numericUpDownBackoffSeconds.DecimalPlaces = 2;
+            resources.ApplyResources(this.numericUpDownBackoffSeconds, "numericUpDownBackoffSeconds");
+            this.numericUpDownBackoffSeconds.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numericUpDownBackoffSeconds.Name = "numericUpDownBackoffSeconds";
             // 
             // labelStartTimeDefault
             // 
@@ -353,35 +362,28 @@
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.media_services_subclips_filter;
-            resources.ApplyResources(this.pictureBox3, "pictureBox3");
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.TabStop = false;
-            // 
-            // label42
-            // 
-            resources.ApplyResources(this.label42, "label42");
-            this.label42.Name = "label42";
-            // 
-            // numericUpDownBackoffSeconds
-            // 
-            this.numericUpDownBackoffSeconds.DecimalPlaces = 2;
-            resources.ApplyResources(this.numericUpDownBackoffSeconds, "numericUpDownBackoffSeconds");
-            this.numericUpDownBackoffSeconds.Maximum = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.numericUpDownBackoffSeconds.Name = "numericUpDownBackoffSeconds";
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.media_services_livebackoff_filter;
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
+            // 
+            // labelDefaultEnd
+            // 
+            resources.ApplyResources(this.labelDefaultEnd, "labelDefaultEnd");
+            this.labelDefaultEnd.Name = "labelDefaultEnd";
+            // 
+            // labelDefaultDVR
+            // 
+            resources.ApplyResources(this.labelDefaultDVR, "labelDefaultDVR");
+            this.labelDefaultDVR.Name = "labelDefaultDVR";
+            // 
+            // textBoxDurationTime
+            // 
+            resources.ApplyResources(this.textBoxDurationTime, "textBoxDurationTime");
+            this.textBoxDurationTime.Name = "textBoxDurationTime";
+            this.textBoxDurationTime.ReadOnly = true;
             // 
             // tabPageTRRaw
             // 
@@ -392,15 +394,15 @@
             this.tabPageTRRaw.Controls.Add(this.label17);
             this.tabPageTRRaw.Controls.Add(this.label16);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawTimescale);
-            this.tabPageTRRaw.Controls.Add(this.label9);
+            this.tabPageTRRaw.Controls.Add(this.labeltime1);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawBackoff);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawDVR);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawEnd);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawStart);
-            this.tabPageTRRaw.Controls.Add(this.label8);
-            this.tabPageTRRaw.Controls.Add(this.label7);
-            this.tabPageTRRaw.Controls.Add(this.label5);
-            this.tabPageTRRaw.Controls.Add(this.label3);
+            this.tabPageTRRaw.Controls.Add(this.labeltime5);
+            this.tabPageTRRaw.Controls.Add(this.labeltime4);
+            this.tabPageTRRaw.Controls.Add(this.labeltime3);
+            this.tabPageTRRaw.Controls.Add(this.labeltime2);
             resources.ApplyResources(this.tabPageTRRaw, "tabPageTRRaw");
             this.tabPageTRRaw.Name = "tabPageTRRaw";
             this.tabPageTRRaw.UseVisualStyleBackColor = true;
@@ -447,10 +449,10 @@
             this.textBoxRawTimescale.Name = "textBoxRawTimescale";
             this.textBoxRawTimescale.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawulong_Validating);
             // 
-            // label9
+            // labeltime1
             // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
+            resources.ApplyResources(this.labeltime1, "labeltime1");
+            this.labeltime1.Name = "labeltime1";
             // 
             // textBoxRawBackoff
             // 
@@ -476,25 +478,25 @@
             this.textBoxRawStart.Name = "textBoxRawStart";
             this.textBoxRawStart.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawulong_Validating);
             // 
-            // label8
+            // labeltime5
             // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
+            resources.ApplyResources(this.labeltime5, "labeltime5");
+            this.labeltime5.Name = "labeltime5";
             // 
-            // label7
+            // labeltime4
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
+            resources.ApplyResources(this.labeltime4, "labeltime4");
+            this.labeltime4.Name = "labeltime4";
             // 
-            // label5
+            // labeltime3
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.labeltime3, "labeltime3");
+            this.labeltime3.Name = "labeltime3";
             // 
-            // label3
+            // labeltime2
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.labeltime2, "labeltime2");
+            this.labeltime2.Name = "labeltime2";
             // 
             // tabPageTF
             // 
@@ -779,6 +781,8 @@
             this.dataGridViewTracks.AllowUserToAddRows = false;
             this.dataGridViewTracks.AllowUserToDeleteRows = false;
             resources.ApplyResources(this.dataGridViewTracks, "dataGridViewTracks");
+            this.dataGridViewTracks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewTracks.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewTracks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTracks.Name = "dataGridViewTracks";
             this.dataGridViewTracks.RowHeadersVisible = false;
@@ -800,6 +804,7 @@
             this.DGInfo.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGInfo, "DGInfo");
             this.DGInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGInfo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGInfo.ColumnHeadersVisible = false;
             this.DGInfo.ContextMenuStrip = this.contextMenuStripInfo;
@@ -895,7 +900,7 @@
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.checkBoxRawMode);
@@ -916,13 +921,15 @@
             this.Name = "DynManifestFilter";
             this.Load += new System.EventHandler(this.DynManifestFilter_Load);
             this.Shown += new System.EventHandler(this.DynManifestFilter_Shown);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DynManifestFilter_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPageTR.ResumeLayout(false);
-            this.tabPageTR.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackoffSeconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPageTRRaw.ResumeLayout(false);
             this.tabPageTRRaw.PerformLayout();
@@ -1001,7 +1008,6 @@
         private TimeControl timeControlEnd;
         private System.Windows.Forms.CheckBox checkBoxEndTime;
         private System.Windows.Forms.CheckBox checkBoxStartTime;
-        private System.Windows.Forms.Label label42;
         private System.Windows.Forms.NumericUpDown numericUpDownBackoffSeconds;
         private System.Windows.Forms.TextBox textBoxAssetDuration;
         private System.Windows.Forms.Label labelassetduration;
@@ -1020,12 +1026,12 @@
         private System.Windows.Forms.TextBox textBoxRawDVR;
         private System.Windows.Forms.TextBox textBoxRawEnd;
         private System.Windows.Forms.TextBox textBoxRawStart;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labeltime5;
+        private System.Windows.Forms.Label labeltime4;
+        private System.Windows.Forms.Label labeltime3;
+        private System.Windows.Forms.Label labeltime2;
         private System.Windows.Forms.TextBox textBoxRawTimescale;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label labeltime1;
         private System.Windows.Forms.ComboBox comboBoxLocatorsFilters;
         private System.Windows.Forms.TabPage tabPageInformation;
         private System.Windows.Forms.DataGridView DGInfo;
@@ -1043,5 +1049,6 @@
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.CheckBox checkBoxForValueForLive;
         private System.Windows.Forms.CheckBox checkBoxForValueLiveRaw;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

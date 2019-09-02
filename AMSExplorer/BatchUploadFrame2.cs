@@ -121,6 +121,8 @@ namespace AMSExplorer
 
         private void BathUploadFrame2_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             if (ErrorConnect)
             {
                 Close();

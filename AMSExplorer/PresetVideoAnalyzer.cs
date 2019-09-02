@@ -46,6 +46,8 @@ namespace AMSExplorer
 
         private void PresetVideoAnalyzer_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
@@ -90,7 +92,7 @@ namespace AMSExplorer
 
         private void PresetVideoAnalyzer_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(labelAVAnalyzer, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAVAnalyzer, e);
         }
     }
 }

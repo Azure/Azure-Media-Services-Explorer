@@ -99,6 +99,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Name = "ExportSettings";
+            this.Load += new System.EventHandler(this.ExportSettings_Load);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ExportSettings_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

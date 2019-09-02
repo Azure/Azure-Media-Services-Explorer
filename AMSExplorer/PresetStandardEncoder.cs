@@ -95,6 +95,8 @@ namespace AMSExplorer
 
         private void PresetStandardEncoder_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming, EncoderNamedPreset.AdaptiveStreaming));
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.ContentAwareEncodingExperimental, EncoderNamedPreset.ContentAwareEncodingExperimental));
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate1080p, EncoderNamedPreset.H264MultipleBitrate1080p));
@@ -153,7 +155,7 @@ namespace AMSExplorer
 
         private void PresetStandardEncoder_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(labelMES, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelMES, e);
         }
     }
 

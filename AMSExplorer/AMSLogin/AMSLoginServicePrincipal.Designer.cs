@@ -102,6 +102,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Name = "AmsLoginServicePrincipal";
+            this.Load += new System.EventHandler(this.AmsLoginServicePrincipal_Load);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AmsLoginServicePrincipal_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

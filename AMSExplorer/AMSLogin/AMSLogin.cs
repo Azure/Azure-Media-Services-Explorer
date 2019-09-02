@@ -55,10 +55,8 @@ namespace AMSExplorer
 
         private void AMSLogin_Load(object sender, EventArgs e)
         {
-
-            // To clear list
             //Properties.Settings.Default.LoginListRPv3JSON = "";
-
+            DpiUtils.InitPerMonitorDpi(this);
 
             // Add a dummy column     
             ColumnHeader header = new ColumnHeader();
@@ -337,11 +335,11 @@ namespace AMSExplorer
 
         private async void AMSLogin_ShownAsync(object sender, EventArgs e)
         {
+
             //await Task.Run(() => Program.CheckAMSEVersionAsync()).ConfigureAwait(false); //let not wait for this task - no need
             ScaleListViewColumns(listViewAccounts);
 
             await Program.CheckAMSEVersionAsync();
-
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -608,7 +606,7 @@ namespace AMSExplorer
 
         private void AmsLogin_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            Program.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
+           DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
         }
     }
 
