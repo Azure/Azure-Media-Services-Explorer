@@ -127,7 +127,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonNext.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 14</value>
+    <value>366, 14</value>
   </data>
   <data name="buttonNext.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -154,7 +154,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>488, 14</value>
+    <value>485, 14</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -177,14 +177,14 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 507</value>
+    <value>0, 506</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>615, 55</value>
+    <value>612, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>

@@ -3634,9 +3634,11 @@ namespace AMSExplorer
         private void Mainform_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(this);
+
             Hide();
 
-            linkLabelFeedbackAMS.Links.Add(new LinkLabel.Link(0, linkLabelFeedbackAMS.Text.Length, Constants.LinkFeedbackAMS));
             //linkLabelMoreInfoMediaUnits.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoMediaUnits.Text.Length, Constants.LinkInfoMediaUnit));
 
             //comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
@@ -4911,6 +4913,7 @@ namespace AMSExplorer
                 dataGridViewStorage.Columns[1].HeaderText = "Capacity";
                 dataGridViewStorage.Columns[1].Width = 80;
                 dataGridViewStorage.Columns[2].Name = "Id";
+                dataGridViewStorage.Columns[2].Visible = false;
                 dataGridViewStorage.Columns[2].HeaderText = "Id";
                 dataGridViewStorage.Columns[2].Width = 700;
                 /*
@@ -7879,7 +7882,7 @@ namespace AMSExplorer
 
             if (!Error)
             {
-                StorageSettings form = new StorageSettings(AMSClientV3.GetStorageName(storageId), serviceProperties);
+                StorageSettings form = new StorageSettings(AMSClientV3.GetStorageName(storageId), storageId, serviceProperties);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -8839,7 +8842,18 @@ namespace AMSExplorer
 
         private void Mainform_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange( new List<Control> { labelAMSBig, menuStripMain, contextMenuStripTransfers, contextMenuStripAssets, contextMenuStripJobs, contextMenuStripLiveEvents, contextMenuStripLiveOutputs, contextMenuStripStreaminEndpoints, contextMenuStripLog, contextMenuStripTransforms, contextMenuStripStorage, contextMenuStripFilters, statusStrip1 }, e, this);
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAMSBig, menuStripMain, contextMenuStripTransfers, contextMenuStripAssets, contextMenuStripJobs, contextMenuStripLiveEvents, contextMenuStripLiveOutputs, contextMenuStripStreaminEndpoints, contextMenuStripLog, contextMenuStripTransforms, contextMenuStripStorage, contextMenuStripFilters, statusStrip1 }, e, this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesAfterDpiChange(panelButtons, e);
+
+            this.Refresh();
+        }
+
+        private void FeedbackOnAzureMediaServicesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Constants.LinkFeedbackAMS);
         }
     }
 }

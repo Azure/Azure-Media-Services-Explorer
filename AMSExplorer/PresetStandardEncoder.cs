@@ -97,6 +97,9 @@ namespace AMSExplorer
         {
             DpiUtils.InitPerMonitorDpi(this);
 
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming, EncoderNamedPreset.AdaptiveStreaming));
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.ContentAwareEncodingExperimental, EncoderNamedPreset.ContentAwareEncodingExperimental));
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate1080p, EncoderNamedPreset.H264MultipleBitrate1080p));
@@ -156,6 +159,9 @@ namespace AMSExplorer
         private void PresetStandardEncoder_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(labelMES, e);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
     }
 

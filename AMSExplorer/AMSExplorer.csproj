@@ -235,6 +235,12 @@
     <Compile Include="DataGrid\DataGridViewTransforms.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms-DynamicEncryption\DRM_CENCDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -676,6 +682,12 @@
     <EmbeddedResource Include="BatchUploadFrame2.ja.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InputBox.ja.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCDelivery.ja.resx">
       <DependentUpon>DRM_CENCDelivery.cs</DependentUpon>
     </EmbeddedResource>
@@ -946,6 +958,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mainform.resx">
       <DependentUpon>Mainform.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Priority.resx">
       <DependentUpon>Priority.cs</DependentUpon>
@@ -1049,11 +1062,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms-MediaAnalytics\" />
-    <Folder Include="Forms-Telemetry\" />
     <Folder Include="Properties\DataSources\" />
-    <Folder Include="RegionEditor\" />
-    <Folder Include="rpv3\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

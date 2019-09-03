@@ -46,6 +46,8 @@ namespace AMSExplorer
             this.label2 = new System.Windows.Forms.Label();
             this.labelStorageAccount = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBoxStorageId = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRetention)).BeginInit();
@@ -72,10 +74,10 @@ namespace AMSExplorer
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonUpdate);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // comboBoxVersion
@@ -160,6 +162,17 @@ namespace AMSExplorer
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label4.Name = "label4";
             // 
+            // textBoxStorageId
+            // 
+            resources.ApplyResources(this.textBoxStorageId, "textBoxStorageId");
+            this.textBoxStorageId.Name = "textBoxStorageId";
+            this.textBoxStorageId.ReadOnly = true;
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
             // StorageSettings
             // 
             this.AcceptButton = this.buttonUpdate;
@@ -167,6 +180,8 @@ namespace AMSExplorer
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBoxStorageId);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelStorageAccount);
             this.Controls.Add(this.groupBox1);
@@ -203,5 +218,7 @@ namespace AMSExplorer
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelStorageAccount;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxStorageId;
+        public System.Windows.Forms.Label label5;
     }
 }

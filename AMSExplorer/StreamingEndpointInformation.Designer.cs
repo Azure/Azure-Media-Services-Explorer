@@ -75,7 +75,6 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
@@ -455,17 +454,11 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Controls.Add(this.buttonClose);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // panel2
-            // 
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Name = "panel2";
             // 
             // errorProvider1
             // 
@@ -478,7 +471,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelSEName);
             this.Controls.Add(this.tabControl1);
@@ -558,7 +550,6 @@
         private System.Windows.Forms.Label labelcdn;
         private System.Windows.Forms.Button buttonAllowAllStreamingIP;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBoxTypeScale;
         private System.Windows.Forms.RadioButton radioButtonPremium;
         private System.Windows.Forms.RadioButton radioButtonStandard;

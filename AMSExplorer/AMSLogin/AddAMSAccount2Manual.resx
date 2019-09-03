@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonNext.Location" type="System.Drawing.Point, System.Drawing">
-    <value>577, 14</value>
+    <value>574, 14</value>
   </data>
   <data name="buttonNext.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -151,7 +151,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>696, 14</value>
+    <value>693, 14</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -174,14 +174,14 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 396</value>
+    <value>0, 395</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>823, 55</value>
+    <value>820, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -255,54 +255,6 @@
   <data name="&gt;&gt;textBoxLocation.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;radioButtonAADServicePrincipal.Name" xml:space="preserve">
-    <value>radioButtonAADServicePrincipal</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADServicePrincipal.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADServicePrincipal.Parent" xml:space="preserve">
-    <value>groupBoxAADAutMode</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADServicePrincipal.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADInteractive.Name" xml:space="preserve">
-    <value>radioButtonAADInteractive</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADInteractive.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADInteractive.Parent" xml:space="preserve">
-    <value>groupBoxAADAutMode</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAADInteractive.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBoxAADAutMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 169</value>
-  </data>
-  <data name="groupBoxAADAutMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 82</value>
-  </data>
-  <data name="groupBoxAADAutMode.TabIndex" type="System.Int32, mscorlib">
-    <value>89</value>
-  </data>
-  <data name="groupBoxAADAutMode.Text" xml:space="preserve">
-    <value>Authentication Mode</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAADAutMode.Name" xml:space="preserve">
-    <value>groupBoxAADAutMode</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAADAutMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAADAutMode.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAADAutMode.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="radioButtonAADServicePrincipal.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -362,6 +314,30 @@
   </data>
   <data name="&gt;&gt;radioButtonAADInteractive.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="groupBoxAADAutMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 169</value>
+  </data>
+  <data name="groupBoxAADAutMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 82</value>
+  </data>
+  <data name="groupBoxAADAutMode.TabIndex" type="System.Int32, mscorlib">
+    <value>89</value>
+  </data>
+  <data name="groupBoxAADAutMode.Text" xml:space="preserve">
+    <value>Authentication Mode</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAADAutMode.Name" xml:space="preserve">
+    <value>groupBoxAADAutMode</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAADAutMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAADAutMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAADAutMode.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="textBoxAADtenantId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>

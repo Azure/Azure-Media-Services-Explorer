@@ -35,12 +35,13 @@ namespace AMSExplorer
 
         public int? RequestedMetricsRetention => (numericUpDownRetention.Value == 0) ? null : (int?)numericUpDownRetention.Value;
 
-        public StorageSettings(string storageName, ServiceProperties serviceProperties)
+        public StorageSettings(string storageName, string storageId, ServiceProperties serviceProperties)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             labelStorageAccount.Text = string.Format(labelStorageAccount.Text, storageName);
             _serviceProperties = serviceProperties;
+            textBoxStorageId.Text = storageId;
         }
 
         private void StorageVersion_Load(object sender, EventArgs e)

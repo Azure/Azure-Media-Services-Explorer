@@ -123,6 +123,9 @@ namespace AMSExplorer
         {
             DpiUtils.InitPerMonitorDpi(this);
 
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+
             if (ErrorConnect)
             {
                 Close();
@@ -192,6 +195,12 @@ namespace AMSExplorer
             {
                 checkedListBoxFiles.Items[i].Checked = true;
             }
+        }
+
+        private void BatchUploadFrame2_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
     }
 }

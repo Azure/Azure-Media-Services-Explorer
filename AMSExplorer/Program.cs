@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -79,6 +80,7 @@ namespace AMSExplorer
 
         public static void dataGridViewV_Resize(object sender)
         {
+            return; // let's disable this code for now
             // let's resize the column name to fill the space
             DataGridView grid = (DataGridView)sender;
             int indexname = -1;
@@ -93,7 +95,7 @@ namespace AMSExplorer
 
             if (indexname != -1)
             {
-                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 int colw = Math.Max(grid.Columns[indexname].Width, 100);
                 grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 grid.Columns[indexname].Width = colw;
@@ -437,6 +439,14 @@ namespace AMSExplorer
 
         public static DialogResult InputBox(string title, string promptText, ref string value, bool passwordWildcard = false)
         {
+            InputBox inputForm = new InputBox(title, promptText, value, passwordWildcard);
+
+            inputForm.ShowDialog();
+            value = inputForm.InputValue;
+
+            return inputForm.DialogResult;
+
+            /*
             Button buttonOk = new Button()
             {
                 Text = AMSExplorer.Properties.Resources.ButtonOK,
@@ -461,7 +471,9 @@ namespace AMSExplorer
                 MaximizeBox = false,
                 AcceptButton = buttonOk,
                 CancelButton = buttonCancel,
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                AutoScaleMode = AutoScaleMode.Dpi,
+                Font = new Font("Segoe UI", 9)
             };
 
             Label label = new Label()
@@ -482,11 +494,14 @@ namespace AMSExplorer
             textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
             form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
             form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
-
+            form.Load += Form_Load;
+            form.DpiChanged += Form_DpiChanged;
             DialogResult dialogResult = form.ShowDialog();
             value = textBox.Text;
             return dialogResult;
+            */
         }
+
 
 
         public static void SaveAndProtectUserConfig()
@@ -3059,20 +3074,6 @@ namespace AMSExplorer
         }
 
 
-        private string _Created;
-        public string Created
-        {
-            get => _Created;
-            set
-            {
-                if (value != _Created)
-                {
-                    _Created = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
         private string _Size;
         public string Size
         {
@@ -3216,6 +3217,20 @@ namespace AMSExplorer
                 if (value != _AssetWarning)
                 {
                     _AssetWarning = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private string _Created;
+        public string Created
+        {
+            get => _Created;
+            set
+            {
+                if (value != _Created)
+                {
+                    _Created = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -4458,6 +4473,113 @@ namespace AMSExplorer
             float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
             controls.ForEach(c => c.Font = new Font(c.Font.Name, c.Font.Size * factor));
             if (currentForm != null) currentForm.ResumeLayout();
+        }
+    }
+
+
+    public static class HighDpiHelper
+    {
+        public static void AdjustControlImagesDpiScale(Control container)
+        {
+            //var dpiScale = GetDpiScale(container).Value;
+            var dpiScale = GetDpiScale(container);
+            if (CloseToOne(dpiScale))
+                return;
+
+            AdjustControlImagesDpiScale(container.Controls, dpiScale);
+        }
+
+        public static void AdjustControlImagesAfterDpiChange(Control container, DpiChangedEventArgs e)
+        {
+            float dpiScale = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
+            AdjustControlImagesDpiScale(container.Controls, dpiScale);
+        }
+
+        private static void AdjustButtonImageDpiScale(ButtonBase button, float dpiScale)
+        {
+            var image = button.Image;
+            if (image == null)
+                return;
+
+            button.Image = ScaleImage(image, dpiScale);
+        }
+
+        private static void AdjustControlImagesDpiScale(Control.ControlCollection controls, float dpiScale)
+        {
+            foreach (Control control in controls)
+            {
+                var button = control as ButtonBase;
+                if (button != null)
+                    AdjustButtonImageDpiScale(button, dpiScale);
+                else
+                {
+                    var pictureBox = control as PictureBox;
+                    if (pictureBox != null)
+                        AdjustPictureBoxDpiScale(pictureBox, dpiScale);
+                }
+
+                AdjustControlImagesDpiScale(control.Controls, dpiScale);
+            }
+        }
+
+        private static void AdjustPictureBoxDpiScale(PictureBox pictureBox, float dpiScale)
+        {
+            var image = pictureBox.Image;
+            if (image == null)
+                return;
+
+            if (pictureBox.SizeMode == PictureBoxSizeMode.CenterImage)
+                pictureBox.Image = ScaleImage(pictureBox.Image, dpiScale);
+        }
+
+        private static bool CloseToOne(float dpiScale)
+        {
+            return Math.Abs(dpiScale - 1) < 0.001;
+        }
+
+        /*
+        public static Lazy<float> GetDpiScale(Control control)
+        {
+            return new Lazy<float>(() =>
+            {
+                using (var graphics = control.CreateGraphics())
+                    return graphics.DpiX / 96.0f;
+            });
+        }
+        */
+
+        public static float GetDpiScale(Control control)
+        {
+            return control.DeviceDpi / 96f;
+
+
+        }
+
+
+        public static System.Drawing.Image ScaleImage(System.Drawing.Image image, float dpiScale)
+        {
+            var newSize = ScaleSize(image.Size, dpiScale);
+            var newBitmap = new Bitmap(newSize.Width, newSize.Height);
+
+            using (var g = Graphics.FromImage(newBitmap))
+            {
+                // According to this blog post http://blogs.msdn.com/b/visualstudio/archive/2014/03/19/improving-high-dpi-support-for-visual-studio-2013.aspx
+                // NearestNeighbor is more adapted for 200% and 200%+ DPI
+
+                var interpolationMode = InterpolationMode.HighQualityBicubic;
+                if (dpiScale >= 2.0f)
+                    interpolationMode = InterpolationMode.NearestNeighbor;
+
+                g.InterpolationMode = interpolationMode;
+                g.DrawImage(image, new System.Drawing.Rectangle(new Point(), newSize));
+            }
+
+            return newBitmap;
+        }
+
+        private static Size ScaleSize(Size size, float scale)
+        {
+            return new Size((int)(size.Width * scale), (int)(size.Height * scale));
         }
     }
 

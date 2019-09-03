@@ -494,7 +494,8 @@ namespace AMSExplorer
 
         private void StreamingEndpointInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { textBoxClientPolicy, textBoxCrossDomPolicy, labelSEName }, e, this);
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { textBoxClientPolicy, textBoxCrossDomPolicy, labelSEName, contextMenuStripOI }, e, this);
         }
     }
 

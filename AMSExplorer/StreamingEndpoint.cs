@@ -112,6 +112,7 @@ namespace AMSExplorer
 
             SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new SortableBindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
             DataSource = MyObservOriginInPage;
+            Columns["Id"].Visible = false;
             Columns["Name"].Width = 300;
             Columns["State"].Width = 100;
             Columns["CDN"].Width = 120;

@@ -183,7 +183,8 @@ namespace AMSExplorer
 
         private void TransformInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobNameTitle, e);
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelJobNameTitle, contextMenuStrip, contextMenuStripInputAsset, contextMenuStripOutputAsset }, e, this);
         }
     }
 }

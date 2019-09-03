@@ -1180,7 +1180,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>762, 12</value>
+    <value>772, 12</value>
   </data>
   <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 27</value>
@@ -1207,7 +1207,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonUpdateClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>570, 12</value>
+    <value>580, 12</value>
   </data>
   <data name="buttonUpdateClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>185, 27</value>
@@ -1229,9 +1229,6 @@
   </data>
   <data name="&gt;&gt;buttonUpdateClose.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
   </data>
   <data name="labelLiveEventStoppedOrStartedSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>208, 18</value>
@@ -1263,11 +1260,14 @@
   <data name="&gt;&gt;labelLiveEventStoppedOrStartedSettings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 595</value>
+    <value>0, 592</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>905, 55</value>
+    <value>915, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>

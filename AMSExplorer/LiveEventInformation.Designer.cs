@@ -446,11 +446,11 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.labelLiveEventStoppedOrStartedSettings);
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Controls.Add(this.buttonUpdateClose);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelLiveEventStoppedOrStartedSettings

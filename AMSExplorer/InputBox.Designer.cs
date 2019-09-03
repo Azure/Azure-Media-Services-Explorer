@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class DisplayBox
+    partial class InputBox
     {
         /// <summary>
         /// Required designer variable.
@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayBox));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputBox));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.labelTitle = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxInput = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +50,7 @@
             // 
             // button1
             // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -56,27 +59,43 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // DisplayBox
+            // textBoxInput
+            // 
+            resources.ApplyResources(this.textBoxInput, "textBoxInput");
+            this.textBoxInput.Name = "textBoxInput";
+            // 
+            // button2
+            // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // InputBox
             // 
             this.AcceptButton = this.button1;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ControlBox = false;
+            this.Controls.Add(this.textBoxInput);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "DisplayBox";
+            this.Name = "InputBox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Load += new System.EventHandler(this.DisplayBox_Load);
-            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DisplayBox_DpiChanged);
+            this.Load += new System.EventHandler(this.InputBox_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.InputBox_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -86,5 +105,7 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox textBoxInput;
+        private System.Windows.Forms.Button button2;
     }
 }

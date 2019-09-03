@@ -35,7 +35,6 @@
             this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
             this.buttonDeleteTemplate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -96,17 +95,11 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // panel2
-            // 
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Name = "panel2";
             // 
             // labelTitle
             // 
@@ -279,7 +272,6 @@
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label);
             this.Name = "ProcessFromTransform";
@@ -308,7 +300,6 @@
         private System.Windows.Forms.Button buttonDeleteTemplate;
         private ListViewTransforms listViewTransforms;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labelTitle;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;

@@ -48,6 +48,9 @@ namespace AMSExplorer
         {
             DpiUtils.InitPerMonitorDpi(this);
 
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+
             LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
@@ -93,6 +96,9 @@ namespace AMSExplorer
         private void PresetVideoAnalyzer_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(labelAVAnalyzer, e);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
     }
 }

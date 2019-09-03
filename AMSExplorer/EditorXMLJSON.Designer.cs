@@ -38,7 +38,6 @@
             this.buttonCopyClipboard = new System.Windows.Forms.Button();
             this.buttonFormat = new System.Windows.Forms.Button();
             this.labelInfoText = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
@@ -60,10 +59,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // textBoxConfiguration
@@ -108,12 +107,6 @@
             this.labelInfoText.ForeColor = System.Drawing.Color.Black;
             this.labelInfoText.Name = "labelInfoText";
             // 
-            // panel2
-            // 
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Name = "panel2";
-            // 
             // dataGridViewTextBoxColumn1
             // 
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
@@ -130,7 +123,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.labelInfoText);
             this.Controls.Add(this.buttonFormat);
             this.Controls.Add(this.buttonCopyClipboard);
@@ -161,6 +153,5 @@
         private System.Windows.Forms.Button buttonCopyClipboard;
         private System.Windows.Forms.Button buttonFormat;
         private System.Windows.Forms.Label labelInfoText;
-        private System.Windows.Forms.Panel panel2;
     }
 }

@@ -122,6 +122,7 @@ namespace AMSExplorer
 
         private void Splash_DpiChanged(object sender, DpiChangedEventArgs e)
         {
+            // for controls which are not using the default font
             DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, labelConnecting }, e, this);
         }
     }

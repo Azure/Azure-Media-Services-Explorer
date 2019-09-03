@@ -160,10 +160,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonUpload);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label3
@@ -208,6 +208,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "BatchUploadFrame2";
             this.Load += new System.EventHandler(this.BathUploadFrame2_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.BatchUploadFrame2_DpiChanged);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
