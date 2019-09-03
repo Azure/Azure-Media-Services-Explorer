@@ -152,7 +152,7 @@ namespace AMSExplorer
 
         private void LiveOutputInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelProgramName, e);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelProgramName, contextMenuStripDG }, e, this);
         }
     }
 }

@@ -79,6 +79,7 @@ namespace AMSExplorer
 
         public static void dataGridViewV_Resize(object sender)
         {
+            return; // let's disable this code for now
             // let's resize the column name to fill the space
             DataGridView grid = (DataGridView)sender;
             int indexname = -1;
@@ -93,7 +94,7 @@ namespace AMSExplorer
 
             if (indexname != -1)
             {
-                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 int colw = Math.Max(grid.Columns[indexname].Width, 100);
                 grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 grid.Columns[indexname].Width = colw;
@@ -3059,20 +3060,6 @@ namespace AMSExplorer
         }
 
 
-        private string _Created;
-        public string Created
-        {
-            get => _Created;
-            set
-            {
-                if (value != _Created)
-                {
-                    _Created = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
         private string _Size;
         public string Size
         {
@@ -3216,6 +3203,20 @@ namespace AMSExplorer
                 if (value != _AssetWarning)
                 {
                     _AssetWarning = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private string _Created;
+        public string Created
+        {
+            get => _Created;
+            set
+            {
+                if (value != _Created)
+                {
+                    _Created = value;
                     NotifyPropertyChanged();
                 }
             }

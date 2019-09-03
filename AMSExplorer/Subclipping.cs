@@ -326,18 +326,18 @@ namespace AMSExplorer
         {
             RadioButton senderr = sender as RadioButton;
 
-            if ((radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
-                ||
-                (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name)) // asset filtering
+            if (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name) // asset filtering
             {
                 checkBoxTrimming.Checked = true;
                 checkBoxTrimming.Enabled = false;
-                textBoxConfiguration.Enabled = panelJob.Visible = false;
-                UpdateButtonOk();
-                ResetConfigJSON();
-                DisplayAccuracy();
-                label3.Visible = textBoxConfiguration.Visible = false;
-
+                panelJob.Visible = false;
+            }
+            else if (radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
+            {
+                checkBoxTrimming.Checked = true;
+                checkBoxTrimming.Enabled = false;
+                panelJob.Visible = true;
+                /*
                 if (senderr.Name == radioButtonClipWithReencode.Name) //reencoding
                 {
                     panelEDL.Visible = true;
@@ -346,19 +346,19 @@ namespace AMSExplorer
                 {
                     panelEDL.Visible = false;
                 }
+                */
             }
             else if (radioButtonArchiveTopBitrate.Checked && senderr.Name == radioButtonArchiveTopBitrate.Name) // archive top bitrate
-
             {
                 checkBoxTrimming.Checked = backupCheckboxTrim;
                 checkBoxTrimming.Enabled = true;
-                textBoxConfiguration.Enabled = panelJob.Visible = true;
-                UpdateButtonOk();
-                ResetConfigJSON();
-                DisplayAccuracy();
-                label3.Visible = textBoxConfiguration.Visible = true;
-                panelEDL.Visible = true;
+                panelJob.Visible = true;
+                // panelEDL.Visible = true;
             }
+            UpdateButtonOk();
+            ResetConfigJSON();
+            DisplayAccuracy();
+
         }
 
         private void UpdateButtonOk()
@@ -570,7 +570,6 @@ namespace AMSExplorer
                 End = timeControlEnd.TimeStampWithoutOffset,
                 Offset = timeControlStart.GetOffSetAsTimeSpan()
             });
-            //ResetConfigXML();
         }
 
         private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)

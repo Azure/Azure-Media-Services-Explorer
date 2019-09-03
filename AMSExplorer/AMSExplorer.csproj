@@ -1049,11 +1049,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms-MediaAnalytics\" />
-    <Folder Include="Forms-Telemetry\" />
     <Folder Include="Properties\DataSources\" />
-    <Folder Include="RegionEditor\" />
-    <Folder Include="rpv3\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

@@ -181,7 +181,6 @@ namespace AMSExplorer
             //BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
             BindingList<AssetEntryV3> MyObservAssethisPageV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
-
             DataSource = MyObservAssethisPageV3;
 
             int lastColumn_sIndex = Columns.GetLastColumn(DataGridViewElementStates.Visible, DataGridViewElementStates.None).DisplayIndex;
@@ -193,9 +192,12 @@ namespace AMSExplorer
             Columns[_assetwarning].Visible = false; // used to store warning and put color in red
             Columns["Type"].HeaderText = "Type (streams nb)";
             Columns["Created"].HeaderText = "Created";
-            Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+            Columns["AssetId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+            Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
+            Columns["StorageAccountName"].HeaderText = "Storage account";
             Columns["SizeLong"].Visible = false;
+            Columns["LastModified"].Visible = false;
             Columns[_filter].DisplayIndex = lastColumn_sIndex;
             Columns[_filter].DefaultCellStyle.NullValue = null;
             Columns[_publication].DisplayIndex = lastColumn_sIndex - 1;
@@ -205,17 +207,28 @@ namespace AMSExplorer
 
             Columns[_dynEnc].HeaderText = "Dynamic Encryption";
 
-            Columns["Type"].Width = 140;
-            Columns["Size"].Width = 80;
+            //Columns["Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["Type"].Width = 140;
+            //Columns["Size"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["Size"].Width = 80;
+            Columns["Description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Columns["Description"].Width = 200;
+            Columns[_dynEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Columns[_dynEnc].Width = 80;
+            Columns[_publication].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Columns[_publication].Width = 90;
+            Columns[_filter].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Columns[_filter].Width = 50;
             Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
-            Columns[_locatorexpirationdate].DisplayIndex = Columns.Count - 1;
+            Columns[_locatorexpirationdate].DisplayIndex = Columns.Count - 3;
             Columns[_locatorexpirationdate].Width = 130;
-            Columns["Created"].Width = 140;
-            Columns["AlternateId"].Width = 300;
-            Columns["StorageAccountName"].Width = 140;
+            Columns["Created"].DisplayIndex = Columns.Count - 1;
+            //Columns["Created"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["Created"].Width = 140;
+            //Columns["AlternateId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["AlternateId"].Width = 300;
+            //Columns["StorageAccountName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["StorageAccountName"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {

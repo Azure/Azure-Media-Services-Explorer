@@ -17,6 +17,7 @@
 using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
