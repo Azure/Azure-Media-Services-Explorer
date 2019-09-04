@@ -92,12 +92,12 @@
             this.accountmgtlink = new System.Windows.Forms.LinkLabel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.linkLabelAMSforV3 = new System.Windows.Forms.LinkLabel();
             this.labelVersion = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
             this.linkLabelPDFDocumentation = new System.Windows.Forms.LinkLabel();
-            this.linkLabelAMSforV3 = new System.Windows.Forms.LinkLabel();
             this.tabControlAMS.SuspendLayout();
             this.tabPageCredentials.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -557,6 +557,13 @@
             this.panel1.Name = "panel1";
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // linkLabelAMSforV3
+            // 
+            resources.ApplyResources(this.linkLabelAMSforV3, "linkLabelAMSforV3");
+            this.linkLabelAMSforV3.Name = "linkLabelAMSforV3";
+            this.linkLabelAMSforV3.TabStop = true;
+            this.linkLabelAMSforV3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelAMSforV3_LinkClicked);
+            // 
             // labelVersion
             // 
             resources.ApplyResources(this.labelVersion, "labelVersion");
@@ -586,13 +593,6 @@
             this.linkLabelPDFDocumentation.Name = "linkLabelPDFDocumentation";
             this.linkLabelPDFDocumentation.TabStop = true;
             this.linkLabelPDFDocumentation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelPDFDocumentation_LinkClicked);
-            // 
-            // linkLabelAMSforV3
-            // 
-            resources.ApplyResources(this.linkLabelAMSforV3, "linkLabelAMSforV3");
-            this.linkLabelAMSforV3.Name = "linkLabelAMSforV3";
-            this.linkLabelAMSforV3.TabStop = true;
-            this.linkLabelAMSforV3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelAMSforV3_LinkClicked);
             // 
             // AMSLogin
             // 

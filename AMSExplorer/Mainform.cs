@@ -72,12 +72,12 @@ namespace AMSExplorer
         private bool AMFaceDetectorPresent = true;
         private bool AMRedactorPresent = true;
         private bool AMMotionDetectorPresent = true;
-        private bool AMStabilizerPresent = true;
         private bool AMVideoThumbnailsPresent = true;
         private bool AMVideoOCRPresent = true;
         private bool AMContentModerator = true;
         private bool AMVideoAnnotator = true;
-
+        private bool AMVideoIndexerV1 = true;
+        private bool AMVideoIndexerV2 = true;
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -240,13 +240,6 @@ namespace AMSExplorer
                 toolStripMenuItemRedactor.Visible = false;
             }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaStabilizer) == null)
-            {
-                AMStabilizerPresent =
-                ProcessStabilizertoolStripMenuItem.Visible =
-                toolStripMenuItemStabilizer.Visible = false;
-            }
-
             if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null)
             {
                 AMVideoThumbnailsPresent =
@@ -270,6 +263,19 @@ namespace AMSExplorer
                 AMVideoAnnotator =
                 processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Visible =
                 processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Visible = false;
+            }
+            // let's remove Indexer v1
+            if (DateTime.Now >= new DateTime(2020, 10, 1))
+            {
+                AMVideoIndexerV1 =
+                toolStripMenuItemIndexer.Visible = indexAssetsToolStripMenuItem.Visible = false;
+            }
+
+            // let's remove Indexer v2
+            if (DateTime.Now >= new DateTime(2020, 1, 1))
+            {
+                AMVideoIndexerV2 =
+                toolStripMenuItem38Indexer2.Visible = toolStripMenuItemIndexv2.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -341,6 +347,8 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
             }
+
+            TextBoxLogWriteLine("This version is for AMS v2. You may install the new version for AMS v3. Both AMSE versions can run side by side. Please read the migration document for more info https://docs.microsoft.com/en-us/azure/media-services/latest/migrate-from-v2-to-v3. Please go to http://aka.ms/amse to install AMSE v5.", true); // Warning
 
             // let's initialize the trackbar and text for nb of transfers
 
@@ -5710,6 +5718,9 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            MessageBox.Show("Azure Media Indexer will be retired on October 1, 2020." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Audio Analyzer Preset.",
+            "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             var proposedfiles = CheckSingleFileIndexerV1SupportedExtensions(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets, true);
@@ -5797,6 +5808,9 @@ namespace AMSExplorer
             {
                 return;
             }
+
+            MessageBox.Show("Azure Media Indexer 2 (Preview) will be retired on January 1, 2020." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Audio Analyzer Preset.",
+            "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var form = new IndexerV2(_context, processor.Version)
             {
@@ -8005,13 +8019,6 @@ namespace AMSExplorer
                 toolStripMenuItemRedactor.Enabled = false;
             }
 
-            // let's disable Stabilizer if not present
-            if (!AMStabilizerPresent)
-            {
-                ProcessStabilizertoolStripMenuItem.Enabled =
-                toolStripMenuItemStabilizer.Enabled = false;
-            }
-
             // let's disable video thumbnails if not present
             if (!AMVideoThumbnailsPresent)
             {
@@ -8038,6 +8045,20 @@ namespace AMSExplorer
             {
                 processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem.Enabled =
                 processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Enabled = false;
+            }
+
+            // let's disable Video Indexer v1 if not present
+            if (!AMVideoIndexerV1)
+            {
+                toolStripMenuItemIndexer.Enabled =
+                indexAssetsToolStripMenuItem.Enabled = false;
+            }
+
+            // let's disable Video Indexer v2if not present
+            if (!AMVideoIndexerV2)
+            {
+                toolStripMenuItem38Indexer2.Enabled =
+                toolStripMenuItemIndexv2.Enabled = false;
             }
 
             switch (tabControlMain.SelectedTab.Name)
@@ -14938,12 +14959,6 @@ namespace AMSExplorer
             DoMenuMotionDetection();
         }
 
-        private void toolStripMenuItemStabilizer_Click(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
-        }
-
-
 
         private void transferToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
@@ -15436,10 +15451,6 @@ namespace AMSExplorer
             panelChannels.Size = new Size(panelChannels.Size.Width, tabPageLive.Size.Height / 2);
         }
 
-        private void toolStripMenuItem38_Click_1(object sender, EventArgs e)
-        {
-            DoMenuIndex2PreviewAssets();
-        }
 
         private void toolStripMenuItem38Indexer2_Click(object sender, EventArgs e)
         {
@@ -15525,7 +15536,6 @@ namespace AMSExplorer
             DoMenuIndex2PreviewAssets();
         }
 
-
         private void ProcessFaceDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             DoMenuVideoAnalyticsFaceDetection(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
@@ -15539,11 +15549,6 @@ namespace AMSExplorer
         private void ProcessMotionDetectortoolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             DoMenuMotionDetection();
-        }
-
-        private void ProcessStabilizertoolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuVideoAnalytics(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer, Constants.LinkMoreYammerAMSPreview);
         }
 
         private void ProcessVideoThumbnailstoolStripMenuItem_Click_1(object sender, EventArgs e)

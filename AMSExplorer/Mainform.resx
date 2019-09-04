@@ -673,13 +673,13 @@
     <value>Import</value>
   </data>
   <data name="exportAssetsInformationToExcelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
+    <value>341, 22</value>
   </data>
   <data name="exportAssetsInformationToExcelToolStripMenuItem.Text" xml:space="preserve">
     <value>Export asset(s) information to Excel or CSV...</value>
   </data>
   <data name="toolStripSeparator37.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 6</value>
+    <value>338, 6</value>
   </data>
   <data name="contextMenuExportFilesToStorage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -694,13 +694,13 @@
     <value>Ctrl+Shift+X</value>
   </data>
   <data name="contextMenuExportFilesToStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
+    <value>341, 22</value>
   </data>
   <data name="contextMenuExportFilesToStorage.Text" xml:space="preserve">
     <value>Export asset file(s) to Azure Storage...</value>
   </data>
   <data name="contextMenuExportToAnotherMediaServicesAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 22</value>
+    <value>341, 22</value>
   </data>
   <data name="contextMenuExportToAnotherMediaServicesAccount.Text" xml:space="preserve">
     <value>Export to another Azure Media Services Account...</value>
@@ -843,12 +843,6 @@
   </data>
   <data name="toolStripMenuItemMotionDetector.Text" xml:space="preserve">
     <value>Process asset(s) with Azure Media Motion Detector...</value>
-  </data>
-  <data name="toolStripMenuItemStabilizer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="toolStripMenuItemStabilizer.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Stabilizer...</value>
   </data>
   <data name="toolStripMenuItemVideoThumbnails.Size" type="System.Drawing.Size, System.Drawing">
     <value>397, 22</value>
@@ -1004,7 +998,7 @@
     <value>Ctrl+L</value>
   </data>
   <data name="createALocatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="createALocatorToolStripMenuItem.Text" xml:space="preserve">
     <value>Create a locator...</value>
@@ -1013,7 +1007,7 @@
     <value>Ctrl+Alt+L</value>
   </data>
   <data name="extendExistingLocatorsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="extendExistingLocatorsToolStripMenuItem.Text" xml:space="preserve">
     <value>Extend existing streaming locators...</value>
@@ -1022,13 +1016,13 @@
     <value>Ctrl+Shift+L</value>
   </data>
   <data name="deleteAllLocatorsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="deleteAllLocatorsToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete all locators...</value>
   </data>
   <data name="findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Text" xml:space="preserve">
     <value>Find the asset from the locator Id/GUID...</value>
@@ -1046,13 +1040,13 @@
     <value>Alt+F</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Create an asset filter...</value>
   </data>
   <data name="toolStripMenuItem38.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 22</value>
+    <value>327, 22</value>
   </data>
   <data name="toolStripMenuItem38.Text" xml:space="preserve">
     <value>Copy the publish URL to clipboard...</value>
@@ -1131,7 +1125,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.3.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1631,43 +1625,43 @@
     <value>486, 95</value>
   </metadata>
   <data name="toolStripMenuItem33Refresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="toolStripMenuItem33Refresh.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator42.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
+    <value>276, 6</value>
   </data>
   <data name="defineAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="defineAssetToolStripMenuItem.Text" xml:space="preserve">
     <value>New bulk ingest (for external upload)...</value>
   </data>
   <data name="infoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="infoToolStripMenuItem.Text" xml:space="preserve">
     <value>Display information and settings...</value>
   </data>
   <data name="deleteToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="deleteToolStripMenuItem3.Text" xml:space="preserve">
     <value>Delete bulk ingest...</value>
   </data>
   <data name="toolStripSeparator41.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
+    <value>276, 6</value>
   </data>
   <data name="copyIngestURLToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="copyIngestURLToClipboardToolStripMenuItem.Text" xml:space="preserve">
     <value>Display ingest URL...</value>
   </data>
   <data name="contextMenuStripIngestManifests.Size" type="System.Drawing.Size, System.Drawing">
-    <value>279, 126</value>
+    <value>280, 126</value>
   </data>
   <data name="&gt;&gt;contextMenuStripIngestManifests.Name" xml:space="preserve">
     <value>contextMenuStripIngestManifests</value>
@@ -1688,7 +1682,7 @@
     <value>dataGridViewIngestManifestsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.3.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Parent" xml:space="preserve">
     <value>tabPageTransfers</value>
@@ -2574,7 +2568,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.3.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2890,7 +2884,7 @@
     <value>dataGridViewProgramsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.3.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3537,7 +3531,7 @@
     <value>dataGridViewChannelsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.3.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -4059,7 +4053,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.3.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -4188,7 +4182,7 @@
     <value>261, 9</value>
   </data>
   <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 15</value>
+    <value>25, 15</value>
   </data>
   <data name="label21.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
@@ -4797,19 +4791,19 @@
     <value>Import</value>
   </data>
   <data name="informationToExcelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 22</value>
+    <value>375, 22</value>
   </data>
   <data name="informationToExcelToolStripMenuItem.Text" xml:space="preserve">
     <value>Information to Excel or CSV...</value>
   </data>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 6</value>
+    <value>372, 6</value>
   </data>
   <data name="toAnotherAzureMediaServicesAccountToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+C</value>
   </data>
   <data name="toAnotherAzureMediaServicesAccountToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 22</value>
+    <value>375, 22</value>
   </data>
   <data name="toAnotherAzureMediaServicesAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>To another Azure Media Services Account...</value>
@@ -4818,7 +4812,7 @@
     <value>Ctrl+Shift+X</value>
   </data>
   <data name="toAzureStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 22</value>
+    <value>375, 22</value>
   </data>
   <data name="toAzureStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>To Azure Storage...</value>
@@ -4860,13 +4854,13 @@
     <value>False</value>
   </data>
   <data name="testQueryAllAssetFilesToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 22</value>
+    <value>188, 22</value>
   </data>
   <data name="testQueryAllAssetFilesToolStripMenuItem1.Text" xml:space="preserve">
     <value>Test: query all assets...</value>
   </data>
   <data name="testQueryAllFilesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 22</value>
+    <value>188, 22</value>
   </data>
   <data name="testQueryAllFilesToolStripMenuItem.Text" xml:space="preserve">
     <value>Test: query all files...</value>
@@ -4926,31 +4920,31 @@
     <value>Global filter</value>
   </data>
   <data name="toolStripMenuItem33NewBulk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="toolStripMenuItem33NewBulk.Text" xml:space="preserve">
     <value>New bulk ingest (for external upload)...</value>
   </data>
   <data name="toolStripMenuItem36BulkIngestInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="toolStripMenuItem36BulkIngestInfo.Text" xml:space="preserve">
     <value>Bulk ingest information and settings...</value>
   </data>
   <data name="toolStripMenuItem37DelBulk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="toolStripMenuItem37DelBulk.Text" xml:space="preserve">
     <value>Delete bulk ingest...</value>
   </data>
   <data name="toolStripMenuItem38CopyBulkURL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="toolStripMenuItem38CopyBulkURL.Text" xml:space="preserve">
     <value>Display ingest URL...</value>
   </data>
   <data name="toolStripSeparator44.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
+    <value>276, 6</value>
   </data>
   <data name="openDestinationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4964,25 +4958,25 @@
     <value>Ctrl+T</value>
   </data>
   <data name="openDestinationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="openDestinationToolStripMenuItem.Text" xml:space="preserve">
     <value>Open destination</value>
   </data>
   <data name="displayErrorToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="displayErrorToolStripMenuItem1.Text" xml:space="preserve">
     <value>Display error</value>
   </data>
   <data name="cancelToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="cancelToolStripMenuItem1.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="clearCompletedTransfersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 22</value>
+    <value>279, 22</value>
   </data>
   <data name="clearCompletedTransfersToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear completed transfers</value>
@@ -4991,7 +4985,7 @@
     <value>False</value>
   </data>
   <data name="transferToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
+    <value>60, 20</value>
   </data>
   <data name="transferToolStripMenuItem.Text" xml:space="preserve">
     <value>Transfer</value>
@@ -5113,12 +5107,6 @@
   </data>
   <data name="ProcessMotionDetectortoolStripMenuItem.Text" xml:space="preserve">
     <value>Process asset(s) with Azure Media Motion Detector</value>
-  </data>
-  <data name="ProcessStabilizertoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 22</value>
-  </data>
-  <data name="ProcessStabilizertoolStripMenuItem.Text" xml:space="preserve">
-    <value>Process asset(s) with Azure Media Stabilizer</value>
   </data>
   <data name="ProcessVideoThumbnailstoolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>397, 22</value>
@@ -6138,13 +6126,13 @@
 </value>
   </data>
   <data name="azureMediaBlogToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="azureMediaBlogToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Blog</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 6</value>
+    <value>247, 6</value>
   </data>
   <data name="azureMediaServicesPlayerPageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -6155,7 +6143,7 @@
 </value>
   </data>
   <data name="azureMediaServicesPlayerPageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="azureMediaServicesPlayerPageToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Player</value>
@@ -6169,7 +6157,7 @@
 </value>
   </data>
   <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>DASH-IF HTML5 Reference Player</value>
@@ -6183,34 +6171,34 @@
 </value>
   </data>
   <data name="hTML5VideoElementToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="hTML5VideoElementToolStripMenuItem.Text" xml:space="preserve">
     <value>HTML5 Video Element</value>
   </data>
   <data name="jwPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="jwPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>JW Player</value>
   </data>
   <data name="tHEOPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="tHEOPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>THEOplayer</value>
   </data>
   <data name="toolStripSeparator29.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 6</value>
+    <value>247, 6</value>
   </data>
   <data name="hTML5CaptionMakerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 22</value>
+    <value>250, 22</value>
   </data>
   <data name="hTML5CaptionMakerToolStripMenuItem.Text" xml:space="preserve">
     <value>HTML5 Caption Maker</value>
   </data>
   <data name="samplePlayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 20</value>
+    <value>88, 20</value>
   </data>
   <data name="samplePlayersToolStripMenuItem.Text" xml:space="preserve">
     <value>External links</value>
@@ -8888,9 +8876,6 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1020, 639</value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>{0} - Azure Media Services Explorer</value>
   </data>
@@ -9198,12 +9183,6 @@
     <value>toolStripMenuItemMotionDetector</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItemMotionDetector.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemStabilizer.Name" xml:space="preserve">
-    <value>toolStripMenuItemStabilizer</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemStabilizer.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItemVideoThumbnails.Name" xml:space="preserve">
@@ -10428,12 +10407,6 @@
     <value>ProcessMotionDetectortoolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;ProcessMotionDetectortoolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ProcessStabilizertoolStripMenuItem.Name" xml:space="preserve">
-    <value>ProcessStabilizertoolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ProcessStabilizertoolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ProcessVideoThumbnailstoolStripMenuItem.Name" xml:space="preserve">

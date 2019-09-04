@@ -813,7 +813,6 @@ namespace AMSExplorer
         public const string AzureMediaFaceDetector = "Azure Media Face Detector";
         public const string AzureMediaRedactor = "Azure Media Redactor";
         public const string AzureMediaMotionDetector = "Azure Media Motion Detector";
-        public const string AzureMediaStabilizer = "Azure Media Stabilizer";
         public const string AzureMediaVideoThumbnails = "Azure Media Video Thumbnails";
         public const string AzureMediaVideoOCR = "Azure Media OCR";
         public const string AzureMediaContentModerator = "Azure Media Content Moderator";
