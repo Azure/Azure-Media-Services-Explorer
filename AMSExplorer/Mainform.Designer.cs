@@ -519,7 +519,6 @@
             // 
             // contextMenuStripAssets
             // 
-            this.contextMenuStripAssets.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem1,
             this.toolStripSeparator9,
@@ -949,7 +948,6 @@
             // 
             // contextMenuStripFilters
             // 
-            this.contextMenuStripFilters.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripFilters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem12,
             this.filterInfoupdateToolStripMenuItem,
@@ -1040,7 +1038,6 @@
             // 
             // contextMenuStripTransfers
             // 
-            this.contextMenuStripTransfers.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripTransfers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextMenuItemTransferOpenDest,
             this.displayErrorToolStripMenuItem,
@@ -1145,7 +1142,6 @@
             // 
             // contextMenuStripTransforms
             // 
-            this.contextMenuStripTransforms.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripTransforms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createATransformToolStripMenuItem,
             this.deleteTransformsToolStripMenuItem,
@@ -1279,7 +1275,6 @@
             // 
             // contextMenuStripJobs
             // 
-            this.contextMenuStripJobs.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripJobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem2,
             this.toolStripSeparator18,
@@ -1594,7 +1589,6 @@
             // 
             // contextMenuStripLiveEvents
             // 
-            this.contextMenuStripLiveEvents.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripLiveEvents.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem3,
             this.toolStripSeparator20,
@@ -1828,7 +1822,6 @@
             // 
             // contextMenuStripLiveOutputs
             // 
-            this.contextMenuStripLiveOutputs.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripLiveOutputs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem4,
             this.toolStripSeparator21,
@@ -2050,7 +2043,6 @@
             // 
             // contextMenuStripStreaminEndpoints
             // 
-            this.contextMenuStripStreaminEndpoints.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripStreaminEndpoints.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem5,
             this.toolStripSeparator25,
@@ -2160,7 +2152,6 @@
             // 
             // contextMenuStripStorage
             // 
-            this.contextMenuStripStorage.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
             this.attachAnotherStorageAccountToolStripMenuItem,
@@ -2200,7 +2191,6 @@
             // 
             // contextMenuStripLog
             // 
-            this.contextMenuStripLog.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripLog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyToClipboardToolStripMenuItem,
             this.clearTextToolStripMenuItem});
@@ -2263,7 +2253,6 @@
             // menuStripMain
             // 
             this.menuStripMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
-            this.menuStripMain.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assetToolStripMenuItem,
             this.liveLiveEventToolStripMenuItem,
@@ -2729,7 +2718,6 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelConnection,
             this.toolStripStatusLabelWatchFolder});

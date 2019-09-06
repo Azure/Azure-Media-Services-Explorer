@@ -142,7 +142,7 @@
     <value>False</value>
   </data>
   <data name="textBoxAssetsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>941, 412</value>
+    <value>941, 414</value>
   </data>
   <data name="textBoxAssetsPageNumber.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 23</value>
@@ -172,7 +172,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="comboBoxSearchAssetOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 412</value>
+    <value>6, 414</value>
   </data>
   <data name="comboBoxSearchAssetOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 23</value>
@@ -205,7 +205,7 @@
     <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>334, 416</value>
+    <value>334, 418</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -232,7 +232,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>379, 412</value>
+    <value>379, 414</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -259,7 +259,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 412</value>
+    <value>263, 414</value>
   </data>
   <data name="buttonAssetSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -286,7 +286,7 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="textBoxAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 412</value>
+    <value>187, 414</value>
   </data>
   <data name="textBoxAssetSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 23</value>
@@ -319,7 +319,7 @@
     <value>NoControl</value>
   </data>
   <data name="butPrevPageAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>907, 412</value>
+    <value>907, 414</value>
   </data>
   <data name="butPrevPageAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -349,13 +349,13 @@
     <value>350, 17</value>
   </metadata>
   <data name="refreshToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="refreshToolStripMenuItem1.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>302, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="ContextMenuItemAssetDisplayInfo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -368,7 +368,7 @@
     <value>F4</value>
   </data>
   <data name="ContextMenuItemAssetDisplayInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetDisplayInfo.Text" xml:space="preserve">
     <value>Display information</value>
@@ -410,7 +410,7 @@
 </value>
   </data>
   <data name="ContextMenuItemAssetCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetCreateOutlookReportEmail.Text" xml:space="preserve">
     <value>Report</value>
@@ -428,13 +428,13 @@
     <value>F2</value>
   </data>
   <data name="ContextMenuItemAssetEditDescription.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetEditDescription.Text" xml:space="preserve">
     <value>Edit Description...</value>
   </data>
   <data name="editAlternateIdToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="editAlternateIdToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit Alternate Id...</value>
@@ -478,7 +478,7 @@
 </value>
   </data>
   <data name="ContextMenuItemAssetDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetDelete.Text" xml:space="preserve">
     <value>Delete</value>
@@ -514,13 +514,13 @@
     <value>False</value>
   </data>
   <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="toolsToolStripMenuItem.Text" xml:space="preserve">
     <value>Tools</value>
   </data>
   <data name="toolStripSeparator36.Size" type="System.Drawing.Size, System.Drawing">
-    <value>302, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="toolStripMenuItem18.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+U</value>
@@ -586,7 +586,7 @@
 </value>
   </data>
   <data name="toolStripMenuItem17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="toolStripMenuItem17.Text" xml:space="preserve">
     <value>Upload</value>
@@ -631,7 +631,7 @@
     <value>From a single HTTP/HTTPS URL...</value>
   </data>
   <data name="importToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="importToolStripMenuItem1.Text" xml:space="preserve">
     <value>Import</value>
@@ -673,7 +673,7 @@
     <value>False</value>
   </data>
   <data name="exportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="exportToolStripMenuItem.Text" xml:space="preserve">
     <value>Export</value>
@@ -691,13 +691,13 @@
     <value>Ctrl+X</value>
   </data>
   <data name="toolStripMenuItem37.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="toolStripMenuItem37.Text" xml:space="preserve">
     <value>Download to local...</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>302, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="selectATransformToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 22</value>
@@ -712,7 +712,7 @@
     <value>Create job to process an http(s) source...</value>
   </data>
   <data name="toolStripMenuItem32.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="toolStripMenuItem32.Text" xml:space="preserve">
     <value>Process (encode, analyze)</value>
@@ -721,13 +721,13 @@
     <value>Alt+R</value>
   </data>
   <data name="subclipToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="subclipToolStripMenuItem.Text" xml:space="preserve">
     <value>Subclip live/fragmented asset(s)...</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>302, 6</value>
+    <value>286, 6</value>
   </data>
   <data name="createALocatorToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+L</value>
@@ -790,7 +790,7 @@
     <value>Copy the publish URL to clipboard...</value>
   </data>
   <data name="publishToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="publishToolStripMenuItem1.Text" xml:space="preserve">
     <value>Publish</value>
@@ -836,13 +836,13 @@
 </value>
   </data>
   <data name="ContextMenuItemAssetPlayback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 38</value>
+    <value>289, 22</value>
   </data>
   <data name="ContextMenuItemAssetPlayback.Text" xml:space="preserve">
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 598</value>
+    <value>290, 358</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -854,7 +854,7 @@
     <value>6, 6</value>
   </data>
   <data name="dataGridViewAssetsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>994, 400</value>
+    <value>994, 402</value>
   </data>
   <data name="dataGridViewAssetsV.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -863,7 +863,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=5.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -884,7 +884,7 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>638, 416</value>
+    <value>638, 418</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -911,7 +911,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="comboBoxOrderAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>703, 412</value>
+    <value>703, 414</value>
   </data>
   <data name="comboBoxOrderAssets.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
@@ -938,7 +938,7 @@
     <value>NoControl</value>
   </data>
   <data name="butNextPageAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>972, 412</value>
+    <value>972, 414</value>
   </data>
   <data name="butNextPageAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -974,7 +974,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>862, 416</value>
+    <value>862, 418</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -1028,13 +1028,13 @@
     <value>305, 95</value>
   </metadata>
   <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 38</value>
+    <value>246, 22</value>
   </data>
   <data name="toolStripMenuItem12.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 38</value>
+    <value>246, 22</value>
   </data>
   <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
     <value>Filter info/update</value>
@@ -1043,25 +1043,25 @@
     <value>Ctrl+F</value>
   </data>
   <data name="toolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 38</value>
+    <value>246, 22</value>
   </data>
   <data name="toolStripMenuItem16.Text" xml:space="preserve">
     <value>Create an account filter...</value>
   </data>
   <data name="deleteToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 38</value>
+    <value>246, 22</value>
   </data>
   <data name="deleteToolStripMenuItem1.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 38</value>
+    <value>246, 22</value>
   </data>
   <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
     <value>Duplicate...</value>
   </data>
   <data name="contextMenuStripFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 194</value>
+    <value>247, 136</value>
   </data>
   <data name="&gt;&gt;contextMenuStripFilters.Name" xml:space="preserve">
     <value>contextMenuStripFilters</value>
@@ -1174,31 +1174,31 @@
     <value>Ctrl+T</value>
   </data>
   <data name="ContextMenuItemTransferOpenDest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 38</value>
+    <value>209, 22</value>
   </data>
   <data name="ContextMenuItemTransferOpenDest.Text" xml:space="preserve">
     <value>Open destination</value>
   </data>
   <data name="displayErrorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 38</value>
+    <value>209, 22</value>
   </data>
   <data name="displayErrorToolStripMenuItem.Text" xml:space="preserve">
     <value>Display error</value>
   </data>
   <data name="cancelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 38</value>
+    <value>209, 22</value>
   </data>
   <data name="cancelToolStripMenuItem.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="clearToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 38</value>
+    <value>209, 22</value>
   </data>
   <data name="clearToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear completed transfers</value>
   </data>
   <data name="contextMenuStripTransfers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 156</value>
+    <value>210, 92</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTransfers.Name" xml:space="preserve">
     <value>contextMenuStripTransfers</value>
@@ -1381,28 +1381,28 @@
     <value>Standard Encoder...</value>
   </data>
   <data name="createATransformToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 38</value>
+    <value>325, 22</value>
   </data>
   <data name="createATransformToolStripMenuItem.Text" xml:space="preserve">
     <value>Create a simple transform</value>
   </data>
   <data name="deleteTransformsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 38</value>
+    <value>325, 22</value>
   </data>
   <data name="deleteTransformsToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete transform(s)...</value>
   </data>
   <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 6</value>
+    <value>322, 6</value>
   </data>
   <data name="createJobUsingAnHttpSourceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 38</value>
+    <value>325, 22</value>
   </data>
   <data name="createJobUsingAnHttpSourceToolStripMenuItem.Text" xml:space="preserve">
     <value>Create job from transform using a http source...</value>
   </data>
   <data name="contextMenuStripTransforms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 124</value>
+    <value>326, 76</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTransforms.Name" xml:space="preserve">
     <value>contextMenuStripTransforms</value>
@@ -1426,7 +1426,7 @@
     <value>dataGridViewTransformsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewTransforms, AMSExplorer, Version=5.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewTransformsV.Parent" xml:space="preserve">
     <value>tableLayoutPanel3</value>
@@ -1522,7 +1522,7 @@
     <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 214</value>
+    <value>227, 214</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -1588,7 +1588,7 @@
     <value>False</value>
   </data>
   <data name="textBoxJobsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>884, 171</value>
+    <value>883, 171</value>
   </data>
   <data name="textBoxJobsPageNumber.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 23</value>
@@ -1618,13 +1618,13 @@
     <value>649, 17</value>
   </metadata>
   <data name="refreshToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="refreshToolStripMenuItem2.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 6</value>
+    <value>223, 6</value>
   </data>
   <data name="ContextMenuItemJobDisplayInfo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1637,13 +1637,13 @@
     <value>F4</value>
   </data>
   <data name="ContextMenuItemJobDisplayInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="ContextMenuItemJobDisplayInfo.Text" xml:space="preserve">
     <value>Display information</value>
   </data>
   <data name="displayErrorToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="displayErrorToolStripMenuItem3.Text" xml:space="preserve">
     <value>Display error</value>
@@ -1661,7 +1661,7 @@
     <value>F6</value>
   </data>
   <data name="ContextMenuItemJobInputAssetInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="ContextMenuItemJobInputAssetInformation.Text" xml:space="preserve">
     <value>Input asset information</value>
@@ -1679,7 +1679,7 @@
     <value>F7</value>
   </data>
   <data name="ContextMenuItemJobOpenOutputAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="ContextMenuItemJobOpenOutputAsset.Text" xml:space="preserve">
     <value>Output asset information</value>
@@ -1706,13 +1706,13 @@
 </value>
   </data>
   <data name="ContextMenuItemJobCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="ContextMenuItemJobCreateOutlookReportEmail.Text" xml:space="preserve">
     <value>Job report</value>
   </data>
   <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 6</value>
+    <value>223, 6</value>
   </data>
   <data name="ContextMenuItemJobChangePriority.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1725,7 +1725,7 @@
 </value>
   </data>
   <data name="ContextMenuItemJobChangePriority.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="ContextMenuItemJobChangePriority.Text" xml:space="preserve">
     <value>Change priority...</value>
@@ -1755,7 +1755,7 @@
 </value>
   </data>
   <data name="ContextMenuItemJobCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="ContextMenuItemJobCancel.Text" xml:space="preserve">
     <value>Cancel...</value>
@@ -1767,7 +1767,7 @@
     <value>Ctrl+Shift+S</value>
   </data>
   <data name="resubmitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="resubmitToolStripMenuItem.Text" xml:space="preserve">
     <value>Resubmit...</value>
@@ -1805,13 +1805,13 @@
 </value>
   </data>
   <data name="ContextMenuItemJobDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 38</value>
+    <value>226, 22</value>
   </data>
   <data name="ContextMenuItemJobDelete.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="contextMenuStripJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 396</value>
+    <value>227, 236</value>
   </data>
   <data name="&gt;&gt;contextMenuStripJobs.Name" xml:space="preserve">
     <value>contextMenuStripJobs</value>
@@ -1844,7 +1844,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=5.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tableLayoutPanel4</value>
@@ -1859,7 +1859,7 @@
     <value>NoControl</value>
   </data>
   <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>915, 172</value>
+    <value>914, 172</value>
   </data>
   <data name="butNextPageJob.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 21</value>
@@ -1889,7 +1889,7 @@
     <value>False</value>
   </data>
   <data name="comboBoxSearchJobOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 171</value>
+    <value>3, 172</value>
   </data>
   <data name="comboBoxSearchJobOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>114, 23</value>
@@ -1919,7 +1919,7 @@
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>337, 175</value>
+    <value>336, 175</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -1949,7 +1949,7 @@
     <value>NoControl</value>
   </data>
   <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>848, 172</value>
+    <value>847, 172</value>
   </data>
   <data name="butPrevPageJob.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 21</value>
@@ -1976,7 +1976,7 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>525, 172</value>
+    <value>524, 172</value>
   </data>
   <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 23</value>
@@ -2006,7 +2006,7 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>476, 175</value>
+    <value>475, 175</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2042,7 +2042,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>803, 175</value>
+    <value>802, 175</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2075,7 +2075,7 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>618, 175</value>
+    <value>617, 175</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -2102,7 +2102,7 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxOrderJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>684, 172</value>
+    <value>683, 172</value>
   </data>
   <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 23</value>
@@ -2126,7 +2126,7 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxFilterJobsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>383, 172</value>
+    <value>382, 172</value>
   </data>
   <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 23</value>
@@ -2156,7 +2156,7 @@
     <value>123, 171</value>
   </data>
   <data name="textBoxJobSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 23</value>
+    <value>149, 23</value>
   </data>
   <data name="textBoxJobSearch.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -2186,7 +2186,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonJobSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 172</value>
+    <value>278, 172</value>
   </data>
   <data name="buttonJobSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 21</value>
@@ -2249,7 +2249,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelnbunits.Location" type="System.Drawing.Point, System.Drawing">
-    <value>783, 214</value>
+    <value>782, 214</value>
   </data>
   <data name="labelnbunits.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -2282,7 +2282,7 @@
     <value>NoControl</value>
   </data>
   <data name="trackBarEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>337, 203</value>
+    <value>336, 203</value>
   </data>
   <data name="trackBarEncodingRU.Size" type="System.Drawing.Size, System.Drawing">
     <value>434, 37</value>
@@ -2343,7 +2343,7 @@ Units (v2 API)</value>
     <value>Left</value>
   </data>
   <data name="comboBoxEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 210</value>
+    <value>278, 211</value>
   </data>
   <data name="comboBoxEncodingRU.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 23</value>
@@ -2391,7 +2391,7 @@ Units (v2 API)</value>
     <value>0</value>
   </data>
   <data name="tableLayoutPanel4.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label13" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobsPageNumber" Row="2" RowSpan="1" Column="11" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewJobsV" Row="1" RowSpan="1" Column="0" ColumnSpan="13" /&gt;&lt;Control Name="butNextPageJob" Row="2" RowSpan="1" Column="12" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchJobOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="butPrevPageJob" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStateJobs" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label2" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="label4" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOrderJobs" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterJobsTime" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobSearch" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonJobSearch" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonUpdateEncodingRU" Row="3" RowSpan="1" Column="11" ColumnSpan="2" /&gt;&lt;Control Name="labelnbunits" Row="3" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="trackBarEncodingRU" Row="3" RowSpan="1" Column="3" ColumnSpan="6" /&gt;&lt;Control Name="label22" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxEncodingRU" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,120,Percent,35,71429,Absolute,58,Absolute,46,Percent,21,42857,Absolute,49,Percent,21,42857,Absolute,66,Percent,21,42857,Absolute,71,Absolute,34,Absolute,33,Absolute,81" /&gt;&lt;Rows Styles="Percent,13,4715,Percent,86,5285,Absolute,34,Absolute,42" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label13" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobsPageNumber" Row="2" RowSpan="1" Column="11" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewJobsV" Row="1" RowSpan="1" Column="0" ColumnSpan="13" /&gt;&lt;Control Name="butNextPageJob" Row="2" RowSpan="1" Column="12" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchJobOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="butPrevPageJob" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStateJobs" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label2" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="label4" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOrderJobs" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterJobsTime" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobSearch" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonJobSearch" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonUpdateEncodingRU" Row="3" RowSpan="1" Column="11" ColumnSpan="2" /&gt;&lt;Control Name="labelnbunits" Row="3" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="trackBarEncodingRU" Row="3" RowSpan="1" Column="3" ColumnSpan="6" /&gt;&lt;Control Name="label22" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxEncodingRU" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,120,Percent,35,71429,Absolute,58,Absolute,46,Percent,21,42857,Absolute,49,Percent,21,42857,Absolute,66,Percent,21,42857,Absolute,71,Absolute,34,Absolute,33,Absolute,84" /&gt;&lt;Rows Styles="Percent,13,4715,Percent,86,5285,Absolute,34,Absolute,42" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerTransformJobs.Panel2.Name" xml:space="preserve">
     <value>splitContainerTransformJobs.Panel2</value>
@@ -2472,13 +2472,13 @@ Units (v2 API)</value>
     <value>17, 56</value>
   </metadata>
   <data name="refreshToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="refreshToolStripMenuItem3.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator20.Size" type="System.Drawing.Size, System.Drawing">
-    <value>297, 6</value>
+    <value>281, 6</value>
   </data>
   <data name="ContextMenuItemLiveEventDisplayInfomation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2488,7 +2488,7 @@ Units (v2 API)</value>
 </value>
   </data>
   <data name="ContextMenuItemLiveEventDisplayInfomation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemLiveEventDisplayInfomation.Text" xml:space="preserve">
     <value>Live event(s) infomation and settings...</value>
@@ -2500,7 +2500,7 @@ Units (v2 API)</value>
     <value>Alt+T</value>
   </data>
   <data name="loadMetricsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="loadMetricsToolStripMenuItem.Text" xml:space="preserve">
     <value>Load Telemetry...</value>
@@ -2516,7 +2516,7 @@ Units (v2 API)</value>
     <value>Ctrl+H</value>
   </data>
   <data name="createChannelToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="createChannelToolStripMenuItem1.Text" xml:space="preserve">
     <value>Create live event...</value>
@@ -2535,7 +2535,7 @@ Units (v2 API)</value>
     <value>F9</value>
   </data>
   <data name="ContextMenuItemLiveEventStart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemLiveEventStart.Text" xml:space="preserve">
     <value>Start live event(s)</value>
@@ -2551,7 +2551,7 @@ Units (v2 API)</value>
     <value>F10</value>
   </data>
   <data name="ContextMenuItemLiveEventStop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemLiveEventStop.Text" xml:space="preserve">
     <value>Stop live event(s)</value>
@@ -2570,7 +2570,7 @@ Units (v2 API)</value>
     <value>Ctrl+Shift+H</value>
   </data>
   <data name="ContextMenuItemLiveEventReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemLiveEventReset.Text" xml:space="preserve">
     <value>Reset live event(s)</value>
@@ -2579,7 +2579,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="cloneLiveEventsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="cloneLiveEventsToolStripMenuItem.Text" xml:space="preserve">
     <value>Clone live event(s) to another account...</value>
@@ -2596,31 +2596,31 @@ Units (v2 API)</value>
     <value>Alt+H</value>
   </data>
   <data name="ContextMenuItemLiveEventDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemLiveEventDelete.Text" xml:space="preserve">
     <value>Delete live event(s)...</value>
   </data>
   <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>297, 6</value>
+    <value>281, 6</value>
   </data>
   <data name="ContextMenuItemLiveEventCopyIngestURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemLiveEventCopyIngestURLToClipboard.Text" xml:space="preserve">
     <value>Display Input URLs...</value>
   </data>
   <data name="ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemLiveEventRunOnPremisesLiveEncoder.Text" xml:space="preserve">
     <value>Run an on-premises live encoder...</value>
   </data>
   <data name="toolStripSeparator19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>297, 6</value>
+    <value>281, 6</value>
   </data>
   <data name="ContextMenuItemLiveEventCopyPreviewURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="ContextMenuItemLiveEventCopyPreviewURLToClipboard.Text" xml:space="preserve">
     <value>Display Preview URL...</value>
@@ -2642,13 +2642,13 @@ Units (v2 API)</value>
 </value>
   </data>
   <data name="playbackTheProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 38</value>
+    <value>284, 22</value>
   </data>
   <data name="playbackTheProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>Playback the Preview</value>
   </data>
   <data name="contextMenuStripLiveEvents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 516</value>
+    <value>285, 308</value>
   </data>
   <data name="&gt;&gt;contextMenuStripLiveEvents.Name" xml:space="preserve">
     <value>contextMenuStripLiveEvents</value>
@@ -2669,7 +2669,7 @@ Units (v2 API)</value>
     <value>dataGridViewLiveEventsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveEvent, AMSExplorer, Version=5.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveEventsV.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -2684,10 +2684,10 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>813, 186</value>
+    <value>812, 186</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 23</value>
+    <value>181, 23</value>
   </data>
   <data name="comboBoxStatusLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
@@ -2717,7 +2717,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
-    <value>762, 189</value>
+    <value>761, 189</value>
   </data>
   <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -2747,7 +2747,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>618, 186</value>
+    <value>617, 186</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 23</value>
@@ -2777,7 +2777,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>494, 186</value>
+    <value>493, 186</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -2807,7 +2807,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="textBoxSearchNameLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>144, 186</value>
+    <value>143, 186</value>
   </data>
   <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>344, 23</value>
@@ -2840,7 +2840,7 @@ Units (v2 API)</value>
     <value>3, 188</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 23</value>
+    <value>134, 23</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
@@ -2903,7 +2903,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>573, 189</value>
+    <value>572, 189</value>
   </data>
   <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2954,7 +2954,7 @@ Units (v2 API)</value>
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewLiveEventsV" Row="1" RowSpan="1" Column="0" ColumnSpan="7" /&gt;&lt;Control Name="comboBoxStatusLiveEvent" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label25" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeLiveEvent" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterLiveEvent" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameLiveEvent" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchLiveEventOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLiveEvents" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label24" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,28,67924,Percent,71,32076,Absolute,69,Absolute,55,Absolute,123,Absolute,72,Absolute,185" /&gt;&lt;Rows Styles="Percent,13,18681,Percent,86,81319,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewLiveEventsV" Row="1" RowSpan="1" Column="0" ColumnSpan="7" /&gt;&lt;Control Name="comboBoxStatusLiveEvent" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label25" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeLiveEvent" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterLiveEvent" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameLiveEvent" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchLiveEventOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLiveEvents" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label24" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,28,67924,Percent,71,32076,Absolute,69,Absolute,55,Absolute,123,Absolute,72,Absolute,186" /&gt;&lt;Rows Styles="Percent,13,18681,Percent,86,81319,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerLive.Panel1.Name" xml:space="preserve">
     <value>splitContainerLive.Panel1</value>
@@ -2981,7 +2981,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="radioButtonChNone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>889, 183</value>
+    <value>888, 183</value>
   </data>
   <data name="radioButtonChNone.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 19</value>
@@ -3011,13 +3011,13 @@ Units (v2 API)</value>
     <value>215, 56</value>
   </metadata>
   <data name="refreshToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 38</value>
+    <value>276, 22</value>
   </data>
   <data name="refreshToolStripMenuItem4.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 6</value>
+    <value>273, 6</value>
   </data>
   <data name="ContextMenuItemProgramDisplayInformation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3027,13 +3027,13 @@ Units (v2 API)</value>
 </value>
   </data>
   <data name="ContextMenuItemProgramDisplayInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 38</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramDisplayInformation.Text" xml:space="preserve">
     <value>Live output information and settings...</value>
   </data>
   <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 38</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Text" xml:space="preserve">
     <value>Display related asset information...</value>
@@ -3049,7 +3049,7 @@ Units (v2 API)</value>
     <value>Ctrl+P</value>
   </data>
   <data name="createProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 38</value>
+    <value>276, 22</value>
   </data>
   <data name="createProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>Create live output...</value>
@@ -3066,13 +3066,13 @@ Units (v2 API)</value>
     <value>Alt+P</value>
   </data>
   <data name="ContextMenuItemProgramDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 38</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramDelete.Text" xml:space="preserve">
     <value>Delete live output(s)...</value>
   </data>
   <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 6</value>
+    <value>273, 6</value>
   </data>
   <data name="createALocatorToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+L</value>
@@ -3114,13 +3114,13 @@ Units (v2 API)</value>
     <value>Create an asset filter...</value>
   </data>
   <data name="publishToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 38</value>
+    <value>276, 22</value>
   </data>
   <data name="publishToolStripMenuItem2.Text" xml:space="preserve">
     <value>Publish</value>
   </data>
   <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 38</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramCopyTheOutputURLToClipboard.Text" xml:space="preserve">
     <value>Display Output URL...</value>
@@ -3148,13 +3148,13 @@ Units (v2 API)</value>
 </value>
   </data>
   <data name="ContextMenuItemProgramPlayback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 38</value>
+    <value>276, 22</value>
   </data>
   <data name="ContextMenuItemProgramPlayback.Text" xml:space="preserve">
     <value>Playback the live output(s)</value>
   </data>
   <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>293, 320</value>
+    <value>277, 192</value>
   </data>
   <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
     <value>contextMenuStripLiveOutputs</value>
@@ -3184,7 +3184,7 @@ Units (v2 API)</value>
     <value>dataGridViewLiveOutputV</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveOutput, AMSExplorer, Version=5.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewLiveOutputV.Parent" xml:space="preserve">
     <value>tableLayoutPanel2</value>
@@ -3202,7 +3202,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="radioButtonChAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>837, 183</value>
+    <value>836, 183</value>
   </data>
   <data name="radioButtonChAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 19</value>
@@ -3232,10 +3232,10 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxSearchProgramOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 181</value>
+    <value>3, 182</value>
   </data>
   <data name="comboBoxSearchProgramOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 23</value>
+    <value>122, 23</value>
   </data>
   <data name="comboBoxSearchProgramOption.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -3262,7 +3262,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="radioButtonChSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>755, 183</value>
+    <value>754, 183</value>
   </data>
   <data name="radioButtonChSelected.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 19</value>
@@ -3295,7 +3295,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>682, 185</value>
+    <value>681, 185</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 15</value>
@@ -3325,7 +3325,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="textBoxSearchNameProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>132, 182</value>
+    <value>131, 182</value>
   </data>
   <data name="textBoxSearchNameProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 23</value>
@@ -3358,7 +3358,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="buttonSetFilterProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>241, 181</value>
+    <value>240, 181</value>
   </data>
   <data name="buttonSetFilterProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -3388,7 +3388,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxStatusProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>547, 182</value>
+    <value>546, 182</value>
   </data>
   <data name="comboBoxStatusProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 23</value>
@@ -3421,7 +3421,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>496, 185</value>
+    <value>495, 185</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -3457,7 +3457,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 185</value>
+    <value>308, 185</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -3487,7 +3487,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>354, 182</value>
+    <value>353, 182</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 23</value>
@@ -3568,7 +3568,7 @@ Units (v2 API)</value>
     <value>0</value>
   </data>
   <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="radioButtonChNone" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewLiveOutputV" Row="1" RowSpan="1" Column="0" ColumnSpan="11" /&gt;&lt;Control Name="radioButtonChAll" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchProgramOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonChSelected" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="label14" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameProgram" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterProgram" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStatusProgram" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label16" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label15" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeProgram" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="labelPrograms" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,54,15162,Percent,45,84838,Absolute,66,Absolute,47,Absolute,135,Absolute,58,Absolute,132,Absolute,76,Absolute,82,Absolute,52,Absolute,109" /&gt;&lt;Rows Styles="Percent,13,48315,Percent,86,51685,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="radioButtonChNone" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewLiveOutputV" Row="1" RowSpan="1" Column="0" ColumnSpan="11" /&gt;&lt;Control Name="radioButtonChAll" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchProgramOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonChSelected" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="label14" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameProgram" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterProgram" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStatusProgram" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label16" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label15" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeProgram" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="labelPrograms" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,54,15162,Percent,45,84838,Absolute,66,Absolute,47,Absolute,135,Absolute,58,Absolute,132,Absolute,76,Absolute,82,Absolute,52,Absolute,110" /&gt;&lt;Rows Styles="Percent,13,48315,Percent,86,51685,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerLive.Panel2.Name" xml:space="preserve">
     <value>splitContainerLive.Panel2</value>
@@ -3634,13 +3634,13 @@ Units (v2 API)</value>
     <value>416, 56</value>
   </metadata>
   <data name="refreshToolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="refreshToolStripMenuItem5.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator25.Size" type="System.Drawing.Size, System.Drawing">
-    <value>353, 6</value>
+    <value>337, 6</value>
   </data>
   <data name="ContextMenuItemOriginDisplayInformation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3653,7 +3653,7 @@ Units (v2 API)</value>
     <value>F4</value>
   </data>
   <data name="ContextMenuItemOriginDisplayInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="ContextMenuItemOriginDisplayInformation.Text" xml:space="preserve">
     <value>Streaming endpoint information and settings...</value>
@@ -3662,25 +3662,25 @@ Units (v2 API)</value>
     <value>Alt+T</value>
   </data>
   <data name="loadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="loadToolStripMenuItem.Text" xml:space="preserve">
     <value>Load Telemetry...</value>
   </data>
   <data name="enableAzureCDNToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="enableAzureCDNToolStripMenuItem.Text" xml:space="preserve">
     <value>Enable Azure CDN...</value>
   </data>
   <data name="disableAzureCDNToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="disableAzureCDNToolStripMenuItem.Text" xml:space="preserve">
     <value>Disable Azure CDN...</value>
   </data>
   <data name="toolStripSeparator33.Size" type="System.Drawing.Size, System.Drawing">
-    <value>353, 6</value>
+    <value>337, 6</value>
   </data>
   <data name="createStreamingEndpointToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3690,7 +3690,7 @@ Units (v2 API)</value>
 </value>
   </data>
   <data name="createStreamingEndpointToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="createStreamingEndpointToolStripMenuItem.Text" xml:space="preserve">
     <value>Create streaming endpoint...</value>
@@ -3709,7 +3709,7 @@ Units (v2 API)</value>
     <value>Ctrl+E</value>
   </data>
   <data name="ContextMenuItemOriginStart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="ContextMenuItemOriginStart.Text" xml:space="preserve">
     <value>Start streaming endpoint(s)</value>
@@ -3725,7 +3725,7 @@ Units (v2 API)</value>
     <value>Alt+E</value>
   </data>
   <data name="ContextMenuItemOriginStop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="ContextMenuItemOriginStop.Text" xml:space="preserve">
     <value>Stop streaming endpoint(s)</value>
@@ -3739,13 +3739,13 @@ Units (v2 API)</value>
 </value>
   </data>
   <data name="ContextMenuItemOriginDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 38</value>
+    <value>340, 22</value>
   </data>
   <data name="ContextMenuItemOriginDelete.Text" xml:space="preserve">
     <value>Delete streaming endpoint(s)</value>
   </data>
   <data name="contextMenuStripStreaminEndpoints.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 358</value>
+    <value>341, 214</value>
   </data>
   <data name="&gt;&gt;contextMenuStripStreaminEndpoints.Name" xml:space="preserve">
     <value>contextMenuStripStreaminEndpoints</value>
@@ -3769,7 +3769,7 @@ Units (v2 API)</value>
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=5.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -3808,25 +3808,25 @@ Units (v2 API)</value>
     <value>17, 95</value>
   </metadata>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 38</value>
+    <value>253, 22</value>
   </data>
   <data name="toolStripMenuItem2.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="attachAnotherStorageAccountToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 38</value>
+    <value>253, 22</value>
   </data>
   <data name="attachAnotherStorageAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>Attach/Detach storage accounts...</value>
   </data>
   <data name="storageSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 38</value>
+    <value>253, 22</value>
   </data>
   <data name="storageSettingsToolStripMenuItem.Text" xml:space="preserve">
     <value>Storage settings...</value>
   </data>
   <data name="contextMenuStripStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 118</value>
+    <value>254, 70</value>
   </data>
   <data name="&gt;&gt;contextMenuStripStorage.Name" xml:space="preserve">
     <value>contextMenuStripStorage</value>
@@ -7131,7 +7131,7 @@ Units (v2 API)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panelButtons.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>10</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

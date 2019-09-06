@@ -988,37 +988,37 @@
     <value>17, 56</value>
   </metadata>
   <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 30</value>
+    <value>180, 22</value>
   </data>
   <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
     <value>Filter info/update</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 30</value>
+    <value>180, 22</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Create...</value>
   </data>
   <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 30</value>
+    <value>180, 22</value>
   </data>
   <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 30</value>
+    <value>180, 22</value>
   </data>
   <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
     <value>Duplicate</value>
   </data>
   <data name="playWithThisFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 30</value>
+    <value>180, 22</value>
   </data>
   <data name="playWithThisFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Play with this filter</value>
   </data>
   <data name="contextMenuStripFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 154</value>
+    <value>181, 136</value>
   </data>
   <data name="&gt;&gt;contextMenuStripFilter.Name" xml:space="preserve">
     <value>contextMenuStripFilter</value>
@@ -1123,7 +1123,7 @@
     <value>Consolas, 8.25pt</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 225</value>
+    <value>3, 226</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1132,7 +1132,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 186</value>
+    <value>828, 187</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
@@ -1165,7 +1165,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxStreamingPolicyOfLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 186</value>
+    <value>828, 187</value>
   </data>
   <data name="textBoxStreamingPolicyOfLocator.TabIndex" type="System.Int32, mscorlib">
     <value>68</value>
@@ -1192,7 +1192,7 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 207</value>
+    <value>3, 208</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>256, 15</value>
@@ -1222,7 +1222,7 @@
     <value>4</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>834, 414</value>
+    <value>834, 416</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
@@ -1324,7 +1324,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxContentKeyPolicyOfLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>825, 389</value>
+    <value>825, 391</value>
   </data>
   <data name="textBoxContentKeyPolicyOfLocator.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
@@ -1348,7 +1348,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>831, 410</value>
+    <value>831, 412</value>
   </data>
   <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>
@@ -1441,7 +1441,7 @@
     <value>3, 32</value>
   </data>
   <data name="dataGridViewKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>825, 376</value>
+    <value>825, 378</value>
   </data>
   <data name="dataGridViewKeys.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
@@ -1492,7 +1492,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>831, 411</value>
+    <value>831, 413</value>
   </data>
   <data name="tableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>

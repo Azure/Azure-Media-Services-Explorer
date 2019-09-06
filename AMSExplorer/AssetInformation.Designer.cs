@@ -166,7 +166,6 @@
             // 
             // contextMenuStripDG
             // 
-            this.contextMenuStripDG.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
@@ -189,7 +188,6 @@
             // 
             // contextMenuStripLocators
             // 
-            this.contextMenuStripLocators.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripLocators.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemCopy,
             this.deleteLocatorToolStripMenuItem,
@@ -262,7 +260,6 @@
             // 
             // contextMenuStripFiles
             // 
-            this.contextMenuStripFiles.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showMetadataToolStripMenuItem,
             this.toolStripMenuItemOpenFile,
@@ -540,7 +537,6 @@
             // 
             // contextMenuStripFilter
             // 
-            this.contextMenuStripFilter.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filterInfoupdateToolStripMenuItem,
             this.createAnAssetFilterToolStripMenuItem,
@@ -842,7 +838,6 @@
             // 
             // contextMenuStripKey
             // 
-            this.contextMenuStripKey.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeKeyToolStripMenuItem});
             this.contextMenuStripKey.Name = "contextMenuStripKey";
