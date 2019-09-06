@@ -341,6 +341,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -390,6 +391,7 @@
             this.menuStripMain.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panelButtons.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerMain
@@ -425,18 +427,7 @@
             // tabPageAssets
             // 
             this.tabPageAssets.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPageAssets.Controls.Add(this.textBoxAssetsPageNumber);
-            this.tabPageAssets.Controls.Add(this.comboBoxSearchAssetOption);
-            this.tabPageAssets.Controls.Add(this.label10);
-            this.tabPageAssets.Controls.Add(this.comboBoxFilterAssetsTime);
-            this.tabPageAssets.Controls.Add(this.buttonAssetSearch);
-            this.tabPageAssets.Controls.Add(this.textBoxAssetSearch);
-            this.tabPageAssets.Controls.Add(this.butPrevPageAsset);
-            this.tabPageAssets.Controls.Add(this.dataGridViewAssetsV);
-            this.tabPageAssets.Controls.Add(this.label3);
-            this.tabPageAssets.Controls.Add(this.comboBoxOrderAssets);
-            this.tabPageAssets.Controls.Add(this.butNextPageAsset);
-            this.tabPageAssets.Controls.Add(this.label1);
+            this.tabPageAssets.Controls.Add(this.tableLayoutPanel5);
             resources.ApplyResources(this.tabPageAssets, "tabPageAssets");
             this.tabPageAssets.Name = "tabPageAssets";
             // 
@@ -492,11 +483,12 @@
             this.dataGridViewAssetsV.AllowUserToAddRows = false;
             this.dataGridViewAssetsV.AllowUserToDeleteRows = false;
             this.dataGridViewAssetsV.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewAssetsV, "dataGridViewAssetsV");
             this.dataGridViewAssetsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewAssetsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             this.dataGridViewAssetsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel5.SetColumnSpan(this.dataGridViewAssetsV, 11);
             this.dataGridViewAssetsV.ContextMenuStrip = this.contextMenuStripAssets;
+            resources.ApplyResources(this.dataGridViewAssetsV, "dataGridViewAssetsV");
             this.dataGridViewAssetsV.Name = "dataGridViewAssetsV";
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
@@ -2763,6 +2755,23 @@
             resources.ApplyResources(this.panelButtons, "panelButtons");
             this.panelButtons.Name = "panelButtons";
             // 
+            // tableLayoutPanel5
+            // 
+            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxSearchAssetOption, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.dataGridViewAssetsV, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBoxAssetsPageNumber, 9, 1);
+            this.tableLayoutPanel5.Controls.Add(this.butNextPageAsset, 10, 1);
+            this.tableLayoutPanel5.Controls.Add(this.textBoxAssetSearch, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.butPrevPageAsset, 8, 1);
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxFilterAssetsTime, 4, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label10, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxOrderAssets, 6, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label1, 7, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label3, 5, 1);
+            this.tableLayoutPanel5.Controls.Add(this.buttonAssetSearch, 2, 1);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -2785,7 +2794,6 @@
             this.splitContainerMain.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabPageAssets.ResumeLayout(false);
-            this.tabPageAssets.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
             this.contextMenuStripAssets.ResumeLayout(false);
             this.tabPageFilters.ResumeLayout(false);
@@ -2836,6 +2844,8 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panelButtons.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3150,6 +3160,7 @@
         private System.Windows.Forms.ToolStripMenuItem feedbackOnAzureMediaServicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.Panel panelButtons;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
     }
 }
 
