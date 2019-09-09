@@ -463,6 +463,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Subclipping_FormClosed);
             this.Load += new System.EventHandler(this.Subclipping_Load);
+            this.Shown += new System.EventHandler(this.Subclipping_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Subclipping_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

@@ -36,7 +36,7 @@ namespace AMSExplorer
         private string _buttonOk;
         private string _labelAccurate;
         private string _labeloutoutputasset;
-        private StreamingLocator _tempStreamingLocator;
+        private StreamingLocator _tempStreamingLocator = null;
 
         public string EncodingJobName
         {
@@ -75,13 +75,26 @@ namespace AMSExplorer
             buttonShowEDL.EDLChanged += ButtonShowEDL_EDLChanged;
             buttonShowEDL.Offset = new TimeSpan(0);
 
+            // temp locator creation
+            if (_selectedAssets.Count == 1 && MessageBox.Show("A temporary clear locator of 1 hour is going to be created to access content timing information. It will be deleted when you close the subclipping window.", "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                try
+                {
+                    _tempStreamingLocator = AssetInfo.CreateTemporaryOnDemandLocator(_selectedAssets.First(), _amsClientV3);
+                }
+                catch
+                {
+
+                }
+            }
+            
             if (_selectedAssets.Count == 1 && _selectedAssets.FirstOrDefault() != null)  // one asset only
             {
                 var myAsset = assetlist.FirstOrDefault();
                 textBoxAssetName.Text = myAsset.Name;
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(myAsset, _amsClientV3);
+                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(myAsset, _amsClientV3, _tempStreamingLocator?.Name);
 
                 labelDiscountinuity.Visible = _parentassetmanifestdata.DiscontinuityDetected;
 
@@ -367,7 +380,6 @@ namespace AMSExplorer
                 // panelEDL.Visible = true;
             }
             UpdateButtonOk();
-            ResetConfigJSON();
             DisplayAccuracy();
 
         }
@@ -433,36 +445,26 @@ namespace AMSExplorer
 
         private void PlaybackAsset()
         {
-            if (checkBoxPreviewStream.Checked && checkBoxTrimming.Checked)
+            if (checkBoxPreviewStream.Checked && checkBoxTrimming.Checked && _tempStreamingLocator != null)
             {
                 Asset myAsset = _selectedAssets.FirstOrDefault();
 
-                Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset, _amsClientV3);
+                Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset, _amsClientV3, _tempStreamingLocator.Name);
 
-                if (myuri == null)
-                {
-                    try
-                    {
-                        _tempStreamingLocator = null;
-                        _tempStreamingLocator = AssetInfo.CreatedTemporaryOnDemandLocator(myAsset, _amsClientV3);
-                        myuri = AssetInfo.GetValidOnDemandURI(myAsset, _amsClientV3);
-                    }
-                    catch
-                    {
-
-                    }
-                }
                 if (myuri != null)
                 {
                     string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetInfo.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
                     webBrowserPreview.Url = new Uri(myurl);
+                }
+                else
+                {
+                    webBrowserPreview.Url = null;
                 }
             }
             else
             {
                 webBrowserPreview.Url = null;
             }
-
         }
 
 
@@ -592,6 +594,11 @@ namespace AMSExplorer
 
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
+        }
+
+        private void Subclipping_Shown(object sender, EventArgs e)
+        {
+           
         }
     }
 

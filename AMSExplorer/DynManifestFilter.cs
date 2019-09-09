@@ -28,6 +28,7 @@ namespace AMSExplorer
 {
     public partial class DynManifestFilter : Form
     {
+        private const string TextCreateTempLoc = "A temporary clear locator is going to be created to access content timing information. It will be deleted a few seconds after. ";
         private string _filter_name;
         private List<ExFilterTrack> filtertracks;
 
@@ -46,7 +47,7 @@ namespace AMSExplorer
         private string _labelDefaultEnd;
         private string _labelDefaultDVR;
         private string _labelDefaultBakckoff;
-
+        private StreamingLocator _tempStreamingLocator = null;
         private readonly object _filterToDisplay;
 
         public DynManifestFilter(AMSClientV3 amsClient, object filterToDisplay = null, Asset parentAsset = null, SubClipConfiguration subclipconfig = null)
@@ -189,9 +190,26 @@ namespace AMSExplorer
                 labelassetname.Visible = true;
                 textBoxAssetName.Text = _parentAsset != null ? _parentAsset.Name : string.Empty;
 
-                // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient);
 
+                // temp locator creation
+                if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    try
+                    {
+                        _tempStreamingLocator = AssetInfo.CreateTemporaryOnDemandLocator(_parentAsset, _amsClient);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                // let's try to read asset timing
+                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
+
+                // let's delete the temp locator
+                AssetInfo.DeleteStreamingLocator(_parentAsset, _amsClient, _tempStreamingLocator.Name);
+                               
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
                     // timescale
@@ -272,8 +290,25 @@ namespace AMSExplorer
                 textBoxFilterName.Enabled = false; // no way to change the filter name
                 textBoxFilterName.Text = _filter_name;
 
+
+                // temp locator creation
+                if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    try
+                    {
+                        _tempStreamingLocator = AssetInfo.CreateTemporaryOnDemandLocator(_parentAsset, _amsClient);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient);
+                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
+
+                // let's delete the temp locator
+                AssetInfo.DeleteStreamingLocator(_parentAsset, _amsClient, _tempStreamingLocator.Name);
 
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
 

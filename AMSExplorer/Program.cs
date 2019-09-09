@@ -1301,7 +1301,7 @@ namespace AMSExplorer
 
 
 
-        public static StreamingLocator CreatedTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
+        public static StreamingLocator CreateTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
         {
             StreamingLocator tempLocator = null;
             _amsClientV3.RefreshTokenIfNeeded();
@@ -1342,8 +1342,33 @@ namespace AMSExplorer
             return tempLocator;
         }
 
+        public static void DeleteStreamingLocator(Asset asset, AMSClientV3 _amsClientV3, string streamingLocatorName)
+        {
+            _amsClientV3.RefreshTokenIfNeeded();
 
-        public static Uri GetValidOnDemandURI(Asset asset, AMSClientV3 _amsClientV3)
+            try
+            {
+                Task locatorTask = Task.Factory.StartNew(() =>
+                {
+                    try
+                    {
+                        _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName);
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                });
+                locatorTask.Wait();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+
+        public static Uri GetValidOnDemandURI(Asset asset, AMSClientV3 _amsClientV3, string useThisLocatorName = null)
         {
             _amsClientV3.RefreshTokenIfNeeded();
 
@@ -1357,7 +1382,8 @@ namespace AMSExplorer
 
             if (locators.Count > 0 && runningSes != null)
             {
-                IList<StreamingPath> streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locators.First().Name).StreamingPaths;
+                string locatorName = useThisLocatorName != null ? useThisLocatorName : locators.First().Name;
+                IList<StreamingPath> streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locatorName).StreamingPaths;
                 UriBuilder uribuilder = new UriBuilder
                 {
                     Host = runningSes.HostName,
@@ -1584,7 +1610,7 @@ namespace AMSExplorer
         }
 
 
-        public static ManifestTimingData GetManifestTimingData(Asset asset, AMSClientV3 _amsClientV3)
+        public static ManifestTimingData GetManifestTimingData(Asset asset, AMSClientV3 _amsClientV3, string preferredLocatorName = null)
         // Parse the manifest and get data from it
         {
             ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
@@ -1592,11 +1618,11 @@ namespace AMSExplorer
             try
             {
                 StreamingLocator mytemplocator = null;
-                Uri myuri = GetValidOnDemandURI(asset, _amsClientV3);
+                Uri myuri = GetValidOnDemandURI(asset, _amsClientV3, preferredLocatorName);
 
                 if (myuri == null)
                 {
-                    mytemplocator = CreatedTemporaryOnDemandLocator(asset, _amsClientV3);
+                    //mytemplocator = CreatedTemporaryOnDemandLocator(asset, _amsClientV3);
                     myuri = GetValidOnDemandURI(asset, _amsClientV3);
                 }
                 if (myuri != null)
