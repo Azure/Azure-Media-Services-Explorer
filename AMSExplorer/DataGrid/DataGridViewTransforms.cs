@@ -43,6 +43,7 @@ namespace AMSExplorer
             {
                 Name = a.Name,
                 Description = a.Description,
+                Jobs = _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, a.Name).Result.Count(),
                 LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
             );
@@ -81,6 +82,7 @@ namespace AMSExplorer
             {
                 Name = a.Name,
                 Description = a.Description,
+                Jobs = _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, a.Name).Result.Count(),
                 LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
           );

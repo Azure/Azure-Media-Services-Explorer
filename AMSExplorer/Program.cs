@@ -3311,6 +3311,20 @@ namespace AMSExplorer
             }
         }
 
+        public int _Jobs;
+        public int Jobs
+        {
+            get => _Jobs;
+            set
+            {
+                if (value != _Jobs)
+                {
+                    _Jobs = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
 
         private string _LastModified;
         public string LastModified
