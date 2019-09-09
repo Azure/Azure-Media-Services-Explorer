@@ -35,16 +35,19 @@ namespace AMSExplorer
 
         public int? RequestedMetricsRetention => (numericUpDownRetention.Value == 0) ? null : (int?)numericUpDownRetention.Value;
 
-        public StorageSettings(string storageName, ServiceProperties serviceProperties)
+        public StorageSettings(string storageName, string storageId, ServiceProperties serviceProperties)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             labelStorageAccount.Text = string.Format(labelStorageAccount.Text, storageName);
             _serviceProperties = serviceProperties;
+            textBoxStorageId.Text = storageId;
         }
 
         private void StorageVersion_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             List<string> list = new List<string>() { noversion, "2018-03-28", "2017-11-09", "2017-07-29", "2017-04-17", "2016-05-31", "2015-12-11", "2015-07-08", "2015-04-05", "2015-02-21", "2014-02-14", "2013-08-15", "2012-02-12", "2011-08-18", "2009-09-19", "2009-07-17", "2009-04-14" };
             comboBoxVersion.Items.AddRange(list.ToArray());
             comboBoxVersion.Text = _serviceProperties.DefaultServiceVersion ?? noversion;
@@ -62,6 +65,11 @@ namespace AMSExplorer
         {
             // Send the URL to the operating system.
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void StorageSettings_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelStorageAccount, e);
         }
     }
 }

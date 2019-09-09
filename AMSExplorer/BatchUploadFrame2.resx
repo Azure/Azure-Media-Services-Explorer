@@ -126,7 +126,7 @@
     <value>MiddleLeft</value>
   </data>
   <data name="buttonUpload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 13</value>
+    <value>380, 13</value>
   </data>
   <data name="buttonUpload.Size" type="System.Drawing.Size, System.Drawing">
     <value>145, 27</value>
@@ -154,7 +154,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>533, 13</value>
+    <value>532, 13</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -337,7 +337,7 @@
     <value>7, 30</value>
   </data>
   <data name="checkedListBoxFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>587, 118</value>
+    <value>587, 115</value>
   </data>
   <data name="checkedListBoxFiles.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -358,7 +358,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonFileDeselAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 153</value>
+    <value>101, 150</value>
   </data>
   <data name="buttonFileDeselAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -385,7 +385,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonFileSelAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 153</value>
+    <value>7, 150</value>
   </data>
   <data name="buttonFileSelAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -498,14 +498,14 @@
   <data name="&gt;&gt;comboBoxStorage.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 502</value>
+    <value>0, 500</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>636, 55</value>
+    <value>635, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>56</value>
@@ -640,7 +640,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>635, 555</value>

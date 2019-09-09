@@ -40,13 +40,14 @@ namespace AMSExplorer
 
         private void SoftwareUpdate_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
             if (_urlRelNotes != null)
             {
                 webBrowser1.Url = _urlRelNotes;
             }
 
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkAMSE));
-            label5.Text = string.Format(label5.Text, _newVersion);
+            labelTitle.Text = string.Format(labelTitle.Text, _newVersion);
         }
 
         private void linkLabelMoreInfoPrice_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -82,6 +83,11 @@ namespace AMSExplorer
                 Environment.Exit(0);
             };
             return new AsyncCompletedEventHandler(action);
+        }
+
+        private void SoftwareUpdate_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

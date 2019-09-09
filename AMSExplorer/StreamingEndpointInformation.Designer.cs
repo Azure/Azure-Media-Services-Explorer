@@ -75,7 +75,6 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
@@ -102,6 +101,7 @@
             this.DGOrigin.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGOrigin, "DGOrigin");
             this.DGOrigin.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGOrigin.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGOrigin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGOrigin.ColumnHeadersVisible = false;
             this.DGOrigin.ContextMenuStrip = this.contextMenuStripOI;
@@ -234,6 +234,8 @@
             // 
             this.dataGridViewAkamai.AllowUserToAddRows = false;
             this.dataGridViewAkamai.AllowUserToDeleteRows = false;
+            this.dataGridViewAkamai.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewAkamai.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewAkamai.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             resources.ApplyResources(this.dataGridViewAkamai, "dataGridViewAkamai");
             this.dataGridViewAkamai.Name = "dataGridViewAkamai";
@@ -283,6 +285,8 @@
             // 
             this.dataGridViewIP.AllowUserToAddRows = false;
             this.dataGridViewIP.AllowUserToDeleteRows = false;
+            this.dataGridViewIP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewIP.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewIP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             resources.ApplyResources(this.dataGridViewIP, "dataGridViewIP");
             this.dataGridViewIP.Name = "dataGridViewIP";
@@ -326,6 +330,7 @@
             this.dataGridViewCustomHostname.AllowUserToAddRows = false;
             this.dataGridViewCustomHostname.AllowUserToDeleteRows = false;
             this.dataGridViewCustomHostname.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCustomHostname.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewCustomHostname.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCustomHostname.ColumnHeadersVisible = false;
             resources.ApplyResources(this.dataGridViewCustomHostname, "dataGridViewCustomHostname");
@@ -449,17 +454,11 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Controls.Add(this.buttonClose);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // panel2
-            // 
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Name = "panel2";
             // 
             // errorProvider1
             // 
@@ -469,10 +468,9 @@
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelSEName);
             this.Controls.Add(this.tabControl1);
@@ -481,6 +479,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
             this.Load += new System.EventHandler(this.StreamingEndpointInformation_Load);
             this.Shown += new System.EventHandler(this.OriginInformation_Shown);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.StreamingEndpointInformation_DpiChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).EndInit();
             this.contextMenuStripOI.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -551,7 +550,6 @@
         private System.Windows.Forms.Label labelcdn;
         private System.Windows.Forms.Button buttonAllowAllStreamingIP;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBoxTypeScale;
         private System.Windows.Forms.RadioButton radioButtonPremium;
         private System.Windows.Forms.RadioButton radioButtonStandard;

@@ -45,7 +45,6 @@
             this.labelProgramName = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.contextMenuStripDG.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
@@ -115,8 +114,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.archive;
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.archive;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
@@ -125,25 +124,26 @@
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
-            // DGChannel
+            // DGLiveEvent
             // 
             this.DGLiveEvent.AllowUserToAddRows = false;
             this.DGLiveEvent.AllowUserToDeleteRows = false;
             this.DGLiveEvent.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGLiveEvent, "DGChannel");
+            resources.ApplyResources(this.DGLiveEvent, "DGLiveEvent");
             this.DGLiveEvent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGLiveEvent.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGLiveEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGLiveEvent.ColumnHeadersVisible = false;
             this.DGLiveEvent.ContextMenuStrip = this.contextMenuStripDG;
             this.DGLiveEvent.MultiSelect = false;
-            this.DGLiveEvent.Name = "DGChannel";
+            this.DGLiveEvent.Name = "DGLiveEvent";
             this.DGLiveEvent.ReadOnly = true;
             this.DGLiveEvent.RowHeadersVisible = false;
             // 
             // buttonDisplayRelatedAsset
             // 
-            this.buttonDisplayRelatedAsset.Image = global::AMSExplorer.Bitmaps.Display_information;
             resources.ApplyResources(this.buttonDisplayRelatedAsset, "buttonDisplayRelatedAsset");
+            this.buttonDisplayRelatedAsset.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.buttonDisplayRelatedAsset.Name = "buttonDisplayRelatedAsset";
             this.buttonDisplayRelatedAsset.UseVisualStyleBackColor = true;
             this.buttonDisplayRelatedAsset.Click += new System.EventHandler(this.buttonOpenAsset_Click);
@@ -170,26 +170,19 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonClose);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // panel2
-            // 
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Name = "panel2";
             // 
             // LiveOutputInformation
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.Controls.Add(this.buttonDisplayRelatedAsset);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
@@ -197,6 +190,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.LiveOutputInformation_Load);
             this.Shown += new System.EventHandler(this.ProgramInformation_Shown);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.LiveOutputInformation_DpiChanged);
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabPageInfo.ResumeLayout(false);
             this.tabPageInfo.PerformLayout();
@@ -221,7 +215,6 @@
         private System.Windows.Forms.Label labelProgramName;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDownArchiveMinutes;
         private System.Windows.Forms.Label label4;

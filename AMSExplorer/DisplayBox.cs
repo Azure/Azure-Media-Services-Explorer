@@ -13,7 +13,7 @@ namespace AMSExplorer
             Icon = Bitmaps.Azure_Explorer_ico;
 
             Text = title;
-            label1.Text = label;
+            labelTitle.Text = label;
             if (nbseconds != null)
             {
                 nbsecond = (int)nbseconds;
@@ -41,6 +41,16 @@ namespace AMSExplorer
             {
                 button1.Text = string.Format("OK ({0})", nbsecond);
             }
+        }
+
+        private void DisplayBox_Load(object sender, EventArgs e)
+        {
+            DpiUtils.InitPerMonitorDpi(this);
+        }
+
+        private void DisplayBox_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

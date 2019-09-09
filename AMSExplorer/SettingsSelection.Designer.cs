@@ -58,10 +58,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label5
@@ -81,6 +81,7 @@
             this.listViewSettings.CheckBoxes = true;
             this.listViewSettings.FullRowSelect = true;
             this.listViewSettings.GridLines = true;
+            this.listViewSettings.HideSelection = false;
             this.listViewSettings.Name = "listViewSettings";
             this.listViewSettings.UseCompatibleStateImageBehavior = false;
             this.listViewSettings.View = System.Windows.Forms.View.List;
@@ -99,7 +100,7 @@
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.listViewSettings);
@@ -109,6 +110,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SettingsSelection";
             this.Load += new System.EventHandler(this.SettingsSelection_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.SettingsSelection_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

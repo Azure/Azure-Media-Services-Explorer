@@ -25,6 +25,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -73,6 +74,7 @@ namespace AMSExplorer
         private static AMSClientV3 _client;
         private static BindingList<AssetEntryV3> _MyObservAssetV3;
         private IPage<Asset> firstpage;
+        private SynchronizationContext _syncontext;
 
         public int CurrentPage => _currentPageNumber;
 
@@ -109,15 +111,17 @@ namespace AMSExplorer
         public int DisplayedCount => _MyObservAssetV3.Count();
 
 
-        public void Init(AMSClientV3 client)
+        public void Init(AMSClientV3 client, SynchronizationContext syncontext)
         {
             Debug.WriteLine("AssetsInit");
+
+            _syncontext = syncontext;
 
             client.RefreshTokenIfNeeded();
 
             _client = client;
 
-            IEnumerable<AssetEntryV3> assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3
+            IEnumerable<AssetEntryV3> assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3(_syncontext)
             {
                 Name = a.Name,
                 AssetId = a.AssetId,
@@ -152,7 +156,7 @@ namespace AMSExplorer
             {
                 DefaultCellStyle = cellstyle,
                 Name = _publication,
-                DataPropertyName = _publication,
+                DataPropertyName = _publication
             };
             Columns.Add(imageCol);
 
@@ -160,7 +164,7 @@ namespace AMSExplorer
             {
                 DefaultCellStyle = cellstyle,
                 Name = _dynEnc,
-                DataPropertyName = _dynEnc,
+                DataPropertyName = _dynEnc
             };
             Columns.Add(imageCol3);
 
@@ -177,7 +181,6 @@ namespace AMSExplorer
             //BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
             BindingList<AssetEntryV3> MyObservAssethisPageV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
-
             DataSource = MyObservAssethisPageV3;
 
             int lastColumn_sIndex = Columns.GetLastColumn(DataGridViewElementStates.Visible, DataGridViewElementStates.None).DisplayIndex;
@@ -189,9 +192,12 @@ namespace AMSExplorer
             Columns[_assetwarning].Visible = false; // used to store warning and put color in red
             Columns["Type"].HeaderText = "Type (streams nb)";
             Columns["Created"].HeaderText = "Created";
-            Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+            Columns["AssetId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+            Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
+            Columns["StorageAccountName"].HeaderText = "Storage account";
             Columns["SizeLong"].Visible = false;
+            Columns["LastModified"].Visible = false;
             Columns[_filter].DisplayIndex = lastColumn_sIndex;
             Columns[_filter].DefaultCellStyle.NullValue = null;
             Columns[_publication].DisplayIndex = lastColumn_sIndex - 1;
@@ -201,17 +207,28 @@ namespace AMSExplorer
 
             Columns[_dynEnc].HeaderText = "Dynamic Encryption";
 
-            Columns["Type"].Width = 140;
-            Columns["Size"].Width = 80;
+            //Columns["Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["Type"].Width = 140;
+            //Columns["Size"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["Size"].Width = 80;
+            Columns["Description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Columns["Description"].Width = 200;
+            Columns[_dynEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Columns[_dynEnc].Width = 80;
+            Columns[_publication].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Columns[_publication].Width = 90;
+            Columns[_filter].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Columns[_filter].Width = 50;
             Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
-            Columns[_locatorexpirationdate].DisplayIndex = Columns.Count - 1;
+            Columns[_locatorexpirationdate].DisplayIndex = Columns.Count - 3;
             Columns[_locatorexpirationdate].Width = 130;
-            Columns["Created"].Width = 140;
-            Columns["AlternateId"].Width = 300;
-            Columns["StorageAccountName"].Width = 140;
+            Columns["Created"].DisplayIndex = Columns.Count - 1;
+            //Columns["Created"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["Created"].Width = 140;
+            //Columns["AlternateId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["AlternateId"].Width = 300;
+            //Columns["StorageAccountName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            //Columns["StorageAccountName"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
@@ -249,6 +266,9 @@ namespace AMSExplorer
             List<AssetEntryV3> listae2 = query.ToList();
 
             _client.RefreshTokenIfNeeded();
+            //var scale = HighDpiHelper.GetDpiScale(this).Value;
+            float scale = DeviceDpi / 96f;
+
 
             foreach (AssetEntryV3 AE in listae2)
             {
@@ -278,7 +298,10 @@ namespace AMSExplorer
                         // AE.StorageAccountName = asset.StorageAccountName;
 
                         AssetBitmapAndText assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
-                        AE.Publication = assetBitmapAndText.bitmap;
+                        if (assetBitmapAndText.bitmap != null)
+                        {
+                            AE.Publication = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
+                        }
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         // var assetfiles =  asset.AssetFiles.ToList();
@@ -292,7 +315,11 @@ namespace AMSExplorer
                         }
 
                         assetBitmapAndText = BuildBitmapDynEncryption(asset.Name, _client);
-                        AE.DynamicEncryption = assetBitmapAndText.bitmap;
+                        if (assetBitmapAndText.bitmap != null)
+                        {
+                            AE.DynamicEncryption = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
+                        }
+
                         //AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         if (assetBitmapAndText.Locators != null)
@@ -580,7 +607,7 @@ Properties/StorageId
                && cacheAssetentriesV3[a.Name].LastModified != null
                && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
                cacheAssetentriesV3[a.Name] :
-            new AssetEntryV3
+            new AssetEntryV3(_syncontext)
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -731,25 +758,25 @@ Properties/StorageId
             {
                 if (ClearEnable)
                 {
-                    graphicsObject.DrawImage(clearimage, new Point(x, 0));
+                    graphicsObject.DrawImageUnscaled(clearimage, x, 0);// new Point(x, 0));
                     x += envelopeencryptedimage.Width;
                 }
 
                 if (EnvelopeEnable)
                 {
-                    graphicsObject.DrawImage(envelopeencryptedimage, new Point(x, 0));
+                    graphicsObject.DrawImageUnscaled(envelopeencryptedimage, x, 0);//  new Point(x, 0));
                     x += envelopeencryptedimage.Width;
                 }
 
                 if (CENCEnable)
                 {
-                    graphicsObject.DrawImage(CENCencryptedimage, new Point(x, 0));
+                    graphicsObject.DrawImageUnscaled(CENCencryptedimage, x, 0);// new Point(x, 0));
                     x += CENCencryptedimage.Width;
                 }
 
                 if (CENCCbcsEnable)
                 {
-                    graphicsObject.DrawImage(CENCcbcsEncryptedImage, new Point(x, 0));
+                    graphicsObject.DrawImageUnscaled(CENCcbcsEncryptedImage, x, 0);//  new Point(x, 0));
                     x += CENCcbcsEncryptedImage.Width;
                 }
             }

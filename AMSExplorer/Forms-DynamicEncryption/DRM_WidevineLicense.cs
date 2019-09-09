@@ -17,6 +17,7 @@
 using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -57,6 +58,9 @@ namespace AMSExplorer
 
         private void DRM_WidevineLicense_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+
             _labelWarningJSON = labelWarningJSON.Text;
             linkLabelWidevinePolicy.Links.Add(new LinkLabel.Link(0, linkLabelWidevinePolicy.Text.Length, Constants.LinkWidevineTemplateInfo));
             radioButtonBasic.Checked = true;
@@ -133,6 +137,15 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
 
+        }
+
+        private void DRM_WidevineLicense_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelstep, textBoxConfiguration }, e, this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
         }
     }
 }

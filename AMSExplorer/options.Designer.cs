@@ -114,6 +114,7 @@
             // checkBoxDisplayAssetID
             // 
             resources.ApplyResources(this.checkBoxDisplayAssetID, "checkBoxDisplayAssetID");
+            this.checkBoxDisplayAssetID.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetID.Name = "checkBoxDisplayAssetID";
             this.checkBoxDisplayAssetID.UseVisualStyleBackColor = true;
             // 
@@ -124,6 +125,7 @@
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
             this.groupBox1.Controls.Add(this.comboBoxAutoRefreshTime);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetID);
+            this.groupBox1.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
@@ -131,18 +133,21 @@
             // checkBoxDisplayAssetAltId
             // 
             resources.ApplyResources(this.checkBoxDisplayAssetAltId, "checkBoxDisplayAssetAltId");
+            this.checkBoxDisplayAssetAltId.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetAltId.Name = "checkBoxDisplayAssetAltId";
             this.checkBoxDisplayAssetAltId.UseVisualStyleBackColor = true;
             // 
             // checkBoxDisplayAssetStorage
             // 
             resources.ApplyResources(this.checkBoxDisplayAssetStorage, "checkBoxDisplayAssetStorage");
+            this.checkBoxDisplayAssetStorage.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetStorage.Name = "checkBoxDisplayAssetStorage";
             this.checkBoxDisplayAssetStorage.UseVisualStyleBackColor = true;
             // 
             // checkBoxAutoRefresh
             // 
             resources.ApplyResources(this.checkBoxAutoRefresh, "checkBoxAutoRefresh");
+            this.checkBoxAutoRefresh.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
             this.toolTip1.SetToolTip(this.checkBoxAutoRefresh, resources.GetString("checkBoxAutoRefresh.ToolTip"));
             this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
@@ -150,13 +155,13 @@
             // comboBoxAutoRefreshTime
             // 
             this.comboBoxAutoRefreshTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBoxAutoRefreshTime, "comboBoxAutoRefreshTime");
             this.comboBoxAutoRefreshTime.FormattingEnabled = true;
             this.comboBoxAutoRefreshTime.Items.AddRange(new object[] {
             resources.GetString("comboBoxAutoRefreshTime.Items"),
             resources.GetString("comboBoxAutoRefreshTime.Items1"),
             resources.GetString("comboBoxAutoRefreshTime.Items2"),
             resources.GetString("comboBoxAutoRefreshTime.Items3")});
+            resources.ApplyResources(this.comboBoxAutoRefreshTime, "comboBoxAutoRefreshTime");
             this.comboBoxAutoRefreshTime.Name = "comboBoxAutoRefreshTime";
             // 
             // groupBox2
@@ -172,6 +177,7 @@
             this.groupBox2.Controls.Add(this.numericUpDownAssetAnalysisStart);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.numericUpDownLocatorDuration);
+            this.groupBox2.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
@@ -179,6 +185,7 @@
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label1.Name = "label1";
             // 
             // numericUpDownSASDuration
@@ -204,18 +211,21 @@
             // checkBoxHideTaskbarNotifications
             // 
             resources.ApplyResources(this.checkBoxHideTaskbarNotifications, "checkBoxHideTaskbarNotifications");
+            this.checkBoxHideTaskbarNotifications.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxHideTaskbarNotifications.Name = "checkBoxHideTaskbarNotifications";
             this.checkBoxHideTaskbarNotifications.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseAdaptiveStreamingFormat
             // 
             resources.ApplyResources(this.checkBoxUseAdaptiveStreamingFormat, "checkBoxUseAdaptiveStreamingFormat");
+            this.checkBoxUseAdaptiveStreamingFormat.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxUseAdaptiveStreamingFormat.Name = "checkBoxUseAdaptiveStreamingFormat";
             this.checkBoxUseAdaptiveStreamingFormat.UseVisualStyleBackColor = true;
             // 
             // label13
             // 
             resources.ApplyResources(this.label13, "label13");
+            this.label13.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label13.Name = "label13";
             // 
             // numericUpDownAssetAnalysisStep
@@ -236,11 +246,13 @@
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
+            this.label12.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label12.Name = "label12";
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label5.Name = "label5";
             // 
             // numericUpDownAssetAnalysisStart
@@ -261,6 +273,7 @@
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label3.Name = "label3";
             // 
             // numericUpDownLocatorDuration
@@ -288,14 +301,15 @@
             this.groupBox3.Controls.Add(this.labelcdn);
             this.groupBox3.Controls.Add(this.textBoxCustomPlayer);
             this.groupBox3.Controls.Add(this.checkBoxEnableCustomPlayer);
+            this.groupBox3.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
             // labelcdn
             // 
-            resources.ApplyResources(this.labelcdn, "labelcdn");
             this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelcdn, "labelcdn");
             this.labelcdn.Name = "labelcdn";
             // 
             // textBoxCustomPlayer
@@ -306,33 +320,35 @@
             // checkBoxEnableCustomPlayer
             // 
             resources.ApplyResources(this.checkBoxEnableCustomPlayer, "checkBoxEnableCustomPlayer");
+            this.checkBoxEnableCustomPlayer.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxEnableCustomPlayer.Name = "checkBoxEnableCustomPlayer";
             this.checkBoxEnableCustomPlayer.UseVisualStyleBackColor = true;
             this.checkBoxEnableCustomPlayer.CheckedChanged += new System.EventHandler(this.checkBoxEnableCustomPlayer_CheckedChanged);
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonReset);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label4.Name = "label4";
             // 
             // numericUpDownMESPrice
             // 
             this.numericUpDownMESPrice.DecimalPlaces = 3;
-            resources.ApplyResources(this.numericUpDownMESPrice, "numericUpDownMESPrice");
             this.numericUpDownMESPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
+            resources.ApplyResources(this.numericUpDownMESPrice, "numericUpDownMESPrice");
             this.numericUpDownMESPrice.Name = "numericUpDownMESPrice";
             this.numericUpDownMESPrice.Value = new decimal(new int[] {
             15,
@@ -352,6 +368,7 @@
             this.groupBox4.Controls.Add(this.textBoxCurrency);
             this.groupBox4.Controls.Add(this.numericUpDownMESPrice);
             this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
@@ -359,6 +376,7 @@
             // amspriceslink
             // 
             resources.ApplyResources(this.amspriceslink, "amspriceslink");
+            this.amspriceslink.ForeColor = System.Drawing.SystemColors.WindowText;
             this.amspriceslink.Name = "amspriceslink";
             this.amspriceslink.TabStop = true;
             this.amspriceslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.amspriceslink_LinkClicked);
@@ -366,6 +384,7 @@
             // label7
             // 
             resources.ApplyResources(this.label7, "label7");
+            this.label7.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label7.Name = "label7";
             // 
             // tabControl1
@@ -406,6 +425,7 @@
             this.groupBox5.Controls.Add(this.textBoxVLCPath);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.textBoxffmpegPath);
+            this.groupBox5.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
@@ -413,6 +433,7 @@
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
+            this.label11.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label11.Name = "label11";
             // 
             // textBoxVLCPath
@@ -423,6 +444,7 @@
             // label10
             // 
             resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label10.Name = "label10";
             // 
             // textBoxffmpegPath
@@ -434,13 +456,14 @@
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Options";
             this.Load += new System.EventHandler(this.options_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Options_DpiChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

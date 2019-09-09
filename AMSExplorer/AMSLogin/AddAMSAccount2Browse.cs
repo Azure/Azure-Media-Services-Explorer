@@ -54,6 +54,8 @@ namespace AMSExplorer
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(string.Format("{0} ({1})", t.displayName, t.tenantId), t.tenantId)));
 
             if (_myTenants.Count() > 0)
@@ -184,6 +186,11 @@ namespace AMSExplorer
         private void comboBoxTenants_SelectedIndexChanged(object sender, EventArgs e)
         {
             BuildSubTree();
+        }
+
+        private void AddAMSAccount2Browse_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
         }
     }
 }

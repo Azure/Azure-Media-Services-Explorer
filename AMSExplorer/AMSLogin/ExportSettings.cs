@@ -27,5 +27,15 @@ namespace AMSExplorer
             Icon = Bitmaps.Azure_Explorer_ico;
 
         }
+
+        private void ExportSettings_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
+        }
+
+        private void ExportSettings_Load(object sender, System.EventArgs e)
+        {
+            DpiUtils.InitPerMonitorDpi(this);
+        }
     }
 }

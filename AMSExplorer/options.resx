@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>357, 15</value>
+    <value>354, 15</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 27</value>
@@ -151,7 +151,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>479, 15</value>
+    <value>476, 15</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 27</value>
@@ -204,9 +204,6 @@
   <data name="checkBoxDisplayAssetID.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxDisplayAssetID.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="checkBoxDisplayAssetID.Location" type="System.Drawing.Point, System.Drawing">
     <value>49, 59</value>
   </data>
@@ -233,9 +230,6 @@
   </data>
   <data name="checkBoxDisplayAssetAltId.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="checkBoxDisplayAssetAltId.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="checkBoxDisplayAssetAltId.Location" type="System.Drawing.Point, System.Drawing">
     <value>49, 84</value>
@@ -264,9 +258,6 @@
   <data name="checkBoxDisplayAssetStorage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxDisplayAssetStorage.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="checkBoxDisplayAssetStorage.Location" type="System.Drawing.Point, System.Drawing">
     <value>49, 109</value>
   </data>
@@ -293,9 +284,6 @@
   </data>
   <data name="checkBoxAutoRefresh.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="checkBoxAutoRefresh.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="checkBoxAutoRefresh.Location" type="System.Drawing.Point, System.Drawing">
     <value>49, 134</value>
@@ -326,9 +314,6 @@
   </data>
   <data name="&gt;&gt;checkBoxAutoRefresh.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="comboBoxAutoRefreshTime.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="comboBoxAutoRefreshTime.Items" xml:space="preserve">
     <value>30</value>
@@ -363,9 +348,6 @@
   <data name="&gt;&gt;comboBoxAutoRefreshTime.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
-  </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 7</value>
   </data>
@@ -392,9 +374,6 @@
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -423,9 +402,6 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="numericUpDownSASDuration.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="numericUpDownSASDuration.Location" type="System.Drawing.Point, System.Drawing">
     <value>250, 108</value>
   </data>
@@ -449,9 +425,6 @@
   </data>
   <data name="checkBoxHideTaskbarNotifications.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="checkBoxHideTaskbarNotifications.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="checkBoxHideTaskbarNotifications.Location" type="System.Drawing.Point, System.Drawing">
     <value>50, 173</value>
@@ -483,9 +456,6 @@
   <data name="checkBoxUseAdaptiveStreamingFormat.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="checkBoxUseAdaptiveStreamingFormat.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="checkBoxUseAdaptiveStreamingFormat.Location" type="System.Drawing.Point, System.Drawing">
     <value>49, 36</value>
   </data>
@@ -512,9 +482,6 @@
   </data>
   <data name="label13.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
-  </data>
-  <data name="label13.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
     <value>371, 237</value>
@@ -546,9 +513,6 @@
   <data name="numericUpDownAssetAnalysisStep.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="numericUpDownAssetAnalysisStep.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="numericUpDownAssetAnalysisStep.Location" type="System.Drawing.Point, System.Drawing">
     <value>446, 235</value>
   </data>
@@ -572,9 +536,6 @@
   </data>
   <data name="label12.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
-  </data>
-  <data name="label12.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 237</value>
@@ -609,9 +570,6 @@
   <data name="label5.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>47, 237</value>
   </data>
@@ -639,9 +597,6 @@
   <data name="numericUpDownAssetAnalysisStart.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="numericUpDownAssetAnalysisStart.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="numericUpDownAssetAnalysisStart.Location" type="System.Drawing.Point, System.Drawing">
     <value>250, 235</value>
   </data>
@@ -665,9 +620,6 @@
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>47, 81</value>
@@ -693,9 +645,6 @@
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="numericUpDownLocatorDuration.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="numericUpDownLocatorDuration.Location" type="System.Drawing.Point, System.Drawing">
     <value>250, 79</value>
   </data>
@@ -716,9 +665,6 @@
   </data>
   <data name="&gt;&gt;numericUpDownLocatorDuration.ZOrder" xml:space="preserve">
     <value>10</value>
-  </data>
-  <data name="groupBox2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 242</value>
@@ -743,9 +689,6 @@
   </data>
   <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="labelcdn.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="labelcdn.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 95</value>
@@ -774,9 +717,6 @@
   <data name="&gt;&gt;labelcdn.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="textBoxCustomPlayer.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="textBoxCustomPlayer.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 54</value>
   </data>
@@ -800,9 +740,6 @@
   </data>
   <data name="checkBoxEnableCustomPlayer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="checkBoxEnableCustomPlayer.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="checkBoxEnableCustomPlayer.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 28</value>
@@ -828,9 +765,6 @@
   <data name="&gt;&gt;checkBoxEnableCustomPlayer.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="groupBox3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
-  </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 7</value>
   </data>
@@ -855,14 +789,14 @@
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 644</value>
+    <value>0, 644</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>610, 55</value>
+    <value>607, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -881,9 +815,6 @@
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>47, 68</value>
@@ -909,9 +840,6 @@
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="numericUpDownMESPrice.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="numericUpDownMESPrice.Location" type="System.Drawing.Point, System.Drawing">
     <value>337, 66</value>
   </data>
@@ -932,9 +860,6 @@
   </data>
   <data name="&gt;&gt;numericUpDownMESPrice.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="textBoxCurrency.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxCurrency.Location" type="System.Drawing.Point, System.Drawing">
     <value>337, 27</value>
@@ -966,9 +891,6 @@
   <data name="amspriceslink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="amspriceslink.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="amspriceslink.Location" type="System.Drawing.Point, System.Drawing">
     <value>47, 121</value>
   </data>
@@ -996,9 +918,6 @@
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>45, 30</value>
   </data>
@@ -1022,9 +941,6 @@
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="groupBox4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
   </data>
   <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 7</value>
@@ -1110,9 +1026,6 @@
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 96</value>
   </data>
@@ -1136,9 +1049,6 @@
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="textBoxVLCPath.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxVLCPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>75, 96</value>
@@ -1164,9 +1074,6 @@
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 54</value>
   </data>
@@ -1191,9 +1098,6 @@
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="textBoxffmpegPath.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="textBoxffmpegPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>75, 54</value>
   </data>
@@ -1214,9 +1118,6 @@
   </data>
   <data name="&gt;&gt;textBoxffmpegPath.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="groupBox5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
   </data>
   <data name="groupBox5.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 171</value>
@@ -1297,7 +1198,7 @@
     <value>79</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>607, 699</value>

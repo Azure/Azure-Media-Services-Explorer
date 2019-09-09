@@ -36,13 +36,8 @@
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
-            this.textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBoxSearchAssetOption = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
-            this.buttonAssetSearch = new System.Windows.Forms.Button();
-            this.textBoxAssetSearch = new System.Windows.Forms.TextBox();
-            this.butPrevPageAsset = new System.Windows.Forms.Button();
             this.dataGridViewAssetsV = new AMSExplorer.DataGridViewAssets();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,10 +92,16 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxOrderAssets = new System.Windows.Forms.ComboBox();
+            this.textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
             this.butNextPageAsset = new System.Windows.Forms.Button();
+            this.textBoxAssetSearch = new System.Windows.Forms.TextBox();
+            this.butPrevPageAsset = new System.Windows.Forms.Button();
+            this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBoxOrderAssets = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonAssetSearch = new System.Windows.Forms.Button();
             this.tabPageFilters = new System.Windows.Forms.TabPage();
             this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
             this.contextMenuStripFilters = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -205,7 +206,6 @@
             this.labelLiveEvents = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButtonChNone = new System.Windows.Forms.RadioButton();
             this.dataGridViewLiveOutputV = new AMSExplorer.DataGridViewLiveOutput();
             this.contextMenuStripLiveOutputs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -223,17 +223,11 @@
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.radioButtonChAll = new System.Windows.Forms.RadioButton();
-            this.comboBoxSearchProgramOption = new System.Windows.Forms.ComboBox();
-            this.radioButtonChSelected = new System.Windows.Forms.RadioButton();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxSearchNameProgram = new System.Windows.Forms.TextBox();
-            this.buttonSetFilterProgram = new System.Windows.Forms.Button();
-            this.comboBoxStatusProgram = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
             this.labelPrograms = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.radioButtonChSelected = new System.Windows.Forms.RadioButton();
+            this.radioButtonChAll = new System.Windows.Forms.RadioButton();
+            this.radioButtonChNone = new System.Windows.Forms.RadioButton();
             this.tabPageOrigins = new System.Windows.Forms.TabPage();
             this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
             this.contextMenuStripStreaminEndpoints = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -265,7 +259,7 @@
             this.deleteToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
             this.copyIngestURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelAMSBig = new System.Windows.Forms.Label();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.assetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -319,6 +313,8 @@
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesForumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.feedbackOnAzureMediaServicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.explorerReleaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem31 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -334,18 +330,18 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelWatchFolder = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label12 = new System.Windows.Forms.Label();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.linkLabelFeedbackAMS = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
+            this.panelButtons = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).BeginInit();
             this.contextMenuStripAssets.SuspendLayout();
             this.tabPageFilters.SuspendLayout();
@@ -388,6 +384,7 @@
             this.contextMenuStripLog.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.panelButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerMain
@@ -423,25 +420,26 @@
             // tabPageAssets
             // 
             this.tabPageAssets.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPageAssets.Controls.Add(this.textBoxAssetsPageNumber);
-            this.tabPageAssets.Controls.Add(this.comboBoxSearchAssetOption);
-            this.tabPageAssets.Controls.Add(this.label10);
-            this.tabPageAssets.Controls.Add(this.comboBoxFilterAssetsTime);
-            this.tabPageAssets.Controls.Add(this.buttonAssetSearch);
-            this.tabPageAssets.Controls.Add(this.textBoxAssetSearch);
-            this.tabPageAssets.Controls.Add(this.butPrevPageAsset);
-            this.tabPageAssets.Controls.Add(this.dataGridViewAssetsV);
-            this.tabPageAssets.Controls.Add(this.label3);
-            this.tabPageAssets.Controls.Add(this.comboBoxOrderAssets);
-            this.tabPageAssets.Controls.Add(this.butNextPageAsset);
-            this.tabPageAssets.Controls.Add(this.label1);
+            this.tabPageAssets.Controls.Add(this.tableLayoutPanel5);
             resources.ApplyResources(this.tabPageAssets, "tabPageAssets");
             this.tabPageAssets.Name = "tabPageAssets";
             // 
-            // textBoxAssetsPageNumber
+            // tableLayoutPanel5
             // 
-            resources.ApplyResources(this.textBoxAssetsPageNumber, "textBoxAssetsPageNumber");
-            this.textBoxAssetsPageNumber.Name = "textBoxAssetsPageNumber";
+            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxSearchAssetOption, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.dataGridViewAssetsV, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBoxAssetsPageNumber, 9, 1);
+            this.tableLayoutPanel5.Controls.Add(this.butNextPageAsset, 10, 1);
+            this.tableLayoutPanel5.Controls.Add(this.textBoxAssetSearch, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.butPrevPageAsset, 8, 1);
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxFilterAssetsTime, 4, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label10, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxOrderAssets, 6, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label1, 7, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label3, 5, 1);
+            this.tableLayoutPanel5.Controls.Add(this.buttonAssetSearch, 2, 1);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             // 
             // comboBoxSearchAssetOption
             // 
@@ -450,49 +448,18 @@
             this.comboBoxSearchAssetOption.FormattingEnabled = true;
             this.comboBoxSearchAssetOption.Name = "comboBoxSearchAssetOption";
             // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // comboBoxFilterAssetsTime
-            // 
-            resources.ApplyResources(this.comboBoxFilterAssetsTime, "comboBoxFilterAssetsTime");
-            this.comboBoxFilterAssetsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterAssetsTime.FormattingEnabled = true;
-            this.comboBoxFilterAssetsTime.Name = "comboBoxFilterAssetsTime";
-            this.comboBoxFilterAssetsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTime_SelectedIndexChanged);
-            // 
-            // buttonAssetSearch
-            // 
-            resources.ApplyResources(this.buttonAssetSearch, "buttonAssetSearch");
-            this.buttonAssetSearch.Name = "buttonAssetSearch";
-            this.buttonAssetSearch.UseVisualStyleBackColor = true;
-            this.buttonAssetSearch.Click += new System.EventHandler(this.buttonAssetSearch_Click);
-            // 
-            // textBoxAssetSearch
-            // 
-            resources.ApplyResources(this.textBoxAssetSearch, "textBoxAssetSearch");
-            this.textBoxAssetSearch.Name = "textBoxAssetSearch";
-            this.toolTip1.SetToolTip(this.textBoxAssetSearch, resources.GetString("textBoxAssetSearch.ToolTip"));
-            this.textBoxAssetSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAssetSearch_KeyDown);
-            // 
-            // butPrevPageAsset
-            // 
-            resources.ApplyResources(this.butPrevPageAsset, "butPrevPageAsset");
-            this.butPrevPageAsset.Name = "butPrevPageAsset";
-            this.butPrevPageAsset.UseVisualStyleBackColor = true;
-            this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
-            // 
             // dataGridViewAssetsV
             // 
             this.dataGridViewAssetsV.AllowDrop = true;
             this.dataGridViewAssetsV.AllowUserToAddRows = false;
             this.dataGridViewAssetsV.AllowUserToDeleteRows = false;
             this.dataGridViewAssetsV.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewAssetsV, "dataGridViewAssetsV");
+            this.dataGridViewAssetsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewAssetsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             this.dataGridViewAssetsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel5.SetColumnSpan(this.dataGridViewAssetsV, 11);
             this.dataGridViewAssetsV.ContextMenuStrip = this.contextMenuStripAssets;
+            resources.ApplyResources(this.dataGridViewAssetsV, "dataGridViewAssetsV");
             this.dataGridViewAssetsV.Name = "dataGridViewAssetsV";
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
@@ -891,10 +858,44 @@
             resources.ApplyResources(this.withCustomPlayerToolStripMenuItem1, "withCustomPlayerToolStripMenuItem1");
             this.withCustomPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem1_Click);
             // 
-            // label3
+            // textBoxAssetsPageNumber
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.textBoxAssetsPageNumber, "textBoxAssetsPageNumber");
+            this.textBoxAssetsPageNumber.Name = "textBoxAssetsPageNumber";
+            // 
+            // butNextPageAsset
+            // 
+            resources.ApplyResources(this.butNextPageAsset, "butNextPageAsset");
+            this.butNextPageAsset.Name = "butNextPageAsset";
+            this.butNextPageAsset.UseVisualStyleBackColor = true;
+            this.butNextPageAsset.Click += new System.EventHandler(this.butNextPageAsset_Click);
+            // 
+            // textBoxAssetSearch
+            // 
+            resources.ApplyResources(this.textBoxAssetSearch, "textBoxAssetSearch");
+            this.textBoxAssetSearch.Name = "textBoxAssetSearch";
+            this.toolTip1.SetToolTip(this.textBoxAssetSearch, resources.GetString("textBoxAssetSearch.ToolTip"));
+            this.textBoxAssetSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAssetSearch_KeyDown);
+            // 
+            // butPrevPageAsset
+            // 
+            resources.ApplyResources(this.butPrevPageAsset, "butPrevPageAsset");
+            this.butPrevPageAsset.Name = "butPrevPageAsset";
+            this.butPrevPageAsset.UseVisualStyleBackColor = true;
+            this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
+            // 
+            // comboBoxFilterAssetsTime
+            // 
+            resources.ApplyResources(this.comboBoxFilterAssetsTime, "comboBoxFilterAssetsTime");
+            this.comboBoxFilterAssetsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterAssetsTime.FormattingEnabled = true;
+            this.comboBoxFilterAssetsTime.Name = "comboBoxFilterAssetsTime";
+            this.comboBoxFilterAssetsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTime_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
             // 
             // comboBoxOrderAssets
             // 
@@ -904,17 +905,22 @@
             this.comboBoxOrderAssets.Name = "comboBoxOrderAssets";
             this.comboBoxOrderAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderAssets_SelectedIndexChanged);
             // 
-            // butNextPageAsset
-            // 
-            resources.ApplyResources(this.butNextPageAsset, "butNextPageAsset");
-            this.butNextPageAsset.Name = "butNextPageAsset";
-            this.butNextPageAsset.UseVisualStyleBackColor = true;
-            this.butNextPageAsset.Click += new System.EventHandler(this.butNextPageAsset_Click);
-            // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // buttonAssetSearch
+            // 
+            resources.ApplyResources(this.buttonAssetSearch, "buttonAssetSearch");
+            this.buttonAssetSearch.Name = "buttonAssetSearch";
+            this.buttonAssetSearch.UseVisualStyleBackColor = true;
+            this.buttonAssetSearch.Click += new System.EventHandler(this.buttonAssetSearch_Click);
             // 
             // tabPageFilters
             // 
@@ -928,9 +934,11 @@
             this.dataGridViewFilters.AllowUserToAddRows = false;
             this.dataGridViewFilters.AllowUserToDeleteRows = false;
             this.dataGridViewFilters.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewFilters, "dataGridViewFilters");
+            this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewFilters.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilters;
+            resources.ApplyResources(this.dataGridViewFilters, "dataGridViewFilters");
             this.dataGridViewFilters.Name = "dataGridViewFilters";
             this.dataGridViewFilters.ReadOnly = true;
             this.dataGridViewFilters.RowHeadersVisible = false;
@@ -1014,6 +1022,8 @@
             this.dataGridViewTransfer.AllowUserToDeleteRows = false;
             this.dataGridViewTransfer.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewTransfer, "dataGridViewTransfer");
+            this.dataGridViewTransfer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewTransfer.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewTransfer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanelTransfers.SetColumnSpan(this.dataGridViewTransfer, 2);
             this.dataGridViewTransfer.ContextMenuStrip = this.contextMenuStripTransfers;
@@ -1116,6 +1126,8 @@
             this.dataGridViewTransformsV.AllowUserToAddRows = false;
             this.dataGridViewTransformsV.AllowUserToDeleteRows = false;
             this.dataGridViewTransformsV.AllowUserToResizeRows = false;
+            this.dataGridViewTransformsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewTransformsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewTransformsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewTransformsV, 2);
             this.dataGridViewTransformsV.ContextMenuStrip = this.contextMenuStripTransforms;
@@ -1241,6 +1253,8 @@
             this.dataGridViewJobsV.AllowUserToAddRows = false;
             this.dataGridViewJobsV.AllowUserToDeleteRows = false;
             this.dataGridViewJobsV.AllowUserToResizeRows = false;
+            this.dataGridViewJobsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewJobsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewJobsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel4.SetColumnSpan(this.dataGridViewJobsV, 13);
             this.dataGridViewJobsV.ContextMenuStrip = this.contextMenuStripJobs;
@@ -1552,7 +1566,8 @@
             this.dataGridViewLiveEventsV.AllowUserToDeleteRows = false;
             this.dataGridViewLiveEventsV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewLiveEventsV, "dataGridViewLiveEventsV");
-            this.dataGridViewLiveEventsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewLiveEventsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewLiveEventsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewLiveEventsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridViewLiveEventsV, 7);
             this.dataGridViewLiveEventsV.ContextMenuStrip = this.contextMenuStripLiveEvents;
@@ -1755,27 +1770,13 @@
             // 
             this.tableLayoutPanel2.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(this.radioButtonChNone, 10, 2);
             this.tableLayoutPanel2.Controls.Add(this.dataGridViewLiveOutputV, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.radioButtonChAll, 9, 2);
-            this.tableLayoutPanel2.Controls.Add(this.comboBoxSearchProgramOption, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.radioButtonChSelected, 8, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label14, 7, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxSearchNameProgram, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.buttonSetFilterProgram, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.comboBoxStatusProgram, 6, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label16, 5, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label15, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(this.comboBoxFilterTimeProgram, 4, 2);
             this.tableLayoutPanel2.Controls.Add(this.labelPrograms, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.radioButtonChSelected, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.radioButtonChAll, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.radioButtonChNone, 3, 2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            // 
-            // radioButtonChNone
-            // 
-            resources.ApplyResources(this.radioButtonChNone, "radioButtonChNone");
-            this.radioButtonChNone.Name = "radioButtonChNone";
-            this.radioButtonChNone.UseVisualStyleBackColor = true;
-            this.radioButtonChNone.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // dataGridViewLiveOutputV
             // 
@@ -1783,9 +1784,10 @@
             this.dataGridViewLiveOutputV.AllowUserToDeleteRows = false;
             this.dataGridViewLiveOutputV.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridViewLiveOutputV, "dataGridViewLiveOutputV");
-            this.dataGridViewLiveOutputV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewLiveOutputV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewLiveOutputV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewLiveOutputV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableLayoutPanel2.SetColumnSpan(this.dataGridViewLiveOutputV, 11);
+            this.tableLayoutPanel2.SetColumnSpan(this.dataGridViewLiveOutputV, 4);
             this.dataGridViewLiveOutputV.ContextMenuStrip = this.contextMenuStripLiveOutputs;
             this.dataGridViewLiveOutputV.DisplayLiveEvent = AMSExplorer.enumDisplayProgram.Selected;
             this.dataGridViewLiveOutputV.FilterState = "All";
@@ -1922,19 +1924,15 @@
             resources.ApplyResources(this.withCustomPlayerToolStripMenuItem2, "withCustomPlayerToolStripMenuItem2");
             this.withCustomPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem2_Click);
             // 
-            // radioButtonChAll
+            // labelPrograms
             // 
-            resources.ApplyResources(this.radioButtonChAll, "radioButtonChAll");
-            this.radioButtonChAll.Name = "radioButtonChAll";
-            this.radioButtonChAll.UseVisualStyleBackColor = true;
-            this.radioButtonChAll.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            resources.ApplyResources(this.labelPrograms, "labelPrograms");
+            this.labelPrograms.Name = "labelPrograms";
             // 
-            // comboBoxSearchProgramOption
+            // label14
             // 
-            resources.ApplyResources(this.comboBoxSearchProgramOption, "comboBoxSearchProgramOption");
-            this.comboBoxSearchProgramOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSearchProgramOption.FormattingEnabled = true;
-            this.comboBoxSearchProgramOption.Name = "comboBoxSearchProgramOption";
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
             // 
             // radioButtonChSelected
             // 
@@ -1945,56 +1943,19 @@
             this.radioButtonChSelected.UseVisualStyleBackColor = true;
             this.radioButtonChSelected.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // label14
+            // radioButtonChAll
             // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
+            resources.ApplyResources(this.radioButtonChAll, "radioButtonChAll");
+            this.radioButtonChAll.Name = "radioButtonChAll";
+            this.radioButtonChAll.UseVisualStyleBackColor = true;
+            this.radioButtonChAll.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // textBoxSearchNameProgram
+            // radioButtonChNone
             // 
-            resources.ApplyResources(this.textBoxSearchNameProgram, "textBoxSearchNameProgram");
-            this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
-            this.toolTip1.SetToolTip(this.textBoxSearchNameProgram, resources.GetString("textBoxSearchNameProgram.ToolTip"));
-            this.textBoxSearchNameProgram.TextChanged += new System.EventHandler(this.textBoxSearchNameProgram_TextChanged);
-            this.textBoxSearchNameProgram.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearchNameProgram_KeyDown);
-            // 
-            // buttonSetFilterProgram
-            // 
-            resources.ApplyResources(this.buttonSetFilterProgram, "buttonSetFilterProgram");
-            this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
-            this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
-            this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
-            // 
-            // comboBoxStatusProgram
-            // 
-            resources.ApplyResources(this.comboBoxStatusProgram, "comboBoxStatusProgram");
-            this.comboBoxStatusProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStatusProgram.FormattingEnabled = true;
-            this.comboBoxStatusProgram.Name = "comboBoxStatusProgram";
-            this.comboBoxStatusProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusProgram_SelectedIndexChanged);
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // comboBoxFilterTimeProgram
-            // 
-            resources.ApplyResources(this.comboBoxFilterTimeProgram, "comboBoxFilterTimeProgram");
-            this.comboBoxFilterTimeProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterTimeProgram.FormattingEnabled = true;
-            this.comboBoxFilterTimeProgram.Name = "comboBoxFilterTimeProgram";
-            this.comboBoxFilterTimeProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxTimeProgram_SelectedIndexChanged);
-            // 
-            // labelPrograms
-            // 
-            resources.ApplyResources(this.labelPrograms, "labelPrograms");
-            this.labelPrograms.Name = "labelPrograms";
+            resources.ApplyResources(this.radioButtonChNone, "radioButtonChNone");
+            this.radioButtonChNone.Name = "radioButtonChNone";
+            this.radioButtonChNone.UseVisualStyleBackColor = true;
+            this.radioButtonChNone.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // tabPageOrigins
             // 
@@ -2008,9 +1969,11 @@
             this.dataGridViewStreamingEndpointsV.AllowUserToAddRows = false;
             this.dataGridViewStreamingEndpointsV.AllowUserToDeleteRows = false;
             this.dataGridViewStreamingEndpointsV.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewStreamingEndpointsV, "dataGridViewStreamingEndpointsV");
+            this.dataGridViewStreamingEndpointsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewStreamingEndpointsV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewStreamingEndpointsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStreamingEndpointsV.ContextMenuStrip = this.contextMenuStripStreaminEndpoints;
+            resources.ApplyResources(this.dataGridViewStreamingEndpointsV, "dataGridViewStreamingEndpointsV");
             this.dataGridViewStreamingEndpointsV.FilterStreamingEndpointsState = "All";
             this.dataGridViewStreamingEndpointsV.Name = "dataGridViewStreamingEndpointsV";
             this.dataGridViewStreamingEndpointsV.ReadOnly = true;
@@ -2120,9 +2083,11 @@
             this.dataGridViewStorage.AllowUserToAddRows = false;
             this.dataGridViewStorage.AllowUserToDeleteRows = false;
             this.dataGridViewStorage.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewStorage, "dataGridViewStorage");
+            this.dataGridViewStorage.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewStorage.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewStorage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStorage.ContextMenuStrip = this.contextMenuStripStorage;
+            resources.ApplyResources(this.dataGridViewStorage, "dataGridViewStorage");
             this.dataGridViewStorage.Name = "dataGridViewStorage";
             this.dataGridViewStorage.ReadOnly = true;
             this.dataGridViewStorage.RowHeadersVisible = false;
@@ -2226,11 +2191,11 @@
             this.copyIngestURLToClipboardToolStripMenuItem.Name = "copyIngestURLToClipboardToolStripMenuItem";
             resources.ApplyResources(this.copyIngestURLToClipboardToolStripMenuItem, "copyIngestURLToClipboardToolStripMenuItem");
             // 
-            // label5
+            // labelAMSBig
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.labelAMSBig, "labelAMSBig");
+            this.labelAMSBig.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelAMSBig.Name = "labelAMSBig";
             // 
             // menuStripMain
             // 
@@ -2571,6 +2536,8 @@
             this.azureMediaServicesMSDNToolStripMenuItem,
             this.azureMediaServicesForumToolStripMenuItem,
             this.toolStripSeparator13,
+            this.feedbackOnAzureMediaServicesToolStripMenuItem,
+            this.toolStripSeparator3,
             this.explorerReleaseNotesToolStripMenuItem,
             this.toolStripMenuItem31,
             this.aboutToolStripMenuItem});
@@ -2612,6 +2579,18 @@
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
             resources.ApplyResources(this.toolStripSeparator13, "toolStripSeparator13");
+            // 
+            // feedbackOnAzureMediaServicesToolStripMenuItem
+            // 
+            this.feedbackOnAzureMediaServicesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.feedbackOnAzureMediaServicesToolStripMenuItem.Name = "feedbackOnAzureMediaServicesToolStripMenuItem";
+            resources.ApplyResources(this.feedbackOnAzureMediaServicesToolStripMenuItem, "feedbackOnAzureMediaServicesToolStripMenuItem");
+            this.feedbackOnAzureMediaServicesToolStripMenuItem.Click += new System.EventHandler(this.FeedbackOnAzureMediaServicesToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // explorerReleaseNotesToolStripMenuItem
             // 
@@ -2705,26 +2684,12 @@
             this.toolStripStatusLabelWatchFolder.Name = "toolStripStatusLabelWatchFolder";
             resources.ApplyResources(this.toolStripStatusLabelWatchFolder, "toolStripStatusLabelWatchFolder");
             // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label12.Name = "label12";
-            // 
             // buttonRefresh
             // 
             resources.ApplyResources(this.buttonRefresh, "buttonRefresh");
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // linkLabelFeedbackAMS
-            // 
-            resources.ApplyResources(this.linkLabelFeedbackAMS, "linkLabelFeedbackAMS");
-            this.linkLabelFeedbackAMS.Name = "linkLabelFeedbackAMS";
-            this.linkLabelFeedbackAMS.TabStop = true;
-            this.toolTip1.SetToolTip(this.linkLabelFeedbackAMS, resources.GetString("linkLabelFeedbackAMS.ToolTip"));
-            this.linkLabelFeedbackAMS.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelFeedbackAMS_LinkClicked);
             // 
             // notifyIcon1
             // 
@@ -2738,31 +2703,37 @@
             this.buttonRefreshTab.UseVisualStyleBackColor = true;
             this.buttonRefreshTab.Click += new System.EventHandler(this.buttonRefreshTab_Click);
             // 
+            // panelButtons
+            // 
+            this.panelButtons.Controls.Add(this.buttonRefreshTab);
+            this.panelButtons.Controls.Add(this.buttonRefresh);
+            resources.ApplyResources(this.panelButtons, "panelButtons");
+            this.panelButtons.Name = "panelButtons";
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Controls.Add(this.buttonRefreshTab);
-            this.Controls.Add(this.linkLabelFeedbackAMS);
+            this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.splitContainerMain);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.buttonRefresh);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelAMSBig);
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "Mainform";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Mainform_FormClosing);
             this.Load += new System.EventHandler(this.Mainform_Load);
             this.Shown += new System.EventHandler(this.Mainform_Shown);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Mainform_DpiChanged);
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabPageAssets.ResumeLayout(false);
-            this.tabPageAssets.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
             this.contextMenuStripAssets.ResumeLayout(false);
             this.tabPageFilters.ResumeLayout(false);
@@ -2812,13 +2783,14 @@
             this.menuStripMain.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.panelButtons.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelAMSBig;
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem assetToolStripMenuItem;
@@ -2896,7 +2868,6 @@
         private System.Windows.Forms.ToolStripMenuItem azureMediaServicesForumToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageLive;
@@ -2999,13 +2970,7 @@
         private System.Windows.Forms.Label labelLiveEvents;
         private DataGridViewLiveEvent dataGridViewLiveEventsV;
         private System.Windows.Forms.Label labelPrograms;
-        private System.Windows.Forms.Label label15;
         private DataGridViewLiveOutput dataGridViewLiveOutputV;
-        private System.Windows.Forms.ComboBox comboBoxFilterTimeProgram;
-        private System.Windows.Forms.ComboBox comboBoxStatusProgram;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button buttonSetFilterProgram;
-        private System.Windows.Forms.TextBox textBoxSearchNameProgram;
         private System.Windows.Forms.Button buttonSetFilterLiveEvent;
         private System.Windows.Forms.TextBox textBoxSearchNameLiveEvent;
         private System.Windows.Forms.Label label24;
@@ -3032,7 +2997,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator37;
         private System.Windows.Forms.ComboBox comboBoxSearchAssetOption;
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
-        private System.Windows.Forms.ComboBox comboBoxSearchProgramOption;
         private System.Windows.Forms.ComboBox comboBoxSearchLiveEventOption;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyReportToClipboardToolStripMenuItem;
@@ -3054,7 +3018,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator42;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem33Refresh;
-        private System.Windows.Forms.LinkLabel linkLabelFeedbackAMS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem33NewBulk;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem36BulkIngestInfo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem37DelBulk;
@@ -3125,6 +3088,10 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox comboBoxEncodingRU;
         private System.Windows.Forms.ToolStripMenuItem listAuthorizedOperationsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem feedbackOnAzureMediaServicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.Panel panelButtons;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
     }
 }
 

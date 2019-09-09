@@ -25,6 +25,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -47,20 +48,31 @@ namespace AMSExplorer
 
         public AmsLogin()
         {
+            this.Font = new Font("Segoe UI", 9);
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void AMSLogin_Load(object sender, EventArgs e)
         {
-
-            // To clear list
             //Properties.Settings.Default.LoginListRPv3JSON = "";
+            DpiUtils.InitPerMonitorDpi(this);
+
+            // Add a dummy column     
+            ColumnHeader header = new ColumnHeader();
+            header.Text = "";
+            header.Name = "col1";
+            listViewAccounts.Columns.Add(header);
+            // Then
+            listViewAccounts.Scrollable = true;
+            listViewAccounts.View = System.Windows.Forms.View.Details;
+
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv3JSON))
             {
                 // JSon deserialize
                 CredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv3JSON, typeof(ListCredentialsRPv3));
+
 
                 // Display accounts in the list
                 CredentialList.MediaServicesAccounts.ForEach(c =>
@@ -323,10 +335,11 @@ namespace AMSExplorer
 
         private async void AMSLogin_ShownAsync(object sender, EventArgs e)
         {
+
             //await Task.Run(() => Program.CheckAMSEVersionAsync()).ConfigureAwait(false); //let not wait for this task - no need
+            ScaleListViewColumns(listViewAccounts);
 
             await Program.CheckAMSEVersionAsync();
-
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -577,6 +590,23 @@ namespace AMSExplorer
         private void linkLabelAMSOfflineDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(Application.StartupPath + @"\HelpFiles\" + @"AMSv3doc.pdf");
+        }
+
+
+        private void ScaleListViewColumns(ListView listview)
+        {
+            listview.Columns[0].Width = listview.Width - 4 - SystemInformation.VerticalScrollBarWidth;
+        }
+
+
+        private void AmsLogin_DpiChangedAfterParent(object sender, EventArgs e)
+        {
+            ScaleListViewColumns(listViewAccounts);
+        }
+
+        private void AmsLogin_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
         }
     }
 

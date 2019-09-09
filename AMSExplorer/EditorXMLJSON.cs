@@ -108,6 +108,16 @@ namespace AMSExplorer
         {
             textBoxConfiguration.Text = Program.AnalyzeAndIndentXMLJSON(textBoxConfiguration.Text);
         }
+
+        private void EditorXMLJSON_Load(object sender, EventArgs e)
+        {
+            DpiUtils.InitPerMonitorDpi(this);
+        }
+
+        private void EditorXMLJSON_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
+        }
     }
 
     internal class ButtonPremiumXMLData : Button

@@ -109,8 +109,7 @@ namespace AMSExplorer
 
         private void AboutBox_Load(object sender, EventArgs e)
         {
-
-
+            DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void linkLabelContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

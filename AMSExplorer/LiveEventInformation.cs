@@ -119,6 +119,8 @@ namespace AMSExplorer
 
         private void LiveEventInformation_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             _radioButtonDefaultPreset = radioButtonDefaultPreset.Text;
 
             if (!MultipleSelection) // one channel
@@ -512,6 +514,12 @@ namespace AMSExplorer
         private void webBrowserPreview_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
 
+        }
+
+        private void LiveEventInformation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelLEName, contextMenuStripDG }, e, this);
         }
     }
 

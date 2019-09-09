@@ -116,6 +116,11 @@ namespace AMSExplorer
 
         private void ProcessFromJobTemplate_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+
             listViewTransforms.LoadTransforms(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
             UpdateLabeltext();
             labelURLFileNameWarning.Text = string.Empty;
@@ -266,6 +271,15 @@ namespace AMSExplorer
 
             listViewTransforms.LoadTransforms(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
 
+        }
+
+        private void ProcessFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, timeControlStartTime, timeControlEndTime }, e, this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
         }
     }
 }

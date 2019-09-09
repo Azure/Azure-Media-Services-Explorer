@@ -291,6 +291,8 @@ namespace AMSExplorer
 
         private void AssetInformation_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             labelAssetNameTitle.Text += myAssetV3.Name;
 
             DGAsset.ColumnCount = 2;
@@ -2125,6 +2127,12 @@ namespace AMSExplorer
 
             using (EditorXMLJSON displayResult = new EditorXMLJSON("Test token", sbuilder.ToString(), false, false, false))
                 displayResult.ShowDialog();
+        }
+
+        private void AssetInformation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripFiles, contextMenuStripKey, contextMenuStripFilter }, e, this);
         }
     }
 }

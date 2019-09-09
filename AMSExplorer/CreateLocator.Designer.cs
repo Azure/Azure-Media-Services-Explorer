@@ -71,6 +71,7 @@
             this.labelNoAssetFilter = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBoxEnd.SuspendLayout();
             this.groupBoxStart.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -117,6 +118,7 @@
             this.groupBoxEnd.Controls.Add(this.radioButtonEndCustom);
             this.groupBoxEnd.Controls.Add(this.dateTimePickerEndTime);
             this.groupBoxEnd.Controls.Add(this.dateTimePickerEndDate);
+            this.groupBoxEnd.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBoxEnd, "groupBoxEnd");
             this.groupBoxEnd.Name = "groupBoxEnd";
             this.groupBoxEnd.TabStop = false;
@@ -125,6 +127,7 @@
             // 
             resources.ApplyResources(this.radioButtonEndUnlimited, "radioButtonEndUnlimited");
             this.radioButtonEndUnlimited.Checked = true;
+            this.radioButtonEndUnlimited.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonEndUnlimited.Name = "radioButtonEndUnlimited";
             this.radioButtonEndUnlimited.TabStop = true;
             this.radioButtonEndUnlimited.UseVisualStyleBackColor = true;
@@ -132,12 +135,14 @@
             // radioButtonEndYear
             // 
             resources.ApplyResources(this.radioButtonEndYear, "radioButtonEndYear");
+            this.radioButtonEndYear.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonEndYear.Name = "radioButtonEndYear";
             this.radioButtonEndYear.UseVisualStyleBackColor = true;
             // 
             // radioButtonEndCustom
             // 
             resources.ApplyResources(this.radioButtonEndCustom, "radioButtonEndCustom");
+            this.radioButtonEndCustom.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonEndCustom.Name = "radioButtonEndCustom";
             this.radioButtonEndCustom.UseVisualStyleBackColor = true;
             this.radioButtonEndCustom.CheckedChanged += new System.EventHandler(this.radioButtonEndCustom_CheckedChanged);
@@ -163,6 +168,7 @@
             this.groupBoxStart.Controls.Add(this.checkBoxStartDate);
             this.groupBoxStart.Controls.Add(this.dateTimePickerStartTime);
             this.groupBoxStart.Controls.Add(this.dateTimePickerStartDate);
+            this.groupBoxStart.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBoxStart, "groupBoxStart");
             this.groupBoxStart.Name = "groupBoxStart";
             this.groupBoxStart.TabStop = false;
@@ -170,6 +176,7 @@
             // checkBoxStartDate
             // 
             resources.ApplyResources(this.checkBoxStartDate, "checkBoxStartDate");
+            this.checkBoxStartDate.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBoxStartDate.Name = "checkBoxStartDate";
             this.checkBoxStartDate.UseVisualStyleBackColor = true;
             this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.checkBoxStartDate_CheckedChanged_1);
@@ -210,6 +217,7 @@
             this.groupBox4.Controls.Add(this.radioButtonMultiDRMCENC);
             this.groupBox4.Controls.Add(this.radioButtonClearKey);
             this.groupBox4.Controls.Add(this.radioButtonClearStream);
+            this.groupBox4.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
@@ -277,18 +285,21 @@
             // radioButtonDownloadAndClear
             // 
             resources.ApplyResources(this.radioButtonDownloadAndClear, "radioButtonDownloadAndClear");
+            this.radioButtonDownloadAndClear.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonDownloadAndClear.Name = "radioButtonDownloadAndClear";
             this.radioButtonDownloadAndClear.UseVisualStyleBackColor = true;
             // 
             // radioButtonDownload
             // 
             resources.ApplyResources(this.radioButtonDownload, "radioButtonDownload");
+            this.radioButtonDownload.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonDownload.Name = "radioButtonDownload";
             this.radioButtonDownload.UseVisualStyleBackColor = true;
             // 
             // radioButtonMultiDRM
             // 
             resources.ApplyResources(this.radioButtonMultiDRM, "radioButtonMultiDRM");
+            this.radioButtonMultiDRM.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonMultiDRM.Name = "radioButtonMultiDRM";
             this.radioButtonMultiDRM.UseVisualStyleBackColor = true;
             this.radioButtonMultiDRM.CheckedChanged += new System.EventHandler(this.radioButtonMultiDRM_CheckedChanged);
@@ -296,6 +307,7 @@
             // radioButtonMultiDRMCENC
             // 
             resources.ApplyResources(this.radioButtonMultiDRMCENC, "radioButtonMultiDRMCENC");
+            this.radioButtonMultiDRMCENC.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonMultiDRMCENC.Name = "radioButtonMultiDRMCENC";
             this.radioButtonMultiDRMCENC.UseVisualStyleBackColor = true;
             this.radioButtonMultiDRMCENC.CheckedChanged += new System.EventHandler(this.radioButtonMultiDRMCENC_CheckedChanged);
@@ -303,6 +315,7 @@
             // radioButtonClearKey
             // 
             resources.ApplyResources(this.radioButtonClearKey, "radioButtonClearKey");
+            this.radioButtonClearKey.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonClearKey.Name = "radioButtonClearKey";
             this.radioButtonClearKey.UseVisualStyleBackColor = true;
             this.radioButtonClearKey.CheckedChanged += new System.EventHandler(this.radioButtonClearKey_CheckedChanged);
@@ -311,6 +324,7 @@
             // 
             resources.ApplyResources(this.radioButtonClearStream, "radioButtonClearStream");
             this.radioButtonClearStream.Checked = true;
+            this.radioButtonClearStream.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonClearStream.Name = "radioButtonClearStream";
             this.radioButtonClearStream.TabStop = true;
             this.radioButtonClearStream.UseVisualStyleBackColor = true;
@@ -348,10 +362,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // tabControl1
@@ -376,6 +390,7 @@
             // 
             resources.ApplyResources(this.groupBoxForceLocator, "groupBoxForceLocator");
             this.groupBoxForceLocator.Controls.Add(this.listViewFilters);
+            this.groupBoxForceLocator.ForeColor = System.Drawing.Color.DarkBlue;
             this.groupBoxForceLocator.Name = "groupBoxForceLocator";
             this.groupBoxForceLocator.TabStop = false;
             // 
@@ -392,8 +407,8 @@
             // 
             // labelNoAssetFilter
             // 
-            resources.ApplyResources(this.labelNoAssetFilter, "labelNoAssetFilter");
             this.labelNoAssetFilter.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelNoAssetFilter, "labelNoAssetFilter");
             this.labelNoAssetFilter.Name = "labelNoAssetFilter";
             // 
             // tabPage2
@@ -413,13 +428,20 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Name = "label5";
+            // 
             // CreateLocator
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
@@ -428,6 +450,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CreateLocator";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.CreateLocator_DpiChanged);
             this.groupBoxEnd.ResumeLayout(false);
             this.groupBoxEnd.PerformLayout();
             this.groupBoxStart.ResumeLayout(false);
@@ -499,5 +522,6 @@
         private System.Windows.Forms.GroupBox groupBoxForceLocator;
         private System.Windows.Forms.ListView listViewFilters;
         private System.Windows.Forms.Label labelNoAssetFilter;
+        private System.Windows.Forms.Label label5;
     }
 }

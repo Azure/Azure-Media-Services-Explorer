@@ -40,11 +40,13 @@
             this.trackBarTime = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTime)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label42
@@ -54,8 +56,8 @@
             // 
             // numericUpDownSeconds
             // 
-            this.numericUpDownSeconds.DecimalPlaces = 2;
             resources.ApplyResources(this.numericUpDownSeconds, "numericUpDownSeconds");
+            this.numericUpDownSeconds.DecimalPlaces = 2;
             this.numericUpDownSeconds.Maximum = new decimal(new int[] {
             1610612735,
             1960709702,
@@ -116,6 +118,7 @@
             // 
             resources.ApplyResources(this.trackBarTime, "trackBarTime");
             this.trackBarTime.BackColor = System.Drawing.SystemColors.Window;
+            this.tableLayoutPanel1.SetColumnSpan(this.trackBarTime, 5);
             this.trackBarTime.Maximum = 1000;
             this.trackBarTime.Name = "trackBarTime";
             this.trackBarTime.ValueChanged += new System.EventHandler(this.HandleTrackBarValueChanged);
@@ -130,30 +133,37 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownSeconds, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label42, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownMinutes, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label41, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownHours, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownDays, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label39, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label40, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.trackBarTime, 0, 2);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
             // TimeControl
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.trackBarTime);
-            this.Controls.Add(this.label42);
-            this.Controls.Add(this.numericUpDownSeconds);
-            this.Controls.Add(this.label39);
-            this.Controls.Add(this.numericUpDownMinutes);
-            this.Controls.Add(this.label41);
-            this.Controls.Add(this.numericUpDownHours);
-            this.Controls.Add(this.numericUpDownDays);
-            this.Controls.Add(this.label40);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "TimeControl";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTime)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -170,5 +180,6 @@
         private System.Windows.Forms.TrackBar trackBarTime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

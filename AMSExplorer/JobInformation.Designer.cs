@@ -38,32 +38,32 @@
             this.DGJob = new System.Windows.Forms.DataGridView();
             this.buttonCopyStats = new System.Windows.Forms.Button();
             this.listBoxOutputs = new System.Windows.Forms.ListBox();
+            this.contextMenuStripOutputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
-            this.contextMenuStripOutputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.dataGridInput = new System.Windows.Forms.DataGridView();
+            this.listBoxInput = new System.Windows.Forms.ListBox();
             this.contextMenuStripInputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.DGOutputs = new System.Windows.Forms.DataGridView();
             this.labelJobNameTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.dataGridInput = new System.Windows.Forms.DataGridView();
-            this.listBoxInput = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGJob)).BeginInit();
+            this.contextMenuStripOutputAsset.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.contextMenuStripOutputAsset.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridInput)).BeginInit();
             this.contextMenuStripInputAsset.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGOutputs)).BeginInit();
             this.panel1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridInput)).BeginInit();
             this.SuspendLayout();
             // 
             // DGErrors
@@ -72,6 +72,7 @@
             this.DGErrors.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGErrors, "DGErrors");
             this.DGErrors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.DGErrors.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGErrors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGErrors.ContextMenuStrip = this.contextMenuStrip;
             this.DGErrors.MultiSelect = false;
@@ -111,6 +112,7 @@
             this.DGJob.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGJob, "DGJob");
             this.DGJob.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGJob.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGJob.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGJob.ColumnHeadersVisible = false;
             this.DGJob.ContextMenuStrip = this.contextMenuStrip;
@@ -133,6 +135,20 @@
             this.listBoxOutputs.FormattingEnabled = true;
             this.listBoxOutputs.Name = "listBoxOutputs";
             this.listBoxOutputs.SelectedIndexChanged += new System.EventHandler(this.listBoxOutputs_SelectedIndexChanged);
+            // 
+            // contextMenuStripOutputAsset
+            // 
+            this.contextMenuStripOutputAsset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenuStripOutputAsset.Name = "contextMenuStripAsset";
+            resources.ApplyResources(this.contextMenuStripOutputAsset, "contextMenuStripOutputAsset");
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // tabControl1
             // 
@@ -159,19 +175,37 @@
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
-            // contextMenuStripOutputAsset
+            // tabPage4
             // 
-            this.contextMenuStripOutputAsset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.contextMenuStripOutputAsset.Name = "contextMenuStripAsset";
-            resources.ApplyResources(this.contextMenuStripOutputAsset, "contextMenuStripOutputAsset");
+            this.tabPage4.Controls.Add(this.dataGridInput);
+            this.tabPage4.Controls.Add(this.listBoxInput);
+            resources.ApplyResources(this.tabPage4, "tabPage4");
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // toolStripMenuItem1
+            // dataGridInput
             // 
-            this.toolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.dataGridInput.AllowUserToAddRows = false;
+            this.dataGridInput.AllowUserToDeleteRows = false;
+            this.dataGridInput.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridInput, "dataGridInput");
+            this.dataGridInput.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridInput.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridInput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridInput.ColumnHeadersVisible = false;
+            this.dataGridInput.ContextMenuStrip = this.contextMenuStrip;
+            this.dataGridInput.MultiSelect = false;
+            this.dataGridInput.Name = "dataGridInput";
+            this.dataGridInput.ReadOnly = true;
+            this.dataGridInput.RowHeadersVisible = false;
+            // 
+            // listBoxInput
+            // 
+            resources.ApplyResources(this.listBoxInput, "listBoxInput");
+            this.listBoxInput.ContextMenuStrip = this.contextMenuStripInputAsset;
+            this.listBoxInput.FormattingEnabled = true;
+            this.listBoxInput.Name = "listBoxInput";
+            this.listBoxInput.SelectedIndexChanged += new System.EventHandler(this.listBoxInput_SelectedIndexChanged);
             // 
             // contextMenuStripInputAsset
             // 
@@ -202,6 +236,7 @@
             this.DGOutputs.AllowUserToResizeRows = false;
             resources.ApplyResources(this.DGOutputs, "DGOutputs");
             this.DGOutputs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGOutputs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGOutputs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGOutputs.ColumnHeadersVisible = false;
             this.DGOutputs.ContextMenuStrip = this.contextMenuStrip;
@@ -218,47 +253,16 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonClose);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.dataGridInput);
-            this.tabPage4.Controls.Add(this.listBoxInput);
-            resources.ApplyResources(this.tabPage4, "tabPage4");
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // dataGridInput
-            // 
-            this.dataGridInput.AllowUserToAddRows = false;
-            this.dataGridInput.AllowUserToDeleteRows = false;
-            this.dataGridInput.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridInput, "dataGridInput");
-            this.dataGridInput.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridInput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridInput.ColumnHeadersVisible = false;
-            this.dataGridInput.ContextMenuStrip = this.contextMenuStrip;
-            this.dataGridInput.MultiSelect = false;
-            this.dataGridInput.Name = "dataGridInput";
-            this.dataGridInput.ReadOnly = true;
-            this.dataGridInput.RowHeadersVisible = false;
-            // 
-            // listBoxInput
-            // 
-            resources.ApplyResources(this.listBoxInput, "listBoxInput");
-            this.listBoxInput.ContextMenuStrip = this.contextMenuStripInputAsset;
-            this.listBoxInput.FormattingEnabled = true;
-            this.listBoxInput.Name = "listBoxInput";
-            this.listBoxInput.SelectedIndexChanged += new System.EventHandler(this.listBoxInput_SelectedIndexChanged);
             // 
             // JobInformation
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.Controls.Add(this.panel1);
@@ -266,19 +270,20 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "JobInformation";
             this.Load += new System.EventHandler(this.JobInformation_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.JobInformation_DpiChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGJob)).EndInit();
+            this.contextMenuStripOutputAsset.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.contextMenuStripOutputAsset.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridInput)).EndInit();
             this.contextMenuStripInputAsset.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGOutputs)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridInput)).EndInit();
             this.ResumeLayout(false);
 
         }

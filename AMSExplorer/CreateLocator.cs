@@ -189,10 +189,12 @@ namespace AMSExplorer
 
         private async void CreateLocator_Load(object sender, EventArgs e)
         {
-            // Filters
+            DpiUtils.InitPerMonitorDpi(this);
 
+            // Filters
             List<string> afiltersnames = new List<string>();
 
+            listViewFilters.BeginUpdate();
             // asset filters
             if (_SelectedAssets.Count == 1)
             {
@@ -200,6 +202,7 @@ namespace AMSExplorer
                 Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
                 afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
+              
                 assetFilters.ToList().ForEach(f =>
                 {
                     ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
@@ -224,6 +227,7 @@ namespace AMSExplorer
                 listViewFilters.Items.Add(lvitem);
             }
            );
+            listViewFilters.EndUpdate();
         }
 
         private void radioButtonEndCustom_CheckedChanged(object sender, EventArgs e)
@@ -282,6 +286,11 @@ namespace AMSExplorer
         private void radioButtonClearKey_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void CreateLocator_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
         }
     }
 }

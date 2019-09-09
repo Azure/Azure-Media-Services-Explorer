@@ -89,6 +89,8 @@ namespace AMSExplorer
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             _labelStartTimeDefault = labelStartTimeDefault.Text;
             _labelDefaultEnd = labelDefaultEnd.Text;
             _labelDefaultDVR = labelDefaultDVR.Text;
@@ -1085,6 +1087,12 @@ namespace AMSExplorer
         private void checkBoxFirstQualityBitrate_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownFirstQualityBitrate.Enabled = checkBoxFirstQualityBitrate.Checked;
+        }
+
+        private void DynManifestFilter_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelFilterTitle, labeltime1, labeltime2, labeltime3, labeltime4, labeltime5, checkBoxLiveBackoff, timeControlStart, timeControlEnd, timeControlDVR, contextMenuStripInfo }, e, this);
         }
     }
 }

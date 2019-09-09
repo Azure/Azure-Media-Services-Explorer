@@ -190,6 +190,8 @@ namespace AMSExplorer
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             FillComboProtocols();
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);

@@ -35,11 +35,17 @@ namespace AMSExplorer
 
         private void DRM_WidevineLicense_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void CheckBoxTokenUse_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownTokenUse.Enabled = checkBoxTokenUse.Checked;
+        }
+
+        private void DRM_GenerateToken_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
         }
     }
 }

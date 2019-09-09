@@ -211,6 +211,8 @@ namespace AMSExplorer
 
         private void DRM_Config_TokenClaims_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
             tabControlTokenType.TabPages.Remove(tabPageTokenX509);
@@ -367,6 +369,11 @@ namespace AMSExplorer
         {
             ExplorerOpenIDSample entry = ListOpenIDSampleUris.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
             textBoxOpenIdDocument.Text = entry.Uri;
+        }
+
+        private void Form_DRM_Config_TokenClaims_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelStep, e);
         }
     }
 }

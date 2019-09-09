@@ -23,6 +23,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -132,6 +133,7 @@ namespace AMSExplorer
             IEnumerable<LiveEventEntry> channelquery;
 
             _client = client;
+            float scale = DeviceDpi / 96f;
 
             Microsoft.Rest.Azure.IPage<LiveEvent> liveevents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
@@ -142,7 +144,7 @@ namespace AMSExplorer
                                Name = c.Name,
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
-                               Encoding = ReturnChannelBitmap(c),
+                               Encoding = (Bitmap)HighDpiHelper.ScaleImage(ReturnChannelBitmap(c), scale),
                                EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
                                InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
                                PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
@@ -311,6 +313,7 @@ namespace AMSExplorer
             await _client.RefreshTokenIfNeededAsync();
             Microsoft.Rest.Azure.IPage<LiveEvent> listLE = await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
             totalLiveEvents = listLE.Count();
+            float scale = DeviceDpi / 96f;
 
             IEnumerable<LiveEventEntry> channelquery = listLE.Select(c =>
                        new LiveEventEntry
@@ -318,7 +321,7 @@ namespace AMSExplorer
                            Name = c.Name,
                            Description = c.Description,
                            InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
-                           Encoding = ReturnChannelBitmap(c),
+                           Encoding = (Bitmap)HighDpiHelper.ScaleImage(ReturnChannelBitmap(c), scale),
                            EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
                            InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
                            PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,

@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>273, 15</value>
+    <value>270, 15</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 27</value>
@@ -154,7 +154,7 @@
     <value>MiddleLeft</value>
   </data>
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>151, 15</value>
+    <value>148, 15</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 27</value>
@@ -177,14 +177,14 @@
   <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 257</value>
+    <value>0, 258</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>403, 55</value>
+    <value>400, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>66</value>
@@ -249,34 +249,34 @@
   <data name="&gt;&gt;comboBoxProvider.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="labelJobOptions.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labelCDNOptions.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labelJobOptions.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelCDNOptions.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 11.25pt</value>
   </data>
-  <data name="labelJobOptions.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelCDNOptions.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 9</value>
   </data>
-  <data name="labelJobOptions.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelCDNOptions.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 20</value>
   </data>
-  <data name="labelJobOptions.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelCDNOptions.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
   </data>
-  <data name="labelJobOptions.Text" xml:space="preserve">
+  <data name="labelCDNOptions.Text" xml:space="preserve">
     <value>CDN Options</value>
   </data>
-  <data name="&gt;&gt;labelJobOptions.Name" xml:space="preserve">
-    <value>labelJobOptions</value>
+  <data name="&gt;&gt;labelCDNOptions.Name" xml:space="preserve">
+    <value>labelCDNOptions</value>
   </data>
-  <data name="&gt;&gt;labelJobOptions.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelCDNOptions.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelJobOptions.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelCDNOptions.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;labelJobOptions.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelCDNOptions.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
@@ -336,9 +336,6 @@
   <data name="&gt;&gt;textBoxProfile.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -373,7 +370,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>400, 313</value>

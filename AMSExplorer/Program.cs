@@ -34,12 +34,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
@@ -61,21 +63,24 @@ namespace AMSExplorer
 
         private const string languageparam = "/language:";
 
+
+
         [STAThread]
         private static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
             {
                 string language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language, false);
             }
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainform(args));
         }
 
         public static void dataGridViewV_Resize(object sender)
         {
+            return; // let's disable this code for now
             // let's resize the column name to fill the space
             DataGridView grid = (DataGridView)sender;
             int indexname = -1;
@@ -90,12 +95,13 @@ namespace AMSExplorer
 
             if (indexname != -1)
             {
-                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 int colw = Math.Max(grid.Columns[indexname].Width, 100);
                 grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 grid.Columns[indexname].Width = colw;
             }
         }
+
 
 
 
@@ -433,6 +439,14 @@ namespace AMSExplorer
 
         public static DialogResult InputBox(string title, string promptText, ref string value, bool passwordWildcard = false)
         {
+            InputBox inputForm = new InputBox(title, promptText, value, passwordWildcard);
+
+            inputForm.ShowDialog();
+            value = inputForm.InputValue;
+
+            return inputForm.DialogResult;
+
+            /*
             Button buttonOk = new Button()
             {
                 Text = AMSExplorer.Properties.Resources.ButtonOK,
@@ -457,7 +471,9 @@ namespace AMSExplorer
                 MaximizeBox = false,
                 AcceptButton = buttonOk,
                 CancelButton = buttonCancel,
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                AutoScaleMode = AutoScaleMode.Dpi,
+                Font = new Font("Segoe UI", 9)
             };
 
             Label label = new Label()
@@ -478,11 +494,14 @@ namespace AMSExplorer
             textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
             form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
             form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
-
+            form.Load += Form_Load;
+            form.DpiChanged += Form_DpiChanged;
             DialogResult dialogResult = form.ShowDialog();
             value = textBox.Text;
             return dialogResult;
+            */
         }
+
 
 
         public static void SaveAndProtectUserConfig()
@@ -497,7 +516,7 @@ namespace AMSExplorer
             }
         }
 
-              
+
         public class LiveOutputExt
         {
             public LiveOutput LiveOutputItem { get; set; }
@@ -2974,6 +2993,14 @@ namespace AMSExplorer
 
     public class AssetEntryV3 : INotifyPropertyChanged
     {
+
+        private SynchronizationContext syncContext;
+
+        public AssetEntryV3(SynchronizationContext mysyncContext)
+        {
+            syncContext = mysyncContext;
+        }
+
         public string _Name;
         public string Name
         {
@@ -3046,20 +3073,6 @@ namespace AMSExplorer
             }
         }
 
-
-        private string _Created;
-        public string Created
-        {
-            get => _Created;
-            set
-            {
-                if (value != _Created)
-                {
-                    _Created = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
 
         private string _Size;
         public string Size
@@ -3209,6 +3222,20 @@ namespace AMSExplorer
             }
         }
 
+        private string _Created;
+        public string Created
+        {
+            get => _Created;
+            set
+            {
+                if (value != _Created)
+                {
+                    _Created = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         private string _LastModified;
         public string LastModified
         {
@@ -3226,11 +3253,28 @@ namespace AMSExplorer
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         private void NotifyPropertyChanged([CallerMemberName] string p = "")
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(p));
+                try
+                {
+                    var handler = PropertyChanged;
+
+                    if (syncContext != null)
+                        syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
+                    else
+                        handler(this, new PropertyChangedEventArgs(p));
+
+
+
+                    //PropertyChanged(this, new PropertyChangedEventArgs(p));
+                }
+                catch
+                {
+
+                }
             }
         }
 
@@ -3262,6 +3306,20 @@ namespace AMSExplorer
                 if (value != _Description)
                 {
                     _Description = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public int _Jobs;
+        public int Jobs
+        {
+            get => _Jobs;
+            set
+            {
+                if (value != _Jobs)
+                {
+                    _Jobs = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -4327,6 +4385,226 @@ namespace AMSExplorer
             }
 
             return true;
+        }
+    }
+
+
+    public static class DpiUtils
+    {
+        private enum MonitorOptions : uint
+        {
+            DefaultToNull = 0,
+            DefaultToPrimary = 1,
+            DefaultToNearest = 2
+        }
+
+        private enum DpiType
+        {
+            Effective = 0,
+            Angular = 1,
+            Raw = 2,
+        }
+
+        private struct SuggestedBoundsRect
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        private const int WM_DPICHANGED = 0x02E0;
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr MonitorFromPoint(Point pt, MonitorOptions dwFlags);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, IntPtr lParam);
+
+        [DllImport("Shcore.dll")]
+        private static extern IntPtr GetDpiForMonitor([In]IntPtr hmonitor, [In]DpiType dpiType, [Out]out uint dpiX, [Out]out uint dpiY);
+
+        private static int GetPerMonitorDpiForControl(Control c)
+        {
+            var dpi = 96;
+
+            try
+            {
+                var p = c.PointToScreen(new Point(c.Bounds.X + c.Bounds.Width / 2, c.Bounds.Y + c.Bounds.Height / 2));
+                var monitorHandle = MonitorFromPoint(p, MonitorOptions.DefaultToNearest);
+                uint dpiX, dpiY;
+                GetDpiForMonitor(monitorHandle, DpiType.Effective, out dpiX, out dpiY);
+                dpi = (int)dpiX;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine($"Exception when getting screen DPI: {e}");
+            }
+
+            return dpi;
+        }
+
+        public static void InitPerMonitorDpi(Form form)
+        {
+            var reportedDpi = form.DeviceDpi;
+            var trueDpi = GetPerMonitorDpiForControl(form);
+
+            if (reportedDpi == trueDpi)
+                return;
+
+            var wParam = (trueDpi << 16) | (trueDpi & 0xffff);
+            var dpiRatio = trueDpi / (double)reportedDpi;
+            var suggestedBounds = new SuggestedBoundsRect
+            {
+                Left = form.Location.X,
+                Top = form.Location.Y,
+                Right = form.Location.X + (int)(form.Width * dpiRatio),
+                Bottom = form.Location.Y + (int)(form.Height * dpiRatio)
+            };
+
+            try
+            {
+                var ptr = Marshal.AllocHGlobal(Marshal.SizeOf(suggestedBounds));
+                Marshal.StructureToPtr(suggestedBounds, ptr, false);
+                SendMessage(form.Handle, WM_DPICHANGED, wParam, ptr);
+                Marshal.FreeHGlobal(ptr);
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine($"Exception when initialising per-monitor DPI: {e}");
+            }
+        }
+
+        public static void UpdatedSizeFontAfterDPIChange(Control control, DpiChangedEventArgs e)
+        {
+            UpdatedSizeFontAfterDPIChange(new List<Control> { control }, e, null);
+        }
+
+        public static void UpdatedSizeFontAfterDPIChange(List<Control> controls, DpiChangedEventArgs e, Form currentForm)
+        {
+            if (currentForm != null) currentForm.SuspendLayout();
+            Debug.Print($"Old DPI: {e.DeviceDpiOld}, new DPI {e.DeviceDpiNew}");
+            float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
+            foreach (var c in controls)
+            {
+                c.Font = new Font(c.Font.Name, c.Font.Size * factor);
+                if (c.GetType() == typeof(MenuStrip) || c.GetType() == typeof(ContextMenuStrip))// if menu  control
+                {
+                    var sizevar = Convert.ToInt32(16f * (float)e.DeviceDpiNew / 96f);
+                    (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);
+                }
+            }
+            //controls.ForEach(c => c.Font = new Font(c.Font.Name, c.Font.Size * factor));
+            if (currentForm != null) currentForm.ResumeLayout();
+        }
+    }
+
+
+    public static class HighDpiHelper
+    {
+        public static void AdjustControlImagesDpiScale(Control container)
+        {
+            //var dpiScale = GetDpiScale(container).Value;
+            var dpiScale = GetDpiScale(container);
+            if (CloseToOne(dpiScale))
+                return;
+
+            AdjustControlImagesDpiScale(container.Controls, dpiScale);
+        }
+
+        public static void AdjustControlImagesAfterDpiChange(Control container, DpiChangedEventArgs e)
+        {
+            float dpiScale = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
+            AdjustControlImagesDpiScale(container.Controls, dpiScale);
+        }
+
+        private static void AdjustButtonImageDpiScale(ButtonBase button, float dpiScale)
+        {
+            var image = button.Image;
+            if (image == null)
+                return;
+
+            button.Image = ScaleImage(image, dpiScale);
+        }
+
+        private static void AdjustControlImagesDpiScale(Control.ControlCollection controls, float dpiScale)
+        {
+            foreach (Control control in controls)
+            {
+                var button = control as ButtonBase;
+                if (button != null)
+                    AdjustButtonImageDpiScale(button, dpiScale);
+                else
+                {
+                    var pictureBox = control as PictureBox;
+                    if (pictureBox != null)
+                        AdjustPictureBoxDpiScale(pictureBox, dpiScale);
+                }
+
+                AdjustControlImagesDpiScale(control.Controls, dpiScale);
+            }
+        }
+
+        private static void AdjustPictureBoxDpiScale(PictureBox pictureBox, float dpiScale)
+        {
+            var image = pictureBox.Image;
+            if (image == null)
+                return;
+
+            if (pictureBox.SizeMode == PictureBoxSizeMode.CenterImage)
+                pictureBox.Image = ScaleImage(pictureBox.Image, dpiScale);
+        }
+
+        private static bool CloseToOne(float dpiScale)
+        {
+            return Math.Abs(dpiScale - 1) < 0.001;
+        }
+
+        /*
+        public static Lazy<float> GetDpiScale(Control control)
+        {
+            return new Lazy<float>(() =>
+            {
+                using (var graphics = control.CreateGraphics())
+                    return graphics.DpiX / 96.0f;
+            });
+        }
+        */
+
+        public static float GetDpiScale(Control control)
+        {
+            return control.DeviceDpi / 96f;
+
+
+        }
+
+
+        public static System.Drawing.Image ScaleImage(System.Drawing.Image image, float dpiScale)
+        {
+            if (image == null) return null;
+
+            var newSize = ScaleSize(image.Size, dpiScale);
+            var newBitmap = new Bitmap(newSize.Width, newSize.Height);
+
+            using (var g = Graphics.FromImage(newBitmap))
+            {
+                // According to this blog post http://blogs.msdn.com/b/visualstudio/archive/2014/03/19/improving-high-dpi-support-for-visual-studio-2013.aspx
+                // NearestNeighbor is more adapted for 200% and 200%+ DPI
+
+                var interpolationMode = InterpolationMode.HighQualityBicubic;
+                if (dpiScale >= 2.0f)
+                    interpolationMode = InterpolationMode.NearestNeighbor;
+
+                g.InterpolationMode = interpolationMode;
+                g.DrawImage(image, new System.Drawing.Rectangle(new Point(), newSize));
+            }
+
+            return newBitmap;
+        }
+
+        private static Size ScaleSize(Size size, float scale)
+        {
+            return new Size((int)(size.Width * scale), (int)(size.Height * scale));
         }
     }
 

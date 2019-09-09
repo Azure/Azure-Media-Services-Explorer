@@ -45,7 +45,7 @@
             this.labelE2 = new System.Windows.Forms.Label();
             this.textBoxLocation = new System.Windows.Forms.TextBox();
             this.labelLocation = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelenteramsacct = new System.Windows.Forms.Label();
             this.buttonExport = new System.Windows.Forms.Button();
             this.buttonImportAll = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -59,10 +59,12 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.listViewAccounts = new System.Windows.Forms.ListView();
             this.linkLabelAMSOfflineDoc = new System.Windows.Forms.LinkLabel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAADAutMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -158,11 +160,11 @@
             resources.ApplyResources(this.labelLocation, "labelLocation");
             this.labelLocation.Name = "labelLocation";
             // 
-            // label5
+            // labelenteramsacct
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.labelenteramsacct, "labelenteramsacct");
+            this.labelenteramsacct.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelenteramsacct.Name = "labelenteramsacct";
             // 
             // buttonExport
             // 
@@ -204,11 +206,11 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.labelVersion);
             this.panel1.Controls.Add(this.buttonLogin);
             this.panel1.Controls.Add(this.buttonCancel);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -233,6 +235,7 @@
             // 
             resources.ApplyResources(this.listViewAccounts, "listViewAccounts");
             this.listViewAccounts.FullRowSelect = true;
+            this.listViewAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewAccounts.HideSelection = false;
             this.listViewAccounts.Name = "listViewAccounts";
             this.listViewAccounts.ShowItemToolTips = true;
@@ -240,6 +243,7 @@
             this.listViewAccounts.View = System.Windows.Forms.View.List;
             this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.ListViewAccounts_SelectedIndexChanged);
             this.listViewAccounts.DoubleClick += new System.EventHandler(this.listBoxAcounts_DoubleClick);
+            this.listViewAccounts.DpiChangedAfterParent += new System.EventHandler(this.AmsLogin_DpiChangedAfterParent);
             // 
             // linkLabelAMSOfflineDoc
             // 
@@ -248,44 +252,53 @@
             this.linkLabelAMSOfflineDoc.TabStop = true;
             this.linkLabelAMSOfflineDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAMSOfflineDoc_LinkClicked);
             // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.labelE2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxDescription, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxAMSResourceId, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.labelLocation, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxLocation, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.labelADTenant, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxAADtenantId, 0, 5);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
             // AmsLogin
             // 
             this.AcceptButton = this.buttonLogin;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.textBoxDescription);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.linkLabelAMSOfflineDoc);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.listViewAccounts);
             this.Controls.Add(this.linkLabelAADAut);
             this.Controls.Add(this.groupBoxAADAutMode);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textBoxAMSResourceId);
             this.Controls.Add(this.buttonPickupAccount);
-            this.Controls.Add(this.textBoxAADtenantId);
             this.Controls.Add(this.pictureBoxJob);
-            this.Controls.Add(this.labelADTenant);
             this.Controls.Add(this.accountmgtlink);
-            this.Controls.Add(this.labelE2);
             this.Controls.Add(this.buttonImportAll);
-            this.Controls.Add(this.textBoxLocation);
             this.Controls.Add(this.buttonExport);
-            this.Controls.Add(this.labelLocation);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelenteramsacct);
             this.Controls.Add(this.buttonDeleteAccountEntry);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AmsLogin";
             this.Load += new System.EventHandler(this.AMSLogin_Load);
             this.Shown += new System.EventHandler(this.AMSLogin_ShownAsync);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AmsLogin_DpiChanged);
             this.groupBoxAADAutMode.ResumeLayout(false);
             this.groupBoxAADAutMode.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,7 +313,7 @@
         private System.Windows.Forms.Label labelLocation;
         private System.Windows.Forms.Label labelE2;
         private System.Windows.Forms.Label labelADTenant;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelenteramsacct;
         private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Button buttonImportAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
@@ -322,5 +335,6 @@
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabelAMSOfflineDoc;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

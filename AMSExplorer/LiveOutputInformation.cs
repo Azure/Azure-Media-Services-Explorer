@@ -89,6 +89,8 @@ namespace AMSExplorer
 
         private void LiveOutputInformation_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             if (!MultipleSelection)
             {
                 labelProgramName.Text += MyLiveOutput.Name;
@@ -146,6 +148,12 @@ namespace AMSExplorer
         private void ProgramInformation_Shown(object sender, EventArgs e)
         {
 
+        }
+
+        private void LiveOutputInformation_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelProgramName, contextMenuStripDG }, e, this);
         }
     }
 }

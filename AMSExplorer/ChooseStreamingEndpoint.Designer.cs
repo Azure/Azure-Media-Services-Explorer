@@ -34,6 +34,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.radioButtonHttps = new System.Windows.Forms.RadioButton();
             this.radioButtonHttp = new System.Windows.Forms.RadioButton();
+            this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.listBoxSE = new System.Windows.Forms.ListBox();
             this.groupBoxForceLocator = new System.Windows.Forms.GroupBox();
             this.listViewFilters = new System.Windows.Forms.ListView();
@@ -54,7 +55,6 @@
             this.label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxPreviewURL = new System.Windows.Forms.TextBox();
-            this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.groupBox4.SuspendLayout();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -82,6 +82,7 @@
             this.groupBox4.Controls.Add(this.radioButtonHttp);
             this.groupBox4.Controls.Add(this.comboBoxPolicyLocators);
             this.groupBox4.Controls.Add(this.listBoxSE);
+            this.groupBox4.ForeColor = System.Drawing.Color.DarkBlue;
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
@@ -89,6 +90,7 @@
             // 
             resources.ApplyResources(this.radioButtonHttps, "radioButtonHttps");
             this.radioButtonHttps.Checked = true;
+            this.radioButtonHttps.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHttps.Name = "radioButtonHttps";
             this.radioButtonHttps.TabStop = true;
             this.radioButtonHttps.UseVisualStyleBackColor = true;
@@ -96,9 +98,18 @@
             // radioButtonHttp
             // 
             resources.ApplyResources(this.radioButtonHttp, "radioButtonHttp");
+            this.radioButtonHttp.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHttp.Name = "radioButtonHttp";
             this.radioButtonHttp.UseVisualStyleBackColor = true;
             this.radioButtonHttp.CheckedChanged += new System.EventHandler(this.radioButtonHttp_CheckedChanged);
+            // 
+            // comboBoxPolicyLocators
+            // 
+            resources.ApplyResources(this.comboBoxPolicyLocators, "comboBoxPolicyLocators");
+            this.comboBoxPolicyLocators.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPolicyLocators.FormattingEnabled = true;
+            this.comboBoxPolicyLocators.Name = "comboBoxPolicyLocators";
+            this.comboBoxPolicyLocators.SelectedIndexChanged += new System.EventHandler(this.comboBoxPolicyLocators_SelectedIndexChanged);
             // 
             // listBoxSE
             // 
@@ -112,6 +123,7 @@
             resources.ApplyResources(this.groupBoxForceLocator, "groupBoxForceLocator");
             this.groupBoxForceLocator.Controls.Add(this.listViewFilters);
             this.groupBoxForceLocator.Controls.Add(this.label8);
+            this.groupBoxForceLocator.ForeColor = System.Drawing.Color.DarkBlue;
             this.groupBoxForceLocator.Name = "groupBoxForceLocator";
             this.groupBoxForceLocator.TabStop = false;
             // 
@@ -129,17 +141,17 @@
             // 
             // label8
             // 
-            resources.ApplyResources(this.label8, "label8");
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.comboBoxBrowser);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // comboBoxBrowser
@@ -162,12 +174,14 @@
             this.groupBox1.Controls.Add(this.radioButtonHLSv4);
             this.groupBox1.Controls.Add(this.radioButtonHLSv3);
             this.groupBox1.Controls.Add(this.radioButtonSmooth);
+            this.groupBox1.ForeColor = System.Drawing.Color.DarkBlue;
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // radioButtonHLSCMAF
             // 
             resources.ApplyResources(this.radioButtonHLSCMAF, "radioButtonHLSCMAF");
+            this.radioButtonHLSCMAF.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHLSCMAF.Name = "radioButtonHLSCMAF";
             this.radioButtonHLSCMAF.UseVisualStyleBackColor = true;
             this.radioButtonHLSCMAF.CheckedChanged += new System.EventHandler(this.radioButtonHLSCMAF_CheckedChanged);
@@ -175,6 +189,7 @@
             // checkBoxNoAudioOnly
             // 
             resources.ApplyResources(this.checkBoxNoAudioOnly, "checkBoxNoAudioOnly");
+            this.checkBoxNoAudioOnly.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxNoAudioOnly.Name = "checkBoxNoAudioOnly";
             this.checkBoxNoAudioOnly.UseVisualStyleBackColor = true;
             this.checkBoxNoAudioOnly.CheckedChanged += new System.EventHandler(this.checkBoxNoAudioOnly_CheckedChanged);
@@ -182,6 +197,7 @@
             // labelaudiotrackname
             // 
             resources.ApplyResources(this.labelaudiotrackname, "labelaudiotrackname");
+            this.labelaudiotrackname.ForeColor = System.Drawing.SystemColors.WindowText;
             this.labelaudiotrackname.Name = "labelaudiotrackname";
             // 
             // textBoxHLSAudioTrackName
@@ -193,6 +209,7 @@
             // radioButtonSmoothLegacy
             // 
             resources.ApplyResources(this.radioButtonSmoothLegacy, "radioButtonSmoothLegacy");
+            this.radioButtonSmoothLegacy.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonSmoothLegacy.Name = "radioButtonSmoothLegacy";
             this.radioButtonSmoothLegacy.UseVisualStyleBackColor = true;
             this.radioButtonSmoothLegacy.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
@@ -200,6 +217,7 @@
             // radioButtonDASHCSF
             // 
             resources.ApplyResources(this.radioButtonDASHCSF, "radioButtonDASHCSF");
+            this.radioButtonDASHCSF.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonDASHCSF.Name = "radioButtonDASHCSF";
             this.radioButtonDASHCSF.UseVisualStyleBackColor = true;
             this.radioButtonDASHCSF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
@@ -207,6 +225,7 @@
             // radioButtonDASHCMAF
             // 
             resources.ApplyResources(this.radioButtonDASHCMAF, "radioButtonDASHCMAF");
+            this.radioButtonDASHCMAF.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonDASHCMAF.Name = "radioButtonDASHCMAF";
             this.radioButtonDASHCMAF.UseVisualStyleBackColor = true;
             this.radioButtonDASHCMAF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
@@ -214,6 +233,7 @@
             // radioButtonHLSv4
             // 
             resources.ApplyResources(this.radioButtonHLSv4, "radioButtonHLSv4");
+            this.radioButtonHLSv4.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHLSv4.Name = "radioButtonHLSv4";
             this.radioButtonHLSv4.UseVisualStyleBackColor = true;
             this.radioButtonHLSv4.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
@@ -221,6 +241,7 @@
             // radioButtonHLSv3
             // 
             resources.ApplyResources(this.radioButtonHLSv3, "radioButtonHLSv3");
+            this.radioButtonHLSv3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHLSv3.Name = "radioButtonHLSv3";
             this.radioButtonHLSv3.UseVisualStyleBackColor = true;
             this.radioButtonHLSv3.CheckedChanged += new System.EventHandler(this.radioButtonHLSv3_CheckedChanged);
@@ -229,6 +250,7 @@
             // 
             resources.ApplyResources(this.radioButtonSmooth, "radioButtonSmooth");
             this.radioButtonSmooth.Checked = true;
+            this.radioButtonSmooth.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonSmooth.Name = "radioButtonSmooth";
             this.radioButtonSmooth.TabStop = true;
             this.radioButtonSmooth.UseVisualStyleBackColor = true;
@@ -251,19 +273,11 @@
             this.textBoxPreviewURL.Name = "textBoxPreviewURL";
             this.textBoxPreviewURL.ReadOnly = true;
             // 
-            // comboBoxPolicyLocators
-            // 
-            resources.ApplyResources(this.comboBoxPolicyLocators, "comboBoxPolicyLocators");
-            this.comboBoxPolicyLocators.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPolicyLocators.FormattingEnabled = true;
-            this.comboBoxPolicyLocators.Name = "comboBoxPolicyLocators";
-            this.comboBoxPolicyLocators.SelectedIndexChanged += new System.EventHandler(this.comboBoxPolicyLocators_SelectedIndexChanged);
-            // 
             // ChooseStreamingEndpoint
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.textBoxPreviewURL);
@@ -275,6 +289,7 @@
             this.Controls.Add(this.groupBox4);
             this.Name = "ChooseStreamingEndpoint";
             this.Load += new System.EventHandler(this.ChooseStreamingEndpoint_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ChooseStreamingEndpoint_DpiChanged);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBoxForceLocator.ResumeLayout(false);

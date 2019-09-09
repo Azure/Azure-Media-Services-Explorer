@@ -65,10 +65,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonImport);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelTitle
@@ -124,15 +124,15 @@
             // 
             // labelNoAssetFilter
             // 
-            resources.ApplyResources(this.labelNoAssetFilter, "labelNoAssetFilter");
             this.labelNoAssetFilter.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelNoAssetFilter, "labelNoAssetFilter");
             this.labelNoAssetFilter.Name = "labelNoAssetFilter";
             // 
             // TransformTypeCreation
             // 
             this.AcceptButton = this.buttonImport;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.labelNoAssetFilter);
@@ -146,6 +146,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "TransformTypeCreation";
             this.Load += new System.EventHandler(this.TransformTypeCreation_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.TransformTypeCreation_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

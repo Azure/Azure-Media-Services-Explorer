@@ -135,6 +135,11 @@ namespace AMSExplorer
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+
             _buttonOk = buttonOk.Text;
             _labelAccurate = labelAccurate.Text;
             _labeloutoutputasset = labeloutputasset.Text;
@@ -332,16 +337,18 @@ namespace AMSExplorer
         {
             RadioButton senderr = sender as RadioButton;
 
-            if ((radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
-                ||
-                (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name)) // asset filtering
+            if (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name) // asset filtering
             {
                 checkBoxTrimming.Checked = true;
                 checkBoxTrimming.Enabled = false;
                 panelJob.Visible = false;
-                UpdateButtonOk();
-                DisplayAccuracy();
-
+            }
+            else if (radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
+            {
+                checkBoxTrimming.Checked = true;
+                checkBoxTrimming.Enabled = false;
+                panelJob.Visible = true;
+                /*
                 if (senderr.Name == radioButtonClipWithReencode.Name) //reencoding
                 {
                     panelEDL.Visible = false; // true;  // no EDL for now in AMS v3
@@ -350,19 +357,19 @@ namespace AMSExplorer
                 {
                     panelEDL.Visible = false;
                 }
+                */
             }
             else if (radioButtonArchiveTopBitrate.Checked && senderr.Name == radioButtonArchiveTopBitrate.Name) // archive top bitrate
-
             {
                 checkBoxTrimming.Checked = backupCheckboxTrim;
                 checkBoxTrimming.Enabled = true;
                 panelJob.Visible = true;
-                UpdateButtonOk();
-                DisplayAccuracy();
-                panelEDL.Visible = true;
+                // panelEDL.Visible = true;
             }
+            UpdateButtonOk();
+            ResetConfigJSON();
+            DisplayAccuracy();
 
-            UpdateJSONInfo();
         }
 
         private void UpdateButtonOk()
@@ -571,12 +578,20 @@ namespace AMSExplorer
                 End = timeControlEnd.TimeStampWithoutOffset,
                 Offset = timeControlStart.GetOffSetAsTimeSpan()
             });
-            //ResetConfigXML();
         }
 
         private void checkBoxUseEDL_CheckedChanged(object sender, EventArgs e)
         {
             buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = checkBoxUseEDL.Checked;
+        }
+
+        private void Subclipping_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            // for controls which are not using the default font
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelGen, timeControlStart, timeControlEnd, textBoxConfiguration }, e, this);
+
+            // to scale the bitmap in the buttons
+            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
         }
     }
 
