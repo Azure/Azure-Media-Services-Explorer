@@ -3662,10 +3662,6 @@ namespace AMSExplorer
             comboBoxSearchLiveEventOption.Items.Add(new Item("Search for live event Id :", SearchIn.LiveEventId.ToString()));
             comboBoxSearchLiveEventOption.SelectedIndex = 0;
 
-            comboBoxSearchProgramOption.Items.Add(new Item("Search in live output name :", SearchIn.LiveOutputName.ToString()));
-            comboBoxSearchProgramOption.Items.Add(new Item("Search for live output Id :", SearchIn.LiveOutputId.ToString()));
-            comboBoxSearchProgramOption.SelectedIndex = 0;
-
             comboBoxOrderAssets.Items.AddRange(
            typeof(OrderAssets)
            .GetFields()
@@ -3708,15 +3704,6 @@ namespace AMSExplorer
                  );
             comboBoxFilterJobsTime.SelectedIndex = 0; // last 50 items
 
-            comboBoxFilterTimeProgram.Items.AddRange(
-                typeof(FilterTime)
-                .GetFields()
-                .Select(i => i.GetValue(null) as string)
-                .ToArray()
-                );
-            comboBoxFilterTimeProgram.SelectedIndex = 0;
-
-
             comboBoxFilterTimeLiveEvent.Items.AddRange(
                 typeof(FilterTime)
                 .GetFields()
@@ -3724,16 +3711,6 @@ namespace AMSExplorer
                 .ToArray()
                 );
             comboBoxFilterTimeLiveEvent.SelectedIndex = 0;
-
-
-            comboBoxStatusProgram.Items.AddRange(
-                typeof(LiveOutputResourceState)
-                .GetFields()
-                .Select(i => i.Name as string)
-                .ToArray()
-                );
-            comboBoxStatusProgram.Items[0] = "All";
-            comboBoxStatusProgram.SelectedIndex = 0;
 
             comboBoxStatusLiveEvent.Items.AddRange(
               typeof(LiveEventResourceState)
@@ -3814,21 +3791,6 @@ namespace AMSExplorer
             textBoxSearchNameLiveEvent.Controls.Add(btnc);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             SendMessage(textBoxSearchNameLiveEvent.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnc.Width << 16));
-
-            // let's add a button to program textbox search
-            Button btnp = new Button
-            {
-                Size = new Size(18, textBoxSearchNameProgram.ClientSize.Height + 2)
-            };
-            btnp.Location = new Point(textBoxSearchNameProgram.ClientSize.Width - btnp.Width, -1);
-            btnp.Anchor = AnchorStyles.Right;
-            btnp.Cursor = Cursors.Default;
-            btnp.Text = "X";
-            btnp.BackColor = SystemColors.Window;
-            btnp.Click += Btnp_Click;
-            textBoxSearchNameProgram.Controls.Add(btnp);
-            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(textBoxSearchNameProgram.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnp.Width << 16));
         }
 
         private void Btna_Click(object sender, EventArgs e)
@@ -3846,15 +3808,9 @@ namespace AMSExplorer
             textBoxSearchNameLiveEvent.Text = string.Empty;
             DoLiveEventSearch();
         }
-        private void Btnp_Click(object sender, EventArgs e)
-        {
-            textBoxSearchNameProgram.Text = string.Empty;
-            DoProgramSearch();
-        }
+
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
-
-
 
         private int GetTextBoxAssetsPageNumber()
         {
@@ -6723,30 +6679,6 @@ namespace AMSExplorer
             }
         }
 
-        private void buttonSetFilterProgram_Click(object sender, EventArgs e)
-        {
-            DoProgramSearch();
-        }
-
-        private void DoProgramSearch()
-        {
-            if (dataGridViewLiveOutputV.Initialized)
-            {
-                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchProgramOption.SelectedItem as Item).Value);
-                dataGridViewLiveOutputV.SearchInName = new SearchObject { Text = textBoxSearchNameProgram.Text, SearchType = stype };
-                DoRefreshGridLiveOutputV(false);
-            }
-        }
-
-        private void comboBoxStatusProgram_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewLiveOutputV.Initialized)
-            {
-                dataGridViewLiveOutputV.FilterState = ((ComboBox)sender).SelectedItem.ToString();
-                DoRefreshGridLiveOutputV(false);
-            }
-        }
-
         private void createStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateStreamingEndpoint();
@@ -7985,29 +7917,6 @@ namespace AMSExplorer
             }
         }
 
-        private void textBoxSearchNameProgram_TextChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(textBoxSearchNameProgram.Text))
-            {
-                CheckboxAnyLiveEventChangedByCode = true;
-                SetRadiobuttonDisplayProgram(backupCheckboxAnyLiveEvent);
-                radioButtonChAll.Enabled = radioButtonChNone.Enabled = radioButtonChSelected.Enabled = true;
-            }
-            else if (radioButtonChAll.Checked) // not empty and checkbox is still enabled
-            {
-                CheckboxAnyLiveEventChangedByCode = true;
-                backupCheckboxAnyLiveEvent = ReturnDisplayProgram();
-                SetRadiobuttonDisplayProgram(enumDisplayProgram.Any);
-                radioButtonChAll.Enabled = radioButtonChNone.Enabled = radioButtonChSelected.Enabled = false;
-            }
-        }
-
-        private void linkLabelFeedbackAMS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(e.Link.LinkData as string);
-        }
-
-
         private void dataGridViewV_ColumnSortModeChanged(object sender, DataGridViewColumnEventArgs e)
         {
             DataGridView DG = (DataGridView)sender;
@@ -8306,15 +8215,6 @@ namespace AMSExplorer
             if (e.KeyCode == Keys.Enter)
             {
                 buttonSetFilterLiveEvent_Click(this, new EventArgs());
-            }
-        }
-
-        private void textBoxSearchNameProgram_KeyDown(object sender, KeyEventArgs e)
-        {
-            // user pressed enter. let's apply the filter
-            if (e.KeyCode == Keys.Enter)
-            {
-                buttonSetFilterProgram_Click(this, new EventArgs());
             }
         }
 

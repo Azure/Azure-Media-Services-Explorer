@@ -206,7 +206,6 @@
             this.labelLiveEvents = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButtonChNone = new System.Windows.Forms.RadioButton();
             this.dataGridViewLiveOutputV = new AMSExplorer.DataGridViewLiveOutput();
             this.contextMenuStripLiveOutputs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -224,17 +223,11 @@
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.radioButtonChAll = new System.Windows.Forms.RadioButton();
-            this.comboBoxSearchProgramOption = new System.Windows.Forms.ComboBox();
-            this.radioButtonChSelected = new System.Windows.Forms.RadioButton();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxSearchNameProgram = new System.Windows.Forms.TextBox();
-            this.buttonSetFilterProgram = new System.Windows.Forms.Button();
-            this.comboBoxStatusProgram = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
             this.labelPrograms = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.radioButtonChSelected = new System.Windows.Forms.RadioButton();
+            this.radioButtonChAll = new System.Windows.Forms.RadioButton();
+            this.radioButtonChNone = new System.Windows.Forms.RadioButton();
             this.tabPageOrigins = new System.Windows.Forms.TabPage();
             this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
             this.contextMenuStripStreaminEndpoints = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -1777,27 +1770,13 @@
             // 
             this.tableLayoutPanel2.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(this.radioButtonChNone, 10, 2);
             this.tableLayoutPanel2.Controls.Add(this.dataGridViewLiveOutputV, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.radioButtonChAll, 9, 2);
-            this.tableLayoutPanel2.Controls.Add(this.comboBoxSearchProgramOption, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.radioButtonChSelected, 8, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label14, 7, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxSearchNameProgram, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.buttonSetFilterProgram, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.comboBoxStatusProgram, 6, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label16, 5, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label15, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(this.comboBoxFilterTimeProgram, 4, 2);
             this.tableLayoutPanel2.Controls.Add(this.labelPrograms, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.radioButtonChSelected, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.radioButtonChAll, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.radioButtonChNone, 3, 2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            // 
-            // radioButtonChNone
-            // 
-            resources.ApplyResources(this.radioButtonChNone, "radioButtonChNone");
-            this.radioButtonChNone.Name = "radioButtonChNone";
-            this.radioButtonChNone.UseVisualStyleBackColor = true;
-            this.radioButtonChNone.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // dataGridViewLiveOutputV
             // 
@@ -1808,7 +1787,7 @@
             this.dataGridViewLiveOutputV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewLiveOutputV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewLiveOutputV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableLayoutPanel2.SetColumnSpan(this.dataGridViewLiveOutputV, 11);
+            this.tableLayoutPanel2.SetColumnSpan(this.dataGridViewLiveOutputV, 4);
             this.dataGridViewLiveOutputV.ContextMenuStrip = this.contextMenuStripLiveOutputs;
             this.dataGridViewLiveOutputV.DisplayLiveEvent = AMSExplorer.enumDisplayProgram.Selected;
             this.dataGridViewLiveOutputV.FilterState = "All";
@@ -1945,19 +1924,15 @@
             resources.ApplyResources(this.withCustomPlayerToolStripMenuItem2, "withCustomPlayerToolStripMenuItem2");
             this.withCustomPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem2_Click);
             // 
-            // radioButtonChAll
+            // labelPrograms
             // 
-            resources.ApplyResources(this.radioButtonChAll, "radioButtonChAll");
-            this.radioButtonChAll.Name = "radioButtonChAll";
-            this.radioButtonChAll.UseVisualStyleBackColor = true;
-            this.radioButtonChAll.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            resources.ApplyResources(this.labelPrograms, "labelPrograms");
+            this.labelPrograms.Name = "labelPrograms";
             // 
-            // comboBoxSearchProgramOption
+            // label14
             // 
-            resources.ApplyResources(this.comboBoxSearchProgramOption, "comboBoxSearchProgramOption");
-            this.comboBoxSearchProgramOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSearchProgramOption.FormattingEnabled = true;
-            this.comboBoxSearchProgramOption.Name = "comboBoxSearchProgramOption";
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
             // 
             // radioButtonChSelected
             // 
@@ -1968,56 +1943,19 @@
             this.radioButtonChSelected.UseVisualStyleBackColor = true;
             this.radioButtonChSelected.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // label14
+            // radioButtonChAll
             // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
+            resources.ApplyResources(this.radioButtonChAll, "radioButtonChAll");
+            this.radioButtonChAll.Name = "radioButtonChAll";
+            this.radioButtonChAll.UseVisualStyleBackColor = true;
+            this.radioButtonChAll.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // textBoxSearchNameProgram
+            // radioButtonChNone
             // 
-            resources.ApplyResources(this.textBoxSearchNameProgram, "textBoxSearchNameProgram");
-            this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
-            this.toolTip1.SetToolTip(this.textBoxSearchNameProgram, resources.GetString("textBoxSearchNameProgram.ToolTip"));
-            this.textBoxSearchNameProgram.TextChanged += new System.EventHandler(this.textBoxSearchNameProgram_TextChanged);
-            this.textBoxSearchNameProgram.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearchNameProgram_KeyDown);
-            // 
-            // buttonSetFilterProgram
-            // 
-            resources.ApplyResources(this.buttonSetFilterProgram, "buttonSetFilterProgram");
-            this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
-            this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
-            this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
-            // 
-            // comboBoxStatusProgram
-            // 
-            resources.ApplyResources(this.comboBoxStatusProgram, "comboBoxStatusProgram");
-            this.comboBoxStatusProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStatusProgram.FormattingEnabled = true;
-            this.comboBoxStatusProgram.Name = "comboBoxStatusProgram";
-            this.comboBoxStatusProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusProgram_SelectedIndexChanged);
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // comboBoxFilterTimeProgram
-            // 
-            resources.ApplyResources(this.comboBoxFilterTimeProgram, "comboBoxFilterTimeProgram");
-            this.comboBoxFilterTimeProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterTimeProgram.FormattingEnabled = true;
-            this.comboBoxFilterTimeProgram.Name = "comboBoxFilterTimeProgram";
-            this.comboBoxFilterTimeProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxTimeProgram_SelectedIndexChanged);
-            // 
-            // labelPrograms
-            // 
-            resources.ApplyResources(this.labelPrograms, "labelPrograms");
-            this.labelPrograms.Name = "labelPrograms";
+            resources.ApplyResources(this.radioButtonChNone, "radioButtonChNone");
+            this.radioButtonChNone.Name = "radioButtonChNone";
+            this.radioButtonChNone.UseVisualStyleBackColor = true;
+            this.radioButtonChNone.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // tabPageOrigins
             // 
@@ -3032,13 +2970,7 @@
         private System.Windows.Forms.Label labelLiveEvents;
         private DataGridViewLiveEvent dataGridViewLiveEventsV;
         private System.Windows.Forms.Label labelPrograms;
-        private System.Windows.Forms.Label label15;
         private DataGridViewLiveOutput dataGridViewLiveOutputV;
-        private System.Windows.Forms.ComboBox comboBoxFilterTimeProgram;
-        private System.Windows.Forms.ComboBox comboBoxStatusProgram;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button buttonSetFilterProgram;
-        private System.Windows.Forms.TextBox textBoxSearchNameProgram;
         private System.Windows.Forms.Button buttonSetFilterLiveEvent;
         private System.Windows.Forms.TextBox textBoxSearchNameLiveEvent;
         private System.Windows.Forms.Label label24;
@@ -3065,7 +2997,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator37;
         private System.Windows.Forms.ComboBox comboBoxSearchAssetOption;
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
-        private System.Windows.Forms.ComboBox comboBoxSearchProgramOption;
         private System.Windows.Forms.ComboBox comboBoxSearchLiveEventOption;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyReportToClipboardToolStripMenuItem;
