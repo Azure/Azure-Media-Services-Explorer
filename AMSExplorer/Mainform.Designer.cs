@@ -36,13 +36,8 @@
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
-            this.textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBoxSearchAssetOption = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
-            this.buttonAssetSearch = new System.Windows.Forms.Button();
-            this.textBoxAssetSearch = new System.Windows.Forms.TextBox();
-            this.butPrevPageAsset = new System.Windows.Forms.Button();
             this.dataGridViewAssetsV = new AMSExplorer.DataGridViewAssets();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,10 +92,16 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxOrderAssets = new System.Windows.Forms.ComboBox();
+            this.textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
             this.butNextPageAsset = new System.Windows.Forms.Button();
+            this.textBoxAssetSearch = new System.Windows.Forms.TextBox();
+            this.butPrevPageAsset = new System.Windows.Forms.Button();
+            this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBoxOrderAssets = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonAssetSearch = new System.Windows.Forms.Button();
             this.tabPageFilters = new System.Windows.Forms.TabPage();
             this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
             this.contextMenuStripFilters = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -341,13 +342,13 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).BeginInit();
             this.contextMenuStripAssets.SuspendLayout();
             this.tabPageFilters.SuspendLayout();
@@ -391,7 +392,6 @@
             this.menuStripMain.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panelButtons.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerMain
@@ -431,10 +431,22 @@
             resources.ApplyResources(this.tabPageAssets, "tabPageAssets");
             this.tabPageAssets.Name = "tabPageAssets";
             // 
-            // textBoxAssetsPageNumber
+            // tableLayoutPanel5
             // 
-            resources.ApplyResources(this.textBoxAssetsPageNumber, "textBoxAssetsPageNumber");
-            this.textBoxAssetsPageNumber.Name = "textBoxAssetsPageNumber";
+            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxSearchAssetOption, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.dataGridViewAssetsV, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBoxAssetsPageNumber, 9, 1);
+            this.tableLayoutPanel5.Controls.Add(this.butNextPageAsset, 10, 1);
+            this.tableLayoutPanel5.Controls.Add(this.textBoxAssetSearch, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.butPrevPageAsset, 8, 1);
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxFilterAssetsTime, 4, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label10, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.comboBoxOrderAssets, 6, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label1, 7, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label3, 5, 1);
+            this.tableLayoutPanel5.Controls.Add(this.buttonAssetSearch, 2, 1);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             // 
             // comboBoxSearchAssetOption
             // 
@@ -442,40 +454,6 @@
             this.comboBoxSearchAssetOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSearchAssetOption.FormattingEnabled = true;
             this.comboBoxSearchAssetOption.Name = "comboBoxSearchAssetOption";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // comboBoxFilterAssetsTime
-            // 
-            resources.ApplyResources(this.comboBoxFilterAssetsTime, "comboBoxFilterAssetsTime");
-            this.comboBoxFilterAssetsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterAssetsTime.FormattingEnabled = true;
-            this.comboBoxFilterAssetsTime.Name = "comboBoxFilterAssetsTime";
-            this.comboBoxFilterAssetsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTime_SelectedIndexChanged);
-            // 
-            // buttonAssetSearch
-            // 
-            resources.ApplyResources(this.buttonAssetSearch, "buttonAssetSearch");
-            this.buttonAssetSearch.Name = "buttonAssetSearch";
-            this.buttonAssetSearch.UseVisualStyleBackColor = true;
-            this.buttonAssetSearch.Click += new System.EventHandler(this.buttonAssetSearch_Click);
-            // 
-            // textBoxAssetSearch
-            // 
-            resources.ApplyResources(this.textBoxAssetSearch, "textBoxAssetSearch");
-            this.textBoxAssetSearch.Name = "textBoxAssetSearch";
-            this.toolTip1.SetToolTip(this.textBoxAssetSearch, resources.GetString("textBoxAssetSearch.ToolTip"));
-            this.textBoxAssetSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAssetSearch_KeyDown);
-            // 
-            // butPrevPageAsset
-            // 
-            resources.ApplyResources(this.butPrevPageAsset, "butPrevPageAsset");
-            this.butPrevPageAsset.Name = "butPrevPageAsset";
-            this.butPrevPageAsset.UseVisualStyleBackColor = true;
-            this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
             // 
             // dataGridViewAssetsV
             // 
@@ -887,10 +865,44 @@
             resources.ApplyResources(this.withCustomPlayerToolStripMenuItem1, "withCustomPlayerToolStripMenuItem1");
             this.withCustomPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem1_Click);
             // 
-            // label3
+            // textBoxAssetsPageNumber
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.textBoxAssetsPageNumber, "textBoxAssetsPageNumber");
+            this.textBoxAssetsPageNumber.Name = "textBoxAssetsPageNumber";
+            // 
+            // butNextPageAsset
+            // 
+            resources.ApplyResources(this.butNextPageAsset, "butNextPageAsset");
+            this.butNextPageAsset.Name = "butNextPageAsset";
+            this.butNextPageAsset.UseVisualStyleBackColor = true;
+            this.butNextPageAsset.Click += new System.EventHandler(this.butNextPageAsset_Click);
+            // 
+            // textBoxAssetSearch
+            // 
+            resources.ApplyResources(this.textBoxAssetSearch, "textBoxAssetSearch");
+            this.textBoxAssetSearch.Name = "textBoxAssetSearch";
+            this.toolTip1.SetToolTip(this.textBoxAssetSearch, resources.GetString("textBoxAssetSearch.ToolTip"));
+            this.textBoxAssetSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAssetSearch_KeyDown);
+            // 
+            // butPrevPageAsset
+            // 
+            resources.ApplyResources(this.butPrevPageAsset, "butPrevPageAsset");
+            this.butPrevPageAsset.Name = "butPrevPageAsset";
+            this.butPrevPageAsset.UseVisualStyleBackColor = true;
+            this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
+            // 
+            // comboBoxFilterAssetsTime
+            // 
+            resources.ApplyResources(this.comboBoxFilterAssetsTime, "comboBoxFilterAssetsTime");
+            this.comboBoxFilterAssetsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterAssetsTime.FormattingEnabled = true;
+            this.comboBoxFilterAssetsTime.Name = "comboBoxFilterAssetsTime";
+            this.comboBoxFilterAssetsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTime_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
             // 
             // comboBoxOrderAssets
             // 
@@ -900,17 +912,22 @@
             this.comboBoxOrderAssets.Name = "comboBoxOrderAssets";
             this.comboBoxOrderAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderAssets_SelectedIndexChanged);
             // 
-            // butNextPageAsset
-            // 
-            resources.ApplyResources(this.butNextPageAsset, "butNextPageAsset");
-            this.butNextPageAsset.Name = "butNextPageAsset";
-            this.butNextPageAsset.UseVisualStyleBackColor = true;
-            this.butNextPageAsset.Click += new System.EventHandler(this.butNextPageAsset_Click);
-            // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // buttonAssetSearch
+            // 
+            resources.ApplyResources(this.buttonAssetSearch, "buttonAssetSearch");
+            this.buttonAssetSearch.Name = "buttonAssetSearch";
+            this.buttonAssetSearch.UseVisualStyleBackColor = true;
+            this.buttonAssetSearch.Click += new System.EventHandler(this.buttonAssetSearch_Click);
             // 
             // tabPageFilters
             // 
@@ -2755,23 +2772,6 @@
             resources.ApplyResources(this.panelButtons, "panelButtons");
             this.panelButtons.Name = "panelButtons";
             // 
-            // tableLayoutPanel5
-            // 
-            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.comboBoxSearchAssetOption, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.dataGridViewAssetsV, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.textBoxAssetsPageNumber, 9, 1);
-            this.tableLayoutPanel5.Controls.Add(this.butNextPageAsset, 10, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBoxAssetSearch, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.butPrevPageAsset, 8, 1);
-            this.tableLayoutPanel5.Controls.Add(this.comboBoxFilterAssetsTime, 4, 1);
-            this.tableLayoutPanel5.Controls.Add(this.label10, 3, 1);
-            this.tableLayoutPanel5.Controls.Add(this.comboBoxOrderAssets, 6, 1);
-            this.tableLayoutPanel5.Controls.Add(this.label1, 7, 1);
-            this.tableLayoutPanel5.Controls.Add(this.label3, 5, 1);
-            this.tableLayoutPanel5.Controls.Add(this.buttonAssetSearch, 2, 1);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -2794,6 +2794,8 @@
             this.splitContainerMain.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabPageAssets.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
             this.contextMenuStripAssets.ResumeLayout(false);
             this.tabPageFilters.ResumeLayout(false);
@@ -2844,8 +2846,6 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panelButtons.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

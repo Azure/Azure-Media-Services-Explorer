@@ -4471,7 +4471,16 @@ namespace AMSExplorer
             if (currentForm != null) currentForm.SuspendLayout();
             Debug.Print($"Old DPI: {e.DeviceDpiOld}, new DPI {e.DeviceDpiNew}");
             float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
-            controls.ForEach(c => c.Font = new Font(c.Font.Name, c.Font.Size * factor));
+            foreach (var c in controls)
+            {
+                c.Font = new Font(c.Font.Name, c.Font.Size * factor);
+                if (c.GetType() == typeof(MenuStrip) || c.GetType() == typeof(ContextMenuStrip))// if menu  control
+                {
+                    var sizevar = Convert.ToInt32(16f * (float)e.DeviceDpiNew / 96f);
+                    (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);
+                }
+            }
+            //controls.ForEach(c => c.Font = new Font(c.Font.Name, c.Font.Size * factor));
             if (currentForm != null) currentForm.ResumeLayout();
         }
     }
@@ -4558,6 +4567,8 @@ namespace AMSExplorer
 
         public static System.Drawing.Image ScaleImage(System.Drawing.Image image, float dpiScale)
         {
+            if (image == null) return null;
+
             var newSize = ScaleSize(image.Size, dpiScale);
             var newBitmap = new Bitmap(newSize.Width, newSize.Height);
 

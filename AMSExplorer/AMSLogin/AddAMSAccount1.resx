@@ -316,7 +316,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonAddManual.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 153</value>
+    <value>20, 167</value>
   </data>
   <data name="radioButtonAddManual.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 19</value>
@@ -366,23 +366,20 @@
   <data name="linkLabelAzCliDoc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="linkLabelAzCliDoc.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="linkLabelAzCliDoc.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="linkLabelAzCliDoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>382, 112</value>
+    <value>40, 132</value>
   </data>
   <data name="linkLabelAzCliDoc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 15</value>
+    <value>90, 15</value>
   </data>
   <data name="linkLabelAzCliDoc.TabIndex" type="System.Int32, mscorlib">
     <value>64</value>
   </data>
   <data name="linkLabelAzCliDoc.Text" xml:space="preserve">
-    <value>documentation</value>
+    <value>Documentation</value>
   </data>
   <data name="&gt;&gt;linkLabelAzCliDoc.Name" xml:space="preserve">
     <value>linkLabelAzCliDoc</value>

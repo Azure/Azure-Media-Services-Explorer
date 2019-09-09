@@ -300,6 +300,8 @@ namespace AMSExplorer
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
+            float scale = DeviceDpi / 96f;
+
             IEnumerable<LiveOutputEntry> programquery = from c in (LOList)
                                                             //orderby c.LastModified descending
                                                         select new LiveOutputEntry
@@ -309,7 +311,7 @@ namespace AMSExplorer
                                                             Description = c.LiveOutputItem.Description,
                                                             ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
                                                             LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
-                                                            Published = DataGridViewAssets.BuildBitmapPublication(c.LiveOutputItem.AssetName, _client).bitmap,
+                                                            Published = (Bitmap)HighDpiHelper.ScaleImage(DataGridViewAssets.BuildBitmapPublication(c.LiveOutputItem.AssetName, _client).bitmap, scale),
                                                             LiveEventName = c.LiveEventName
                                                         };
 

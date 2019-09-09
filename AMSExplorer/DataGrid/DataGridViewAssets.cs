@@ -164,7 +164,7 @@ namespace AMSExplorer
             {
                 DefaultCellStyle = cellstyle,
                 Name = _dynEnc,
-                DataPropertyName = _dynEnc,
+                DataPropertyName = _dynEnc
             };
             Columns.Add(imageCol3);
 
@@ -314,13 +314,11 @@ namespace AMSExplorer
                             AE.AssetWarning = (AE.SizeLong == 0);
                         }
 
-
                         assetBitmapAndText = BuildBitmapDynEncryption(asset.Name, _client);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.DynamicEncryption = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
                         }
-
 
                         //AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
 
@@ -760,25 +758,25 @@ Properties/StorageId
             {
                 if (ClearEnable)
                 {
-                    graphicsObject.DrawImage(clearimage, new Point(x, 0));
+                    graphicsObject.DrawImageUnscaled(clearimage, x, 0);// new Point(x, 0));
                     x += envelopeencryptedimage.Width;
                 }
 
                 if (EnvelopeEnable)
                 {
-                    graphicsObject.DrawImage(envelopeencryptedimage, new Point(x, 0));
+                    graphicsObject.DrawImageUnscaled(envelopeencryptedimage, x, 0);//  new Point(x, 0));
                     x += envelopeencryptedimage.Width;
                 }
 
                 if (CENCEnable)
                 {
-                    graphicsObject.DrawImage(CENCencryptedimage, new Point(x, 0));
+                    graphicsObject.DrawImageUnscaled(CENCencryptedimage, x, 0);// new Point(x, 0));
                     x += CENCencryptedimage.Width;
                 }
 
                 if (CENCCbcsEnable)
                 {
-                    graphicsObject.DrawImage(CENCcbcsEncryptedImage, new Point(x, 0));
+                    graphicsObject.DrawImageUnscaled(CENCcbcsEncryptedImage, x, 0);//  new Point(x, 0));
                     x += CENCcbcsEncryptedImage.Width;
                 }
             }

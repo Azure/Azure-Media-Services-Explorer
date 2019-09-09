@@ -142,7 +142,7 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxSearchAssetOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 407</value>
+    <value>3, 396</value>
   </data>
   <data name="comboBoxSearchAssetOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 23</value>
@@ -674,7 +674,7 @@
     <value>3, 3</value>
   </data>
   <data name="dataGridViewAssetsV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>994, 397</value>
+    <value>994, 387</value>
   </data>
   <data name="dataGridViewAssetsV.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -692,13 +692,13 @@
     <value>1</value>
   </data>
   <data name="textBoxAssetsPageNumber.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+    <value>Left, Right</value>
   </data>
   <data name="textBoxAssetsPageNumber.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="textBoxAssetsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>938, 406</value>
+    <value>938, 401</value>
   </data>
   <data name="textBoxAssetsPageNumber.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 23</value>
@@ -725,13 +725,13 @@
     <value>2</value>
   </data>
   <data name="butNextPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+    <value>Right</value>
   </data>
   <data name="butNextPageAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="butNextPageAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>969, 406</value>
+    <value>969, 401</value>
   </data>
   <data name="butNextPageAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -758,7 +758,7 @@
     <value>Left, Right</value>
   </data>
   <data name="textBoxAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>159, 406</value>
+    <value>159, 401</value>
   </data>
   <data name="textBoxAssetSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>249, 23</value>
@@ -785,13 +785,13 @@
     <value>4</value>
   </data>
   <data name="butPrevPageAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+    <value>Right</value>
   </data>
   <data name="butPrevPageAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="butPrevPageAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>904, 406</value>
+    <value>904, 401</value>
   </data>
   <data name="butPrevPageAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 23</value>
@@ -818,7 +818,7 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>519, 407</value>
+    <value>519, 396</value>
   </data>
   <data name="comboBoxFilterAssetsTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 23</value>
@@ -848,7 +848,7 @@
     <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>474, 410</value>
+    <value>474, 405</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -875,7 +875,7 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxOrderAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>722, 407</value>
+    <value>722, 396</value>
   </data>
   <data name="comboBoxOrderAssets.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 23</value>
@@ -905,7 +905,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>859, 410</value>
+    <value>859, 405</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -938,7 +938,7 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>657, 410</value>
+    <value>657, 405</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -968,7 +968,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAssetSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>414, 406</value>
+    <value>414, 401</value>
   </data>
   <data name="buttonAssetSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -1342,7 +1342,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelTransfers.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label8" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewTransfer" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="trackBarConcurrentTransfers" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelConcurrentTransfers" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,6,08365,Percent,93,91635,Absolute,56,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label8" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewTransfer" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="trackBarConcurrentTransfers" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelConcurrentTransfers" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,6.08365,Percent,93.91635,Absolute,56,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabPageTransfers.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 27</value>
@@ -1519,7 +1519,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewTransformsV" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="label7" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,13,96648,Percent,86,03352" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewTransformsV" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="label7" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,13.96648,Percent,86.03352" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerTransformJobs.Panel1.Name" xml:space="preserve">
     <value>splitContainerTransformJobs.Panel1</value>
@@ -1546,7 +1546,7 @@
     <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 214</value>
+    <value>225, 214</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -1612,7 +1612,7 @@
     <value>False</value>
   </data>
   <data name="textBoxJobsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>880, 171</value>
+    <value>875, 171</value>
   </data>
   <data name="textBoxJobsPageNumber.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 23</value>
@@ -1883,7 +1883,7 @@
     <value>NoControl</value>
   </data>
   <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>911, 172</value>
+    <value>906, 172</value>
   </data>
   <data name="butNextPageJob.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 21</value>
@@ -1913,7 +1913,7 @@
     <value>False</value>
   </data>
   <data name="comboBoxSearchJobOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 171</value>
+    <value>3, 169</value>
   </data>
   <data name="comboBoxSearchJobOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>114, 23</value>
@@ -1943,7 +1943,7 @@
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 175</value>
+    <value>334, 175</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -1973,7 +1973,7 @@
     <value>NoControl</value>
   </data>
   <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>844, 172</value>
+    <value>839, 172</value>
   </data>
   <data name="butPrevPageJob.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 21</value>
@@ -2000,10 +2000,10 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>523, 172</value>
+    <value>520, 169</value>
   </data>
   <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 23</value>
+    <value>85, 23</value>
   </data>
   <data name="comboBoxStateJobs.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -2030,7 +2030,7 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>474, 175</value>
+    <value>471, 175</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2066,7 +2066,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>799, 175</value>
+    <value>794, 175</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2099,7 +2099,7 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>615, 175</value>
+    <value>611, 175</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -2126,10 +2126,10 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxOrderJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>681, 172</value>
+    <value>677, 169</value>
   </data>
   <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 23</value>
+    <value>85, 23</value>
   </data>
   <data name="comboBoxOrderJobs.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -2150,10 +2150,10 @@
     <value>Left, Right</value>
   </data>
   <data name="comboBoxFilterJobsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>382, 172</value>
+    <value>380, 169</value>
   </data>
   <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 23</value>
+    <value>85, 23</value>
   </data>
   <data name="comboBoxFilterJobsTime.TabIndex" type="System.Int32, mscorlib">
     <value>44</value>
@@ -2180,7 +2180,7 @@
     <value>123, 171</value>
   </data>
   <data name="textBoxJobSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 23</value>
+    <value>147, 23</value>
   </data>
   <data name="textBoxJobSearch.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -2210,7 +2210,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonJobSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 172</value>
+    <value>276, 172</value>
   </data>
   <data name="buttonJobSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 21</value>
@@ -2273,7 +2273,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelnbunits.Location" type="System.Drawing.Point, System.Drawing">
-    <value>779, 214</value>
+    <value>774, 214</value>
   </data>
   <data name="labelnbunits.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 15</value>
@@ -2300,16 +2300,16 @@
     <value>17</value>
   </data>
   <data name="trackBarEncodingRU.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+    <value>Left, Right</value>
   </data>
   <data name="trackBarEncodingRU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="trackBarEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 203</value>
+    <value>334, 203</value>
   </data>
   <data name="trackBarEncodingRU.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 37</value>
+    <value>428, 37</value>
   </data>
   <data name="trackBarEncodingRU.TabIndex" type="System.Int32, mscorlib">
     <value>55</value>
@@ -2367,7 +2367,7 @@ Units (v2 API)</value>
     <value>Left</value>
   </data>
   <data name="comboBoxEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 210</value>
+    <value>276, 205</value>
   </data>
   <data name="comboBoxEncodingRU.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 23</value>
@@ -2415,7 +2415,7 @@ Units (v2 API)</value>
     <value>0</value>
   </data>
   <data name="tableLayoutPanel4.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label13" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobsPageNumber" Row="2" RowSpan="1" Column="11" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewJobsV" Row="1" RowSpan="1" Column="0" ColumnSpan="13" /&gt;&lt;Control Name="butNextPageJob" Row="2" RowSpan="1" Column="12" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchJobOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="butPrevPageJob" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStateJobs" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label2" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="label4" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOrderJobs" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterJobsTime" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobSearch" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonJobSearch" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonUpdateEncodingRU" Row="3" RowSpan="1" Column="11" ColumnSpan="2" /&gt;&lt;Control Name="labelnbunits" Row="3" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="trackBarEncodingRU" Row="3" RowSpan="1" Column="3" ColumnSpan="6" /&gt;&lt;Control Name="label22" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxEncodingRU" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,120,Percent,35,71429,Absolute,58,Absolute,46,Percent,21,42857,Absolute,49,Percent,21,42857,Absolute,66,Percent,21,42857,Absolute,71,Absolute,34,Absolute,33,Absolute,85" /&gt;&lt;Rows Styles="Percent,13,4715,Percent,86,5285,Absolute,34,Absolute,42" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label13" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobsPageNumber" Row="2" RowSpan="1" Column="11" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewJobsV" Row="1" RowSpan="1" Column="0" ColumnSpan="13" /&gt;&lt;Control Name="butNextPageJob" Row="2" RowSpan="1" Column="12" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchJobOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="butPrevPageJob" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStateJobs" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label2" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="label4" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOrderJobs" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterJobsTime" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="textBoxJobSearch" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonJobSearch" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonUpdateEncodingRU" Row="3" RowSpan="1" Column="11" ColumnSpan="2" /&gt;&lt;Control Name="labelnbunits" Row="3" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="trackBarEncodingRU" Row="3" RowSpan="1" Column="3" ColumnSpan="6" /&gt;&lt;Control Name="label22" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxEncodingRU" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,120,Percent,35.71429,Absolute,58,Absolute,46,Percent,21.42857,Absolute,49,Percent,21.42857,Absolute,66,Percent,21.42857,Absolute,71,Absolute,34,Absolute,33,Absolute,90" /&gt;&lt;Rows Styles="Percent,13.4715,Percent,86.5285,Absolute,34,Absolute,42" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerTransformJobs.Panel2.Name" xml:space="preserve">
     <value>splitContainerTransformJobs.Panel2</value>
@@ -2708,10 +2708,10 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>811, 186</value>
+    <value>809, 185</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 23</value>
+    <value>184, 23</value>
   </data>
   <data name="comboBoxStatusLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
@@ -2741,7 +2741,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
-    <value>760, 189</value>
+    <value>758, 189</value>
   </data>
   <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -2771,7 +2771,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>616, 186</value>
+    <value>614, 185</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 23</value>
@@ -2801,7 +2801,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>492, 186</value>
+    <value>490, 186</value>
   </data>
   <data name="buttonSetFilterLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -2831,10 +2831,10 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="textBoxSearchNameLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 186</value>
+    <value>142, 186</value>
   </data>
   <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 23</value>
+    <value>342, 23</value>
   </data>
   <data name="textBoxSearchNameLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
@@ -2861,10 +2861,10 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 186</value>
+    <value>3, 185</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 23</value>
+    <value>133, 23</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
@@ -2927,7 +2927,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>571, 189</value>
+    <value>569, 189</value>
   </data>
   <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -2978,7 +2978,7 @@ Units (v2 API)</value>
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewLiveEventsV" Row="1" RowSpan="1" Column="0" ColumnSpan="7" /&gt;&lt;Control Name="comboBoxStatusLiveEvent" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label25" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeLiveEvent" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterLiveEvent" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameLiveEvent" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchLiveEventOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLiveEvents" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label24" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,28,67924,Percent,71,32076,Absolute,69,Absolute,55,Absolute,123,Absolute,72,Absolute,187" /&gt;&lt;Rows Styles="Percent,13,18681,Percent,86,81319,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewLiveEventsV" Row="1" RowSpan="1" Column="0" ColumnSpan="7" /&gt;&lt;Control Name="comboBoxStatusLiveEvent" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label25" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeLiveEvent" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterLiveEvent" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameLiveEvent" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchLiveEventOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLiveEvents" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label24" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,28.67924,Percent,71.32076,Absolute,69,Absolute,55,Absolute,123,Absolute,72,Absolute,189" /&gt;&lt;Rows Styles="Percent,13.18681,Percent,86.81319,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerLive.Panel1.Name" xml:space="preserve">
     <value>splitContainerLive.Panel1</value>
@@ -3005,7 +3005,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="radioButtonChNone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>887, 183</value>
+    <value>885, 183</value>
   </data>
   <data name="radioButtonChNone.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 19</value>
@@ -3226,7 +3226,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="radioButtonChAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>835, 183</value>
+    <value>833, 183</value>
   </data>
   <data name="radioButtonChAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 19</value>
@@ -3259,7 +3259,7 @@ Units (v2 API)</value>
     <value>3, 181</value>
   </data>
   <data name="comboBoxSearchProgramOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 23</value>
+    <value>121, 23</value>
   </data>
   <data name="comboBoxSearchProgramOption.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -3286,7 +3286,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="radioButtonChSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>753, 183</value>
+    <value>751, 183</value>
   </data>
   <data name="radioButtonChSelected.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 19</value>
@@ -3319,7 +3319,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>680, 185</value>
+    <value>678, 185</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 15</value>
@@ -3349,10 +3349,10 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="textBoxSearchNameProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, 182</value>
+    <value>130, 182</value>
   </data>
   <data name="textBoxSearchNameProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>101, 23</value>
   </data>
   <data name="textBoxSearchNameProgram.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
@@ -3382,7 +3382,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="buttonSetFilterProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>239, 181</value>
+    <value>237, 181</value>
   </data>
   <data name="buttonSetFilterProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 23</value>
@@ -3412,7 +3412,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxStatusProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>545, 182</value>
+    <value>543, 181</value>
   </data>
   <data name="comboBoxStatusProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 23</value>
@@ -3445,7 +3445,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>494, 185</value>
+    <value>492, 185</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 15</value>
@@ -3481,7 +3481,7 @@ Units (v2 API)</value>
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>307, 185</value>
+    <value>305, 185</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -3511,7 +3511,7 @@ Units (v2 API)</value>
     <value>False</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 182</value>
+    <value>350, 181</value>
   </data>
   <data name="comboBoxFilterTimeProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 23</value>
@@ -3592,7 +3592,7 @@ Units (v2 API)</value>
     <value>0</value>
   </data>
   <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="radioButtonChNone" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewLiveOutputV" Row="1" RowSpan="1" Column="0" ColumnSpan="11" /&gt;&lt;Control Name="radioButtonChAll" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchProgramOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonChSelected" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="label14" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameProgram" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterProgram" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStatusProgram" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label16" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label15" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeProgram" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="labelPrograms" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,54,15162,Percent,45,84838,Absolute,66,Absolute,47,Absolute,135,Absolute,58,Absolute,132,Absolute,76,Absolute,82,Absolute,52,Absolute,111" /&gt;&lt;Rows Styles="Percent,13,48315,Percent,86,51685,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="radioButtonChNone" Row="2" RowSpan="1" Column="10" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewLiveOutputV" Row="1" RowSpan="1" Column="0" ColumnSpan="11" /&gt;&lt;Control Name="radioButtonChAll" Row="2" RowSpan="1" Column="9" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxSearchProgramOption" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonChSelected" Row="2" RowSpan="1" Column="8" ColumnSpan="1" /&gt;&lt;Control Name="label14" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="textBoxSearchNameProgram" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="buttonSetFilterProgram" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxStatusProgram" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="label16" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="label15" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxFilterTimeProgram" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="labelPrograms" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,54.15162,Percent,45.84838,Absolute,66,Absolute,47,Absolute,135,Absolute,58,Absolute,132,Absolute,76,Absolute,82,Absolute,52,Absolute,113" /&gt;&lt;Rows Styles="Percent,13.48315,Percent,86.51685,Absolute,29" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainerLive.Panel2.Name" xml:space="preserve">
     <value>splitContainerLive.Panel2</value>
