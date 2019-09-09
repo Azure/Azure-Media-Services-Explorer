@@ -1,4 +1,4 @@
-Version 4.3.8.0 (August 23, 2019) brings the following features and improvements :
+Version 4.3.9.0 (September 9, 2019) brings the following features and improvements :
 
-* Updated the query to list JPG assets for Slate insertion with live encoding channels
+* Retirement notice for some processors
 * Updated offline documentation
