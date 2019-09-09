@@ -1906,10 +1906,10 @@
 		<row><td>amsexplorer.content_files</td><td>AMSExplorer.Content_Files</td><td>AMSExplorer.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>amsexplorer.localized_resour</td><td>AMSExplorer.Localized_resources</td><td>AMSExplorer.Localized resources</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|LocalizedResourceDlls</td><td>3</td><td/></row>
 		<row><td>amsexplorer.primary_output</td><td>AMSExplorer.Primary_output</td><td>AMSExplorer.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|Built</td><td>3</td><td/></row>
-		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>system.io.dll</td><td>System.IO.dll</td><td>SYSTEM~1.DLL|System.IO.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.IO.dll</td><td>1</td><td/></row>
-		<row><td>system.net.http.dll</td><td>System.Net.Http.dll</td><td>SYSTEM~1.DLL|System.Net.Http.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Net.Http.dll</td><td>1</td><td/></row>
-		<row><td>system.runtime.dll</td><td>System.Runtime.dll</td><td>SYSTEM~1.DLL|System.Runtime.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Runtime.dll</td><td>1</td><td/></row>
+		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
+		<row><td>system.io.dll</td><td>System.IO.dll</td><td>SYSTEM~1.DLL|System.IO.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.IO.dll</td><td>1</td><td/></row>
+		<row><td>system.net.http.dll</td><td>System.Net.Http.dll</td><td>SYSTEM~1.DLL|System.Net.Http.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Net.Http.dll</td><td>1</td><td/></row>
+		<row><td>system.runtime.dll</td><td>System.Runtime.dll</td><td>SYSTEM~1.DLL|System.Runtime.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Runtime.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -4480,7 +4480,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{1A92558D-D9F3-4A74-8A68-B34E330289B2}</td><td/></row>
+		<row><td>ProductCode</td><td>{5A45F023-FB5D-4B4B-947A-57789DCC79F2}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer for v3</td><td/></row>
 		<row><td>ProductVersion</td><td>5.0.10.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>

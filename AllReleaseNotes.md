@@ -1,3 +1,10 @@
+Version 5.0.10.0 (September 9, 2019) brings the following features and improvements :
+
+* Subclipping (preview) - for live and vod, with codec copy or transcoding
+* Better High DPI support (for Windows 10), several UI updates
+* Bug fixes
+
+
 Version 5.0.9.0 (August 23, 2019) brings the following features and improvements :
 
 * Adds an option to create an Audio and Video streams copy preset for Media Encoder Standard
