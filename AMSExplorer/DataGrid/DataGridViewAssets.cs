@@ -743,7 +743,6 @@ Properties/StorageId
             bool CENCCbcsEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
             bool EnvelopeEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey);
 
-
             int count = (ClearEnable ? 1 : 0) + (CENCEnable ? 1 : 0) + (CENCCbcsEnable ? 1 : 0) + (EnvelopeEnable ? 1 : 0);
 
             if (count == 0)
@@ -751,35 +750,29 @@ Properties/StorageId
                 return new AssetBitmapAndText();
             }
 
-            ABT.bitmap = new Bitmap((envelopeencryptedimage.Width * count), envelopeencryptedimage.Height);
-            int x = 0;
+            Bitmap returnedImage = null;
 
-            using (Graphics graphicsObject = Graphics.FromImage(ABT.bitmap))
+            if (ClearEnable)
             {
-                if (ClearEnable)
-                {
-                    graphicsObject.DrawImageUnscaled(clearimage, x, 0);// new Point(x, 0));
-                    x += envelopeencryptedimage.Width;
-                }
-
-                if (EnvelopeEnable)
-                {
-                    graphicsObject.DrawImageUnscaled(envelopeencryptedimage, x, 0);//  new Point(x, 0));
-                    x += envelopeencryptedimage.Width;
-                }
-
-                if (CENCEnable)
-                {
-                    graphicsObject.DrawImageUnscaled(CENCencryptedimage, x, 0);// new Point(x, 0));
-                    x += CENCencryptedimage.Width;
-                }
-
-                if (CENCCbcsEnable)
-                {
-                    graphicsObject.DrawImageUnscaled(CENCcbcsEncryptedImage, x, 0);//  new Point(x, 0));
-                    x += CENCcbcsEncryptedImage.Width;
-                }
+                returnedImage = AddBitmap(returnedImage, clearimage);
             }
+
+            if (EnvelopeEnable)
+            {
+                returnedImage = AddBitmap(returnedImage, envelopeencryptedimage);
+            }
+
+            if (CENCEnable)
+            {
+                returnedImage = AddBitmap(returnedImage, CENCencryptedimage);
+            }
+
+            if (CENCCbcsEnable)
+            {
+                returnedImage = AddBitmap(returnedImage, CENCcbcsEncryptedImage);
+            }
+
+            ABT.bitmap = returnedImage;
 
             return ABT;
         }

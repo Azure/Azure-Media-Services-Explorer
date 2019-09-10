@@ -2219,22 +2219,27 @@ namespace AMSExplorer
                 stringLines.AppendLine(containerSasUrl.ToString());
                 stringLines.AppendLine(string.Empty);
 
-                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, ListBlobsSegmentMaxResult, null, null, null);
 
-                foreach (IListBlobItem blobItem in segment.Results)
+                BlobContinuationToken continuationToken = null;
+                do
                 {
-                    CloudBlockBlob blob = blobItem as CloudBlockBlob;
-                    if (blob != null)
+                    var response = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, ListBlobsSegmentMaxResult, continuationToken, null, null);
+                    continuationToken = response.ContinuationToken;
+                    foreach (IListBlobItem blobItem in response.Results)
                     {
-                        UriBuilder bloburl = new UriBuilder(containerSasUrl);
-                        bloburl.Path += "/" + blob.Name;
-                        stringLines.AppendLine(blob.Name);
-                        stringLines.AppendLine(bloburl.ToString());
-                        stringLines.AppendLine(string.Empty);
+                        CloudBlockBlob blob = blobItem as CloudBlockBlob;
+                        if (blob != null)
+                        {
+                            UriBuilder bloburl = new UriBuilder(containerSasUrl);
+                            bloburl.Path += "/" + blob.Name;
+                            stringLines.AppendLine(blob.Name);
+                            stringLines.AppendLine(bloburl.ToString());
+                            stringLines.AppendLine(string.Empty);
+                        }
                     }
                 }
+                while (continuationToken != null);
             }
-
             return stringLines.ToString();
         }
 

@@ -4618,8 +4618,8 @@ namespace AMSExplorer
                 // NearestNeighbor is more adapted for 200% and 200%+ DPI
 
                 var interpolationMode = InterpolationMode.HighQualityBicubic;
-                if (dpiScale >= 2.0f)
-                    interpolationMode = InterpolationMode.NearestNeighbor;
+                // if (dpiScale >= 2.0f)
+                //     interpolationMode = InterpolationMode.NearestNeighbor;
 
                 g.InterpolationMode = interpolationMode;
                 g.DrawImage(image, new System.Drawing.Rectangle(new Point(), newSize));
