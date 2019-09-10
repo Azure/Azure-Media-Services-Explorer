@@ -63,8 +63,6 @@ namespace AMSExplorer
 
         private const string languageparam = "/language:";
 
-
-
         [STAThread]
         private static void Main(string[] args)
         {
@@ -101,8 +99,6 @@ namespace AMSExplorer
                 grid.Columns[indexname].Width = colw;
             }
         }
-
-
 
 
         public static string GetErrorMessage(Exception e)
@@ -232,7 +228,6 @@ namespace AMSExplorer
         {
             IEnumerable<CloudBlockBlob> blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c => c as CloudBlockBlob);
 
-
             CloudBlockBlob[] mp4AssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
             CloudBlockBlob[] m4aAssetFiles = blobs.Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
             CloudBlockBlob[] mediaAssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
@@ -298,7 +293,6 @@ namespace AMSExplorer
                 name = name + ".ism";
 
                 return new ManifestGenerated() { Content = doc.Declaration.ToString() + Environment.NewLine + doc.ToString(), FileName = name };
-
             }
             else
             {
@@ -342,13 +336,10 @@ namespace AMSExplorer
             return ss[0]; // all strings identical
         }
 
-
-
         public static string ReturnS(int number)
         {
             return number > 1 ? "s" : string.Empty;
         }
-
 
         public static string MessageNewVersion = string.Empty;
 
@@ -360,8 +351,6 @@ namespace AMSExplorer
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompletedV3(true, sender, e);
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimaryV3));
         }
-
-
 
         public static void DownloadVersionRequestCompletedV3(bool firsttry, object sender, DownloadStringCompletedEventArgs e)
         {
@@ -395,7 +384,6 @@ namespace AMSExplorer
                 webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionSecondaryV3));
             }
         }
-
 
 
         public static Bitmap MakeRed(Bitmap original)
@@ -445,63 +433,7 @@ namespace AMSExplorer
             value = inputForm.InputValue;
 
             return inputForm.DialogResult;
-
-            /*
-            Button buttonOk = new Button()
-            {
-                Text = AMSExplorer.Properties.Resources.ButtonOK,
-                DialogResult = DialogResult.OK,
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
-            };
-
-            Button buttonCancel = new Button()
-            {
-                Text = AMSExplorer.Properties.Resources.ButtonCancel,
-                DialogResult = DialogResult.Cancel,
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
-            };
-
-
-            Form form = new Form()
-            {
-                ClientSize = new Size(396, 107),
-                Text = title,
-                StartPosition = FormStartPosition.CenterScreen,
-                MinimizeBox = false,
-                MaximizeBox = false,
-                AcceptButton = buttonOk,
-                CancelButton = buttonCancel,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                AutoScaleMode = AutoScaleMode.Dpi,
-                Font = new Font("Segoe UI", 9)
-            };
-
-            Label label = new Label()
-            {
-                AutoSize = true,
-                Text = promptText
-            };
-            TextBox textBox = new TextBox()
-            {
-                Text = value,
-                UseSystemPasswordChar = passwordWildcard
-            };
-
-            label.SetBounds(9, 20, 372, 13);
-            textBox.SetBounds(12, 36, 372, 20);
-            buttonOk.SetBounds(228, 72, 75, 23);
-            buttonCancel.SetBounds(309, 72, 75, 23);
-            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
-            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
-            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
-            form.Load += Form_Load;
-            form.DpiChanged += Form_DpiChanged;
-            DialogResult dialogResult = form.ShowDialog();
-            value = textBox.Text;
-            return dialogResult;
-            */
         }
-
 
 
         public static void SaveAndProtectUserConfig()
@@ -516,13 +448,11 @@ namespace AMSExplorer
             }
         }
 
-
         public class LiveOutputExt
         {
             public LiveOutput LiveOutputItem { get; set; }
             public string LiveEventName { get; set; }
         }
-
 
         // set WebBrowser features, more info: http://stackoverflow.com/a/18333982/1768303
         public static void SetWebBrowserFeatures()
@@ -556,7 +486,6 @@ namespace AMSExplorer
 
             Registry.SetValue(featureControlRegKey + "FEATURE_NINPUT_LEGACYMODE",
                 appName, 0, RegistryValueKind.DWord);
-
 
         }
 
@@ -604,10 +533,6 @@ namespace AMSExplorer
 
             return mode;
         }
-
-
-
-
     }
 
     public class Constants
@@ -617,24 +542,7 @@ namespace AMSExplorer
 
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
-
-        public const string WindowsAzureMediaEncoder = "Windows Azure Media Encoder";
-        public const string AzureMediaEncoder = "Azure Media Encoder";
-        public const string AzureMediaEncoderStandard = "Media Encoder Standard";
-        public const string AzureMediaEncoderPremiumWorkflow = "Media Encoder Premium Workflow";
-        public const string AzureMediaIndexer = "Azure Media Indexer";
-        public const string AzureMediaIndexer2Preview = "Azure Media Indexer 2 Preview";
-        public const string AzureMediaIndexer2 = "Azure Speech Analyzer";
-        public const string AzureMediaHyperlapse = "Azure Media Hyperlapse";
-        public const string AzureMediaFaceDetector = "Azure Media Face Detector";
-        public const string AzureMediaRedactor = "Azure Media Redactor";
-        public const string AzureMediaMotionDetector = "Azure Media Motion Detector";
-        public const string AzureMediaStabilizer = "Azure Media Stabilizer";
-        public const string AzureMediaVideoThumbnails = "Azure Media Video Thumbnails";
-        public const string AzureMediaVideoOCR = "Azure Media OCR";
-        public const string AzureMediaContentModerator = "Azure Media Content Moderator";
-        public const string AzureMediaVideoAnnotator = "Azure Media Video Annotator";
-
+     
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
         public const string NameconvWorkflow = "{Workflow}";
@@ -642,7 +550,6 @@ namespace AMSExplorer
         public const string NameconvAMEpreset = "{Preset}";
         public const string NameconvFormathls = "{Format}";
         public const string NameconvEncodername = "{Encoder}";
-        public const string NameconvProcessorname = "{Processor}";
         public const string NameconvProcessorversion = "{Processor Version}";
         public const string NameconvLiveEvent = "{LiveEvent}";
         public const string NameconvLiveOutput = "{LiveOutput}";
@@ -707,12 +614,6 @@ namespace AMSExplorer
         internal static string mpd = ".mpd";
         internal static string m3u8 = ".m3u8";
         public const string AssetIdPrefix = "nb:cid:UUID:";
-        public const string AssetFileIdPrefix = "nb:cid:UUID:";
-        public const string ContentKeyIdPrefix = "nb:kid:UUID:";
-        public const string JobIdPrefix = "nb:jid:UUID:";
-        public const string TaskIdPrefix = "nb:tid:UUID:";
-        public const string ChannelIdPrefix = "nb:chid:UUID:";
-        public const string ProgramIdPrefix = "nb:pgid:UUID:";
 
         public const string ProdAPIServer = "https://media.windows.net";
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
@@ -726,34 +627,12 @@ namespace AMSExplorer
         public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
 
-        public const string LinkMoreInfoAME = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-media-encoder-standard-formats";
-        public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";
-        public const string LinkMoreInfoMES = "http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/";
-        public const string LinkMorePresetsMES = "http://go.microsoft.com/fwlink/?LinkId=618336";
-        public const string LinkThumbnailsMES = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-dotnet-generate-thumbnail-with-mes";
-        public const string LinkPreserveResRotationMES = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-mes-schema#PreserveResolutionAfterRotation";
-        public const string LinkOverlayMES = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-advanced-encoding-with-mes#overlay";
-        public const string LinkCroppingMES = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-crop-video";
-        public const string LinkMESAdvFeatures = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-advanced-encoding-with-mes";
         public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-streaming-endpoints-overview";
-        public const string LinkMESAutoGenPreset = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-autogen-bitrate-ladder-with-mes";
-
         public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy";
 
-        public const string LinkSigniantFlightMarketPlace = "https://azure.microsoft.com/en-us/marketplace/partners/signiant/flight/";
-        public const string LinkSigniantFlightRequestTrialKey = "http://info.signiant.com/flight-Free-Trial_1.html";
-
-        public const string LinkAspera = "https://azure.microsoft.com/en-us/marketplace/partners/aspera/sod/";
-
-        public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
-        public const string LinkMoreInfoPremiumEncoder = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-encode-with-premium-workflow";
-        public const string LinkMoreInfoHyperlapse = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-hyperlapse-content";
-        public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
-        public const string LinkMoreInfoIndexer = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-index-content";
         public const string LinkMoreInfoVideoAnalyzer = "https://docs.microsoft.com/en-us/azure/media-services/latest/analyzing-video-audio-files-concept";
         public const string LinkMoreInfoMediaEncoderBuiltIn = "https://docs.microsoft.com/en-us/azure/media-services/latest/encoding-concept";
 
-        public const string LinkMoreInfoVideoOCR = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-video-optical-character-recognition";
         public const string LinkHowIMoreInfoDynamicManifest = "https://docs.microsoft.com/en-us/azure/media-services/latest/filters-dynamic-manifest-overview";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
@@ -764,13 +643,6 @@ namespace AMSExplorer
         public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
         public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-protect-hls-with-fairplay";
         public const string LinkMoreInfoTelemetry = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-telemetry-overview";
-
-        public const string LinkMoreYammerAMSPreview = "https://www.yammer.com/azureadvisors/#/threads/inGroup?type=in_group&feedId=3165917";
-        public const string LinkMoreInfoMotionDetection = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-motion-detection";
-        public const string LinkMoreInfoFaceDetection = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-face-and-emotion-detection";
-        public const string LinkMoreInfoFaceRedaction = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-face-redaction";
-        public const string LinkMoreInfoVideoSummarization = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-video-summarization";
-        public const string LinkMoreInfoContentModeration = "https://azure.microsoft.com/en-us/blog/content-moderator-azure-media-analytics/";
 
         public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/playready-license-template-overview";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
@@ -784,9 +656,6 @@ namespace AMSExplorer
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
         public const string LinkReportBugAMSE = @"https://github.com/Azure/Azure-Media-Services-Explorer/issues";
         public const string LinkAMSEReleaseNotes = @"https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/AllReleaseNotes.html";
-
-
-        public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 
         public const long maxSlateJPGFileSize = 3 * 1000 * 1000; // Max 3 MB
         public const int maxSlateJPGHorizontalResolution = 1920;
@@ -822,418 +691,6 @@ namespace AMSExplorer
         public const string strTransfers = "{0} concurrent transfer{1}";
     }
 
-
-
-    /*
-    public class JobInfo
-    {
-        private List<IJob> SelectedJobs;
-        private string _accountname;
-
-        public JobInfo(IJob job, string accountname)
-        {
-            SelectedJobs = new List<IJob>
-            {
-                job
-            };
-            _accountname = accountname;
-
-        }
-        public JobInfo(List<IJob> MySelectedJobs, string accountname)
-        {
-            SelectedJobs = MySelectedJobs;
-            _accountname = accountname;
-        }
-
-        public void CreateOutlookMail()
-        {
-            Exception exception = null;
-            try
-            {
-                StringBuilder SB = GetStats();
-
-                // Let's create the email with Outlook
-                Outlook.Application outlookApp = new Outlook.Application();
-                Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
-                if (SelectedJobs.Count == 1)
-                {
-                    string title = (SelectedJobs.FirstOrDefault().State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error) ? "ERROR Report: Job '{0}'" : "Report: Job '{0}'";
-
-                    mailItem.Subject = string.Format(title, SelectedJobs.FirstOrDefault().Name);
-                }
-                else
-                {
-                    mailItem.Subject = string.Format("Report: {0} jobs, {1} Error(s)", SelectedJobs.Count(), SelectedJobs.Where(j => j.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error).Count());
-                }
-
-                mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
-                mailItem.HTMLBody += SB.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
-                mailItem.Display(false);
-            }
-
-
-            catch (System.Runtime.InteropServices.COMException ce)
-            {
-                // 0x80040154 Class not registered
-                // This happen if outlook is not installed
-                if (ce.HResult == unchecked((int)0x80040154))
-                {
-                    MessageBox.Show("Please install Office Outlook to use this functionality.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                exception = ce;
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            if (exception != null)
-            {
-                MessageBox.Show("Exception while trying to compose the email." + exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        public void CopyStatsToClipBoard()
-        {
-            StringBuilder SB = GetStats();
-            Clipboard.SetText((string)SB.ToString());
-        }
-
-        public static long GetInputFilesSize(ITask task) // return -1 if one asset has been deleted
-        {
-            // Loop through the HistoricalEvents associated with the Task to find Tasks that have Finished
-            // Task.State only has the Conpleted State and based on that it is not possible to know whether the task had an error or did it finish successfully
-            long lSize = 0;
-            bool sizecanbecalculated = false;
-            if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
-            {
-                lSize = 0;
-                sizecanbecalculated = true;
-
-                try
-                {
-                    foreach (IAsset asset in task.InputAssets)
-                    {
-                        if (asset.State == AssetState.Deleted)
-                        {
-                            sizecanbecalculated = false;
-                        }
-                        else
-                        {
-                            foreach (IAssetFile fileItem in asset.AssetFiles)
-                            {
-                                lSize += fileItem.ContentFileSize;
-                            }
-                        }
-                    }
-                }
-
-                catch
-                {
-                    sizecanbecalculated = false;
-                }
-            }
-
-            if (sizecanbecalculated)
-            {
-                return lSize;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
-        public static long GetOutputFilesSize(ITask task) // return -1 if one asset has been deleted
-        {
-            // Loop through the HistoricalEvents associated with the Task to find Tasks that have Finished
-            // Task.State only has the Conpleted State and based on that it is not possible to know whether the task had an error or did it finish successfully
-            long lSize = 0;
-            bool sizecanbecalculated = false;
-            if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
-            {
-                lSize = 0;
-                sizecanbecalculated = true;
-
-
-                try
-                {
-                    foreach (IAsset asset in task.OutputAssets)
-                    {
-                        if (asset.State == AssetState.Deleted)
-                        {
-                            sizecanbecalculated = false;
-                        }
-                        else
-                        {
-                            foreach (IAssetFile fileItem in asset.AssetFiles)
-                            {
-                                lSize += fileItem.ContentFileSize;
-                            }
-                        }
-                    }
-                }
-
-                catch
-                {
-                    sizecanbecalculated = false;
-                }
-
-
-            }
-            if (sizecanbecalculated)
-            {
-                return lSize;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
-        public static TaskSizeAndPrice CalculateJobSizeAndPrice(IJob job)
-        {
-            long totalinputsize = 0;
-            long totalouputsize = 0;
-            double totalprice = 0;
-            bool inputsizecanbecalculated = true;
-            bool outputsizecanbecalculated = true;
-            bool pricecanbecalculated = true;
-
-            foreach (ITask task in job.Tasks)
-            {
-                TaskSizeAndPrice taskinfo = CalculateTaskSizeAndPrice(task, (CloudMediaContext)job.GetMediaContext());
-                if (taskinfo.InputSize != -1)
-                {
-                    totalinputsize += taskinfo.InputSize;
-                }
-                else inputsizecanbecalculated = false;
-
-                if (taskinfo.OutputSize != -1)
-                {
-                    totalouputsize += taskinfo.OutputSize;
-                }
-                else outputsizecanbecalculated = false;
-
-                if (taskinfo.Price != -1)
-                {
-                    totalprice += taskinfo.Price;
-                }
-                else pricecanbecalculated = false;
-            }
-
-            return new TaskSizeAndPrice
-            {
-                InputSize = inputsizecanbecalculated ? totalinputsize : -1,
-                OutputSize = outputsizecanbecalculated ? totalouputsize : -1,
-                Price = pricecanbecalculated ? totalprice : -1
-            };
-        }
-
-   
-  
-        public StringBuilder GetStats()
-        {
-            StringBuilder sb = new StringBuilder();
-            const string cannotcalc = "cannot be calculated";
-
-            const string section = "==============================================================================";
-            if (SelectedJobs.Count > 0)
-            {
-                // Job Stats
-                sb.AppendLine(section);
-
-                foreach (IJob theJob in SelectedJobs)
-                {
-
-                    sb.AppendLine(" START OF JOB REPORT");
-                    sb.AppendLine(section);
-                    sb.AppendLine("");
-                    sb.AppendLine("Job Name            : " + theJob.Name);
-                    sb.AppendLine("Job ID              : " + theJob.Id);
-                    sb.AppendLine("Job State           : " + theJob.State);
-                    sb.AppendLine("Job Priority        : " + theJob.Priority);
-                    sb.AppendLine("Job Template Id     : " + theJob.TemplateId);
-                    sb.AppendLine("Job Created (UTC)   : " + theJob.Created.ToLongDateString() + " " + theJob.Created.ToLongTimeString());
-                    if (theJob.StartTime != null)
-                        sb.AppendLine("Job StartTime (UTC) : " + theJob.StartTime.Value.ToLongDateString() + " " + theJob.StartTime.Value.ToLongTimeString());
-                    if (theJob.EndTime != null)
-                        sb.AppendLine("Job EndTime (UTC)   : " + theJob.EndTime.Value.ToLongDateString() + " " + theJob.EndTime.Value.ToLongTimeString());
-                    TimeSpan ts = theJob.RunningDuration;
-                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                    sb.AppendLine("Job CPU runtime     : " + elapsedTime);
-
-                    if ((theJob.StartTime != null) && (theJob.EndTime != null))
-                    {
-                        ts = ((DateTime)theJob.EndTime).Subtract((DateTime)theJob.StartTime);
-                        elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                        sb.AppendLine("Job Duration        : " + elapsedTime);
-                    }
-                    sb.AppendLine("Number of tasks     : " + theJob.Tasks.Count);
-                    sb.AppendLine("Media Account       : " + _accountname);
-                    sb.AppendLine("");
-                    sb.AppendLine(section);
-                    foreach (ITask task in theJob.Tasks)
-                    {
-                        sb.AppendLine("Task Name           : " + task.Name);
-                        sb.AppendLine(section);
-                        sb.AppendLine("");
-                        sb.AppendLine("Task ID             : " + task.Id);
-                        sb.AppendLine("Task Priority       : " + task.Priority);
-                        sb.AppendLine("Task State          : " + task.State);
-                        sb.AppendLine("Task Options        : " + task.Options);
-
-                        sb.AppendLine("Media Processor     : " + task.MediaProcessorId);
-                        IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, (CloudMediaContext)theJob.GetMediaContext());
-                        if (processor != null)
-                            sb.AppendLine("Media Processor Name: " + processor.Name);
-
-                        if (task.StartTime != null) // If not in queued state
-                            sb.AppendLine("Task StartTime (UTC): " + task.StartTime.Value.ToLongDateString() + " " + task.StartTime.Value.ToLongTimeString());
-                        if (task.EndTime != null) // If not completed yet
-                            sb.AppendLine("Task EndTime (UTC)  : " + task.EndTime.Value.ToLongDateString() + " " + task.EndTime.Value.ToLongTimeString());
-                        ts = task.RunningDuration;
-                        elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                        sb.AppendLine("Task CPU runtime    : " + elapsedTime);
-
-                        if ((task.StartTime != null) && (task.EndTime != null))
-                        {
-                            ts = ((DateTime)task.EndTime).Subtract((DateTime)task.StartTime);
-                            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                            sb.AppendLine("Task Duration       : " + elapsedTime);
-                        }
-
-                        sb.AppendLine("Task PerfMessage    : " + task.PerfMessage);
-                        sb.AppendLine("Task Progress       : " + task.Progress);
-                        // Task historical event?
-                        foreach (TaskHistoricalEvent thEvent in task.HistoricalEvents)
-                        {
-                            sb.AppendLine(thEvent.TimeStamp.ToLongTimeString() + " :-  " + thEvent.Message);
-                        }
-
-                        sb.AppendLine("");
-
-                        sb.AppendLine("Task Body           : ");
-                        sb.AppendLine("=====================");
-                        sb.AppendLine(task.TaskBody);
-                        sb.AppendLine("");
-
-                        sb.AppendLine("Task Configuration  : ");
-                        sb.AppendLine("=====================");
-                        if (task.Options == TaskOptions.None)
-                        {
-                            sb.AppendLine(task.Configuration);
-                        }
-                        else
-                        {
-                            sb.AppendLine("(Not displayed here as task configuration is protected. This data is visible in Job Information / Tasks)");
-                        }
-                        sb.AppendLine("");
-
-                        sb.AppendLine("Input Assets        :");
-                        sb.AppendLine("=====================");
-                        sb.AppendLine("");
-
-                        try
-                        {
-                            foreach (IAsset asset in task.InputAssets)
-                            {
-                                if (asset.State == AssetState.Deleted)
-                                {
-                                    sb.AppendLine("Asset Deleted");
-                                }
-                                else
-                                {
-                                    ListAssetInfo(asset, ref sb);
-                                    sb.AppendLine("");
-                                    ListFilesInAsset(asset, ref sb);
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            sb.AppendLine("Asset(s) error. Deleted?");
-                        }
-
-                        sb.AppendLine("");
-                        sb.AppendLine("Output Assets       :");
-                        sb.AppendLine("=====================");
-                        sb.AppendLine("");
-
-                        try
-                        {
-                            foreach (IAsset asset in task.OutputAssets)
-                            {
-                                if (asset.State == AssetState.Deleted)
-                                {
-                                    sb.AppendLine("Asset Deleted");
-                                }
-                                else
-                                {
-                                    ListAssetInfo(asset, ref sb);
-                                    sb.AppendLine("");
-                                    ListFilesInAsset(asset, ref sb);
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            sb.AppendLine("Asset(s) error. Deleted?");
-                        }
-
-                        sb.AppendLine("");
-
-                        if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Error)
-                        {
-                            foreach (var errordetail in task.ErrorDetails)
-                            {
-                                sb.AppendLine("Error Message : " + errordetail.Message);
-                                sb.AppendLine("Error Code    : " + errordetail.Code);
-                            }
-                        }
-
-                        if (task.State == Microsoft.WindowsAzure.MediaServices.Client.JobState.Finished)
-                        {
-                            TaskSizeAndPrice MyTaskSizePrice = CalculateTaskSizeAndPrice(task, (CloudMediaContext)theJob.GetMediaContext());
-
-                            if (theJob.Tasks.Count > 1) // only display for the task if there are several tasks
-                            {
-                                sb.AppendLine("Input size processed by the task  : " + ((MyTaskSizePrice.InputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize) : cannotcalc));
-                                sb.AppendLine("Output size processed by the task : " + ((MyTaskSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.OutputSize) : cannotcalc));
-                                //sb.AppendLine("Total size processed by the task  : " + ((MyTaskSizePrice.InputSize != -1 && MyTaskSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize + MyTaskSizePrice.OutputSize) : cannotcalc));
-
-                                if (MyTaskSizePrice.Price >= 0)
-                                {
-                                    sb.AppendLine(string.Format("Estimated cost of the task        : {0} {1:0.00}", Properties.Settings.Default.Currency, MyTaskSizePrice.Price));
-                                }
-                            }
-                        }
-
-                        sb.AppendLine("");
-                        sb.AppendLine(section);
-                    }
-                    sb.AppendLine("");
-
-                    TaskSizeAndPrice MyJobSizePrice = CalculateJobSizeAndPrice(theJob);
-
-                    sb.AppendLine("Input size processed by the job  : " + ((MyJobSizePrice.InputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.InputSize) : cannotcalc));
-                    sb.AppendLine("Output size processed by the job : " + ((MyJobSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.OutputSize) : cannotcalc));
-                    sb.AppendLine("Total size processed by the job  : " + ((MyJobSizePrice.InputSize != -1 && MyJobSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.InputSize + MyJobSizePrice.OutputSize) : cannotcalc));
-
-                   
-
-                    sb.AppendLine("");
-                    sb.AppendLine(section);
-                    sb.AppendLine(" END OF JOB REPORT");
-                    sb.AppendLine(section);
-                    sb.AppendLine("");
-                }
-            }
-            return sb;
-        }
-    }
-    */
 
     public class AssetBitmapAndText
     {
@@ -1286,7 +743,6 @@ namespace AMSExplorer
         {
             SelectedAssetsV3 = new List<Asset>() { myAsset };
             _amsClient = amsClient;
-
         }
 
         public AssetInfo(List<Asset> mySelectedAssets, AMSClientV3 amsClient)
@@ -1298,7 +754,6 @@ namespace AMSExplorer
         {
             SelectedAssetsV3 = new List<Asset>() { asset };
         }
-
 
 
         public static StreamingLocator CreateTemporaryOnDemandLocator(Asset asset, AMSClientV3 _amsClientV3)
@@ -2741,16 +2196,7 @@ namespace AMSExplorer
         }
     }
 
-
-
-    public class TaskSizeAndPrice
-    {
-        public long InputSize { get; set; }
-        public long OutputSize { get; set; }
-        public double Price { get; set; }
-    }
-
-
+       
     public class JobEntryV3
     {
         public string Name { get; set; }
@@ -2770,251 +2216,6 @@ namespace AMSExplorer
     {
         public Job Job { get; set; }
         public string TransformName { get; set; }
-    }
-
-    public class AssetEntry : INotifyPropertyChanged
-    {
-        public string _Name;
-        public string Name
-        {
-            get => _Name;
-            set
-            {
-                if (value != _Name)
-                {
-                    _Name = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        public string Id { get; set; }
-
-        public string _AlternateId;
-        public string AlternateId
-        {
-            get => _AlternateId;
-            set
-            {
-                if (value != _AlternateId)
-                {
-                    _AlternateId = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        public string _Type;
-        public string Type
-        {
-            get => _Type;
-            set
-            {
-                if (value != _Type)
-                {
-                    _Type = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private string _LastModified;
-        public string LastModified
-        {
-            get => _LastModified;
-            set
-            {
-                if (value != _LastModified)
-                {
-                    _LastModified = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private string _Size;
-        public string Size
-        {
-            get => _Size;
-            set
-            {
-                if (value != _Size)
-                {
-                    _Size = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private long _SizeLong;
-        public long SizeLong
-        {
-            get => _SizeLong;
-            set
-            {
-                if (value != _SizeLong)
-                {
-                    _SizeLong = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        public string Storage { get; set; }
-
-        public Bitmap _StaticEncryption = null;
-        public Bitmap StaticEncryption
-        {
-            get => _StaticEncryption;
-            set
-            {
-                if (value != _StaticEncryption)
-                {
-                    _StaticEncryption = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private string _StaticEncryptionMouseOver;
-        public string StaticEncryptionMouseOver
-        {
-            get => _StaticEncryptionMouseOver;
-            set
-            {
-                if (value != _StaticEncryptionMouseOver)
-                {
-                    _StaticEncryptionMouseOver = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private Bitmap _DynamicEncryption;
-        public Bitmap DynamicEncryption
-        {
-            get => _DynamicEncryption;
-            set
-            {
-                if (value != _DynamicEncryption)
-                {
-                    _DynamicEncryption = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private string _DynamicEncryptionMouseOver;
-        public string DynamicEncryptionMouseOver
-        {
-            get => _DynamicEncryptionMouseOver;
-            set
-            {
-                if (value != _DynamicEncryptionMouseOver)
-                {
-                    _DynamicEncryptionMouseOver = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private Bitmap _Publication = null;
-
-        public Bitmap Publication
-        {
-            get => _Publication;
-            set
-            {
-                if (value != _Publication)
-                {
-                    _Publication = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private Bitmap _Filters = null;
-        public Bitmap Filters
-        {
-            get => _Filters;
-            set
-            {
-                if (value != _Filters)
-                {
-                    _Filters = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private string _FiltersMouseOver;
-        public string FiltersMouseOver
-        {
-            get => _FiltersMouseOver;
-            set
-            {
-                if (value != _FiltersMouseOver)
-                {
-                    _FiltersMouseOver = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private string _PublicationMouseOver;
-        public string PublicationMouseOver
-        {
-            get => _PublicationMouseOver;
-            set
-            {
-                if (value != _PublicationMouseOver)
-                {
-                    _PublicationMouseOver = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private string _LocatorExpirationDate;
-        public string LocatorExpirationDate
-        {
-            get => _LocatorExpirationDate;
-            set
-            {
-                if (value != _LocatorExpirationDate)
-                {
-                    _LocatorExpirationDate = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private bool _LocatorExpirationDateWarning;
-        public bool LocatorExpirationDateWarning
-        {
-            get => _LocatorExpirationDateWarning;
-            set
-            {
-                if (value != _LocatorExpirationDateWarning)
-                {
-                    _LocatorExpirationDateWarning = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private bool _AssetWarning;
-        public bool AssetWarning
-        {
-            get => _AssetWarning;
-            set
-            {
-                if (value != _AssetWarning)
-                {
-                    _AssetWarning = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] string p = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(p));
-            }
-        }
-
     }
 
     public class AssetEntryV3 : INotifyPropertyChanged
@@ -3378,15 +2579,7 @@ namespace AMSExplorer
 
     }
 
-
-    public class AADEndPointMapping
-    {
-        public string Name { get; set; }
-
-        public string ManagementPortal { get; set; }
-    }
-
-
+  
 
     public class ExplorerOpenIDSample
     {
@@ -3433,7 +2626,6 @@ namespace AMSExplorer
         public string ResourceGroup { get; set; }
         public string SubscriptionId { get; set; }
     }
-
 
     public class AMSClientV3
     {
@@ -3911,13 +3103,7 @@ namespace AMSExplorer
         CustomPlayer
     }
 
-    public enum TaskJobCreationMode
-    {
-        OneJobPerInputAsset = 0,
-        OneJobPerVisibleAsset,
-        SingleJobForAllInputAssets
-    }
-
+   
     public enum PublishStatus
     {
         NotPublished = 0,
@@ -3992,11 +3178,8 @@ namespace AMSExplorer
         public bool Reencode { get; set; }
         public bool Trimming { get; set; }
         public bool CreateAssetFilter { get; set; }
-
-
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-
     }
 
     internal class HostNameClass
@@ -4054,7 +3237,6 @@ namespace AMSExplorer
         public SearchIn SearchType { get; set; }
 
     }
-
 
     public class LocatorAndUrls
     {
