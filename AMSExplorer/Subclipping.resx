@@ -625,7 +625,7 @@
     <value>timeControlStart</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -685,7 +685,7 @@
     <value>timeControlEnd</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -820,7 +820,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonAssetFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 140</value>
+    <value>21, 140</value>
   </data>
   <data name="radioButtonAssetFilter.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 19</value>
@@ -1189,7 +1189,7 @@
     <value>buttonShowEDL</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=5.0.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=5.0.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Parent" xml:space="preserve">
     <value>panelEDL</value>
