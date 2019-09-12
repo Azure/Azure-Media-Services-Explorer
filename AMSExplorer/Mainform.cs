@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -1818,7 +1819,7 @@ namespace AMSExplorer
                     labelAssetName = "A locator will be created for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
                 }
 
-                CreateLocator formCreateLocator = new CreateLocator(_amsClientV3, SelectedAssets)
+                CreateLocator formLocator = new CreateLocator(_amsClientV3, SelectedAssets)
                 {
                     LocatorStartDate = DateTime.UtcNow.AddMinutes(-5),
                     LocatorEndDate = DateTime.UtcNow.AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
@@ -1827,29 +1828,30 @@ namespace AMSExplorer
                     LocWarning = string.Empty
                 };
 
-                if (formCreateLocator.ShowDialog() == DialogResult.OK)
+                if (formLocator.ShowDialog() == DialogResult.OK)
                 {
                     await _amsClientV3.RefreshTokenIfNeededAsync();
 
                     // The duration for the locator's access policy.
-                    TimeSpan accessPolicyDuration = formCreateLocator.LocatorEndDate.Subtract(DateTime.UtcNow);
-                    if (formCreateLocator.LocatorStartDate != null)
+                    TimeSpan accessPolicyDuration = formLocator.LocatorEndDate.Subtract(DateTime.UtcNow);
+                    if (formLocator.LocatorStartDate != null)
                     {
-                        accessPolicyDuration = formCreateLocator.LocatorEndDate.Subtract((DateTime)formCreateLocator.LocatorStartDate);
+                        accessPolicyDuration = formLocator.LocatorEndDate.Subtract((DateTime)formLocator.LocatorStartDate);
                     }
 
                     // DRM
                     ContentKeyPolicy keyPolicy = null;
                     List<form_DRM_Config_TokenClaims> formPlayreadyTokenClaims = new List<form_DRM_Config_TokenClaims>();
                     List<form_DRM_Config_TokenClaims> formWidevineTokenClaims = new List<form_DRM_Config_TokenClaims>();
+                    List<form_DRM_Config_TokenClaims> formFairPlayTokenClaims = new List<form_DRM_Config_TokenClaims>();
                     List<form_DRM_Config_TokenClaims> formClearKeyTokenClaims = new List<form_DRM_Config_TokenClaims>();
                     List<ContentKeyPolicyOption> options = new List<ContentKeyPolicyOption>();
 
                     // let's preserve location of windows
-                    int left = formCreateLocator.Left;
-                    int top = formCreateLocator.Top;
+                    int left = formLocator.Left;
+                    int top = formLocator.Top;
 
-                    if (formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                    if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
                         string tokenSymKey = Properties.Settings.Default.DynEncTokenSymKeyv3;
                         if (string.IsNullOrWhiteSpace(tokenSymKey))
@@ -1857,9 +1859,14 @@ namespace AMSExplorer
                             tokenSymKey = null;
                         }
 
-                        if (formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                        if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                         {
-                            DRM_CENCDelivery formCencDelivery = new DRM_CENCDelivery(true, true) { Left = left, Top = top };
+                            DRM_CENCDelivery formCencDelivery = new DRM_CENCDelivery(
+                                                                    true,
+                                                                    true,
+                                                                    formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming
+                                                                    )
+                            { Left = left, Top = top };
                             if (formCencDelivery.ShowDialog() != DialogResult.OK)
                             {
                                 return;
@@ -1936,8 +1943,50 @@ namespace AMSExplorer
                                             });
                             }
 
+
+                            // for each FairPlay option
+                            List<DRM_FairPlayLicense> formFairPlay = new List<DRM_FairPlayLicense>();
+
+                            for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay; i++)
+                            {
+                                bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay - 1);
+
+                                formFairPlayTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "FairPlay", tokenSymKey, false) { Left = left, Top = top });
+                                if (formFairPlayTokenClaims[i].ShowDialog() != DialogResult.OK)
+                                {
+                                    return;
+                                }
+
+                                tokenSymKey = formFairPlayTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
+                                SavePositionOfForm(formFairPlayTokenClaims[i], out left, out top);
+
+                                formFairPlay.Add(new DRM_FairPlayLicense(step++, i + 1, laststep) { Left = left, Top = top });
+                                if (formFairPlay[i].ShowDialog() != DialogResult.OK)
+                                {
+                                    return;
+                                }
+
+                                SavePositionOfForm(formFairPlay[i], out left, out top);
+
+                                options.Add(
+                                            new ContentKeyPolicyOption()
+                                            {
+                                                Configuration = new ContentKeyPolicyFairPlayConfiguration()
+                                                {
+                                                    RentalAndLeaseKeyType = formFairPlay[i].FairPlayRentalAndLeaseKeyType,
+                                                    RentalDuration = formFairPlay[i].RentalDuration,
+                                                    Ask = formCencDelivery.FairPlayASK,
+                                                    FairPlayPfxPassword = formCencDelivery.FairPlayCertificate.Password,
+                                                    FairPlayPfx = Convert.ToBase64String(formCencDelivery.FairPlayCertificate.Certificate.Export(X509ContentType.Pfx, formCencDelivery.FairPlayCertificate.Password))
+
+                                                },
+                                                Restriction = formFairPlayTokenClaims[i].GetContentKeyPolicyRestriction,
+                                                Name = formFairPlay[i].FairPlayePolicyName
+                                            });
+                            }
+
                         }
-                        else if (formCreateLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
+                        else if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
                         {
                             formClearKeyTokenClaims.Add(new form_DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
                             if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK)
@@ -1977,7 +2026,7 @@ namespace AMSExplorer
                     try
                     {
                         List<LocatorAndUrls> listLocators = await Task.Run(() =>
-                        ProcessCreateLocatorV3(formCreateLocator.StreamingPolicyName, SelectedAssets, formCreateLocator.LocatorStartDate, formCreateLocator.LocatorEndDate, formCreateLocator.ForceLocatorGuid, keyPolicy, formCreateLocator.SelectedFilters));
+                        ProcessCreateLocatorV3(formLocator.StreamingPolicyName, SelectedAssets, formLocator.LocatorStartDate, formLocator.LocatorEndDate, formLocator.ForceLocatorGuid, keyPolicy, formLocator.SelectedFilters));
 
                         Microsoft.Rest.Azure.IPage<StreamingEndpoint> SEList = await _amsClientV3.AMSclient.StreamingEndpoints.ListAsync(
                              _amsClientV3.credentialsEntry.ResourceGroup,
@@ -2059,7 +2108,7 @@ namespace AMSExplorer
 
 
                         // need test token ?
-                        if (formPlayreadyTokenClaims.Any(t => t.NeedToken) || formWidevineTokenClaims.Any(t => t.NeedToken) || formClearKeyTokenClaims.Any(t => t.NeedToken))
+                        if (formPlayreadyTokenClaims.Any(t => t.NeedToken) || formWidevineTokenClaims.Any(t => t.NeedToken) ||  formFairPlayTokenClaims.Any(t => t.NeedToken) || formClearKeyTokenClaims.Any(t => t.NeedToken))
                         {
                             DRM_GenerateToken formTokenProperties = new DRM_GenerateToken();
                             formTokenProperties.ShowDialog();
@@ -2067,6 +2116,7 @@ namespace AMSExplorer
                             {
                                 sbuilder.Append(await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators.FirstOrDefault(), "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
                                 sbuilder.Append(await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators.FirstOrDefault(), "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(await AddTestTokenToSbuilder(formFairPlayTokenClaims, listLocators.FirstOrDefault(), "FairPlay", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
                                 sbuilder.Append(await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators.FirstOrDefault(), "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
                             }
                         }
@@ -2218,7 +2268,6 @@ namespace AMSExplorer
                 stringLines.AppendLine("SAS Container Path");
                 stringLines.AppendLine(containerSasUrl.ToString());
                 stringLines.AppendLine(string.Empty);
-
 
                 BlobContinuationToken continuationToken = null;
                 do

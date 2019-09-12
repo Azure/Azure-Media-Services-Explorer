@@ -100,11 +100,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonClearStream.Checked)
-                {
-                    return PredefinedStreamingPolicy.ClearStreamingOnly;
-                }
-                else if (radioButtonDownload.Checked)
+                if (radioButtonDownload.Checked)
                 {
                     return PredefinedStreamingPolicy.DownloadOnly;
                 }
@@ -120,11 +116,14 @@ namespace AMSExplorer
                 {
                     return PredefinedStreamingPolicy.MultiDrmCencStreaming;
                 }
-                else // if (radioButtonMultiDRM.Checked)
+                else if (radioButtonMultiDRM.Checked)
                 {
                     return PredefinedStreamingPolicy.MultiDrmStreaming;
                 }
-
+                else
+                {
+                    return PredefinedStreamingPolicy.ClearStreamingOnly;
+                }
             }
         }
 
@@ -202,7 +201,7 @@ namespace AMSExplorer
                 Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
                 afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
-              
+
                 assetFilters.ToList().ForEach(f =>
                 {
                     ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });

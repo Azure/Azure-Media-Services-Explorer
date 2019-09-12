@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DRM_CENCDelivery));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -42,17 +43,30 @@
             this.checkBoxWidevine = new System.Windows.Forms.CheckBox();
             this.numericUpDownNbOptionsWidevine = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.groupBoxFairPlay = new System.Windows.Forms.GroupBox();
+            this.panelFairPlayFromAMS = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.TextBoxCertificateFile = new System.Windows.Forms.TextBox();
+            this.textBoxASK = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.radioButtonASKBase64 = new System.Windows.Forms.RadioButton();
+            this.radioButtonASKHex = new System.Windows.Forms.RadioButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.buttonImportPFX = new System.Windows.Forms.Button();
+            this.checkBoxFairPlay = new System.Windows.Forms.CheckBox();
             this.numericUpDownNbOptionsFairPlay = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.groupBoxPlayReady.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).BeginInit();
             this.groupBoxWidevine.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsWidevine)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxFairPlay.SuspendLayout();
+            this.panelFairPlayFromAMS.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsFairPlay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -182,22 +196,92 @@
             this.label6.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label6.Name = "label6";
             // 
-            // groupBox1
+            // groupBoxFairPlay
             // 
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Controls.Add(this.numericUpDownNbOptionsFairPlay);
-            this.groupBox1.Controls.Add(this.label3);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
+            this.groupBoxFairPlay.Controls.Add(this.panelFairPlayFromAMS);
+            this.groupBoxFairPlay.Controls.Add(this.checkBoxFairPlay);
+            this.groupBoxFairPlay.Controls.Add(this.numericUpDownNbOptionsFairPlay);
+            this.groupBoxFairPlay.Controls.Add(this.label3);
+            resources.ApplyResources(this.groupBoxFairPlay, "groupBoxFairPlay");
+            this.groupBoxFairPlay.ForeColor = System.Drawing.Color.DarkBlue;
+            this.groupBoxFairPlay.Name = "groupBoxFairPlay";
+            this.groupBoxFairPlay.TabStop = false;
             // 
-            // checkBox1
+            // panelFairPlayFromAMS
             // 
-            resources.ApplyResources(this.checkBox1, "checkBox1");
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.panelFairPlayFromAMS, "panelFairPlayFromAMS");
+            this.panelFairPlayFromAMS.Controls.Add(this.label10);
+            this.panelFairPlayFromAMS.Controls.Add(this.TextBoxCertificateFile);
+            this.panelFairPlayFromAMS.Controls.Add(this.textBoxASK);
+            this.panelFairPlayFromAMS.Controls.Add(this.panel2);
+            this.panelFairPlayFromAMS.Controls.Add(this.label9);
+            this.panelFairPlayFromAMS.Controls.Add(this.buttonImportPFX);
+            this.panelFairPlayFromAMS.Name = "panelFairPlayFromAMS";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Name = "label10";
+            // 
+            // TextBoxCertificateFile
+            // 
+            resources.ApplyResources(this.TextBoxCertificateFile, "TextBoxCertificateFile");
+            this.TextBoxCertificateFile.Name = "TextBoxCertificateFile";
+            this.TextBoxCertificateFile.ReadOnly = true;
+            // 
+            // textBoxASK
+            // 
+            resources.ApplyResources(this.textBoxASK, "textBoxASK");
+            this.textBoxASK.Name = "textBoxASK";
+            this.textBoxASK.TextChanged += new System.EventHandler(this.TextBoxASK_TextChanged);
+            // 
+            // panel2
+            // 
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Controls.Add(this.radioButtonASKBase64);
+            this.panel2.Controls.Add(this.radioButtonASKHex);
+            this.panel2.Name = "panel2";
+            // 
+            // radioButtonASKBase64
+            // 
+            resources.ApplyResources(this.radioButtonASKBase64, "radioButtonASKBase64");
+            this.radioButtonASKBase64.Checked = true;
+            this.radioButtonASKBase64.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.radioButtonASKBase64.Name = "radioButtonASKBase64";
+            this.radioButtonASKBase64.TabStop = true;
+            this.radioButtonASKBase64.UseVisualStyleBackColor = true;
+            this.radioButtonASKBase64.CheckedChanged += new System.EventHandler(this.RadioButtonASKBase64_CheckedChanged);
+            // 
+            // radioButtonASKHex
+            // 
+            resources.ApplyResources(this.radioButtonASKHex, "radioButtonASKHex");
+            this.radioButtonASKHex.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.radioButtonASKHex.Name = "radioButtonASKHex";
+            this.radioButtonASKHex.UseVisualStyleBackColor = true;
+            this.radioButtonASKHex.CheckedChanged += new System.EventHandler(this.RadioButtonASKHex_CheckedChanged);
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label9.Name = "label9";
+            // 
+            // buttonImportPFX
+            // 
+            this.buttonImportPFX.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.buttonImportPFX, "buttonImportPFX");
+            this.buttonImportPFX.Name = "buttonImportPFX";
+            this.buttonImportPFX.UseVisualStyleBackColor = true;
+            this.buttonImportPFX.Click += new System.EventHandler(this.ButtonImportPFX_Click);
+            // 
+            // checkBoxFairPlay
+            // 
+            resources.ApplyResources(this.checkBoxFairPlay, "checkBoxFairPlay");
+            this.checkBoxFairPlay.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.checkBoxFairPlay.Name = "checkBoxFairPlay";
+            this.checkBoxFairPlay.UseVisualStyleBackColor = true;
+            this.checkBoxFairPlay.CheckedChanged += new System.EventHandler(this.CheckBoxFairPlay_CheckedChanged);
             // 
             // numericUpDownNbOptionsFairPlay
             // 
@@ -226,6 +310,10 @@
             this.label3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label3.Name = "label3";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // DRM_CENCDelivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -233,7 +321,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxFairPlay);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBoxWidevine);
             this.Controls.Add(this.groupBoxPlayReady);
@@ -249,9 +337,14 @@
             this.groupBoxWidevine.ResumeLayout(false);
             this.groupBoxWidevine.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsWidevine)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxFairPlay.ResumeLayout(false);
+            this.groupBoxFairPlay.PerformLayout();
+            this.panelFairPlayFromAMS.ResumeLayout(false);
+            this.panelFairPlayFromAMS.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsFairPlay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,9 +365,19 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBoxPlayReady;
         private System.Windows.Forms.CheckBox checkBoxWidevine;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.GroupBox groupBoxFairPlay;
+        private System.Windows.Forms.CheckBox checkBoxFairPlay;
         private System.Windows.Forms.NumericUpDown numericUpDownNbOptionsFairPlay;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panelFairPlayFromAMS;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox TextBoxCertificateFile;
+        private System.Windows.Forms.TextBox textBoxASK;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radioButtonASKBase64;
+        private System.Windows.Forms.RadioButton radioButtonASKHex;
+        public System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonImportPFX;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

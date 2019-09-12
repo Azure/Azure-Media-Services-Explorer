@@ -15,13 +15,51 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
 namespace AMSExplorer
 {
     public partial class DRM_CENCDelivery : Form
     {
-        public int GetNumberOfAuthorizationPolicyOptionsPlayReady // if 0, then no authorization policy. If > 0, then renturn the number of options
+        public byte[] FairPlayASK
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(textBoxASK.Text))
+                {
+                    return null;
+                }
+                try
+                {
+                    if (radioButtonASKHex.Checked)
+                    {
+                        return DynamicEncryption.HexStringToByteArray(textBoxASK.Text);
+                    }
+
+                    else // Base 64
+                    {
+                        var key = Convert.FromBase64String(textBoxASK.Text);
+                        return (key.Length == 16) ? key : null;
+                    }
+                }
+
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public PFXCertificate FairPlayCertificate
+        {
+            get
+            {
+                return cert;
+            }
+        }
+
+        public int GetNumberOfAuthorizationPolicyOptionsPlayReady // if 0, then no authorization policy. If > 0, then return the number of options
         {
             get
             {
@@ -36,7 +74,7 @@ namespace AMSExplorer
             }
         }
 
-        public int GetNumberOfAuthorizationPolicyOptionsWidevine // if 0, then no authorization policy. If > 0, then renturn the number of options
+        public int GetNumberOfAuthorizationPolicyOptionsWidevine // if 0, then no authorization policy. If > 0, then return the number of options
         {
             get
             {
@@ -51,15 +89,34 @@ namespace AMSExplorer
             }
         }
 
+
+        public int GetNumberOfAuthorizationPolicyOptionsFairPlay // if 0, then no authorization policy. If > 0, then return the number of options
+        {
+            get
+            {
+                if (!checkBoxFairPlay.Checked || !_FairPlayPackagingEnabled)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)numericUpDownNbOptionsFairPlay.Value;
+                }
+            }
+        }
+
         private readonly bool _PlayReadyPackagingEnabled;
         private readonly bool _WidevinePackagingEnabled;
+        private readonly bool _FairPlayPackagingEnabled;
+        private PFXCertificate cert = new PFXCertificate();
 
-        public DRM_CENCDelivery(bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled)
+        public DRM_CENCDelivery(bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled, bool FairPlayPackagingEnabled)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _PlayReadyPackagingEnabled = PlayReadyPackagingEnabled;
             _WidevinePackagingEnabled = WidevinePackagingEnabled;
+            _FairPlayPackagingEnabled = FairPlayPackagingEnabled;
         }
 
 
@@ -69,8 +126,8 @@ namespace AMSExplorer
 
             groupBoxPlayReady.Enabled = _PlayReadyPackagingEnabled;
             groupBoxWidevine.Enabled = _WidevinePackagingEnabled;
+            groupBoxFairPlay.Enabled = _FairPlayPackagingEnabled;
         }
-
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
@@ -80,7 +137,68 @@ namespace AMSExplorer
         private void DRM_CENCDelivery_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(label1, e);
+        }
 
+        private void ValidateButtonOk()
+        {
+            buttonOk.Enabled = (cert.Certificate != null && FairPlayASK != null);
+        }
+
+        private void CheckBoxFairPlay_CheckedChanged(object sender, EventArgs e)
+        {
+            panelFairPlayFromAMS.Enabled = checkBoxFairPlay.Checked;
+            ValidateButtonOk();
+        }
+
+        private void ButtonImportPFX_Click(object sender, EventArgs e)
+        {
+            cert = DynamicEncryption.GetCertificateFromFile(false, X509KeyStorageFlags.Exportable);
+
+            TextBoxCertificateFile.Text = (cert.Certificate != null) ? cert.Certificate.SubjectName.Name : "(Error)";
+            ValidateButtonOk();
+        }
+
+        private void RadioButtonASKBase64_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonASKBase64.Checked)
+            {
+                try
+                {
+                    textBoxASK.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxASK.Text));
+                }
+                catch
+                {
+                    textBoxASK.Text = string.Empty;
+                }
+            }
+        }
+
+        private void RadioButtonASKHex_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonASKHex.Checked)
+            {
+                try
+                {
+                    textBoxASK.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxASK.Text));
+                }
+                catch
+                {
+                    textBoxASK.Text = string.Empty;
+                }
+            }
+        }
+
+        private void TextBoxASK_TextChanged(object sender, EventArgs e)
+        {
+            if (FairPlayASK == null)
+            {
+                errorProvider1.SetError(textBoxASK, "The key must be a 16 bytes (128 bit) value");
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxASK, String.Empty);
+            }
+            ValidateButtonOk();
         }
     }
 }
