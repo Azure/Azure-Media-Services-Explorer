@@ -75,7 +75,7 @@ namespace AMSExplorer
             // 
             // columnHeaderTemplateDate
             // 
-            columnHeaderTransformDate.Text = "Last modified";
+            columnHeaderTransformDate.Text = "Last Modified";
             // 
             // columnHeaderTransformDescription
             // 

@@ -203,7 +203,7 @@ namespace AMSExplorer
             Columns[_encodedPreset].Width = 100;
 
             Columns["LastModified"].Width = 140;
-            Columns["LastModified"].HeaderText = "Last modified";
+            Columns["LastModified"].HeaderText = "Last Modified";
 
             Columns["State"].Width = 75;
             Columns["Description"].Width = 110;

@@ -1861,7 +1861,7 @@ namespace AMSExplorer
 
                         if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                         {
-                            DRM_CENCDelivery formCencDelivery = new DRM_CENCDelivery(
+                            DRM_CENCCBSCDelivery formCencDelivery = new DRM_CENCCBSCDelivery(
                                                                     true,
                                                                     true,
                                                                     formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming
@@ -4924,7 +4924,7 @@ namespace AMSExplorer
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
                 dataGridViewStorage.Columns[0].Width = 150;
                 dataGridViewStorage.Columns[1].Name = "Capacity";
-                dataGridViewStorage.Columns[1].HeaderText = "Capacity";
+                dataGridViewStorage.Columns[1].HeaderText = "Space Used";
                 dataGridViewStorage.Columns[1].Width = 80;
                 dataGridViewStorage.Columns[2].Name = "Id";
                 dataGridViewStorage.Columns[2].Visible = false;

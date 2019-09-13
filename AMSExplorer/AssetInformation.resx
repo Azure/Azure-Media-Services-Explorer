@@ -988,37 +988,37 @@
     <value>17, 56</value>
   </metadata>
   <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>171, 22</value>
   </data>
   <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
     <value>Filter info/update</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>171, 22</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Create...</value>
   </data>
   <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>171, 22</value>
   </data>
   <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>171, 22</value>
   </data>
   <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
     <value>Duplicate</value>
   </data>
   <data name="playWithThisFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>171, 22</value>
   </data>
   <data name="playWithThisFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Play with this filter</value>
   </data>
   <data name="contextMenuStripFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 136</value>
+    <value>172, 114</value>
   </data>
   <data name="&gt;&gt;contextMenuStripFilter.Name" xml:space="preserve">
     <value>contextMenuStripFilter</value>
@@ -1077,9 +1077,6 @@
   <data name="tabControl2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="tableLayoutPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -1116,14 +1113,14 @@
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="textBoxContentKeyPolicyOfStreamingPolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="textBoxContentKeyPolicyOfStreamingPolicy.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 8.25pt</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 226</value>
+    <value>3, 224</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1132,7 +1129,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 187</value>
+    <value>831, 186</value>
   </data>
   <data name="textBoxContentKeyPolicyOfStreamingPolicy.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
@@ -1149,8 +1146,8 @@
   <data name="&gt;&gt;textBoxContentKeyPolicyOfStreamingPolicy.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="textBoxStreamingPolicyOfLocator.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="textBoxStreamingPolicyOfLocator.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="textBoxStreamingPolicyOfLocator.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 8.25pt</value>
@@ -1165,7 +1162,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxStreamingPolicyOfLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 187</value>
+    <value>831, 185</value>
   </data>
   <data name="textBoxStreamingPolicyOfLocator.TabIndex" type="System.Int32, mscorlib">
     <value>68</value>
@@ -1192,7 +1189,7 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 208</value>
+    <value>3, 206</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>256, 15</value>
@@ -1215,14 +1212,17 @@
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+    <value>3, 3</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>834, 416</value>
+    <value>837, 413</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
@@ -1269,9 +1269,6 @@
   <data name="&gt;&gt;tabPage5.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tableLayoutPanel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <data name="tableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -1308,8 +1305,8 @@
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="textBoxContentKeyPolicyOfLocator.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="textBoxContentKeyPolicyOfLocator.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="textBoxContentKeyPolicyOfLocator.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 8.25pt</value>
@@ -1324,7 +1321,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxContentKeyPolicyOfLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>825, 391</value>
+    <value>831, 392</value>
   </data>
   <data name="textBoxContentKeyPolicyOfLocator.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
@@ -1341,14 +1338,17 @@
   <data name="&gt;&gt;textBoxContentKeyPolicyOfLocator.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="tableLayoutPanel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 7</value>
+    <value>3, 3</value>
   </data>
   <data name="tableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>831, 412</value>
+    <value>837, 413</value>
   </data>
   <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>
@@ -1395,9 +1395,6 @@
   <data name="&gt;&gt;tabPage4.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tableLayoutPanel3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
@@ -1434,14 +1431,14 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="dataGridViewKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="dataGridViewKeys.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="dataGridViewKeys.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 32</value>
   </data>
   <data name="dataGridViewKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>825, 378</value>
+    <value>831, 378</value>
   </data>
   <data name="dataGridViewKeys.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
@@ -1485,14 +1482,17 @@
   <data name="&gt;&gt;comboBoxKeys.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="tableLayoutPanel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="tableLayoutPanel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+    <value>3, 3</value>
   </data>
   <data name="tableLayoutPanel3.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>831, 413</value>
+    <value>837, 413</value>
   </data>
   <data name="tableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>

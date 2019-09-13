@@ -689,13 +689,13 @@
             this.dataGridViewKeys.AllowUserToAddRows = false;
             this.dataGridViewKeys.AllowUserToDeleteRows = false;
             this.dataGridViewKeys.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
             this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewKeys.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewKeys.ColumnHeadersVisible = false;
             this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewKeys, 2);
             this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
+            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
             this.dataGridViewKeys.MultiSelect = false;
             this.dataGridViewKeys.Name = "dataGridViewKeys";
             this.dataGridViewKeys.ReadOnly = true;

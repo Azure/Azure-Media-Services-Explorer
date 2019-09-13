@@ -54,6 +54,7 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
+            textBoxPolicyName.Text = $"Widevine-Option-{option}";
         }
 
         private void DRM_WidevineLicense_Load(object sender, EventArgs e)

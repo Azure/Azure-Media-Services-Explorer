@@ -1964,9 +1964,15 @@ namespace AMSExplorer
                 ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
             }
 
-            if (ckpolicy == null) return;
+            if (ckpolicy == null || (ckpolicy.Options.First().Restriction.GetType() != typeof(ContentKeyPolicyTokenRestriction)))
+            {
+                comboBoxOptions.Enabled = false;
+                buttonGetDRMToken.Enabled = false;
+                return;
+            };
 
-            if (ckpolicy.Options.First().Restriction.GetType() != typeof(ContentKeyPolicyTokenRestriction)) return;
+            comboBoxOptions.Enabled = true;
+            buttonGetDRMToken.Enabled = true;
 
             foreach (var o in ckpolicy.Options)
             {

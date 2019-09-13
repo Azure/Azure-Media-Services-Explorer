@@ -20,7 +20,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class DRM_CENCDelivery : Form
+    public partial class DRM_CENCCBSCDelivery : Form
     {
         public byte[] FairPlayASK
         {
@@ -110,7 +110,7 @@ namespace AMSExplorer
         private readonly bool _FairPlayPackagingEnabled;
         private PFXCertificate cert = new PFXCertificate();
 
-        public DRM_CENCDelivery(bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled, bool FairPlayPackagingEnabled)
+        public DRM_CENCCBSCDelivery(bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled, bool FairPlayPackagingEnabled)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -120,13 +120,13 @@ namespace AMSExplorer
         }
 
 
-        private void DRM_CENCDelivery_Load(object sender, EventArgs e)
+        private void DRM_CENCCBCSDelivery_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
 
-            groupBoxPlayReady.Enabled = _PlayReadyPackagingEnabled;
-            groupBoxWidevine.Enabled = _WidevinePackagingEnabled;
-            groupBoxFairPlay.Enabled = _FairPlayPackagingEnabled;
+            groupBoxPlayReady.Visible = checkBoxPlayReady.Checked = _PlayReadyPackagingEnabled;
+            groupBoxWidevine.Visible = checkBoxWidevine.Checked = _WidevinePackagingEnabled;
+            groupBoxFairPlay.Visible = checkBoxFairPlay.Checked = _FairPlayPackagingEnabled;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -134,14 +134,15 @@ namespace AMSExplorer
 
         }
 
-        private void DRM_CENCDelivery_DpiChanged(object sender, DpiChangedEventArgs e)
+        private void DRM_CENCCBCSDelivery_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(label1, e);
         }
 
         private void ValidateButtonOk()
         {
-            buttonOk.Enabled = (cert.Certificate != null && FairPlayASK != null);
+            bool okForFairPlay = (!checkBoxFairPlay.Checked) || (checkBoxFairPlay.Checked && cert.Certificate != null && FairPlayASK != null);
+            buttonOk.Enabled = okForFairPlay && (checkBoxPlayReady.Checked || checkBoxWidevine.Checked || checkBoxFairPlay.Checked);
         }
 
         private void CheckBoxFairPlay_CheckedChanged(object sender, EventArgs e)
@@ -198,6 +199,16 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(textBoxASK, String.Empty);
             }
+            ValidateButtonOk();
+        }
+
+        private void CheckBoxPlayReady_CheckedChanged(object sender, EventArgs e)
+        {
+            ValidateButtonOk();
+        }
+
+        private void CheckBoxWidevine_CheckedChanged(object sender, EventArgs e)
+        {
             ValidateButtonOk();
         }
     }

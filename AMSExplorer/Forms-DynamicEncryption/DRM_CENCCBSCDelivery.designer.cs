@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class DRM_CENCDelivery
+    partial class DRM_CENCCBSCDelivery
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DRM_CENCDelivery));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DRM_CENCCBSCDelivery));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -116,6 +116,7 @@
             this.checkBoxPlayReady.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxPlayReady.Name = "checkBoxPlayReady";
             this.checkBoxPlayReady.UseVisualStyleBackColor = true;
+            this.checkBoxPlayReady.CheckedChanged += new System.EventHandler(this.CheckBoxPlayReady_CheckedChanged);
             // 
             // numericUpDownNbOptionsPlayReady
             // 
@@ -168,6 +169,7 @@
             this.checkBoxWidevine.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxWidevine.Name = "checkBoxWidevine";
             this.checkBoxWidevine.UseVisualStyleBackColor = true;
+            this.checkBoxWidevine.CheckedChanged += new System.EventHandler(this.CheckBoxWidevine_CheckedChanged);
             // 
             // numericUpDownNbOptionsWidevine
             // 
@@ -246,18 +248,18 @@
             // radioButtonASKBase64
             // 
             resources.ApplyResources(this.radioButtonASKBase64, "radioButtonASKBase64");
-            this.radioButtonASKBase64.Checked = true;
             this.radioButtonASKBase64.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonASKBase64.Name = "radioButtonASKBase64";
-            this.radioButtonASKBase64.TabStop = true;
             this.radioButtonASKBase64.UseVisualStyleBackColor = true;
             this.radioButtonASKBase64.CheckedChanged += new System.EventHandler(this.RadioButtonASKBase64_CheckedChanged);
             // 
             // radioButtonASKHex
             // 
             resources.ApplyResources(this.radioButtonASKHex, "radioButtonASKHex");
+            this.radioButtonASKHex.Checked = true;
             this.radioButtonASKHex.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonASKHex.Name = "radioButtonASKHex";
+            this.radioButtonASKHex.TabStop = true;
             this.radioButtonASKHex.UseVisualStyleBackColor = true;
             this.radioButtonASKHex.CheckedChanged += new System.EventHandler(this.RadioButtonASKHex_CheckedChanged);
             // 
@@ -278,6 +280,8 @@
             // checkBoxFairPlay
             // 
             resources.ApplyResources(this.checkBoxFairPlay, "checkBoxFairPlay");
+            this.checkBoxFairPlay.Checked = true;
+            this.checkBoxFairPlay.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxFairPlay.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxFairPlay.Name = "checkBoxFairPlay";
             this.checkBoxFairPlay.UseVisualStyleBackColor = true;
@@ -328,8 +332,8 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Name = "DRM_CENCDelivery";
-            this.Load += new System.EventHandler(this.DRM_CENCDelivery_Load);
-            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_CENCDelivery_DpiChanged);
+            this.Load += new System.EventHandler(this.DRM_CENCCBCSDelivery_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_CENCCBCSDelivery_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.groupBoxPlayReady.ResumeLayout(false);
             this.groupBoxPlayReady.PerformLayout();

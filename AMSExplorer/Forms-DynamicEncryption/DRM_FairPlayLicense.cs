@@ -82,12 +82,14 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
+
+            textBoxPolicyName.Text = $"FairPlay-Option-{option}";
         }
 
         private void DRM_FairPlayLicense_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
         }
-
 
         private void checkBoxSecLevel_CheckedChanged(object sender, EventArgs e)
         {
@@ -101,6 +103,11 @@ namespace AMSExplorer
         private void checkBoxLimited_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownRentalHours.Enabled = checkBoxLimited.Checked;
+        }
+
+        private void DRM_FairPlayLicense_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
         }
     }
 }

@@ -532,81 +532,6 @@ License delivery from Azure Media Services</value>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;panelFairPlayFromAMS.Name" xml:space="preserve">
-    <value>panelFairPlayFromAMS</value>
-  </data>
-  <data name="&gt;&gt;panelFairPlayFromAMS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelFairPlayFromAMS.Parent" xml:space="preserve">
-    <value>groupBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;panelFairPlayFromAMS.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlay.Name" xml:space="preserve">
-    <value>checkBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlay.Parent" xml:space="preserve">
-    <value>groupBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlay.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Name" xml:space="preserve">
-    <value>numericUpDownNbOptionsFairPlay</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Parent" xml:space="preserve">
-    <value>groupBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="groupBoxFairPlay.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="groupBoxFairPlay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 326</value>
-  </data>
-  <data name="groupBoxFairPlay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 270</value>
-  </data>
-  <data name="groupBoxFairPlay.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
-  </data>
-  <data name="groupBoxFairPlay.Text" xml:space="preserve">
-    <value>FairPlay</value>
-  </data>
-  <data name="&gt;&gt;groupBoxFairPlay.Name" xml:space="preserve">
-    <value>groupBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;groupBoxFairPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxFairPlay.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxFairPlay.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="panelFairPlayFromAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -701,6 +626,120 @@ License delivery from Azure Media Services</value>
     <value>groupBoxFairPlay</value>
   </data>
   <data name="&gt;&gt;panelFairPlayFromAMS.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxFairPlay.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxFairPlay.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxFairPlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 46</value>
+  </data>
+  <data name="checkBoxFairPlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 19</value>
+  </data>
+  <data name="checkBoxFairPlay.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="checkBoxFairPlay.Text" xml:space="preserve">
+    <value>FairPlay license delivery with</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFairPlay.Name" xml:space="preserve">
+    <value>checkBoxFairPlay</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFairPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFairPlay.Parent" xml:space="preserve">
+    <value>groupBoxFairPlay</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFairPlay.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>240, 42</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 23</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Name" xml:space="preserve">
+    <value>numericUpDownNbOptionsFairPlay</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Parent" xml:space="preserve">
+    <value>groupBoxFairPlay</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 46</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>option(s)</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>groupBoxFairPlay</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="groupBoxFairPlay.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="groupBoxFairPlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 326</value>
+  </data>
+  <data name="groupBoxFairPlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 270</value>
+  </data>
+  <data name="groupBoxFairPlay.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="groupBoxFairPlay.Text" xml:space="preserve">
+    <value>FairPlay</value>
+  </data>
+  <data name="&gt;&gt;groupBoxFairPlay.Name" xml:space="preserve">
+    <value>groupBoxFairPlay</value>
+  </data>
+  <data name="&gt;&gt;groupBoxFairPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxFairPlay.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxFairPlay.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="label10.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -966,93 +1005,6 @@ License delivery from Azure Media Services</value>
   </data>
   <data name="&gt;&gt;buttonImportPFX.ZOrder" xml:space="preserve">
     <value>5</value>
-  </data>
-  <data name="checkBoxFairPlay.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxFairPlay.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxFairPlay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 46</value>
-  </data>
-  <data name="checkBoxFairPlay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 19</value>
-  </data>
-  <data name="checkBoxFairPlay.TabIndex" type="System.Int32, mscorlib">
-    <value>84</value>
-  </data>
-  <data name="checkBoxFairPlay.Text" xml:space="preserve">
-    <value>FairPlay license delivery with</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlay.Name" xml:space="preserve">
-    <value>checkBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlay.Parent" xml:space="preserve">
-    <value>groupBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFairPlay.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="numericUpDownNbOptionsFairPlay.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="numericUpDownNbOptionsFairPlay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 42</value>
-  </data>
-  <data name="numericUpDownNbOptionsFairPlay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 23</value>
-  </data>
-  <data name="numericUpDownNbOptionsFairPlay.TabIndex" type="System.Int32, mscorlib">
-    <value>82</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Name" xml:space="preserve">
-    <value>numericUpDownNbOptionsFairPlay</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.Parent" xml:space="preserve">
-    <value>groupBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownNbOptionsFairPlay.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 46</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>option(s)</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBoxFairPlay</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

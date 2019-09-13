@@ -247,11 +247,11 @@
     <Compile Include="InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\DRM_CENCDelivery.cs">
+    <Compile Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms-DynamicEncryption\DRM_CENCDelivery.designer.cs">
-      <DependentUpon>DRM_CENCDelivery.cs</DependentUpon>
+    <Compile Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.designer.cs">
+      <DependentUpon>DRM_CENCCBSCDelivery.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms-DynamicEncryption\DRM_GenerateToken.cs">
       <SubType>Form</SubType>
@@ -700,11 +700,11 @@
     <EmbeddedResource Include="InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCDelivery.ja.resx">
-      <DependentUpon>DRM_CENCDelivery.cs</DependentUpon>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.ja.resx">
+      <DependentUpon>DRM_CENCCBSCDelivery.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCDelivery.resx">
-      <DependentUpon>DRM_CENCDelivery.cs</DependentUpon>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.resx">
+      <DependentUpon>DRM_CENCCBSCDelivery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_GenerateToken.ja.resx">
       <DependentUpon>DRM_GenerateToken.cs</DependentUpon>

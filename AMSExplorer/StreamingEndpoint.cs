@@ -120,7 +120,7 @@ namespace AMSExplorer
             Columns["ScaleUnits"].Width = 100;
             Columns["ScaleUnits"].HeaderText = "Streaming Units";
             Columns["LastModified"].Width = 150;
-            Columns["LastModified"].HeaderText = "Last modified";
+            Columns["LastModified"].HeaderText = "Last Modified";
 
             WorkerRefreshStreamingEndpoints = new BackgroundWorker
             {

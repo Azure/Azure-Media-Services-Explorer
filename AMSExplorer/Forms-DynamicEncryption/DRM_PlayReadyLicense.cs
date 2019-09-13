@@ -207,6 +207,7 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
+            textBoxPolicyName.Text = $"PlayReady-Option-{option}";
         }
 
 
