@@ -204,8 +204,8 @@
             this.groupBoxFairPlay.Controls.Add(this.checkBoxFairPlay);
             this.groupBoxFairPlay.Controls.Add(this.numericUpDownNbOptionsFairPlay);
             this.groupBoxFairPlay.Controls.Add(this.label3);
-            resources.ApplyResources(this.groupBoxFairPlay, "groupBoxFairPlay");
             this.groupBoxFairPlay.ForeColor = System.Drawing.Color.DarkBlue;
+            resources.ApplyResources(this.groupBoxFairPlay, "groupBoxFairPlay");
             this.groupBoxFairPlay.Name = "groupBoxFairPlay";
             this.groupBoxFairPlay.TabStop = false;
             // 
@@ -318,7 +318,7 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // DRM_CENCDelivery
+            // DRM_CENCCBSCDelivery
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -331,7 +331,7 @@
             this.Controls.Add(this.groupBoxPlayReady);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Name = "DRM_CENCDelivery";
+            this.Name = "DRM_CENCCBSCDelivery";
             this.Load += new System.EventHandler(this.DRM_CENCCBCSDelivery_Load);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_CENCCBCSDelivery_DpiChanged);
             this.panel1.ResumeLayout(false);
