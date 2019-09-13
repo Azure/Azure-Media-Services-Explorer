@@ -204,6 +204,90 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="&gt;&gt;radioButtonEndUnlimited.Name" xml:space="preserve">
+    <value>radioButtonEndUnlimited</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndUnlimited.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndUnlimited.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndUnlimited.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndYear.Name" xml:space="preserve">
+    <value>radioButtonEndYear</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndYear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndYear.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndYear.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndCustom.Name" xml:space="preserve">
+    <value>radioButtonEndCustom</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndCustom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndCustom.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndCustom.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndTime.Name" xml:space="preserve">
+    <value>dateTimePickerEndTime</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndTime.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndTime.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndDate.Name" xml:space="preserve">
+    <value>dateTimePickerEndDate</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndDate.Parent" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerEndDate.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBoxEnd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>269, 17</value>
+  </data>
+  <data name="groupBoxEnd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>257, 208</value>
+  </data>
+  <data name="groupBoxEnd.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="groupBoxEnd.Text" xml:space="preserve">
+    <value>End date/time</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEnd.Name" xml:space="preserve">
+    <value>groupBoxEnd</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEnd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEnd.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEnd.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="radioButtonEndUnlimited.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -333,29 +417,65 @@
   <data name="&gt;&gt;dateTimePickerEndDate.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="groupBoxEnd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>269, 17</value>
+  <data name="&gt;&gt;checkBoxStartDate.Name" xml:space="preserve">
+    <value>checkBoxStartDate</value>
   </data>
-  <data name="groupBoxEnd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 208</value>
+  <data name="&gt;&gt;checkBoxStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="groupBoxEnd.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;checkBoxStartDate.Parent" xml:space="preserve">
+    <value>groupBoxStart</value>
+  </data>
+  <data name="&gt;&gt;checkBoxStartDate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Name" xml:space="preserve">
+    <value>dateTimePickerStartTime</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Parent" xml:space="preserve">
+    <value>groupBoxStart</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartDate.Name" xml:space="preserve">
+    <value>dateTimePickerStartDate</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartDate.Parent" xml:space="preserve">
+    <value>groupBoxStart</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartDate.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="groupBoxEnd.Text" xml:space="preserve">
-    <value>End date/time</value>
+  <data name="groupBoxStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 17</value>
   </data>
-  <data name="&gt;&gt;groupBoxEnd.Name" xml:space="preserve">
-    <value>groupBoxEnd</value>
+  <data name="groupBoxStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>257, 208</value>
   </data>
-  <data name="&gt;&gt;groupBoxEnd.Type" xml:space="preserve">
+  <data name="groupBoxStart.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBoxStart.Text" xml:space="preserve">
+    <value>Start date/time</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStart.Name" xml:space="preserve">
+    <value>groupBoxStart</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStart.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBoxEnd.Parent" xml:space="preserve">
+  <data name="&gt;&gt;groupBoxStart.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;groupBoxEnd.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;groupBoxStart.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="checkBoxStartDate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -434,30 +554,6 @@
   </data>
   <data name="&gt;&gt;dateTimePickerStartDate.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="groupBoxStart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 17</value>
-  </data>
-  <data name="groupBoxStart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 208</value>
-  </data>
-  <data name="groupBoxStart.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBoxStart.Text" xml:space="preserve">
-    <value>Start date/time</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStart.Name" xml:space="preserve">
-    <value>groupBoxStart</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStart.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStart.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="labelAssetName.Location" type="System.Drawing.Point, System.Drawing">
     <value>40, 47</value>
@@ -777,6 +873,12 @@
   <data name="radioButtonMultiDRM.Text" xml:space="preserve">
     <value>Multi DRM streaming</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="radioButtonMultiDRM.ToolTip" xml:space="preserve">
+    <value>PlayReady, Widevine and FairPlay packaging</value>
+  </data>
   <data name="&gt;&gt;radioButtonMultiDRM.Name" xml:space="preserve">
     <value>radioButtonMultiDRM</value>
   </data>
@@ -807,6 +909,9 @@
   <data name="radioButtonMultiDRMCENC.Text" xml:space="preserve">
     <value>Multi DRM CENC streaming</value>
   </data>
+  <data name="radioButtonMultiDRMCENC.ToolTip" xml:space="preserve">
+    <value>PlayReady and Widevine packaging</value>
+  </data>
   <data name="&gt;&gt;radioButtonMultiDRMCENC.Name" xml:space="preserve">
     <value>radioButtonMultiDRMCENC</value>
   </data>
@@ -836,6 +941,9 @@
   </data>
   <data name="radioButtonClearKey.Text" xml:space="preserve">
     <value>Clear key streaming</value>
+  </data>
+  <data name="radioButtonClearKey.ToolTip" xml:space="preserve">
+    <value>AES key</value>
   </data>
   <data name="&gt;&gt;radioButtonClearKey.Name" xml:space="preserve">
     <value>radioButtonClearKey</value>
@@ -1062,18 +1170,6 @@
   <data name="groupBoxForceLocator.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="listViewFilters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="listViewFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 22</value>
-  </data>
-  <data name="listViewFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 191</value>
-  </data>
-  <data name="listViewFilters.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
   <data name="&gt;&gt;listViewFilters.Name" xml:space="preserve">
     <value>listViewFilters</value>
   </data>
@@ -1242,6 +1338,30 @@
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="listViewFilters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="listViewFilters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 22</value>
+  </data>
+  <data name="listViewFilters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 191</value>
+  </data>
+  <data name="listViewFilters.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="&gt;&gt;listViewFilters.Name" xml:space="preserve">
+    <value>listViewFilters</value>
+  </data>
+  <data name="&gt;&gt;listViewFilters.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listViewFilters.Parent" xml:space="preserve">
+    <value>groupBoxForceLocator</value>
+  </data>
+  <data name="&gt;&gt;listViewFilters.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1292,6 +1412,12 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Publish an asset</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>CreateLocator</value>

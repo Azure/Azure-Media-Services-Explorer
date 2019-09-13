@@ -950,42 +950,37 @@ namespace AMSExplorer
                 {
                     buttonDASH.Enabled = false;
                     buttonAzureMediaPlayer.Enabled = false;
-                    buttonHTML.Enabled = false;
                     buttonOpen.Enabled = false;
                     buttonDel.Enabled = false;
 
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
-                        case AssetInfo._smooth:
-                        case AssetInfo._smooth_legacy:
+                        case "SmoothStreaming":
+                        case "Hls":
                             buttonDASH.Enabled = false;
-                            buttonAzureMediaPlayer.Enabled = true;
-                            buttonHTML.Enabled = false;
+                            buttonAzureMediaPlayer.Enabled = buttonAdvancedTestPlayer.Enabled = true;
                             buttonOpen.Enabled = false;
                             break;
 
-                        case AssetInfo._dash_csf:
-                        case AssetInfo._dash_cmaf:
+                        case "Dash":
                             buttonDASH.Enabled = true;
                             buttonAzureMediaPlayer.Enabled = true;
-                            buttonHTML.Enabled = false;
+                            buttonAdvancedTestPlayer.Enabled = true;
                             buttonOpen.Enabled = false;
                             break;
 
-                        case AssetInfo._prog_down_https_SAS:
+                        case "Download":
                             buttonDASH.Enabled = false;
-                            buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
-                            buttonHTML.Enabled = false;
+                            buttonAzureMediaPlayer.Enabled = buttonAdvancedTestPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonOpen.Enabled = true;
                             break;
-
-                        case AssetInfo._prog_down_http_streaming:
-                            buttonDASH.Enabled = false;
-                            buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
-                            buttonHTML.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
-                            buttonOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".ism"));
-                            break;
-
+                        /*
+                    case AssetInfo._prog_down_http_streaming:
+                        buttonDASH.Enabled = false;
+                        buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
+                        buttonOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".ism"));
+                        break;
+                        */
                         default:
                             break;
                     }
@@ -1002,7 +997,7 @@ namespace AMSExplorer
             DoAzureMediaPlayer();
         }
 
-        private void DoAzureMediaPlayer()
+        private void DoAzureMediaPlayer(PlayerType playerType = PlayerType.AzureMediaPlayer)
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -1011,25 +1006,21 @@ namespace AMSExplorer
                 {
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
-                        case AssetInfo._dash_csf:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
+                        case "Dash":
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
 
                             break;
 
-                        case AssetInfo._smooth:
-                        case AssetInfo._smooth_legacy:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
+                        case "SmoothStreaming":
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
                             break;
 
-                        case AssetInfo._hls_v4:
-                        case AssetInfo._hls_v3:
-                        case AssetInfo._hls:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
+                        case "Hls":
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
                             break;
 
-                        case AssetInfo._prog_down_http_streaming:
-                        case AssetInfo._prog_down_https_SAS:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
+                        case "Download":
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
                             break;
 
                         default:
@@ -2139,6 +2130,11 @@ namespace AMSExplorer
         {
             // for controls which are not using the default font
             DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripFiles, contextMenuStripKey, contextMenuStripFilter }, e, this);
+        }
+
+        private void Button1_Click_2(object sender, EventArgs e)
+        {
+            DoAzureMediaPlayer(PlayerType.AdvancedTestPlayer);
         }
     }
 }

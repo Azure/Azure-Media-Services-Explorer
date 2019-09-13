@@ -594,6 +594,7 @@ namespace AMSExplorer
         public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/v2.9.0/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
+        public const string AdvancedTestPlayer = @"https://openidconnectweb.azurewebsites.net/AMTestPlayer?url={0}";
 
         public const string Player3IVXHLS = @"http://apps.microsoft.com/windows/en-us/app/3ivx-hls-player/f79ce7d0-2993-4658-bc4e-83dc182a0614";
         public const string PlayerOSMFRCst = @"http://wamsclient.cloudapp.net/release/setup.html";
@@ -1990,6 +1991,11 @@ namespace AMSExplorer
                     FullPlayBackLink = string.Format(Constants.PlayerMP4AzurePage, HttpUtility.UrlEncode(path));
                     break;
 
+
+                case PlayerType.AdvancedTestPlayer:
+                    FullPlayBackLink = string.Format(Constants.AdvancedTestPlayer, HttpUtility.UrlEncode(path));
+                    break;
+
                 case PlayerType.CustomPlayer:
                     string myurl = Properties.Settings.Default.CustomPlayerUrl;
                     FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, string.Empty /*tokenresult.TokenString*/);
@@ -3100,6 +3106,7 @@ namespace AMSExplorer
         AzureMediaPlayerClear,
         DASHIFRefPlayer,
         MP4AzurePage,
+        AdvancedTestPlayer,
         CustomPlayer
     }
 

@@ -91,6 +91,7 @@
             this.withAzureMediaPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAdvancedTestPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
             this.butNextPageAsset = new System.Windows.Forms.Button();
@@ -222,6 +223,7 @@
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAdvancedTestPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.labelPrograms = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -300,6 +302,7 @@
             this.azureMediaBlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.azureMediaServicesPlayerPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.advancedTestPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hTML5VideoElementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jwPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -829,6 +832,7 @@
             this.ContextMenuItemAssetPlayback.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.withAzureMediaPlayerToolStripMenuItem,
             this.toolStripSeparator2,
+            this.withAdvancedTestPlayerToolStripMenuItem,
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference,
             this.withCustomPlayerToolStripMenuItem1});
             resources.ApplyResources(this.ContextMenuItemAssetPlayback, "ContextMenuItemAssetPlayback");
@@ -851,6 +855,12 @@
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Name = "ContextMenuItemPlaybackWithMPEGDASHIFReference";
             resources.ApplyResources(this.ContextMenuItemPlaybackWithMPEGDASHIFReference, "ContextMenuItemPlaybackWithMPEGDASHIFReference");
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Click += new System.EventHandler(this.withMPEGDASHIFReferencePlayerToolStripMenuItem_Click);
+            // 
+            // withAdvancedTestPlayerToolStripMenuItem
+            // 
+            this.withAdvancedTestPlayerToolStripMenuItem.Name = "withAdvancedTestPlayerToolStripMenuItem";
+            resources.ApplyResources(this.withAdvancedTestPlayerToolStripMenuItem, "withAdvancedTestPlayerToolStripMenuItem");
+            this.withAdvancedTestPlayerToolStripMenuItem.Click += new System.EventHandler(this.WithAdvancedTestPlayerToolStripMenuItem_Click);
             // 
             // withCustomPlayerToolStripMenuItem1
             // 
@@ -1907,6 +1917,7 @@
             // 
             this.ContextMenuItemProgramPlayback.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.withAzureMediaPlayerToolStripMenuItem2,
+            this.withAdvancedTestPlayerToolStripMenuItem1,
             this.withCustomPlayerToolStripMenuItem2});
             resources.ApplyResources(this.ContextMenuItemProgramPlayback, "ContextMenuItemProgramPlayback");
             this.ContextMenuItemProgramPlayback.Name = "ContextMenuItemProgramPlayback";
@@ -1917,6 +1928,12 @@
             resources.ApplyResources(this.withAzureMediaPlayerToolStripMenuItem2, "withAzureMediaPlayerToolStripMenuItem2");
             this.withAzureMediaPlayerToolStripMenuItem2.DropDownOpening += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem2_DropDownOpening);
             this.withAzureMediaPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem2_Click);
+            // 
+            // withAdvancedTestPlayerToolStripMenuItem1
+            // 
+            this.withAdvancedTestPlayerToolStripMenuItem1.Name = "withAdvancedTestPlayerToolStripMenuItem1";
+            resources.ApplyResources(this.withAdvancedTestPlayerToolStripMenuItem1, "withAdvancedTestPlayerToolStripMenuItem1");
+            this.withAdvancedTestPlayerToolStripMenuItem1.Click += new System.EventHandler(this.WithAdvancedTestPlayerToolStripMenuItem1_Click);
             // 
             // withCustomPlayerToolStripMenuItem2
             // 
@@ -2457,6 +2474,7 @@
             this.azureMediaBlogToolStripMenuItem,
             this.toolStripSeparator1,
             this.azureMediaServicesPlayerPageToolStripMenuItem,
+            this.advancedTestPlayerToolStripMenuItem,
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem,
             this.hTML5VideoElementToolStripMenuItem,
             this.jwPlayerToolStripMenuItem,
@@ -2488,6 +2506,13 @@
             resources.ApplyResources(this.azureMediaServicesPlayerPageToolStripMenuItem, "azureMediaServicesPlayerPageToolStripMenuItem");
             this.azureMediaServicesPlayerPageToolStripMenuItem.Name = "azureMediaServicesPlayerPageToolStripMenuItem";
             this.azureMediaServicesPlayerPageToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesPlayerPageToolStripMenuItem_Click);
+            // 
+            // advancedTestPlayerToolStripMenuItem
+            // 
+            this.advancedTestPlayerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.advancedTestPlayerToolStripMenuItem.Name = "advancedTestPlayerToolStripMenuItem";
+            resources.ApplyResources(this.advancedTestPlayerToolStripMenuItem, "advancedTestPlayerToolStripMenuItem");
+            this.advancedTestPlayerToolStripMenuItem.Click += new System.EventHandler(this.AdvancedTestPlayerToolStripMenuItem_Click);
             // 
             // dASHIFHTML5ReferencePlayerToolStripMenuItem
             // 
@@ -3092,6 +3117,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.Panel panelButtons;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.ToolStripMenuItem withAdvancedTestPlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withAdvancedTestPlayerToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem advancedTestPlayerToolStripMenuItem;
     }
 }
 

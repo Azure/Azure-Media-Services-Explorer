@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateLocator));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxEnd.SuspendLayout();
             this.groupBoxStart.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -301,6 +303,7 @@
             resources.ApplyResources(this.radioButtonMultiDRM, "radioButtonMultiDRM");
             this.radioButtonMultiDRM.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonMultiDRM.Name = "radioButtonMultiDRM";
+            this.toolTip1.SetToolTip(this.radioButtonMultiDRM, resources.GetString("radioButtonMultiDRM.ToolTip"));
             this.radioButtonMultiDRM.UseVisualStyleBackColor = true;
             this.radioButtonMultiDRM.CheckedChanged += new System.EventHandler(this.radioButtonMultiDRM_CheckedChanged);
             // 
@@ -309,6 +312,7 @@
             resources.ApplyResources(this.radioButtonMultiDRMCENC, "radioButtonMultiDRMCENC");
             this.radioButtonMultiDRMCENC.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonMultiDRMCENC.Name = "radioButtonMultiDRMCENC";
+            this.toolTip1.SetToolTip(this.radioButtonMultiDRMCENC, resources.GetString("radioButtonMultiDRMCENC.ToolTip"));
             this.radioButtonMultiDRMCENC.UseVisualStyleBackColor = true;
             this.radioButtonMultiDRMCENC.CheckedChanged += new System.EventHandler(this.radioButtonMultiDRMCENC_CheckedChanged);
             // 
@@ -317,6 +321,7 @@
             resources.ApplyResources(this.radioButtonClearKey, "radioButtonClearKey");
             this.radioButtonClearKey.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonClearKey.Name = "radioButtonClearKey";
+            this.toolTip1.SetToolTip(this.radioButtonClearKey, resources.GetString("radioButtonClearKey.ToolTip"));
             this.radioButtonClearKey.UseVisualStyleBackColor = true;
             this.radioButtonClearKey.CheckedChanged += new System.EventHandler(this.radioButtonClearKey_CheckedChanged);
             // 
@@ -523,5 +528,6 @@
         private System.Windows.Forms.ListView listViewFilters;
         private System.Windows.Forms.Label labelNoAssetFilter;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

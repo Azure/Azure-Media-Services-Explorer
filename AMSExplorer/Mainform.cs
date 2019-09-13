@@ -8810,6 +8810,22 @@ namespace AMSExplorer
         {
             Process.Start(Constants.LinkFeedbackAMS);
         }
+
+        private void WithAdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AdvancedTestPlayer);
+
+        }
+
+        private void WithAdvancedTestPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AdvancedTestPlayer);
+        }
+
+        private void AdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Constants.AdvancedTestPlayer);
+        }
     }
 }
 

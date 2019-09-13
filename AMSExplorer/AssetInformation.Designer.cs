@@ -114,7 +114,6 @@
             this.buttonOpen = new System.Windows.Forms.Button();
             this.buttonDel = new System.Windows.Forms.Button();
             this.buttonAzureMediaPlayer = new System.Windows.Forms.Button();
-            this.buttonHTML = new System.Windows.Forms.Button();
             this.buttonDASH = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -122,6 +121,7 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonAdvancedTestPlayer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -759,13 +759,13 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.buttonAdvancedTestPlayer);
             this.tabPage3.Controls.Add(this.checkBoxHttps);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.comboBoxStreamingEndpoint);
             this.tabPage3.Controls.Add(this.buttonOpen);
             this.tabPage3.Controls.Add(this.buttonDel);
             this.tabPage3.Controls.Add(this.buttonAzureMediaPlayer);
-            this.tabPage3.Controls.Add(this.buttonHTML);
             this.tabPage3.Controls.Add(this.buttonDASH);
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.TreeViewLocators);
@@ -817,13 +817,6 @@
             this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
             this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.button1_Click);
             // 
-            // buttonHTML
-            // 
-            resources.ApplyResources(this.buttonHTML, "buttonHTML");
-            this.buttonHTML.Name = "buttonHTML";
-            this.buttonHTML.UseVisualStyleBackColor = true;
-            this.buttonHTML.Click += new System.EventHandler(this.buttonHTML_Click);
-            // 
             // buttonDASH
             // 
             resources.ApplyResources(this.buttonDASH, "buttonDASH");
@@ -861,6 +854,13 @@
             this.panel1.Controls.Add(this.buttonClose);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            // 
+            // buttonAdvancedTestPlayer
+            // 
+            resources.ApplyResources(this.buttonAdvancedTestPlayer, "buttonAdvancedTestPlayer");
+            this.buttonAdvancedTestPlayer.Name = "buttonAdvancedTestPlayer";
+            this.buttonAdvancedTestPlayer.UseVisualStyleBackColor = true;
+            this.buttonAdvancedTestPlayer.Click += new System.EventHandler(this.Button1_Click_2);
             // 
             // AssetInformation
             // 
@@ -941,7 +941,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button buttonHTML;
         private System.Windows.Forms.Button buttonDASH;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonOpen;
@@ -1006,5 +1005,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Button buttonAdvancedTestPlayer;
     }
 }
