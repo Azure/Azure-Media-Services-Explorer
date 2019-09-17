@@ -71,7 +71,7 @@ namespace AMSExplorer
         private static readonly Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         private static readonly Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
         private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
-        private static AMSClientV3 _client;
+        private static AMSClientV3 _amsClient;
         private static BindingList<AssetEntryV3> _MyObservAssetV3;
         private IPage<Asset> firstpage;
         private SynchronizationContext _syncontext;
@@ -119,9 +119,13 @@ namespace AMSExplorer
 
             client.RefreshTokenIfNeeded();
 
-            _client = client;
+            _amsClient = client;
+            
+            var assetsList = Task.Run(() =>
+                                        _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)
+                                        ).GetAwaiter().GetResult();
 
-            IEnumerable<AssetEntryV3> assets = _client.AMSclient.Assets.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).Select(a => new AssetEntryV3(_syncontext)
+            IEnumerable<AssetEntryV3> assets = assetsList.Select(a => new AssetEntryV3(_syncontext)
             {
                 Name = a.Name,
                 AssetId = a.AssetId,
@@ -265,7 +269,7 @@ namespace AMSExplorer
             IEnumerable<AssetEntryV3> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
             List<AssetEntryV3> listae2 = query.ToList();
 
-            _client.RefreshTokenIfNeeded();
+            _amsClient.RefreshTokenIfNeeded();
             //var scale = HighDpiHelper.GetDpiScale(this).Value;
             float scale = DeviceDpi / 96f;
 
@@ -275,7 +279,9 @@ namespace AMSExplorer
                 System.Threading.Thread.Sleep(1000);
                 try
                 {
-                    asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, AE.Name);
+                    asset = Task.Run(() => 
+                    _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AE.Name))
+                    .GetAwaiter().GetResult();
 
                     /*
                     var firstPage = await MediaServicesArmClient.Assets.ListAsync(TestSettings.CustomerResourceGroup, TestSettings.CustomerAccountName);
@@ -297,7 +303,7 @@ namespace AMSExplorer
                         AE.Name = asset.Name;
                         // AE.StorageAccountName = asset.StorageAccountName;
 
-                        AssetBitmapAndText assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _client);
+                        AssetBitmapAndText assetBitmapAndText = DataGridViewAssets.BuildBitmapPublication(asset.Name, _amsClient);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.Publication = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
@@ -305,7 +311,7 @@ namespace AMSExplorer
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         // var assetfiles =  asset.AssetFiles.ToList();
-                        AssetInfoData data = AssetInfo.GetAssetType(asset.Name, _client);
+                        AssetInfoData data = AssetInfo.GetAssetType(asset.Name, _amsClient);
                         if (data != null)
                         {
                             AE.Type = data.Type;
@@ -314,7 +320,7 @@ namespace AMSExplorer
                             AE.AssetWarning = (AE.SizeLong == 0);
                         }
 
-                        assetBitmapAndText = BuildBitmapDynEncryption(asset.Name, _client);
+                        assetBitmapAndText = BuildBitmapDynEncryption(asset.Name, _amsClient);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.DynamicEncryption = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
@@ -330,7 +336,7 @@ namespace AMSExplorer
                         }
 
                         //assetBitmapAndText = BuildBitmapAssetFilters(asset.Name, _client);
-                        int? afcount = ReturnNumberAssetFilters(asset.Name, _client);
+                        int? afcount = ReturnNumberAssetFilters(asset.Name, _amsClient);
                         AE.Filters = afcount > 0 ? afcount : null;
                         //AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
 
@@ -563,11 +569,11 @@ Properties/StorageId
             }
 
             IPage<Asset> currentPage = null;
-            await _client.RefreshTokenIfNeededAsync();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             if (pagetodisplay == 1)
             {
-                firstpage = await _client.AMSclient.Assets.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);
+                firstpage = await _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, odataQuery);
                 currentPage = firstpage;
             }
             else
@@ -577,7 +583,7 @@ Properties/StorageId
                 while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
                     _currentPageNumber++;
-                    currentPage = await _client.AMSclient.Assets.ListNextAsync(currentPage.NextPageLink);
+                    currentPage = await _amsClient.AMSclient.Assets.ListNextAsync(currentPage.NextPageLink);
                 }
                 if (currentPage.NextPageLink == null)
                 {
@@ -651,15 +657,18 @@ Properties/StorageId
         }
 
 
-        public static AssetBitmapAndText BuildBitmapPublication(string assetName, AMSClientV3 client)
+        public static AssetBitmapAndText BuildBitmapPublication(string assetName, AMSClientV3 _amsClient)
         {
             Bitmap returnedImage = null;
             string returnedText = null;
-            client.RefreshTokenIfNeeded();
+            _amsClient.RefreshTokenIfNeeded();
             IList<AssetStreamingLocator> locators;
             try
             {
-                locators = client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName).StreamingLocators;
+                locators =
+                            Task.Run(() =>
+                            _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName)
+                            ).GetAwaiter().GetResult().StreamingLocators;
             }
             catch
             {
@@ -714,13 +723,16 @@ Properties/StorageId
         }
 
 
-        public static AssetBitmapAndText BuildBitmapDynEncryption(string assetName, AMSClientV3 client)
+        public static AssetBitmapAndText BuildBitmapDynEncryption(string assetName, AMSClientV3 amsClient)
         {
-            client.RefreshTokenIfNeeded();
+            amsClient.RefreshTokenIfNeeded();
             IList<AssetStreamingLocator> locators;
             try
             {
-                locators = client.AMSclient.Assets.ListStreamingLocators(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName).StreamingLocators;
+                locators =
+                    Task.Run(() =>
+                    amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, assetName)
+                    ).GetAwaiter().GetResult().StreamingLocators;
             }
             catch
             {
@@ -784,7 +796,7 @@ Properties/StorageId
             IPage<AssetFilter> filters;
             try
             {
-                filters = client.AMSclient.AssetFilters.List(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName);
+                filters = Task.Run(() => client.AMSclient.AssetFilters.List(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName)).GetAwaiter().GetResult();
             }
             catch
             {

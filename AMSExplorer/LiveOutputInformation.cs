@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -29,7 +30,7 @@ namespace AMSExplorer
     {
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
         private readonly Mainform MyMainForm;
-        private readonly AMSClientV3 _client;
+        private readonly AMSClientV3 _amsClient;
         public bool MultipleSelection = false;
         public LiveOutput MyLiveOutput;
 
@@ -38,7 +39,7 @@ namespace AMSExplorer
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
-            _client = client;
+            _amsClient = client;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -70,11 +71,15 @@ namespace AMSExplorer
 
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
-            _client.RefreshTokenIfNeeded();
-            Asset AssetToDisplayP = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, MyLiveOutput.AssetName);
+            _amsClient.RefreshTokenIfNeeded();
+
+            Asset AssetToDisplayP = Task.Run(() =>
+                        _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, MyLiveOutput.AssetName))
+                        .GetAwaiter().GetResult();
+
             if (AssetToDisplayP != null)
             {
-                AssetInformation form = new AssetInformation(MyMainForm, _client)
+                AssetInformation form = new AssetInformation(MyMainForm, _amsClient)
                 {
                     myAssetV3 = AssetToDisplayP,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting

@@ -22,6 +22,7 @@ using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Media;
+using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
@@ -87,7 +88,7 @@ namespace AMSExplorer
 
                 }
             }
-            
+
             if (_selectedAssets.Count == 1 && _selectedAssets.FirstOrDefault() != null)  // one asset only
             {
                 var myAsset = assetlist.FirstOrDefault();
@@ -532,7 +533,10 @@ namespace AMSExplorer
                         filterinfo = formAF.GetFilterInfo;
                         AssetFilter assetFilter = new AssetFilter() { PresentationTimeRange = filterinfo.Presentationtimerange };
 
-                        _amsClientV3.AMSclient.AssetFilters.CreateOrUpdate(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, selasset.Name, filterinfo.Name, assetFilter);
+                        Task.Run(() =>
+                      _amsClientV3.AMSclient.AssetFilters.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, selasset.Name, filterinfo.Name, assetFilter)
+                      ).GetAwaiter().GetResult();
+
                         _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                     }
                     catch (Exception ex)
@@ -598,7 +602,7 @@ namespace AMSExplorer
 
         private void Subclipping_Shown(object sender, EventArgs e)
         {
-           
+
         }
     }
 

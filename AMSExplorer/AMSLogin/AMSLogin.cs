@@ -31,6 +31,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -155,9 +156,8 @@ namespace AMSExplorer
 
             try
             {   // let's refresh storage accounts
-                AmsClient.credentialsEntry.MediaService.StorageAccounts = AmsClient.AMSclient.Mediaservices.Get(AmsClient.credentialsEntry.ResourceGroup, AmsClient.credentialsEntry.AccountName).StorageAccounts;
+                AmsClient.credentialsEntry.MediaService.StorageAccounts = (await AmsClient.AMSclient.Mediaservices.GetAsync(AmsClient.credentialsEntry.ResourceGroup, AmsClient.credentialsEntry.AccountName)).StorageAccounts;
                 Cursor = Cursors.Default;
-
             }
             catch (Exception ex)
             {

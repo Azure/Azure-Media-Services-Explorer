@@ -16,11 +16,13 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -32,7 +34,7 @@ namespace AMSExplorer
         private readonly PlayerType _playertype;
         private string _path;
         private readonly bool _displayBrowserSelection;
-        private readonly AMSClientV3 _client;
+        private readonly AMSClientV3 _amsClient;
         private IList<AssetStreamingLocator> _locators;
 
         public StreamingEndpoint SelectStreamingEndpoint
@@ -41,8 +43,8 @@ namespace AMSExplorer
             {
                 string val = (listBoxSE.SelectedItem as Item).Value as string;
                 string seName = val.Split("|".ToCharArray())[0];
-                _client.RefreshTokenIfNeeded();
-                return _client.AMSclient.StreamingEndpoints.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, seName);
+                _amsClient.RefreshTokenIfNeeded();
+                return Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, seName)).GetAwaiter().GetResult();
             }
         }
 
@@ -140,7 +142,7 @@ namespace AMSExplorer
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
-            _client = client;
+            _amsClient = client;
             _asset = asset;
             _filter = filter;
             _playertype = playertype;
@@ -156,12 +158,14 @@ namespace AMSExplorer
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
-            await _client.RefreshTokenIfNeededAsync();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
-            StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_client);
+            StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_amsClient);
 
-            foreach (StreamingEndpoint se in _client.AMSclient.StreamingEndpoints.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName))
+           var myStreamingEndpoints = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+
+            foreach (StreamingEndpoint se in myStreamingEndpoints)
             {
                 listBoxSE.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Name, se.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Name + "|" + se.HostName));
                 if (se.Id == BestSE.Id)
@@ -179,7 +183,7 @@ namespace AMSExplorer
             // Filters
 
             // asset filters
-            Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name);
+            Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
             List<string> afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
             listViewFilters.BeginUpdate();
@@ -195,7 +199,7 @@ namespace AMSExplorer
            );
 
             // account filters
-            Microsoft.Rest.Azure.IPage<AccountFilter> acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            IPage<AccountFilter> acctFilters = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             acctFilters.ToList().ForEach(f =>
             {
@@ -244,8 +248,12 @@ namespace AMSExplorer
             comboBoxPolicyLocators.Items.Clear();
             comboBoxPolicyLocators.BeginUpdate();
 
-            _client.RefreshTokenIfNeeded();
-            _locators = _client.AMSclient.Assets.ListStreamingLocators(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _asset.Name).StreamingLocators;
+            _amsClient.RefreshTokenIfNeeded();
+            _locators =
+            Task.Run(() =>
+                        _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name)
+                        ).GetAwaiter().GetResult().StreamingLocators;
+
             foreach (AssetStreamingLocator locator in _locators.ToList())
             {
                 int index = comboBoxPolicyLocators.Items.Add(new Item(locator.Name, locator.Name));
@@ -360,7 +368,7 @@ namespace AMSExplorer
 
             // _path = "/" + locator.StreamingLocatorId.ToString() + _path.Substring(_path.IndexOf('/', 2));
 
-            _path = _client.AMSclient.StreamingLocators.ListPaths(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, locator.Name)
+            _path = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name)
             .StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
             .FirstOrDefault().Paths.FirstOrDefault();
 

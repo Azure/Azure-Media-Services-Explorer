@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -28,7 +29,7 @@ namespace AMSExplorer
     public partial class JobInformation : Form
     {
         public Job MyJob;
-        private readonly AMSClientV3 _client;
+        private readonly AMSClientV3 _amsClient;
         private readonly Mainform _mainform;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
@@ -36,7 +37,7 @@ namespace AMSExplorer
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
-            _client = client;
+            _amsClient = client;
             _mainform = mainform;
 
         }
@@ -198,7 +199,7 @@ namespace AMSExplorer
             {
                 JobOutputAsset outputA = output as JobOutputAsset;
                 DGOutputs.Rows.Add("Asset name", outputA.AssetName);
-                DGOutputs.Rows.Add("Asset type", AssetInfo.GetAssetType(outputA.AssetName, _client)?.Type);
+                DGOutputs.Rows.Add("Asset type", AssetInfo.GetAssetType(outputA.AssetName, _amsClient)?.Type);
             }
 
 
@@ -258,10 +259,12 @@ namespace AMSExplorer
 
             if (assetName != null)
             {
-                _client.RefreshTokenIfNeeded();
-                Asset asset = _client.AMSclient.Assets.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, assetName);
+                _amsClient.RefreshTokenIfNeeded();
+                Asset asset = Task.Run(() =>
+                                        _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName))
+                                        .GetAwaiter().GetResult();
 
-                using (AssetInformation form = new AssetInformation(_mainform, _client)
+                using (AssetInformation form = new AssetInformation(_mainform, _amsClient)
                 {
                     myAssetV3 = asset,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
@@ -286,7 +289,7 @@ namespace AMSExplorer
                 JobInputAsset inputA = MyJob.Input as JobInputAsset;
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
-                dataGridInput.Rows.Add("Asset type", AssetInfo.GetAssetType(inputA.AssetName, _client)?.Type);
+                dataGridInput.Rows.Add("Asset type", AssetInfo.GetAssetType(inputA.AssetName, _amsClient)?.Type);
                 if (inputA.Start != null && inputA.Start.GetType() == typeof(AbsoluteClipTime))
                 {
                     AbsoluteClipTime startA = inputA.Start as AbsoluteClipTime;

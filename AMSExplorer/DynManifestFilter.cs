@@ -208,8 +208,8 @@ namespace AMSExplorer
                 _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
 
                 // let's delete the temp locator
-                AssetInfo.DeleteStreamingLocator(_parentAsset, _amsClient, _tempStreamingLocator.Name);
-                               
+                if (_tempStreamingLocator != null) AssetInfo.DeleteStreamingLocator(_parentAsset, _amsClient, _tempStreamingLocator.Name);
+
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
                     // timescale

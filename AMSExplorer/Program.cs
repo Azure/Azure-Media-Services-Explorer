@@ -542,7 +542,7 @@ namespace AMSExplorer
 
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
-     
+
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
         public const string NameconvWorkflow = "{Workflow}";
@@ -824,12 +824,17 @@ namespace AMSExplorer
         }
 
 
-        public static Uri GetValidOnDemandURI(Asset asset, AMSClientV3 _amsClientV3, string useThisLocatorName = null)
+        public static Uri GetValidOnDemandURI(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
         {
-            _amsClientV3.RefreshTokenIfNeeded();
+            _amsClient.RefreshTokenIfNeeded();
 
-            IList<AssetStreamingLocator> locators = _amsClientV3.AMSclient.Assets.ListStreamingLocators(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, asset.Name).StreamingLocators;
-            Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
+            IList<AssetStreamingLocator> locators =
+                        Task.Run(() =>
+                        _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup,_amsClient.credentialsEntry.AccountName, asset.Name)
+                        ).GetAwaiter().GetResult().StreamingLocators;
+
+            var ses = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+
             StreamingEndpoint runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
             if (runningSes == null)
             {
@@ -839,7 +844,7 @@ namespace AMSExplorer
             if (locators.Count > 0 && runningSes != null)
             {
                 string locatorName = useThisLocatorName != null ? useThisLocatorName : locators.First().Name;
-                IList<StreamingPath> streamingPaths = _amsClientV3.AMSclient.StreamingLocators.ListPaths(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, locatorName).StreamingPaths;
+                IList<StreamingPath> streamingPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName).StreamingPaths;
                 UriBuilder uribuilder = new UriBuilder
                 {
                     Host = runningSes.HostName,
@@ -1743,7 +1748,11 @@ namespace AMSExplorer
             StringBuilder sb = new StringBuilder();
             amsClient.RefreshTokenIfNeeded();
 
-            IList<AssetStreamingLocator> locators = amsClient.AMSclient.Assets.ListStreamingLocators(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name).StreamingLocators;
+            IList<AssetStreamingLocator> locators =
+            Task.Run(() =>
+            amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name)
+            ).GetAwaiter().GetResult().StreamingLocators;
+
 
             if (locators.Count == 0)
             {
@@ -2202,7 +2211,7 @@ namespace AMSExplorer
         }
     }
 
-       
+
     public class JobEntryV3
     {
         public string Name { get; set; }
@@ -2585,7 +2594,7 @@ namespace AMSExplorer
 
     }
 
-  
+
 
     public class ExplorerOpenIDSample
     {
@@ -2678,6 +2687,7 @@ namespace AMSExplorer
                 // we specify the tenant id if there
                 AuthenticationContext authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
 
+                bool adadalTokenInteract = false;
                 try
                 {
                     accessToken = await authContext.AcquireTokenSilentAsync(
@@ -2691,12 +2701,20 @@ namespace AMSExplorer
                     if (adalException.ErrorCode == AdalError.FailedToAcquireTokenSilently
                         || adalException.ErrorCode == AdalError.InteractionRequired)
                     {
+                        adadalTokenInteract = true;
+                    }
+                }
+
+                if (adadalTokenInteract)
+                {
+                    try
+                    {
                         accessToken = await authContext.AcquireTokenAsync(
-                                                                resource: environment.AADSettings.TokenAudience.ToString(),
-                                                                clientId: environment.ClientApplicationId,
-                                                                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                parameters: new PlatformParameters(credentialsEntry.PromptUser)
-                                                                );
+                                        resource: environment.AADSettings.TokenAudience.ToString(),
+                                        clientId: environment.ClientApplicationId,
+                                        redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                        parameters: new PlatformParameters(credentialsEntry.PromptUser)
+                                        );
 
 
                         accessTokenForRestV2 = await authContext.AcquireTokenAsync(
@@ -2706,8 +2724,12 @@ namespace AMSExplorer
                                                                 parameters: new PlatformParameters(credentialsEntry.PromptUser)
                                                                 );
                     }
-                }
 
+                    catch (AdalException adalException)
+                    {
+                        Debug.Print("Adal token interact exception !" + adalException.Message);
+                    }
+                }
 
                 credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
@@ -3110,7 +3132,7 @@ namespace AMSExplorer
         CustomPlayer
     }
 
-   
+
     public enum PublishStatus
     {
         NotPublished = 0,
