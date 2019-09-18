@@ -170,7 +170,10 @@ namespace AMSExplorer
             {
                 string tName = Row.Cells[Columns["TransformName"].Index].Value.ToString();
                 // sometimes, the transform can be null (if just deleted)
-                Job job = _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, tName, Row.Cells[Columns["Name"].Index].Value.ToString());
+                Job job = Task.Run(() =>
+            _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, tName, Row.Cells[Columns["Name"].Index].Value.ToString())
+            ).GetAwaiter().GetResult();
+
                 if (job != null)
                 {
                     SelectedJobs.Add(new JobExtension() { Job = job, TransformName = tName });
@@ -413,7 +416,9 @@ namespace AMSExplorer
 
                     do
                     {
-                        myJob = _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name);
+                        myJob = Task.Run(() =>
+            _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
+            ).GetAwaiter().GetResult();
 
                         if (token.IsCancellationRequested == true)
                         {
@@ -506,7 +511,9 @@ namespace AMSExplorer
 
                     // job finished
                     _client.RefreshTokenIfNeeded();
-                    myJob = _client.AMSclient.Jobs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name);
+                    myJob = Task.Run(() =>
+           _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
+           ).GetAwaiter().GetResult();
 
                     int index2 = -1;
                     foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index

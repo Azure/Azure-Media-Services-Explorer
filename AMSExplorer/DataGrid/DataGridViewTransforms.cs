@@ -35,23 +35,24 @@ namespace AMSExplorer
         private static AMSClientV3 _amsClient;
         private static BindingList<TransformEntryV3> _MyObservTransformsV3;
 
-        public void Init(AMSClientV3 client)
+        public async Task InitAsync(AMSClientV3 client)
         {
             _amsClient = client;
 
-            var transformsList = Task.Run(() => _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+            var transformsList = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
-
-            IEnumerable<TransformEntryV3> transforms = transformsList.Select(a => new TransformEntryV3
+            IEnumerable<Task<TransformEntryV3>> transforms = transformsList.Select(async a => new TransformEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
-                Jobs = _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name).Result.Count(),
+                Jobs = (await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).Count(),
                 LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
             );
 
-            BindingList<TransformEntryV3> MyObservTransformthisPageV3 = new BindingList<TransformEntryV3>(transforms.ToList());
+            TransformEntryV3[] mappedItems = await Task.WhenAll(transforms);
+
+            BindingList<TransformEntryV3> MyObservTransformthisPageV3 = new BindingList<TransformEntryV3>(mappedItems);
             DataSource = MyObservTransformthisPageV3;
 
             Task myTask = Task.Factory.StartNew(() =>
@@ -81,16 +82,17 @@ namespace AMSExplorer
 
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            IEnumerable<TransformEntryV3> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(a => new TransformEntryV3
+            IEnumerable<Task<TransformEntryV3>> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntryV3
             {
                 Name = a.Name,
                 Description = a.Description,
-                Jobs = _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name).Result.Count(),
+                Jobs = (await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).Count(),
                 LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
           );
+            TransformEntryV3[] mappedItems = await Task.WhenAll(transforms);
 
-            _MyObservTransformsV3 = new BindingList<TransformEntryV3>(transforms.ToList());
+            _MyObservTransformsV3 = new BindingList<TransformEntryV3>(mappedItems);
 
             BeginInvoke(new Action(() => DataSource = _MyObservTransformsV3));
 

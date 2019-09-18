@@ -18,6 +18,7 @@
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Rest.Azure;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -539,7 +540,9 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewTransformsV.Init(_amsClient);
+                //dataGridViewTransformsV.Init(_amsClient);
+                Task.Run(() => dataGridViewTransformsV.InitAsync(_amsClient)).GetAwaiter().GetResult();
+
             }
 
             Debug.WriteLine("DoRefreshGridTransformVNotforsttime");
@@ -1573,7 +1576,7 @@ namespace AMSExplorer
 
                             Task.Run(() =>
              _amsClient.AMSclient.Assets.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AssetTORename.Name, AssetTORename)
-            ) .GetAwaiter().GetResult();
+            ).GetAwaiter().GetResult();
 
                         }
                         catch
@@ -1606,7 +1609,9 @@ namespace AMSExplorer
                         try
                         {
                             AssetToEditAltId.AlternateId = value;
-                            _amsClient.AMSclient.Assets.Update(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
+                            Task.Run(() =>
+                                         _amsClient.AMSclient.Assets.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AssetToEditAltId.Name, AssetToEditAltId)
+                                        ).GetAwaiter().GetResult();
                         }
                         catch
                         {
@@ -1784,7 +1789,9 @@ namespace AMSExplorer
 
                             try
                             {
-                                _amsClient.AMSclient.Jobs.CancelJob(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, JobToCancel.TransformName, JobToCancel.Job.Name);
+                                Task.Run(() =>
+            _amsClient.AMSclient.Jobs.CancelJobAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, JobToCancel.TransformName, JobToCancel.Job.Name)
+            ).GetAwaiter().GetResult();
                                 TextBoxLogWriteLine("Job '{0}' canceled.", JobToCancel.Job.Name);
 
                             }
@@ -3505,6 +3512,7 @@ namespace AMSExplorer
                     {
                         Transform transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
                         Microsoft.Rest.Azure.IPage<Job> listjobs = _amsClient.AMSclient.Jobs.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
+
                         deleteTasks.AddRange(listjobs.ToList().Select(j => _amsClient.AMSclient.Jobs.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name, j.Name)));
                     }
 
@@ -3535,7 +3543,7 @@ namespace AMSExplorer
 
 
 
-        private void DoCancelAllJobs()
+        private async Task DoCancelAllJobsAsync()
         {
             if (dataGridViewTransformsV.ReturnSelectedTransforms().Count > 1)
             {
@@ -3544,46 +3552,43 @@ namespace AMSExplorer
 
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs from the selected transform ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
-                Task.Run(() =>
+                bool Error = false;
+
+                // let's build the tasks list
+                TextBoxLogWriteLine("Listing the jobs...");
+                List<Task> deleteTasks = new List<Task>();
+
+                //  foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
                 {
-                    bool Error = false;
+                    Transform transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
+                    IPage<Job> listjobs = await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
 
-                    // let's build the tasks list
-                    TextBoxLogWriteLine("Listing the jobs...");
-                    List<Task> deleteTasks = new List<Task>();
-
-                    //  foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
-                    {
-                        Transform transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
-                        Microsoft.Rest.Azure.IPage<Job> listjobs = _amsClient.AMSclient.Jobs.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
-                        deleteTasks.AddRange(listjobs.ToList()
-                            .Where(j => j.State == Microsoft.Azure.Management.Media.Models.JobState.Processing || j.State == Microsoft.Azure.Management.Media.Models.JobState.Queued || j.State == Microsoft.Azure.Management.Media.Models.JobState.Scheduled)
-                            .Select(j => _amsClient.AMSclient.Jobs.CancelJobAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name, j.Name)));
-                    }
-
-                    TextBoxLogWriteLine("Canceling {0} job(s)...", deleteTasks.Count);
-                    try
-                    {
-                        Task.WaitAll(deleteTasks.ToArray());
-                    }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when canceling the job(s).", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
-
-                    if (!Error)
-                    {
-                        TextBoxLogWriteLine("Job(s) canceled.");
-                    }
-
-                    DoRefreshGridJobV(false);
+                    deleteTasks.AddRange(listjobs.ToList()
+                        .Where(j => j.State == Microsoft.Azure.Management.Media.Models.JobState.Processing || j.State == Microsoft.Azure.Management.Media.Models.JobState.Queued || j.State == Microsoft.Azure.Management.Media.Models.JobState.Scheduled)
+                        .Select(j => _amsClient.AMSclient.Jobs.CancelJobAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name, j.Name)));
                 }
-        );
+
+                TextBoxLogWriteLine("Canceling {0} job(s)...", deleteTasks.Count);
+                try
+                {
+                    Task.WaitAll(deleteTasks.ToArray());
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when canceling the job(s).", true);
+                    TextBoxLogWriteLine(ex);
+                    Error = true;
+                }
+
+                if (!Error)
+                {
+                    TextBoxLogWriteLine("Job(s) canceled.");
+                }
+
+                DoRefreshGridJobV(false);
             }
         }
 
@@ -8266,9 +8271,9 @@ namespace AMSExplorer
             DoCancelJobs();
         }
 
-        private void allJobsToolStripMenuItem3_Click(object sender, EventArgs e)
+        private async void allJobsToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            DoCancelAllJobs();
+            await DoCancelAllJobsAsync();
         }
 
         private void linkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -8539,21 +8544,22 @@ namespace AMSExplorer
 
                     try
                     {
-
-
-                        Asset outputAsset = _amsClient.AMSclient.Assets.CreateOrUpdate(
+                        Asset outputAsset = Task.Run(() =>
+                                                          _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
                                                                     _amsClient.credentialsEntry.ResourceGroup,
                                                                     _amsClient.credentialsEntry.AccountName,
                                                                     outputAssetName,
                                                                     new Asset()
-                                                                    );
-
+                                                                    )
+                                                        ).GetAwaiter().GetResult();
 
                         JobOutput[] jobOutputs =
                          {
                     new JobOutputAsset(outputAsset.Name),
                 };
-                        Job job = _amsClient.AMSclient.Jobs.Create(
+
+                        Job job = Task.Run(() =>
+                                                     _amsClient.AMSclient.Jobs.CreateAsync(
                                                                     _amsClient.credentialsEntry.ResourceGroup,
                                                                     _amsClient.credentialsEntry.AccountName,
                                                                     transform.Name,
@@ -8562,7 +8568,9 @@ namespace AMSExplorer
                                                                     {
                                                                         Input = jobInput,
                                                                         Outputs = jobOutputs,
-                                                                    });
+                                                                    })
+                                                     ).GetAwaiter().GetResult();
+
                         TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
 
                         dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
