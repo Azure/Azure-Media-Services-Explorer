@@ -3435,91 +3435,36 @@ namespace AMSExplorer
         */
 
 
-        private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteAllJobs();
+            await DoDeleteAllJobsAsync();
         }
 
-        private void selectedJobToolStripMenuItem_Click(object sender, EventArgs e)
+        private async Task selectedJobToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteSelectedJobs();
+            await DoDeleteSelectedJobsAsync();
         }
 
-        private void DoDeleteSelectedJobs()
+        private async Task DoDeleteSelectedJobsAsync()
         {
-            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
+            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
-        private void DoDeleteJobs(List<JobExtension> SelectedJobs)
+        private async Task DoDeleteJobsAsync(List<JobExtension> SelectedJobs)
         {
             if (SelectedJobs.Count > 0)
             {
                 string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Job.Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    _amsClient.RefreshTokenIfNeeded();
+                    await _amsClient.RefreshTokenIfNeededAsync();
 
-                    Task.Run(() =>
-                    {
-                        bool Error = false;
-                        Task[] deleteTasks = SelectedJobs.ToList().Select(j => _amsClient.AMSclient.Jobs.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, j.TransformName, j.Job.Name)).ToArray();
-                        TextBoxLogWriteLine("Deleting job(s)");
-                        try
-                        {
-                            Task.WaitAll(deleteTasks);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
-                            TextBoxLogWriteLine(ex);
-                            Error = true;
-                        }
-                        if (!Error)
-                        {
-                            TextBoxLogWriteLine("Job(s) deleted.");
-                        }
-
-                        DoRefreshGridJobV(false);
-                    }
-           );
-                }
-            }
-        }
-
-
-        private void DoDeleteAllJobs()
-        {
-            if (dataGridViewTransformsV.ReturnSelectedTransforms().Count > 1)
-            {
-                return;
-            }
-
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs from the selected transform?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-            {
-                _amsClient.RefreshTokenIfNeeded();
-
-                Task.Run(() =>
-                {
                     bool Error = false;
-
-
-                    // let's build the tasks list
-                    TextBoxLogWriteLine("Listing the jobs...");
-                    List<Task> deleteTasks = new List<Task>();
-
-                    //   foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
-                    {
-                        Transform transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
-                        Microsoft.Rest.Azure.IPage<Job> listjobs = _amsClient.AMSclient.Jobs.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
-
-                        deleteTasks.AddRange(listjobs.ToList().Select(j => _amsClient.AMSclient.Jobs.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name, j.Name)));
-                    }
-
-                    TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", deleteTasks.Count));
+                    Task[] deleteTasks = SelectedJobs.ToList().Select(j => _amsClient.AMSclient.Jobs.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, j.TransformName, j.Job.Name)).ToArray();
+                    TextBoxLogWriteLine("Deleting job(s)");
                     try
                     {
-                        Task.WaitAll(deleteTasks.ToArray());
+                        Task.WaitAll(deleteTasks);
                     }
                     catch (Exception ex)
                     {
@@ -3528,7 +3473,6 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
-
                     if (!Error)
                     {
                         TextBoxLogWriteLine("Job(s) deleted.");
@@ -3536,8 +3480,56 @@ namespace AMSExplorer
 
                     DoRefreshGridJobV(false);
                 }
-          );
+            }
+        }
 
+
+        private async Task DoDeleteAllJobsAsync()
+        {
+            if (dataGridViewTransformsV.ReturnSelectedTransforms().Count > 1)
+            {
+                return;
+            }
+
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs from the selected transform?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                await _amsClient.RefreshTokenIfNeededAsync();
+
+
+                bool Error = false;
+
+
+                // let's build the tasks list
+                TextBoxLogWriteLine("Listing the jobs...");
+                List<Task> deleteTasks = new List<Task>();
+
+                //   foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
+                {
+                    Transform transform = dataGridViewTransformsV.ReturnSelectedTransforms().First();
+                    IPage<Job> listjobs = await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
+
+                    deleteTasks.AddRange(listjobs.ToList().Select(j => _amsClient.AMSclient.Jobs.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name, j.Name)));
+                }
+
+                TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", deleteTasks.Count));
+                try
+                {
+                    Task.WaitAll(deleteTasks.ToArray());
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                    TextBoxLogWriteLine(ex);
+                    Error = true;
+                }
+
+                if (!Error)
+                {
+                    TextBoxLogWriteLine("Job(s) deleted.");
+                }
+
+                DoRefreshGridJobV(false);
             }
         }
 
@@ -7983,19 +7975,19 @@ namespace AMSExplorer
             // DoDeleteAllAssets();
         }
 
-        private void visibleJobsInGridToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void visibleJobsInGridToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
+            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
-        private void allJobsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void allJobsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteAllJobs();
+            await DoDeleteAllJobsAsync();
         }
 
-        private void selectedJobsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void selectedJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(dataGridViewJobsV.ReturnSelectedJobs());
+            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
         private void dataGridViewStorage_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
