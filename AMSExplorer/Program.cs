@@ -830,7 +830,7 @@ namespace AMSExplorer
 
             IList<AssetStreamingLocator> locators =
                         Task.Run(() =>
-                        _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup,_amsClient.credentialsEntry.AccountName, asset.Name)
+                        _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)
                         ).GetAwaiter().GetResult().StreamingLocators;
 
             var ses = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
@@ -858,6 +858,36 @@ namespace AMSExplorer
             }
         }
 
+        public async static Task<Uri> GetValidOnDemandURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
+        {
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
+
+            var ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+
+            StreamingEndpoint runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
+            if (runningSes == null)
+            {
+                runningSes = ses.FirstOrDefault();
+            }
+
+            if (locators.Count > 0 && runningSes != null)
+            {
+                string locatorName = useThisLocatorName != null ? useThisLocatorName : locators.First().Name;
+                IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName)).StreamingPaths;
+                UriBuilder uribuilder = new UriBuilder
+                {
+                    Host = runningSes.HostName,
+                    Path = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming).FirstOrDefault().Paths.FirstOrDefault()
+                };
+                return uribuilder.Uri;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         public static string GetSmoothLegacy(string smooth_uri)
         {
@@ -1075,7 +1105,6 @@ namespace AMSExplorer
         // Parse the manifest and get data from it
         {
             ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
-
             try
             {
                 StreamingLocator mytemplocator = null;
@@ -1083,7 +1112,6 @@ namespace AMSExplorer
 
                 if (myuri == null)
                 {
-                    //mytemplocator = CreatedTemporaryOnDemandLocator(asset, _amsClientV3);
                     myuri = GetValidOnDemandURI(asset, _amsClientV3);
                 }
                 if (myuri != null)
@@ -1099,7 +1127,6 @@ namespace AMSExplorer
                         timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
                     }
                     long timescale = long.Parse(timescalefrommanifest);
-                    //response.TimeScale = (timescale == TimeSpan.TicksPerSecond) ? null : (ulong?)timescale; // if 10000000 then null (default)
                     response.TimeScale = timescale;
 
                     // Timestamp offset
@@ -1124,7 +1151,6 @@ namespace AMSExplorer
 
                         if (chunk.Attribute("t") != null)
                         {
-                            //totalduration = ulong.Parse(chunk.Attribute("t").Value) - response.TimestampOffset; // new timestamp, perhaps gap in live stream....
                             ulong tvalue = ulong.Parse(chunk.Attribute("t").Value);
                             response.TimestampList.Add(tvalue);
                             if (tvalue != response.TimestampOffset)
@@ -1155,7 +1181,6 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        //totalduration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
                         response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
                     }
                 }
@@ -1167,6 +1192,106 @@ namespace AMSExplorer
                 {
                     _amsClientV3.RefreshTokenIfNeeded();
                     _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
+                }
+            }
+            catch
+            {
+                response.Error = true;
+            }
+            return response;
+        }
+
+        public async static Task<ManifestTimingData> GetManifestTimingDataAsync(Asset asset, AMSClientV3 _amsClientV3, string preferredLocatorName = null)
+        // Parse the manifest and get data from it
+        {
+            ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
+            try
+            {
+                StreamingLocator mytemplocator = null;
+                Uri myuri = await GetValidOnDemandURIAsync(asset, _amsClientV3, preferredLocatorName);
+
+                if (myuri == null)
+                {
+                    myuri = await GetValidOnDemandURIAsync(asset, _amsClientV3);
+                }
+                if (myuri != null)
+                {
+                    XDocument manifest = XDocument.Load(myuri.ToString());
+                    XElement smoothmedia = manifest.Element("SmoothStreamingMedia");
+                    IEnumerable<XElement> videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+
+                    // TIMESCALE
+                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
+                    if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
+                    {
+                        timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
+                    }
+                    long timescale = long.Parse(timescalefrommanifest);
+                    response.TimeScale = timescale;
+
+                    // Timestamp offset
+                    if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
+                    {
+                        response.TimestampOffset = ulong.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+                    }
+                    else
+                    {
+                        response.TimestampOffset = 0; // no timestamp, so it should be 0
+                    }
+
+                    ulong totalduration = 0;
+                    ulong durationpreviouschunk = 0;
+                    ulong durationchunk;
+                    int repeatchunk;
+                    foreach (XElement chunk in videotrack.Elements("c"))
+                    {
+                        durationchunk = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
+                        repeatchunk = chunk.Attribute("r") != null ? int.Parse(chunk.Attribute("r").Value) : 1;
+                        totalduration += durationchunk * (ulong)repeatchunk;
+
+                        if (chunk.Attribute("t") != null)
+                        {
+                            ulong tvalue = ulong.Parse(chunk.Attribute("t").Value);
+                            response.TimestampList.Add(tvalue);
+                            if (tvalue != response.TimestampOffset)
+                            {
+                                totalduration = tvalue - response.TimestampOffset; // Discountinuity ? We calculate the duration from the offset
+                                response.DiscontinuityDetected = true; // let's flag it
+                            }
+                        }
+                        else
+                        {
+                            response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk);
+                        }
+
+                        for (int i = 1; i < repeatchunk; i++)
+                        {
+                            response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationchunk);
+                        }
+
+                        durationpreviouschunk = durationchunk;
+
+                    }
+                    response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk;
+
+                    if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
+                    { // Live asset.... No duration to read (but we can read scaling and compute duration if no gap)
+                        response.IsLive = true;
+                        response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
+                    }
+                    else
+                    {
+                        response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
+                    }
+                }
+                else
+                {
+                    response.Error = true;
+                }
+                if (mytemplocator != null)
+                {
+                    await _amsClientV3.RefreshTokenIfNeededAsync();
+                    await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
                 }
             }
             catch

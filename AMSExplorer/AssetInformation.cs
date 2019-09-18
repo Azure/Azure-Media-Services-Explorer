@@ -16,8 +16,6 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Data.OData;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.Rest.Azure;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -31,7 +29,6 @@ using System.Drawing;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +46,7 @@ namespace AMSExplorer
         private bool oktobuildlocator = false;
         private ManifestTimingData myassetmanifesttimingdata = null;
         private CloudBlobContainer container = null;
-        private IEnumerable<IListBlobItem> blobs;
+        private List<IListBlobItem> blobs = null;
         private List<StreamingLocatorContentKey> contentKeysForCurrentLocator;
         private AssetContainerSas _assetContainerSas = null;
 
@@ -59,11 +56,6 @@ namespace AMSExplorer
             Icon = Bitmaps.Azure_Explorer_ico;
             myMainForm = mainform;
             _amsClient = amsClient;
-        }
-
-        private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void toolStripMenuItemCopy_Click(object sender, EventArgs e)
@@ -78,11 +70,9 @@ namespace AMSExplorer
             }
         }
 
-
         private void toolStripMenuItemDASHIF_Click(object sender, EventArgs e)
         {
             DoDASHIFPlayer();
-
         }
 
         private void DoDASHIFPlayer()
@@ -151,7 +141,6 @@ namespace AMSExplorer
                 {
                     deleteLocatorToolStripMenuItem.Enabled = true; // no parent, so we can propose the deletion
                 }
-
             }
         }
 
@@ -159,8 +148,6 @@ namespace AMSExplorer
         {
             DoHTMLPlayer();
         }
-
-
 
         private void DoHTMLPlayer()
         {
@@ -186,10 +173,7 @@ namespace AMSExplorer
             }
         }
 
-
-
-
-        private void ListAssetBlobs()
+        private async Task ListAssetBlobsAsync()
         {
             if (container == null) //first time
             {
@@ -198,12 +182,12 @@ namespace AMSExplorer
                     Permissions = AssetContainerPermission.ReadWriteDelete,
                     ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
                 };
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 AssetContainerSas response = null;
                 try
                 {
-                    response = Task.Run(() => _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).GetAwaiter().GetResult();
+                    response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime);
                 }
                 catch (Exception ex)
                 {
@@ -227,16 +211,20 @@ namespace AMSExplorer
             var container = cloudBlobClient.GetContainerReference(myAssetV3.Container);
             */
 
-            blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata);
-
             listViewFiles.Items.Clear();
             DGFiles.Rows.Clear();
-            if (blobs.Count() > 0)
-            {
-                listViewFiles.BeginUpdate();
-                foreach (IListBlobItem blob in blobs)
-                {
+            listViewFiles.BeginUpdate();
 
+            BlobContinuationToken continuationToken = null;
+            blobs = new List<IListBlobItem>();
+
+            do
+            {
+                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                blobs.AddRange(segment.Results);
+
+                foreach (IListBlobItem blob in segment.Results)
+                {
                     if (blob.GetType() == typeof(CloudBlockBlob))
                     {
                         CloudBlockBlob bl = (CloudBlockBlob)blob;
@@ -273,10 +261,14 @@ namespace AMSExplorer
                     }
 
                 }
-                listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                listViewFiles.Items[0].Selected = true;
-                listViewFiles.EndUpdate();
+
+                continuationToken = segment.ContinuationToken;
             }
+            while (continuationToken != null);
+
+            listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewFiles.Items[0].Selected = true;
+            listViewFiles.EndUpdate();
 
             /*
             // Generate manifest button
@@ -289,8 +281,12 @@ namespace AMSExplorer
         }
 
 
+        private async void AssetInformation_Load(object sender, EventArgs e)
+        {
+            await LoadAsync();
+        }
 
-        private void AssetInformation_Load(object sender, EventArgs e)
+        private async Task LoadAsync()
         {
             DpiUtils.InitPerMonitorDpi(this);
 
@@ -302,15 +298,12 @@ namespace AMSExplorer
             dataGridViewKeys.ColumnCount = 2;
             dataGridViewKeys.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
-
             long size = -1;
 
             // asset info
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, myAssetV3.Name);
             DGAsset.Rows.Add("Description", myAssetV3.Description);
-            //DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type, myAssetType);
-            //DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_AssetType, myAssetV3.Type);
             DGAsset.Rows.Add("Id", myAssetV3.Id);
             DGAsset.Rows.Add("AlternateId", myAssetV3.AlternateId);
             DGAsset.Rows.Add("AssetId", myAssetV3.AssetId);
@@ -329,8 +322,8 @@ namespace AMSExplorer
 
             if (myStreamingEndpoints == null)
             {
-                _amsClient.RefreshTokenIfNeeded();
-                myStreamingEndpoints = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+                await _amsClient.RefreshTokenIfNeededAsync();
+                myStreamingEndpoints = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }
 
             foreach (StreamingEndpoint se in myStreamingEndpoints)
@@ -353,18 +346,14 @@ namespace AMSExplorer
             }
             oktobuildlocator = true;
 
-            //listViewFiles.Tag = -1;
-            //listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparerQuickNoDate.ListView_ColumnClick);
-
             return;
         }
 
-        private void DisplayAssetFilters()
+        private async Task DisplayAssetFiltersAsync()
         {
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
-            //Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
-            IPage<AssetFilter> assetFilters = Task.Run(() => _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).GetAwaiter().GetResult();
+            IPage<AssetFilter> assetFilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
 
             dataGridViewFilters.ColumnCount = 6;
             dataGridViewFilters.Columns[0].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
@@ -384,7 +373,7 @@ namespace AMSExplorer
 
             if (assetFilters.Count() > 0 && myassetmanifesttimingdata == null)
             {
-                myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAssetV3, _amsClient);
+                myassetmanifesttimingdata = await AssetInfo.GetManifestTimingDataAsync(myAssetV3, _amsClient);
             }
 
             foreach (AssetFilter filter in assetFilters)
@@ -413,9 +402,6 @@ namespace AMSExplorer
                     e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "max");
                     d = ReturnFilterTextWithOffSet(dvr, dscale, 0, dscaleoffset, "max");
                     l = ReturnFilterTextWithOffSet(backoff, dscale, 0, dscaleoffset, "min");
-
-                    //d = ReturnFilterText(dvr, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Max);
-                    //l = ReturnFilterText(live, AMSExplorer.Properties.Resources.AssetInformation_DisplayAssetFilters_Min);
                 }
                 try
                 {
@@ -477,7 +463,6 @@ namespace AMSExplorer
             {
                 string hostname = ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
                 return myStreamingEndpoints.Where(se => se.HostName == hostname).FirstOrDefault();
-
             }
             else
             {
@@ -520,7 +505,7 @@ namespace AMSExplorer
             }
         }
 
-        private void BuildLocatorsTree()
+        private async Task BuildLocatorsTreeAsync()
         {
             // LOCATORS TREE
             if (!oktobuildlocator)
@@ -549,15 +534,12 @@ namespace AMSExplorer
                 TreeViewLocators.Nodes.Clear();
                 int indexloc = -1;
 
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 IList<AssetStreamingLocator> locators = null;
                 try
                 {
-                    locators =
-                    Task.Run(() =>
-                    _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)
-                    ).GetAwaiter().GetResult().StreamingLocators;
+                    locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).StreamingLocators;
                 }
                 catch (Exception ex)
                 {
@@ -567,9 +549,9 @@ namespace AMSExplorer
 
                 foreach (AssetStreamingLocator locatorbase in locators)
                 {
-                    StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorbase.Name);
+                    StreamingLocator locator = await _amsClient.AMSclient.StreamingLocators.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
-                    ListPathsResponse listPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
+                    ListPathsResponse listPaths = await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
 
                     indexloc++;
                     string locatorstatus = string.Empty;
@@ -659,7 +641,6 @@ namespace AMSExplorer
                     colornode = Color.Black;
                     break;
             }
-
             return colornode;
         }
 
@@ -667,7 +648,6 @@ namespace AMSExplorer
         {
             List<IListBlobItem> SelectedfBlobs = ReturnSelectedBlobs();
             DGFiles.Rows.Clear();
-
 
             if (SelectedfBlobs.Count > 0)
             {
@@ -698,41 +678,14 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuItemOpenFile_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemOpenFile_Click(object sender, EventArgs e)
         {
-            DoOpenFiles();
+            await DoOpenFilesAsync();
         }
 
-        private async Task DoOpenFiles()
+        private async Task DoOpenFilesAsync()
         {
-            /*
-            var SelectedAssetFiles = ReturnSelectedBlobs();
-
-            if (SelectedAssetFiles.Count > 0)
-            {
-                ILocator locator = GetTemporaryLocator();
-                if (locator != null)
-                {
-                    try
-                    {
-                        foreach (var assetfile in SelectedAssetFiles)
-                        {
-                            Process.Start(assetfile.GetSasUri(locator).ToString());
-                        }
-                    }
-                    catch
-                    {
-                        MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator);
-                    }
-                }
-            }
-            */
-
-
-
             List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs();
-
-
 
             try
             {
@@ -749,12 +702,10 @@ namespace AMSExplorer
                     }
                 }
             }
-
             catch
             {
                 MessageBox.Show("Error when creating the SAS URL for blob");
             }
-
         }
 
         private async Task<AssetContainerSas> GetTemporaryAssetContainerSasAsync()
@@ -781,12 +732,12 @@ namespace AMSExplorer
             return _assetContainerSas;
         }
 
-        private void toolStripMenuItemDownloadFile_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemDownloadFile_Click(object sender, EventArgs e)
         {
-            DoDownloadBlobs();
+            await DoDownloadBlobsAsync();
         }
 
-        private async void DoDownloadBlobs()
+        private async Task DoDownloadBlobsAsync()
         {
             List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs(false);
 
@@ -868,12 +819,12 @@ namespace AMSExplorer
             }
         }
 
-        private void buttonDeleteFile_Click(object sender, EventArgs e)
+        private async void buttonDeleteFile_Click(object sender, EventArgs e)
         {
-            DoDeleteBlobs();
+            await DoDeleteBlobsAsync();
         }
 
-        private void DoDeleteBlobs()
+        private async Task DoDeleteBlobsAsync()
         {
             IEnumerable<CloudBlockBlob> SelectedBlobs = ReturnSelectedBlobs().Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b);
 
@@ -885,38 +836,32 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        foreach (CloudBlockBlob blob in SelectedBlobs)
-                        {
-                            blob.Delete();
-                        }
-                        ListAssetBlobs();
-                        //BuildLocatorsTree();
-
+                        Task[] deleteTasks = SelectedBlobs.Select(b => b.DeleteAsync()).ToArray();
+                        Task.WaitAll(deleteTasks);
                     }
                     catch
                     {
                         MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_ErrorWhenDeletingFileS);
-                        ListAssetBlobs();
-                        // BuildLocatorsTree();
                     }
+                    await ListAssetBlobsAsync();
                 }
             }
         }
 
-        private void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteBlobs();
-            BuildLocatorsTree();
+            await DoDeleteBlobsAsync();
+            await BuildLocatorsTreeAsync();
         }
 
-        private void buttonOpenFile_Click(object sender, EventArgs e)
+        private async void buttonOpenFile_Click(object sender, EventArgs e)
         {
-            DoOpenFiles();
+            await DoOpenFilesAsync();
         }
 
-        private void buttonDownloadFile_Click(object sender, EventArgs e)
+        private async void buttonDownloadFile_Click(object sender, EventArgs e)
         {
-            DoDownloadBlobs();
+            await DoDownloadBlobsAsync();
         }
 
         private void listViewFiles_SelectedIndexChanged(object sender, EventArgs e)
@@ -1039,14 +984,13 @@ namespace AMSExplorer
             DoAzureMediaPlayer();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private async void button1_Click_1(object sender, EventArgs e)
         {
-            DoDuplicate();
+            await DoDuplicateAsync();
         }
 
-        private void DoDuplicate()
+        private async Task DoDuplicateAsync()
         {
-
             IListBlobItem SelectedAssetBlob = ReturnSelectedBlobs().FirstOrDefault();
 
             if (SelectedAssetBlob != null && SelectedAssetBlob.GetType() == typeof(CloudBlockBlob))
@@ -1071,29 +1015,27 @@ namespace AMSExplorer
                             destinationBlob.StartCopy(sourceCloudBlob);
 
                             CloudBlockBlob blob;
-                            blob = (CloudBlockBlob)container.GetBlobReferenceFromServer(newfilename);
+                            blob = (CloudBlockBlob)await container.GetBlobReferenceFromServerAsync(newfilename);
 
                             while (blob.CopyState.Status == CopyStatus.Pending)
                             {
                                 Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                 blob.FetchAttributes();
                             }
-                            destinationBlob.FetchAttributes();
+                            await destinationBlob.FetchAttributesAsync();
                         }
                     }
-                    ListAssetBlobs();
-                    BuildLocatorsTree();
                 }
                 catch
                 {
                     MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_ErrorWhenDuplicatingThisFile);
-                    ListAssetBlobs();
-                    BuildLocatorsTree();
                 }
+                await ListAssetBlobsAsync();
+                await BuildLocatorsTreeAsync();
             }
         }
 
-        private async void DoUpload()
+        private async Task DoUploadAsync()
         {
             using (OpenFileDialog Dialog = new OpenFileDialog
             {
@@ -1109,7 +1051,7 @@ namespace AMSExplorer
                     buttonClose.Enabled = false;
                     buttonUpload.Enabled = false;
 
-                    CloudBlobContainer container = GetRWContainerOfAsset();
+                    CloudBlobContainer container = await GetRWContainerOfAssetAsync();
 
                     int i = 1;
                     foreach (string file in Dialog.FileNames)
@@ -1121,8 +1063,7 @@ namespace AMSExplorer
                         }
                         //Console.WriteLine("Uploading File to container: {0}", sasUri);
 
-                        await Task.Factory.StartNew(() => blob.UploadFromFile(file));
-                        //blob.UploadFromFile(file);
+                        await blob.UploadFromFileAsync(file);
                         progressBarUpload.Value = 100 * i;
                         i++;
 
@@ -1133,21 +1074,21 @@ namespace AMSExplorer
                     progressBarUpload.Visible = false;
                     buttonClose.Enabled = true;
                     buttonUpload.Enabled = true;
-                    ListAssetBlobs();
+                    await ListAssetBlobsAsync();
                 }
             }
         }
 
-        private CloudBlobContainer GetRWContainerOfAsset()
+        private async Task<CloudBlobContainer> GetRWContainerOfAssetAsync()
         {
             ListContainerSasInput input = new ListContainerSasInput()
             {
                 Permissions = AssetContainerPermission.ReadWrite,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
-            AssetContainerSas response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime)).Result;
+            AssetContainerSas response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime);
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
             Uri sasUri = new Uri(uploadSasUrl);
@@ -1156,9 +1097,9 @@ namespace AMSExplorer
         }
 
 
-        private void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDuplicate();
+            await DoDuplicateAsync();
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -1176,16 +1117,15 @@ namespace AMSExplorer
                     Process.Start(TreeViewLocators.SelectedNode.Text);
 
                 }
-
             }
         }
 
-        private void buttonDel_Click(object sender, EventArgs e)
+        private async void buttonDel_Click(object sender, EventArgs e)
         {
-            DoDelLocator();
+            await DoDelLocatorAsync();
         }
 
-        private void DoDelLocator()
+        private async Task DoDelLocatorAsync()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -1196,14 +1136,11 @@ namespace AMSExplorer
                         bool Error = false;
                         try
                         {
-                            _amsClient.RefreshTokenIfNeeded();
+                            await _amsClient.RefreshTokenIfNeededAsync();
 
-                            IList<AssetStreamingLocator> locators =
-            Task.Run(() =>
-            _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)
-            ).GetAwaiter().GetResult().StreamingLocators;
+                            IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).StreamingLocators;
 
-                            Task.Run(() => _amsClient.AMSclient.StreamingLocators.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locators[TreeViewLocators.SelectedNode.Index].Name)).GetAwaiter().GetResult();
+                            await _amsClient.AMSclient.StreamingLocators.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locators[TreeViewLocators.SelectedNode.Index].Name);
                         }
 
                         catch
@@ -1214,7 +1151,7 @@ namespace AMSExplorer
                         }
                         if (!Error)
                         {
-                            BuildLocatorsTree();
+                            await BuildLocatorsTreeAsync();
                         }
                     }
                 }
@@ -1222,9 +1159,9 @@ namespace AMSExplorer
             }
         }
 
-        private void deleteLocatorToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteLocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDelLocator();
+            await DoDelLocatorAsync();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -1232,26 +1169,26 @@ namespace AMSExplorer
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
-            DoUpload();
-            BuildLocatorsTree();
+            await DoUploadAsync();
+            await BuildLocatorsTreeAsync();
         }
 
-        private void uploadASmallFileInTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void uploadASmallFileInTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoUpload();
-            BuildLocatorsTree();
+            await DoUploadAsync();
+            await BuildLocatorsTreeAsync();
         }
 
-        private void comboBoxStreamingEndpoint_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxStreamingEndpoint_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BuildLocatorsTree();
+            await BuildLocatorsTreeAsync();
         }
 
-        private void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
+        private async void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
         {
-            BuildLocatorsTree();
+            await BuildLocatorsTreeAsync();
         }
 
         /*
@@ -1408,17 +1345,16 @@ namespace AMSExplorer
             deleteAllFilesToolStripMenuItem.Enabled = selected;
         }
 
-        private void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoFilterInfo();
+            await DoFilterInfoAsync();
         }
-        private List<AssetFilter> ReturnSelectedFilters()
+        private async Task<List<AssetFilter>> ReturnSelectedFiltersAsync()
         {
             List<AssetFilter> SelectedFilters = new List<AssetFilter>();
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
-            // Microsoft.Rest.Azure.IPage<AssetFilter> afilters = _amsClient.AMSclient.AssetFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
-            IPage<AssetFilter> afilters = Task.Run(() => _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).GetAwaiter().GetResult();
+            IPage<AssetFilter> afilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
 
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
@@ -1431,9 +1367,9 @@ namespace AMSExplorer
             }
             return SelectedFilters;
         }
-        private void DoFilterInfo(AssetFilter filter = null)
+        private async Task DoFilterInfoAsync(AssetFilter filter = null)
         {
-            List<AssetFilter> filters = ReturnSelectedFilters();
+            List<AssetFilter> filters = await ReturnSelectedFiltersAsync();
             if (filter != null || filters.Count == 1)
             {
                 filter = filter ?? filters.FirstOrDefault();
@@ -1442,7 +1378,7 @@ namespace AMSExplorer
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         FilterCreationInfo filtertoupdate = null;
-                        _amsClient.RefreshTokenIfNeeded();
+                        await _amsClient.RefreshTokenIfNeededAsync();
 
                         try
                         {
@@ -1451,16 +1387,14 @@ namespace AMSExplorer
                             filter.Tracks = filtertoupdate.Tracks;
                             filter.FirstQuality = filtertoupdate.Firstquality;
 
-
-                            Task.Run(() =>
-                                _amsClient.AMSclient.AssetFilters.UpdateAsync(
-                                _amsClient.credentialsEntry.ResourceGroup,
-                                _amsClient.credentialsEntry.AccountName,
-                                myAssetV3.Name,
-                                filter.Name,
-                                new AssetFilter(name: filtertoupdate.Name, presentationTimeRange: filtertoupdate.Presentationtimerange, firstQuality: filtertoupdate.Firstquality, tracks: filtertoupdate.Tracks)
-                                ))
-                                .GetAwaiter().GetResult();
+                            await
+                                 _amsClient.AMSclient.AssetFilters.UpdateAsync(
+                                 _amsClient.credentialsEntry.ResourceGroup,
+                                 _amsClient.credentialsEntry.AccountName,
+                                 myAssetV3.Name,
+                                 filter.Name,
+                                 new AssetFilter(name: filtertoupdate.Name, presentationTimeRange: filtertoupdate.Presentationtimerange, firstQuality: filtertoupdate.Firstquality, tracks: filtertoupdate.Tracks)
+                                 );
 
                             myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoFilterInfo_AssetFilter0HasBeenUpdated, filtertoupdate.Name);
                         }
@@ -1470,39 +1404,38 @@ namespace AMSExplorer
                             myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter0, filter.Name, true);
                             myMainForm.TextBoxLogWriteLine(e);
                         }
-                        DisplayAssetFilters();
+                        await DisplayAssetFiltersAsync();
                     }
                 }
             }
         }
 
-        private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateAssetFilter();
+            await DoCreateAssetFilterAsync();
         }
 
-        private void DoCreateAssetFilter()
+        private async Task DoCreateAssetFilterAsync()
         {
             using (DynManifestFilter form = new DynManifestFilter(_amsClient, null, myAssetV3))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    _amsClient.RefreshTokenIfNeeded();
+                    await _amsClient.RefreshTokenIfNeededAsync();
 
                     FilterCreationInfo filterinfo = null;
                     try
                     {
                         filterinfo = form.GetFilterInfo;
 
-                        Task.Run(() =>
-                       _amsClient.AMSclient.AssetFilters.CreateOrUpdateAsync(
-                            _amsClient.credentialsEntry.ResourceGroup,
-                            _amsClient.credentialsEntry.AccountName,
-                            myAssetV3.Name,
-                            filterinfo.Name,
-                            new AssetFilter(name: filterinfo.Name, presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
-                            ))
-                            .GetAwaiter().GetResult();
+                        await
+                        _amsClient.AMSclient.AssetFilters.CreateOrUpdateAsync(
+                             _amsClient.credentialsEntry.ResourceGroup,
+                             _amsClient.credentialsEntry.AccountName,
+                             myAssetV3.Name,
+                             filterinfo.Name,
+                             new AssetFilter(name: filterinfo.Name, presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
+                             );
 
                         myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated, filterinfo.Name);
                     }
@@ -1512,19 +1445,19 @@ namespace AMSExplorer
                         myMainForm.TextBoxLogWriteLine(AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter0, (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : AMSExplorer.Properties.Resources.AssetInformation_DoCreateAssetFilter_UnknownName, true);
                         myMainForm.TextBoxLogWriteLine(e);
                     }
-                    DisplayAssetFilters();
+                    await DisplayAssetFiltersAsync();
                 }
             }
         }
 
         private async void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteAssetFilterAsync();
+            await DoDeleteAssetFilterAsync();
         }
 
         private async Task DoDeleteAssetFilterAsync()
         {
-            List<AssetFilter> filters = ReturnSelectedFilters();
+            List<AssetFilter> filters = await ReturnSelectedFiltersAsync();
             await _amsClient.RefreshTokenIfNeededAsync();
 
             try
@@ -1541,17 +1474,17 @@ namespace AMSExplorer
             }
 
 
-            DisplayAssetFilters();
+            await DisplayAssetFiltersAsync();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
-            DoDuplicateFilterAsync();
+            await DoDuplicateFilterAsync();
         }
 
-        private async void DoDuplicateFilterAsync()
+        private async Task DoDuplicateFilterAsync()
         {
-            List<AssetFilter> filters = ReturnSelectedFilters();
+            List<AssetFilter> filters = await ReturnSelectedFiltersAsync();
             if (filters.Count == 1)
             {
                 AssetFilter sourcefilter = filters.FirstOrDefault();
@@ -1576,12 +1509,12 @@ namespace AMSExplorer
                     {
                         MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_ErrorWhenDuplicatingAssetFilter + Constants.endline + Program.GetErrorMessage(e), AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    DisplayAssetFilters();
+                    await DisplayAssetFiltersAsync();
                 }
             }
         }
 
-        private void DoDeleteAllFiles()
+        private async Task DoDeleteAllFilesAsync()
         {
             try
             {
@@ -1594,72 +1527,70 @@ namespace AMSExplorer
                         IListBlobItem blob = Array[i];
                         ((CloudBlockBlob)blob).Delete();
                     }
-                    ListAssetBlobs();
-                    BuildLocatorsTree();
                 }
             }
             catch
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteAllFiles_ErrorWhenDeletingTheFiles);
-                ListAssetBlobs();
-                BuildLocatorsTree();
             }
-
+            await ListAssetBlobsAsync();
+            await BuildLocatorsTreeAsync();
         }
 
-        private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDuplicateFilterAsync();
+            await DoDuplicateFilterAsync();
         }
 
-        private void dataGridViewFilters_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridViewFilters_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DoFilterInfo();
+            await DoFilterInfoAsync();
         }
 
-        private void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BuildLocatorsTree();
+            await BuildLocatorsTreeAsync();
         }
 
-        private void button1_Click_3(object sender, EventArgs e)
+        private async void button1_Click_3(object sender, EventArgs e)
         {
-            DoFilterInfo();
+            await DoFilterInfoAsync();
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private async void button2_Click_1(object sender, EventArgs e)
         {
-            DoCreateAssetFilter();
+            await DoCreateAssetFilterAsync();
         }
 
-        private void buttonDeleteFilter_Click(object sender, EventArgs e)
+        private async void buttonDeleteFilter_Click(object sender, EventArgs e)
         {
-            DoDeleteAssetFilterAsync();
+            await DoDeleteAssetFilterAsync();
         }
 
-        private void button1_Click_4(object sender, EventArgs e)
+        private async void button1_Click_4(object sender, EventArgs e)
         {
-            DoPlayWithFilter();
+            await DoPlayWithFilterAsync();
         }
 
-        private void DoPlayWithFilter()
+        private async Task DoPlayWithFilterAsync()
         {
-            myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, new List<Asset>() { myAssetV3 }, ReturnSelectedFilters().FirstOrDefault().Name);
+            var selFilters = await ReturnSelectedFiltersAsync();
+            myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, new List<Asset>() { myAssetV3 }, selFilters.FirstOrDefault().Name);
         }
 
-        private void playWithThisFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void playWithThisFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoPlayWithFilter();
+            await DoPlayWithFilterAsync();
         }
 
-        private void buttonDeleteAll_Click(object sender, EventArgs e)
+        private async void buttonDeleteAll_Click(object sender, EventArgs e)
         {
-            DoDeleteAllFiles();
+            await DoDeleteAllFilesAsync();
         }
 
-        private void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteAllFiles();
+            await DoDeleteAllFilesAsync();
         }
 
         private void buttonEditOnline_Click(object sender, EventArgs e)
@@ -1710,7 +1641,7 @@ namespace AMSExplorer
 
                             progressBarUpload.Visible = false;
                             buttonClose.Enabled = true;
-                            ListAssetBlobs();
+                            await ListAssetBlobsAsync();
                         }
                     }
                 }
@@ -1767,13 +1698,12 @@ namespace AMSExplorer
                 editform.Display();
         }
 
-        private void buttonGenerateManifest_Click(object sender, EventArgs e)
+        private async void buttonGenerateManifest_Click(object sender, EventArgs e)
         {
-            DoGenerateManifest();
-
+            await DoGenerateManifestAsync();
         }
 
-        private async void DoGenerateManifest()
+        private async Task DoGenerateManifestAsync()
         {
             try
             {
@@ -1800,7 +1730,7 @@ namespace AMSExplorer
                         progressBarUpload.Visible = true;
                         buttonClose.Enabled = false;
 
-                        CloudBlobContainer container = GetRWContainerOfAsset();
+                        CloudBlobContainer container = await GetRWContainerOfAssetAsync();
 
                         CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
 
@@ -1819,25 +1749,24 @@ namespace AMSExplorer
             }
             progressBarUpload.Visible = false;
             buttonClose.Enabled = true;
-            ListAssetBlobs();
-            BuildLocatorsTree();
+            await ListAssetBlobsAsync();
+            await BuildLocatorsTreeAsync();
         }
 
 
-        private void tabPageBlobs_Enter(object sender, EventArgs e)
+        private async void tabPageBlobs_Enter(object sender, EventArgs e)
         {
-            ListAssetBlobs();
+            await ListAssetBlobsAsync();
         }
 
-        private void tabPage6_Enter(object sender, EventArgs e)
+        private async void tabPage6_Enter(object sender, EventArgs e)
         {
-            DisplayAssetFilters();
-
+            await DisplayAssetFiltersAsync();
         }
 
-        private void tabPage3_Enter(object sender, EventArgs e)
+        private async void tabPage3_Enter(object sender, EventArgs e)
         {
-            BuildLocatorsTree();
+            await BuildLocatorsTreeAsync();
         }
 
         private async void dataGridViewFilters_CellDoubleClickAsync(object sender, DataGridViewCellEventArgs e)
@@ -1847,29 +1776,26 @@ namespace AMSExplorer
                 await _amsClient.RefreshTokenIfNeededAsync();
 
                 AssetFilter filter = await _amsClient.AMSclient.AssetFilters.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
-                DoFilterInfo(filter);
+                await DoFilterInfoAsync(filter);
             }
         }
 
-        private void tabPagePolicy_Enter(object sender, EventArgs e)
+        private async void tabPagePolicy_Enter(object sender, EventArgs e)
         {
-            FillLocatorComboInPolicyTab();
+            await FillLocatorComboInPolicyTabAsync();
         }
 
-        private void FillLocatorComboInPolicyTab()
+        private async Task FillLocatorComboInPolicyTabAsync()
         {
             comboBoxPolicyLocators.Items.Clear();
             comboBoxPolicyLocators.BeginUpdate();
 
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             IList<AssetStreamingLocator> locators = null;
             try
             {
-                locators =
-                         Task.Run(() =>
-                         _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)
-                         ).GetAwaiter().GetResult().StreamingLocators;
+                locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).StreamingLocators;
             }
             catch (Exception ex)
             {
@@ -1888,7 +1814,7 @@ namespace AMSExplorer
 
 
 
-        private void DisplayStreamingPolicyAndContentKeyPolicyOfLocator(string locatorName)
+        private async Task DisplayStreamingPolicyAndContentKeyPolicyOfLocatorAsync(string locatorName)
         {
             if (locatorName == null)
             {
@@ -1896,42 +1822,42 @@ namespace AMSExplorer
                 return;
             }
 
-            StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            StreamingLocator locator = await _amsClient.AMSclient.StreamingLocators.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
 
-            StreamingPolicy policy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
+            StreamingPolicy policy = await _amsClient.AMSclient.StreamingPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
 
             string policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
             textBoxStreamingPolicyOfLocator.Text = policyJson;
 
-            DisplayContentKeyPolicyOfStreamingPolicy(locator.StreamingPolicyName);
+            await DisplayContentKeyPolicyOfStreamingPolicyAsync(locator.StreamingPolicyName);
 
         }
 
-        private void DisplayContentKeyPolicyOfLocator(string locatorName)
+        private async Task DisplayContentKeyPolicyOfLocatorAsync(string locatorName)
         {
             if (locatorName == null)
             {
                 textBoxContentKeyPolicyOfLocator.Text = string.Empty;
                 return;
             }
-            StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            StreamingLocator locator = await _amsClient.AMSclient.StreamingLocators.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
 
-            DisplayContentKeyPolicy(locator.DefaultContentKeyPolicyName, textBoxContentKeyPolicyOfLocator);
+            await DisplayContentKeyPolicyAsync(locator.DefaultContentKeyPolicyName, textBoxContentKeyPolicyOfLocator);
         }
 
-        private void DisplayContentKeyPolicyOfStreamingPolicy(string streamingPolicyName)
+        private async Task DisplayContentKeyPolicyOfStreamingPolicyAsync(string streamingPolicyName)
         {
             if (string.IsNullOrEmpty(streamingPolicyName))
             {
                 textBoxContentKeyPolicyOfStreamingPolicy.Text = string.Empty;
                 return;
             }
-            StreamingPolicy locator = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingPolicyName);
+            StreamingPolicy locator = await _amsClient.AMSclient.StreamingPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingPolicyName);
 
-            DisplayContentKeyPolicy(locator.DefaultContentKeyPolicyName, textBoxContentKeyPolicyOfLocator);
+            await DisplayContentKeyPolicyAsync(locator.DefaultContentKeyPolicyName, textBoxContentKeyPolicyOfLocator);
         }
 
-        private void DisplayContentKeyPolicy(string contentKeyPolicyName, TextBox myTextBox)
+        private async Task DisplayContentKeyPolicyAsync(string contentKeyPolicyName, TextBox myTextBox)
         {
             if (string.IsNullOrEmpty(contentKeyPolicyName))
             {
@@ -1939,42 +1865,42 @@ namespace AMSExplorer
                 return;
             }
 
-            ContentKeyPolicy policy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, contentKeyPolicyName);
+            ContentKeyPolicy policy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, contentKeyPolicyName);
 
             string policyJson = JsonConvert.SerializeObject(policy, Newtonsoft.Json.Formatting.Indented);
             myTextBox.Text = policyJson;
         }
 
 
-        private void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBoxStreamingPolicyOfLocator.Text = string.Empty;
 
             if (comboBoxPolicyLocators.SelectedItem != null)
             {
                 string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
-                DisplayStreamingPolicyAndContentKeyPolicyOfLocator(locatorName);
-                DisplayContentKeyPolicyOfLocator(locatorName);
-                FillComboDRMKeys(locatorName);
-                FillComboContentKeyOptions(locatorName);
+                await DisplayStreamingPolicyAndContentKeyPolicyOfLocatorAsync(locatorName);
+                await DisplayContentKeyPolicyOfLocatorAsync(locatorName);
+                await FillComboDRMKeysAsync(locatorName);
+                await FillComboContentKeyOptionsAsync(locatorName);
             }
         }
 
-        private void FillComboContentKeyOptions(string locatorName)
+        private async Task FillComboContentKeyOptionsAsync(string locatorName)
         {
             comboBoxOptions.Items.Clear();
-            StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
-            StreamingPolicy spolicy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
+            StreamingLocator locator = await _amsClient.AMSclient.StreamingLocators.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            StreamingPolicy spolicy = await _amsClient.AMSclient.StreamingPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
 
             // let's find active key policy
             ContentKeyPolicy ckpolicy = null;
             if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
             {
-                ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
+                ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
             }
             else if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
             {
-                ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
+                ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
             }
 
             if (ckpolicy == null || (ckpolicy.Options.First().Restriction.GetType() != typeof(ContentKeyPolicyTokenRestriction)))
@@ -2001,10 +1927,10 @@ namespace AMSExplorer
             }
         }
 
-        private void FillComboDRMKeys(string locatorName)
+        private async Task FillComboDRMKeysAsync(string locatorName)
         {
             comboBoxKeys.Items.Clear();
-            ListContentKeysResponse response = _amsClient.AMSclient.StreamingLocators.ListContentKeys(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
             contentKeysForCurrentLocator = response.ContentKeys.ToList();
             contentKeysForCurrentLocator.ForEach(k => comboBoxKeys.Items.Add(new Item(k.LabelReferenceInStreamingPolicy, k.Id.ToString())));
             if (response.ContentKeys.Count > 0)
@@ -2076,18 +2002,18 @@ namespace AMSExplorer
             StringBuilder sbuilder = new StringBuilder();
 
             string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
-            StreamingLocator locator = _amsClient.AMSclient.StreamingLocators.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
-            StreamingPolicy spolicy = _amsClient.AMSclient.StreamingPolicies.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
+            StreamingLocator locator = await _amsClient.AMSclient.StreamingLocators.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
+            StreamingPolicy spolicy = await _amsClient.AMSclient.StreamingPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.StreamingPolicyName);
 
             // let's find active key policy
             ContentKeyPolicyProperties ckpolicy = null;
             if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
             {
-                ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecrets(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
+                ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecretsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
             }
             else if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
             {
-                ckpolicy = _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecrets(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
+                ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecretsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
             }
 
             if (ckpolicy == null) return;

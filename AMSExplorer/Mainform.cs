@@ -1197,11 +1197,11 @@ namespace AMSExplorer
             }
             await _amsClient.RefreshTokenIfNeededAsync();
             AssetContainerSas assetContainerSas = await client.AMSclient.Assets.ListContainerSasAsync(
-        client.credentialsEntry.ResourceGroup,
-        client.credentialsEntry.AccountName,
-        assetName,
-        permissions: AssetContainerPermission.Read,
-        expiryTime: DateTime.UtcNow.AddHours(5).ToUniversalTime());
+                                                                                                        client.credentialsEntry.ResourceGroup,
+                                                                                                        client.credentialsEntry.AccountName,
+                                                                                                        assetName,
+                                                                                                        permissions: AssetContainerPermission.Read,
+                                                                                                        expiryTime: DateTime.UtcNow.AddHours(5).ToUniversalTime());
 
             Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
             CloudBlobContainer container = new CloudBlobContainer(containerSasUrl);
@@ -1320,7 +1320,6 @@ namespace AMSExplorer
                     {
                         throw new FileNotFoundException(string.Format("No files in directory, check folderPath: {0}", SelectedPath));
                     }
-
 
                     if (form.SingleAsset)
                     {
