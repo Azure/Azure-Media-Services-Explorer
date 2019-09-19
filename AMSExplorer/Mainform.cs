@@ -5083,14 +5083,14 @@ namespace AMSExplorer
         }
 
 
-        private List<LiveEvent> ReturnSelectedLiveEvents()
+        private async Task<List<LiveEvent>> ReturnSelectedLiveEventsAsync()
         {
             List<LiveEvent> SelectedLiveEvents = new List<LiveEvent>();
             foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
                 // sometimes, the live event can be null (if just deleted)
                 //LiveEvent liveEvent = Task.Run(async () => await GetLiveEventAsync(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString())).Result;
-                LiveEvent liveEvent = Task.Run(() => GetLiveEventAsync(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString())).GetAwaiter().GetResult();
+                LiveEvent liveEvent = await GetLiveEventAsync(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
 
                 if (liveEvent != null)
                 {
@@ -5137,22 +5137,20 @@ namespace AMSExplorer
             return SelectedLiveOutputs;
         }
 
-        private void DoStartLiveEvents()
+        private async Task DoStartLiveEventsAsync()
         {
             // let's start the live events
 
-            Task.Run(() =>
-            {
-                DoStartLiveEventsEngine(ReturnSelectedLiveEvents());
-            }
-                    );
+
+            await DoStartLiveEventsEngineAsync(await ReturnSelectedLiveEventsAsync());
+
         }
 
 
         private async void DoStopOrDeleteLiveEvents(bool deleteLiveEvents)
         {
             // delete also if delete = true
-            List<LiveEvent> ListEvents = ReturnSelectedLiveEvents();
+            List<LiveEvent> ListEvents = await ReturnSelectedLiveEventsAsync();
             List<LiveOutput> LOList = new List<LiveOutput>();
             await _amsClient.RefreshTokenIfNeededAsync();
 
@@ -5251,15 +5249,15 @@ namespace AMSExplorer
             }
         }
 
-        private void DoResetLiveEvents()
+        private async Task DoResetLiveEventsAsync()
         {
-            List<LiveEvent> ListEvents = ReturnSelectedLiveEvents();
+            List<LiveEvent> ListEvents = await ReturnSelectedLiveEventsAsync();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             foreach (LiveEvent le in ListEvents)
             {
-                List<LiveOutput> plist = _amsClient.AMSclient.LiveOutputs.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, le.Name).ToList();
+                List<LiveOutput> plist = (await _amsClient.AMSclient.LiveOutputs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, le.Name)).ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -5275,26 +5273,24 @@ namespace AMSExplorer
                 {
                     if (MessageBox.Show("One or several live outputs are running which prevents the live event(s) reset. Do you want to delete the live output(s) and then reset the live event(s) ?", "Live event reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        Task.Run(async () =>
-                         {
-                             try
-                             {
-                                 await DoDeleteLiveOutputs(liveOutputRunningQuery.Select(o => o.LiveOutputItem).ToList());
 
-                                 // let's reset the live events now that running output are stopped
-                                 ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
-                                 Task[] tasksreset = ListEvents.Select(c => _amsClient.AMSclient.LiveEvents.ResetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
-                                 await Task.WhenAll(tasksreset);
-                                 ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
-                                 ListEvents.ToList().ForEach(e => Notify("Live event reset", string.Format("Live event '{0}' has been reset.", e.Name), false));
-                             }
-                             catch (Exception ex)
-                             {
-                                 TextBoxLogWriteLine("Error when reseting live events.", true);
-                                 TextBoxLogWriteLine(ex);
-                             }
-                         }
-                      );
+                        try
+                        {
+                            await DoDeleteLiveOutputsAsync(liveOutputRunningQuery.Select(o => o.LiveOutputItem).ToList());
+
+                            // let's reset the live events now that running output are stopped
+                            ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
+                            Task[] tasksreset = ListEvents.Select(c => _amsClient.AMSclient.LiveEvents.ResetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
+                            await Task.WhenAll(tasksreset);
+                            ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
+                            ListEvents.ToList().ForEach(e => Notify("Live event reset", string.Format("Live event '{0}' has been reset.", e.Name), false));
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when reseting live events.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
+
 
                     }
                 }
@@ -5305,24 +5301,21 @@ namespace AMSExplorer
                     if (System.Windows.Forms.MessageBox.Show(question, "Live event reset", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
                         // let's reset the events
-                        Task.Run(async () =>
-                       {
-                           try
-                           {
-                               // let's reset the live events now that live outputs are deleted
-                               ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
-                               Task[] tasksreset = ListEvents.Select(c => _amsClient.AMSclient.LiveEvents.ResetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
-                               await Task.WhenAll(tasksreset);
-                               ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
-                               ListEvents.ToList().ForEach(e => Notify("Live event reset", string.Format("Live event '{0}' has been reset.", e.Name), false));
-                           }
-                           catch (Exception ex)
-                           {
-                               TextBoxLogWriteLine("Error when reseting live events.", true);
-                               TextBoxLogWriteLine(ex);
-                           }
 
-                       });
+                        try
+                        {
+                            // let's reset the live events now that live outputs are deleted
+                            ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Reseting live event '{0}'...", e.Name));
+                            Task[] tasksreset = ListEvents.Select(c => _amsClient.AMSclient.LiveEvents.ResetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
+                            await Task.WhenAll(tasksreset);
+                            ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
+                            ListEvents.ToList().ForEach(e => Notify("Live event reset", string.Format("Live event '{0}' has been reset.", e.Name), false));
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when reseting live events.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
                     }
                 }
             }
@@ -5426,9 +5419,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoDisplayLiveEventInfo()
+        private async Task DoDisplayLiveEventInfoAsync()
         {
-            DoDisplayLiveEventInfo(ReturnSelectedLiveEvents());
+            DoDisplayLiveEventInfo(await ReturnSelectedLiveEventsAsync());
         }
 
 
@@ -5605,22 +5598,17 @@ namespace AMSExplorer
             }
         }
 
-        private void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
+        private async void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
         {
             if (radioButtonChSelected.Checked) // only in select mode
             {
                 Debug.WriteLine("live event selection changed : begin");
-                List<LiveEvent> SelectedLiveEvents = ReturnSelectedLiveEvents();
+                List<LiveEvent> SelectedLiveEvents = await ReturnSelectedLiveEventsAsync();
                 if (SelectedLiveEvents.Count > 0)
                 {
-
                     dataGridViewLiveOutputV.LiveEventSourceNames = SelectedLiveEvents.Select(c => c.Name).ToList();
-
-                    Task.Run(() =>
-                    {
-                        Debug.WriteLine("live event selection changed : before refresh");
-                        DoRefreshGridLiveOutputV(false);
-                    });
+                    Debug.WriteLine("live event selection changed : before refresh");
+                    DoRefreshGridLiveOutputV(false);
                 }
             }
         }
@@ -5725,14 +5713,14 @@ namespace AMSExplorer
         }
 
 
-        private void DoStartLiveEventsEngine(List<LiveEvent> ListEvents)
+        private async Task DoStartLiveEventsEngineAsync(List<LiveEvent> ListEvents)
         {
             // Start the live events which are stopped
             List<LiveEvent> liveevntsstopped = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Stopped).ToList();
             string names = string.Join(", ", liveevntsstopped.Select(le => le.Name).ToArray());
             if (liveevntsstopped.Count() > 0)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 try
                 {
@@ -5775,7 +5763,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoDeleteLiveOutputs(List<LiveOutput> ListOutputs = null)
+        private async Task DoDeleteLiveOutputsAsync(List<LiveOutput> ListOutputs = null)
         {
             // delete also if delete = true
             if (ListOutputs == null)
@@ -6048,9 +6036,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoCreateLiveOutput()
+        private async Task DoCreateLiveOutputAsync()
         {
-            LiveEvent liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
+            LiveEvent liveEvent = (await ReturnSelectedLiveEventsAsync()).FirstOrDefault();
             if (liveEvent != null)
             {
                 string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
@@ -6073,67 +6061,66 @@ namespace AMSExplorer
                     Asset newAsset = new Asset() { StorageAccountName = form.StorageSelected };
 
                     Asset asset = null;
-                    Task.Run(async () =>
+
+                    try
                     {
-                        try
+                        TextBoxLogWriteLine("Creating asset '{0}'...", assetname);
+                        asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetname, newAsset);
+                        TextBoxLogWriteLine("Asset '{0}' created.", assetname);
+
+                        TextBoxLogWriteLine("Creating live output '{0}'...", form.LiveOutputName);
+
+                        Hls hlsParam = null;
+                        if (form.HLSFragmentPerSegment != null)
                         {
-                            TextBoxLogWriteLine("Creating asset '{0}'...", assetname);
-                            asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetname, newAsset);
-                            TextBoxLogWriteLine("Asset '{0}' created.", assetname);
-
-                            TextBoxLogWriteLine("Creating live output '{0}'...", form.LiveOutputName);
-
-                            Hls hlsParam = null;
-                            if (form.HLSFragmentPerSegment != null)
-                            {
-                                hlsParam = new Hls(fragmentsPerTsSegment: form.HLSFragmentPerSegment);
-                            }
-
-                            LiveOutput liveOutput = new LiveOutput(
-                                asset.Name,
-                                form.ArchiveWindowLength,
-                                null,
-                                form.LiveOutputName,
-                                null,
-                                form.ProgramDescription,
-                                form.ManifestName ?? uniqueness,
-                                hlsParam,
-                                form.StartRecordTimestamp
-                                );
-
-                            LiveOutput liveOutput2 = await _amsClient.AMSclient.LiveOutputs.CreateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEvent.Name, form.LiveOutputName, liveOutput);
-                            TextBoxLogWriteLine("Live output '{0}' created.", liveOutput2.Name);
-
-                            if (form.CreateLocator)
-                            {
-                                try
-                                {
-                                    DoCreateLocator(new List<Asset> { asset }, form.ManifestName);
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when publishing the asset of the live output.", true);
-                                    TextBoxLogWriteLine(ex);
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when creating a live output.", true);
-                            TextBoxLogWriteLine(ex);
+                            hlsParam = new Hls(fragmentsPerTsSegment: form.HLSFragmentPerSegment);
                         }
 
-                        DoRefreshGridLiveOutputV(false);
-                    });
+                        LiveOutput liveOutput = new LiveOutput(
+                            asset.Name,
+                            form.ArchiveWindowLength,
+                            null,
+                            form.LiveOutputName,
+                            null,
+                            form.ProgramDescription,
+                            form.ManifestName ?? uniqueness,
+                            hlsParam,
+                            form.StartRecordTimestamp
+                            );
+
+                        LiveOutput liveOutput2 = await _amsClient.AMSclient.LiveOutputs.CreateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEvent.Name, form.LiveOutputName, liveOutput);
+                        TextBoxLogWriteLine("Live output '{0}' created.", liveOutput2.Name);
+
+                        if (form.CreateLocator)
+                        {
+                            try
+                            {
+                                DoCreateLocator(new List<Asset> { asset }, form.ManifestName);
+                            }
+                            catch (Exception ex)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when publishing the asset of the live output.", true);
+                                TextBoxLogWriteLine(ex);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when creating a live output.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+
+                    DoRefreshGridLiveOutputV(false);
+
                 }
             }
         }
 
-        private void createProgramToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void createProgramToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCreateLiveOutput();
+            await DoCreateLiveOutputAsync();
         }
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -6481,9 +6468,9 @@ namespace AMSExplorer
         }
 
 
-        private void displayLiveEventInfomationToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void displayLiveEventInfomationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDisplayLiveEventInfo();
+            await DoDisplayLiveEventInfoAsync();
         }
 
         private void displayProgramInformationToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -6518,9 +6505,9 @@ namespace AMSExplorer
             }
         }
 
-        private void startLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void startLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStartLiveEvents();
+            await DoStartLiveEventsAsync();
         }
 
         private void stopLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -6528,9 +6515,9 @@ namespace AMSExplorer
             DoStopOrDeleteLiveEvents(false);
         }
 
-        private void resetLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void resetLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoResetLiveEvents();
+            await DoResetLiveEventsAsync();
         }
 
         private void deleteLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -6543,7 +6530,7 @@ namespace AMSExplorer
         {
             Task.Run(async () =>
             {
-                await DoDeleteLiveOutputs();
+                await DoDeleteLiveOutputsAsync();
             });
         }
 
@@ -6580,9 +6567,9 @@ namespace AMSExplorer
             }
         }
 
-        private void DoPlaybackLiveEventPreview(PlayerType ptype)
+        private async Task DoPlaybackLiveEventPreviewAsync(PlayerType ptype)
         {
-            foreach (LiveEvent liveEvent in ReturnSelectedLiveEvents())
+            foreach (LiveEvent liveEvent in (await ReturnSelectedLiveEventsAsync()))
             {
                 if (liveEvent != null && liveEvent.Preview != null)
                 {
@@ -6609,9 +6596,9 @@ namespace AMSExplorer
         }
 
 
-        private void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
+        private async void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
         {
-            LiveEvent liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
+            LiveEvent liveEvent = (await ReturnSelectedLiveEventsAsync()).FirstOrDefault();
             if (liveEvent != null && liveEvent.Preview != null)
             {
                 if (liveEvent.Preview.Endpoints.FirstOrDefault() != null && liveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
@@ -6730,9 +6717,9 @@ namespace AMSExplorer
             Process.Start(Constants.LinkBlogAMS);
         }
 
-        private void createProgramToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private async void createProgramToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            DoCreateLiveOutput();
+            await DoCreateLiveOutputAsync();
         }
 
         private void createLiveEventToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -7201,9 +7188,9 @@ namespace AMSExplorer
         }
 
 
-        private void withAzureMediaPlayerToolStripMenuItem4_Click(object sender, EventArgs e)
+        private async void withAzureMediaPlayerToolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            DoPlaybackLiveEventPreview(PlayerType.AzureMediaPlayerClear);
+            await DoPlaybackLiveEventPreviewAsync(PlayerType.AzureMediaPlayerClear);
         }
 
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7455,9 +7442,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoCopyLiveEventInputURLsToClipboard()
+        private async Task DoCopyLiveEventInputURLsToClipboardAsync()
         {
-            LiveEvent liveEvent = ReturnSelectedLiveEvents().FirstOrDefault();
+            LiveEvent liveEvent = (await ReturnSelectedLiveEventsAsync()).FirstOrDefault();
 
             StringBuilder sbuilder = new StringBuilder();
             sbuilder.AppendLine(string.Format("Input URLs for live event name : {0}", liveEvent.Name));
@@ -7480,9 +7467,9 @@ namespace AMSExplorer
 
 
 
-        private void contextMenuStripLiveEvents_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripLiveEvents_Opening(object sender, CancelEventArgs e)
         {
-            List<LiveEvent> liveEvents = ReturnSelectedLiveEvents();
+            List<LiveEvent> liveEvents = await ReturnSelectedLiveEventsAsync();
             bool single = liveEvents.Count == 1;
             bool oneOrMore = liveEvents.Count > 0;
 
@@ -8829,9 +8816,9 @@ namespace AMSExplorer
             form.ShowDialog();
         }
 
-        private void ContextMenuItemLiveEventCopyIngestURLToClipboard_Click(object sender, EventArgs e)
+        private async void ContextMenuItemLiveEventCopyIngestURLToClipboard_Click(object sender, EventArgs e)
         {
-            DoCopyLiveEventInputURLsToClipboard();
+            await DoCopyLiveEventInputURLsToClipboardAsync();
         }
 
         private void Mainform_DpiChanged(object sender, DpiChangedEventArgs e)
