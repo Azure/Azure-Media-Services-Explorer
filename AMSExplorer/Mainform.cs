@@ -865,7 +865,7 @@ namespace AMSExplorer
                             continueLoop = false;
                         }
                     }
-                    System.Threading.Thread.Sleep(1000);
+                    await Task.Delay(1000);
                 }
 
 
@@ -1022,7 +1022,7 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                        System.Threading.Thread.Sleep(1000);
+                        await Task.Delay(1000);
                     }
 
                     blockBlob.FetchAttributes();
@@ -2368,7 +2368,7 @@ namespace AMSExplorer
             }
         }
 
-        private List<Asset> ReturnSelectedAssetsFromProgramsOrAssetsV3()
+        private async Task<List<Asset>> ReturnSelectedAssetsFromProgramsOrAssetsV3Async()
         {
             if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)) // we are in the asset tab
             {
@@ -2378,7 +2378,7 @@ namespace AMSExplorer
             {
                 _amsClient.RefreshTokenIfNeeded();
 
-                return ReturnSelectedLiveOutputs()
+                return (await ReturnSelectedLiveOutputsAsync())
                         .Select(p =>
                             Task.Run(() =>
                                         _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, p.AssetName))
@@ -4580,9 +4580,9 @@ namespace AMSExplorer
         }
 
 
-        private void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHIFRefPlayer);
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.DASHIFRefPlayer);
         }
 
 
@@ -5101,15 +5101,14 @@ namespace AMSExplorer
             return SelectedLiveEvents;
         }
 
-        private List<StreamingEndpoint> ReturnSelectedStreamingEndpoints()
+        private async Task<List<StreamingEndpoint>> ReturnSelectedStreamingEndpointsAsync()
         {
             List<StreamingEndpoint> SelectedOrigins = new List<StreamingEndpoint>();
-            _amsClient.RefreshTokenIfNeeded();
 
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
                 string seName = Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString();
-                StreamingEndpoint se = Task.Run(() => GetStreamingEndpointAsync(seName)).GetAwaiter().GetResult();
+                StreamingEndpoint se = await GetStreamingEndpointAsync(seName);
                 if (se != null)
                 {
                     SelectedOrigins.Add(se);
@@ -5120,14 +5119,13 @@ namespace AMSExplorer
         }
 
 
-        private List<LiveOutput> ReturnSelectedLiveOutputs()
+        private async Task<List<LiveOutput>> ReturnSelectedLiveOutputsAsync()
         {
             List<LiveOutput> SelectedLiveOutputs = new List<LiveOutput>();
-            _amsClient.RefreshTokenIfNeeded();
 
             foreach (DataGridViewRow Row in dataGridViewLiveOutputV.SelectedRows)
             {
-                LiveOutput liveOutput = _amsClient.AMSclient.LiveOutputs.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
+                LiveOutput liveOutput = await GetLiveOutputAsync(Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
                 if (liveOutput != null)
                 {
                     SelectedLiveOutputs.Add(liveOutput);
@@ -5140,14 +5138,12 @@ namespace AMSExplorer
         private async Task DoStartLiveEventsAsync()
         {
             // let's start the live events
-
-
             await DoStartLiveEventsEngineAsync(await ReturnSelectedLiveEventsAsync());
 
         }
 
 
-        private async void DoStopOrDeleteLiveEvents(bool deleteLiveEvents)
+        private async Task DoStopOrDeleteLiveEventsAsync(bool deleteLiveEvents)
         {
             // delete also if delete = true
             List<LiveEvent> ListEvents = await ReturnSelectedLiveEventsAsync();
@@ -5173,9 +5169,7 @@ namespace AMSExplorer
                     DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        await Task.Factory.StartNew(() =>
-                           DoDeleteLiveOutputsEngineAsync(LOList, form.DeleteAsset)
-                            );
+                        await DoDeleteLiveOutputsEngineAsync(LOList, form.DeleteAsset);
                     }
                     else
                     {
@@ -5201,9 +5195,7 @@ namespace AMSExplorer
                     }
                 }
 
-                Task myTask = Task.Factory.StartNew(() =>
-                                    DoStopOrDeleteLiveEventsEngine(ListEvents, deleteLiveEvents)
-                                     );
+                await DoStopOrDeleteLiveEventsEngineAsync(ListEvents, deleteLiveEvents);
 
             }
         }
@@ -5322,12 +5314,12 @@ namespace AMSExplorer
         }
 
 
-        private void createLiveEventToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createLiveEventToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateLiveEvent();
+            await DoCreateLiveEventAsync();
         }
 
-        private async void DoCreateLiveEvent()
+        private async Task DoCreateLiveEventAsync()
         {
             LiveEventCreation form = new LiveEventCreation(_amsClient)
             {
@@ -5613,7 +5605,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoStopOrDeleteLiveEventsEngine(List<LiveEvent> ListEvents, bool deleteLiveEvents)
+        private async Task DoStopOrDeleteLiveEventsEngineAsync(List<LiveEvent> ListEvents, bool deleteLiveEvents)
         {
 
             // Stop the live events which run
@@ -5622,7 +5614,7 @@ namespace AMSExplorer
 
             if (liveeventsrunning.Count() > 0)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 try
                 {
@@ -5651,7 +5643,7 @@ namespace AMSExplorer
                             }
 
                         }
-                        System.Threading.Thread.Sleep(2000);
+                        await Task.Delay(2000);
                     }
                     Task.WaitAll(taskcstop);
 
@@ -5669,7 +5661,7 @@ namespace AMSExplorer
 
             if (deleteLiveEvents)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 // delete the live events
                 try
@@ -5697,7 +5689,7 @@ namespace AMSExplorer
                                 DoRefreshGridLiveEventV(false);
                             }
                         }
-                        System.Threading.Thread.Sleep(2000);
+                        await Task.Delay(2000);
                     }
                     Task.WaitAll(taskcdel);
                     TextBoxLogWriteLine("Live event(s) deleted : {0}.", names2);
@@ -5747,7 +5739,7 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                        System.Threading.Thread.Sleep(2000);
+                        await Task.Delay(2000);
                     }
                     Task.WaitAll(taskLEStart);
                 }
@@ -5768,7 +5760,7 @@ namespace AMSExplorer
             // delete also if delete = true
             if (ListOutputs == null)
             {
-                ListOutputs = ReturnSelectedLiveOutputs();
+                ListOutputs = await ReturnSelectedLiveOutputsAsync();
             }
 
             if (ListOutputs.Count > 0)
@@ -5815,7 +5807,7 @@ namespace AMSExplorer
                             //DoRefreshGridLiveOutputV(false);
                         }
                     }
-                    System.Threading.Thread.Sleep(2000);
+                    await Task.Delay(2000);
                 }
                 Task.WaitAll(tasks);
                 TextBoxLogWriteLine("Live output(s) deleted.");
@@ -5849,14 +5841,14 @@ namespace AMSExplorer
             }
         }
 
-        private void DoStartStreamingEndpointEngine(List<StreamingEndpoint> ListStreamingEndpoints)
+        private async Task DoStartStreamingEndpointEngineAsync(List<StreamingEndpoint> ListStreamingEndpoints)
         {
             // Start the streaming endpoint which are stopped
             List<StreamingEndpoint> streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.ResourceState == StreamingEndpointResourceState.Stopped).ToList();
             string names = string.Join(", ", streamingendpointsstopped.Select(le => le.Name).ToArray());
             if (streamingendpointsstopped.Count() > 0)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 try
                 {
@@ -5876,10 +5868,9 @@ namespace AMSExplorer
                             if (loitemR != null && states[streamingendpointsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[streamingendpointsstopped.IndexOf(loitem)] = loitemR.ResourceState;
-                                Task.Run(async () =>
-                                {
-                                    await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
-                                });
+
+                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
+
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Running)
                                 {
                                     TextBoxLogWriteLine("Streaming endpoint started : {0}.", loitemR.Name);
@@ -5887,7 +5878,7 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                        System.Threading.Thread.Sleep(2000);
+                        await Task.Delay(2000);
                     }
                     Task.WaitAll(taskSEStart);
 
@@ -5934,7 +5925,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoStopOrDeleteStreamingEndpointsEngine(List<StreamingEndpoint> ListStreamingEndpoints, bool deleteStreamingEndpoints)
+        private async Task DoStopOrDeleteStreamingEndpointsEngineAsync(List<StreamingEndpoint> ListStreamingEndpoints, bool deleteStreamingEndpoints)
         {
 
             // Stop the streaming endpoints which run
@@ -5943,7 +5934,7 @@ namespace AMSExplorer
 
             if (sesrunning.Count() > 0)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 try
                 {
@@ -5958,14 +5949,11 @@ namespace AMSExplorer
 
                         foreach (StreamingEndpoint loitem in sesrunning)
                         {
-                            StreamingEndpoint loitemR = _amsClient.AMSclient.StreamingEndpoints.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, loitem.Name);
+                            StreamingEndpoint loitemR = await GetStreamingEndpointAsync(loitem.Name);
                             if (loitemR != null && states[sesrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[sesrunning.IndexOf(loitem)] = loitemR.ResourceState;
-                                Task.Run(async () =>
-                                {
-                                    await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
-                                });
+                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
 
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Stopped)
                                 {
@@ -5973,12 +5961,10 @@ namespace AMSExplorer
                                     complete++;
                                 }
                             }
-
                         }
-                        System.Threading.Thread.Sleep(2000);
+                        await Task.Delay(2000);
                     }
                     Task.WaitAll(taskSEstop);
-
                 }
                 catch (Exception ex)
                 {
@@ -5997,7 +5983,7 @@ namespace AMSExplorer
 
                     TextBoxLogWriteLine("Deleting streaming endpoints(s) : {0}...", names2);
                     List<StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
-                    Task[] taskSEdel = ListStreamingEndpoints.Select(c => _amsClient.AMSclient.StreamingEndpoints.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
+                    Task[] taskSEdel = ListStreamingEndpoints.Select(c => GetStreamingEndpointAsync(c.Name)).ToArray();
 
                     while (!taskSEdel.All(t => t.IsCompleted))
                     {
@@ -6005,21 +5991,18 @@ namespace AMSExplorer
 
                         foreach (StreamingEndpoint loitem in ListStreamingEndpoints)
                         {
-                            StreamingEndpoint loitemR = Task.Run(() => GetStreamingEndpointAsync(loitem.Name)).GetAwaiter().GetResult();
+                            StreamingEndpoint loitemR = await GetStreamingEndpointAsync(loitem.Name);
                             if (loitemR != null && states[ListStreamingEndpoints.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListStreamingEndpoints.IndexOf(loitem)] = loitemR.ResourceState;
-                                Task.Run(async () =>
-                                {
-                                    await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
-                                });
+                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
                             }
                             else if (loitemR != null)
                             {
                                 DoRefreshGridStreamingEndpointV(false);
                             }
                         }
-                        System.Threading.Thread.Sleep(2000);
+                        await Task.Delay(2000);
                     }
                     Task.WaitAll(taskSEdel);
                     TextBoxLogWriteLine("Streaming endpoint(s) deleted : {0}.", names2);
@@ -6153,9 +6136,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoDisplayLiveOutputInfo()
+        private async Task DoDisplayLiveOutputInfo()
         {
-            DoDisplayLiveOutputInfo(ReturnSelectedLiveOutputs());
+            DoDisplayLiveOutputInfo(await ReturnSelectedLiveOutputsAsync());
         }
 
         private void DoDisplayLiveOutputInfo(List<LiveOutput> liveoutputs)
@@ -6217,9 +6200,9 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDisplayStreamingEndpointInfo()
+        private async Task DoDisplayStreamingEndpointInfoAsync()
         {
-            DoDisplayStreamingEndpointInfo(ReturnSelectedStreamingEndpoints());
+            DoDisplayStreamingEndpointInfo(await ReturnSelectedStreamingEndpointsAsync());
         }
         private void DoDisplayStreamingEndpointInfo(List<StreamingEndpoint> streamingendpoints)
         {
@@ -6377,37 +6360,25 @@ namespace AMSExplorer
         }
 
 
-        private void DoStartStreamingEndpoints()
+        private async Task DoStartStreamingEndpointsAsync()
         {
-            Task.Run(() =>
-            {
-                DoStartStreamingEndpointEngine(ReturnSelectedStreamingEndpoints());
-            }
-                   );
+            await DoStartStreamingEndpointEngineAsync(await ReturnSelectedStreamingEndpointsAsync());
         }
 
-        private void DoStopStreamingEndpoints()
+        private async Task DoStopStreamingEndpointsAsync()
         {
-            Task.Run(() =>
-            {
-                DoStopOrDeleteStreamingEndpointsEngine(ReturnSelectedStreamingEndpoints(), false);
-            }
-                   );
+            await DoStopOrDeleteStreamingEndpointsEngineAsync(await ReturnSelectedStreamingEndpointsAsync(), false);
         }
 
-        private void DoDeleteStreamingEndpoints()
+        private async Task DoDeleteStreamingEndpointsAsync()
         {
-            List<StreamingEndpoint> SelectedOrigins = ReturnSelectedStreamingEndpoints();
+            List<StreamingEndpoint> SelectedOrigins = await ReturnSelectedStreamingEndpointsAsync();
             if (SelectedOrigins.Count > 0)
             {
                 string question = (SelectedOrigins.Count == 1) ? "Delete streaming endpoint " + SelectedOrigins[0].Name + " ?" : "Delete these " + SelectedOrigins.Count + " streaming endpoints ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Streaming endpoint(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    Task.Run(() =>
-                    {
-                        DoStopOrDeleteStreamingEndpointsEngine(ReturnSelectedStreamingEndpoints(), true);
-                    }
-                  );
+                    await DoStopOrDeleteStreamingEndpointsEngineAsync(await ReturnSelectedStreamingEndpointsAsync(), true);
                 }
             }
         }
@@ -6510,9 +6481,9 @@ namespace AMSExplorer
             await DoStartLiveEventsAsync();
         }
 
-        private void stopLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void stopLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStopOrDeleteLiveEvents(false);
+            await DoStopOrDeleteLiveEventsAsync(false);
         }
 
         private async void resetLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -6520,9 +6491,9 @@ namespace AMSExplorer
             await DoResetLiveEventsAsync();
         }
 
-        private void deleteLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void deleteLiveEventsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStopOrDeleteLiveEvents(true);
+            await DoStopOrDeleteLiveEventsAsync(true);
         }
 
 
@@ -6534,24 +6505,24 @@ namespace AMSExplorer
             });
         }
 
-        private void displayOriginInformationToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void displayOriginInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDisplayStreamingEndpointInfo();
+            await DoDisplayStreamingEndpointInfoAsync();
         }
 
-        private void startOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void startOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStartStreamingEndpoints();
+            await DoStartStreamingEndpointsAsync();
         }
 
-        private void stopOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void stopOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStopStreamingEndpoints();
+            await DoStopStreamingEndpointsAsync();
         }
 
-        private void deleteOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void deleteOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteStreamingEndpoints();
+            await DoDeleteStreamingEndpointsAsync();
         }
 
         private void dataGridViewOriginsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -6722,9 +6693,9 @@ namespace AMSExplorer
             await DoCreateLiveOutputAsync();
         }
 
-        private void createLiveEventToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void createLiveEventToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoCreateLiveEvent();
+            await DoCreateLiveEventAsync();
         }
 
         private void comboBoxTimeProgram_SelectedIndexChanged(object sender, EventArgs e)
@@ -6786,9 +6757,9 @@ namespace AMSExplorer
 
 
 
-        private void createALocatorToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createALocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateLocator(ReturnSelectedAssetsFromProgramsOrAssetsV3());
+            DoCreateLocator(await ReturnSelectedAssetsFromProgramsOrAssetsV3Async());
         }
 
         private void deleteAllLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6798,13 +6769,13 @@ namespace AMSExplorer
         }
 
 
-        private void DoDisplayOutputURLAssetOrProgramToWindow()
+        private async Task DoDisplayOutputURLAssetOrProgramToWindowAsync()
         {
-            Asset asset = ReturnSelectedAssetsFromProgramsOrAssetsV3().FirstOrDefault();
+            Asset asset = (await ReturnSelectedAssetsFromProgramsOrAssetsV3Async()).FirstOrDefault();
             if (asset != null)
             {
                 AssetInfo AI = new AssetInfo(asset);
-                Uri ValidURI = AssetInfo.GetValidOnDemandURI(asset, _amsClient);
+                Uri ValidURI = await AssetInfo.GetValidOnDemandURIAsync(asset, _amsClient);
                 if (ValidURI != null)
                 {
                     string url = ValidURI.AbsoluteUri;
@@ -6838,52 +6809,52 @@ namespace AMSExplorer
             Process.Start(Constants.PlayerJWPlayerPartnership);
         }
 
-        private void withCustomPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void withCustomPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.CustomPlayer);
         }
 
-        private void DoMenuCreateLocatorOnPrograms()
+        private async Task DoMenuCreateLocatorOnProgramsAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
             DoCreateLocator(SelectedAssets);
             DoRefreshGridLiveOutputV(false);
         }
 
-        private void createALocatorToolStripMenuItem2_Click(object sender, EventArgs e)
+        private async void createALocatorToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            DoMenuCreateLocatorOnPrograms();
+            await DoMenuCreateLocatorOnProgramsAsync();
         }
 
-        private void deleteAllLocatorsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void deleteAllLocatorsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoMenuDeleteAllLocatorsOnPrograms();
+            await DoMenuDeleteAllLocatorsOnProgramsAsync();
         }
 
-        private void DoMenuDeleteAllLocatorsOnPrograms()
+        private async Task DoMenuDeleteAllLocatorsOnProgramsAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
             DoRefreshGridLiveOutputV(false);
         }
 
-        private void displayRelatedAssetInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void displayRelatedAssetInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayAssetInfoOfProgram();
+            await DoMenuDisplayAssetInfoOfProgramAsync();
         }
 
-        private void DoMenuDisplayAssetInfoOfProgram()
+        private async Task DoMenuDisplayAssetInfoOfProgramAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
             if (SelectedAssets.Count > 0)
             {
                 DisplayInfo(SelectedAssets.FirstOrDefault());
             }
         }
 
-        private void withCustomPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
+        private async void withCustomPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.CustomPlayer);
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.CustomPlayer);
         }
 
 
@@ -7093,9 +7064,9 @@ namespace AMSExplorer
         }
 
 
-        private void withAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void withAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer);
         }
 
 
@@ -7177,14 +7148,14 @@ namespace AMSExplorer
             }
         }
 
-        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype)
+        private async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, ReturnSelectedAssetsFromProgramsOrAssetsV3());
+            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, await ReturnSelectedAssetsFromProgramsOrAssetsV3Async());
         }
 
-        private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
+        private async void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer);
         }
 
 
@@ -7302,14 +7273,14 @@ namespace AMSExplorer
         }
         */
 
-        private void enableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void enableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeAzureCDN(true);
+            await ChangeAzureCDNAsync(true);
         }
 
-        private void ChangeAzureCDN(bool enable)
+        private async Task ChangeAzureCDNAsync(bool enable)
         {
-            StreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+            StreamingEndpoint streamingendpoint = (await ReturnSelectedStreamingEndpointsAsync()).FirstOrDefault();
 
             if (streamingendpoint.ResourceState != StreamingEndpointResourceState.Stopped)
             {
@@ -7345,16 +7316,16 @@ namespace AMSExplorer
             }
         }
 
-        private void disableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void disableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeAzureCDN(false);
+            await ChangeAzureCDNAsync(false);
         }
 
 
-        private void contextMenuStripStreaminEndpoints_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripStreaminEndpoints_Opening(object sender, CancelEventArgs e)
         {
             // enable Azure CDN operation if one se selected and in stopped state
-            ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem, enableAzureCDNToolStripMenuItem);
+            await ManageMenuOptionsAzureCDNAsync(disableAzureCDNToolStripMenuItem, enableAzureCDNToolStripMenuItem);
 
             // telemetry
             loadToolStripMenuItem.Enabled = enableTelemetry;
@@ -7364,10 +7335,10 @@ namespace AMSExplorer
         {
         }
 
-        private void ManageMenuOptionsAzureCDN(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
+        private async Task ManageMenuOptionsAzureCDNAsync(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
         {
             // enable Azure CDN operation if one se selected and in stopped state
-            List<StreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
+            List<StreamingEndpoint> streamingendpoints = await ReturnSelectedStreamingEndpointsAsync();
 
             if (streamingendpoints.Count == 1)
             {
@@ -7503,9 +7474,9 @@ namespace AMSExplorer
         {
         }
 
-        private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
-            List<LiveOutput> liveOutputs = ReturnSelectedLiveOutputs();
+            List<LiveOutput> liveOutputs = await ReturnSelectedLiveOutputsAsync();
             bool single = liveOutputs.Count == 1;
             bool oneOrMore = liveOutputs.Count > 0;
 
@@ -7529,9 +7500,9 @@ namespace AMSExplorer
 
         }
 
-        private void ContextMenuItemProgramCopyTheOutputURLToClipboard_Click(object sender, EventArgs e)
+        private async void ContextMenuItemProgramCopyTheOutputURLToClipboard_Click(object sender, EventArgs e)
         {
-            DoDisplayOutputURLAssetOrProgramToWindow();
+            await DoDisplayOutputURLAssetOrProgramToWindowAsync();
         }
 
         private void buttonSetFilterLiveEvent_Click(object sender, EventArgs e)
@@ -7711,30 +7682,30 @@ namespace AMSExplorer
         }
 
 
-        private void DoCreateAssetFilter()
+        private async Task DoCreateAssetFilterAsync()
         {
-            Asset selasset = ReturnSelectedAssetsFromProgramsOrAssetsV3().FirstOrDefault();
+            Asset selasset = (await ReturnSelectedAssetsFromProgramsOrAssetsV3Async()).FirstOrDefault();
 
             DynManifestFilter form = new DynManifestFilter(_amsClient, null, selasset);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 FilterCreationInfo filterinfo = null;
                 try
                 {
                     filterinfo = form.GetFilterInfo;
-                    Task.Run(() =>
-                  _amsClient.AMSclient.AssetFilters.CreateOrUpdateAsync
-                        (
-                        _amsClient.credentialsEntry.ResourceGroup,
-                        _amsClient.credentialsEntry.AccountName,
-                        selasset.Name,
-                        filterinfo.Name,
-                        new AssetFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
-                        ))
-                        .GetAwaiter().GetResult();
+
+                    await _amsClient.AMSclient.AssetFilters.CreateOrUpdateAsync
+                           (
+                           _amsClient.credentialsEntry.ResourceGroup,
+                           _amsClient.credentialsEntry.AccountName,
+                           selasset.Name,
+                           filterinfo.Name,
+                           new AssetFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
+                          );
+
 
                     TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                 }
@@ -7779,14 +7750,14 @@ namespace AMSExplorer
             DoDuplicateFilter();
         }
 
-        private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateAssetFilter();
+            await DoCreateAssetFilterAsync();
         }
 
-        private void toolStripMenuItem25_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem25_Click(object sender, EventArgs e)
         {
-            DoCreateAssetFilter();
+            await DoCreateAssetFilterAsync();
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_DropDownOpening(object sender, EventArgs e)
@@ -7815,9 +7786,9 @@ namespace AMSExplorer
             DoSubClip();
         }
 
-        private void DoSubClip()
+        private async Task DoSubClip()
         {
-            var selectedAssets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
+            var selectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
             if (selectedAssets.Count > 0)
             {
                 if (!selectedAssets.All(a => AssetInfo.GetAssetType(a.Name, _amsClient).Type.StartsWith(AssetInfo.Type_LiveArchive) || AssetInfo.GetAssetType(a.Name, _amsClient).Type.StartsWith(AssetInfo.Type_Fragmented)))
@@ -8017,9 +7988,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoCheckIntegrityLiveArchive()
+        private async Task DoCheckIntegrityLiveArchiveAsync()
         {
-            List<Asset> assets = ReturnSelectedAssetsFromProgramsOrAssetsV3();
+            List<Asset> assets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
 
             string question = (assets.Count == 1) ? string.Format("Check the integrity of '{0}' ?", assets[0].Name) : string.Format("Check the integrity of these {0} archives ?", assets.Count);
             if (System.Windows.Forms.MessageBox.Show(question, "Integrity check", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -8104,16 +8075,15 @@ namespace AMSExplorer
         }
 
 
-        private void toolStripMenuItem38_Click_2(object sender, EventArgs e)
+        private async void toolStripMenuItem38_Click_2(object sender, EventArgs e)
         {
-            DoDisplayOutputURLAssetOrProgramToWindow();
-
+            await DoDisplayOutputURLAssetOrProgramToWindowAsync();
         }
 
 
-        private void toolStripMenuItem41_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem41_Click(object sender, EventArgs e)
         {
-            DoCheckIntegrityLiveArchive();
+            await DoCheckIntegrityLiveArchiveAsync();
         }
 
         private void toolStripMenuItem42_Click(object sender, EventArgs e)
@@ -8194,9 +8164,9 @@ namespace AMSExplorer
         }
 
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StreamingEndpoint SE = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+            StreamingEndpoint SE = (await ReturnSelectedStreamingEndpointsAsync()).FirstOrDefault();
             if (SE != null)
             {
                 //var form = new DisplayTelemetry(this, SE, _context, _credentials);
@@ -8701,9 +8671,9 @@ namespace AMSExplorer
 
         }
 
-        private void createASASUrlToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createASASUrlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateSASUrl(ReturnSelectedAssetsFromProgramsOrAssetsV3());
+            DoCreateSASUrl(await ReturnSelectedAssetsFromProgramsOrAssetsV3Async());
 
         }
 
@@ -8837,15 +8807,14 @@ namespace AMSExplorer
             Process.Start(Constants.LinkFeedbackAMS);
         }
 
-        private void WithAdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void WithAdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AdvancedTestPlayer);
-
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AdvancedTestPlayer);
         }
 
-        private void WithAdvancedTestPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void WithAdvancedTestPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AdvancedTestPlayer);
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AdvancedTestPlayer);
         }
 
         private void AdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
