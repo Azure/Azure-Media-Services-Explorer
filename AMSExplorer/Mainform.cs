@@ -40,6 +40,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Web.Caching;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -64,25 +65,18 @@ namespace AMSExplorer
         private readonly System.Timers.Timer TimerAutoRefresh;
         private bool DisplaySplashDuringLoading;
 
-        private enumDisplayProgram backupCheckboxAnyLiveEvent = enumDisplayProgram.Selected;
         private bool CheckboxAnyLiveEventChangedByCode = false;
 
-        private readonly bool largeAccount = false; // if nb assets > trigger
-        private readonly int triggerForLargeAccountNbAssets = 10000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
-        private const int maxNbAssets = 1000000;
         private const int maxNbJobs = 50000;
         private readonly bool enableTelemetry = true;
 
 #pragma warning disable CS0414 // The field 'Mainform.OneGB' is assigned but its value is never used
         private static readonly long OneGB = 1000L * 1000L * 1000L;
-#pragma warning restore CS0414 // The field 'Mainform.OneGB' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'Mainform.S1AssetSizeLimit' is assigned but its value is never used
         private static readonly int S1AssetSizeLimit = 26; // GBytes
 #pragma warning restore CS0414 // The field 'Mainform.S1AssetSizeLimit' is assigned but its value is never used
-#pragma warning disable CS0414 // The field 'Mainform.S2AssetSizeLimit' is assigned but its value is never used
         private static readonly int S2AssetSizeLimit = 60; // GBytes
 #pragma warning restore CS0414 // The field 'Mainform.S2AssetSizeLimit' is assigned but its value is never used
-#pragma warning disable CS0414 // The field 'Mainform.S3AssetSizeLimit' is assigned but its value is never used
         private static readonly int S3AssetSizeLimit = 260; // GBytes
 #pragma warning restore CS0414 // The field 'Mainform.S3AssetSizeLimit' is assigned but its value is never used
         public string _accountname;
@@ -541,7 +535,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 //dataGridViewTransformsV.Init(_amsClient);
-                Task.Run(() => dataGridViewTransformsV.InitAsync(_amsClient)).GetAwaiter().GetResult();
+                Task.Run(() => dataGridViewTransformsV.InitAsync(_amsClient, SynchronizationContext.Current)).GetAwaiter().GetResult();
 
             }
 
@@ -632,7 +626,7 @@ namespace AMSExplorer
                 {
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize), response.token);
+                    Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize), response.token);
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
@@ -653,7 +647,7 @@ namespace AMSExplorer
                         i++;
                         TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: form.BlockSize), response.token);
+                        Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: form.BlockSize), response.token);
 
                         if (i == 10) // let's use a batch of 10 threads at the same time
                         {
@@ -675,17 +669,28 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessUploadFileAndMoreV3(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, int blocksize = 4)
+        private async Task ProcessUploadFileAndMoreV3Async(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, int blocksize = 4)
         {
             // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(guidTransfer);
+            await DoGridTransferWaitIfNeededAsync(guidTransfer);
             if (token.IsCancellationRequested)
             {
                 DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
             await _amsClient.RefreshTokenIfNeededAsync();
-            IList<StorageAccount> storAccounts = _amsClient.AMSclient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName).StorageAccounts;
+            IList<StorageAccount> storAccounts = null;
+            try
+            {
+                //à fixer
+                var response2 = await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);//.ConfigureAwait(false);
+                storAccounts = response2.StorageAccounts;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
 
             if (storageaccount == null)
             {
@@ -1160,7 +1165,7 @@ namespace AMSExplorer
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : string.Empty, asset.Name), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     //Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(FileNames.ToList(), response.Id, response.token, null, asset.Name), response.token);
+                    Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, null, asset.Name), response.token);
 
                     if (i == 10) // let's use a batch of 10 threads at the same time
                     {
@@ -1185,14 +1190,14 @@ namespace AMSExplorer
         public async Task DownloadOutputAssetAsync(AMSClientV3 client, string assetName, string outputFolderName, TransferEntryResponse response, DownloadToFolderOption downloadOption, bool openFileExplorer, List<string> onlySomeBlobsName = null)
         {
             // If download is in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.Id);
+            await DoGridTransferWaitIfNeededAsync(response.Id);
             if (response.token.IsCancellationRequested)
             {
                 DoGridTransferDeclareCancelled(response.Id);
                 return;
             }
 
-            const int ListBlobsSegmentMaxResult = 5;
+            //const int ListBlobsSegmentMaxResult = 5;
 
             if (!Directory.Exists(outputFolderName))
             {
@@ -1229,7 +1234,7 @@ namespace AMSExplorer
                 {
                     do
                     {
-                        BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, ListBlobsSegmentMaxResult, continuationToken, null, null);
+                        BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, continuationToken, null, null);
 
                         foreach (IListBlobItem blobItem in segment.Results)
                         {
@@ -1328,7 +1333,7 @@ namespace AMSExplorer
                     {
                         TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
 
-                        Task<Task> myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+                        Task<Task> myTask = Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(
                               filePaths.ToList(),
                               response.Id,
                               response.token,
@@ -1350,7 +1355,7 @@ namespace AMSExplorer
                                     i++;
                                     TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
                                     // Start a worker thread that does uploading.
-                                    Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+                                    Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(
                               new List<string>() { f },
                               response.Id,
                               response.token,
@@ -2264,9 +2269,6 @@ namespace AMSExplorer
 
             StringBuilder stringLines = new StringBuilder();
 
-            const int ListBlobsSegmentMaxResult = 100;
-
-
             foreach (Asset AssetToP in assets)
             {
                 AssetContainerSas assetContainerSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(
@@ -2290,7 +2292,7 @@ namespace AMSExplorer
                 BlobContinuationToken continuationToken = null;
                 do
                 {
-                    var response = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, ListBlobsSegmentMaxResult, continuationToken, null, null);
+                    var response = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, continuationToken, null, null);
                     continuationToken = response.ContinuationToken;
                     foreach (IListBlobItem blobItem in response.Results)
                     {
@@ -4452,7 +4454,7 @@ namespace AMSExplorer
 
         }
 
-        private void DoChangeJobPriority()
+        private async Task DoChangeJobPriorityAsync()
         {
             List<JobExtension> SelectedJobs = ReturnSelectedJobsV3();
 
@@ -4474,8 +4476,8 @@ namespace AMSExplorer
                             try
                             {
                                 JobToProcess.Job.Priority = form.JobPriority;
-                                _amsClient.RefreshTokenIfNeeded();
-                                _amsClient.AMSclient.Jobs.Update(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job);
+                                await _amsClient.RefreshTokenIfNeededAsync();
+                                await _amsClient.AMSclient.Jobs.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job);
                                 TextBoxLogWriteLine("Job '{0}' updated.", JobToProcess.Job.Name);
                             }
 
@@ -4491,9 +4493,9 @@ namespace AMSExplorer
             }
         }
 
-        private void changePriorityToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void changePriorityToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoChangeJobPriority();
+            await DoChangeJobPriorityAsync();
         }
 
         private void comboBoxFilterTime_SelectedIndexChanged(object sender, EventArgs e)
@@ -6626,12 +6628,12 @@ namespace AMSExplorer
             }
         }
 
-        private void batchUploadToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void batchUploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoBatchUpload();
+            await DoBatchUploadAsync();
         }
 
-        private void DoBatchUpload()
+        private async Task DoBatchUploadAsync()
         {
             BatchUploadFrame1 form = new BatchUploadFrame1();
             if (form.ShowDialog() == DialogResult.OK)
@@ -6641,8 +6643,7 @@ namespace AMSExplorer
                 {
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
 
-                    Task.Run(async () =>
-                    {
+                   
                         List<Task> MyTasks = new List<Task>();
                         int i = 0;
                         foreach (string folder in form2.BatchSelectedFolders)
@@ -6654,13 +6655,13 @@ namespace AMSExplorer
 
                             IEnumerable<string> filePaths = Directory.EnumerateFiles(folder as string);
 
-                            Task<Task> myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+                            var myTask = ProcessUploadFileAndMoreV3Async(
                                       filePaths.ToList(),
                                       response.Id,
                                       response.token,
                                       storageaccount: form2.StorageSelected,
                                       blocksize: form2.BlockSize
-                                      ), response.token);
+                                      );
 
                             MyTasks.Add(myTask);
 
@@ -6680,13 +6681,22 @@ namespace AMSExplorer
                             i++;
                             TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
 
-                            Task<Task> myTask = Task.Factory.StartNew(() => ProcessUploadFileAndMoreV3(
+                            /*
+                            Task<Task> myTask = Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(
                                       new List<string>() { file },
                                       response.Id,
                                       response.token,
                                       storageaccount: form2.StorageSelected,
                                       blocksize: form2.BlockSize
                                       ), response.token);
+                                      */
+                            Task myTask = ProcessUploadFileAndMoreV3Async(
+                                      new List<string>() { file },
+                                      response.Id,
+                                      response.token,
+                                      storageaccount: form2.StorageSelected,
+                                      blocksize: form2.BlockSize
+                                      );
 
                             MyTasks.Add(myTask);
 
@@ -6711,8 +6721,7 @@ namespace AMSExplorer
                         }
 
                         // DoRefreshGridAssetV(false);
-                    }
-                       );
+                   
                 }
             }
         }
@@ -7014,7 +7023,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoSelectTransformAndSubmitJob()
+        private async Task DoSelectTransformAndSubmitJobAsync()
         {
             List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
 
@@ -7025,11 +7034,11 @@ namespace AMSExplorer
             {
                 if (form.SelectedAssetsMode) // assets selected
                 {
-                    CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime);
+                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime);
                 }
                 else // http source url instead
                 {
-                    CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
+                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
                 }
 
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs, form.SelectedTransform);
@@ -7421,9 +7430,9 @@ namespace AMSExplorer
             DoMenuUploadFromFolder_Step1();
         }
 
-        private void toolStripMenuItem20_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem20_Click(object sender, EventArgs e)
         {
-            DoBatchUpload();
+           await DoBatchUploadAsync();
         }
 
         private void toolStripMenuItem21_Click(object sender, EventArgs e)
@@ -8461,15 +8470,15 @@ namespace AMSExplorer
             }
         }
 
-        public Transform CreateAndGetCopyCodecTransformIfNeeded()
+        public async Task<Transform> CreateAndGetCopyCodecTransformIfNeededAsync()
         {
             Transform myTransform = null;
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             bool found = true;
             try
             {
-                myTransform = _amsClient.AMSclient.Transforms.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName);
+                myTransform = await _amsClient.AMSclient.Transforms.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName);
             }
             catch
             {
@@ -8489,7 +8498,7 @@ namespace AMSExplorer
                 try
                 {
                     // Create the Transform with the output defined above
-                    myTransform = _amsClient.AMSclient.Transforms.CreateOrUpdate(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.Description);
+                    myTransform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.Description);
                     TextBoxLogWriteLine("Transform '{0}' created.", myTransform.Name); // Warning
                 }
                 catch (Exception ex)
@@ -8518,9 +8527,9 @@ namespace AMSExplorer
             */
         }
 
-        public void CreateAndSubmitJobs(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, string outputAssetName = null)
+        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, string outputAssetName = null)
         {
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             foreach (Asset asset in assets)
             {
@@ -8536,21 +8545,21 @@ namespace AMSExplorer
 
                     try
                     {
-                        Asset outputAsset = Task.Run(() =>
+                        Asset outputAsset = await
                                                           _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
                                                                     _amsClient.credentialsEntry.ResourceGroup,
                                                                     _amsClient.credentialsEntry.AccountName,
                                                                     outputAssetName,
                                                                     new Asset()
-                                                                    )
-                                                        ).GetAwaiter().GetResult();
+                                                                    );
+
 
                         JobOutput[] jobOutputs =
                          {
                     new JobOutputAsset(outputAsset.Name),
                 };
 
-                        Job job = Task.Run(() =>
+                        Job job = await
                                                      _amsClient.AMSclient.Jobs.CreateAsync(
                                                                     _amsClient.credentialsEntry.ResourceGroup,
                                                                     _amsClient.credentialsEntry.AccountName,
@@ -8560,8 +8569,8 @@ namespace AMSExplorer
                                                                     {
                                                                         Input = jobInput,
                                                                         Outputs = jobOutputs,
-                                                                    })
-                                                     ).GetAwaiter().GetResult();
+                                                                    });
+
 
                         TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
 
@@ -8576,10 +8585,9 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
         }
 
-        private void CreateAndSubmitJobs(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null)
+        private async Task CreateAndSubmitJobsAsync(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null)
         {
-            _amsClient.RefreshTokenIfNeeded();
-
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             foreach (Transform transform in sel)
             {
@@ -8593,7 +8601,7 @@ namespace AMSExplorer
                 {
 
 
-                    Asset outputAsset = _amsClient.AMSclient.Assets.CreateOrUpdate(
+                    Asset outputAsset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
                                                                 _amsClient.credentialsEntry.ResourceGroup,
                                                                 _amsClient.credentialsEntry.AccountName,
                                                                 outputAssetName,
@@ -8605,7 +8613,7 @@ namespace AMSExplorer
                      {
                     new JobOutputAsset(outputAsset.Name),
                 };
-                    Job job = _amsClient.AMSclient.Jobs.Create(
+                    Job job = await _amsClient.AMSclient.Jobs.CreateAsync(
                                                                 _amsClient.credentialsEntry.ResourceGroup,
                                                                 _amsClient.credentialsEntry.AccountName,
                                                                 transform.Name,
@@ -8657,12 +8665,12 @@ namespace AMSExplorer
             CreateStandardEncoderTransform();
         }
 
-        private void createJobUsingAnHttpSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createJobUsingAnHttpSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateJobFromTransformUsingHttpSource();
+            await CreateJobFromTransformUsingHttpSourceAsync();
         }
 
-        private void CreateJobFromTransformUsingHttpSource()
+        private async Task CreateJobFromTransformUsingHttpSourceAsync()
         {
             List<Transform> sel = ReturnSelectedTransforms();
 
@@ -8674,20 +8682,20 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
+                await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
 
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs, form.SelectedTransform);
             }
         }
 
-        private void fromHttpsSourceWithSelectedTransformToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void fromHttpsSourceWithSelectedTransformToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateJobFromTransformUsingHttpSource();
+            await CreateJobFromTransformUsingHttpSourceAsync();
         }
 
-        private void selectATransformToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void selectATransformToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoSelectTransformAndSubmitJob();
+            await DoSelectTransformAndSubmitJobAsync();
         }
 
         private void storageSettingsToolStripMenuItem_Click(object sender, EventArgs e)

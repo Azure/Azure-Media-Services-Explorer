@@ -119,7 +119,7 @@ namespace AMSExplorer
             }
         }
 
-        private void BathUploadFrame2_Load(object sender, EventArgs e)
+        private async void BathUploadFrame2_LoadAsync(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
 
@@ -130,10 +130,9 @@ namespace AMSExplorer
             {
                 Close();
             }
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
-
-            foreach (StorageAccount storage in _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts)
+            foreach (StorageAccount storage in (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.Type == StorageAccountType.Primary);
@@ -142,11 +141,6 @@ namespace AMSExplorer
                 {
                     comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
                 }
-
-
-
-                //                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BathUploadFrame2_Load_Default : ""), storage.Name));
-                //              if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
 
             List<int> listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };

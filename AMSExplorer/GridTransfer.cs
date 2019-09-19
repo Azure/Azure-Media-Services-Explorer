@@ -22,6 +22,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -34,6 +35,13 @@ namespace AMSExplorer
 
     public class TransferEntry : INotifyPropertyChanged
     {
+        private SynchronizationContext syncContext;
+
+        public TransferEntry(SynchronizationContext mysyncContext)
+        {
+            syncContext = mysyncContext;
+        }
+
         private string _Name;
         public string Name
         {
@@ -176,13 +184,37 @@ namespace AMSExplorer
                 }
             }
         }
-
+        /*
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string p = "")
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(p));
+            }
+        }
+        */
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string p = "")
+        {
+            if (PropertyChanged != null)
+            {
+                try
+                {
+                    var handler = PropertyChanged;
+
+                    if (syncContext != null)
+                        syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
+                    else
+                        handler(this, new PropertyChangedEventArgs(p));
+
+                }
+                catch
+                {
+
+                }
             }
         }
     }
@@ -236,7 +268,7 @@ namespace AMSExplorer
 
         public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool CanBePutInTheQueue)
         {
-            TransferEntry myTE = new TransferEntry()
+            TransferEntry myTE = new TransferEntry(SynchronizationContext.Current)
             {
                 Name = text,
                 SubmitTime = DateTime.Now,
@@ -411,7 +443,7 @@ namespace AMSExplorer
             return (ReturnTransfer(guid).processedinqueue);
         }
 
-        private void DoGridTransferWaitIfNeeded(Guid guid)
+        private async Task DoGridTransferWaitIfNeededAsync(Guid guid)
         {
             // If upload in the queue, let's wait our turn
             if (DoGridTransferIsQueueRequested(guid))
@@ -419,7 +451,7 @@ namespace AMSExplorer
                 while (!DoGridTransferQueueOurTurn(guid) && Properties.Settings.Default.ConcurrentTransfers < Constants.MaxTransfersAsUnlimited)
                 {
                     Debug.Print("wait " + guid.ToString());
-                    Thread.Sleep(500);
+                    await Task.Delay(500);
                 }
                 DoGridTransferDeclareTransferStarted(guid);
             }

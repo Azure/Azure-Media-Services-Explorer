@@ -2617,9 +2617,7 @@ namespace AMSExplorer
             }
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
-
 
         private void NotifyPropertyChanged([CallerMemberName] string p = "")
         {
@@ -2633,10 +2631,6 @@ namespace AMSExplorer
                         syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
                     else
                         handler(this, new PropertyChangedEventArgs(p));
-
-
-
-                    //PropertyChanged(this, new PropertyChangedEventArgs(p));
                 }
                 catch
                 {
@@ -2644,12 +2638,18 @@ namespace AMSExplorer
                 }
             }
         }
-
     }
 
 
     public class TransformEntryV3 : INotifyPropertyChanged
     {
+        private SynchronizationContext syncContext;
+
+        public TransformEntryV3(SynchronizationContext mysyncContext)
+        {
+            syncContext = mysyncContext;
+        }
+
         public string _Name;
         public string Name
         {
@@ -2692,7 +2692,6 @@ namespace AMSExplorer
             }
         }
 
-
         private string _LastModified;
         public string LastModified
         {
@@ -2706,7 +2705,7 @@ namespace AMSExplorer
                 }
             }
         }
-
+        /*
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string p = "")
@@ -2716,9 +2715,31 @@ namespace AMSExplorer
                 PropertyChanged(this, new PropertyChangedEventArgs(p));
             }
         }
+        */
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string p = "")
+        {
+            if (PropertyChanged != null)
+            {
+                try
+                {
+                    var handler = PropertyChanged;
+
+                    if (syncContext != null)
+                        syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
+                    else
+                        handler(this, new PropertyChangedEventArgs(p));
+
+                }
+                catch
+                {
+
+                }
+            }
+        }
     }
-
 
 
     public class ExplorerOpenIDSample
@@ -2728,13 +2749,11 @@ namespace AMSExplorer
     }
 
 
-
     public class ListCredentialsRPv3
     {
         public decimal Version = 3;
         public List<CredentialsEntryV3> MediaServicesAccounts = new List<CredentialsEntryV3>();
     }
-
 
     public class LiveOutputUtil
     {
@@ -2751,7 +2770,6 @@ namespace AMSExplorer
         public string Type;
         public IEnumerable<IListBlobItem> Blobs;
     }
-
 
     public class JsonFromAzureCli
     {
@@ -2793,7 +2811,6 @@ namespace AMSExplorer
                 //Task.Run(async () => await ConnectAndGetNewClientV3Async());
             }
         }
-
 
         public async Task RefreshTokenIfNeededAsync()
         {
@@ -2973,7 +2990,6 @@ namespace AMSExplorer
             string[] split = storageId.Split('/');
             return storageId.Split('/')[split.Count() - 5];
         }
-
 
         public long? GetStorageCapacity(string storageId)
         {

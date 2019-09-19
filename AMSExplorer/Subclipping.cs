@@ -469,12 +469,12 @@ namespace AMSExplorer
         }
 
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private async void buttonOk_Click(object sender, EventArgs e)
         {
-            DoSubClip();
+            await DoSubClipAsync();
         }
 
-        private void DoSubClip()
+        private async Task DoSubClipAsync()
         {
             var subclipConfig = this.GetSubclippingInternalConfiguration();
 
@@ -484,7 +484,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    _mainform.CreateAndSubmitJobs(new List<Transform>() { form.SelectedTransform }, _selectedAssets, form.StartClipTime, form.EndClipTime);
+                    await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, form.StartClipTime, form.EndClipTime);
                 }
 
                 /*
@@ -533,9 +533,7 @@ namespace AMSExplorer
                         filterinfo = formAF.GetFilterInfo;
                         AssetFilter assetFilter = new AssetFilter() { PresentationTimeRange = filterinfo.Presentationtimerange };
 
-                        Task.Run(() =>
-                      _amsClientV3.AMSclient.AssetFilters.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, selasset.Name, filterinfo.Name, assetFilter)
-                      ).GetAwaiter().GetResult();
+                        await _amsClientV3.AMSclient.AssetFilters.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, selasset.Name, filterinfo.Name, assetFilter);
 
                         _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                     }
@@ -567,8 +565,8 @@ namespace AMSExplorer
                     };
                 }
 
-                var transform = _mainform.CreateAndGetCopyCodecTransformIfNeeded();
-                _mainform.CreateAndSubmitJobs(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, EncodingOutputAssetName);
+                var transform = await _mainform.CreateAndGetCopyCodecTransformIfNeededAsync();
+                await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, EncodingOutputAssetName);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

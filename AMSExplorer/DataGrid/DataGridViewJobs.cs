@@ -337,7 +337,7 @@ namespace AMSExplorer
 
             Debug.WriteLine("RefreshJobs End");
 
-            RestoreJobProgress(new List<string> { transform });
+            await RestoreJobProgressAsync(new List<string> { transform });
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
@@ -345,56 +345,53 @@ namespace AMSExplorer
 
 
         // Used to restore job progress. 2 cases: when app is launched or when a job has been created by an external program
-        public void RestoreJobProgress(List<string> transforms)  // when app is launched for example, we want to restore job progress updates
+        public async Task RestoreJobProgressAsync(List<string> transforms)  // when app is launched for example, we want to restore job progress updates
         {
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
-            Task.Run(() =>
+            ODataQuery<Job> odataQuery = new ODataQuery<Job>
             {
-                ODataQuery<Job> odataQuery = new ODataQuery<Job>
-                {
-                    Filter = "Properties/State eq Microsoft.Media.JobState'Queued' or Properties/State eq Microsoft.Media.JobState'Scheduled' or Properties/State eq Microsoft.Media.JobState'Processing' "
-                };
+                Filter = "Properties/State eq Microsoft.Media.JobState'Queued' or Properties/State eq Microsoft.Media.JobState'Scheduled' or Properties/State eq Microsoft.Media.JobState'Processing' "
+            };
 
-                List<JobExtension> ActiveAndVisibleJobs = new List<JobExtension>();
-                foreach (string t in transforms)
-                {
-                    ActiveAndVisibleJobs.AddRange(_client.AMSclient.Jobs.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, t, odataQuery).Select(j => new JobExtension() { Job = j, TransformName = t }));
-                }
+            List<JobExtension> ActiveAndVisibleJobs = new List<JobExtension>();
+            foreach (string t in transforms)
+            {
+                IPage<Job> jobs = await _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, t, odataQuery);
+                ActiveAndVisibleJobs.AddRange(jobs.Select(j => new JobExtension() { Job = j, TransformName = t }));
+            }
 
-
-                // let's cancel monitor task of non visible jobs
-                List<string> listToCancel = new List<string>();
-                try
+            // let's cancel monitor task of non visible jobs
+            List<string> listToCancel = new List<string>();
+            try
+            {
+                foreach (KeyValuePair<string, CancellationTokenSource> jobmonitored in _MyListJobsMonitored)
                 {
-                    foreach (KeyValuePair<string, CancellationTokenSource> jobmonitored in _MyListJobsMonitored)
+                    if (ActiveAndVisibleJobs.Where(j => j.Job.Name == jobmonitored.Key).FirstOrDefault() == null)
                     {
-                        if (ActiveAndVisibleJobs.Where(j => j.Job.Name == jobmonitored.Key).FirstOrDefault() == null)
-                        {
-                            jobmonitored.Value.Cancel();
-                            listToCancel.Add(jobmonitored.Key);
-                        }
-                    }
-                    listToCancel.ForEach(j => _MyListJobsMonitored.Remove(j));
-
-                    // let's adjust the JobRefreshIntervalInMilliseconds based on the number of jobs to monitor
-                    // 2500 ms if 5 jobs or less, 500ms*nbjobs otherwise
-                    JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
-
-                    // let's monitor job that are not yet monitored
-                    foreach (JobExtension job in ActiveAndVisibleJobs)
-                    {
-                        if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
-                        {
-                            DoJobProgress(job); // token will be added to dictionnary in this function
-                        }
+                        jobmonitored.Value.Cancel();
+                        listToCancel.Add(jobmonitored.Key);
                     }
                 }
-                catch
-                {
+                listToCancel.ForEach(j => _MyListJobsMonitored.Remove(j));
 
+                // let's adjust the JobRefreshIntervalInMilliseconds based on the number of jobs to monitor
+                // 2500 ms if 5 jobs or less, 500ms*nbjobs otherwise
+                JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
+
+                // let's monitor job that are not yet monitored
+                foreach (JobExtension job in ActiveAndVisibleJobs)
+                {
+                    if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
+                    {
+                        DoJobProgress(job); // token will be added to dictionnary in this function
+                    }
                 }
-            });
+            }
+            catch
+            {
+
+            }
         }
 
         public void DoJobProgress(JobExtension job)

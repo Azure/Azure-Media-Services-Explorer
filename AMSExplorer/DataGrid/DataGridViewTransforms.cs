@@ -22,6 +22,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -33,15 +34,17 @@ namespace AMSExplorer
 
         private readonly List<string> idsList = new List<string>();
         private static AMSClientV3 _amsClient;
+        private SynchronizationContext _context;
         private static BindingList<TransformEntryV3> _MyObservTransformsV3;
 
-        public async Task InitAsync(AMSClientV3 client)
+        public async Task InitAsync(AMSClientV3 client, SynchronizationContext context)
         {
             _amsClient = client;
+            _context = context;
 
             var transformsList = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
-            IEnumerable<Task<TransformEntryV3>> transforms = transformsList.Select(async a => new TransformEntryV3
+            IEnumerable<Task<TransformEntryV3>> transforms = transformsList.Select(async a => new TransformEntryV3(_context)
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -82,7 +85,7 @@ namespace AMSExplorer
 
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            IEnumerable<Task<TransformEntryV3>> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntryV3
+            IEnumerable<Task<TransformEntryV3>> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntryV3(_context)
             {
                 Name = a.Name,
                 Description = a.Description,
