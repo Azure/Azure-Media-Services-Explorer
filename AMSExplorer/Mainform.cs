@@ -301,40 +301,40 @@ namespace AMSExplorer
             }
         }
 
-        private static async Task<Asset> GetAssetAsync(string assetName)
+        private static async Task<Asset> GetAssetAsync(string assetName, CancellationToken token = default)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-            return await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName);
+            await _amsClient.RefreshTokenIfNeededAsync().ConfigureAwait(false);
+            return await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, token).ConfigureAwait(false);
         }
 
         private static async Task<Job> GetJobAsync(string transformName, string jobName)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-            return await _amsClient.AMSclient.Jobs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transformName, jobName);
+            await _amsClient.RefreshTokenIfNeededAsync().ConfigureAwait(false); ;
+            return await _amsClient.AMSclient.Jobs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transformName, jobName).ConfigureAwait(false);
         }
 
         private static async Task<Transform> GetTransformAsync(string transformName)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-            return await _amsClient.AMSclient.Transforms.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transformName);
+            await _amsClient.RefreshTokenIfNeededAsync().ConfigureAwait(false); ;
+            return await _amsClient.AMSclient.Transforms.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transformName).ConfigureAwait(false);
         }
 
         private static async Task<LiveEvent> GetLiveEventAsync(string liveEventName)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-            return await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEventName);
+            await _amsClient.RefreshTokenIfNeededAsync().ConfigureAwait(false); ;
+            return await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEventName).ConfigureAwait(false);
         }
 
         private static async Task<LiveOutput> GetLiveOutputAsync(string liveEventName, string liveOutputName)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-            return await _amsClient.AMSclient.LiveOutputs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEventName, liveOutputName);
+            await _amsClient.RefreshTokenIfNeededAsync().ConfigureAwait(false); ;
+            return await _amsClient.AMSclient.LiveOutputs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEventName, liveOutputName).ConfigureAwait(false);
         }
 
         private static async Task<StreamingEndpoint> GetStreamingEndpointAsync(string seName)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-            return await _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, seName);
+            await _amsClient.RefreshTokenIfNeededAsync().ConfigureAwait(false); ;
+            return await _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, seName).ConfigureAwait(false);
         }
 
 
@@ -690,7 +690,7 @@ namespace AMSExplorer
             {
 
             }
-            
+
 
             if (storageaccount == null)
             {
@@ -721,7 +721,7 @@ namespace AMSExplorer
                     }
                     else // let's reusing existing asset
                     {
-                        asset = await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, token);
+                        asset = await GetAssetAsync(destAssetName, token);
                     }
 
                     ListContainerSasInput input = new ListContainerSasInput()
@@ -3982,8 +3982,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                await _amsClient.RefreshTokenIfNeededAsync();
-                Asset asset = await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+                Asset asset = await GetAssetAsync(dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
                 DisplayInfo(asset);
             }
         }
@@ -4388,7 +4387,7 @@ namespace AMSExplorer
                         case TransferType.UploadFromFolder:
                         case TransferType.UploadWithExternalTool:
                             await _amsClient.RefreshTokenIfNeededAsync();
-                            Asset asset = await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, location);
+                            Asset asset = await GetAssetAsync(location);
                             if (asset != null)
                             {
                                 DisplayInfo(asset);
@@ -5110,7 +5109,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
                 string seName = Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString();
-                StreamingEndpoint se = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, seName)).GetAwaiter().GetResult();
+                StreamingEndpoint se = Task.Run(() => GetStreamingEndpointAsync(seName)).GetAwaiter().GetResult();
                 if (se != null)
                 {
                     SelectedOrigins.Add(se);
@@ -5884,7 +5883,7 @@ namespace AMSExplorer
 
                         foreach (StreamingEndpoint loitem in streamingendpointsstopped)
                         {
-                            StreamingEndpoint loitemR = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, loitem.Name)).GetAwaiter().GetResult();
+                            StreamingEndpoint loitemR = Task.Run(() => GetStreamingEndpointAsync(loitem.Name)).GetAwaiter().GetResult();
 
                             if (loitemR != null && states[streamingendpointsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
@@ -6018,7 +6017,7 @@ namespace AMSExplorer
 
                         foreach (StreamingEndpoint loitem in ListStreamingEndpoints)
                         {
-                            StreamingEndpoint loitemR = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, loitem.Name)).GetAwaiter().GetResult();
+                            StreamingEndpoint loitemR = Task.Run(() => GetStreamingEndpointAsync(loitem.Name)).GetAwaiter().GetResult();
                             if (loitemR != null && states[ListStreamingEndpoints.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListStreamingEndpoints.IndexOf(loitem)] = loitemR.ResourceState;
@@ -6643,85 +6642,85 @@ namespace AMSExplorer
                 {
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
 
-                   
-                        List<Task> MyTasks = new List<Task>();
-                        int i = 0;
-                        foreach (string folder in form2.BatchSelectedFolders)
+
+                    List<Task> MyTasks = new List<Task>();
+                    int i = 0;
+                    foreach (string folder in form2.BatchSelectedFolders)
+                    {
+                        i++;
+                        TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
+                        //var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, AssetCreationOptions.None, response.token, form2.StorageSelected), response.token);
+
+
+                        IEnumerable<string> filePaths = Directory.EnumerateFiles(folder as string);
+
+                        var myTask = ProcessUploadFileAndMoreV3Async(
+                                  filePaths.ToList(),
+                                  response.Id,
+                                  response.token,
+                                  storageaccount: form2.StorageSelected,
+                                  blocksize: form2.BlockSize
+                                  );
+
+                        MyTasks.Add(myTask);
+
+                        if (i == 10) // let's use a batch of 10 threads at the same time
                         {
-                            i++;
-                            TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
-                            //var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, AssetCreationOptions.None, response.token, form2.StorageSelected), response.token);
-
-
-                            IEnumerable<string> filePaths = Directory.EnumerateFiles(folder as string);
-
-                            var myTask = ProcessUploadFileAndMoreV3Async(
-                                      filePaths.ToList(),
-                                      response.Id,
-                                      response.token,
-                                      storageaccount: form2.StorageSelected,
-                                      blocksize: form2.BlockSize
-                                      );
-
-                            MyTasks.Add(myTask);
-
-                            if (i == 10) // let's use a batch of 10 threads at the same time
+                            do
                             {
-                                do
-                                {
-                                    Task.Delay(1000).Wait();
-                                }
-                                while (ReturnTransfer(response.Id).State == TransferState.Queued);
-                                i = 0;
+                                Task.Delay(1000).Wait();
                             }
+                            while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                            i = 0;
                         }
+                    }
 
-                        foreach (string file in form2.BatchSelectedFiles)
+                    foreach (string file in form2.BatchSelectedFiles)
+                    {
+                        i++;
+                        TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
+
+                        /*
+                        Task<Task> myTask = Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(
+                                  new List<string>() { file },
+                                  response.Id,
+                                  response.token,
+                                  storageaccount: form2.StorageSelected,
+                                  blocksize: form2.BlockSize
+                                  ), response.token);
+                                  */
+                        Task myTask = ProcessUploadFileAndMoreV3Async(
+                                  new List<string>() { file },
+                                  response.Id,
+                                  response.token,
+                                  storageaccount: form2.StorageSelected,
+                                  blocksize: form2.BlockSize
+                                  );
+
+                        MyTasks.Add(myTask);
+
+                        if (i >= 10) // let's use a batch of 10 threads at the same time
                         {
-                            i++;
-                            TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
-
-                            /*
-                            Task<Task> myTask = Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(
-                                      new List<string>() { file },
-                                      response.Id,
-                                      response.token,
-                                      storageaccount: form2.StorageSelected,
-                                      blocksize: form2.BlockSize
-                                      ), response.token);
-                                      */
-                            Task myTask = ProcessUploadFileAndMoreV3Async(
-                                      new List<string>() { file },
-                                      response.Id,
-                                      response.token,
-                                      storageaccount: form2.StorageSelected,
-                                      blocksize: form2.BlockSize
-                                      );
-
-                            MyTasks.Add(myTask);
-
-                            if (i >= 10) // let's use a batch of 10 threads at the same time
+                            do
                             {
-                                do
-                                {
-                                    Task.Delay(1000).Wait();
-                                }
-                                while (ReturnTransfer(response.Id).State == TransferState.Queued);
-                                i = 0;
+                                Task.Delay(1000).Wait();
                             }
+                            while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                            i = 0;
                         }
+                    }
 
-                        try
-                        {
-                            await Task.WhenAll(MyTasks);
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine(ex);
-                        }
+                    try
+                    {
+                        await Task.WhenAll(MyTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine(ex);
+                    }
 
-                        // DoRefreshGridAssetV(false);
-                   
+                    // DoRefreshGridAssetV(false);
+
                 }
             }
         }
@@ -7432,7 +7431,7 @@ namespace AMSExplorer
 
         private async void toolStripMenuItem20_Click(object sender, EventArgs e)
         {
-           await DoBatchUploadAsync();
+            await DoBatchUploadAsync();
         }
 
         private void toolStripMenuItem21_Click(object sender, EventArgs e)
@@ -8478,7 +8477,7 @@ namespace AMSExplorer
             bool found = true;
             try
             {
-                myTransform = await _amsClient.AMSclient.Transforms.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName);
+                myTransform = await GetTransformAsync(PresetStandardEncoder.CopyVideoAudioTransformName);
             }
             catch
             {

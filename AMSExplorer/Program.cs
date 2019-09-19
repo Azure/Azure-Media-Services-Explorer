@@ -1477,7 +1477,7 @@ namespace AMSExplorer
                 response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime)).Result;
 
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
