@@ -2526,19 +2526,19 @@ namespace AMSExplorer
 
 
 
-        private void selectedAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void selectedAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDeleteSelectedAssets();
+            await DoMenuDeleteSelectedAssetsAsync();
 
         }
 
-        private void DoMenuDeleteSelectedAssets()
+        private async Task DoMenuDeleteSelectedAssetsAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
-            DoDeleteAssets(SelectedAssets);
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
+            await DoDeleteAssetsAsync(SelectedAssets);
         }
 
-        private void DoDeleteAssets(List<Asset> SelectedAssets)
+        private async Task DoDeleteAssetsAsync(List<Asset> SelectedAssets)
         {
             if (SelectedAssets.Count > 0)
             {
@@ -2549,34 +2549,30 @@ namespace AMSExplorer
 
                 if (MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    _amsClient.RefreshTokenIfNeeded();
-                    Task.Run(() =>
+                    await _amsClient.RefreshTokenIfNeededAsync();
+
+                    bool Error = false;
+                    try
                     {
-                        bool Error = false;
-                        try
-                        {
-                            TextBoxLogWriteLine("Deleting asset(s)...");
-                            Task[] deleteTasks = SelectedAssets.Select(a => _amsClient.AMSclient.Assets.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).ToArray();
+                        TextBoxLogWriteLine("Deleting asset(s)...");
+                        Task[] deleteTasks = SelectedAssets.Select(a => _amsClient.AMSclient.Assets.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).ToArray();
 
-                            //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                            Task.WaitAll(deleteTasks);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
-                            TextBoxLogWriteLine(ex);
-                            Error = true;
-                        }
-                        if (!Error)
-                        {
-                            TextBoxLogWriteLine("Asset(s) deleted.");
-                        }
-
-                        DoRefreshGridAssetV(false);
+                        //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
+                        Task.WaitAll(deleteTasks);
                     }
-          );
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error)
+                    {
+                        TextBoxLogWriteLine("Asset(s) deleted.");
+                    }
 
+                    DoRefreshGridAssetV(false);
                 }
             }
         }
@@ -6524,13 +6520,9 @@ namespace AMSExplorer
             await DoStopOrDeleteLiveEventsAsync(true);
         }
 
-
-        private void deleteProgramsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteProgramsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Task.Run(async () =>
-            {
-                await DoDeleteLiveOutputsAsync();
-            });
+            await DoDeleteLiveOutputsAsync();
         }
 
         private async void displayOriginInformationToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -7952,9 +7944,9 @@ namespace AMSExplorer
             // DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
         }
 
-        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDeleteSelectedAssets();
+            await DoMenuDeleteSelectedAssetsAsync();
         }
 
         private void deleteAllAssetsToolStripMenuItem_Click(object sender, EventArgs e)
