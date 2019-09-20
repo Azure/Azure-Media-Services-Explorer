@@ -759,6 +759,9 @@ namespace AMSExplorer
                         MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
                     }
                 }
+                catch (OperationCanceledException)
+                {
+                }
                 catch (Exception e)
                 {
                     Error = true;
@@ -1228,7 +1231,6 @@ namespace AMSExplorer
             BlobContinuationToken continuationToken = null;
             IList<Task> downloadTasks = new List<Task>();
 
-
             try
             {
                 do
@@ -1242,7 +1244,7 @@ namespace AMSExplorer
                         {
                             string path = Path.Combine(outputFolderName, blob.Name);
 
-                            downloadTasks.Add(blob.DownloadToFileAsync(path, FileMode.Create));
+                            downloadTasks.Add(blob.DownloadToFileAsync(path, FileMode.Create, response.token));
                         }
                     }
 
@@ -1251,6 +1253,9 @@ namespace AMSExplorer
                 while (continuationToken != null);
 
                 await Task.WhenAll(downloadTasks);
+            }
+            catch (OperationCanceledException)
+            {
             }
             catch (Exception e)
             {
@@ -1735,10 +1740,10 @@ namespace AMSExplorer
                         i++;
                         string label = string.Format("Download of asset '{0}'", asset.Name);
                         TransferEntryResponse response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
-                        myTasks.Add( Task.Run(() =>
-                        {
-                            DownloadOutputAssetAsync(_amsClient, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload);
-                        }));
+                        myTasks.Add(Task.Run(() =>
+                     {
+                         DownloadOutputAssetAsync(_amsClient, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload);
+                     }));
                         if (i == 10) // let's use a batch of 10 threads at the same time
                         {
                             Task.WaitAll(myTasks.ToArray());
@@ -1752,7 +1757,7 @@ namespace AMSExplorer
 
                     }
                     Task.WaitAll(myTasks.ToArray());
-
+                    TextBoxLogWriteLine("Download finished");
                     // Start a worker thread that does downloading.
 
 
