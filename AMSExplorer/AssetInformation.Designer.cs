@@ -61,6 +61,7 @@
             this.ListViewFilesSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.buttonGenerateManifest = new System.Windows.Forms.Button();
@@ -84,6 +85,8 @@
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPagePolicy = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -105,9 +108,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxOptions = new System.Windows.Forms.ComboBox();
             this.buttonGetDRMToken = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.buttonAdvancedTestPlayer = new System.Windows.Forms.Button();
             this.checkBoxHttps = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
@@ -121,7 +124,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAdvancedTestPlayer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -129,11 +131,13 @@
             this.contextMenuStripFiles.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.contextMenuStripFilter.SuspendLayout();
             this.tabPagePolicy.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -158,6 +162,7 @@
             this.DGAsset.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGAsset.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGAsset.ColumnHeadersVisible = false;
+            this.tableLayoutPanel5.SetColumnSpan(this.DGAsset, 4);
             this.DGAsset.ContextMenuStrip = this.contextMenuStripDG;
             this.DGAsset.MultiSelect = false;
             this.DGAsset.Name = "DGAsset";
@@ -384,13 +389,19 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.buttonAudioVideoAnalysis);
-            this.tabPage1.Controls.Add(this.DGAsset);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.buttonCopyStats);
+            this.tabPage1.Controls.Add(this.tableLayoutPanel5);
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel5
+            // 
+            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
+            this.tableLayoutPanel5.Controls.Add(this.label4, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.DGAsset, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.buttonAudioVideoAnalysis, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.buttonCopyStats, 1, 1);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             // 
             // buttonAudioVideoAnalysis
             // 
@@ -582,17 +593,29 @@
             // 
             // tabPagePolicy
             // 
-            this.tabPagePolicy.Controls.Add(this.tabControl2);
-            this.tabPagePolicy.Controls.Add(this.label5);
-            this.tabPagePolicy.Controls.Add(this.comboBoxPolicyLocators);
+            this.tabPagePolicy.Controls.Add(this.tableLayoutPanel4);
             resources.ApplyResources(this.tabPagePolicy, "tabPagePolicy");
             this.tabPagePolicy.Name = "tabPagePolicy";
             this.tabPagePolicy.UseVisualStyleBackColor = true;
             this.tabPagePolicy.Enter += new System.EventHandler(this.tabPagePolicy_Enter);
             // 
+            // tableLayoutPanel4
+            // 
+            resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
+            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.tabControl2, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.comboBoxPolicyLocators, 1, 0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
             // tabControl2
             // 
             resources.ApplyResources(this.tabControl2, "tabControl2");
+            this.tableLayoutPanel4.SetColumnSpan(this.tabControl2, 2);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage7);
@@ -744,11 +767,6 @@
             this.buttonGetDRMToken.UseVisualStyleBackColor = true;
             this.buttonGetDRMToken.Click += new System.EventHandler(this.ButtonGetDRMToken_Click);
             // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
             // comboBoxPolicyLocators
             // 
             resources.ApplyResources(this.comboBoxPolicyLocators, "comboBoxPolicyLocators");
@@ -773,6 +791,13 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Enter += new System.EventHandler(this.tabPage3_Enter);
+            // 
+            // buttonAdvancedTestPlayer
+            // 
+            resources.ApplyResources(this.buttonAdvancedTestPlayer, "buttonAdvancedTestPlayer");
+            this.buttonAdvancedTestPlayer.Name = "buttonAdvancedTestPlayer";
+            this.buttonAdvancedTestPlayer.UseVisualStyleBackColor = true;
+            this.buttonAdvancedTestPlayer.Click += new System.EventHandler(this.Button1_Click_2);
             // 
             // checkBoxHttps
             // 
@@ -855,13 +880,6 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // buttonAdvancedTestPlayer
-            // 
-            resources.ApplyResources(this.buttonAdvancedTestPlayer, "buttonAdvancedTestPlayer");
-            this.buttonAdvancedTestPlayer.Name = "buttonAdvancedTestPlayer";
-            this.buttonAdvancedTestPlayer.UseVisualStyleBackColor = true;
-            this.buttonAdvancedTestPlayer.Click += new System.EventHandler(this.Button1_Click_2);
-            // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -884,13 +902,15 @@
             this.contextMenuStripFiles.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.contextMenuStripFilter.ResumeLayout(false);
             this.tabPagePolicy.ResumeLayout(false);
-            this.tabPagePolicy.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -1006,5 +1026,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button buttonAdvancedTestPlayer;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
     }
 }
