@@ -253,9 +253,6 @@ License delivery from Azure Media Services</value>
   <data name="&gt;&gt;checkBoxPlayReady.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="numericUpDownNbOptionsPlayReady.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="numericUpDownNbOptionsPlayReady.Location" type="System.Drawing.Point, System.Drawing">
     <value>240, 44</value>
   </data>
@@ -279,9 +276,6 @@ License delivery from Azure Media Services</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>300, 48</value>
@@ -382,9 +376,6 @@ License delivery from Azure Media Services</value>
   <data name="&gt;&gt;checkBoxWidevine.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="numericUpDownNbOptionsWidevine.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="numericUpDownNbOptionsWidevine.Location" type="System.Drawing.Point, System.Drawing">
     <value>240, 42</value>
   </data>
@@ -408,9 +399,6 @@ License delivery from Azure Media Services</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>300, 46</value>
@@ -469,9 +457,6 @@ License delivery from Azure Media Services</value>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -501,9 +486,6 @@ License delivery from Azure Media Services</value>
   </data>
   <data name="TextBoxCertificateFile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="TextBoxCertificateFile.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="TextBoxCertificateFile.Location" type="System.Drawing.Point, System.Drawing">
     <value>262, 17</value>
@@ -754,9 +736,6 @@ License delivery from Azure Media Services</value>
   <data name="&gt;&gt;checkBoxFairPlay.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="numericUpDownNbOptionsFairPlay.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
   <data name="numericUpDownNbOptionsFairPlay.Location" type="System.Drawing.Point, System.Drawing">
     <value>240, 42</value>
   </data>
@@ -780,9 +759,6 @@ License delivery from Azure Media Services</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>

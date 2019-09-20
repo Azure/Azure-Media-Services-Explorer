@@ -120,8 +120,8 @@
             // 
             // numericUpDownNbOptionsPlayReady
             // 
-            resources.ApplyResources(this.numericUpDownNbOptionsPlayReady, "numericUpDownNbOptionsPlayReady");
             this.numericUpDownNbOptionsPlayReady.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.numericUpDownNbOptionsPlayReady, "numericUpDownNbOptionsPlayReady");
             this.numericUpDownNbOptionsPlayReady.Maximum = new decimal(new int[] {
             10,
             0,
@@ -173,8 +173,8 @@
             // 
             // numericUpDownNbOptionsWidevine
             // 
-            resources.ApplyResources(this.numericUpDownNbOptionsWidevine, "numericUpDownNbOptionsWidevine");
             this.numericUpDownNbOptionsWidevine.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.numericUpDownNbOptionsWidevine, "numericUpDownNbOptionsWidevine");
             this.numericUpDownNbOptionsWidevine.Maximum = new decimal(new int[] {
             10,
             0,
@@ -289,8 +289,8 @@
             // 
             // numericUpDownNbOptionsFairPlay
             // 
-            resources.ApplyResources(this.numericUpDownNbOptionsFairPlay, "numericUpDownNbOptionsFairPlay");
             this.numericUpDownNbOptionsFairPlay.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.numericUpDownNbOptionsFairPlay, "numericUpDownNbOptionsFairPlay");
             this.numericUpDownNbOptionsFairPlay.Maximum = new decimal(new int[] {
             10,
             0,
