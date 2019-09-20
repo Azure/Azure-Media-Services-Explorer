@@ -2924,7 +2924,7 @@ namespace AMSExplorer
         }
 
 
-        public string GetStorageKey(string storageId)
+        public async Task<string> GetStorageKeyAsync(string storageId)
         {
             string valuekey = null;
             bool classic = false;
@@ -2963,11 +2963,11 @@ namespace AMSExplorer
             try
             {
                 //Get the response
-                HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
+                HttpWebResponse httpResponse = (HttpWebResponse)(await request.GetResponseAsync());
 
                 using (System.IO.StreamReader r = new System.IO.StreamReader(httpResponse.GetResponseStream()))
                 {
-                    string jsonResponse = r.ReadToEnd();
+                    string jsonResponse = await r.ReadToEndAsync();
                     dynamic data = JsonConvert.DeserializeObject(jsonResponse);
                     valuekey = classic ? data.primaryKey : data.keys[0].value;
                 }
@@ -2991,12 +2991,12 @@ namespace AMSExplorer
             return storageId.Split('/')[split.Count() - 5];
         }
 
-        public long? GetStorageCapacity(string storageId)
+        public async Task<long?> GetStorageCapacityAsync(string storageId)
         {
             string storeKey = null;
             try
             {
-                storeKey = GetStorageKey(storageId);
+                storeKey = await GetStorageKeyAsync(storageId);
             }
             catch
             {

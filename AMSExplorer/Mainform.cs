@@ -4984,8 +4984,7 @@ namespace AMSExplorer
 
             foreach (StorageAccount storage in amsaccount.StorageAccounts)
             {
-
-                long? capacity = _amsClient.GetStorageCapacity(storage.Id);
+                long? capacity = Task.Run(() => _amsClient.GetStorageCapacityAsync(storage.Id)).GetAwaiter().GetResult();
 
                 /*
                 double? capacityPercentageFullTmp = null;
@@ -5113,7 +5112,6 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
                 // sometimes, the live event can be null (if just deleted)
-                //LiveEvent liveEvent = Task.Run(async () => await GetLiveEventAsync(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString())).Result;
                 LiveEvent liveEvent = await GetLiveEventAsync(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
 
                 if (liveEvent != null)
@@ -5142,7 +5140,6 @@ namespace AMSExplorer
             return SelectedOrigins;
         }
 
-
         private async Task<List<LiveOutput>> ReturnSelectedLiveOutputsAsync()
         {
             List<LiveOutput> SelectedLiveOutputs = new List<LiveOutput>();
@@ -5165,7 +5162,6 @@ namespace AMSExplorer
             await DoStartLiveEventsEngineAsync(await ReturnSelectedLiveEventsAsync());
 
         }
-
 
         private async Task DoStopOrDeleteLiveEventsAsync(bool deleteLiveEvents)
         {
@@ -5218,9 +5214,7 @@ namespace AMSExplorer
                         return;
                     }
                 }
-
                 await DoStopOrDeleteLiveEventsEngineAsync(ListEvents, deleteLiveEvents);
-
             }
         }
 
@@ -5233,7 +5227,6 @@ namespace AMSExplorer
             {
                 LiveEventResourceState CS = (LiveEventResourceState)cellLiveEventStateValue;
                 Color mycolor;
-
 
                 switch (CS)
                 {
@@ -5256,11 +5249,6 @@ namespace AMSExplorer
                         mycolor = Color.Black;
                         break;
                 }
-
-
-
-
-
                 e.CellStyle.ForeColor = mycolor;
             }
         }
@@ -5289,7 +5277,6 @@ namespace AMSExplorer
                 {
                     if (MessageBox.Show("One or several live outputs are running which prevents the live event(s) reset. Do you want to delete the live output(s) and then reset the live event(s) ?", "Live event reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-
                         try
                         {
                             await DoDeleteLiveOutputsAsync(liveOutputRunningQuery.Select(o => o.LiveOutputItem).ToList());
@@ -5306,8 +5293,6 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Error when reseting live events.", true);
                             TextBoxLogWriteLine(ex);
                         }
-
-
                     }
                 }
                 else
@@ -5336,7 +5321,6 @@ namespace AMSExplorer
                 }
             }
         }
-
 
         private async void createLiveEventToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -5398,7 +5382,6 @@ namespace AMSExplorer
                                                form.LowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
                                                           }
                                                             );
-
                 }
 
                 catch (Exception ex)
@@ -5429,7 +5412,6 @@ namespace AMSExplorer
                     }
 
                     DoRefreshGridLiveEventV(false);
-
                 }
             }
         }
@@ -5504,8 +5486,6 @@ namespace AMSExplorer
                             }
                         }
 
-
-
                         if (modifications.InputIPAllowList)
                         {
                             // Input allow list
@@ -5525,7 +5505,6 @@ namespace AMSExplorer
                                 }
                             }
                         }
-
 
                         if (modifications.PreviewIPAllowList)
                         {
@@ -5547,7 +5526,6 @@ namespace AMSExplorer
                             }
                         }
 
-
                         if (modifications.ClientAccessPolicy)
                         {
                             // Client Access Policy
@@ -5558,7 +5536,6 @@ namespace AMSExplorer
                                     liveEvent.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
                                 }
                                 liveEvent.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetLiveEventClientPolicy;
-
                             }
                             else
                             {
@@ -5579,7 +5556,6 @@ namespace AMSExplorer
                                     liveEvent.CrossSiteAccessPolicies = new Microsoft.Azure.Management.Media.Models.CrossSiteAccessPolicies();
                                 }
                                 liveEvent.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetLiveEventCrossdomainPolicy;
-
                             }
                             else
                             {
@@ -5631,7 +5607,6 @@ namespace AMSExplorer
 
         private async Task DoStopOrDeleteLiveEventsEngineAsync(List<LiveEvent> ListEvents, bool deleteLiveEvents)
         {
-
             // Stop the live events which run
             List<LiveEvent> liveeventsrunning = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Running).ToList();
             string names = string.Join(", ", liveeventsrunning.Select(le => le.Name).ToArray());
@@ -5665,7 +5640,6 @@ namespace AMSExplorer
                                     complete++;
                                 }
                             }
-
                         }
                         await Task.Delay(2000);
                     }
@@ -5673,7 +5647,6 @@ namespace AMSExplorer
 
                     //TextBoxLogWriteLine(string.Format("Live event(s) stopped : {0}.", names));
                 }
-
 
                 catch (Exception ex)
                 {
@@ -5887,7 +5860,7 @@ namespace AMSExplorer
 
                         foreach (StreamingEndpoint loitem in streamingendpointsstopped)
                         {
-                            StreamingEndpoint loitemR = Task.Run(() => GetStreamingEndpointAsync(loitem.Name)).GetAwaiter().GetResult();
+                            StreamingEndpoint loitemR = await GetStreamingEndpointAsync(loitem.Name);
 
                             if (loitemR != null && states[streamingendpointsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
@@ -5917,8 +5890,6 @@ namespace AMSExplorer
 
             DoRefreshGridStreamingEndpointV(false);
         }
-
-
 
 
         private async Task DoUpdateAndScaleStreamingEndpointEngineAsync(StreamingEndpoint se, int? units = null)
@@ -7835,7 +7806,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoStorageVersion(string storageId = null)
+        private async Task DoStorageVersionAsync(string storageId = null)
         {
             string valuekey = string.Empty;
             bool Error = false;
@@ -7849,7 +7820,7 @@ namespace AMSExplorer
 
             try
             {
-                valuekey = _amsClient.GetStorageKey(storageId);
+                valuekey = await _amsClient.GetStorageKeyAsync(storageId);
                 if (valuekey == null)
                 {
                     if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + AMSClientV3.GetStorageName(storageId) + ":", ref valuekey, true) != DialogResult.OK)
@@ -7863,7 +7834,7 @@ namespace AMSExplorer
                     blobClient = storageAccount.CreateCloudBlobClient();
 
                     // Get the current service properties
-                    serviceProperties = blobClient.GetServiceProperties();
+                    serviceProperties = await blobClient.GetServicePropertiesAsync();
                 }
             }
             catch (Exception ex)
@@ -7894,7 +7865,7 @@ namespace AMSExplorer
                         serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
 
                         // Save the updated service properties
-                        blobClient.SetServiceProperties(serviceProperties);
+                        await blobClient.SetServicePropertiesAsync(serviceProperties);
                         TextBoxLogWriteLine("Storage settings applied.");
                     }
                     catch (Exception ex)
@@ -7969,12 +7940,12 @@ namespace AMSExplorer
             await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
         }
 
-        private void dataGridViewStorage_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridViewStorage_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
                 string storageId = dataGridViewStorage.Rows[e.RowIndex].Cells[dataGridViewStorage.Columns["Id"].Index].Value.ToString();
-                DoStorageVersion(storageId);
+                await DoStorageVersionAsync(storageId);
             }
         }
 
@@ -8663,9 +8634,9 @@ namespace AMSExplorer
             await DoSelectTransformAndSubmitJobAsync();
         }
 
-        private void storageSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void storageSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoStorageVersion();
+            await DoStorageVersionAsync();
         }
 
         private void dataGridViewAssetsV_Scroll(object sender, ScrollEventArgs e)
