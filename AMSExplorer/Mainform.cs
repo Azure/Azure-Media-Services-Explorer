@@ -1228,54 +1228,53 @@ namespace AMSExplorer
             BlobContinuationToken continuationToken = null;
             IList<Task> downloadTasks = new List<Task>();
 
-            Task<Task> myTask = Task.Factory.StartNew(async () =>
+
+            try
             {
-                try
+                do
                 {
-                    do
-                    {
-                        BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, continuationToken, null, null);
+                    BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, continuationToken, null, null);
 
-                        foreach (IListBlobItem blobItem in segment.Results)
+                    foreach (IListBlobItem blobItem in segment.Results)
+                    {
+                        CloudBlockBlob blob = blobItem as CloudBlockBlob;
+                        if (blob != null && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
                         {
-                            CloudBlockBlob blob = blobItem as CloudBlockBlob;
-                            if (blob != null && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
-                            {
-                                string path = Path.Combine(outputFolderName, blob.Name);
+                            string path = Path.Combine(outputFolderName, blob.Name);
 
-                                downloadTasks.Add(blob.DownloadToFileAsync(path, FileMode.Create));
-                            }
+                            downloadTasks.Add(blob.DownloadToFileAsync(path, FileMode.Create));
                         }
-
-                        continuationToken = segment.ContinuationToken;
                     }
-                    while (continuationToken != null);
 
-                    await Task.WhenAll(downloadTasks);
+                    continuationToken = segment.ContinuationToken;
                 }
-                catch (Exception e)
-                {
-                    TextBoxLogWriteLine(string.Format("Download of blobs from asset '{0}' failed !", assetName), true);
-                    TextBoxLogWriteLine(e);
-                    DoGridTransferDeclareError(response.Id, e);
-                    return;
-                }
+                while (continuationToken != null);
+
+                await Task.WhenAll(downloadTasks);
+            }
+            catch (Exception e)
+            {
+                TextBoxLogWriteLine(string.Format("Download of blobs from asset '{0}' failed !", assetName), true);
+                TextBoxLogWriteLine(e);
+                DoGridTransferDeclareError(response.Id, e);
+                return;
+            }
 
 
-                if (!response.token.IsCancellationRequested)
+            if (!response.token.IsCancellationRequested)
+            {
+                TextBoxLogWriteLine("Download complete.");
+                DoGridTransferDeclareCompleted(response.Id, outputFolderName);
+                if (openFileExplorer)
                 {
-                    TextBoxLogWriteLine("Download complete.");
-                    DoGridTransferDeclareCompleted(response.Id, outputFolderName);
-                    if (openFileExplorer)
-                    {
-                        Process.Start(outputFolderName);
-                    }
+                    Process.Start(outputFolderName);
                 }
-                else
-                {
-                    DoGridTransferDeclareCancelled(response.Id);
-                }
-            }, response.token);
+            }
+            else
+            {
+                DoGridTransferDeclareCancelled(response.Id);
+            }
+
         }
 
 
@@ -1632,9 +1631,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoMenuDownloadToLocal()
+        private async Task DoMenuDownloadToLocalAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
             if (SelectedAssets.Count == 0)
             {
                 return;
@@ -1730,30 +1729,29 @@ namespace AMSExplorer
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
 
                     int i = 0;
+                    List<Task> myTasks = new List<Task>();
                     foreach (Asset asset in SelectedAssets)
                     {
                         i++;
                         string label = string.Format("Download of asset '{0}'", asset.Name);
                         TransferEntryResponse response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
-                        // if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
-                        Task<Task> myTask = Task.Factory.StartNew(() =>
-
-                        //ProcessDownloadAsset(SelectedAssets, form.FolderPath, response.Id, form.FolderOption, form.OpenFolderAfterDownload, response.token)
-                        DownloadOutputAssetAsync(_amsClient, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload)
-                    , response.token);
-
-
+                        myTasks.Add( Task.Run(() =>
+                        {
+                            DownloadOutputAssetAsync(_amsClient, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload);
+                        }));
                         if (i == 10) // let's use a batch of 10 threads at the same time
                         {
+                            Task.WaitAll(myTasks.ToArray());
                             do
                             {
-                                Task.Delay(1000).Wait();
+                                await Task.Delay(1000);
                             }
                             while (ReturnTransfer(response.Id).State == TransferState.Queued);
                             i = 0;
                         }
 
                     }
+                    Task.WaitAll(myTasks.ToArray());
 
                     // Start a worker thread that does downloading.
 
@@ -2372,7 +2370,7 @@ namespace AMSExplorer
         {
             if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)) // we are in the asset tab
             {
-                return ReturnSelectedAssetsV3();
+                return await ReturnSelectedAssetsV3Async();
             }
             else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
             {
@@ -2422,7 +2420,32 @@ namespace AMSExplorer
             return SelectedAssets;
         }
 
+        private async Task<List<Asset>> ReturnSelectedAssetsV3Async()
+        {
+            List<Asset> SelectedAssets = new List<Asset>();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
+            try
+            {
+                foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
+                {
+                    Asset asset = await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+
+                    if (asset != null)
+                    {
+                        SelectedAssets.Add(asset);
+                    }
+                }
+                SelectedAssets.Reverse();
+            }
+            catch (Exception ex)
+            {
+                // connection error ?
+                TextBoxLogWriteLine(ex);
+            }
+
+            return SelectedAssets;
+        }
 
         private List<JobExtension> ReturnSelectedJobsV3()
         {
@@ -6136,7 +6159,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task DoDisplayLiveOutputInfo()
+        private async Task DoDisplayLiveOutputInfoAsync()
         {
             DoDisplayLiveOutputInfo(await ReturnSelectedLiveOutputsAsync());
         }
@@ -6444,9 +6467,9 @@ namespace AMSExplorer
             await DoDisplayLiveEventInfoAsync();
         }
 
-        private void displayProgramInformationToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void displayProgramInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDisplayLiveOutputInfo();
+            await DoDisplayLiveOutputInfoAsync();
         }
 
         private void dataGridViewLiveV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -6982,7 +7005,7 @@ namespace AMSExplorer
 
         private async Task DoSelectTransformAndSubmitJobAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
             ProcessFromTransform form = new ProcessFromTransform(_amsClient, this, SelectedAssets);
@@ -7292,11 +7315,8 @@ namespace AMSExplorer
             {
                 if (MessageBox.Show(string.Format("Are you sure you want to disable CDN on Streaming Endpoint '{0}' ?", streamingendpoint.Name), "Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    Task.Run(async () =>
-                   {
-                       streamingendpoint.CdnEnabled = false;
-                       await DoUpdateAndScaleStreamingEndpointEngineAsync(streamingendpoint);
-                   });
+                    streamingendpoint.CdnEnabled = false;
+                    await DoUpdateAndScaleStreamingEndpointEngineAsync(streamingendpoint);
                 }
             }
             else // enable
@@ -7304,14 +7324,10 @@ namespace AMSExplorer
                 StreamingEndpointCDNEnable form = new StreamingEndpointCDNEnable();
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    Task.Run(async () =>
-                    {
-                        streamingendpoint.CdnEnabled = true;
-                        streamingendpoint.CdnProvider = form.ProviderSelectedString;
-                        streamingendpoint.CdnProfile = form.Profile;
-                        await DoUpdateAndScaleStreamingEndpointEngineAsync(streamingendpoint);
-                    });
-
+                    streamingendpoint.CdnEnabled = true;
+                    streamingendpoint.CdnProvider = form.ProviderSelectedString;
+                    streamingendpoint.CdnProfile = form.Profile;
+                    await DoUpdateAndScaleStreamingEndpointEngineAsync(streamingendpoint);
                 }
             }
         }
@@ -7781,12 +7797,12 @@ namespace AMSExplorer
             Program.dataGridViewV_Resize(sender);
         }
 
-        private void subclipToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void subclipToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoSubClip();
+            await DoSubClipAsync();
         }
 
-        private async Task DoSubClip()
+        private async Task DoSubClipAsync()
         {
             var selectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
             if (selectedAssets.Count > 0)
@@ -8000,23 +8016,19 @@ namespace AMSExplorer
 
                 if (!usercanceled)
                 {
-                    Task.Run(() =>
-                    {
-                        //assets.ForEach(asset => CheckListArchiveBlobs(storagekeys, asset, AssetInfo.GetManifestSegmentsList(asset)));
-                    });
+                    //assets.ForEach(asset => CheckListArchiveBlobs(storagekeys, asset, AssetInfo.GetManifestSegmentsList(asset)));
                 }
             }
         }
 
-        private void toolStripMenuItem37_Click_1(object sender, EventArgs e)
+        private async void toolStripMenuItem37_Click_1(object sender, EventArgs e)
         {
-            DoMenuDownloadToLocal();
+            await DoMenuDownloadToLocalAsync();
         }
 
-        private void toolStripMenuItem38_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem38_Click(object sender, EventArgs e)
         {
-            DoMenuDownloadToLocal();
-
+            await DoMenuDownloadToLocalAsync();
         }
 
 

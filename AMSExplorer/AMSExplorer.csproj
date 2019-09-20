@@ -73,7 +73,7 @@
       <HintPath>..\packages\Microsoft.Azure.Management.ResourceManager.2.0.0-preview\lib\net452\Microsoft.Azure.Management.ResourceManager.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Management.Storage, Version=13.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Management.Storage.13.0.0\lib\net461\Microsoft.Azure.Management.Storage.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Azure.Management.Storage.13.1.0\lib\net461\Microsoft.Azure.Management.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Edm.5.8.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
