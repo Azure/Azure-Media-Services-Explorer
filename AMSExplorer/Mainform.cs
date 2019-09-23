@@ -1559,15 +1559,15 @@ namespace AMSExplorer
             return dialogResult;
         }
 
-        private void renameToolStripMenuItem_Click(object sender, EventArgs e)  // RENAME ASSET
+        private async void renameToolStripMenuItem_Click(object sender, EventArgs e)  // RENAME ASSET
         {
-            DoMenuChangeAssetDescription();
+            await DoMenuChangeAssetDescriptionAsync();
         }
 
 
-        private void DoMenuChangeAssetDescription()
+        private async Task DoMenuChangeAssetDescriptionAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
 
             if (SelectedAssets.Count > 0)
             {
@@ -1582,18 +1582,14 @@ namespace AMSExplorer
                         try
                         {
                             AssetTORename.Description = value;
-
-                            Task.Run(() =>
-             _amsClient.AMSclient.Assets.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AssetTORename.Name, AssetTORename)
-            ).GetAwaiter().GetResult();
-
+                            TextBoxLogWriteLine("Updating description of asset '{0}'...", AssetTORename.Name);
+                            await _amsClient.AMSclient.Assets.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AssetTORename.Name, AssetTORename);
+                            TextBoxLogWriteLine("Description of asset '{0}' updated.", AssetTORename.Name);
                         }
                         catch
                         {
-                            TextBoxLogWriteLine("There is a problem when changing the asset description.", true);
-                            return;
+                            TextBoxLogWriteLine("There is a problem when updating the asset description.", true);
                         }
-                        TextBoxLogWriteLine("Description of asset '{0}' updated.", AssetTORename.Name);
                         dataGridViewAssetsV.PurgeCacheAsset(AssetTORename);
                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
@@ -2505,12 +2501,12 @@ namespace AMSExplorer
             return SelectedStorage;
         }
 
-        private List<AccountFilter> ReturnSelectedAccountFilters()
+        private async Task<List<AccountFilter>> ReturnSelectedAccountFiltersAsync()
         {
             List<AccountFilter> SelectedFilters = new List<AccountFilter>();
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
-            Microsoft.Rest.Azure.IPage<AccountFilter> aFilters = _amsClient.AMSclient.AccountFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<AccountFilter> aFilters = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filtername = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
@@ -4245,9 +4241,9 @@ namespace AMSExplorer
         }
 
 
-        private void toolStripMenuItemRename_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemRename_Click(object sender, EventArgs e)
         {
-            DoMenuChangeAssetDescription();
+            await DoMenuChangeAssetDescriptionAsync();
         }
 
 
@@ -7552,30 +7548,30 @@ namespace AMSExplorer
             DoRefreshGridFiltersV(false);
         }
 
-        private void toolStripMenuItem16_Click_1(object sender, EventArgs e)
+        private async void toolStripMenuItem16_Click_1(object sender, EventArgs e)
         {
-            DoCreateFilter();
+           await DoCreateFilterAsync();
         }
 
-        private void DoCreateFilter()
+        private async Task DoCreateFilterAsync()
         {
             DynManifestFilter form = new DynManifestFilter(_amsClient);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 FilterCreationInfo filterinfo = null;
                 try
                 {
                     filterinfo = form.GetFilterInfo;
-                    _amsClient.AMSclient.AccountFilters.CreateOrUpdate(
-                        _amsClient.credentialsEntry.ResourceGroup,
-                        _amsClient.credentialsEntry.AccountName,
-                        filterinfo.Name,
-                        new AccountFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
-                        );
-                    // _context.Filters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Tracks, filterinfo.Firstquality);
+                    TextBoxLogWriteLine("Creating acount filter '{0}'...", filterinfo.Name);
+                    await _amsClient.AMSclient.AccountFilters.CreateOrUpdateAsync(
+                         _amsClient.credentialsEntry.ResourceGroup,
+                         _amsClient.credentialsEntry.AccountName,
+                         filterinfo.Name,
+                         new AccountFilter(presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
+                         );
                     TextBoxLogWriteLine("Account filter '{0}' created.", filterinfo.Name);
                 }
                 catch (Exception e)
@@ -7587,34 +7583,41 @@ namespace AMSExplorer
             }
         }
 
-        private void deleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void deleteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteFilter();
+            await DoDeleteFilterAsync();
         }
 
-        private void DoDeleteFilter()
+        private async Task DoDeleteFilterAsync()
         {
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            var filters = await ReturnSelectedAccountFiltersAsync();
+            Task[] deleteTasks = filters.Select(f => _amsClient.AMSclient.AccountFilters.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, f.Name)).ToArray();
 
             try
             {
-                ReturnSelectedAccountFilters().ForEach(f => _amsClient.AMSclient.AccountFilters.Delete(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, f.Name));
+                TextBoxLogWriteLine("Deleting {0} filter(s)...", deleteTasks.Count());
+                Task.WaitAll(deleteTasks);
+                TextBoxLogWriteLine("Filter(s) deleted.");
             }
+
             catch (Exception e)
             {
+                TextBoxLogWriteLine("Error when deleting filter(s)", true);
                 TextBoxLogWriteLine(e);
             }
             DoRefreshGridFiltersV(false);
         }
 
-        private void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoUpdateFilter();
+            await DoUpdateFilterAsync();
         }
 
-        private void DoUpdateFilter()
+        private async Task DoUpdateFilterAsync()
         {
-            AccountFilter filter = ReturnSelectedAccountFilters().FirstOrDefault();
+            AccountFilter filter = (await ReturnSelectedAccountFiltersAsync()).FirstOrDefault();
             DynManifestFilter form = new DynManifestFilter(_amsClient, filter);
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -7623,8 +7626,9 @@ namespace AMSExplorer
                 try
                 {
                     filterinfotoupdate = form.GetFilterInfo;
+                    TextBoxLogWriteLine("Updating account filter '{0}'...", filter.Name);
 
-                    _amsClient.AMSclient.AccountFilters.CreateOrUpdate(
+                    await _amsClient.AMSclient.AccountFilters.CreateOrUpdateAsync(
                         _amsClient.credentialsEntry.ResourceGroup,
                         _amsClient.credentialsEntry.AccountName,
                         filter.Name,
@@ -7634,24 +7638,24 @@ namespace AMSExplorer
                 }
                 catch (Exception e)
                 {
-                    TextBoxLogWriteLine("Error when updating filter '{0}'.", filter.Name, true);
+                    TextBoxLogWriteLine("Error when updating account filter '{0}'.", filter.Name, true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
             }
         }
 
-        private void dataGridViewFilters_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridViewFilters_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-                DoUpdateFilter();
+                await DoUpdateFilterAsync();
             }
         }
 
-        private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
         {
-            List<AccountFilter> filters = ReturnSelectedAccountFilters();
+            List<AccountFilter> filters = await ReturnSelectedAccountFiltersAsync();
             bool singleitem = (filters.Count == 1);
             filterInfoupdateToolStripMenuItem.Enabled = singleitem;
         }
@@ -7704,9 +7708,9 @@ namespace AMSExplorer
         }
 
 
-        private void DoDuplicateFilter()
+        private async Task DoDuplicateFilterAsync()
         {
-            List<AccountFilter> filters = ReturnSelectedAccountFilters();
+            List<AccountFilter> filters = await ReturnSelectedAccountFiltersAsync();
             if (filters.Count == 1)
             {
                 AccountFilter sourcefilter = filters.FirstOrDefault();
@@ -7714,11 +7718,11 @@ namespace AMSExplorer
                 string newfiltername = sourcefilter.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
-                    _amsClient.RefreshTokenIfNeeded();
+                    await _amsClient.RefreshTokenIfNeededAsync();
 
                     try
                     {
-                        _amsClient.AMSclient.AccountFilters.CreateOrUpdate(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, newfiltername, sourcefilter);
+                        await _amsClient.AMSclient.AccountFilters.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, newfiltername, sourcefilter);
                     }
                     catch (Exception e)
                     {
@@ -7729,9 +7733,9 @@ namespace AMSExplorer
             }
         }
 
-        private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDuplicateFilter();
+            await DoDuplicateFilterAsync();
         }
 
         private async void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
