@@ -837,7 +837,7 @@ namespace AMSExplorer
                     try
                     {
                         Task[] deleteTasks = SelectedBlobs.Select(b => b.DeleteAsync()).ToArray();
-                        Task.WaitAll(deleteTasks);
+                        await Task.WhenAll(deleteTasks);
                     }
                     catch
                     {
@@ -1019,7 +1019,7 @@ namespace AMSExplorer
 
                             while (blob.CopyState.Status == CopyStatus.Pending)
                             {
-                                Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                await Task.Delay(TimeSpan.FromSeconds(1d));
                                 blob.FetchAttributes();
                             }
                             await destinationBlob.FetchAttributesAsync();

@@ -338,28 +338,30 @@ namespace AMSExplorer
         }
 
 
-        public void DeleteLocatorsForAsset(Asset asset)
+        public async Task DeleteLocatorsForAssetAsync(Asset asset)
         {
             if (asset != null)
             {
                 _amsClient.RefreshTokenIfNeeded();
 
-                IList<AssetStreamingLocator> locators =
-                                                            Task.Run(() =>
-                                                            _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)
-                                                            ).GetAwaiter().GetResult().StreamingLocators;
+                IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
 
+                List<Task> deleteTasks = new List<Task>();
                 foreach (AssetStreamingLocator locator in locators)
                 {
                     TextBoxLogWriteLine("Deleting locator {0} for asset {1}", locator.Name, asset.Name);
-                    try
-                    {
-                        _amsClient.AMSclient.StreamingLocators.Delete(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
-                    }
-                    catch
-                    {
+                    deleteTasks.Add(_amsClient.AMSclient.StreamingLocators.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name));
+                }
 
-                    }
+                try
+                {
+                    await Task.WhenAll(deleteTasks.ToArray());
+                    TextBoxLogWriteLine("Locator(s) deleted.");
+                }
+                catch (Exception e)
+                {
+                    TextBoxLogWriteLine("Error when deleting locator(s)", true);
+                    TextBoxLogWriteLine(e);
                 }
             }
         }
@@ -587,12 +589,12 @@ namespace AMSExplorer
         }
 
 
-        private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromSingleFiles_Step1();
+            await DoMenuUploadFromSingleFiles_Step1Async();
         }
 
-        private void DoMenuUploadFromSingleFiles_Step1()
+        private async Task DoMenuUploadFromSingleFiles_Step1Async()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
@@ -601,11 +603,11 @@ namespace AMSExplorer
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DoMenuUploadFromSingleFileS_Step2(openFileDialog.FileNames);
+                await DoMenuUploadFromSingleFileS_Step2Async(openFileDialog.FileNames);
             }
         }
 
-        private void DoMenuUploadFromSingleFileS_Step2(string[] FileNames)
+        private async Task DoMenuUploadFromSingleFileS_Step2Async(string[] FileNames)
         {
             List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
@@ -626,7 +628,7 @@ namespace AMSExplorer
                 {
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize), response.token);
+                    await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize);
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
@@ -639,31 +641,43 @@ namespace AMSExplorer
             {
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 int i = 0;
+                List<Task> MyTasks = new List<Task>();
                 // Each file goes in a individual asset
                 foreach (string file in FileNames)
                 {
-                    try
-                    {
-                        i++;
-                        TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
-                        // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: form.BlockSize), response.token);
 
-                        if (i == 10) // let's use a batch of 10 threads at the same time
-                        {
-                            do
-                            {
-                                Task.Delay(1000).Wait();
-                            }
-                            while (ReturnTransfer(response.Id).State == TransferState.Queued);
-                            i = 0;
-                        }
-                    }
-                    catch (Exception ex)
+                    i++;
+                    TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
+                    // Start a worker thread that does uploading.
+                    var myTask = ProcessUploadFileAndMoreV3Async(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: form.BlockSize);
+                    MyTasks.Add(myTask);
+                    if (i == 10) // let's use a batch of 10 threads at the same time
                     {
-                        TextBoxLogWriteLine("Error: Could not read file from disk.", true);
-                        TextBoxLogWriteLine(ex);
+                        try
+                        {
+                            await Task.WhenAll(MyTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine(ex);
+                        }
+                        /*
+                        do
+                        {
+                            await Task.Delay(1000);
+                        }
+                        while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                        */
+                        i = 0;
                     }
+                }
+                try
+                {
+                    await Task.WhenAll(MyTasks);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine(ex);
                 }
             }
         }
@@ -1134,9 +1148,9 @@ namespace AMSExplorer
             DoGridTransferUpdateProgress(progress, guidTransfer);
         }
 
-        private void DoMenuUploadFileToAsset_Step1()
+        private async Task DoMenuUploadFileToAsset_Step1Async()
         {
-            List<Asset> assets = ReturnSelectedAssetsV3();
+            List<Asset> assets = await ReturnSelectedAssetsV3Async();
 
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
@@ -1145,11 +1159,11 @@ namespace AMSExplorer
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DoMenuUploadFileToAsset_Step2(openFileDialog.FileNames, assets);
+                await DoMenuUploadFileToAsset_Step2Async(openFileDialog.FileNames, assets);
             }
         }
 
-        private void DoMenuUploadFileToAsset_Step2(string[] FileNames, List<Asset> assets)
+        private async Task DoMenuUploadFileToAsset_Step2Async(string[] FileNames, List<Asset> assets)
         {
             List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
@@ -1160,6 +1174,8 @@ namespace AMSExplorer
 
             DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
             int i = 0;
+            List<Task> MyTasks = new List<Task>();
+
             foreach (Asset asset in assets)
             {
                 try
@@ -1167,22 +1183,31 @@ namespace AMSExplorer
                     i++;
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : string.Empty, asset.Name), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    //Task.Factory.StartNew(() => ProcessUploadFilesToAsset(FileNames, asset, response.Id, response.token), response.token);
-                    Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, null, asset.Name), response.token);
+                    //Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, null, asset.Name), response.token);
+                    MyTasks.Add(ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, null, asset.Name));
 
                     if (i == 10) // let's use a batch of 10 threads at the same time
                     {
+                        try
+                        {
+                            await Task.WhenAll(MyTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine(ex);
+                        }
+                        /*
                         do
                         {
                             Task.Delay(1000).Wait();
                         }
                         while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                        */
                         i = 0;
                     }
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
                     TextBoxLogWriteLine(ex);
                 }
             }
@@ -1283,12 +1308,12 @@ namespace AMSExplorer
         }
 
 
-        private void fromMultipleFilesToolStripMenuItem_Click(object sender, EventArgs e) // upload from multiple files
+        private async void fromMultipleFilesToolStripMenuItem_Click(object sender, EventArgs e) // upload from multiple files
         {
-            DoMenuUploadFromFolder_Step1();
+            await DoMenuUploadFromFolder_Step1Async();
         }
 
-        private void DoMenuUploadFromFolder_Step1()
+        private async Task DoMenuUploadFromFolder_Step1Async()
         {
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true };
 
@@ -1299,106 +1324,98 @@ namespace AMSExplorer
 
             if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                DoMenuUploadFromFolder_Step2(openFolderDialog.FileName);
+                await DoMenuUploadFromFolder_Step2Async(openFolderDialog.FileName);
             }
         }
 
-        private void DoMenuUploadFromFolder_Step2(string SelectedPath)
+        private async Task DoMenuUploadFromFolder_Step2Async(string SelectedPath)
         {
-            try
+            if (SelectedPath != null)
             {
-                if (SelectedPath != null)
+                List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(SelectedPath).ToList());
+                if (listpb.Count > 0)
                 {
-
-                    List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(SelectedPath).ToList());
-                    if (listpb.Count > 0)
-                    {
-                        MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    UploadOptions form = new UploadOptions(_amsClient, true);
-                    if (form.ShowDialog() == DialogResult.Cancel)
-                    {
-                        return;
-                    }
-
-                    _backuprootfolderupload = SelectedPath;
-
-                    IEnumerable<string> filePaths = Directory.EnumerateFiles(SelectedPath as string);
-
-                    TextBoxLogWriteLine("There are {0} files in {1}", filePaths.Count().ToString(), (SelectedPath as string));
-                    if (!filePaths.Any())
-                    {
-                        throw new FileNotFoundException(string.Format("No files in directory, check folderPath: {0}", SelectedPath));
-                    }
-
-                    if (form.SingleAsset)
-                    {
-                        TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
-
-                        Task<Task> myTask = Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(
-                              filePaths.ToList(),
-                              response.Id,
-                              response.token,
-                              storageaccount: form.StorageSelected,
-                              blocksize: form.BlockSize
-                              ), response.token);
-
-                    }
-                    else
-                    {
-                        Task.Factory.StartNew(() =>
-                        {
-
-                            int i = 0;
-                            foreach (string f in filePaths.ToList())
-                            {
-                                try
-                                {
-                                    i++;
-                                    TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
-                                    // Start a worker thread that does uploading.
-                                    Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(
-                              new List<string>() { f },
-                              response.Id,
-                              response.token,
-                              storageaccount: form.StorageSelected,
-                              blocksize: form.BlockSize
-                              ), response.token);
-
-                                    if (i == 10) // let's use a batch of 10 threads at the same time
-                                    {
-                                        do
-                                        {
-                                            Task.Delay(1000).Wait();
-                                        }
-                                        while (ReturnTransfer(response.Id).State == TransferState.Queued);
-                                        i = 0;
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
-                                    TextBoxLogWriteLine(ex);
-                                }
-                            }
-
-
-                        });
-
-
-                    }
-
-                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
-                    DoRefreshGridAssetV(false);
+                    MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: Could not read file from disk. Original error: " + Constants.endline + Program.GetErrorMessage(ex));
-                TextBoxLogWriteLine("Error: Could not read file or folder '{0}' from disk.", SelectedPath, true);
-                TextBoxLogWriteLine(ex);
+
+                UploadOptions form = new UploadOptions(_amsClient, true);
+                if (form.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                _backuprootfolderupload = SelectedPath;
+
+                IEnumerable<string> filePaths = Directory.EnumerateFiles(SelectedPath as string);
+
+                TextBoxLogWriteLine("There are {0} files in {1}", filePaths.Count().ToString(), (SelectedPath as string));
+                if (!filePaths.Any())
+                {
+                    throw new FileNotFoundException(string.Format("No files in directory, check folderPath: {0}", SelectedPath));
+                }
+
+                if (form.SingleAsset)
+                {
+                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
+                    await ProcessUploadFileAndMoreV3Async(
+                                                          filePaths.ToList(),
+                                                          response.Id,
+                                                          response.token,
+                                                          storageaccount: form.StorageSelected,
+                                                          blocksize: form.BlockSize
+                                                         );
+                }
+                else
+                {
+                    List<Task> MyTasks = new List<Task>();
+                    int i = 0;
+                    foreach (string f in filePaths.ToList())
+                    {
+                        i++;
+                        TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
+                        // Start a worker thread that does uploading.
+                        var myTask = ProcessUploadFileAndMoreV3Async(
+                                                                      new List<string>() { f },
+                                                                      response.Id,
+                                                                      response.token,
+                                                                      storageaccount: form.StorageSelected,
+                                                                      blocksize: form.BlockSize
+                                                                      );
+
+                        MyTasks.Add(myTask);
+
+                        if (i == 10) // let's use a batch of 10 threads at the same time
+                        {
+                            try
+                            {
+                                await Task.WhenAll(MyTasks);
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine(ex);
+                            }
+                            /*
+                            do
+                            {
+                                await Task.Delay(1000);
+                            }
+                            while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                            */
+                            i = 0;
+                        }
+                    }
+                    try
+                    {
+                        await Task.WhenAll(MyTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                DoRefreshGridAssetV(false);
             }
         }
 
@@ -1597,9 +1614,9 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuEditAssetAltId()
+        private async Task DoMenuEditAssetAltIdAsync()
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
 
             if (SelectedAssets.Count > 0)
             {
@@ -1614,9 +1631,7 @@ namespace AMSExplorer
                         try
                         {
                             AssetToEditAltId.AlternateId = value;
-                            Task.Run(() =>
-                                         _amsClient.AMSclient.Assets.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AssetToEditAltId.Name, AssetToEditAltId)
-                                        ).GetAwaiter().GetResult();
+                            await _amsClient.AMSclient.Assets.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AssetToEditAltId.Name, AssetToEditAltId);
                         }
                         catch
                         {
@@ -1736,45 +1751,47 @@ namespace AMSExplorer
                         i++;
                         string label = string.Format("Download of asset '{0}'", asset.Name);
                         TransferEntryResponse response = DoGridTransferAddItem(label, TransferType.DownloadToLocal, true);
-                        myTasks.Add(Task.Run(() =>
-                     {
-                         DownloadOutputAssetAsync(_amsClient, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload);
-                     }));
+                        myTasks.Add(DownloadOutputAssetAsync(_amsClient, asset.Name, form.FolderPath, response, form.FolderOption, form.OpenFolderAfterDownload));
+
                         if (i == 10) // let's use a batch of 10 threads at the same time
                         {
-                            Task.WaitAll(myTasks.ToArray());
+                            try
+                            {
+                                await Task.WhenAll(myTasks.ToArray());
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine(ex);
+                            }
+                            /*
                             do
                             {
                                 await Task.Delay(1000);
                             }
                             while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                            */
                             i = 0;
                         }
-
                     }
-                    Task.WaitAll(myTasks.ToArray());
+                    await Task.WhenAll(myTasks.ToArray());
                     TextBoxLogWriteLine("Download finished");
-                    // Start a worker thread that does downloading.
-
-
                 }
             }
         }
 
-
-        private void cancelJobToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void cancelJobToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCancelJobs();
+            await DoCancelJobsAsync();
         }
 
 
-        private void DoCancelJobs()
+        private async Task DoCancelJobsAsync()
         {
-            List<JobExtension> SelectedJobs = ReturnSelectedJobsV3();
+            List<JobExtension> SelectedJobs = await ReturnSelectedJobsV3Async();
 
             if (SelectedJobs.Count > 0)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 string question = "Cancel these " + SelectedJobs.Count + " jobs ?";
                 if (SelectedJobs.Count == 1)
@@ -1784,28 +1801,25 @@ namespace AMSExplorer
 
                 if (System.Windows.Forms.MessageBox.Show(question, "Job(s) cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
+                    List<Task> cancelTasks = new List<Task>();
                     foreach (JobExtension JobToCancel in SelectedJobs)
                     {
                         if (JobToCancel != null)
                         {
-                            //delete
                             TextBoxLogWriteLine("Canceling job '{0}'...", JobToCancel.Job.Name);
-
-                            try
-                            {
-                                Task.Run(() =>
-            _amsClient.AMSclient.Jobs.CancelJobAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, JobToCancel.TransformName, JobToCancel.Job.Name)
-            ).GetAwaiter().GetResult();
-                                TextBoxLogWriteLine("Job '{0}' canceled.", JobToCancel.Job.Name);
-
-                            }
-                            catch (Exception e)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("Error when canceling job '{0}'.", JobToCancel.Job.Name, true);
-                                TextBoxLogWriteLine(e);
-                            }
+                            cancelTasks.Add(_amsClient.AMSclient.Jobs.CancelJobAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, JobToCancel.TransformName, JobToCancel.Job.Name));
                         }
+                    }
+                    try
+                    {
+                        await Task.WhenAll(cancelTasks.ToArray());
+                        TextBoxLogWriteLine("Job(s) cancelled.");
+                    }
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("Error when canceling job(s).", true);
+                        TextBoxLogWriteLine(e);
                     }
                     DoRefreshGridJobV(false);
                 }
@@ -1818,7 +1832,7 @@ namespace AMSExplorer
         }
 
 
-        private async void DoCreateLocator(List<Asset> SelectedAssets, string LiveAssetManifest = null)
+        private async Task DoCreateLocatorAsync(List<Asset> SelectedAssets, string LiveAssetManifest = null)
         {
             string labelAssetName;
             StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
@@ -1830,7 +1844,6 @@ namespace AMSExplorer
                     MessageBox.Show("Asset not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
 
                 if (SelectedAssets.Count > 1)
                 {
@@ -1965,7 +1978,6 @@ namespace AMSExplorer
                                             });
                             }
 
-
                             // for each FairPlay option
                             List<DRM_FairPlayLicense> formFairPlay = new List<DRM_FairPlayLicense>();
 
@@ -2047,8 +2059,7 @@ namespace AMSExplorer
 
                     try
                     {
-                        List<LocatorAndUrls> listLocators = await Task.Run(() =>
-                        ProcessCreateLocatorV3(formLocator.StreamingPolicyName, SelectedAssets, formLocator.LocatorStartDate, formLocator.LocatorEndDate, formLocator.ForceLocatorGuid, keyPolicy, formLocator.SelectedFilters));
+                        List<LocatorAndUrls> listLocators = await ProcessCreateLocatorV3Async(formLocator.StreamingPolicyName, SelectedAssets, formLocator.LocatorStartDate, formLocator.LocatorEndDate, formLocator.ForceLocatorGuid, keyPolicy, formLocator.SelectedFilters);
 
                         Microsoft.Rest.Azure.IPage<StreamingEndpoint> SEList = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(
                              _amsClient.credentialsEntry.ResourceGroup,
@@ -2136,10 +2147,10 @@ namespace AMSExplorer
                             formTokenProperties.ShowDialog();
                             if (formTokenProperties.DialogResult == DialogResult.OK)
                             {
-                                sbuilder.Append(await AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators.FirstOrDefault(), "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
-                                sbuilder.Append(await AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators.FirstOrDefault(), "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
-                                sbuilder.Append(await AddTestTokenToSbuilder(formFairPlayTokenClaims, listLocators.FirstOrDefault(), "FairPlay", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
-                                sbuilder.Append(await AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators.FirstOrDefault(), "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(await AddTestTokenToSbuilderAsync(formPlayreadyTokenClaims, listLocators.FirstOrDefault(), "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(await AddTestTokenToSbuilderAsync(formWidevineTokenClaims, listLocators.FirstOrDefault(), "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(await AddTestTokenToSbuilderAsync(formFairPlayTokenClaims, listLocators.FirstOrDefault(), "FairPlay", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(await AddTestTokenToSbuilderAsync(formClearKeyTokenClaims, listLocators.FirstOrDefault(), "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
                             }
                         }
 
@@ -2163,7 +2174,7 @@ namespace AMSExplorer
             top = myForm.Top;
         }
 
-        public async Task<StringBuilder> AddTestTokenToSbuilder(List<form_DRM_Config_TokenClaims> formTokenClaims, LocatorAndUrls myLocator, string DRMTechnology, int tokenDuration, int? tokenUse)
+        public async Task<StringBuilder> AddTestTokenToSbuilderAsync(List<form_DRM_Config_TokenClaims> formTokenClaims, LocatorAndUrls myLocator, string DRMTechnology, int tokenDuration, int? tokenUse)
         {
             StringBuilder sbuilder = new StringBuilder();
             foreach (form_DRM_Config_TokenClaims tokenClaims in formTokenClaims)
@@ -2214,9 +2225,9 @@ namespace AMSExplorer
         }
 
 
-        private List<LocatorAndUrls> ProcessCreateLocatorV3(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy, List<string> listFilters = null)
+        private async Task<List<LocatorAndUrls>> ProcessCreateLocatorV3Async(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy, List<string> listFilters = null)
         {
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             List<LocatorAndUrls> listLocatorNames = new List<LocatorAndUrls>();
 
@@ -2240,10 +2251,10 @@ namespace AMSExplorer
                         filters: listFilters
                         );
 
-                    locator = _amsClient.AMSclient.StreamingLocators.Create(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingLocatorName, locator);
+                    locator = await _amsClient.AMSclient.StreamingLocators.CreateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingLocatorName, locator);
 
                     TextBoxLogWriteLine("Locator created : {0}", locator.Name);
-                    IList<StreamingPath> streamingPaths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
+                    IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name)).StreamingPaths;
                     listLocatorNames.Add(new LocatorAndUrls() { AssetName = AssetToP.Name, LocatorName = streamingLocatorName, LocatorId = locator.StreamingLocatorId, Paths = streamingPaths.ToList() });
 
                 }
@@ -2255,7 +2266,6 @@ namespace AMSExplorer
                     return null;
                 }
             }
-
             dataGridViewAssetsV.PurgeCacheAssetsV3(assets);
             dataGridViewAssetsV.AnalyzeItemsInBackground();
 
@@ -2323,7 +2333,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoDeleteAllLocatorsOnAssets(List<Asset> SelectedAssets)
+        private async Task DoDeleteAllLocatorsOnAssetsAsync(List<Asset> SelectedAssets)
         {
             if (SelectedAssets.Count > 0)
             {
@@ -2349,7 +2359,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Deleting locators of asset '{0}'", AssetToProcess.Name);
                             try
                             {
-                                DeleteLocatorsForAsset(AssetToProcess);
+                                await DeleteLocatorsForAssetAsync(AssetToProcess);
                                 TextBoxLogWriteLine("Deletion done.");
                             }
 
@@ -2367,7 +2377,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task<List<Asset>> ReturnSelectedAssetsFromProgramsOrAssetsV3Async()
+        private async Task<List<Asset>> ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()
         {
             if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)) // we are in the asset tab
             {
@@ -2389,36 +2399,6 @@ namespace AMSExplorer
             {
                 return null;
             }
-        }
-
-
-        private List<Asset> ReturnSelectedAssetsV3()
-        {
-            List<Asset> SelectedAssets = new List<Asset>();
-            _amsClient.RefreshTokenIfNeeded();
-
-            try
-            {
-                foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
-                {
-                    Asset asset =
-                    Task.Run(() =>
-                                 _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString()))
-                                 .GetAwaiter().GetResult();
-                    if (asset != null)
-                    {
-                        SelectedAssets.Add(asset);
-                    }
-                }
-                SelectedAssets.Reverse();
-            }
-            catch (Exception ex)
-            {
-                // connection error ?
-                TextBoxLogWriteLine(ex);
-            }
-
-            return SelectedAssets;
         }
 
         private async Task<List<Asset>> ReturnSelectedAssetsV3Async()
@@ -2448,12 +2428,12 @@ namespace AMSExplorer
             return SelectedAssets;
         }
 
-        private List<JobExtension> ReturnSelectedJobsV3()
+        private async Task<List<JobExtension>> ReturnSelectedJobsV3Async()
         {
             List<JobExtension> SelectedJobs = new List<JobExtension>();
             foreach (DataGridViewRow Row in dataGridViewJobsV.SelectedRows)
             {
-                Job job = Task.Run(async () => await GetJobAsync(Row.Cells["TransformName"].Value.ToString(), Row.Cells["Name"].Value.ToString())).Result;
+                Job job = await GetJobAsync(Row.Cells["TransformName"].Value.ToString(), Row.Cells["Name"].Value.ToString());
                 SelectedJobs.Add(new JobExtension()
                 {
                     Job = job,
@@ -2465,12 +2445,12 @@ namespace AMSExplorer
             return SelectedJobs;
         }
 
-        private List<Transform> ReturnSelectedTransforms()
+        private async Task<List<Transform>> ReturnSelectedTransformsAsync()
         {
             List<Transform> SelectedTransforms = new List<Transform>();
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
-            Microsoft.Rest.Azure.IPage<Transform> Transforms = _amsClient.AMSclient.Transforms.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<Transform> Transforms = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             foreach (DataGridViewRow Row in dataGridViewTransformsV.SelectedRows)
             {
@@ -2485,17 +2465,18 @@ namespace AMSExplorer
         }
 
 
-        private StorageAccount ReturnSelectedStorage()
+        private async Task<StorageAccount> ReturnSelectedStorageAsync()
         {
             StorageAccount SelectedStorage = null;
             if (dataGridViewStorage.SelectedRows.Count == 1)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 DataGridViewRow row = dataGridViewStorage.SelectedRows[0];
                 int index = dataGridViewStorage.Columns["Id"].Index;
                 string storagename = AMSClientV3.GetStorageName(row.Cells[index].Value.ToString());
-                SelectedStorage = _amsClient.AMSclient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName).StorageAccounts.Where(s => AMSClientV3.GetStorageName(s.Id) == storagename).FirstOrDefault();
+                SelectedStorage = (await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName))
+                    .StorageAccounts.Where(s => AMSClientV3.GetStorageName(s.Id) == storagename).FirstOrDefault();
             }
 
             return SelectedStorage;
@@ -2554,7 +2535,7 @@ namespace AMSExplorer
                         Task[] deleteTasks = SelectedAssets.Select(a => _amsClient.AMSclient.Assets.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).ToArray();
 
                         //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
-                        Task.WaitAll(deleteTasks);
+                        await Task.WhenAll(deleteTasks);
                     }
                     catch (Exception ex)
                     {
@@ -3486,7 +3467,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Deleting job(s)");
                     try
                     {
-                        Task.WaitAll(deleteTasks);
+                        await Task.WhenAll(deleteTasks);
                     }
                     catch (Exception ex)
                     {
@@ -3536,7 +3517,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", deleteTasks.Count));
                 try
                 {
-                    Task.WaitAll(deleteTasks.ToArray());
+                    await Task.WhenAll(deleteTasks.ToArray());
                 }
                 catch (Exception ex)
                 {
@@ -3587,7 +3568,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Canceling {0} job(s)...", deleteTasks.Count);
                 try
                 {
-                    Task.WaitAll(deleteTasks.ToArray());
+                    await Task.WhenAll(deleteTasks.ToArray());
                 }
                 catch (Exception ex)
                 {
@@ -3606,43 +3587,36 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDeleteTransforms(List<Transform> SelectedTransforms)
+        private async Task DoDeleteTransformsAsync(List<Transform> SelectedTransforms)
         {
             if (SelectedTransforms.Count > 0)
             {
                 string question = (SelectedTransforms.Count == 1) ? "Delete " + SelectedTransforms[0].Name + " ?" : "Delete these " + SelectedTransforms.Count + " transforms ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Transform deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    _amsClient.RefreshTokenIfNeeded();
-
-                    Task.Run(() =>
+                    await _amsClient.RefreshTokenIfNeededAsync();
+                    bool Error = false;
+                    Task[] deleteTasks = SelectedTransforms.ToList().Select(t => _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, t.Name)).ToArray();
+                    TextBoxLogWriteLine("Deleting transform(s)...");
+                    try
                     {
-                        bool Error = false;
-                        Task[] deleteTasks = SelectedTransforms.ToList().Select(t => _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, t.Name)).ToArray();
-                        TextBoxLogWriteLine("Deleting transform(s)...");
-                        try
-                        {
-                            Task.WaitAll(deleteTasks);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the transform(s).", true);
-                            TextBoxLogWriteLine(ex);
-                            Error = true;
-                        }
-                        if (!Error)
-                        {
-                            TextBoxLogWriteLine("Transform(s) deleted.");
-                        }
-
-                        DoRefreshGridTransformV(false);
+                        await Task.WhenAll(deleteTasks);
                     }
-           );
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the transform(s).", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error)
+                    {
+                        TextBoxLogWriteLine("Transform(s) deleted.");
+                    }
+                    DoRefreshGridTransformV(false);
                 }
             }
         }
-
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -4209,14 +4183,14 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
         {
-            DisplayInfo(ReturnSelectedAssetsV3().FirstOrDefault());
+            DisplayInfo((await ReturnSelectedAssetsV3Async()).FirstOrDefault());
         }
 
-        private void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
         {
-            List<Asset> assets = ReturnSelectedAssetsV3();
+            List<Asset> assets = await ReturnSelectedAssetsV3Async();
             bool singleitem = (assets.Count == 1);
             Asset firstAsset = assets.FirstOrDefault();
 
@@ -4252,14 +4226,14 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
+        private async void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
         {
-            DisplayInfo(ReturnSelectedJobsV3().FirstOrDefault());
+            DisplayInfo((await ReturnSelectedJobsV3Async()).FirstOrDefault());
         }
 
-        private void contextMenuStripJobs_Opening(object sender, CancelEventArgs e)
+        private async void contextMenuStripJobs_Opening(object sender, CancelEventArgs e)
         {
-            bool singleitem = (ReturnSelectedJobsV3().Count == 1);
+            bool singleitem = (await ReturnSelectedJobsV3Async()).Count == 1;
             ContextMenuItemJobDisplayInfo.Enabled = singleitem;
         }
 
@@ -4475,7 +4449,7 @@ namespace AMSExplorer
 
         private async Task DoChangeJobPriorityAsync()
         {
-            List<JobExtension> SelectedJobs = ReturnSelectedJobsV3();
+            List<JobExtension> SelectedJobs = await ReturnSelectedJobsV3Async();
 
             if (SelectedJobs.Count > 0)
             {
@@ -4486,27 +4460,30 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    List<Task> prioTasks = new List<Task>();
+                    await _amsClient.RefreshTokenIfNeededAsync();
+
                     foreach (JobExtension JobToProcess in SelectedJobs)
                     {
                         if (JobToProcess != null)
                         {
                             //delete
-                            TextBoxLogWriteLine("Changing priority to {0} for job '{1}'.", form.JobPriority, JobToProcess.Job.Name);
-                            try
-                            {
-                                JobToProcess.Job.Priority = form.JobPriority;
-                                await _amsClient.RefreshTokenIfNeededAsync();
-                                await _amsClient.AMSclient.Jobs.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job);
-                                TextBoxLogWriteLine("Job '{0}' updated.", JobToProcess.Job.Name);
-                            }
-
-                            catch (Exception e)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when changing priority for {0}.", JobToProcess.Job.Name, true);
-                                TextBoxLogWriteLine(e);
-                            }
+                            TextBoxLogWriteLine("Changing priority to {0} for job '{1}'...", form.JobPriority, JobToProcess.Job.Name);
+                            JobToProcess.Job.Priority = form.JobPriority;
+                            prioTasks.Add(_amsClient.AMSclient.Jobs.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, JobToProcess.TransformName, JobToProcess.Job.Name, JobToProcess.Job));
                         }
+                    }
+                    try
+                    {
+                        await Task.WhenAll(prioTasks.ToArray());
+                        TextBoxLogWriteLine("Job(s) updated.");
+                    }
+
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when changing priority for job(s).", true);
+                        TextBoxLogWriteLine(e);
                     }
                 }
             }
@@ -4606,34 +4583,34 @@ namespace AMSExplorer
         }
 
 
-        private void DoCreateAssetReportEmail()
+        private async Task DoCreateAssetReportEmailAsync()
         {
-            AssetInfo AR = new AssetInfo(ReturnSelectedAssetsV3(), _amsClient);
+            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsV3Async(), _amsClient);
 
         }
 
-        private void DoDisplayAssetReport()
+        private async Task DoDisplayAssetReportAsync()
         {
-            AssetInfo AR = new AssetInfo(ReturnSelectedAssetsV3(), _amsClient);
+            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsV3Async(), _amsClient);
             StringBuilder SB = AR.GetStats();
             EditorXMLJSON tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
         }
 
-        private void createOutlookReportEmailToolStripMenuItem2_Click(object sender, EventArgs e)
+        private async void createOutlookReportEmailToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            DoCreateAssetReportEmail();
+            await DoCreateAssetReportEmailAsync();
         }
 
 
-        private void openOutputAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void openOutputAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoOpenJobAsset(false);
+            await DoOpenJobAssetAsync(false);
         }
 
-        private void DoOpenJobAsset(bool inputasset) // if false, then display first outputasset
+        private async Task DoOpenJobAssetAsync(bool inputasset) // if false, then display first outputasset
         {
-            List<JobExtension> SelectedJobs = ReturnSelectedJobsV3();
+            List<JobExtension> SelectedJobs = await ReturnSelectedJobsV3Async();
             if (SelectedJobs.Count != 0)
             {
                 JobExtension jobToDisplay = SelectedJobs.FirstOrDefault();
@@ -4649,7 +4626,7 @@ namespace AMSExplorer
                                 Task<Asset> asset = GetAssetAsync(jobinputasset.AssetName);
                                 if (asset != null)
                                 {
-                                    Asset assetIn = Task.Run(async () => await GetAssetAsync(jobinputasset.AssetName)).Result;
+                                    Asset assetIn = await GetAssetAsync(jobinputasset.AssetName);
                                     DisplayInfo(assetIn);
                                 }
 
@@ -4668,7 +4645,7 @@ namespace AMSExplorer
                                 Task<Asset> asset = GetAssetAsync(joboutputasset.AssetName);
                                 if (asset != null)
                                 {
-                                    Asset assetOut = Task.Run(async () => await GetAssetAsync(joboutputasset.AssetName)).Result;
+                                    Asset assetOut = await GetAssetAsync(joboutputasset.AssetName);
                                     DisplayInfo(assetOut);
                                 }
                                 else
@@ -4688,9 +4665,9 @@ namespace AMSExplorer
         }
 
 
-        private void inputAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void inputAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoOpenJobAsset(true);
+            await DoOpenJobAssetAsync(true);
         }
 
         /*
@@ -5639,7 +5616,7 @@ namespace AMSExplorer
                         }
                         await Task.Delay(2000);
                     }
-                    Task.WaitAll(taskcstop);
+                    await Task.WhenAll(taskcstop);
 
                     //TextBoxLogWriteLine(string.Format("Live event(s) stopped : {0}.", names));
                 }
@@ -5684,7 +5661,7 @@ namespace AMSExplorer
                         }
                         await Task.Delay(2000);
                     }
-                    Task.WaitAll(taskcdel);
+                    await Task.WhenAll(taskcdel);
                     TextBoxLogWriteLine("Live event(s) deleted : {0}.", names2);
                 }
                 catch (Exception ex)
@@ -5734,7 +5711,7 @@ namespace AMSExplorer
                         }
                         await Task.Delay(2000);
                     }
-                    Task.WaitAll(taskLEStart);
+                    await Task.WhenAll(taskLEStart);
                 }
                 catch (Exception ex)
                 {
@@ -5802,7 +5779,7 @@ namespace AMSExplorer
                     }
                     await Task.Delay(2000);
                 }
-                Task.WaitAll(tasks);
+                await Task.WhenAll(tasks);
                 TextBoxLogWriteLine("Live output(s) deleted.");
             }
             catch (Exception ex)
@@ -5873,7 +5850,7 @@ namespace AMSExplorer
                         }
                         await Task.Delay(2000);
                     }
-                    Task.WaitAll(taskSEStart);
+                    await Task.WhenAll(taskSEStart);
 
                 }
                 catch (Exception ex)
@@ -5955,7 +5932,7 @@ namespace AMSExplorer
                         }
                         await Task.Delay(2000);
                     }
-                    Task.WaitAll(taskSEstop);
+                    await Task.WhenAll(taskSEstop);
                 }
                 catch (Exception ex)
                 {
@@ -5995,7 +5972,7 @@ namespace AMSExplorer
                         }
                         await Task.Delay(2000);
                     }
-                    Task.WaitAll(taskSEdel);
+                    await Task.WhenAll(taskSEdel);
                     TextBoxLogWriteLine("Streaming endpoint(s) deleted : {0}.", names2);
                 }
 
@@ -6069,7 +6046,7 @@ namespace AMSExplorer
                         {
                             try
                             {
-                                DoCreateLocator(new List<Asset> { asset }, form.ManifestName);
+                                await DoCreateLocatorAsync(new List<Asset> { asset }, form.ManifestName);
                             }
                             catch (Exception ex)
                             {
@@ -6587,15 +6564,12 @@ namespace AMSExplorer
                 {
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
 
-
                     List<Task> MyTasks = new List<Task>();
                     int i = 0;
                     foreach (string folder in form2.BatchSelectedFolders)
                     {
                         i++;
                         TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
-                        //var myTask = Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, response.Id, AssetCreationOptions.None, response.token, form2.StorageSelected), response.token);
-
 
                         IEnumerable<string> filePaths = Directory.EnumerateFiles(folder as string);
 
@@ -6611,11 +6585,21 @@ namespace AMSExplorer
 
                         if (i == 10) // let's use a batch of 10 threads at the same time
                         {
+                            try
+                            {
+                                await Task.WhenAll(MyTasks.ToArray());
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine(ex);
+                            }
+                            /*
                             do
                             {
-                                Task.Delay(1000).Wait();
+                                await Task.Delay(1000);
                             }
                             while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                            */
                             i = 0;
                         }
                     }
@@ -6625,15 +6609,6 @@ namespace AMSExplorer
                         i++;
                         TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
 
-                        /*
-                        Task<Task> myTask = Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(
-                                  new List<string>() { file },
-                                  response.Id,
-                                  response.token,
-                                  storageaccount: form2.StorageSelected,
-                                  blocksize: form2.BlockSize
-                                  ), response.token);
-                                  */
                         Task myTask = ProcessUploadFileAndMoreV3Async(
                                   new List<string>() { file },
                                   response.Id,
@@ -6644,13 +6619,16 @@ namespace AMSExplorer
 
                         MyTasks.Add(myTask);
 
-                        if (i >= 10) // let's use a batch of 10 threads at the same time
+                        if (i == 10) // let's use a batch of 10 threads at the same time
                         {
-                            do
+                            try
                             {
-                                Task.Delay(1000).Wait();
+                                await Task.WhenAll(MyTasks.ToArray());
                             }
-                            while (ReturnTransfer(response.Id).State == TransferState.Queued);
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine(ex);
+                            }
                             i = 0;
                         }
                     }
@@ -6665,7 +6643,6 @@ namespace AMSExplorer
                     }
 
                     // DoRefreshGridAssetV(false);
-
                 }
             }
         }
@@ -6746,19 +6723,18 @@ namespace AMSExplorer
 
         private async void createALocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateLocator(await ReturnSelectedAssetsFromProgramsOrAssetsV3Async());
+            await DoCreateLocatorAsync(await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync());
         }
 
-        private void deleteAllLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteAllLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<Asset> SelectedAssets = ReturnSelectedAssetsV3();
-            DoDeleteAllLocatorsOnAssets(SelectedAssets);
+            await DoDeleteAllLocatorsOnAssetsAsync(await ReturnSelectedAssetsV3Async());
         }
 
 
         private async Task DoDisplayOutputURLAssetOrProgramToWindowAsync()
         {
-            Asset asset = (await ReturnSelectedAssetsFromProgramsOrAssetsV3Async()).FirstOrDefault();
+            Asset asset = (await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()).FirstOrDefault();
             if (asset != null)
             {
                 AssetInfo AI = new AssetInfo(asset);
@@ -6803,8 +6779,8 @@ namespace AMSExplorer
 
         private async Task DoMenuCreateLocatorOnProgramsAsync()
         {
-            List<Asset> SelectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
-            DoCreateLocator(SelectedAssets);
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync();
+            await DoCreateLocatorAsync(SelectedAssets);
             DoRefreshGridLiveOutputV(false);
         }
 
@@ -6820,8 +6796,7 @@ namespace AMSExplorer
 
         private async Task DoMenuDeleteAllLocatorsOnProgramsAsync()
         {
-            List<Asset> SelectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
-            DoDeleteAllLocatorsOnAssets(SelectedAssets);
+            await DoDeleteAllLocatorsOnAssetsAsync(await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync());
             DoRefreshGridLiveOutputV(false);
         }
 
@@ -6832,7 +6807,7 @@ namespace AMSExplorer
 
         private async Task DoMenuDisplayAssetInfoOfProgramAsync()
         {
-            List<Asset> SelectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync();
             if (SelectedAssets.Count > 0)
             {
                 DisplayInfo(SelectedAssets.FirstOrDefault());
@@ -6921,9 +6896,9 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDisplayJobError()
+        private async Task DoDisplayJobErrorAsync()
         {
-            List<JobExtension> SelectedJobs = ReturnSelectedJobsV3();
+            List<JobExtension> SelectedJobs = await ReturnSelectedJobsV3Async();
             if (SelectedJobs.Count == 1)
             {
                 JobExtension JobToDisplayP = SelectedJobs.FirstOrDefault();
@@ -6945,9 +6920,9 @@ namespace AMSExplorer
             }
         }
 
-        private void displayErrorToolStripMenuItem3_Click(object sender, EventArgs e)
+        private async void displayErrorToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            DoDisplayJobError();
+            await DoDisplayJobErrorAsync();
         }
 
 
@@ -6965,7 +6940,6 @@ namespace AMSExplorer
         {
 
         }
-
 
         private async Task DoSelectTransformAndSubmitJobAsync()
         {
@@ -6990,7 +6964,12 @@ namespace AMSExplorer
         }
 
 
-        private void dataGridViewAssetsV_DragDrop(object sender, DragEventArgs e)
+        private async void dataGridViewAssetsV_DragDrop(object sender, DragEventArgs e)
+        {
+            await DoDragAndDropUploadAsync(e);
+        }
+
+        private async Task DoDragAndDropUploadAsync(DragEventArgs e)
         {
             // Handle FileDrop data. 
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -7002,14 +6981,16 @@ namespace AMSExplorer
                 List<string> folders = objects.Where(f => Directory.Exists(f)).ToList();
                 List<string> files = objects.Where(f => !Directory.Exists(f)).ToList();
 
+                List<Task> listTasks = new List<Task>();
                 foreach (string fold in folders)
                 {
-                    DoMenuUploadFromFolder_Step2(fold); // it's a folder
+                    listTasks.Add(DoMenuUploadFromFolder_Step2Async(fold)); // it's a folder
                 }
+                await Task.WhenAll(listTasks.ToArray());
 
                 if (files.Count > 0)
                 {
-                    DoMenuUploadFromSingleFileS_Step2(files.ToArray()); // let's upload the objects as files, each file as an individual asset
+                    await DoMenuUploadFromSingleFileS_Step2Async(files.ToArray()); // let's upload the objects as files, each file as an individual asset
                 }
             }
         }
@@ -7137,7 +7118,7 @@ namespace AMSExplorer
 
         private async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, await ReturnSelectedAssetsFromProgramsOrAssetsV3Async());
+            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync());
         }
 
         private async void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -7357,14 +7338,14 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuItem18_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem18_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromSingleFiles_Step1();
+            await DoMenuUploadFromSingleFiles_Step1Async();
         }
 
-        private void toolStripMenuItem19_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem19_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromFolder_Step1();
+            await DoMenuUploadFromFolder_Step1Async();
         }
 
         private async void toolStripMenuItem20_Click(object sender, EventArgs e)
@@ -7550,7 +7531,7 @@ namespace AMSExplorer
 
         private async void toolStripMenuItem16_Click_1(object sender, EventArgs e)
         {
-           await DoCreateFilterAsync();
+            await DoCreateFilterAsync();
         }
 
         private async Task DoCreateFilterAsync()
@@ -7598,7 +7579,7 @@ namespace AMSExplorer
             try
             {
                 TextBoxLogWriteLine("Deleting {0} filter(s)...", deleteTasks.Count());
-                Task.WaitAll(deleteTasks);
+                await Task.WhenAll(deleteTasks);
                 TextBoxLogWriteLine("Filter(s) deleted.");
             }
 
@@ -7672,7 +7653,7 @@ namespace AMSExplorer
 
         private async Task DoCreateAssetFilterAsync()
         {
-            Asset selasset = (await ReturnSelectedAssetsFromProgramsOrAssetsV3Async()).FirstOrDefault();
+            Asset selasset = (await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()).FirstOrDefault();
 
             DynManifestFilter form = new DynManifestFilter(_amsClient, null, selasset);
 
@@ -7776,14 +7757,13 @@ namespace AMSExplorer
 
         private async Task DoSubClipAsync()
         {
-            var selectedAssets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
+            var selectedAssets = await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync();
             if (selectedAssets.Count > 0)
             {
-                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a.Name, _amsClient).Type.StartsWith(AssetInfo.Type_LiveArchive) || AssetInfo.GetAssetType(a.Name, _amsClient).Type.StartsWith(AssetInfo.Type_Fragmented)))
+                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a.Name, _amsClient).Type.StartsWith(AssetInfo.Type_LiveArchive) || (AssetInfo.GetAssetType(a.Name, _amsClient)).Type.StartsWith(AssetInfo.Type_Fragmented)))
                 {
                     MessageBox.Show("Asset(s) should be a live, live archive or pre-fragmented asset." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-
                 Subclipping form = new Subclipping(_amsClient, selectedAssets, this);
 
                 form.ShowDialog();
@@ -7819,7 +7799,7 @@ namespace AMSExplorer
 
             if (storageId == null)
             {
-                storageId = ReturnSelectedStorage().Id;
+                storageId = (await ReturnSelectedStorageAsync()).Id;
             }
 
             try
@@ -7899,14 +7879,14 @@ namespace AMSExplorer
             DoDisplayJobReport();
         }
 
-        private void toolStripMenuItem30_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem30_Click(object sender, EventArgs e)
         {
-            DoCreateAssetReportEmail();
+            await DoCreateAssetReportEmailAsync();
         }
 
-        private void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
+        private async void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            DoDisplayAssetReport();
+            await DoDisplayAssetReportAsync();
         }
 
         private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7978,7 +7958,7 @@ namespace AMSExplorer
 
         private async Task DoCheckIntegrityLiveArchiveAsync()
         {
-            List<Asset> assets = await ReturnSelectedAssetsFromProgramsOrAssetsV3Async();
+            List<Asset> assets = await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync();
 
             string question = (assets.Count == 1) ? string.Format("Check the integrity of '{0}' ?", assets[0].Name) : string.Format("Check the integrity of these {0} archives ?", assets.Count);
             if (System.Windows.Forms.MessageBox.Show(question, "Integrity check", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -8004,9 +7984,9 @@ namespace AMSExplorer
         }
 
 
-        private void editAlternateIdToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void editAlternateIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuEditAssetAltId();
+            await DoMenuEditAssetAltIdAsync();
         }
 
 
@@ -8119,9 +8099,9 @@ namespace AMSExplorer
         }
 
 
-        private void filesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void filesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFileToAsset_Step1();
+            await DoMenuUploadFileToAsset_Step1Async();
         }
 
         private void trackBarConcurrentTransfers_Scroll(object sender, EventArgs e)
@@ -8207,9 +8187,9 @@ namespace AMSExplorer
             Process.Start(Constants.LinkMoreInfoAMSReleaseNotes);
         }
 
-        private void selectedJobsToolStripMenuItem2_Click(object sender, EventArgs e)
+        private async void selectedJobsToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            DoCancelJobs();
+            await DoCancelJobsAsync();
         }
 
         private async void allJobsToolStripMenuItem3_Click(object sender, EventArgs e)
@@ -8577,9 +8557,9 @@ namespace AMSExplorer
         }
 
 
-        private void deleteTransformsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteTransformsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteTransforms(ReturnSelectedTransforms());
+            await DoDeleteTransformsAsync(await ReturnSelectedTransformsAsync());
         }
 
         private void dataGridViewTransformsV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -8612,7 +8592,7 @@ namespace AMSExplorer
 
         private async Task CreateJobFromTransformUsingHttpSourceAsync()
         {
-            List<Transform> sel = ReturnSelectedTransforms();
+            List<Transform> sel = await ReturnSelectedTransformsAsync();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
             ProcessFromTransform form = new ProcessFromTransform(_amsClient, this, null, sel)
@@ -8657,7 +8637,7 @@ namespace AMSExplorer
 
         private async void createASASUrlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateSASUrl(await ReturnSelectedAssetsFromProgramsOrAssetsV3Async());
+            DoCreateSASUrl(await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync());
 
         }
 

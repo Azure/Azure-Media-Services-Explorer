@@ -1559,6 +1559,126 @@ namespace AMSExplorer
             };
         }
 
+        public static async Task<AssetInfoData> GetAssetTypeAsync(string assetName, AMSClientV3 _amsClient)
+        {
+            ListContainerSasInput input = new ListContainerSasInput()
+            {
+                Permissions = AssetContainerPermission.ReadWriteDelete,
+                ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+            };
+            _amsClient.RefreshTokenIfNeeded();
+
+            string type = string.Empty;
+            long size = 0;
+
+            AssetContainerSas response = null;
+            try
+            {
+                response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime);
+            }
+            catch
+            {
+                return null;
+            }
+
+            string uploadSasUrl = response.AssetContainerSasUrls.First();
+
+            Uri sasUri = new Uri(uploadSasUrl);
+            CloudBlobContainer container = new CloudBlobContainer(sasUri);
+
+
+
+
+            BlobContinuationToken continuationToken1 = null;
+            List<IListBlobItem> rootBlobs = new List<IListBlobItem>();
+            do
+            {
+                var segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.Metadata, null, continuationToken1, null, null);
+                continuationToken1 = segment.ContinuationToken;
+                rootBlobs = segment.Results.ToList();
+            }
+            while (continuationToken1 != null);
+
+            List<CloudBlockBlob> blocsc = rootBlobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+            List<CloudBlobDirectory> blocsdir = rootBlobs.Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(b => (CloudBlobDirectory)b).ToList();
+
+            int number = blocsc.Count;
+
+            CloudBlockBlob[] ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            // size calculation
+            blocsc.ForEach(b => size += b.Properties.Length);
+
+            // fragments in subfolders (live archive)
+            foreach (CloudBlobDirectory dir in blocsdir)
+            {
+                CloudBlobDirectory dirRef = container.GetDirectoryReference(dir.Prefix);
+
+                BlobContinuationToken continuationToken = null;
+                List<CloudBlockBlob> subBlobs = new List<CloudBlockBlob>();
+                do
+                {
+                    var segment = await dirRef.ListBlobsSegmentedAsync(true, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                    // public virtual Task<BlobResultSegment> ListBlobsSegmentedAsync(bool useFlatBlobListing, BlobListingDetails blobListingDetails, int? maxResults, BlobContinuationToken currentToken, BlobRequestOptions options, OperationContext operationContext, CancellationToken cancellationToken);
+                    continuationToken = segment.ContinuationToken;
+                    subBlobs = segment.Results.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+                    subBlobs.ForEach(b => size += b.Properties.Length);
+                }
+                while (continuationToken != null);
+            }
+
+            CloudBlockBlob[] mp4files = blocsc.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            if (mp4files.Count() > 0 && ismcfiles.Count() == 1 && ismfiles.Count() == 1)  // Multi bitrate MP4
+            {
+                number = mp4files.Count();
+                type = number == 1 ? Type_Single : Type_Multi;
+            }
+
+            else if (blocsc.Count == 0)
+            {
+                return new AssetInfoData() { Size = size, Type = Type_Empty };
+            }
+            else if (ismcfiles.Count() == 1 && ismfiles.Count() == 1 && blocsdir.Count > 0)
+            {
+                type = Type_LiveArchive;
+                number = blocsdir.Count;
+            }
+
+            else if (blocsc.Count == 1)
+            {
+                number = 1;
+                string ext = Path.GetExtension(blocsc.FirstOrDefault().Name.ToUpper());
+                if (!string.IsNullOrEmpty(ext))
+                {
+                    ext = ext.Substring(1);
+                }
+
+                switch (ext)
+                {
+                    case "WORKFLOW":
+                        type = Type_Workflow;
+                        break;
+
+                    default:
+                        type = ext;
+                        break;
+                }
+            }
+
+            else
+            {
+                type = Type_Unknown;
+            }
+
+            return new AssetInfoData()
+            {
+                Size = size,
+                Type = string.Format("{0} ({1})", type, number),
+                Blobs = rootBlobs
+            };
+        }
 
 
         public void CopyStatsToClipBoard()
@@ -1782,10 +1902,10 @@ namespace AMSExplorer
             return sb;
         }
         */
-        public static StringBuilder GetStat(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
+        public static async Task<StringBuilder> GetStat(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
-            AssetInfoData MyAssetTypeInfo = AssetInfo.GetAssetType(MyAsset.Name, _amsClient);
+            AssetInfoData MyAssetTypeInfo = await AssetInfo.GetAssetTypeAsync(MyAsset.Name, _amsClient);
             if (MyAssetTypeInfo == null)
             {
                 sb.AppendLine("Error accessing asset type info");
@@ -1849,7 +1969,7 @@ namespace AMSExplorer
                     sb.AppendLine(string.Empty);
                 }
             }
-            sb.Append(GetDescriptionLocators(MyAsset, _amsClient, SelectedSE));
+            sb.Append(await GetDescriptionLocatorsAsync(MyAsset, _amsClient, SelectedSE));
 
             sb.AppendLine(string.Empty);
             sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -1868,17 +1988,13 @@ namespace AMSExplorer
         }
 
 
-        public static StringBuilder GetDescriptionLocators(Asset MyAsset, AMSClientV3 amsClient, StreamingEndpoint SelectedSE = null)
+        public static async Task<StringBuilder> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
-            amsClient.RefreshTokenIfNeeded();
+            await amsClient.RefreshTokenIfNeededAsync();
 
-            IList<AssetStreamingLocator> locators =
-            Task.Run(() =>
-            amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name)
-            ).GetAwaiter().GetResult().StreamingLocators;
-
-
+            IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name))
+                                                    .StreamingLocators;
             if (locators.Count == 0)
             {
                 sb.AppendLine("No streaming locator created for this asset.");
@@ -1886,7 +2002,7 @@ namespace AMSExplorer
 
             foreach (AssetStreamingLocator locatorbase in locators)
             {
-                StreamingLocator locator = amsClient.AMSclient.StreamingLocators.Get(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
+                StreamingLocator locator = await amsClient.AMSclient.StreamingLocators.GetAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
                 sb.AppendLine("Locator Name                    : " + locator.Name);
                 sb.AppendLine("Locator Id                      : " + locator.StreamingLocatorId);
@@ -1896,8 +2012,8 @@ namespace AMSExplorer
                 sb.AppendLine("Default Content Key Policy Name : " + locator.DefaultContentKeyPolicyName);
                 sb.AppendLine("Associated filters              : " + string.Join(", ", locator.Filters.ToArray()));
 
-                IList<StreamingPath> streamingPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).StreamingPaths;
-                IList<string> downloadPaths = amsClient.AMSclient.StreamingLocators.ListPaths(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name).DownloadPaths;
+                IList<StreamingPath> streamingPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).StreamingPaths;
+                IList<string> downloadPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).DownloadPaths;
 
                 foreach (StreamingPath path in streamingPaths)
                 {
@@ -1917,7 +2033,6 @@ namespace AMSExplorer
             }
             return sb;
         }
-
 
 
         public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string path, AMSClientV3 client, Mainform mainForm,

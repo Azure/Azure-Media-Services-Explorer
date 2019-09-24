@@ -168,7 +168,7 @@ namespace AMSExplorer
         }
 
 
-        private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
+        private async void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
             JobOutput output = MyJob.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
 
@@ -199,7 +199,7 @@ namespace AMSExplorer
             {
                 JobOutputAsset outputA = output as JobOutputAsset;
                 DGOutputs.Rows.Add("Asset name", outputA.AssetName);
-                DGOutputs.Rows.Add("Asset type", AssetInfo.GetAssetType(outputA.AssetName, _amsClient)?.Type);
+                DGOutputs.Rows.Add("Asset type", (await AssetInfo.GetAssetTypeAsync(outputA.AssetName, _amsClient))?.Type);
             }
 
 
@@ -280,7 +280,7 @@ namespace AMSExplorer
             DisplayAssetInfo(false);
         }
 
-        private void listBoxInput_SelectedIndexChanged(object sender, EventArgs e)
+        private async void listBoxInput_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridInput.Rows.Clear();
 
@@ -289,7 +289,7 @@ namespace AMSExplorer
                 JobInputAsset inputA = MyJob.Input as JobInputAsset;
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
-                dataGridInput.Rows.Add("Asset type", AssetInfo.GetAssetType(inputA.AssetName, _amsClient)?.Type);
+                dataGridInput.Rows.Add("Asset type",(await AssetInfo.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
                 if (inputA.Start != null && inputA.Start.GetType() == typeof(AbsoluteClipTime))
                 {
                     AbsoluteClipTime startA = inputA.Start as AbsoluteClipTime;

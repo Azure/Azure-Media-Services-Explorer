@@ -360,15 +360,13 @@ namespace AMSExplorer
             }
         }
 
-        private void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
-
             AssetStreamingLocator locator = _locators[comboBoxPolicyLocators.SelectedIndex];
 
             // _path = "/" + locator.StreamingLocatorId.ToString() + _path.Substring(_path.IndexOf('/', 2));
 
-            _path = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name)
+            _path = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name))
             .StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
             .FirstOrDefault().Paths.FirstOrDefault();
 
