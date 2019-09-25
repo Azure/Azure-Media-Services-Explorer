@@ -70,12 +70,12 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItemDASHIF_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemDASHIF_Click(object sender, EventArgs e)
         {
-            DoDASHIFPlayer();
+            await DoDASHIFPlayerAsync();
         }
 
-        private void DoDASHIFPlayer()
+        private async Task DoDASHIFPlayerAsync()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -86,7 +86,7 @@ namespace AMSExplorer
                     {
                         case AssetInfo._dash_cmaf:
                         case AssetInfo.format_dash_csf:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.DASHIFRefPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                             break;
 
                         default:
@@ -144,19 +144,19 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItemPlaybackMP4_Click(object sender, EventArgs e)
+        private async void toolStripMenuItemPlaybackMP4_Click(object sender, EventArgs e)
         {
-            DoHTMLPlayer();
+            await DoHTMLPlayerAsync();
         }
 
-        private void DoHTMLPlayer()
+        private async Task DoHTMLPlayerAsync()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
+                   await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.MP4AzurePage, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                 }
             }
         }
@@ -803,15 +803,15 @@ namespace AMSExplorer
             }
         }
 
-        private void buttonCopyStats_Click(object sender, EventArgs e)
+        private async void buttonCopyStats_Click(object sender, EventArgs e)
         {
-            DoDisplayAssetStats();
+            await DoDisplayAssetStatsAsync();
         }
 
-        private void DoDisplayAssetStats()
+        private async Task DoDisplayAssetStatsAsync()
         {
             AssetInfo MyAssetReport = new AssetInfo(myAssetV3, _amsClient);
-            StringBuilder SB = MyAssetReport.GetStats();
+            StringBuilder SB = await MyAssetReport.GetStatsAsync();
             using (EditorXMLJSON tokenDisplayForm
                 = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, false, false))
             {
@@ -880,15 +880,15 @@ namespace AMSExplorer
             DoDisplayFileProperties();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
-            DoDASHIFPlayer();
+            await DoDASHIFPlayerAsync();
         }
 
 
-        private void buttonHTML_Click(object sender, EventArgs e)
+        private async void buttonHTML_Click(object sender, EventArgs e)
         {
-            DoHTMLPlayer();
+            await DoHTMLPlayerAsync();
         }
 
         private void TreeViewLocators_AfterSelect(object sender, TreeViewEventArgs e)
@@ -941,12 +941,12 @@ namespace AMSExplorer
             }
         }
 
-        private void playbackWithToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void playbackWithToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoAzureMediaPlayer();
+            await DoAzureMediaPlayerAsync();
         }
 
-        private void DoAzureMediaPlayer(PlayerType playerType = PlayerType.AzureMediaPlayer)
+        private async Task DoAzureMediaPlayerAsync(PlayerType playerType = PlayerType.AzureMediaPlayer)
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -956,20 +956,20 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case "Dash":
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
 
                             break;
 
                         case "SmoothStreaming":
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
                             break;
 
                         case "Hls":
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
                             break;
 
                         case "Download":
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
                             break;
 
                         default:
@@ -979,9 +979,9 @@ namespace AMSExplorer
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            DoAzureMediaPlayer();
+           await DoAzureMediaPlayerAsync();
         }
 
         private async void button1_Click_1(object sender, EventArgs e)
@@ -1575,7 +1575,7 @@ namespace AMSExplorer
         private async Task DoPlayWithFilterAsync()
         {
             var selFilters = await ReturnSelectedFiltersAsync();
-            myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, new List<Asset>() { myAssetV3 }, selFilters.FirstOrDefault().Name);
+            await myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer, new List<Asset>() { myAssetV3 }, selFilters.FirstOrDefault().Name);
         }
 
         private async void playWithThisFilterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2080,9 +2080,9 @@ namespace AMSExplorer
             DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripFiles, contextMenuStripKey, contextMenuStripFilter }, e, this);
         }
 
-        private void Button1_Click_2(object sender, EventArgs e)
+        private async void Button1_Click_2(object sender, EventArgs e)
         {
-            DoAzureMediaPlayer(PlayerType.AdvancedTestPlayer);
+           await DoAzureMediaPlayerAsync(PlayerType.AdvancedTestPlayer);
         }
     }
 }

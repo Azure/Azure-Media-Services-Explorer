@@ -158,7 +158,7 @@ namespace AMSExplorer
             {
                 WorkerSupportsCancellation = true
             };
-            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshChannels_DoWork);
+            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshLiveOutputs_DoWork);
 
             _initialized = true;
         }
@@ -183,7 +183,7 @@ namespace AMSExplorer
             }
         }
 
-        public void RefreshProgram(string liveeventName, LiveOutput program)
+        public async Task RefreshLiveOutputAsync(string liveeventName, LiveOutput liveOutput)
         {
             int index = -1;
 
@@ -191,7 +191,7 @@ namespace AMSExplorer
             {
                 foreach (LiveOutputEntry CE in _MyObservLiveOutputs) // let's search for index
                 {
-                    if (CE.Name == program.Name)
+                    if (CE.Name == liveOutput.Name)
                     {
                         index = _MyObservLiveOutputs.IndexOf(CE);
                         break;
@@ -203,15 +203,15 @@ namespace AMSExplorer
             { // we update the observation collection
                 _client.RefreshTokenIfNeeded();
 
-                program = _client.AMSclient.LiveOutputs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveeventName, program.Name); //refresh
-                if (program != null)
+                liveOutput = await _client.AMSclient.LiveOutputs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveeventName, liveOutput.Name); //refresh
+                if (liveOutput != null)
                 {
                     try // sometimes, index could be wrong id program has been deleted
                     {
-                        _MyObservLiveOutputs[index].State = program.ResourceState;
-                        _MyObservLiveOutputs[index].Description = program.Description;
-                        _MyObservLiveOutputs[index].ArchiveWindowLength = program.ArchiveWindowLength;
-                        _MyObservLiveOutputs[index].LastModified = program.LastModified != null ? (DateTime?)((DateTime)program.LastModified).ToLocalTime() : null;
+                        _MyObservLiveOutputs[index].State = liveOutput.ResourceState;
+                        _MyObservLiveOutputs[index].Description = liveOutput.Description;
+                        _MyObservLiveOutputs[index].ArchiveWindowLength = liveOutput.ArchiveWindowLength;
+                        _MyObservLiveOutputs[index].LastModified = liveOutput.LastModified != null ? (DateTime?)((DateTime)liveOutput.LastModified).ToLocalTime() : null;
                         Refresh();
                     }
                     catch
@@ -221,12 +221,17 @@ namespace AMSExplorer
             }
         }
 
-        private void WorkerRefreshChannels_DoWork(object sender, DoWorkEventArgs e)
+        private void WorkerRefreshLiveOutputs_DoWork(object sender, DoWorkEventArgs e) // all assets are refreshed
         {
-            Debug.WriteLine("WorkerRefreshChannels_DoWork");
+            Task.Run(() => WorkerRefreshLiveOutputs_DoWorkAsync(sender, e)).ConfigureAwait(false);
+        }
+
+        private async Task WorkerRefreshLiveOutputs_DoWorkAsync(object sender, DoWorkEventArgs e)
+        {
+            Debug.WriteLine("WorkerRefreshLiveOutputs_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveOutput liveOutputItem;
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
 
             foreach (LiveOutputEntry CE in _MyObservLiveOutputs)
             {
@@ -234,7 +239,7 @@ namespace AMSExplorer
                 liveOutputItem = null;
                 try
                 {
-                    liveOutputItem = _client.AMSclient.LiveOutputs.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.LiveEventName, CE.Name);
+                    liveOutputItem = await _client.AMSclient.LiveOutputs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.LiveEventName, CE.Name);
                     if (liveOutputItem != null)
                     {
                         CE.State = liveOutputItem.ResourceState;
@@ -301,7 +306,7 @@ namespace AMSExplorer
             }
 
             float scale = DeviceDpi / 96f;
-
+            /*
             IEnumerable<LiveOutputEntry> programquery = from c in (LOList)
                                                             //orderby c.LastModified descending
                                                         select new LiveOutputEntry
@@ -311,11 +316,30 @@ namespace AMSExplorer
                                                             Description = c.LiveOutputItem.Description,
                                                             ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
                                                             LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
-                                                            Published = (Bitmap)HighDpiHelper.ScaleImage(DataGridViewAssets.BuildBitmapPublication(c.LiveOutputItem.AssetName, _client).bitmap, scale),
+                                                            Published = (Bitmap)HighDpiHelper.ScaleImage((await DataGridViewAssets.BuildBitmapPublicationAsync(c.LiveOutputItem.AssetName, _client)).bitmap, scale),
                                                             LiveEventName = c.LiveEventName
                                                         };
+                                                        */
 
+            var tasksBuildBitmaps = LOList.Select(
+                                        async item => new
+                                        {
+                                            LOExt = item,
+                                            LOBitmap = await DataGridViewAssets.BuildBitmapPublicationAsync(item.LiveOutputItem.AssetName, _client)
+                                        });
 
+            var programquery = (await Task.WhenAll(tasksBuildBitmaps))
+                                            .Select(c =>
+                                                          new LiveOutputEntry
+                                                          {
+                                                              Name = c.LOExt.LiveOutputItem.Name,
+                                                              State = c.LOExt.LiveOutputItem.ResourceState,
+                                                              Description = c.LOExt.LiveOutputItem.Description,
+                                                              ArchiveWindowLength = c.LOExt.LiveOutputItem.ArchiveWindowLength,
+                                                              LastModified = c.LOExt.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LOExt.LiveOutputItem.LastModified).ToLocalTime() : null,
+                                                              Published = (Bitmap)HighDpiHelper.ScaleImage(c.LOBitmap.bitmap, scale),
+                                                              LiveEventName = c.LOExt.LiveEventName
+                                                          });
 
             _MyObservLiveOutputs = new SortableBindingList<LiveOutputEntry>(programquery.ToList());
             BeginInvoke(new Action(() => DataSource = _MyObservLiveOutputs));
@@ -326,5 +350,4 @@ namespace AMSExplorer
             Debug.WriteLine("RefreshPrograms : end");
         }
     }
-
 }

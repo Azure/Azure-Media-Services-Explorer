@@ -292,7 +292,7 @@ namespace AMSExplorer
             textBoxDurationTime.Text = (timeControlEnd.TimeStampWithOffset - timeControlStart.TimeStampWithOffset).ToString();
         }
 
-        private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
+        private async void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
         {
             if (!radioButtonClipWithReencode.Checked && !radioButtonAssetFilter.Checked)
             {
@@ -307,7 +307,7 @@ namespace AMSExplorer
              checkBoxTrimming.Checked;
 
             CheckIfErrorTimeControls();
-            PlaybackAsset();
+            await PlaybackAssetAsync();
         }
 
         private void UpdateJSONInfo()
@@ -439,22 +439,22 @@ namespace AMSExplorer
 
         }
 
-        private void checkBoxPreviewStream_CheckedChanged_1(object sender, EventArgs e)
+        private async void checkBoxPreviewStream_CheckedChanged_1(object sender, EventArgs e)
         {
-            PlaybackAsset();
+            await PlaybackAssetAsync();
         }
 
-        private void PlaybackAsset()
+        private async Task PlaybackAssetAsync()
         {
             if (checkBoxPreviewStream.Checked && checkBoxTrimming.Checked && _tempStreamingLocator != null)
             {
                 Asset myAsset = _selectedAssets.FirstOrDefault();
 
-                Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset, _amsClientV3, _tempStreamingLocator.Name);
+                Uri myuri = await AssetInfo.GetValidOnDemandURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
 
                 if (myuri != null)
                 {
-                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetInfo.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
+                    string myurl = await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetInfo.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
                     webBrowserPreview.Url = new Uri(myurl);
                 }
                 else

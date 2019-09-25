@@ -38,6 +38,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -889,6 +890,25 @@ namespace AMSExplorer
             }
         }
 
+        public static async Task<AssetStreamingLocator> IsThereALocatorValidAsync(Asset asset, AMSClientV3 amsClient)
+        {
+            if (asset == null) return null;
+
+            await amsClient.RefreshTokenIfNeededAsync();
+            IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, asset.Name))
+                                                    .StreamingLocators;
+
+            if (locators.Count > 0)
+            {
+                AssetStreamingLocator LocatorQuery = locators.Where(l => ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.EndTime > DateTime.UtcNow)).FirstOrDefault();
+                if (LocatorQuery != null)
+                {
+                    return LocatorQuery;
+                }
+            }
+            return null;
+        }
+
         public static string GetSmoothLegacy(string smooth_uri)
         {
             return string.Format("{0}(format={1})", smooth_uri, format_smooth_legacy);
@@ -1681,9 +1701,9 @@ namespace AMSExplorer
         }
 
 
-        public void CopyStatsToClipBoard()
+        public async Task CopyStatsToClipBoardAsync()
         {
-            StringBuilder SB = GetStats();
+            StringBuilder SB = await GetStatsAsync();
             Clipboard.SetText(SB.ToString());
         }
 
@@ -1747,7 +1767,7 @@ namespace AMSExplorer
         }
 
 
-        public static AssetProtectionType GetAssetProtection(Asset MyAsset, AMSClientV3 client, AssetStreamingLocator locator)
+        public static async Task<AssetProtectionType> GetAssetProtectionAsync(Asset MyAsset, AMSClientV3 client, AssetStreamingLocator locator)
         {
             AssetProtectionType type = AssetProtectionType.None;
 
@@ -1795,7 +1815,7 @@ namespace AMSExplorer
         }
 
 
-        public StringBuilder GetStats()
+        public async Task<StringBuilder> GetStatsAsync()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -1804,7 +1824,7 @@ namespace AMSExplorer
                 // Asset Stats
                 foreach (Asset theAsset in SelectedAssetsV3)
                 {
-                    sb.Append(GetStat(theAsset, _amsClient));
+                    sb.Append(await GetStatAsync(theAsset, _amsClient));
                 }
             }
             return sb;
@@ -1902,7 +1922,7 @@ namespace AMSExplorer
             return sb;
         }
         */
-        public static async Task<StringBuilder> GetStat(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
+        public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
         {
             StringBuilder sb = new StringBuilder();
             AssetInfoData MyAssetTypeInfo = await AssetInfo.GetAssetTypeAsync(MyAsset.Name, _amsClient);
@@ -1921,24 +1941,24 @@ namespace AMSExplorer
                     size += (blob as CloudBlockBlob).Properties.Length;
                 }
             }
-            sb.AppendLine("Asset Name          : " + MyAsset.Name);
-            sb.AppendLine("Asset Description   : " + MyAsset.Description);
+            sb.AppendLine("Asset Name              : " + MyAsset.Name);
+            sb.AppendLine("Asset Description       : " + MyAsset.Description);
 
-            sb.AppendLine("Asset Type          : " + MyAssetTypeInfo.Type);
-            sb.AppendLine("Id                  : " + MyAsset.Id);
-            sb.AppendLine("Asset Id            : " + MyAsset.AssetId);
+            sb.AppendLine("Asset Type              : " + MyAssetTypeInfo.Type);
+            sb.AppendLine("Id                      : " + MyAsset.Id);
+            sb.AppendLine("Asset Id                : " + MyAsset.AssetId);
 
-            sb.AppendLine("Alternate ID        : " + MyAsset.AlternateId);
+            sb.AppendLine("Alternate ID            : " + MyAsset.AlternateId);
             if (size != -1)
             {
-                sb.AppendLine("Size                : " + FormatByteSize(size));
+                sb.AppendLine("Size                    : " + FormatByteSize(size));
             }
 
-            sb.AppendLine("Container           : " + MyAsset.Container);
-            sb.AppendLine("Created (UTC)       : " + MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
-            sb.AppendLine("Last Modified (UTC) : " + MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
-            sb.AppendLine("Storage account     : " + MyAsset.StorageAccountName);
-            sb.AppendLine("Storage Encryption  : " + MyAsset.StorageEncryptionFormat);
+            sb.AppendLine("Container               : " + MyAsset.Container);
+            sb.AppendLine("Created (UTC)           : " + MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
+            sb.AppendLine("Last Modified (UTC)     : " + MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
+            sb.AppendLine("Storage account         : " + MyAsset.StorageAccountName);
+            sb.AppendLine("Storage Encryption      : " + MyAsset.StorageEncryptionFormat);
 
             sb.AppendLine(string.Empty);
 
@@ -2035,7 +2055,7 @@ namespace AMSExplorer
         }
 
 
-        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string path, AMSClientV3 client, Mainform mainForm,
+        public static async Task<string> DoPlayBackWithStreamingEndpointAsync(PlayerType typeplayer, string path, AMSClientV3 client, Mainform mainForm,
             Asset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "",
@@ -2045,7 +2065,7 @@ namespace AMSExplorer
 
             if (!string.IsNullOrEmpty(path))
             {
-                StreamingEndpoint choosenSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(client)).Result;
+                StreamingEndpoint choosenSE = await AssetInfo.GetBestStreamingEndpointAsync(client);
 
                 if (choosenSE == null)
                 {
@@ -2070,7 +2090,7 @@ namespace AMSExplorer
 
                 if (myasset != null)
                 {
-                    keytype = locator != null ? AssetInfo.GetAssetProtection(myasset, client, locator) : AssetProtectionType.None; // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
+                    keytype = locator != null ? await AssetInfo.GetAssetProtectionAsync(myasset, client, locator) : AssetProtectionType.None; // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
                 }
             }
 
@@ -4079,6 +4099,8 @@ namespace AMSExplorer
             var newSize = ScaleSize(image.Size, dpiScale);
             var newBitmap = new Bitmap(newSize.Width, newSize.Height);
 
+            Bitmap tempbitmap = (Bitmap)image; // to avoid multi thread using the same bitmap and create an exception
+
             using (var g = Graphics.FromImage(newBitmap))
             {
                 // According to this blog post http://blogs.msdn.com/b/visualstudio/archive/2014/03/19/improving-high-dpi-support-for-visual-studio-2013.aspx
@@ -4089,7 +4111,7 @@ namespace AMSExplorer
                 //     interpolationMode = InterpolationMode.NearestNeighbor;
 
                 g.InterpolationMode = interpolationMode;
-                g.DrawImage(image, new System.Drawing.Rectangle(new Point(), newSize));
+                g.DrawImage(tempbitmap, new System.Drawing.Rectangle(new Point(), newSize));
             }
 
             return newBitmap;

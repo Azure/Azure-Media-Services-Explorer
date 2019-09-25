@@ -128,14 +128,14 @@ namespace AMSExplorer
             */
         }
 
-        public void Init(AMSClientV3 client)
+        public async Task InitAsync(AMSClientV3 client)
         {
             IEnumerable<LiveEventEntry> channelquery;
 
             _client = client;
             float scale = DeviceDpi / 96f;
 
-            Microsoft.Rest.Azure.IPage<LiveEvent> liveevents = _client.AMSclient.LiveEvents.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<LiveEvent> liveevents =await  _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             channelquery = from c in liveevents.Take(0)
                            orderby c.LastModified descending
@@ -212,7 +212,7 @@ namespace AMSExplorer
             {
                 WorkerSupportsCancellation = true
             };
-            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshChannels_DoWork);
+            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshLiveEvents_DoWork);
 
             _initialized = true;
         }
@@ -237,7 +237,7 @@ namespace AMSExplorer
             }
         }
 
-        public void RefreshLiveEvent(LiveEvent liveEventItem)
+        public async Task RefreshLiveEventAsync(LiveEvent liveEventItem)
         {
             int index = -1;
             foreach (LiveEventEntry CE in _MyObservLiveEvent) // let's search for index
@@ -252,7 +252,7 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
                 _client.RefreshTokenIfNeeded();
-                liveEventItem = _client.AMSclient.LiveEvents.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveEventItem.Name); //refresh
+                liveEventItem = await _client.AMSclient.LiveEvents.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
@@ -263,20 +263,25 @@ namespace AMSExplorer
             }
         }
 
-        private void WorkerRefreshChannels_DoWork(object sender, DoWorkEventArgs e)
+        private void WorkerRefreshLiveEvents_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Task.Run(() => WorkerRefreshLiveEvents_DoWorkAsync(sender, e)).ConfigureAwait(false);
+        }
+
+        private async Task WorkerRefreshLiveEvents_DoWorkAsync(object sender, DoWorkEventArgs e)
         {
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveEvent liveEventInputItem;
 
-            _client.RefreshTokenIfNeeded();
+            await _client.RefreshTokenIfNeededAsync();
             foreach (LiveEventEntry CE in _MyObservLiveEvent)
             {
 
                 liveEventInputItem = null;
                 try
                 {
-                    liveEventInputItem = _client.AMSclient.LiveEvents.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.Name);
+                    liveEventInputItem = await _client.AMSclient.LiveEvents.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.Name);
                     if (liveEventInputItem != null)
                     {
                         CE.State = liveEventInputItem.ResourceState;
@@ -320,7 +325,7 @@ namespace AMSExplorer
                        {
                            Name = c.Name,
                            Description = c.Description,
-                           InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
+                           InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString(), c.Input.Endpoints.Count),
                            Encoding = (Bitmap)HighDpiHelper.ScaleImage(ReturnChannelBitmap(c), scale),
                            EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
                            InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,

@@ -91,12 +91,12 @@ namespace AMSExplorer
         private static BackgroundWorker WorkerRefreshStreamingEndpoints;
         private AMSClientV3 _amsClient;
 
-        public void Init(AMSClientV3 client)
+        public async Task InitAsync(AMSClientV3 client)
         {
             IEnumerable<StreamingEndpointEntry> originquery;
             _amsClient = client;
             _amsClient.RefreshTokenIfNeeded();
-            var ses = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+            var ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             originquery = ses.Select(o => new
                           StreamingEndpointEntry
