@@ -1061,16 +1061,11 @@ namespace AMSExplorer
                         {
                             blob.Properties.ContentType = "video/mp4";
                         }
-                        //Console.WriteLine("Uploading File to container: {0}", sasUri);
 
                         await blob.UploadFromFileAsync(file);
                         progressBarUpload.Value = 100 * i;
                         i++;
-
-                        //await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(file), file, myAssetV3));
                     }
-                    // Refresh the asset.
-                    //    myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
                     progressBarUpload.Visible = false;
                     buttonClose.Enabled = true;
                     buttonUpload.Enabled = true;
@@ -2083,6 +2078,69 @@ namespace AMSExplorer
         private async void Button1_Click_2(object sender, EventArgs e)
         {
            await DoAzureMediaPlayerAsync(PlayerType.AdvancedTestPlayer);
+        }
+
+        private void ListViewFiles_DragEnter(object sender, DragEventArgs e)
+        {
+            // If the data is a file display the copy cursor. 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private async void ListViewFiles_DragDrop(object sender, DragEventArgs e)
+        {
+            await DoDragAndDropUploadAsync(e);
+        }
+
+        private async Task DoDragAndDropUploadAsync(DragEventArgs e)
+        {
+            // Handle FileDrop data. 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Assign the file names to a string array, in  
+                // case the user has selected multiple files. 
+                string[] objects = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                List<string> files = objects.Where(f => !Directory.Exists(f)).ToList();
+
+                if (files.Count > 0)
+                {
+                    //  await DoMenuUploadFromSingleFileS_Step2Async(files.ToArray()); // let's upload the objects as files, each file as an individual asset
+
+                    progressBarUpload.Maximum = 100 * (files.Count() + 1);
+                    progressBarUpload.Value = 0;
+                    progressBarUpload.Visible = true;
+
+                    buttonClose.Enabled = false;
+                    buttonUpload.Enabled = false;
+
+                    CloudBlobContainer container = await GetRWContainerOfAssetAsync();
+
+                    int i = 1;
+                    foreach (string file in files)
+                    {
+                        CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(file));
+                        if (file.ToLower().EndsWith(".mp4"))
+                        {
+                            blob.Properties.ContentType = "video/mp4";
+                        }
+
+                        await blob.UploadFromFileAsync(file);
+                        progressBarUpload.Value = 100 * i;
+                        i++;
+                    }
+                    progressBarUpload.Visible = false;
+                    buttonClose.Enabled = true;
+                    buttonUpload.Enabled = true;
+                    await ListAssetBlobsAsync();
+                }
+            }
         }
     }
 }

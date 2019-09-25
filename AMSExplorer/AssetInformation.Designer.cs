@@ -356,6 +356,7 @@
             // 
             // listViewFiles
             // 
+            this.listViewFiles.AllowDrop = true;
             resources.ApplyResources(this.listViewFiles, "listViewFiles");
             this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ListViewFilesName,
@@ -367,6 +368,8 @@
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
             this.listViewFiles.View = System.Windows.Forms.View.Details;
             this.listViewFiles.SelectedIndexChanged += new System.EventHandler(this.listViewFiles_SelectedIndexChanged);
+            this.listViewFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListViewFiles_DragDrop);
+            this.listViewFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListViewFiles_DragEnter);
             // 
             // ListViewFilesName
             // 
