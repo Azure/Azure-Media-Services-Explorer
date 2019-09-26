@@ -156,7 +156,7 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                   await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.MP4AzurePage, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
+                    await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.MP4AzurePage, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                 }
             }
         }
@@ -267,17 +267,8 @@ namespace AMSExplorer
             while (continuationToken != null);
 
             listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            listViewFiles.Items[0].Selected = true;
+            if (listViewFiles.Items.Count > 0) listViewFiles.Items[0].Selected = true;
             listViewFiles.EndUpdate();
-
-            /*
-            // Generate manifest button
-            var mp4AssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase));
-            var ismAssetFiles = myAsset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase));
-            buttonGenerateManifest.Enabled = (ismAssetFiles.Count() == 0 && mp4AssetFiles.Count() > 0);
-
-            return size;
-            */
         }
 
 
@@ -981,7 +972,7 @@ namespace AMSExplorer
 
         private async void button1_Click(object sender, EventArgs e)
         {
-           await DoAzureMediaPlayerAsync();
+            await DoAzureMediaPlayerAsync();
         }
 
         private async void button1_Click_1(object sender, EventArgs e)
@@ -2077,7 +2068,7 @@ namespace AMSExplorer
 
         private async void Button1_Click_2(object sender, EventArgs e)
         {
-           await DoAzureMediaPlayerAsync(PlayerType.AdvancedTestPlayer);
+            await DoAzureMediaPlayerAsync(PlayerType.AdvancedTestPlayer);
         }
 
         private void ListViewFiles_DragEnter(object sender, DragEventArgs e)

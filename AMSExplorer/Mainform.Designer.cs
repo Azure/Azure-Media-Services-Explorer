@@ -90,8 +90,8 @@
             this.ContextMenuItemAssetPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             this.withAdvancedTestPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
             this.butNextPageAsset = new System.Windows.Forms.Button();
@@ -338,6 +338,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
+            this.newAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -495,6 +496,7 @@
             this.ContextMenuItemAssetDelete,
             this.toolsToolStripMenuItem,
             this.toolStripSeparator36,
+            this.newAssetToolStripMenuItem,
             this.toolStripMenuItem17,
             this.importToolStripMenuItem1,
             this.exportToolStripMenuItem,
@@ -850,17 +852,17 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
-            // ContextMenuItemPlaybackWithMPEGDASHIFReference
-            // 
-            this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Name = "ContextMenuItemPlaybackWithMPEGDASHIFReference";
-            resources.ApplyResources(this.ContextMenuItemPlaybackWithMPEGDASHIFReference, "ContextMenuItemPlaybackWithMPEGDASHIFReference");
-            this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Click += new System.EventHandler(this.withMPEGDASHIFReferencePlayerToolStripMenuItem_Click);
-            // 
             // withAdvancedTestPlayerToolStripMenuItem
             // 
             this.withAdvancedTestPlayerToolStripMenuItem.Name = "withAdvancedTestPlayerToolStripMenuItem";
             resources.ApplyResources(this.withAdvancedTestPlayerToolStripMenuItem, "withAdvancedTestPlayerToolStripMenuItem");
             this.withAdvancedTestPlayerToolStripMenuItem.Click += new System.EventHandler(this.WithAdvancedTestPlayerToolStripMenuItem_Click);
+            // 
+            // ContextMenuItemPlaybackWithMPEGDASHIFReference
+            // 
+            this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Name = "ContextMenuItemPlaybackWithMPEGDASHIFReference";
+            resources.ApplyResources(this.ContextMenuItemPlaybackWithMPEGDASHIFReference, "ContextMenuItemPlaybackWithMPEGDASHIFReference");
+            this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Click += new System.EventHandler(this.withMPEGDASHIFReferencePlayerToolStripMenuItem_Click);
             // 
             // withCustomPlayerToolStripMenuItem1
             // 
@@ -2735,6 +2737,12 @@
             resources.ApplyResources(this.panelButtons, "panelButtons");
             this.panelButtons.Name = "panelButtons";
             // 
+            // newAssetToolStripMenuItem
+            // 
+            this.newAssetToolStripMenuItem.Name = "newAssetToolStripMenuItem";
+            resources.ApplyResources(this.newAssetToolStripMenuItem, "newAssetToolStripMenuItem");
+            this.newAssetToolStripMenuItem.Click += new System.EventHandler(this.NewAssetToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -3120,6 +3128,7 @@
         private System.Windows.Forms.ToolStripMenuItem withAdvancedTestPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withAdvancedTestPlayerToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem advancedTestPlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newAssetToolStripMenuItem;
     }
 }
 

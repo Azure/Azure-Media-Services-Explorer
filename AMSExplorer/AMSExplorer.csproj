@@ -357,6 +357,12 @@
     <Compile Include="StreamingEndpointCDNEnable.Designer.cs">
       <DependentUpon>StreamingEndpointCDNEnable.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewAsset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewAsset.Designer.cs">
+      <DependentUpon>NewAsset.cs</DependentUpon>
+    </Compile>
     <Compile Include="UploadOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -875,6 +881,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TimeRangeSelection.ja.resx">
       <DependentUpon>TimeRangeSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewAsset.ja.resx">
+      <DependentUpon>NewAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewAsset.resx">
+      <DependentUpon>NewAsset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UploadOptions.ja.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>

@@ -8759,6 +8759,34 @@ namespace AMSExplorer
         {
             Process.Start(Constants.AdvancedTestPlayer);
         }
+
+        private async void NewAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoNewAssetAsync();
+        }
+
+        private async Task DoNewAssetAsync()
+        {
+            string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+
+            NewAsset myForm = new NewAsset(_amsClient) { AssetName = "asset-" + uniqueness };
+            if (myForm.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    TextBoxLogWriteLine("Creating asset '{0}'...", myForm.AssetName);
+                    Asset assetParam = new Asset() { StorageAccountName = myForm.StorageSelected, Container = myForm.AssetContainer, AlternateId = myForm.AssetAltId, Description = myForm.AssetDescription };
+                    await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myForm.AssetName, assetParam);
+                    TextBoxLogWriteLine("Asset '{0}' created.", myForm.AssetName);
+                }
+                catch (Exception e)
+                {
+                    TextBoxLogWriteLine("Error when creating asset.", true);
+                    TextBoxLogWriteLine(e);
+                }
+                DoRefreshGridAssetV(false);
+            }
+        }
     }
 }
 
