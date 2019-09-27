@@ -43,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonAdvancedOptions = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBoxMultifiles.SuspendLayout();
             this.SuspendLayout();
@@ -145,6 +146,13 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // buttonAdvancedOptions
+            // 
+            resources.ApplyResources(this.buttonAdvancedOptions, "buttonAdvancedOptions");
+            this.buttonAdvancedOptions.Name = "buttonAdvancedOptions";
+            this.buttonAdvancedOptions.UseVisualStyleBackColor = true;
+            this.buttonAdvancedOptions.Click += new System.EventHandler(this.ButtonAdvancedOptions_Click);
+            // 
             // UploadOptions
             // 
             this.AcceptButton = this.buttonOk;
@@ -152,6 +160,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.buttonAdvancedOptions);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxBlockSize);
@@ -187,5 +196,6 @@
         private System.Windows.Forms.ComboBox comboBoxBlockSize;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonAdvancedOptions;
     }
 }

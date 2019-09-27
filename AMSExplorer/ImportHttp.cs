@@ -26,19 +26,36 @@ namespace AMSExplorer
         private readonly bool _AzureStorageContainerSASListMode;
         private readonly AMSClientV3 _amsClientV3;
         private readonly string _uniqueness;
+        private NewAsset newAssetForm = null;
+
 
         public Uri GetURL
         {
-            get => new Uri(textBoxURL.Text);
-
+            get
+            {
+                try
+                {
+                    Uri myUri = new Uri(textBoxURL.Text);
+                    return myUri;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
             set => textBoxURL.Text = value.ToString();
         }
 
-        public string GetAssetName => textBoxAssetName.Text;
-
-        public string GetAssetDescription => textBoxDescription.Text;
 
         public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
+
+        public NewAsset assetCreationSetting
+        {
+            get
+            {
+                return newAssetForm;
+            }
+        }
 
         public ImportHttp(AMSClientV3 amsClient, bool AzureStorageContainerSASListMode = false)
         {
@@ -55,10 +72,8 @@ namespace AMSExplorer
         {
             DpiUtils.InitPerMonitorDpi(this);
             labelURLFileNameWarning.Text = string.Empty;
-            textBoxAssetName.Text = "import-" + _uniqueness;
 
             _amsClientV3.RefreshTokenIfNeeded();
-
 
             if (_AzureStorageContainerSASListMode)
             {
@@ -80,6 +95,7 @@ namespace AMSExplorer
                     comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
                 }
             }
+
         }
 
         private void textBoxURL_TextChanged(object sender, EventArgs e)
@@ -87,7 +103,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                Uri myUri = GetURL;
+                Uri myUri = new Uri(textBoxURL.Text);
             }
             catch
             {
@@ -100,7 +116,6 @@ namespace AMSExplorer
             {
                 buttonImport.Enabled = true;
                 labelURLFileNameWarning.Text = string.Empty;
-                textBoxDescription.Text = "Imported from : " + GetURL.AbsoluteUri;
             }
         }
 
@@ -108,5 +123,37 @@ namespace AMSExplorer
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
+
+        private void ButtonAdvancedOptions_Click(object sender, EventArgs e)
+        {
+            string altid = null, assetName = null, desc = null, container = null;
+
+            if (newAssetForm == null)
+            {
+                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                newAssetForm = new NewAsset(_amsClientV3, true)
+                {
+                    AssetName = "upload-" + uniqueness,
+                    AssetDescription = "Imported from : " + GetURL.AbsoluteUri
+                };
+            }
+            else
+            {
+                //let's backup settings
+                altid = newAssetForm.AssetAltId;
+                desc = newAssetForm.AssetDescription;
+                container = newAssetForm.AssetContainer;
+            }
+                assetName = newAssetForm.AssetName;
+
+
+                if (newAssetForm.ShowDialog() != DialogResult.OK)
+                {
+                    newAssetForm.AssetAltId = altid;
+                    newAssetForm.AssetName = assetName;
+                    newAssetForm.AssetDescription = desc;
+                    newAssetForm.AssetContainer = container;
+                }
+            }
+        }
     }
-}

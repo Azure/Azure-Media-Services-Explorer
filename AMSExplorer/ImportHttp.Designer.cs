@@ -35,18 +35,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxURL = new System.Windows.Forms.TextBox();
             this.labelExamples = new System.Windows.Forms.Label();
-            this.textBoxAssetName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelSASListExample = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.buttonAdvancedOptions = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -83,16 +80,6 @@
             this.labelExamples.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelExamples.Name = "labelExamples";
             // 
-            // textBoxAssetName
-            // 
-            resources.ApplyResources(this.textBoxAssetName, "textBoxAssetName");
-            this.textBoxAssetName.Name = "textBoxAssetName";
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
             // labelURLFileNameWarning
             // 
             resources.ApplyResources(this.labelURLFileNameWarning, "labelURLFileNameWarning");
@@ -102,24 +89,11 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBoxDescription);
+            this.groupBox1.Controls.Add(this.buttonAdvancedOptions);
             this.groupBox1.Controls.Add(this.label33);
             this.groupBox1.Controls.Add(this.comboBoxStorage);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBoxAssetName);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // textBoxDescription
-            // 
-            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
-            this.textBoxDescription.Name = "textBoxDescription";
             // 
             // label33
             // 
@@ -157,6 +131,13 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // buttonAdvancedOptions
+            // 
+            resources.ApplyResources(this.buttonAdvancedOptions, "buttonAdvancedOptions");
+            this.buttonAdvancedOptions.Name = "buttonAdvancedOptions";
+            this.buttonAdvancedOptions.UseVisualStyleBackColor = true;
+            this.buttonAdvancedOptions.Click += new System.EventHandler(this.ButtonAdvancedOptions_Click);
+            // 
             // ImportHttp
             // 
             this.AcceptButton = this.buttonImport;
@@ -191,8 +172,6 @@
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxURL;
         public System.Windows.Forms.Label labelExamples;
-        private System.Windows.Forms.TextBox textBoxAssetName;
-        public System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
@@ -201,7 +180,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
-        public System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.Button buttonAdvancedOptions;
     }
 }

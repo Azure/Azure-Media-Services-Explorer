@@ -16,6 +16,8 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.Storage.Models;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -24,6 +26,8 @@ namespace AMSExplorer
     public partial class UploadOptions : Form
     {
         private readonly AMSClientV3 _amsClientV3;
+        private readonly bool _multifilesMode;
+        private NewAsset newAssetForm = null;
 
         public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
 
@@ -38,18 +42,29 @@ namespace AMSExplorer
             }
         }
 
+        public NewAsset assetCreationSetting
+        {
+            get
+            {
+                if (_multifilesMode) return null;
+                return newAssetForm;
+            }
+        }
+
 
         public UploadOptions(AMSClientV3 amsClient, bool multifilesMode)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _amsClientV3 = amsClient;
+            _multifilesMode = multifilesMode;
 
             ControlsResetToDefault();
 
             if (multifilesMode)
             {
                 groupBoxMultifiles.Visible = true;
+                buttonAdvancedOptions.Visible = false;
             }
 
             List<int> listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
@@ -61,10 +76,10 @@ namespace AMSExplorer
         private void ControlsResetToDefault()
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            IList<StorageAccount> storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+            var storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
 
             comboBoxStorage.Items.Clear();
-            foreach (StorageAccount storage in storAccounts)
+            foreach (Microsoft.Azure.Management.Media.Models.StorageAccount storage in storAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.Type == StorageAccountType.Primary);
@@ -84,6 +99,34 @@ namespace AMSExplorer
         private void UploadOptions_Load(object sender, System.EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
+        }
+
+        private void ButtonAdvancedOptions_Click(object sender, System.EventArgs e)
+        {
+            string altid = null, assetName = null, desc = null, container = null;
+
+            if (newAssetForm == null)
+            {
+                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                newAssetForm = new NewAsset(_amsClientV3, true) { AssetName = "upload-" + uniqueness };
+            }
+            else
+            {
+                //let's backup settings
+                altid = newAssetForm.AssetAltId;
+                desc = newAssetForm.AssetDescription;
+                container = newAssetForm.AssetContainer;
+            }
+            assetName = newAssetForm.AssetName;
+
+
+            if (newAssetForm.ShowDialog() != DialogResult.OK)
+            {
+                newAssetForm.AssetAltId = altid;
+                newAssetForm.AssetName = assetName;
+                newAssetForm.AssetDescription = desc;
+                newAssetForm.AssetContainer = container;
+            }
         }
     }
 }

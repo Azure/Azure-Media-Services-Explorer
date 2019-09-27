@@ -262,57 +262,6 @@ Dropbox : http://dl.dropbox.com/object
   <data name="&gt;&gt;labelExamples.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="textBoxAssetName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxAssetName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 44</value>
-  </data>
-  <data name="textBoxAssetName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>686, 23</value>
-  </data>
-  <data name="textBoxAssetName.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;textBoxAssetName.Name" xml:space="preserve">
-    <value>textBoxAssetName</value>
-  </data>
-  <data name="&gt;&gt;textBoxAssetName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAssetName.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;textBoxAssetName.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 26</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Name :</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="labelURLFileNameWarning.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -343,59 +292,32 @@ Dropbox : http://dl.dropbox.com/object
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonAdvancedOptions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 79</value>
+  <data name="buttonAdvancedOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 44</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 15</value>
+  <data name="buttonAdvancedOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 27</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
+  <data name="buttonAdvancedOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Description :</value>
+  <data name="buttonAdvancedOptions.Text" xml:space="preserve">
+    <value>Asset creation options...</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="&gt;&gt;buttonAdvancedOptions.Name" xml:space="preserve">
+    <value>buttonAdvancedOptions</value>
   </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonAdvancedOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonAdvancedOptions.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonAdvancedOptions.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="textBoxDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 97</value>
-  </data>
-  <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
-    <value>686, 23</value>
-  </data>
-  <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.Name" xml:space="preserve">
-    <value>textBoxDescription</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="label33.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -404,7 +326,7 @@ Dropbox : http://dl.dropbox.com/object
     <value>True</value>
   </data>
   <data name="label33.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 132</value>
+    <value>7, 106</value>
   </data>
   <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 15</value>
@@ -425,13 +347,13 @@ Dropbox : http://dl.dropbox.com/object
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="comboBoxStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <data name="comboBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 151</value>
+    <value>11, 125</value>
   </data>
   <data name="comboBoxStorage.Size" type="System.Drawing.Size, System.Drawing">
     <value>327, 23</value>
@@ -449,13 +371,13 @@ Dropbox : http://dl.dropbox.com/object
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;comboBoxStorage.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 200</value>
+    <value>36, 226</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>720, 191</value>
+    <value>720, 165</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>

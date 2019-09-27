@@ -622,13 +622,13 @@ namespace AMSExplorer
                 return;
             }
 
-            if (FileNames.Count() > 1 && form.SingleAsset) // all files in one asset
+            if ((FileNames.Count() > 1 && form.SingleAsset) || (FileNames.Count() == 1)) // one file only, or all files in one asset
             {
                 try
                 {
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize);
+                    await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize, newAssetCreationSettings: form.assetCreationSetting);
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
                 catch (Exception ex)
@@ -683,7 +683,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessUploadFileAndMoreV3Async(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, int blocksize = 4)
+        private async Task ProcessUploadFileAndMoreV3Async(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, int blocksize = 4, NewAsset newAssetCreationSettings = null)
         {
             // If upload in the queue, let's wait our turn
             await DoGridTransferWaitIfNeededAsync(guidTransfer);
@@ -704,7 +704,6 @@ namespace AMSExplorer
             {
 
             }
-
 
             if (storageaccount == null)
             {
@@ -729,9 +728,26 @@ namespace AMSExplorer
                 {
                     if (destAssetName == null) // let create a new asset
                     {
-                        string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
-                        destAssetName = "uploaded-" + uniqueness;
-                        asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, new Asset() { StorageAccountName = storageaccount, Description = Path.GetFileName(filenames[0]) }, token);
+                        var assetToCreateSettings = new Asset()
+                        {
+                            StorageAccountName = storageaccount
+                        };
+
+                        if (newAssetCreationSettings != null)
+                        {
+                            destAssetName = newAssetCreationSettings.AssetName;
+                            assetToCreateSettings.AlternateId = newAssetCreationSettings.AssetAltId;
+                            assetToCreateSettings.Container = newAssetCreationSettings.AssetContainer;
+                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription;
+                        }
+                        else
+                        {
+                            string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                            destAssetName = "uploaded-" + uniqueness;
+                            assetToCreateSettings.Description = Path.GetFileName(filenames[0]);
+                        }
+
+                        asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetToCreateSettings, token);
                     }
                     else // let's reusing existing asset
                     {
@@ -798,7 +814,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessHttpSourceV3(Uri source, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, string destAssetDescription = null)
+        private async Task ProcessHttpSourceV3(Uri source, Guid guidTransfer, CancellationToken token, string storageaccount = null, NewAsset assetCreationSettings = null)
         {
 
             if (token.IsCancellationRequested)
@@ -817,16 +833,22 @@ namespace AMSExplorer
 
             bool Error = false;
             Asset asset = null;
+            string destAssetName = string.Empty;
 
             try
             {
 
-                if (destAssetName == null)
+                var assetSettings = new Asset()
                 {
-                    destAssetName = "uploaded-" + Guid.NewGuid().ToString().Substring(0, 13);
-                }
+                    StorageAccountName = storageaccount,
+                    Description = assetCreationSettings?.AssetDescription,
+                    AlternateId = assetCreationSettings?.AssetAltId,
+                    Container = assetCreationSettings?.AssetContainer
+                };
 
-                asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, new Asset() { StorageAccountName = storageaccount, Description = destAssetDescription }, token);
+                destAssetName = assetCreationSettings?.AssetName ?? "uploaded-" + Guid.NewGuid().ToString().Substring(0, 13);
+
+                asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetSettings, token);
 
 
                 ListContainerSasInput input = new ListContainerSasInput()
@@ -923,7 +945,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessHttpSASV3(Uri ObjectUrl, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, string destAssetDescription = null)
+        private async Task ProcessHttpSASV3(Uri ObjectUrl, Guid guidTransfer, CancellationToken token, string storageaccount = null, NewAsset assetCreationSettings = null)
         {
 
             if (token.IsCancellationRequested)
@@ -947,17 +969,22 @@ namespace AMSExplorer
             Asset asset = null;
             CloudBlobContainer Container = new CloudBlobContainer(ObjectUrl);
             CloudBlockBlob blockBlob;
+            string destAssetName = string.Empty;
 
             try
             {
 
-                if (destAssetName == null)
+                var assetSettings = new Asset()
                 {
-                    destAssetName = "uploaded-" + Guid.NewGuid().ToString().Substring(0, 13);
-                }
+                    StorageAccountName = storageaccount,
+                    Description = assetCreationSettings?.AssetDescription,
+                    AlternateId = assetCreationSettings?.AssetAltId,
+                    Container = assetCreationSettings?.AssetContainer
+                };
 
-                asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, new Asset() { StorageAccountName = storageaccount, Description = destAssetDescription }, token);
+                destAssetName = assetCreationSettings?.AssetName ?? "uploaded-" + Guid.NewGuid().ToString().Substring(0, 13);
 
+                asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetSettings, token);
 
                 ListContainerSasInput input = new ListContainerSasInput()
                 {
@@ -1339,12 +1366,6 @@ namespace AMSExplorer
                     return;
                 }
 
-                UploadOptions form = new UploadOptions(_amsClient, true);
-                if (form.ShowDialog() == DialogResult.Cancel)
-                {
-                    return;
-                }
-
                 _backuprootfolderupload = SelectedPath;
 
                 IEnumerable<string> filePaths = Directory.EnumerateFiles(SelectedPath as string);
@@ -1355,6 +1376,13 @@ namespace AMSExplorer
                     throw new FileNotFoundException(string.Format("No files in directory, check folderPath: {0}", SelectedPath));
                 }
 
+                UploadOptions form = new UploadOptions(_amsClient, filePaths.Count() > 1);
+                if (form.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+
                 if (form.SingleAsset)
                 {
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
@@ -1363,7 +1391,8 @@ namespace AMSExplorer
                                                           response.Id,
                                                           response.token,
                                                           storageaccount: form.StorageSelected,
-                                                          blocksize: form.BlockSize
+                                                          blocksize: form.BlockSize,
+                                                          newAssetCreationSettings: form.assetCreationSetting
                                                          );
                 }
                 else
@@ -1432,7 +1461,7 @@ namespace AMSExplorer
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", Path.GetFileName(form.GetURL.LocalPath)), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
                     // ProcessHttpSourceV3
-                    Task.Factory.StartNew(() => ProcessHttpSourceV3(form.GetURL, response.Id, response.token, form.StorageSelected, form.GetAssetName, form.GetAssetDescription), response.token);
+                    Task.Factory.StartNew(() => ProcessHttpSourceV3(form.GetURL, response.Id, response.token, form.StorageSelected, form.assetCreationSetting), response.token);
 
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
@@ -8138,7 +8167,7 @@ namespace AMSExplorer
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetURL.LocalPath), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
                     // ProcessHttpSourceV3
-                    Task<Task> myTask = Task.Factory.StartNew(() => ProcessHttpSASV3(form.GetURL, response.Id, response.token, form.StorageSelected, form.GetAssetName, form.GetAssetDescription), response.token);
+                    Task<Task> myTask = Task.Factory.StartNew(() => ProcessHttpSASV3(form.GetURL, response.Id, response.token, form.StorageSelected, form.assetCreationSetting), response.token);
 
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 }
@@ -8786,6 +8815,11 @@ namespace AMSExplorer
                 }
                 DoRefreshGridAssetV(false);
             }
+        }
+
+        private async void NewEmptyAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoNewAssetAsync();
         }
     }
 }

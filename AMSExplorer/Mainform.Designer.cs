@@ -58,6 +58,7 @@
             this.toolStripMenuItem41 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem42 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
+            this.newAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.filesToSelectedAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -269,6 +270,7 @@
             this.visibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator40 = new System.Windows.Forms.ToolStripSeparator();
+            this.newEmptyAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadFromASingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromASingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromMultipleFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -338,7 +340,6 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
-            this.newAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -628,6 +629,13 @@
             // 
             this.toolStripSeparator36.Name = "toolStripSeparator36";
             resources.ApplyResources(this.toolStripSeparator36, "toolStripSeparator36");
+            // 
+            // newAssetToolStripMenuItem
+            // 
+            this.newAssetToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.create;
+            this.newAssetToolStripMenuItem.Name = "newAssetToolStripMenuItem";
+            resources.ApplyResources(this.newAssetToolStripMenuItem, "newAssetToolStripMenuItem");
+            this.newAssetToolStripMenuItem.Click += new System.EventHandler(this.NewAssetToolStripMenuItem_Click);
             // 
             // toolStripMenuItem17
             // 
@@ -2236,6 +2244,7 @@
             this.assetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteToolStripMenuItem,
             this.toolStripSeparator40,
+            this.newEmptyAssetToolStripMenuItem,
             this.uploadFromASingleFileToolStripMenuItem,
             this.importToolStripMenuItem,
             this.copyAssetFilesToAzureStorageToolStripMenuItem,
@@ -2276,6 +2285,13 @@
             // 
             this.toolStripSeparator40.Name = "toolStripSeparator40";
             resources.ApplyResources(this.toolStripSeparator40, "toolStripSeparator40");
+            // 
+            // newEmptyAssetToolStripMenuItem
+            // 
+            this.newEmptyAssetToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.create;
+            this.newEmptyAssetToolStripMenuItem.Name = "newEmptyAssetToolStripMenuItem";
+            resources.ApplyResources(this.newEmptyAssetToolStripMenuItem, "newEmptyAssetToolStripMenuItem");
+            this.newEmptyAssetToolStripMenuItem.Click += new System.EventHandler(this.NewEmptyAssetToolStripMenuItem_Click);
             // 
             // uploadFromASingleFileToolStripMenuItem
             // 
@@ -2737,12 +2753,6 @@
             resources.ApplyResources(this.panelButtons, "panelButtons");
             this.panelButtons.Name = "panelButtons";
             // 
-            // newAssetToolStripMenuItem
-            // 
-            this.newAssetToolStripMenuItem.Name = "newAssetToolStripMenuItem";
-            resources.ApplyResources(this.newAssetToolStripMenuItem, "newAssetToolStripMenuItem");
-            this.newAssetToolStripMenuItem.Click += new System.EventHandler(this.NewAssetToolStripMenuItem_Click);
-            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -3129,6 +3139,7 @@
         private System.Windows.Forms.ToolStripMenuItem withAdvancedTestPlayerToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem advancedTestPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newAssetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newEmptyAssetToolStripMenuItem;
     }
 }
 

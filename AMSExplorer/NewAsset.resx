@@ -207,34 +207,34 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
-  <data name="label33.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labelStorage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label33.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelStorage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label33.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelStorage.Location" type="System.Drawing.Point, System.Drawing">
     <value>40, 287</value>
   </data>
-  <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelStorage.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 15</value>
   </data>
-  <data name="label33.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelStorage.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
   </data>
-  <data name="label33.Text" xml:space="preserve">
+  <data name="labelStorage.Text" xml:space="preserve">
     <value>Output storage :</value>
   </data>
-  <data name="&gt;&gt;label33.Name" xml:space="preserve">
-    <value>label33</value>
+  <data name="&gt;&gt;labelStorage.Name" xml:space="preserve">
+    <value>labelStorage</value>
   </data>
-  <data name="&gt;&gt;label33.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelStorage.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label33.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelStorage.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelStorage.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
   <data name="comboBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
@@ -620,9 +620,6 @@
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

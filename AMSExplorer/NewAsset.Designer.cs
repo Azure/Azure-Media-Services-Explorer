@@ -33,7 +33,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label33 = new System.Windows.Forms.Label();
+            this.labelStorage = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.labelNewAsset = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -76,10 +76,10 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // label33
+            // labelStorage
             // 
-            resources.ApplyResources(this.label33, "label33");
-            this.label33.Name = "label33";
+            resources.ApplyResources(this.labelStorage, "labelStorage");
+            this.labelStorage.Name = "labelStorage";
             // 
             // comboBoxStorage
             // 
@@ -187,7 +187,7 @@
             this.Controls.Add(this.textBoxAssetName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelNewAsset);
-            this.Controls.Add(this.label33);
+            this.Controls.Add(this.labelStorage);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.panel1);
             this.Name = "NewAsset";
@@ -207,7 +207,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label labelStorage;
         private System.Windows.Forms.ComboBox comboBoxStorage;
         private System.Windows.Forms.Label labelNewAsset;
         private System.Windows.Forms.Label label1;

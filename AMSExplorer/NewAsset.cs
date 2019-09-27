@@ -28,8 +28,13 @@ namespace AMSExplorer
     {
         private readonly AMSClientV3 _amsClientV3;
 
-        public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
-
+        public string StorageSelected
+        {
+            get
+            {
+                return comboBoxStorage.Visible ? ((Item)comboBoxStorage.SelectedItem).Value : null;
+            }
+        }
 
         public string AssetName
         {
@@ -80,13 +85,22 @@ namespace AMSExplorer
         }
 
 
-        public NewAsset(AMSClientV3 amsClient)
+        public NewAsset(AMSClientV3 amsClient, bool displayAsAdvancedOptionWhenUpload = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _amsClientV3 = amsClient;
 
-            ControlsResetToDefault();
+            if (displayAsAdvancedOptionWhenUpload)
+            {
+                labelStorage.Visible = comboBoxStorage.Visible = false;
+                labelNewAsset.Text = "Asset creation options";
+                buttonOk.Text = "Ok";
+            }
+            else
+            {
+                ControlsResetToDefault();
+            }
         }
 
         private void ControlsResetToDefault()
@@ -140,7 +154,7 @@ namespace AMSExplorer
         {
             Regex reg = new Regex(@"[<>%&:\\?/*+.']", RegexOptions.Compiled);
             return (name.Length > 0 && name.Length < 261 && !reg.IsMatch(name));
-            
+
         }
 
         private void TextBoxContainer_TextChanged(object sender, System.EventArgs e)
@@ -151,6 +165,13 @@ namespace AMSExplorer
         private void checkContainerName()
         {
             TextBox tb = textBoxContainer;
+            if (string.IsNullOrWhiteSpace(tb.Text))
+            {
+                // it's ok to have it empty
+                errorProvider1.SetError(tb, string.Empty); ;
+                return;
+            }
+
             try
             {
                 NameValidator.ValidateContainerName(tb.Text);
