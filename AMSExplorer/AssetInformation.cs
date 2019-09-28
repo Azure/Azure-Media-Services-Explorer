@@ -102,38 +102,33 @@ namespace AMSExplorer
             {
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    toolStripMenuItemAzureMediaPlayer.Enabled = false;
+                    toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = false;
                     toolStripMenuItemDASHIF.Enabled = false;
-                    toolStripMenuItemPlaybackMP4.Enabled = false;
                     toolStripMenuItemOpen.Enabled = false;
                     deleteLocatorToolStripMenuItem.Enabled = false;
 
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._smooth) || TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetInfo._smooth_legacy))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = true;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash_csf) || (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash_cmaf)))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = true;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
-                        toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https_SAS))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
+                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = true;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_http_streaming))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
+                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHIF.Enabled = false;
-                        toolStripMenuItemPlaybackMP4.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().Contains(".ism"));
                     }
                 }
@@ -146,17 +141,17 @@ namespace AMSExplorer
 
         private async void toolStripMenuItemPlaybackMP4_Click(object sender, EventArgs e)
         {
-            await DoHTMLPlayerAsync();
+            await DoAdvcTestPlayerAsync();
         }
 
-        private async Task DoHTMLPlayerAsync()
+        private async Task DoAdvcTestPlayerAsync()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.MP4AzurePage, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
+                    await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AdvancedTestPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                 }
             }
         }
@@ -175,6 +170,7 @@ namespace AMSExplorer
 
         private async Task ListAssetBlobsAsync()
         {
+            bool proposeListBlobsInDir = false;
             if (container == null) //first time
             {
                 ListContainerSasInput input = new ListContainerSasInput()
@@ -211,16 +207,16 @@ namespace AMSExplorer
             var container = cloudBlobClient.GetContainerReference(myAssetV3.Container);
             */
 
-            listViewFiles.Items.Clear();
+            listViewBlobs.Items.Clear();
             DGFiles.Rows.Clear();
-            listViewFiles.BeginUpdate();
+            listViewBlobs.BeginUpdate();
 
             BlobContinuationToken continuationToken = null;
             blobs = new List<IListBlobItem>();
 
             do
             {
-                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, checkBoxListBlobsDirectories.Visible ? checkBoxListBlobsDirectories.Checked : false, BlobListingDetails.Metadata, null, continuationToken, null, null);
                 blobs.AddRange(segment.Results);
 
                 foreach (IListBlobItem blob in segment.Results)
@@ -245,11 +241,12 @@ namespace AMSExplorer
                         */
                         item.SubItems.Add(AssetInfo.FormatByteSize(bl.Properties.Length));
 
-                        listViewFiles.Items.Add(item);
+                        listViewBlobs.Items.Add(item);
                         //size += file.ContentFileSize;
                     }
                     else if (blob.GetType() == typeof(CloudBlobDirectory))
                     {
+                        proposeListBlobsInDir = true;
                         CloudBlobDirectory bl = (CloudBlobDirectory)blob;
                         ListViewItem item = new ListViewItem(bl.Prefix, 0)
                         {
@@ -257,7 +254,7 @@ namespace AMSExplorer
                         };
                         // let comment as it can be time expensive to the math
                         //item.SubItems.Add(AssetInfo.FormatByteSize(AssetInfo.GetSizeBlobDirectory(bl)));
-                        listViewFiles.Items.Add(item);
+                        listViewBlobs.Items.Add(item);
                     }
 
                 }
@@ -266,9 +263,12 @@ namespace AMSExplorer
             }
             while (continuationToken != null);
 
-            listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            if (listViewFiles.Items.Count > 0) listViewFiles.Items[0].Selected = true;
-            listViewFiles.EndUpdate();
+            listViewBlobs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            if (listViewBlobs.Items.Count > 0) listViewBlobs.Items[0].Selected = true;
+            listViewBlobs.EndUpdate();
+
+            checkBoxListBlobsDirectories.Visible = proposeListBlobsInDir || checkBoxListBlobsDirectories.Visible;
+
         }
 
 
@@ -857,8 +857,8 @@ namespace AMSExplorer
 
         private void listViewFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool bSelect = listViewFiles.SelectedItems.Count > 0;
-            bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
+            bool bSelect = listViewBlobs.SelectedItems.Count > 0;
+            bool bMultiSelect = listViewBlobs.SelectedItems.Count > 1;
 
             buttonDeleteFile.Enabled = bSelect;
             buttonDeleteAll.Enabled = true;
@@ -866,7 +866,6 @@ namespace AMSExplorer
             buttonOpenFile.Enabled = bSelect;
             buttonDuplicate.Enabled = bSelect && !bMultiSelect;
             buttonUpload.Enabled = bSelect;
-            buttonFileMetadata.Enabled = bSelect && !bMultiSelect;
             buttonEditOnline.Enabled = bSelect && !bMultiSelect;
             DoDisplayFileProperties();
         }
@@ -879,7 +878,7 @@ namespace AMSExplorer
 
         private async void buttonHTML_Click(object sender, EventArgs e)
         {
-            await DoHTMLPlayerAsync();
+            await DoAdvcTestPlayerAsync();
         }
 
         private void TreeViewLocators_AfterSelect(object sender, TreeViewEventArgs e)
@@ -1229,12 +1228,12 @@ namespace AMSExplorer
         {
             List<IListBlobItem> Selection = new List<IListBlobItem>();
 
-            foreach (int selectedindex in listViewFiles.SelectedIndices)
+            foreach (int selectedindex in listViewBlobs.SelectedIndices)
             {
                 IListBlobItem AF = blobs.Where(af =>
-                (af.GetType() == typeof(CloudBlockBlob) && ((CloudBlockBlob)af).Name == listViewFiles.Items[selectedindex].Text)
+                (af.GetType() == typeof(CloudBlockBlob) && ((CloudBlockBlob)af).Name == listViewBlobs.Items[selectedindex].Text)
                 ||
-                (returnAlsoDirectory && (af.GetType() == typeof(CloudBlobDirectory) && ((CloudBlobDirectory)af).Prefix == listViewFiles.Items[selectedindex].Text))
+                (returnAlsoDirectory && (af.GetType() == typeof(CloudBlobDirectory) && ((CloudBlobDirectory)af).Prefix == listViewBlobs.Items[selectedindex].Text))
                 )
                 .FirstOrDefault();
 
@@ -1319,16 +1318,15 @@ namespace AMSExplorer
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
         {
-            bool selected = listViewFiles.SelectedItems.Count > 0;
-            bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
+            bool selected = listViewBlobs.SelectedItems.Count > 0;
+            bool bMultiSelect = listViewBlobs.SelectedItems.Count > 1;
 
-            showMetadataToolStripMenuItem.Enabled = selected && !bMultiSelect;
             toolStripMenuItemOpenFile.Enabled = selected;
+            editToolStripMenuItem.Enabled = selected && !bMultiSelect;
             toolStripMenuItemDownloadFile.Enabled = selected;
-            deleteFileToolStripMenuItem.Enabled = selected;
-            duplicateFileToolStripMenuItem.Enabled = selected && !bMultiSelect;
-
-            deleteAllFilesToolStripMenuItem.Enabled = selected;
+            deleteBlobToolStripMenuItem.Enabled = selected;
+            duplicateBlobToolStripMenuItem.Enabled = selected && !bMultiSelect;
+            deleteAllBlobsToolStripMenuItem.Enabled = selected;
         }
 
         private async void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1459,7 +1457,6 @@ namespace AMSExplorer
 
             }
 
-
             await DisplayAssetFiltersAsync();
         }
 
@@ -1500,14 +1497,16 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoDeleteAllFilesAsync()
+        private async Task DoDeleteAllBlobsAsync()
         {
             try
             {
                 string question = "Delete all blobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    IListBlobItem[] Array = blobs.ToArray();
+                    // IListBlobItem[] Array = blobs.ToArray();
+                    IListBlobItem[] Array = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).ToArray();
+
                     for (int i = 0; i < Array.Count(); i++)
                     {
                         IListBlobItem blob = Array[i];
@@ -1571,12 +1570,12 @@ namespace AMSExplorer
 
         private async void buttonDeleteAll_Click(object sender, EventArgs e)
         {
-            await DoDeleteAllFilesAsync();
+            await DoDeleteAllBlobsAsync();
         }
 
         private async void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await DoDeleteAllFilesAsync();
+            await DoDeleteAllBlobsAsync();
         }
 
         private void buttonEditOnline_Click(object sender, EventArgs e)
@@ -2063,7 +2062,7 @@ namespace AMSExplorer
         private void AssetInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripFiles, contextMenuStripKey, contextMenuStripFilter }, e, this);
+            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripBlobs, contextMenuStripKey, contextMenuStripFilter }, e, this);
         }
 
         private async void Button1_Click_2(object sender, EventArgs e)
@@ -2132,6 +2131,16 @@ namespace AMSExplorer
                     await ListAssetBlobsAsync();
                 }
             }
+        }
+
+        private async void CheckBoxListBlobsDirectories_CheckedChanged(object sender, EventArgs e)
+        {
+            await ListAssetBlobsAsync();
+        }
+
+        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoEditFile();
         }
     }
 }

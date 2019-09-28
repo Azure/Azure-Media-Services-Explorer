@@ -40,23 +40,23 @@
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAzureMediaPlayer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemPlaybackMP4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAdvPlayer = new System.Windows.Forms.ToolStripMenuItem();
             this.TreeViewLocators = new System.Windows.Forms.TreeView();
             this.DGFiles = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.showMetadataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripBlobs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemOpenFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDownloadFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.duplicateFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllBlobsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplicateBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadASmallFileInTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDownloadFile = new System.Windows.Forms.ToolStripMenuItem();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonCopyStats = new System.Windows.Forms.Button();
             this.buttonDeleteFile = new System.Windows.Forms.Button();
             this.buttonDownloadFile = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
-            this.listViewFiles = new System.Windows.Forms.ListView();
+            this.listViewBlobs = new System.Windows.Forms.ListView();
             this.ListViewFilesName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ListViewFilesSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -64,10 +64,10 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBoxListBlobsDirectories = new System.Windows.Forms.CheckBox();
             this.buttonGenerateManifest = new System.Windows.Forms.Button();
             this.buttonEditOnline = new System.Windows.Forms.Button();
             this.buttonDeleteAll = new System.Windows.Forms.Button();
-            this.buttonFileMetadata = new System.Windows.Forms.Button();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
@@ -128,7 +128,7 @@
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGFiles)).BeginInit();
-            this.contextMenuStripFiles.SuspendLayout();
+            this.contextMenuStripBlobs.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -198,8 +198,8 @@
             this.deleteLocatorToolStripMenuItem,
             this.toolStripMenuItemOpen,
             this.toolStripMenuItemAzureMediaPlayer,
-            this.toolStripMenuItemDASHIF,
-            this.toolStripMenuItemPlaybackMP4});
+            this.toolStripMenuItemAdvPlayer,
+            this.toolStripMenuItemDASHIF});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
             resources.ApplyResources(this.contextMenuStripLocators, "contextMenuStripLocators");
             this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLocators_Opening);
@@ -212,6 +212,7 @@
             // 
             // deleteLocatorToolStripMenuItem
             // 
+            this.deleteLocatorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteLocatorToolStripMenuItem.Name = "deleteLocatorToolStripMenuItem";
             resources.ApplyResources(this.deleteLocatorToolStripMenuItem, "deleteLocatorToolStripMenuItem");
             this.deleteLocatorToolStripMenuItem.Click += new System.EventHandler(this.deleteLocatorToolStripMenuItem_Click);
@@ -219,26 +220,30 @@
             // toolStripMenuItemOpen
             // 
             resources.ApplyResources(this.toolStripMenuItemOpen, "toolStripMenuItemOpen");
+            this.toolStripMenuItemOpen.Image = global::AMSExplorer.Bitmaps.external_link;
             this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
             this.toolStripMenuItemOpen.Click += new System.EventHandler(this.toolStripMenuItemOpen_Click);
             // 
             // toolStripMenuItemAzureMediaPlayer
             // 
             resources.ApplyResources(this.toolStripMenuItemAzureMediaPlayer, "toolStripMenuItemAzureMediaPlayer");
+            this.toolStripMenuItemAzureMediaPlayer.Image = global::AMSExplorer.Bitmaps.play;
             this.toolStripMenuItemAzureMediaPlayer.Name = "toolStripMenuItemAzureMediaPlayer";
             this.toolStripMenuItemAzureMediaPlayer.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
             // 
             // toolStripMenuItemDASHIF
             // 
             resources.ApplyResources(this.toolStripMenuItemDASHIF, "toolStripMenuItemDASHIF");
+            this.toolStripMenuItemDASHIF.Image = global::AMSExplorer.Bitmaps.play;
             this.toolStripMenuItemDASHIF.Name = "toolStripMenuItemDASHIF";
             this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.toolStripMenuItemDASHIF_Click);
             // 
             // toolStripMenuItemPlaybackMP4
             // 
-            resources.ApplyResources(this.toolStripMenuItemPlaybackMP4, "toolStripMenuItemPlaybackMP4");
-            this.toolStripMenuItemPlaybackMP4.Name = "toolStripMenuItemPlaybackMP4";
-            this.toolStripMenuItemPlaybackMP4.Click += new System.EventHandler(this.toolStripMenuItemPlaybackMP4_Click);
+            resources.ApplyResources(this.toolStripMenuItemAdvPlayer, "toolStripMenuItemPlaybackMP4");
+            this.toolStripMenuItemAdvPlayer.Image = global::AMSExplorer.Bitmaps.play;
+            this.toolStripMenuItemAdvPlayer.Name = "toolStripMenuItemPlaybackMP4";
+            this.toolStripMenuItemAdvPlayer.Click += new System.EventHandler(this.toolStripMenuItemPlaybackMP4_Click);
             // 
             // TreeViewLocators
             // 
@@ -263,61 +268,68 @@
             this.DGFiles.ReadOnly = true;
             this.DGFiles.RowHeadersVisible = false;
             // 
-            // contextMenuStripFiles
+            // contextMenuStripBlobs
             // 
-            this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showMetadataToolStripMenuItem,
+            this.contextMenuStripBlobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemOpenFile,
-            this.toolStripMenuItemDownloadFile,
-            this.deleteFileToolStripMenuItem,
-            this.deleteAllFilesToolStripMenuItem,
-            this.duplicateFileToolStripMenuItem,
-            this.uploadASmallFileInTheAssetToolStripMenuItem});
-            this.contextMenuStripFiles.Name = "contextMenuStripFiles";
-            resources.ApplyResources(this.contextMenuStripFiles, "contextMenuStripFiles");
-            this.contextMenuStripFiles.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFiles_Opening);
-            // 
-            // showMetadataToolStripMenuItem
-            // 
-            this.showMetadataToolStripMenuItem.Name = "showMetadataToolStripMenuItem";
-            resources.ApplyResources(this.showMetadataToolStripMenuItem, "showMetadataToolStripMenuItem");
-            this.showMetadataToolStripMenuItem.Click += new System.EventHandler(this.showMetadataToolStripMenuItem_Click);
+            this.editToolStripMenuItem,
+            this.deleteBlobToolStripMenuItem,
+            this.deleteAllBlobsToolStripMenuItem,
+            this.duplicateBlobToolStripMenuItem,
+            this.uploadASmallFileInTheAssetToolStripMenuItem,
+            this.toolStripMenuItemDownloadFile});
+            this.contextMenuStripBlobs.Name = "contextMenuStripFiles";
+            resources.ApplyResources(this.contextMenuStripBlobs, "contextMenuStripBlobs");
+            this.contextMenuStripBlobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFiles_Opening);
             // 
             // toolStripMenuItemOpenFile
             // 
+            this.toolStripMenuItemOpenFile.Image = global::AMSExplorer.Bitmaps.external_link;
             this.toolStripMenuItemOpenFile.Name = "toolStripMenuItemOpenFile";
             resources.ApplyResources(this.toolStripMenuItemOpenFile, "toolStripMenuItemOpenFile");
             this.toolStripMenuItemOpenFile.Click += new System.EventHandler(this.toolStripMenuItemOpenFile_Click);
             // 
-            // toolStripMenuItemDownloadFile
+            // editToolStripMenuItem
             // 
-            this.toolStripMenuItemDownloadFile.Name = "toolStripMenuItemDownloadFile";
-            resources.ApplyResources(this.toolStripMenuItemDownloadFile, "toolStripMenuItemDownloadFile");
-            this.toolStripMenuItemDownloadFile.Click += new System.EventHandler(this.toolStripMenuItemDownloadFile_Click);
+            this.editToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
             // 
-            // deleteFileToolStripMenuItem
+            // deleteBlobToolStripMenuItem
             // 
-            this.deleteFileToolStripMenuItem.Name = "deleteFileToolStripMenuItem";
-            resources.ApplyResources(this.deleteFileToolStripMenuItem, "deleteFileToolStripMenuItem");
-            this.deleteFileToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
+            this.deleteBlobToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
+            this.deleteBlobToolStripMenuItem.Name = "deleteBlobToolStripMenuItem";
+            resources.ApplyResources(this.deleteBlobToolStripMenuItem, "deleteBlobToolStripMenuItem");
+            this.deleteBlobToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
             // 
-            // deleteAllFilesToolStripMenuItem
+            // deleteAllBlobsToolStripMenuItem
             // 
-            this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
-            resources.ApplyResources(this.deleteAllFilesToolStripMenuItem, "deleteAllFilesToolStripMenuItem");
-            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
+            this.deleteAllBlobsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
+            this.deleteAllBlobsToolStripMenuItem.Name = "deleteAllBlobsToolStripMenuItem";
+            resources.ApplyResources(this.deleteAllBlobsToolStripMenuItem, "deleteAllBlobsToolStripMenuItem");
+            this.deleteAllBlobsToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
             // 
-            // duplicateFileToolStripMenuItem
+            // duplicateBlobToolStripMenuItem
             // 
-            this.duplicateFileToolStripMenuItem.Name = "duplicateFileToolStripMenuItem";
-            resources.ApplyResources(this.duplicateFileToolStripMenuItem, "duplicateFileToolStripMenuItem");
-            this.duplicateFileToolStripMenuItem.Click += new System.EventHandler(this.duplicateFileToolStripMenuItem_Click);
+            this.duplicateBlobToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.create;
+            this.duplicateBlobToolStripMenuItem.Name = "duplicateBlobToolStripMenuItem";
+            resources.ApplyResources(this.duplicateBlobToolStripMenuItem, "duplicateBlobToolStripMenuItem");
+            this.duplicateBlobToolStripMenuItem.Click += new System.EventHandler(this.duplicateFileToolStripMenuItem_Click);
             // 
             // uploadASmallFileInTheAssetToolStripMenuItem
             // 
+            this.uploadASmallFileInTheAssetToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.upload;
             this.uploadASmallFileInTheAssetToolStripMenuItem.Name = "uploadASmallFileInTheAssetToolStripMenuItem";
             resources.ApplyResources(this.uploadASmallFileInTheAssetToolStripMenuItem, "uploadASmallFileInTheAssetToolStripMenuItem");
             this.uploadASmallFileInTheAssetToolStripMenuItem.Click += new System.EventHandler(this.uploadASmallFileInTheAssetToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItemDownloadFile
+            // 
+            this.toolStripMenuItemDownloadFile.Image = global::AMSExplorer.Bitmaps.download;
+            this.toolStripMenuItemDownloadFile.Name = "toolStripMenuItemDownloadFile";
+            resources.ApplyResources(this.toolStripMenuItemDownloadFile, "toolStripMenuItemDownloadFile");
+            this.toolStripMenuItemDownloadFile.Click += new System.EventHandler(this.toolStripMenuItemDownloadFile_Click);
             // 
             // label4
             // 
@@ -354,22 +366,22 @@
             this.buttonOpenFile.UseVisualStyleBackColor = true;
             this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
             // 
-            // listViewFiles
+            // listViewBlobs
             // 
-            this.listViewFiles.AllowDrop = true;
-            resources.ApplyResources(this.listViewFiles, "listViewFiles");
-            this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewBlobs.AllowDrop = true;
+            resources.ApplyResources(this.listViewBlobs, "listViewBlobs");
+            this.listViewBlobs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ListViewFilesName,
             this.ListViewFilesSize});
-            this.listViewFiles.ContextMenuStrip = this.contextMenuStripFiles;
-            this.listViewFiles.FullRowSelect = true;
-            this.listViewFiles.HideSelection = false;
-            this.listViewFiles.Name = "listViewFiles";
-            this.listViewFiles.UseCompatibleStateImageBehavior = false;
-            this.listViewFiles.View = System.Windows.Forms.View.Details;
-            this.listViewFiles.SelectedIndexChanged += new System.EventHandler(this.listViewFiles_SelectedIndexChanged);
-            this.listViewFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListViewFiles_DragDrop);
-            this.listViewFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListViewFiles_DragEnter);
+            this.listViewBlobs.ContextMenuStrip = this.contextMenuStripBlobs;
+            this.listViewBlobs.FullRowSelect = true;
+            this.listViewBlobs.HideSelection = false;
+            this.listViewBlobs.Name = "listViewBlobs";
+            this.listViewBlobs.UseCompatibleStateImageBehavior = false;
+            this.listViewBlobs.View = System.Windows.Forms.View.Details;
+            this.listViewBlobs.SelectedIndexChanged += new System.EventHandler(this.listViewFiles_SelectedIndexChanged);
+            this.listViewBlobs.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListViewFiles_DragDrop);
+            this.listViewBlobs.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListViewFiles_DragEnter);
             // 
             // ListViewFilesName
             // 
@@ -414,10 +426,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBoxListBlobsDirectories);
             this.tabPage2.Controls.Add(this.buttonGenerateManifest);
             this.tabPage2.Controls.Add(this.buttonEditOnline);
             this.tabPage2.Controls.Add(this.buttonDeleteAll);
-            this.tabPage2.Controls.Add(this.buttonFileMetadata);
             this.tabPage2.Controls.Add(this.progressBarUpload);
             this.tabPage2.Controls.Add(this.buttonUpload);
             this.tabPage2.Controls.Add(this.buttonDuplicate);
@@ -425,11 +437,18 @@
             this.tabPage2.Controls.Add(this.buttonOpenFile);
             this.tabPage2.Controls.Add(this.buttonDownloadFile);
             this.tabPage2.Controls.Add(this.DGFiles);
-            this.tabPage2.Controls.Add(this.listViewFiles);
+            this.tabPage2.Controls.Add(this.listViewBlobs);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Enter += new System.EventHandler(this.tabPageBlobs_Enter);
+            // 
+            // checkBoxListBlobsDirectories
+            // 
+            resources.ApplyResources(this.checkBoxListBlobsDirectories, "checkBoxListBlobsDirectories");
+            this.checkBoxListBlobsDirectories.Name = "checkBoxListBlobsDirectories";
+            this.checkBoxListBlobsDirectories.UseVisualStyleBackColor = true;
+            this.checkBoxListBlobsDirectories.CheckedChanged += new System.EventHandler(this.CheckBoxListBlobsDirectories_CheckedChanged);
             // 
             // buttonGenerateManifest
             // 
@@ -454,13 +473,6 @@
             this.toolTip1.SetToolTip(this.buttonDeleteAll, resources.GetString("buttonDeleteAll.ToolTip"));
             this.buttonDeleteAll.UseVisualStyleBackColor = true;
             this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_Click);
-            // 
-            // buttonFileMetadata
-            // 
-            resources.ApplyResources(this.buttonFileMetadata, "buttonFileMetadata");
-            this.buttonFileMetadata.Name = "buttonFileMetadata";
-            this.toolTip1.SetToolTip(this.buttonFileMetadata, resources.GetString("buttonFileMetadata.ToolTip"));
-            this.buttonFileMetadata.UseVisualStyleBackColor = true;
             // 
             // progressBarUpload
             // 
@@ -902,12 +914,13 @@
             this.contextMenuStripDG.ResumeLayout(false);
             this.contextMenuStripLocators.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGFiles)).EndInit();
-            this.contextMenuStripFiles.ResumeLayout(false);
+            this.contextMenuStripBlobs.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.contextMenuStripFilter.ResumeLayout(false);
@@ -946,18 +959,18 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHIF;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackMP4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAdvPlayer;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpen;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripFiles;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripBlobs;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenFile;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadFile;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonCopyStats;
         private System.Windows.Forms.Button buttonDeleteFile;
-        private System.Windows.Forms.ToolStripMenuItem deleteFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteBlobToolStripMenuItem;
         private System.Windows.Forms.Button buttonDownloadFile;
         private System.Windows.Forms.Button buttonOpenFile;
-        private System.Windows.Forms.ListView listViewFiles;
+        private System.Windows.Forms.ListView listViewBlobs;
         private System.Windows.Forms.ColumnHeader ListViewFilesName;
         private System.Windows.Forms.ColumnHeader ListViewFilesSize;
         private System.Windows.Forms.TabControl tabControl1;
@@ -970,7 +983,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAzureMediaPlayer;
         private System.Windows.Forms.Button buttonAzureMediaPlayer;
         private System.Windows.Forms.Button buttonDuplicate;
-        private System.Windows.Forms.ToolStripMenuItem duplicateFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem duplicateBlobToolStripMenuItem;
         private System.Windows.Forms.Button buttonDel;
         private System.Windows.Forms.ToolStripMenuItem deleteLocatorToolStripMenuItem;
         private System.Windows.Forms.Label labelAssetNameTitle;
@@ -983,8 +996,6 @@
         private System.Windows.Forms.TabPage tabPagePolicy;
         private System.Windows.Forms.CheckBox checkBoxHttps;
         private System.Windows.Forms.Button buttonAudioVideoAnalysis;
-        private System.Windows.Forms.Button buttonFileMetadata;
-        private System.Windows.Forms.ToolStripMenuItem showMetadataToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripKey;
         private System.Windows.Forms.ToolStripMenuItem removeKeyToolStripMenuItem;
@@ -1002,7 +1013,7 @@
         private System.Windows.Forms.Button buttonPlayFilter;
         private System.Windows.Forms.ToolStripMenuItem playWithThisFilterToolStripMenuItem;
         private System.Windows.Forms.Button buttonDeleteAll;
-        private System.Windows.Forms.ToolStripMenuItem deleteAllFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllBlobsToolStripMenuItem;
         private System.Windows.Forms.Button buttonEditOnline;
         private System.Windows.Forms.Button buttonGenerateManifest;
         private System.Windows.Forms.Label label5;
@@ -1031,5 +1042,7 @@
         private System.Windows.Forms.Button buttonAdvancedTestPlayer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.CheckBox checkBoxListBlobsDirectories;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
     }
 }
