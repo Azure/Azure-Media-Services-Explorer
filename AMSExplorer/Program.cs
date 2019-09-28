@@ -2403,7 +2403,6 @@ namespace AMSExplorer
             // Validates if the blob name conforms to the following requirements
             // blob name must be a valid blob name.
             // blob name must be a valid NTFS file name.
-            // blob name length must be limited to 248 characters. 
             // blob should not contain the following characters: [ ] { } + % and #
             // blob should not contain only space(s)
             // blob should not start with certain prefixes restricted by NTFS such as CON1, PRN ... 
@@ -2422,13 +2421,14 @@ namespace AMSExplorer
             {
                 return false;
             }
-
-            if (filename.Length > 248)
+           
+            if (filename.Length > 255)
             {
                 return false;
             }
 
-            if (filename.IndexOfAny(NtfsInvalidChars) > 0 || Regex.IsMatch(filename, @"[+%#]+{}"))
+            Regex reg = new Regex(@"[+%#\[\]]", RegexOptions.Compiled);
+            if (filename.IndexOfAny(NtfsInvalidChars) > 0 || reg.IsMatch(filename))
             {
                 return false;
             }
@@ -2436,6 +2436,16 @@ namespace AMSExplorer
             //// Invalid NTFS Filename prefix checks
             if (InvalidFileNamePrefixList.Any(x => filename.StartsWith(x + ".", StringComparison.OrdinalIgnoreCase)) ||
                 InvalidFileNamePrefixList.Any(x => filename.Equals(x, StringComparison.OrdinalIgnoreCase)))
+            {
+                return false;
+            }
+
+            // blob name requirements
+            try
+            {
+                NameValidator.ValidateBlobName(filename);
+            }
+            catch
             {
                 return false;
             }
@@ -2462,11 +2472,11 @@ namespace AMSExplorer
         {
             if (listpb.Count == 1)
             {
-                return "This file name is not compatible with Media Services :\n\n" + listpb.FirstOrDefault() + "\n\nFile name is restricted to 248 characters and should not contain the characters " + @"<>:""/\|?*+%#" + "\n\nOperation aborted.";
+                return "This file name is not compatible with Media Services :\n\n" + listpb.FirstOrDefault() + "\n\nFile name is restricted to blob name requirements and NTFS requirements" + "\n\nOperation aborted.";
             }
             else
             {
-                return "These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nFile name is restricted to 248 characters and should not contain the characters " + @"<>:""/\|?*+%#" + "\n\nOperation aborted.";
+                return "These file names are not compatible with Media Services :\n\n" + string.Join("\n", listpb) + "\n\nFile name is restricted to blob name requirements and NTFS requirements" + "\n\nOperation aborted.";
             }
         }
     }

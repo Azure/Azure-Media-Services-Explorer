@@ -1034,34 +1034,46 @@ namespace AMSExplorer
             {
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    progressBarUpload.Maximum = 100 * (Dialog.FileNames.Count() + 1);
-                    progressBarUpload.Value = 0;
-                    progressBarUpload.Visible = true;
-
-                    buttonClose.Enabled = false;
-                    buttonUpload.Enabled = false;
-
-                    CloudBlobContainer container = await GetRWContainerOfAssetAsync();
-
-                    int i = 1;
-                    foreach (string file in Dialog.FileNames)
-                    {
-                        CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(file));
-                        if (file.ToLower().EndsWith(".mp4"))
-                        {
-                            blob.Properties.ContentType = "video/mp4";
-                        }
-
-                        await blob.UploadFromFileAsync(file);
-                        progressBarUpload.Value = 100 * i;
-                        i++;
-                    }
-                    progressBarUpload.Visible = false;
-                    buttonClose.Enabled = true;
-                    buttonUpload.Enabled = true;
-                    await ListAssetBlobsAsync();
+                    await DoUploadCoreAsync(Dialog.FileNames.ToList());
                 }
             }
+        }
+
+        private async Task DoUploadCoreAsync(List<string> filenames)
+        {
+            List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(filenames.Select(f => Path.GetFileName(f)).ToList());
+            if (listpb.Count > 0)
+            {
+                MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            progressBarUpload.Maximum = 100 * (filenames.Count() + 1);
+            progressBarUpload.Value = 0;
+            progressBarUpload.Visible = true;
+
+            buttonClose.Enabled = false;
+            buttonUpload.Enabled = false;
+
+            CloudBlobContainer container = await GetRWContainerOfAssetAsync();
+
+            int i = 1;
+            foreach (string file in filenames)
+            {
+                CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(file));
+                if (file.ToLower().EndsWith(".mp4"))
+                {
+                    blob.Properties.ContentType = "video/mp4";
+                }
+
+                await blob.UploadFromFileAsync(file);
+                progressBarUpload.Value = 100 * i;
+                i++;
+            }
+            progressBarUpload.Visible = false;
+            buttonClose.Enabled = true;
+            buttonUpload.Enabled = true;
+            await ListAssetBlobsAsync();
         }
 
         private async Task<CloudBlobContainer> GetRWContainerOfAssetAsync()
@@ -2098,38 +2110,7 @@ namespace AMSExplorer
                 string[] objects = (string[])e.Data.GetData(DataFormats.FileDrop);
 
                 List<string> files = objects.Where(f => !Directory.Exists(f)).ToList();
-
-                if (files.Count > 0)
-                {
-                    //  await DoMenuUploadFromSingleFileS_Step2Async(files.ToArray()); // let's upload the objects as files, each file as an individual asset
-
-                    progressBarUpload.Maximum = 100 * (files.Count() + 1);
-                    progressBarUpload.Value = 0;
-                    progressBarUpload.Visible = true;
-
-                    buttonClose.Enabled = false;
-                    buttonUpload.Enabled = false;
-
-                    CloudBlobContainer container = await GetRWContainerOfAssetAsync();
-
-                    int i = 1;
-                    foreach (string file in files)
-                    {
-                        CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(file));
-                        if (file.ToLower().EndsWith(".mp4"))
-                        {
-                            blob.Properties.ContentType = "video/mp4";
-                        }
-
-                        await blob.UploadFromFileAsync(file);
-                        progressBarUpload.Value = 100 * i;
-                        i++;
-                    }
-                    progressBarUpload.Visible = false;
-                    buttonClose.Enabled = true;
-                    buttonUpload.Enabled = true;
-                    await ListAssetBlobsAsync();
-                }
+                await DoUploadCoreAsync(files);
             }
         }
 
