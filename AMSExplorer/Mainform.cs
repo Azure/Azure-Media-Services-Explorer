@@ -628,8 +628,8 @@ namespace AMSExplorer
                 {
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize, newAssetCreationSettings: form.assetCreationSetting);
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                    await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize, newAssetCreationSettings: form.assetCreationSetting);
                 }
                 catch (Exception ex)
                 {
@@ -645,7 +645,6 @@ namespace AMSExplorer
                 // Each file goes in a individual asset
                 foreach (string file in FileNames)
                 {
-
                     i++;
                     TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
@@ -685,6 +684,7 @@ namespace AMSExplorer
 
         private async Task ProcessUploadFileAndMoreV3Async(List<string> filenames, Guid guidTransfer, CancellationToken token, string storageaccount = null, string destAssetName = null, int blocksize = 4, NewAsset newAssetCreationSettings = null)
         {
+
             // If upload in the queue, let's wait our turn
             await DoGridTransferWaitIfNeededAsync(guidTransfer);
             if (token.IsCancellationRequested)
@@ -711,6 +711,7 @@ namespace AMSExplorer
                 // no storage account or null, then let's take the default one
             }
 
+            string ErrorMessage = string.Empty;
             bool Error = false;
             Asset asset = null;
 
@@ -723,7 +724,6 @@ namespace AMSExplorer
             }
             else
             {
-                TextBoxLogWriteLine("Starting upload of file '{0}'", filenames[0]);
                 try
                 {
                     if (destAssetName == null) // let create a new asset
@@ -767,15 +767,28 @@ namespace AMSExplorer
                     Uri sasUri = new Uri(uploadSasUrl);
                     CloudBlobContainer container = new CloudBlobContainer(sasUri);
 
+                    long LengthAllFiles = 0;
+                    long BytesCopiedForAllFiles = 0;
+
+                    // size calculation
                     foreach (string file in filenames)
                     {
+                        LengthAllFiles += new System.IO.FileInfo(file).Length;
+                    }
+
+                   
+                    foreach (string fileWithPath in filenames)
+                    {
+
                         if (token.IsCancellationRequested)
                         {
                             return;
                         }
 
-                        string filename = Path.GetFileName(file);
+                        string filename = Path.GetFileName(fileWithPath);
+                        TextBoxLogWriteLine("Starting upload of file '{0}'", fileWithPath);
 
+                        /*
                         CloudBlockBlob blob = container.GetBlockBlobReference(filename);
                         if (filename.ToLower().EndsWith(".mp4"))
                         {
@@ -784,9 +797,81 @@ namespace AMSExplorer
 
                         blob.StreamWriteSizeInBytes = blocksize * 1024 * 1024; // blocksize
 
-                        await blob.UploadFromFileAsync(file, token);
+                        copyOperationsDict.Add(blob, blob.UploadFromFileAsync(file, token));
+                        Length += new System.IO.FileInfo(file).Length;
+                        //MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
+                        */
+                        CloudBlockBlob blob = container.GetBlockBlobReference(filename);
+                        long bytesToUpload = (new FileInfo(fileWithPath)).Length;
 
-                        MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
+                        if (new System.IO.FileInfo(fileWithPath).Length < blocksize * 1024 * 1024) // file is smaller than block size
+                        {
+                            if (filename.ToLower().EndsWith(".mp4"))
+                            {
+                                blob.Properties.ContentType = "video/mp4";
+                            }
+
+                            var ado = blob.UploadFromFileAsync(fileWithPath, token);
+                            Console.WriteLine(ado.Status);
+                            await ado.ContinueWith(t =>
+                             {
+                                
+                                 if (t.Status != TaskStatus.RanToCompletion)
+                                 {
+                                     Error = true;
+                                 }
+                                 else
+                                 {
+                                     BytesCopiedForAllFiles += bytesToUpload;
+                                 }
+                             });
+                        }
+                        else
+                        {
+                            List<string> blockIds = new List<string>();
+                            int index = 1;
+                            long startPosition = 0;
+                            long bytesUploaded = 0;
+                            do
+                            {
+                                var bytesToRead = Math.Min(blocksize * 1024 * 1024, bytesToUpload);
+                                var blobContents = new byte[bytesToRead];
+                                using (FileStream fs = new FileStream(fileWithPath, FileMode.Open))
+                                {
+                                    fs.Position = startPosition;
+                                    fs.Read(blobContents, 0, (int)bytesToRead);
+                                }
+                                ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+                                var blockId = Convert.ToBase64String(Encoding.UTF8.GetBytes(index.ToString("d6")));
+                                blockIds.Add(blockId);
+                                var blockAsync = blob.PutBlockAsync(blockId, new MemoryStream(blobContents), null);
+                                await blockAsync.ContinueWith(t =>
+                                {
+                                    bytesUploaded += bytesToRead;
+                                    bytesToUpload -= bytesToRead;
+                                    startPosition += bytesToRead;
+                                    index++;
+                                    double percentComplete = 100d * (long)(BytesCopiedForAllFiles + bytesUploaded) / LengthAllFiles;
+                                    DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                                    manualResetEvent.Set();
+                                });
+                                manualResetEvent.WaitOne();
+                            }
+                            while (bytesToUpload > 0);
+                            var blockListAsync = blob.PutBlockListAsync(blockIds);
+                            await blockListAsync.ContinueWith(t =>
+                            {
+                               
+                                if (t.Status != TaskStatus.RanToCompletion)
+                                {
+                                    Error = true;
+                                }
+                                else
+                                {
+                                    BytesCopiedForAllFiles += bytesUploaded;
+                                }
+                            });
+                        }
                     }
                 }
                 catch (OperationCanceledException)
@@ -809,6 +894,10 @@ namespace AMSExplorer
             else if (token.IsCancellationRequested)
             {
                 DoGridTransferDeclareCancelled(guidTransfer);
+            }
+            else // Error!
+            {
+                DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
             }
             DoRefreshGridAssetV(false);
         }
@@ -1051,7 +1140,7 @@ namespace AMSExplorer
                 DateTime startTime = DateTime.UtcNow;
 
                 // let's check the copy status
-                while ((copyOperationsDict.Count > 0) && (!Canceled))
+                while ((copyOperationsDict.Count > 0) && (!Cancelled))
                 {
                     if (token.IsCancellationRequested && !Cancelled)
                     {
@@ -1417,7 +1506,7 @@ namespace AMSExplorer
                     return;
                 }
 
-
+                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 if (form.SingleAsset)
                 {
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
@@ -1459,13 +1548,6 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine(ex);
                             }
-                            /*
-                            do
-                            {
-                                await Task.Delay(1000);
-                            }
-                            while (ReturnTransfer(response.Id).State == TransferState.Queued);
-                            */
                             i = 0;
                         }
                     }
@@ -1478,7 +1560,6 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(ex);
                     }
                 }
-                DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 DoRefreshGridAssetV(false);
             }
         }
@@ -2625,883 +2706,6 @@ namespace AMSExplorer
         }
 
 
-
-        /*
-        private void DoMenuImportFromAzureStorage()
-        {
-            string valuekey = "";
-            string targetAssetID = "";
-
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-            if (SelectedAssets.Count > 0) targetAssetID = SelectedAssets.FirstOrDefault().Id;
-
-            if (!havestoragecredentials)
-            { // No blob credentials. Let's ask the user
-                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey, true) == DialogResult.OK)
-                {
-                    _credentials.DefaultStorageKey = valuekey;
-                    havestoragecredentials = true;
-                }
-            }
-            if (havestoragecredentials) // if we have the storage credentials
-            {
-                ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.DefaultStorageKey, _credentials.ReturnStorageSuffix())
-                {
-                    ImportLabelDefaultStorageName = _context.DefaultStorageAccount.Name,
-                    ImportNewAssetName = Constants.NameconvUploadasset,
-                    ImportCreateNewAsset = true
-                };
-
-                if (!string.IsNullOrEmpty(targetAssetID))
-                {
-                    if (SelectedAssets.FirstOrDefault().Options == AssetCreationOptions.None && SelectedAssets.FirstOrDefault().StorageAccountName == _context.DefaultStorageAccount.Name) // Ok, the selected asset is not encrypted and is in the default storage account
-                    {
-                        form.ImportOptionToCopyFilesToExistingAsset = true;
-                        form.ImportLabelExistingAssetName = AssetInfo.GetAsset(targetAssetID, _context).Name;
-                        form.ImportOptionToCopyFilesToExistingAssetLabel = string.Empty;
-                    }
-                    else // selected asset is encrypted or not in the default storage account, so we disable it and display a warning
-                    {
-                        form.ImportOptionToCopyFilesToExistingAsset = false;
-                        form.ImportOptionToCopyFilesToExistingAssetLabel = (SelectedAssets.FirstOrDefault().StorageAccountName != _context.DefaultStorageAccount.Name) ? "(Selected asset is not in the defaut storage)" : "(Selected asset seems to be encrypted)";
-                    }
-                }
-
-                else  // no selected asset so we disable the option to copy file into an existing asset
-                {
-                    form.ImportOptionToCopyFilesToExistingAsset = false;
-                    form.ImportOptionToCopyFilesToExistingAssetLabel = string.Empty;
-                }
-
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    var response = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, false);
-                    // Start a worker thread that does uploading.
-                    var myTask = Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, form.CreateOneAssetPerFile, targetAssetID, response), response.token);
-                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
-                    DoRefreshGridAssetV(false);
-                }
-            }
-        }
-        */
-
-        /*
-        private async void ProcessImportFromAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IListBlobItem> SelectedBlobs, bool CreateNewAsset, string newassetname, bool CreateOneAssetPerFile, string targetAssetID, TransferEntryResponse response)
-        {
-            bool Error = false;
-
-            // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.Id);
-            if (response.token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCancelled(response.Id);
-                return;
-            }
-
-            List<IAsset> assets = new List<IAsset>();
-            if (CreateNewAsset)
-            {
-                if (CreateOneAssetPerFile) // one asset per file
-                {
-                    foreach (var file in SelectedBlobs)
-                    {
-                        string currentassetname = newassetname.Replace(Constants.NameconvUploadasset, HttpUtility.UrlDecode(Path.GetFileName(file.Uri.AbsoluteUri)));
-                        assets.Add(_context.Assets.Create(currentassetname, AssetCreationOptions.None));
-                    }
-                }
-                else // one asset for all files
-                {
-                    // Create a new asset.
-                    string currentassetname = newassetname.Replace(Constants.NameconvUploadasset, HttpUtility.UrlDecode(Path.GetFileName(SelectedBlobs[0].Uri.AbsoluteUri)));
-                    assets.Add(_context.Assets.Create(currentassetname, AssetCreationOptions.None));
-                }
-            }
-            else //copy files in an existing asset
-            {
-                assets.Add(AssetInfo.GetAsset(targetAssetID, _context));
-            }
-
-            CloudStorageAccount sourceStorageAccount;
-            if (UseDefaultStorage)
-            {
-                sourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
-            }
-            else
-            {
-                sourceStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
-            }
-
-            var sourceCloudBlobClient = sourceStorageAccount.CreateCloudBlobClient();
-            var sourceMediaBlobContainer = sourceCloudBlobClient.GetContainerReference(containername);
-
-            TextBoxLogWriteLine("Starting the Azure Storage copy process.");
-
-            sourceMediaBlobContainer.CreateIfNotExists();
-
-            // Get the SAS token to use for all blobs if dealing with multiple accounts
-            string blobToken = sourceMediaBlobContainer.GetSharedAccessSignature(new SharedAccessBlobPolicy()
-            {
-                // Specify the expiration time for the signature.
-                SharedAccessExpiryTime = DateTime.Now.AddDays(1),
-                // Specify the permissions granted by the signature.
-                Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.Read
-            });
-
-            IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy",
-              TimeSpan.FromDays(1), AccessPermissions.Write);
-
-            int assetindex = 0;
-            string fileName;
-
-            long BytesCopied = 0;
-            double percentComplete;
-
-            CloudBlockBlob sourceCloudBlob, destinationBlob;
-
-            //calculate size of all files
-            long Length = 0;
-            foreach (var sourceBlob in SelectedBlobs)
-            {
-                fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob.Uri.AbsoluteUri));
-
-                sourceCloudBlob = sourceMediaBlobContainer.GetBlockBlobReference(fileName);
-                sourceCloudBlob.FetchAttributes();
-
-                Length += sourceCloudBlob.Properties.Length;
-            }
-
-
-            foreach (var asset in assets)
-            {
-                if (response.token.IsCancellationRequested) break;
-
-                ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
-
-                var destinationStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
-                var destBlobStorage = destinationStorageAccount.CreateCloudBlobClient();
-
-                // Get the asset container URI and Blob copy from mediaContainer to assetContainer.
-                string destinationContainerName = (new Uri(destinationLocator.Path)).Segments[1];
-
-                CloudBlobContainer assetContainer =
-                    destBlobStorage.GetContainerReference(destinationContainerName);
-
-                if (CreateOneAssetPerFile)
-                {
-                    // do the copy
-                    var sourceBlob = SelectedBlobs[assetindex];
-                    fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob.Uri.AbsoluteUri));
-
-                    sourceCloudBlob = sourceMediaBlobContainer.GetBlockBlobReference(fileName);
-                    sourceCloudBlob.FetchAttributes();
-
-                    if (sourceCloudBlob.Properties.Length > 0)
-                    {
-                        try
-                        {
-                            IAssetFile assetFile = asset.AssetFiles.Create(fileName);
-                            destinationBlob = assetContainer.GetBlockBlobReference(fileName);
-
-                            destinationBlob.DeleteIfExists();
-                            string copyOperation = await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
-                            bool Cancelled = false;
-
-                            while (destinationBlob.CopyState.Status == CopyStatus.Pending)
-                            {
-                                Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                destinationBlob.FetchAttributes();
-                                percentComplete = (Convert.ToDouble(assetindex + 1) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
-                                DoGridTransferUpdateProgress(percentComplete, response.Id);
-
-                                if (response.token.IsCancellationRequested && !Cancelled)
-                                {
-                                    await destinationBlob.AbortCopyAsync(copyOperation);
-                                    Cancelled = true;
-                                }
-                            }
-
-                            if (destinationBlob.CopyState.Status == CopyStatus.Failed)
-                            {
-                                DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
-                                Error = true;
-                                break;
-                            }
-
-                            if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
-                            {
-                                DoGridTransferDeclareCancelled(response.Id);
-                                Error = true;
-                                break;
-                            }
-
-                            destinationBlob.FetchAttributes();
-                            assetFile.ContentFileSize = sourceCloudBlob.Properties.Length;
-                            assetFile.Update();
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
-                            DoGridTransferDeclareError(response.Id, ex);
-                            Error = true;
-                            break;
-
-                        }
-                        BytesCopied += sourceCloudBlob.Properties.Length;
-                        percentComplete = 100d * BytesCopied / Length;
-                        if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
-                    }
-                }
-                else // all files in the same asset
-                {
-                    // do the copy
-                    int nbblob = 0;
-
-                    foreach (var sourceBlob in SelectedBlobs)
-                    {
-                        if (response.token.IsCancellationRequested) break;
-                        nbblob++;
-                        fileName = HttpUtility.UrlDecode(Path.GetFileName(sourceBlob.Uri.AbsoluteUri));
-
-                        sourceCloudBlob = sourceMediaBlobContainer.GetBlockBlobReference(fileName);
-                        sourceCloudBlob.FetchAttributes();
-
-                        if (sourceCloudBlob.Properties.Length > 0)
-                        {
-                            try
-                            {
-                                IAssetFile assetFile = asset.AssetFiles.Create(fileName);
-                                destinationBlob = assetContainer.GetBlockBlobReference(fileName);
-
-                                try
-                                {
-                                    destinationBlob.DeleteIfExists();
-                                }
-                                catch
-                                {
-
-                                }
-
-                                string copyOperation = await destinationBlob.StartCopyAsync(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken), response.token);
-                                bool Cancelled = false;
-
-                                while (destinationBlob.CopyState.Status == CopyStatus.Pending)
-                                {
-                                    Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    destinationBlob.FetchAttributes();
-                                    percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
-                                    DoGridTransferUpdateProgress(percentComplete, response.Id);
-
-                                    if (response.token.IsCancellationRequested && !Cancelled)
-                                    {
-                                        await destinationBlob.AbortCopyAsync(copyOperation);
-                                        Cancelled = true;
-                                    }
-
-                                }
-
-                                if (destinationBlob.CopyState.Status == CopyStatus.Failed)
-                                {
-                                    DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
-                                    Error = true;
-                                    break;
-                                }
-
-                                if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
-                                {
-                                    DoGridTransferDeclareCancelled(response.Id);
-                                    Error = true;
-                                    break;
-                                }
-
-                                destinationBlob.FetchAttributes();
-                                assetFile.ContentFileSize = sourceCloudBlob.Properties.Length;
-                                assetFile.Update();
-                            }
-                            catch (Exception ex)
-                            {
-                                TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
-                                DoGridTransferDeclareError(response.Id, ex);
-                                Error = true;
-                                break;
-
-                            }
-                            BytesCopied += sourceCloudBlob.Properties.Length;
-                            percentComplete = 100d * BytesCopied / Length;
-                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
-
-                        }
-                    }
-                }
-
-                asset.Update();
-                destinationLocator.Delete();
-
-                // Refresh the asset.
-                IAsset asset_refreshed = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
-                if (asset_refreshed.AssetFiles.Count() == 1)
-                {
-                    AssetInfo.SetFileAsPrimary(asset_refreshed, asset_refreshed.AssetFiles.FirstOrDefault().Name);
-                }
-                else
-                {
-                    AssetInfo.SetISMFileAsPrimary(asset_refreshed);
-                }
-
-                assetindex++;
-            }
-
-            writePolicy.Delete();
-
-            if (!Error)
-            {
-                if (CreateOneAssetPerFile)
-                {
-                    DoGridTransferDeclareCompleted(response.Id, "");
-                }
-                else
-                {
-                    DoGridTransferDeclareCompleted(response.Id, assets[0].Id);
-                }
-            }
-
-            DoRefreshGridAssetV(false);
-        }
-        */
-
-        /*
-        private async void ProcessExportAssetToAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IAssetFile> SelectedFiles, bool CreateNewContainer, TransferEntryResponse response)
-        {
-            // If upload in the queue, let's wait our turn
-            DoGridTransferWaitIfNeeded(response.Id);
-            if (response.token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCancelled(response.Id);
-                return;
-            }
-
-            bool Error = false;
-            if (UseDefaultStorage) // The default storage is used
-            {
-                TextBoxLogWriteLine("Starting the Azure export process.");
-
-                // let's get cloudblobcontainer for source
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
-                var cloudBlobClient = storageAccount.CreateCloudBlobClient();
-                IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-                ILocator sourcelocator = _context.Locators.CreateLocator(LocatorType.Sas, SelectedFiles[0].Asset, readpolicy);
-
-                // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                Uri sourceUri = new Uri(sourcelocator.Path);
-                CloudBlobContainer assetSourceContainer = cloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
-
-                // let's get cloudblobcontainer for target
-                CloudBlobContainer TargetContainer = cloudBlobClient.GetContainerReference(containername); ;
-
-                if (CreateNewContainer)
-                {
-                    try
-                    {
-                        TargetContainer.CreateIfNotExists();
-                    }
-                    catch (Exception ex)
-                    {
-                        DoGridTransferDeclareError(response.Id, string.Format("Failed to create container '{0}'. {1}", TargetContainer.Name, ex.Message));
-                        Error = true;
-                    }
-                }
-
-                if (!Error)
-                {
-                    Error = false;
-                    CloudBlockBlob sourceCloudBlob, destinationBlob;
-                    long Length = 0;
-                    long BytesCopied = 0;
-                    long percentComplete;
-
-                    //calculate size
-                    foreach (IAssetFile file in SelectedFiles)
-                    {
-                        Length += file.ContentFileSize;
-                    }
-
-                    // do the copy
-                    int nbblob = 0;
-                    foreach (IAssetFile file in SelectedFiles)
-                    {
-                        if (response.token.IsCancellationRequested) break;
-
-                        nbblob++;
-                        sourceCloudBlob = assetSourceContainer.GetBlockBlobReference(file.Name);
-                        sourceCloudBlob.FetchAttributes();
-
-                        if (sourceCloudBlob.Properties.Length > 0)
-                        {
-                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.Id);
-                            try
-                            {
-                                destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
-                                destinationBlob.DeleteIfExists();
-                                string stringOperation = await destinationBlob.StartCopyAsync(sourceCloudBlob, response.token);
-                                bool Cancelled = false;
-
-                                CloudBlockBlob blob;
-                                blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
-
-                                while (blob.CopyState.Status == CopyStatus.Pending)
-                                {
-                                    Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    if (response.token.IsCancellationRequested && !Cancelled)
-                                    {
-                                        await destinationBlob.AbortCopyAsync(stringOperation);
-                                        Cancelled = true;
-                                    }
-                                    blob.FetchAttributes();
-                                    percentComplete = (long)100 * (long)(BytesCopied + blob.CopyState.BytesCopied) / (long)Length;
-                                    DoGridTransferUpdateProgress((int)percentComplete, response.Id);
-                                }
-
-                                if (blob.CopyState.Status == CopyStatus.Failed)
-                                {
-                                    DoGridTransferDeclareError(response.Id, blob.CopyState.StatusDescription);
-                                    Error = true;
-                                    break;
-                                }
-
-                                if (blob.CopyState.Status == CopyStatus.Aborted)
-                                {
-                                    DoGridTransferDeclareCancelled(response.Id);
-                                    Error = true;
-                                    break;
-                                }
-
-                                destinationBlob.FetchAttributes();
-
-                                if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
-                                {
-                                    DoGridTransferDeclareError(response.Id, "Error during blob copy.");
-                                    Error = true;
-                                    break;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(response.Id, ex);
-                                Error = true;
-                            }
-                            BytesCopied += sourceCloudBlob.Properties.Length;
-                            percentComplete = (long)100 * (long)BytesCopied / (long)Length;
-                            if (!Error) DoGridTransferUpdateProgress((int)percentComplete, response.Id);
-                        }
-                    }
-
-                    sourcelocator.Delete();
-
-                    if (!Error && !response.token.IsCancellationRequested)
-                    {
-                        DoGridTransferDeclareCompleted(response.Id, TargetContainer.Uri.AbsoluteUri);
-                    }
-                    DoRefreshGridAssetV(false);
-                }
-            }
-            else // Another storage is used
-            {
-                TextBoxLogWriteLine("Starting the blob copy process.");
-
-                // let's get cloudblobcontainer for source
-                CloudStorageAccount SourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey), _credentials.ReturnStorageSuffix(), true);
-                CloudStorageAccount TargetStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
-
-                var SourceCloudBlobClient = SourceStorageAccount.CreateCloudBlobClient();
-                var TargetCloudBlobClient = TargetStorageAccount.CreateCloudBlobClient();
-                IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-                ILocator sourcelocator = _context.Locators.CreateLocator(LocatorType.Sas, SelectedFiles[0].Asset, readpolicy);
-
-                // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                Uri sourceUri = new Uri(sourcelocator.Path);
-                CloudBlobContainer assetSourceContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
-
-                // let's get cloudblobcontainer for target
-                CloudBlobContainer TargetContainer = TargetCloudBlobClient.GetContainerReference(containername);
-
-                // Get the SAS token to use for all blobs if dealing with multiple accounts
-                string blobToken = assetSourceContainer.GetSharedAccessSignature(new SharedAccessBlobPolicy()
-                {
-                    // Specify the expiration time for the signature.
-                    SharedAccessExpiryTime = DateTime.Now.AddDays(1),
-                    // Specify the permissions granted by the signature.
-                    Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.Read
-                });
-                if (CreateNewContainer)
-                {
-                    try
-                    {
-                        TargetContainer.CreateIfNotExists();
-                    }
-                    catch (Exception e)
-                    {
-                        TextBoxLogWriteLine("Failed to create container '{0}' ", TargetContainer.Name, true);
-                        DoGridTransferDeclareError(response.Id, e);
-                        Error = true;
-                    }
-                }
-
-                if (!Error)
-                {
-                    CloudBlockBlob sourceCloudBlob, destinationBlob;
-                    long Length = 0;
-                    long BytesCopied = 0;
-                    double percentComplete;
-                    Error = false;
-
-                    //calculate size
-                    foreach (IAssetFile file in SelectedFiles)
-                    {
-                        Length += file.ContentFileSize;
-                    }
-
-                    // do the copy
-                    int nbblob = 0;
-                    foreach (IAssetFile file in SelectedFiles)
-                    {
-                        if (response.token.IsCancellationRequested) break;
-
-                        nbblob++;
-                        sourceCloudBlob = assetSourceContainer.GetBlockBlobReference(file.Name);
-                        sourceCloudBlob.FetchAttributes();
-
-                        if (sourceCloudBlob.Properties.Length > 0)
-                        {
-                            DoGridTransferUpdateProgress(100d * nbblob / SelectedFiles.Count, response.Id);
-                            try
-                            {
-                                destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
-                                destinationBlob.DeleteIfExists();
-                                string stringOperation = await destinationBlob.StartCopyAsync(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken), response.token);
-                                bool Cancelled = false;
-
-                                while (destinationBlob.CopyState.Status == CopyStatus.Pending)
-                                {
-                                    Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-
-                                    if (response.token.IsCancellationRequested && !Cancelled)
-                                    {
-                                        await destinationBlob.AbortCopyAsync(stringOperation);
-                                        Cancelled = true;
-                                    }
-
-                                    destinationBlob.FetchAttributes();
-                                    percentComplete = 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / Length;
-                                    DoGridTransferUpdateProgress(percentComplete, response.Id);
-                                }
-
-                                if (destinationBlob.CopyState.Status == CopyStatus.Failed)
-                                {
-                                    DoGridTransferDeclareError(response.Id, destinationBlob.CopyState.StatusDescription);
-                                    Error = true;
-                                    break;
-                                }
-
-                                if (destinationBlob.CopyState.Status == CopyStatus.Aborted)
-                                {
-                                    DoGridTransferDeclareCancelled(response.Id);
-                                    Error = true;
-                                    break;
-                                }
-
-                                destinationBlob.FetchAttributes();
-
-                                if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
-                                {
-                                    DoGridTransferDeclareError(response.Id, string.Format("Failed to copy file '{0}'", file.Name));
-                                    Error = true;
-                                    break;
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(response.Id, e);
-                                Error = true;
-                            }
-
-                            BytesCopied += sourceCloudBlob.Properties.Length;
-                            percentComplete = 100d * BytesCopied / Length;
-                            if (!Error) DoGridTransferUpdateProgress(percentComplete, response.Id);
-                        }
-                    }
-                    sourcelocator.Delete();
-
-
-                    if (!Error && !response.token.IsCancellationRequested)
-                    {
-                        DoGridTransferDeclareCompleted(response.Id, TargetContainer.Uri.AbsoluteUri);
-                    }
-                    DoRefreshGridAssetV(false);
-                }
-            }
-        }
-        */
-
-
-        /*
-        private void CheckListArchiveBlobs(Dictionary<string, string> storagekeys, IAsset SourceAsset, AssetInfo.ManifestSegmentsResponse manifestdata)
-        {
-            if (manifestdata.audioBitrates == null && manifestdata.videoBitrates.Count == 0 && manifestdata.audioSegments == null && manifestdata.videoSegments.Count == 0)
-            {
-                TextBoxLogWriteLine("Error. Impossible to get manifest data for '{0}'. Is a streaming endpoint with dynamic packaging running?", SourceAsset.Name, true);
-                return;
-            }
-            if (storagekeys.ContainsKey(SourceAsset.StorageAccountName))
-            {
-                TextBoxLogWriteLine("Starting the integrity check for asset '{0}'.", SourceAsset.Name);
-                bool Error = false;
-                bool codeIssue = false;
-                int nbErrorsAudioManifest = 0;
-                int nbErrorsVideoManifest = 0;
-
-                // Video segments in manifest
-                TextBoxLogWriteLine("Checking video track segments in manifest...");
-                int index = 0;
-                foreach (var seg in manifestdata.videoSegments)
-                {
-                    if (seg.timestamp_mismatch)
-                    {
-                        if (nbErrorsVideoManifest < 10)
-                        {
-                            TextBoxLogWriteLine("Warning: Overlap or gap issue in video track. Timestamp {0} calculation mismatch in manifest, index {1}", seg.timestamp, index, true);
-                            Error = true;
-                        }
-                        nbErrorsVideoManifest++;
-                    }
-                    index++;
-                }
-                if (nbErrorsVideoManifest >= 10)
-                {
-                    TextBoxLogWriteLine("Warning: Overlap or gap issue in video track. {0} more errors.", nbErrorsVideoManifest - 10, true);
-                }
-
-                // Audio segments in manifest
-                TextBoxLogWriteLine("Checking audio track segments in manifest...");
-                index = 0;
-                int a_index = 0;
-                foreach (var audiotrack in manifestdata.audioSegments)
-                {
-                    foreach (var seg in audiotrack)
-                    {
-                        if (seg.timestamp_mismatch)
-                        {
-                            if (nbErrorsAudioManifest < 10)
-                            {
-                                TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track #{0} '{1}'. Timestamp {2} calculation mismatch in manifest, index {3}", a_index, manifestdata.audioName[a_index], seg.timestamp, index, true);
-                                Error = true;
-                            }
-                            nbErrorsAudioManifest++;
-                        }
-                        index++;
-                    }
-                    if (nbErrorsAudioManifest >= 10)
-                    {
-                        TextBoxLogWriteLine("Warning: Overlap or gap issue in audio track #{0} '{1}'. {2} more errors.", a_index, manifestdata.audioName[a_index], nbErrorsAudioManifest - 10, true);
-                    }
-                    a_index++;
-                }
-
-                TextBoxLogWriteLine("Checking blobs in storage...");
-
-                // let's get cloudblobcontainer for source
-                CloudStorageAccount SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
-                var SourceCloudBlobClient = SourceCloudStorageAccount.CreateCloudBlobClient();
-                IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-                ILocator SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
-
-                try
-                {
-                    // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                    Uri sourceUri = new Uri(SourceLocator.Path);
-                    CloudBlobContainer SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
-
-
-                    List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
-
-                    var mediablobs = SourceCloudBlobContainer.ListBlobs();
-                    if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
-                    {
-                        foreach (var blob in mediablobs)
-                        {
-                            if (blob.GetType() == typeof(CloudBlobDirectory))
-                            {
-                                CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
-                                ListDirectories.Add(blobdir);
-                                TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
-                            }
-                        }
-
-                        // let's check the presence of all audio_ and video_ directories
-                        var audiodir = ListDirectories.Where(d => manifestdata.audioName.Any(an => d.Prefix.Contains(an))); //ListDirectories.Where(d => d.Prefix.StartsWith("audio"));
-                                                                                                                            // var videodir = ListDirectories.Where(d => d.Prefix.StartsWith("video_")).Select(d => int.Parse(d.Prefix.Substring(6, d.Prefix.Length - 7)));
-                        var videodir = ListDirectories.Where(d => d.Prefix.Contains(manifestdata.videoName)).Select(d => int.Parse(d.Prefix.Substring(manifestdata.videoName.Length + 1, d.Prefix.Length - manifestdata.videoName.Length - 2))); //ListDirectories.Where(d => d.Prefix.StartsWith("audio"));
-
-                        if (videodir.Count() != manifestdata.videoBitrates.Count)
-                        {
-                            TextBoxLogWriteLine("Warning: {0} video tracks in the manifest but {1} video directories in storage", manifestdata.videoBitrates.Count(), videodir.Count(), true);
-                            Error = true;
-                        }
-
-                        if (audiodir.Count() != manifestdata.audioBitrates.GetLength(0))
-                        {
-                            TextBoxLogWriteLine("Warning: {0} audio tracks in the manifest but {1} audio directories in storage", manifestdata.audioBitrates.GetLength(0), audiodir.Count(), true);
-                            Error = true;
-                        }
-
-                        var except = videodir.Except(manifestdata.videoBitrates);
-                        if (except.Count() > 0)
-                        {
-                            TextBoxLogWriteLine("Warning: Some video directories in storage are not referenced as bitrate in the manifest. Bitrates : {0}", string.Join(",", except), true);
-                            Error = true;
-                        }
-                        var exceptb = manifestdata.videoBitrates.Except(videodir);
-                        if (exceptb.Count() > 0)
-                        {
-                            TextBoxLogWriteLine("Issue: Some bitrates in manifest cannot be found in storage as video directories. Bitrates : {0}", string.Join(",", exceptb), true);
-                            Error = true;
-                        }
-
-
-                        // let's check the fragblobs
-                        foreach (var dir in ListDirectories)
-                        {
-                            if (manifestdata.audioName.Any(an => dir.Prefix.Contains(an)) || dir.Prefix.Contains(manifestdata.videoName))
-                            {
-                                TextBoxLogWriteLine("Checking fragblobs in directory '{0}'....", dir.Prefix);
-
-                                BlobResultSegment blobResultSegment = dir.ListBlobsSegmented(null);
-                                var listblobtimestampsTemp = blobResultSegment.Results.Select(b => b.Uri.LocalPath).ToList();
-
-
-                                while (blobResultSegment.ContinuationToken != null)
-                                {
-                                    TextBoxLogWriteLine("Checking fragblobs in directory '{0}' ({1} segments retrieved...)", dir.Prefix, listblobtimestampsTemp.Count);
-                                    blobResultSegment = dir.ListBlobsSegmented(blobResultSegment.ContinuationToken);
-                                    listblobtimestampsTemp.AddRange(blobResultSegment.Results.Select(b => b.Uri.LocalPath));
-                                }
-                                TextBoxLogWriteLine("Checking fragblobs in directory '{0}' ({1} segments retrieved)", dir.Prefix, listblobtimestampsTemp.Count);
-
-                                var listblobtimestamps = listblobtimestampsTemp.Where(b => System.IO.Path.GetFileName(b) != "header").Select(b => ulong.Parse(System.IO.Path.GetFileName(b))).OrderBy(t => t).ToList();
-
-                                List<AssetInfo.ManifestSegmentData> manifestdatacurrenttrack;
-
-                                if (dir.Prefix.Contains(manifestdata.videoName))//dir.Prefix.StartsWith("video_"))
-                                {
-                                    manifestdatacurrenttrack = manifestdata.videoSegments;
-                                }
-                                else // audio
-                                {
-                                    int i = 0;
-                                    manifestdatacurrenttrack = manifestdata.audioSegments[0].ToList();
-                                    foreach (var audiob in manifestdata.audioBitrates)
-                                    {
-                                        if (dir.Prefix.Equals(manifestdata.audioName[i] + "_" + audiob[0].ToString() + "/"))
-                                        {
-                                            manifestdatacurrenttrack = manifestdata.audioSegments[i].ToList();
-                                            break;
-                                        }
-                                        i++;
-                                    }
-
-                                }
-
-                                var timestampsinmanifest = manifestdatacurrenttrack.Select(a => a.timestamp).ToList();
-                                var except2 = listblobtimestamps.Except(timestampsinmanifest);
-                                const int maxSegDisplayed = 20;
-
-                                if (except2.Count() > 0)
-                                {
-                                    int count = except2.Count();
-                                    TextBoxLogWriteLine("Information: {0} segments in directory {1} are not in the manifest. This could occur if live is running. Segments with timestamp: {2}", count, dir.Prefix, string.Join(",", except2.Take(maxSegDisplayed)) + ((count > maxSegDisplayed) ? "..." : ""), true);
-                                }
-
-                                var except3 = timestampsinmanifest.Except(listblobtimestamps);
-                                if (except3.Count() > 0)
-                                {
-                                    int count = except3.Count();
-                                    TextBoxLogWriteLine("Issue: {0} segments in manifest are not in directory '{1}'. Segments with timestamp: {2}", count, dir.Prefix, string.Join(",", except3.Take(maxSegDisplayed)) + ((count > maxSegDisplayed) ? "..." : ""), true);
-                                    Error = true;
-                                }
-
-                                if (listblobtimestamps.Count < manifestdatacurrenttrack.Count) // mising blob in storage (header file)
-                                {
-                                    TextBoxLogWriteLine("Issue: {0} segments in the manifest but only {1} segments in directory '{2}'", manifestdatacurrenttrack.Count, listblobtimestamps.Count, dir.Prefix, true);
-                                    Error = true;
-                                }
-                                else if (manifestdatacurrenttrack.Count > 0)
-                                {
-                                    index = 0;
-
-                                    // list timestamps from blob
-                                    ulong timestampinblob;
-                                    foreach (var seg in manifestdatacurrenttrack)
-                                    {
-                                        timestampinblob = listblobtimestamps[index];
-                                        if (timestampinblob != seg.timestamp && !seg.calculated)
-                                        {
-                                            TextBoxLogWriteLine("Issue: Timestamp {0} in blob is different from defined timestamp {1} in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix, index, true);
-                                            Error = true;
-                                            break;
-                                        }
-                                        else if (timestampinblob != seg.timestamp && seg.calculated)
-                                        {
-                                            TextBoxLogWriteLine("Issue: Timestamp {0} in blob is different from calculated timestamp {1} in manifest, in directory '{2}', index {3}", timestampinblob, seg.timestamp, dir.Prefix, index, true);
-                                            Error = true;
-                                            break;
-                                        }
-                                        index++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Error when analyzing the archive.", true);
-                    TextBoxLogWriteLine(ex);
-                    codeIssue = true;
-                }
-
-                try
-                {
-                    SourceLocator.Delete();
-                    readpolicy.Delete();
-                }
-
-                catch
-                {
-
-                }
-
-
-                if (codeIssue)
-                {
-                    TextBoxLogWriteLine("End of integrity check for asset '{0}'. Code fails.", SourceAsset.Name);
-                }
-                else if (Error)
-                {
-                    TextBoxLogWriteLine("End of integrity check for asset '{0}'. Error(s) detected.", SourceAsset.Name);
-                }
-                else
-                {
-                    TextBoxLogWriteLine("End of integrity check for asset '{0}'. No error detected.", SourceAsset.Name);
-                }
-            }
-            else
-            {
-                TextBoxLogWriteLine("Error storage key not found for asset '{0}'.", SourceAsset.Name, true);
-            }
-        }
-        */
-
-
         private async void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoDeleteAllJobsAsync();
@@ -3563,9 +2767,7 @@ namespace AMSExplorer
             {
                 await _amsClient.RefreshTokenIfNeededAsync();
 
-
                 bool Error = false;
-
 
                 // let's build the tasks list
                 TextBoxLogWriteLine("Listing the jobs...");
@@ -3600,7 +2802,6 @@ namespace AMSExplorer
                 DoRefreshGridJobV(false);
             }
         }
-
 
 
         private async Task DoCancelAllJobsAsync()
