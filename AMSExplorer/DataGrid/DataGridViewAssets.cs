@@ -763,7 +763,7 @@ Properties/StorageId
 
         public static async Task<int?> ReturnNumberAssetFiltersAsync(string assetName, AMSClientV3 client)
         {
-            client.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
             IPage<AssetFilter> filters;
             try
             {

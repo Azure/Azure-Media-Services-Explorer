@@ -73,7 +73,7 @@ namespace AMSExplorer
         private static bool _initialized = false;
         private static bool _refreshedatleastonetime = false;
         private static string _statefilter = "All";
-        private AMSClientV3 _client;
+        private AMSClientV3 _amsClient;
         private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.LiveEventName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
         private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
@@ -132,10 +132,10 @@ namespace AMSExplorer
         {
             IEnumerable<LiveEventEntry> channelquery;
 
-            _client = client;
+            _amsClient = client;
             float scale = DeviceDpi / 96f;
 
-            Microsoft.Rest.Azure.IPage<LiveEvent> liveevents =await  _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<LiveEvent> liveevents =await  _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             channelquery = from c in liveevents.Take(0)
                            orderby c.LastModified descending
@@ -251,8 +251,8 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                _client.RefreshTokenIfNeeded();
-                liveEventItem = await _client.AMSclient.LiveEvents.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, liveEventItem.Name); //refresh
+                await _amsClient.RefreshTokenIfNeededAsync();
+                liveEventItem = await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
@@ -274,14 +274,14 @@ namespace AMSExplorer
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveEvent liveEventInputItem;
 
-            await _client.RefreshTokenIfNeededAsync();
+            await _amsClient.RefreshTokenIfNeededAsync();
             foreach (LiveEventEntry CE in _MyObservLiveEvent)
             {
 
                 liveEventInputItem = null;
                 try
                 {
-                    liveEventInputItem = await _client.AMSclient.LiveEvents.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, CE.Name);
+                    liveEventInputItem = await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, CE.Name);
                     if (liveEventInputItem != null)
                     {
                         CE.State = liveEventInputItem.ResourceState;
@@ -315,8 +315,8 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
-            await _client.RefreshTokenIfNeededAsync();
-            Microsoft.Rest.Azure.IPage<LiveEvent> listLE = await _client.AMSclient.LiveEvents.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            await _amsClient.RefreshTokenIfNeededAsync();
+            Microsoft.Rest.Azure.IPage<LiveEvent> listLE = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             totalLiveEvents = listLE.Count();
             float scale = DeviceDpi / 96f;
 

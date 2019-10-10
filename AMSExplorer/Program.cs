@@ -1496,7 +1496,7 @@ namespace AMSExplorer
                 Permissions = AssetContainerPermission.ReadWriteDelete,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             string type = string.Empty;
             long size = 0;
@@ -1515,9 +1515,6 @@ namespace AMSExplorer
 
             Uri sasUri = new Uri(uploadSasUrl);
             CloudBlobContainer container = new CloudBlobContainer(sasUri);
-
-
-
 
             BlobContinuationToken continuationToken1 = null;
             List<IListBlobItem> rootBlobs = new List<IListBlobItem>();
@@ -1550,7 +1547,6 @@ namespace AMSExplorer
                 do
                 {
                     var segment = await dirRef.ListBlobsSegmentedAsync(true, BlobListingDetails.Metadata, null, continuationToken, null, null);
-                    // public virtual Task<BlobResultSegment> ListBlobsSegmentedAsync(bool useFlatBlobListing, BlobListingDetails blobListingDetails, int? maxResults, BlobContinuationToken currentToken, BlobRequestOptions options, OperationContext operationContext, CancellationToken cancellationToken);
                     continuationToken = segment.ContinuationToken;
                     subBlobs = segment.Results.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
                     subBlobs.ForEach(b => size += b.Properties.Length);
