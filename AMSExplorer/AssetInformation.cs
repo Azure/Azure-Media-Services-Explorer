@@ -1704,7 +1704,7 @@ namespace AMSExplorer
         {
             try
             {
-                Program.ManifestGenerated smildata = Program.LoadAndUpdateManifestTemplate(myAssetV3, _amsClient, container);
+                Program.ManifestGenerated smildata = await Program.LoadAndUpdateManifestTemplateAsync(myAssetV3, _amsClient, container);
 
                 using (
                 EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,

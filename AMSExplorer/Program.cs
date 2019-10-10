@@ -225,9 +225,20 @@ namespace AMSExplorer
             return myText;
         }
 
-        public static ManifestGenerated LoadAndUpdateManifestTemplate(Asset asset, AMSClientV3 amsClient, CloudBlobContainer container)
+        public static async Task<ManifestGenerated> LoadAndUpdateManifestTemplateAsync(Asset asset, AMSClientV3 amsClient, CloudBlobContainer container)
         {
-            IEnumerable<CloudBlockBlob> blobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c => c as CloudBlockBlob);
+            // Let's list the blobs
+            BlobContinuationToken continuationToken = null;
+            List<IListBlobItem> allBlobs = new List<IListBlobItem>();
+            do
+            {
+                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                allBlobs.AddRange(segment.Results);
+                continuationToken = segment.ContinuationToken;
+            }
+            while (continuationToken != null);
+
+            IEnumerable<CloudBlockBlob> blobs = allBlobs.Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c => c as CloudBlockBlob);
 
             CloudBlockBlob[] mp4AssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
             CloudBlockBlob[] m4aAssetFiles = blobs.Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
@@ -305,7 +316,6 @@ namespace AMSExplorer
         {
             public string FileName;
             public string Content;
-
         }
 
         private static string CommonPrefix(string[] ss)
@@ -1479,106 +1489,6 @@ namespace AMSExplorer
         }
 
 
-        public static AssetInfoData GetAssetType(string assetName, AMSClientV3 _amsClient)
-        {
-            ListContainerSasInput input = new ListContainerSasInput()
-            {
-                Permissions = AssetContainerPermission.ReadWriteDelete,
-                ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
-            };
-            _amsClient.RefreshTokenIfNeeded();
-
-            string type = string.Empty;
-            long size = 0;
-
-            AssetContainerSas response = null;
-            try
-            {
-                response = Task.Run(async () => await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime)).Result;
-
-            }
-            catch
-            {
-                return null;
-            }
-
-            string uploadSasUrl = response.AssetContainerSasUrls.First();
-
-            Uri sasUri = new Uri(uploadSasUrl);
-            CloudBlobContainer container = new CloudBlobContainer(sasUri);
-
-            List<IListBlobItem> rootBlobs = container.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).ToList();
-            List<CloudBlockBlob> blocsc = rootBlobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
-            List<CloudBlobDirectory> blocsdir = rootBlobs.Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(b => (CloudBlobDirectory)b).ToList();
-
-            int number = blocsc.Count;
-
-            CloudBlockBlob[] ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
-            CloudBlockBlob[] ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            // size calculation
-            blocsc.ForEach(b => size += b.Properties.Length);
-
-            // fragments in subfolders (live archive)
-            foreach (CloudBlobDirectory dir in blocsdir)
-            {
-                CloudBlobDirectory dirRef = container.GetDirectoryReference(dir.Prefix);
-                List<CloudBlockBlob> subBlobs = dirRef.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
-                subBlobs.ForEach(b => size += b.Properties.Length);
-            }
-
-            CloudBlockBlob[] mp4files = blocsc.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            if (mp4files.Count() > 0 && ismcfiles.Count() == 1 && ismfiles.Count() == 1)  // Multi bitrate MP4
-            {
-                number = mp4files.Count();
-                type = number == 1 ? Type_Single : Type_Multi;
-            }
-
-            else if (blocsc.Count == 0)
-            {
-                return new AssetInfoData() { Size = size, Type = Type_Empty };
-            }
-            else if (ismcfiles.Count() == 1 && ismfiles.Count() == 1 && blocsdir.Count > 0)
-            {
-                type = Type_LiveArchive;
-                number = blocsdir.Count;
-            }
-
-            else if (blocsc.Count == 1)
-            {
-                number = 1;
-                string ext = Path.GetExtension(blocsc.FirstOrDefault().Name.ToUpper());
-                if (!string.IsNullOrEmpty(ext))
-                {
-                    ext = ext.Substring(1);
-                }
-
-                switch (ext)
-                {
-                    case "WORKFLOW":
-                        type = Type_Workflow;
-                        break;
-
-                    default:
-                        type = ext;
-                        break;
-                }
-            }
-
-            else
-            {
-                type = Type_Unknown;
-            }
-
-            return new AssetInfoData()
-            {
-                Size = size,
-                Type = string.Format("{0} ({1})", type, number),
-                Blobs = rootBlobs
-            };
-        }
-
         public static async Task<AssetInfoData> GetAssetTypeAsync(string assetName, AMSClientV3 _amsClient)
         {
             ListContainerSasInput input = new ListContainerSasInput()
@@ -1613,7 +1523,7 @@ namespace AMSExplorer
             List<IListBlobItem> rootBlobs = new List<IListBlobItem>();
             do
             {
-                var segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.Metadata, null, continuationToken1, null, null);
+                var segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken1, null, null);
                 continuationToken1 = segment.ContinuationToken;
                 rootBlobs = segment.Results.ToList();
             }

@@ -1004,8 +1004,23 @@ namespace AMSExplorer
                     return;
                 }
 
+
+
+                // Let's list the blobs
+                BlobContinuationToken continuationToken = null;
+                List<IListBlobItem> blobs = new List<IListBlobItem>();
+                do
+                {
+                    BlobResultSegment segment = await Container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, continuationToken, null, null);
+                    blobs.AddRange(segment.Results);
+                    continuationToken = segment.ContinuationToken;
+                }
+                while (continuationToken != null);
+
+
+                // size calculation
                 long Length = 0;
-                foreach (IListBlobItem blob in Container.ListBlobs())
+                foreach (IListBlobItem blob in blobs)
                 {
                     if (blob.GetType() == typeof(CloudBlockBlob))
                     {
@@ -1014,7 +1029,7 @@ namespace AMSExplorer
                     }
                 }
 
-                IEnumerable<IListBlobItem> blobsblock = Container.ListBlobs().Where(b => b.GetType() == typeof(CloudBlockBlob));
+                IEnumerable<IListBlobItem> blobsblock = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob));
                 int nbtotalblobblock = blobsblock.Count();
                 int nbblob = 0;
                 long BytesCopied = 0;
@@ -1082,7 +1097,7 @@ namespace AMSExplorer
                 List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                 List<Task> mylistresults = new List<Task>();
 
-                IEnumerable<IListBlobItem> blobsdir = Container.ListBlobs().Where(b => b.GetType() == typeof(CloudBlobDirectory));
+                IEnumerable<IListBlobItem> blobsdir = blobs.Where(b => b.GetType() == typeof(CloudBlobDirectory));
                 int nbtotalblobdir = blobsdir.Count();
                 int nbblobdir = 0;
                 foreach (IListBlobItem blob in blobsdir)
@@ -1094,9 +1109,19 @@ namespace AMSExplorer
                     ListDirectories.Add(blobdir);
                     TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
 
-                    List<IListBlobItem> srcBlobList = blobdir.ListBlobs(
-                           useFlatBlobListing: true,
-                           blobListingDetails: BlobListingDetails.None).ToList();
+
+
+                    // Let's list the blobs in the directory
+                    continuationToken = null;
+                    List<IListBlobItem> srcBlobList = new List<IListBlobItem>();
+                    do
+                    {
+                        BlobResultSegment segment = await blobdir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, null, continuationToken, null, null);
+                        srcBlobList.AddRange(segment.Results);
+                        continuationToken = segment.ContinuationToken;
+                    }
+                    while (continuationToken != null);
+
 
                     IEnumerable<IListBlobItem> subblocks = srcBlobList.Where(s => s.GetType() == typeof(CloudBlockBlob));
                     long size = 0;
@@ -7763,7 +7788,12 @@ namespace AMSExplorer
             var selectedAssets = await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync();
             if (selectedAssets.Count > 0)
             {
-                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a.Name, _amsClient).Type.StartsWith(AssetInfo.Type_LiveArchive) || (AssetInfo.GetAssetType(a.Name, _amsClient)).Type.StartsWith(AssetInfo.Type_Fragmented)))
+                // let's get the list of asset types
+                Task<AssetInfoData>[] gettypeTasks = selectedAssets.Select(a => AssetInfo.GetAssetTypeAsync(a.Name, _amsClient)).ToArray();
+                await Task.WhenAll(gettypeTasks);
+
+                if (!gettypeTasks.All(a => a.Result.Type.StartsWith(AssetInfo.Type_LiveArchive) || a.Result.Type.StartsWith(AssetInfo.Type_Fragmented)))
+                //if (!selectedAssets.All(a => (await AssetInfo.GetAssetTypeAsync(a.Name, _amsClient)).Type.StartsWith(AssetInfo.Type_LiveArchive) || (AssetInfo.GetAssetType(a.Name, _amsClient)).Type.StartsWith(AssetInfo.Type_Fragmented)))
                 {
                     MessageBox.Show("Asset(s) should be a live, live archive or pre-fragmented asset." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
