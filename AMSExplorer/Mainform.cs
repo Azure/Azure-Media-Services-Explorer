@@ -473,7 +473,7 @@ namespace AMSExplorer
                     DoRefreshGridAssetV(false);
                     break;
                 case "tabPageFilters":
-                    DoRefreshGridFiltersV(false);
+                    await DoRefreshGridFiltersVAsync(false);
                     break;
                 case "tabPageTransfers":
                     break;
@@ -502,7 +502,7 @@ namespace AMSExplorer
             await DoRefreshGridLiveEventVAsync(false);
             await DoRefreshGridStreamingEndpointVAsync(false);
             await DoRefreshGridStorageVAsync(false);
-            DoRefreshGridFiltersV(false);
+            await DoRefreshGridFiltersVAsync(false);
         }
 
         public void DoRefreshGridAssetV(bool firstime)
@@ -3069,7 +3069,7 @@ namespace AMSExplorer
             DoRefreshGridLiveOutputV(true);
             Task.Run(async () => await DoRefreshGridStreamingEndpointVAsync(true));
             Task.Run(async () => await DoRefreshGridStorageVAsync(true));
-            DoRefreshGridFiltersV(true);
+            Task.Run(async () => await DoRefreshGridFiltersVAsync(true));
 
             DisplaySplashDuringLoading = false;
 
@@ -4234,9 +4234,9 @@ namespace AMSExplorer
         }
 
 
-        public void DoRefreshGridFiltersV(bool firstime)
+        public async Task DoRefreshGridFiltersVAsync(bool firstime)
         {
-            _amsClient.RefreshTokenIfNeeded();
+            await _amsClient.RefreshTokenIfNeededAsync();
 
             if (firstime)
             {
@@ -4264,7 +4264,7 @@ namespace AMSExplorer
             }
             dataGridViewFilters.Rows.Clear();
 
-            Microsoft.Rest.Azure.IPage<AccountFilter> filters = _amsClient.AMSclient.AccountFilters.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<AccountFilter> filters = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             foreach (AccountFilter filter in filters)
             {
                 string s = null;
@@ -5654,7 +5654,7 @@ namespace AMSExplorer
             await DoDisplayLiveOutputInfoAsync();
         }
 
-        private void dataGridViewLiveV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridViewLiveV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
@@ -5662,7 +5662,7 @@ namespace AMSExplorer
 
                 if (liveEvent != null)
                 {
-                    DoDisplayLiveEventInfo((new List<LiveEvent>() { liveEvent }));
+                    await DoDisplayLiveEventInfoAsync((new List<LiveEvent>() { liveEvent }));
                 }
             }
         }
@@ -6758,9 +6758,9 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuItem12_Click_1(object sender, EventArgs e)
+        private async void toolStripMenuItem12_Click_1(object sender, EventArgs e)
         {
-            DoRefreshGridFiltersV(false);
+            await DoRefreshGridFiltersVAsync(false);
         }
 
         private async void toolStripMenuItem16_Click_1(object sender, EventArgs e)
@@ -6794,7 +6794,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                     TextBoxLogWriteLine(e);
                 }
-                DoRefreshGridFiltersV(false);
+                await DoRefreshGridFiltersVAsync(false);
             }
         }
 
@@ -6822,7 +6822,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Error when deleting filter(s)", true);
                 TextBoxLogWriteLine(e);
             }
-            DoRefreshGridFiltersV(false);
+            await DoRefreshGridFiltersVAsync(false);
         }
 
         private async void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6856,7 +6856,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Error when updating account filter '{0}'.", filter.Name, true);
                     TextBoxLogWriteLine(e);
                 }
-                DoRefreshGridFiltersV(false);
+                await DoRefreshGridFiltersVAsync(false);
             }
         }
 
@@ -6943,7 +6943,7 @@ namespace AMSExplorer
                     {
                         MessageBox.Show("Error when duplicating asset filter." + Constants.endline + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    DoRefreshGridFiltersV(false);
+                    await DoRefreshGridFiltersVAsync(false);
                 }
             }
         }
@@ -7517,7 +7517,7 @@ namespace AMSExplorer
         }
 
 
-        public void CreateVideoAnalyzerTransform()
+        public async Task CreateVideoAnalyzerTransformAsync()
         {
             PresetVideoAnalyzer form = new PresetVideoAnalyzer();
 
@@ -7542,10 +7542,10 @@ namespace AMSExplorer
 
                 try
                 {
-                    _amsClient.RefreshTokenIfNeeded();
+                    await _amsClient.RefreshTokenIfNeededAsync();
 
                     // Create the Transform with the output defined above
-                    Transform transform = _amsClient.AMSclient.Transforms.CreateOrUpdate(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
+                    Transform transform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
                     TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
 
                 }
@@ -7558,7 +7558,7 @@ namespace AMSExplorer
             }
         }
 
-        public void CreateFaceDetectorTransform()
+        public async Task CreateFaceDetectorTransformAsync()
         {
             PresetFaceDetector form = new PresetFaceDetector();
 
@@ -7573,10 +7573,10 @@ namespace AMSExplorer
 
                 try
                 {
-                    _amsClient.RefreshTokenIfNeeded();
+                    await _amsClient.RefreshTokenIfNeededAsync();
 
                     // Create the Transform with the output defined above
-                    Transform transform = _amsClient.AMSclient.Transforms.CreateOrUpdate(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
+                    Transform transform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
                     TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
 
                 }
@@ -7589,13 +7589,13 @@ namespace AMSExplorer
             }
         }
 
-        public void CreateStandardEncoderTransform()
+        public async Task CreateStandardEncoderTransformAsync()
         {
             PresetStandardEncoder form = new PresetStandardEncoder();
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                await _amsClient.RefreshTokenIfNeededAsync();
 
                 TransformOutput[] outputs;
 
@@ -7619,7 +7619,7 @@ namespace AMSExplorer
                 try
                 {
                     // Create the Transform with the output defined above
-                    Transform transform = _amsClient.AMSclient.Transforms.CreateOrUpdate(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
+                    Transform transform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
                     TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
 
                 }
@@ -7817,14 +7817,14 @@ namespace AMSExplorer
         }
 
 
-        private void videoAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void videoAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateVideoAnalyzerTransform();
+            await CreateVideoAnalyzerTransformAsync();
         }
 
-        private void mediaEncoderStandardToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void mediaEncoderStandardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateStandardEncoderTransform();
+            await CreateStandardEncoderTransformAsync();
         }
 
         private async void createJobUsingAnHttpSourceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7883,9 +7883,9 @@ namespace AMSExplorer
 
         }
 
-        private void faceDetectorToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void faceDetectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateFaceDetectorTransform();
+            await CreateFaceDetectorTransformAsync();
         }
 
 

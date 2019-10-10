@@ -20,6 +20,7 @@ using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -99,14 +100,14 @@ namespace AMSExplorer
             }
             else
             {
-                ControlsResetToDefault();
+                Task.Run(async () => await ControlsResetToDefaultAsync());
             }
         }
 
-        private void ControlsResetToDefault()
+        private async Task ControlsResetToDefaultAsync()
         {
-            _amsClientV3.RefreshTokenIfNeeded();
-            IList<StorageAccount> storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+            await _amsClientV3.RefreshTokenIfNeededAsync();
+            IList<StorageAccount> storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
 
             comboBoxStorage.Items.Clear();
             foreach (StorageAccount storage in storAccounts)

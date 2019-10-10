@@ -146,10 +146,9 @@ namespace AMSExplorer
         }
 
 
-        private void buttonDeleteTemplate_Click(object sender, EventArgs e)
+        private async void buttonDeleteTemplate_Click(object sender, EventArgs e)
         {
-
-            listViewTransforms.DeleteSelectedTemplate();
+            await listViewTransforms.DeleteSelectedTemplateAsync();
         }
 
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
@@ -246,7 +245,7 @@ namespace AMSExplorer
             }
         }
 
-        private void ButtonCreateNewTransform_Click(object sender, EventArgs e)
+        private async void ButtonCreateNewTransform_Click(object sender, EventArgs e)
         {
             TransformTypeCreation form = new TransformTypeCreation();
             form.ShowDialog();
@@ -256,14 +255,14 @@ namespace AMSExplorer
                 switch (form.TransformType)
                 {
                     case simpleTransformType.analyze:
-                        _myMainform.CreateVideoAnalyzerTransform();
+                        await _myMainform.CreateVideoAnalyzerTransformAsync();
                         break;
 
                     case simpleTransformType.encode:
-                        _myMainform.CreateStandardEncoderTransform();
+                        await _myMainform.CreateStandardEncoderTransformAsync();
                         break;
                     case simpleTransformType.facedetection:
-                        _myMainform.CreateFaceDetectorTransform();
+                        await _myMainform.CreateFaceDetectorTransformAsync();
                         break;
 
                 }

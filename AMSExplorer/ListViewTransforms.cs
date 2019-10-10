@@ -18,6 +18,7 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -115,7 +116,7 @@ namespace AMSExplorer
             EndUpdate();
         }
 
-        public void DeleteSelectedTemplate()
+        public async Task DeleteSelectedTemplateAsync()
         {
             Transform transform = GetSelectedTransform;
             if (transform != null)
@@ -124,8 +125,8 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        _client.RefreshTokenIfNeeded();
-                        _client.AMSclient.Transforms.Delete(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform.Name);
+                        await _client.RefreshTokenIfNeededAsync();
+                        await _client.AMSclient.Transforms.DeleteAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform.Name);
                     }
                     catch
                     {

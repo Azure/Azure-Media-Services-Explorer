@@ -543,7 +543,7 @@ namespace AMSExplorer
                         _mainform.TextBoxLogWriteLine(ex);
                     }
 
-                    _mainform.DoRefreshGridFiltersV(false);
+                    await _mainform.DoRefreshGridFiltersVAsync(false);
                 }
 
             }
