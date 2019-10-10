@@ -245,17 +245,20 @@ namespace AMSExplorer
             List<AssetEntryV3> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
 
             // test - let analyze only visible assets
-
             int visibleRowsCount = DisplayedRowCount(true);
+            if (visibleRowsCount == 0) visibleRowsCount = this.RowCount; // in some cases, DisplayedCount returns 0 so let's use all rows
             int firstDisplayedRowIndex = (FirstDisplayedCell != null) ? FirstDisplayedCell.RowIndex : 0;
             int lastvisibleRowIndex = (firstDisplayedRowIndex + visibleRowsCount) - 1;
             List<string> VisibleAssets = new List<string>();
             for (int rowIndex = firstDisplayedRowIndex; rowIndex <= lastvisibleRowIndex; rowIndex++)
             {
-                DataGridViewRow row = Rows[rowIndex];
+                if (Rows.Count > rowIndex)
+                {
+                    DataGridViewRow row = Rows[rowIndex];
 
-                string assetname = row.Cells[Columns["Name"].Index].Value.ToString();
-                VisibleAssets.Add(assetname);
+                    string assetname = row.Cells[Columns["Name"].Index].Value.ToString();
+                    VisibleAssets.Add(assetname);
+                }
             }
 
             IEnumerable<AssetEntryV3> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
@@ -266,7 +269,7 @@ namespace AMSExplorer
 
             foreach (AssetEntryV3 AE in listae2)
             {
-                System.Threading.Thread.Sleep(1000);
+                await Task.Delay(1000);
                 try
                 {
                     asset = await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AE.Name);
@@ -301,7 +304,6 @@ namespace AMSExplorer
                             AE.DynamicEncryption = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
                         }
 
-
                         if (assetBitmapAndText.Locators != null)
                         {
                             DateTime? LocDate = assetBitmapAndText.Locators.Any() ? (DateTime?)assetBitmapAndText.Locators.Min(l => l.EndTime).ToLocalTime() : null;
@@ -317,14 +319,12 @@ namespace AMSExplorer
                 }
                 catch // in some case, we have a timeout on Assets.Where...
                 {
-
                 }
-                if (worker.CancellationPending == true)
+                if (worker.CancellationPending)
                 {
                     e.Cancel = true;
                     return;
                 }
-
             }
             BeginInvoke(new Action(() => Refresh()), null);
         }
@@ -363,24 +363,46 @@ namespace AMSExplorer
             cacheAssetentriesV3.Remove(asset.Name);
         }
 
-        private static readonly object lockGuard = new object();
-        public void ReLaunchAnalyze()
+
+        private static readonly SemaphoreLocker _locker = new SemaphoreLocker();
+        int i = 0;
+
+        public async Task ReLaunchAnalyzeOfAssetsAsync()
         {
             if (!_initialized)
             {
                 return;
             }
 
-            lock (lockGuard)
+            await _locker.LockAsync(async () =>
+             {
+                 Debug.Print("relaunch" + i++);
+                 if (WorkerAnalyzeAssets.IsBusy)
+                 {
+                     // cancel the analyze.
+                     WorkerAnalyzeAssets.CancelAsync();
+                     Debug.Print("ask for cancel");
+                 }
+
+                 while (WorkerAnalyzeAssets.IsBusy)
+                 {
+                     await Task.Delay(2000);
+                 }
+
+            if (!WorkerAnalyzeAssets.IsBusy)
             {
-                if (WorkerAnalyzeAssets.IsBusy)
+                // Start the asynchronous operation.
+                try
                 {
-                    // cancel the analyze.
-                    WorkerAnalyzeAssets.CancelAsync();
+                    Debug.Print("run again !" + i);
+
+                    WorkerAnalyzeAssets.RunWorkerAsync();
                 }
-                AnalyzeItemsInBackground();
+                catch { }
             }
+             });
         }
+
 
         public async Task RefreshAssetsAsync(int pagetodisplay) // all assets are refreshed
         {
@@ -599,39 +621,15 @@ Properties/StorageId
 
             _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
 
-            BeginInvoke(new Action(() => DataSource = _MyObservAssetV3));
+            Invoke(new Action(() => DataSource = _MyObservAssetV3));
 
             Debug.WriteLine("RefreshAssets End");
-            AnalyzeItemsInBackground();
+            await ReLaunchAnalyzeOfAssetsAsync();
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
 
 
-        public void AnalyzeItemsInBackground()
-        {
-            Task.Run(async () =>
-            {
-                WorkerAnalyzeAssets.CancelAsync();
-                // let's wait a little for the previous worker to cancel if needed
-
-                while (WorkerAnalyzeAssets.IsBusy)
-                {
-                    await Task.Delay(2000);
-                }
-
-                if (!WorkerAnalyzeAssets.IsBusy)
-                {
-                    // Start the asynchronous operation.
-                    try
-                    {
-                        WorkerAnalyzeAssets.RunWorkerAsync();
-                    }
-                    catch { }
-                }
-
-            });
-        }
 
 
         public static async Task<AssetBitmapAndText> BuildBitmapPublicationAsync(string assetName, AMSClientV3 _amsClient)
@@ -798,6 +796,25 @@ Properties/StorageId
             }
 
             return returnedbitmap;
+        }
+    }
+
+
+    public class SemaphoreLocker
+    {
+        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+
+        public async Task LockAsync(Func<Task> worker)
+        {
+            await _semaphore.WaitAsync();
+            try
+            {
+                await worker();
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
     }
 }

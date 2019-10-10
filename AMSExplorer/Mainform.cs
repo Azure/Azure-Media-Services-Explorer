@@ -679,6 +679,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                 }
             }
+            DoRefreshGridAssetV(false);
         }
 
 
@@ -776,7 +777,7 @@ namespace AMSExplorer
                         LengthAllFiles += new System.IO.FileInfo(file).Length;
                     }
 
-                   
+
                     foreach (string fileWithPath in filenames)
                     {
 
@@ -815,7 +816,7 @@ namespace AMSExplorer
                             Console.WriteLine(ado.Status);
                             await ado.ContinueWith(t =>
                              {
-                                
+
                                  if (t.Status != TaskStatus.RanToCompletion)
                                  {
                                      Error = true;
@@ -861,7 +862,7 @@ namespace AMSExplorer
                             var blockListAsync = blob.PutBlockListAsync(blockIds);
                             await blockListAsync.ContinueWith(t =>
                             {
-                               
+
                                 if (t.Status != TaskStatus.RanToCompletion)
                                 {
                                     Error = true;
@@ -899,7 +900,6 @@ namespace AMSExplorer
             {
                 DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
             }
-            DoRefreshGridAssetV(false);
         }
 
 
@@ -1635,7 +1635,7 @@ namespace AMSExplorer
                     {
                         Cursor = Cursors.Arrow;
                         dataGridViewAssetsV.PurgeCacheAsset(asset);
-                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        Task.Run(async () => await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync());
                     }
                 }
 
@@ -1753,7 +1753,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("There is a problem when updating the asset description.", true);
                         }
                         dataGridViewAssetsV.PurgeCacheAsset(AssetTORename);
-                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
                     }
                 }
             }
@@ -1785,7 +1785,7 @@ namespace AMSExplorer
                         }
                         TextBoxLogWriteLine("Alternate Id for Asset Id '{0}' is now '{1}'.", AssetToEditAltId.Id, AssetToEditAltId.AlternateId);
                         dataGridViewAssetsV.PurgeCacheAsset(AssetToEditAltId);
-                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
                     }
                 }
             }
@@ -2412,7 +2412,7 @@ namespace AMSExplorer
                 }
             }
             dataGridViewAssetsV.PurgeCacheAssetsV3(assets);
-            dataGridViewAssetsV.AnalyzeItemsInBackground();
+            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
 
             return listLocatorNames;
         }
@@ -2515,7 +2515,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(ex);
                             }
                             dataGridViewAssetsV.PurgeCacheAssetsV3(SelectedAssets);
-                            dataGridViewAssetsV.AnalyzeItemsInBackground();
+                            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
                         }
                     }
                 }
@@ -3076,7 +3076,7 @@ namespace AMSExplorer
             UpdateLabelConcurrentTransfers();
 
             // making sure the visible assets are analyzed
-            dataGridViewAssetsV.ReLaunchAnalyze();
+            Task.Run(async () => await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync());
 
             Show();
         }
@@ -5884,7 +5884,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(ex);
                     }
 
-                    // DoRefreshGridAssetV(false);
+                    DoRefreshGridAssetV(false);
                 }
             }
         }
@@ -6310,7 +6310,7 @@ namespace AMSExplorer
                                             .Where(l => l.Name == locator.Name).FirstOrDefault();
 
                                 dataGridViewAssetsV.PurgeCacheAsset(myAsset);
-                                dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
                             }
                             catch (Exception ex)
                             {
@@ -6923,7 +6923,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(e);
                 }
                 dataGridViewAssetsV.PurgeCacheAsset(selasset);
-                dataGridViewAssetsV.AnalyzeItemsInBackground();
+                await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
             }
         }
 
@@ -7870,15 +7870,15 @@ namespace AMSExplorer
             await DoStorageVersionAsync();
         }
 
-        private void dataGridViewAssetsV_Scroll(object sender, ScrollEventArgs e)
+        private async void dataGridViewAssetsV_Scroll(object sender, ScrollEventArgs e)
         {
-            dataGridViewAssetsV.ReLaunchAnalyze();
+            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
 
         }
 
-        private void dataGridViewAssetsV_SizeChanged(object sender, EventArgs e)
+        private async void dataGridViewAssetsV_SizeChanged(object sender, EventArgs e)
         {
-            dataGridViewAssetsV.ReLaunchAnalyze();
+            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
 
         }
 
