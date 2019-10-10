@@ -137,19 +137,6 @@ namespace AMSExplorer
             }
             );
 
-            /*
-            assetquery = from a in client.Assets.Take(0)
-                         orderby a.LastModified descending
-                         select new AssetEntry
-                         {
-                             Name = a.Name,
-                             Id = a.Id,
-                             AlternateId = a.AlternateId,
-                             LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                             Storage = a.StorageAccountName
-                         };
-                         */
-
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
                 NullValue = null,
@@ -623,13 +610,17 @@ Properties/StorageId
 
         public void AnalyzeItemsInBackground()
         {
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 WorkerAnalyzeAssets.CancelAsync();
                 // let's wait a little for the previous worker to cancel if needed
-                System.Threading.Thread.Sleep(2000);
 
-                if (WorkerAnalyzeAssets.IsBusy != true)
+                while (WorkerAnalyzeAssets.IsBusy)
+                {
+                    await Task.Delay(2000);
+                }
+
+                if (!WorkerAnalyzeAssets.IsBusy)
                 {
                     // Start the asynchronous operation.
                     try
@@ -638,6 +629,7 @@ Properties/StorageId
                     }
                     catch { }
                 }
+
             });
         }
 
@@ -785,7 +777,6 @@ Properties/StorageId
             }
 
             return filters.Count();
-
         }
 
 
@@ -800,7 +791,6 @@ Properties/StorageId
                     graphicsObject.DrawImage(bitmap1, new Point(0, 0));
                     graphicsObject.DrawImage(bitmap2, new Point(bitmap1.Width, 0));
                 }
-
             }
             else
             {

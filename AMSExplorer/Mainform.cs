@@ -973,7 +973,6 @@ namespace AMSExplorer
 
             try
             {
-
                 var assetSettings = new Asset()
                 {
                     StorageAccountName = storageaccount,
@@ -1003,8 +1002,6 @@ namespace AMSExplorer
                 {
                     return;
                 }
-
-
 
                 // Let's list the blobs
                 BlobContinuationToken continuationToken = null;
