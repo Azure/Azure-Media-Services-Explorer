@@ -1030,6 +1030,9 @@ namespace AMSExplorer
                 int nbtotalblobblock = blobsblock.Count();
                 int nbblob = 0;
                 long BytesCopied = 0;
+                Dictionary<CloudBlockBlob, Task<string>> copyOperationsDict = new Dictionary<CloudBlockBlob, Task<string>>();
+
+                // let's parallelize the copy
                 foreach (IListBlobItem blob in blobsblock)
                 {
                     nbblob++;
@@ -1041,32 +1044,45 @@ namespace AMSExplorer
                     UriBuilder urib = new UriBuilder(ObjectUrl);
                     urib.Path = urib.Path + "/" + Path.GetFileName(blob.Uri.ToString());
 
-                    string stringOperation = await blockBlob.StartCopyAsync(urib.Uri, token);
-                    bool Cancelled = false;
+                    copyOperationsDict.Add(blockBlob, blockBlob.StartCopyAsync(urib.Uri, token));
+                }
+                bool Cancelled = false;
 
-                    DateTime startTime = DateTime.UtcNow;
+                DateTime startTime = DateTime.UtcNow;
 
-                    bool continueLoop = true;
-
-                    while (continueLoop)
+                // let's check the copy status
+                while ((copyOperationsDict.Count > 0) && (!Canceled))
+                {
+                    if (token.IsCancellationRequested && !Cancelled)
                     {
-                        if (token.IsCancellationRequested && !Cancelled)
+                        foreach (KeyValuePair<CloudBlockBlob, Task<string>> entry in copyOperationsDict)
                         {
-                            await blockBlob.AbortCopyAsync(stringOperation);
+                            // do something with entry.Value or entry.Key
+                            await entry.Key.AbortCopyAsync(entry.Value.Result);
                             Cancelled = true;
                         }
+                    }
 
-                        blockBlob.FetchAttributes();
-                        CopyState copyStatus = blockBlob.CopyState;
+                    await Task.Delay(1000);
+
+                    List<CloudBlockBlob> copyCompleted = new List<CloudBlockBlob>();
+                    foreach (KeyValuePair<CloudBlockBlob, Task<string>> entry in copyOperationsDict)
+                    {
+                        CloudBlockBlob blockBlobToCheck = entry.Key;
+                        try
+                        {
+                            await blockBlobToCheck.FetchAttributesAsync();
+                        }
+                        catch { }
+                        CopyState copyStatus = blockBlobToCheck.CopyState;
                         if (copyStatus != null)
                         {
-                            double percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(nbtotalblobblock)) * 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
+                            double percentComplete = 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
 
                             DoGridTransferUpdateProgress(percentComplete, guidTransfer);
 
                             if (copyStatus.Status != CopyStatus.Pending)
                             {
-                                continueLoop = false;
                                 if (copyStatus.Status == CopyStatus.Failed)
                                 {
                                     Error = true;
@@ -1076,20 +1092,19 @@ namespace AMSExplorer
                                 {
                                     Canceled = true;
                                 }
+                                if (copyStatus.Status == CopyStatus.Success)
+                                {
+                                    BytesCopied += blockBlobToCheck.Properties.Length;
+                                }
+                                copyCompleted.Add(blockBlobToCheck);
                             }
                         }
-                        await Task.Delay(1000);
                     }
-
-                    blockBlob.FetchAttributes();
-
-
-                    DateTime endTime = DateTime.UtcNow;
-                    TimeSpan diffTime = endTime - startTime;
-
-                    BytesCopied += blockBlob.Properties.Length;
+                    copyCompleted.ForEach(b => copyOperationsDict.Remove(b));
                 }
 
+                DateTime endTime = DateTime.UtcNow;
+                TimeSpan diffTime = endTime - startTime;
 
                 List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                 List<Task> mylistresults = new List<Task>();
@@ -1152,7 +1167,6 @@ namespace AMSExplorer
 
                 if (!Error && !Canceled)
                 {
-
                     DoGridTransferDeclareCompleted(guidTransfer, asset.Id);
                     DoRefreshGridAssetV(false);
                 }
