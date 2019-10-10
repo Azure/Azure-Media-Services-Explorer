@@ -4634,11 +4634,11 @@ namespace AMSExplorer
 
         private async Task DoDisplayLiveEventInfoAsync()
         {
-            DoDisplayLiveEventInfo(await ReturnSelectedLiveEventsAsync());
+            await DoDisplayLiveEventInfoAsync(await ReturnSelectedLiveEventsAsync());
         }
 
 
-        private void DoDisplayLiveEventInfo(List<LiveEvent> liveEvents)
+        private async Task DoDisplayLiveEventInfoAsync(List<LiveEvent> liveEvents)
         {
             LiveEvent firstLiveEvent = liveEvents.FirstOrDefault();
             bool multiselection = liveEvents.Count > 1;
@@ -4780,28 +4780,23 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                        _amsClient.RefreshTokenIfNeeded();
+                        await _amsClient.RefreshTokenIfNeededAsync();
 
-                        Task.Run(async () =>
+                        try
                         {
-                            try
-                            {
-                                await _amsClient.AMSclient.LiveEvents.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEvent.Name, liveEvent);
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(liveEvent)), null);
-                                TextBoxLogWriteLine("Live event '{0}' : updated.", liveEvent.Name);
-                            }
-
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when updating a live event.", true);
-                                TextBoxLogWriteLine(ex);
-                            }
+                            await _amsClient.AMSclient.LiveEvents.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEvent.Name, liveEvent);
+                            dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(liveEvent)), null);
+                            TextBoxLogWriteLine("Live event '{0}' : updated.", liveEvent.Name);
                         }
-             );
+
+                        catch (Exception ex)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when updating a live event.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
                     }
                 }
-
             }
         }
 
