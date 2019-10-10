@@ -945,7 +945,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task ProcessHttpSASV3(Uri ObjectUrl, Guid guidTransfer, CancellationToken token, string storageaccount = null, NewAsset assetCreationSettings = null)
+        private async Task ProcessHttpSASV3Async(Uri ObjectUrl, Guid guidTransfer, CancellationToken token, string storageaccount = null, NewAsset assetCreationSettings = null)
         {
 
             if (token.IsCancellationRequested)
@@ -1201,7 +1201,6 @@ namespace AMSExplorer
                 DoGridTransferDeclareCancelled(guidTransfer);
             }
             */
-            DoRefreshGridAssetV(false);
         }
 
 
@@ -8186,17 +8185,17 @@ namespace AMSExplorer
         {
         }
 
-        private void fromAzureStoragecontainerSASUrlToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void fromAzureStoragecontainerSASUrlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuImportFromAzureStorageSASContainer();
+            await DoMenuImportFromAzureStorageSASContainerAsync();
         }
 
-        private void fromAzureStorageSASContainerPathToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void fromAzureStorageSASContainerPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuImportFromAzureStorageSASContainer();
+            await DoMenuImportFromAzureStorageSASContainerAsync();
         }
 
-        private void DoMenuImportFromAzureStorageSASContainer()
+        private async Task DoMenuImportFromAzureStorageSASContainerAsync()
         {
             ImportHttp form = new ImportHttp(_amsClient, true);
 
@@ -8208,9 +8207,12 @@ namespace AMSExplorer
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetURL.LocalPath), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
                     // ProcessHttpSourceV3
-                    Task<Task> myTask = Task.Factory.StartNew(() => ProcessHttpSASV3(form.GetURL, response.Id, response.token, form.StorageSelected, form.assetCreationSetting), response.token);
+                    //Task<Task> myTask = Task.Factory.StartNew(() => ProcessHttpSASV3Async(form.GetURL, response.Id, response.token, form.StorageSelected, form.assetCreationSetting), response.token);
 
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                    await ProcessHttpSASV3Async(form.GetURL, response.Id, response.token, form.StorageSelected, form.assetCreationSetting);
+                    DoRefreshGridAssetV(false);
+
                 }
                 catch (Exception ex)
                 {
