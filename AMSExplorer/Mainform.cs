@@ -2446,18 +2446,21 @@ namespace AMSExplorer
                 BlobContinuationToken continuationToken = null;
                 do
                 {
-                    var response = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, continuationToken, null, null);
+                    var response = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.None, null, continuationToken, null, null);
                     continuationToken = response.ContinuationToken;
                     foreach (IListBlobItem blobItem in response.Results)
                     {
-                        CloudBlockBlob blob = blobItem as CloudBlockBlob;
-                        if (blob != null)
+                        if (blobItem.GetType() == typeof(CloudBlockBlob))
                         {
-                            UriBuilder bloburl = new UriBuilder(containerSasUrl);
-                            bloburl.Path += "/" + blob.Name;
-                            stringLines.AppendLine(blob.Name);
-                            stringLines.AppendLine(bloburl.ToString());
-                            stringLines.AppendLine(string.Empty);
+                            CloudBlockBlob blob = blobItem as CloudBlockBlob;
+                            if (blob != null)
+                            {
+                                UriBuilder bloburl = new UriBuilder(containerSasUrl);
+                                bloburl.Path += "/" + blob.Name;
+                                stringLines.AppendLine(blob.Name);
+                                stringLines.AppendLine(bloburl.ToString());
+                                stringLines.AppendLine(string.Empty);
+                            }
                         }
                     }
                 }
