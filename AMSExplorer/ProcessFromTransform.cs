@@ -261,10 +261,10 @@ namespace AMSExplorer
                     case simpleTransformType.encode:
                         await _myMainform.CreateStandardEncoderTransformAsync();
                         break;
+
                     case simpleTransformType.facedetection:
                         await _myMainform.CreateFaceDetectorTransformAsync();
                         break;
-
                 }
             }
 
