@@ -219,14 +219,14 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null)
+            if ((DateTime.Now >= new DateTime(2020, 2, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null))
             {
                 AMFaceDetectorPresent =
                 ProcessFaceDetectortoolStripMenuItem.Visible =
                 toolStripMenuItemFaceDetector.Visible = false;
             }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null)
+            if ((DateTime.Now >= new DateTime(2020, 2, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null))
             {
                 AMMotionDetectorPresent =
                 ProcessMotionDetectortoolStripMenuItem.Visible =
@@ -240,13 +240,13 @@ namespace AMSExplorer
                 toolStripMenuItemRedactor.Visible = false;
             }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null)
+            if ((DateTime.Now >= new DateTime(2020, 2, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null))
             {
                 AMVideoThumbnailsPresent =
                 ProcessVideoThumbnailstoolStripMenuItem.Visible =
                 toolStripMenuItemVideoThumbnails.Visible = false;
             }
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null)
+            if ((DateTime.Now >= new DateTime(2020, 2, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null))
             {
                 AMVideoOCRPresent = false;
                 processAssetsWithAzureMediaOCRToolStripMenuItem.Visible =
@@ -5293,6 +5293,9 @@ namespace AMSExplorer
             }
             else
             {
+                MessageBox.Show("Azure Media Face Detector will be retired on February 1, 2020." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
+          "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
                 // not needed as ism as primary seems to work ok
@@ -5339,6 +5342,8 @@ namespace AMSExplorer
             }
             else
             {
+                MessageBox.Show("Azure Media Video Thumbnails will be retired on February 1, 2020.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
                 // not needed as ism as primary seems to work ok
@@ -5861,6 +5866,9 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            MessageBox.Show("Azure Media Analytics OCR will be retired on February 1, 2020." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
+"Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
             // var l = SelectedAssets.FirstOrDefault().GetSmoothStreamingUri();
@@ -5919,6 +5927,8 @@ namespace AMSExplorer
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
+
+            MessageBox.Show("Azure Media Motion Detector will be retired on February 1, 2020.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
