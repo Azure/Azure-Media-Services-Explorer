@@ -81,7 +81,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    _tempStreamingLocator = AssetInfo.CreateTemporaryOnDemandLocator(_selectedAssets.First(), _amsClientV3);
+                    _tempStreamingLocator = Task.Run(() => AssetInfo.CreateTemporaryOnDemandLocatorAsync(_selectedAssets.First(), _amsClientV3)).GetAwaiter().GetResult();
                 }
                 catch
                 {
@@ -95,7 +95,7 @@ namespace AMSExplorer
                 textBoxAssetName.Text = myAsset.Name;
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(myAsset, _amsClientV3, _tempStreamingLocator?.Name);
+                _parentassetmanifestdata = Task.Run(() => AssetInfo.GetManifestTimingDataAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
 
                 labelDiscountinuity.Visible = _parentassetmanifestdata.DiscontinuityDetected;
 
@@ -415,13 +415,13 @@ namespace AMSExplorer
             }
         }
 
-        private void Subclipping_FormClosed(object sender, FormClosedEventArgs e)
+        private async void Subclipping_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (_tempStreamingLocator != null)
             {
                 try
                 {
-                    _amsClientV3.AMSclient.StreamingLocators.Delete(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, _tempStreamingLocator.Name);
+                    await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, _tempStreamingLocator.Name);
                 }
                 catch
                 {

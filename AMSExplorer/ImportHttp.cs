@@ -68,12 +68,12 @@ namespace AMSExplorer
             _uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
         }
 
-        private void ImportHttp_Load(object sender, EventArgs e)
+        private async void ImportHttp_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
             labelURLFileNameWarning.Text = string.Empty;
 
-            _amsClientV3.RefreshTokenIfNeeded();
+            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             if (_AzureStorageContainerSASListMode)
             {
@@ -82,7 +82,7 @@ namespace AMSExplorer
                 labelTitle.Text = Text = AMSExplorer.Properties.Resources.ImportHttp_ImportHttp_Load_ImportFromSASContainerPath;
             }
 
-            System.Collections.Generic.IList<StorageAccount> storAccounts = _amsClientV3.AMSclient.Mediaservices.Get(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName).StorageAccounts;
+            System.Collections.Generic.IList<StorageAccount> storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
 
             comboBoxStorage.Items.Clear();
             foreach (StorageAccount storage in storAccounts)
@@ -144,16 +144,16 @@ namespace AMSExplorer
                 desc = newAssetForm.AssetDescription;
                 container = newAssetForm.AssetContainer;
             }
-                assetName = newAssetForm.AssetName;
+            assetName = newAssetForm.AssetName;
 
 
-                if (newAssetForm.ShowDialog() != DialogResult.OK)
-                {
-                    newAssetForm.AssetAltId = altid;
-                    newAssetForm.AssetName = assetName;
-                    newAssetForm.AssetDescription = desc;
-                    newAssetForm.AssetContainer = container;
-                }
+            if (newAssetForm.ShowDialog() != DialogResult.OK)
+            {
+                newAssetForm.AssetAltId = altid;
+                newAssetForm.AssetName = assetName;
+                newAssetForm.AssetDescription = desc;
+                newAssetForm.AssetContainer = container;
             }
         }
     }
+}

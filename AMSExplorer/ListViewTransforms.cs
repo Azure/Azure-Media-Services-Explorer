@@ -84,18 +84,18 @@ namespace AMSExplorer
 
         }
 
-        public void LoadTransforms(AMSClientV3 client, string selectedTransformName = null)
+        public async Task LoadTransformsAsync(AMSClientV3 client, string selectedTransformName = null)
         {
             _client = client;
             _selectedTransformName = selectedTransformName;
 
-            LoadTransforms();
+            await LoadTransformsAsync();
         }
-        private void LoadTransforms()
+        private async Task LoadTransformsAsync()
         {
-            _client.RefreshTokenIfNeeded();
+           await _client.RefreshTokenIfNeededAsync();
 
-            _transforms = _client.AMSclient.Transforms.List(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            _transforms = await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             BeginUpdate();
             Items.Clear();
@@ -132,7 +132,7 @@ namespace AMSExplorer
                     {
 
                     }
-                    LoadTransforms();
+                    await LoadTransformsAsync();
                 }
             }
         }

@@ -114,14 +114,14 @@ namespace AMSExplorer
 
         }
 
-        private void ProcessFromJobTemplate_Load(object sender, EventArgs e)
+        private async void ProcessFromJobTemplate_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
 
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
-            listViewTransforms.LoadTransforms(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
+            await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
             UpdateLabeltext();
             labelURLFileNameWarning.Text = string.Empty;
             UpdateStatusButtonOk();
@@ -268,7 +268,7 @@ namespace AMSExplorer
                 }
             }
 
-            listViewTransforms.LoadTransforms(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
+           await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
 
         }
 

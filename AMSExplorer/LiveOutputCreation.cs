@@ -124,15 +124,15 @@ namespace AMSExplorer
             _client = client;
         }
 
-        private void LiveOutputCreation_Load(object sender, EventArgs e)
+        private async void LiveOutputCreation_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
 
             Text = string.Format(Text, LiveEventName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
 
-            _client.RefreshTokenIfNeeded();
-            System.Collections.Generic.IList<StorageAccount> storages = _client.AMSclient.Mediaservices.Get(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName).StorageAccounts;
+            await _client.RefreshTokenIfNeededAsync();
+            System.Collections.Generic.IList<StorageAccount> storages = (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts;
             foreach (StorageAccount storage in storages)
             {
                 bool primary = (storage.Type == StorageAccountType.Primary);

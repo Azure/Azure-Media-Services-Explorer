@@ -88,7 +88,7 @@ namespace AMSExplorer
             comboBoxLocatorsFilters.EndUpdate();
         }
 
-        private void DynManifestFilter_Load(object sender, EventArgs e)
+        private async void DynManifestFilter_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
 
@@ -196,7 +196,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        _tempStreamingLocator = AssetInfo.CreateTemporaryOnDemandLocator(_parentAsset, _amsClient);
+                        _tempStreamingLocator = await AssetInfo.CreateTemporaryOnDemandLocatorAsync(_parentAsset, _amsClient);
                     }
                     catch
                     {
@@ -205,10 +205,10 @@ namespace AMSExplorer
                 }
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
+                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
 
                 // let's delete the temp locator
-                if (_tempStreamingLocator != null) AssetInfo.DeleteStreamingLocator(_parentAsset, _amsClient, _tempStreamingLocator.Name);
+                if (_tempStreamingLocator != null) await AssetInfo.DeleteStreamingLocatorAsync(_parentAsset, _amsClient, _tempStreamingLocator.Name);
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
@@ -296,7 +296,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        _tempStreamingLocator = AssetInfo.CreateTemporaryOnDemandLocator(_parentAsset, _amsClient);
+                        _tempStreamingLocator = await AssetInfo.CreateTemporaryOnDemandLocatorAsync(_parentAsset, _amsClient);
                     }
                     catch
                     {
@@ -305,10 +305,10 @@ namespace AMSExplorer
                 }
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = AssetInfo.GetManifestTimingData(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
+                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
 
                 // let's delete the temp locator
-                AssetInfo.DeleteStreamingLocator(_parentAsset, _amsClient, _tempStreamingLocator.Name);
+                await AssetInfo.DeleteStreamingLocatorAsync(_parentAsset, _amsClient, _tempStreamingLocator.Name);
 
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
 
