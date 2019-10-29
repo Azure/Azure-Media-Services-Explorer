@@ -5188,15 +5188,14 @@ namespace AMSExplorer
                 try
                 {
                     string names2 = string.Join(", ", ListStreamingEndpoints.Select(le => le.Name).ToArray());
-
                     TextBoxLogWriteLine("Deleting streaming endpoints(s) : {0}...", names2);
+                
                     List<StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
-                    Task[] taskSEdel = ListStreamingEndpoints.Select(c => GetStreamingEndpointAsync(c.Name)).ToArray();
+                    Task[] taskSEdel = ListStreamingEndpoints.Select(c => _amsClient.AMSclient.StreamingEndpoints.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
 
                     while (!taskSEdel.All(t => t.IsCompleted))
                     {
-                        // refresh the live events
-
+                        // refresh
                         foreach (StreamingEndpoint loitem in ListStreamingEndpoints)
                         {
                             StreamingEndpoint loitemR = await GetStreamingEndpointAsync(loitem.Name);
