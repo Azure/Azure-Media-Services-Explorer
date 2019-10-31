@@ -7699,11 +7699,11 @@ namespace AMSExplorer
             {
                 foreach (Transform transform in sel)
                 {
-                    string uniqueness = Guid.NewGuid().ToString("N");
+                    string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
                     if (jobName == null)
-                        jobName = $"job-{uniqueness}";
+                        jobName = $"job-{transform.Name}-{uniqueness}";
                     if (outputAssetName == null)
-                        outputAssetName = $"output-{uniqueness}";
+                        outputAssetName = $"{asset.Name}-{transform.Name}-{uniqueness}";
 
                     JobInputAsset jobInput = new JobInputAsset(asset.Name, start: start, end: end);
 
@@ -7749,15 +7749,17 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
         }
 
+
+        // Job creation when source is http
         private async Task CreateAndSubmitJobsAsync(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
             foreach (Transform transform in sel)
             {
-                string uniqueness = Guid.NewGuid().ToString("N");
-                string jobName = $"job-{uniqueness}";
-                string outputAssetName = $"output-{uniqueness}";
+                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                string jobName = $"job-{transform.Name}-{uniqueness}";
+                string outputAssetName = $"httpsource-{transform.Name}-{uniqueness}";
 
                 JobInputHttp jobInput = new JobInputHttp(files: new[] { url }, start: start, end: end);
 

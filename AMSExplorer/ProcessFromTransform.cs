@@ -45,8 +45,6 @@ namespace AMSExplorer
             set => textBoxURL.Text = value.ToString();
         }
 
-
-
         public ClipTime StartClipTime => checkBoxSourceTrimmingStart.Checked ?
 
                     new AbsoluteClipTime()
@@ -136,15 +134,12 @@ namespace AMSExplorer
                 timeControlEndTime.SetTimeStamp((TimeSpan)_end);
                 checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
             }
-
         }
-
 
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-
 
         private async void buttonDeleteTemplate_Click(object sender, EventArgs e)
         {
@@ -173,7 +168,6 @@ namespace AMSExplorer
             {
                 textBoxSourceDurationTime.Text = (timeControlEndTime.TimeStampWithOffset - timeControlStartTime.GetOffSetAsTimeSpan()).ToString();
             }
-
         }
 
         private void timeControlEndTime_ValueChanged(object sender, EventArgs e)
@@ -185,8 +179,6 @@ namespace AMSExplorer
         private void checkBoxSourceTrimmingEnd_CheckStateChanged(object sender, EventArgs e)
         {
             timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked);
-
-
         }
 
         private void checkBoxSourceTrimmingStart_CheckStateChanged(object sender, EventArgs e)
@@ -200,12 +192,10 @@ namespace AMSExplorer
             if (radioButtonSelectedAssets.Checked)
             {
                 UpdateStatusButtonOk(SelectedTransform != null);
-
             }
             else
             {
                 UpdateStatusButtonOk();
-
             }
             UpdateLabeltext();
         }
