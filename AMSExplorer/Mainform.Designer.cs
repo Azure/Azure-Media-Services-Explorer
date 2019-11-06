@@ -337,9 +337,9 @@
             this.toolStripStatusLabelWatchFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -2734,11 +2734,6 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
-            // 
             // buttonRefreshTab
             // 
             resources.ApplyResources(this.buttonRefreshTab, "buttonRefreshTab");
@@ -2752,6 +2747,11 @@
             this.panelButtons.Controls.Add(this.buttonRefresh);
             resources.ApplyResources(this.panelButtons, "panelButtons");
             this.panelButtons.Name = "panelButtons";
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
             // 
             // Mainform
             // 

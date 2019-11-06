@@ -94,6 +94,7 @@
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Name = "buttonOk";
+            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
@@ -102,12 +103,14 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonReset
             // 
             resources.ApplyResources(this.buttonReset, "buttonReset");
             this.buttonReset.Name = "buttonReset";
+            this.toolTip1.SetToolTip(this.buttonReset, resources.GetString("buttonReset.ToolTip"));
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
@@ -116,25 +119,28 @@
             resources.ApplyResources(this.checkBoxDisplayAssetID, "checkBoxDisplayAssetID");
             this.checkBoxDisplayAssetID.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetID.Name = "checkBoxDisplayAssetID";
+            this.toolTip1.SetToolTip(this.checkBoxDisplayAssetID, resources.GetString("checkBoxDisplayAssetID.ToolTip"));
             this.checkBoxDisplayAssetID.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetAltId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetStorage);
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
             this.groupBox1.Controls.Add(this.comboBoxAutoRefreshTime);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetID);
             this.groupBox1.ForeColor = System.Drawing.Color.DarkBlue;
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
             // 
             // checkBoxDisplayAssetAltId
             // 
             resources.ApplyResources(this.checkBoxDisplayAssetAltId, "checkBoxDisplayAssetAltId");
             this.checkBoxDisplayAssetAltId.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetAltId.Name = "checkBoxDisplayAssetAltId";
+            this.toolTip1.SetToolTip(this.checkBoxDisplayAssetAltId, resources.GetString("checkBoxDisplayAssetAltId.ToolTip"));
             this.checkBoxDisplayAssetAltId.UseVisualStyleBackColor = true;
             // 
             // checkBoxDisplayAssetStorage
@@ -142,6 +148,7 @@
             resources.ApplyResources(this.checkBoxDisplayAssetStorage, "checkBoxDisplayAssetStorage");
             this.checkBoxDisplayAssetStorage.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxDisplayAssetStorage.Name = "checkBoxDisplayAssetStorage";
+            this.toolTip1.SetToolTip(this.checkBoxDisplayAssetStorage, resources.GetString("checkBoxDisplayAssetStorage.ToolTip"));
             this.checkBoxDisplayAssetStorage.UseVisualStyleBackColor = true;
             // 
             // checkBoxAutoRefresh
@@ -154,6 +161,7 @@
             // 
             // comboBoxAutoRefreshTime
             // 
+            resources.ApplyResources(this.comboBoxAutoRefreshTime, "comboBoxAutoRefreshTime");
             this.comboBoxAutoRefreshTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAutoRefreshTime.FormattingEnabled = true;
             this.comboBoxAutoRefreshTime.Items.AddRange(new object[] {
@@ -161,11 +169,12 @@
             resources.GetString("comboBoxAutoRefreshTime.Items1"),
             resources.GetString("comboBoxAutoRefreshTime.Items2"),
             resources.GetString("comboBoxAutoRefreshTime.Items3")});
-            resources.ApplyResources(this.comboBoxAutoRefreshTime, "comboBoxAutoRefreshTime");
             this.comboBoxAutoRefreshTime.Name = "comboBoxAutoRefreshTime";
+            this.toolTip1.SetToolTip(this.comboBoxAutoRefreshTime, resources.GetString("comboBoxAutoRefreshTime.ToolTip"));
             // 
             // groupBox2
             // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.numericUpDownSASDuration);
             this.groupBox2.Controls.Add(this.checkBoxHideTaskbarNotifications);
@@ -178,15 +187,16 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.numericUpDownLocatorDuration);
             this.groupBox2.ForeColor = System.Drawing.Color.DarkBlue;
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox2, resources.GetString("groupBox2.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // numericUpDownSASDuration
             // 
@@ -202,6 +212,7 @@
             0,
             0});
             this.numericUpDownSASDuration.Name = "numericUpDownSASDuration";
+            this.toolTip1.SetToolTip(this.numericUpDownSASDuration, resources.GetString("numericUpDownSASDuration.ToolTip"));
             this.numericUpDownSASDuration.Value = new decimal(new int[] {
             24,
             0,
@@ -213,6 +224,7 @@
             resources.ApplyResources(this.checkBoxHideTaskbarNotifications, "checkBoxHideTaskbarNotifications");
             this.checkBoxHideTaskbarNotifications.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxHideTaskbarNotifications.Name = "checkBoxHideTaskbarNotifications";
+            this.toolTip1.SetToolTip(this.checkBoxHideTaskbarNotifications, resources.GetString("checkBoxHideTaskbarNotifications.ToolTip"));
             this.checkBoxHideTaskbarNotifications.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseAdaptiveStreamingFormat
@@ -220,6 +232,7 @@
             resources.ApplyResources(this.checkBoxUseAdaptiveStreamingFormat, "checkBoxUseAdaptiveStreamingFormat");
             this.checkBoxUseAdaptiveStreamingFormat.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxUseAdaptiveStreamingFormat.Name = "checkBoxUseAdaptiveStreamingFormat";
+            this.toolTip1.SetToolTip(this.checkBoxUseAdaptiveStreamingFormat, resources.GetString("checkBoxUseAdaptiveStreamingFormat.ToolTip"));
             this.checkBoxUseAdaptiveStreamingFormat.UseVisualStyleBackColor = true;
             // 
             // label13
@@ -227,6 +240,7 @@
             resources.ApplyResources(this.label13, "label13");
             this.label13.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label13.Name = "label13";
+            this.toolTip1.SetToolTip(this.label13, resources.GetString("label13.ToolTip"));
             // 
             // numericUpDownAssetAnalysisStep
             // 
@@ -237,6 +251,7 @@
             0,
             0});
             this.numericUpDownAssetAnalysisStep.Name = "numericUpDownAssetAnalysisStep";
+            this.toolTip1.SetToolTip(this.numericUpDownAssetAnalysisStep, resources.GetString("numericUpDownAssetAnalysisStep.ToolTip"));
             this.numericUpDownAssetAnalysisStep.Value = new decimal(new int[] {
             20,
             0,
@@ -248,12 +263,14 @@
             resources.ApplyResources(this.label12, "label12");
             this.label12.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label12.Name = "label12";
+            this.toolTip1.SetToolTip(this.label12, resources.GetString("label12.ToolTip"));
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label5.Name = "label5";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // numericUpDownAssetAnalysisStart
             // 
@@ -264,6 +281,7 @@
             0,
             0});
             this.numericUpDownAssetAnalysisStart.Name = "numericUpDownAssetAnalysisStart";
+            this.toolTip1.SetToolTip(this.numericUpDownAssetAnalysisStart, resources.GetString("numericUpDownAssetAnalysisStart.ToolTip"));
             this.numericUpDownAssetAnalysisStart.Value = new decimal(new int[] {
             10,
             0,
@@ -275,6 +293,7 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label3.Name = "label3";
+            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
             // 
             // numericUpDownLocatorDuration
             // 
@@ -290,6 +309,7 @@
             0,
             0});
             this.numericUpDownLocatorDuration.Name = "numericUpDownLocatorDuration";
+            this.toolTip1.SetToolTip(this.numericUpDownLocatorDuration, resources.GetString("numericUpDownLocatorDuration.ToolTip"));
             this.numericUpDownLocatorDuration.Value = new decimal(new int[] {
             3650,
             0,
@@ -298,58 +318,65 @@
             // 
             // groupBox3
             // 
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Controls.Add(this.labelcdn);
             this.groupBox3.Controls.Add(this.textBoxCustomPlayer);
             this.groupBox3.Controls.Add(this.checkBoxEnableCustomPlayer);
             this.groupBox3.ForeColor = System.Drawing.Color.DarkBlue;
-            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox3, resources.GetString("groupBox3.ToolTip"));
             // 
             // labelcdn
             // 
-            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
             resources.ApplyResources(this.labelcdn, "labelcdn");
+            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelcdn.Name = "labelcdn";
+            this.toolTip1.SetToolTip(this.labelcdn, resources.GetString("labelcdn.ToolTip"));
             // 
             // textBoxCustomPlayer
             // 
             resources.ApplyResources(this.textBoxCustomPlayer, "textBoxCustomPlayer");
             this.textBoxCustomPlayer.Name = "textBoxCustomPlayer";
+            this.toolTip1.SetToolTip(this.textBoxCustomPlayer, resources.GetString("textBoxCustomPlayer.ToolTip"));
             // 
             // checkBoxEnableCustomPlayer
             // 
             resources.ApplyResources(this.checkBoxEnableCustomPlayer, "checkBoxEnableCustomPlayer");
             this.checkBoxEnableCustomPlayer.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxEnableCustomPlayer.Name = "checkBoxEnableCustomPlayer";
+            this.toolTip1.SetToolTip(this.checkBoxEnableCustomPlayer, resources.GetString("checkBoxEnableCustomPlayer.ToolTip"));
             this.checkBoxEnableCustomPlayer.UseVisualStyleBackColor = true;
             this.checkBoxEnableCustomPlayer.CheckedChanged += new System.EventHandler(this.checkBoxEnableCustomPlayer_CheckedChanged);
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonReset);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label4.Name = "label4";
+            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
             // 
             // numericUpDownMESPrice
             // 
+            resources.ApplyResources(this.numericUpDownMESPrice, "numericUpDownMESPrice");
             this.numericUpDownMESPrice.DecimalPlaces = 3;
             this.numericUpDownMESPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            resources.ApplyResources(this.numericUpDownMESPrice, "numericUpDownMESPrice");
             this.numericUpDownMESPrice.Name = "numericUpDownMESPrice";
+            this.toolTip1.SetToolTip(this.numericUpDownMESPrice, resources.GetString("numericUpDownMESPrice.ToolTip"));
             this.numericUpDownMESPrice.Value = new decimal(new int[] {
             15,
             0,
@@ -360,18 +387,20 @@
             // 
             resources.ApplyResources(this.textBoxCurrency, "textBoxCurrency");
             this.textBoxCurrency.Name = "textBoxCurrency";
+            this.toolTip1.SetToolTip(this.textBoxCurrency, resources.GetString("textBoxCurrency.ToolTip"));
             // 
             // groupBox4
             // 
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.amspriceslink);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.textBoxCurrency);
             this.groupBox4.Controls.Add(this.numericUpDownMESPrice);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.ForeColor = System.Drawing.Color.DarkBlue;
-            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox4, resources.GetString("groupBox4.ToolTip"));
             // 
             // amspriceslink
             // 
@@ -379,6 +408,7 @@
             this.amspriceslink.ForeColor = System.Drawing.SystemColors.WindowText;
             this.amspriceslink.Name = "amspriceslink";
             this.amspriceslink.TabStop = true;
+            this.toolTip1.SetToolTip(this.amspriceslink, resources.GetString("amspriceslink.ToolTip"));
             this.amspriceslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.amspriceslink_LinkClicked);
             // 
             // label7
@@ -386,6 +416,7 @@
             resources.ApplyResources(this.label7, "label7");
             this.label7.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label7.Name = "label7";
+            this.toolTip1.SetToolTip(this.label7, resources.GetString("label7.ToolTip"));
             // 
             // tabControl1
             // 
@@ -395,62 +426,71 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
+            this.toolTip1.SetToolTip(this.tabControl1, resources.GetString("tabControl1.ToolTip"));
             // 
             // tabPage1
             // 
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox2);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
+            this.toolTip1.SetToolTip(this.tabPage1, resources.GetString("tabPage1.ToolTip"));
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox4);
             resources.ApplyResources(this.tabPage2, "tabPage2");
+            this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Name = "tabPage2";
+            this.toolTip1.SetToolTip(this.tabPage2, resources.GetString("tabPage2.ToolTip"));
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.groupBox3);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
+            this.toolTip1.SetToolTip(this.tabPage3, resources.GetString("tabPage3.ToolTip"));
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
+            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Controls.Add(this.textBoxVLCPath);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.textBoxffmpegPath);
             this.groupBox5.ForeColor = System.Drawing.Color.DarkBlue;
-            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox5, resources.GetString("groupBox5.ToolTip"));
             // 
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
             this.label11.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label11.Name = "label11";
+            this.toolTip1.SetToolTip(this.label11, resources.GetString("label11.ToolTip"));
             // 
             // textBoxVLCPath
             // 
             resources.ApplyResources(this.textBoxVLCPath, "textBoxVLCPath");
             this.textBoxVLCPath.Name = "textBoxVLCPath";
+            this.toolTip1.SetToolTip(this.textBoxVLCPath, resources.GetString("textBoxVLCPath.ToolTip"));
             // 
             // label10
             // 
             resources.ApplyResources(this.label10, "label10");
             this.label10.ForeColor = System.Drawing.SystemColors.WindowText;
             this.label10.Name = "label10";
+            this.toolTip1.SetToolTip(this.label10, resources.GetString("label10.ToolTip"));
             // 
             // textBoxffmpegPath
             // 
             resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
             this.textBoxffmpegPath.Name = "textBoxffmpegPath";
+            this.toolTip1.SetToolTip(this.textBoxffmpegPath, resources.GetString("textBoxffmpegPath.ToolTip"));
             // 
             // Options
             // 
@@ -462,6 +502,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Options";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.options_Load);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Options_DpiChanged);
             this.groupBox1.ResumeLayout(false);

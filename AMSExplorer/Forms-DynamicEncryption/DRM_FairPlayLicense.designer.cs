@@ -125,10 +125,10 @@
             // 
             // panelPersistent
             // 
+            resources.ApplyResources(this.panelPersistent, "panelPersistent");
             this.panelPersistent.Controls.Add(this.numericUpDownRentalHours);
             this.panelPersistent.Controls.Add(this.checkBoxLimited);
             this.panelPersistent.Controls.Add(this.label3);
-            resources.ApplyResources(this.panelPersistent, "panelPersistent");
             this.panelPersistent.Name = "panelPersistent";
             // 
             // textBoxPolicyName

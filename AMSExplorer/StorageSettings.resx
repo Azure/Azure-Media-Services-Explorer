@@ -117,544 +117,520 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 67</value>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 15</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 15</value>
-  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Default services version :</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
+  <data name="label4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>337, 15</value>
-  </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 27</value>
-  </data>
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonUpdate.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="buttonUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>211, 15</value>
-  </data>
-  <data name="buttonUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 27</value>
-  </data>
-  <data name="buttonUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="buttonUpdate.Text" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdate.Name" xml:space="preserve">
-    <value>buttonUpdate</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdate.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdate.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 363</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>469, 55</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="comboBoxVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="comboBoxVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 85</value>
-  </data>
-  <data name="comboBoxVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>434, 23</value>
-  </data>
-  <data name="comboBoxVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="&gt;&gt;comboBoxVersion.Name" xml:space="preserve">
-    <value>comboBoxVersion</value>
-  </data>
-  <data name="&gt;&gt;comboBoxVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxVersion.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;comboBoxVersion.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="moreinfoLiveStreamingProfilelink.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>238, 67</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 15</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.Text" xml:space="preserve">
-    <value>Storage Services Versioning information</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Name" xml:space="preserve">
-    <value>moreinfoLiveStreamingProfilelink</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
   </data>
   <data name="comboBoxMetrics.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="comboBoxMetrics.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
   </data>
-  <data name="comboBoxMetrics.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 44</value>
+  <data name="numericUpDownRetention.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 23</value>
   </data>
-  <data name="comboBoxMetrics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 23</value>
+  <data name="moreinfoLiveStreamingProfilelink.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 67</value>
   </data>
-  <data name="comboBoxMetrics.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBoxMetrics.Name" xml:space="preserve">
-    <value>comboBoxMetrics</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMetrics.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMetrics.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
   </data>
   <data name="&gt;&gt;comboBoxMetrics.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="textBoxStorageId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
   </data>
-  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
   </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 25</value>
+  <data name="moreinfoLiveStreamingProfilelink.Text" xml:space="preserve">
+    <value>Storage Services Versioning information</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 15</value>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
+  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Level :</value>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 107</value>
   </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>140, 107</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 18</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Put 0 for no retention, 5 is a common setting</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="linkLabelStorageAnalytics.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="linkLabelStorageAnalytics.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="linkLabelStorageAnalytics.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="linkLabelStorageAnalytics.Location" type="System.Drawing.Point, System.Drawing">
-    <value>287, 25</value>
-  </data>
-  <data name="linkLabelStorageAnalytics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 15</value>
-  </data>
-  <data name="linkLabelStorageAnalytics.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
   <data name="linkLabelStorageAnalytics.Text" xml:space="preserve">
     <value>Storage Analytics Metrics</value>
-  </data>
-  <data name="&gt;&gt;linkLabelStorageAnalytics.Name" xml:space="preserve">
-    <value>linkLabelStorageAnalytics</value>
-  </data>
-  <data name="&gt;&gt;linkLabelStorageAnalytics.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabelStorageAnalytics.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;linkLabelStorageAnalytics.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRetention.Name" xml:space="preserve">
-    <value>numericUpDownRetention</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRetention.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRetention.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRetention.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 136</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>435, 143</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Metrics</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="numericUpDownRetention.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="numericUpDownRetention.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 105</value>
-  </data>
-  <data name="numericUpDownRetention.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 23</value>
-  </data>
-  <data name="numericUpDownRetention.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRetention.Name" xml:space="preserve">
-    <value>numericUpDownRetention</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRetention.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRetention.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRetention.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 87</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 15</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Retention (days) :</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labelStorageAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="labelStorageAccount.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 12pt, style=Bold</value>
-  </data>
-  <data name="labelStorageAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 20</value>
-  </data>
-  <data name="labelStorageAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 23</value>
-  </data>
-  <data name="labelStorageAccount.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="labelStorageAccount.Text" xml:space="preserve">
-    <value>Settings for storage account : {0}</value>
-  </data>
-  <data name="&gt;&gt;labelStorageAccount.Name" xml:space="preserve">
-    <value>labelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;labelStorageAccount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelStorageAccount.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelStorageAccount.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>213, 111</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 18</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>2011-08-18 or higher is recommended</value>
-  </data>
-  <data name="label4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textBoxStorageId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxStorageId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 304</value>
   </data>
   <data name="textBoxStorageId.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="textBoxStorageId.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Vertical</value>
-  </data>
-  <data name="textBoxStorageId.Size" type="System.Drawing.Size, System.Drawing">
-    <value>437, 35</value>
-  </data>
-  <data name="textBoxStorageId.TabIndex" type="System.Int32, mscorlib">
-    <value>76</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageId.Name" xml:space="preserve">
-    <value>textBoxStorageId</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageId.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageId.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBoxStorageId.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 286</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 15</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Storage Id :</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>469, 418</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Azure Storage Settings</value>
   </data>
+  <data name="&gt;&gt;textBoxStorageId.Name" xml:space="preserve">
+    <value>textBoxStorageId</value>
+  </data>
+  <data name="textBoxStorageId.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;textBoxStorageId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRetention.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRetention.Name" xml:space="preserve">
+    <value>numericUpDownRetention</value>
+  </data>
+  <data name="buttonUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="moreinfoLiveStreamingProfilelink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 15</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdate.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 363</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Storage Id :</value>
+  </data>
+  <data name="&gt;&gt;textBoxStorageId.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="moreinfoLiveStreamingProfilelink.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="buttonUpdate.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="&gt;&gt;linkLabelStorageAnalytics.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxMetrics.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Put 0 for no retention, 5 is a common setting</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
+  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;linkLabelStorageAnalytics.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="numericUpDownRetention.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 105</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRetention.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>213, 111</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 67</value>
+  </data>
+  <data name="comboBoxMetrics.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="labelStorageAccount.Text" xml:space="preserve">
+    <value>Settings for storage account : {0}</value>
+  </data>
+  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 18</value>
+  </data>
+  <data name="linkLabelStorageAnalytics.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 9pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;labelStorageAccount.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="comboBoxVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;textBoxStorageId.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;labelStorageAccount.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdate.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 15</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>337, 15</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="buttonUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>211, 15</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 286</value>
+  </data>
+  <data name="labelStorageAccount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 20</value>
+  </data>
+  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="buttonUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 27</value>
+  </data>
+  <data name="linkLabelStorageAnalytics.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 15</value>
+  </data>
+  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="labelStorageAccount.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 12pt, style=Bold</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>469, 55</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 136</value>
+  </data>
+  <data name="&gt;&gt;linkLabelStorageAnalytics.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="moreinfoLiveStreamingProfilelink.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelStorageAccount.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;comboBoxVersion.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="labelStorageAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="linkLabelStorageAnalytics.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 25</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 27</value>
+  </data>
+  <data name="moreinfoLiveStreamingProfilelink.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="textBoxStorageId.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdate.Name" xml:space="preserve">
+    <value>buttonUpdate</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>StorageSettings</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="textBoxStorageId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 304</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="comboBoxMetrics.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 44</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Retention (days) :</value>
+  </data>
+  <data name="labelStorageAccount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>431, 23</value>
+  </data>
+  <data name="linkLabelStorageAnalytics.Location" type="System.Drawing.Point, System.Drawing">
+    <value>287, 25</value>
+  </data>
+  <data name="linkLabelStorageAnalytics.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="linkLabelStorageAnalytics.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="comboBoxVersion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 85</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 15</value>
+  </data>
+  <data name="comboBoxVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>434, 23</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Default services version :</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Name" xml:space="preserve">
+    <value>moreinfoLiveStreamingProfilelink</value>
+  </data>
+  <data name="&gt;&gt;comboBoxVersion.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;labelStorageAccount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comboBoxVersion.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="&gt;&gt;linkLabelStorageAnalytics.Name" xml:space="preserve">
+    <value>linkLabelStorageAnalytics</value>
+  </data>
+  <data name="&gt;&gt;comboBoxMetrics.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 87</value>
+  </data>
+  <data name="numericUpDownRetention.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>469, 418</value>
+  </data>
+  <data name="textBoxStorageId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>437, 35</value>
+  </data>
+  <data name="comboBoxMetrics.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>435, 143</value>
+  </data>
+  <data name="&gt;&gt;comboBoxVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxVersion.Name" xml:space="preserve">
+    <value>comboBoxVersion</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Level :</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="buttonUpdate.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="comboBoxMetrics.Size" type="System.Drawing.Size, System.Drawing">
+    <value>413, 23</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRetention.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 15</value>
+  </data>
+  <data name="&gt;&gt;comboBoxMetrics.Name" xml:space="preserve">
+    <value>comboBoxMetrics</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 18</value>
+  </data>
+  <data name="numericUpDownRetention.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Metrics</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>2011-08-18 or higher is recommended</value>
+  </data>
+  <data name="&gt;&gt;labelStorageAccount.Name" xml:space="preserve">
+    <value>labelStorageAccount</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

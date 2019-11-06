@@ -118,138 +118,138 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 165</value>
-  </data>
   <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
     <value>479, 27</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;progressBar1.Name" xml:space="preserve">
-    <value>progressBar1</value>
-  </data>
-  <data name="&gt;&gt;progressBar1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;progressBar1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="labelConnecting.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 9.75pt, style=Bold</value>
-  </data>
-  <data name="labelConnecting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>140, 73</value>
-  </data>
-  <data name="labelConnecting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>353, 32</value>
-  </data>
-  <data name="labelConnecting.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="labelConnecting.Text" xml:space="preserve">
-    <value>{0}</value>
-  </data>
-  <data name="labelConnecting.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;labelConnecting.Name" xml:space="preserve">
-    <value>labelConnecting</value>
-  </data>
-  <data name="&gt;&gt;labelConnecting.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelConnecting.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelConnecting.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="logoPictureBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 14</value>
-  </data>
-  <data name="logoPictureBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 129</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="logoPictureBox.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="logoPictureBox.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;logoPictureBox.Name" xml:space="preserve">
-    <value>logoPictureBox</value>
-  </data>
-  <data name="&gt;&gt;logoPictureBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;logoPictureBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;logoPictureBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
   </data>
   <data name="labelTitle.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 11.25pt</value>
   </data>
-  <data name="labelTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>140, 33</value>
-  </data>
-  <data name="labelTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>353, 39</value>
-  </data>
-  <data name="labelTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="labelTitle.Text" xml:space="preserve">
-    <value>Connecting to the Media Services account :</value>
-  </data>
-  <data name="labelTitle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
   <data name="&gt;&gt;labelTitle.Name" xml:space="preserve">
     <value>labelTitle</value>
   </data>
-  <data name="&gt;&gt;labelTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelTitle.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelTitle.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>507, 212</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Connecting to the Media account</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>Splash</value>
+  <data name="&gt;&gt;logoPictureBox.Name" xml:space="preserve">
+    <value>logoPictureBox</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>507, 212</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Splash</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;logoPictureBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelConnecting.Text" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelConnecting.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="labelConnecting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 73</value>
+  </data>
+  <data name="&gt;&gt;logoPictureBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value>Connecting to the Media Services account :</value>
+  </data>
+  <data name="logoPictureBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 129</value>
+  </data>
+  <data name="labelConnecting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>353, 32</value>
+  </data>
+  <data name="&gt;&gt;labelConnecting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logoPictureBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelConnecting.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="labelConnecting.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 9.75pt, style=Bold</value>
+  </data>
+  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 10, 10, 10</value>
+  </data>
+  <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="logoPictureBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="labelTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>353, 39</value>
+  </data>
+  <data name="&gt;&gt;labelTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelConnecting.Name" xml:space="preserve">
+    <value>labelConnecting</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Name" xml:space="preserve">
+    <value>progressBar1</value>
+  </data>
+  <data name="logoPictureBox.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="&gt;&gt;labelTitle.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelTitle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="logoPictureBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 14</value>
+  </data>
+  <data name="&gt;&gt;labelTitle.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 165</value>
+  </data>
+  <data name="&gt;&gt;labelConnecting.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 33</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Connecting to the Media account</value>
+  </data>
+  <data name="&gt;&gt;labelConnecting.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

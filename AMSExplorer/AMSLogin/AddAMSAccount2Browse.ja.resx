@@ -130,20 +130,11 @@
   <data name="label1.Text" xml:space="preserve">
     <value>ロケーターの URL はクリップボードにコピーされます。また、アセット情報からも参照可能です。</value>
   </data>
-  <data name="radioButtonEndUnlimited.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 19</value>
-  </data>
   <data name="radioButtonEndUnlimited.Text" xml:space="preserve">
     <value>100 年間 公開する</value>
   </data>
-  <data name="radioButtonEndYear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 19</value>
-  </data>
   <data name="radioButtonEndYear.Text" xml:space="preserve">
     <value>1 年間 公開する</value>
-  </data>
-  <data name="radioButtonEndCustom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 19</value>
   </data>
   <data name="radioButtonEndCustom.Text" xml:space="preserve">
     <value>カスタムで日時を指定</value>
@@ -151,32 +142,20 @@
   <data name="groupBox1.Text" xml:space="preserve">
     <value>終了日時</value>
   </data>
-  <data name="checkBoxStartDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 19</value>
-  </data>
   <data name="checkBoxStartDate.Text" xml:space="preserve">
     <value>公開の開始日時を指定する :</value>
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
     <value>開始日時</value>
   </data>
-  <data name="radioButtonOrigin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 19</value>
-  </data>
   <data name="radioButtonOrigin.Text" xml:space="preserve">
     <value>ストリーミング ロケーター (アダプティブストリーミング, プログレッシブダウンロード)</value>
-  </data>
-  <data name="radioButtonSAS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 19</value>
   </data>
   <data name="radioButtonSAS.Text" xml:space="preserve">
     <value>SAS ロケーター (ダウンロード)</value>
   </data>
   <data name="groupBox4.Text" xml:space="preserve">
     <value>ロケーターのタイプ</value>
-  </data>
-  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 15</value>
   </data>
   <data name="labelWarning.Text" xml:space="preserve">
     <value>警告</value>
@@ -187,14 +166,8 @@
   <data name="label8.Text" xml:space="preserve">
     <value>フォーマットの例: nb:lid:UUID:96687412-6d...  or 96687412-6d...</value>
   </data>
-  <data name="checkBoxForLocatorGUID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>259, 19</value>
-  </data>
   <data name="checkBoxForLocatorGUID.Text" xml:space="preserve">
     <value>指定した ID のロケーター ID/GUID で公開する:</value>
-  </data>
-  <data name="groupBoxForceLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>528, 100</value>
   </data>
   <data name="groupBoxForceLocator.Text" xml:space="preserve">
     <value>高度なユーザー向けの設定</value>

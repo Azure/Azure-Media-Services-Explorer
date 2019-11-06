@@ -557,6 +557,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.zh.resx" />
+    <EmbeddedResource Include="UploadOptions.zh.resx">
+      <DependentUpon>UploadOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.manifest" />
     <None Include="BitmapsPNG\redactor-blur-black.png" />
     <None Include="BitmapsPNG\redactor-blur-debug.png" />
@@ -655,6 +659,18 @@
     <EmbeddedResource Include="AboutBox.ja.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AboutBox.zh.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount1.zh.resx">
+      <DependentUpon>AddAMSAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Browse.zh.resx">
+      <DependentUpon>AddAMSAccount2Browse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AddAMSAccount2Manual.zh.resx">
+      <DependentUpon>AddAMSAccount2Manual.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin\AMSLogin.ja.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -675,6 +691,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin\AddAMSAccount1.resx">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AMSLogin.zh.resx">
+      <DependentUpon>AMSLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\AMSLoginServicePrincipal.zh.resx">
+      <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin\ExportSettings.ja.resx">
       <DependentUpon>ExportSettings.cs</DependentUpon>
@@ -682,23 +705,89 @@
     <EmbeddedResource Include="AMSLogin\ExportSettings.resx">
       <DependentUpon>ExportSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin\ExportSettings.zh.resx">
+      <DependentUpon>ExportSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.ja.resx">
+      <DependentUpon>AssetInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssetInformation.zh.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachStorage.ja.resx">
       <DependentUpon>AttachStorage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AttachStorage.zh.resx">
+      <DependentUpon>AttachStorage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BatchUploadFrame1.ja.resx">
+      <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BatchUploadFrame1.zh.resx">
       <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BatchUploadFrame2.ja.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BatchUploadFrame2.zh.resx">
+      <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseStreamingEndpoint.zh.resx">
+      <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateLocator.zh.resx">
+      <DependentUpon>CreateLocator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateStreamingEndpoint.zh.resx">
+      <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteKeyAndPolicy.zh.resx">
+      <DependentUpon>DeleteKeyAndPolicy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteLiveOutputEvent.zh.resx">
+      <DependentUpon>DeleteLiveOutputEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayBox.zh.resx">
+      <DependentUpon>DisplayBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadToLocal.zh.resx">
+      <DependentUpon>DownloadToLocal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DynManifestFilter.zh.resx">
+      <DependentUpon>DynManifestFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditorXMLJSON.zh.resx">
+      <DependentUpon>EditorXMLJSON.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EDL.zh.resx">
+      <DependentUpon>EDL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_CENCCBSCDelivery.zh.resx">
+      <DependentUpon>DRM_CENCCBSCDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.zh.resx">
+      <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_FairPlayLicense.ja.resx">
       <DependentUpon>DRM_FairPlayLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_FairPlayLicense.resx">
       <DependentUpon>DRM_FairPlayLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_FairPlayLicense.zh.resx">
+      <DependentUpon>DRM_FairPlayLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_GenerateToken.zh.resx">
+      <DependentUpon>DRM_GenerateToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_PlayReadyLicense.zh.resx">
+      <DependentUpon>DRM_PlayReadyLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms-DynamicEncryption\DRM_WidevineLicense.zh.resx">
+      <DependentUpon>DRM_WidevineLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportHttp.zh.resx">
+      <DependentUpon>ImportHttp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputBox.ja.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
@@ -736,8 +825,80 @@
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.resx">
       <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InputBox.zh.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobInformation.zh.resx">
+      <DependentUpon>JobInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiveEventCreation.zh.resx">
+      <DependentUpon>LiveEventCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiveEventInformation.zh.resx">
+      <DependentUpon>LiveEventInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiveOutputCreation.zh.resx">
+      <DependentUpon>LiveOutputCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiveOutputInformation.zh.resx">
+      <DependentUpon>LiveOutputInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mainform.zh.resx">
+      <DependentUpon>Mainform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewAsset.zh.resx">
+      <DependentUpon>NewAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="options.zh.resx">
+      <DependentUpon>options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetFaceDetector.zh.resx">
+      <DependentUpon>PresetFaceDetector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetStandardEncoder.zh.resx">
+      <DependentUpon>PresetStandardEncoder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetVideoAnalyzer.zh.resx">
+      <DependentUpon>PresetVideoAnalyzer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Priority.zh.resx">
+      <DependentUpon>Priority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessFromTransform.zh.resx">
+      <DependentUpon>ProcessFromTransform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsSelection.zh.resx">
+      <DependentUpon>SettingsSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoftwareUpdate.zh.resx">
+      <DependentUpon>SoftwareUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Splash.zh.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StorageSettings.zh.resx">
+      <DependentUpon>StorageSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StreamingEndpointCDNEnable.zh.resx">
+      <DependentUpon>StreamingEndpointCDNEnable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StreamingEndpointInformation.zh.resx">
+      <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Subclipping.resx">
       <DependentUpon>Subclipping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Subclipping.zh.resx">
+      <DependentUpon>Subclipping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeControl.zh.resx">
+      <DependentUpon>TimeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeRangeSelection.zh.resx">
+      <DependentUpon>TimeRangeSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformInformation.zh.resx">
+      <DependentUpon>TransformInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformTypeCreation.ja.resx">
       <DependentUpon>TransformTypeCreation.cs</DependentUpon>
@@ -887,6 +1048,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewAsset.resx">
       <DependentUpon>NewAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformTypeCreation.zh.resx">
+      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UploadOptions.ja.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>

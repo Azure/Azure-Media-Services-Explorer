@@ -64,10 +64,10 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label33
@@ -77,9 +77,9 @@
             // 
             // comboBoxStorage
             // 
+            resources.ApplyResources(this.comboBoxStorage, "comboBoxStorage");
             this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorage.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxStorage, "comboBoxStorage");
             this.comboBoxStorage.Name = "comboBoxStorage";
             // 
             // labelJobOptions
@@ -104,14 +104,15 @@
             // 
             // groupBoxMultifiles
             // 
+            resources.ApplyResources(this.groupBoxMultifiles, "groupBoxMultifiles");
             this.groupBoxMultifiles.Controls.Add(this.radioButtonOneAssetPerFile);
             this.groupBoxMultifiles.Controls.Add(this.radioButtonSingleAsset);
-            resources.ApplyResources(this.groupBoxMultifiles, "groupBoxMultifiles");
             this.groupBoxMultifiles.Name = "groupBoxMultifiles";
             this.groupBoxMultifiles.TabStop = false;
             // 
             // comboBoxBlockSize
             // 
+            resources.ApplyResources(this.comboBoxBlockSize, "comboBoxBlockSize");
             this.comboBoxBlockSize.FormattingEnabled = true;
             this.comboBoxBlockSize.Items.AddRange(new object[] {
             resources.GetString("comboBoxBlockSize.Items"),
@@ -122,13 +123,12 @@
             resources.GetString("comboBoxBlockSize.Items5"),
             resources.GetString("comboBoxBlockSize.Items6"),
             resources.GetString("comboBoxBlockSize.Items7")});
-            resources.ApplyResources(this.comboBoxBlockSize, "comboBoxBlockSize");
             this.comboBoxBlockSize.Name = "comboBoxBlockSize";
             // 
             // label1
             // 
-            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label1.Name = "label1";
             // 
             // label2

@@ -117,840 +117,251 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>386, 13</value>
-  </data>
-  <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 27</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>Ok</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
-    <value>buttonOk</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>569, 13</value>
-  </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 27</value>
-  </data>
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBoxAuthPol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="radioButtonTokenAuthPolicy.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonTokenAuthPolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 25</value>
-  </data>
-  <data name="radioButtonTokenAuthPolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 19</value>
-  </data>
-  <data name="radioButtonTokenAuthPolicy.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="radioButtonTokenAuthPolicy.Text" xml:space="preserve">
-    <value>Token</value>
-  </data>
-  <data name="&gt;&gt;radioButtonTokenAuthPolicy.Name" xml:space="preserve">
-    <value>radioButtonTokenAuthPolicy</value>
-  </data>
-  <data name="&gt;&gt;radioButtonTokenAuthPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonTokenAuthPolicy.Parent" xml:space="preserve">
-    <value>groupBoxAuthPol</value>
-  </data>
-  <data name="&gt;&gt;radioButtonTokenAuthPolicy.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radioButtonOpenAuthPolicy.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonOpenAuthPolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 52</value>
-  </data>
-  <data name="radioButtonOpenAuthPolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 19</value>
-  </data>
-  <data name="radioButtonOpenAuthPolicy.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="radioButtonOpenAuthPolicy.Text" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOpenAuthPolicy.Name" xml:space="preserve">
-    <value>radioButtonOpenAuthPolicy</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOpenAuthPolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOpenAuthPolicy.Parent" xml:space="preserve">
-    <value>groupBoxAuthPol</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOpenAuthPolicy.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBoxAuthPol.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 84</value>
-  </data>
-  <data name="groupBoxAuthPol.Size" type="System.Drawing.Size, System.Drawing">
-    <value>653, 90</value>
-  </data>
-  <data name="groupBoxAuthPol.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="groupBoxAuthPol.Text" xml:space="preserve">
-    <value>Content key's authorization policy option</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAuthPol.Name" xml:space="preserve">
-    <value>groupBoxAuthPol</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAuthPol.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAuthPol.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxAuthPol.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 6</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Symmetric key:</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>panelSymKey</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="radioButtonContentKeyBase64.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="radioButtonContentKeyBase64.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonContentKeyBase64.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 7</value>
-  </data>
-  <data name="radioButtonContentKeyBase64.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 19</value>
-  </data>
-  <data name="radioButtonContentKeyBase64.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="radioButtonContentKeyBase64.Text" xml:space="preserve">
-    <value>Base64</value>
-  </data>
-  <data name="&gt;&gt;radioButtonContentKeyBase64.Name" xml:space="preserve">
-    <value>radioButtonContentKeyBase64</value>
-  </data>
-  <data name="&gt;&gt;radioButtonContentKeyBase64.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonContentKeyBase64.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonContentKeyBase64.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radioButtonContentKeyHex.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="radioButtonContentKeyHex.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonContentKeyHex.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 32</value>
-  </data>
-  <data name="radioButtonContentKeyHex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 19</value>
-  </data>
-  <data name="radioButtonContentKeyHex.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="radioButtonContentKeyHex.Text" xml:space="preserve">
-    <value>Hex</value>
-  </data>
-  <data name="&gt;&gt;radioButtonContentKeyHex.Name" xml:space="preserve">
-    <value>radioButtonContentKeyHex</value>
-  </data>
-  <data name="&gt;&gt;radioButtonContentKeyHex.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonContentKeyHex.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonContentKeyHex.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>427, 6</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 55</value>
-  </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>panelSymKey</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="textBoxSymKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxSymKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 24</value>
-  </data>
-  <data name="textBoxSymKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>408, 23</value>
-  </data>
-  <data name="textBoxSymKey.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <data name="&gt;&gt;textBoxSymKey.Name" xml:space="preserve">
-    <value>textBoxSymKey</value>
-  </data>
-  <data name="&gt;&gt;textBoxSymKey.Type" xml:space="preserve">
+  <data name="&gt;&gt;textBoxAudience.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxSymKey.Parent" xml:space="preserve">
-    <value>panelSymKey</value>
-  </data>
-  <data name="&gt;&gt;textBoxSymKey.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttongenerateContentKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="buttongenerateContentKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>521, 21</value>
-  </data>
-  <data name="buttongenerateContentKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 29</value>
-  </data>
-  <data name="buttongenerateContentKey.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
-  </data>
-  <data name="buttongenerateContentKey.Text" xml:space="preserve">
-    <value>Generate</value>
-  </data>
-  <data name="&gt;&gt;buttongenerateContentKey.Name" xml:space="preserve">
-    <value>buttongenerateContentKey</value>
-  </data>
-  <data name="&gt;&gt;buttongenerateContentKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttongenerateContentKey.Parent" xml:space="preserve">
-    <value>panelSymKey</value>
-  </data>
-  <data name="&gt;&gt;buttongenerateContentKey.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panelSymKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 29</value>
-  </data>
-  <data name="panelSymKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>602, 73</value>
-  </data>
-  <data name="panelSymKey.TabIndex" type="System.Int32, mscorlib">
-    <value>76</value>
-  </data>
-  <data name="&gt;&gt;panelSymKey.Name" xml:space="preserve">
-    <value>panelSymKey</value>
-  </data>
-  <data name="&gt;&gt;panelSymKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelSymKey.Parent" xml:space="preserve">
-    <value>tabPageTokenSymmetric</value>
-  </data>
-  <data name="&gt;&gt;panelSymKey.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="checkBoxRequiresContentKeyIdentifierClaim.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxRequiresContentKeyIdentifierClaim.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 17</value>
-  </data>
-  <data name="checkBoxRequiresContentKeyIdentifierClaim.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 19</value>
-  </data>
-  <data name="checkBoxRequiresContentKeyIdentifierClaim.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="checkBoxRequiresContentKeyIdentifierClaim.Text" xml:space="preserve">
-    <value>Requires Content Key Identifier Claim</value>
-  </data>
-  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Name" xml:space="preserve">
-    <value>checkBoxRequiresContentKeyIdentifierClaim</value>
-  </data>
-  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radioButtonJWTSymmetric.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonJWTSymmetric.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 42</value>
-  </data>
-  <data name="radioButtonJWTSymmetric.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 19</value>
-  </data>
-  <data name="radioButtonJWTSymmetric.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="radioButtonJWTSymmetric.Text" xml:space="preserve">
-    <value>JWT - JSON Web Token</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTSymmetric.Name" xml:space="preserve">
-    <value>radioButtonJWTSymmetric</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTSymmetric.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTSymmetric.Parent" xml:space="preserve">
-    <value>tabPageTokenType</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTSymmetric.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="moreinfocGenX509.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="moreinfocGenX509.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 46</value>
-  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="moreinfocGenX509.Size" type="System.Drawing.Size, System.Drawing">
     <value>229, 15</value>
   </data>
-  <data name="moreinfocGenX509.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
   </data>
-  <data name="moreinfocGenX509.Text" xml:space="preserve">
-    <value>How to generate a X509 certificate for JWT</value>
-  </data>
-  <data name="&gt;&gt;moreinfocGenX509.Name" xml:space="preserve">
-    <value>moreinfocGenX509</value>
-  </data>
-  <data name="&gt;&gt;moreinfocGenX509.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;moreinfocGenX509.Parent" xml:space="preserve">
-    <value>panelJWT</value>
-  </data>
-  <data name="&gt;&gt;moreinfocGenX509.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonImportPFX.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="buttonImportPFX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 27</value>
-  </data>
-  <data name="buttonImportPFX.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="buttonImportPFX.Text" xml:space="preserve">
-    <value>Import X509 Certificate (.PFX)...</value>
-  </data>
-  <data name="&gt;&gt;buttonImportPFX.Name" xml:space="preserve">
-    <value>buttonImportPFX</value>
-  </data>
-  <data name="&gt;&gt;buttonImportPFX.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonImportPFX.Parent" xml:space="preserve">
-    <value>panelJWT</value>
-  </data>
-  <data name="&gt;&gt;buttonImportPFX.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labelCertificateFile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>238, 9</value>
-  </data>
-  <data name="labelCertificateFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 21</value>
-  </data>
-  <data name="labelCertificateFile.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="labelCertificateFile.Text" xml:space="preserve">
-    <value>(no file selected)</value>
-  </data>
-  <data name="&gt;&gt;labelCertificateFile.Name" xml:space="preserve">
-    <value>labelCertificateFile</value>
-  </data>
-  <data name="&gt;&gt;labelCertificateFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCertificateFile.Parent" xml:space="preserve">
-    <value>panelJWT</value>
-  </data>
-  <data name="&gt;&gt;labelCertificateFile.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panelJWT.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="panelJWT.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 22</value>
-  </data>
-  <data name="panelJWT.Size" type="System.Drawing.Size, System.Drawing">
-    <value>612, 72</value>
-  </data>
-  <data name="panelJWT.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="&gt;&gt;panelJWT.Name" xml:space="preserve">
-    <value>panelJWT</value>
-  </data>
-  <data name="&gt;&gt;panelJWT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelJWT.Parent" xml:space="preserve">
-    <value>tabPageTokenX509</value>
-  </data>
-  <data name="&gt;&gt;panelJWT.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radioButtonJWTX509.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonJWTX509.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="radioButtonJWTX509.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 68</value>
-  </data>
-  <data name="radioButtonJWTX509.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 19</value>
-  </data>
-  <data name="radioButtonJWTX509.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="radioButtonJWTX509.Text" xml:space="preserve">
-    <value>JWT - JSON Web Token</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTX509.Name" xml:space="preserve">
-    <value>radioButtonJWTX509</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTX509.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTX509.Parent" xml:space="preserve">
-    <value>tabPageTokenType</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTX509.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="radioButtonSWT.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>Manual</value>
   </data>
   <data name="radioButtonSWT.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="radioButtonSWT.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 15</value>
+  <data name="comboBoxMappingList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 23</value>
   </data>
-  <data name="radioButtonSWT.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 19</value>
+  <data name="tabPageOpenId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
   </data>
-  <data name="radioButtonSWT.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="radioButtonSWT.Text" xml:space="preserve">
-    <value>SWT - Simple Web Token</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSWT.Name" xml:space="preserve">
-    <value>radioButtonSWT</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSWT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSWT.Parent" xml:space="preserve">
-    <value>tabPageTokenType</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSWT.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="dataGridViewTokenClaims.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="dataGridViewTokenClaims.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 70</value>
-  </data>
-  <data name="dataGridViewTokenClaims.Size" type="System.Drawing.Size, System.Drawing">
-    <value>602, 100</value>
-  </data>
-  <data name="dataGridViewTokenClaims.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTokenClaims.Name" xml:space="preserve">
-    <value>dataGridViewTokenClaims</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTokenClaims.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTokenClaims.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTokenClaims.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttonDelClaim.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonDelClaim.Location" type="System.Drawing.Point, System.Drawing">
-    <value>119, 176</value>
-  </data>
-  <data name="buttonDelClaim.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="buttonDelClaim.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="buttonDelClaim.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;buttonDelClaim.Name" xml:space="preserve">
-    <value>buttonDelClaim</value>
-  </data>
-  <data name="&gt;&gt;buttonDelClaim.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDelClaim.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;buttonDelClaim.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="buttonAddClaim.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonAddClaim.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 176</value>
-  </data>
-  <data name="buttonAddClaim.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 27</value>
-  </data>
-  <data name="buttonAddClaim.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="buttonAddClaim.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;buttonAddClaim.Name" xml:space="preserve">
-    <value>buttonAddClaim</value>
-  </data>
-  <data name="&gt;&gt;buttonAddClaim.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddClaim.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;buttonAddClaim.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="textBoxIssuer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxIssuer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 47</value>
-  </data>
-  <data name="textBoxIssuer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>598, 23</value>
-  </data>
-  <data name="textBoxIssuer.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="&gt;&gt;textBoxIssuer.Name" xml:space="preserve">
-    <value>textBoxIssuer</value>
-  </data>
-  <data name="&gt;&gt;textBoxIssuer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxIssuer.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;textBoxIssuer.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 99</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Audience :</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="textBoxAudience.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxAudience.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 118</value>
-  </data>
-  <data name="textBoxAudience.Size" type="System.Drawing.Size, System.Drawing">
-    <value>598, 23</value>
-  </data>
-  <data name="textBoxAudience.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="&gt;&gt;textBoxAudience.Name" xml:space="preserve">
-    <value>textBoxAudience</value>
-  </data>
-  <data name="&gt;&gt;textBoxAudience.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxAudience.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;textBoxAudience.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 29</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 15</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Issuer :</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 686</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>681, 55</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="labelStep.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelStep.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 12pt, style=Bold</value>
-  </data>
-  <data name="labelStep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 21</value>
-  </data>
-  <data name="labelStep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>464, 42</value>
-  </data>
-  <data name="labelStep.TabIndex" type="System.Int32, mscorlib">
-    <value>84</value>
-  </data>
-  <data name="labelStep.Text" xml:space="preserve">
-    <value>Step {0}
-Specify the content key Authorization Policy Option #{1} for {2}</value>
-  </data>
-  <data name="&gt;&gt;labelStep.Name" xml:space="preserve">
-    <value>labelStep</value>
-  </data>
-  <data name="&gt;&gt;labelStep.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelStep.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelStep.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabControlTokenType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>206, 97</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>with OpenId (JSON Web Keys)</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>tabPageTokenType</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radioButtonJWTOpenId.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonJWTOpenId.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="radioButtonJWTOpenId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 95</value>
-  </data>
-  <data name="radioButtonJWTOpenId.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 19</value>
-  </data>
-  <data name="radioButtonJWTOpenId.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
-  </data>
-  <data name="radioButtonJWTOpenId.Text" xml:space="preserve">
-    <value>JWT - JSON Web Token</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTOpenId.Name" xml:space="preserve">
-    <value>radioButtonJWTOpenId</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTOpenId.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTOpenId.Parent" xml:space="preserve">
-    <value>tabPageTokenType</value>
-  </data>
-  <data name="&gt;&gt;radioButtonJWTOpenId.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>206, 70</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
+  <data name="buttongenerateContentKey.Text" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenX509.Name" xml:space="preserve">
+    <value>tabPageTokenX509</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
     <value>with asymmetric key (X509 Certificate)</value>
   </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelCertificateFile.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOpenAuthPolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttongenerateContentKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>521, 21</value>
+  </data>
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="&gt;&gt;buttonAddClaim.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="radioButtonContentKeyBase64.Text" xml:space="preserve">
+    <value>Base64</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tabControlTokenType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="label10.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="radioButtonJWTSymmetric.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 42</value>
+  </data>
+  <data name="&gt;&gt;tabControlTokenProperties.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButtonJWTX509.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="&gt;&gt;textBoxOpenIdDocument.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTOpenId.Parent" xml:space="preserve">
+    <value>tabPageTokenType</value>
+  </data>
+  <data name="tabPageTokenSymmetric.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOpenAuthPolicy.Name" xml:space="preserve">
+    <value>radioButtonOpenAuthPolicy</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenX509.Parent" xml:space="preserve">
+    <value>tabControlTokenType</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.Size" type="System.Drawing.Size, System.Drawing">
+    <value>223, 19</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonJWTOpenId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 19</value>
+  </data>
+  <data name="&gt;&gt;labelStep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonImportPFX.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 27</value>
+  </data>
+  <data name="&gt;&gt;radioButtonSWT.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;buttonImportPFX.Parent" xml:space="preserve">
+    <value>panelJWT</value>
+  </data>
+  <data name="&gt;&gt;buttonAddMapping.Name" xml:space="preserve">
+    <value>buttonAddMapping</value>
+  </data>
+  <data name="comboBoxMappingList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;buttongenerateContentKey.Name" xml:space="preserve">
+    <value>buttongenerateContentKey</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAuthPol.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelCertificateFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonJWTOpenId.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTOpenId.Name" xml:space="preserve">
+    <value>radioButtonJWTOpenId</value>
+  </data>
+  <data name="panelSymKey.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 99</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 22</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="dataGridViewTokenClaims.Size" type="System.Drawing.Size, System.Drawing">
+    <value>602, 100</value>
+  </data>
+  <data name="&gt;&gt;moreinfocGenX509.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 44</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Example : myAudience</value>
+  </data>
+  <data name="groupBoxAuthPol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="radioButtonContentKeyBase64.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 19</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>tabPageTokenType</value>
+  </data>
+  <data name="&gt;&gt;buttonDelClaim.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="buttongenerateContentKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Issuer :</value>
+  </data>
+  <data name="tabPageTokenX509.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Dynamic Encryption - Step {0}</value>
+  </data>
+  <data name="&gt;&gt;buttongenerateContentKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 27</value>
+  </data>
+  <data name="moreinfocGenX509.Text" xml:space="preserve">
+    <value>How to generate a X509 certificate for JWT</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 97</value>
+  </data>
+  <data name="&gt;&gt;buttongenerateContentKey.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonJWTOpenId.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="labelCertificateFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 21</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAuthPol.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="radioButtonTokenAuthPolicy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 19</value>
+  </data>
+  <data name="tabControlTokenType.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="tabPageTokenType.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;radioButtonContentKeyBase64.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
+    <value>tabControlTokenProperties</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenSymmetric.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxAudience.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;label7.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -958,284 +369,41 @@ Specify the content key Authorization Policy Option #{1} for {2}</value>
   <data name="&gt;&gt;label7.Parent" xml:space="preserve">
     <value>tabPageTokenType</value>
   </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>206, 44</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>with symmetric key</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>tabPageTokenType</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>206, 17</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>with symmetric key</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>tabPageTokenType</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="tabPageTokenType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPageTokenType.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageTokenType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 131</value>
-  </data>
-  <data name="tabPageTokenType.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageTokenType.Text" xml:space="preserve">
-    <value>Token Type</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenType.Name" xml:space="preserve">
-    <value>tabPageTokenType</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenType.Parent" xml:space="preserve">
-    <value>tabControlTokenType</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenType.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPageTokenSymmetric.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPageTokenSymmetric.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageTokenSymmetric.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 131</value>
-  </data>
-  <data name="tabPageTokenSymmetric.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPageTokenSymmetric.Text" xml:space="preserve">
-    <value>Symmetric token key</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenSymmetric.Name" xml:space="preserve">
-    <value>tabPageTokenSymmetric</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenSymmetric.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenSymmetric.Parent" xml:space="preserve">
-    <value>tabControlTokenType</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenSymmetric.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabPageTokenX509.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPageTokenX509.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 131</value>
-  </data>
-  <data name="tabPageTokenX509.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPageTokenX509.Text" xml:space="preserve">
-    <value>X509 Certificate</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenX509.Name" xml:space="preserve">
-    <value>tabPageTokenX509</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenX509.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenX509.Parent" xml:space="preserve">
-    <value>tabControlTokenType</value>
-  </data>
-  <data name="&gt;&gt;tabPageTokenX509.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="comboBoxMappingList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="comboBoxMappingList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 35</value>
-  </data>
-  <data name="comboBoxMappingList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 23</value>
-  </data>
-  <data name="comboBoxMappingList.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMappingList.Name" xml:space="preserve">
-    <value>comboBoxMappingList</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMappingList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMappingList.Parent" xml:space="preserve">
-    <value>tabPageOpenId</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMappingList.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonAddMapping.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="buttonAddMapping.Location" type="System.Drawing.Point, System.Drawing">
-    <value>519, 32</value>
-  </data>
-  <data name="buttonAddMapping.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 27</value>
-  </data>
-  <data name="buttonAddMapping.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="buttonAddMapping.Text" xml:space="preserve">
-    <value>Insert Url</value>
-  </data>
-  <data name="&gt;&gt;buttonAddMapping.Name" xml:space="preserve">
-    <value>buttonAddMapping</value>
-  </data>
-  <data name="&gt;&gt;buttonAddMapping.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddMapping.Parent" xml:space="preserve">
-    <value>tabPageOpenId</value>
-  </data>
-  <data name="&gt;&gt;buttonAddMapping.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 47</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 15</value>
-  </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>OpenId Connect Discovery Document :</value>
-  </data>
-  <data name="&gt;&gt;label9.Name" xml:space="preserve">
-    <value>label9</value>
-  </data>
-  <data name="&gt;&gt;label9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>tabPageOpenId</value>
-  </data>
-  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textBoxOpenIdDocument.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxOpenIdDocument.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 66</value>
-  </data>
-  <data name="textBoxOpenIdDocument.Size" type="System.Drawing.Size, System.Drawing">
-    <value>598, 23</value>
-  </data>
-  <data name="textBoxOpenIdDocument.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="&gt;&gt;textBoxOpenIdDocument.Name" xml:space="preserve">
-    <value>textBoxOpenIdDocument</value>
-  </data>
-  <data name="&gt;&gt;textBoxOpenIdDocument.Type" xml:space="preserve">
+  <data name="&gt;&gt;textBoxIssuer.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxOpenIdDocument.Parent" xml:space="preserve">
-    <value>tabPageOpenId</value>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;textBoxOpenIdDocument.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="buttonAddClaim.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="tabPageOpenId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tabPageOpenId.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageOpenId.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 131</value>
-  </data>
-  <data name="tabPageOpenId.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="tabPageOpenId.Text" xml:space="preserve">
-    <value>OpenId</value>
-  </data>
-  <data name="&gt;&gt;tabPageOpenId.Name" xml:space="preserve">
-    <value>tabPageOpenId</value>
-  </data>
-  <data name="&gt;&gt;tabPageOpenId.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageOpenId.Parent" xml:space="preserve">
-    <value>tabControlTokenType</value>
-  </data>
-  <data name="&gt;&gt;tabPageOpenId.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tabControlTokenType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 198</value>
-  </data>
-  <data name="tabControlTokenType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>653, 159</value>
-  </data>
-  <data name="tabControlTokenType.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
+  <data name="&gt;&gt;radioButtonSWT.Parent" xml:space="preserve">
+    <value>tabPageTokenType</value>
   </data>
   <data name="&gt;&gt;tabControlTokenType.Name" xml:space="preserve">
     <value>tabControlTokenType</value>
   </data>
-  <data name="&gt;&gt;tabControlTokenType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 15</value>
   </data>
-  <data name="&gt;&gt;tabControlTokenType.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;moreinfocGenX509.Name" xml:space="preserve">
+    <value>moreinfocGenX509</value>
   </data>
-  <data name="&gt;&gt;tabControlTokenType.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;textBoxOpenIdDocument.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenType.Parent" xml:space="preserve">
+    <value>tabControlTokenType</value>
+  </data>
+  <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 27</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 55</value>
   </data>
   <data name="tabControlTokenProperties.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -1243,178 +411,1010 @@ Specify the content key Authorization Policy Option #{1} for {2}</value>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
     <value>329, 144</value>
   </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
+  <data name="moreinfocGenX509.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Example : myAudience</value>
+  <data name="&gt;&gt;radioButtonJWTSymmetric.Parent" xml:space="preserve">
+    <value>tabPageTokenType</value>
   </data>
-  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
   </data>
-  <data name="&gt;&gt;label11.Name" xml:space="preserve">
-    <value>label11</value>
+  <data name="&gt;&gt;panelSymKey.Name" xml:space="preserve">
+    <value>panelSymKey</value>
   </data>
   <data name="&gt;&gt;label11.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
   </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;radioButtonJWTX509.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
-  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>329, 74</value>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 15</value>
   </data>
-  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
-  <data name="label10.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>Example : myIssuer</value>
-  </data>
-  <data name="label10.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;label10.Name" xml:space="preserve">
-    <value>label10</value>
-  </data>
-  <data name="&gt;&gt;label10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+  <data name="textBoxIssuer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 47</value>
   </data>
   <data name="tabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 220</value>
+  <data name="tabPageTokenType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 131</value>
   </data>
-  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;radioButtonContentKeyHex.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>Token Properties</value>
+  <data name="&gt;&gt;moreinfocGenX509.Parent" xml:space="preserve">
+    <value>panelJWT</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
-    <value>tabPage2</value>
+  <data name="textBoxOpenIdDocument.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>Ok</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
-    <value>tabControlTokenProperties</value>
+  <data name="labelStep.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 29</value>
   </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 45</value>
+  <data name="textBoxOpenIdDocument.Size" type="System.Drawing.Size, System.Drawing">
+    <value>598, 23</value>
+  </data>
+  <data name="&gt;&gt;panelJWT.Name" xml:space="preserve">
+    <value>panelJWT</value>
+  </data>
+  <data name="radioButtonJWTOpenId.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>294, 22</value>
   </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttongenerateContentKey.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Other claims :</value>
+  <data name="buttonDelClaim.Text" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>645, 220</value>
-  </data>
-  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;buttonImportPFX.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>Claims</value>
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
   </data>
-  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
-    <value>tabPage3</value>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabPageTokenType.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
-    <value>tabControlTokenProperties</value>
+  <data name="labelStep.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 12pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="groupBoxAuthPol.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
   </data>
-  <data name="tabControlTokenProperties.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 381</value>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 22</value>
+  </data>
+  <data name="&gt;&gt;comboBoxMappingList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 47</value>
+  </data>
+  <data name="radioButtonTokenAuthPolicy.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonOpenAuthPolicy.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.Text" xml:space="preserve">
+    <value>Requires Content Key Identifier Claim</value>
+  </data>
+  <data name="&gt;&gt;buttonAddClaim.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;labelCertificateFile.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="tabControlTokenProperties.Size" type="System.Drawing.Size, System.Drawing">
     <value>653, 248</value>
   </data>
+  <data name="textBoxAudience.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="radioButtonContentKeyHex.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 19</value>
+  </data>
+  <data name="&gt;&gt;panelSymKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comboBoxMappingList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>336, 35</value>
+  </data>
+  <data name="panelSymKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>602, 73</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Other claims :</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenType.Name" xml:space="preserve">
+    <value>tabPageTokenType</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTokenClaims.Name" xml:space="preserve">
+    <value>dataGridViewTokenClaims</value>
+  </data>
+  <data name="textBoxIssuer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>598, 23</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panelSymKey</value>
+  </data>
+  <data name="radioButtonJWTX509.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="radioButtonOpenAuthPolicy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 19</value>
+  </data>
+  <data name="tabPageTokenSymmetric.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonAddMapping.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="radioButtonJWTOpenId.Text" xml:space="preserve">
+    <value>JWT - JSON Web Token</value>
+  </data>
+  <data name="groupBoxAuthPol.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 84</value>
+  </data>
+  <data name="radioButtonJWTOpenId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 95</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTokenClaims.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOpenAuthPolicy.Parent" xml:space="preserve">
+    <value>groupBoxAuthPol</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddMapping.Parent" xml:space="preserve">
+    <value>tabPageOpenId</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="textBoxIssuer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;textBoxOpenIdDocument.Parent" xml:space="preserve">
+    <value>tabPageOpenId</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButtonTokenAuthPolicy.Text" xml:space="preserve">
+    <value>Token</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenSymmetric.Name" xml:space="preserve">
+    <value>tabPageTokenSymmetric</value>
+  </data>
+  <data name="textBoxSymKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 24</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="radioButtonContentKeyBase64.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="tabPageTokenX509.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 131</value>
+  </data>
+  <data name="panelJWT.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 22</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="tabPageTokenSymmetric.Text" xml:space="preserve">
+    <value>Symmetric token key</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;textBoxAudience.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;textBoxAudience.Name" xml:space="preserve">
+    <value>textBoxAudience</value>
+  </data>
+  <data name="tabPageOpenId.Text" xml:space="preserve">
+    <value>OpenId</value>
+  </data>
+  <data name="&gt;&gt;tabControlTokenType.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="tabPageOpenId.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="dataGridViewTokenClaims.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Symmetric key:</value>
+  </data>
+  <data name="buttonImportPFX.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="radioButtonJWTX509.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 22</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Name" xml:space="preserve">
+    <value>checkBoxRequiresContentKeyIdentifierClaim</value>
+  </data>
+  <data name="&gt;&gt;tabPageOpenId.Name" xml:space="preserve">
+    <value>tabPageOpenId</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>tabPageTokenType</value>
+  </data>
   <data name="tabControlTokenProperties.TabIndex" type="System.Int32, mscorlib">
     <value>86</value>
   </data>
-  <data name="&gt;&gt;tabControlTokenProperties.Name" xml:space="preserve">
-    <value>tabControlTokenProperties</value>
+  <data name="tabPageOpenId.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;tabControlTokenProperties.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;comboBoxMappingList.Name" xml:space="preserve">
+    <value>comboBoxMappingList</value>
+  </data>
+  <data name="radioButtonContentKeyHex.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 32</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonJWTSymmetric.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;labelCertificateFile.Parent" xml:space="preserve">
+    <value>panelJWT</value>
+  </data>
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonOpenAuthPolicy.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTokenClaims.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenX509.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>Claims</value>
   </data>
   <data name="&gt;&gt;tabControlTokenProperties.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;tabControlTokenProperties.ZOrder" xml:space="preserve">
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 45</value>
+  </data>
+  <data name="&gt;&gt;panelJWT.Parent" xml:space="preserve">
+    <value>tabPageTokenX509</value>
+  </data>
+  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 220</value>
+  </data>
+  <data name="textBoxOpenIdDocument.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 66</value>
+  </data>
+  <data name="buttonDelClaim.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 176</value>
+  </data>
+  <data name="textBoxSymKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 17</value>
+  </data>
+  <data name="&gt;&gt;tabControlTokenType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="buttonAddClaim.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="radioButtonContentKeyHex.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;labelCertificateFile.Name" xml:space="preserve">
+    <value>labelCertificateFile</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTOpenId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonContentKeyHex.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="&gt;&gt;buttonAddMapping.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 22</value>
+  </data>
+  <data name="label10.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;textBoxSymKey.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;textBoxOpenIdDocument.Name" xml:space="preserve">
+    <value>textBoxOpenIdDocument</value>
+  </data>
+  <data name="tabPageTokenSymmetric.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;buttongenerateContentKey.Parent" xml:space="preserve">
+    <value>panelSymKey</value>
+  </data>
+  <data name="radioButtonSWT.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonOpenAuthPolicy.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTokenAuthPolicy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="textBoxAudience.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTX509.Parent" xml:space="preserve">
+    <value>tabPageTokenType</value>
+  </data>
+  <data name="tabControlTokenType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 159</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="&gt;&gt;panelSymKey.Parent" xml:space="preserve">
+    <value>tabPageTokenSymmetric</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>with OpenId (JSON Web Keys)</value>
+  </data>
+  <data name="&gt;&gt;radioButtonContentKeyHex.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelStep.Name" xml:space="preserve">
+    <value>labelStep</value>
+  </data>
+  <data name="&gt;&gt;panelSymKey.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelJWT.Size" type="System.Drawing.Size, System.Drawing">
+    <value>612, 72</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBoxOpenIdDocument.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="&gt;&gt;tabControlTokenType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 6</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOpenAuthPolicy.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>427, 6</value>
+  </data>
+  <data name="tabPageOpenId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 131</value>
+  </data>
+  <data name="&gt;&gt;radioButtonContentKeyBase64.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTokenAuthPolicy.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 22</value>
+  </data>
+  <data name="&gt;&gt;radioButtonContentKeyHex.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;buttonDelClaim.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTokenAuthPolicy.Parent" xml:space="preserve">
+    <value>groupBoxAuthPol</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 220</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>681, 55</value>
+  </data>
+  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>386, 13</value>
+  </data>
+  <data name="tabPageTokenType.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>681, 741</value>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
+  <data name="&gt;&gt;radioButtonJWTOpenId.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>Manual</value>
+  <data name="radioButtonTokenAuthPolicy.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Dynamic Encryption - Step {0}</value>
+  <data name="&gt;&gt;labelStep.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonContentKeyBase64.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 7</value>
+  </data>
+  <data name="labelCertificateFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 9</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 15</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="tabPageTokenType.Text" xml:space="preserve">
+    <value>Token Type</value>
+  </data>
+  <data name="&gt;&gt;textBoxSymKey.Parent" xml:space="preserve">
+    <value>panelSymKey</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>with symmetric key</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
+    <value>tabControlTokenProperties</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Audience :</value>
+  </data>
+  <data name="panelJWT.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>form_DRM_Config_TokenClaims</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tabPageTokenX509.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
+  <data name="groupBoxAuthPol.Text" xml:space="preserve">
+    <value>Content key's authorization policy option</value>
+  </data>
+  <data name="textBoxAudience.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 118</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="tabControlTokenType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 198</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tabControlTokenProperties.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelJWT.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButtonSWT.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="radioButtonContentKeyHex.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>tabPageOpenId</value>
+  </data>
+  <data name="&gt;&gt;textBoxIssuer.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="buttonAddMapping.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenSymmetric.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonDelClaim.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="radioButtonJWTSymmetric.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttongenerateContentKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 29</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 22</value>
+  </data>
+  <data name="dataGridViewTokenClaims.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="radioButtonJWTSymmetric.Text" xml:space="preserve">
+    <value>JWT - JSON Web Token</value>
+  </data>
+  <data name="radioButtonSWT.Text" xml:space="preserve">
+    <value>SWT - Simple Web Token</value>
+  </data>
+  <data name="buttonDelClaim.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;buttonAddClaim.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPageTokenX509.Text" xml:space="preserve">
+    <value>X509 Certificate</value>
+  </data>
+  <data name="buttonAddMapping.Text" xml:space="preserve">
+    <value>Insert Url</value>
+  </data>
+  <data name="moreinfocGenX509.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 46</value>
+  </data>
+  <data name="tabPageTokenType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="textBoxSymKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>408, 23</value>
+  </data>
+  <data name="radioButtonSWT.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 15</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>with symmetric key</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxIssuer.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>panelSymKey</value>
+  </data>
+  <data name="&gt;&gt;tabPageOpenId.Parent" xml:space="preserve">
+    <value>tabControlTokenType</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAuthPol.Name" xml:space="preserve">
+    <value>groupBoxAuthPol</value>
+  </data>
+  <data name="&gt;&gt;radioButtonContentKeyBase64.Name" xml:space="preserve">
+    <value>radioButtonContentKeyBase64</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;tabPageOpenId.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="labelCertificateFile.Text" xml:space="preserve">
+    <value>(no file selected)</value>
+  </data>
+  <data name="&gt;&gt;comboBoxMappingList.Parent" xml:space="preserve">
+    <value>tabPageOpenId</value>
+  </data>
+  <data name="&gt;&gt;buttonAddClaim.Name" xml:space="preserve">
+    <value>buttonAddClaim</value>
+  </data>
+  <data name="radioButtonContentKeyHex.Text" xml:space="preserve">
+    <value>Hex</value>
+  </data>
+  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="radioButtonTokenAuthPolicy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 25</value>
+  </data>
+  <data name="buttonAddMapping.Location" type="System.Drawing.Point, System.Drawing">
+    <value>519, 32</value>
+  </data>
+  <data name="radioButtonContentKeyBase64.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="&gt;&gt;tabControlTokenProperties.Name" xml:space="preserve">
+    <value>tabControlTokenProperties</value>
+  </data>
+  <data name="&gt;&gt;textBoxSymKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonDelClaim.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTX509.Name" xml:space="preserve">
+    <value>radioButtonJWTX509</value>
+  </data>
+  <data name="comboBoxMappingList.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="checkBoxRequiresContentKeyIdentifierClaim.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 17</value>
+  </data>
+  <data name="tabPageTokenX509.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="buttonAddClaim.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;comboBoxMappingList.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonAddMapping.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDelClaim.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>569, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 15</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTX509.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonJWTX509.Text" xml:space="preserve">
+    <value>JWT - JSON Web Token</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTSymmetric.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonSWT.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 19</value>
+  </data>
+  <data name="&gt;&gt;textBoxSymKey.Name" xml:space="preserve">
+    <value>textBoxSymKey</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>Token Properties</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
+    <value>buttonOk</value>
+  </data>
+  <data name="tabPageTokenSymmetric.Size" type="System.Drawing.Size, System.Drawing">
+    <value>645, 131</value>
+  </data>
+  <data name="&gt;&gt;radioButtonSWT.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTSymmetric.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="buttonAddClaim.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 176</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>329, 74</value>
+  </data>
+  <data name="&gt;&gt;buttonImportPFX.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTokenClaims.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="labelStep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 21</value>
+  </data>
+  <data name="buttonImportPFX.Text" xml:space="preserve">
+    <value>Import X509 Certificate (.PFX)...</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Example : myIssuer</value>
+  </data>
+  <data name="&gt;&gt;buttonImportPFX.Name" xml:space="preserve">
+    <value>buttonImportPFX</value>
+  </data>
+  <data name="&gt;&gt;buttonDelClaim.Name" xml:space="preserve">
+    <value>buttonDelClaim</value>
+  </data>
+  <data name="textBoxSymKey.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="buttonAddMapping.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 27</value>
+  </data>
+  <data name="radioButtonJWTX509.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 19</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRequiresContentKeyIdentifierClaim.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelStep.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="textBoxAudience.Size" type="System.Drawing.Size, System.Drawing">
+    <value>598, 23</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>681, 741</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>OpenId Connect Discovery Document :</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonJWTSymmetric.Name" xml:space="preserve">
+    <value>radioButtonJWTSymmetric</value>
+  </data>
+  <data name="dataGridViewTokenClaims.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 70</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelStep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>464, 42</value>
+  </data>
+  <data name="panelJWT.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonAddClaim.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBoxIssuer.Name" xml:space="preserve">
+    <value>textBoxIssuer</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="moreinfocGenX509.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="radioButtonContentKeyBase64.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxIssuer.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>tabPageTokenType</value>
+  </data>
+  <data name="&gt;&gt;moreinfocGenX509.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButtonContentKeyHex.Name" xml:space="preserve">
+    <value>radioButtonContentKeyHex</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenSymmetric.Parent" xml:space="preserve">
+    <value>tabControlTokenType</value>
+  </data>
+  <data name="&gt;&gt;groupBoxAuthPol.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="panelSymKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 29</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;labelStep.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 686</value>
+  </data>
+  <data name="buttonImportPFX.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="groupBoxAuthPol.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 90</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panelJWT.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonOpenAuthPolicy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 52</value>
+  </data>
+  <data name="&gt;&gt;radioButtonSWT.Name" xml:space="preserve">
+    <value>radioButtonSWT</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonContentKeyBase64.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 70</value>
+  </data>
+  <data name="radioButtonJWTX509.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 68</value>
+  </data>
+  <data name="&gt;&gt;tabPageOpenId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tabControlTokenProperties.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 381</value>
+  </data>
+  <data name="labelStep.Text" xml:space="preserve">
+    <value>Step {0}
+Specify the content key Authorization Policy Option #{1} for {2}</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;tabPageTokenType.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="radioButtonJWTSymmetric.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 19</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTokenAuthPolicy.Name" xml:space="preserve">
+    <value>radioButtonTokenAuthPolicy</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

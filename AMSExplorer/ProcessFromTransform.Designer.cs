@@ -95,10 +95,10 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelTitle
@@ -122,12 +122,12 @@
             // 
             // tabPage1
             // 
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.buttonCreateNewTransform);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.listViewTransforms);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonDeleteTemplate);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
@@ -189,6 +189,7 @@
             // 
             // tabPage2
             // 
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.checkBoxSourceTrimmingEnd);
             this.tabPage2.Controls.Add(this.label7);
@@ -196,7 +197,6 @@
             this.tabPage2.Controls.Add(this.checkBoxSourceTrimmingStart);
             this.tabPage2.Controls.Add(this.timeControlEndTime);
             this.tabPage2.Controls.Add(this.timeControlStartTime);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 

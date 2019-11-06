@@ -816,20 +816,62 @@
   <data name="&gt;&gt;buttonPickupAccount.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>390, 17</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>63</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
+  <data name="listViewAccounts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>784, 523</value>
+  <data name="listViewAccounts.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 50</value>
+  </data>
+  <data name="listViewAccounts.Size" type="System.Drawing.Size, System.Drawing">
+    <value>255, 367</value>
+  </data>
+  <data name="listViewAccounts.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="&gt;&gt;listViewAccounts.Name" xml:space="preserve">
+    <value>listViewAccounts</value>
+  </data>
+  <data name="&gt;&gt;listViewAccounts.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listViewAccounts.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;listViewAccounts.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="linkLabelAMSOfflineDoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="linkLabelAMSOfflineDoc.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelAMSOfflineDoc.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelAMSOfflineDoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>576, 138</value>
+  </data>
+  <data name="linkLabelAMSOfflineDoc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 15</value>
+  </data>
+  <data name="linkLabelAMSOfflineDoc.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="linkLabelAMSOfflineDoc.Text" xml:space="preserve">
+    <value>AMS Documentation (local copy)</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSOfflineDoc.Name" xml:space="preserve">
+    <value>linkLabelAMSOfflineDoc</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSOfflineDoc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSOfflineDoc.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAMSOfflineDoc.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="tableLayoutPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -865,64 +907,25 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelE2" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxDescription" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxAMSResourceId" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLocation" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxLocation" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelADTenant" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxAADtenantId" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelE2" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxDescription" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxAMSResourceId" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLocation" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxLocation" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelADTenant" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxAADtenantId" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="linkLabelAMSOfflineDoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="linkLabelAMSOfflineDoc.AutoSize" type="System.Boolean, mscorlib">
+  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>390, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>ja</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>63</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
   </data>
-  <data name="linkLabelAMSOfflineDoc.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="linkLabelAMSOfflineDoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>576, 138</value>
-  </data>
-  <data name="linkLabelAMSOfflineDoc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 15</value>
-  </data>
-  <data name="linkLabelAMSOfflineDoc.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="linkLabelAMSOfflineDoc.Text" xml:space="preserve">
-    <value>AMS Documentation (local copy)</value>
-  </data>
-  <data name="&gt;&gt;linkLabelAMSOfflineDoc.Name" xml:space="preserve">
-    <value>linkLabelAMSOfflineDoc</value>
-  </data>
-  <data name="&gt;&gt;linkLabelAMSOfflineDoc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabelAMSOfflineDoc.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;linkLabelAMSOfflineDoc.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="listViewAccounts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left</value>
-  </data>
-  <data name="listViewAccounts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 50</value>
-  </data>
-  <data name="listViewAccounts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 367</value>
-  </data>
-  <data name="listViewAccounts.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Name" xml:space="preserve">
-    <value>listViewAccounts</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>784, 523</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
