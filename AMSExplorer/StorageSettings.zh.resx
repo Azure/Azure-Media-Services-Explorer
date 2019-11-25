@@ -117,7 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="$this.Text" xml:space="preserve">
-    <value> Azure Storage Settings</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>默认服务版本 ：</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonUpdate.Text" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="moreinfoLiveStreamingProfilelink.Text" xml:space="preserve">
+    <value>存储服务版本信息</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>等级:</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>放置 0 表示不保留，5 是常见设置</value>
+  </data>
+  <data name="linkLabelStorageAnalytics.Text" xml:space="preserve">
+    <value>存储分析指标</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>指标</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>保留（天） ：</value>
+  </data>
+  <data name="labelStorageAccount.Text" xml:space="preserve">
+    <value>存储帐户的设置 ： {0}</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>推荐2011-08-18或更高版本</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>存储 ID ：</value>
   </data>
 </root>

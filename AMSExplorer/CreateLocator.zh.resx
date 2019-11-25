@@ -117,130 +117,94 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonOk.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>创建定位器</value>
   </data>
-  <data name="buttonCancel.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label1.Text" xml:space="preserve">
+    <value>定位器URL将显示，以后可以在资产信息中看到</value>
   </data>
-  <data name="radioButtonEndUnlimited.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBoxEnd.Text" xml:space="preserve">
+    <value>结束日期/时间</value>
   </data>
-  <data name="radioButtonEndYear.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonEndUnlimited.Text" xml:space="preserve">
+    <value>100年</value>
   </data>
-  <data name="radioButtonEndCustom.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonEndYear.Text" xml:space="preserve">
+    <value>1年</value>
   </data>
-  <data name="dateTimePickerEndTime.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonEndCustom.Text" xml:space="preserve">
+    <value>自定义日期</value>
   </data>
-  <data name="dateTimePickerEndDate.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBoxStart.Text" xml:space="preserve">
+    <value>开始日期/时间</value>
   </data>
-  <data name="groupBoxEnd.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxStartDate.Text" xml:space="preserve">
+    <value>指定开始日期/时间：</value>
   </data>
-  <data name="checkBoxStartDate.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelAssetName.Text" xml:space="preserve">
+    <value>label2</value>
   </data>
-  <data name="dateTimePickerStartTime.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonDownloadAndClear.Text" xml:space="preserve">
+    <value>清除流媒体并下载</value>
   </data>
-  <data name="dateTimePickerStartDate.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonDownload.Text" xml:space="preserve">
+    <value>仅下载</value>
   </data>
-  <data name="groupBoxStart.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonMultiDRM.Text" xml:space="preserve">
+    <value>多DRM流</value>
   </data>
-  <data name="labelAssetName.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonMultiDRM.ToolTip" xml:space="preserve">
+    <value>PlayReady, Widevine and FairPlay 打包</value>
   </data>
-  <data name="pictureBox9.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonMultiDRMCENC.Text" xml:space="preserve">
+    <value>多DRM CENC流</value>
   </data>
-  <data name="pictureBox8.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonMultiDRMCENC.ToolTip" xml:space="preserve">
+    <value>PlayReady and Widevine 打包</value>
   </data>
-  <data name="pictureBox7.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonClearKey.Text" xml:space="preserve">
+    <value>清除密钥流</value>
   </data>
-  <data name="pictureBox6.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonClearKey.ToolTip" xml:space="preserve">
+    <value>AES密钥</value>
   </data>
-  <data name="pictureBox5.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonClearStream.Text" xml:space="preserve">
+    <value>清除流</value>
   </data>
-  <data name="pictureBox4.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>预定义的流策略</value>
   </data>
-  <data name="pictureBox3.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelWarning.Text" xml:space="preserve">
+    <value>警告</value>
   </data>
-  <data name="pictureBox2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label8.Text" xml:space="preserve">
+    <value>格式: 00000000-0000-0000-0000-000000000000</value>
   </data>
-  <data name="radioButtonDownloadAndClear.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxForLocatorGUID.Text" xml:space="preserve">
+    <value>强制定位器ID / GUID：</value>
   </data>
-  <data name="radioButtonDownload.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBoxForceLocator.Text" xml:space="preserve">
+    <value>将过滤器与定位器关联</value>
   </data>
-  <data name="radioButtonClearStream.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelNoAssetFilter.Text" xml:space="preserve">
+    <value>没有显示资产过滤器，因为已选择多个资产</value>
   </data>
-  <data name="groupBox4.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>策略和过滤器</value>
   </data>
-  <data name="pictureBox1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>开始和结束时间</value>
   </data>
-  <data name="labelWarning.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>高级</value>
   </data>
-  <data name="label8.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxLocatorGUID.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxForLocatorGUID.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="listViewFilters.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="groupBoxForceLocator.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelNoAssetFilter.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label5.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label5.Text" xml:space="preserve">
+    <value>流定位器创建（发布）</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Publish an asset</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
+    <value>发布资产</value>
   </data>
 </root>

@@ -117,11 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonImport.Text" xml:space="preserve">
+    <value>确认</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value> Export</value>
+    <value>导出</value>
+  </data>
+  <data name="radioButtonCurrentEntry.Text" xml:space="preserve">
+    <value>仅所选条目</value>
+  </data>
+  <data name="radioButtonAllEntries.Text" xml:space="preserve">
+    <value>所有条目</value>
+  </data>
+  <data name="checkBoxIncludeSPSecrets.Text" xml:space="preserve">
+    <value>包括服务主体机密</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>导出设置</value>
   </data>
 </root>

@@ -117,510 +117,116 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonClose.Error" xml:space="preserve">
-    <value />
+  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonUpdateClose.Text" xml:space="preserve">
+    <value>更新设置并关闭</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonClose.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="tabPageInfo.Text" xml:space="preserve">
+    <value>信息</value>
   </data>
-  <data name="buttonClose.ToolTip" xml:space="preserve">
-    <value />
+  <data name="moreinfoSE.Text" xml:space="preserve">
+    <value>更多信息</value>
   </data>
-  <data name="buttonUpdateClose.Error" xml:space="preserve">
-    <value />
+  <data name="radioButtonPremium.Text" xml:space="preserve">
+    <value>额外.流式处理单元 ：</value>
   </data>
-  <data name="buttonUpdateClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="radioButtonPremium.ToolTip" xml:space="preserve">
+    <value>提供动态打包和加密。每个流式处理单元 （SU） 200 Mbps。
+</value>
   </data>
-  <data name="buttonUpdateClose.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="radioButtonStandard.Text" xml:space="preserve">
+    <value>标准</value>
   </data>
-  <data name="buttonUpdateClose.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonStandard.ToolTip" xml:space="preserve">
+    <value>提供动态打包和加密。每个流式处理单元 （SU） 200 Mbps。
+</value>
   </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
+  <data name="numericUpDownRU.ToolTip" xml:space="preserve">
+    <value>1 单元 = 200 mbps</value>
   </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="groupBoxTypeScale.Text" xml:space="preserve">
+    <value>类型和比例</value>
   </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelcdn.Text" xml:space="preserve">
+    <value>已启用 Azure CDN。
+
+因此，允许的 IP 地址、Akamai 身份验证和自定义主机名被禁用。</value>
   </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="dataGridViewAkamai.ToolTip" xml:space="preserve">
+    <value>规则名称/IP 地址、CIDR 或子网掩码</value>
   </data>
-  <data name="labelSEName.Error" xml:space="preserve">
-    <value />
+  <data name="buttonAddAkamai.Text" xml:space="preserve">
+    <value>增加</value>
   </data>
-  <data name="labelSEName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonDelAkamai.Text" xml:space="preserve">
+    <value>删除</value>
   </data>
-  <data name="labelSEName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="checkBoxAkamai.Text" xml:space="preserve">
+    <value>定义 Akamai 签名标头身份验证</value>
   </data>
-  <data name="labelSEName.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonAllowAllStreamingIP.Text" xml:space="preserve">
+    <value>允许所有 IP 地址</value>
   </data>
-  <data name="tabPageInfo.Error" xml:space="preserve">
-    <value />
+  <data name="dataGridViewIP.ToolTip" xml:space="preserve">
+    <value>规则名称/IP 地址、CIDR 或子网掩码</value>
   </data>
-  <data name="tabPageInfo.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonAddIP.Text" xml:space="preserve">
+    <value>增加</value>
   </data>
-  <data name="tabPageInfo.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="buttonDelIP.Text" xml:space="preserve">
+    <value>删除</value>
   </data>
-  <data name="tabPageInfo.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxStreamingIPlistSet.Text" xml:space="preserve">
+    <value>定义流式处理允许的 IP 地址 ：</value>
   </data>
-  <data name="moreinfoSE.Error" xml:space="preserve">
-    <value />
+  <data name="dataGridViewCustomHostname.ToolTip" xml:space="preserve">
+    <value>规则名称/IP 地址、CIDR 或子网掩码</value>
   </data>
-  <data name="moreinfoSE.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonAddHostName.Text" xml:space="preserve">
+    <value>增加</value>
   </data>
-  <data name="moreinfoSE.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="buttonDelHostName.Text" xml:space="preserve">
+    <value>删除</value>
   </data>
-  <data name="moreinfoSE.ToolTip" xml:space="preserve">
-    <value />
+  <data name="hostnamelink.Text" xml:space="preserve">
+    <value>如何验证自定义主机名</value>
   </data>
-  <data name="radioButtonPremium.Error" xml:space="preserve">
-    <value />
+  <data name="label3.Text" xml:space="preserve">
+    <value>自定义主机名 ：</value>
   </data>
-  <data name="radioButtonPremium.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="lblMaxCacheAge.Text" xml:space="preserve">
+    <value>最大缓存期限 （s）:</value>
   </data>
-  <data name="radioButtonPremium.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labeldesc.Text" xml:space="preserve">
+    <value>描述:</value>
   </data>
-  <data name="radioButtonStandard.Error" xml:space="preserve">
-    <value />
+  <data name="tabPageSettings.Text" xml:space="preserve">
+    <value>设置</value>
   </data>
-  <data name="radioButtonStandard.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonAddExampleCrossDomainPolicy.Text" xml:space="preserve">
+    <value>添加示例</value>
   </data>
-  <data name="radioButtonStandard.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="buttonAddExampleClientPolicy.Text" xml:space="preserve">
+    <value>添加示例</value>
   </data>
-  <data name="numericUpDownRU.Error" xml:space="preserve">
-    <value />
+  <data name="checkBoxcrossdomain.Text" xml:space="preserve">
+    <value>为Adobe Flash客户端定义跨域访问策略</value>
   </data>
-  <data name="numericUpDownRU.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="checkBoxclientpolicy.Text" xml:space="preserve">
+    <value>为Microsoft Silverlight客户端定义客户端访问策略</value>
   </data>
-  <data name="numericUpDownRU.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="tabPagePolicies.Text" xml:space="preserve">
+    <value>策略</value>
   </data>
-  <data name="groupBoxTypeScale.Error" xml:space="preserve">
-    <value />
+  <data name="labelSEName.Text" xml:space="preserve">
+    <value>流终结点：{0}</value>
   </data>
-  <data name="groupBoxTypeScale.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="groupBoxTypeScale.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBoxTypeScale.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelcdn.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelcdn.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelcdn.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelcdn.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewAkamai.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewAkamai.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddAkamai.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddAkamai.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddAkamai.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonDelAkamai.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonDelAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonDelAkamai.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonDelAkamai.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxAkamai.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxAkamai.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxAkamai.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelAkamai.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelAkamai.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panelAkamai.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panelAkamai.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAllowAllStreamingIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAllowAllStreamingIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAllowAllStreamingIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAllowAllStreamingIP.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddIP.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonDelIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonDelIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonDelIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonDelIP.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxStreamingIPlistSet.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxStreamingIPlistSet.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxStreamingIPlistSet.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxStreamingIPlistSet.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelStreamingAllowedIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelStreamingAllowedIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panelStreamingAllowedIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panelStreamingAllowedIP.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewCustomHostname.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewCustomHostname.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewCustomHostname.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddHostName.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddHostName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddHostName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddHostName.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonDelHostName.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonDelHostName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonDelHostName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonDelHostName.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="hostnamelink.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="hostnamelink.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="hostnamelink.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="hostnamelink.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label3.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label3.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelCustomHostnames.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelCustomHostnames.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panelCustomHostnames.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panelCustomHostnames.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labeldesc.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labeldesc.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labeldesc.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labeldesc.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textboxorigindesc.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textboxorigindesc.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textboxorigindesc.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textboxorigindesc.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxMaxCacheAge.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxMaxCacheAge.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxMaxCacheAge.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxMaxCacheAge.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblMaxCacheAge.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblMaxCacheAge.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="lblMaxCacheAge.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lblMaxCacheAge.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageSettings.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageSettings.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPageSettings.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageSettings.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddExampleCrossDomainPolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddExampleCrossDomainPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddExampleCrossDomainPolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddExampleCrossDomainPolicy.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddExampleClientPolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddExampleClientPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddExampleClientPolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddExampleClientPolicy.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxcrossdomain.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxcrossdomain.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxcrossdomain.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxcrossdomain.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxCrossDomPolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxCrossDomPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxclientpolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxclientpolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxclientpolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxclientpolicy.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxClientPolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxClientPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxClientPolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxClientPolicy.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPagePolicies.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPagePolicies.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPagePolicies.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPagePolicies.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabControl1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>关闭</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Streaming endpoint information</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="contextMenuStripOI.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="contextMenuStripOI.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="contextMenuStripOI.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="contextMenuStripOI.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DGOrigin.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DGOrigin.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="DGOrigin.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="DGOrigin.ToolTip" xml:space="preserve">
-    <value />
+    <value>流式传输终结点信息</value>
   </data>
 </root>

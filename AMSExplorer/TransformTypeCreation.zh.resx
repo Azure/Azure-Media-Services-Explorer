@@ -117,108 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonCancel.Error" xml:space="preserve">
-    <value />
+  <data name="buttonImport.Text" xml:space="preserve">
+    <value>确认</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value>选择哪种类型 ：</value>
   </data>
-  <data name="labelNoAssetFilter.Error" xml:space="preserve">
-    <value />
+  <data name="labelNoAssetFilter.Text" xml:space="preserve">
+    <value>这将创建一个包含一个输出资产的简单转换。</value>
   </data>
-  <data name="labelNoAssetFilter.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="radioButtonFaceDetection.Text" xml:space="preserve">
+    <value>人脸检测</value>
   </data>
-  <data name="labelNoAssetFilter.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="radioButtonAVAnalyze.Text" xml:space="preserve">
+    <value>音频/视频分析</value>
   </data>
-  <data name="pictureBox3.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBox3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="pictureBox3.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pictureBox1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBox1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="pictureBox1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pictureBox2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBox2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="pictureBox2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonFaceDetection.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonFaceDetection.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="radioButtonFaceDetection.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonAVAnalyze.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonAVAnalyze.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="radioButtonAVAnalyze.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonEncoding.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonEncoding.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="radioButtonEncoding.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelTitle.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelTitle.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelTitle.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="radioButtonEncoding.Text" xml:space="preserve">
+    <value>使用媒体编码器标准进行编码</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Transform</value>
-  </data>
-  <data name="buttonImport.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonImport.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonImport.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>变换</value>
   </data>
 </root>

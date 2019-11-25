@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="toolStripMenuItemCopyClipboard.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
+  </data>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>转换信息</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>显示信息</value>
+  </data>
+  <data name="assetInformationToolStripMenuItem.Text" xml:space="preserve">
+    <value>显示信息</value>
+  </data>
+  <data name="labelJobNameTitle.Text" xml:space="preserve">
+    <value>变换：</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Transformation Information</value>
+    <value>转型信息</value>
   </data>
 </root>

@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonNext.Text" xml:space="preserve">
+    <value>下一个</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonSelectFolder.Text" xml:space="preserve">
+    <value>选择一个文件夹...</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>输入一个路径:</value>
+  </data>
+  <data name="checkBoxSubFolder.Text" xml:space="preserve">
+    <value>处理子文件夹-每个子文件夹将是一个多文件资产</value>
+  </data>
+  <data name="checkBoxProcessFiles.Text" xml:space="preserve">
+    <value>处理文件夹中的文件</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>路径处理</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Batch Upload</value>
+    <value>批量上传</value>
   </data>
 </root>

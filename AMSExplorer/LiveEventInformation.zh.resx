@@ -117,414 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonClose.Error" xml:space="preserve">
-    <value />
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="tabPageLiveEventInfo.Text" xml:space="preserve">
+    <value>实时活动信息</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonClose.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="buttonAllowAllPreviewIP.Text" xml:space="preserve">
+    <value>允许所有 IP 地址</value>
   </data>
-  <data name="panel2.Error" xml:space="preserve">
-    <value />
+  <data name="buttonAllowAllInputIP.Text" xml:space="preserve">
+    <value>允许所有 IP 地址</value>
   </data>
-  <data name="panel2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
+    <value>关键帧间隔 （s）:</value>
   </data>
-  <data name="panel2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="checkBoxInputSet.Text" xml:space="preserve">
+    <value>定义 INPUT 允许的 IP 地址 ：</value>
   </data>
-  <data name="labelLiveEventStoppedOrStartedSettings.Error" xml:space="preserve">
-    <value />
+  <data name="checkBoxPreviewSet.Text" xml:space="preserve">
+    <value>定义预览允许的 IP 地址 ：</value>
   </data>
-  <data name="labelLiveEventStoppedOrStartedSettings.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonDelPreviewIP.Text" xml:space="preserve">
+    <value>删除</value>
   </data>
-  <data name="labelLiveEventStoppedOrStartedSettings.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="buttonDelInputIP.Text" xml:space="preserve">
+    <value>删除</value>
   </data>
-  <data name="buttonUpdateClose.Error" xml:space="preserve">
-    <value />
+  <data name="buttonAddPreviewIP.Text" xml:space="preserve">
+    <value>增加</value>
   </data>
-  <data name="buttonUpdateClose.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>描述:</value>
   </data>
-  <data name="buttonUpdateClose.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="buttonAddInputIP.Text" xml:space="preserve">
+    <value>增加</value>
   </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
+  <data name="tabPageSettings.Text" xml:space="preserve">
+    <value>设置</value>
   </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="checkBoxIgnore708.Text" xml:space="preserve">
+    <value>忽略 CEA-708 隐藏字幕</value>
   </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelLiveEventMustBeStopped.Text" xml:space="preserve">
+    <value>必须停止实时事件以更改编码设置</value>
   </data>
-  <data name="labelLEName.Error" xml:space="preserve">
-    <value />
+  <data name="label16.Text" xml:space="preserve">
+    <value>视频配置文件（只读） ：</value>
   </data>
-  <data name="labelLEName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="label17.Text" xml:space="preserve">
+    <value>音频配置文件（只读） ：</value>
   </data>
-  <data name="labelLEName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label6.Text" xml:space="preserve">
+    <value>对于自定义预设，请联系amslived@microsoft.com</value>
   </data>
-  <data name="tabPageLiveEventInfo.Error" xml:space="preserve">
-    <value />
+  <data name="radioButtonCustomPreset.Text" xml:space="preserve">
+    <value>使用自定义预设 ：</value>
   </data>
-  <data name="tabPageLiveEventInfo.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="radioButtonDefaultPreset.Text" xml:space="preserve">
+    <value>使用"{0}"预设</value>
   </data>
-  <data name="tabPageLiveEventInfo.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="groupBoxEncoding.Text" xml:space="preserve">
+    <value>编码预设</value>
   </data>
-  <data name="buttonAllowAllPreviewIP.Error" xml:space="preserve">
-    <value />
+  <data name="tabPageEncoding.Text" xml:space="preserve">
+    <value>实时编码</value>
   </data>
-  <data name="buttonAllowAllPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="checkBoxcrossdomains.Text" xml:space="preserve">
+    <value>定义跨域策略</value>
   </data>
-  <data name="buttonAllowAllPreviewIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="checkBoxclientpolicy.Text" xml:space="preserve">
+    <value>定义客户端策略 ：</value>
   </data>
-  <data name="buttonAllowAllInputIP.Error" xml:space="preserve">
-    <value />
+  <data name="tabPagePolicies.Text" xml:space="preserve">
+    <value>策略</value>
   </data>
-  <data name="buttonAllowAllInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="tabPagePreview.Text" xml:space="preserve">
+    <value>预览</value>
   </data>
-  <data name="buttonAllowAllInputIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelLEName.Text" xml:space="preserve">
+    <value>实时事件:</value>
   </data>
-  <data name="checkBoxKeyFrameIntDefined.Error" xml:space="preserve">
-    <value />
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>关闭</value>
   </data>
-  <data name="checkBoxKeyFrameIntDefined.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonUpdateClose.Text" xml:space="preserve">
+    <value>更新设置并关闭</value>
   </data>
-  <data name="checkBoxKeyFrameIntDefined.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelLiveEventStoppedOrStartedSettings.Text" xml:space="preserve">
+    <value>实时事件必须处于停止或正在运行的状态才能更新设置</value>
   </data>
-  <data name="textBoxKeyFrame.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxKeyFrame.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxKeyFrame.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxInputSet.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxInputSet.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxInputSet.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxPreviewSet.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxPreviewSet.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxPreviewSet.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewInputIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewInputIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewPreviewIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewPreviewIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonDelPreviewIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonDelPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonDelPreviewIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonDelInputIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonDelInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonDelInputIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddPreviewIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddPreviewIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddPreviewIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAddInputIP.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAddInputIP.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAddInputIP.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textboxchannedesc.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textboxchannedesc.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textboxchannedesc.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageSettings.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageSettings.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPageSettings.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxIgnore708.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxIgnore708.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxIgnore708.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelLiveEventMustBeStopped.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelLiveEventMustBeStopped.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelLiveEventMustBeStopped.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewVideoProf.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewVideoProf.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewVideoProf.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dataGridViewAudioProf.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="dataGridViewAudioProf.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dataGridViewAudioProf.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label16.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label16.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label16.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label17.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label17.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label17.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panelDisplayEncProfile.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelDisplayEncProfile.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panelDisplayEncProfile.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label6.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label6.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label6.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonCustomPreset.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonCustomPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="radioButtonCustomPreset.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxCustomPreset.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxCustomPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxCustomPreset.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonDefaultPreset.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonDefaultPreset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="radioButtonDefaultPreset.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBoxEncoding.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="groupBoxEncoding.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="groupBoxEncoding.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageEncoding.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageEncoding.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPageEncoding.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxcrossdomains.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxcrossdomains.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxcrossdomains.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxCrossDomPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxCrossDomPolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxclientpolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxclientpolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxclientpolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxClientPolicy.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxClientPolicy.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxClientPolicy.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPagePolicies.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPagePolicies.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPagePolicies.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="webBrowserPreview.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="webBrowserPreview.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="webBrowserPreview.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPagePreview.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPagePreview.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPagePreview.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabControl1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="openFileDialogSlate.Filter" xml:space="preserve">
+    <value>Image|*.jpg|All files (*.*)|*.*</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Live Event Information</value>
-  </data>
-  <data name="contextMenuStripDG.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="contextMenuStripDG.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="contextMenuStripDG.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="DGLiveEvent.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DGLiveEvent.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="DGLiveEvent.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>实时事件信息</value>
   </data>
 </root>

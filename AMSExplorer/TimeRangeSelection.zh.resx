@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="$this.Text" xml:space="preserve">
-    <value> Set a date/time range</value>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>设置范围</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="radioButtonEndNow.Text" xml:space="preserve">
+    <value>现在</value>
+  </data>
+  <data name="radioButtonEndCustom.Text" xml:space="preserve">
+    <value>自定义日期：</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>结束日期/时间</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>开始日期/时间</value>
+  </data>
+  <data name="labelMain.Text" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="label49.Text" xml:space="preserve">
+    <value>日期/时间是本地的</value>
   </data>
 </root>

@@ -117,7 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>供应商：</value>
+  </data>
+  <data name="labelCDNOptions.Text" xml:space="preserve">
+    <value>CDN 选项</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>主键</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>配置 文件：</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>如果为空，将使用默认值</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> CDN</value>
+    <value>CDN</value>
   </data>
 </root>

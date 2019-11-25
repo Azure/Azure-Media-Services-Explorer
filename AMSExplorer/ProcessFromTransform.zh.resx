@@ -117,7 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label.Text" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>提交作业</value>
+  </data>
+  <data name="openFileDialogWorkflow.Filter" xml:space="preserve">
+    <value>Worflow files|*.workflow;*.kayak;*.xenio;*.zenium;*.graph;*.blueprint|All files (*.*)|*.*</value>
+  </data>
+  <data name="buttonDeleteTemplate.Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value>作业创建</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>选择一个转换</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>源&amp;转换</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>此功能适用于使用内置在标准编码器预设或标准编码器预设构建的任何转换。
+要修剪实时资产（实时或存档），请使用 AMSE 中的子剪辑功能：时间将正确计算，因为此类资产的开始时间不是 0 秒，而是基于编码器时间戳。</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>时间：</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>修剪</value>
+  </data>
+  <data name="buttonCreateNewTransform.Text" xml:space="preserve">
+    <value>创建新的转换（编码、分析）...</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>源</value>
+  </data>
+  <data name="labelURLFileNameWarning.Text" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="radioButtonHttpSource.Text" xml:space="preserve">
+    <value>Http(s) 源:</value>
+  </data>
+  <data name="radioButtonSelectedAssets.Text" xml:space="preserve">
+    <value>选择资产</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Transform</value>
+    <value>转换</value>
   </data>
 </root>

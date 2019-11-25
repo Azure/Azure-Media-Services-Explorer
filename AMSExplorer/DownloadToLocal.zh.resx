@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>下载到文件夹</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="checkBoxOpenFileAfterExport.Text" xml:space="preserve">
+    <value>下载完成后，使用文件资源管理器打开文件夹</value>
+  </data>
+  <data name="checkBoxCreateSubfolder.Text" xml:space="preserve">
+    <value>根据资产名称创建一个子文件夹</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="labelAssetName.Text" xml:space="preserve">
+    <value>将{0}个资产下载到本地文件夹</value>
+  </data>
+  <data name="buttonBrowseFile.Text" xml:space="preserve">
+    <value>浏览...</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>本地文件夹</value>
+  </data>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value>下载资产</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Download asset(s)</value>
+    <value>下载资产</value>
   </data>
 </root>

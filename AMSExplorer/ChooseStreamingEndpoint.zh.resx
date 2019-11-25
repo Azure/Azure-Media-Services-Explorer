@@ -117,7 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="radioButtonHttps.Text" xml:space="preserve">
+    <value>Https</value>
+  </data>
+  <data name="radioButtonHttp.Text" xml:space="preserve">
+    <value>Http</value>
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>定位器和流式传输端点</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>您最多可以选择3个过滤器</value>
+  </data>
+  <data name="groupBoxForceLocator.Text" xml:space="preserve">
+    <value>筛选器</value>
+  </data>
+  <data name="radioButtonHLSCMAF.Text" xml:space="preserve">
+    <value>HLS (CMAF)</value>
+  </data>
+  <data name="checkBoxNoAudioOnly.Text" xml:space="preserve">
+    <value>没有仅音频模式</value>
+  </data>
+  <data name="labelaudiotrackname.Text" xml:space="preserve">
+    <value>音轨名称：</value>
+  </data>
+  <data name="radioButtonSmoothLegacy.Text" xml:space="preserve">
+    <value>流畅串流</value>
+  </data>
+  <data name="radioButtonDASHCSF.Text" xml:space="preserve">
+    <value>MPEG-DASH (CSF)</value>
+  </data>
+  <data name="radioButtonDASHCMAF.Text" xml:space="preserve">
+    <value>MPEG-DASH (CMAF)</value>
+  </data>
+  <data name="radioButtonHLSv4.Text" xml:space="preserve">
+    <value>HLS v4</value>
+  </data>
+  <data name="radioButtonHLSv3.Text" xml:space="preserve">
+    <value>HLS v3</value>
+  </data>
+  <data name="radioButtonSmooth.Text" xml:space="preserve">
+    <value>自动/流畅流</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>自适应流协议</value>
+  </data>
+  <data name="label.Text" xml:space="preserve">
+    <value>资产 : '{0}'</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>流URL生成</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>O ptions to generate the streaming URL</value>
+    <value>生成流URL的选项</value>
   </data>
 </root>

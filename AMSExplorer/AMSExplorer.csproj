@@ -557,7 +557,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Resources.zh.resx" />
+    <EmbeddedResource Include="AssetInformation.zh.resx">
+      <DependentUpon>AssetInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Subclipping.zh.resx">
+      <DependentUpon>Subclipping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeControl.zh.resx">
+      <DependentUpon>TimeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeRangeSelection.zh.resx">
+      <DependentUpon>TimeRangeSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformInformation.zh.resx">
+      <DependentUpon>TransformInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformTypeCreation.zh.resx">
+      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UploadOptions.zh.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>
     </EmbeddedResource>
@@ -691,7 +708,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin\AddAMSAccount1.resx">
       <DependentUpon>AddAMSAccount1.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin\AMSLogin.zh.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
@@ -709,9 +725,6 @@
       <DependentUpon>ExportSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.ja.resx">
-      <DependentUpon>AssetInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AssetInformation.zh.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachStorage.ja.resx">
@@ -867,6 +880,7 @@
     <EmbeddedResource Include="ProcessFromTransform.zh.resx">
       <DependentUpon>ProcessFromTransform.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.zh.resx" />
     <EmbeddedResource Include="SettingsSelection.zh.resx">
       <DependentUpon>SettingsSelection.cs</DependentUpon>
     </EmbeddedResource>
@@ -887,18 +901,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Subclipping.resx">
       <DependentUpon>Subclipping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Subclipping.zh.resx">
-      <DependentUpon>Subclipping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimeControl.zh.resx">
-      <DependentUpon>TimeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimeRangeSelection.zh.resx">
-      <DependentUpon>TimeRangeSelection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TransformInformation.zh.resx">
-      <DependentUpon>TransformInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformTypeCreation.ja.resx">
       <DependentUpon>TransformTypeCreation.cs</DependentUpon>
@@ -1048,9 +1050,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewAsset.resx">
       <DependentUpon>NewAsset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TransformTypeCreation.zh.resx">
-      <DependentUpon>TransformTypeCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UploadOptions.ja.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>

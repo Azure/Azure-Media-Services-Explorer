@@ -117,98 +117,226 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="textBoxDurationTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>899, 236</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="timeControlStart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>503, 90</value>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>创建过滤器</value>
   </data>
-  <data name="labelDefaultBakckoff.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 507</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>过滤器名字:</value>
   </data>
-  <data name="numericUpDownBackoffSeconds.Location" type="System.Drawing.Point, System.Drawing">
-    <value>899, 413</value>
+  <data name="buttonInsertSample.Text" xml:space="preserve">
+    <value>插入曲目过滤示例</value>
   </data>
-  <data name="labelStartTimeDefault.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 96</value>
+  <data name="buttonInsertSample.ToolTip" xml:space="preserve">
+    <value>视频不超过1 mbps，仅音频轨道具有AAC编解码器，文本轨道仅限于英语</value>
   </data>
-  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 413</value>
+  <data name="checkBoxForValueForLive.Text" xml:space="preserve">
+    <value>强制为实时值</value>
   </data>
-  <data name="checkBoxEndTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 139</value>
+  <data name="timeControlStart.ToolTip" xml:space="preserve">
+    <value>直播和点播。 值四舍五入到最接近的下一个GOP起点。</value>
   </data>
-  <data name="checkBoxPresentationWindowDuration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 276</value>
+  <data name="labelDefaultBakckoff.Text" xml:space="preserve">
+    <value>(默认:0)</value>
   </data>
-  <data name="timeControlDVR.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 276</value>
+  <data name="checkBoxStartTime.ToolTip" xml:space="preserve">
+    <value>直播和点播。 值四舍五入到最接近的下一个GOP起点。</value>
   </data>
-  <data name="timeControlDVR.Size" type="System.Drawing.Size, System.Drawing">
-    <value>503, 91</value>
+  <data name="labelStartTimeDefault.Text" xml:space="preserve">
+    <value>(默认:0)</value>
   </data>
-  <data name="checkBoxLiveBackoff.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 413</value>
+  <data name="checkBoxEndTime.ToolTip" xml:space="preserve">
+    <value>VOD（实时忽略，但适用于存档）。 值四舍五入到最接近的下一个GOP起点。</value>
   </data>
-  <data name="labelDefaultEnd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 233</value>
+  <data name="checkBoxPresentationWindowDuration.ToolTip" xml:space="preserve">
+    <value>现场直播，还有VOD，可在演示结束时实现平稳过渡。 最少120秒</value>
   </data>
-  <data name="labelDefaultDVR.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 370</value>
+  <data name="timeControlDVR.ToolTip" xml:space="preserve">
+    <value>现场直播，还有VOD，可在演示结束时实现平稳过渡。 最少120秒</value>
   </data>
-  <data name="timeControlEnd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 139</value>
+  <data name="labelDefaultEnd.Text" xml:space="preserve">
+    <value>(默认: 最大)</value>
   </data>
-  <data name="timeControlEnd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>503, 91</value>
+  <data name="labelDefaultDVR.Text" xml:space="preserve">
+    <value>(默认: 最大)</value>
   </data>
-  <data name="label39.Location" type="System.Drawing.Point, System.Drawing">
-    <value>899, 218</value>
+  <data name="timeControlEnd.ToolTip" xml:space="preserve">
+    <value>VOD（如果选中此复选框，则启用Live功能）。 值四舍五入到最接近的下一个GOP起点。</value>
   </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 276</value>
+  <data name="label39.Text" xml:space="preserve">
+    <value>持续时间：</value>
   </data>
-  <data name="pictureBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 84</value>
+  <data name="checkBoxLiveBackoff.Text" xml:space="preserve">
+    <value>实时回退（秒）：</value>
   </data>
-  <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1027, 528</value>
+  <data name="checkBoxLiveBackoff.ToolTip" xml:space="preserve">
+    <value>仅直播，VOD忽略此选项以在演示结束时实现平稳过渡。</value>
   </data>
-  <data name="numericUpDownFirstQualityBitrate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 528</value>
+  <data name="tabPageTR.Text" xml:space="preserve">
+    <value>时间范围</value>
   </data>
-  <data name="checkBoxFirstQualityBitrate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 529</value>
+  <data name="checkBoxForValueLiveRaw.Text" xml:space="preserve">
+    <value>强制为实时值</value>
   </data>
-  <data name="label40.Location" type="System.Drawing.Point, System.Drawing">
-    <value>276, 530</value>
+  <data name="label21.Text" xml:space="preserve">
+    <value>保留为空以使用默认值（最小）</value>
   </data>
-  <data name="comboBoxLocatorsFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>802, 260</value>
+  <data name="label19.Text" xml:space="preserve">
+    <value>保留为空以使用默认值（最大）</value>
   </data>
-  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 349</value>
+  <data name="label18.Text" xml:space="preserve">
+    <value>保留为空以使用默认值（最大）</value>
   </data>
-  <data name="buttonDeleteCondition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>651, 288</value>
+  <data name="label17.Text" xml:space="preserve">
+    <value>保留为空以使用默认值（最小）</value>
   </data>
-  <data name="buttonDeleteTrack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 288</value>
+  <data name="label16.Text" xml:space="preserve">
+    <value>保留为空以使用默认值（每秒10000000个 ticks ）</value>
   </data>
-  <data name="buttonAddCondition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>577, 288</value>
+  <data name="labeltime1.Text" xml:space="preserve">
+    <value>时间范围：</value>
   </data>
-  <data name="buttonAddTrack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 289</value>
+  <data name="labeltime5.Text" xml:space="preserve">
+    <value>实时回退：</value>
   </data>
-  <data name="dataGridViewTracks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 253</value>
+  <data name="labeltime4.Text" xml:space="preserve">
+    <value>DVR视窗：</value>
   </data>
-  <data name="buttonInsertSample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>800, 226</value>
+  <data name="labeltime3.Text" xml:space="preserve">
+    <value>结束时间（VOD）：</value>
   </data>
-  <data name="DGInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1030, 557</value>
+  <data name="labeltime2.Text" xml:space="preserve">
+    <value>开始时间（直播和点播）：</value>
+  </data>
+  <data name="tabPageTRRaw.Text" xml:space="preserve">
+    <value>时间范围（原始）</value>
+  </data>
+  <data name="checkBoxFirstQualityBitrate.Text" xml:space="preserve">
+    <value>第一质量比特率 （HLS） ：</value>
+  </data>
+  <data name="label40.Text" xml:space="preserve">
+    <value>bps</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>约束条件</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>FourCC</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>示例</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>轨道类型</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>轨道名称</value>
+  </data>
+  <data name="label26.Text" xml:space="preserve">
+    <value>轨道语言</value>
+  </data>
+  <data name="label27.Text" xml:space="preserve">
+    <value>轨道 FourCC 值</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>轨道的比特率（bps）</value>
+  </data>
+  <data name="label29.Text" xml:space="preserve">
+    <value>视频、音频或文本</value>
+  </data>
+  <data name="label31.Text" xml:space="preserve">
+    <value>RFC 5646 中指定的格式</value>
+  </data>
+  <data name="label32.Text" xml:space="preserve">
+    <value>在 RFC 6381 中指定的编解码器格式的第一个元素</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>可以是范围值或精确值</value>
+  </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="label35.Text" xml:space="preserve">
+    <value>轨道名称</value>
+  </data>
+  <data name="label36.Text" xml:space="preserve">
+    <value>英语</value>
+  </data>
+  <data name="label37.Text" xml:space="preserve">
+    <value>avc1, hev1, hvc1, mp4a or ec-3</value>
+  </data>
+  <data name="label38.Text" xml:space="preserve">
+    <value>0-1048576 or 1048576</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="label28.Text" xml:space="preserve">
+    <value>比特率</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>条件:</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>规则:</value>
+  </data>
+  <data name="buttonDeleteCondition.Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="buttonDeleteTrack.Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="buttonAddCondition.Text" xml:space="preserve">
+    <value>增加</value>
+  </data>
+  <data name="buttonAddTrack.Text" xml:space="preserve">
+    <value>增加</value>
+  </data>
+  <data name="tabPageTF.Text" xml:space="preserve">
+    <value>轨道筛选</value>
+  </data>
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
+  </data>
+  <data name="tabPageInformation.Text" xml:space="preserve">
+    <value>筛选信息</value>
+  </data>
+  <data name="moreinfoprofilelink.Text" xml:space="preserve">
+    <value>更多信息</value>
+  </data>
+  <data name="labelFilterTitle.Text" xml:space="preserve">
+    <value>账户过滤器</value>
+  </data>
+  <data name="labelassetname.Text" xml:space="preserve">
+    <value>资产名称</value>
+  </data>
+  <data name="labelassetduration.Text" xml:space="preserve">
+    <value>资产期限 ：</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>过滤时间刻度 ：</value>
+  </data>
+  <data name="labelOffset.Text" xml:space="preserve">
+    <value>资产偏移</value>
+  </data>
+  <data name="checkBoxRawMode.Text" xml:space="preserve">
+    <value>时间范围原始模式</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>动态清单过滤器</value>
   </data>
 </root>

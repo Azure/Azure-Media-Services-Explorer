@@ -117,270 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonCancel.Error" xml:space="preserve">
-    <value />
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>创建实时输出</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>新资产名称 ：</value>
   </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
+  <data name="label2.Text" xml:space="preserve">
+    <value>存档窗口长度 ：</value>
   </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>实时输出名称 ：</value>
   </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>描述：</value>
   </data>
-  <data name="label9.Error" xml:space="preserve">
-    <value />
+  <data name="checkBoxCreateLocator.Text" xml:space="preserve">
+    <value>立即发布资产（默认定位器持续时间：{0} 天）</value>
   </data>
-  <data name="label9.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>当输出被删除时，实时输出将自动转换为点播内容，并且将在"ASSETS"选项卡中可用。
+删除实时输出后，资产的所有发布 URL 都保持不变。</value>
   </data>
-  <data name="label9.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label9.Text" xml:space="preserve">
+    <value>最少 1 分钟至 最大25 小时</value>
   </data>
-  <data name="label33.Error" xml:space="preserve">
-    <value />
+  <data name="label33.Text" xml:space="preserve">
+    <value>输出存储 ：</value>
   </data>
-  <data name="label33.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="label11.Text" xml:space="preserve">
+    <value>分钟</value>
   </data>
-  <data name="label33.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label10.Text" xml:space="preserve">
+    <value>小时</value>
   </data>
-  <data name="comboBoxStorage.Error" xml:space="preserve">
-    <value />
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>设置</value>
   </data>
-  <data name="comboBoxStorage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="label6.Text" xml:space="preserve">
+    <value>开始记录时间戳（输出捕捉时间）：</value>
   </data>
-  <data name="comboBoxStorage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="checkBoxHLSFragPerSegDefined.Text" xml:space="preserve">
+    <value>每个段的 HLS 片段 ：</value>
   </data>
-  <data name="textBoxAssetName.Error" xml:space="preserve">
-    <value />
+  <data name="label13.Text" xml:space="preserve">
+    <value>清单名称 ：</value>
   </data>
-  <data name="textBoxAssetName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxAssetName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownArchiveMinutes.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numericUpDownArchiveMinutes.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numericUpDownArchiveMinutes.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label11.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label11.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label11.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label4.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label4.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label4.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pictureBox1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBox1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="pictureBox1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label10.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label10.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label10.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownArchiveHours.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numericUpDownArchiveHours.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numericUpDownArchiveHours.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPage1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPage1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxStartRecordTimestamp.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxStartRecordTimestamp.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxStartRecordTimestamp.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label6.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label6.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label6.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxHLSFragPerSegDefined.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxHLSFragPerSegDefined.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxHLSFragPerSegDefined.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numericUpDownHLSFragPerSeg.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxManifestName.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxManifestName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxManifestName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label13.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label13.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label13.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPage3.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPage3.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabControl1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label5.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label5.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label5.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxCreateLocator.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxCreateLocator.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxCreateLocator.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxDescription.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxDescription.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxDescription.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label3.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label3.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textboxprogramname.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textboxprogramname.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textboxprogramname.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>高级</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Create a new output for live event {0}</value>
-  </data>
-  <data name="buttonOk.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonOk.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonOk.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>为实时事件{0}创建新输出</value>
   </data>
 </root>

@@ -117,11 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="radioButtonAddAMSAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>286, 19</value>
+  <data name="buttonNext.Text" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="labelAssetName.Text" xml:space="preserve">
+    <value>选择添加媒体服务帐户的方式</value>
   </data>
   <data name="radioButtonAddAMSAccount.Text" xml:space="preserve">
-    <value>Browse  your subscriptions and select an Account</value>
+    <value>浏览订阅并选择帐户</value>
+  </data>
+  <data name="checkBoxSelectUser.Text" xml:space="preserve">
+    <value>选择用户</value>
+  </data>
+  <data name="radioButtonJsonCliOutput.Text" xml:space="preserve">
+    <value>使用Json输出，来自 Azure Cli (az ams account sp create)</value>
+  </data>
+  <data name="radioButtonAddManual.Text" xml:space="preserve">
+    <value>手动输入设置</value>
+  </data>
+  <data name="linkLabelAzCliDoc.Text" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>模式</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>环境:</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>增加一个账号</value>
   </data>
 </root>

@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="$this.Text" xml:space="preserve">
-    <value>C hange Job Priority</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonUpdate.Text" xml:space="preserve">
+    <value>更新作业优先级</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>工作优先级</value>
   </data>
 </root>

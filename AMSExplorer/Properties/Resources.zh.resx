@@ -117,493 +117,1235 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LabelChannel" xml:space="preserve">
-    <value>Live Events</value>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="LabelProgram" xml:space="preserve">
-    <value>Live Outputs</value>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>确认</value>
   </data>
-  <data name="TabAssets" xml:space="preserve">
-    <value>Assets</value>
-  </data>
-  <data name="TabFilters" xml:space="preserve">
-    <value>Account filters</value>
-  </data>
-  <data name="TabJobs" xml:space="preserve">
-    <value>Transforms &amp; jobs</value>
-  </data>
-  <data name="TabLive" xml:space="preserve">
-    <value>Live events &amp; outputs</value>
-  </data>
-  <data name="TabOrigins" xml:space="preserve">
-    <value>Streaming endpoints</value>
+  <data name="TabLog" xml:space="preserve">
+    <value>日志</value>
   </data>
   <data name="TabStorage" xml:space="preserve">
-    <value>Storage</value>
+    <value>存储</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_DoYouWantToSaveTheCredentialsFor0" xml:space="preserve">
+    <value>您要保存认证{0}信息?</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_DoYouWantToUpdateTheCredentialsFor0" xml:space="preserve">
+    <value>您要更新认证{0}信息?</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_SaveCredentials" xml:space="preserve">
+    <value>保存认证信息</value>
+  </data>
+  <data name="AMSLogin_listBoxAccounts_SelectedIndexChanged_UpdateCredentials" xml:space="preserve">
+    <value>更新认证信息</value>
+  </data>
+  <data name="LabelChannel" xml:space="preserve">
+    <value>直播</value>
+  </data>
+  <data name="LabelProgram" xml:space="preserve">
+    <value>直播输出</value>
+  </data>
+  <data name="TabAssets" xml:space="preserve">
+    <value>资源</value>
+  </data>
+  <data name="TabFilters" xml:space="preserve">
+    <value>账号筛选</value>
+  </data>
+  <data name="TabJobs" xml:space="preserve">
+    <value>转换&amp;作业</value>
+  </data>
+  <data name="TabLive" xml:space="preserve">
+    <value>直播&amp;输出</value>
+  </data>
+  <data name="TabOrigins" xml:space="preserve">
+    <value>流式处理终结点</value>
+  </data>
+  <data name="TabProcessors" xml:space="preserve">
+    <value>处理器</value>
   </data>
   <data name="TabTransfers" xml:space="preserve">
-    <value>Transfers</value>
+    <value>传输</value>
+  </data>
+  <data name="AMSLogin_buttonExport_Click_DoYouWantToExportAllEntriesNNSelectYesToExportAllNoToExportTheSelection" xml:space="preserve">
+    <value>是否要导出所有条目？
+
+选择"是"以导出所有内容，选择"否"以导出所选内容。</value>
+  </data>
+  <data name="AMSLogin_buttonExport_Click_ExportAllEntries" xml:space="preserve">
+    <value>导出所有条目</value>
   </data>
   <data name="AMSLogin_buttonExport_Click_Error" xml:space="preserve">
-    <value>Error</value>
+    <value>错误</value>
   </data>
   <data name="AMSLogin_buttonImportAll_Click_ThereAreCurrentEntriesInTheListNDoYouWantReplaceThemWithTheNewOnesOrDoAMergeNNSelectYesToReplaceThemNoToMergeThem" xml:space="preserve">
-    <value>There are current entries in the list.
-Do you want replace them with the new ones or do a merge?
+    <value>当前列表中的条目。
+是否要将它们替换为新的或进行合并？
 
-Select 'Yes' to replace them, 'No' to merge them.</value>
+选择"是"以替换它们，选择"否"以合并它们。</value>
   </data>
   <data name="AMSLogin_buttonImportAll_Click_ImportAndReplace" xml:space="preserve">
-    <value>Import and replace</value>
+    <value>导入并替换</value>
+  </data>
+  <data name="AMSLogin_buttonImportAll_Click_FileNotRecognizedOrIncorrect" xml:space="preserve">
+    <value>文件无法识别或不正确.</value>
   </data>
   <data name="AMSLogin_CheckTextBox_ThisFieldIsMandatory" xml:space="preserve">
-    <value>This field is mandatory</value>
+    <value>此字段为必填字段</value>
+  </data>
+  <data name="AMSLogin_CheckTextBoxGuid_BadGUIDFormat" xml:space="preserve">
+    <value>错误的GUID格式</value>
+  </data>
+  <data name="AMSLogin_AzureGlobal" xml:space="preserve">
+    <value>Azure Global</value>
+  </data>
+  <data name="AMSLogin_AzureInChina" xml:space="preserve">
+    <value>Azure in China</value>
+  </data>
+  <data name="AMSLogin_AzureGovernment" xml:space="preserve">
+    <value>Azure Government</value>
+  </data>
+  <data name="AMSLogin_AMSLogin_Load_ErrorReadingCredentialsSettingsHaveBeenDeleted" xml:space="preserve">
+    <value>Error reading credentials. Settings have been deleted.</value>
+  </data>
+  <data name="AMSLogin_buttonSaveToList_Click_TheAccountNameCannotBeEmpty" xml:space="preserve">
+    <value>帐户名称不能为空</value>
   </data>
   <data name="AboutBox_AboutBox_About0" xml:space="preserve">
-    <value>About {0}</value>
+    <value>关于 {0}</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_Name" xml:space="preserve">
-    <value>Name</value>
+    <value>名称</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_Type" xml:space="preserve">
-    <value>Type</value>
+    <value>类型</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_AssetType" xml:space="preserve">
+    <value>资产类型</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_State" xml:space="preserve">
-    <value>State</value>
+    <value>状态</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_Created" xml:space="preserve">
-    <value>Created</value>
+    <value>创建</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_LastModified" xml:space="preserve">
-    <value>Last Modified</value>
+    <value>上次修改</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_CreationOptions" xml:space="preserve">
+    <value>创建选项</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ProgramId" xml:space="preserve">
+    <value>程序编号</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_IsStreamable" xml:space="preserve">
+    <value>可流式传输</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_SupportsDynamicEncryption" xml:space="preserve">
+    <value>支持动态加密</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageUrl" xml:space="preserve">
+    <value>存储URL</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountName" xml:space="preserve">
+    <value>存储账户名称</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountByteUsed" xml:space="preserve">
+    <value>使用的存储帐户字节</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_StorageAccountIsDefault" xml:space="preserve">
+    <value>存储账户为默认账户</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAsset" xml:space="preserve">
+    <value>父资产</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAssetId" xml:space="preserve">
+    <value>父资产 ID</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ParentAssetS" xml:space="preserve">
+    <value>父资产</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_ErrorDeleted" xml:space="preserve">
+    <value>&lt;错误,删除?&gt;</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_012ScaleUnit" xml:space="preserve">
     <value>{0} ({1}, {2})</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3" xml:space="preserve">
-    <value>{0} ({1}, {2}) Custom hostname : {3}</value>
+    <value>{0} ({1}, {2})自定义主机名 : {3}</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_TrackRules" xml:space="preserve">
-    <value>Track Rules</value>
+    <value>跟踪规则</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_Rules" xml:space="preserve">
-    <value>Rules</value>
+    <value>规则</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_StartDHMS" xml:space="preserve">
-    <value>Start (d.h:m:s)</value>
+    <value>开始(d.h:m:s)</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_Start" xml:space="preserve">
-    <value>Start</value>
+    <value>开始</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_EndDHMS" xml:space="preserve">
-    <value>End (d.h:m:s)</value>
+    <value>结束 (d.h:m:s)</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_End" xml:space="preserve">
-    <value>End</value>
+    <value>结束</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_DVRDHMS" xml:space="preserve">
     <value>DVR (d.h:m:s)</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_LiveBackoffDHMS" xml:space="preserve">
-    <value>Live backoff (d.h:m:s)</value>
+    <value>实时回退 (d.h:m:s)</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_DVR" xml:space="preserve">
     <value>DVR</value>
   </data>
   <data name="AssetInformation_DisplayAssetFilters_LiveBackoff" xml:space="preserve">
-    <value>LiveBackoff</value>
+    <value>实时回退</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_Max" xml:space="preserve">
+    <value>最大</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_Min" xml:space="preserve">
+    <value>最小</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_AssetFilter" xml:space="preserve">
+    <value>资产筛选：</value>
+  </data>
+  <data name="AssetInformation_DisplayAssetFilters_GlobalFilter" xml:space="preserve">
+    <value>账户筛选：</value>
   </data>
   <data name="AssetInformation_BuildLocatorsTree_LocatorInformation" xml:space="preserve">
-    <value>Locator information</value>
+    <value>定位器信息</value>
   </data>
   <data name="AssetInformation_BuildLocatorsTree_Name0" xml:space="preserve">
-    <value>Name: {0}</value>
+    <value>名称: {0}</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_Type0" xml:space="preserve">
+    <value>类型: {0}</value>
   </data>
   <data name="AssetInformation_BuildLocatorsTree_StartTime0" xml:space="preserve">
-    <value>Start time: {0}</value>
+    <value>开始时间: {0}</value>
   </data>
   <data name="AssetInformation_BuildLocatorsTree_ExpirationDateTime0" xml:space="preserve">
-    <value>Expiration date time: {0}</value>
+    <value>到期时间: {0}</value>
+  </data>
+  <data name="AssetInformation_BuildLocatorsTree_Path0" xml:space="preserve">
+    <value>路径: {0}</value>
   </data>
   <data name="AssetInformation_DoDisplayFileProperties_FileSize" xml:space="preserve">
-    <value>File size</value>
+    <value>文件大小</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_MimeType" xml:space="preserve">
+    <value>Mime type</value>
   </data>
   <data name="AssetInformation_DoDisplayFileProperties_LastModified" xml:space="preserve">
-    <value>Last modified</value>
+    <value>上次更新</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_PrimaryFile" xml:space="preserve">
+    <value>主文件</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_Options" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_Encrypted" xml:space="preserve">
+    <value>加密</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionScheme" xml:space="preserve">
+    <value>加密方案</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionVersion" xml:space="preserve">
+    <value>加密版本</value>
+  </data>
+  <data name="AssetInformation_DoDisplayFileProperties_EncryptionKeyId" xml:space="preserve">
+    <value>加密Key ID</value>
+  </data>
+  <data name="AssetInformation_DoDisplayDeliveryPolicyProperties_Protocol" xml:space="preserve">
+    <value>协议</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ContentKeyType" xml:space="preserve">
+    <value>内容键类型</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_Checksum" xml:space="preserve">
+    <value>校验</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyId" xml:space="preserve">
+    <value>保护密钥 ID</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ProtectionKeyType" xml:space="preserve">
+    <value>保护密钥类型</value>
   </data>
   <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue" xml:space="preserve">
-    <value>Clear Key Value</value>
+    <value>清除键值</value>
   </data>
   <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey" xml:space="preserve">
-    <value>see clear key</value>
+    <value>查看清除键</value>
   </data>
   <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey2" xml:space="preserve">
-    <value>See clear key</value>
+    <value>查看清除键</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyId" xml:space="preserve">
+    <value>授权策略 ID</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_AuthorizationPolicyName" xml:space="preserve">
+    <value>授权策略名称</value>
+  </data>
+  <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_NoName" xml:space="preserve">
+    <value>&lt;没有名字&gt;</value>
   </data>
   <data name="AssetInformation_DoOpenFiles_ErrorWhenAccessingTemporarySASLocator" xml:space="preserve">
-    <value>Error when accessing temporary SAS locator</value>
+    <value>访问临时 SAS 定位器时出错</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_TheFollowingFilesAreAlreadyInTheFolderSNN0NNOverwiteTheFiles" xml:space="preserve">
-    <value>The following files are already in the folder(s)
+    <value>以下文件已在文件夹中
 
 {0}
 
-Overwite the files ?</value>
+把文件覆盖？</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_TheFollowingFileIsAlreadyInTheFolderNN0NNOverwiteTheFile" xml:space="preserve">
-    <value>The following file is already in the folder
+    <value>以下文件已在文件夹中
 
 {0}
 
-Overwite the file ?</value>
+把文件覆盖？</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_FileSOverwrite" xml:space="preserve">
-    <value>File(s) overwrite</value>
+    <value>文件覆盖</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_ErrorWhenDeletingFiles" xml:space="preserve">
-    <value>Error when deleting files</value>
+    <value>删除文件错误</value>
+  </data>
+  <data name="AssetInformation_DoDownloadFiles_DownloadOfFile0FromAsset1" xml:space="preserve">
+    <value>从资产"{1}"下载文件"{0}"</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTabToCheckTheProgress" xml:space="preserve">
-    <value>Download process has been initiated. See the Transfers tab to check the progress.</value>
+    <value>下载过程已启动。请参阅"传输"选项卡以检查进度。</value>
   </data>
   <data name="AssetInformation_DoDownloadFiles_ErrorWhenDownloadingFileS" xml:space="preserve">
-    <value>Error when downloading file(s)</value>
+    <value>下载出错</value>
   </data>
   <data name="AssetInformation_DoDisplayAssetStats_AssetReport" xml:space="preserve">
-    <value>Asset report</value>
+    <value>资产报告</value>
+  </data>
+  <data name="AssetInformation_MakeItAsPrimary_ErrorWhenMakingThisFilePrimary" xml:space="preserve">
+    <value>生成主文件错误</value>
   </data>
   <data name="AssetInformation_DoDeleteFiles_FileDeletion" xml:space="preserve">
-    <value>File deletion</value>
+    <value>文件删除</value>
   </data>
   <data name="AssetInformation_DoDeleteFiles_DeleteTheFile0" xml:space="preserve">
-    <value>Delete the file '{0}' ?</value>
+    <value>删除文件 '{0}' ?</value>
   </data>
   <data name="AssetInformation_DoDeleteFiles_DeleteThese0Files" xml:space="preserve">
-    <value>Delete these {0} files ?</value>
+    <value>删除这些 {0}文件</value>
   </data>
   <data name="AssetInformation_DoDeleteFiles_ErrorWhenDeletingFileS" xml:space="preserve">
-    <value>Error when deleting file(s)</value>
+    <value>删除文件时出错</value>
+  </data>
+  <data name="AssetInformation_DoDuplicate_PleaseSpecifyTheAccountStorageKeyInTheLoginWindow" xml:space="preserve">
+    <value>请在登录窗口中指定帐户存储密钥。</value>
   </data>
   <data name="AssetInformation_DoDuplicate_NewName" xml:space="preserve">
-    <value>New name</value>
+    <value>新名称</value>
   </data>
   <data name="AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile" xml:space="preserve">
-    <value>Enter the name of the new duplicate file:</value>
+    <value>输入新的重复文件的名称：</value>
   </data>
   <data name="AssetInformation_DoDuplicate_CopyOf0" xml:space="preserve">
-    <value>Copy of {0}</value>
+    <value>复制{0}</value>
   </data>
   <data name="AssetInformation_DoDuplicate_ErrorWhenDuplicatingThisFile" xml:space="preserve">
-    <value>Error when duplicating this file</value>
+    <value>复制此文件时出错</value>
+  </data>
+  <data name="AssetInformation_ProcessUploadFileToAsset_ErrorWhenUploadingTheFile" xml:space="preserve">
+    <value>上传文件时出错</value>
   </data>
   <data name="AssetInformation_DoDelLocator_AreYouSureThatYouWantToDeleteThisLocator" xml:space="preserve">
-    <value>Are you sure that you want to delete this locator ?</value>
+    <value>是否确实要删除此定位器？</value>
   </data>
   <data name="AssetInformation_DoDelLocator_LocatorDeletion" xml:space="preserve">
-    <value>Locator deletion</value>
+    <value>定位器删除</value>
   </data>
   <data name="AssetInformation_DoDelLocator_ErrorWhenTryingToDeleteTheLocator" xml:space="preserve">
-    <value>Error when trying to delete the locator.</value>
+    <value>尝试删除定位器时出错.</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_ThisWillRemoveThePolicy0FromTheAssetNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>这将从资产中删除策略"{0}"。
+
+是否还要从 Azure 媒体服务帐户中删除策略？
+警告： 如果交付策略与其他资产共享，删除策略可能会影响其他资产。</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_DeliveryPolicyRemoval" xml:space="preserve">
+    <value>交付策略删除</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_Removing" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_Deleting" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="AssetInformation_DoRemoveDeliveryPol_ErrorWhen0TheDeliveryPolicy" xml:space="preserve">
+    <value>{0}传递策略时出错。</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_Null" xml:space="preserve">
+    <value>&lt;空&gt;</value>
   </data>
   <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_SeeValue" xml:space="preserve">
-    <value>See value</value>
+    <value>查看值</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryConfiguration" xml:space="preserve">
+    <value>密钥交付配置</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_KeyDeliveryType" xml:space="preserve">
+    <value>密钥交付类型</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionName" xml:space="preserve">
+    <value>限制名称</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionKeyRestrictionType" xml:space="preserve">
+    <value>限制键限制类型</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RestrictionRequirements" xml:space="preserve">
+    <value>限制要求</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_PrimaryVerificationKey" xml:space="preserve">
+    <value>主验证密钥</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenType" xml:space="preserve">
+    <value>令牌类型</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenVerificationKeyType" xml:space="preserve">
+    <value>令牌验证密钥类型</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_SeeKeyValue" xml:space="preserve">
+    <value>查看关键值</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_AlternateVerificationKey" xml:space="preserve">
+    <value>备用验证密钥</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_Symmetric" xml:space="preserve">
+    <value>对称</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_AsymmetricX509" xml:space="preserve">
+    <value>非对称 （X509）</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_OpenIdConnectDiscoveryDocumentUri" xml:space="preserve">
+    <value>OpenId 连接发现文档 Uri</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenAudience" xml:space="preserve">
+    <value>令牌受众</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_TokenIssuer" xml:space="preserve">
+    <value>令牌颁发者</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimType" xml:space="preserve">
+    <value>需要声明,类型</value>
+  </data>
+  <data name="AssetInformation_DoDisplayAuthorizationPolicyOption_RequiredClaimValue" xml:space="preserve">
+    <value>需要生命, 值</value>
+  </data>
+  <data name="AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithoutBearerIsN0" xml:space="preserve">
+    <value>授权测试令牌（不带Bearer）为 ：
+{0}</value>
+  </data>
+  <data name="AssetInformation_DoGetTestToken_TheAuthorizationTestTokenWithBearerIsN0" xml:space="preserve">
+    <value>授权测试令牌（带Bearer）为 ：
+{0}</value>
+  </data>
+  <data name="AssetInformation_DoGetTestToken_TheTestTokenBelowHasBeenBeCopiedToTheLogWindowAndClipboardNN0" xml:space="preserve">
+    <value>下面的测试令牌已复制到日志窗口和剪贴板。
+
+{0}</value>
   </data>
   <data name="AssetInformation_buttonAudioVideoAnalysis_Click_ErrorWhenCreatingTheTemporarySASLocatorToTheMetadataFile" xml:space="preserve">
-    <value>Error when creating the temporary SAS locator to the metadata file.</value>
+    <value>在为元数据文件创建临时 SAS 定位器时出错。</value>
   </data>
   <data name="AssetInformation_ShowFileMetadata_ThereIsNoMetadataForThisFile" xml:space="preserve">
-    <value>There is no metadata for this file.</value>
+    <value>此文件没有元数据。</value>
+  </data>
+  <data name="AssetInformation_GetTemporaryLocator_ErrorWhenCreatingTheTemporarySASLocatorN" xml:space="preserve">
+    <value>创建临时 SAS 定位器时出错。
+</value>
+  </data>
+  <data name="AssetInformation_DoDemoveKey_ThisWillRemoveTheKey0FromTheAssetNDoYouWantToAlsoDELETETheKeyFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>这将从资产中删除密钥"{0}"。
+是否还要从 Azure 媒体服务帐户中删除密钥？</value>
+  </data>
+  <data name="AssetInformation_DoDemoveKey_KeyRemoval" xml:space="preserve">
+    <value>密钥删除</value>
+  </data>
+  <data name="AssetInformation_DoDemoveKey_ErrorWhen0TheKey" xml:space="preserve">
+    <value>{0}密钥时出错</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPol_ThisWillRemoveTheAuthorizationPolicy0FromTheKeyNDoYouWantToAlsoDELETEThePolicyFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>这将从密钥中删除授权策略"{0}"。
+
+是否还要从 Azure 媒体服务帐户中删除策略？
+警告： 如果授权策略与其他密钥共享，删除策略可能会影响其他资产。</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPol_AuthorizationPolicyRemoval" xml:space="preserve">
+    <value>授权策略删除</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPol_ErrorWhen0TheAuthorizationPolicy" xml:space="preserve">
+    <value>{0}授权策略时出错。</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPolOption_ThisWillRemoveTheOption0FromTheAuthorizationPolicyNDoYouWantToAlsoDELETETheOptionFromTheAzureMediaServicesAccount" xml:space="preserve">
+    <value>这将从授权策略中删除选项"{0}"。
+
+是否还要从 Azure 媒体服务帐户中删除该选项？
+警告： 如果授权策略与其他密钥共享，删除该选项可能会影响其他资产。</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPolOption_OptionRemoval" xml:space="preserve">
+    <value>选型移除</value>
+  </data>
+  <data name="AssetInformation_DoRemoveAuthPolOption_ErrorWhen0TheAuthorizationPolicyOption" xml:space="preserve">
+    <value>{0}授权策略选项时出错。</value>
   </data>
   <data name="AssetInformation_DoFilterInfo_AssetFilter0HasBeenUpdated" xml:space="preserve">
-    <value>Asset filter '{0}' has been updated.</value>
+    <value>资产筛选器"{0}"已更新。</value>
   </data>
   <data name="AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter" xml:space="preserve">
-    <value>Error when updating asset filter.</value>
+    <value>更新资产筛选器时出错。</value>
   </data>
   <data name="AssetInformation_DoFilterInfo_ErrorWhenUpdatingAssetFilter0" xml:space="preserve">
-    <value>Error when updating asset filter '{0}'.</value>
+    <value>更新资产筛选器"{0}"时出错。</value>
   </data>
   <data name="AssetInformation_DoCreateAssetFilter_AssetFilter0HasBeenCreated" xml:space="preserve">
-    <value>Asset filter '{0}' has been created.</value>
+    <value>资产筛选器"{0}"已创建。</value>
   </data>
   <data name="AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter" xml:space="preserve">
-    <value>Error when creating asset filter.</value>
+    <value>创建资产筛选器时出错。</value>
   </data>
   <data name="AssetInformation_DoCreateAssetFilter_ErrorWhenCreatingAssetFilter0" xml:space="preserve">
-    <value>Error when creating asset filter '{0}'.</value>
+    <value>创建资产筛选器"{0}"时出错。</value>
   </data>
   <data name="AssetInformation_DoCreateAssetFilter_UnknownName" xml:space="preserve">
-    <value>unknown name</value>
+    <value>未知名称</value>
   </data>
   <data name="AssetInformation_DoDeleteAssetFilter_ErrorWhenDeletingAssetFilterS" xml:space="preserve">
-    <value>Error when deleting asset filter(s).</value>
+    <value>删除资产筛选器时出错。</value>
   </data>
   <data name="AssetInformation_DoDuplicateFilter_Copy" xml:space="preserve">
-    <value>Copy</value>
+    <value>复制</value>
   </data>
   <data name="AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter" xml:space="preserve">
-    <value>Enter the name of the new duplicate filter:</value>
+    <value>输入新的重复筛选器的名称：‘</value>
   </data>
   <data name="AssetInformation_DoDuplicateFilter_ErrorWhenDuplicatingAssetFilter" xml:space="preserve">
-    <value>Error when duplicating asset filter.</value>
+    <value>复制资产筛选器时出错。</value>
   </data>
   <data name="AssetInformation_DoDeleteAllFiles_ErrorWhenDeletingTheFiles" xml:space="preserve">
-    <value>Error when deleting the files</value>
+    <value>删除文件时出错</value>
   </data>
   <data name="AssetInformation_DoEditFile_FileIsToLargeToEditItOnline" xml:space="preserve">
-    <value>File is to large to edit it online.</value>
+    <value>文件太大，无法联机编辑。</value>
   </data>
   <data name="AssetInformation_DoEditFile_OnlineEditOf0" xml:space="preserve">
-    <value>Online edit of '{0}'</value>
+    <value>在线编辑"{0}"</value>
   </data>
   <data name="AssetInformation_DoEditFile_ErrorWhenAccessingEditingAssetFile" xml:space="preserve">
-    <value>Error when accessing/editing asset file.</value>
+    <value>访问/编辑资产文件时出错。</value>
   </data>
   <data name="AssetInformation_DoEditFile_Value" xml:space="preserve">
-    <value>Value</value>
+    <value>值</value>
   </data>
   <data name="AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedManifestAsTheToolMakesGuesses" xml:space="preserve">
-    <value>Please check carefully the content of the generated manifest as the tool makes guesses !</value>
+    <value>请仔细检查生成的清单的内容，因为工具作出猜测！</value>
+  </data>
+  <data name="AssetInformation_DoAddExistingDelPol_ErrorWhenAttachingTheDeliveryPolicy" xml:space="preserve">
+    <value>附加传递策略时出错。</value>
+  </data>
+  <data name="AssetInformation_DoAddExistingAutPol_ErrorWhenAttachingAnExistingAuthorizationPolicy" xml:space="preserve">
+    <value>附加现有授权策略时出错。</value>
+  </data>
+  <data name="AttachStorage_AttachStorage_Load_PleaseInsertAzureServiceManagementURLHere" xml:space="preserve">
+    <value>请在此处插入 Azure 服务管理 URL</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_NoSubscriptionDataInTheFile" xml:space="preserve">
+    <value>文件中没有订阅数据。</value>
+  </data>
+  <data name="AMSLogin_buttonLogin_Click_ACSAuthenticationWarning" xml:space="preserve">
+    <value>自 2018 年 6 月 1 日起，Azure 媒体服务将不再支持 ACS 身份验证密钥。\n\n\n您应该尽快迁移到 Azure AD 身份验证。</value>
+  </data>
+  <data name="AssetInformation_AssetInformation_Load_FormatOption" xml:space="preserve">
+    <value>格式选项</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_InitializationVector" xml:space="preserve">
+    <value>初始化矢量</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorName" xml:space="preserve">
+    <value>媒体处理器名称</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_MediaprocessorId" xml:space="preserve">
+    <value>媒体处理器ID</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_SeeClearValue" xml:space="preserve">
+    <value>查看清理值</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionKeyId" xml:space="preserve">
+    <value>加密密钥 ID</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionScheme" xml:space="preserve">
+    <value>加密方案</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_EncryptionVersion" xml:space="preserve">
+    <value>加密版本</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_PerfMessage" xml:space="preserve">
+    <value>性能消息</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Duration" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Body" xml:space="preserve">
+    <value>主体</value>
+  </data>
+  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Configuration" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_UndefinedTaskDidNotFinishOrOneOfTheAssetsHasBeenDeleted" xml:space="preserve">
+    <value>未定义，任务未完成或其中一个资产已被删除</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_InputOutputSize" xml:space="preserve">
+    <value>输入/输出大小</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_EstimatedPrice" xml:space="preserve">
+    <value>估计价格</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_ProcessedSize" xml:space="preserve">
+    <value>处理大小</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_OutputSize" xml:space="preserve">
+    <value>输出大小</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_InputSize" xml:space="preserve">
+    <value>输入大小</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_TemplateId" xml:space="preserve">
+    <value>临时ID</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_CPUDuration" xml:space="preserve">
+    <value>CPU 持续时间</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_JobDuration" xml:space="preserve">
+    <value>作业持续时间</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_EndTime" xml:space="preserve">
+    <value>技术时间</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_StartTime" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_OverallProgress" xml:space="preserve">
+    <value>总体进展</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_Priority" xml:space="preserve">
+    <value>优先</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_Code" xml:space="preserve">
+    <value>代码</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_ErrorDetail" xml:space="preserve">
+    <value>详细错误信息</value>
+  </data>
+  <data name="JobInformation_JobInformation_Load_Task" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="JobInformation_DoJobStats_JobReport" xml:space="preserve">
+    <value>作业报告</value>
+  </data>
+  <data name="ImportHttp_textBoxAssetFileName_TextChanged_AssetFileNameIsNotCompatibleWithMediaServices" xml:space="preserve">
+    <value>资产文件名与媒体服务不兼容</value>
+  </data>
+  <data name="ImportHttp_textBoxURL_TextChanged_FileNameNotFoundInTheURL" xml:space="preserve">
+    <value>在 URL 中找不到文件名</value>
+  </data>
+  <data name="ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL" xml:space="preserve">
+    <value>在 URL 中检测到错误</value>
+  </data>
+  <data name="ImportHttp_ImportHttp_Load_ImportFromSASContainerPath" xml:space="preserve">
+    <value>从 SAS 容器路径导入</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareError_Error" xml:space="preserve">
+    <value>错误：</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCompleted_TransferCompleted" xml:space="preserve">
+    <value>传输完成</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCompleted_Transfer0Completed" xml:space="preserve">
+    <value>传输'{0}'完成</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser" xml:space="preserve">
+    <value>传输'{0}'被用户取消</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareError_Transfer0Error" xml:space="preserve">
+    <value>传输'{0}'错误</value>
+  </data>
+  <data name="Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started" xml:space="preserve">
+    <value>传输'{0}'开始</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_Destination" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_ProgressDetail" xml:space="preserve">
+    <value>进度详细信息</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_StartTime" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_EndTime" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="Mainform_DoGridTransferInit_SubmitTime" xml:space="preserve">
+    <value>提交时间</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_Error" xml:space="preserve">
+    <value>错误:</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_ErrorWhenSavingTheExcelFile" xml:space="preserve">
+    <value>保存 Excel 文件时出错。</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount" xml:space="preserve">
+    <value>资产筛选器计数</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption" xml:space="preserve">
+    <value>动态加密</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASMaxExpirationTime" xml:space="preserve">
+    <value>SAS 最大过期时间</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASMinExpirationTime" xml:space="preserve">
+    <value>SAS 最小过期时间</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASLocatorsCount" xml:space="preserve">
+    <value>SAS 定位器计数</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingMaxExpirationTime" xml:space="preserve">
+    <value>流式处理最大过期时间</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingMinExpirationTime" xml:space="preserve">
+    <value>流式处理最小过期时间</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingLocatorsCount" xml:space="preserve">
+    <value>流式定位器计数</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StorageAccount" xml:space="preserve">
+    <value>存储账号</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AlternateId" xml:space="preserve">
+    <value>备用 ID</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASExpirationTime" xml:space="preserve">
+    <value>SAS 过期时间</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SASURL" xml:space="preserve">
+    <value>SAS URL</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingExpirationTime" xml:space="preserve">
+    <value>流过期时间</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_StreamingURL" xml:space="preserve">
+    <value>流 URL</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0" xml:space="preserve">
+    <value>选定的资产信息、媒体帐户"{0}"</value>
+  </data>
+  <data name="ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0" xml:space="preserve">
+    <value>所有资产信息、媒体账户"{0}"</value>
+  </data>
+  <data name="ExportToExcel_releaseObject_ExceptionOccuredWhileReleasingObject0" xml:space="preserve">
+    <value>释放对象{0}时发生的异常</value>
+  </data>
+  <data name="ExportAssetToAzureStorage_UpdateButtonUploadEnable_ContainerNameIsNotValid" xml:space="preserve">
+    <value>容器名称无效</value>
+  </data>
+  <data name="ExportAssetToAzureStorage_ConnectToStorage_ThereIsAProblemWhenConnectingToTheStorageAccount" xml:space="preserve">
+    <value>连接到存储帐户时出现问题</value>
+  </data>
+  <data name="EncodingMES_EncodingAMEStandard_Load_CroppingEditor" xml:space="preserve">
+    <value>裁剪编辑器</value>
+  </data>
+  <data name="EncodingMES_buttonAddEDLEntry_Click_YouCannotSpecifyOnlyAnEndTime" xml:space="preserve">
+    <value>不能只指定结束时间。</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_ThereAreSeveralSubscriptionsDataInTheFileNNTheFirstEntry0WillBeUsed" xml:space="preserve">
+    <value>文件中有多个订阅数据。
+
+将使用第一个条目"{0}"。</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_SeveralSubscriptions" xml:space="preserve">
+    <value>多个订阅</value>
+  </data>
+  <data name="AttachStorage_LoadSubscriptionFile_ErrorWhenReadingTheFileOriginalError" xml:space="preserve">
+    <value>读取文件时出错。源错误：</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_NoneNoEncryptionBeforeUpload" xml:space="preserve">
+    <value>无（上传前没有加密）</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_StorageEncryptionContentWillBeEncryptedLocallyToAES256BeforeUpload" xml:space="preserve">
+    <value>存储加密（内容将在上传前在本地将使用AES 256加密 ）</value>
+  </data>
+  <data name="BatchUploadFrame1_BathUploadFrame1_Load_CommonEncryptionContentIsAlreadyEncryptedWithPlayReady" xml:space="preserve">
+    <value>常规加密（内容已使用 PlayReady 加密）</value>
   </data>
   <data name="BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist" xml:space="preserve">
-    <value>Folder does not exist</value>
+    <value>文件夹不存在</value>
   </data>
   <data name="BatchUploadFrame1_buttonNext_Click_Folder" xml:space="preserve">
-    <value>Folder</value>
+    <value>文件夹</value>
   </data>
   <data name="BatchUploadFrame2_BatchUploadFrame2_ErrorWhenReadingFilesOrFolders" xml:space="preserve">
-    <value>Error when reading files or folders.</value>
+    <value>读取文件或文件夹时出错。</value>
   </data>
   <data name="BatchUploadFrame2_BatchUploadFrame2_01Files" xml:space="preserve">
-    <value>{0} ({1} files)</value>
+    <value>{0} ({1} 文件)</value>
   </data>
   <data name="BatchUploadFrame2_BatchUploadFrame2_01File" xml:space="preserve">
-    <value>{0} ({1} file)</value>
+    <value>{0} ({1} 文件)</value>
+  </data>
+  <data name="BatchUploadFrame2_BathUploadFrame2_Load_Default" xml:space="preserve">
+    <value>(默认)</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_BlobStorageURLForUpload" xml:space="preserve">
+    <value>用于上载的 Blob 存储 URL</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_PendingFilesCount" xml:space="preserve">
+    <value>挂起的文件计数</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_FinishedFilesCount" xml:space="preserve">
+    <value>已完成的文件计数</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesCount" xml:space="preserve">
+    <value>错误文件计数</value>
+  </data>
+  <data name="BulkContainerInfo_BulkContainerInfo_Load_ErrorFilesDetails" xml:space="preserve">
+    <value>错误文件详细信息</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_AssetName" xml:space="preserve">
+    <value>资产名称</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_AssetId" xml:space="preserve">
+    <value>资产ID</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0Name" xml:space="preserve">
+    <value>文件 #{0}名称</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0State" xml:space="preserve">
+    <value>文件 #{0}状态</value>
+  </data>
+  <data name="BulkContainerInfo_DoDisplayAssetManifest_File0Encrypted" xml:space="preserve">
+    <value>文件 #{0}被加密</value>
+  </data>
+  <data name="BulkUpload_ReindexAssetListAndDoSomeChecks_WarningTwoFilesHaveTheSameFileNameThisIsNotSupportedInsideTheSameBulkIngestContainer" xml:space="preserve">
+    <value>警告：两个文件具有相同的文件名。这在同一散装引入容器中不受支持。</value>
+  </data>
+  <data name="BulkUpload_buttonOk_Click_PleaseSelectASigniantServerInTheSameRegionThanTheAMSStorageAccount" xml:space="preserve">
+    <value>请选择与 AMS/存储帐户相同的区域中的 Signiant 服务器。</value>
+  </data>
+  <data name="BulkUpload_buttonOk_Click_PleaseProvideAValidSigniantAPIKey" xml:space="preserve">
+    <value>请提供有效的签名 API 密钥。</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput" xml:space="preserve">
+    <value>通道"{0}"：AD持续时间输入错误</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput" xml:space="preserve">
+    <value>通道"{0}"：提示ID输入错误</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0SendingADSignal" xml:space="preserve">
+    <value>频道"{0}"：发送AD信号</value>
+  </data>
+  <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal" xml:space="preserve">
+    <value>通道"{0}"：发送信号时出错</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput" xml:space="preserve">
+    <value>通道"{0}"：计划持续时间输入错误</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal" xml:space="preserve">
+    <value>频道"{0}"：发送节目计划信号</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_SlateShown" xml:space="preserve">
+    <value>显示计划</value>
+  </data>
+  <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate" xml:space="preserve">
+    <value>通道"{0}"：显示计划时出错</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal" xml:space="preserve">
+    <value>通道"{0}"：发送隐藏计划信号</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate" xml:space="preserve">
+    <value>通道"{0}"：隐藏计划时出错</value>
+  </data>
+  <data name="ChannelAdSlateControl_HideSlate_SlateHidden" xml:space="preserve">
+    <value>计划隐藏</value>
+  </data>
+  <data name="ChannelAdSlateControl_CreateSASLocator_ErrorWhenCreatingTheTemporarySASLocator" xml:space="preserve">
+    <value>创建临时 SAS 定位器时出错。</value>
+  </data>
+  <data name="ChannelAdSlateControl_textBoxADSignalDuration_TextChanged_DurationValueIsNotValid" xml:space="preserve">
+    <value>持续时间值无效</value>
+  </data>
+  <data name="ChannelAdSlateControl_textBoxCueId_TextChanged_AdvertisingCueIdIsNotValid" xml:space="preserve">
+    <value>广告提示ID无效</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_Description" xml:space="preserve">
-    <value>Description</value>
+    <value>描述</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_InputProtocol" xml:space="preserve">
-    <value>Input protocol</value>
+    <value>输入协议</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingType" xml:space="preserve">
+    <value>编码类型</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingSystemPreset" xml:space="preserve">
+    <value>编码系统预设</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingIgnoreCEA708" xml:space="preserve">
+    <value>编码忽略CEA708</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingVideoStreamsCount" xml:space="preserve">
+    <value>编码视频流计数</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingAudioStreamsCount" xml:space="preserve">
+    <value>编码音频流计数</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_EncodingAdMarkerSource" xml:space="preserve">
+    <value>编码广告标记源</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_DefaultSlateAssetId" xml:space="preserve">
+    <value>默认计划资产 ID</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_AutomaticSlateInsertionOnADSignal" xml:space="preserve">
+    <value>AD 信号上的自动计划插入</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_SlateSettings" xml:space="preserve">
+    <value>计划设置</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_None" xml:space="preserve">
+    <value>(无)</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_InputKeyFrameIntervalS" xml:space="preserve">
+    <value>输入关键帧间隔 （s）</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_Primary" xml:space="preserve">
-    <value>Primary </value>
+    <value>主要</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_Secondary" xml:space="preserve">
-    <value>Secondary </value>
+    <value>二次</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_0InputURL1" xml:space="preserve">
-    <value>{0}Input URL ({1})</value>
+    <value>{0}输入 URL ({1})</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_0InputURL1SSL" xml:space="preserve">
-    <value>{0}Input URL ({1}, SSL)</value>
+    <value>{0}输入 URL ({1}, SSL)</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_PreviewURL0" xml:space="preserve">
-    <value>Preview URL ({0})</value>
+    <value>预览 URL ({0})</value>
+  </data>
+  <data name="ChannelInformation_ChannelInformation_Load_OutputHLSFragmentsPerSegment" xml:space="preserve">
+    <value>每个段输出 HLS 片段</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected" xml:space="preserve">
-    <value>(multiple channels have been selected)</value>
+    <value>（已选择多个通道）</value>
   </data>
   <data name="ChannelInformation_buttonAllowAllInputIP_Click_AllowAll" xml:space="preserve">
-    <value>Allow All</value>
+    <value>允许所有</value>
   </data>
   <data name="ChannelInformation_checkKeyFrameValue_ValueIsNotValid" xml:space="preserve">
-    <value>Value is not valid</value>
+    <value>值无效</value>
+  </data>
+  <data name="ChannelInformation_numericUpDownAudioIndexMain_ValueChanged_TheAudioStreamIndex0IsRepeated" xml:space="preserve">
+    <value>重复音频流索引"{0}"</value>
+  </data>
+  <data name="ChannelRunOnPremisesEncoder_BuildArguments_InputProtocolIsNotMatching" xml:space="preserve">
+    <value>输入协议不匹配。</value>
+  </data>
+  <data name="ChannelRunOnPremisesEncoder_BuildArguments_ChannelIsNotRunning" xml:space="preserve">
+    <value>通道未运行。</value>
   </data>
   <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter" xml:space="preserve">
-    <value>asset filter : </value>
+    <value>资产过滤器 ：</value>
   </data>
   <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter" xml:space="preserve">
-    <value>account filter : </value>
+    <value>帐户筛选器 ：</value>
   </data>
   <data name="ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_DefaultBrowser" xml:space="preserve">
-    <value>Default browser</value>
+    <value>默认浏览器</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CopyAssets" xml:space="preserve">
+    <value>复制资产</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CopyAsset" xml:space="preserve">
+    <value>复制资产</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0AssetsSelected" xml:space="preserve">
+    <value>{0}已选择的资产。</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0AssetSelected" xml:space="preserve">
+    <value>{0}已选择的资产。</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_DeleteSourceAssets" xml:space="preserve">
+    <value>删除源资产</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_DeleteSourceAsset" xml:space="preserve">
+    <value>删除源资产</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheChannelsWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount" xml:space="preserve">
+    <value>将具有相同名称和设置的通道克隆到所选帐户。</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneChannel" xml:space="preserve">
+    <value>克隆通道</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount" xml:space="preserve">
+    <value>通道将具有相同名称和设置克隆到所选帐户。</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ChannelsSelected" xml:space="preserve">
+    <value>{0}通道已选择</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ChannelSelected" xml:space="preserve">
+    <value>{0}通道已选择</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneChannels" xml:space="preserve">
+    <value>关闭通道</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheProgramsWillBeClonedToTheSameChannelNameInTheSelectedAccount" xml:space="preserve">
+    <value>程序将被克隆到所选帐户中的同一通道名称。</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_TheProgramWillBeClonedToTheSameChannelNameInTheSelectedAccount" xml:space="preserve">
+    <value>该程序将被克隆到所选帐户中的同一通道名称。</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ProgramsSelected" xml:space="preserve">
+    <value>{0}程序已选择</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_0ProgramSelected" xml:space="preserve">
+    <value>{0}程序已选择</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_ClonePrograms" xml:space="preserve">
+    <value>克隆程序</value>
+  </data>
+  <data name="CopyAsset_CopyAsset_CloneProgram" xml:space="preserve">
+    <value>克隆程序</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_StorageKeyIsEmpty" xml:space="preserve">
+    <value>存储密钥为空！</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_Default" xml:space="preserve">
+    <value>(默认)</value>
+  </data>
+  <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_ErrorWhenConnectingToAccount" xml:space="preserve">
+    <value>连接到帐户时出错。</value>
   </data>
   <data name="CreateLiveChannel_inputIPAllow_Default" xml:space="preserve">
-    <value>default</value>
+    <value>默认</value>
+  </data>
+  <data name="CreateLiveChannel_CreateLiveChannel_Load_Undefined" xml:space="preserve">
+    <value>未定义</value>
   </data>
   <data name="CreateLiveChannel_dataGridView_DataError_WrongFormat" xml:space="preserve">
-    <value>Wrong format</value>
+    <value>错误格式</value>
+  </data>
+  <data name="CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_APIDefault" xml:space="preserve">
+    <value>API(默认)</value>
+  </data>
+  <data name="CreateLiveChannel_comboBoxProtocolInput_SelectedIndexChanged_SCTE35CueMessages" xml:space="preserve">
+    <value>SCTE-35 提示消息</value>
+  </data>
+  <data name="Program_ReturnNameForProtocol_FragmentedMP4Smooth" xml:space="preserve">
+    <value>零碎的 MP4（平滑）</value>
+  </data>
+  <data name="Program_ReturnNameForProtocol_RTMP" xml:space="preserve">
+    <value>rtmp</value>
+  </data>
+  <data name="Program_ReturnNameForProtocol_RTPMPEG2TransportStream" xml:space="preserve">
+    <value>RTP/MPEG-2 传输流</value>
+  </data>
+  <data name="CreateLiveChannel_checkBoxAdInsertSlate_Validating_NoJPGSelected" xml:space="preserve">
+    <value>没有JPG被选中</value>
   </data>
   <data name="CreateLiveChannel_checkIPAddress_IncorrectIPAddress" xml:space="preserve">
-    <value>Incorrect IP address</value>
+    <value>错误的IP地址</value>
   </data>
   <data name="CreateLiveChannel_checkChannelName_ChannelNameIsNotValid" xml:space="preserve">
-    <value>Channel name is not valid</value>
+    <value>通道名字无效</value>
   </data>
   <data name="CreateLocator_CreateLocator_UpdateLocatorS" xml:space="preserve">
-    <value>Update locator(s)</value>
+    <value>更新定位器</value>
   </data>
   <data name="CreateLocator_CreateLocator_UpdateLocators2" xml:space="preserve">
-    <value>Update locators</value>
+    <value>更新定位器</value>
+  </data>
+  <data name="CreateProgram_textBoxIProgramSourceURL_TextChanged_URLCannotBeAnalyzed" xml:space="preserve">
+    <value>无法分析 URL</value>
   </data>
   <data name="CreateProgram_checkProgramName_ProgramNameIsNotValid" xml:space="preserve">
-    <value>Program name is not valid</value>
+    <value>无效的程序名字</value>
   </data>
   <data name="CreateStreamingEndpoint_checkSEName_StreamingEndpointNameIsNotValid" xml:space="preserve">
-    <value>Streaming Endpoint name is not valid</value>
+    <value>流式处理终结点名称无效</value>
+  </data>
+  <data name="CreateTestToken_UpdateButtonOk_TestTokenCannotBeGeneratedOpenIDOrNoX509CertificateLoaded" xml:space="preserve">
+    <value>无法生成测试令牌（未加载OpenID 或未加载 X509 证书）</value>
+  </data>
+  <data name="CreateTestToken_buttonImportPFX_Click_Error" xml:space="preserve">
+    <value>(错误)</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestOnContainer0CompletedWith1ErrorS" xml:space="preserve">
+    <value>在容器"{0}"上批量引入，并完成{1}错误</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_BulkIngestCompletedWith0ErrorS" xml:space="preserve">
+    <value>批量摄录完成，{0}错误</value>
+  </data>
+  <data name="DataGridViewIngestManifest_WorkerUpdateIngestManifest_DoWork_Container0" xml:space="preserve">
+    <value>容器"{0}"</value>
+  </data>
+  <data name="DataGridViewIngestManifest_Init_PendingFiles" xml:space="preserve">
+    <value>挂起的文件</value>
+  </data>
+  <data name="DataGridViewIngestManifest_Init_FinishedFiles" xml:space="preserve">
+    <value>已完成的文件</value>
+  </data>
+  <data name="DataGridViewIngestManifest_Init_IngestUrl" xml:space="preserve">
+    <value>引入 Url</value>
+  </data>
+  <data name="DataGridViewIngestManifest_Init_Progress" xml:space="preserve">
+    <value>进展</value>
+  </data>
+  <data name="DynamicEncryption_CreateEnvelopeTypeContentKey_ContentKeyEnvelope" xml:space="preserve">
+    <value>内容密钥信封</value>
+  </data>
+  <data name="DynamicEncryption_AddOpenAuthorizationPolicyOption_OpenAuthorizationPolicy" xml:space="preserve">
+    <value>开放授权策略</value>
+  </data>
+  <data name="DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPolicy" xml:space="preserve">
+    <value>{0}令牌授权策略</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_PleaseSelectACertificateFilePFXThatContainsBothPublicAndPrivateKeysPrivateKeyIsNeededToSignTheJWTTokenItIsRecommendedToUseTheSameCertifcateThatTheOneUsedDuringTheSetupOfDynamicEncryptionForThisAsset" xml:space="preserve">
-    <value>Please select a certificate file (.PFX) that contains both public and private keys. Private key is needed to sign the JWT token. It is recommended to use the same certifcate that the one used during the setup of dynamic encryption for this asset.</value>
+    <value>请选择证书文件 （.包含公钥和私钥的 PFX）。需要私钥来签名 JWT 令牌。建议使用此资产动态加密设置期间使用的证书与证书相同。</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_CertificateRequired" xml:space="preserve">
-    <value>Certificate required</value>
+    <value>需要证书</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_PFXFilesPfxAllFiles" xml:space="preserve">
     <value>PFX files|*.pfx|All files|*.*</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_PFXPassword" xml:space="preserve">
-    <value>PFX Password</value>
+    <value>PFX 密码</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_PleaseEnterThePasswordForThePFXFile" xml:space="preserve">
-    <value>Please enter the password for the PFX file :</value>
+    <value>请输入 PFX 文件的密码：</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_ThereIsAnErrorWhenOpeningTheCertificateFileN0" xml:space="preserve">
-    <value>There is an error when opening the certificate file.
+    <value>打开证书文件时出错。
 {0}</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_TheCertificateDoesNotContainAPrivateKey" xml:space="preserve">
-    <value>The certificate does not contain a private key.</value>
+    <value>证书不包含私钥。</value>
   </data>
   <data name="DynamicEncryption_GetCertificateFromFile_NoPrivateKey" xml:space="preserve">
-    <value>No private key</value>
+    <value>无私钥</value>
+  </data>
+  <data name="DynamicEncryption_CreateAssetDeliveryPolicyNoDynEnc_AssetDeliveryPolicyNoDynEnc" xml:space="preserve">
+    <value>资产交付加密无动态加密</value>
+  </data>
+  <data name="DynamicEncryption_ConfigureFairPlayPolicyOptions_PfxPasswordKey" xml:space="preserve">
+    <value>pfxPasswordKey</value>
+  </data>
+  <data name="DynamicEncryption_CopyDynamicEncryption_Key0IsNotInTheAccountButItCannotBeCreatedSameKeyIdAlreadyExistsInTheDatacenter" xml:space="preserve">
+    <value>密钥{0}不在帐户中，但无法创建（数据中心中已存在相同的密钥 ID？</value>
   </data>
   <data name="DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom" xml:space="preserve">
-    <value>Import track filtering from :</value>
+    <value>来自从导入轨道筛选 ：</value>
   </data>
   <data name="DynManifestFilter_DynManifestFilter_Load_ItCanTakeUpTo2MinutesForStreamingEndpointToRefreshTheRules" xml:space="preserve">
-    <value>It can take up to 2 minutes for streaming endpoint to refresh the rules</value>
+    <value>流式处理终结点最多可能需要 2 分钟才能刷新规则</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_GlobalFilter" xml:space="preserve">
-    <value>Account filter</value>
+    <value>帐户筛选器</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_AssetFilter" xml:space="preserve">
-    <value>Asset filter</value>
+    <value>资产筛选器</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_FirstQualityBitrate" xml:space="preserve">
-    <value>First Quality Bitrate</value>
+    <value>第一质量比特率</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_Timescale" xml:space="preserve">
-    <value>Timescale</value>
+    <value>时间表</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_StartTimestamp" xml:space="preserve">
-    <value>Start timestamp</value>
+    <value>开始时间戳</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_EndTimestamp" xml:space="preserve">
-    <value>End timestamp</value>
+    <value>结束时间戳</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration" xml:space="preserve">
-    <value>PresentationWindowDuration</value>
+    <value>演示窗口持续时间</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration" xml:space="preserve">
-    <value>LiveBackoffDuration</value>
+    <value>实时回退持续时间</value>
   </data>
   <data name="DynManifestFilter_DisplayFilterInfo_TrackCount" xml:space="preserve">
-    <value>Track count</value>
+    <value>轨道计数</value>
   </data>
   <data name="DynManifestFilter_textBoxFilterName_Validating_PleaseSpecifyAFilterName" xml:space="preserve">
-    <value>Please specify a filter name</value>
+    <value>请指定筛选器名称</value>
   </data>
   <data name="DynManifestFilter_CheckIfErrorTimeControls_ItIsNotRecommendedToUseAGlobalFilterToDoTimeTrimmingConsiderCreatingAnAssetFilterInstead" xml:space="preserve">
-    <value>It is not recommended to use an Account Filter to do time trimming. Consider creating an asset filter instead.</value>
+    <value>不建议使用帐户筛选器进行时间修剪。请考虑改为创建资产筛选器。</value>
   </data>
   <data name="DynManifestFilter_CheckIfErrorTimeControls_StartTimeMustBeLowerThanEndTime" xml:space="preserve">
-    <value>Start time must be lower than end time</value>
+    <value>开始时间必须低于结束时间</value>
   </data>
   <data name="DynManifestFilter_CheckIfErrorTimeControls_EndTimeMustBeHigherThanStartTime" xml:space="preserve">
-    <value>End time must be higher than start time</value>
+    <value>结束时间必须高于开始时间</value>
   </data>
   <data name="DynManifestFilter_CheckIfErrorTimeControls_TheDVRWindowMustBeAtLeast2MinutesOrMore" xml:space="preserve">
-    <value>The DVR Window must be at least 1 minute (or more)</value>
+    <value>DVR 窗口必须至少为 1 分钟（或更多）</value>
   </data>
   <data name="DynManifestFilter_textBoxRawulong_Validating_IncorrectValue" xml:space="preserve">
-    <value>Incorrect value</value>
+    <value>无效值</value>
   </data>
   <data name="EditorXMLJSON_EditorXMLJSON_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>关闭</value>
   </data>
   <data name="EditorXMLJSON_EditorXMLJSON_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
   </data>
-  <data name="Mainform_DoGridTransferInit_SubmitTime" xml:space="preserve">
-    <value>Submit time</value>
+  <data name="EncodingAMEAdv_EditTimes" xml:space="preserve">
+    <value>编辑时间</value>
   </data>
-  <data name="Mainform_DoGridTransferInit_StartTime" xml:space="preserve">
-    <value>Start time</value>
+  <data name="EncodingAMEAdv_Stitch" xml:space="preserve">
+    <value>帧</value>
   </data>
-  <data name="Mainform_DoGridTransferInit_EndTime" xml:space="preserve">
-    <value>End time</value>
+  <data name="EncodingAMEAdv_AudioOverlay" xml:space="preserve">
+    <value>音频叠加</value>
   </data>
-  <data name="Mainform_DoGridTransferInit_ProgressDetail" xml:space="preserve">
-    <value>Progress detail</value>
+  <data name="EncodingAMEAdv_VisualOverlay" xml:space="preserve">
+    <value>视觉叠加</value>
   </data>
-  <data name="Mainform_DoGridTransferInit_Destination" xml:space="preserve">
-    <value>Destination</value>
+  <data name="EncodingAMEAdv_UpdateStitchAndOverlaysInDoc_ErrorWhenProcessingTheXMLPresetIsItAAMEPreset" xml:space="preserve">
+    <value>处理 XML 预设时出错。是 AME 预设吗？</value>
   </data>
-  <data name="Mainform_DoGridTransferDeclareCompleted_TransferCompleted" xml:space="preserve">
-    <value>Transfer completed</value>
+  <data name="EncodingAMEAdv_buttonSaveXML_Click_ErrorCouldNotSaveFileToDiskOriginalError0" xml:space="preserve">
+    <value>错误： 无法将文件保存到磁盘。原始错误： {0}</value>
   </data>
-  <data name="Mainform_DoGridTransferDeclareCompleted_Transfer0Completed" xml:space="preserve">
-    <value>Transfer '{0}' completed.</value>
+  <data name="EncodingPremium_UpdateJobSummary_YouAreGoingToSubmit0JobSWith1TaskS" xml:space="preserve">
+    <value>您将提交具有{1}任务{0}作业。</value>
   </data>
-  <data name="Mainform_DoGridTransferDeclareCancelled_Transfer0CancelledByUser" xml:space="preserve">
-    <value>Transfer '{0}' cancelled by user.</value>
+  <data name="EncodingMES_buttonLoadJSON_Click_ErrorCouldNotReadFileFromDiskOriginalError0" xml:space="preserve">
+    <value>错误： 无法从磁盘读取文件。源错误： {0}</value>
   </data>
-  <data name="Mainform_DoGridTransferDeclareError_Transfer0Error" xml:space="preserve">
-    <value>Transfer '{0}': Error</value>
+  <data name="EncodingMES_listboxPresets_SelectedIndexChanged_ErrorCouldNotReadFileFromDiskOrProcessTheJSONDataOriginalError" xml:space="preserve">
+    <value>错误： 无法从磁盘读取文件或处理 JSON 数据。源错误 ：</value>
   </data>
-  <data name="Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started" xml:space="preserve">
-    <value>Transfer '{0}': started</value>
+  <data name="EncodingMES_textBoxConfiguration_TextChanged_ErrorInXMLData0" xml:space="preserve">
+    <value>XML 数据中的错误：{0}</value>
   </data>
-  <data name="Mainform_DoGridTransferDeclareError_Error" xml:space="preserve">
-    <value>Error: </value>
-  </data>
-  <data name="ImportHttp_ImportHttp_Load_ImportFromSASContainerPath" xml:space="preserve">
-    <value>Import from SAS Container Path</value>
-  </data>
-  <data name="ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL" xml:space="preserve">
-    <value>Error detected in the URL</value>
-  </data>
-  <data name="JobInformation_DoJobStats_JobReport" xml:space="preserve">
-    <value>Job report</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_Task" xml:space="preserve">
-    <value>Task</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_ErrorDetail" xml:space="preserve">
-    <value>Error detail</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_Code" xml:space="preserve">
-    <value>Code</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_Priority" xml:space="preserve">
-    <value>Priority</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_JobDuration" xml:space="preserve">
-    <value>Job Duration</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_InputSize" xml:space="preserve">
-    <value>Input size</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_OutputSize" xml:space="preserve">
-    <value>Output size</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_ProcessedSize" xml:space="preserve">
-    <value>Processed size</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_InputOutputSize" xml:space="preserve">
-    <value>Input/output size</value>
-  </data>
-  <data name="JobInformation_JobInformation_Load_UndefinedTaskDidNotFinishOrOneOfTheAssetsHasBeenDeleted" xml:space="preserve">
-    <value>undefined, task did not finish or one of the assets has been deleted</value>
-  </data>
-  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Configuration" xml:space="preserve">
-    <value>Configuration</value>
-  </data>
-  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_Body" xml:space="preserve">
-    <value>Body</value>
-  </data>
-  <data name="JobInformation_listBoxTasks_SelectedIndexChanged_SeeClearValue" xml:space="preserve">
-    <value>See clear value</value>
+  <data name="EncodingMES_CheckOverlayFile_SelectAFileInTheSourceAsset" xml:space="preserve">
+    <value>在源资产中选择文件</value>
   </data>
 </root>

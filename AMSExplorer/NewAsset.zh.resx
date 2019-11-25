@@ -117,162 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonOk.Error" xml:space="preserve">
-    <value />
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonOk.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>创建</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonOk.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelStorage.Text" xml:space="preserve">
+    <value>输出存储 ：</value>
   </data>
-  <data name="label7.Error" xml:space="preserve">
-    <value />
+  <data name="labelNewAsset.Text" xml:space="preserve">
+    <value>创建新资产</value>
   </data>
-  <data name="label7.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>资产名称 ：</value>
   </data>
-  <data name="label7.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>资产描述 ：</value>
   </data>
-  <data name="label6.Error" xml:space="preserve">
-    <value />
+  <data name="label3.Text" xml:space="preserve">
+    <value>资产备用 ID ：</value>
   </data>
-  <data name="label6.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Azure 存储容器名称 ：</value>
   </data>
-  <data name="label6.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>可选</value>
   </data>
-  <data name="label5.Error" xml:space="preserve">
-    <value />
+  <data name="label6.Text" xml:space="preserve">
+    <value>可选</value>
   </data>
-  <data name="label5.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label5.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxContainer.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxContainer.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxContainer.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label4.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label4.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label4.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxAltId.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxAltId.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxAltId.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label3.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label3.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxDescription.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxDescription.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxDescription.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxAssetName.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxAssetName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxAssetName.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelNewAsset.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelNewAsset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelNewAsset.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelStorage.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelStorage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelStorage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="comboBoxStorage.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="comboBoxStorage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="comboBoxStorage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label7.Text" xml:space="preserve">
+    <value>可选</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> New asset</value>
+    <value>新资产</value>
   </data>
-  <data name="buttonCancel.Error" xml:space="preserve">
-    <value />
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>主键</value>
   </data>
-  <data name="buttonCancel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>值</value>
   </data>
 </root>

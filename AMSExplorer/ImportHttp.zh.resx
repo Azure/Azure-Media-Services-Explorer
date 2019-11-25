@@ -117,126 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonCancel.Error" xml:space="preserve">
-    <value />
+  <data name="buttonImport.Text" xml:space="preserve">
+    <value>导入</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>输入 HTTP 或 HTTPS 源 ：</value>
   </data>
-  <data name="labelSASListExample.Error" xml:space="preserve">
-    <value />
+  <data name="labelExamples.Text" xml:space="preserve">
+    <value>示例:
+http://login:password@hostname.com/path
+Amazon : http://awskey:awssecretkey@bucket.s3.amazonaws.com/object
+Dropbox : http://dl.dropbox.com/object
+</value>
   </data>
-  <data name="labelSASListExample.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="labelURLFileNameWarning.Text" xml:space="preserve">
+    <value>警告</value>
   </data>
-  <data name="labelSASListExample.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="buttonAdvancedOptions.Text" xml:space="preserve">
+    <value>资产创建选项...</value>
   </data>
-  <data name="labelTitle.Error" xml:space="preserve">
-    <value />
+  <data name="label33.Text" xml:space="preserve">
+    <value>输出存储 ：</value>
   </data>
-  <data name="labelTitle.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>资产创建</value>
   </data>
-  <data name="labelTitle.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value>从 Http 导入</value>
   </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonAdvancedOptions.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonAdvancedOptions.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonAdvancedOptions.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label33.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label33.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label33.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="comboBoxStorage.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="comboBoxStorage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="comboBoxStorage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBox1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="groupBox1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="groupBox1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelURLFileNameWarning.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelURLFileNameWarning.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelURLFileNameWarning.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelExamples.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelExamples.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelExamples.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxURL.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxURL.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxURL.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelSASListExample.Text" xml:space="preserve">
+    <value>示例:
+https://mediasvcs8gbv2zdblgmj.blob.core.windows.net/asset-d8a38aa5-68f6-47e3-a780-c9f27fd7a3b3?sv=2015-12-11&amp;sr=c&amp;si=testpolicy&amp;sig=vgl5aBUUZ4K%2Buv8V5pLfrR8tJIXYbux5ryaznzPc9nM%3D
+
+Use a SAS locator with the LIST permission (AMSE v3.44 or later)</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Import from HTTP</value>
-  </data>
-  <data name="buttonImport.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonImport.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonImport.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>从 Http 导入</value>
   </data>
 </root>

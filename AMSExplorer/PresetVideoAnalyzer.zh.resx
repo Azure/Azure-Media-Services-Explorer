@@ -117,55 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonCancel.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="buttonOk.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>确认</value>
   </data>
-  <data name="labelAVAnalyzer.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelAVAnalyzer.Text" xml:space="preserve">
+    <value>音频/视频分析</value>
   </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value>多媒体文件中要识别的自然语言</value>
   </data>
-  <data name="moreinfoprofilelink.ToolTip" xml:space="preserve">
-    <value />
+  <data name="moreinfoprofilelink.Text" xml:space="preserve">
+    <value>更多信息</value>
   </data>
-  <data name="pictureBox1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label1.Text" xml:space="preserve">
+    <value>转换名称 ：</value>
   </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonAudioAndVideo.Text" xml:space="preserve">
+    <value>音频和视频</value>
   </data>
-  <data name="textBoxTransformName.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonAudioOnly.Text" xml:space="preserve">
+    <value>仅限音频</value>
   </data>
-  <data name="radioButtonAudioAndVideo.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>模式</value>
   </data>
-  <data name="radioButtonAudioOnly.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label2.Text" xml:space="preserve">
+    <value>描述:</value>
   </data>
-  <data name="groupBox1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxAutoLanguage.Text" xml:space="preserve">
+    <value>自动检测</value>
   </data>
-  <data name="textBoxDescription.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>语言</value>
   </data>
-  <data name="label2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>主键</value>
   </data>
-  <data name="checkBoxAutoLanguage.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="groupBox2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>值</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Audio / Video Analyzer</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
+    <value>音频/视频分析</value>
   </data>
 </root>

@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>删除{0}资产{1}</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="checkBoxDeleteKeys.Text" xml:space="preserve">
+    <value>删除密钥</value>
+  </data>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value>资产中附加的实体以删除</value>
+  </data>
+  <data name="checkBoxDeleteAutPol.Text" xml:space="preserve">
+    <value>删除授权政策，包括FairPlay ASK /密码</value>
+  </data>
+  <data name="checkBoxDeleteDeliveryPol.Text" xml:space="preserve">
+    <value>删除传输策略</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>警告; 这些实体可以与其他资产共享</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Asset delettion</value>
+    <value>资产删除</value>
   </data>
 </root>

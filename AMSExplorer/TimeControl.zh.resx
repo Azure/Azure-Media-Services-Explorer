@@ -117,11 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label41.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 15</value>
+  <data name="label42.Text" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="label39.Text" xml:space="preserve">
+    <value>分</value>
   </data>
   <data name="label41.Text" xml:space="preserve">
-    <value>Days!</value>
+    <value>天</value>
+  </data>
+  <data name="label40.Text" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>开始时间</value>
   </data>
 </root>

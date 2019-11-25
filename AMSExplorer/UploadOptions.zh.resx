@@ -117,7 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>输出存储 ：</value>
+  </data>
+  <data name="labelJobOptions.Text" xml:space="preserve">
+    <value>上传选项</value>
+  </data>
+  <data name="radioButtonOneAssetPerFile.Text" xml:space="preserve">
+    <value>每个文件一个资产</value>
+  </data>
+  <data name="radioButtonSingleAsset.Text" xml:space="preserve">
+    <value>单个资产中的所有文件</value>
+  </data>
+  <data name="groupBoxMultifiles.Text" xml:space="preserve">
+    <value>多文件</value>
+  </data>
+  <data name="comboBoxBlockSize.Items" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxBlockSize.Items1" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="comboBoxBlockSize.Items2" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="comboBoxBlockSize.Items3" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="comboBoxBlockSize.Items4" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="comboBoxBlockSize.Items5" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="comboBoxBlockSize.Items6" xml:space="preserve">
+    <value>64</value>
+  </data>
+  <data name="comboBoxBlockSize.Items7" xml:space="preserve">
+    <value>128</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>大于 4 MB 的值将启用高吞吐量。</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>块大小上传 （MB） ：</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>主键</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="buttonAdvancedOptions.Text" xml:space="preserve">
+    <value>资产创建选项...</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Upload</value>
+    <value>上传</value>
   </data>
 </root>

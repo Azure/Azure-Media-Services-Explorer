@@ -117,130 +117,112 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonOk.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>确认</value>
   </data>
-  <data name="buttonCancel.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="buttonReset.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonReset.Text" xml:space="preserve">
+    <value>重置为默认值</value>
   </data>
-  <data name="checkBoxDisplayAssetID.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxDisplayAssetID.Text" xml:space="preserve">
+    <value>资产 ID</value>
   </data>
-  <data name="checkBoxDisplayAssetAltId.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxDisplayAssetAltId.Text" xml:space="preserve">
+    <value>资产备用 ID</value>
   </data>
-  <data name="checkBoxDisplayAssetStorage.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxDisplayAssetStorage.Text" xml:space="preserve">
+    <value>资产存储</value>
   </data>
-  <data name="comboBoxAutoRefreshTime.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxAutoRefresh.Text" xml:space="preserve">
+    <value>每次自动刷新 ：</value>
   </data>
-  <data name="groupBox1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxAutoRefresh.ToolTip" xml:space="preserve">
+    <value>有用,如果另一个程序创建资产、作业等，</value>
   </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="comboBoxAutoRefreshTime.Items" xml:space="preserve">
+    <value>30</value>
   </data>
-  <data name="numericUpDownSASDuration.ToolTip" xml:space="preserve">
-    <value />
+  <data name="comboBoxAutoRefreshTime.Items1" xml:space="preserve">
+    <value>60</value>
   </data>
-  <data name="checkBoxHideTaskbarNotifications.ToolTip" xml:space="preserve">
-    <value />
+  <data name="comboBoxAutoRefreshTime.Items2" xml:space="preserve">
+    <value>300</value>
   </data>
-  <data name="checkBoxUseAdaptiveStreamingFormat.ToolTip" xml:space="preserve">
-    <value />
+  <data name="comboBoxAutoRefreshTime.Items3" xml:space="preserve">
+    <value>600</value>
   </data>
-  <data name="label13.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>网格显示</value>
   </data>
-  <data name="numericUpDownAssetAnalysisStep.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label1.Text" xml:space="preserve">
+    <value>默认 SAS Url 持续时间（小时）：</value>
   </data>
-  <data name="label12.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxHideTaskbarNotifications.Text" xml:space="preserve">
+    <value>隐藏任务栏通知</value>
   </data>
-  <data name="label5.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxUseAdaptiveStreamingFormat.Text" xml:space="preserve">
+    <value>对输出资产使用自适应流格式（预碎片）</value>
   </data>
-  <data name="numericUpDownAssetAnalysisStart.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label13.Text" xml:space="preserve">
+    <value>步骤 (%):</value>
   </data>
-  <data name="label3.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label12.Text" xml:space="preserve">
+    <value>开始 (%) :</value>
   </data>
-  <data name="numericUpDownLocatorDuration.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label5.Text" xml:space="preserve">
+    <value>资产分析工作 ：</value>
   </data>
-  <data name="groupBox2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label3.Text" xml:space="preserve">
+    <value>默认定位器持续时间（天） ：</value>
   </data>
-  <data name="labelcdn.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>其他设置</value>
   </data>
-  <data name="textBoxCustomPlayer.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelcdn.Text" xml:space="preserve">
+    <value>可以使用以下变量 ： [清单 url] 和 [令牌]</value>
   </data>
-  <data name="checkBoxEnableCustomPlayer.ToolTip" xml:space="preserve">
-    <value />
+  <data name="checkBoxEnableCustomPlayer.Text" xml:space="preserve">
+    <value>启用</value>
   </data>
-  <data name="groupBox3.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>自定义播放器</value>
   </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label4.Text" xml:space="preserve">
+    <value>标准编码价格，每个输出分钟 ：</value>
   </data>
-  <data name="label4.ToolTip" xml:space="preserve">
-    <value />
+  <data name="textBoxCurrency.Text" xml:space="preserve">
+    <value>$</value>
   </data>
-  <data name="numericUpDownMESPrice.ToolTip" xml:space="preserve">
-    <value />
+  <data name="amspriceslink.Text" xml:space="preserve">
+    <value>Media Services 价格</value>
   </data>
-  <data name="textBoxCurrency.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label7.Text" xml:space="preserve">
+    <value>货币符号 ：</value>
   </data>
-  <data name="amspriceslink.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>价格</value>
   </data>
-  <data name="label7.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>常规</value>
   </data>
-  <data name="groupBox4.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>成本估算</value>
   </data>
-  <data name="tabPage1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label11.Text" xml:space="preserve">
+    <value>VLC:</value>
   </data>
-  <data name="tabPage2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label10.Text" xml:space="preserve">
+    <value>ffmpeg :</value>
   </data>
-  <data name="label11.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBox5.Text" xml:space="preserve">
+    <value>软件路径</value>
   </data>
-  <data name="textBoxVLCPath.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label10.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxffmpegPath.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="groupBox5.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPage3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>自定义</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Options</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
+    <value>选项</value>
   </data>
 </root>

@@ -117,53 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonNext.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonNext.Text" xml:space="preserve">
+    <value>增加</value>
   </data>
-  <data name="buttonCancel.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="textBoxAMSResourceId.ToolTip" xml:space="preserve">
+    <value>再Azure门户 / AMS Account / 属性发现: 例如/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/amsResourceGroup/providers/Microsoft.Media/mediaservices/amsaccount</value>
   </data>
-  <data name="radioButtonAADServicePrincipal.ToolTip" xml:space="preserve">
-    <value />
+  <data name="textBoxLocation.ToolTip" xml:space="preserve">
+    <value>示例 : West Europe</value>
   </data>
-  <data name="radioButtonAADInteractive.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonAADServicePrincipal.Text" xml:space="preserve">
+    <value>服务主体</value>
   </data>
-  <data name="groupBoxAADAutMode.ToolTip" xml:space="preserve">
-    <value />
+  <data name="radioButtonAADInteractive.Text" xml:space="preserve">
+    <value>交互</value>
   </data>
-  <data name="textBoxAADtenantId.ToolTip" xml:space="preserve">
-    <value />
+  <data name="groupBoxAADAutMode.Text" xml:space="preserve">
+    <value>身份验证模式</value>
   </data>
-  <data name="labelADTenant.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelE2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 15</value>
+  <data name="labelADTenant.Text" xml:space="preserve">
+    <value>Azure AD tenant Id</value>
   </data>
   <data name="labelE2.Text" xml:space="preserve">
-    <value>AMS Resource Id </value>
+    <value>AMS Resource Id</value>
   </data>
-  <data name="labelE2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelRegion.Text" xml:space="preserve">
+    <value>区域</value>
   </data>
-  <data name="labelRegion.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label2.Text" xml:space="preserve">
+    <value>示例: 00000000-0000-0000-0000-000000000000 or company.onmicrosoft.com</value>
   </data>
-  <data name="label2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label1.Text" xml:space="preserve">
+    <value>/subscriptions/myGUID/resourceGroups/myRGname/providers/Microsoft.Media/mediaservices/myAMSaccount</value>
   </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label3.Text" xml:space="preserve">
+    <value>示例:  West Europe</value>
   </data>
-  <data name="label3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
+  <data name="$this.Text" xml:space="preserve">
+    <value>增加一个账户</value>
   </data>
 </root>

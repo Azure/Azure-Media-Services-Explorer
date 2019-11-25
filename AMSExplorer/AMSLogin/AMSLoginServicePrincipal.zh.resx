@@ -117,11 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 20</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonImport.Text" xml:space="preserve">
+    <value>确认</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value> Enter the Service Principal credentials</value>
+    <value>输入服务主体凭据</value>
+  </data>
+  <data name="labelE1.Text" xml:space="preserve">
+    <value>应用程序 ID（客户端 ID）</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>客户端机密</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Azure AD</value>
   </data>
 </root>

@@ -117,7 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>您选择了多个{0}。
+选择要应用于这些{0}的设置。</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>主键</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>值</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Settings for multiple items</value>
+    <value>多个项的设置</value>
   </data>
 </root>

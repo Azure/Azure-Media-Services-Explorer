@@ -117,7 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>分钟</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>存档窗口长度 ：</value>
+  </data>
+  <data name="tabPageInfo.Text" xml:space="preserve">
+    <value>实时输出信息</value>
+  </data>
+  <data name="buttonDisplayRelatedAsset.Text" xml:space="preserve">
+    <value>显示相关资产信息</value>
+  </data>
+  <data name="labelProgramName.Text" xml:space="preserve">
+    <value>实时输出 ：</value>
+  </data>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>关闭</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Live Output Information</value>
+    <value>实时输出信息</value>
   </data>
 </root>

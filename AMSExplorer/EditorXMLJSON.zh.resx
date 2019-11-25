@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="labelWarningJSON.Text" xml:space="preserve">
+    <value>XML语法错误. {0}</value>
+  </data>
+  <data name="buttonInsertSample.Text" xml:space="preserve">
+    <value>插入示例</value>
+  </data>
+  <data name="buttonCopyClipboard.Text" xml:space="preserve">
+    <value>将所有复制到剪贴板</value>
+  </data>
+  <data name="buttonFormat.Text" xml:space="preserve">
+    <value>格式化数据</value>
+  </data>
+  <data name="labelInfoText.Text" xml:space="preserve">
+    <value>这是一个信息文本</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>主键</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>值</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> XML Data</value>
+    <value>XML数据</value>
   </data>
 </root>

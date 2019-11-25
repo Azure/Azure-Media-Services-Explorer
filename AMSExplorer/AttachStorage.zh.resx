@@ -117,31 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonAttach.ToolTip" xml:space="preserve">
-    <value />
+  <data name="buttonAttach.Text" xml:space="preserve">
+    <value>过程 附加/分离</value>
   </data>
-  <data name="button1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="button1.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="textBoxAttachStorage.ToolTip" xml:space="preserve">
+    <value>示例 : /subscriptions/28a75405-95db-4d15-9a7f-ab84003a63aa/resourceGroups/Default-Web-WestEurope/providers/Microsoft.Storage/storageAccounts/xpouyatdemoattach3</value>
   </data>
-  <data name="label3.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label3.Text" xml:space="preserve">
+    <value>附加其他存储帐户。 提供资源ID（每行一个）</value>
   </data>
-  <data name="listViewStorage.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label2.Text" xml:space="preserve">
+    <value>选择要分离的辅助帐户：</value>
   </data>
-  <data name="label2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelAssetCopy.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelAssetCopy.Text" xml:space="preserve">
+    <value>存储帐户附件管理</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Manage storage accounts</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
+    <value>管理存储帐户</value>
   </data>
 </root>

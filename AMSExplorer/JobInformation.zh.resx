@@ -117,7 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="toolStripMenuItemCopyClipboard.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="buttonCopyStats.Text" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>显示信息</value>
+  </data>
+  <data name="assetInformationToolStripMenuItem.Text" xml:space="preserve">
+    <value>显示信息</value>
+  </data>
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>输入</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>作业报告</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>作业信息</value>
+  </data>
+  <data name="labelJobNameTitle.Text" xml:space="preserve">
+    <value>作业:</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Job Information</value>
+    <value>作业信息</value>
   </data>
 </root>

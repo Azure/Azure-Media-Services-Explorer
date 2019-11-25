@@ -117,7 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>不是现在</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>更新!</value>
+  </data>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value> Azure Media Services Explorer（{0}） 的新版本可用。
+是否更新？</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Release Notes :</value>
+  </data>
+  <data name="linkLabelMoreInfoPrice.Text" xml:space="preserve">
+    <value>Go to AMSE Web Site</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>主键</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>值</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value> Software Update</value>
+    <value>软件更新</value>
   </data>
 </root>

@@ -117,14 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkedListBoxFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>587, 112</value>
+  <data name="buttonUpload.Text" xml:space="preserve">
+    <value>启动上传</value>
   </data>
-  <data name="buttonFileDeselAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 147</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="buttonFileSelAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 147</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>要作为多文件资产上传的文件夹：</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>要上传为单个文件资产的文件：</value>
+  </data>
+  <data name="buttonFolderDeselAll.Text" xml:space="preserve">
+    <value>全部取消选择</value>
+  </data>
+  <data name="buttonFolderSelAll.Text" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="buttonFileDeselAll.Text" xml:space="preserve">
+    <value>全部取消选择</value>
+  </data>
+  <data name="buttonFileSelAll.Text" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>输出存储：</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>块大小上传（MB）：</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>高于4 MB的值将启用高吞吐量</value>
+  </data>
+  <data name="comboBoxBlockSize.Items" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxBlockSize.Items1" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="comboBoxBlockSize.Items2" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="comboBoxBlockSize.Items3" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="comboBoxBlockSize.Items4" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="comboBoxBlockSize.Items5" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="comboBoxBlockSize.Items6" xml:space="preserve">
+    <value>64</value>
+  </data>
+  <data name="comboBoxBlockSize.Items7" xml:space="preserve">
+    <value>128</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>批量上传</value>
   </data>
 </root>
