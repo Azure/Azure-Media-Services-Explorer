@@ -5,6 +5,7 @@ languages:
 products:
 - azure
 - azure-media-services
+- support Chinese UI
 ---
 
 # Azure Media Services Explorer (for AMS v3)
