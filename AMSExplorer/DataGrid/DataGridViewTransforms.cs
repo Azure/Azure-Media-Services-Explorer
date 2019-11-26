@@ -62,6 +62,7 @@ namespace AMSExplorer
             {
                 BeginInvoke(new Action(() =>
                 {
+                    Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                     Columns["Name"].Width = 200;
                     Columns["Description"].Width = 200;
                     Columns["LastModified"].Width = 130;

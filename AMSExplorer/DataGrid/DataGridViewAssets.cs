@@ -202,6 +202,8 @@ namespace AMSExplorer
             //Columns["Type"].Width = 140;
             //Columns["Size"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             //Columns["Size"].Width = 80;
+            Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Columns["Name"].Width = 200;
             Columns["Description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Columns["Description"].Width = 200;
             Columns[_dynEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;

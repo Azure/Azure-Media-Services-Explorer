@@ -53,7 +53,6 @@ namespace AMSExplorer
         private int _currentPageNumber;
         private IPage<Job> firstpage;
 
-
         public bool CurrentPageIsMax => _currentPageNumberIsMax;
 
         public int JobssPerPage
@@ -148,13 +147,14 @@ namespace AMSExplorer
                 result.AsyncWaitHandle.WaitOne();
                 BeginInvoke(new Action(() =>
                 {
+                    Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    Columns["Name"].Width = 200;
                     Columns["TransformName"].Visible = false;
                     Columns["Progress"].DisplayIndex = 5;
                     Columns["Progress"].Width = 150;
                     Columns["Outputs"].Width = 80;
                     Columns["Priority"].Width = 50;
                     Columns["State"].Width = 80;
-
                 }));
             });
 
