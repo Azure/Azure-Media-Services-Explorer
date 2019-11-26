@@ -2893,12 +2893,7 @@ namespace AMSExplorer
             Process.Start(Constants.PlayerDASHIFList);
         }
 
-        private void iVXHLSPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Constants.Player3IVXHLS);
-        }
-
-
+     
         private void Mainform_Shown(object sender, EventArgs e)
         {
             // display the update message if a new version is available

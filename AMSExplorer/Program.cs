@@ -558,10 +558,8 @@ namespace AMSExplorer
         public const string NameconvUploadasset = "{File Name}";
         public const string NameconvWorkflow = "{Workflow}";
         public const string NameconvTemplate = "{Template}";
-        public const string NameconvAMEpreset = "{Preset}";
         public const string NameconvFormathls = "{Format}";
         public const string NameconvEncodername = "{Encoder}";
-        public const string NameconvProcessorversion = "{Processor Version}";
         public const string NameconvLiveEvent = "{LiveEvent}";
         public const string NameconvLiveOutput = "{LiveOutput}";
         public const string NameconvProtocols = "{Protocols}";
@@ -569,13 +567,10 @@ namespace AMSExplorer
         public const string NameconvManifestURL = "{manifest url}";
         public const string NameconvToken = "{token}";
         public const string NameconvAsset = "{Asset Name}";
-        public const string NameconvRedactionMode = "{Redaction Mode}";
-        public const string NameconvModerationMode = "{Moderation Mode}";
 
         public const string endline = "\r\n";
 
         public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
-        public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathMESFiles = @"\MESPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathManifestFile = @"\manifest\";
@@ -602,13 +597,11 @@ namespace AMSExplorer
         public const string AMPSubtitles = "&subtitles={0}";
 
         public const string PlayerDASHIFList = @"http://reference.dashif.org/dash.js/";
-        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/v2.9.0/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/v3.0.0/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
         public const string AdvancedTestPlayer = @"https://openidconnectweb.azurewebsites.net/AMTestPlayer?url={0}";
 
-        public const string Player3IVXHLS = @"http://apps.microsoft.com/windows/en-us/app/3ivx-hls-player/f79ce7d0-2993-4658-bc4e-83dc182a0614";
-        public const string PlayerOSMFRCst = @"http://wamsclient.cloudapp.net/release/setup.html";
         public const string PlayerInfoHTML5Video = @"http://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"https://www.jwplayer.com/";
         public const string PlayerTHEOplayerPartnership = @"https://www.theoplayer.com/partners/azure";
@@ -626,9 +619,6 @@ namespace AMSExplorer
         internal static string mpd = ".mpd";
         internal static string m3u8 = ".m3u8";
         public const string AssetIdPrefix = "nb:cid:UUID:";
-
-        public const string ProdAPIServer = "https://media.windows.net";
-        public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
 
         public const string Bearer = "Bearer ";
         public const string strUnits = "{0} unit{1}";
@@ -676,28 +666,6 @@ namespace AMSExplorer
         public const string SlateJPGExtension = ".jpg";
 
         public const string stringNull = "(null)"; // To display null is textbox
-
-        public const string FaceDetectionFaces = "Faces";
-        public const string FaceDetectionAggregateEmotion = "AggregateEmotion";
-        public const string FaceDetectionPerFaceEmotion = "PerFaceEmotion";
-
-        public const string FaceRedactionCombined = "combined";
-        public const string FaceRedactionFirstPass = "analyze";
-        public const string FaceRedactionSecondPass = "redact";
-
-        public const string FaceRedactionBlurHigh = "High";
-        public const string FaceRedactionBlurMed = "Med";
-        public const string FaceRedactionBlurLow = "Low";
-        public const string FaceRedactionBlurBox = "Box";
-        public const string FaceRedactionBlurBlack = "Black";
-
-        public const string ContentModerationBalance = "Balance";
-        public const string ContentModerationQuality = "Quality";
-        public const string ContentModerationSpeed = "Speed";
-
-        public const string VideoThumbnailsOutputVideo = "video";
-        public const string VideoThumbnailsOutputImage = "image";
-        public const string VideoThumbnailsOutputBoth = "both";
 
         public const int MaxTransfersAsUnlimited = 5;
         public const string strTransfers = "{0} concurrent transfer{1}";
