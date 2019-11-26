@@ -4402,7 +4402,7 @@ namespace AMSExplorer
                 {
                     string leaction = deleteLiveEvents ? "Delete" : "Stop";
                     string question = (LOList.Count == 1) ? string.Format("There is one live output associated to the {0}.\n{1} the {0} and delete live output '{2}' ?", liveEventStr, leaction, LOList[0].Name)
-                                                        : string.Format("There are {0} live outputs associated to the {1}.\n{2} the c{1} and delete these live outputs ?", LOList.Count, liveEventStr, leaction);
+                                                        : string.Format("There are {0} live outputs associated to the {1}.\n{2} the {1} and delete these live outputs ?", LOList.Count, liveEventStr, leaction);
 
                     DeleteLiveOutputEvent form = new DeleteLiveOutputEvent(question, "Delete");
                     if (form.ShowDialog() == DialogResult.OK)
