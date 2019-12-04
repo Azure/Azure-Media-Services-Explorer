@@ -5708,7 +5708,7 @@ namespace AMSExplorer
 
         private void DisplayDeprecatedMessageAME()
         {
-            MessageBox.Show("The end of life date for Azure Media Encoder is March 1, 2017.\n\nIt is now recommended to use Media Encoder Standard (MES).\nIt provides better quality and performance, and it supports more input formats.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("The end of life date for Azure Media Encoder is March 31, 2020.\n\nIt is now recommended to use Media Encoder Standard (MES).\nIt provides better quality and performance, and it supports more input formats.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DoMenuIndexAssets()
@@ -8305,23 +8305,25 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Processors tab
-                dataGridViewProcessors.ColumnCount = 5;
+                dataGridViewProcessors.ColumnCount = 6;
                 dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
                 dataGridViewProcessors.Columns[0].Width = 82;
                 dataGridViewProcessors.Columns[1].HeaderText = "Name";
                 dataGridViewProcessors.Columns[1].Width = 222;
                 dataGridViewProcessors.Columns[2].HeaderText = "Version";
                 dataGridViewProcessors.Columns[2].Width = 65;
-                dataGridViewProcessors.Columns[3].HeaderText = "Id";
-                dataGridViewProcessors.Columns[3].Width = 230;
-                dataGridViewProcessors.Columns[4].HeaderText = "Description";
-                dataGridViewProcessors.Columns[4].Width = 390;
+                dataGridViewProcessors.Columns[3].HeaderText = "State";
+                dataGridViewProcessors.Columns[3].Width = 120;
+                dataGridViewProcessors.Columns[4].HeaderText = "Id";
+                dataGridViewProcessors.Columns[4].Width = 230;
+                dataGridViewProcessors.Columns[5].HeaderText = "Description";
+                dataGridViewProcessors.Columns[5].Width = 390;
             }
             dataGridViewProcessors.Rows.Clear();
             List<IMediaProcessor> Procs = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList();
             foreach (IMediaProcessor proc in Procs)
             {
-                dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
+                dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, GetStateForProcessor(proc), proc.Id, proc.Description);
             }
             tabPageProcessors.Text = string.Format(AMSExplorer.Properties.Resources.TabProcessors + " ({0})", Procs.Count());
 
@@ -8365,6 +8367,25 @@ namespace AMSExplorer
                 comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
                 toolStripStatusLabelEncRU.Text = string.Format("No encoding on this account");
             }
+        }
+
+        private string GetStateForProcessor(IMediaProcessor proc)
+        {
+            Dictionary<string, string> ListProcessorStates = new Dictionary<string, string>() {
+                {"Azure Media Encoder",             "To be retired on March 31, 2020" },
+                {"Windows Azure Media Encoder",     "To be retired on March 31, 2020" },
+                {"Azure Media Indexer 2 Preview",   "(Preview) To be retired on January 1, 2020" },
+                {"Azure Media Indexer",             "To be retired on Oct 1, 2020" },
+                {"Azure Media Face Detector",       "(Preview) To be retired on February 1, 2020" },
+                {"Azure Media Motion Detector",     "(Preview) To be retired on February 1, 2020" },
+                {"Azure Media OCR",                 "(Preview) To be retired on February 1, 2020" },
+                {"Azure Media Content Moderator",   "(Preview)" },
+                {"Azure Media Video Thumbnails",    "(Preview) To be retired on February 1, 2020" },
+                {"Azure Media Redactor",            "" },
+                {"Storage Decryption",              "" }
+            };
+
+            return (ListProcessorStates.ContainsKey(proc.Name) ? ListProcessorStates[proc.Name] : null);
         }
 
         private void DoRefreshGridStorageV(bool firstime)
