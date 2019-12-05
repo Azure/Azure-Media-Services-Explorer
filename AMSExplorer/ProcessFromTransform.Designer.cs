@@ -54,11 +54,22 @@
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panelSelectAsset = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.listViewAssets1 = new AMSExplorer.ListViewAssets();
+            this.buttonSearchExactAssetName = new System.Windows.Forms.Button();
+            this.textBoxExactAssetName = new System.Windows.Forms.TextBox();
+            this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
+            this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.panelSelectAsset.SuspendLayout();
             this.SuspendLayout();
             // 
             // label
@@ -117,6 +128,7 @@
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
@@ -263,6 +275,74 @@
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.panelSelectAsset);
+            this.tabPage3.Controls.Add(this.radioButtonExistingAsset);
+            this.tabPage3.Controls.Add(this.radioButtonNewAsset);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Name = "label4";
+            // 
+            // panelSelectAsset
+            // 
+            resources.ApplyResources(this.panelSelectAsset, "panelSelectAsset");
+            this.panelSelectAsset.Controls.Add(this.label2);
+            this.panelSelectAsset.Controls.Add(this.listViewAssets1);
+            this.panelSelectAsset.Controls.Add(this.buttonSearchExactAssetName);
+            this.panelSelectAsset.Controls.Add(this.textBoxExactAssetName);
+            this.panelSelectAsset.Name = "panelSelectAsset";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // listViewAssets1
+            // 
+            resources.ApplyResources(this.listViewAssets1, "listViewAssets1");
+            this.listViewAssets1.FullRowSelect = true;
+            this.listViewAssets1.HideSelection = false;
+            this.listViewAssets1.MultiSelect = false;
+            this.listViewAssets1.Name = "listViewAssets1";
+            this.listViewAssets1.Tag = -1;
+            this.listViewAssets1.UseCompatibleStateImageBehavior = false;
+            this.listViewAssets1.View = System.Windows.Forms.View.Details;
+            // 
+            // buttonSearchExactAssetName
+            // 
+            resources.ApplyResources(this.buttonSearchExactAssetName, "buttonSearchExactAssetName");
+            this.buttonSearchExactAssetName.Name = "buttonSearchExactAssetName";
+            this.buttonSearchExactAssetName.UseVisualStyleBackColor = true;
+            this.buttonSearchExactAssetName.Click += new System.EventHandler(this.buttonSearchExactAssetName_Click);
+            // 
+            // textBoxExactAssetName
+            // 
+            resources.ApplyResources(this.textBoxExactAssetName, "textBoxExactAssetName");
+            this.textBoxExactAssetName.Name = "textBoxExactAssetName";
+            // 
+            // radioButtonExistingAsset
+            // 
+            resources.ApplyResources(this.radioButtonExistingAsset, "radioButtonExistingAsset");
+            this.radioButtonExistingAsset.Name = "radioButtonExistingAsset";
+            this.radioButtonExistingAsset.UseVisualStyleBackColor = true;
+            this.radioButtonExistingAsset.CheckedChanged += new System.EventHandler(this.radioButtonExistingAsset_CheckedChanged);
+            // 
+            // radioButtonNewAsset
+            // 
+            resources.ApplyResources(this.radioButtonNewAsset, "radioButtonNewAsset");
+            this.radioButtonNewAsset.Checked = true;
+            this.radioButtonNewAsset.Name = "radioButtonNewAsset";
+            this.radioButtonNewAsset.TabStop = true;
+            this.radioButtonNewAsset.UseVisualStyleBackColor = true;
+            // 
             // ProcessFromTransform
             // 
             this.AcceptButton = this.buttonOk;
@@ -286,6 +366,10 @@
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.panelSelectAsset.ResumeLayout(false);
+            this.panelSelectAsset.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -318,5 +402,14 @@
         private System.Windows.Forms.TextBox textBoxURL;
         private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.Button buttonCreateNewTransform;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.RadioButton radioButtonExistingAsset;
+        private System.Windows.Forms.RadioButton radioButtonNewAsset;
+        private System.Windows.Forms.Panel panelSelectAsset;
+        public System.Windows.Forms.Label label2;
+        private ListViewAssets listViewAssets1;
+        private System.Windows.Forms.Button buttonSearchExactAssetName;
+        private System.Windows.Forms.TextBox textBoxExactAssetName;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -63,6 +63,15 @@ namespace AMSExplorer
                    :
                    null;
 
+        /// <summary>
+        /// Return the selected asset object. Null if no asset.
+        /// </summary>
+        public Asset ExistingOutputAsset  // null if no asset
+        {
+            get => radioButtonExistingAsset.Checked ? listViewAssets1.GetSelectedAsset : null;
+
+        }
+
 
         public ProcessFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? start = null, TimeSpan? end = null, bool noHttpSourceMode = false)
         {
@@ -88,7 +97,6 @@ namespace AMSExplorer
 
             //buttonJobOptions.Initialize(_context);
 
-            Text = "Template based processing";
             _listAssets = listAssets;
             _myMainform = myMainForm;
             _start = start;
@@ -269,6 +277,34 @@ namespace AMSExplorer
 
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
+        }
+
+        private async void radioButtonExistingAsset_CheckedChanged(object sender, EventArgs e)
+        {
+            panelSelectAsset.Enabled = radioButtonExistingAsset.Checked;
+
+            if (radioButtonExistingAsset.Checked)
+            {
+                // let's list the asset
+                await listViewAssets1.LoadAssetsAsync(_client);
+            }
+            else
+            { 
+            }
+        }
+
+        private async void buttonSearchExactAssetName_Click(object sender, EventArgs e)
+        {
+            if (radioButtonExistingAsset.Checked)
+            {
+                string searchName = string.IsNullOrWhiteSpace(textBoxExactAssetName.Text) ? null : textBoxExactAssetName.Text;
+                // let's list the asset
+                await listViewAssets1.LoadAssetsAsync(_client, searchName);
+            }
+            else
+            {
+
+            }
         }
     }
 }

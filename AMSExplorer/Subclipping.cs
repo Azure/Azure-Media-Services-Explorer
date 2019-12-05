@@ -566,7 +566,7 @@ namespace AMSExplorer
                 }
 
                 var transform = await _mainform.CreateAndGetCopyCodecTransformIfNeededAsync();
-                await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, EncodingOutputAssetName);
+                await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, null);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

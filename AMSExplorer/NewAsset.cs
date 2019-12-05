@@ -109,15 +109,19 @@ namespace AMSExplorer
             await _amsClientV3.RefreshTokenIfNeededAsync();
             IList<StorageAccount> storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
 
-            comboBoxStorage.Items.Clear();
+            comboBoxStorage.Invoke(c => c.Items.Clear());
+
+            //comboBoxStorage.Items.Clear();
             foreach (StorageAccount storage in storAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.Type == StorageAccountType.Primary);
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname));
+                comboBoxStorage.Invoke(c => c.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname)));
+                //comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname));
                 if (primary)
                 {
-                    comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                    comboBoxStorage.Invoke(c => c.SelectedIndex = comboBoxStorage.Items.Count - 1);
+                    //comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
                 }
             }
         }

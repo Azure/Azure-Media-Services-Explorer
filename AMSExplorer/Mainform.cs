@@ -376,7 +376,7 @@ namespace AMSExplorer
             TextBoxLogWriteLine(string.Format(message, o1, o2), Error);
         }
 
-        public void TextBoxLogWriteLine(string message, object o1, object o2, object o3, bool Error = false)
+        public void TextBoxLogWriteLine(string message, object o1, string o2, object o3, bool Error = false)
         {
             TextBoxLogWriteLine(string.Format(message, o1, o2, o3), Error);
         }
@@ -528,7 +528,9 @@ namespace AMSExplorer
 
         public void DoPurgeAssetInfoFromCache(Asset asset)
         {
-            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
+            //dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
+            dataGridViewAssetsV.Invoke(d => d.PurgeCacheAsset(asset));
+
         }
 
 
@@ -2893,7 +2895,7 @@ namespace AMSExplorer
             Process.Start(Constants.PlayerDASHIFList);
         }
 
-     
+
         private void Mainform_Shown(object sender, EventArgs e)
         {
             // display the update message if a new version is available
@@ -4114,8 +4116,10 @@ namespace AMSExplorer
             await Task.Run(async () =>
              {
                  await dataGridViewLiveEventsV.RefreshLiveEventAsync(1);
-                 tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
-                 labelLiveEvents.Invoke(new Action(() => labelLiveEvents.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
+                 //tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
+                 tabPageLive.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents));
+                 //labelLiveEvents.Invoke(new Action(() => labelLiveEvents.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
+                 labelLiveEvents.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents));
              });
         }
 
@@ -4135,7 +4139,8 @@ namespace AMSExplorer
             Task.Run(async () =>
             {
                 await dataGridViewLiveOutputV.RefreshLiveOutputsAsync(1);
-                labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0})", dataGridViewLiveOutputV.DisplayedCount)));
+                //labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0})", dataGridViewLiveOutputV.DisplayedCount)));
+                labelPrograms.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0})", dataGridViewLiveOutputV.DisplayedCount));
             });
         }
 
@@ -4150,7 +4155,8 @@ namespace AMSExplorer
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
 
             await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointsAsync();
-            tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
+            //tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
+            tabPageOrigins.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount));
 
         }
 
@@ -4226,7 +4232,8 @@ namespace AMSExplorer
                     dataGridViewStorage.Rows[rowi].Cells[1].ToolTipText = "Storage Account Metrics are not enabled or no data is available";
                 }
             }
-            tabPageStorage.Invoke(new Action(() => tabPageStorage.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count())));
+            //tabPageStorage.Invoke(new Action(() => tabPageStorage.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count())));
+            tabPageStorage.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count()));
 
 
         }
@@ -4314,8 +4321,8 @@ namespace AMSExplorer
                     int rowi = dataGridViewFilters.Rows.Add(filter.Name, "Error", s, e, d, l);
                 }
             }
-
-            tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count());
+            tabPageFilters.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count()));
+            //tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count());
         }
 
 
@@ -5184,7 +5191,7 @@ namespace AMSExplorer
                 {
                     string names2 = string.Join(", ", ListStreamingEndpoints.Select(le => le.Name).ToArray());
                     TextBoxLogWriteLine("Deleting streaming endpoints(s) : {0}...", names2);
-                
+
                     List<StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
                     Task[] taskSEdel = ListStreamingEndpoints.Select(c => _amsClient.AMSclient.StreamingEndpoints.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
 
@@ -6183,11 +6190,11 @@ namespace AMSExplorer
             {
                 if (form.SelectedAssetsMode) // assets selected
                 {
-                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime);
+                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime, null, form.ExistingOutputAsset);
                 }
                 else // http source url instead
                 {
-                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
+                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime, form.ExistingOutputAsset);
                 }
 
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs, form.SelectedTransform);
@@ -7548,7 +7555,9 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error when creating the transform.", ex); // Warning
+                    TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
+                    TextBoxLogWriteLine(ex);
+
                 }
 
                 DoRefreshGridTransformV(false);
@@ -7579,7 +7588,8 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error when creating the transform.", ex); // Warning
+                    TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
+                    TextBoxLogWriteLine(ex);
                 }
 
                 DoRefreshGridTransformV(false);
@@ -7622,7 +7632,8 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error when creating the transform.", ex); // Warning
+                    TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
+                    TextBoxLogWriteLine(ex);
                 }
 
                 DoRefreshGridTransformV(false);
@@ -7662,7 +7673,8 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error when creating the transform.", ex); // Warning
+                    TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
+                    TextBoxLogWriteLine(ex);
                 }
 
                 DoRefreshGridTransformV(false);
@@ -7686,7 +7698,7 @@ namespace AMSExplorer
             */
         }
 
-        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, string outputAssetName = null)
+        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
@@ -7697,26 +7709,43 @@ namespace AMSExplorer
                     string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
                     if (jobName == null)
                         jobName = $"job-{transform.Name}-{uniqueness}";
-                    if (outputAssetName == null)
-                        outputAssetName = $"{asset.Name}-{transform.Name}-{uniqueness}";
+
+
+                    Asset OutputAssetNow = outputAsset;
+                    string OutputAssetNameNow = OutputAssetNow?.Name;
+                    if (OutputAssetNow == null)
+                    {
+                        OutputAssetNameNow = $"{asset.Name}-{transform.Name}-{uniqueness}";
+
+                        try
+                        {
+
+
+                            OutputAssetNow = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
+                                                                        _amsClient.credentialsEntry.ResourceGroup,
+                                                                        _amsClient.credentialsEntry.AccountName,
+                                                                        OutputAssetNameNow,
+                                                                        new Asset()
+                                                                        );
+
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when creating output asset.", true); // Warning
+                            TextBoxLogWriteLine(ex);
+                            break;
+                        }
+                    }
+
+
+                    JobOutput[] jobOutputs =
+                         {
+                    new JobOutputAsset(OutputAssetNameNow),
+                };
 
                     JobInputAsset jobInput = new JobInputAsset(asset.Name, start: start, end: end);
-
                     try
                     {
-                        Asset outputAsset = await
-                                                          _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
-                                                                    _amsClient.credentialsEntry.ResourceGroup,
-                                                                    _amsClient.credentialsEntry.AccountName,
-                                                                    outputAssetName,
-                                                                    new Asset()
-                                                                    );
-
-
-                        JobOutput[] jobOutputs =
-                         {
-                    new JobOutputAsset(outputAsset.Name),
-                };
 
                         Job job = await
                                                      _amsClient.AMSclient.Jobs.CreateAsync(
@@ -7737,7 +7766,9 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine("Error when creating output asset or submitting the job.", ex); // Warning
+                        TextBoxLogWriteLine("Error when creating output asset or submitting the job.", true); // Warning
+                        TextBoxLogWriteLine(ex); 
+
                     }
                 }
             }
@@ -7746,7 +7777,7 @@ namespace AMSExplorer
 
 
         // Job creation when source is http
-        private async Task CreateAndSubmitJobsAsync(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null)
+        private async Task CreateAndSubmitJobsAsync(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null, Asset outputAsset = null)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
@@ -7754,25 +7785,42 @@ namespace AMSExplorer
             {
                 string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
                 string jobName = $"job-{transform.Name}-{uniqueness}";
-                string outputAssetName = $"httpsource-{transform.Name}-{uniqueness}";
+
+                Asset OutputAssetNow = outputAsset;
+                string OutputAssetNameNow = OutputAssetNow?.Name;
+                if (OutputAssetNow == null)
+                {
+                    OutputAssetNameNow = $"httpsource-{transform.Name}-{uniqueness}";
+
+                    try
+                    {
+
+
+                        OutputAssetNow = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
+                                                                    _amsClient.credentialsEntry.ResourceGroup,
+                                                                    _amsClient.credentialsEntry.AccountName,
+                                                                    OutputAssetNameNow,
+                                                                    new Asset()
+                                                                    );
+
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when creating output asset.", true); // Warning
+                        TextBoxLogWriteLine(ex);
+                        break;
+                    }
+                }
+
 
                 JobInputHttp jobInput = new JobInputHttp(files: new[] { url }, start: start, end: end);
 
                 try
                 {
 
-
-                    Asset outputAsset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
-                                                                _amsClient.credentialsEntry.ResourceGroup,
-                                                                _amsClient.credentialsEntry.AccountName,
-                                                                outputAssetName,
-                                                                new Asset()
-                                                                );
-
-
                     JobOutput[] jobOutputs =
                      {
-                    new JobOutputAsset(outputAsset.Name),
+                    new JobOutputAsset(OutputAssetNameNow),
                 };
                     Job job = await _amsClient.AMSclient.Jobs.CreateAsync(
                                                                 _amsClient.credentialsEntry.ResourceGroup,
@@ -7790,7 +7838,8 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error when creating output asset or submitting the job.", ex); // Warning
+                    TextBoxLogWriteLine("Error when creating output asset or submitting the job.", true); // Warning
+                    TextBoxLogWriteLine(ex);
                 }
             }
 
@@ -7843,7 +7892,7 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime);
+                await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime, form.ExistingOutputAsset);
 
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabJobs, form.SelectedTransform);
             }
