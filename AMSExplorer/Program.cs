@@ -2688,7 +2688,7 @@ namespace AMSExplorer
                 // we specify the tenant id if there
                 AuthenticationContext authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
 
-                bool adadalTokenInteract = false;
+                bool adalTokenInteract = false;
                 try
                 {
                     accessToken = await authContext.AcquireTokenSilentAsync(
@@ -2702,11 +2702,11 @@ namespace AMSExplorer
                     if (adalException.ErrorCode == AdalError.FailedToAcquireTokenSilently
                         || adalException.ErrorCode == AdalError.InteractionRequired)
                     {
-                        adadalTokenInteract = true;
+                        adalTokenInteract = true;
                     }
                 }
 
-                if (adadalTokenInteract)
+                if (adalTokenInteract)
                 {
                     try
                     {
