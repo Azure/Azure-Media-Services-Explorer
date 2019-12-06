@@ -284,6 +284,7 @@
             this.label24 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeChannel = new System.Windows.Forms.ComboBox();
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
+            this.linkLabelProcessorStatus = new System.Windows.Forms.LinkLabel();
             this.dataGridViewProcessors = new System.Windows.Forms.DataGridView();
             this.contextMenuStripProcessors = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
@@ -2512,9 +2513,17 @@
             // tabPageProcessors
             // 
             this.tabPageProcessors.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageProcessors.Controls.Add(this.linkLabelProcessorStatus);
             this.tabPageProcessors.Controls.Add(this.dataGridViewProcessors);
             resources.ApplyResources(this.tabPageProcessors, "tabPageProcessors");
             this.tabPageProcessors.Name = "tabPageProcessors";
+            // 
+            // linkLabelProcessorStatus
+            // 
+            resources.ApplyResources(this.linkLabelProcessorStatus, "linkLabelProcessorStatus");
+            this.linkLabelProcessorStatus.Name = "linkLabelProcessorStatus";
+            this.linkLabelProcessorStatus.TabStop = true;
+            this.linkLabelProcessorStatus.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelProcessorStatus_LinkClicked);
             // 
             // dataGridViewProcessors
             // 
@@ -4319,6 +4328,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).EndInit();
             this.contextMenuStripChannels.ResumeLayout(false);
             this.tabPageProcessors.ResumeLayout(false);
+            this.tabPageProcessors.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).EndInit();
             this.contextMenuStripProcessors.ResumeLayout(false);
             this.tabPageOrigins.ResumeLayout(false);
@@ -4831,6 +4841,7 @@
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoMediaUnits;
         private System.Windows.Forms.Button buttonRefreshTab;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem31;
+        private System.Windows.Forms.LinkLabel linkLabelProcessorStatus;
     }
 }
 

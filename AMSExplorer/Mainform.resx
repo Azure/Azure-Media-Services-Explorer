@@ -1125,7 +1125,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1682,7 +1682,7 @@
     <value>dataGridViewIngestManifestsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Parent" xml:space="preserve">
     <value>tabPageTransfers</value>
@@ -2568,7 +2568,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2884,7 +2884,7 @@
     <value>dataGridViewProgramsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3531,7 +3531,7 @@
     <value>dataGridViewChannelsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -3839,6 +3839,39 @@
   <data name="&gt;&gt;tabPageLive.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="linkLabelProcessorStatus.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="linkLabelProcessorStatus.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelProcessorStatus.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelProcessorStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 426</value>
+  </data>
+  <data name="linkLabelProcessorStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 15</value>
+  </data>
+  <data name="linkLabelProcessorStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="linkLabelProcessorStatus.Text" xml:space="preserve">
+    <value>Status and migration guidance for processors</value>
+  </data>
+  <data name="&gt;&gt;linkLabelProcessorStatus.Name" xml:space="preserve">
+    <value>linkLabelProcessorStatus</value>
+  </data>
+  <data name="&gt;&gt;linkLabelProcessorStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelProcessorStatus.Parent" xml:space="preserve">
+    <value>tabPageProcessors</value>
+  </data>
+  <data name="&gt;&gt;linkLabelProcessorStatus.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="dataGridViewProcessors.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -3864,7 +3897,7 @@
     <value>5, 6</value>
   </data>
   <data name="dataGridViewProcessors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>997, 429</value>
+    <value>997, 414</value>
   </data>
   <data name="dataGridViewProcessors.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -3879,7 +3912,7 @@
     <value>tabPageProcessors</value>
   </data>
   <data name="&gt;&gt;dataGridViewProcessors.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="tabPageProcessors.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -4053,7 +4086,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.3.8.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>

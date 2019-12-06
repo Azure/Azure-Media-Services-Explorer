@@ -5293,7 +5293,7 @@ namespace AMSExplorer
             }
             else
             {
-                MessageBox.Show("Azure Media Face Detector will be retired on February 1, 2020." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
+                MessageBox.Show("Azure Media Face Detector will be retired in the future." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
           "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 CheckAssetSizeRegardingMediaUnit(SelectedAssets);
@@ -5342,7 +5342,7 @@ namespace AMSExplorer
             }
             else
             {
-                MessageBox.Show("Azure Media Video Thumbnails will be retired on February 1, 2020.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Azure Media Video Thumbnails will be retired in the future.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
@@ -5866,7 +5866,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            MessageBox.Show("Azure Media Analytics OCR will be retired on February 1, 2020." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
+            MessageBox.Show("Azure Media Analytics OCR will be retired in the future." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
 "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
@@ -5928,7 +5928,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            MessageBox.Show("Azure Media Motion Detector will be retired on February 1, 2020.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Azure Media Motion Detector will be retired in the future.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
@@ -6249,6 +6249,8 @@ namespace AMSExplorer
 
             linkLabelFeedbackAMS.Links.Add(new LinkLabel.Link(0, linkLabelFeedbackAMS.Text.Length, Constants.LinkFeedbackAMS));
             linkLabelMoreInfoMediaUnits.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoMediaUnits.Text.Length, Constants.LinkInfoMediaUnit));
+            linkLabelProcessorStatus.Links.Add(new LinkLabel.Link(0, linkLabelProcessorStatus.Text.Length, Constants.LinkProcessorStatus));
+
 
             comboBoxOrderAssets.Enabled = comboBoxStateAssets.Enabled = !largeAccount;
             //comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
@@ -8376,11 +8378,11 @@ namespace AMSExplorer
                 {"Windows Azure Media Encoder",     "To be retired on March 31, 2020" },
                 {"Azure Media Indexer 2 Preview",   "(Preview) To be retired on January 1, 2020" },
                 {"Azure Media Indexer",             "To be retired on Oct 1, 2020" },
-                {"Azure Media Face Detector",       "(Preview) To be retired on February 1, 2020" },
-                {"Azure Media Motion Detector",     "(Preview) To be retired on February 1, 2020" },
-                {"Azure Media OCR",                 "(Preview) To be retired on February 1, 2020" },
+                {"Azure Media Face Detector",       "(Preview)" },
+                {"Azure Media Motion Detector",     "(Preview)" },
+                {"Azure Media OCR",                 "(Preview)" },
                 {"Azure Media Content Moderator",   "(Preview)" },
-                {"Azure Media Video Thumbnails",    "(Preview) To be retired on February 1, 2020" },
+                {"Azure Media Video Thumbnails",    "(Preview)" },
                 {"Azure Media Redactor",            "" },
                 {"Storage Decryption",              "" }
             };
@@ -15986,6 +15988,11 @@ namespace AMSExplorer
         private void toolStripMenuItem31_Click(object sender, EventArgs e)
         {
             Process.Start(Constants.LinkReportBugAMSE);
+        }
+
+        private void linkLabelProcessorStatus_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
         }
     }
 }

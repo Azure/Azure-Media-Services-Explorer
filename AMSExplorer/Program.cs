@@ -881,6 +881,7 @@ namespace AMSExplorer
 
         public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
         public const string LinkInfoMediaUnit = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-scale-media-processing-overview";
+        public const string LinkProcessorStatus = "https://go.microsoft.com/fwlink/?linkid=2101789";
 
         public const string TemporaryWidevineLicenseServer = "https://thiswillbereplacedbytheAMSwidevineurl/?KID=00000000-0000-0000-0000-000000000000";
 
