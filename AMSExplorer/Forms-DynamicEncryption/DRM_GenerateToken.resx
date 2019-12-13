@@ -298,13 +298,13 @@
     <value>253, 139</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 15</value>
+    <value>47, 15</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>89</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>time(s).  (preview feature)</value>
+    <value>time(s).</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>

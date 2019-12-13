@@ -281,13 +281,25 @@ namespace AMSExplorer
 
                     if (asset != null)
                     {
+                        Debug.WriteLine("analyze : " + asset.Name);
+
                         AE.AlternateId = asset.AlternateId;
                         AE.Description = asset.Description;
                         AE.Created = asset.Created.ToLocalTime().ToString("G");
                         AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
                         AE.Name = asset.Name;
 
-                        AssetBitmapAndText assetBitmapAndText = await DataGridViewAssets.BuildBitmapPublicationAsync(asset.Name, _amsClient);
+                        IList<AssetStreamingLocator> locators = null;
+                        try
+                        {
+                            locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name))
+                                .StreamingLocators;
+                        }
+                        catch
+                        {
+                        }
+
+                        AssetBitmapAndText assetBitmapAndText = await DataGridViewAssets.BuildBitmapPublicationAsync(asset.Name, _amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.Publication = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
@@ -303,7 +315,7 @@ namespace AMSExplorer
                             AE.AssetWarning = (AE.SizeLong == 0);
                         }
 
-                        assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset.Name, _amsClient);
+                        assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset.Name, _amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.DynamicEncryption = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
@@ -411,6 +423,8 @@ namespace AMSExplorer
 
         public async Task RefreshAssetsAsync(int pagetodisplay) // all assets are refreshed
         {
+
+            Debug.WriteLine("RefreshAssetsAsync");
             if (!_initialized)
             {
                 return;
@@ -638,25 +652,34 @@ Properties/StorageId
 
 
 
-
-        public static async Task<AssetBitmapAndText> BuildBitmapPublicationAsync(string assetName, AMSClientV3 _amsClient)
+        /// <summary>
+        /// Returns a bitmap for publication
+        /// </summary>
+        /// <param name="assetName"></param>
+        /// <param name="_amsClient"></param>
+        /// <param name="locators"></param>Optional. Allow to not lts again the locators to reduce the number of calls
+        /// <returns></returns>
+        public static async Task<AssetBitmapAndText> BuildBitmapPublicationAsync(string assetName, AMSClientV3 _amsClient, IList<AssetStreamingLocator> locators = null)
         {
             Bitmap returnedImage = null;
             string returnedText = null;
             await _amsClient.RefreshTokenIfNeededAsync();
-            IList<AssetStreamingLocator> locators;
-            try
+
+            if (locators == null)
             {
-                locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName))
-                           .StreamingLocators;
-            }
-            catch
-            {
-                return new AssetBitmapAndText()
+                try
                 {
-                    bitmap = BitmapCancel,
-                    MouseOverDesc = "Error"
-                };
+                    locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName))
+                               .StreamingLocators;
+                }
+                catch
+                {
+                    return new AssetBitmapAndText()
+                    {
+                        bitmap = BitmapCancel,
+                        MouseOverDesc = "Error"
+                    };
+                }
             }
 
             foreach (AssetStreamingLocator locator in locators)
@@ -702,23 +725,31 @@ Properties/StorageId
             };
         }
 
-
-        public static async Task<AssetBitmapAndText> BuildBitmapDynEncryptionAsync(string assetName, AMSClientV3 amsClient)
+        /// <summary>
+        /// Returns a bitmap regarding the Dyn Encryption
+        /// </summary>
+        /// <param name="assetName"></param>
+        /// <param name="amsClient"></param>
+        /// <param name="locators"></param>If specified, avoid the function to list again them (optimization)
+        /// <returns></returns>
+        public static async Task<AssetBitmapAndText> BuildBitmapDynEncryptionAsync(string assetName, AMSClientV3 amsClient, IList<AssetStreamingLocator> locators = null)
         {
             await amsClient.RefreshTokenIfNeededAsync();
-            IList<AssetStreamingLocator> locators;
-            try
+            if (locators == null)
             {
-                locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, assetName))
-                    .StreamingLocators;
-            }
-            catch
-            {
-                return new AssetBitmapAndText()
+                try
                 {
-                    bitmap = BitmapCancel,
-                    MouseOverDesc = "Error"
-                };
+                    locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, assetName))
+                        .StreamingLocators;
+                }
+                catch
+                {
+                    return new AssetBitmapAndText()
+                    {
+                        bitmap = BitmapCancel,
+                        MouseOverDesc = "Error"
+                    };
+                }
             }
 
             if (locators.Count == 0)

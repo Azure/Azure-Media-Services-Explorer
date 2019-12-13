@@ -518,10 +518,12 @@ namespace AMSExplorer
             Debug.WriteLine("DoRefreshGridAssetNotforsttime");
 
             int page = GetTextBoxAssetsPageNumber();
+
+
             Task.Run(async () =>
-            {
-                await dataGridViewAssetsV.RefreshAssetsAsync(page);
-            });
+        {
+            await dataGridViewAssetsV.RefreshAssetsAsync(page);
+        });
 
             //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
         }
@@ -3076,7 +3078,7 @@ namespace AMSExplorer
             UpdateLabelConcurrentTransfers();
 
             // making sure the visible assets are analyzed
-            Task.Run(async () => await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync());
+            //Task.Run(async () => await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync());
 
             Show();
         }
@@ -7767,7 +7769,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine("Error when creating output asset or submitting the job.", true); // Warning
-                        TextBoxLogWriteLine(ex); 
+                        TextBoxLogWriteLine(ex);
 
                     }
                 }
