@@ -219,6 +219,12 @@
     <Compile Include="AMSLogin\ExportSettings.Designer.cs">
       <DependentUpon>ExportSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="CopyAsset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CopyAsset.designer.cs">
+      <DependentUpon>CopyAsset.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataGrid\DataGridViewLiveOutput.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -696,6 +702,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BatchUploadFrame2.ja.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CopyAsset.ja.resx">
+      <DependentUpon>CopyAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CopyAsset.resx">
+      <DependentUpon>CopyAsset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_FairPlayLicense.ja.resx">
       <DependentUpon>DRM_FairPlayLicense.cs</DependentUpon>

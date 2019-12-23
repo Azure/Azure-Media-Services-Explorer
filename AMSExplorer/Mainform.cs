@@ -7299,11 +7299,160 @@ namespace AMSExplorer
         {
         }
 
-        private void toolStripMenuItem43_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem43_Click(object sender, EventArgs e)
         {
-            // DoCopyAssetToAnotherAMSAccount();
+            await DoCopyAssetToAnotherAMSAccountAsync();
         }
 
+        private async Task DoCopyAssetToAnotherAMSAccountAsync()
+        {
+
+            var assets = await ReturnSelectedAssetsV3Async();
+            CopyAsset copyAssetForm = new CopyAsset(assets.Count, CopyAssetBoxMode.CopyAsset, _amsClient.credentialsEntry.AccountName);
+
+            if (copyAssetForm.ShowDialog() == DialogResult.OK)
+            {
+                foreach (var asset in assets)
+                {
+                    string assetName = copyAssetForm.CopyAssetName.Replace("{AssetName}", asset.Name);
+
+                    // asset creation
+                    var assetParameters = new Asset
+                    {
+                        StorageAccountName = copyAssetForm.DestinationStorageAccount,
+                        Description = asset.Description,
+                        AlternateId = asset.AlternateId
+                    };
+                    try
+                    {
+                        TextBoxLogWriteLine($"Creating empty asset '{assetName}' in '{copyAssetForm.DestinationStorageAccount}' account...");
+                        await copyAssetForm.DestinationAmsClient.AMSclient.Assets.CreateOrUpdateAsync(copyAssetForm.DestinationAmsClient.credentialsEntry.ResourceGroup, copyAssetForm.DestinationAmsClient.credentialsEntry.AccountName, assetName, assetParameters);
+                        TextBoxLogWriteLine($"Asset '{assetName}' created.");
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error: Could not create new asset in destination account.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+
+
+                    // COPY OF BLOBS
+
+
+                    // Listing of source blobs
+                    ListContainerSasInput input = new ListContainerSasInput()
+                    {
+                        Permissions = AssetContainerPermission.Read,
+                        ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+                    };
+                    await _amsClient.RefreshTokenIfNeededAsync();
+
+                    AssetContainerSas response = null;
+                    try
+                    {
+                        response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name, input.Permissions, input.ExpiryTime);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine(ex);
+                        return;
+                    }
+
+                    string uploadSasUrl = response.AssetContainerSasUrls.First();
+
+                    Uri sasUri = new Uri(uploadSasUrl);
+                    var container = new CloudBlobContainer(sasUri);
+
+
+                    // destination container
+                    ListContainerSasInput output = new ListContainerSasInput()
+                    {
+                        Permissions = AssetContainerPermission.ReadWrite,
+                        ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
+                    };
+                    response = null;
+                    try
+                    {
+                        response = await copyAssetForm.DestinationAmsClient.AMSclient.Assets.ListContainerSasAsync(copyAssetForm.DestinationAmsClient.credentialsEntry.ResourceGroup, copyAssetForm.DestinationAmsClient.credentialsEntry.AccountName, assetName, output.Permissions, output.ExpiryTime);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine(ex);
+                        return;
+                    }
+
+                    string destSasUrl = response.AssetContainerSasUrls.First();
+
+                    Uri destSasUri = new Uri(destSasUrl);
+                    var destContainer = new CloudBlobContainer(destSasUri);
+
+                    BlobContinuationToken continuationToken = null;
+                    var sourceBlobs = new List<IListBlobItem>();
+
+                    do
+                    {
+                        BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                        sourceBlobs.AddRange(segment.Results);
+
+                        foreach (IListBlobItem sourceBlob in segment.Results)
+                        {
+                            if (sourceBlob.GetType() == typeof(CloudBlockBlob))
+                            {
+                                CloudBlockBlob sourceCBB = (CloudBlockBlob)sourceBlob;
+                                //  bl.FetchAttributes();
+
+                                ListViewItem item = new ListViewItem(sourceCBB.Name, 0);
+
+                                if (sourceCBB.Properties.Length > 0)
+                                {
+                                    try
+                                    {
+                                        TextBoxLogWriteLine($"Copying blob '{sourceCBB.Name}'...");
+                                        CloudBlockBlob destinationBlob = destContainer.GetBlockBlobReference(sourceCBB.Name);
+                                        await destinationBlob.StartCopyAsync(sourceCBB);
+
+                                        CloudBlockBlob blob = (CloudBlockBlob)await destContainer.GetBlobReferenceFromServerAsync(sourceCBB.Name);
+
+                                        while (blob.CopyState.Status == CopyStatus.Pending)
+                                        {
+                                            await Task.Delay(TimeSpan.FromSeconds(1d));
+                                            await blob.FetchAttributesAsync();
+                                        }
+                                        await destinationBlob.FetchAttributesAsync();
+                                        TextBoxLogWriteLine($"Blob '{sourceCBB.Name}' copied.");
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        TextBoxLogWriteLine($"Error while copying '{sourceCBB.Name}' blob to destination.", true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
+                                }
+
+                            }
+                            else if (sourceBlob.GetType() == typeof(CloudBlobDirectory))
+                            {
+                                //proposeListBlobsInDir = true;
+                                CloudBlobDirectory bl = (CloudBlobDirectory)sourceBlob;
+                                ListViewItem item = new ListViewItem(bl.Prefix, 0)
+                                {
+                                    ForeColor = Color.DarkGoldenrod
+                                };
+                                // let comment as it can be time expensive to the math
+                                //item.SubItems.Add(AssetInfo.FormatByteSize(AssetInfo.GetSizeBlobDirectory(bl)));
+                                // listViewBlobs.Items.Add(item);
+                            }
+
+                        }
+
+                        continuationToken = segment.ContinuationToken;
+                    }
+                    while (continuationToken != null);
+
+                    TextBoxLogWriteLine($"Asset '{assetName}' ready.");
+                }
+            }
+        }
 
         private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
         {

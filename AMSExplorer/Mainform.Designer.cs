@@ -598,13 +598,13 @@
             this.toolStripMenuItem43,
             this.toolStripMenuItem41,
             this.toolStripMenuItem42});
-            resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
             // 
             // analyzeAssetsToolStripMenuItem
             // 
-            this.analyzeAssetsToolStripMenuItem.Name = "analyzeAssetsToolStripMenuItem";
             resources.ApplyResources(this.analyzeAssetsToolStripMenuItem, "analyzeAssetsToolStripMenuItem");
+            this.analyzeAssetsToolStripMenuItem.Name = "analyzeAssetsToolStripMenuItem";
             this.analyzeAssetsToolStripMenuItem.Click += new System.EventHandler(this.analyzeAssetsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem43
@@ -615,14 +615,14 @@
             // 
             // toolStripMenuItem41
             // 
-            this.toolStripMenuItem41.Name = "toolStripMenuItem41";
             resources.ApplyResources(this.toolStripMenuItem41, "toolStripMenuItem41");
+            this.toolStripMenuItem41.Name = "toolStripMenuItem41";
             this.toolStripMenuItem41.Click += new System.EventHandler(this.toolStripMenuItem41_Click);
             // 
             // toolStripMenuItem42
             // 
-            this.toolStripMenuItem42.Name = "toolStripMenuItem42";
             resources.ApplyResources(this.toolStripMenuItem42, "toolStripMenuItem42");
+            this.toolStripMenuItem42.Name = "toolStripMenuItem42";
             this.toolStripMenuItem42.Click += new System.EventHandler(this.toolStripMenuItem42_Click);
             // 
             // toolStripSeparator36
