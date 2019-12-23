@@ -492,9 +492,6 @@
   <data name="copyassetname.TabIndex" type="System.Int32, mscorlib">
     <value>64</value>
   </data>
-  <data name="copyassetname.Text" xml:space="preserve">
-    <value>{AssetName}-Copy</value>
-  </data>
   <data name="&gt;&gt;copyassetname.Name" xml:space="preserve">
     <value>copyassetname</value>
   </data>

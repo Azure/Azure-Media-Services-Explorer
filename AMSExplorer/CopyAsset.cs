@@ -193,6 +193,8 @@ namespace AMSExplorer
 
         private void CopyAsset_Load(object sender, EventArgs e)
         {
+
+            copyassetname.Text = Constants.NameconvAsset + "-copy";
             /*
             labelWarning.Text = "";
             labelWarningStorage.Text = "";
