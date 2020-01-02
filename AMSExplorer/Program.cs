@@ -2066,7 +2066,7 @@ namespace AMSExplorer
             return mylistresults;
         }
 
-
+    
         public static string GetXMLSerializedTimeSpan(TimeSpan timespan)
         // return TimeSpan as a XML string: P28DT15H50M58.348S
         {

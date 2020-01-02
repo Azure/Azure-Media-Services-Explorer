@@ -34,6 +34,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -7312,9 +7313,6 @@ namespace AMSExplorer
 
             if (copyAssetForm.ShowDialog() == DialogResult.OK)
             {
-
-
-
                 if (!copyAssetForm.SingleDestinationAsset) // standard mode: 1:1 asset copy
                 {
                     foreach (var asset in selectedAssets)
@@ -7374,6 +7372,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error: Could not create new asset in destination account.", true);
                 TextBoxLogWriteLine(ex);
+                TextBoxLogWriteLine("Trying to continue if the goal is to copy blobs to an existing asset.", true);
             }
 
             // destination container
@@ -7428,18 +7427,16 @@ namespace AMSExplorer
                 Uri sasUri = new Uri(uploadSasUrl);
                 var container = new CloudBlobContainer(sasUri);
 
+                long Length = 0;
+
+
+                // let's list all blobs (at root) and calculate the size
                 BlobContinuationToken continuationToken = null;
                 var sourceBlobs = new List<IListBlobItem>();
-
                 do
                 {
-                    long Length = 0;
-                    long BytesCopied = 0;
-                    double percentComplete = 0;
-
-                    BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                    BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken, null, null);
                     sourceBlobs.AddRange(segment.Results);
-
 
                     // let's calculate the size of all blobs of the page/asset
                     foreach (IListBlobItem sourceBlob in segment.Results.Where(b => b.GetType() == typeof(CloudBlockBlob)))
@@ -7447,69 +7444,135 @@ namespace AMSExplorer
                         Length += (sourceBlob as CloudBlockBlob).Properties.Length;
                     }
 
-                    foreach (IListBlobItem sourceBlob in segment.Results)
-                    {
-                        if (sourceBlob.GetType() == typeof(CloudBlockBlob))
-                        {
-                            CloudBlockBlob sourceCBB = (CloudBlockBlob)sourceBlob;
-                            //  bl.FetchAttributes();
-
-                            ListViewItem item = new ListViewItem(sourceCBB.Name, 0);
-
-                            if (sourceCBB.Properties.Length > 0)
-                            {
-                                try
-                                {
-                                    TextBoxLogWriteLine($"Copying blob '{sourceCBB.Name}'...");
-                                    CloudBlockBlob destinationBlob = destContainer.GetBlockBlobReference(sourceCBB.Name);
-                                    string stringOperation = await destinationBlob.StartCopyAsync(sourceCBB);
-
-                                    CloudBlockBlob blob = (CloudBlockBlob)await destContainer.GetBlobReferenceFromServerAsync(sourceCBB.Name);
-
-                                    while (blob.CopyState.Status == CopyStatus.Pending)
-                                    {
-                                        await Task.Delay(TimeSpan.FromSeconds(1d));
-                                        await blob.FetchAttributesAsync();
-
-
-                                        if (transferResponse.token.IsCancellationRequested && !Cancelled)
-                                        {
-                                            await destinationBlob.AbortCopyAsync(stringOperation);
-                                            Cancelled = true;
-                                        }
-                                        blob.FetchAttributes();
-                                        percentComplete =  100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
-                                        DoGridTransferUpdateProgressText(string.Format("Blob '{0}'", sourceCBB.Name), (int)percentComplete, transferResponse.Id);
-
-                                    }
-                                    await destinationBlob.FetchAttributesAsync();
-                                    TextBoxLogWriteLine($"Blob '{sourceCBB.Name}' copied.");
-                                    BytesCopied += sourceCBB.Properties.Length;
-
-                                }
-                                catch (Exception ex)
-                                {
-                                    TextBoxLogWriteLine($"Error while copying '{sourceCBB.Name}' blob to destination.", true);
-                                    TextBoxLogWriteLine(ex);
-                                }
-                            }
-                           
-                        }
-                        else if (sourceBlob.GetType() == typeof(CloudBlobDirectory))
-                        {
-                           // TODO !
-                           // CloudBlobDirectory bl = (CloudBlobDirectory)sourceBlob;
-                        }
-
-                    }
-
                     continuationToken = segment.ContinuationToken;
                 }
                 while (continuationToken != null);
 
 
-            }
+                var listDirectories = sourceBlobs.Where(blob => blob.GetType() == typeof(CloudBlobDirectory)).Select(blob => (CloudBlobDirectory)blob);
+                var listBlockBlobs = sourceBlobs.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(blob => (CloudBlockBlob)blob);
 
+
+                long BytesCopied = 0;
+                double percentComplete = 0;
+
+                foreach (var sourceCBB in listBlockBlobs)
+                {
+
+                    if (sourceCBB.Properties.Length > 0)
+                    {
+                        try
+                        {
+                            TextBoxLogWriteLine($"Copying blob '{sourceCBB.Name}'...");
+                            CloudBlockBlob destinationBlob = destContainer.GetBlockBlobReference(sourceCBB.Name);
+                            string stringOperation = await destinationBlob.StartCopyAsync(sourceCBB);
+
+                            CloudBlockBlob blob = (CloudBlockBlob)await destContainer.GetBlobReferenceFromServerAsync(sourceCBB.Name);
+
+                            while (blob.CopyState.Status == CopyStatus.Pending)
+                            {
+                                await Task.Delay(TimeSpan.FromSeconds(1d));
+                                await blob.FetchAttributesAsync();
+
+                                if (transferResponse.token.IsCancellationRequested && !Cancelled)
+                                {
+                                    await destinationBlob.AbortCopyAsync(stringOperation);
+                                    Cancelled = true;
+                                }
+                                blob.FetchAttributes();
+                                percentComplete = 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
+                                DoGridTransferUpdateProgressText(string.Format("Blob '{0}'", sourceCBB.Name), (int)percentComplete, transferResponse.Id);
+                            }
+                            await destinationBlob.FetchAttributesAsync();
+                            TextBoxLogWriteLine($"Blob '{sourceCBB.Name}' copied.");
+                            BytesCopied += sourceCBB.Properties.Length;
+
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine($"Error while copying '{sourceCBB.Name}' blob to destination.", true);
+                            TextBoxLogWriteLine(ex);
+                            ErrorCopyAsset = true;
+                            break;
+                        }
+                    }
+
+
+                }
+
+                // lets copy directory and blobs if any
+                int indexdir = 0;
+                foreach (var blobdir in listDirectories)
+                {
+                    try
+                    {
+
+                        // let's enumerate all blobs (in the directory) and calculate the size
+                        continuationToken = null;
+                        var sourceBlobsLive = new List<IListBlobItem>();
+                        do
+                        {
+                            BlobResultSegment segment = await blobdir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                            sourceBlobsLive.AddRange(segment.Results);
+                            continuationToken = segment.ContinuationToken;
+                        }
+                        while (continuationToken != null);
+
+                        var listBlockBlobsLive = sourceBlobsLive.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(blob => (CloudBlockBlob)blob);
+
+                        TextBoxLogWriteLine($"Copying {listBlockBlobsLive.Count()} blobs of directory '{blobdir.Prefix}'...");
+
+                        //let's process the blobs per packet of 50 to be quicker
+                        int packet = 50;
+                        int indexstartpacket = 0;
+                        do
+                        {
+                            var listBlockBlobsLivePacket = listBlockBlobsLive.Skip(indexstartpacket).Take(packet);
+                            List<CloudBlockBlob> blobsCurrentCopy = new List<CloudBlockBlob>();
+
+                            // for each pcket of blobs, let's start the copy
+                            foreach (var srcBlob in listBlockBlobsLivePacket)
+                            {
+                                CloudBlockBlob destinationBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
+                                string stringOperation = await destinationBlob.StartCopyAsync(srcBlob);
+
+                                blobsCurrentCopy.Add((CloudBlockBlob)await destContainer.GetBlobReferenceFromServerAsync(srcBlob.Name));
+                            }
+
+                            while (blobsCurrentCopy.Any(b => b.CopyState.Status == CopyStatus.Pending))
+                            {
+                                await Task.Delay(TimeSpan.FromSeconds(2d));
+
+                                // let's refresh the blobs which are in status pending only
+                                var tempBlobList = blobsCurrentCopy.Where(b => b.CopyState.Status != CopyStatus.Pending).ToList();
+                                foreach (var b in blobsCurrentCopy.Where(b => b.CopyState.Status == CopyStatus.Pending).ToList())
+                                {
+                                    await b.FetchAttributesAsync();
+                                    tempBlobList.Add(b);
+                                }
+                                blobsCurrentCopy = tempBlobList;
+
+                                var nbCompleted = blobsCurrentCopy.Where(b => b.CopyState.Status != CopyStatus.Pending).Count();
+                                percentComplete = 100d * (indexdir + Convert.ToDouble(indexstartpacket + nbCompleted) / Convert.ToDouble(listBlockBlobsLive.Count())) / Convert.ToDouble(listDirectories.Count());
+                                DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", blobdir.Prefix, indexstartpacket + nbCompleted,  listBlockBlobsLive.Count()), (int)percentComplete, transferResponse.Id);
+                            }
+                            indexstartpacket += listBlockBlobsLivePacket.Count();
+                            TextBoxLogWriteLine($"{indexstartpacket} blobs copied...");
+
+                        }
+                        while (indexstartpacket < listBlockBlobsLive.Count() - 1);
+
+                        indexdir++;
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine($"Error while copying blobs of '{blobdir.Prefix}' directory to destination.", true);
+                        TextBoxLogWriteLine(ex);
+                        ErrorCopyAsset = true;
+                        break;
+                    }
+                }
+            }
 
 
             if (!ErrorCopyAsset && !transferResponse.token.IsCancellationRequested)
