@@ -317,9 +317,9 @@ namespace AMSExplorer
                 Priority = job.Priority,
                 State = job.State,
                 Progress = ReturnProgressJob(job).progress,
-                StartTime = job.StartTime.HasValue ? ((DateTime)job.StartTime).ToLocalTime().ToString("G") : null,
-                EndTime = job.EndTime.HasValue ? ((DateTime)job.EndTime).ToLocalTime().ToString("G") : null,
-                Duration = ReportDuration(job)                
+                StartTime = ReportLocalTime(job.StartTime),
+                EndTime = ReportLocalTime(job.EndTime),
+                Duration = ReportDuration(job)
                 // progress;  we don't want the progress bar to be displayed
             }
          );
@@ -398,185 +398,190 @@ namespace AMSExplorer
 
             _client.RefreshTokenIfNeeded();
 
-            Task.Run(() =>
-            {
-                try
-                {
-                    Job myJob = null;
+            _ = Task.Run(() =>
+              {
+                  try
+                  {
+                      Job myJob = null;
 
-                    do
-                    {
-                        myJob = Task.Run(() =>
-            _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
-            ).GetAwaiter().GetResult();
+                      do
+                      {
+                          myJob = Task.Run(() =>
+              _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
+              ).GetAwaiter().GetResult();
 
-                        if (token.IsCancellationRequested == true)
-                        {
-                            return;
-                        }
+                          if (token.IsCancellationRequested == true)
+                          {
+                              return;
+                          }
 
-                        int index = -1;
-                        foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
-                        {
-                            if (je.Name == myJob.Name)
-                            {
-                                index = _MyObservJobV3.IndexOf(je);
-                                break;
-                            }
-                        }
+                          int index = -1;
+                          foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
+                          {
+                              if (je.Name == myJob.Name)
+                              {
+                                  index = _MyObservJobV3.IndexOf(je);
+                                  break;
+                              }
+                          }
 
-                        if (index >= 0) // we found it
-                        { // we update the observation collection
-                            JobProgressInfo progress = ReturnProgressJob(myJob);
+                          if (index >= 0) // we found it
+                          { // we update the observation collection
+                              JobProgressInfo progress = ReturnProgressJob(myJob);
 
-                            _MyObservJobV3[index].Progress = progress.progress;
-                            _MyObservJobV3[index].Priority = myJob.Priority;
-                            _MyObservJobV3[index].StartTime = myJob.StartTime.HasValue ? ((DateTime)myJob.StartTime).ToLocalTime().ToString("G") : null;
-                            _MyObservJobV3[index].EndTime = myJob.EndTime.HasValue ? ((DateTime)myJob.EndTime).ToLocalTime().ToString("G") : null;
-                            _MyObservJobV3[index].State = myJob.State;
+                              _MyObservJobV3[index].Progress = progress.progress;
+                              _MyObservJobV3[index].Priority = myJob.Priority;
+                              _MyObservJobV3[index].StartTime = ReportLocalTime(myJob.StartTime);
+                              _MyObservJobV3[index].EndTime = ReportLocalTime(myJob.EndTime);
+                              _MyObservJobV3[index].State = myJob.State;
 
-                            // let's calculate the estimated time
-                            string ETAstr = "", Durationstr = "";
-                            if (progress.progress > 3d && progress.progress < 101d)
-                            {
-                                DateTime startlocaltime = ((DateTime)myJob.StartTime).ToLocalTime();
-                                TimeSpan interval = (TimeSpan)(DateTime.Now - startlocaltime);
-                                DateTime ETA = DateTime.Now.AddSeconds((100d / progress.progress - 1d) * interval.TotalSeconds);
-                                TimeSpan estimatedduration = (TimeSpan)(ETA - startlocaltime);
+                              // let's calculate the estimated time
+                              string ETAstr = "", Durationstr = "";
+                              if (progress.progress > 3d && progress.progress < 101d)
+                              {
+                                  DateTime startlocaltime = ((DateTime)myJob.StartTime).ToLocalTime();
+                                  TimeSpan interval = (TimeSpan)(DateTime.Now - startlocaltime);
+                                  DateTime ETA = DateTime.Now.AddSeconds((100d / progress.progress - 1d) * interval.TotalSeconds);
+                                  TimeSpan estimatedduration = (TimeSpan)(ETA - startlocaltime);
 
-                                ETAstr = "Estimated: " + ETA.ToString("G");
-                                Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
-                                _MyObservJobV3[index].EndTime = ETA.ToString(@"G") + " ?";
-                                _MyObservJobV3[index].Duration = ReportDuration(myJob) ?? estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
-                            }
+                                  ETAstr = "Estimated: " + ETA.ToString("G");
+                                  Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
+                                  _MyObservJobV3[index].EndTime = ETA.ToString(@"G") + " ?";
+                                  _MyObservJobV3[index].Duration = ReportDuration(myJob) ?? estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
+                              }
 
-                            int indexdisplayed = -1;
-                            foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index in the page
-                            {
-                                if (je.Name == myJob.Name)
-                                {
-                                    indexdisplayed = _MyObservJobV3.IndexOf(je);
-                                    try
-                                    {
-                                        BeginInvoke(new Action(() =>
-                                        {
-                                            Rows[indexdisplayed].Cells[Columns["Progress"].Index].ToolTipText = progress.sb.ToString(); // mouse hover info
-                                            if (progress.progress != 0)
-                                            {
-                                                this.Rows[indexdisplayed].Cells[Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
-                                                this.Rows[indexdisplayed].Cells[Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
-                                            }
-                                            base.Refresh();
-                                        }));
-                                    }
-                                    catch
-                                    {
+                              int indexdisplayed = -1;
+                              foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index in the page
+                              {
+                                  if (je.Name == myJob.Name)
+                                  {
+                                      indexdisplayed = _MyObservJobV3.IndexOf(je);
+                                      try
+                                      {
+                                          BeginInvoke(new Action(() =>
+                                          {
+                                              Rows[indexdisplayed].Cells[Columns["Progress"].Index].ToolTipText = progress.sb.ToString(); // mouse hover info
+                                              if (progress.progress != 0)
+                                              {
+                                                  this.Rows[indexdisplayed].Cells[Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
+                                                  this.Rows[indexdisplayed].Cells[Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
+                                              }
+                                              base.Refresh();
+                                          }));
+                                      }
+                                      catch
+                                      {
 
-                                    }
+                                      }
 
-                                    break;
-                                }
-                            }
-                        }
+                                      break;
+                                  }
+                              }
+                          }
 
-                        if (myJob != null && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Finished && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Error && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled)
-                        {
-                            Debug.WriteLine("wait for status : " + myJob.Name);
-                            Task.Delay(JobRefreshIntervalInMilliseconds).Wait();
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    while (myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Finished
-                    && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Error
-                    && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled);
+                          if (myJob != null && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Finished && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Error && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled)
+                          {
+                              Debug.WriteLine("wait for status : " + myJob.Name);
+                              Task.Delay(JobRefreshIntervalInMilliseconds).Wait();
+                          }
+                          else
+                          {
+                              break;
+                          }
+                      }
+                      while (myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Finished
+                      && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Error
+                      && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled);
 
-                    // job finished
-                    _client.RefreshTokenIfNeeded();
-                    myJob = Task.Run(() =>
-                                           _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
-                                           ).GetAwaiter().GetResult();
+                      // job finished
+                      _client.RefreshTokenIfNeeded();
+                      myJob = Task.Run(() =>
+                                             _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
+                                             ).GetAwaiter().GetResult();
 
-                    int index2 = -1;
-                    foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
-                    {
-                        if (je.Name == myJob.Name)
-                        {
-                            index2 = _MyObservJobV3.IndexOf(je);
-                            break;
-                        }
-                    }
-                    if (index2 >= 0) // we found it
-                    { // we update the observation collection
-                        StringBuilder sb2 = new StringBuilder(); // display percentage for each task for mouse hover (tooltiptext)
+                      int index2 = -1;
+                      foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
+                      {
+                          if (je.Name == myJob.Name)
+                          {
+                              index2 = _MyObservJobV3.IndexOf(je);
+                              break;
+                          }
+                      }
+                      if (index2 >= 0) // we found it
+                      { // we update the observation collection
+                          StringBuilder sb2 = new StringBuilder(); // display percentage for each task for mouse hover (tooltiptext)
 
-                        double progress2 = 0;
-                        for (int i = 0; i < myJob.Outputs.Count; i++)
-                        {
-                            JobOutput output = myJob.Outputs[i];
+                          double progress2 = 0;
+                          for (int i = 0; i < myJob.Outputs.Count; i++)
+                          {
+                              JobOutput output = myJob.Outputs[i];
 
-                            if (output.State == Microsoft.Azure.Management.Media.Models.JobState.Processing)
-                            {
-                                progress2 += output.Progress;
+                              if (output.State == Microsoft.Azure.Management.Media.Models.JobState.Processing)
+                              {
+                                  progress2 += output.Progress;
 
-                                sb2.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(output.Progress).ToString(), output.Label));
-                            }
-                        }
-                        if (myJob.Outputs.Count > 0)
-                        {
-                            progress2 = progress2 / myJob.Outputs.Count;
-                        }
+                                  sb2.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(output.Progress).ToString(), output.Label));
+                              }
+                          }
+                          if (myJob.Outputs.Count > 0)
+                          {
+                              progress2 = progress2 / myJob.Outputs.Count;
+                          }
 
-                        _MyObservJobV3[index2].Progress = 101d; // progress;  we don't want the progress bar to be displayed
-                        _MyObservJobV3[index2].Priority = myJob.Priority;
-                        _MyObservJobV3[index2].State = myJob.State;
-                        _MyObservJobV3[index2].EndTime = myJob.EndTime.HasValue ? ((DateTime)myJob.EndTime).ToLocalTime().ToString("G") : null;
-                        _MyObservJobV3[index2].Duration = ReportDuration(myJob);
+                          _MyObservJobV3[index2].Progress = 101d; // progress;  we don't want the progress bar to be displayed
+                          _MyObservJobV3[index2].Priority = myJob.Priority;
+                          _MyObservJobV3[index2].State = myJob.State;
+                          _MyObservJobV3[index2].EndTime = ReportLocalTime(myJob.EndTime);
+                          _MyObservJobV3[index2].Duration = ReportDuration(myJob);
 
-                        if (_MyListJobsMonitored.ContainsKey(myJob.Name)) // we want to display only one time
-                        {
-                            _MyListJobsMonitored.Remove(myJob.Name); // let's remove from the list of monitored jobs
-                            Mainform myform = (Mainform)FindForm();
+                          if (_MyListJobsMonitored.ContainsKey(myJob.Name)) // we want to display only one time
+                          {
+                              _MyListJobsMonitored.Remove(myJob.Name); // let's remove from the list of monitored jobs
+                              Mainform myform = (Mainform)FindForm();
 
-                            // string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
-                            string status = myJob.State.ToString();
+                              // string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
+                              string status = myJob.State.ToString();
 
-                            myform.BeginInvoke(new Action(() =>
-                            {
-                                myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJobV3[index2].Name), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
-                                myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJobV3[index2].Name, status), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
-                                if (myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error)
-                                {
-                                    foreach (JobOutput output in myJob.Outputs)
-                                    {
+                              myform.BeginInvoke(new Action(() =>
+                              {
+                                  myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJobV3[index2].Name), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
+                                  myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJobV3[index2].Name, status), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
+                                  if (myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error)
+                                  {
+                                      foreach (JobOutput output in myJob.Outputs)
+                                      {
 
-                                        if (output.Error != null && output.Error.Details != null)
-                                        {
-                                            for (int i = 0; i < output.Error.Details.Count(); i++)
-                                            {
-                                                myform.TextBoxLogWriteLine(string.Format("Output '{0}', Error : {1}", output.Label, output.Error + " : " + output.Error.Message), true);
-                                            }
-                                        }
-                                    }
-                                }
-                                myform.DoRefreshGridAssetV(false);
-                            }));
+                                          if (output.Error != null && output.Error.Details != null)
+                                          {
+                                              for (int i = 0; i < output.Error.Details.Count(); i++)
+                                              {
+                                                  myform.TextBoxLogWriteLine(string.Format("Output '{0}', Error : {1}", output.Label, output.Error + " : " + output.Error.Message), true);
+                                              }
+                                          }
+                                      }
+                                  }
+                                  myform.DoRefreshGridAssetV(false);
+                              }));
 
-                            BeginInvoke(new Action(() =>
-                            {
-                                base.Refresh();
-                            }));
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(Program.GetErrorMessage(e), "Job Monitoring Error");
-                    Debug.WriteLine("error job monitor : " + Program.GetErrorMessage(ex));
-                }
-            }, token);
+                              BeginInvoke(new Action(() =>
+                              {
+                                  base.Refresh();
+                              }));
+                          }
+                      }
+                  }
+                  catch (Exception ex)
+                  {
+                      //MessageBox.Show(Program.GetErrorMessage(e), "Job Monitoring Error");
+                      Debug.WriteLine("error job monitor : " + Program.GetErrorMessage(ex));
+                  }
+              }, token);
+        }
+
+        private static string ReportLocalTime(DateTime? dateTime)
+        {
+            return dateTime.HasValue ? ((DateTime)dateTime).ToLocalTime().ToString("G") : null;
         }
 
         private static string ReportDuration(Job myJob)
