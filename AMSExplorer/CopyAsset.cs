@@ -194,7 +194,7 @@ namespace AMSExplorer
         private void CopyAsset_Load(object sender, EventArgs e)
         {
 
-            copyassetname.Text = Constants.NameconvAsset + "-copy";
+            copyassetname.Text = Constants.NameconvAsset + "-copy-" + Guid.NewGuid().ToString().Substring(0, 8);
             /*
             labelWarning.Text = "";
             labelWarningStorage.Text = "";

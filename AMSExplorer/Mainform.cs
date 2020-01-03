@@ -7496,8 +7496,6 @@ namespace AMSExplorer
                             break;
                         }
                     }
-
-
                 }
 
                 // lets copy directory and blobs if any
