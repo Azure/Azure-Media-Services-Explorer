@@ -113,16 +113,7 @@ namespace AMSExplorer
 
             /*
 
-            DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
-            {
-                Name = "Progress",
-                DataPropertyName = "Progress",
-                HeaderText = "Progress"
-            };
-
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
-
-            this.Columns.Add(col);
+           
             BindingList<JobEntry> MyObservJobInPage = new BindingList<JobEntry>(jobquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
@@ -316,18 +307,20 @@ namespace AMSExplorer
             }
 
 
-            IEnumerable<JobEntryV3> jobs = currentPage.Select(a => new JobEntryV3
+            IEnumerable<JobEntryV3> jobs = currentPage.Select(job => new JobEntryV3
             {
-                Name = a.Name,
-                Description = a.Description,
-                LastModified = a.LastModified.ToLocalTime().ToString("G"),
+                Name = job.Name,
+                Description = job.Description,
+                LastModified = job.LastModified.ToLocalTime().ToString("G"),
                 TransformName = transform,
-                Outputs = a.Outputs.Count,
-                Priority = a.Priority,
-                State = a.State,
-                Progress = ReturnProgressJob(a).progress
+                Outputs = job.Outputs.Count,
+                Priority = job.Priority,
+                State = job.State,
+                Progress = ReturnProgressJob(job).progress,
+                StartTime = job.StartTime.HasValue ? ((DateTime)job.StartTime).ToLocalTime().ToString("G") : null,
+                EndTime = job.EndTime.HasValue ? ((DateTime)job.EndTime).ToLocalTime().ToString("G") : null,
+                Duration = ReportDuration(job)                
                 // progress;  we don't want the progress bar to be displayed
-
             }
          );
 
@@ -438,30 +431,24 @@ namespace AMSExplorer
 
                             _MyObservJobV3[index].Progress = progress.progress;
                             _MyObservJobV3[index].Priority = myJob.Priority;
-                            //_MyObservJobV3[index].StartTime = myJob...StartTime.HasValue ? ((DateTime)myJob.StartTime).ToLocalTime().ToString("G") : null;
-                            //_MyObservJobV3[index].EndTime = myJob.EndTime.HasValue ? ((DateTime)myJob.EndTime).ToLocalTime().ToString("G") : null;
-
+                            _MyObservJobV3[index].StartTime = myJob.StartTime.HasValue ? ((DateTime)myJob.StartTime).ToLocalTime().ToString("G") : null;
+                            _MyObservJobV3[index].EndTime = myJob.EndTime.HasValue ? ((DateTime)myJob.EndTime).ToLocalTime().ToString("G") : null;
                             _MyObservJobV3[index].State = myJob.State;
 
-
-                            /*
-                            // let's calculate the estipated time
+                            // let's calculate the estimated time
                             string ETAstr = "", Durationstr = "";
-                            if (progress > 3)
+                            if (progress.progress > 3d && progress.progress < 101d)
                             {
                                 DateTime startlocaltime = ((DateTime)myJob.StartTime).ToLocalTime();
                                 TimeSpan interval = (TimeSpan)(DateTime.Now - startlocaltime);
-                                DateTime ETA = DateTime.Now.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
+                                DateTime ETA = DateTime.Now.AddSeconds((100d / progress.progress - 1d) * interval.TotalSeconds);
                                 TimeSpan estimatedduration = (TimeSpan)(ETA - startlocaltime);
 
                                 ETAstr = "Estimated: " + ETA.ToString("G");
                                 Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
                                 _MyObservJobV3[index].EndTime = ETA.ToString(@"G") + " ?";
-                                _MyObservJobV3[index].Duration = myJob.EndTime.HasValue ?
-                                             ((TimeSpan)((DateTime)myJob.EndTime - (DateTime)myJob.StartTime)).ToString(@"d\.hh\:mm\:ss")
-                                             : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
+                                _MyObservJobV3[index].Duration = ReportDuration(myJob) ?? estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
                             }
-                            */
 
                             int indexdisplayed = -1;
                             foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index in the page
@@ -476,10 +463,10 @@ namespace AMSExplorer
                                             Rows[indexdisplayed].Cells[Columns["Progress"].Index].ToolTipText = progress.sb.ToString(); // mouse hover info
                                             if (progress.progress != 0)
                                             {
-                                                //  this.Rows[indexdisplayed].Cells[this.Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
-                                                //      this.Rows[indexdisplayed].Cells[this.Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
+                                                this.Rows[indexdisplayed].Cells[Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
+                                                this.Rows[indexdisplayed].Cells[Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
                                             }
-                                            Refresh();
+                                            base.Refresh();
                                         }));
                                     }
                                     catch
@@ -509,8 +496,8 @@ namespace AMSExplorer
                     // job finished
                     _client.RefreshTokenIfNeeded();
                     myJob = Task.Run(() =>
-           _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
-           ).GetAwaiter().GetResult();
+                                           _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
+                                           ).GetAwaiter().GetResult();
 
                     int index2 = -1;
                     foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
@@ -545,12 +532,13 @@ namespace AMSExplorer
                         _MyObservJobV3[index2].Progress = 101d; // progress;  we don't want the progress bar to be displayed
                         _MyObservJobV3[index2].Priority = myJob.Priority;
                         _MyObservJobV3[index2].State = myJob.State;
+                        _MyObservJobV3[index2].EndTime = myJob.EndTime.HasValue ? ((DateTime)myJob.EndTime).ToLocalTime().ToString("G") : null;
+                        _MyObservJobV3[index2].Duration = ReportDuration(myJob);
 
                         if (_MyListJobsMonitored.ContainsKey(myJob.Name)) // we want to display only one time
                         {
                             _MyListJobsMonitored.Remove(myJob.Name); // let's remove from the list of monitored jobs
                             Mainform myform = (Mainform)FindForm();
-
 
                             // string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
                             string status = myJob.State.ToString();
@@ -578,13 +566,10 @@ namespace AMSExplorer
 
                             BeginInvoke(new Action(() =>
                             {
-                                Refresh();
+                                base.Refresh();
                             }));
-
                         }
                     }
-
-
                 }
                 catch (Exception ex)
                 {
@@ -592,6 +577,11 @@ namespace AMSExplorer
                     Debug.WriteLine("error job monitor : " + Program.GetErrorMessage(ex));
                 }
             }, token);
+        }
+
+        private static string ReportDuration(Job myJob)
+        {
+            return !myJob.EndTime.HasValue || !myJob.StartTime.HasValue ? null : ((DateTime)myJob.EndTime).Subtract((DateTime)myJob.StartTime).ToString(@"d\.hh\:mm\:ss");
         }
 
         private static JobProgressInfo ReturnProgressJob(Job myJob)
@@ -605,7 +595,6 @@ namespace AMSExplorer
                 if (output.State == Microsoft.Azure.Management.Media.Models.JobState.Processing)
                 {
                     progress += output.Progress;
-
                     sb.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(output.Progress).ToString(), output.Label));
                 }
             }
@@ -621,7 +610,6 @@ namespace AMSExplorer
 
             return new JobProgressInfo() { progress = progress, sb = sb };
         }
-
     }
 
 

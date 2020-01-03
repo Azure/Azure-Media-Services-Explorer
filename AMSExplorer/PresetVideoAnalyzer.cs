@@ -25,9 +25,10 @@ namespace AMSExplorer
     public partial class PresetVideoAnalyzer : Form
     {
         private readonly string _unique;
-        public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-EG", "ru-RU", "hi-IN" };
 
-
+        // langage codes supported : https://go.microsoft.com/fwlink/?linkid=2109463
+        public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-EG", "ar-SY", "ru-RU", "hi-IN", "ko-KR" };
+        
         public string Language => checkBoxAutoLanguage.Checked ? null : ((Item)comboBoxLanguage.SelectedItem).Value as string;
 
         public string TransformName => textBoxTransformName.Text;

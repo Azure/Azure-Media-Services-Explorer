@@ -154,6 +154,7 @@
             // 
             resources.ApplyResources(this.checkBoxAutoLanguage, "checkBoxAutoLanguage");
             this.checkBoxAutoLanguage.Name = "checkBoxAutoLanguage";
+            this.toolTip1.SetToolTip(this.checkBoxAutoLanguage, resources.GetString("checkBoxAutoLanguage.ToolTip"));
             this.checkBoxAutoLanguage.UseVisualStyleBackColor = true;
             this.checkBoxAutoLanguage.CheckedChanged += new System.EventHandler(this.checkBoxAutoLanguage_CheckedChanged);
             // 

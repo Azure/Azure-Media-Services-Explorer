@@ -103,15 +103,14 @@ namespace AMSExplorer
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Priority, MyJob.Priority);
             //DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_OverallProgress, MyJob.GetOverallProgress());
 
-            // if (MyJob.StartTime != null) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, ((DateTime)MyJob.StartTime).ToLocalTime().ToString("G"));
-            // if (MyJob.EndTime != null) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, ((DateTime)MyJob.EndTime).ToLocalTime().ToString("G"));
+            if (MyJob.StartTime.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, ((DateTime)MyJob.StartTime).ToLocalTime().ToString("G"));
+            if (MyJob.EndTime.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, ((DateTime)MyJob.EndTime).ToLocalTime().ToString("G"));
 
-            /*
-            if ((MyJob.StartTime != null) && (MyJob.EndTime != null))
+            
+            if ((MyJob.StartTime.HasValue) && (MyJob.EndTime.HasValue))
             {
                 DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_JobDuration, ((DateTime)MyJob.EndTime).Subtract((DateTime)MyJob.StartTime));
             }
-            */
 
             // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_CPUDuration, MyJob.RunningDuration);
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, MyJob.Created.ToLocalTime().ToString("G"));
