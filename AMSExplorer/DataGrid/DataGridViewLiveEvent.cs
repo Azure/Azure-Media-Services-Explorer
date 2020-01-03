@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2019 Microsoft Corporation
+//    Copyright 2020 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -258,7 +258,7 @@ namespace AMSExplorer
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
                     _MyObservLiveEvent[index].Description = liveEventItem.Description;
                     _MyObservLiveEvent[index].LastModified = liveEventItem.LastModified != null ? (DateTime?)((DateTime)liveEventItem.LastModified).ToLocalTime() : null;
-                    Refresh();
+                    RefreshGridView();
                 }
             }
         }
@@ -285,7 +285,8 @@ namespace AMSExplorer
                     if (liveEventInputItem != null)
                     {
                         CE.State = liveEventInputItem.ResourceState;
-                        BeginInvoke(new Action(() => Refresh()), null);
+                        RefreshGridView();
+                        //BeginInvoke(new Action(() => Refresh()), null);
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -298,7 +299,8 @@ namespace AMSExplorer
                     return;
                 }
             }
-            BeginInvoke(new Action(() => Refresh()), null);
+            RefreshGridView();
+            //            BeginInvoke(new Action(() => Refresh()), null);
         }
 
         private void RefreshLiveEvents() // all assets are refreshed
@@ -340,5 +342,20 @@ namespace AMSExplorer
             _refreshedatleastonetime = true;
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
+
+        private void RefreshGridView()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)delegate ()
+                {
+                    RefreshGridView();
+                });
+            }
+            else
+                Refresh();
+        }
     }
+
+   
 }

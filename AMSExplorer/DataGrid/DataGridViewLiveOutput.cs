@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2019 Microsoft Corporation
+//    Copyright 2020 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -212,7 +212,7 @@ namespace AMSExplorer
                         _MyObservLiveOutputs[index].Description = liveOutput.Description;
                         _MyObservLiveOutputs[index].ArchiveWindowLength = liveOutput.ArchiveWindowLength;
                         _MyObservLiveOutputs[index].LastModified = liveOutput.LastModified != null ? (DateTime?)((DateTime)liveOutput.LastModified).ToLocalTime() : null;
-                        Refresh();
+                        RefreshGridView();
                     }
                     catch
                     {
@@ -243,7 +243,8 @@ namespace AMSExplorer
                     if (liveOutputItem != null)
                     {
                         CE.State = liveOutputItem.ResourceState;
-                        BeginInvoke(new Action(() => Refresh()), null);
+                        RefreshGridView();
+                        // BeginInvoke(new Action(() => Refresh()), null);
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -256,7 +257,8 @@ namespace AMSExplorer
                     return;
                 }
             }
-            BeginInvoke(new Action(() => Refresh()), null);
+            RefreshGridView();
+            // BeginInvoke(new Action(() => Refresh()), null);
         }
 
         private void RefreshPrograms() // all assets are refreshed
@@ -348,6 +350,20 @@ namespace AMSExplorer
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
 
             Debug.WriteLine("RefreshPrograms : end");
+        }
+
+
+        private void RefreshGridView()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)delegate ()
+                {
+                    RefreshGridView();
+                });
+            }
+            else
+                Refresh();
         }
     }
 }

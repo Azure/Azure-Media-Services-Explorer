@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2019 Microsoft Corporation
+//    Copyright 2020 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -130,10 +130,26 @@ namespace AMSExplorer
             {
                 if ((string)Row.Cells[0].Value == transform.Name)
                 {
+                    
                     Row.Selected = true;
+                    FirstDisplayedScrollingRowIndex = SelectedRows[0].Index;
+                    RefreshGridView();
                     break;
                 }
             }
+        }
+
+        private void RefreshGridView()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)delegate ()
+                {
+                    RefreshGridView();
+                });
+            }
+            else
+                Refresh();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2019 Microsoft Corporation
+//    Copyright 2020 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -466,7 +466,8 @@ namespace AMSExplorer
                                                   this.Rows[indexdisplayed].Cells[Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
                                                   this.Rows[indexdisplayed].Cells[Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
                                               }
-                                              base.Refresh();
+                                              //base.Refresh();
+                                              RefreshGridView();
                                           }));
                                       }
                                       catch
@@ -564,10 +565,13 @@ namespace AMSExplorer
                                   myform.DoRefreshGridAssetV(false);
                               }));
 
+                              RefreshGridView();
+                              /*
                               BeginInvoke(new Action(() =>
                               {
                                   base.Refresh();
                               }));
+                              */
                           }
                       }
                   }
@@ -614,6 +618,19 @@ namespace AMSExplorer
             }
 
             return new JobProgressInfo() { progress = progress, sb = sb };
+        }
+
+        private void RefreshGridView()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)delegate ()
+                {
+                    RefreshGridView();
+                });
+            }
+            else
+                Refresh();
         }
     }
 
