@@ -245,6 +245,7 @@ namespace AMSExplorer
 
         private async void ButtonCreateNewTransform_Click(object sender, EventArgs e)
         {
+            string transformName = null;
             TransformTypeCreation form = new TransformTypeCreation();
             form.ShowDialog();
 
@@ -253,21 +254,20 @@ namespace AMSExplorer
                 switch (form.TransformType)
                 {
                     case simpleTransformType.analyze:
-                        await _myMainform.CreateVideoAnalyzerTransformAsync();
+                        transformName = await _myMainform.CreateVideoAnalyzerTransformAsync();
                         break;
 
                     case simpleTransformType.encode:
-                        await _myMainform.CreateStandardEncoderTransformAsync();
+                        transformName = await _myMainform.CreateStandardEncoderTransformAsync();
                         break;
 
                     case simpleTransformType.facedetection:
-                        await _myMainform.CreateFaceDetectorTransformAsync();
+                        transformName = await _myMainform.CreateFaceDetectorTransformAsync();
                         break;
                 }
             }
 
-           await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
-
+            await listViewTransforms.LoadTransformsAsync(_client, transformName);
         }
 
         private void ProcessFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -289,7 +289,7 @@ namespace AMSExplorer
                 await listViewAssets1.LoadAssetsAsync(_client);
             }
             else
-            { 
+            {
             }
         }
 

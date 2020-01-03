@@ -7827,8 +7827,11 @@ namespace AMSExplorer
             }
         }
 
-
-        public async Task CreateVideoAnalyzerTransformAsync()
+        /// <summary>
+        /// Create a Video Analyzer transform
+        /// </summary>
+        /// <returns>The name of the transform</returns>
+        public async Task<string> CreateVideoAnalyzerTransformAsync()
         {
             PresetVideoAnalyzer form = new PresetVideoAnalyzer();
 
@@ -7868,10 +7871,16 @@ namespace AMSExplorer
                 }
 
                 DoRefreshGridTransformV(false);
+                return form.TransformName;
             }
+            return null;
         }
 
-        public async Task CreateFaceDetectorTransformAsync()
+        /// <summary>
+        /// Creates a Face Detector transform.
+        /// </summary>
+        /// <returns>The name of the transform.</returns>
+        public async Task<string> CreateFaceDetectorTransformAsync()
         {
             PresetFaceDetector form = new PresetFaceDetector();
 
@@ -7900,10 +7909,16 @@ namespace AMSExplorer
                 }
 
                 DoRefreshGridTransformV(false);
+                return form.TransformName;
             }
+            return null;
         }
 
-        public async Task CreateStandardEncoderTransformAsync()
+        /// <summary>
+        /// Create a MES Transform
+        /// </summary>
+        /// <returns>The name of the transform</returns>
+        public async Task<string> CreateStandardEncoderTransformAsync()
         {
             PresetStandardEncoder form = new PresetStandardEncoder();
 
@@ -7944,7 +7959,9 @@ namespace AMSExplorer
                 }
 
                 DoRefreshGridTransformV(false);
+                return form.TransformName;
             }
+            return null;
         }
 
         public async Task<Transform> CreateAndGetCopyCodecTransformIfNeededAsync()

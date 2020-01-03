@@ -109,7 +109,6 @@ namespace AMSExplorer
                 {
                     item.Selected = true;
                 }
-
                 Items.Add(item);
             }
             AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
