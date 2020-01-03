@@ -7324,7 +7324,7 @@ namespace AMSExplorer
                         var response = DoGridTransferAddItem($"Copy asset '{assetName}' to account '{copyAssetForm.DestinationStorageAccount}'", TransferType.ExportToOtherAMSAccount, false);
                         // Start a worker thread that does asset copy.
                         Task.Factory.StartNew(() =>
-                        ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, new List<Asset>() { asset }, assetName, response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset, copyAssetForm.CopyDynEnc, copyAssetForm.CloneAssetFilters, copyAssetForm.CloneLocators, copyAssetForm.UnpublishSourceAsset), response.token);
+                        ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, new List<Asset>() { asset }, assetName, response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset), response.token);
                     }
                 }
                 else // merge all assets into a single asset
@@ -7340,7 +7340,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task ProcessExportAssetToAnotherAMSAccount(AMSClientV3 SourceAmsClient, string DestinationStorageAccount, List<Asset> SourceAssets, string TargetAssetName, TransferEntryResponse transferResponse, AMSClientV3 DestinationAmsClient, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool CloneAssetFilters = false, bool CloneStreamingLocators = false, bool UnpublishSourceAsset = false)
+        private async Task ProcessExportAssetToAnotherAMSAccount(AMSClientV3 SourceAmsClient, string DestinationStorageAccount, List<Asset> SourceAssets, string TargetAssetName, TransferEntryResponse transferResponse, AMSClientV3 DestinationAmsClient, bool DeleteSourceAssets = false)
         {
 
             // If upload in the queue, let's wait our turn
@@ -7568,6 +7568,23 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(ex);
                         ErrorCopyAsset = true;
                         break;
+                    }
+                }
+
+
+                // asset deletion if requested
+                if (DeleteSourceAssets)
+                {
+                    try
+                    {
+                        TextBoxLogWriteLine($"Deleting asset '{asset.Name}'...");
+                        await SourceAmsClient.AMSclient.Assets.DeleteAsync(SourceAmsClient.credentialsEntry.ResourceGroup, SourceAmsClient.credentialsEntry.AccountName, asset.Name);
+                        TextBoxLogWriteLine($"Asset '{asset.Name}' deleted.");
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine($"Error when deleting asset '{asset.Name}'.", true);
+                        TextBoxLogWriteLine(ex);
                     }
                 }
             }

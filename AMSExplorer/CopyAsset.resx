@@ -201,36 +201,6 @@
   <data name="&gt;&gt;labelDescription.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="labelWarning.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="labelWarning.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 291</value>
-  </data>
-  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 15</value>
-  </data>
-  <data name="labelWarning.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="labelWarning.Text" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="&gt;&gt;labelWarning.Name" xml:space="preserve">
-    <value>labelWarning</value>
-  </data>
-  <data name="&gt;&gt;labelWarning.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelWarning.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;labelWarning.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
@@ -258,6 +228,18 @@
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="listViewAccounts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
+  </data>
+  <data name="listViewAccounts.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 48</value>
+  </data>
+  <data name="listViewAccounts.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 240</value>
+  </data>
+  <data name="listViewAccounts.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
   <data name="&gt;&gt;listViewAccounts.Name" xml:space="preserve">
     <value>listViewAccounts</value>
   </data>
@@ -270,6 +252,45 @@
   <data name="&gt;&gt;listViewAccounts.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="panelStorageAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
+  </data>
+  <data name="listBoxStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="listBoxStorage.ItemHeight" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="listBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 39</value>
+  </data>
+  <data name="listBoxStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 229</value>
+  </data>
+  <data name="listBoxStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="&gt;&gt;listBoxStorage.Name" xml:space="preserve">
+    <value>listBoxStorage</value>
+  </data>
+  <data name="&gt;&gt;listBoxStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listBoxStorage.Parent" xml:space="preserve">
+    <value>panelStorageAccount</value>
+  </data>
+  <data name="&gt;&gt;listBoxStorage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelStorageAccount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 15</value>
+  </data>
+  <data name="panelStorageAccount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 304</value>
+  </data>
+  <data name="panelStorageAccount.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
   <data name="&gt;&gt;panelStorageAccount.Name" xml:space="preserve">
     <value>panelStorageAccount</value>
   </data>
@@ -281,6 +302,21 @@
   </data>
   <data name="&gt;&gt;panelStorageAccount.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 30</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Media Services Account :</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -317,138 +353,6 @@
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>7</value>
-  </data>
-  <data name="panelStorageAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;labelWarningStorage.Name" xml:space="preserve">
-    <value>labelWarningStorage</value>
-  </data>
-  <data name="&gt;&gt;labelWarningStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelWarningStorage.Parent" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;labelWarningStorage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Name" xml:space="preserve">
-    <value>listBoxStorage</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Parent" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panelStorageAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>208, 15</value>
-  </data>
-  <data name="panelStorageAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>297, 304</value>
-  </data>
-  <data name="panelStorageAccount.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="&gt;&gt;panelStorageAccount.Name" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;panelStorageAccount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelStorageAccount.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;panelStorageAccount.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labelWarningStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="labelWarningStorage.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelWarningStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 275</value>
-  </data>
-  <data name="labelWarningStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 15</value>
-  </data>
-  <data name="labelWarningStorage.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="labelWarningStorage.Text" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="&gt;&gt;labelWarningStorage.Name" xml:space="preserve">
-    <value>labelWarningStorage</value>
-  </data>
-  <data name="&gt;&gt;labelWarningStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelWarningStorage.Parent" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;labelWarningStorage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="listBoxStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="listBoxStorage.ItemHeight" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="listBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 39</value>
-  </data>
-  <data name="listBoxStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 229</value>
-  </data>
-  <data name="listBoxStorage.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Name" xml:space="preserve">
-    <value>listBoxStorage</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Parent" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 30</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>139, 15</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Media Services Account :</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="labelnewassetname.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -538,13 +442,13 @@
     <value>22, 30</value>
   </data>
   <data name="checkBoxDeleteSource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 19</value>
+    <value>139, 19</value>
   </data>
   <data name="checkBoxDeleteSource.TabIndex" type="System.Int32, mscorlib">
     <value>67</value>
   </data>
   <data name="checkBoxDeleteSource.Text" xml:space="preserve">
-    <value>Delete source asset</value>
+    <value>Delete source asset(s)</value>
   </data>
   <data name="&gt;&gt;checkBoxDeleteSource.Name" xml:space="preserve">
     <value>checkBoxDeleteSource</value>
@@ -556,82 +460,26 @@
     <value>groupBoxOptions</value>
   </data>
   <data name="&gt;&gt;checkBoxDeleteSource.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>1</value>
   </data>
   <data name="groupBoxOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
   </data>
-  <data name="&gt;&gt;checkBoxUnPublishSourceAsset.Name" xml:space="preserve">
-    <value>checkBoxUnPublishSourceAsset</value>
+  <data name="checkBoxTargetSingleAsset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;checkBoxUnPublishSourceAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="checkBoxTargetSingleAsset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 60</value>
   </data>
-  <data name="&gt;&gt;checkBoxUnPublishSourceAsset.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
+  <data name="checkBoxTargetSingleAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 34</value>
   </data>
-  <data name="&gt;&gt;checkBoxUnPublishSourceAsset.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="checkBoxTargetSingleAsset.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
   </data>
-  <data name="&gt;&gt;labelCloneFilters.Name" xml:space="preserve">
-    <value>labelCloneFilters</value>
-  </data>
-  <data name="&gt;&gt;labelCloneFilters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCloneFilters.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;labelCloneFilters.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneAssetFilters.Name" xml:space="preserve">
-    <value>checkBoxCloneAssetFilters</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneAssetFilters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneAssetFilters.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneAssetFilters.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocators.Name" xml:space="preserve">
-    <value>labelCloneLocators</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocators.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocators.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocators.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneLocators.Name" xml:space="preserve">
-    <value>checkBoxCloneLocators</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneLocators.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneLocators.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneLocators.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCopyDynEnc.Name" xml:space="preserve">
-    <value>checkBoxCopyDynEnc</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCopyDynEnc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCopyDynEnc.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCopyDynEnc.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="checkBoxTargetSingleAsset.Text" xml:space="preserve">
+    <value>Merge all source assets to
+one single asset</value>
   </data>
   <data name="&gt;&gt;checkBoxTargetSingleAsset.Name" xml:space="preserve">
     <value>checkBoxTargetSingleAsset</value>
@@ -643,19 +491,7 @@
     <value>groupBoxOptions</value>
   </data>
   <data name="&gt;&gt;checkBoxTargetSingleAsset.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocatorForPrograms.Name" xml:space="preserve">
-    <value>labelCloneLocatorForPrograms</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocatorForPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocatorForPrograms.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocatorForPrograms.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>0</value>
   </data>
   <data name="groupBoxOptions.Location" type="System.Drawing.Point, System.Drawing">
     <value>540, 91</value>
@@ -680,220 +516,6 @@
   </data>
   <data name="&gt;&gt;groupBoxOptions.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="checkBoxUnPublishSourceAsset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxUnPublishSourceAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 260</value>
-  </data>
-  <data name="checkBoxUnPublishSourceAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 19</value>
-  </data>
-  <data name="checkBoxUnPublishSourceAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
-  </data>
-  <data name="checkBoxUnPublishSourceAsset.Text" xml:space="preserve">
-    <value>Unpublish source asset</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUnPublishSourceAsset.Name" xml:space="preserve">
-    <value>checkBoxUnPublishSourceAsset</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUnPublishSourceAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUnPublishSourceAsset.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUnPublishSourceAsset.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelCloneFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 203</value>
-  </data>
-  <data name="labelCloneFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 23</value>
-  </data>
-  <data name="labelCloneFilters.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
-  </data>
-  <data name="labelCloneFilters.Text" xml:space="preserve">
-    <value>Start and end times will be removed</value>
-  </data>
-  <data name="&gt;&gt;labelCloneFilters.Name" xml:space="preserve">
-    <value>labelCloneFilters</value>
-  </data>
-  <data name="&gt;&gt;labelCloneFilters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCloneFilters.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;labelCloneFilters.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxCloneAssetFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 180</value>
-  </data>
-  <data name="checkBoxCloneAssetFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 20</value>
-  </data>
-  <data name="checkBoxCloneAssetFilters.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <data name="checkBoxCloneAssetFilters.Text" xml:space="preserve">
-    <value>Clone asset filters</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneAssetFilters.Name" xml:space="preserve">
-    <value>checkBoxCloneAssetFilters</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneAssetFilters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneAssetFilters.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneAssetFilters.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="labelCloneLocators.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 282</value>
-  </data>
-  <data name="labelCloneLocators.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 37</value>
-  </data>
-  <data name="labelCloneLocators.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="labelCloneLocators.Text" xml:space="preserve">
-    <value>Required if source and destination are in the same region</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocators.Name" xml:space="preserve">
-    <value>labelCloneLocators</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocators.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocators.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocators.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="checkBoxCloneLocators.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 234</value>
-  </data>
-  <data name="checkBoxCloneLocators.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 20</value>
-  </data>
-  <data name="checkBoxCloneLocators.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="checkBoxCloneLocators.Text" xml:space="preserve">
-    <value>Clone streaming locators</value>
-  </data>
-  <data name="checkBoxCloneLocators.ToolTip" xml:space="preserve">
-    <value>ID, Name, Start time and Expiration time will be copied</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneLocators.Name" xml:space="preserve">
-    <value>checkBoxCloneLocators</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneLocators.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneLocators.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCloneLocators.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 114</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 19</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.Text" xml:space="preserve">
-    <value>Copy dynamic encryption</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCopyDynEnc.Name" xml:space="preserve">
-    <value>checkBoxCopyDynEnc</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCopyDynEnc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCopyDynEnc.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCopyDynEnc.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 60</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 34</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.Text" xml:space="preserve">
-    <value>Merge all files to
-one single asset</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTargetSingleAsset.Name" xml:space="preserve">
-    <value>checkBoxTargetSingleAsset</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTargetSingleAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTargetSingleAsset.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTargetSingleAsset.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="labelCloneLocatorForPrograms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 255</value>
-  </data>
-  <data name="labelCloneLocatorForPrograms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 37</value>
-  </data>
-  <data name="labelCloneLocatorForPrograms.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
-  </data>
-  <data name="labelCloneLocatorForPrograms.Text" xml:space="preserve">
-    <value>Source and destination must be in different regions</value>
-  </data>
-  <data name="labelCloneLocatorForPrograms.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocatorForPrograms.Name" xml:space="preserve">
-    <value>labelCloneLocatorForPrograms</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocatorForPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocatorForPrograms.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;labelCloneLocatorForPrograms.ZOrder" xml:space="preserve">
-    <value>8</value>
   </data>
   <data name="labelExplanation.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 39</value>
@@ -976,30 +598,6 @@ one single asset</value>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="listViewAccounts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left</value>
-  </data>
-  <data name="listViewAccounts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 48</value>
-  </data>
-  <data name="listViewAccounts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 240</value>
-  </data>
-  <data name="listViewAccounts.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Name" xml:space="preserve">
-    <value>listViewAccounts</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

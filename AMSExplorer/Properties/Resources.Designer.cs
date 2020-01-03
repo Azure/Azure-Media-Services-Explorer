@@ -2255,7 +2255,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clone Channel.
+        ///   Looks up a localized string similar to Clone Live Event.
         /// </summary>
         internal static string CopyAsset_CopyAsset_CloneChannel {
             get {
@@ -2264,7 +2264,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clone channels.
+        ///   Looks up a localized string similar to Clone live events.
         /// </summary>
         internal static string CopyAsset_CopyAsset_CloneChannels {
             get {
@@ -2273,7 +2273,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clone program.
+        ///   Looks up a localized string similar to Clone live output.
         /// </summary>
         internal static string CopyAsset_CopyAsset_CloneProgram {
             get {
@@ -2282,7 +2282,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clone programs.
+        ///   Looks up a localized string similar to Clone live outputs.
         /// </summary>
         internal static string CopyAsset_CopyAsset_ClonePrograms {
             get {

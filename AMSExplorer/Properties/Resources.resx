@@ -892,7 +892,7 @@ The first entry '{0}' will be used.</value>
     <value>The channels will be cloned with the same name and settings to the selected account.</value>
   </data>
   <data name="CopyAsset_CopyAsset_CloneChannel" xml:space="preserve">
-    <value>Clone Channel</value>
+    <value>Clone Live Event</value>
   </data>
   <data name="CopyAsset_CopyAsset_TheChannelWillBeClonedWithTheSameNameAndSettingsToTheSelectedAccount" xml:space="preserve">
     <value>The channel will be cloned with the same name and settings to the selected account.</value>
@@ -904,7 +904,7 @@ The first entry '{0}' will be used.</value>
     <value>{0} channel selected</value>
   </data>
   <data name="CopyAsset_CopyAsset_CloneChannels" xml:space="preserve">
-    <value>Clone channels</value>
+    <value>Clone live events</value>
   </data>
   <data name="CopyAsset_CopyAsset_TheProgramsWillBeClonedToTheSameChannelNameInTheSelectedAccount" xml:space="preserve">
     <value>The programs will be cloned to the same channel name in the selected account.</value>
@@ -919,10 +919,10 @@ The first entry '{0}' will be used.</value>
     <value>{0} program selected</value>
   </data>
   <data name="CopyAsset_CopyAsset_ClonePrograms" xml:space="preserve">
-    <value>Clone programs</value>
+    <value>Clone live outputs</value>
   </data>
   <data name="CopyAsset_CopyAsset_CloneProgram" xml:space="preserve">
-    <value>Clone program</value>
+    <value>Clone live output</value>
   </data>
   <data name="CopyAsset_listBoxAcounts_SelectedIndexChanged_StorageKeyIsEmpty" xml:space="preserve">
     <value>Storage key is empty !</value>
