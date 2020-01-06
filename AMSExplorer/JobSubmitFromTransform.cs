@@ -22,7 +22,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class ProcessFromTransform : Form
+    public partial class JobSubmitFromTransform : Form
     {
         private readonly AMSClientV3 _client;
         private readonly List<Transform> _listPreSelectedTransforms;
@@ -72,13 +72,21 @@ namespace AMSExplorer
 
         }
 
+        public string OutputAssetNameSyntax  // null if no asset
+        {
+            get => !radioButtonExistingAsset.Checked ? textBoxNewAssetNameSyntax.Text : null;
 
-        public ProcessFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? start = null, TimeSpan? end = null, bool noHttpSourceMode = false)
+        }
+
+
+        public JobSubmitFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? start = null, TimeSpan? end = null, bool noHttpSourceMode = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _client = client;
             _listPreSelectedTransforms = listPreSelectedTransforms;
+
+            textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
 
             if (listAssets == null || listAssets.Count == 0)
             {
@@ -88,6 +96,7 @@ namespace AMSExplorer
             else
             {
                 _numberselectedassets = listAssets.Count;
+                textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
             }
 
             if (noHttpSourceMode)
@@ -120,7 +129,7 @@ namespace AMSExplorer
 
         }
 
-        private async void ProcessFromJobTemplate_Load(object sender, EventArgs e)
+        private async void JobSubmitFromTransform_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
 
@@ -197,6 +206,16 @@ namespace AMSExplorer
         private void radioButtonHttpSource_CheckedChanged(object sender, EventArgs e)
         {
             textBoxURL.Enabled = radioButtonHttpSource.Checked;
+
+            if (radioButtonHttpSource.Checked)
+            {
+                textBoxNewAssetNameSyntax.Text = "httpsource-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+            }
+            else
+            {
+                textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+            }
+
             if (radioButtonSelectedAssets.Checked)
             {
                 UpdateStatusButtonOk(SelectedTransform != null);
@@ -270,7 +289,7 @@ namespace AMSExplorer
             await listViewTransforms.LoadTransformsAsync(_client, transformName);
         }
 
-        private void ProcessFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
+        private void JobSubmitFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
             DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, timeControlStartTime, timeControlEndTime }, e, this);
@@ -282,6 +301,8 @@ namespace AMSExplorer
         private async void radioButtonExistingAsset_CheckedChanged(object sender, EventArgs e)
         {
             panelSelectAsset.Enabled = radioButtonExistingAsset.Checked;
+            textBoxNewAssetNameSyntax.Enabled = radioButtonNewAsset.Checked;
+                ;
 
             if (radioButtonExistingAsset.Checked)
             {

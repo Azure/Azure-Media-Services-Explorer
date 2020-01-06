@@ -6187,17 +6187,17 @@ namespace AMSExplorer
             List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-            ProcessFromTransform form = new ProcessFromTransform(_amsClient, this, SelectedAssets);
+            JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClient, this, SelectedAssets);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.SelectedAssetsMode) // assets selected
                 {
-                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime, null, form.ExistingOutputAsset);
+                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime, null, form.ExistingOutputAsset, form.OutputAssetNameSyntax);
                 }
                 else // http source url instead
                 {
-                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime, form.ExistingOutputAsset);
+                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, form.GetURL.OriginalString, form.StartClipTime, form.EndClipTime, form.ExistingOutputAsset, form.OutputAssetNameSyntax);
                 }
 
                 //await dataGridViewTransformsV.RefreshTransformsAsync();
@@ -8022,7 +8022,7 @@ namespace AMSExplorer
             */
         }
 
-        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null)
+        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
@@ -8043,7 +8043,25 @@ namespace AMSExplorer
                     {
                         foreach (var outputTrans in transform.Outputs)
                         {
-                            OutputAssetNameNow = $"{asset.Name}-{transform.Name}-{uniqueness}" + ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+
+                            // output asset name management
+                            if (assetNameSyntax != null)
+                            {
+                                OutputAssetNameNow = assetNameSyntax
+                                    .Replace(Constants.NameconvInputasset, asset.Name)
+                                    .Replace(Constants.NameconvTransform, transform.Name)
+                                    .Replace(Constants.NameconvShortGuid, uniqueness);
+
+                                // example of syntax by default:  Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+                            }
+                            else
+                            {
+                                OutputAssetNameNow = $"{asset.Name}-{transform.Name}-{uniqueness}" + ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+
+                            }
+                            // if several outputs, we need to add an index
+                            OutputAssetNameNow += ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+
                             {
                                 try
                                 {
@@ -8103,7 +8121,7 @@ namespace AMSExplorer
 
 
         // Job creation when source is http
-        private async Task CreateAndSubmitJobsAsync(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null, Asset outputAsset = null)
+        private async Task CreateAndSubmitJobsAsync(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null, Asset outputAsset = null, string assetNameSyntax = null)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
@@ -8121,7 +8139,25 @@ namespace AMSExplorer
                 {
                     foreach (var outputTrans in transform.Outputs)
                     {
-                        OutputAssetNameNow = $"httpsource-{transform.Name}-{uniqueness}" + ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+                        // output asset name management
+                        if (assetNameSyntax != null)
+                        {
+                            OutputAssetNameNow = assetNameSyntax
+                                .Replace(Constants.NameconvTransform, transform.Name)
+                                .Replace(Constants.NameconvShortGuid, uniqueness);
+
+                            // example of syntax by default:  Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+                        }
+                        else
+                        {
+                            OutputAssetNameNow = $"httpsource-{transform.Name}-{uniqueness}" + ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+
+                        }
+                        // if several outputs, we need to add an index
+                        OutputAssetNameNow += ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+
+
+
 
                         try
                         {
@@ -8217,7 +8253,7 @@ namespace AMSExplorer
             List<Transform> sel = await ReturnSelectedTransformsAsync();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
-            ProcessFromTransform form = new ProcessFromTransform(_amsClient, this, null, sel)
+            JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClient, this, null, sel)
             {
                 //ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
                 Text = "Template based processing"

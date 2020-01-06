@@ -480,7 +480,7 @@ namespace AMSExplorer
 
             if (subclipConfig.Reencode) // reencode the clip
             {
-                ProcessFromTransform form = new ProcessFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.StartTime, subclipConfig.EndTime, true);
+                JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.StartTime, subclipConfig.EndTime, true);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {

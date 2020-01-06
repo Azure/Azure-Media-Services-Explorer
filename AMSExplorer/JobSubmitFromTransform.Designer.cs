@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class ProcessFromTransform
+    partial class JobSubmitFromTransform
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessFromTransform));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JobSubmitFromTransform));
             this.label = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
@@ -63,6 +63,7 @@
             this.textBoxExactAssetName = new System.Windows.Forms.TextBox();
             this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
+            this.textBoxNewAssetNameSyntax = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -277,6 +278,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.textBoxNewAssetNameSyntax);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.panelSelectAsset);
             this.tabPage3.Controls.Add(this.radioButtonExistingAsset);
@@ -343,7 +345,12 @@
             this.radioButtonNewAsset.TabStop = true;
             this.radioButtonNewAsset.UseVisualStyleBackColor = true;
             // 
-            // ProcessFromTransform
+            // textBoxNewAssetName
+            // 
+            resources.ApplyResources(this.textBoxNewAssetNameSyntax, "textBoxNewAssetName");
+            this.textBoxNewAssetNameSyntax.Name = "textBoxNewAssetName";
+            // 
+            // JobSubmitFromTransform
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -354,10 +361,10 @@
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label);
-            this.Name = "ProcessFromTransform";
+            this.Name = "JobSubmitFromTransform";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Load += new System.EventHandler(this.ProcessFromJobTemplate_Load);
-            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ProcessFromTransform_DpiChanged);
+            this.Load += new System.EventHandler(this.JobSubmitFromTransform_Load);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.JobSubmitFromTransform_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -411,5 +418,6 @@
         private System.Windows.Forms.Button buttonSearchExactAssetName;
         private System.Windows.Forms.TextBox textBoxExactAssetName;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxNewAssetNameSyntax;
     }
 }

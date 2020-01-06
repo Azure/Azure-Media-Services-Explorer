@@ -567,6 +567,9 @@ namespace AMSExplorer
         public const string NameconvManifestURL = "{manifest url}";
         public const string NameconvToken = "{token}";
         public const string NameconvAsset = "{Asset Name}";
+        public const string NameconvJob = "{Job Name}";
+        public const string NameconvTransform= "{Transform Name}";
+        public const string NameconvShortGuid = "{Short Guid}";
 
         public const string endline = "\r\n";
 
