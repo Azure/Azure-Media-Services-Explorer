@@ -33,11 +33,11 @@ namespace AMSExplorer
         {
             get
             {
-               if (checkBoxLimited.Checked)
+                if (radioButtonLimited.Checked)
                 {
-                    return (long) numericUpDownRentalHours.Value;
+                    return (long)numericUpDownRentalHours.Value;
                 }
-               else
+                else
                 {
                     return 0x9999;
                 }
@@ -50,7 +50,11 @@ namespace AMSExplorer
             {
                 if (radioButtonPersistent.Checked)
                 {
-                    if (checkBoxLimited.Checked)
+                    if (radioButtonOfflineRental.Checked)
+                    {
+                        return ContentKeyPolicyFairPlayRentalAndLeaseKeyType.DualExpiry;
+                    }
+                    else if (radioButtonLimited.Checked)
                     {
                         return ContentKeyPolicyFairPlayRentalAndLeaseKeyType.PersistentLimited;
                     }
@@ -62,6 +66,21 @@ namespace AMSExplorer
                 else
                 {
                     return ContentKeyPolicyFairPlayRentalAndLeaseKeyType.Undefined;
+                }
+            }
+        }
+
+        public ContentKeyPolicyFairPlayOfflineRentalConfiguration FairPlayOfflineRentalConfig
+        {
+            get
+            {
+                if (radioButtonPersistent.Checked && radioButtonOfflineRental.Checked)
+                {
+                    return new ContentKeyPolicyFairPlayOfflineRentalConfiguration(((long)numericUpDownOfflinePlayback.Value) * 3600, ((long)numericUpDownOfflineStorage.Value) * 3600);
+                }
+                else
+                {
+                    return null;
                 }
             }
         }
@@ -91,23 +110,24 @@ namespace AMSExplorer
             DpiUtils.InitPerMonitorDpi(this);
         }
 
-        private void checkBoxSecLevel_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
         private void radioButtonPersistent_CheckedChanged(object sender, EventArgs e)
         {
             panelPersistent.Enabled = radioButtonPersistent.Checked;
         }
 
-        private void checkBoxLimited_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownRentalHours.Enabled = checkBoxLimited.Checked;
-        }
-
         private void DRM_FairPlayLicense_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
+        }
+
+        private void radioButtonLimited_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownRentalHours.Enabled = radioButtonLimited.Checked;
+        }
+
+        private void radioButtonOfflineRental_CheckedChanged(object sender, EventArgs e)
+        {
+            panelOffline.Enabled = radioButtonOfflineRental.Checked;
         }
     }
 }

@@ -2154,8 +2154,8 @@ namespace AMSExplorer
                                                     RentalDuration = formFairPlay[i].RentalDuration,
                                                     Ask = formCencDelivery.FairPlayASK,
                                                     FairPlayPfxPassword = formCencDelivery.FairPlayCertificate.Password,
-                                                    FairPlayPfx = Convert.ToBase64String(formCencDelivery.FairPlayCertificate.Certificate.Export(X509ContentType.Pfx, formCencDelivery.FairPlayCertificate.Password))
-
+                                                    FairPlayPfx = Convert.ToBase64String(formCencDelivery.FairPlayCertificate.Certificate.Export(X509ContentType.Pfx, formCencDelivery.FairPlayCertificate.Password)),
+                                                    OfflineRentalConfiguration = formFairPlay[i].FairPlayOfflineRentalConfig
                                                 },
                                                 Restriction = formFairPlayTokenClaims[i].GetContentKeyPolicyRestriction,
                                                 Name = formFairPlay[i].FairPlayePolicyName
