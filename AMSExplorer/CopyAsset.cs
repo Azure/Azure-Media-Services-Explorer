@@ -129,7 +129,7 @@ namespace AMSExplorer
         private void CopyAsset_Load(object sender, EventArgs e)
         {
 
-            copyassetname.Text = Constants.NameconvAsset + "-copy-" + Program.GenerateShortUniqueness();
+            copyassetname.Text = Constants.NameconvAsset + "-copy-" + Program.GetUniqueness();
 
             DpiUtils.InitPerMonitorDpi(this);
 

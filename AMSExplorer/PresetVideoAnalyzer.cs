@@ -42,7 +42,7 @@ namespace AMSExplorer
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
-            _unique = Program.GenerateShortUniqueness();
+            _unique = Program.GetUniqueness();
         }
 
         private void PresetVideoAnalyzer_Load(object sender, EventArgs e)

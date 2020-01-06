@@ -741,15 +741,14 @@ namespace AMSExplorer
 
                         if (newAssetCreationSettings != null)
                         {
-                            destAssetName = newAssetCreationSettings.AssetName;
+                            destAssetName = newAssetCreationSettings.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness());
                             assetToCreateSettings.AlternateId = newAssetCreationSettings.AssetAltId;
                             assetToCreateSettings.Container = newAssetCreationSettings.AssetContainer;
-                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription;
+                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0]));
                         }
                         else
                         {
-                            string uniqueness = Program.GenerateShortUniqueness();
-                            destAssetName = "uploaded-" + uniqueness;
+                            destAssetName = "uploaded-" + Program.GetUniqueness();
                             assetToCreateSettings.Description = Path.GetFileName(filenames[0]);
                         }
 
@@ -892,7 +891,6 @@ namespace AMSExplorer
                 }
             }
 
-
             if (!Error && !token.IsCancellationRequested)
             {
                 DoGridTransferDeclareCompleted(guidTransfer, destAssetName);
@@ -931,19 +929,17 @@ namespace AMSExplorer
 
             try
             {
-
                 var assetSettings = new Asset()
                 {
                     StorageAccountName = storageaccount,
-                    Description = assetCreationSettings?.AssetDescription,
+                    Description = assetCreationSettings?.AssetDescription.Replace(Constants.NameconvUrl, source.AbsoluteUri) ?? "Imported from : " + source.AbsoluteUri,
                     AlternateId = assetCreationSettings?.AssetAltId,
                     Container = assetCreationSettings?.AssetContainer
                 };
 
-                destAssetName = assetCreationSettings?.AssetName ?? "uploaded-" + Program.GenerateShortUniqueness();
+                destAssetName = assetCreationSettings?.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness()) ?? "uploaded-" + Program.GetUniqueness();
 
                 asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetSettings, token);
-
 
                 ListContainerSasInput input = new ListContainerSasInput()
                 {
@@ -1025,8 +1021,6 @@ namespace AMSExplorer
                 TextBoxLogWriteLine(e);
             }
 
-
-
             if (!Error && !token.IsCancellationRequested)
             {
                 DoGridTransferDeclareCompleted(guidTransfer, destAssetName);
@@ -1070,12 +1064,12 @@ namespace AMSExplorer
                 var assetSettings = new Asset()
                 {
                     StorageAccountName = storageaccount,
-                    Description = assetCreationSettings?.AssetDescription,
+                    Description = assetCreationSettings?.AssetDescription.Replace(Constants.NameconvUrl, ObjectUrl.AbsoluteUri) ?? "Imported from : " + ObjectUrl.AbsoluteUri,
                     AlternateId = assetCreationSettings?.AssetAltId,
                     Container = assetCreationSettings?.AssetContainer
                 };
 
-                destAssetName = assetCreationSettings?.AssetName ?? "uploaded-" + Program.GenerateShortUniqueness();
+                destAssetName = assetCreationSettings?.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness()) ?? "uploaded-" + Program.GetUniqueness();
 
                 asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetSettings, token);
 
@@ -1576,7 +1570,6 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
                 try
                 {
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", Path.GetFileName(form.GetURL.LocalPath)), TransferType.ImportFromHttp, false);
@@ -2194,7 +2187,7 @@ namespace AMSExplorer
                         {
                             keyPolicy = await _amsClient.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup,
                         _amsClient.credentialsEntry.AccountName,
-                        "keypolicy-" + Program.GenerateShortUniqueness(),
+                        "keypolicy-" + Program.GetUniqueness(),
                         options);
                         }
                         catch (Exception e)
@@ -2388,7 +2381,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    string uniqueness = Program.GenerateShortUniqueness();
+                    string uniqueness = Program.GetUniqueness();
                     string streamingLocatorName = "locator-" + uniqueness;
 
                     locator = new StreamingLocator(
@@ -5236,7 +5229,7 @@ namespace AMSExplorer
             LiveEvent liveEvent = (await ReturnSelectedLiveEventsAsync()).FirstOrDefault();
             if (liveEvent != null)
             {
-                string uniqueness = Program.GenerateShortUniqueness();
+                string uniqueness = Program.GetUniqueness();
 
                 LiveOutputCreation form = new LiveOutputCreation(_amsClient)
                 {
@@ -6297,7 +6290,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                             try
                             {
-                                string uniqueness = Program.GenerateShortUniqueness();
+                                string uniqueness = Program.GetUniqueness();
 
                                 StreamingLocator locator = new StreamingLocator(
                                                                                 assetName: myAsset.Name,
@@ -7708,7 +7701,6 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
                 try
                 {
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Import from SAS Container Path '{0}'", form.GetURL.LocalPath), TransferType.ImportFromHttp, false);
@@ -8030,7 +8022,7 @@ namespace AMSExplorer
             {
                 foreach (Transform transform in sel)
                 {
-                    string uniqueness = Program.GenerateShortUniqueness();
+                    string uniqueness = Program.GetUniqueness();
                     if (jobName == null)
                         jobName = $"job-{transform.Name}-{uniqueness}";
 
@@ -8052,7 +8044,7 @@ namespace AMSExplorer
                                     .Replace(Constants.NameconvTransform, transform.Name)
                                     .Replace(Constants.NameconvShortUniqueness, uniqueness);
 
-                                // example of syntax by default:  Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+                                // example of syntax by default:  Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
                             }
                             else
                             {
@@ -8127,7 +8119,7 @@ namespace AMSExplorer
 
             foreach (Transform transform in sel)
             {
-                string uniqueness = Program.GenerateShortUniqueness();
+                string uniqueness = Program.GetUniqueness();
                 string jobName = $"job-{transform.Name}-{uniqueness}";
 
                 Asset OutputAssetNow = outputAsset;
@@ -8155,8 +8147,6 @@ namespace AMSExplorer
                         }
                         // if several outputs, we need to add an index
                         OutputAssetNameNow += ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
-
-
 
 
                         try
@@ -8451,16 +8441,14 @@ namespace AMSExplorer
 
         private async Task DoNewAssetAsync()
         {
-            string uniqueness = Program.GenerateShortUniqueness();
-
-            NewAsset myForm = new NewAsset(_amsClient) { AssetName = "asset-" + uniqueness };
+            NewAsset myForm = new NewAsset(_amsClient) { AssetName = "asset-" + Constants.NameconvShortUniqueness };
             if (myForm.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     TextBoxLogWriteLine("Creating asset '{0}'...", myForm.AssetName);
                     Asset assetParam = new Asset() { StorageAccountName = myForm.StorageSelected, Container = myForm.AssetContainer, AlternateId = myForm.AssetAltId, Description = myForm.AssetDescription };
-                    await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myForm.AssetName, assetParam);
+                    await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myForm.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness()), assetParam);
                     TextBoxLogWriteLine("Asset '{0}' created.", myForm.AssetName);
                 }
                 catch (Exception e)

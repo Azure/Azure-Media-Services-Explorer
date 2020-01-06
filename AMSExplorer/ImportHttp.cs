@@ -65,7 +65,7 @@ namespace AMSExplorer
             _AzureStorageContainerSASListMode = AzureStorageContainerSASListMode;
 
             _amsClientV3 = amsClient;
-            _uniqueness = Program.GenerateShortUniqueness();
+            _uniqueness = Program.GetUniqueness();
         }
       
 
@@ -96,7 +96,6 @@ namespace AMSExplorer
                     comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
                 }
             }
-
         }
 
         private void textBoxURL_TextChanged(object sender, EventArgs e)
@@ -131,11 +130,10 @@ namespace AMSExplorer
 
             if (newAssetForm == null)
             {
-                string uniqueness = Program.GenerateShortUniqueness();
                 newAssetForm = new NewAsset(_amsClientV3, true)
                 {
-                    AssetName = "upload-" + uniqueness,
-                    AssetDescription = "Imported from : " + GetURL.AbsoluteUri
+                    AssetName = "uploaded-" + Constants.NameconvShortUniqueness,
+                    AssetDescription = "Imported from : " + Constants.NameconvUrl
                 };
             }
             else

@@ -463,7 +463,7 @@ namespace AMSExplorer
         /// Generate a short uniqueness of 10 characters
         /// </summary>
         /// <returns></returns>
-        public static string GenerateShortUniqueness()
+        public static string GetUniqueness()
         {
             return Guid.NewGuid().ToString().Substring(0, 11).Replace("-", "");
         }
@@ -579,6 +579,8 @@ namespace AMSExplorer
         public const string NameconvJob = "{Job Name}";
         public const string NameconvTransform= "{Transform Name}";
         public const string NameconvShortUniqueness = "{Short Uniqueness}";
+        public const string NameconvFileName = "{File Name}";
+        public const string NameconvUrl = "{Url}";
 
         public const string endline = "\r\n";
 
@@ -755,7 +757,7 @@ namespace AMSExplorer
 
             try
             {
-                string streamingLocatorName = "templocator-" + Program.GenerateShortUniqueness();
+                string streamingLocatorName = "templocator-" + Program.GetUniqueness();
 
                 tempLocator = new StreamingLocator(
                     assetName: asset.Name,
