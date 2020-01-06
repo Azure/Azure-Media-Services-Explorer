@@ -7553,7 +7553,7 @@ namespace AMSExplorer
 
                                 var nbCompleted = blobsCurrentCopy.Where(b => b.CopyState.Status != CopyStatus.Pending).Count();
                                 percentComplete = 100d * (indexdir + Convert.ToDouble(indexstartpacket + nbCompleted) / Convert.ToDouble(listBlockBlobsLive.Count())) / Convert.ToDouble(listDirectories.Count());
-                                DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", blobdir.Prefix, indexstartpacket + nbCompleted,  listBlockBlobsLive.Count()), (int)percentComplete, transferResponse.Id);
+                                DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", blobdir.Prefix, indexstartpacket + nbCompleted, listBlockBlobsLive.Count()), (int)percentComplete, transferResponse.Id);
                             }
                             indexstartpacket += listBlockBlobsLivePacket.Count();
                             TextBoxLogWriteLine($"{indexstartpacket} blobs copied...");
@@ -8034,43 +8034,46 @@ namespace AMSExplorer
                     if (jobName == null)
                         jobName = $"job-{transform.Name}-{uniqueness}";
 
-
                     Asset OutputAssetNow = outputAsset;
                     string OutputAssetNameNow = OutputAssetNow?.Name;
+
+                    List<JobOutput> jobOutputs = new List<JobOutput>();
+
                     if (OutputAssetNow == null)
                     {
-                        OutputAssetNameNow = $"{asset.Name}-{transform.Name}-{uniqueness}";
-
-                        try
+                        foreach (var outputTrans in transform.Outputs)
                         {
+                            OutputAssetNameNow = $"{asset.Name}-{transform.Name}-{uniqueness}" + ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+                            {
+                                try
+                                {
+                                    OutputAssetNow = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
+                                                                                _amsClient.credentialsEntry.ResourceGroup,
+                                                                                _amsClient.credentialsEntry.AccountName,
+                                                                                OutputAssetNameNow,
+                                                                                new Asset()
+                                                                                );
 
+                                    jobOutputs.Add(new JobOutputAsset(OutputAssetNameNow));
 
-                            OutputAssetNow = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
-                                                                        _amsClient.credentialsEntry.ResourceGroup,
-                                                                        _amsClient.credentialsEntry.AccountName,
-                                                                        OutputAssetNameNow,
-                                                                        new Asset()
-                                                                        );
-
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Error when creating output asset.", true); // Warning
-                            TextBoxLogWriteLine(ex);
-                            break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    TextBoxLogWriteLine("Error when creating output asset.", true); // Warning
+                                    TextBoxLogWriteLine(ex);
+                                    break;
+                                }
+                            }
                         }
                     }
-
-
-                    JobOutput[] jobOutputs =
-                         {
-                    new JobOutputAsset(OutputAssetNameNow),
-                };
+                    else
+                    {
+                        transform.Outputs.ToList().ForEach(t => jobOutputs.Add(new JobOutputAsset(OutputAssetNameNow)));
+                    }
 
                     JobInputAsset jobInput = new JobInputAsset(asset.Name, start: start, end: end);
                     try
                     {
-
                         Job job = await
                                                      _amsClient.AMSclient.Jobs.CreateAsync(
                                                                     _amsClient.credentialsEntry.ResourceGroup,
@@ -8092,7 +8095,6 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Error when creating output asset or submitting the job.", true); // Warning
                         TextBoxLogWriteLine(ex);
-
                     }
                 }
             }
@@ -8112,40 +8114,46 @@ namespace AMSExplorer
 
                 Asset OutputAssetNow = outputAsset;
                 string OutputAssetNameNow = OutputAssetNow?.Name;
+
+                List<JobOutput> jobOutputs = new List<JobOutput>();
+
                 if (OutputAssetNow == null)
                 {
-                    OutputAssetNameNow = $"httpsource-{transform.Name}-{uniqueness}";
-
-                    try
+                    foreach (var outputTrans in transform.Outputs)
                     {
+                        OutputAssetNameNow = $"httpsource-{transform.Name}-{uniqueness}" + ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+
+                        try
+                        {
 
 
-                        OutputAssetNow = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
-                                                                    _amsClient.credentialsEntry.ResourceGroup,
-                                                                    _amsClient.credentialsEntry.AccountName,
-                                                                    OutputAssetNameNow,
-                                                                    new Asset()
-                                                                    );
+                            OutputAssetNow = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(
+                                                                        _amsClient.credentialsEntry.ResourceGroup,
+                                                                        _amsClient.credentialsEntry.AccountName,
+                                                                        OutputAssetNameNow,
+                                                                        new Asset()
+                                                                        );
 
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error when creating output asset.", true); // Warning
-                        TextBoxLogWriteLine(ex);
-                        break;
+                            jobOutputs.Add(new JobOutputAsset(OutputAssetNameNow));
+
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when creating output asset.", true); // Warning
+                            TextBoxLogWriteLine(ex);
+                            break;
+                        }
                     }
                 }
-
+                else
+                {
+                    transform.Outputs.ToList().ForEach(t => jobOutputs.Add(new JobOutputAsset(OutputAssetNameNow)));
+                }
 
                 JobInputHttp jobInput = new JobInputHttp(files: new[] { url }, start: start, end: end);
 
                 try
                 {
-
-                    JobOutput[] jobOutputs =
-                     {
-                    new JobOutputAsset(OutputAssetNameNow),
-                };
                     Job job = await _amsClient.AMSclient.Jobs.CreateAsync(
                                                                 _amsClient.credentialsEntry.ResourceGroup,
                                                                 _amsClient.credentialsEntry.AccountName,

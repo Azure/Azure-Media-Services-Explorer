@@ -2537,6 +2537,20 @@ namespace AMSExplorer
             }
         }
 
+        public int _Outputs;
+        public int Outputs
+        {
+            get => _Outputs;
+            set
+            {
+                if (value != _Outputs)
+                {
+                    _Outputs = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public int _Jobs;
         public int Jobs
         {

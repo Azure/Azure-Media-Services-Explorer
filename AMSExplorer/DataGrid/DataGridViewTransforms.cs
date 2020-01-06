@@ -90,6 +90,7 @@ namespace AMSExplorer
             {
                 Name = a.Name,
                 Description = a.Description,
+                Outputs = a.Outputs.Count,
                 Jobs = (await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).Count(),
                 LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
@@ -130,7 +131,7 @@ namespace AMSExplorer
             {
                 if ((string)Row.Cells[0].Value == transform.Name)
                 {
-                    
+
                     Row.Selected = true;
                     FirstDisplayedScrollingRowIndex = SelectedRows[0].Index;
                     RefreshGridView();
