@@ -91,7 +91,7 @@ namespace AMSExplorer
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
-            _unique = Guid.NewGuid().ToString().Substring(0, 13);
+            _unique = Program.GenerateShortUniqueness();
         }
 
         private void PresetStandardEncoder_Load(object sender, EventArgs e)

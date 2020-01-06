@@ -108,7 +108,7 @@ namespace AMSExplorer
 
             if (newAssetForm == null)
             {
-                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                string uniqueness = Program.GenerateShortUniqueness();
                 newAssetForm = new NewAsset(_amsClientV3, true) { AssetName = "upload-" + uniqueness };
             }
             else

@@ -86,7 +86,7 @@ namespace AMSExplorer
             _client = client;
             _listPreSelectedTransforms = listPreSelectedTransforms;
 
-            textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+            textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
 
             if (listAssets == null || listAssets.Count == 0)
             {
@@ -96,7 +96,7 @@ namespace AMSExplorer
             else
             {
                 _numberselectedassets = listAssets.Count;
-                textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+                textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
             }
 
             if (noHttpSourceMode)
@@ -209,11 +209,11 @@ namespace AMSExplorer
 
             if (radioButtonHttpSource.Checked)
             {
-                textBoxNewAssetNameSyntax.Text = "httpsource-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+                textBoxNewAssetNameSyntax.Text = "httpsource-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
             }
             else
             {
-                textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
+                textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
             }
 
             if (radioButtonSelectedAssets.Checked)

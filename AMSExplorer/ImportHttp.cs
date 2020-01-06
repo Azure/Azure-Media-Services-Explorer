@@ -65,8 +65,9 @@ namespace AMSExplorer
             _AzureStorageContainerSASListMode = AzureStorageContainerSASListMode;
 
             _amsClientV3 = amsClient;
-            _uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+            _uniqueness = Program.GenerateShortUniqueness();
         }
+      
 
         private async void ImportHttp_Load(object sender, EventArgs e)
         {
@@ -130,7 +131,7 @@ namespace AMSExplorer
 
             if (newAssetForm == null)
             {
-                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                string uniqueness = Program.GenerateShortUniqueness();
                 newAssetForm = new NewAsset(_amsClientV3, true)
                 {
                     AssetName = "upload-" + uniqueness,

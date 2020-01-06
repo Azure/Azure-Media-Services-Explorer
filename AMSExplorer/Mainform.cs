@@ -748,7 +748,7 @@ namespace AMSExplorer
                         }
                         else
                         {
-                            string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                            string uniqueness = Program.GenerateShortUniqueness();
                             destAssetName = "uploaded-" + uniqueness;
                             assetToCreateSettings.Description = Path.GetFileName(filenames[0]);
                         }
@@ -940,7 +940,7 @@ namespace AMSExplorer
                     Container = assetCreationSettings?.AssetContainer
                 };
 
-                destAssetName = assetCreationSettings?.AssetName ?? "uploaded-" + Guid.NewGuid().ToString().Substring(0, 13);
+                destAssetName = assetCreationSettings?.AssetName ?? "uploaded-" + Program.GenerateShortUniqueness();
 
                 asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetSettings, token);
 
@@ -1075,7 +1075,7 @@ namespace AMSExplorer
                     Container = assetCreationSettings?.AssetContainer
                 };
 
-                destAssetName = assetCreationSettings?.AssetName ?? "uploaded-" + Guid.NewGuid().ToString().Substring(0, 13);
+                destAssetName = assetCreationSettings?.AssetName ?? "uploaded-" + Program.GenerateShortUniqueness();
 
                 asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetSettings, token);
 
@@ -2194,7 +2194,7 @@ namespace AMSExplorer
                         {
                             keyPolicy = await _amsClient.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup,
                         _amsClient.credentialsEntry.AccountName,
-                        "keypolicy-" + Guid.NewGuid().ToString().Substring(0, 13),
+                        "keypolicy-" + Program.GenerateShortUniqueness(),
                         options);
                         }
                         catch (Exception e)
@@ -2388,7 +2388,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                    string uniqueness = Program.GenerateShortUniqueness();
                     string streamingLocatorName = "locator-" + uniqueness;
 
                     locator = new StreamingLocator(
@@ -5236,7 +5236,7 @@ namespace AMSExplorer
             LiveEvent liveEvent = (await ReturnSelectedLiveEventsAsync()).FirstOrDefault();
             if (liveEvent != null)
             {
-                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                string uniqueness = Program.GenerateShortUniqueness();
 
                 LiveOutputCreation form = new LiveOutputCreation(_amsClient)
                 {
@@ -6297,7 +6297,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                             try
                             {
-                                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                                string uniqueness = Program.GenerateShortUniqueness();
 
                                 StreamingLocator locator = new StreamingLocator(
                                                                                 assetName: myAsset.Name,
@@ -8030,7 +8030,7 @@ namespace AMSExplorer
             {
                 foreach (Transform transform in sel)
                 {
-                    string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                    string uniqueness = Program.GenerateShortUniqueness();
                     if (jobName == null)
                         jobName = $"job-{transform.Name}-{uniqueness}";
 
@@ -8050,7 +8050,7 @@ namespace AMSExplorer
                                 OutputAssetNameNow = assetNameSyntax
                                     .Replace(Constants.NameconvInputasset, asset.Name)
                                     .Replace(Constants.NameconvTransform, transform.Name)
-                                    .Replace(Constants.NameconvShortGuid, uniqueness);
+                                    .Replace(Constants.NameconvShortUniqueness, uniqueness);
 
                                 // example of syntax by default:  Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
                             }
@@ -8127,7 +8127,7 @@ namespace AMSExplorer
 
             foreach (Transform transform in sel)
             {
-                string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+                string uniqueness = Program.GenerateShortUniqueness();
                 string jobName = $"job-{transform.Name}-{uniqueness}";
 
                 Asset OutputAssetNow = outputAsset;
@@ -8144,7 +8144,7 @@ namespace AMSExplorer
                         {
                             OutputAssetNameNow = assetNameSyntax
                                 .Replace(Constants.NameconvTransform, transform.Name)
-                                .Replace(Constants.NameconvShortGuid, uniqueness);
+                                .Replace(Constants.NameconvShortUniqueness, uniqueness);
 
                             // example of syntax by default:  Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortGuid;
                         }
@@ -8451,7 +8451,7 @@ namespace AMSExplorer
 
         private async Task DoNewAssetAsync()
         {
-            string uniqueness = Guid.NewGuid().ToString().Substring(0, 13);
+            string uniqueness = Program.GenerateShortUniqueness();
 
             NewAsset myForm = new NewAsset(_amsClient) { AssetName = "asset-" + uniqueness };
             if (myForm.ShowDialog() == DialogResult.OK)

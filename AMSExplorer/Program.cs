@@ -459,6 +459,15 @@ namespace AMSExplorer
             }
         }
 
+        /// <summary>
+        /// Generate a short uniqueness of 10 characters
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateShortUniqueness()
+        {
+            return Guid.NewGuid().ToString().Substring(0, 11).Replace("-", "");
+        }
+
         public class LiveOutputExt
         {
             public LiveOutput LiveOutputItem { get; set; }
@@ -569,7 +578,7 @@ namespace AMSExplorer
         public const string NameconvAsset = "{Asset Name}";
         public const string NameconvJob = "{Job Name}";
         public const string NameconvTransform= "{Transform Name}";
-        public const string NameconvShortGuid = "{Short Guid}";
+        public const string NameconvShortUniqueness = "{Short Uniqueness}";
 
         public const string endline = "\r\n";
 
@@ -746,7 +755,7 @@ namespace AMSExplorer
 
             try
             {
-                string streamingLocatorName = "templocator-" + Guid.NewGuid().ToString().Substring(0, 13);
+                string streamingLocatorName = "templocator-" + Program.GenerateShortUniqueness();
 
                 tempLocator = new StreamingLocator(
                     assetName: asset.Name,
