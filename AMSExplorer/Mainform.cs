@@ -18216,7 +18216,7 @@ namespace AMSExplorer
                                        // For indexer, there is an option to copy subtitles files to input asset
                                        if (CopySubtitlesToSourceAsset && JobRefreshed.State == JobState.Finished && JobRefreshed.Tasks.Count == 1)
                                        {
-                                           var subtitlesFiles = JobRefreshed.Tasks.FirstOrDefault().OutputAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.Name.EndsWith(".vtt", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ttml", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".smi", StringComparison.OrdinalIgnoreCase));
+                                           var subtitlesFiles = JobRefreshed.Tasks.FirstOrDefault().OutputAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.Name.EndsWith(".vtt", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".ttml", StringComparison.OrdinalIgnoreCase));
                                            var inputAsset = JobRefreshed.Tasks.FirstOrDefault().InputAssets.FirstOrDefault();
                                            foreach (var file in subtitlesFiles)
                                            {
