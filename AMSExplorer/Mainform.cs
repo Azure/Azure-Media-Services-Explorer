@@ -8022,10 +8022,16 @@ namespace AMSExplorer
             {
                 foreach (Transform transform in sel)
                 {
+                    string jobNameToUse = jobName;
                     string uniqueness = Program.GetUniqueness();
-                    if (jobName == null)
-                        jobName = $"job-{transform.Name}-{uniqueness}";
-
+                    if (jobNameToUse == null)
+                    {
+                        jobNameToUse = $"job-{transform.Name}-{uniqueness}";
+                    }
+                    else if (assets.Count > 1) // job name defined but we need to add a uniqueness as there are several assets, so several jobs to submit
+                    {
+                        jobNameToUse += uniqueness;
+                    }
                     Asset OutputAssetNow = outputAsset;
                     string OutputAssetNameNow = OutputAssetNow?.Name;
 
@@ -8089,7 +8095,7 @@ namespace AMSExplorer
                                                                     _amsClient.credentialsEntry.ResourceGroup,
                                                                     _amsClient.credentialsEntry.AccountName,
                                                                     transform.Name,
-                                                                    jobName,
+                                                                    jobNameToUse,
                                                                     new Job
                                                                     {
                                                                         Input = jobInput,

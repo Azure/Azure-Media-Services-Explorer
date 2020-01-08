@@ -578,7 +578,7 @@ namespace AMSExplorer
         public const string NameconvAsset = "{Asset Name}";
         public const string NameconvJob = "{Job Name}";
         public const string NameconvTransform= "{Transform Name}";
-        public const string NameconvShortUniqueness = "{Short Uniqueness}";
+        public const string NameconvShortUniqueness = "{Uniqueness}";
         public const string NameconvFileName = "{File Name}";
         public const string NameconvUrl = "{Url}";
 
