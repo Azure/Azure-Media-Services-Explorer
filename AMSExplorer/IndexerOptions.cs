@@ -14,17 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client;
 
 
 namespace AMSExplorer
@@ -38,22 +28,14 @@ namespace AMSExplorer
             {
                 return new IndexerOptionsVar()
                 {
-                    AIB = checkBoxAIB.Checked,
-                    Keywords = checkBoxKeywords.Checked,
-                    SAMI = checkBoxSAMI.Checked,
                     TTML = checkBoxTTML.Checked,
                     WebVTT = checkBoxWEBVTT.Checked,
-                    ForFullCaptions = checkBoxForceFullCaptions.Checked
                 };
             }
             set
             {
-                checkBoxAIB.Checked = value.AIB;
-                checkBoxKeywords.Checked = value.Keywords;
-                checkBoxSAMI.Checked = value.SAMI;
                 checkBoxTTML.Checked = value.TTML;
                 checkBoxWEBVTT.Checked = value.WebVTT;
-                checkBoxForceFullCaptions.Checked = value.ForFullCaptions;
             }
         }
 
@@ -61,8 +43,6 @@ namespace AMSExplorer
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            if (IndexerV2) groupBoxOther.Visible = false;
         }
-
     }
 }

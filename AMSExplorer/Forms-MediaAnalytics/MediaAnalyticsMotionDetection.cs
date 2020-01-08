@@ -36,7 +36,6 @@ namespace AMSExplorer
     public partial class MediaAnalyticsMotionDetection : Form
     {
         private CloudMediaContext _context;
-        private IndexerOptions formOptions = new IndexerOptions(true);
         private string _version;
 
         public readonly List<Item> SensitivityLevels = new List<Item> {

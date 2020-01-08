@@ -199,7 +199,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
     <value>Key</value>
@@ -214,7 +214,7 @@
     <value>34, 38</value>
   </data>
   <data name="checkBoxTTML.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 19</value>
+    <value>55, 19</value>
   </data>
   <data name="checkBoxTTML.TabIndex" type="System.Int32, mscorlib">
     <value>67</value>
@@ -232,16 +232,16 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxTTML.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="checkBoxWEBVTT.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBoxWEBVTT.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 91</value>
+    <value>34, 63</value>
   </data>
   <data name="checkBoxWEBVTT.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 19</value>
+    <value>69, 19</value>
   </data>
   <data name="checkBoxWEBVTT.TabIndex" type="System.Int32, mscorlib">
     <value>69</value>
@@ -261,38 +261,11 @@
   <data name="&gt;&gt;checkBoxWEBVTT.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxSAMI.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxSAMI.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 65</value>
-  </data>
-  <data name="checkBoxSAMI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 19</value>
-  </data>
-  <data name="checkBoxSAMI.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="checkBoxSAMI.Text" xml:space="preserve">
-    <value>SAMI</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSAMI.Name" xml:space="preserve">
-    <value>checkBoxSAMI</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSAMI.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSAMI.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSAMI.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 39</value>
+    <value>12, 51</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 136</value>
+    <value>389, 124</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>68</value>
@@ -310,124 +283,11 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxAIB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAIB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 38</value>
-  </data>
-  <data name="checkBoxAIB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 19</value>
-  </data>
-  <data name="checkBoxAIB.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="checkBoxAIB.Text" xml:space="preserve">
-    <value>Audio Index Blob (AIB)</value>
+    <value>1</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="checkBoxAIB.ToolTip" xml:space="preserve">
-    <value>For use with SQL Server and the customer Indexer IFilter</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAIB.Name" xml:space="preserve">
-    <value>checkBoxAIB</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAIB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAIB.Parent" xml:space="preserve">
-    <value>groupBoxOther</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAIB.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxKeywords.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxKeywords.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 65</value>
-  </data>
-  <data name="checkBoxKeywords.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 19</value>
-  </data>
-  <data name="checkBoxKeywords.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="checkBoxKeywords.Text" xml:space="preserve">
-    <value>Keywords</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeywords.Name" xml:space="preserve">
-    <value>checkBoxKeywords</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeywords.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeywords.Parent" xml:space="preserve">
-    <value>groupBoxOther</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeywords.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxForceFullCaptions.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxForceFullCaptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 90</value>
-  </data>
-  <data name="checkBoxForceFullCaptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 19</value>
-  </data>
-  <data name="checkBoxForceFullCaptions.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <data name="checkBoxForceFullCaptions.Text" xml:space="preserve">
-    <value>Force full captions</value>
-  </data>
-  <data name="checkBoxForceFullCaptions.ToolTip" xml:space="preserve">
-    <value>Specify whether or not to force full captions (regardless of confidence level).
-If unchecked, words and phrases which have a less than 50% confidence level are omitted from the final caption outputs and replaced by ellipses ("..."). The ellipses are useful for caption quality control and auditing.
-</value>
-  </data>
-  <data name="&gt;&gt;checkBoxForceFullCaptions.Name" xml:space="preserve">
-    <value>checkBoxForceFullCaptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxForceFullCaptions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxForceFullCaptions.Parent" xml:space="preserve">
-    <value>groupBoxOther</value>
-  </data>
-  <data name="&gt;&gt;checkBoxForceFullCaptions.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="groupBoxOther.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 39</value>
-  </data>
-  <data name="groupBoxOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 136</value>
-  </data>
-  <data name="groupBoxOther.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="groupBoxOther.Text" xml:space="preserve">
-    <value>Other</value>
-  </data>
-  <data name="&gt;&gt;groupBoxOther.Name" xml:space="preserve">
-    <value>groupBoxOther</value>
-  </data>
-  <data name="&gt;&gt;groupBoxOther.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxOther.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxOther.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>

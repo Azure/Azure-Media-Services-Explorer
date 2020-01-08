@@ -36,7 +36,6 @@ namespace AMSExplorer
     public partial class MediaAnalyticsVideoOCR : Form
     {
         private CloudMediaContext _context;
-        private IndexerOptions formOptions = new IndexerOptions(true);
         private string _version;
         private bool initPhase = true;
 

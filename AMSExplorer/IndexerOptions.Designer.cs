@@ -38,16 +38,10 @@
             this.checkBoxTTML = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxWEBVTT = new System.Windows.Forms.CheckBox();
-            this.checkBoxSAMI = new System.Windows.Forms.CheckBox();
-            this.checkBoxAIB = new System.Windows.Forms.CheckBox();
-            this.checkBoxKeywords = new System.Windows.Forms.CheckBox();
-            this.groupBoxOther = new System.Windows.Forms.GroupBox();
-            this.checkBoxForceFullCaptions = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBoxOther.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -93,7 +87,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBoxWEBVTT);
-            this.groupBox1.Controls.Add(this.checkBoxSAMI);
             this.groupBox1.Controls.Add(this.checkBoxTTML);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
@@ -106,47 +99,6 @@
             this.checkBoxWEBVTT.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxWEBVTT.Name = "checkBoxWEBVTT";
             this.checkBoxWEBVTT.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSAMI
-            // 
-            resources.ApplyResources(this.checkBoxSAMI, "checkBoxSAMI");
-            this.checkBoxSAMI.Checked = true;
-            this.checkBoxSAMI.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSAMI.Name = "checkBoxSAMI";
-            this.checkBoxSAMI.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAIB
-            // 
-            resources.ApplyResources(this.checkBoxAIB, "checkBoxAIB");
-            this.checkBoxAIB.Checked = true;
-            this.checkBoxAIB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAIB.Name = "checkBoxAIB";
-            this.toolTip1.SetToolTip(this.checkBoxAIB, resources.GetString("checkBoxAIB.ToolTip"));
-            this.checkBoxAIB.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxKeywords
-            // 
-            resources.ApplyResources(this.checkBoxKeywords, "checkBoxKeywords");
-            this.checkBoxKeywords.Checked = true;
-            this.checkBoxKeywords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxKeywords.Name = "checkBoxKeywords";
-            this.checkBoxKeywords.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxOther
-            // 
-            this.groupBoxOther.Controls.Add(this.checkBoxForceFullCaptions);
-            this.groupBoxOther.Controls.Add(this.checkBoxKeywords);
-            this.groupBoxOther.Controls.Add(this.checkBoxAIB);
-            resources.ApplyResources(this.groupBoxOther, "groupBoxOther");
-            this.groupBoxOther.Name = "groupBoxOther";
-            this.groupBoxOther.TabStop = false;
-            // 
-            // checkBoxForceFullCaptions
-            // 
-            resources.ApplyResources(this.checkBoxForceFullCaptions, "checkBoxForceFullCaptions");
-            this.checkBoxForceFullCaptions.Name = "checkBoxForceFullCaptions";
-            this.toolTip1.SetToolTip(this.checkBoxForceFullCaptions, resources.GetString("checkBoxForceFullCaptions.ToolTip"));
-            this.checkBoxForceFullCaptions.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -162,15 +114,12 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.groupBoxOther);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "IndexerOptions";
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBoxOther.ResumeLayout(false);
-            this.groupBoxOther.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,12 +135,7 @@
         private System.Windows.Forms.CheckBox checkBoxTTML;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox checkBoxWEBVTT;
-        private System.Windows.Forms.CheckBox checkBoxSAMI;
-        private System.Windows.Forms.CheckBox checkBoxAIB;
-        private System.Windows.Forms.CheckBox checkBoxKeywords;
-        private System.Windows.Forms.GroupBox groupBoxOther;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBoxForceFullCaptions;
     }
 }
