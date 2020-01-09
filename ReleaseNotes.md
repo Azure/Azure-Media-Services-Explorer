@@ -1,4 +1,4 @@
-Version 4.3.11.0 (December 6, 2019) brings the following features and improvements :
+Version 4.3.12.0 (January 9, 2020) brings the following features and improvements :
 
-* Updated retirement notice for some processors with a link
+* Updated parameters for Media Indexer v1
 * Updated offline documentation
