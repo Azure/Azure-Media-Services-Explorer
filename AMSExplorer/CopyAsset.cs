@@ -30,7 +30,7 @@ namespace AMSExplorer
         bool ErrorConnectingAMS = false;
         bool ErrorConnectingStorage = false;
         private string _accountname;
-     
+
 
         public string DestinationStorageAccount
         {
@@ -76,7 +76,7 @@ namespace AMSExplorer
 
         }
 
-     
+
         public AMSClientV3 DestinationAmsClient { get; private set; }
         public CredentialsEntryV3 DestinationLoginInfo { get; private set; }
 
@@ -246,7 +246,7 @@ namespace AMSExplorer
             UpdateStatusButtonOk();
 
         }
-              
+
 
         private void UpdateStatusButtonOk()
         {
@@ -258,14 +258,14 @@ namespace AMSExplorer
 
 
         }
-  
+
 
         private void checkBoxTargetSingleAsset_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-      
+
         private void CopyAsset_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
@@ -277,6 +277,16 @@ namespace AMSExplorer
         }
 
         private void listBoxAccounts_DpiChangedAfterParent(object sender, EventArgs e)
+        {
+            ScaleListViewColumns(listViewAccounts);
+        }
+
+        private void listViewAccounts_DpiChangedAfterParent(object sender, EventArgs e)
+        {
+            ScaleListViewColumns(listViewAccounts);
+        }
+
+        private void CopyAsset_Shown(object sender, EventArgs e)
         {
             ScaleListViewColumns(listViewAccounts);
         }

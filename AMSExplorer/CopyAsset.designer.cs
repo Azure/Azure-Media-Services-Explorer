@@ -49,6 +49,7 @@
             this.labelAssetCopy = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelStorageAccount.SuspendLayout();
@@ -103,10 +104,12 @@
             this.listViewAccounts.UseCompatibleStateImageBehavior = false;
             this.listViewAccounts.View = System.Windows.Forms.View.List;
             this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.listViewAccounts_SelectedIndexChanged);
+            this.listViewAccounts.DpiChangedAfterParent += new System.EventHandler(this.listViewAccounts_DpiChangedAfterParent);
             // 
             // panelStorageAccount
             // 
             resources.ApplyResources(this.panelStorageAccount, "panelStorageAccount");
+            this.panelStorageAccount.Controls.Add(this.label1);
             this.panelStorageAccount.Controls.Add(this.listBoxStorage);
             this.panelStorageAccount.Name = "panelStorageAccount";
             // 
@@ -176,6 +179,11 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // CopyAsset
             // 
             this.AcceptButton = this.buttonOk;
@@ -195,11 +203,13 @@
             this.Name = "CopyAsset";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.CopyAsset_Load);
+            this.Shown += new System.EventHandler(this.CopyAsset_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.CopyAsset_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panelStorageAccount.ResumeLayout(false);
+            this.panelStorageAccount.PerformLayout();
             this.groupBoxOptions.ResumeLayout(false);
             this.groupBoxOptions.PerformLayout();
             this.ResumeLayout(false);
@@ -228,5 +238,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ListView listViewAccounts;
+        public System.Windows.Forms.Label label1;
     }
 }
