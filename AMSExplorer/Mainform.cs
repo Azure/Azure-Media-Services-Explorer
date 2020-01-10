@@ -251,6 +251,9 @@ namespace AMSExplorer
                 comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
                 TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units v2 API. Some controls are disabled in the transforms/jobs tab.", true); // Warning
             }
+
+            string mes = @"To use Aure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1} """;
+            TextBoxLogWriteLine(mes, _amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
         }
 
 
