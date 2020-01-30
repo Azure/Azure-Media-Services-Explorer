@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2020 Microsoft Corporation
+//    Copyright 2019 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -58,6 +58,23 @@ namespace AMSExplorer
         {
             get => checkBoxLowLatency.Checked;
             set => checkBoxLowLatency.Checked = value;
+        }
+
+        public bool LiveTranscript
+        {
+            get => checkBoxEnableLiveTranscript.Checked;
+            set => checkBoxEnableLiveTranscript.Checked = value;
+        }
+
+        public IList<LiveEventTranscription> LiveTranscriptionList
+        {
+            get
+            {
+
+                IList<LiveEventTranscription> transcriptionList = new List<LiveEventTranscription>();
+                transcriptionList.Add(new LiveEventTranscription(language: textBoxLiveTranscriptLanguage.Text)); 
+                return transcriptionList;
+            }
         }
 
         public LiveEventEncoding Encoding
@@ -198,6 +215,7 @@ namespace AMSExplorer
             moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
+            linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
 
             checkChannelName();
             InitPhase = false;
@@ -456,6 +474,21 @@ namespace AMSExplorer
         private void textBoxToken_TextChanged(object sender, EventArgs e)
         {
             UpdateLabelSyntax();
+        }
+
+        private void CheckBoxEnableLiveTranscript_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxLiveTranscriptLanguage.Enabled = checkBoxEnableLiveTranscript.Checked;
+        }
+    }
+
+    public class LiveEventTranscription
+    {
+        private string language;
+
+        public LiveEventTranscription(string language)
+        {
+            this.language = language;
         }
     }
 }

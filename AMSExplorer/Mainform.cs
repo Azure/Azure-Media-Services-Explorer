@@ -4612,6 +4612,67 @@ namespace AMSExplorer
 
                 if (!Error)
                 {
+
+                    // test REST version
+
+                    string URL = _amsClient.environment.ArmEndpoint + string.Format("subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2018-07-01",
+       _amsClient.credentialsEntry.AzureSubscriptionId,
+       _amsClient.credentialsEntry.ResourceGroup,
+         _amsClient.credentialsEntry.AccountName,
+         form.LiveEventName
+       );
+
+                    string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
+                        TokenCache.DefaultShared.ReadItems()
+                .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
+                .OrderByDescending(t => t.ExpiresOn)
+                .First().AccessToken;
+
+
+                    HttpClient client = new HttpClient();
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+
+                    var serializationSettings = new JsonSerializerSettings
+                    {
+                        Formatting = Newtonsoft.Json.Formatting.Indented,
+                        DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
+                        DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc,
+                        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize
+                    };
+                       
+
+
+                   var _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(liveEvent, serializationSettings);
+
+                    var httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                    httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+
+
+
+                    var jsonString =  JsonConvert.SerializeObject(liveEvent, Newtonsoft.Json.Formatting.Indented);
+                   // var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+
+                    HttpResponseMessage response = await client.PutAsync(URL, httpContent);
+
+                    object dynObject = null;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string str = await response.Content.ReadAsStringAsync();
+                        object list = JsonConvert.DeserializeObject(str);
+                        dynObject = JsonConvert.DeserializeObject(str);
+
+                    }
+
+
+
+                    // end test REST version
+
+
+
                     try
                     {
                         await Task.Run(() =>

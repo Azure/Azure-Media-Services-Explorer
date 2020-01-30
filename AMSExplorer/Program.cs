@@ -683,6 +683,8 @@ namespace AMSExplorer
 
         public const int MaxTransfersAsUnlimited = 5;
         public const string strTransfers = "{0} concurrent transfer{1}";
+
+        public const string LinkMoreInfoLiveTranscript = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription";
     }
 
 

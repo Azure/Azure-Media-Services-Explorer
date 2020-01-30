@@ -990,6 +990,147 @@
   <data name="&gt;&gt;tabPageLiveEncoding.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 80</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Language code :</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxLiveTranscriptLanguage.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxLiveTranscriptLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 98</value>
+  </data>
+  <data name="textBoxLiveTranscriptLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 23</value>
+  </data>
+  <data name="textBoxLiveTranscriptLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="textBoxLiveTranscriptLanguage.Text" xml:space="preserve">
+    <value>en-US</value>
+  </data>
+  <data name="&gt;&gt;textBoxLiveTranscriptLanguage.Name" xml:space="preserve">
+    <value>textBoxLiveTranscriptLanguage</value>
+  </data>
+  <data name="&gt;&gt;textBoxLiveTranscriptLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxLiveTranscriptLanguage.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;textBoxLiveTranscriptLanguage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="linkLabelLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelLiveTranscript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>272, 13</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>214, 15</value>
+  </data>
+  <data name="linkLabelLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Text" xml:space="preserve">
+    <value>More information on live transcriptions</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscript.Name" xml:space="preserve">
+    <value>linkLabelLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscript.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscript.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscript.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 42</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 19</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Text" xml:space="preserve">
+    <value>Enable live transcriptions (preview in West US 2 region)</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Name" xml:space="preserve">
+    <value>checkBoxEnableLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableLiveTranscript.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabPageLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPageLiveTranscript.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>492, 378</value>
+  </data>
+  <data name="tabPageLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="tabPageLiveTranscript.Text" xml:space="preserve">
+    <value>Live transcriptions</value>
+  </data>
+  <data name="&gt;&gt;tabPageLiveTranscript.Name" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;tabPageLiveTranscript.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageLiveTranscript.Parent" xml:space="preserve">
+    <value>tabControlLiveChannel</value>
+  </data>
+  <data name="&gt;&gt;tabPageLiveTranscript.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1255,7 +1396,7 @@
     <value>tabControlLiveChannel</value>
   </data>
   <data name="&gt;&gt;tabPageAdv.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tabControlLiveChannel.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 138</value>
