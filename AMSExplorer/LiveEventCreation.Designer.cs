@@ -83,6 +83,7 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -346,6 +347,7 @@
             // 
             // tabPageLiveTranscript
             // 
+            this.tabPageLiveTranscript.Controls.Add(this.label8);
             this.tabPageLiveTranscript.Controls.Add(this.label2);
             this.tabPageLiveTranscript.Controls.Add(this.textBoxLiveTranscriptLanguage);
             this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
@@ -469,6 +471,12 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Name = "label8";
+            // 
             // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
@@ -565,5 +573,6 @@
         private System.Windows.Forms.TextBox textBoxLiveTranscriptLanguage;
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;
         private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
+        private System.Windows.Forms.Label label8;
     }
 }

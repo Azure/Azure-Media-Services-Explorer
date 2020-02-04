@@ -35,7 +35,7 @@ namespace AMSExplorer
     /// </summary>
     public class AmsClientRestLiveTranscript
     {
-        private const string liveEventCreationUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2019-05-01-preview&autoStart={4}";
+        private const string liveEventApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2019-05-01-preview";
 
         private AMSClientV3 _amsClient;
 
@@ -50,16 +50,18 @@ namespace AMSExplorer
             _amsClient = amsClient;
         }
 
-        public async Task<string> CreateLiveEventAsync(string liveEventName, LiveEventForRest liveEventSettings, bool startLiveEventNow)
+
+
+        public async Task<string> CreateLiveEventAsync(LiveEventForRest liveEventSettings, bool startLiveEventNow)
         {
             string URL = _amsClient.environment.ArmEndpoint
-                           + string.Format(liveEventCreationUrl,
+                           + string.Format(liveEventApiUrl,
                                               _amsClient.credentialsEntry.AzureSubscriptionId,
                                               _amsClient.credentialsEntry.ResourceGroup,
                                               _amsClient.credentialsEntry.AccountName,
-                                              liveEventName,
-                                              startLiveEventNow.ToString()
-                                      );
+                                              liveEventSettings.Name
+                                      )
+                           + string.Format("&autoStart={0}", startLiveEventNow.ToString());
 
             string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
                 TokenCache.DefaultShared.ReadItems()
@@ -76,21 +78,64 @@ namespace AMSExplorer
             httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
 
             HttpResponseMessage amsRequestResult = await client.PutAsync(URL, httpContent).ConfigureAwait(false);
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (!amsRequestResult.IsSuccessStatusCode)
             {
-                throw new Exception(amsRequestResult.ReasonPhrase);
+                dynamic error = JsonConvert.DeserializeObject(responseContent);
+                throw new Exception((string)error?.error?.message);
             }
 
-            return await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return responseContent;
+        }
+
+        public LiveEventForRest GetLiveEvent(string liveEventName)
+        {
+            return GetLiveEventAsync(liveEventName).GetAwaiter().GetResult();
+        }
+
+        public async Task<LiveEventForRest> GetLiveEventAsync(string liveEventName)
+        {
+            string URL = _amsClient.environment.ArmEndpoint
+                           + string.Format(liveEventApiUrl,
+                                              _amsClient.credentialsEntry.AzureSubscriptionId,
+                                              _amsClient.credentialsEntry.ResourceGroup,
+                                              _amsClient.credentialsEntry.AccountName,
+                                              liveEventName
+                                      );
+
+            string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
+                TokenCache.DefaultShared.ReadItems()
+                    .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
+                    .OrderByDescending(t => t.ExpiresOn)
+                    .First().AccessToken;
+
+            var client = _amsClient.AMSclient.HttpClient;
+            client.DefaultRequestHeaders.Remove("Authorization");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+            HttpResponseMessage amsRequestResult = await client.GetAsync(URL).ConfigureAwait(false);
+
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                dynamic error = JsonConvert.DeserializeObject(responseContent);
+                throw new Exception((string)error?.error?.message);
+            }
+
+            return LiveEventForRest.FromJson(responseContent);
         }
     }
 
 
-    public partial class LiveEventForRest
+    public class LiveEventForRest
     {
-        public LiveEventForRest(string location, string description, bool? vanityUrl, LiveEventEncoding encoding, LiveEventInput input, LiveEventPreview preview, IList<StreamOptionsFlag?> streamOptions, IList<TranscriptionForRest> transcriptions)
+        public static LiveEventForRest FromJson(string json) => JsonConvert.DeserializeObject<LiveEventForRest>(json, AMSExplorer.ConverterLE.Settings);
+
+        public LiveEventForRest(string name, string location, string description, bool? vanityUrl, LiveEventEncoding encoding, LiveEventInput input, LiveEventPreview preview, IList<StreamOptionsFlag?> streamOptions, IList<TranscriptionForRest> transcriptions)
         {
+            this.Name = name;
             this.Location = location;
             this.Properties = new PropertiesForRest { Description = description, VanityUrl = vanityUrl, Encoding = encoding, Input = input, Preview = preview, StreamOptions = streamOptions, Transcriptions = transcriptions };
         }
@@ -100,9 +145,13 @@ namespace AMSExplorer
 
         [JsonProperty("location")]
         public string Location { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
     }
 
-    public partial class PropertiesForRest
+    public class PropertiesForRest
     {
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -127,7 +176,7 @@ namespace AMSExplorer
     }
 
 
-    public partial class TranscriptionForRest
+    public class TranscriptionForRest
     {
         [JsonProperty("language")]
         public string Language { get; set; }
@@ -138,10 +187,7 @@ namespace AMSExplorer
         }
     }
 
-    public partial class LiveEventForRest
-    {
-        public static LiveEventForRest FromJson(string json) => JsonConvert.DeserializeObject<LiveEventForRest>(json, AMSExplorer.ConverterLE.Settings);
-    }
+
 
     public static class SerializeForRest
     {

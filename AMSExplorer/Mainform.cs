@@ -4562,7 +4562,6 @@ namespace AMSExplorer
 
                 bool Error = false;
                 LiveEvent liveEvent = new LiveEvent();
-                LiveEventForRest liveEventForREst = null;
 
                 try
                 {
@@ -4591,43 +4590,23 @@ namespace AMSExplorer
                     };
 
 
-                    if (form.LiveTranscript)
-                    {
-                        // test REST version
-                        liveEventForREst = new LiveEventForRest(
-                                                 //name: form.LiveEventName,
-                                                 location: _amsClient.credentialsEntry.MediaService.Location,
-                                                 transcriptions: form.LiveTranscriptionList,
-                                                 description: form.LiveEventDescription,
-                                                 vanityUrl: form.VanityUrl,
-                                                 encoding: form.Encoding,
-                                                 input: liveEventInput,
-                                                 preview: liveEventPreview,
-                                                 streamOptions: new List<StreamOptionsFlag?>()
-                                                             {
-                                                // Set this to Default or Low Latency
-                                               form.LowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
-                                                             }
-                                                               );
-                    }
 
-                    else
-                    {
-                        liveEvent = new LiveEvent(
-                                                                     name: form.LiveEventName,
-                                                                     location: _amsClient.credentialsEntry.MediaService.Location,
-                                                                     description: form.LiveEventDescription,
-                                                                     vanityUrl: form.VanityUrl,
-                                                                     encoding: form.Encoding,
-                                                                     input: liveEventInput,
-                                                                     preview: liveEventPreview,
-                                                                     streamOptions: new List<StreamOptionsFlag?>()
-                                                                                 {
+
+                    liveEvent = new LiveEvent(
+                                                                 name: form.LiveEventName,
+                                                                 location: _amsClient.credentialsEntry.MediaService.Location,
+                                                                 description: form.LiveEventDescription,
+                                                                 vanityUrl: form.VanityUrl,
+                                                                 encoding: form.Encoding,
+                                                                 input: liveEventInput,
+                                                                 preview: liveEventPreview,
+                                                                 streamOptions: new List<StreamOptionsFlag?>()
+                                                                             {
                                                 // Set this to Default or Low Latency
                                                form.LowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
-                                                                                 }
-                                                                                   );
-                    }
+                                                                             }
+                                                                               );
+
                 }
 
                 catch (Exception ex)
@@ -4642,11 +4621,10 @@ namespace AMSExplorer
                     if (form.LiveTranscript)
                     {
                         // let's use REST call
-
                         var client = new AmsClientRestLiveTranscript(_amsClient);
 
-                        liveEventForREst = new LiveEventForRest(
-                                              //name: form.LiveEventName,
+                        var liveEventForREst = new LiveEventForRest(
+                                              name: liveEvent.Name,
                                               location: liveEvent.Location,
                                               transcriptions: form.LiveTranscriptionList,
                                               description: liveEvent.Description,
@@ -4659,7 +4637,7 @@ namespace AMSExplorer
 
                         try
                         {
-                            await client.CreateLiveEventAsync(form.LiveEventName, liveEventForREst, form.StartLiveEventNow);
+                            await client.CreateLiveEventAsync(liveEventForREst, form.StartLiveEventNow);
                             TextBoxLogWriteLine("Live event '{0}' created using REST call.", form.LiveEventName);
                         }
                         catch (Exception ex)
