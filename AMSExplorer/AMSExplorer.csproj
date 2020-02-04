@@ -288,6 +288,7 @@
     <Compile Include="ListViewAssets.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LiveEventForRest.cs" />
     <Compile Include="MediaRUv2.cs" />
     <Compile Include="Subclipping.cs">
       <SubType>Form</SubType>

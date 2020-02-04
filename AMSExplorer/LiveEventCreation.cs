@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2019 Microsoft Corporation
+//    Copyright 2020 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -66,13 +66,13 @@ namespace AMSExplorer
             set => checkBoxEnableLiveTranscript.Checked = value;
         }
 
-        public IList<LiveEventTranscription> LiveTranscriptionList
+        public IList<TranscriptionForRest> LiveTranscriptionList
         {
             get
             {
 
-                IList<LiveEventTranscription> transcriptionList = new List<LiveEventTranscription>();
-                transcriptionList.Add(new LiveEventTranscription(language: textBoxLiveTranscriptLanguage.Text)); 
+                IList<TranscriptionForRest> transcriptionList = new List<TranscriptionForRest>();
+                transcriptionList.Add(new TranscriptionForRest(language: textBoxLiveTranscriptLanguage.Text)); 
                 return transcriptionList;
             }
         }
@@ -482,6 +482,7 @@ namespace AMSExplorer
         }
     }
 
+    /*
     public class LiveEventTranscription
     {
         private string language;
@@ -491,4 +492,5 @@ namespace AMSExplorer
             this.language = language;
         }
     }
+    */
 }

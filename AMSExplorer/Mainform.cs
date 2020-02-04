@@ -4553,6 +4553,7 @@ namespace AMSExplorer
                 KeyframeIntervalSerialized = XmlConvert.ToString(Properties.Settings.Default.LiveKeyFrameInterval),
                 StartLiveEventNow = true
             };
+
             if (form.ShowDialog() == DialogResult.OK)
             {
                 await _amsClient.RefreshTokenIfNeededAsync();
@@ -4561,6 +4562,8 @@ namespace AMSExplorer
 
                 bool Error = false;
                 LiveEvent liveEvent = new LiveEvent();
+                LiveEventForRest liveEventForREst = null;
+
                 try
                 {
 
@@ -4587,20 +4590,44 @@ namespace AMSExplorer
                                                                        )
                     };
 
-                    liveEvent = new LiveEvent(
-                                              name: form.LiveEventName,
-                                              location: _amsClient.credentialsEntry.MediaService.Location,
-                                              description: form.LiveEventDescription,
-                                              vanityUrl: form.VanityUrl,
-                                              encoding: form.Encoding,
-                                              input: liveEventInput,
-                                              preview: liveEventPreview,
-                                              streamOptions: new List<StreamOptionsFlag?>()
-                                                          {
+
+                    if (form.LiveTranscript)
+                    {
+                        // test REST version
+                        liveEventForREst = new LiveEventForRest(
+                                                 //name: form.LiveEventName,
+                                                 location: _amsClient.credentialsEntry.MediaService.Location,
+                                                 transcriptions: form.LiveTranscriptionList,
+                                                 description: form.LiveEventDescription,
+                                                 vanityUrl: form.VanityUrl,
+                                                 encoding: form.Encoding,
+                                                 input: liveEventInput,
+                                                 preview: liveEventPreview,
+                                                 streamOptions: new List<StreamOptionsFlag?>()
+                                                             {
                                                 // Set this to Default or Low Latency
                                                form.LowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
-                                                          }
-                                                            );
+                                                             }
+                                                               );
+                    }
+
+                    else
+                    {
+                        liveEvent = new LiveEvent(
+                                                                     name: form.LiveEventName,
+                                                                     location: _amsClient.credentialsEntry.MediaService.Location,
+                                                                     description: form.LiveEventDescription,
+                                                                     vanityUrl: form.VanityUrl,
+                                                                     encoding: form.Encoding,
+                                                                     input: liveEventInput,
+                                                                     preview: liveEventPreview,
+                                                                     streamOptions: new List<StreamOptionsFlag?>()
+                                                                                 {
+                                                // Set this to Default or Low Latency
+                                               form.LowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
+                                                                                 }
+                                                                                   );
+                    }
                 }
 
                 catch (Exception ex)
@@ -4612,85 +4639,58 @@ namespace AMSExplorer
 
                 if (!Error)
                 {
-
-                    // test REST version
-
-                    string URL = _amsClient.environment.ArmEndpoint + string.Format("subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2018-07-01",
-       _amsClient.credentialsEntry.AzureSubscriptionId,
-       _amsClient.credentialsEntry.ResourceGroup,
-         _amsClient.credentialsEntry.AccountName,
-         form.LiveEventName
-       );
-
-                    string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
-                        TokenCache.DefaultShared.ReadItems()
-                .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
-                .OrderByDescending(t => t.ExpiresOn)
-                .First().AccessToken;
-
-
-                    HttpClient client = new HttpClient();
-                    client.DefaultRequestHeaders.Remove("Authorization");
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
-
-                    var serializationSettings = new JsonSerializerSettings
+                    if (form.LiveTranscript)
                     {
-                        Formatting = Newtonsoft.Json.Formatting.Indented,
-                        DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
-                        DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc,
-                        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-                        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize
-                    };
-                       
+                        // let's use REST call
 
+                        var client = new AmsClientRestLiveTranscript(_amsClient);
 
-                   var _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(liveEvent, serializationSettings);
+                        liveEventForREst = new LiveEventForRest(
+                                              //name: form.LiveEventName,
+                                              location: liveEvent.Location,
+                                              transcriptions: form.LiveTranscriptionList,
+                                              description: liveEvent.Description,
+                                              vanityUrl: liveEvent.VanityUrl,
+                                              encoding: liveEvent.Encoding,
+                                              input: liveEvent.Input,
+                                              preview: liveEvent.Preview,
+                                              streamOptions: liveEvent.StreamOptions
+                                                            );
 
-                    var httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                    httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-
-
-
-                    var jsonString =  JsonConvert.SerializeObject(liveEvent, Newtonsoft.Json.Formatting.Indented);
-                   // var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
-
-                    HttpResponseMessage response = await client.PutAsync(URL, httpContent);
-
-                    object dynObject = null;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string str = await response.Content.ReadAsStringAsync();
-                        object list = JsonConvert.DeserializeObject(str);
-                        dynObject = JsonConvert.DeserializeObject(str);
-
+                        try
+                        {
+                            await client.CreateLiveEventAsync(form.LiveEventName, liveEventForREst, form.StartLiveEventNow);
+                            TextBoxLogWriteLine("Live event '{0}' created using REST call.", form.LiveEventName);
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error with live event creation using REST call.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
                     }
 
-
-
-                    // end test REST version
-
-
-
-                    try
+                    else
                     {
-                        await Task.Run(() =>
-                         _amsClient.AMSclient.LiveEvents.CreateAsync(
-                                                                         _amsClient.credentialsEntry.ResourceGroup,
-                                                                         _amsClient.credentialsEntry.AccountName,
-                                                                         form.LiveEventName,
-                                                                         liveEvent,
-                                                                         autoStart: form.StartLiveEventNow ? true : false)
-                                                                      );
-                        TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error with live event creation.", true);
-                        TextBoxLogWriteLine(ex);
-                    }
+                        // let's use the SDK
 
+                        try
+                        {
+                            await Task.Run(() =>
+                             _amsClient.AMSclient.LiveEvents.CreateAsync(
+                                                                             _amsClient.credentialsEntry.ResourceGroup,
+                                                                             _amsClient.credentialsEntry.AccountName,
+                                                                             form.LiveEventName,
+                                                                             liveEvent,
+                                                                             autoStart: form.StartLiveEventNow ? true : false)
+                                                                          );
+                            TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error with live event creation.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
+                    }
                     await DoRefreshGridLiveEventVAsync(false);
                 }
             }
