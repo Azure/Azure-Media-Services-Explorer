@@ -6315,7 +6315,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype, List<Asset> listassets, string filter = null)
+        public async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype, List<Asset> listassets, string filter = null, string subtitletracklanguage = null)
         {
             foreach (Asset myAsset in listassets)
             {
@@ -6369,7 +6369,7 @@ namespace AMSExplorer
 
                         if (MyUri != null)
                         {
-                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(playertype, MyUri, _amsClient, this, myAsset, false, filter, locator: PlayBackLocator);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(playertype, MyUri, _amsClient, this, myAsset, false, filter, locator: PlayBackLocator, subtitleLanguageCode: subtitletracklanguage);
                         }
                         else
                         {
@@ -6395,7 +6395,27 @@ namespace AMSExplorer
 
         private async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype)
         {
-            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(playertype, await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync());
+            string language = null;
+            var le = await ReturnSelectedLiveEventsAsync();
+
+            // let's try to use preview REST to get live transcript setting
+            try
+            {
+                var clientRest = new AmsClientRestLiveTranscript(_amsClient);
+                var liveEventRestProp = clientRest.GetLiveEvent(le.FirstOrDefault().Name).Properties;
+
+                if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
+                {
+                    language = liveEventRestProp.Transcriptions.FirstOrDefault()?.Language;
+                }
+            }
+
+            catch
+            {
+
+            }
+
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(playertype, await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync(), null, language);
         }
 
         private async void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)

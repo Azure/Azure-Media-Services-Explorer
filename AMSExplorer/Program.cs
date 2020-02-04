@@ -1789,7 +1789,7 @@ namespace AMSExplorer
             Asset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "",
-            AssetStreamingLocator locator = null)
+            AssetStreamingLocator locator = null, string subtitleLanguageCode = null)
         {
             string FullPlayBackLink = null;
 
@@ -1975,6 +1975,20 @@ namespace AMSExplorer
                         playerurlbase = Constants.PlayerAMPToLaunch.Replace("https://", "http://");
                     }
 
+                    if (subtitleLanguageCode != null) // let's add the subtitle syntax to AMP
+                    {
+                        try
+                        {
+                            var culture = CultureInfo.GetCultureInfo(subtitleLanguageCode);
+                            string trackName = WebUtility.HtmlEncode(culture.DisplayName);
+                            playerurl += $"&imsc1Captions={trackName},{subtitleLanguageCode}";
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+
                     FullPlayBackLink = string.Format(playerurlbase, HttpUtility.UrlEncode(path)) + playerurl;
                     break;
 
@@ -1992,7 +2006,21 @@ namespace AMSExplorer
 
 
                 case PlayerType.AdvancedTestPlayer:
-                    FullPlayBackLink = string.Format(Constants.AdvancedTestPlayer, HttpUtility.UrlEncode(path));
+                    string playerurlAd = string.Empty;
+                    if (subtitleLanguageCode != null) // let's add the subtitle syntax to AMP
+                    {
+                        try
+                        {
+                            var culture = CultureInfo.GetCultureInfo(subtitleLanguageCode);
+                            string trackName = WebUtility.HtmlEncode(culture.DisplayName);
+                            playerurlAd += $"&imsc1CaptionsSettings={trackName},{subtitleLanguageCode}";
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                    FullPlayBackLink = string.Format(Constants.AdvancedTestPlayer, HttpUtility.UrlEncode(path)) + playerurlAd;
                     break;
 
                 case PlayerType.CustomPlayer:
