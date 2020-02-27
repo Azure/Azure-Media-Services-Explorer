@@ -219,14 +219,14 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-            if ((DateTime.Now >= new DateTime(2020, 2, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null))
+            if ((DateTime.Now >= new DateTime(2020, 6, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null))
             {
                 AMFaceDetectorPresent =
                 ProcessFaceDetectortoolStripMenuItem.Visible =
                 toolStripMenuItemFaceDetector.Visible = false;
             }
 
-            if ((DateTime.Now >= new DateTime(2020, 2, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null))
+            if ((DateTime.Now >= new DateTime(2020, 6, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null))
             {
                 AMMotionDetectorPresent =
                 ProcessMotionDetectortoolStripMenuItem.Visible =
@@ -240,19 +240,19 @@ namespace AMSExplorer
                 toolStripMenuItemRedactor.Visible = false;
             }
 
-            if ((DateTime.Now >= new DateTime(2020, 2, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null))
+            if ((DateTime.Now >= new DateTime(2020, 6, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaVideoThumbnails) == null))
             {
                 AMVideoThumbnailsPresent =
                 ProcessVideoThumbnailstoolStripMenuItem.Visible =
                 toolStripMenuItemVideoThumbnails.Visible = false;
             }
-            if ((DateTime.Now >= new DateTime(2020, 2, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null))
+            if ((DateTime.Now >= new DateTime(2020, 6, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaVideoOCR) == null))
             {
                 AMVideoOCRPresent = false;
                 processAssetsWithAzureMediaOCRToolStripMenuItem.Visible =
                 processAssetsWithAzureMediaVideoOCRToolStripMenuItem.Visible = false;
             }
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaContentModerator) == null)
+            if ((DateTime.Now >= new DateTime(2020, 6, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaContentModerator) == null))
             {
                 AMContentModerator =
                 processAssetsWithAzureMediaContentModeratorToolStripMenuItem1.Visible =
@@ -265,7 +265,7 @@ namespace AMSExplorer
                 processAssetsWithAzureMediaVideoAnnotatorToolStripMenuItem1.Visible = false;
             }
             // let's remove Indexer v1
-            if (DateTime.Now >= new DateTime(2020, 10, 1))
+            if ((DateTime.Now >= new DateTime(2023, 3, 1)) || (GetLatestMediaProcessorByName(Constants.AzureMediaIndexer) == null))
             {
                 AMVideoIndexerV1 =
                 toolStripMenuItemIndexer.Visible = indexAssetsToolStripMenuItem.Visible = false;
@@ -5293,7 +5293,7 @@ namespace AMSExplorer
             }
             else
             {
-                MessageBox.Show("Azure Media Face Detector will be retired in the future." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
+                MessageBox.Show("Azure Media Face Detector will be retired on June 1, 2020." + Constants.endline + "This feature is being replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
           "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 CheckAssetSizeRegardingMediaUnit(SelectedAssets);
@@ -5342,7 +5342,7 @@ namespace AMSExplorer
             }
             else
             {
-                MessageBox.Show("Azure Media Video Thumbnails will be retired in the future.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Azure Media Video Thumbnails will be retired on June 1, 2020.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
@@ -5723,7 +5723,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            MessageBox.Show("Azure Media Indexer will be retired on October 1, 2020." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Audio Analyzer Preset.",
+            MessageBox.Show("Azure Media Indexer will be retired on March 1, 2023." + Constants.endline + "This feature is being replaced by Video Indexer and the Azure Media Services v3 API Audio Analyzer Preset.",
             "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var proposedfiles = CheckSingleFileIndexerV1SupportedExtensions(SelectedAssets, new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" });
@@ -5814,7 +5814,7 @@ namespace AMSExplorer
                 return;
             }
 
-            MessageBox.Show("Azure Media Indexer 2 (Preview) will be retired on January 1, 2020." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Audio Analyzer Preset.",
+            MessageBox.Show("Azure Media Indexer 2 (Preview) will be retired on January 1, 2020." + Constants.endline + "This feature is being replaced by Video Indexer and the Azure Media Services v3 API Audio Analyzer Preset.",
             "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var form = new IndexerV2(_context, processor.Version)
@@ -5866,7 +5866,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            MessageBox.Show("Azure Media Analytics OCR will be retired in the future." + Constants.endline + "This feature will be replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
+            MessageBox.Show("Azure Media Analytics OCR will be retired on June 1, 2020." + Constants.endline + "This feature is being replaced by Video Indexer and the Azure Media Services v3 API Video Analyzer Preset.",
 "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
@@ -5928,7 +5928,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            MessageBox.Show("Azure Media Motion Detector will be retired in the future.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Azure Media Motion Detector will be retired on June 1, 2020.", "Retirement notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             CheckAssetSizeRegardingMediaUnit(SelectedAssets);
 
@@ -8377,12 +8377,12 @@ namespace AMSExplorer
                 {"Azure Media Encoder",             "To be retired on March 31, 2020" },
                 {"Windows Azure Media Encoder",     "To be retired on March 31, 2020" },
                 {"Azure Media Indexer 2 Preview",   "(Preview) To be retired on January 1, 2020" },
-                {"Azure Media Indexer",             "To be retired on Oct 1, 2020" },
-                {"Azure Media Face Detector",       "(Preview)" },
-                {"Azure Media Motion Detector",     "(Preview)" },
-                {"Azure Media OCR",                 "(Preview)" },
-                {"Azure Media Content Moderator",   "(Preview)" },
-                {"Azure Media Video Thumbnails",    "(Preview)" },
+                {"Azure Media Indexer",             "To be retired on March 1, 2023" },
+                {"Azure Media Face Detector",       "(Preview) To be retired on June 1, 2020" },
+                {"Azure Media Motion Detector",     "(Preview) To be retired on June 1, 2020" },
+                {"Azure Media OCR",                 "(Preview) To be retired on June 1, 2020" },
+                {"Azure Media Content Moderator",   "(Preview) To be retired on June 1, 2020" },
+                {"Azure Media Video Thumbnails",    "(Preview) To be retired on June 1, 2020" },
                 {"Azure Media Redactor",            "" },
                 {"Storage Decryption",              "" }
             };

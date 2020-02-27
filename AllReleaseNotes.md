@@ -1,3 +1,9 @@
+Version 4.3.13.0 (February 27, 2020) brings the following features and improvements :
+
+* Updated deprecation notices for some processors
+* Updated offline documentation
+
+
 Version 4.3.12.0 (January 9, 2020) brings the following features and improvements :
 
 * Updated parameters for Media Indexer v1
