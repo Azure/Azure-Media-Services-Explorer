@@ -54,7 +54,14 @@ namespace AMSExplorer
 
         public async Task<string> CreateLiveEventAsync(LiveEventForRest liveEventSettings, bool startLiveEventNow)
         {
-            string URL = GenerateApiUrl(liveEventSettings.Name) + string.Format("&autoStart={0}", startLiveEventNow.ToString());
+            string URL = _amsClient.environment.ArmEndpoint
+                           + string.Format(liveEventApiUrl,
+                                              _amsClient.credentialsEntry.AzureSubscriptionId,
+                                              _amsClient.credentialsEntry.ResourceGroup,
+                                              _amsClient.credentialsEntry.AccountName,
+                                              liveEventSettings.Name
+                                      )
+                           + string.Format("&autoStart={0}", startLiveEventNow.ToString());
 
             string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
                 TokenCache.DefaultShared.ReadItems()
@@ -82,16 +89,20 @@ namespace AMSExplorer
             return responseContent;
         }
 
-
         public LiveEventForRest GetLiveEvent(string liveEventName)
         {
             return GetLiveEventAsync(liveEventName).GetAwaiter().GetResult();
         }
 
-
         public async Task<LiveEventForRest> GetLiveEventAsync(string liveEventName)
         {
-            string URL = GenerateApiUrl(liveEventName);
+            string URL = _amsClient.environment.ArmEndpoint
+                           + string.Format(liveEventApiUrl,
+                                              _amsClient.credentialsEntry.AzureSubscriptionId,
+                                              _amsClient.credentialsEntry.ResourceGroup,
+                                              _amsClient.credentialsEntry.AccountName,
+                                              liveEventName
+                                      );
 
             string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
                 TokenCache.DefaultShared.ReadItems()
@@ -114,17 +125,6 @@ namespace AMSExplorer
             }
 
             return LiveEventForRest.FromJson(responseContent);
-        }
-
-        private string GenerateApiUrl(string liveEventName)
-        {
-            return _amsClient.environment.ArmEndpoint
-                                       + string.Format(liveEventApiUrl,
-                                                          _amsClient.credentialsEntry.AzureSubscriptionId,
-                                                          _amsClient.credentialsEntry.ResourceGroup,
-                                                          _amsClient.credentialsEntry.AccountName,
-                                                          liveEventName
-                                                  );
         }
     }
 
@@ -186,6 +186,7 @@ namespace AMSExplorer
             this.Language = language;
         }
     }
+
 
 
     public static class SerializeForRest
