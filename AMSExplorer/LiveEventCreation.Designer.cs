@@ -63,6 +63,11 @@
             this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
+            this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxLiveTranscriptLanguage = new System.Windows.Forms.TextBox();
+            this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
+            this.checkBoxEnableLiveTranscript = new System.Windows.Forms.CheckBox();
             this.tabPageAdv = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.labelUrlSyntax = new System.Windows.Forms.Label();
@@ -78,6 +83,7 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -87,6 +93,7 @@
             this.panelPresetLiveEncoding.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
+            this.tabPageLiveTranscript.SuspendLayout();
             this.tabPageAdv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -171,6 +178,7 @@
             resources.ApplyResources(this.tabControlLiveChannel, "tabControlLiveChannel");
             this.tabControlLiveChannel.Controls.Add(this.TabSettings);
             this.tabControlLiveChannel.Controls.Add(this.tabPageLiveEncoding);
+            this.tabControlLiveChannel.Controls.Add(this.tabPageLiveTranscript);
             this.tabControlLiveChannel.Controls.Add(this.tabPageAdv);
             this.tabControlLiveChannel.Name = "tabControlLiveChannel";
             this.tabControlLiveChannel.SelectedIndex = 0;
@@ -337,6 +345,41 @@
             this.radioButtonCustomPreset.UseVisualStyleBackColor = true;
             this.radioButtonCustomPreset.CheckedChanged += new System.EventHandler(this.radioButtonCustomPreset_CheckedChanged);
             // 
+            // tabPageLiveTranscript
+            // 
+            this.tabPageLiveTranscript.Controls.Add(this.label8);
+            this.tabPageLiveTranscript.Controls.Add(this.label2);
+            this.tabPageLiveTranscript.Controls.Add(this.textBoxLiveTranscriptLanguage);
+            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
+            this.tabPageLiveTranscript.Controls.Add(this.checkBoxEnableLiveTranscript);
+            resources.ApplyResources(this.tabPageLiveTranscript, "tabPageLiveTranscript");
+            this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
+            this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // textBoxLiveTranscriptLanguage
+            // 
+            resources.ApplyResources(this.textBoxLiveTranscriptLanguage, "textBoxLiveTranscriptLanguage");
+            this.textBoxLiveTranscriptLanguage.Name = "textBoxLiveTranscriptLanguage";
+            // 
+            // linkLabelLiveTranscript
+            // 
+            resources.ApplyResources(this.linkLabelLiveTranscript, "linkLabelLiveTranscript");
+            this.linkLabelLiveTranscript.Name = "linkLabelLiveTranscript";
+            this.linkLabelLiveTranscript.TabStop = true;
+            this.linkLabelLiveTranscript.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            // 
+            // checkBoxEnableLiveTranscript
+            // 
+            resources.ApplyResources(this.checkBoxEnableLiveTranscript, "checkBoxEnableLiveTranscript");
+            this.checkBoxEnableLiveTranscript.Name = "checkBoxEnableLiveTranscript";
+            this.checkBoxEnableLiveTranscript.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLiveTranscript.CheckedChanged += new System.EventHandler(this.CheckBoxEnableLiveTranscript_CheckedChanged);
+            // 
             // tabPageAdv
             // 
             this.tabPageAdv.Controls.Add(this.label1);
@@ -428,6 +471,12 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Name = "label8";
+            // 
             // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
@@ -459,6 +508,8 @@
             this.panelPresetLiveEncoding.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).EndInit();
+            this.tabPageLiveTranscript.ResumeLayout(false);
+            this.tabPageLiveTranscript.PerformLayout();
             this.tabPageAdv.ResumeLayout(false);
             this.tabPageAdv.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -517,5 +568,11 @@
         private System.Windows.Forms.Label labelUrlSyntax;
         private System.Windows.Forms.TableLayoutPanel panelPresetLiveEncoding;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TabPage tabPageLiveTranscript;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxLiveTranscriptLanguage;
+        private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;
+        private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
+        private System.Windows.Forms.Label label8;
     }
 }

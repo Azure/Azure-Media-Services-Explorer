@@ -4553,6 +4553,7 @@ namespace AMSExplorer
                 KeyframeIntervalSerialized = XmlConvert.ToString(Properties.Settings.Default.LiveKeyFrameInterval),
                 StartLiveEventNow = true
             };
+
             if (form.ShowDialog() == DialogResult.OK)
             {
                 await _amsClient.RefreshTokenIfNeededAsync();
@@ -4561,6 +4562,7 @@ namespace AMSExplorer
 
                 bool Error = false;
                 LiveEvent liveEvent = new LiveEvent();
+
                 try
                 {
 
@@ -4587,20 +4589,24 @@ namespace AMSExplorer
                                                                        )
                     };
 
+
+
+
                     liveEvent = new LiveEvent(
-                                              name: form.LiveEventName,
-                                              location: _amsClient.credentialsEntry.MediaService.Location,
-                                              description: form.LiveEventDescription,
-                                              vanityUrl: form.VanityUrl,
-                                              encoding: form.Encoding,
-                                              input: liveEventInput,
-                                              preview: liveEventPreview,
-                                              streamOptions: new List<StreamOptionsFlag?>()
-                                                          {
+                                                                 name: form.LiveEventName,
+                                                                 location: _amsClient.credentialsEntry.MediaService.Location,
+                                                                 description: form.LiveEventDescription,
+                                                                 vanityUrl: form.VanityUrl,
+                                                                 encoding: form.Encoding,
+                                                                 input: liveEventInput,
+                                                                 preview: liveEventPreview,
+                                                                 streamOptions: new List<StreamOptionsFlag?>()
+                                                                             {
                                                 // Set this to Default or Low Latency
                                                form.LowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
-                                                          }
-                                                            );
+                                                                             }
+                                                                               );
+
                 }
 
                 catch (Exception ex)
@@ -4612,24 +4618,57 @@ namespace AMSExplorer
 
                 if (!Error)
                 {
-                    try
+                    if (form.LiveTranscript)
                     {
-                        await Task.Run(() =>
-                         _amsClient.AMSclient.LiveEvents.CreateAsync(
-                                                                         _amsClient.credentialsEntry.ResourceGroup,
-                                                                         _amsClient.credentialsEntry.AccountName,
-                                                                         form.LiveEventName,
-                                                                         liveEvent,
-                                                                         autoStart: form.StartLiveEventNow ? true : false)
-                                                                      );
-                        TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error with live event creation.", true);
-                        TextBoxLogWriteLine(ex);
+                        // let's use REST call
+                        var client = new AmsClientRestLiveTranscript(_amsClient);
+
+                        var liveEventForREst = new LiveEventForRest(
+                                              name: liveEvent.Name,
+                                              location: liveEvent.Location,
+                                              transcriptions: form.LiveTranscriptionList,
+                                              description: liveEvent.Description,
+                                              vanityUrl: liveEvent.VanityUrl,
+                                              encoding: liveEvent.Encoding,
+                                              input: liveEvent.Input,
+                                              preview: liveEvent.Preview,
+                                              streamOptions: liveEvent.StreamOptions
+                                                            );
+
+                        try
+                        {
+                            await client.CreateLiveEventAsync(liveEventForREst, form.StartLiveEventNow);
+                            TextBoxLogWriteLine("Live event '{0}' created using REST call.", form.LiveEventName);
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error with live event creation using REST call.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
                     }
 
+                    else
+                    {
+                        // let's use the SDK
+
+                        try
+                        {
+                            await Task.Run(() =>
+                             _amsClient.AMSclient.LiveEvents.CreateAsync(
+                                                                             _amsClient.credentialsEntry.ResourceGroup,
+                                                                             _amsClient.credentialsEntry.AccountName,
+                                                                             form.LiveEventName,
+                                                                             liveEvent,
+                                                                             autoStart: form.StartLiveEventNow ? true : false)
+                                                                          );
+                            TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error with live event creation.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
+                    }
                     await DoRefreshGridLiveEventVAsync(false);
                 }
             }
@@ -6276,7 +6315,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype, List<Asset> listassets, string filter = null)
+        public async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype, List<Asset> listassets, string filter = null, string subtitletracklanguage = null)
         {
             foreach (Asset myAsset in listassets)
             {
@@ -6330,7 +6369,7 @@ namespace AMSExplorer
 
                         if (MyUri != null)
                         {
-                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(playertype, MyUri, _amsClient, this, myAsset, false, filter, locator: PlayBackLocator);
+                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(playertype, MyUri, _amsClient, this, myAsset, false, filter, locator: PlayBackLocator, subtitleLanguageCode: subtitletracklanguage);
                         }
                         else
                         {
@@ -6356,7 +6395,27 @@ namespace AMSExplorer
 
         private async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype)
         {
-            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(playertype, await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync());
+            string language = null;
+            var le = await ReturnSelectedLiveEventsAsync();
+
+            // let's try to use preview REST to get live transcript setting
+            try
+            {
+                var clientRest = new AmsClientRestLiveTranscript(_amsClient);
+                var liveEventRestProp = clientRest.GetLiveEvent(le.FirstOrDefault().Name).Properties;
+
+                if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
+                {
+                    language = liveEventRestProp.Transcriptions.FirstOrDefault()?.Language;
+                }
+            }
+
+            catch
+            {
+
+            }
+
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(playertype, await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync(), null, language);
         }
 
         private async void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)

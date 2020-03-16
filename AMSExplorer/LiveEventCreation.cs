@@ -60,6 +60,23 @@ namespace AMSExplorer
             set => checkBoxLowLatency.Checked = value;
         }
 
+        public bool LiveTranscript
+        {
+            get => checkBoxEnableLiveTranscript.Checked;
+            set => checkBoxEnableLiveTranscript.Checked = value;
+        }
+
+        public IList<TranscriptionForRest> LiveTranscriptionList
+        {
+            get
+            {
+
+                IList<TranscriptionForRest> transcriptionList = new List<TranscriptionForRest>();
+                transcriptionList.Add(new TranscriptionForRest(language: textBoxLiveTranscriptLanguage.Text)); 
+                return transcriptionList;
+            }
+        }
+
         public LiveEventEncoding Encoding
         {
             get
@@ -198,6 +215,7 @@ namespace AMSExplorer
             moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
+            linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
 
             checkChannelName();
             InitPhase = false;
@@ -457,5 +475,22 @@ namespace AMSExplorer
         {
             UpdateLabelSyntax();
         }
+
+        private void CheckBoxEnableLiveTranscript_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxLiveTranscriptLanguage.Enabled = checkBoxEnableLiveTranscript.Checked;
+        }
     }
+
+    /*
+    public class LiveEventTranscription
+    {
+        private string language;
+
+        public LiveEventTranscription(string language)
+        {
+            this.language = language;
+        }
+    }
+    */
 }
