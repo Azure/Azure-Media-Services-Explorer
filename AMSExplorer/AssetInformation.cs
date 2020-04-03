@@ -1516,14 +1516,14 @@ namespace AMSExplorer
                 string question = "Delete all blobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    // IListBlobItem[] Array = blobs.ToArray();
-                    IListBlobItem[] Array = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).ToArray();
+                    var ArrayBlobs = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToArray();
+                    List<Task> deleteTasks = new List<Task>();
 
-                    for (int i = 0; i < Array.Count(); i++)
+                    for (int i = 0; i < ArrayBlobs.Count(); i++)
                     {
-                        IListBlobItem blob = Array[i];
-                        ((CloudBlockBlob)blob).Delete();
+                        deleteTasks.Add(ArrayBlobs[i].DeleteAsync());
                     }
+                    await Task.WhenAll(deleteTasks);
                 }
             }
             catch

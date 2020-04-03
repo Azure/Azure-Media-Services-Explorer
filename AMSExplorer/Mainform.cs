@@ -6398,21 +6398,24 @@ namespace AMSExplorer
             string language = null;
             var le = await ReturnSelectedLiveEventsAsync();
 
-            // let's try to use preview REST to get live transcript setting
-            try
+            if (le.Count > 0)
             {
-                var clientRest = new AmsClientRestLiveTranscript(_amsClient);
-                var liveEventRestProp = clientRest.GetLiveEvent(le.FirstOrDefault().Name).Properties;
-
-                if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
+                // let's try to use preview REST to get live transcript setting
+                try
                 {
-                    language = liveEventRestProp.Transcriptions.FirstOrDefault()?.Language;
+                    var clientRest = new AmsClientRestLiveTranscript(_amsClient);
+                    var liveEventRestProp = clientRest.GetLiveEvent(le.FirstOrDefault().Name).Properties;
+
+                    if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
+                    {
+                        language = liveEventRestProp.Transcriptions.FirstOrDefault()?.Language;
+                    }
                 }
-            }
 
-            catch
-            {
+                catch
+                {
 
+                }
             }
 
             await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(playertype, await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync(), null, language);
