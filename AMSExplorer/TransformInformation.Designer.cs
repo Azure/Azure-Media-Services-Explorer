@@ -38,18 +38,22 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DGOutputs = new System.Windows.Forms.DataGridView();
+            this.textBoxPresetJson = new System.Windows.Forms.TextBox();
             this.contextMenuStripOutputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripInputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelJobNameTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGTransform)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGOutputs)).BeginInit();
             this.contextMenuStripOutputAsset.SuspendLayout();
             this.contextMenuStripInputAsset.SuspendLayout();
@@ -116,28 +120,42 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.DGOutputs);
-            this.tabPage2.Controls.Add(this.listBoxOutputs);
+            this.tabPage2.Controls.Add(this.tableLayoutPanel1);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.DGOutputs, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.listBoxOutputs, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxPresetJson, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 2);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // DGOutputs
             // 
             this.DGOutputs.AllowUserToAddRows = false;
             this.DGOutputs.AllowUserToDeleteRows = false;
             this.DGOutputs.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGOutputs, "DGOutputs");
             this.DGOutputs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGOutputs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGOutputs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGOutputs.ColumnHeadersVisible = false;
             this.DGOutputs.ContextMenuStrip = this.contextMenuStrip;
+            resources.ApplyResources(this.DGOutputs, "DGOutputs");
             this.DGOutputs.MultiSelect = false;
             this.DGOutputs.Name = "DGOutputs";
             this.DGOutputs.ReadOnly = true;
             this.DGOutputs.RowHeadersVisible = false;
             this.DGOutputs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGTasks_CellContentClick);
+            // 
+            // textBoxPresetJson
+            // 
+            resources.ApplyResources(this.textBoxPresetJson, "textBoxPresetJson");
+            this.textBoxPresetJson.Name = "textBoxPresetJson";
+            this.textBoxPresetJson.ReadOnly = true;
             // 
             // contextMenuStripOutputAsset
             // 
@@ -179,6 +197,11 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // TransformInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -197,6 +220,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGOutputs)).EndInit();
             this.contextMenuStripOutputAsset.ResumeLayout(false);
             this.contextMenuStripInputAsset.ResumeLayout(false);
@@ -221,5 +246,8 @@
         private System.Windows.Forms.ToolStripMenuItem assetInformationToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOutputAsset;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox textBoxPresetJson;
+        private System.Windows.Forms.Label label1;
     }
 }

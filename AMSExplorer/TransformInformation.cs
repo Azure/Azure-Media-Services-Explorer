@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -93,7 +94,7 @@ namespace AMSExplorer
         private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
             TransformOutput output = _transform.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
-
+            string presetJson = string.Empty;
             DGOutputs.Rows.Clear();
 
             DGOutputs.Rows.Add("Preset type", output.Preset.GetType().ToString());
@@ -101,30 +102,33 @@ namespace AMSExplorer
             if (output.Preset.GetType() == typeof(BuiltInStandardEncoderPreset))
             {
                 BuiltInStandardEncoderPreset pmes = (BuiltInStandardEncoderPreset)output.Preset;
-                DGOutputs.Rows.Add("Preset name", pmes.PresetName);
+                presetJson = JsonConvert.SerializeObject(pmes, Newtonsoft.Json.Formatting.Indented);
             }
             else if (output.Preset.GetType() == typeof(AudioAnalyzerPreset))
             {
                 AudioAnalyzerPreset pmes = (AudioAnalyzerPreset)output.Preset;
-                DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
+                presetJson = JsonConvert.SerializeObject(pmes, Newtonsoft.Json.Formatting.Indented);
             }
             else if (output.Preset.GetType() == typeof(StandardEncoderPreset))
             {
                 StandardEncoderPreset pmes = (StandardEncoderPreset)output.Preset;
-                // DGOutputs.Rows.Add("Audio language", pmes.);
+                presetJson = JsonConvert.SerializeObject(pmes, Newtonsoft.Json.Formatting.Indented);
             }
             else if (output.Preset.GetType() == typeof(VideoAnalyzerPreset))
             {
                 VideoAnalyzerPreset pmes = (VideoAnalyzerPreset)output.Preset;
-                DGOutputs.Rows.Add("Audio language", pmes.AudioLanguage);
-                DGOutputs.Rows.Add("Insights To Extract", pmes.InsightsToExtract);
+                presetJson = JsonConvert.SerializeObject(pmes, Newtonsoft.Json.Formatting.Indented);
             }
             else if (output.Preset.GetType() == typeof(FaceDetectorPreset))
             {
                 FaceDetectorPreset pmes = (FaceDetectorPreset)output.Preset;
-                DGOutputs.Rows.Add("Resolution", pmes.Resolution.HasValue ? pmes.Resolution.Value.ToString() : string.Empty);
+                presetJson = JsonConvert.SerializeObject(pmes, Newtonsoft.Json.Formatting.Indented);
             }
-
+            else
+            {
+                presetJson = JsonConvert.SerializeObject(output.Preset, Newtonsoft.Json.Formatting.Indented);
+            }
+            textBoxPresetJson.Text = presetJson;
             DGOutputs.Rows.Add("Relative Priority", output.RelativePriority);
         }
 

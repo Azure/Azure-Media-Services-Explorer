@@ -39,8 +39,8 @@
             this.deleteLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAzureMediaPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAdvPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
             this.TreeViewLocators = new System.Windows.Forms.TreeView();
             this.DGFiles = new System.Windows.Forms.DataGridView();
             this.contextMenuStripBlobs = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -231,19 +231,19 @@
             this.toolStripMenuItemAzureMediaPlayer.Name = "toolStripMenuItemAzureMediaPlayer";
             this.toolStripMenuItemAzureMediaPlayer.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
             // 
+            // toolStripMenuItemAdvPlayer
+            // 
+            resources.ApplyResources(this.toolStripMenuItemAdvPlayer, "toolStripMenuItemAdvPlayer");
+            this.toolStripMenuItemAdvPlayer.Image = global::AMSExplorer.Bitmaps.play;
+            this.toolStripMenuItemAdvPlayer.Name = "toolStripMenuItemAdvPlayer";
+            this.toolStripMenuItemAdvPlayer.Click += new System.EventHandler(this.toolStripMenuItemPlaybackMP4_Click);
+            // 
             // toolStripMenuItemDASHIF
             // 
             resources.ApplyResources(this.toolStripMenuItemDASHIF, "toolStripMenuItemDASHIF");
             this.toolStripMenuItemDASHIF.Image = global::AMSExplorer.Bitmaps.play;
             this.toolStripMenuItemDASHIF.Name = "toolStripMenuItemDASHIF";
             this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.toolStripMenuItemDASHIF_Click);
-            // 
-            // toolStripMenuItemPlaybackMP4
-            // 
-            resources.ApplyResources(this.toolStripMenuItemAdvPlayer, "toolStripMenuItemPlaybackMP4");
-            this.toolStripMenuItemAdvPlayer.Image = global::AMSExplorer.Bitmaps.play;
-            this.toolStripMenuItemAdvPlayer.Name = "toolStripMenuItemPlaybackMP4";
-            this.toolStripMenuItemAdvPlayer.Click += new System.EventHandler(this.toolStripMenuItemPlaybackMP4_Click);
             // 
             // TreeViewLocators
             // 

@@ -180,10 +180,10 @@
     </Compile>
     <Compile Include="Forms-DynamicEncryption\DynamicEncryption.cs" />
     <Compile Include="Forms-DynamicEncryption\WidevineConfiguration.cs" />
-    <Compile Include="ListViewAssets.cs">
+    <Compile Include="ListViews\ListViewAssets.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LiveEventForRest.cs" />
+    <Compile Include="Live\LiveEventForRest.cs" />
     <Compile Include="MediaRUv2.cs" />
     <Compile Include="Subclipping.cs">
       <SubType>Form</SubType>
@@ -371,7 +371,7 @@
     <Compile Include="AttachStorage.Designer.cs">
       <DependentUpon>AttachStorage.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListViewTransforms.cs">
+    <Compile Include="ListViews\ListViewTransforms.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CreateStreamingEndpoint.cs">
@@ -393,22 +393,22 @@
     <Compile Include="ImportHttp.Designer.cs">
       <DependentUpon>ImportHttp.cs</DependentUpon>
     </Compile>
-    <Compile Include="LiveOutputInformation.cs">
+    <Compile Include="Live\LiveOutputInformation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LiveOutputInformation.Designer.cs">
+    <Compile Include="Live\LiveOutputInformation.Designer.cs">
       <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="LiveEventInformation.cs">
+    <Compile Include="Live\LiveEventInformation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LiveEventInformation.Designer.cs">
+    <Compile Include="Live\LiveEventInformation.Designer.cs">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="LiveOutputCreation.cs">
+    <Compile Include="Live\LiveOutputCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LiveOutputCreation.Designer.cs">
+    <Compile Include="Live\LiveOutputCreation.Designer.cs">
       <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </Compile>
     <Compile Include="AssetInformation.cs">
@@ -417,13 +417,13 @@
     <Compile Include="AssetInformation.Designer.cs">
       <DependentUpon>AssetInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="LiveEventCreation.cs">
+    <Compile Include="Live\LiveEventCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LiveEventCreation.Designer.cs">
+    <Compile Include="Live\LiveEventCreation.Designer.cs">
       <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </Compile>
-    <Compile Include="live.cs" />
+    <Compile Include="Live\live.cs" />
     <Compile Include="options.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -468,6 +468,7 @@
     <None Include="BitmapsPNG\redactor-blur-high.png" />
     <None Include="BitmapsPNG\redactor-blur-low.png" />
     <None Include="BitmapsPNG\redactor-blur-med.png" />
+    <None Include="BitmapsPNG\Azure Explorer_ico-old.ico" />
     <Content Include="Configurations\SampleSemaphore.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -680,19 +681,19 @@
     <EmbeddedResource Include="TransformInformation.resx">
       <DependentUpon>TransformInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiveEventInformation.ja.resx">
+    <EmbeddedResource Include="Live\LiveEventInformation.ja.resx">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseStreamingEndpoint.ja.resx">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiveEventCreation.ja.resx">
+    <EmbeddedResource Include="Live\LiveEventCreation.ja.resx">
       <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateLocator.ja.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiveOutputCreation.ja.resx">
+    <EmbeddedResource Include="Live\LiveOutputCreation.ja.resx">
       <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.ja.resx">
@@ -769,7 +770,7 @@
     <EmbeddedResource Include="Priority.ja.resx">
       <DependentUpon>Priority.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiveOutputInformation.ja.resx">
+    <EmbeddedResource Include="Live\LiveOutputInformation.ja.resx">
       <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsSelection.ja.resx">
@@ -863,20 +864,20 @@
     <EmbeddedResource Include="ImportHttp.resx">
       <DependentUpon>ImportHttp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiveOutputInformation.resx">
+    <EmbeddedResource Include="Live\LiveOutputInformation.resx">
       <DependentUpon>LiveOutputInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiveEventInformation.resx">
+    <EmbeddedResource Include="Live\LiveEventInformation.resx">
       <DependentUpon>LiveEventInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiveOutputCreation.resx">
+    <EmbeddedResource Include="Live\LiveOutputCreation.resx">
       <DependentUpon>LiveOutputCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssetInformation.resx">
       <DependentUpon>AssetInformation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LiveEventCreation.resx">
+    <EmbeddedResource Include="Live\LiveEventCreation.resx">
       <DependentUpon>LiveEventCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="options.resx">
