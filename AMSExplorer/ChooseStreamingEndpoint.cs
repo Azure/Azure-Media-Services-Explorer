@@ -80,7 +80,7 @@ namespace AMSExplorer
             }
         }
 
-        public string ReturnSelectedBrowser => (comboBoxBrowser.SelectedItem as Item).Value as string;
+        public string ReturnSelectedBrowser => (comboBoxBrowser?.SelectedItem as Item).Value as string;
 
         public bool ReturnHttps => radioButtonHttps.Checked;
 

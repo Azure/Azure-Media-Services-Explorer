@@ -709,7 +709,7 @@ namespace AMSExplorer
                 var response2 = await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);//.ConfigureAwait(false);
                 storAccounts = response2.StorageAccounts;
             }
-            catch (Exception ex)
+            catch
             {
 
             }
