@@ -208,7 +208,7 @@ namespace AMSExplorer
                 _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
 
                 // let's delete the temp locator
-                if (_tempStreamingLocator != null) await AssetInfo.DeleteStreamingLocatorAsync(_parentAsset, _amsClient, _tempStreamingLocator.Name);
+                if (_tempStreamingLocator != null) await AssetInfo.DeleteStreamingLocatorAsync(_amsClient, _tempStreamingLocator.Name);
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
@@ -308,7 +308,7 @@ namespace AMSExplorer
                 _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
 
                 // let's delete the temp locator
-                await AssetInfo.DeleteStreamingLocatorAsync(_parentAsset, _amsClient, _tempStreamingLocator.Name);
+                await AssetInfo.DeleteStreamingLocatorAsync(_amsClient, _tempStreamingLocator.Name);
 
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
 
@@ -491,14 +491,14 @@ namespace AMSExplorer
                 {
                     ExCondition mycondition = new ExCondition
                     {
-                        oper = condition.Operation.ToString(),
-                        property = condition.Property.ToString(),
-                        value = condition.Value
+                        Oper = condition.Operation.ToString(),
+                        Property = condition.Property.ToString(),
+                        Value = condition.Value
                     };
 
                     myconditions.Add(mycondition);
                 }
-                mytrack.conditions = myconditions;
+                mytrack.Conditions = myconditions;
                 targettracks.Add(mytrack);
             }
             return targettracks;
@@ -517,11 +517,11 @@ namespace AMSExplorer
                     TrackSelections = new List<FilterTrackPropertyCondition>()
                 };
 
-                foreach (ExCondition condition in track.conditions)
+                foreach (ExCondition condition in track.Conditions)
                 {
 
                     FilterTrackPropertyCompareOperation op;
-                    if (condition.oper == FilterTrackPropertyCompareOperation.Equal.ToString())
+                    if (condition.Oper == FilterTrackPropertyCompareOperation.Equal.ToString())
                     {
                         op = FilterTrackPropertyCompareOperation.Equal;
                     }
@@ -531,23 +531,23 @@ namespace AMSExplorer
                     }
 
                     FilterTrackPropertyType prop;
-                    if (condition.property == FilterTrackPropertyType.Bitrate.ToString())
+                    if (condition.Property == FilterTrackPropertyType.Bitrate.ToString())
                     {
                         prop = FilterTrackPropertyType.Bitrate;
                     }
-                    else if (condition.property == FilterTrackPropertyType.FourCC.ToString())
+                    else if (condition.Property == FilterTrackPropertyType.FourCC.ToString())
                     {
                         prop = FilterTrackPropertyType.FourCC;
                     }
-                    else if (condition.property == FilterTrackPropertyType.Language.ToString())
+                    else if (condition.Property == FilterTrackPropertyType.Language.ToString())
                     {
                         prop = FilterTrackPropertyType.Language;
                     }
-                    else if (condition.property == FilterTrackPropertyType.Name.ToString())
+                    else if (condition.Property == FilterTrackPropertyType.Name.ToString())
                     {
                         prop = FilterTrackPropertyType.Name;
                     }
-                    else if (condition.property == FilterTrackPropertyType.Type.ToString())
+                    else if (condition.Property == FilterTrackPropertyType.Type.ToString())
                     {
                         prop = FilterTrackPropertyType.Type;
                     }
@@ -556,7 +556,7 @@ namespace AMSExplorer
                         prop = FilterTrackPropertyType.Unknown;
                     }
 
-                    filterTrackSelectStatement.TrackSelections.Add(new FilterTrackPropertyCondition(prop, condition.value, op));
+                    filterTrackSelectStatement.TrackSelections.Add(new FilterTrackPropertyCondition(prop, condition.Value, op));
                 }
                 filterTrackSelectStatements.Add(filterTrackSelectStatement);
             }
@@ -681,15 +681,15 @@ namespace AMSExplorer
                 switch (dataGridViewTracks.CurrentCell.ColumnIndex)
                 {
                     case 0: // property
-                        filtertracks[listBoxTracks.SelectedIndex].conditions[dataGridViewTracks.CurrentCell.RowIndex].property = dataGridViewTracks.CurrentCell.Value.ToString();
+                        filtertracks[listBoxTracks.SelectedIndex].Conditions[dataGridViewTracks.CurrentCell.RowIndex].Property = dataGridViewTracks.CurrentCell.Value.ToString();
                         break;
 
                     case 1: // operator
-                        filtertracks[listBoxTracks.SelectedIndex].conditions[dataGridViewTracks.CurrentCell.RowIndex].oper = dataGridViewTracks.CurrentCell.Value.ToString();
+                        filtertracks[listBoxTracks.SelectedIndex].Conditions[dataGridViewTracks.CurrentCell.RowIndex].Oper = dataGridViewTracks.CurrentCell.Value.ToString();
                         break;
 
                     case 2: // value
-                        filtertracks[listBoxTracks.SelectedIndex].conditions[dataGridViewTracks.CurrentCell.RowIndex].value = dataGridViewTracks.CurrentCell.Value.ToString();
+                        filtertracks[listBoxTracks.SelectedIndex].Conditions[dataGridViewTracks.CurrentCell.RowIndex].Value = dataGridViewTracks.CurrentCell.Value.ToString();
                         break;
                 }
 
@@ -699,7 +699,7 @@ namespace AMSExplorer
 
         private void buttonAddTrack_Click(object sender, EventArgs e)
         {
-            ExFilterTrack track = new ExFilterTrack() { conditions = new List<ExCondition>() };
+            ExFilterTrack track = new ExFilterTrack() { Conditions = new List<ExCondition>() };
             filtertracks.Add(track);
             RefreshTracks();
         }
@@ -718,7 +718,7 @@ namespace AMSExplorer
         {
             if (listBoxTracks.SelectedIndex > -1)
             {
-                filtertracks[listBoxTracks.SelectedIndex].conditions.Add(new ExCondition() { oper = FilterTrackPropertyCompareOperation.Equal.ToString() });
+                filtertracks[listBoxTracks.SelectedIndex].Conditions.Add(new ExCondition() { Oper = FilterTrackPropertyCompareOperation.Equal.ToString() });
                 RefreshTracksConditions();
             }
         }
@@ -729,51 +729,51 @@ namespace AMSExplorer
             if (listBoxTracks.SelectedIndex > -1)
             {
                 ExFilterTrack track = filtertracks[listBoxTracks.SelectedIndex];
-                foreach (ExCondition condition in track.conditions)
+                foreach (ExCondition condition in track.Conditions)
                 {
-                    if (condition.property == FilterTrackPropertyType.Type.ToString()) // property type - we want to propose audio, video or text dropbox
+                    if (condition.Property == FilterTrackPropertyType.Type.ToString()) // property type - we want to propose audio, video or text dropbox
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Type.ToString(), condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Type.ToString(), condition.Oper, condition.Value);
                         DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
                         {
                             DataSource = dataPropertyType,
                             ValueMember = "Value",
                             DisplayMember = "Description",
-                            Value = condition.value
+                            Value = condition.Value
                         };
                         dataGridViewTracks[2, index] = cellValue;
                     }
-                    else if (condition.property == FilterTrackPropertyType.FourCC.ToString()) // property FourCC - we want to propose supported FourCC
+                    else if (condition.Property == FilterTrackPropertyType.FourCC.ToString()) // property FourCC - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.FourCC.ToString(), condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.FourCC.ToString(), condition.Oper, condition.Value);
                         DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
                         {
                             DataSource = dataPropertyFourCC,
                             ValueMember = "Value",
                             DisplayMember = "Description",
-                            Value = condition.value
+                            Value = condition.Value
                         };
                         dataGridViewTracks[2, index] = cellValue;
                     }
-                    else if (condition.property == FilterTrackPropertyType.Language.ToString()) // property language
+                    else if (condition.Property == FilterTrackPropertyType.Language.ToString()) // property language
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Language.ToString(), condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Language.ToString(), condition.Oper, condition.Value);
                     }
-                    else if (condition.property == FilterTrackPropertyType.Bitrate.ToString()) // property bitrate
+                    else if (condition.Property == FilterTrackPropertyType.Bitrate.ToString()) // property bitrate
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Bitrate.ToString(), condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Bitrate.ToString(), condition.Oper, condition.Value);
                     }
-                    else if (condition.property == FilterTrackPropertyType.Name.ToString()) // property Name - we want to propose supported FourCC
+                    else if (condition.Property == FilterTrackPropertyType.Name.ToString()) // property Name - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Name.ToString(), condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Name.ToString(), condition.Oper, condition.Value);
                     }
-                    else if (condition.property == FilterTrackPropertyType.Unknown.ToString()) // property Name - we want to propose supported FourCC
+                    else if (condition.Property == FilterTrackPropertyType.Unknown.ToString()) // property Name - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Unknown.ToString(), condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Unknown.ToString(), condition.Oper, condition.Value);
                     }
                     else
                     {
-                        int index = dataGridViewTracks.Rows.Add(condition.property, condition.oper, condition.value);
+                        int index = dataGridViewTracks.Rows.Add(condition.Property, condition.Oper, condition.Value);
                     }
                 }
             }
@@ -783,7 +783,7 @@ namespace AMSExplorer
         {
             if (listBoxTracks.SelectedIndex > -1 && dataGridViewTracks.SelectedRows.Count > 0)
             {
-                filtertracks[listBoxTracks.SelectedIndex].conditions.RemoveAt(dataGridViewTracks.SelectedRows[0].Index);
+                filtertracks[listBoxTracks.SelectedIndex].Conditions.RemoveAt(dataGridViewTracks.SelectedRows[0].Index);
                 RefreshTracksConditions();
             }
         }

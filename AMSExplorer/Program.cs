@@ -77,7 +77,7 @@ namespace AMSExplorer
             Application.Run(new Mainform(args));
         }
 
-        public static void dataGridViewV_Resize(object sender)
+        public static void DataGridViewV_Resize(object sender)
         {
             return; // let's disable this code for now
             // let's resize the column name to fill the space
@@ -780,7 +780,7 @@ namespace AMSExplorer
             return tempLocator;
         }
 
-        public static async Task DeleteStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClientV3, string streamingLocatorName)
+        public static async Task DeleteStreamingLocatorAsync(AMSClientV3 _amsClientV3, string streamingLocatorName)
         {
             await _amsClientV3.RefreshTokenIfNeededAsync();
 
@@ -1462,24 +1462,24 @@ namespace AMSExplorer
 
         public static long? Inverse_FormatByteSize(string mystring)
         {
-            List<unitSize> sizes = new List<unitSize> {
-                  new unitSize() { unitn = "B", mult = 1 },
-                  new unitSize(){ unitn = "KB", mult = 1000 },
-                  new unitSize(){ unitn = "MB", mult = (long)1000*1000 },
-                  new unitSize(){ unitn = "GB", mult = (long)1000*1000*1000 },
-                  new unitSize(){ unitn = "TB", mult = (long)1000*1000*1000*1000 },
-                  new unitSize(){ unitn = "PB", mult = (long)1000*1000*1000*1000*1000 },
-                  new unitSize(){ unitn = "EB", mult = (long)1000*1000*1000*1000*1000*1000 }
+            List<UnitSize> sizes = new List<UnitSize> {
+                  new UnitSize() { Unitn = "B", Mult = 1 },
+                  new UnitSize(){ Unitn = "KB", Mult = 1000 },
+                  new UnitSize(){ Unitn = "MB", Mult = (long)1000*1000 },
+                  new UnitSize(){ Unitn = "GB", Mult = (long)1000*1000*1000 },
+                  new UnitSize(){ Unitn = "TB", Mult = (long)1000*1000*1000*1000 },
+                  new UnitSize(){ Unitn = "PB", Mult = (long)1000*1000*1000*1000*1000 },
+                  new UnitSize(){ Unitn = "EB", Mult = (long)1000*1000*1000*1000*1000*1000 }
                   };
 
-            if (sizes.Any(s => mystring.EndsWith(" " + s.unitn)))
+            if (sizes.Any(s => mystring.EndsWith(" " + s.Unitn)))
             {
                 string val = mystring.Substring(0, mystring.Length - 2).Trim();
                 try
                 {
                     double valdouble = double.Parse(val);
                     string myunit = mystring.Substring(mystring.Length - 2, 2).Trim();
-                    long mymult = sizes.Where(s => s.unitn == myunit).FirstOrDefault().mult;
+                    long mymult = sizes.Where(s => s.Unitn == myunit).FirstOrDefault().Mult;
                     return (long)(valdouble * mymult);
                 }
                 catch
@@ -1490,14 +1490,14 @@ namespace AMSExplorer
             return null;
         }
 
-        public class unitSize
+        public class UnitSize
         {
-            public string unitn { get; set; }
-            public long mult { get; set; }
+            public string Unitn { get; set; }
+            public long Mult { get; set; }
         }
 
 
-        public static AssetProtectionType GetAssetProtection(Asset MyAsset, AMSClientV3 client, AssetStreamingLocator locator)
+        public static AssetProtectionType GetAssetProtection(AssetStreamingLocator locator)
         {
             AssetProtectionType type = AssetProtectionType.None;
 
@@ -1628,7 +1628,7 @@ namespace AMSExplorer
             return sb;
         }
         */
-        public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient, StreamingEndpoint SelectedSE = null)
+        public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient)
         {
             StringBuilder sb = new StringBuilder();
             AssetInfoData MyAssetTypeInfo = await AssetInfo.GetAssetTypeAsync(MyAsset.Name, _amsClient);
@@ -1695,7 +1695,7 @@ namespace AMSExplorer
                     sb.AppendLine(string.Empty);
                 }
             }
-            sb.Append(await GetDescriptionLocatorsAsync(MyAsset, _amsClient, SelectedSE));
+            sb.Append(await GetDescriptionLocatorsAsync(MyAsset, _amsClient));
 
             sb.AppendLine(string.Empty);
             sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -1714,7 +1714,7 @@ namespace AMSExplorer
         }
 
 
-        public static async Task<StringBuilder> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient, StreamingEndpoint SelectedSE = null)
+        public static async Task<StringBuilder> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient)
         {
             StringBuilder sb = new StringBuilder();
             await amsClient.RefreshTokenIfNeededAsync();
@@ -1796,7 +1796,7 @@ namespace AMSExplorer
 
                 if (myasset != null)
                 {
-                    keytype = AssetInfo.GetAssetProtection(myasset, client, locator); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
+                    keytype = AssetInfo.GetAssetProtection(locator); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
                 }
             }
 
@@ -3331,14 +3331,14 @@ namespace AMSExplorer
 
     public class ExFilterTrack
     {
-        public List<ExCondition> conditions { get; set; }
+        public List<ExCondition> Conditions { get; set; }
     }
 
     public class ExCondition
     {
-        public string property { get; set; }
-        public string oper { get; set; }
-        public string value { get; set; }
+        public string Property { get; set; }
+        public string Oper { get; set; }
+        public string Value { get; set; }
     }
 
 

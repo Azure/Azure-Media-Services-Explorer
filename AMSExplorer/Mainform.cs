@@ -7035,7 +7035,7 @@ namespace AMSExplorer
 
         private void dataGridViewV_Resize(object sender, EventArgs e)
         {
-            Program.dataGridViewV_Resize(sender);
+            Program.DataGridViewV_Resize(sender);
         }
 
         private void cloneLiveEventsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7045,7 +7045,7 @@ namespace AMSExplorer
 
         private void dataGridViewV_VisibleChanged(object sender, EventArgs e)
         {
-            Program.dataGridViewV_Resize(sender);
+            Program.DataGridViewV_Resize(sender);
         }
 
         private async void subclipToolStripMenuItem_Click(object sender, EventArgs e)

@@ -41,7 +41,7 @@ namespace AMSExplorer
             _transform = transform;
         }
 
-        private void contextMenuStrip_MouseClick(object sender, MouseEventArgs e)
+        private void ContextMenuStrip_MouseClick(object sender, MouseEventArgs e)
         {
             ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
             DataGridView DG = (DataGridView)contextmenu.SourceControl;
@@ -91,7 +91,7 @@ namespace AMSExplorer
             }
         }
 
-        private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
             TransformOutput output = _transform.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
             DGOutputs.Rows.Clear();
@@ -147,7 +147,7 @@ namespace AMSExplorer
             editform.Display();
         }
 
-        private void assetInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AssetInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DisplayAssetInfo(true);
         }
@@ -180,7 +180,7 @@ namespace AMSExplorer
 
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DisplayAssetInfo(false);
         }

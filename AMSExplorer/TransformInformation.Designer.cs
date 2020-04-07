@@ -66,7 +66,7 @@
             this.toolStripMenuItemCopyClipboard});
             this.contextMenuStrip.Name = "contextMenuStrip";
             resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
-            this.contextMenuStrip.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStrip_MouseClick);
+            this.contextMenuStrip.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ContextMenuStrip_MouseClick);
             // 
             // toolStripMenuItemCopyClipboard
             // 
@@ -101,7 +101,7 @@
             resources.ApplyResources(this.listBoxOutputs, "listBoxOutputs");
             this.listBoxOutputs.FormattingEnabled = true;
             this.listBoxOutputs.Name = "listBoxOutputs";
-            this.listBoxOutputs.SelectedIndexChanged += new System.EventHandler(this.listBoxOutputs_SelectedIndexChanged);
+            this.listBoxOutputs.SelectedIndexChanged += new System.EventHandler(this.ListBoxOutputs_SelectedIndexChanged);
             // 
             // tabControl1
             // 
@@ -169,7 +169,7 @@
             this.toolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
             // contextMenuStripInputAsset
             // 
@@ -183,7 +183,7 @@
             this.assetInformationToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.assetInformationToolStripMenuItem.Name = "assetInformationToolStripMenuItem";
             resources.ApplyResources(this.assetInformationToolStripMenuItem, "assetInformationToolStripMenuItem");
-            this.assetInformationToolStripMenuItem.Click += new System.EventHandler(this.assetInformationToolStripMenuItem_Click);
+            this.assetInformationToolStripMenuItem.Click += new System.EventHandler(this.AssetInformationToolStripMenuItem_Click);
             // 
             // labelJobNameTitle
             // 
