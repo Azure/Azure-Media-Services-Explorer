@@ -112,12 +112,12 @@ namespace AMSExplorer
             _end = end;
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void listbox_SelectedIndexChanged(object sender, EventArgs e)
+        private void Listbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonDeleteTemplate.Enabled = listViewTransforms.SelectedItems.Count > 0;
             UpdateStatusButtonOk();
@@ -158,12 +158,12 @@ namespace AMSExplorer
 
         }
 
-        private async void buttonDeleteTemplate_Click(object sender, EventArgs e)
+        private async void ButtonDeleteTemplate_Click(object sender, EventArgs e)
         {
             await listViewTransforms.DeleteSelectedTemplateAsync();
         }
 
-        private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
+        private void TimeControlStartTime_ValueChanged(object sender, EventArgs e)
         {
             UpdateDurationText();
         }
@@ -241,25 +241,19 @@ namespace AMSExplorer
 
         private void textBoxURL_TextChanged(object sender, EventArgs e)
         {
-            bool Error = false;
             try
             {
                 Uri myUri = GetURL;
             }
             catch
             {
-                Error = true;
                 labelURLFileNameWarning.Text = AMSExplorer.Properties.Resources.ImportHttp_textBoxURL_TextChanged_ErrorDetectedInTheURL;
                 UpdateStatusButtonOk(false);
                 return;
             }
 
             UpdateStatusButtonOk(SelectedTransform != null);
-
-            if (!Error)
-            {
-                labelURLFileNameWarning.Text = string.Empty;
-            }
+            labelURLFileNameWarning.Text = string.Empty;
         }
 
         private async void ButtonCreateNewTransform_Click(object sender, EventArgs e)
@@ -302,7 +296,7 @@ namespace AMSExplorer
         {
             panelSelectAsset.Enabled = radioButtonExistingAsset.Checked;
             textBoxNewAssetNameSyntax.Enabled = radioButtonNewAsset.Checked;
-                ;
+            ;
 
             if (radioButtonExistingAsset.Checked)
             {

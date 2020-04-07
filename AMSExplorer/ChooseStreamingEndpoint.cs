@@ -274,7 +274,7 @@ namespace AMSExplorer
             return productName.StartsWith("Windows 10");
         }
 
-        private void radioButtonHLSv3_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonHLSv3_CheckedChanged(object sender, EventArgs e)
         {
             textBoxHLSAudioTrackName.Enabled = checkBoxNoAudioOnly.Enabled = labelaudiotrackname.Enabled = radioButtonHLSv3.Checked;
             UpdatePreviewUrl();
@@ -292,32 +292,32 @@ namespace AMSExplorer
             }
         }
 
-        private void listBoxSE_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxSE_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdatePreviewUrl();
         }
 
-        private void radioButtonHttp_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonHttp_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePreviewUrl();
         }
 
-        private void listBoxFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdatePreviewUrl();
         }
 
-        private void textBoxHLSAudioTrackName_TextChanged(object sender, EventArgs e)
+        private void TextBoxHLSAudioTrackName_TextChanged(object sender, EventArgs e)
         {
             UpdatePreviewUrl();
         }
 
-        private void checkBoxNoAudioOnly_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxNoAudioOnly_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePreviewUrl();
         }
 
-        private void radioButtonSmooth_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonSmooth_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton checkb = (RadioButton)sender;
 
@@ -329,17 +329,13 @@ namespace AMSExplorer
 
 
 
-        private void listViewFilters_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private void ListViewFilters_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             UpdatePreviewUrl();
         }
+             
 
-        private void toolStripMenuItemFilesCopyClipboard_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void contextMenuStripURL_MouseClick(object sender, MouseEventArgs e)
+        private void ContextMenuStripURL_MouseClick(object sender, MouseEventArgs e)
         {
             ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
             TextBox textbox = (TextBox)contextmenu.SourceControl;
@@ -350,7 +346,7 @@ namespace AMSExplorer
             }
         }
 
-        private void radioButtonHLSCMAF_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonHLSCMAF_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton checkb = (RadioButton)sender;
 
@@ -360,7 +356,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void comboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
+        private async void ComboBoxPolicyLocators_SelectedIndexChanged(object sender, EventArgs e)
         {
             AssetStreamingLocator locator = _locators[comboBoxPolicyLocators.SelectedIndex];
 

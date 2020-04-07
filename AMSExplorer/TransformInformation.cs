@@ -94,11 +94,11 @@ namespace AMSExplorer
         private void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
             TransformOutput output = _transform.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
-            string presetJson = string.Empty;
             DGOutputs.Rows.Clear();
 
             DGOutputs.Rows.Add("Preset type", output.Preset.GetType().ToString());
 
+            string presetJson;
             if (output.Preset.GetType() == typeof(BuiltInStandardEncoderPreset))
             {
                 BuiltInStandardEncoderPreset pmes = (BuiltInStandardEncoderPreset)output.Preset;

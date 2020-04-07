@@ -147,7 +147,7 @@
             this.radioButtonEndCustom.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radioButtonEndCustom.Name = "radioButtonEndCustom";
             this.radioButtonEndCustom.UseVisualStyleBackColor = true;
-            this.radioButtonEndCustom.CheckedChanged += new System.EventHandler(this.radioButtonEndCustom_CheckedChanged);
+            this.radioButtonEndCustom.CheckedChanged += new System.EventHandler(this.RadioButtonEndCustom_CheckedChanged);
             // 
             // dateTimePickerEndTime
             // 
@@ -156,14 +156,14 @@
             this.dateTimePickerEndTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndTime.Name = "dateTimePickerEndTime";
             this.dateTimePickerEndTime.ShowUpDown = true;
-            this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.dateTimePickerEndTime_ValueChanged);
+            this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.DateTimePickerEndTime_ValueChanged);
             // 
             // dateTimePickerEndDate
             // 
             resources.ApplyResources(this.dateTimePickerEndDate, "dateTimePickerEndDate");
             this.dateTimePickerEndDate.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
+            this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.DateTimePickerEndDate_ValueChanged);
             // 
             // groupBoxStart
             // 
@@ -181,7 +181,7 @@
             this.checkBoxStartDate.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBoxStartDate.Name = "checkBoxStartDate";
             this.checkBoxStartDate.UseVisualStyleBackColor = true;
-            this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.checkBoxStartDate_CheckedChanged_1);
+            this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.CheckBoxStartDate_CheckedChanged_1);
             // 
             // dateTimePickerStartTime
             // 
@@ -190,13 +190,13 @@
             this.dateTimePickerStartTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
             this.dateTimePickerStartTime.ShowUpDown = true;
-            this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
+            this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.DateTimePickerStartTime_ValueChanged);
             // 
             // dateTimePickerStartDate
             // 
             resources.ApplyResources(this.dateTimePickerStartDate, "dateTimePickerStartDate");
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
+            this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.DateTimePickerStartDate_ValueChanged);
             // 
             // labelAssetName
             // 
@@ -230,7 +230,7 @@
             resources.ApplyResources(this.pictureBox9, "pictureBox9");
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.TabStop = false;
-            this.pictureBox9.Click += new System.EventHandler(this.pictureBox9_Click);
+            this.pictureBox9.Click += new System.EventHandler(this.PictureBox9_Click);
             // 
             // pictureBox8
             // 
@@ -238,7 +238,7 @@
             resources.ApplyResources(this.pictureBox8, "pictureBox8");
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.TabStop = false;
-            this.pictureBox8.Click += new System.EventHandler(this.pictureBox8_Click);
+            this.pictureBox8.Click += new System.EventHandler(this.PictureBox8_Click);
             // 
             // pictureBox7
             // 
@@ -246,7 +246,7 @@
             resources.ApplyResources(this.pictureBox7, "pictureBox7");
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.TabStop = false;
-            this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click);
+            this.pictureBox7.Click += new System.EventHandler(this.PictureBox7_Click);
             // 
             // pictureBox6
             // 
@@ -254,7 +254,7 @@
             resources.ApplyResources(this.pictureBox6, "pictureBox6");
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.TabStop = false;
-            this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click);
+            this.pictureBox6.Click += new System.EventHandler(this.PictureBox6_Click);
             // 
             // pictureBox5
             // 
@@ -305,7 +305,7 @@
             this.radioButtonMultiDRM.Name = "radioButtonMultiDRM";
             this.toolTip1.SetToolTip(this.radioButtonMultiDRM, resources.GetString("radioButtonMultiDRM.ToolTip"));
             this.radioButtonMultiDRM.UseVisualStyleBackColor = true;
-            this.radioButtonMultiDRM.CheckedChanged += new System.EventHandler(this.radioButtonMultiDRM_CheckedChanged);
+            this.radioButtonMultiDRM.CheckedChanged += new System.EventHandler(this.RadioButtonMultiDRM_CheckedChanged);
             // 
             // radioButtonMultiDRMCENC
             // 
@@ -314,7 +314,7 @@
             this.radioButtonMultiDRMCENC.Name = "radioButtonMultiDRMCENC";
             this.toolTip1.SetToolTip(this.radioButtonMultiDRMCENC, resources.GetString("radioButtonMultiDRMCENC.ToolTip"));
             this.radioButtonMultiDRMCENC.UseVisualStyleBackColor = true;
-            this.radioButtonMultiDRMCENC.CheckedChanged += new System.EventHandler(this.radioButtonMultiDRMCENC_CheckedChanged);
+            this.radioButtonMultiDRMCENC.CheckedChanged += new System.EventHandler(this.RadioButtonMultiDRMCENC_CheckedChanged);
             // 
             // radioButtonClearKey
             // 
@@ -323,7 +323,7 @@
             this.radioButtonClearKey.Name = "radioButtonClearKey";
             this.toolTip1.SetToolTip(this.radioButtonClearKey, resources.GetString("radioButtonClearKey.ToolTip"));
             this.radioButtonClearKey.UseVisualStyleBackColor = true;
-            this.radioButtonClearKey.CheckedChanged += new System.EventHandler(this.radioButtonClearKey_CheckedChanged);
+            this.radioButtonClearKey.CheckedChanged += new System.EventHandler(this.RadioButtonClearKey_CheckedChanged);
             // 
             // radioButtonClearStream
             // 

@@ -55,22 +55,13 @@ namespace AMSExplorer
         private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private static string _orderassets = OrderAssets.CreatedDescending;
         private static BackgroundWorker WorkerAnalyzeAssets;
-        private static readonly Bitmap cancelimage = Bitmaps.cancel;
         private static readonly Bitmap clearimage = Bitmaps.clear;
         private static readonly Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
-        private static readonly Bitmap storageencryptedimage = Bitmaps.storage_encryption;
-        private static readonly Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
         private static readonly Bitmap CENCencryptedimage = Bitmaps.DRM_protection;
         private static readonly Bitmap CENCcbcsEncryptedImage = Bitmaps.DRM_protection_Cbcs;
-        private static readonly Bitmap unsupportedencryptedimage = Bitmaps.help;
-        private static readonly Bitmap SASlocatorimage = Bitmaps.SAS_locator;
         private static readonly Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
-        private static readonly Bitmap AssetFilterImage = Bitmaps.filter;
-        private static readonly Bitmap AssetFiltersImage = Bitmaps.filters;
         private static readonly Bitmap Redstreamimage = Program.MakeRed(Streaminglocatorimage);
-        private static readonly Bitmap Reddownloadimage = Program.MakeRed(SASlocatorimage);
         private static readonly Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
-        private static readonly Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
         private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
         private static AMSClientV3 _amsClient;
         private static BindingList<AssetEntryV3> _MyObservAssetV3;
@@ -571,17 +562,17 @@ Properties/StorageId
             {
                 if (odataQuery.Filter != null)
                 {
-                    odataQuery.Filter = odataQuery.Filter + " and ";
+                    odataQuery.Filter += " and ";
                 }
-                odataQuery.Filter = odataQuery.Filter + $"properties/created gt {dateTimeStart.ToString("o")}";
+                odataQuery.Filter += $"properties/created gt {dateTimeStart:o}";
             }
             if (filterEndDate)
             {
                 if (odataQuery.Filter != null)
                 {
-                    odataQuery.Filter = odataQuery.Filter + " and ";
+                    odataQuery.Filter += " and ";
                 }
-                odataQuery.Filter = odataQuery.Filter + $"properties/created lt {dateTimeRangeEnd.ToString("o")}";
+                odataQuery.Filter += $"properties/created lt {dateTimeRangeEnd:o}";
             }
 
             IPage<Asset> currentPage = null;

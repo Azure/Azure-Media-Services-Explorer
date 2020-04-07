@@ -302,7 +302,7 @@ namespace AMSExplorer
                 {
                     name = name.Substring(0, name.Length - 1);
                 }
-                name = name + ".ism";
+                name += ".ism";
 
                 return new ManifestGenerated() { Content = doc.Declaration.ToString() + Environment.NewLine + doc.ToString(), FileName = name };
             }
@@ -810,7 +810,7 @@ namespace AMSExplorer
 
             if (locators.Count > 0 && runningSes != null)
             {
-                string locatorName = useThisLocatorName != null ? useThisLocatorName : locators.First().Name;
+                string locatorName = useThisLocatorName ?? locators.First().Name;
                 IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName)).StreamingPaths;
                 UriBuilder uribuilder = new UriBuilder
                 {
@@ -933,7 +933,7 @@ namespace AMSExplorer
             }
             else
             {
-                urlstr = urlstr + string.Format("({0})", parameter);
+                urlstr += string.Format("({0})", parameter);
             }
 
             return urlstr + streamExtension; // we restore the extension
@@ -2240,7 +2240,7 @@ namespace AMSExplorer
     public class AssetEntryV3 : INotifyPropertyChanged
     {
 
-        private SynchronizationContext syncContext;
+        private readonly SynchronizationContext syncContext;
 
         public AssetEntryV3(SynchronizationContext mysyncContext)
         {
@@ -2522,7 +2522,7 @@ namespace AMSExplorer
 
     public class TransformEntryV3 : INotifyPropertyChanged
     {
-        private SynchronizationContext syncContext;
+        private readonly SynchronizationContext syncContext;
 
         public TransformEntryV3(SynchronizationContext mysyncContext)
         {
@@ -3804,16 +3804,17 @@ namespace AMSExplorer
         {
             foreach (Control control in controls)
             {
-                var button = control as ButtonBase;
-                if (button != null)
+                if (control is ButtonBase button)
+                {
                     AdjustButtonImageDpiScale(button, dpiScale);
+                }
                 else
                 {
-                    var pictureBox = control as PictureBox;
-                    if (pictureBox != null)
+                    if (control is PictureBox pictureBox)
+                    {
                         AdjustPictureBoxDpiScale(pictureBox, dpiScale);
+                    }
                 }
-
                 AdjustControlImagesDpiScale(control.Controls, dpiScale);
             }
         }

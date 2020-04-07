@@ -143,27 +143,27 @@ namespace AMSExplorer
             }
         }
 
-        private void dateTimePickerStartDate_ValueChanged(object sender, EventArgs e)
+        private void DateTimePickerStartDate_ValueChanged(object sender, EventArgs e)
         {
             dateTimePickerStartTime.Value = dateTimePickerStartDate.Value;
         }
 
-        private void dateTimePickerStartTime_ValueChanged(object sender, EventArgs e)
+        private void DateTimePickerStartTime_ValueChanged(object sender, EventArgs e)
         {
             dateTimePickerStartDate.Value = dateTimePickerStartTime.Value;
         }
 
-        private void dateTimePickerEndDate_ValueChanged(object sender, EventArgs e)
+        private void DateTimePickerEndDate_ValueChanged(object sender, EventArgs e)
         {
             dateTimePickerEndTime.Value = dateTimePickerEndDate.Value;
         }
 
-        private void dateTimePickerEndTime_ValueChanged(object sender, EventArgs e)
+        private void DateTimePickerEndTime_ValueChanged(object sender, EventArgs e)
         {
             dateTimePickerEndDate.Value = dateTimePickerEndTime.Value;
         }
 
-        private void checkBoxStartDate_CheckedChanged_1(object sender, EventArgs e)
+        private void CheckBoxStartDate_CheckedChanged_1(object sender, EventArgs e)
         {
             dateTimePickerStartDate.Enabled = checkBoxStartDate.Checked;
             dateTimePickerStartTime.Enabled = checkBoxStartDate.Checked;
@@ -229,7 +229,7 @@ namespace AMSExplorer
             listViewFilters.EndUpdate();
         }
 
-        private void radioButtonEndCustom_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonEndCustom_CheckedChanged(object sender, EventArgs e)
         {
             dateTimePickerEndDate.Enabled = radioButtonEndCustom.Checked;
             dateTimePickerEndTime.Enabled = radioButtonEndCustom.Checked;
@@ -242,47 +242,37 @@ namespace AMSExplorer
             textBoxLocatorGUID.Enabled = checkBoxForLocatorGUID.Checked;
         }
 
-        private void pictureBox11_Click(object sender, EventArgs e)
+        private void PictureBox9_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void pictureBox10_Click(object sender, EventArgs e)
+        private void PictureBox8_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void PictureBox7_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void pictureBox8_Click(object sender, EventArgs e)
+        private void PictureBox6_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void pictureBox7_Click(object sender, EventArgs e)
+        private void RadioButtonMultiDRM_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private void RadioButtonMultiDRMCENC_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void radioButtonMultiDRM_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButtonMultiDRMCENC_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButtonClearKey_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonClearKey_CheckedChanged(object sender, EventArgs e)
         {
 
         }

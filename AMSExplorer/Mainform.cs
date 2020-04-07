@@ -1417,8 +1417,7 @@ namespace AMSExplorer
 
                     foreach (IListBlobItem blobItem in segment.Results)
                     {
-                        CloudBlockBlob blob = blobItem as CloudBlockBlob;
-                        if (blob != null && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
+                        if (blobItem is CloudBlockBlob blob && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
                         {
                             string path = Path.Combine(outputFolderName, blob.Name);
 
@@ -2453,8 +2452,7 @@ namespace AMSExplorer
                     {
                         if (blobItem.GetType() == typeof(CloudBlockBlob))
                         {
-                            CloudBlockBlob blob = blobItem as CloudBlockBlob;
-                            if (blob != null)
+                            if (blobItem is CloudBlockBlob blob)
                             {
                                 UriBuilder bloburl = new UriBuilder(containerSasUrl);
                                 bloburl.Path += "/" + blob.Name;

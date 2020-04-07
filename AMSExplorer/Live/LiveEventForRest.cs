@@ -37,7 +37,7 @@ namespace AMSExplorer
     {
         private const string liveEventApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2019-05-01-preview";
 
-        private AMSClientV3 _amsClient;
+        private readonly AMSClientV3 _amsClient;
 
         /// <summary>
         /// Initialize the Video Indexer library

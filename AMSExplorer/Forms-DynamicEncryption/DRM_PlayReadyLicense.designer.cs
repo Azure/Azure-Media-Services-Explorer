@@ -145,7 +145,7 @@
             resources.ApplyResources(this.moreinfocompliance, "moreinfocompliance");
             this.moreinfocompliance.Name = "moreinfocompliance";
             this.moreinfocompliance.TabStop = true;
-            this.moreinfocompliance.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.action_LinkClicked);
+            this.moreinfocompliance.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Action_LinkClicked);
             // 
             // buttonCancel
             // 
@@ -250,7 +250,7 @@
             resources.ApplyResources(this.checkBoxGrace, "checkBoxGrace");
             this.checkBoxGrace.Name = "checkBoxGrace";
             this.checkBoxGrace.UseVisualStyleBackColor = true;
-            this.checkBoxGrace.CheckedChanged += new System.EventHandler(this.checkBoxGrace_CheckedChanged);
+            this.checkBoxGrace.CheckedChanged += new System.EventHandler(this.CheckBoxGrace_CheckedChanged);
             // 
             // label1
             // 
@@ -286,7 +286,7 @@
             // 
             resources.ApplyResources(this.dateTimePickerEndDate, "dateTimePickerEndDate");
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
+            this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.DateTimePickerEndDate_ValueChanged);
             // 
             // dateTimePickerEndTime
             // 
@@ -295,7 +295,7 @@
             this.dateTimePickerEndTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndTime.Name = "dateTimePickerEndTime";
             this.dateTimePickerEndTime.ShowUpDown = true;
-            this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.dateTimePickerEndTime_ValueChanged);
+            this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.DateTimePickerEndTime_ValueChanged);
             // 
             // panelEndDateRelative
             // 
@@ -363,7 +363,7 @@
             resources.ApplyResources(this.radioButtonEndDateRelative, "radioButtonEndDateRelative");
             this.radioButtonEndDateRelative.Name = "radioButtonEndDateRelative";
             this.radioButtonEndDateRelative.UseVisualStyleBackColor = true;
-            this.radioButtonEndDateRelative.CheckedChanged += new System.EventHandler(this.radioButtonsEndDate_CheckedChanged);
+            this.radioButtonEndDateRelative.CheckedChanged += new System.EventHandler(this.RadioButtonsEndDate_CheckedChanged);
             // 
             // radioButtonEndDateAbsolute
             // 
@@ -372,14 +372,14 @@
             this.radioButtonEndDateAbsolute.Name = "radioButtonEndDateAbsolute";
             this.radioButtonEndDateAbsolute.TabStop = true;
             this.radioButtonEndDateAbsolute.UseVisualStyleBackColor = true;
-            this.radioButtonEndDateAbsolute.CheckedChanged += new System.EventHandler(this.radioButtonsEndDate_CheckedChanged);
+            this.radioButtonEndDateAbsolute.CheckedChanged += new System.EventHandler(this.RadioButtonsEndDate_CheckedChanged);
             // 
             // checkBoxEndDate
             // 
             resources.ApplyResources(this.checkBoxEndDate, "checkBoxEndDate");
             this.checkBoxEndDate.Name = "checkBoxEndDate";
             this.checkBoxEndDate.UseVisualStyleBackColor = true;
-            this.checkBoxEndDate.CheckedChanged += new System.EventHandler(this.checkBoxEndDate_CheckedChanged);
+            this.checkBoxEndDate.CheckedChanged += new System.EventHandler(this.CheckBoxEndDate_CheckedChanged);
             // 
             // groupBoxStartDate
             // 
@@ -397,7 +397,7 @@
             resources.ApplyResources(this.checkBoxStartDate, "checkBoxStartDate");
             this.checkBoxStartDate.Name = "checkBoxStartDate";
             this.checkBoxStartDate.UseVisualStyleBackColor = true;
-            this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.checkBoxStartDate_CheckedChanged);
+            this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.CheckBoxStartDate_CheckedChanged);
             // 
             // panelStartDateAbsolute
             // 
@@ -413,13 +413,13 @@
             this.dateTimePickerStartTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
             this.dateTimePickerStartTime.ShowUpDown = true;
-            this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
+            this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.DateTimePickerStartTime_ValueChanged);
             // 
             // dateTimePickerStartDate
             // 
             resources.ApplyResources(this.dateTimePickerStartDate, "dateTimePickerStartDate");
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
+            this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.DateTimePickerStartDate_ValueChanged);
             // 
             // radioButtonStartDateAbsolute
             // 
@@ -428,7 +428,7 @@
             this.radioButtonStartDateAbsolute.Name = "radioButtonStartDateAbsolute";
             this.radioButtonStartDateAbsolute.TabStop = true;
             this.radioButtonStartDateAbsolute.UseVisualStyleBackColor = true;
-            this.radioButtonStartDateAbsolute.CheckedChanged += new System.EventHandler(this.radioButtonsStartDate_CheckedChanged);
+            this.radioButtonStartDateAbsolute.CheckedChanged += new System.EventHandler(this.RadioButtonsStartDate_CheckedChanged);
             // 
             // panelStartDateRelative
             // 
@@ -491,7 +491,7 @@
             resources.ApplyResources(this.radioButtonStartDateRelative, "radioButtonStartDateRelative");
             this.radioButtonStartDateRelative.Name = "radioButtonStartDateRelative";
             this.radioButtonStartDateRelative.UseVisualStyleBackColor = true;
-            this.radioButtonStartDateRelative.CheckedChanged += new System.EventHandler(this.radioButtonsStartDate_CheckedChanged);
+            this.radioButtonStartDateRelative.CheckedChanged += new System.EventHandler(this.RadioButtonsStartDate_CheckedChanged);
             // 
             // groupBoxFirstPlay
             // 
@@ -536,7 +536,7 @@
             0,
             0});
             this.numericUpDownFPExpMinutes.Name = "numericUpDownFPExpMinutes";
-            this.numericUpDownFPExpMinutes.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.numericUpDownFPExpMinutes.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // numericUpDownFPExpHours
             // 
@@ -547,7 +547,7 @@
             0,
             0});
             this.numericUpDownFPExpHours.Name = "numericUpDownFPExpHours";
-            this.numericUpDownFPExpHours.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.numericUpDownFPExpHours.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // numericUpDownFPExpDays
             // 
@@ -563,14 +563,14 @@
             0,
             0,
             0});
-            this.numericUpDownFPExpDays.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.numericUpDownFPExpDays.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // checkBoxFPExp
             // 
             resources.ApplyResources(this.checkBoxFPExp, "checkBoxFPExp");
             this.checkBoxFPExp.Name = "checkBoxFPExp";
             this.checkBoxFPExp.UseVisualStyleBackColor = true;
-            this.checkBoxFPExp.CheckedChanged += new System.EventHandler(this.checkBoxFPExp_CheckedChanged);
+            this.checkBoxFPExp.CheckedChanged += new System.EventHandler(this.CheckBoxFPExp_CheckedChanged);
             // 
             // label8
             // 
@@ -583,7 +583,7 @@
             this.comboBoxLicenseType.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxLicenseType, "comboBoxLicenseType");
             this.comboBoxLicenseType.Name = "comboBoxLicenseType";
-            this.comboBoxLicenseType.SelectedIndexChanged += new System.EventHandler(this.comboBoxType_SelectedIndexChanged);
+            this.comboBoxLicenseType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxType_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -621,14 +621,14 @@
             0,
             0});
             this.numericUpDownAnalogVideoOPL.Name = "numericUpDownAnalogVideoOPL";
-            this.numericUpDownAnalogVideoOPL.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.numericUpDownAnalogVideoOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // checkBoxAnalogVideoOPL
             // 
             resources.ApplyResources(this.checkBoxAnalogVideoOPL, "checkBoxAnalogVideoOPL");
             this.checkBoxAnalogVideoOPL.Name = "checkBoxAnalogVideoOPL";
             this.checkBoxAnalogVideoOPL.UseVisualStyleBackColor = true;
-            this.checkBoxAnalogVideoOPL.CheckedChanged += new System.EventHandler(this.checkBoxAnalogVideoOPL_CheckedChanged);
+            this.checkBoxAnalogVideoOPL.CheckedChanged += new System.EventHandler(this.CheckBoxAnalogVideoOPL_CheckedChanged);
             // 
             // numericUpDownUncompressedDigitalVideoOPL
             // 
@@ -644,7 +644,7 @@
             0,
             0});
             this.numericUpDownUncompressedDigitalVideoOPL.Name = "numericUpDownUncompressedDigitalVideoOPL";
-            this.numericUpDownUncompressedDigitalVideoOPL.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.numericUpDownUncompressedDigitalVideoOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // numericUpDownUncompressedDigitalAudioOPL
             // 
@@ -660,7 +660,7 @@
             0,
             0});
             this.numericUpDownUncompressedDigitalAudioOPL.Name = "numericUpDownUncompressedDigitalAudioOPL";
-            this.numericUpDownUncompressedDigitalAudioOPL.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.numericUpDownUncompressedDigitalAudioOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // numericUpDownCompressedDigitalVideoOPL
             // 
@@ -676,7 +676,7 @@
             0,
             0});
             this.numericUpDownCompressedDigitalVideoOPL.Name = "numericUpDownCompressedDigitalVideoOPL";
-            this.numericUpDownCompressedDigitalVideoOPL.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.numericUpDownCompressedDigitalVideoOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // numericUpDownCompressedDigitalAudioOPL
             // 
@@ -692,63 +692,63 @@
             0,
             0});
             this.numericUpDownCompressedDigitalAudioOPL.Name = "numericUpDownCompressedDigitalAudioOPL";
-            this.numericUpDownCompressedDigitalAudioOPL.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.numericUpDownCompressedDigitalAudioOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // checkBoxAllowTestDevices
             // 
             resources.ApplyResources(this.checkBoxAllowTestDevices, "checkBoxAllowTestDevices");
             this.checkBoxAllowTestDevices.Name = "checkBoxAllowTestDevices";
             this.checkBoxAllowTestDevices.UseVisualStyleBackColor = true;
-            this.checkBoxAllowTestDevices.CheckedChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.checkBoxAllowTestDevices.CheckedChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // checkBoxUncompressedDigitalVideoOPL
             // 
             resources.ApplyResources(this.checkBoxUncompressedDigitalVideoOPL, "checkBoxUncompressedDigitalVideoOPL");
             this.checkBoxUncompressedDigitalVideoOPL.Name = "checkBoxUncompressedDigitalVideoOPL";
             this.checkBoxUncompressedDigitalVideoOPL.UseVisualStyleBackColor = true;
-            this.checkBoxUncompressedDigitalVideoOPL.CheckedChanged += new System.EventHandler(this.checkBoxUncompressedDigitalVideoOPL_CheckedChanged);
+            this.checkBoxUncompressedDigitalVideoOPL.CheckedChanged += new System.EventHandler(this.CheckBoxUncompressedDigitalVideoOPL_CheckedChanged);
             // 
             // checkBoxUncompressedDigitalAudioOPL
             // 
             resources.ApplyResources(this.checkBoxUncompressedDigitalAudioOPL, "checkBoxUncompressedDigitalAudioOPL");
             this.checkBoxUncompressedDigitalAudioOPL.Name = "checkBoxUncompressedDigitalAudioOPL";
             this.checkBoxUncompressedDigitalAudioOPL.UseVisualStyleBackColor = true;
-            this.checkBoxUncompressedDigitalAudioOPL.CheckedChanged += new System.EventHandler(this.checkBoxUncompressedDigitalAudioOPL_CheckedChanged);
+            this.checkBoxUncompressedDigitalAudioOPL.CheckedChanged += new System.EventHandler(this.CheckBoxUncompressedDigitalAudioOPL_CheckedChanged);
             // 
             // checkBoxCompressedDigitalVideoOPL
             // 
             resources.ApplyResources(this.checkBoxCompressedDigitalVideoOPL, "checkBoxCompressedDigitalVideoOPL");
             this.checkBoxCompressedDigitalVideoOPL.Name = "checkBoxCompressedDigitalVideoOPL";
             this.checkBoxCompressedDigitalVideoOPL.UseVisualStyleBackColor = true;
-            this.checkBoxCompressedDigitalVideoOPL.CheckedChanged += new System.EventHandler(this.checkBoxCompressedDigitalVideoOPL_CheckedChanged);
+            this.checkBoxCompressedDigitalVideoOPL.CheckedChanged += new System.EventHandler(this.CheckBoxCompressedDigitalVideoOPL_CheckedChanged);
             // 
             // checkBoxCompressedDigitalAudioOPL
             // 
             resources.ApplyResources(this.checkBoxCompressedDigitalAudioOPL, "checkBoxCompressedDigitalAudioOPL");
             this.checkBoxCompressedDigitalAudioOPL.Name = "checkBoxCompressedDigitalAudioOPL";
             this.checkBoxCompressedDigitalAudioOPL.UseVisualStyleBackColor = true;
-            this.checkBoxCompressedDigitalAudioOPL.CheckedChanged += new System.EventHandler(this.checkBoxCompressedDigitalAudioOPL_CheckedChanged);
+            this.checkBoxCompressedDigitalAudioOPL.CheckedChanged += new System.EventHandler(this.CheckBoxCompressedDigitalAudioOPL_CheckedChanged);
             // 
             // checkBoxImageConstraintForAnalogComputerMonitorRestriction
             // 
             resources.ApplyResources(this.checkBoxImageConstraintForAnalogComputerMonitorRestriction, "checkBoxImageConstraintForAnalogComputerMonitorRestriction");
             this.checkBoxImageConstraintForAnalogComputerMonitorRestriction.Name = "checkBoxImageConstraintForAnalogComputerMonitorRestriction";
             this.checkBoxImageConstraintForAnalogComputerMonitorRestriction.UseVisualStyleBackColor = true;
-            this.checkBoxImageConstraintForAnalogComputerMonitorRestriction.CheckedChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.checkBoxImageConstraintForAnalogComputerMonitorRestriction.CheckedChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // checkBoxImageConstraintForAnalogComponentVideoRestriction
             // 
             resources.ApplyResources(this.checkBoxImageConstraintForAnalogComponentVideoRestriction, "checkBoxImageConstraintForAnalogComponentVideoRestriction");
             this.checkBoxImageConstraintForAnalogComponentVideoRestriction.Name = "checkBoxImageConstraintForAnalogComponentVideoRestriction";
             this.checkBoxImageConstraintForAnalogComponentVideoRestriction.UseVisualStyleBackColor = true;
-            this.checkBoxImageConstraintForAnalogComponentVideoRestriction.CheckedChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.checkBoxImageConstraintForAnalogComponentVideoRestriction.CheckedChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // checkBoxDigitalVideoOnlyContentRestriction
             // 
             resources.ApplyResources(this.checkBoxDigitalVideoOnlyContentRestriction, "checkBoxDigitalVideoOnlyContentRestriction");
             this.checkBoxDigitalVideoOnlyContentRestriction.Name = "checkBoxDigitalVideoOnlyContentRestriction";
             this.checkBoxDigitalVideoOnlyContentRestriction.UseVisualStyleBackColor = true;
-            this.checkBoxDigitalVideoOnlyContentRestriction.CheckedChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.checkBoxDigitalVideoOnlyContentRestriction.CheckedChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // labelAllowPassingVideoContentToUnknownOuput
             // 
@@ -761,13 +761,13 @@
             this.comboBoxAllowPassingVideoContentUnknownOutput.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxAllowPassingVideoContentUnknownOutput, "comboBoxAllowPassingVideoContentUnknownOutput");
             this.comboBoxAllowPassingVideoContentUnknownOutput.Name = "comboBoxAllowPassingVideoContentUnknownOutput";
-            this.comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndexChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndexChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // textBoxPolicyName
             // 
             resources.ApplyResources(this.textBoxPolicyName, "textBoxPolicyName");
             this.textBoxPolicyName.Name = "textBoxPolicyName";
-            this.textBoxPolicyName.TextChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.textBoxPolicyName.TextChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // label13
             // 

@@ -101,7 +101,7 @@
             this.radioButtonHttp.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHttp.Name = "radioButtonHttp";
             this.radioButtonHttp.UseVisualStyleBackColor = true;
-            this.radioButtonHttp.CheckedChanged += new System.EventHandler(this.radioButtonHttp_CheckedChanged);
+            this.radioButtonHttp.CheckedChanged += new System.EventHandler(this.RadioButtonHttp_CheckedChanged);
             // 
             // comboBoxPolicyLocators
             // 
@@ -109,14 +109,14 @@
             this.comboBoxPolicyLocators.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPolicyLocators.FormattingEnabled = true;
             this.comboBoxPolicyLocators.Name = "comboBoxPolicyLocators";
-            this.comboBoxPolicyLocators.SelectedIndexChanged += new System.EventHandler(this.comboBoxPolicyLocators_SelectedIndexChanged);
+            this.comboBoxPolicyLocators.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPolicyLocators_SelectedIndexChanged);
             // 
             // listBoxSE
             // 
             resources.ApplyResources(this.listBoxSE, "listBoxSE");
             this.listBoxSE.FormattingEnabled = true;
             this.listBoxSE.Name = "listBoxSE";
-            this.listBoxSE.SelectedIndexChanged += new System.EventHandler(this.listBoxSE_SelectedIndexChanged);
+            this.listBoxSE.SelectedIndexChanged += new System.EventHandler(this.ListBoxSE_SelectedIndexChanged);
             // 
             // groupBoxForceLocator
             // 
@@ -137,7 +137,7 @@
             this.listViewFilters.Name = "listViewFilters";
             this.listViewFilters.UseCompatibleStateImageBehavior = false;
             this.listViewFilters.View = System.Windows.Forms.View.List;
-            this.listViewFilters.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewFilters_ItemChecked);
+            this.listViewFilters.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.ListViewFilters_ItemChecked);
             // 
             // label8
             // 
@@ -184,7 +184,7 @@
             this.radioButtonHLSCMAF.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHLSCMAF.Name = "radioButtonHLSCMAF";
             this.radioButtonHLSCMAF.UseVisualStyleBackColor = true;
-            this.radioButtonHLSCMAF.CheckedChanged += new System.EventHandler(this.radioButtonHLSCMAF_CheckedChanged);
+            this.radioButtonHLSCMAF.CheckedChanged += new System.EventHandler(this.RadioButtonHLSCMAF_CheckedChanged);
             // 
             // checkBoxNoAudioOnly
             // 
@@ -192,7 +192,7 @@
             this.checkBoxNoAudioOnly.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkBoxNoAudioOnly.Name = "checkBoxNoAudioOnly";
             this.checkBoxNoAudioOnly.UseVisualStyleBackColor = true;
-            this.checkBoxNoAudioOnly.CheckedChanged += new System.EventHandler(this.checkBoxNoAudioOnly_CheckedChanged);
+            this.checkBoxNoAudioOnly.CheckedChanged += new System.EventHandler(this.CheckBoxNoAudioOnly_CheckedChanged);
             // 
             // labelaudiotrackname
             // 
@@ -204,7 +204,7 @@
             // 
             resources.ApplyResources(this.textBoxHLSAudioTrackName, "textBoxHLSAudioTrackName");
             this.textBoxHLSAudioTrackName.Name = "textBoxHLSAudioTrackName";
-            this.textBoxHLSAudioTrackName.TextChanged += new System.EventHandler(this.textBoxHLSAudioTrackName_TextChanged);
+            this.textBoxHLSAudioTrackName.TextChanged += new System.EventHandler(this.TextBoxHLSAudioTrackName_TextChanged);
             // 
             // radioButtonSmoothLegacy
             // 
@@ -212,7 +212,7 @@
             this.radioButtonSmoothLegacy.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonSmoothLegacy.Name = "radioButtonSmoothLegacy";
             this.radioButtonSmoothLegacy.UseVisualStyleBackColor = true;
-            this.radioButtonSmoothLegacy.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonSmoothLegacy.CheckedChanged += new System.EventHandler(this.RadioButtonSmooth_CheckedChanged);
             // 
             // radioButtonDASHCSF
             // 
@@ -220,7 +220,7 @@
             this.radioButtonDASHCSF.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonDASHCSF.Name = "radioButtonDASHCSF";
             this.radioButtonDASHCSF.UseVisualStyleBackColor = true;
-            this.radioButtonDASHCSF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonDASHCSF.CheckedChanged += new System.EventHandler(this.RadioButtonSmooth_CheckedChanged);
             // 
             // radioButtonDASHCMAF
             // 
@@ -228,7 +228,7 @@
             this.radioButtonDASHCMAF.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonDASHCMAF.Name = "radioButtonDASHCMAF";
             this.radioButtonDASHCMAF.UseVisualStyleBackColor = true;
-            this.radioButtonDASHCMAF.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonDASHCMAF.CheckedChanged += new System.EventHandler(this.RadioButtonSmooth_CheckedChanged);
             // 
             // radioButtonHLSv4
             // 
@@ -236,7 +236,7 @@
             this.radioButtonHLSv4.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHLSv4.Name = "radioButtonHLSv4";
             this.radioButtonHLSv4.UseVisualStyleBackColor = true;
-            this.radioButtonHLSv4.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonHLSv4.CheckedChanged += new System.EventHandler(this.RadioButtonSmooth_CheckedChanged);
             // 
             // radioButtonHLSv3
             // 
@@ -244,7 +244,7 @@
             this.radioButtonHLSv3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radioButtonHLSv3.Name = "radioButtonHLSv3";
             this.radioButtonHLSv3.UseVisualStyleBackColor = true;
-            this.radioButtonHLSv3.CheckedChanged += new System.EventHandler(this.radioButtonHLSv3_CheckedChanged);
+            this.radioButtonHLSv3.CheckedChanged += new System.EventHandler(this.RadioButtonHLSv3_CheckedChanged);
             // 
             // radioButtonSmooth
             // 
@@ -254,7 +254,7 @@
             this.radioButtonSmooth.Name = "radioButtonSmooth";
             this.radioButtonSmooth.TabStop = true;
             this.radioButtonSmooth.UseVisualStyleBackColor = true;
-            this.radioButtonSmooth.CheckedChanged += new System.EventHandler(this.radioButtonSmooth_CheckedChanged);
+            this.radioButtonSmooth.CheckedChanged += new System.EventHandler(this.RadioButtonSmooth_CheckedChanged);
             // 
             // label
             // 

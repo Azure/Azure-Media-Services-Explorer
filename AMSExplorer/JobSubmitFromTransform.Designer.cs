@@ -84,7 +84,7 @@
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // buttonOk
             // 
@@ -103,7 +103,7 @@
             resources.ApplyResources(this.buttonDeleteTemplate, "buttonDeleteTemplate");
             this.buttonDeleteTemplate.Name = "buttonDeleteTemplate";
             this.buttonDeleteTemplate.UseVisualStyleBackColor = true;
-            this.buttonDeleteTemplate.Click += new System.EventHandler(this.buttonDeleteTemplate_Click);
+            this.buttonDeleteTemplate.Click += new System.EventHandler(this.ButtonDeleteTemplate_Click);
             // 
             // panel1
             // 
@@ -198,7 +198,7 @@
             this.listViewTransforms.Tag = -1;
             this.listViewTransforms.UseCompatibleStateImageBehavior = false;
             this.listViewTransforms.View = System.Windows.Forms.View.Details;
-            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
+            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.Listbox_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -274,7 +274,7 @@
             this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
             this.timeControlStartTime.TimeScale = null;
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.TimeControlStartTime_ValueChanged);
             // 
             // tabPage3
             // 
