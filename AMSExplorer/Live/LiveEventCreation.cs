@@ -72,7 +72,7 @@ namespace AMSExplorer
             {
 
                 IList<TranscriptionForRest> transcriptionList = new List<TranscriptionForRest>();
-                transcriptionList.Add(new TranscriptionForRest(language: textBoxLiveTranscriptLanguage.Text)); 
+                transcriptionList.Add(new TranscriptionForRest(language: textBoxLiveTranscriptLanguage.Text));
                 return transcriptionList;
             }
         }

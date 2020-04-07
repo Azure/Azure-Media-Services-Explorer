@@ -58,7 +58,7 @@ namespace AMSExplorer
             _amsClient = amsClient;
         }
 
-        private void toolStripMenuItemCopy_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemCopy_Click(object sender, EventArgs e)
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -70,7 +70,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void toolStripMenuItemDASHIF_Click(object sender, EventArgs e)
+        private async void ToolStripMenuItemDASHIF_Click(object sender, EventArgs e)
         {
             await DoDASHIFPlayerAsync();
         }
@@ -96,7 +96,7 @@ namespace AMSExplorer
             }
         }
 
-        private void contextMenuStripLocators_Opening(object sender, CancelEventArgs e)
+        private void ContextMenuStripLocators_Opening(object sender, CancelEventArgs e)
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -139,7 +139,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void toolStripMenuItemPlaybackMP4_Click(object sender, EventArgs e)
+        private async void ToolStripMenuItemPlaybackMP4_Click(object sender, EventArgs e)
         {
             await DoAdvcTestPlayerAsync();
         }
@@ -156,7 +156,7 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItemOpen_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -669,7 +669,7 @@ namespace AMSExplorer
 
         }
 
-        private async void toolStripMenuItemOpenFile_Click(object sender, EventArgs e)
+        private async void ToolStripMenuItemOpenFile_Click(object sender, EventArgs e)
         {
             await DoOpenFilesAsync();
         }
@@ -723,7 +723,7 @@ namespace AMSExplorer
             return _assetContainerSas;
         }
 
-        private async void toolStripMenuItemDownloadFile_Click(object sender, EventArgs e)
+        private async void ToolStripMenuItemDownloadFile_Click(object sender, EventArgs e)
         {
             await DoDownloadBlobsAsync();
         }
@@ -794,7 +794,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void buttonCopyStats_Click(object sender, EventArgs e)
+        private async void ButtonCopyStats_Click(object sender, EventArgs e)
         {
             await DoDisplayAssetStatsAsync();
         }
@@ -810,7 +810,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void buttonDeleteFile_Click(object sender, EventArgs e)
+        private async void ButtonDeleteFile_Click(object sender, EventArgs e)
         {
             await DoDeleteBlobsAsync();
         }
@@ -839,18 +839,18 @@ namespace AMSExplorer
             }
         }
 
-        private async void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void DeleteFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoDeleteBlobsAsync();
             await BuildLocatorsTreeAsync();
         }
 
-        private async void buttonOpenFile_Click(object sender, EventArgs e)
+        private async void ButtonOpenFile_Click(object sender, EventArgs e)
         {
             await DoOpenFilesAsync();
         }
 
-        private async void buttonDownloadFile_Click(object sender, EventArgs e)
+        private async void ButtonDownloadFile_Click(object sender, EventArgs e)
         {
             await DoDownloadBlobsAsync();
         }
@@ -1704,7 +1704,7 @@ namespace AMSExplorer
         {
             try
             {
-                Program.ManifestGenerated smildata = await Program.LoadAndUpdateManifestTemplateAsync(_amsClient, container);
+                Program.ManifestGenerated smildata = await Program.LoadAndUpdateManifestTemplateAsync(container);
 
                 using (
                 EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,

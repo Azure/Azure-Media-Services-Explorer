@@ -135,7 +135,7 @@ namespace AMSExplorer
 
         private void Options_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-         //   DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            //   DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

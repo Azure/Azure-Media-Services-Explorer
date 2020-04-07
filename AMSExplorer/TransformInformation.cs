@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json;
 using System;

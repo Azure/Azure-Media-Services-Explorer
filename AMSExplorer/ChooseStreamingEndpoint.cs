@@ -163,7 +163,7 @@ namespace AMSExplorer
             // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
             StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_amsClient);
 
-           var myStreamingEndpoints = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+            var myStreamingEndpoints = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
 
             foreach (StreamingEndpoint se in myStreamingEndpoints)
             {
@@ -333,7 +333,7 @@ namespace AMSExplorer
         {
             UpdatePreviewUrl();
         }
-             
+
 
         private void ContextMenuStripURL_MouseClick(object sender, MouseEventArgs e)
         {

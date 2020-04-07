@@ -202,13 +202,13 @@
             this.toolStripMenuItemDASHIF});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
             resources.ApplyResources(this.contextMenuStripLocators, "contextMenuStripLocators");
-            this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLocators_Opening);
+            this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripLocators_Opening);
             // 
             // toolStripMenuItemCopy
             // 
             this.toolStripMenuItemCopy.Name = "toolStripMenuItemCopy";
             resources.ApplyResources(this.toolStripMenuItemCopy, "toolStripMenuItemCopy");
-            this.toolStripMenuItemCopy.Click += new System.EventHandler(this.toolStripMenuItemCopy_Click);
+            this.toolStripMenuItemCopy.Click += new System.EventHandler(this.ToolStripMenuItemCopy_Click);
             // 
             // deleteLocatorToolStripMenuItem
             // 
@@ -222,7 +222,7 @@
             resources.ApplyResources(this.toolStripMenuItemOpen, "toolStripMenuItemOpen");
             this.toolStripMenuItemOpen.Image = global::AMSExplorer.Bitmaps.external_link;
             this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            this.toolStripMenuItemOpen.Click += new System.EventHandler(this.toolStripMenuItemOpen_Click);
+            this.toolStripMenuItemOpen.Click += new System.EventHandler(this.ToolStripMenuItemOpen_Click);
             // 
             // toolStripMenuItemAzureMediaPlayer
             // 
@@ -236,14 +236,14 @@
             resources.ApplyResources(this.toolStripMenuItemAdvPlayer, "toolStripMenuItemAdvPlayer");
             this.toolStripMenuItemAdvPlayer.Image = global::AMSExplorer.Bitmaps.play;
             this.toolStripMenuItemAdvPlayer.Name = "toolStripMenuItemAdvPlayer";
-            this.toolStripMenuItemAdvPlayer.Click += new System.EventHandler(this.toolStripMenuItemPlaybackMP4_Click);
+            this.toolStripMenuItemAdvPlayer.Click += new System.EventHandler(this.ToolStripMenuItemPlaybackMP4_Click);
             // 
             // toolStripMenuItemDASHIF
             // 
             resources.ApplyResources(this.toolStripMenuItemDASHIF, "toolStripMenuItemDASHIF");
             this.toolStripMenuItemDASHIF.Image = global::AMSExplorer.Bitmaps.play;
             this.toolStripMenuItemDASHIF.Name = "toolStripMenuItemDASHIF";
-            this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.toolStripMenuItemDASHIF_Click);
+            this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.ToolStripMenuItemDASHIF_Click);
             // 
             // TreeViewLocators
             // 
@@ -287,7 +287,7 @@
             this.toolStripMenuItemOpenFile.Image = global::AMSExplorer.Bitmaps.external_link;
             this.toolStripMenuItemOpenFile.Name = "toolStripMenuItemOpenFile";
             resources.ApplyResources(this.toolStripMenuItemOpenFile, "toolStripMenuItemOpenFile");
-            this.toolStripMenuItemOpenFile.Click += new System.EventHandler(this.toolStripMenuItemOpenFile_Click);
+            this.toolStripMenuItemOpenFile.Click += new System.EventHandler(this.ToolStripMenuItemOpenFile_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -301,7 +301,7 @@
             this.deleteBlobToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteBlobToolStripMenuItem.Name = "deleteBlobToolStripMenuItem";
             resources.ApplyResources(this.deleteBlobToolStripMenuItem, "deleteBlobToolStripMenuItem");
-            this.deleteBlobToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
+            this.deleteBlobToolStripMenuItem.Click += new System.EventHandler(this.DeleteFileToolStripMenuItem_Click);
             // 
             // deleteAllBlobsToolStripMenuItem
             // 
@@ -329,7 +329,7 @@
             this.toolStripMenuItemDownloadFile.Image = global::AMSExplorer.Bitmaps.download;
             this.toolStripMenuItemDownloadFile.Name = "toolStripMenuItemDownloadFile";
             resources.ApplyResources(this.toolStripMenuItemDownloadFile, "toolStripMenuItemDownloadFile");
-            this.toolStripMenuItemDownloadFile.Click += new System.EventHandler(this.toolStripMenuItemDownloadFile_Click);
+            this.toolStripMenuItemDownloadFile.Click += new System.EventHandler(this.ToolStripMenuItemDownloadFile_Click);
             // 
             // label4
             // 
@@ -341,7 +341,7 @@
             resources.ApplyResources(this.buttonCopyStats, "buttonCopyStats");
             this.buttonCopyStats.Name = "buttonCopyStats";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
-            this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
+            this.buttonCopyStats.Click += new System.EventHandler(this.ButtonCopyStats_Click);
             // 
             // buttonDeleteFile
             // 
@@ -349,14 +349,14 @@
             this.buttonDeleteFile.Name = "buttonDeleteFile";
             this.toolTip1.SetToolTip(this.buttonDeleteFile, resources.GetString("buttonDeleteFile.ToolTip"));
             this.buttonDeleteFile.UseVisualStyleBackColor = true;
-            this.buttonDeleteFile.Click += new System.EventHandler(this.buttonDeleteFile_Click);
+            this.buttonDeleteFile.Click += new System.EventHandler(this.ButtonDeleteFile_Click);
             // 
             // buttonDownloadFile
             // 
             resources.ApplyResources(this.buttonDownloadFile, "buttonDownloadFile");
             this.buttonDownloadFile.Name = "buttonDownloadFile";
             this.buttonDownloadFile.UseVisualStyleBackColor = true;
-            this.buttonDownloadFile.Click += new System.EventHandler(this.buttonDownloadFile_Click);
+            this.buttonDownloadFile.Click += new System.EventHandler(this.ButtonDownloadFile_Click);
             // 
             // buttonOpenFile
             // 
@@ -364,7 +364,7 @@
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.toolTip1.SetToolTip(this.buttonOpenFile, resources.GetString("buttonOpenFile.ToolTip"));
             this.buttonOpenFile.UseVisualStyleBackColor = true;
-            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            this.buttonOpenFile.Click += new System.EventHandler(this.ButtonOpenFile_Click);
             // 
             // listViewBlobs
             // 

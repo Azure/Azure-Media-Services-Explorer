@@ -38,7 +38,6 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -225,7 +224,7 @@ namespace AMSExplorer
             return myText;
         }
 
-        public static async Task<ManifestGenerated> LoadAndUpdateManifestTemplateAsync(AMSClientV3 amsClient, CloudBlobContainer container)
+        public static async Task<ManifestGenerated> LoadAndUpdateManifestTemplateAsync(CloudBlobContainer container)
         {
             // Let's list the blobs
             BlobContinuationToken continuationToken = null;

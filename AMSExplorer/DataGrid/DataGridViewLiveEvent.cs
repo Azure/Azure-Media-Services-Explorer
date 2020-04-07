@@ -23,7 +23,6 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -135,7 +134,7 @@ namespace AMSExplorer
             _amsClient = client;
             float scale = DeviceDpi / 96f;
 
-            Microsoft.Rest.Azure.IPage<LiveEvent> liveevents =await  _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<LiveEvent> liveevents = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             channelquery = from c in liveevents.Take(0)
                            orderby c.LastModified descending
@@ -357,5 +356,5 @@ namespace AMSExplorer
         }
     }
 
-   
+
 }

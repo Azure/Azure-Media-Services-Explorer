@@ -14,12 +14,12 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
 
 namespace AMSExplorer
 {

@@ -287,7 +287,7 @@ namespace AMSExplorer
                 JobInputAsset inputA = MyJob.Input as JobInputAsset;
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
-                dataGridInput.Rows.Add("Asset type",(await AssetInfo.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
+                dataGridInput.Rows.Add("Asset type", (await AssetInfo.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
                 if (inputA.Start != null && inputA.Start.GetType() == typeof(AbsoluteClipTime))
                 {
                     AbsoluteClipTime startA = inputA.Start as AbsoluteClipTime;

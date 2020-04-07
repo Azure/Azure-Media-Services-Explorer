@@ -93,7 +93,7 @@ namespace AMSExplorer
         }
         private async Task LoadTransformsAsync()
         {
-           await _client.RefreshTokenIfNeededAsync();
+            await _client.RefreshTokenIfNeededAsync();
 
             _transforms = await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 

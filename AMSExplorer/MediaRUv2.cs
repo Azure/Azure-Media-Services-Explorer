@@ -149,7 +149,7 @@ namespace AMSExplorer
             // If Service Principal mode, let's authenticate now (if token expired or first time)
             if (AmsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
             {
-               
+
 
                 string URLAut = string.Format(AmsClientV3.environment.AADSettings.AuthenticationEndpoint + "/{0}/oauth2/token", AmsClientV3.credentialsEntry.AadTenantId);
 

@@ -15,16 +15,16 @@
 //---------------------------------------------------------------------------------------------
 
 
-using System.Globalization;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Microsoft.Azure.Management.Media.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Net.Http;
 using System;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace AMSExplorer
 {

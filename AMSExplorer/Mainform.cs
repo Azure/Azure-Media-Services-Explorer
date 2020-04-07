@@ -34,14 +34,12 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Sockets;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Web.Caching;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -3360,7 +3358,7 @@ namespace AMSExplorer
             int indextype = dataGridViewAssetsV.Columns["Type"].Index;//2
             int indexlocalexp = dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index; //13
             int indexassetwarning = dataGridViewAssetsV.Columns[dataGridViewAssetsV._assetwarning].Index;
-           
+
             DataGridViewCell cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
             if (cell.Value != null)
             {
@@ -3432,26 +3430,12 @@ namespace AMSExplorer
         {
             List<Asset> assets = await ReturnSelectedAssetsV3Async();
             bool singleitem = (assets.Count == 1);
-            Asset firstAsset = assets.FirstOrDefault();
 
             ContextMenuItemAssetDisplayInfo.Enabled =
             ContextMenuItemAssetEditDescription.Enabled =
             editAlternateIdToolStripMenuItem.Enabled =
             contextMenuExportFilesToStorage.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled = singleitem;
-
-            /*
-            if (singleitem && firstAsset != null && firstAsset.AssetFiles.Count() == 1)
-            {
-                var assetfile = firstAsset.AssetFiles.FirstOrDefault();
-                if (assetfile != null && assetfile.Name.EndsWith(".ism") && assetfile.ContentFileSize == 0)
-                {
-                    // live archive
-                    contextMenuExportFilesToStorage.Enabled = false;
-                    toolStripMenuItemDownloadToLocal.Enabled = false;
-                }
-            }
-            */
         }
 
 
@@ -3801,7 +3785,6 @@ namespace AMSExplorer
         private async Task DoCreateAssetReportEmailAsync()
         {
             AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsV3Async(), _amsClient);
-
         }
 
         private async Task DoDisplayAssetReportAsync()
@@ -5264,7 +5247,7 @@ namespace AMSExplorer
                     string assetname = form.AssetName.Replace(Constants.NameconvLiveOutput, form.LiveOutputName).Replace(Constants.NameconvLiveEvent, form.LiveEventName);
                     Asset newAsset = new Asset() { StorageAccountName = form.StorageSelected };
 
-                    Asset asset = null;
+                    Asset asset;
 
                     try
                     {
@@ -5990,7 +5973,6 @@ namespace AMSExplorer
             Asset asset = (await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()).FirstOrDefault();
             if (asset != null)
             {
-                AssetInfo AI = new AssetInfo(asset);
                 Uri ValidURI = await AssetInfo.GetValidOnDemandURIAsync(asset, _amsClient);
                 if (ValidURI != null)
                 {
@@ -7071,7 +7053,7 @@ namespace AMSExplorer
 
         private async Task DoStorageVersionAsync(string storageId = null)
         {
-            string valuekey = string.Empty;
+            string valuekey;
             bool Error = false;
             ServiceProperties serviceProperties = null;
             CloudBlobClient blobClient = null;

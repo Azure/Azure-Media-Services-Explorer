@@ -28,7 +28,7 @@ namespace AMSExplorer
             Close();
         }
 
-       
+
         private void InputBox_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);

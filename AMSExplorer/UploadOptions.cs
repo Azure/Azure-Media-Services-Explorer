@@ -16,8 +16,6 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.Storage.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
