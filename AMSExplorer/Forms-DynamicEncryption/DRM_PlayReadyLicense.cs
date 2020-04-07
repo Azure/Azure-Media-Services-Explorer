@@ -62,20 +62,21 @@ namespace AMSExplorer
                     Licenses = new List<ContentKeyPolicyPlayReadyLicense> { objContentKeyPolicyPlayReadyLicense }
                 };
 
-                if (comboBoxLicenseType.SelectedItem.ToString() == ContentKeyPolicyPlayReadyLicenseType.NonPersistent)
+                if (comboBoxLicenseType.SelectedItem != null)
                 {
-                    objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.NonPersistent;
+                    if (comboBoxLicenseType.SelectedItem.ToString() == ContentKeyPolicyPlayReadyLicenseType.NonPersistent)
+                    {
+                        objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.NonPersistent;
+                    }
+                    else if (comboBoxLicenseType.SelectedItem.ToString() == ContentKeyPolicyPlayReadyLicenseType.Persistent)
+                    {
+                        objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.Persistent;
+                    }
+                    else
+                    {
+                        objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.Unknown;
+                    }
                 }
-                else if (comboBoxLicenseType.SelectedItem.ToString() == ContentKeyPolicyPlayReadyLicenseType.Persistent)
-                {
-                    objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.Persistent;
-                }
-                else
-                {
-                    objContentKeyPolicyPlayReadyLicense.LicenseType = ContentKeyPolicyPlayReadyLicenseType.Unknown;
-                }
-
-
 
                 if (checkBoxStartDate.Checked)
                 {

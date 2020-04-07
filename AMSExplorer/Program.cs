@@ -577,7 +577,7 @@ namespace AMSExplorer
         public const string NameconvToken = "{token}";
         public const string NameconvAsset = "{Asset Name}";
         public const string NameconvJob = "{Job Name}";
-        public const string NameconvTransform= "{Transform Name}";
+        public const string NameconvTransform = "{Transform Name}";
         public const string NameconvShortUniqueness = "{Uniqueness}";
         public const string NameconvFileName = "{File Name}";
         public const string NameconvUrl = "{Url}";
@@ -1497,50 +1497,26 @@ namespace AMSExplorer
         }
 
 
-        public static async Task<AssetProtectionType> GetAssetProtectionAsync(Asset MyAsset, AMSClientV3 client, AssetStreamingLocator locator)
+        public static AssetProtectionType GetAssetProtection(Asset MyAsset, AMSClientV3 client, AssetStreamingLocator locator)
         {
             AssetProtectionType type = AssetProtectionType.None;
 
-            // MIGRATION TO V3
-            /*
-           // IAssetDeliveryPolicy policy = MyAsset.DeliveryPolicies.FirstOrDefault();
-
-            if (policy != null)
+            if (locator != null)
             {
-                switch (policy.AssetDeliveryPolicyType)
+                if (locator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey.ToString())
                 {
-                    case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
-                        type = AssetProtectionType.AES;
-                        break;
-
-                    case AssetDeliveryPolicyType.DynamicCommonEncryption:
-                        if (
-                            policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl)
-                            &&
-                            (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl) || policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl))
-                            )
-                        {
-                            type = AssetProtectionType.PlayReadyAndWidevine;
-                        }
-                        else if (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl) || policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineBaseLicenseAcquisitionUrl))
-                        {
-                            type = AssetProtectionType.Widevine;
-                        }
-                        else
-                        {
-                            type = AssetProtectionType.PlayReady;
-                        }
-                        break;
-
-                    default:
-                        break;
+                    type = AssetProtectionType.AES;
+                }
+                else if (locator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming.ToString())
+                {
+                    type = AssetProtectionType.PlayReadyAndWidevine;
+                }
+                else if (locator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming.ToString())
+                {
+                    type = AssetProtectionType.PlayReadyAndWidevineAndFairplay;
                 }
             }
-            else if (MyAsset.Options == AssetCreationOptions.CommonEncryptionProtected)
-            {
-                type = AssetProtectionType.PlayReady; // CENC Static protection
-            }
-            */
+
             return type;
         }
 
@@ -1820,10 +1796,9 @@ namespace AMSExplorer
 
                 if (myasset != null)
                 {
-                    keytype = locator != null ? await AssetInfo.GetAssetProtectionAsync(myasset, client, locator) : AssetProtectionType.None; // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
+                    keytype = AssetInfo.GetAssetProtection(myasset, client, locator); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
                 }
             }
-
 
             // let's launch the player
             switch (typeplayer)
@@ -1879,6 +1854,7 @@ namespace AMSExplorer
                                     break;
 
                                 case AssetProtectionType.PlayReadyAndWidevine:
+                                case AssetProtectionType.PlayReadyAndWidevineAndFairplay:
                                     playerurl += string.Format(Constants.AMPPlayReady, true.ToString());
                                     playerurl += string.Format(Constants.AMPWidevine, true.ToString());
                                     break;
@@ -2110,7 +2086,7 @@ namespace AMSExplorer
             return mylistresults;
         }
 
-    
+
         public static string GetXMLSerializedTimeSpan(TimeSpan timespan)
         // return TimeSpan as a XML string: P28DT15H50M58.348S
         {
@@ -3236,7 +3212,9 @@ namespace AMSExplorer
         AES,
         PlayReady,
         Widevine,
-        PlayReadyAndWidevine
+        PlayReadyAndWidevine,
+        PlayReadyAndWidevineAndFairplay
+
     }
 
 
