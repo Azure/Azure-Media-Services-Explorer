@@ -757,23 +757,23 @@ namespace AMSExplorer
                     }
                     else if (condition.Property == FilterTrackPropertyType.Language.ToString()) // property language
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Language.ToString(), condition.Oper, condition.Value);
+                        dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Language.ToString(), condition.Oper, condition.Value);
                     }
                     else if (condition.Property == FilterTrackPropertyType.Bitrate.ToString()) // property bitrate
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Bitrate.ToString(), condition.Oper, condition.Value);
+                        dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Bitrate.ToString(), condition.Oper, condition.Value);
                     }
                     else if (condition.Property == FilterTrackPropertyType.Name.ToString()) // property Name - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Name.ToString(), condition.Oper, condition.Value);
+                        dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Name.ToString(), condition.Oper, condition.Value);
                     }
                     else if (condition.Property == FilterTrackPropertyType.Unknown.ToString()) // property Name - we want to propose supported FourCC
                     {
-                        int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Unknown.ToString(), condition.Oper, condition.Value);
+                        dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Unknown.ToString(), condition.Oper, condition.Value);
                     }
                     else
                     {
-                        int index = dataGridViewTracks.Rows.Add(condition.Property, condition.Oper, condition.Value);
+                        dataGridViewTracks.Rows.Add(condition.Property, condition.Oper, condition.Value);
                     }
                 }
             }

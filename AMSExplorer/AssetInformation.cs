@@ -180,7 +180,7 @@ namespace AMSExplorer
                 };
                 await _amsClient.RefreshTokenIfNeededAsync();
 
-                AssetContainerSas response = null;
+                AssetContainerSas response;
                 try
                 {
                     response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime);
@@ -527,7 +527,7 @@ namespace AMSExplorer
 
                 await _amsClient.RefreshTokenIfNeededAsync();
 
-                IList<AssetStreamingLocator> locators = null;
+                IList<AssetStreamingLocator> locators;
                 try
                 {
                     locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).StreamingLocators;
@@ -1373,7 +1373,7 @@ namespace AMSExplorer
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        FilterCreationInfo filtertoupdate = null;
+                        FilterCreationInfo filtertoupdate;
                         await _amsClient.RefreshTokenIfNeededAsync();
 
                         try
@@ -1704,7 +1704,7 @@ namespace AMSExplorer
         {
             try
             {
-                Program.ManifestGenerated smildata = await Program.LoadAndUpdateManifestTemplateAsync(myAssetV3, _amsClient, container);
+                Program.ManifestGenerated smildata = await Program.LoadAndUpdateManifestTemplateAsync(_amsClient, container);
 
                 using (
                 EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,

@@ -225,7 +225,7 @@ namespace AMSExplorer
             return myText;
         }
 
-        public static async Task<ManifestGenerated> LoadAndUpdateManifestTemplateAsync(Asset asset, AMSClientV3 amsClient, CloudBlobContainer container)
+        public static async Task<ManifestGenerated> LoadAndUpdateManifestTemplateAsync(AMSClientV3 amsClient, CloudBlobContainer container)
         {
             // Let's list the blobs
             BlobContinuationToken continuationToken = null;

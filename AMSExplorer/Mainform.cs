@@ -1703,12 +1703,10 @@ namespace AMSExplorer
             DialogResult? dialogResult = null;
             if (t != null)
             {
-
-
                 try
                 {
                     Cursor = Cursors.WaitCursor;
-                    TransformInformation form = new TransformInformation(this, _amsClient.AMSclient, t);
+                    TransformInformation form = new TransformInformation(t);
 
                     dialogResult = form.ShowDialog(this);
                 }
@@ -1716,7 +1714,6 @@ namespace AMSExplorer
                 {
                     Cursor = Cursors.Arrow;
                 }
-
             }
             return dialogResult;
         }
@@ -3358,31 +3355,12 @@ namespace AMSExplorer
             }
         }
 
-        private void dataGridViewAssetsV_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
+        private void DataGridViewAssetsV_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
             int indextype = dataGridViewAssetsV.Columns["Type"].Index;//2
-            int indexsize = dataGridViewAssetsV.Columns["Size"].Index;//4
             int indexlocalexp = dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index; //13
             int indexassetwarning = dataGridViewAssetsV.Columns[dataGridViewAssetsV._assetwarning].Index;
-
-            /*
-
-            var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
-            if (cell.Value != null)
-            {
-                string TypeStr = (string)cell.Value;
-                if (TypeStr.Equals(AssetInfo.Type_Empty)) e.CellStyle.ForeColor = Color.Red;
-                else if (TypeStr.Contains(AssetInfo.Type_Workflow)) e.CellStyle.ForeColor = Color.Blue;
-            }
-
-            var cell2 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indexsize];  //Size
-            if (cell2.Value != null)
-            {
-                string TypeStr = (string)cell2.Value;
-                if (TypeStr.Equals("0 B")) e.CellStyle.ForeColor = Color.Red;
-            }
-
-            */
+           
             DataGridViewCell cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
             if (cell.Value != null)
             {
@@ -3402,7 +3380,6 @@ namespace AMSExplorer
                     e.CellStyle.ForeColor = Color.Red;
                 }
             }
-
 
             if (e.ColumnIndex == indexlocalexp)  // locator expiration,
             {
@@ -3444,7 +3421,6 @@ namespace AMSExplorer
                     cell6.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._filterMouseOver].Value.ToString();
                 }
             }
-
         }
 
         private async void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)

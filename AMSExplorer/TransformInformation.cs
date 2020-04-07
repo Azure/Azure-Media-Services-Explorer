@@ -28,16 +28,12 @@ namespace AMSExplorer
     public partial class TransformInformation : Form
     {
         private readonly Transform _transform;
-        private readonly AzureMediaServicesClient _client;
-        private readonly Mainform _mainform;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
-        public TransformInformation(Mainform mainform, AzureMediaServicesClient client, Transform transform)
+        public TransformInformation(Transform transform)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
-            _client = client;
-            _mainform = mainform;
             _transform = transform;
         }
 
