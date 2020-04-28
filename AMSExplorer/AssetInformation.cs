@@ -1986,7 +1986,6 @@ namespace AMSExplorer
 
         private async void ButtonGetDRMToken_Click(object sender, EventArgs e)
         {
-            await GetDRMTestTokenAsync();
         }
 
         private async Task GetDRMTestTokenAsync()
@@ -2025,9 +2024,12 @@ namespace AMSExplorer
 
             ContentKeyPolicySymmetricTokenKey SymKey = (ContentKeyPolicySymmetricTokenKey)ckrestriction.PrimaryVerificationKey;
 
-            ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
-                    _amsClient.credentialsEntry.AccountName, locatorName);
-            string keyIdentifier = response.ContentKeys.First().Id.ToString();
+           // ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
+           //         _amsClient.credentialsEntry.AccountName, locatorName);
+
+            string keyIdentifier = (comboBoxKeys.SelectedItem as Item).Value;
+
+            //string keyIdentifier = response.ContentKeys.First().Id.ToString();
 
             using (DRM_GenerateToken formTokenProperties = new DRM_GenerateToken())
             {
@@ -2040,9 +2042,22 @@ namespace AMSExplorer
 
                     List<Claim> claims = new List<Claim>();
 
+                    /*
                     if (ckrestriction.RequiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
                     {
                         claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
+                    }
+                    */
+                    foreach (var claim in ckrestriction.RequiredClaims)
+                    {
+                        if (claim.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType)
+                        {
+                            claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
+                        }
+                        else
+                        {
+                            claims.Add(new Claim(claim.ClaimType, claim.ClaimValue));
+                        }
                     }
 
                     if (formTokenProperties.TokenUse != null)
@@ -2122,6 +2137,11 @@ namespace AMSExplorer
         private void EditToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoEditFile();
+        }
+
+        private async void buttonGetDRMToken_Click_1(object sender, EventArgs e)
+        {
+            await GetDRMTestTokenAsync();
         }
     }
 }

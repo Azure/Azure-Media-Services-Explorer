@@ -101,13 +101,7 @@
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
-            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
             this.comboBoxKeys = new System.Windows.Forms.ComboBox();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
-            this.buttonGetDRMToken = new System.Windows.Forms.Button();
             this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonAdvancedTestPlayer = new System.Windows.Forms.Button();
@@ -124,6 +118,12 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.buttonGetDRMToken = new System.Windows.Forms.Button();
+            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -145,11 +145,10 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
-            this.tabPage8.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.contextMenuStripKey.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
             this.SuspendLayout();
             // 
             // DGAsset
@@ -634,7 +633,6 @@
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage7);
-            this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -713,32 +711,19 @@
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.dataGridViewKeys, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.comboBoxKeys, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.dataGridViewKeys, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.buttonGetDRMToken, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.label9, 2, 3);
+            this.tableLayoutPanel3.Controls.Add(this.label10, 1, 4);
+            this.tableLayoutPanel3.Controls.Add(this.comboBoxOptions, 2, 4);
+            this.tableLayoutPanel3.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            // 
-            // dataGridViewKeys
-            // 
-            this.dataGridViewKeys.AllowUserToAddRows = false;
-            this.dataGridViewKeys.AllowUserToDeleteRows = false;
-            this.dataGridViewKeys.AllowUserToResizeRows = false;
-            this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewKeys.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewKeys.ColumnHeadersVisible = false;
-            this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewKeys, 2);
-            this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
-            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
-            this.dataGridViewKeys.MultiSelect = false;
-            this.dataGridViewKeys.Name = "dataGridViewKeys";
-            this.dataGridViewKeys.ReadOnly = true;
-            this.dataGridViewKeys.RowHeadersVisible = false;
-            this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick_1);
             // 
             // comboBoxKeys
             // 
@@ -747,40 +732,6 @@
             this.comboBoxKeys.FormattingEnabled = true;
             this.comboBoxKeys.Name = "comboBoxKeys";
             this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeys_SelectedIndexChanged);
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.Controls.Add(this.label10);
-            this.tabPage8.Controls.Add(this.label9);
-            this.tabPage8.Controls.Add(this.comboBoxOptions);
-            this.tabPage8.Controls.Add(this.buttonGetDRMToken);
-            resources.ApplyResources(this.tabPage8, "tabPage8");
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // comboBoxOptions
-            // 
-            this.comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOptions.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxOptions, "comboBoxOptions");
-            this.comboBoxOptions.Name = "comboBoxOptions";
-            // 
-            // buttonGetDRMToken
-            // 
-            resources.ApplyResources(this.buttonGetDRMToken, "buttonGetDRMToken");
-            this.buttonGetDRMToken.Name = "buttonGetDRMToken";
-            this.buttonGetDRMToken.UseVisualStyleBackColor = true;
-            this.buttonGetDRMToken.Click += new System.EventHandler(this.ButtonGetDRMToken_Click);
             // 
             // comboBoxPolicyLocators
             // 
@@ -895,6 +846,53 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
+            // comboBoxOptions
+            // 
+            resources.ApplyResources(this.comboBoxOptions, "comboBoxOptions");
+            this.comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOptions.FormattingEnabled = true;
+            this.comboBoxOptions.Name = "comboBoxOptions";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // buttonGetDRMToken
+            // 
+            resources.ApplyResources(this.buttonGetDRMToken, "buttonGetDRMToken");
+            this.buttonGetDRMToken.Name = "buttonGetDRMToken";
+            this.buttonGetDRMToken.UseVisualStyleBackColor = true;
+            this.buttonGetDRMToken.Click += new System.EventHandler(this.buttonGetDRMToken_Click_1);
+            // 
+            // dataGridViewKeys
+            // 
+            this.dataGridViewKeys.AllowUserToAddRows = false;
+            this.dataGridViewKeys.AllowUserToDeleteRows = false;
+            this.dataGridViewKeys.AllowUserToResizeRows = false;
+            this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewKeys.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewKeys.ColumnHeadersVisible = false;
+            this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewKeys, 2);
+            this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
+            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
+            this.dataGridViewKeys.MultiSelect = false;
+            this.dataGridViewKeys.Name = "dataGridViewKeys";
+            this.dataGridViewKeys.ReadOnly = true;
+            this.dataGridViewKeys.RowHeadersVisible = false;
+            this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick_1);
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -937,13 +935,11 @@
             this.tabPage7.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.contextMenuStripKey.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1022,7 +1018,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxKeys;
-        private System.Windows.Forms.DataGridView dataGridViewKeys;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxContentKeyPolicyOfLocator;
         private System.Windows.Forms.Label label7;
@@ -1031,11 +1026,6 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.Button buttonGetDRMToken;
-        private System.Windows.Forms.TabPage tabPage8;
-        private System.Windows.Forms.ComboBox comboBoxOptions;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
@@ -1044,5 +1034,11 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.CheckBox checkBoxListBlobsDirectories;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBoxOptions;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button buttonGetDRMToken;
+        private System.Windows.Forms.DataGridView dataGridViewKeys;
+        private System.Windows.Forms.Label label11;
     }
 }
