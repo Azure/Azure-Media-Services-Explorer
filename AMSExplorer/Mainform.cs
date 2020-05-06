@@ -20,10 +20,7 @@ using Microsoft.Azure.Management.Media.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Shared.Protocol;
+using Microsoft.Azure.Storage.Blob;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,6 +39,9 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using System.Xml;
+using Microsoft.Azure.Storage.Shared.Protocol;
+using Microsoft.Azure.Storage.Auth;
+using Microsoft.Azure.Storage;
 
 namespace AMSExplorer
 {
@@ -4125,73 +4125,35 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 3;
-
-                /*
-                DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
-                {
-                    Name = "% used",
-                    DataPropertyName = "% used",
-                    HeaderText = "% used"
-                };
-                dataGridViewStorage.Columns.Add(col);
-                */
+                dataGridViewStorage.ColumnCount = 2;
 
                 dataGridViewStorage.Columns[0].Name = "Name";
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
-                dataGridViewStorage.Columns[0].Width = 150;
-                dataGridViewStorage.Columns[1].Name = "Capacity";
-                dataGridViewStorage.Columns[1].HeaderText = "Space Used";
-                dataGridViewStorage.Columns[1].Width = 80;
-                dataGridViewStorage.Columns[2].Name = "Id";
-                dataGridViewStorage.Columns[2].Visible = false;
-                dataGridViewStorage.Columns[2].HeaderText = "Id";
-                dataGridViewStorage.Columns[2].Width = 700;
-                /*
-                dataGridViewStorage.Columns[2].Name = "StrictName";
-                dataGridViewStorage.Columns[2].Visible = false;
-                dataGridViewStorage.Columns[3].Width = 600;
-                */
+                dataGridViewStorage.Columns[0].Width = 200;
+                dataGridViewStorage.Columns[1].Name = "Id";
+                dataGridViewStorage.Columns[1].Visible = false;
+                dataGridViewStorage.Columns[1].HeaderText = "Id";
+                dataGridViewStorage.Columns[1].Width = 700;
             }
             dataGridViewStorage.Rows.Clear();
 
             foreach (StorageAccount storage in amsaccount.StorageAccounts)
             {
-                long? capacity = await _amsClient.GetStorageCapacityAsync(storage.Id);
-
-                /*
-                double? capacityPercentageFullTmp = null;
-                if (storage.BytesUsed != null)
-                {
-                    displaycapacity = true;
-                    capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
-                }
-                */
-
                 string name = AMSClientV3.GetStorageName(storage.Id);
                 string append = string.Empty;
                 if (storage.Type == StorageAccountType.Primary)
                 {
                     append = " (primary)";
                 }
-                // int rowi = dataGridViewStorage.Rows.Add(name + append, storage.Id);
 
-                int rowi = dataGridViewStorage.Rows.Add(name + append, capacity != null ? AssetInfo.FormatByteSize(capacity) : "(are the metrics enabled ?)", storage.Id);
+                int rowi = dataGridViewStorage.Rows.Add(name + append, storage.Id);
                 if (storage.Type == StorageAccountType.Primary)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
                     dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
-
-                }
-                if (capacity == null)
-                {
-                    dataGridViewStorage.Rows[rowi].Cells[1].ToolTipText = "Storage Account Metrics are not enabled or no data is available";
                 }
             }
-            //tabPageStorage.Invoke(new Action(() => tabPageStorage.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count())));
             tabPageStorage.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count()));
-
-
         }
 
 

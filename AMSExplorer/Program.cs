@@ -22,9 +22,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Win32;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.Azure.Storage.Blob;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -51,6 +49,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Microsoft.Azure.Storage.Auth;
+using Microsoft.Azure.Storage;
 
 namespace AMSExplorer
 {
@@ -2881,55 +2881,6 @@ namespace AMSExplorer
         {
             string[] split = storageId.Split('/');
             return storageId.Split('/')[split.Count() - 5];
-        }
-
-        public async Task<long?> GetStorageCapacityAsync(string storageId)
-        {
-            string storeKey = null;
-            try
-            {
-                storeKey = await GetStorageKeyAsync(storageId);
-            }
-            catch
-            {
-                return null;
-            }
-            if (storeKey == null)
-            {
-                return null;
-            }
-
-            StorageCredentials storageCredentials = new StorageCredentials(AMSClientV3.GetStorageName(storageId), storeKey);
-            CloudStorageAccount cloudStorageAccount = new CloudStorageAccount(storageCredentials, useHttps: true);
-
-            Microsoft.WindowsAzure.Storage.Analytics.CloudAnalyticsClient blobClient = cloudStorageAccount.CreateCloudAnalyticsClient();
-
-            // Convert the dates to the format used in the PartitionKey
-            string start = DateTime.UtcNow.AddDays(-1).ToUniversalTime().ToString("yyyyMMdd'T'HHmm");
-
-            Microsoft.WindowsAzure.Storage.Table.TableQuery<Microsoft.WindowsAzure.Storage.Analytics.CapacityEntity> metricsQuery = blobClient.CreateCapacityQuery();
-
-            IQueryable<Microsoft.WindowsAzure.Storage.Analytics.CapacityEntity> query =
-       from entity in metricsQuery
-       where entity.PartitionKey.CompareTo(start) >= 0
-       select entity;
-
-            try
-            {
-                IEnumerable<Microsoft.WindowsAzure.Storage.Analytics.CapacityEntity> results = query.ToList().Where(m => m.RowKey == "data");
-                if (results.LastOrDefault() != null)
-                {
-                    return results.LastOrDefault().Capacity;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch
-            {
-                return null;
-            }
         }
     }
 

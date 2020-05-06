@@ -1,5 +1,4 @@
-﻿using Microsoft.WindowsAzure.Storage.Shared.Protocol;
-
+﻿
 namespace AMSExplorer
 {
     partial class StorageSettings
