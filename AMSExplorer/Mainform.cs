@@ -7062,14 +7062,10 @@ namespace AMSExplorer
                     //serviceProperties.DefaultServiceVersion = "2011-08-18";
                     try
                     {
-                        TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...",
-                            form.RequestedStorageVersion ?? StorageSettings.noversion,
-                            form.RequestedMetricsLevel.ToString(),
-                            form.RequestedMetricsRetention ?? 0
+                        TextBoxLogWriteLine("Setting storage version to '{0}'...",
+                            form.RequestedStorageVersion ?? StorageSettings.noversion
                             );
                         serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
-                        serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
-                        serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
 
                         // Save the updated service properties
                         await blobClient.SetServicePropertiesAsync(serviceProperties);
