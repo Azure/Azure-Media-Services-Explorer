@@ -7810,20 +7810,10 @@ namespace AMSExplorer
             {
                 TransformOutput[] outputs;
 
-                if (form.AudioOnlyMode)
-                {
-                    outputs = new TransformOutput[]
-                                                     {
-                                                                new TransformOutput( new AudioAnalyzerPreset( ){ AudioLanguage=form.Language  }),
-                                                     };
-                }
-                else // video mode
-                {
-                    outputs = new TransformOutput[]
-                                                       {
-                                                                new TransformOutput( new VideoAnalyzerPreset( ){ AudioLanguage=form.Language  }),
-                                                       };
-                }
+                outputs = new TransformOutput[]
+                                                 {
+                                                                new TransformOutput( new VideoAnalyzerPreset( ){ AudioLanguage=form.Language, InsightsToExtract= form.InsightsMode  }),
+                                                 };
 
                 try
                 {

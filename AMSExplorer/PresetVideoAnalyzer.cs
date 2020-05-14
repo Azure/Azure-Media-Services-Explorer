@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,8 +36,7 @@ namespace AMSExplorer
 
         public string Description => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
 
-        public bool AudioOnlyMode => radioButtonAudioOnly.Checked;
-
+        public InsightsType InsightsMode => radioButtonAudioOnly.Checked ? InsightsType.AudioInsightsOnly : radioButtonVideoOnly.Checked ? InsightsType.VideoInsightsOnly : InsightsType.AllInsights;
 
         public PresetVideoAnalyzer()
         {
@@ -72,7 +72,7 @@ namespace AMSExplorer
 
         private void UpdateTransformLabel()
         {
-            if (AudioOnlyMode)
+            if (InsightsMode ==  InsightsType.AudioInsightsOnly)
             {
                 textBoxTransformName.Text = "AudioAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
 

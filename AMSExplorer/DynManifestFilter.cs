@@ -276,7 +276,7 @@ namespace AMSExplorer
                 _filter_name = assetFilter.Name;
                 filtertracks = ConvertFilterTracksToInternalVar(assetFilter.Tracks);
 
-                _timescale = assetFilter.PresentationTimeRange.Timescale ?? _timescale;
+                _timescale = assetFilter.PresentationTimeRange?.Timescale ?? _timescale;
 
                 buttonOk.Text = "Update Filter";
                 buttonOk.Enabled = true; // we can enable the button
@@ -471,7 +471,7 @@ namespace AMSExplorer
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_Timescale, assetfilter.PresentationTimeRange?.Timescale.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_StartTimestamp, assetfilter.PresentationTimeRange?.StartTimestamp.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_EndTimestamp, assetfilter.PresentationTimeRange?.EndTimestamp.ToString());
-                DGInfo.Rows.Add("Force end timestamp", assetfilter.PresentationTimeRange.ForceEndTimestamp);
+                DGInfo.Rows.Add("Force end timestamp", assetfilter.PresentationTimeRange?.ForceEndTimestamp);
 
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_PresentationWindowDuration, assetfilter.PresentationTimeRange?.PresentationWindowDuration.ToString());
                 DGInfo.Rows.Add(AMSExplorer.Properties.Resources.DynManifestFilter_DisplayFilterInfo_LiveBackoffDuration, assetfilter.PresentationTimeRange?.LiveBackoffDuration.ToString());

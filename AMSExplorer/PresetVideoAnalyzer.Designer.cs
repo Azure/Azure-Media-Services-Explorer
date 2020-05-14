@@ -36,6 +36,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxAutoLanguage = new System.Windows.Forms.CheckBox();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,10 +46,10 @@
             this.radioButtonAudioOnly = new System.Windows.Forms.RadioButton();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBoxAutoLanguage = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.radioButtonVideoOnly = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -93,6 +94,14 @@
             this.toolTip1.SetToolTip(this.comboBoxLanguage, resources.GetString("comboBoxLanguage.ToolTip"));
             this.comboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.comboBoxLanguage_SelectedIndexChanged);
             // 
+            // checkBoxAutoLanguage
+            // 
+            resources.ApplyResources(this.checkBoxAutoLanguage, "checkBoxAutoLanguage");
+            this.checkBoxAutoLanguage.Name = "checkBoxAutoLanguage";
+            this.toolTip1.SetToolTip(this.checkBoxAutoLanguage, resources.GetString("checkBoxAutoLanguage.ToolTip"));
+            this.checkBoxAutoLanguage.UseVisualStyleBackColor = true;
+            this.checkBoxAutoLanguage.CheckedChanged += new System.EventHandler(this.checkBoxAutoLanguage_CheckedChanged);
+            // 
             // moreinfoprofilelink
             // 
             resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
@@ -119,6 +128,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioButtonVideoOnly);
             this.groupBox1.Controls.Add(this.radioButtonAudioAndVideo);
             this.groupBox1.Controls.Add(this.radioButtonAudioOnly);
             resources.ApplyResources(this.groupBox1, "groupBox1");
@@ -150,14 +160,6 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
-            // checkBoxAutoLanguage
-            // 
-            resources.ApplyResources(this.checkBoxAutoLanguage, "checkBoxAutoLanguage");
-            this.checkBoxAutoLanguage.Name = "checkBoxAutoLanguage";
-            this.toolTip1.SetToolTip(this.checkBoxAutoLanguage, resources.GetString("checkBoxAutoLanguage.ToolTip"));
-            this.checkBoxAutoLanguage.UseVisualStyleBackColor = true;
-            this.checkBoxAutoLanguage.CheckedChanged += new System.EventHandler(this.checkBoxAutoLanguage_CheckedChanged);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.comboBoxLanguage);
@@ -175,6 +177,12 @@
             // 
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // radioButtonVideoOnly
+            // 
+            resources.ApplyResources(this.radioButtonVideoOnly, "radioButtonVideoOnly");
+            this.radioButtonVideoOnly.Name = "radioButtonVideoOnly";
+            this.radioButtonVideoOnly.UseVisualStyleBackColor = true;
             // 
             // PresetVideoAnalyzer
             // 
@@ -226,5 +234,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBoxAutoLanguage;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioButtonVideoOnly;
     }
 }
