@@ -50,13 +50,13 @@ namespace AMSExplorer
         {
             get
             {
-               if (checkBoxLimited.Checked)
+                if (checkBoxLimited.Checked)
                 {
-                    return (uint) numericUpDownRentalHours.Value;
+                    return (uint)TimeSpan.FromHours((double)numericUpDownRentalHours.Value).TotalSeconds;
                 }
-               else
+                else
                 {
-                    return 0x9999;
+                    return 0x99999999;
                 }
             }
         }
