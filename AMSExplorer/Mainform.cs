@@ -2406,7 +2406,7 @@ namespace AMSExplorer
                     return null;
                 }
             }
-            dataGridViewAssetsV.PurgeCacheAssetsV3(assets);
+            dataGridViewAssetsV.PurgeCacheAssets(assets);
             await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
 
             return listLocatorNames;
@@ -2511,7 +2511,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine("There is a problem when deleting locators of the asset {0}.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(ex);
                             }
-                            dataGridViewAssetsV.PurgeCacheAssetsV3(SelectedAssets);
+                            dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                             await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
                         }
                     }

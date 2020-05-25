@@ -360,7 +360,7 @@ namespace AMSExplorer
         */
 
 
-        public void PurgeCacheAssetsV3(List<Asset> assets)
+        public void PurgeCacheAssets(List<Asset> assets)
         {
             assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
         }
