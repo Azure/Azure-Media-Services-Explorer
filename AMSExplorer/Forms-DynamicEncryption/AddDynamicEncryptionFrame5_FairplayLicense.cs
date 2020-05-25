@@ -15,23 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
-using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
-using System.Xml;
-using System.IO;
-using Microsoft.WindowsAzure.MediaServices.Client.Widevine;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
