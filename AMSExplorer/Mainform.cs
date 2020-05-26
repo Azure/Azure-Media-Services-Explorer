@@ -493,6 +493,9 @@ namespace AMSExplorer
                 case "tabPageStorage":
                     await DoRefreshGridStorageVAsync(false);
                     break;
+                case "tabPageCKPol":
+                    await DoRefreshGridCKPoliciesVAsync(false);
+                    break;
             }
         }
 
@@ -505,6 +508,7 @@ namespace AMSExplorer
             await DoRefreshGridStreamingEndpointVAsync(false);
             await DoRefreshGridStorageVAsync(false);
             await DoRefreshGridFiltersVAsync(false);
+            await DoRefreshGridCKPoliciesVAsync(false);
         }
 
         public void DoRefreshGridAssetV(bool firstime)
@@ -2643,6 +2647,26 @@ namespace AMSExplorer
             return SelectedFilters;
         }
 
+        private async Task<List<ContentKeyPolicy>> ReturnSelectedCKPoliciessAsync()
+        {
+            List<ContentKeyPolicy> SelectedCKPolicies = new List<ContentKeyPolicy>();
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            Microsoft.Rest.Azure.IPage<ContentKeyPolicy> ckPolicies = await _amsClient.AMSclient.ContentKeyPolicies.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
+            {
+                string ckpolName = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
+                ContentKeyPolicy myPolicy = ckPolicies.Where(f => f.Name == ckpolName).FirstOrDefault();
+                if (myPolicy != null)
+                {
+                    SelectedCKPolicies.Add(myPolicy);
+                }
+            }
+
+            return SelectedCKPolicies;
+        }
+
+
 
 
         private async void selectedAssetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3062,6 +3086,7 @@ namespace AMSExplorer
             Task.Run(async () => await DoRefreshGridStreamingEndpointVAsync(true));
             Task.Run(async () => await DoRefreshGridStorageVAsync(true));
             Task.Run(async () => await DoRefreshGridFiltersVAsync(true));
+            Task.Run(async () => await DoRefreshGridCKPoliciesVAsync(true));
 
             DisplaySplashDuringLoading = false;
 
@@ -4241,6 +4266,73 @@ namespace AMSExplorer
             }
             tabPageFilters.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count()));
             //tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count());
+        }
+
+
+        public async Task DoRefreshGridCKPoliciesVAsync(bool firstime)
+        {
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            if (firstime)
+            {
+                // Storage tab
+                dataGridViewCKPolicies.ColumnCount = 5;
+                dataGridViewCKPolicies.Columns[0].HeaderText = "Name";
+                dataGridViewCKPolicies.Columns[0].Name = "Name";
+                dataGridViewCKPolicies.Columns[0].ReadOnly = true;
+                dataGridViewCKPolicies.Columns[0].Width = 100;
+                dataGridViewCKPolicies.Columns[1].HeaderText = "Description";
+                dataGridViewCKPolicies.Columns[1].Name = "Description";
+                dataGridViewCKPolicies.Columns[1].Width = 135;
+                dataGridViewCKPolicies.Columns[2].HeaderText = "Type";
+                dataGridViewCKPolicies.Columns[2].Name = "Type";
+                dataGridViewCKPolicies.Columns[2].Width = 135;
+                dataGridViewCKPolicies.Columns[3].HeaderText = "Options";
+                dataGridViewCKPolicies.Columns[3].Name = "Options";
+                dataGridViewCKPolicies.Columns[3].Width = 110;
+                dataGridViewCKPolicies.Columns[4].HeaderText = "Last modified";
+                dataGridViewCKPolicies.Columns[4].Name = "LastModified";
+                dataGridViewCKPolicies.Columns[4].Width = 110;
+            }
+            dataGridViewCKPolicies.Rows.Clear();
+
+            Microsoft.Rest.Azure.IPage<ContentKeyPolicy> ckPolicies = await _amsClient.AMSclient.ContentKeyPolicies.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            foreach (ContentKeyPolicy ckPolicy in ckPolicies)
+            {
+                string typeStr = null;
+
+                if (ckPolicy.Options != null && ckPolicy.Options.Count > 0)
+                {
+                    List<string> listTypeConfig = new List<string>();
+                    foreach (var option in ckPolicy.Options)
+                    {
+                        var typeConfig = option.Configuration.GetType();
+                        if (typeConfig == typeof(ContentKeyPolicyPlayReadyConfiguration))
+                        {
+                            listTypeConfig.Add("PlayReady");
+                        }
+                        else if (typeConfig == typeof(ContentKeyPolicyWidevineConfiguration))
+                        {
+                            listTypeConfig.Add("Widevine");
+                        }
+                        else if (typeConfig == typeof(ContentKeyPolicyFairPlayConfiguration))
+                        {
+                            listTypeConfig.Add("FairPlay");
+                        }
+                    }
+                    typeStr = string.Join(", ", listTypeConfig.Distinct());
+                }
+                try
+                {
+                    int nbOptions = ckPolicy.Options.Count;
+                    int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Name, ckPolicy.Description, typeStr, nbOptions, ckPolicy.LastModified);
+                }
+                catch
+                {
+                    int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Name, "Error");
+                }
+            }
+            tabPageCKPol.Invoke(t => t.Text = string.Format("Content key policies ({0})", ckPolicies.Count()));
         }
 
 
@@ -8438,6 +8530,38 @@ namespace AMSExplorer
         private async void NewEmptyAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoNewAssetAsync();
+        }
+
+        private async void toolStripMenuItemCKDelete_Click(object sender, EventArgs e)
+        {
+            await DoDeleteCKPolAsync();
+        }
+
+        private async Task DoDeleteCKPolAsync()
+        {
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            var policies = await ReturnSelectedCKPoliciessAsync();
+            Task[] deleteTasks = policies.Select(ck => _amsClient.AMSclient.ContentKeyPolicies.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, ck.Name)).ToArray();
+
+            try
+            {
+                TextBoxLogWriteLine("Deleting {0} content key policies(s)...", deleteTasks.Count());
+                await Task.WhenAll(deleteTasks);
+                TextBoxLogWriteLine("Content key policy(s) deleted.");
+            }
+
+            catch (Exception e)
+            {
+                TextBoxLogWriteLine("Error when deleting content key policy(s)", true);
+                TextBoxLogWriteLine(e);
+            }
+            await DoRefreshGridCKPoliciesVAsync(false);
+        }
+
+        private void toolStripMenuItemCKRefresh_Click(object sender, EventArgs e)
+        {
+            await DoRefreshGridCKPoliciesVAsync(false);
         }
     }
 }

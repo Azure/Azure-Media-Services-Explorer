@@ -112,6 +112,13 @@
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPageCKPol = new System.Windows.Forms.TabPage();
+            this.dataGridViewCKPolicies = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripCKPolicies = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemCKRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCKInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCKCreate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCKDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageTransfers = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelTransfers = new System.Windows.Forms.TableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
@@ -352,6 +359,9 @@
             this.tabPageFilters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.contextMenuStripFilters.SuspendLayout();
+            this.tabPageCKPol.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCKPolicies)).BeginInit();
+            this.contextMenuStripCKPolicies.SuspendLayout();
             this.tabPageTransfers.SuspendLayout();
             this.tableLayoutPanelTransfers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
@@ -413,6 +423,7 @@
             resources.ApplyResources(this.tabControlMain, "tabControlMain");
             this.tabControlMain.Controls.Add(this.tabPageAssets);
             this.tabControlMain.Controls.Add(this.tabPageFilters);
+            this.tabControlMain.Controls.Add(this.tabPageCKPol);
             this.tabControlMain.Controls.Add(this.tabPageTransfers);
             this.tabControlMain.Controls.Add(this.tabPageJobs);
             this.tabControlMain.Controls.Add(this.tabPageLive);
@@ -1013,6 +1024,64 @@
             this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
             resources.ApplyResources(this.duplicateToolStripMenuItem, "duplicateToolStripMenuItem");
             this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
+            // 
+            // tabPageCKPol
+            // 
+            this.tabPageCKPol.Controls.Add(this.dataGridViewCKPolicies);
+            resources.ApplyResources(this.tabPageCKPol, "tabPageCKPol");
+            this.tabPageCKPol.Name = "tabPageCKPol";
+            this.tabPageCKPol.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewCKPolicies
+            // 
+            this.dataGridViewCKPolicies.AllowUserToAddRows = false;
+            this.dataGridViewCKPolicies.AllowUserToDeleteRows = false;
+            this.dataGridViewCKPolicies.AllowUserToResizeRows = false;
+            this.dataGridViewCKPolicies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewCKPolicies.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridViewCKPolicies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCKPolicies.ContextMenuStrip = this.contextMenuStripCKPolicies;
+            resources.ApplyResources(this.dataGridViewCKPolicies, "dataGridViewCKPolicies");
+            this.dataGridViewCKPolicies.Name = "dataGridViewCKPolicies";
+            this.dataGridViewCKPolicies.ReadOnly = true;
+            this.dataGridViewCKPolicies.RowHeadersVisible = false;
+            this.dataGridViewCKPolicies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            // 
+            // contextMenuStripCKPolicies
+            // 
+            this.contextMenuStripCKPolicies.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemCKRefresh,
+            this.toolStripMenuItemCKInfo,
+            this.toolStripMenuItemCKCreate,
+            this.toolStripMenuItemCKDelete});
+            this.contextMenuStripCKPolicies.Name = "contextMenuStripStreamingEndpoints";
+            resources.ApplyResources(this.contextMenuStripCKPolicies, "contextMenuStripCKPolicies");
+            // 
+            // toolStripMenuItemCKRefresh
+            // 
+            this.toolStripMenuItemCKRefresh.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.toolStripMenuItemCKRefresh.Name = "toolStripMenuItemCKRefresh";
+            resources.ApplyResources(this.toolStripMenuItemCKRefresh, "toolStripMenuItemCKRefresh");
+            this.toolStripMenuItemCKRefresh.Click += new System.EventHandler(this.toolStripMenuItemCKRefresh_Click);
+            // 
+            // toolStripMenuItemCKInfo
+            // 
+            this.toolStripMenuItemCKInfo.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
+            this.toolStripMenuItemCKInfo.Name = "toolStripMenuItemCKInfo";
+            resources.ApplyResources(this.toolStripMenuItemCKInfo, "toolStripMenuItemCKInfo");
+            // 
+            // toolStripMenuItemCKCreate
+            // 
+            this.toolStripMenuItemCKCreate.Image = global::AMSExplorer.Bitmaps.create;
+            this.toolStripMenuItemCKCreate.Name = "toolStripMenuItemCKCreate";
+            resources.ApplyResources(this.toolStripMenuItemCKCreate, "toolStripMenuItemCKCreate");
+            // 
+            // toolStripMenuItemCKDelete
+            // 
+            this.toolStripMenuItemCKDelete.Image = global::AMSExplorer.Bitmaps.delete;
+            this.toolStripMenuItemCKDelete.Name = "toolStripMenuItemCKDelete";
+            resources.ApplyResources(this.toolStripMenuItemCKDelete, "toolStripMenuItemCKDelete");
+            this.toolStripMenuItemCKDelete.Click += new System.EventHandler(this.toolStripMenuItemCKDelete_Click);
             // 
             // tabPageTransfers
             // 
@@ -2782,6 +2851,9 @@
             this.tabPageFilters.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.contextMenuStripFilters.ResumeLayout(false);
+            this.tabPageCKPol.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCKPolicies)).EndInit();
+            this.contextMenuStripCKPolicies.ResumeLayout(false);
             this.tabPageTransfers.ResumeLayout(false);
             this.tableLayoutPanelTransfers.ResumeLayout(false);
             this.tableLayoutPanelTransfers.PerformLayout();
@@ -3140,6 +3212,13 @@
         private System.Windows.Forms.ToolStripMenuItem advancedTestPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newAssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newEmptyAssetToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageCKPol;
+        private System.Windows.Forms.DataGridView dataGridViewCKPolicies;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCKRefresh;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCKInfo;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCKCreate;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCKDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripCKPolicies;
     }
 }
 
