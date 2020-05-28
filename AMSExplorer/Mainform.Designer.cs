@@ -1075,6 +1075,7 @@
             this.toolStripMenuItemCKCreate.Image = global::AMSExplorer.Bitmaps.create;
             this.toolStripMenuItemCKCreate.Name = "toolStripMenuItemCKCreate";
             resources.ApplyResources(this.toolStripMenuItemCKCreate, "toolStripMenuItemCKCreate");
+            this.toolStripMenuItemCKCreate.Click += new System.EventHandler(this.toolStripMenuItemCKCreate_Click);
             // 
             // toolStripMenuItemCKDelete
             // 
