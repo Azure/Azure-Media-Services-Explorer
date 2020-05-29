@@ -2155,7 +2155,7 @@ namespace AMSExplorer
                                                     OfflineRentalConfiguration = formFairPlay[i].FairPlayOfflineRentalConfig
                                                 },
                                                 Restriction = formFairPlayTokenClaims[i].GetContentKeyPolicyRestriction,
-                                                Name = formFairPlay[i].FairPlayePolicyName
+                                                Name = formFairPlay[i].FairPlayPolicyName
                                             });
                             }
 
