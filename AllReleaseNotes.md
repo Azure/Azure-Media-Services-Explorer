@@ -1,3 +1,8 @@
+Version 4.3.14.0 (June 2, 2020) brings the following features and improvements :
+
+* Fixes FairPlay rental duration unit
+
+
 Version 4.3.13.0 (February 27, 2020) brings the following features and improvements :
 
 * Updated deprecation notices for some processors
