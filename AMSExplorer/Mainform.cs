@@ -2653,7 +2653,7 @@ namespace AMSExplorer
             await _amsClient.RefreshTokenIfNeededAsync();
 
             Microsoft.Rest.Azure.IPage<ContentKeyPolicy> ckPolicies = await _amsClient.AMSclient.ContentKeyPolicies.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
-            foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
+            foreach (DataGridViewRow Row in dataGridViewCKPolicies.SelectedRows)
             {
                 string ckpolName = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
                 ContentKeyPolicy myPolicy = ckPolicies.Where(f => f.Name == ckpolName).FirstOrDefault();
@@ -4296,43 +4296,58 @@ namespace AMSExplorer
             }
             dataGridViewCKPolicies.Rows.Clear();
 
-            Microsoft.Rest.Azure.IPage<ContentKeyPolicy> ckPolicies = await _amsClient.AMSclient.ContentKeyPolicies.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
-            foreach (ContentKeyPolicy ckPolicy in ckPolicies)
-            {
-                string typeStr = null;
 
-                if (ckPolicy.Options != null && ckPolicy.Options.Count > 0)
+            int nbPol = 0;
+
+            IPage<ContentKeyPolicy> ckPolicies = await _amsClient.AMSclient.ContentKeyPolicies.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (ckPolicies != null)
+            {
+                nbPol += ckPolicies.Count();
+                foreach (ContentKeyPolicy ckPolicy in ckPolicies)
                 {
-                    List<string> listTypeConfig = new List<string>();
-                    foreach (var option in ckPolicy.Options)
+                    string typeStr = null;
+
+                    if (ckPolicy.Options != null && ckPolicy.Options.Count > 0)
                     {
-                        var typeConfig = option.Configuration.GetType();
-                        if (typeConfig == typeof(ContentKeyPolicyPlayReadyConfiguration))
+                        List<string> listTypeConfig = new List<string>();
+                        foreach (var option in ckPolicy.Options)
                         {
-                            listTypeConfig.Add("PlayReady");
+                            var typeConfig = option.Configuration.GetType();
+                            if (typeConfig == typeof(ContentKeyPolicyPlayReadyConfiguration))
+                            {
+                                listTypeConfig.Add("PlayReady");
+                            }
+                            else if (typeConfig == typeof(ContentKeyPolicyWidevineConfiguration))
+                            {
+                                listTypeConfig.Add("Widevine");
+                            }
+                            else if (typeConfig == typeof(ContentKeyPolicyFairPlayConfiguration))
+                            {
+                                listTypeConfig.Add("FairPlay");
+                            }
                         }
-                        else if (typeConfig == typeof(ContentKeyPolicyWidevineConfiguration))
-                        {
-                            listTypeConfig.Add("Widevine");
-                        }
-                        else if (typeConfig == typeof(ContentKeyPolicyFairPlayConfiguration))
-                        {
-                            listTypeConfig.Add("FairPlay");
-                        }
+                        typeStr = string.Join(", ", listTypeConfig.Distinct());
                     }
-                    typeStr = string.Join(", ", listTypeConfig.Distinct());
+                    try
+                    {
+                        int nbOptions = ckPolicy.Options.Count;
+                        int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Name, ckPolicy.Description, typeStr, nbOptions, ckPolicy.LastModified);
+                    }
+                    catch
+                    {
+                        int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Name, "Error");
+                    }
                 }
-                try
+                if (ckPolicies.NextPageLink != null)
                 {
-                    int nbOptions = ckPolicy.Options.Count;
-                    int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Name, ckPolicy.Description, typeStr, nbOptions, ckPolicy.LastModified);
+                    ckPolicies = await _amsClient.AMSclient.ContentKeyPolicies.ListNextAsync(ckPolicies.NextPageLink);
                 }
-                catch
+                else
                 {
-                    int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Name, "Error");
+                    ckPolicies = null;
                 }
             }
-            tabPageCKPol.Invoke(t => t.Text = string.Format("Content key policies ({0})", ckPolicies.Count()));
+            tabPageCKPol.Invoke(t => t.Text = string.Format("Content key policies ({0})", nbPol));
         }
 
 
