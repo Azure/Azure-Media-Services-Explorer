@@ -183,7 +183,7 @@ namespace AMSExplorer
             // Filters
 
             // asset filters
-            Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
+            IPage<AssetFilter> assetFilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
             List<string> afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
             listViewFilters.BeginUpdate();

@@ -344,7 +344,20 @@ namespace AMSExplorer
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            IPage<AssetFilter> assetFilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            while (assetFiltersPage != null)
+            {
+                assetFilters.AddRange(assetFiltersPage);
+                if (assetFiltersPage.NextPageLink != null)
+                {
+                    assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    assetFiltersPage = null;
+                }
+            }
 
             dataGridViewFilters.ColumnCount = 6;
             dataGridViewFilters.Columns[0].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
