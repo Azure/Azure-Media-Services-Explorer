@@ -36,12 +36,12 @@ namespace AMSExplorer
         private readonly AzureEnvironment environment;
         private readonly myTenant[] _myTenants;
         private readonly IPlatformParameters _parameters;
-        private IPage<Subscription> subscriptions;
+        private List<Subscription> subscriptions;
         private readonly Dictionary<string, List<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, List<SubscriptionMediaService>>();
         public SubscriptionMediaService selectedAccount = null;
         public string selectedTenantId = null;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, IPage<Subscription> subscriptions, AzureEnvironment environment, myTenant[] myTenants, IPlatformParameters parameters)
+        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, myTenant[] myTenants, IPlatformParameters parameters)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -98,7 +98,22 @@ namespace AMSExplorer
             credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
             SubscriptionClient subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-            subscriptions = subscriptionClient.Subscriptions.List();
+
+            // Subcriptions listing
+            subscriptions = new List<Subscription>();
+            IPage<Subscription> subscriptionsPage = subscriptionClient.Subscriptions.List();
+            while (subscriptionsPage != null)
+            {
+                subscriptions.AddRange(subscriptionsPage);
+                if (subscriptionsPage.NextPageLink != null)
+                {
+                    subscriptionsPage = subscriptionClient.Subscriptions.ListNext(subscriptionsPage.NextPageLink);
+                }
+                else
+                {
+                    subscriptionsPage = null;
+                }
+            }
 
             treeViewAzureSub.BeginUpdate();
             treeViewAzureSub.Nodes.Clear();
