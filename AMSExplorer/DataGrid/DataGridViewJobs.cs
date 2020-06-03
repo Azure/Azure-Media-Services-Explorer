@@ -350,8 +350,19 @@ namespace AMSExplorer
             List<JobExtension> ActiveAndVisibleJobs = new List<JobExtension>();
             foreach (string t in transforms)
             {
-                IPage<Job> jobs = await _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, t, odataQuery);
-                ActiveAndVisibleJobs.AddRange(jobs.Select(j => new JobExtension() { Job = j, TransformName = t }));
+                IPage<Job> jobsPage = await _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, t, odataQuery);
+                while (jobsPage != null)
+                {
+                    ActiveAndVisibleJobs.AddRange(jobsPage.Select(j => new JobExtension() { Job = j, TransformName = t }));
+                    if (jobsPage.NextPageLink != null)
+                    {
+                        jobsPage = await _client.AMSclient.Jobs.ListNextAsync(jobsPage.NextPageLink);
+                    }
+                    else
+                    {
+                        jobsPage = null;
+                    }
+                }
             }
 
             // let's cancel monitor task of non visible jobs
