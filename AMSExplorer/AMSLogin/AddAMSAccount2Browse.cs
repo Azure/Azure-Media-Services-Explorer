@@ -37,7 +37,7 @@ namespace AMSExplorer
         private readonly myTenant[] _myTenants;
         private readonly IPlatformParameters _parameters;
         private IPage<Subscription> subscriptions;
-        private readonly Dictionary<string, IPage<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, IPage<SubscriptionMediaService>>();
+        private readonly Dictionary<string, List<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, List<SubscriptionMediaService>>();
         public SubscriptionMediaService selectedAccount = null;
         public string selectedTenantId = null;
 
@@ -132,7 +132,21 @@ namespace AMSExplorer
                 {
                     SubscriptionId = selectedSubscription.SubscriptionId
                 };
-                IPage<SubscriptionMediaService> mediaServicesAccounts = mediaServicesClient.Mediaservices.ListBySubscription();
+
+                List<SubscriptionMediaService> mediaServicesAccounts = new List<SubscriptionMediaService>();
+                IPage<SubscriptionMediaService> mediaServicesAccountsPage = mediaServicesClient.Mediaservices.ListBySubscription();
+                while (mediaServicesAccountsPage != null)
+                {
+                    mediaServicesAccounts.AddRange(mediaServicesAccountsPage);
+                    if (mediaServicesAccountsPage.NextPageLink != null)
+                    {
+                        mediaServicesAccountsPage = mediaServicesClient.Mediaservices.ListBySubscriptionNext(mediaServicesAccountsPage.NextPageLink);
+                    }
+                    else
+                    {
+                        mediaServicesAccountsPage = null;
+                    }
+                }
 
                 // let's save the data
                 allAMSAccountsPerSub[mediaServicesClient.SubscriptionId] = mediaServicesAccounts;
@@ -154,7 +168,7 @@ namespace AMSExplorer
             }
             else if (hitTest.Location == TreeViewHitTestLocations.Label && hitTest.Node.Level == 1)
             {
-                IPage<SubscriptionMediaService> accounts = allAMSAccountsPerSub[(string)hitTest.Node.Parent.Tag];
+                List<SubscriptionMediaService> accounts = allAMSAccountsPerSub[(string)hitTest.Node.Parent.Tag];
                 SubscriptionMediaService account = accounts.Where(a => a.Id == (string)hitTest.Node.Tag).FirstOrDefault();
 
                 // let's display account info
