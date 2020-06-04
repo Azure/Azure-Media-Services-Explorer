@@ -1054,97 +1054,162 @@ namespace AMSExplorer
             return response;
         }
 
-        public async static Task<ManifestTimingData> GetManifestTimingDataAsync(Asset asset, AMSClientV3 _amsClientV3, string preferredLocatorName = null)
-        // Parse the manifest and get data from it
+
+        public async static Task<XDocument> TryToGetClientManifestContentAsABlobAsync(Asset asset, AMSClientV3 _amsClient)
         {
+            // get the manifest
+            ListContainerSasInput input = new ListContainerSasInput()
+            {
+                Permissions = AssetContainerPermission.Read,
+                ExpiryTime = DateTime.Now.AddMinutes(5).ToUniversalTime()
+            };
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            AssetContainerSas responseSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name, input.Permissions, input.ExpiryTime);
+
+            string uploadSasUrl = responseSas.AssetContainerSasUrls.First();
+
+            Uri sasUri = new Uri(uploadSasUrl);
+            var container = new CloudBlobContainer(sasUri);
+
+
+            BlobContinuationToken continuationToken = null;
+            var blobs = new List<CloudBlockBlob>();
+
+            do
+            {
+                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                blobs.AddRange(segment.Results.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(b => b as CloudBlockBlob));
+
+                continuationToken = segment.ContinuationToken;
+            }
+            while (continuationToken != null);
+            var ismc = blobs.Where(b => b.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase));
+
+            if (ismc.Count() == 0)
+            {
+                throw new Exception("No ISMC file in asset.");
+            }
+
+            var content = await ismc.First().DownloadTextAsync();
+
+            return XDocument.Parse(content);
+        }
+
+        public async static Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
+        {
+            Uri myuri = await GetValidOnDemandURIAsync(asset, _amsClient, preferredLocatorName);
+
+            if (myuri == null)
+            {
+                myuri = await GetValidOnDemandURIAsync(asset, _amsClient);
+            }
+            if (myuri != null)
+            {
+                return XDocument.Load(myuri.ToString());
+            }
+            else
+            {
+                throw new Exception("Streaming locator is null");
+            }
+        }
+
+        /// <summary>
+        /// Parse the manifest data.
+        /// It is recommended to call TryToGetClientManifestContentAsABlobAsync and TryToGetClientManifestContentUsingStreamingLocatorAsync to get the content
+        /// </summary>
+        /// <param name="manifest"></param>
+        /// <returns></returns>
+        public static ManifestTimingData GetManifestTimingData(XDocument manifest)
+        {
+
+            if (manifest == null) throw new ArgumentNullException();
+
             ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
+
             try
             {
-                StreamingLocator mytemplocator = null;
-                Uri myuri = await GetValidOnDemandURIAsync(asset, _amsClientV3, preferredLocatorName);
+                XElement smoothmedia = manifest.Element("SmoothStreamingMedia");
+                IEnumerable<XElement> videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
 
-                if (myuri == null)
+                // TIMESCALE
+                string timescaleFromManifest = smoothmedia.Attribute("TimeScale").Value;
+                if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
                 {
-                    myuri = await GetValidOnDemandURIAsync(asset, _amsClientV3);
+                    timescaleFromManifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
                 }
-                if (myuri != null)
+                long timescale = long.Parse(timescaleFromManifest);
+                response.TimeScale = timescale;
+
+                // DURATION
+                string durationFromManifest = smoothmedia.Attribute("Duration").Value;
+                ulong? overallDuration = null;
+                if (durationFromManifest != null) // there is a duration value. Let's take this one.
                 {
-                    XDocument manifest = XDocument.Load(myuri.ToString());
-                    XElement smoothmedia = manifest.Element("SmoothStreamingMedia");
-                    IEnumerable<XElement> videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                    overallDuration = (ulong?)ulong.Parse(durationFromManifest);
+                }
 
-                    // TIMESCALE
-                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
-                    if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
-                    {
-                        timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
-                    }
-                    long timescale = long.Parse(timescalefrommanifest);
-                    response.TimeScale = timescale;
-
-                    // Timestamp offset
-                    if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
-                    {
-                        response.TimestampOffset = ulong.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
-                    }
-                    else
-                    {
-                        response.TimestampOffset = 0; // no timestamp, so it should be 0
-                    }
-
-                    ulong totalduration = 0;
-                    ulong durationpreviouschunk = 0;
-                    ulong durationchunk;
-                    int repeatchunk;
-                    foreach (XElement chunk in videotrack.Elements("c"))
-                    {
-                        durationchunk = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
-                        repeatchunk = chunk.Attribute("r") != null ? int.Parse(chunk.Attribute("r").Value) : 1;
-
-                        if (chunk.Attribute("t") != null)
-                        {
-                            ulong tvalue = ulong.Parse(chunk.Attribute("t").Value);
-                            response.TimestampList.Add(tvalue);
-                            if (tvalue != response.TimestampOffset)
-                            {
-                                totalduration = tvalue - response.TimestampOffset; // Discountinuity ? We calculate the duration from the offset
-                                response.DiscontinuityDetected = true; // let's flag it
-                            }
-                        }
-                        else
-                        {
-                            response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk);
-                        }
-
-                        totalduration += durationchunk * (ulong)repeatchunk;
-
-                        for (int i = 1; i < repeatchunk; i++)
-                        {
-                            response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationchunk);
-                        }
-
-                        durationpreviouschunk = durationchunk;
-                    }
-                    response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk;
-
-                    if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
-                    { // Live asset.... No duration to read (but we can read scaling and compute duration if no gap)
-                        response.IsLive = true;
-                        response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
-                    }
-                    else
-                    {
-                        response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
-                    }
+                // Timestamp offset
+                if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
+                {
+                    response.TimestampOffset = ulong.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
                 }
                 else
                 {
-                    response.Error = true;
+                    response.TimestampOffset = 0; // no timestamp, so it should be 0
                 }
-                if (mytemplocator != null)
+
+                ulong totalDuration = 0;
+                ulong durationPreviousChunk = 0;
+                ulong durationChunk;
+                int repeatChunk;
+                foreach (XElement chunk in videotrack.Elements("c"))
                 {
-                    await _amsClientV3.RefreshTokenIfNeededAsync();
-                    await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
+                    durationChunk = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
+                    repeatChunk = chunk.Attribute("r") != null ? int.Parse(chunk.Attribute("r").Value) : 1;
+
+                    if (chunk.Attribute("t") != null)
+                    {
+                        ulong tvalue = ulong.Parse(chunk.Attribute("t").Value);
+                        response.TimestampList.Add(tvalue);
+                        if (tvalue != response.TimestampOffset)
+                        {
+                            totalDuration = tvalue - response.TimestampOffset; // Discountinuity ? We calculate the duration from the offset
+                            response.DiscontinuityDetected = true; // let's flag it
+                        }
+                    }
+                    else
+                    {
+                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationPreviousChunk);
+                    }
+
+                    totalDuration += durationChunk * (ulong)repeatChunk;
+
+                    for (int i = 1; i < repeatChunk; i++)
+                    {
+                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationChunk);
+                    }
+
+                    durationPreviousChunk = durationChunk;
+                }
+                response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count() - 1] + durationPreviousChunk;
+
+                if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
+                { // Live asset.... No duration to read or it is always zero (but we can read scaling and compute duration)
+                    response.IsLive = true;
+                    response.AssetDuration = TimeSpan.FromSeconds(totalDuration / ((double)timescale));
+                }
+                else
+                {
+                    if (overallDuration != null & overallDuration > 0) // let's trust the duration property in the manifest
+                    {
+                        response.AssetDuration = TimeSpan.FromSeconds((ulong)overallDuration / ((double)timescale));
+
+                    }
+                    else // no trust
+                    {
+                        response.AssetDuration = TimeSpan.FromSeconds(totalDuration / ((double)timescale));
+                    }
                 }
             }
             catch
@@ -3645,7 +3710,7 @@ namespace AMSExplorer
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, IntPtr lParam);
 
         [DllImport("Shcore.dll")]
-        private static extern IntPtr GetDpiForMonitor([In]IntPtr hmonitor, [In]DpiType dpiType, [Out]out uint dpiX, [Out]out uint dpiY);
+        private static extern IntPtr GetDpiForMonitor([In] IntPtr hmonitor, [In] DpiType dpiType, [Out] out uint dpiX, [Out] out uint dpiY);
 
         private static int GetPerMonitorDpiForControl(Control c)
         {

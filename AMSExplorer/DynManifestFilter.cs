@@ -25,6 +25,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AMSExplorer
 {
@@ -49,7 +50,6 @@ namespace AMSExplorer
         private string _labelDefaultEnd;
         private string _labelDefaultDVR;
         private string _labelDefaultBakckoff;
-        private StreamingLocator _tempStreamingLocator = null;
         private readonly object _filterToDisplay;
 
         public DynManifestFilter(AMSClientV3 amsClient, object filterToDisplay = null, Asset parentAsset = null, SubClipConfiguration subclipconfig = null)
@@ -222,24 +222,34 @@ namespace AMSExplorer
                 textBoxAssetName.Text = _parentAsset != null ? _parentAsset.Name : string.Empty;
 
 
-                // temp locator creation
-                if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                // let's try to read asset timing
+                XDocument manifest = null;
+                try
+                {
+                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
+                }
+                catch
+                {
+                }
+
+                if (manifest == null)
                 {
                     try
                     {
-                        _tempStreamingLocator = await AssetInfo.CreateTemporaryOnDemandLocatorAsync(_parentAsset, _amsClient);
+                        if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
+                        }
                     }
                     catch
                     {
-
                     }
                 }
 
-                // let's try to read asset timing
-                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
-
-                // let's delete the temp locator
-                if (_tempStreamingLocator != null) await AssetInfo.DeleteStreamingLocatorAsync(_amsClient, _tempStreamingLocator.Name);
+                if (manifest != null)
+                {
+                    _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
+                }
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
@@ -320,27 +330,37 @@ namespace AMSExplorer
 
                 textBoxFilterName.Enabled = false; // no way to change the filter name
                 textBoxFilterName.Text = _filter_name;
+              
 
+                // let's try to read asset timing
+                XDocument manifest = null;
+                try
+                {
+                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
+                }
+                catch
+                {
+                }
 
-                // temp locator creation
-                if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                if (manifest == null)
                 {
                     try
                     {
-                        _tempStreamingLocator = await AssetInfo.CreateTemporaryOnDemandLocatorAsync(_parentAsset, _amsClient);
+                        if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
+                        }
                     }
                     catch
                     {
-
                     }
                 }
 
-                // let's try to read asset timing
-                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
-
-                // let's delete the temp locator
-                await AssetInfo.DeleteStreamingLocatorAsync(_amsClient, _tempStreamingLocator.Name);
-
+                if (manifest != null)
+                {
+                    _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
+                }
+           
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
 
                 if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match

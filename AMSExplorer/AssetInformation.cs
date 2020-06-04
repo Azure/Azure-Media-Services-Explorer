@@ -377,7 +377,33 @@ namespace AMSExplorer
 
             if (assetFilters.Count() > 0 && myassetmanifesttimingdata == null)
             {
-                myassetmanifesttimingdata = await AssetInfo.GetManifestTimingDataAsync(myAssetV3, _amsClient);
+
+                // let's read manifest data
+                XDocument manifest = null;
+                try
+                {
+                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(myAssetV3, _amsClient);
+                }
+                catch
+                {
+                }
+
+                if (manifest == null)
+                {
+                    try
+                    {
+                        manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAssetV3, _amsClient);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                if (manifest != null)
+                {
+                    myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(manifest);
+                }
             }
 
             foreach (AssetFilter filter in assetFilters)
@@ -1642,13 +1668,7 @@ namespace AMSExplorer
                 {
                     progressBarUpload.Maximum = 100;
                     progressBarUpload.Visible = true;
-                    string tempPath = System.IO.Path.GetTempPath();
-                    string filePath = Path.Combine(tempPath, blobtoedit.Name);
 
-                    if (File.Exists(filePath))
-                    {
-                        File.Delete(filePath);
-                    }
                     string contentstring = await blobtoedit.DownloadTextAsync();
 
                     progressBarUpload.Visible = false;
@@ -2050,8 +2070,8 @@ namespace AMSExplorer
 
             ContentKeyPolicySymmetricTokenKey SymKey = (ContentKeyPolicySymmetricTokenKey)ckrestriction.PrimaryVerificationKey;
 
-           // ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
-           //         _amsClient.credentialsEntry.AccountName, locatorName);
+            // ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
+            //         _amsClient.credentialsEntry.AccountName, locatorName);
 
             string keyIdentifier = (comboBoxKeys.SelectedItem as Item).Value;
 

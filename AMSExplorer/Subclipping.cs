@@ -23,6 +23,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AMSExplorer
 {
@@ -30,7 +31,7 @@ namespace AMSExplorer
     {
         AMSClientV3 _amsClientV3;
         private List<Asset> _selectedAssets;
-        private ManifestTimingData _parentassetmanifestdata;
+        private ManifestTimingData _parentAssetManifestData;
         private long? _timescale = TimeSpan.TicksPerSecond;
         Mainform _mainform;
         bool backupCheckboxTrim = false; // used when user select reencode to save the status of trim checkbox
@@ -68,7 +69,7 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _amsClientV3 = context;
-            _parentassetmanifestdata = new ManifestTimingData();
+            _parentAssetManifestData = new ManifestTimingData();
             _selectedAssets = assetlist;
             _mainform = mainform;
 
@@ -77,7 +78,7 @@ namespace AMSExplorer
             buttonShowEDL.Offset = new TimeSpan(0);
 
             // temp locator creation
-            if (_selectedAssets.Count == 1 && MessageBox.Show("A temporary clear locator of 1 hour is going to be created to access content timing information. It will be deleted when you close the subclipping window.", "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            if (_selectedAssets.Count == 1 && MessageBox.Show("A temporary clear locator of 1 hour is going to be created to stream the content in the player. It will be deleted when you close the subclipping window.", "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
                 try
                 {
@@ -95,28 +96,51 @@ namespace AMSExplorer
                 textBoxAssetName.Text = myAsset.Name;
 
                 // let's try to read asset timing
-                _parentassetmanifestdata = Task.Run(() => AssetInfo.GetManifestTimingDataAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
-
-                labelDiscountinuity.Visible = _parentassetmanifestdata.DiscontinuityDetected;
-
-                if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
+                XDocument manifest = null;
+                try
                 {
-                    _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = _parentassetmanifestdata.TimeScale;
-                    timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
+                    manifest = Task.Run(() => AssetInfo.TryToGetClientManifestContentAsABlobAsync(myAsset, _amsClientV3)).GetAwaiter().GetResult();
+                }
+                catch
+                {
+                }
+
+                if (manifest == null)
+                {
+                    try
+                    {
+                        manifest = Task.Run(() => AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                if (manifest != null)
+                {
+                    _parentAssetManifestData = AssetInfo.GetManifestTimingData(manifest);
+                }
+
+                labelDiscountinuity.Visible = _parentAssetManifestData.DiscontinuityDetected;
+
+                if (!_parentAssetManifestData.Error)  // we were able to read asset timings and not live
+                {
+                    _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = _parentAssetManifestData.TimeScale;
+                    timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentAssetManifestData.TimestampOffset;
                     buttonShowEDL.Offset = timeControlStart.GetOffSetAsTimeSpan();
 
-                    textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
+                    textBoxOffset.Text = _parentAssetManifestData.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
 
                     textBoxFilterTimeScale.Text = _timescale.ToString();
                     textBoxFilterTimeScale.Visible = labelAssetTimescale.Visible = true;
 
-                    timeControlStart.Max = timeControlEnd.Max = _parentassetmanifestdata.AssetDuration;
+                    timeControlStart.Max = timeControlEnd.Max = _parentAssetManifestData.AssetDuration;
 
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
-                    textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss") + (_parentassetmanifestdata.IsLive ? " (LIVE)" : "");
+                    textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss") + (_parentAssetManifestData.IsLive ? " (LIVE)" : "");
                     // let set duration and active track bat
-                    timeControlStart.TotalDuration = timeControlEnd.TotalDuration = _parentassetmanifestdata.AssetDuration;
+                    timeControlStart.TotalDuration = timeControlEnd.TotalDuration = _parentAssetManifestData.AssetDuration;
                     timeControlStart.DisplayTrackBar = true;
                     timeControlEnd.DisplayTrackBar = true;
                     timeControlEnd.SetTimeStamp(timeControlEnd.Max);
