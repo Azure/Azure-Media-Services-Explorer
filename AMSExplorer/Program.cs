@@ -1100,7 +1100,6 @@ namespace AMSExplorer
                     {
                         durationchunk = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
                         repeatchunk = chunk.Attribute("r") != null ? int.Parse(chunk.Attribute("r").Value) : 1;
-                        totalduration += durationchunk * (ulong)repeatchunk;
 
                         if (chunk.Attribute("t") != null)
                         {
@@ -1117,13 +1116,14 @@ namespace AMSExplorer
                             response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk);
                         }
 
+                        totalduration += durationchunk * (ulong)repeatchunk;
+
                         for (int i = 1; i < repeatchunk; i++)
                         {
                             response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationchunk);
                         }
 
                         durationpreviouschunk = durationchunk;
-
                     }
                     response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk;
 
