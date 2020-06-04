@@ -228,7 +228,6 @@ namespace AMSExplorer
                 }
             }
 
-
             acctFilters.ToList().ForEach(f =>
             {
                 ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });

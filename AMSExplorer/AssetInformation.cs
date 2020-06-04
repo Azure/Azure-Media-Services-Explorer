@@ -1363,12 +1363,25 @@ namespace AMSExplorer
             List<AssetFilter> SelectedFilters = new List<AssetFilter>();
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            IPage<AssetFilter> afilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            while (assetFiltersPage != null)
+            {
+                assetFilters.AddRange(assetFiltersPage);
+                if (assetFiltersPage.NextPageLink != null)
+                {
+                    assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    assetFiltersPage = null;
+                }
+            }
 
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filterName = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
-                AssetFilter myfilter = afilters.Where(f => f.Name == filterName).FirstOrDefault();
+                AssetFilter myfilter = assetFilters.Where(f => f.Name == filterName).FirstOrDefault();
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);

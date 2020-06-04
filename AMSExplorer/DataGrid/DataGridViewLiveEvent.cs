@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -134,7 +135,21 @@ namespace AMSExplorer
             _amsClient = client;
             float scale = DeviceDpi / 96f;
 
-            Microsoft.Rest.Azure.IPage<LiveEvent> liveevents = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            // Listing live events
+            List<LiveEvent> liveevents = new List<LiveEvent>();
+            IPage<LiveEvent> liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (liveeventsPage != null)
+            {
+                liveevents.AddRange(liveeventsPage);
+                if (liveeventsPage.NextPageLink != null)
+                {
+                    liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListNextAsync(liveeventsPage.NextPageLink);
+                }
+                else
+                {
+                    liveeventsPage = null;
+                }
+            }
 
             channelquery = from c in liveevents.Take(0)
                            orderby c.LastModified descending
@@ -317,11 +332,28 @@ namespace AMSExplorer
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
             await _amsClient.RefreshTokenIfNeededAsync();
-            Microsoft.Rest.Azure.IPage<LiveEvent> listLE = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
-            totalLiveEvents = listLE.Count();
+
+            // Listing live events
+            List<LiveEvent> liveevents = new List<LiveEvent>();
+            IPage<LiveEvent> liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (liveeventsPage != null)
+            {
+                liveevents.AddRange(liveeventsPage);
+                if (liveeventsPage.NextPageLink != null)
+                {
+                    liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListNextAsync(liveeventsPage.NextPageLink);
+                }
+                else
+                {
+                    liveeventsPage = null;
+                }
+            }
+
+
+            totalLiveEvents = liveevents.Count();
             float scale = DeviceDpi / 96f;
 
-            IEnumerable<LiveEventEntry> channelquery = listLE.Select(c =>
+            IEnumerable<LiveEventEntry> channelquery = liveevents.Select(c =>
                        new LiveEventEntry
                        {
                            Name = c.Name,

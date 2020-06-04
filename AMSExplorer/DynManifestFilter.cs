@@ -14,7 +14,9 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,14 +73,43 @@ namespace AMSExplorer
             await _amsClient.RefreshTokenIfNeededAsync();
             if (asset != null)
             {
-                Microsoft.Rest.Azure.IPage<AssetFilter> filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).Body;
+                // asset filters
+                List<AssetFilter> filters = new List<AssetFilter>();
+                IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name);
+                while (assetFiltersPage != null)
+                {
+                    filters.AddRange(assetFiltersPage);
+                    if (assetFiltersPage.NextPageLink != null)
+                    {
+                        assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                    }
+                    else
+                    {
+                        assetFiltersPage = null;
+                    }
+                }
+
                 filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
             }
             // account filters
 
-            Microsoft.Rest.Azure.IPage<AccountFilter> acFilters = (await _amsClient.AMSclient.AccountFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Body;
+            // account filters
+            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (acctFiltersPage != null)
+            {
+                acctFilters.AddRange(acctFiltersPage);
+                if (acctFiltersPage.NextPageLink != null)
+                {
+                    acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    acctFiltersPage = null;
+                }
+            }
 
-            acFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Account filter : " + g.Name, g.Name)));
+            acctFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Account filter : " + g.Name, g.Name)));
 
             if (comboBoxLocatorsFilters.Items.Count > 1)
             {
@@ -1025,8 +1056,23 @@ namespace AMSExplorer
                 object importfilter = null;
                 if (filtername.StartsWith(Constants.AssetIdPrefix)) // asset filter
                 {
-                    Microsoft.Rest.Azure.IPage<AssetFilter> filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _parentAsset.Name)).Body;
-                    importfilter = filters.Where(f => f.Id == filtername).FirstOrDefault();
+                    List<AssetFilter> assetFilters = new List<AssetFilter>();
+                    IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _parentAsset.Name);
+                    while (assetFiltersPage != null)
+                    {
+                        assetFilters.AddRange(assetFiltersPage);
+                        if (assetFiltersPage.NextPageLink != null)
+                        {
+                            assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                        }
+                        else
+                        {
+                            assetFiltersPage = null;
+                        }
+                    }
+
+
+                    importfilter = assetFilters.Where(f => f.Id == filtername).FirstOrDefault();
 
                     if (importfilter != null)
                     {
@@ -1038,8 +1084,23 @@ namespace AMSExplorer
                 }
                 else // global filter
                 {
-                    Microsoft.Rest.Azure.IPage<AccountFilter> filters = (await _amsClient.AMSclient.AccountFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Body;
-                    importfilter = filters.Where(f => f.Name == filtername).FirstOrDefault();
+                    // account filters
+                    List<AccountFilter> acctFilters = new List<AccountFilter>();
+                    IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+                    while (acctFiltersPage != null)
+                    {
+                        acctFilters.AddRange(acctFiltersPage);
+                        if (acctFiltersPage.NextPageLink != null)
+                        {
+                            acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                        }
+                        else
+                        {
+                            acctFiltersPage = null;
+                        }
+                    }
+
+                    importfilter = acctFilters.Where(f => f.Name == filtername).FirstOrDefault();
 
                     if (importfilter != null)
                     {
