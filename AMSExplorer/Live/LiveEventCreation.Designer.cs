@@ -64,6 +64,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
+            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
@@ -83,7 +84,7 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -347,6 +348,7 @@
             // 
             // tabPageLiveTranscript
             // 
+            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscriptRegions);
             this.tabPageLiveTranscript.Controls.Add(this.comboBoxLanguage);
             this.tabPageLiveTranscript.Controls.Add(this.label8);
             this.tabPageLiveTranscript.Controls.Add(this.label2);
@@ -355,6 +357,14 @@
             resources.ApplyResources(this.tabPageLiveTranscript, "tabPageLiveTranscript");
             this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
             this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxLanguage
+            // 
+            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
+            this.comboBoxLanguage.FormattingEnabled = true;
+            this.comboBoxLanguage.Name = "comboBoxLanguage";
+            this.toolTip1.SetToolTip(this.comboBoxLanguage, resources.GetString("comboBoxLanguage.ToolTip"));
             // 
             // label8
             // 
@@ -472,13 +482,11 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // comboBoxLanguage
+            // linkLabelLiveTranscriptRegions
             // 
-            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
-            this.comboBoxLanguage.FormattingEnabled = true;
-            this.comboBoxLanguage.Name = "comboBoxLanguage";
-            this.toolTip1.SetToolTip(this.comboBoxLanguage, resources.GetString("comboBoxLanguage.ToolTip"));
+            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
+            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
+            this.linkLabelLiveTranscriptRegions.TabStop = true;
             // 
             // LiveEventCreation
             // 
@@ -577,5 +585,6 @@
         private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
+        private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
     }
 }

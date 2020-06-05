@@ -537,14 +537,41 @@
   <data name="&gt;&gt;tabPageLiveEncoding.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="linkLabelLiveTranscriptRegions.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>369, 28</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 15</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Text" xml:space="preserve">
+    <value>Regions availability</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Name" xml:space="preserve">
+    <value>linkLabelLiveTranscriptRegions</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="comboBoxLanguage.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 98</value>
+    <value>37, 119</value>
   </data>
   <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 23</value>
@@ -552,6 +579,9 @@
   <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
     <value>The natural language to be recognized in the multimedia file. If you know the language of your content, it is recommended that you specify it.</value>
   </data>
@@ -565,7 +595,7 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -574,7 +604,7 @@
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 144</value>
+    <value>34, 165</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>443, 55</value>
@@ -595,7 +625,7 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -604,7 +634,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 80</value>
+    <value>34, 101</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 15</value>
@@ -625,7 +655,7 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="linkLabelLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -634,16 +664,16 @@
     <value>NoControl</value>
   </data>
   <data name="linkLabelLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 13</value>
+    <value>294, 13</value>
   </data>
   <data name="linkLabelLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 15</value>
+    <value>183, 15</value>
   </data>
   <data name="linkLabelLiveTranscript.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
   </data>
   <data name="linkLabelLiveTranscript.Text" xml:space="preserve">
-    <value>More information on live transcriptions</value>
+    <value>Live transcription documentation</value>
   </data>
   <data name="&gt;&gt;linkLabelLiveTranscript.Name" xml:space="preserve">
     <value>linkLabelLiveTranscript</value>
@@ -655,22 +685,22 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;linkLabelLiveTranscript.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="checkBoxEnableLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBoxEnableLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 42</value>
+    <value>37, 63</value>
   </data>
   <data name="checkBoxEnableLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>327, 19</value>
+    <value>354, 19</value>
   </data>
   <data name="checkBoxEnableLiveTranscript.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="checkBoxEnableLiveTranscript.Text" xml:space="preserve">
-    <value>Enable live transcriptions (available in some regions only)</value>
+    <value>Enable live transcription (available as preview in some regions)</value>
   </data>
   <data name="&gt;&gt;checkBoxEnableLiveTranscript.Name" xml:space="preserve">
     <value>checkBoxEnableLiveTranscript</value>
@@ -682,7 +712,7 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;checkBoxEnableLiveTranscript.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="tabPageLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -697,7 +727,7 @@
     <value>5</value>
   </data>
   <data name="tabPageLiveTranscript.Text" xml:space="preserve">
-    <value>Live transcriptions</value>
+    <value>Live transcription</value>
   </data>
   <data name="&gt;&gt;tabPageLiveTranscript.Name" xml:space="preserve">
     <value>tabPageLiveTranscript</value>
@@ -1782,9 +1812,6 @@
   <data name="&gt;&gt;textBoxToken.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="labelWarning.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>

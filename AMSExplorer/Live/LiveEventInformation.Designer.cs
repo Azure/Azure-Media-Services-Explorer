@@ -77,7 +77,7 @@
             this.labelLiveEventStoppedOrStartedSettings = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.labelLoosingLiveTranscriptionFeature = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -447,6 +447,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.labelLoosingLiveTranscriptionFeature);
             this.panel1.Controls.Add(this.labelLiveEventStoppedOrStartedSettings);
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Controls.Add(this.buttonUpdateClose);
@@ -466,11 +467,10 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // panel2
+            // labelLoosingLiveTranscriptionFeature
             // 
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Name = "panel2";
+            resources.ApplyResources(this.labelLoosingLiveTranscriptionFeature, "labelLoosingLiveTranscriptionFeature");
+            this.labelLoosingLiveTranscriptionFeature.Name = "labelLoosingLiveTranscriptionFeature";
             // 
             // LiveEventInformation
             // 
@@ -479,7 +479,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelLEName);
             this.Controls.Add(this.tabControl1);
@@ -563,6 +562,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label labelLoosingLiveTranscriptionFeature;
     }
 }

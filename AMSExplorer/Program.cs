@@ -684,6 +684,7 @@ namespace AMSExplorer
         public const string strTransfers = "{0} concurrent transfer{1}";
 
         public const string LinkMoreInfoLiveTranscript = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription";
+        public const string LinkMoreInfoLiveTranscriptRegions = "https://docs.microsoft.com/en-us/azure/media-services/latest/azure-clouds-regions#feature-availability-in-preview";
     }
 
 
