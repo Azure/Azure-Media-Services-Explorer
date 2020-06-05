@@ -219,7 +219,7 @@ namespace AMSExplorer
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
             linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
-            linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscript));
+            linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
 
             LanguagesLiveTranscript.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;

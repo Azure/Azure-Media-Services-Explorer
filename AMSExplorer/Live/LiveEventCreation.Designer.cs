@@ -64,6 +64,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
+            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -84,7 +85,6 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -358,6 +358,13 @@
             this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
             this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
             // 
+            // linkLabelLiveTranscriptRegions
+            // 
+            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
+            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
+            this.linkLabelLiveTranscriptRegions.TabStop = true;
+            this.linkLabelLiveTranscriptRegions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            // 
             // comboBoxLanguage
             // 
             this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -481,12 +488,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // linkLabelLiveTranscriptRegions
-            // 
-            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
-            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
-            this.linkLabelLiveTranscriptRegions.TabStop = true;
             // 
             // LiveEventCreation
             // 

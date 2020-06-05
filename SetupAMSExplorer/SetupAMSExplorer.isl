@@ -346,7 +346,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{AF646F6F-208B-49D0-8051-43F8DB7D2BB4}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Newtonsoft.Json.dll</td><td>{91284A64-B509-4F13-B7BA-51F28AB2E456}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>System.IO.dll</td><td>{8721207E-F5C3-4A07-B7B5-2B793B73F623}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.io.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>System.Net.Http.dll</td><td>{55DB03DB-547C-4A17-AECB-F86743DA530A}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.net.http.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>System.Net.Http.dll</td><td>{6DE5584B-7310-4C6C-A934-005B0A304AAB}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.net.http.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>System.Runtime.dll</td><td>{7C3D39BA-A0A8-4D23-A134-8C09D19F2935}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.runtime.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1908,7 +1908,7 @@
 		<row><td>amsexplorer.primary_output</td><td>AMSExplorer.Primary_output</td><td>AMSExplorer.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|Built</td><td>3</td><td/></row>
 		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
 		<row><td>system.io.dll</td><td>System.IO.dll</td><td>SYSTEM~1.DLL|System.IO.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.IO.dll</td><td>1</td><td/></row>
-		<row><td>system.net.http.dll</td><td>System.Net.Http.dll</td><td>SYSTEM~1.DLL|System.Net.Http.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Net.Http.dll</td><td>1</td><td/></row>
+		<row><td>system.net.http.dll</td><td>System.Net.Http.dll</td><td>SYSTEM~1.DLL|System.Net.Http.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\source\repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Net.Http.dll</td><td>1</td><td/></row>
 		<row><td>system.runtime.dll</td><td>System.Runtime.dll</td><td>SYSTEM~1.DLL|System.Runtime.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\xpouyat\Source\Repos\Azure-Media-Services-Explorer\AMSExplorer\bin\Release\System.Runtime.dll</td><td>1</td><td/></row>
 	</table>
 
@@ -2060,7 +2060,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_CEED99D2_1C48_4F57_BEC4_3289CF013B45_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_BB49E352_45A6_43E5_BCAB_B37981193FFF_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>System.IO.dll</td><td/><td/><td>_0A53F3BF_BC72_4CB9_9CFC_077E4C93458F_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>System.Net.Http.dll</td><td/><td/><td>_C8D0BE8E_8EE7_43BE_9A11_FB6D07DAD52A_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>System.Net.Http.dll</td><td/><td/><td>_D6B547CE_5AE4_4594_B68C_86637FC679B8_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>System.Runtime.dll</td><td/><td/><td>_E0AD9875_286A_4141_942D_6A73D974F347_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2678,7 +2678,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-1272496629</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>724097459</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ACROBAT5FOLDER</td><td>1033</td><td>   Adobe Acrobat 5 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER10FOLDER</td><td>1033</td><td>Adobe Reader 10 needs to be installed for this installation to continue.</td><td>0</td><td/><td>1529218827</td></row>
@@ -3834,11 +3834,11 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MicrosoftCorporation.com</td><td>0</td><td/><td>-1272496629</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>-1272496629</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MicrosoftCorporation.com</td><td>0</td><td/><td>724097459</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>724097459</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>http://aka.ms/amse</td><td>0</td><td/><td>-341645173</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-1549656207</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/issues</td><td>0</td><td/><td>-1272496629</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/issues</td><td>0</td><td/><td>724097459</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-366859085</td></row>
 	</table>
 
@@ -4100,7 +4100,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{94055368-1BA8-484D-94B3-4FED11E44A97}</td></row>
 		<row><td>ISUSSignature</td><td>{0E4FDF20-D1F5-4528-B0F9-E06E51155DB1}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewDesignPatches,viewISToday,viewProject,viewUpgradePaths,viewUpdateService,viewSystemSearch,viewSupportFiles,viewRealSetupDesign,viewAppV,viewCustomActions,viewInstallScriptStd,viewAppFiles,viewSetupTypes,viewSetupDesign,viewUI,viewObjects,viewShortcuts,viewTextMessages,viewLearnMore,viewIniFiles</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewDesignPatches,viewISToday,viewProject,viewUpgradePaths,viewUpdateService,viewSystemSearch,viewSupportFiles,viewRealSetupDesign,viewAppV,viewCustomActions,viewInstallScriptStd,viewAppFiles,viewSetupTypes,viewSetupDesign,viewUI,viewObjects,viewShortcuts,viewTextMessages,viewLearnMore,viewIniFiles,viewFileExtensions</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
