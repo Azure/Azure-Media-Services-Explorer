@@ -29,6 +29,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>AMSExplorer.Program</StartupObject>
@@ -512,7 +514,7 @@
     <None Include="IconsPNG\XY.png" />
     <None Include="IconsPNG\XYRect.png" />
     <None Include="IconsPNG\DRM_protection_Cbcs.png" />
-    <Content Include="IconsPNG\Clear.png" />
+    <None Include="IconsPNG\Clear.png" />
     <Content Include="Manifest\Manifest.ism">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -900,7 +902,6 @@
     <EmbeddedResource Include="Priority.resx">
       <DependentUpon>Priority.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="Azure Explorer_ico.ico" />
     <None Include="BitmapsPNG\8-12-2014-13-20-04.png" />
     <None Include="BitmapsPNG\Azure Explorer.png" />
     <None Include="BitmapsPNG\Azure Explorer_ico.ico" />
