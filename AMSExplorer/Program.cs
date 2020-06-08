@@ -1695,13 +1695,16 @@ namespace AMSExplorer
         */
         public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient)
         {
-            StringBuilder sb = new StringBuilder();
+            ListRepData infoStr = new ListRepData();
+
             AssetInfoData MyAssetTypeInfo = await AssetInfo.GetAssetTypeAsync(MyAsset.Name, _amsClient);
             if (MyAssetTypeInfo == null)
             {
+                StringBuilder sb = new StringBuilder();
                 sb.AppendLine("Error accessing asset type info");
                 return sb;
             }
+
             bool bfileinasset = (MyAssetTypeInfo.Blobs.Count() == 0) ? false : true;
             long size = -1;
             if (bfileinasset)
@@ -1712,61 +1715,61 @@ namespace AMSExplorer
                     size += (blob as CloudBlockBlob).Properties.Length;
                 }
             }
-            sb.AppendLine("Asset Name              : " + MyAsset.Name);
-            sb.AppendLine("Asset Description       : " + MyAsset.Description);
 
-            sb.AppendLine("Asset Type              : " + MyAssetTypeInfo.Type);
-            sb.AppendLine("Id                      : " + MyAsset.Id);
-            sb.AppendLine("Asset Id                : " + MyAsset.AssetId);
+            infoStr.Add("Asset Name", MyAsset.Name);
+            infoStr.Add("Asset Description", MyAsset.Description);
 
-            sb.AppendLine("Alternate ID            : " + MyAsset.AlternateId);
+            infoStr.Add("Asset Type", MyAssetTypeInfo.Type);
+            infoStr.Add("Id", MyAsset.Id);
+            infoStr.Add("Asset Id", MyAsset.AssetId.ToString());
+            infoStr.Add("Alternate ID", MyAsset.AlternateId);
             if (size != -1)
             {
-                sb.AppendLine("Size                    : " + FormatByteSize(size));
+                infoStr.Add("Size", FormatByteSize(size));
             }
 
-            sb.AppendLine("Container               : " + MyAsset.Container);
-            sb.AppendLine("Created (UTC)           : " + MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
-            sb.AppendLine("Last Modified (UTC)     : " + MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
-            sb.AppendLine("Storage account         : " + MyAsset.StorageAccountName);
-            sb.AppendLine("Storage Encryption      : " + MyAsset.StorageEncryptionFormat);
+            infoStr.Add("Container", MyAsset.Container);
+            infoStr.Add("Created (UTC)", MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
+            infoStr.Add("Last Modified (UTC)", MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
+            infoStr.Add("Storage account", MyAsset.StorageAccountName);
+            infoStr.Add("Storage Encryption", MyAsset.StorageEncryptionFormat);
 
-            sb.AppendLine(string.Empty);
+            infoStr.Add(string.Empty);
 
             foreach (IListBlobItem blob in MyAssetTypeInfo.Blobs)
             {
-                sb.AppendLine("   -----------------------------------------------");
+                infoStr.Add("   -----------------------------------------------");
 
                 if (blob.GetType() == typeof(CloudBlockBlob))
                 {
                     CloudBlockBlob blobc = blob as CloudBlockBlob;
-                    sb.AppendLine("   Block Blob Name      : " + blobc.Name);
-                    sb.AppendLine("   Type                 : " + blobc.BlobType);
-                    sb.AppendLine("   Blob length          : " + blobc.Properties.Length + " Bytes");
-                    sb.AppendLine("   Content type         : " + blobc.Properties.ContentType);
-                    sb.AppendLine("   Created (UTC)        : " + blobc.Properties.Created?.ToString("G"));
-                    sb.AppendLine("   Last modified (UTC)  : " + blobc.Properties.LastModified?.ToString("G"));
-                    sb.AppendLine("   Server Encrypted     : " + blobc.Properties.IsServerEncrypted);
-                    sb.AppendLine("   Content MD5          : " + blobc.Properties.ContentMD5);
-                    sb.AppendLine(string.Empty);
+                    infoStr.Add("   Block Blob Name", blobc.Name);
+                    infoStr.Add("   Type", blobc.BlobType.ToString());
+                    infoStr.Add("   Blob length", blobc.Properties.Length + " Bytes");
+                    infoStr.Add("   Content type", blobc.Properties.ContentType);
+                    infoStr.Add("   Created (UTC)", blobc.Properties.Created?.ToString("G"));
+                    infoStr.Add("   Last modified (UTC)", blobc.Properties.LastModified?.ToString("G"));
+                    infoStr.Add("   Server Encrypted", blobc.Properties.IsServerEncrypted.ToString());
+                    infoStr.Add("   Content MD5", blobc.Properties.ContentMD5);
+                    infoStr.Add(string.Empty);
 
                 }
                 else if (blob.GetType() == typeof(CloudBlobDirectory))
                 {
                     CloudBlobDirectory blobd = blob as CloudBlobDirectory;
-                    sb.AppendLine("   Blob Directory Name  : " + blobd.Prefix);
-                    sb.AppendLine("   Type                 : BlobDirectory");
-                    sb.AppendLine("   Blob Director length : " + GetSizeBlobDirectory(blobd) + " Bytes");
-                    sb.AppendLine(string.Empty);
+                    infoStr.Add("   Blob Directory Name", blobd.Prefix);
+                    infoStr.Add("   Type", "BlobDirectory");
+                    infoStr.Add("   Blob Director length", GetSizeBlobDirectory(blobd) + " Bytes");
+                    infoStr.Add(string.Empty);
                 }
             }
-            sb.Append(await GetDescriptionLocatorsAsync(MyAsset, _amsClient));
+            infoStr.Add(await GetDescriptionLocatorsAsync(MyAsset, _amsClient));
 
-            sb.AppendLine(string.Empty);
-            sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            sb.AppendLine(string.Empty);
+            infoStr.Add(string.Empty);
+            infoStr.Add("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            infoStr.Add(string.Empty);
 
-            return sb;
+            return infoStr.ReturnStringBuilder();
         }
 
         public static long GetSizeBlobDirectory(CloudBlobDirectory blobd)
@@ -1779,29 +1782,32 @@ namespace AMSExplorer
         }
 
 
-        public static async Task<StringBuilder> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient)
+        public static async Task<ListRepData> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient)
         {
-            StringBuilder sb = new StringBuilder();
             await amsClient.RefreshTokenIfNeededAsync();
 
             IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name))
                                                     .StreamingLocators;
+
+            ListRepData infoStr = new ListRepData();
+
             if (locators.Count == 0)
             {
-                sb.AppendLine("No streaming locator created for this asset.");
+                infoStr.Add("No streaming locator created for this asset.", null);
             }
 
             foreach (AssetStreamingLocator locatorbase in locators)
             {
                 StreamingLocator locator = await amsClient.AMSclient.StreamingLocators.GetAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
-                sb.AppendLine("Locator Name                    : " + locator.Name);
-                sb.AppendLine("Locator Id                      : " + locator.StreamingLocatorId);
-                sb.AppendLine("Start Time                      : " + locator.StartTime?.ToLongDateString());
-                sb.AppendLine("End Time                        : " + locator.EndTime?.ToLongDateString());
-                sb.AppendLine("Streaming Policy Name           : " + locator.StreamingPolicyName);
-                sb.AppendLine("Default Content Key Policy Name : " + locator.DefaultContentKeyPolicyName);
-                sb.AppendLine("Associated filters              : " + string.Join(", ", locator.Filters.ToArray()));
+
+                infoStr.Add("Locator Name", locator.Name);
+                infoStr.Add("Locator Id", locator.StreamingLocatorId.ToString());
+                infoStr.Add("Start Time", locator.StartTime?.ToLongDateString());
+                infoStr.Add("End Time", locator.EndTime?.ToLongDateString());
+                infoStr.Add("Streaming Policy Name", locator.StreamingPolicyName);
+                infoStr.Add("Default Content Key Policy Name", locator.DefaultContentKeyPolicyName);
+                infoStr.Add("Associated filters", string.Join(", ", locator.Filters.ToArray()));
 
                 IList<StreamingPath> streamingPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).StreamingPaths;
                 IList<string> downloadPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).DownloadPaths;
@@ -1810,19 +1816,20 @@ namespace AMSExplorer
                 {
                     foreach (string p in path.Paths)
                     {
-                        sb.AppendLine(path.StreamingProtocol.ToString() + " " + path.EncryptionScheme + new string(' ', 30 - path.StreamingProtocol.ToString().Length - path.EncryptionScheme.ToString().Length) + " : " + p);
+                        infoStr.Add(path.StreamingProtocol.ToString() + " " + path.EncryptionScheme, p);
                     }
                 }
 
                 foreach (string path in downloadPaths)
                 {
-                    sb.AppendLine("Download                        : " + path);
+                    infoStr.Add("Download", path);
                 }
 
-                sb.AppendLine("==============================================================================");
-                sb.AppendLine(string.Empty);
+                infoStr.Add("==============================================================================");
+                infoStr.Add(string.Empty);
+
             }
-            return sb;
+            return infoStr;
         }
 
 
@@ -3081,6 +3088,47 @@ namespace AMSExplorer
                 Console.WriteLine(e.ToString());
                 return null;
             }
+        }
+    }
+
+    public class RepData
+    {
+        public string label;
+        public string value;
+    }
+
+    public class ListRepData
+    {
+        public List<RepData> data;
+        public ListRepData()
+        {
+            data = new List<RepData>();
+        }
+        public void Add(string label, string value)
+        {
+            data.Add(new RepData() { label = label, value = value ?? string.Empty });
+        }
+
+        public void Add(ListRepData listRepData)
+        {
+            data.AddRange(listRepData.data);
+        }
+
+        public void Add(string label)
+        {
+            data.Add(new RepData() { label = label, value = null });
+        }
+
+        public StringBuilder ReturnStringBuilder()
+        {
+            StringBuilder sb = new StringBuilder();
+            // calculate padding max
+            int maxLenghtStr = data.Where(d => d.value != null).Select(d => d.label.Length).Max();
+
+            // build StringBuilder
+            data.Select(d => d.value != null ? d.label + new string(' ', maxLenghtStr - d.label.Length) + ": " + d.value : d.label).ToList().ForEach(s => sb.AppendLine(s));
+
+            return sb;
         }
     }
 
