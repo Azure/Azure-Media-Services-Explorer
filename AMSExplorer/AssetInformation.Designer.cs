@@ -102,6 +102,12 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxKeys = new System.Windows.Forms.ComboBox();
+            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
+            this.buttonGetDRMToken = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonAdvancedTestPlayer = new System.Windows.Forms.Button();
@@ -118,12 +124,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.buttonGetDRMToken = new System.Windows.Forms.Button();
-            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
-            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -145,10 +145,10 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.contextMenuStripKey.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
             this.SuspendLayout();
             // 
             // DGAsset
@@ -733,6 +733,53 @@
             this.comboBoxKeys.Name = "comboBoxKeys";
             this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeys_SelectedIndexChanged);
             // 
+            // dataGridViewKeys
+            // 
+            this.dataGridViewKeys.AllowUserToAddRows = false;
+            this.dataGridViewKeys.AllowUserToDeleteRows = false;
+            this.dataGridViewKeys.AllowUserToResizeRows = false;
+            this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewKeys.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewKeys.ColumnHeadersVisible = false;
+            this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewKeys, 2);
+            this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
+            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
+            this.dataGridViewKeys.MultiSelect = false;
+            this.dataGridViewKeys.Name = "dataGridViewKeys";
+            this.dataGridViewKeys.ReadOnly = true;
+            this.dataGridViewKeys.RowHeadersVisible = false;
+            this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick_1);
+            // 
+            // buttonGetDRMToken
+            // 
+            resources.ApplyResources(this.buttonGetDRMToken, "buttonGetDRMToken");
+            this.buttonGetDRMToken.Name = "buttonGetDRMToken";
+            this.buttonGetDRMToken.UseVisualStyleBackColor = true;
+            this.buttonGetDRMToken.Click += new System.EventHandler(this.buttonGetDRMToken_Click_1);
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // comboBoxOptions
+            // 
+            resources.ApplyResources(this.comboBoxOptions, "comboBoxOptions");
+            this.comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOptions.FormattingEnabled = true;
+            this.comboBoxOptions.Name = "comboBoxOptions";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
             // comboBoxPolicyLocators
             // 
             resources.ApplyResources(this.comboBoxPolicyLocators, "comboBoxPolicyLocators");
@@ -846,53 +893,6 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // comboBoxOptions
-            // 
-            resources.ApplyResources(this.comboBoxOptions, "comboBoxOptions");
-            this.comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOptions.FormattingEnabled = true;
-            this.comboBoxOptions.Name = "comboBoxOptions";
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // buttonGetDRMToken
-            // 
-            resources.ApplyResources(this.buttonGetDRMToken, "buttonGetDRMToken");
-            this.buttonGetDRMToken.Name = "buttonGetDRMToken";
-            this.buttonGetDRMToken.UseVisualStyleBackColor = true;
-            this.buttonGetDRMToken.Click += new System.EventHandler(this.buttonGetDRMToken_Click_1);
-            // 
-            // dataGridViewKeys
-            // 
-            this.dataGridViewKeys.AllowUserToAddRows = false;
-            this.dataGridViewKeys.AllowUserToDeleteRows = false;
-            this.dataGridViewKeys.AllowUserToResizeRows = false;
-            this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewKeys.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewKeys.ColumnHeadersVisible = false;
-            this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewKeys, 2);
-            this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
-            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
-            this.dataGridViewKeys.MultiSelect = false;
-            this.dataGridViewKeys.Name = "dataGridViewKeys";
-            this.dataGridViewKeys.ReadOnly = true;
-            this.dataGridViewKeys.RowHeadersVisible = false;
-            this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick_1);
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -935,11 +935,11 @@
             this.tabPage7.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.contextMenuStripKey.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
             this.ResumeLayout(false);
 
         }

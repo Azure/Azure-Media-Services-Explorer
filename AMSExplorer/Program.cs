@@ -3771,6 +3771,8 @@ namespace AMSExplorer
 
         public static void UpdatedSizeFontAfterDPIChange(List<Control> controls, DpiChangedEventArgs e, Form currentForm)
         {
+            return; // test as we moved to .Net framework v8
+
             if (currentForm != null) currentForm.SuspendLayout();
             Debug.Print($"Old DPI: {e.DeviceDpiOld}, new DPI {e.DeviceDpiNew}");
             float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
@@ -3783,7 +3785,6 @@ namespace AMSExplorer
                     (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);
                 }
             }
-            //controls.ForEach(c => c.Font = new Font(c.Font.Name, c.Font.Size * factor));
             if (currentForm != null) currentForm.ResumeLayout();
         }
     }

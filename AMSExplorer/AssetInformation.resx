@@ -125,6 +125,25 @@
   <data name="tableLayoutPanel5.ColumnCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
+  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 477</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Asset report:</value>
+  </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
   </data>
@@ -137,6 +156,24 @@
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="buttonAudioVideoAnalysis.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Location" type="System.Drawing.Point, System.Drawing">
+    <value>728, 471</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 27</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Text" xml:space="preserve">
+    <value>Audio/Video analysis</value>
+  </data>
+  <data name="buttonAudioVideoAnalysis.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;buttonAudioVideoAnalysis.Name" xml:space="preserve">
     <value>buttonAudioVideoAnalysis</value>
   </data>
@@ -148,6 +185,21 @@
   </data>
   <data name="&gt;&gt;buttonAudioVideoAnalysis.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="buttonCopyStats.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonCopyStats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>82, 471</value>
+  </data>
+  <data name="buttonCopyStats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 27</value>
+  </data>
+  <data name="buttonCopyStats.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="buttonCopyStats.Text" xml:space="preserve">
+    <value>Display it</value>
   </data>
   <data name="&gt;&gt;buttonCopyStats.Name" xml:space="preserve">
     <value>buttonCopyStats</value>
@@ -164,7 +216,6 @@
   <data name="tableLayoutPanel5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tableLayoutPanel5.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
@@ -195,6 +246,12 @@
   <metadata name="contextMenuStripDG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>212, 17</value>
   </metadata>
+  <data name="toolStripMenuItemFilesCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
   <data name="contextMenuStripDG.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 26</value>
   </data>
@@ -224,12 +281,6 @@
   </data>
   <data name="&gt;&gt;DGAsset.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="toolStripMenuItemFilesCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
-  </data>
-  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
-    <value>Copy to clipboard</value>
   </data>
   <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -261,15 +312,6 @@
   <metadata name="contextMenuStripLocators.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="contextMenuStripLocators.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 136</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripLocators.Name" xml:space="preserve">
-    <value>contextMenuStripLocators</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripLocators.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="toolStripMenuItemCopy.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 22</value>
   </data>
@@ -317,6 +359,15 @@
   </data>
   <data name="toolStripMenuItemDASHIF.Text" xml:space="preserve">
     <value>Playback with MPEG-DASH-IF Reference Player</value>
+  </data>
+  <data name="contextMenuStripLocators.Size" type="System.Drawing.Size, System.Drawing">
+    <value>323, 136</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLocators.Name" xml:space="preserve">
+    <value>contextMenuStripLocators</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripLocators.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="TreeViewLocators.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -369,15 +420,6 @@
   <metadata name="contextMenuStripBlobs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>378, 17</value>
   </metadata>
-  <data name="contextMenuStripBlobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 158</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripBlobs.Name" xml:space="preserve">
-    <value>contextMenuStripBlobs</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripBlobs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="toolStripMenuItemOpenFile.Size" type="System.Drawing.Size, System.Drawing">
     <value>234, 22</value>
   </data>
@@ -420,66 +462,15 @@
   <data name="toolStripMenuItemDownloadFile.Text" xml:space="preserve">
     <value>Download file to a local folder</value>
   </data>
-  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="contextMenuStripBlobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 158</value>
   </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;contextMenuStripBlobs.Name" xml:space="preserve">
+    <value>contextMenuStripBlobs</value>
   </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 477</value>
+  <data name="&gt;&gt;contextMenuStripBlobs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Asset report:</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tableLayoutPanel5</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonCopyStats.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonCopyStats.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 471</value>
-  </data>
-  <data name="buttonCopyStats.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 27</value>
-  </data>
-  <data name="buttonCopyStats.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="buttonCopyStats.Text" xml:space="preserve">
-    <value>Display it</value>
-  </data>
-  <data name="&gt;&gt;buttonCopyStats.Name" xml:space="preserve">
-    <value>buttonCopyStats</value>
-  </data>
-  <data name="&gt;&gt;buttonCopyStats.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCopyStats.Parent" xml:space="preserve">
-    <value>tableLayoutPanel5</value>
-  </data>
-  <data name="&gt;&gt;buttonCopyStats.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>551, 17</value>
-  </metadata>
   <data name="buttonDeleteFile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -498,6 +489,9 @@
   <data name="buttonDeleteFile.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>551, 17</value>
+  </metadata>
   <data name="buttonDeleteFile.ToolTip" xml:space="preserve">
     <value>Delete the selected file</value>
   </data>
@@ -636,6 +630,24 @@
   <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="checkBoxListBlobsDirectories.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxListBlobsDirectories.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 477</value>
+  </data>
+  <data name="checkBoxListBlobsDirectories.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 19</value>
+  </data>
+  <data name="checkBoxListBlobsDirectories.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="checkBoxListBlobsDirectories.Text" xml:space="preserve">
+    <value>List blobs in directories</value>
+  </data>
+  <data name="checkBoxListBlobsDirectories.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;checkBoxListBlobsDirectories.Name" xml:space="preserve">
     <value>checkBoxListBlobsDirectories</value>
   </data>
@@ -647,6 +659,24 @@
   </data>
   <data name="&gt;&gt;checkBoxListBlobsDirectories.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="buttonGenerateManifest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonGenerateManifest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>163, 472</value>
+  </data>
+  <data name="buttonGenerateManifest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 27</value>
+  </data>
+  <data name="buttonGenerateManifest.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="buttonGenerateManifest.Text" xml:space="preserve">
+    <value>Generate a manifest</value>
+  </data>
+  <data name="buttonGenerateManifest.ToolTip" xml:space="preserve">
+    <value>Generate a manifest file for a multi MP4 files asset</value>
   </data>
   <data name="&gt;&gt;buttonGenerateManifest.Name" xml:space="preserve">
     <value>buttonGenerateManifest</value>
@@ -660,6 +690,27 @@
   <data name="&gt;&gt;buttonGenerateManifest.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonEditOnline.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonEditOnline.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonEditOnline.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 437</value>
+  </data>
+  <data name="buttonEditOnline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 27</value>
+  </data>
+  <data name="buttonEditOnline.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="buttonEditOnline.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="buttonEditOnline.ToolTip" xml:space="preserve">
+    <value>Edit the content of the selected file</value>
+  </data>
   <data name="&gt;&gt;buttonEditOnline.Name" xml:space="preserve">
     <value>buttonEditOnline</value>
   </data>
@@ -671,6 +722,27 @@
   </data>
   <data name="&gt;&gt;buttonEditOnline.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="buttonDeleteAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonDeleteAll.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonDeleteAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>188, 437</value>
+  </data>
+  <data name="buttonDeleteAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 27</value>
+  </data>
+  <data name="buttonDeleteAll.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="buttonDeleteAll.Text" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="buttonDeleteAll.ToolTip" xml:space="preserve">
+    <value>Delete the selected file</value>
   </data>
   <data name="&gt;&gt;buttonDeleteAll.Name" xml:space="preserve">
     <value>buttonDeleteAll</value>
@@ -684,6 +756,21 @@
   <data name="&gt;&gt;buttonDeleteAll.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="progressBarUpload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="progressBarUpload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>513, 437</value>
+  </data>
+  <data name="progressBarUpload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 27</value>
+  </data>
+  <data name="progressBarUpload.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="progressBarUpload.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;progressBarUpload.Name" xml:space="preserve">
     <value>progressBarUpload</value>
   </data>
@@ -696,6 +783,24 @@
   <data name="&gt;&gt;progressBarUpload.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="buttonUpload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonUpload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>352, 437</value>
+  </data>
+  <data name="buttonUpload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 27</value>
+  </data>
+  <data name="buttonUpload.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="buttonUpload.Text" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="buttonUpload.ToolTip" xml:space="preserve">
+    <value>Upload file(s) to the asset. Use for small file(s) only.</value>
+  </data>
   <data name="&gt;&gt;buttonUpload.Name" xml:space="preserve">
     <value>buttonUpload</value>
   </data>
@@ -707,6 +812,27 @@
   </data>
   <data name="&gt;&gt;buttonUpload.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="buttonDuplicate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonDuplicate.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonDuplicate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>273, 437</value>
+  </data>
+  <data name="buttonDuplicate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 27</value>
+  </data>
+  <data name="buttonDuplicate.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="buttonDuplicate.Text" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="buttonDuplicate.ToolTip" xml:space="preserve">
+    <value>Duplicate the selected file</value>
   </data>
   <data name="&gt;&gt;buttonDuplicate.Name" xml:space="preserve">
     <value>buttonDuplicate</value>
@@ -747,6 +873,21 @@
   <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonPlayFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonPlayFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>478, 470</value>
+  </data>
+  <data name="buttonPlayFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 27</value>
+  </data>
+  <data name="buttonPlayFilter.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="buttonPlayFilter.Text" xml:space="preserve">
+    <value>Play with this filter</value>
+  </data>
   <data name="&gt;&gt;buttonPlayFilter.Name" xml:space="preserve">
     <value>buttonPlayFilter</value>
   </data>
@@ -758,6 +899,21 @@
   </data>
   <data name="&gt;&gt;buttonPlayFilter.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="buttonDuplicateFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonDuplicateFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>369, 470</value>
+  </data>
+  <data name="buttonDuplicateFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 27</value>
+  </data>
+  <data name="buttonDuplicateFilter.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="buttonDuplicateFilter.Text" xml:space="preserve">
+    <value>Duplicate</value>
   </data>
   <data name="&gt;&gt;buttonDuplicateFilter.Name" xml:space="preserve">
     <value>buttonDuplicateFilter</value>
@@ -771,6 +927,21 @@
   <data name="&gt;&gt;buttonDuplicateFilter.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonDeleteFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonDeleteFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 470</value>
+  </data>
+  <data name="buttonDeleteFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 27</value>
+  </data>
+  <data name="buttonDeleteFilter.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="buttonDeleteFilter.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="&gt;&gt;buttonDeleteFilter.Name" xml:space="preserve">
     <value>buttonDeleteFilter</value>
   </data>
@@ -782,6 +953,21 @@
   </data>
   <data name="&gt;&gt;buttonDeleteFilter.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="buttonCreateAssetFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonCreateAssetFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>149, 470</value>
+  </data>
+  <data name="buttonCreateAssetFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 27</value>
+  </data>
+  <data name="buttonCreateAssetFilter.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="buttonCreateAssetFilter.Text" xml:space="preserve">
+    <value>Create</value>
   </data>
   <data name="&gt;&gt;buttonCreateAssetFilter.Name" xml:space="preserve">
     <value>buttonCreateAssetFilter</value>
@@ -795,6 +981,21 @@
   <data name="&gt;&gt;buttonCreateAssetFilter.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="buttonFilterInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonFilterInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 470</value>
+  </data>
+  <data name="buttonFilterInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 27</value>
+  </data>
+  <data name="buttonFilterInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="buttonFilterInfo.Text" xml:space="preserve">
+    <value>Filter info/update</value>
+  </data>
   <data name="&gt;&gt;buttonFilterInfo.Name" xml:space="preserve">
     <value>buttonFilterInfo</value>
   </data>
@@ -806,6 +1007,60 @@
   </data>
   <data name="&gt;&gt;buttonFilterInfo.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="dataGridViewFilters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="contextMenuStripFilter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
+  <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Filter info/update</value>
+  </data>
+  <data name="createAnAssetFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create...</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="playWithThisFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="playWithThisFilterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Play with this filter</value>
+  </data>
+  <data name="contextMenuStripFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 114</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripFilter.Name" xml:space="preserve">
+    <value>contextMenuStripFilter</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripFilter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewFilters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 7</value>
+  </data>
+  <data name="dataGridViewFilters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>863, 456</value>
+  </data>
+  <data name="dataGridViewFilters.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
   </data>
   <data name="&gt;&gt;dataGridViewFilters.Name" xml:space="preserve">
     <value>dataGridViewFilters</value>
@@ -1249,7 +1504,7 @@
     <value>98, 3</value>
   </data>
   <data name="comboBoxKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 23</value>
+    <value>215, 23</value>
   </data>
   <data name="comboBoxKeys.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
@@ -1300,7 +1555,7 @@
     <value>98, 244</value>
   </data>
   <data name="buttonGetDRMToken.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 23</value>
+    <value>215, 23</value>
   </data>
   <data name="buttonGetDRMToken.TabIndex" type="System.Int32, mscorlib">
     <value>83</value>
@@ -1330,7 +1585,7 @@
     <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>320, 248</value>
+    <value>319, 248</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>204, 15</value>
@@ -1366,7 +1621,7 @@
     <value>98, 270</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 30</value>
+    <value>215, 30</value>
   </data>
   <data name="label10.TabIndex" type="System.Int32, mscorlib">
     <value>82</value>
@@ -1390,10 +1645,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="comboBoxOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>320, 273</value>
+    <value>319, 273</value>
   </data>
   <data name="comboBoxOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>530, 23</value>
+    <value>531, 23</value>
   </data>
   <data name="comboBoxOptions.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
@@ -1453,7 +1708,7 @@
     <value>5</value>
   </data>
   <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>853, 432</value>
+    <value>853, 434</value>
   </data>
   <data name="tableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
@@ -1471,7 +1726,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label6" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxKeys" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewKeys" Row="1" RowSpan="1" Column="1" ColumnSpan="2" /&gt;&lt;Control Name="buttonGetDRMToken" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label10" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOptions" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,30,Percent,70,Absolute,535" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label6" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxKeys" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewKeys" Row="1" RowSpan="1" Column="1" ColumnSpan="2" /&gt;&lt;Control Name="buttonGetDRMToken" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label10" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOptions" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,30,Percent,70,Absolute,536" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabPage7.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -1480,7 +1735,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>859, 438</value>
+    <value>859, 440</value>
   </data>
   <data name="tabPage7.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1604,609 +1859,6 @@
   </data>
   <data name="&gt;&gt;tabPagePolicy.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvancedTestPlayer.Name" xml:space="preserve">
-    <value>buttonAdvancedTestPlayer</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvancedTestPlayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvancedTestPlayer.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvancedTestPlayer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHttps.Name" xml:space="preserve">
-    <value>checkBoxHttps</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHttps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHttps.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHttps.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStreamingEndpoint.Name" xml:space="preserve">
-    <value>comboBoxStreamingEndpoint</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStreamingEndpoint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStreamingEndpoint.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStreamingEndpoint.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;buttonOpen.Name" xml:space="preserve">
-    <value>buttonOpen</value>
-  </data>
-  <data name="&gt;&gt;buttonOpen.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonOpen.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;buttonOpen.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;buttonDel.Name" xml:space="preserve">
-    <value>buttonDel</value>
-  </data>
-  <data name="&gt;&gt;buttonDel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDel.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;buttonDel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;buttonAzureMediaPlayer.Name" xml:space="preserve">
-    <value>buttonAzureMediaPlayer</value>
-  </data>
-  <data name="&gt;&gt;buttonAzureMediaPlayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAzureMediaPlayer.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;buttonAzureMediaPlayer.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;buttonDASH.Name" xml:space="preserve">
-    <value>buttonDASH</value>
-  </data>
-  <data name="&gt;&gt;buttonDASH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDASH.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;buttonDASH.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>879, 507</value>
-  </data>
-  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>Streaming Urls</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 51</value>
-  </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>887, 535</value>
-  </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Location" type="System.Drawing.Point, System.Drawing">
-    <value>728, 471</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 27</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Text" xml:space="preserve">
-    <value>Audio/Video analysis</value>
-  </data>
-  <data name="buttonAudioVideoAnalysis.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;buttonAudioVideoAnalysis.Name" xml:space="preserve">
-    <value>buttonAudioVideoAnalysis</value>
-  </data>
-  <data name="&gt;&gt;buttonAudioVideoAnalysis.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAudioVideoAnalysis.Parent" xml:space="preserve">
-    <value>tableLayoutPanel5</value>
-  </data>
-  <data name="&gt;&gt;buttonAudioVideoAnalysis.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxListBlobsDirectories.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxListBlobsDirectories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 477</value>
-  </data>
-  <data name="checkBoxListBlobsDirectories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 19</value>
-  </data>
-  <data name="checkBoxListBlobsDirectories.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="checkBoxListBlobsDirectories.Text" xml:space="preserve">
-    <value>List blobs in directories</value>
-  </data>
-  <data name="checkBoxListBlobsDirectories.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;checkBoxListBlobsDirectories.Name" xml:space="preserve">
-    <value>checkBoxListBlobsDirectories</value>
-  </data>
-  <data name="&gt;&gt;checkBoxListBlobsDirectories.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxListBlobsDirectories.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxListBlobsDirectories.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonGenerateManifest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonGenerateManifest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>163, 472</value>
-  </data>
-  <data name="buttonGenerateManifest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 27</value>
-  </data>
-  <data name="buttonGenerateManifest.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="buttonGenerateManifest.Text" xml:space="preserve">
-    <value>Generate a manifest</value>
-  </data>
-  <data name="buttonGenerateManifest.ToolTip" xml:space="preserve">
-    <value>Generate a manifest file for a multi MP4 files asset</value>
-  </data>
-  <data name="&gt;&gt;buttonGenerateManifest.Name" xml:space="preserve">
-    <value>buttonGenerateManifest</value>
-  </data>
-  <data name="&gt;&gt;buttonGenerateManifest.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonGenerateManifest.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;buttonGenerateManifest.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonEditOnline.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonEditOnline.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonEditOnline.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 437</value>
-  </data>
-  <data name="buttonEditOnline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 27</value>
-  </data>
-  <data name="buttonEditOnline.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="buttonEditOnline.Text" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="buttonEditOnline.ToolTip" xml:space="preserve">
-    <value>Edit the content of the selected file</value>
-  </data>
-  <data name="&gt;&gt;buttonEditOnline.Name" xml:space="preserve">
-    <value>buttonEditOnline</value>
-  </data>
-  <data name="&gt;&gt;buttonEditOnline.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonEditOnline.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;buttonEditOnline.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttonDeleteAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonDeleteAll.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonDeleteAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>188, 437</value>
-  </data>
-  <data name="buttonDeleteAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 27</value>
-  </data>
-  <data name="buttonDeleteAll.TabIndex" type="System.Int32, mscorlib">
-    <value>36</value>
-  </data>
-  <data name="buttonDeleteAll.Text" xml:space="preserve">
-    <value>Delete All</value>
-  </data>
-  <data name="buttonDeleteAll.ToolTip" xml:space="preserve">
-    <value>Delete the selected file</value>
-  </data>
-  <data name="&gt;&gt;buttonDeleteAll.Name" xml:space="preserve">
-    <value>buttonDeleteAll</value>
-  </data>
-  <data name="&gt;&gt;buttonDeleteAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDeleteAll.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;buttonDeleteAll.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="progressBarUpload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="progressBarUpload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>513, 437</value>
-  </data>
-  <data name="progressBarUpload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 27</value>
-  </data>
-  <data name="progressBarUpload.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="progressBarUpload.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;progressBarUpload.Name" xml:space="preserve">
-    <value>progressBarUpload</value>
-  </data>
-  <data name="&gt;&gt;progressBarUpload.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;progressBarUpload.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;progressBarUpload.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="buttonUpload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonUpload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 437</value>
-  </data>
-  <data name="buttonUpload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 27</value>
-  </data>
-  <data name="buttonUpload.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="buttonUpload.Text" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="buttonUpload.ToolTip" xml:space="preserve">
-    <value>Upload file(s) to the asset. Use for small file(s) only.</value>
-  </data>
-  <data name="&gt;&gt;buttonUpload.Name" xml:space="preserve">
-    <value>buttonUpload</value>
-  </data>
-  <data name="&gt;&gt;buttonUpload.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonUpload.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;buttonUpload.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="buttonDuplicate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonDuplicate.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonDuplicate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>273, 437</value>
-  </data>
-  <data name="buttonDuplicate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 27</value>
-  </data>
-  <data name="buttonDuplicate.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="buttonDuplicate.Text" xml:space="preserve">
-    <value>Duplicate</value>
-  </data>
-  <data name="buttonDuplicate.ToolTip" xml:space="preserve">
-    <value>Duplicate the selected file</value>
-  </data>
-  <data name="&gt;&gt;buttonDuplicate.Name" xml:space="preserve">
-    <value>buttonDuplicate</value>
-  </data>
-  <data name="&gt;&gt;buttonDuplicate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDuplicate.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;buttonDuplicate.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="buttonPlayFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonPlayFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>478, 470</value>
-  </data>
-  <data name="buttonPlayFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 27</value>
-  </data>
-  <data name="buttonPlayFilter.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="buttonPlayFilter.Text" xml:space="preserve">
-    <value>Play with this filter</value>
-  </data>
-  <data name="&gt;&gt;buttonPlayFilter.Name" xml:space="preserve">
-    <value>buttonPlayFilter</value>
-  </data>
-  <data name="&gt;&gt;buttonPlayFilter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonPlayFilter.Parent" xml:space="preserve">
-    <value>tabPage6</value>
-  </data>
-  <data name="&gt;&gt;buttonPlayFilter.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonDuplicateFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonDuplicateFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 470</value>
-  </data>
-  <data name="buttonDuplicateFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 27</value>
-  </data>
-  <data name="buttonDuplicateFilter.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="buttonDuplicateFilter.Text" xml:space="preserve">
-    <value>Duplicate</value>
-  </data>
-  <data name="&gt;&gt;buttonDuplicateFilter.Name" xml:space="preserve">
-    <value>buttonDuplicateFilter</value>
-  </data>
-  <data name="&gt;&gt;buttonDuplicateFilter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDuplicateFilter.Parent" xml:space="preserve">
-    <value>tabPage6</value>
-  </data>
-  <data name="&gt;&gt;buttonDuplicateFilter.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonDeleteFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonDeleteFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>259, 470</value>
-  </data>
-  <data name="buttonDeleteFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 27</value>
-  </data>
-  <data name="buttonDeleteFilter.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="buttonDeleteFilter.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;buttonDeleteFilter.Name" xml:space="preserve">
-    <value>buttonDeleteFilter</value>
-  </data>
-  <data name="&gt;&gt;buttonDeleteFilter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDeleteFilter.Parent" xml:space="preserve">
-    <value>tabPage6</value>
-  </data>
-  <data name="&gt;&gt;buttonDeleteFilter.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttonCreateAssetFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonCreateAssetFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>149, 470</value>
-  </data>
-  <data name="buttonCreateAssetFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 27</value>
-  </data>
-  <data name="buttonCreateAssetFilter.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="buttonCreateAssetFilter.Text" xml:space="preserve">
-    <value>Create</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateAssetFilter.Name" xml:space="preserve">
-    <value>buttonCreateAssetFilter</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateAssetFilter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateAssetFilter.Parent" xml:space="preserve">
-    <value>tabPage6</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateAssetFilter.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="buttonFilterInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonFilterInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 470</value>
-  </data>
-  <data name="buttonFilterInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 27</value>
-  </data>
-  <data name="buttonFilterInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="buttonFilterInfo.Text" xml:space="preserve">
-    <value>Filter info/update</value>
-  </data>
-  <data name="&gt;&gt;buttonFilterInfo.Name" xml:space="preserve">
-    <value>buttonFilterInfo</value>
-  </data>
-  <data name="&gt;&gt;buttonFilterInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonFilterInfo.Parent" xml:space="preserve">
-    <value>tabPage6</value>
-  </data>
-  <data name="&gt;&gt;buttonFilterInfo.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="dataGridViewFilters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <metadata name="contextMenuStripFilter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
-  </metadata>
-  <data name="contextMenuStripFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 114</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripFilter.Name" xml:space="preserve">
-    <value>contextMenuStripFilter</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripFilter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 7</value>
-  </data>
-  <data name="dataGridViewFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>863, 456</value>
-  </data>
-  <data name="dataGridViewFilters.TabIndex" type="System.Int32, mscorlib">
-    <value>36</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewFilters.Name" xml:space="preserve">
-    <value>dataGridViewFilters</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewFilters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewFilters.Parent" xml:space="preserve">
-    <value>tabPage6</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewFilters.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Filter info/update</value>
-  </data>
-  <data name="createAnAssetFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
-    <value>Create...</value>
-  </data>
-  <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Duplicate</value>
-  </data>
-  <data name="playWithThisFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="playWithThisFilterToolStripMenuItem.Text" xml:space="preserve">
-    <value>Play with this filter</value>
   </data>
   <data name="buttonAdvancedTestPlayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2475,9 +2127,63 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 507</value>
+  </data>
+  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>Streaming Urls</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 51</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>887, 535</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <metadata name="contextMenuStripKey.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>866, 17</value>
   </metadata>
+  <data name="removeKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="removeKeyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove key...</value>
+  </data>
   <data name="contextMenuStripKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 26</value>
   </data>
@@ -2486,12 +2192,6 @@
   </data>
   <data name="&gt;&gt;contextMenuStripKey.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="removeKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="removeKeyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Remove key...</value>
   </data>
   <data name="labelAssetNameTitle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -2523,9 +2223,6 @@
   <data name="&gt;&gt;labelAssetNameTitle.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>551, 17</value>
-  </metadata>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
