@@ -897,7 +897,7 @@
             // 
             this.AcceptButton = this.buttonClose;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.Controls.Add(this.panel1);
@@ -941,6 +941,7 @@
             this.contextMenuStripKey.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

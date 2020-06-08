@@ -2030,10 +2030,6 @@ namespace AMSExplorer
             }
         }
 
-        private async void ButtonGetDRMToken_Click(object sender, EventArgs e)
-        {
-        }
-
         private async Task GetDRMTestTokenAsync()
         {
             if (comboBoxPolicyLocators.SelectedItem == null)
@@ -2136,6 +2132,7 @@ namespace AMSExplorer
         {
             // for controls which are not using the default font
             DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripBlobs, contextMenuStripKey, contextMenuStripFilter }, e, this);
+            //DpiUtils.UpdatedSizeFontAfterDPIChangeV8(new List<Control> { textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e, this);
         }
 
         private async void Button1_Click_2(object sender, EventArgs e)

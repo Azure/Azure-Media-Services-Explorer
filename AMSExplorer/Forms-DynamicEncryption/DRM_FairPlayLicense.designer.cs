@@ -39,23 +39,23 @@
             this.numericUpDownRentalHours = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.panelPersistent = new System.Windows.Forms.Panel();
-            this.textBoxPolicyName = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.radioButtonNoLimit = new System.Windows.Forms.RadioButton();
+            this.radioButtonOfflineRental = new System.Windows.Forms.RadioButton();
+            this.radioButtonLimited = new System.Windows.Forms.RadioButton();
+            this.panelOffline = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownOfflinePlayback = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownOfflineStorage = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDownOfflineStorage = new System.Windows.Forms.NumericUpDown();
-            this.panelOffline = new System.Windows.Forms.Panel();
-            this.radioButtonLimited = new System.Windows.Forms.RadioButton();
-            this.radioButtonOfflineRental = new System.Windows.Forms.RadioButton();
-            this.radioButtonNoLimit = new System.Windows.Forms.RadioButton();
+            this.textBoxPolicyName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRentalHours)).BeginInit();
             this.panelPersistent.SuspendLayout();
+            this.panelOffline.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOfflinePlayback)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOfflineStorage)).BeginInit();
-            this.panelOffline.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -138,15 +138,42 @@
             resources.ApplyResources(this.panelPersistent, "panelPersistent");
             this.panelPersistent.Name = "panelPersistent";
             // 
-            // textBoxPolicyName
+            // radioButtonNoLimit
             // 
-            resources.ApplyResources(this.textBoxPolicyName, "textBoxPolicyName");
-            this.textBoxPolicyName.Name = "textBoxPolicyName";
+            resources.ApplyResources(this.radioButtonNoLimit, "radioButtonNoLimit");
+            this.radioButtonNoLimit.Checked = true;
+            this.radioButtonNoLimit.Name = "radioButtonNoLimit";
+            this.radioButtonNoLimit.TabStop = true;
+            this.radioButtonNoLimit.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // radioButtonOfflineRental
             // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
+            resources.ApplyResources(this.radioButtonOfflineRental, "radioButtonOfflineRental");
+            this.radioButtonOfflineRental.Name = "radioButtonOfflineRental";
+            this.radioButtonOfflineRental.UseVisualStyleBackColor = true;
+            this.radioButtonOfflineRental.CheckedChanged += new System.EventHandler(this.radioButtonOfflineRental_CheckedChanged);
+            // 
+            // radioButtonLimited
+            // 
+            resources.ApplyResources(this.radioButtonLimited, "radioButtonLimited");
+            this.radioButtonLimited.Name = "radioButtonLimited";
+            this.radioButtonLimited.UseVisualStyleBackColor = true;
+            this.radioButtonLimited.CheckedChanged += new System.EventHandler(this.radioButtonLimited_CheckedChanged);
+            // 
+            // panelOffline
+            // 
+            this.panelOffline.Controls.Add(this.label4);
+            this.panelOffline.Controls.Add(this.numericUpDownOfflinePlayback);
+            this.panelOffline.Controls.Add(this.numericUpDownOfflineStorage);
+            this.panelOffline.Controls.Add(this.label1);
+            this.panelOffline.Controls.Add(this.label2);
+            resources.ApplyResources(this.panelOffline, "panelOffline");
+            this.panelOffline.Name = "panelOffline";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
             // 
             // numericUpDownOfflinePlayback
             // 
@@ -163,21 +190,6 @@
             0,
             0});
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
             // numericUpDownOfflineStorage
             // 
             resources.ApplyResources(this.numericUpDownOfflineStorage, "numericUpDownOfflineStorage");
@@ -193,43 +205,31 @@
             0,
             0});
             // 
-            // panelOffline
+            // label1
             // 
-            this.panelOffline.Controls.Add(this.label4);
-            this.panelOffline.Controls.Add(this.numericUpDownOfflinePlayback);
-            this.panelOffline.Controls.Add(this.numericUpDownOfflineStorage);
-            this.panelOffline.Controls.Add(this.label1);
-            this.panelOffline.Controls.Add(this.label2);
-            resources.ApplyResources(this.panelOffline, "panelOffline");
-            this.panelOffline.Name = "panelOffline";
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
-            // radioButtonLimited
+            // label2
             // 
-            resources.ApplyResources(this.radioButtonLimited, "radioButtonLimited");
-            this.radioButtonLimited.Name = "radioButtonLimited";
-            this.radioButtonLimited.UseVisualStyleBackColor = true;
-            this.radioButtonLimited.CheckedChanged += new System.EventHandler(this.radioButtonLimited_CheckedChanged);
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
             // 
-            // radioButtonOfflineRental
+            // textBoxPolicyName
             // 
-            resources.ApplyResources(this.radioButtonOfflineRental, "radioButtonOfflineRental");
-            this.radioButtonOfflineRental.Name = "radioButtonOfflineRental";
-            this.radioButtonOfflineRental.UseVisualStyleBackColor = true;
-            this.radioButtonOfflineRental.CheckedChanged += new System.EventHandler(this.radioButtonOfflineRental_CheckedChanged);
+            resources.ApplyResources(this.textBoxPolicyName, "textBoxPolicyName");
+            this.textBoxPolicyName.Name = "textBoxPolicyName";
             // 
-            // radioButtonNoLimit
+            // label13
             // 
-            resources.ApplyResources(this.radioButtonNoLimit, "radioButtonNoLimit");
-            this.radioButtonNoLimit.Checked = true;
-            this.radioButtonNoLimit.Name = "radioButtonNoLimit";
-            this.radioButtonNoLimit.TabStop = true;
-            this.radioButtonNoLimit.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
             // 
             // DRM_FairPlayLicense
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.textBoxPolicyName);
@@ -246,10 +246,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRentalHours)).EndInit();
             this.panelPersistent.ResumeLayout(false);
             this.panelPersistent.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOfflinePlayback)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOfflineStorage)).EndInit();
             this.panelOffline.ResumeLayout(false);
             this.panelOffline.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOfflinePlayback)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOfflineStorage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
