@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -198,7 +199,22 @@ namespace AMSExplorer
             if (_SelectedAssets.Count == 1)
             {
                 labelNoAssetFilter.Visible = false;
-                Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
+
+                List<AssetFilter> assetFilters = new List<AssetFilter>();
+                IPage<AssetFilter> assetFiltersPage = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
+                while (assetFiltersPage != null)
+                {
+                    assetFilters.AddRange(assetFiltersPage);
+                    if (assetFiltersPage.NextPageLink != null)
+                    {
+                        assetFiltersPage = await _client.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                    }
+                    else
+                    {
+                        assetFiltersPage = null;
+                    }
+                }
+
                 afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
 
@@ -211,9 +227,22 @@ namespace AMSExplorer
             }
 
 
-
             // account filters
-            Microsoft.Rest.Azure.IPage<AccountFilter> acctFilters = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            IPage<AccountFilter> acctFiltersPage = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            while (acctFiltersPage != null)
+            {
+                acctFilters.AddRange(acctFiltersPage);
+                if (acctFiltersPage.NextPageLink != null)
+                {
+                    acctFiltersPage = await _client.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    acctFiltersPage = null;
+                }
+            }
+
 
             acctFilters.ToList().ForEach(f =>
             {

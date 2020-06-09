@@ -684,6 +684,7 @@ namespace AMSExplorer
         public const string strTransfers = "{0} concurrent transfer{1}";
 
         public const string LinkMoreInfoLiveTranscript = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription";
+        public const string LinkMoreInfoLiveTranscriptRegions = "https://docs.microsoft.com/en-us/azure/media-services/latest/azure-clouds-regions#feature-availability-in-preview";
     }
 
 
@@ -1054,97 +1055,162 @@ namespace AMSExplorer
             return response;
         }
 
-        public async static Task<ManifestTimingData> GetManifestTimingDataAsync(Asset asset, AMSClientV3 _amsClientV3, string preferredLocatorName = null)
-        // Parse the manifest and get data from it
+
+        public async static Task<XDocument> TryToGetClientManifestContentAsABlobAsync(Asset asset, AMSClientV3 _amsClient)
         {
+            // get the manifest
+            ListContainerSasInput input = new ListContainerSasInput()
+            {
+                Permissions = AssetContainerPermission.Read,
+                ExpiryTime = DateTime.Now.AddMinutes(5).ToUniversalTime()
+            };
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            AssetContainerSas responseSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name, input.Permissions, input.ExpiryTime);
+
+            string uploadSasUrl = responseSas.AssetContainerSasUrls.First();
+
+            Uri sasUri = new Uri(uploadSasUrl);
+            var container = new CloudBlobContainer(sasUri);
+
+
+            BlobContinuationToken continuationToken = null;
+            var blobs = new List<CloudBlockBlob>();
+
+            do
+            {
+                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                blobs.AddRange(segment.Results.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(b => b as CloudBlockBlob));
+
+                continuationToken = segment.ContinuationToken;
+            }
+            while (continuationToken != null);
+            var ismc = blobs.Where(b => b.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase));
+
+            if (ismc.Count() == 0)
+            {
+                throw new Exception("No ISMC file in asset.");
+            }
+
+            var content = await ismc.First().DownloadTextAsync();
+
+            return XDocument.Parse(content);
+        }
+
+        public async static Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
+        {
+            Uri myuri = await GetValidOnDemandURIAsync(asset, _amsClient, preferredLocatorName);
+
+            if (myuri == null)
+            {
+                myuri = await GetValidOnDemandURIAsync(asset, _amsClient);
+            }
+            if (myuri != null)
+            {
+                return XDocument.Load(myuri.ToString());
+            }
+            else
+            {
+                throw new Exception("Streaming locator is null");
+            }
+        }
+
+        /// <summary>
+        /// Parse the manifest data.
+        /// It is recommended to call TryToGetClientManifestContentAsABlobAsync and TryToGetClientManifestContentUsingStreamingLocatorAsync to get the content
+        /// </summary>
+        /// <param name="manifest"></param>
+        /// <returns></returns>
+        public static ManifestTimingData GetManifestTimingData(XDocument manifest)
+        {
+
+            if (manifest == null) throw new ArgumentNullException();
+
             ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
+
             try
             {
-                StreamingLocator mytemplocator = null;
-                Uri myuri = await GetValidOnDemandURIAsync(asset, _amsClientV3, preferredLocatorName);
+                XElement smoothmedia = manifest.Element("SmoothStreamingMedia");
+                IEnumerable<XElement> videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
 
-                if (myuri == null)
+                // TIMESCALE
+                string timescaleFromManifest = smoothmedia.Attribute("TimeScale").Value;
+                if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
                 {
-                    myuri = await GetValidOnDemandURIAsync(asset, _amsClientV3);
+                    timescaleFromManifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
                 }
-                if (myuri != null)
+                long timescale = long.Parse(timescaleFromManifest);
+                response.TimeScale = timescale;
+
+                // DURATION
+                string durationFromManifest = smoothmedia.Attribute("Duration").Value;
+                ulong? overallDuration = null;
+                if (durationFromManifest != null) // there is a duration value. Let's take this one.
                 {
-                    XDocument manifest = XDocument.Load(myuri.ToString());
-                    XElement smoothmedia = manifest.Element("SmoothStreamingMedia");
-                    IEnumerable<XElement> videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                    overallDuration = (ulong?)ulong.Parse(durationFromManifest);
+                }
 
-                    // TIMESCALE
-                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
-                    if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
-                    {
-                        timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
-                    }
-                    long timescale = long.Parse(timescalefrommanifest);
-                    response.TimeScale = timescale;
-
-                    // Timestamp offset
-                    if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
-                    {
-                        response.TimestampOffset = ulong.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
-                    }
-                    else
-                    {
-                        response.TimestampOffset = 0; // no timestamp, so it should be 0
-                    }
-
-                    ulong totalduration = 0;
-                    ulong durationpreviouschunk = 0;
-                    ulong durationchunk;
-                    int repeatchunk;
-                    foreach (XElement chunk in videotrack.Elements("c"))
-                    {
-                        durationchunk = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
-                        repeatchunk = chunk.Attribute("r") != null ? int.Parse(chunk.Attribute("r").Value) : 1;
-                        totalduration += durationchunk * (ulong)repeatchunk;
-
-                        if (chunk.Attribute("t") != null)
-                        {
-                            ulong tvalue = ulong.Parse(chunk.Attribute("t").Value);
-                            response.TimestampList.Add(tvalue);
-                            if (tvalue != response.TimestampOffset)
-                            {
-                                totalduration = tvalue - response.TimestampOffset; // Discountinuity ? We calculate the duration from the offset
-                                response.DiscontinuityDetected = true; // let's flag it
-                            }
-                        }
-                        else
-                        {
-                            response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk);
-                        }
-
-                        for (int i = 1; i < repeatchunk; i++)
-                        {
-                            response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationchunk);
-                        }
-
-                        durationpreviouschunk = durationchunk;
-
-                    }
-                    response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count() - 1] + durationpreviouschunk;
-
-                    if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
-                    { // Live asset.... No duration to read (but we can read scaling and compute duration if no gap)
-                        response.IsLive = true;
-                        response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
-                    }
-                    else
-                    {
-                        response.AssetDuration = TimeSpan.FromSeconds(totalduration / ((double)timescale));
-                    }
+                // Timestamp offset
+                if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
+                {
+                    response.TimestampOffset = ulong.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
                 }
                 else
                 {
-                    response.Error = true;
+                    response.TimestampOffset = 0; // no timestamp, so it should be 0
                 }
-                if (mytemplocator != null)
+
+                ulong totalDuration = 0;
+                ulong durationPreviousChunk = 0;
+                ulong durationChunk;
+                int repeatChunk;
+                foreach (XElement chunk in videotrack.Elements("c"))
                 {
-                    await _amsClientV3.RefreshTokenIfNeededAsync();
-                    await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, mytemplocator.Name);
+                    durationChunk = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
+                    repeatChunk = chunk.Attribute("r") != null ? int.Parse(chunk.Attribute("r").Value) : 1;
+
+                    if (chunk.Attribute("t") != null)
+                    {
+                        ulong tvalue = ulong.Parse(chunk.Attribute("t").Value);
+                        response.TimestampList.Add(tvalue);
+                        if (tvalue != response.TimestampOffset)
+                        {
+                            totalDuration = tvalue - response.TimestampOffset; // Discountinuity ? We calculate the duration from the offset
+                            response.DiscontinuityDetected = true; // let's flag it
+                        }
+                    }
+                    else
+                    {
+                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationPreviousChunk);
+                    }
+
+                    totalDuration += durationChunk * (ulong)repeatChunk;
+
+                    for (int i = 1; i < repeatChunk; i++)
+                    {
+                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationChunk);
+                    }
+
+                    durationPreviousChunk = durationChunk;
+                }
+                response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count() - 1] + durationPreviousChunk;
+
+                if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
+                { // Live asset.... No duration to read or it is always zero (but we can read scaling and compute duration)
+                    response.IsLive = true;
+                    response.AssetDuration = TimeSpan.FromSeconds(totalDuration / ((double)timescale));
+                }
+                else
+                {
+                    if (overallDuration != null & overallDuration > 0) // let's trust the duration property in the manifest
+                    {
+                        response.AssetDuration = TimeSpan.FromSeconds((ulong)overallDuration / ((double)timescale));
+
+                    }
+                    else // no trust
+                    {
+                        response.AssetDuration = TimeSpan.FromSeconds(totalDuration / ((double)timescale));
+                    }
                 }
             }
             catch
@@ -1629,13 +1695,16 @@ namespace AMSExplorer
         */
         public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient)
         {
-            StringBuilder sb = new StringBuilder();
+            ListRepData infoStr = new ListRepData();
+
             AssetInfoData MyAssetTypeInfo = await AssetInfo.GetAssetTypeAsync(MyAsset.Name, _amsClient);
             if (MyAssetTypeInfo == null)
             {
+                StringBuilder sb = new StringBuilder();
                 sb.AppendLine("Error accessing asset type info");
                 return sb;
             }
+
             bool bfileinasset = (MyAssetTypeInfo.Blobs.Count() == 0) ? false : true;
             long size = -1;
             if (bfileinasset)
@@ -1646,61 +1715,61 @@ namespace AMSExplorer
                     size += (blob as CloudBlockBlob).Properties.Length;
                 }
             }
-            sb.AppendLine("Asset Name              : " + MyAsset.Name);
-            sb.AppendLine("Asset Description       : " + MyAsset.Description);
 
-            sb.AppendLine("Asset Type              : " + MyAssetTypeInfo.Type);
-            sb.AppendLine("Id                      : " + MyAsset.Id);
-            sb.AppendLine("Asset Id                : " + MyAsset.AssetId);
+            infoStr.Add("Asset Name", MyAsset.Name);
+            infoStr.Add("Asset Description", MyAsset.Description);
 
-            sb.AppendLine("Alternate ID            : " + MyAsset.AlternateId);
+            infoStr.Add("Asset Type", MyAssetTypeInfo.Type);
+            infoStr.Add("Id", MyAsset.Id);
+            infoStr.Add("Asset Id", MyAsset.AssetId.ToString());
+            infoStr.Add("Alternate ID", MyAsset.AlternateId);
             if (size != -1)
             {
-                sb.AppendLine("Size                    : " + FormatByteSize(size));
+                infoStr.Add("Size", FormatByteSize(size));
             }
 
-            sb.AppendLine("Container               : " + MyAsset.Container);
-            sb.AppendLine("Created (UTC)           : " + MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
-            sb.AppendLine("Last Modified (UTC)     : " + MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
-            sb.AppendLine("Storage account         : " + MyAsset.StorageAccountName);
-            sb.AppendLine("Storage Encryption      : " + MyAsset.StorageEncryptionFormat);
+            infoStr.Add("Container", MyAsset.Container);
+            infoStr.Add("Created (UTC)", MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
+            infoStr.Add("Last Modified (UTC)", MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
+            infoStr.Add("Storage account", MyAsset.StorageAccountName);
+            infoStr.Add("Storage Encryption", MyAsset.StorageEncryptionFormat);
 
-            sb.AppendLine(string.Empty);
+            infoStr.Add(string.Empty);
 
             foreach (IListBlobItem blob in MyAssetTypeInfo.Blobs)
             {
-                sb.AppendLine("   -----------------------------------------------");
+                infoStr.Add("   -----------------------------------------------");
 
                 if (blob.GetType() == typeof(CloudBlockBlob))
                 {
                     CloudBlockBlob blobc = blob as CloudBlockBlob;
-                    sb.AppendLine("   Block Blob Name      : " + blobc.Name);
-                    sb.AppendLine("   Type                 : " + blobc.BlobType);
-                    sb.AppendLine("   Blob length          : " + blobc.Properties.Length + " Bytes");
-                    sb.AppendLine("   Content type         : " + blobc.Properties.ContentType);
-                    sb.AppendLine("   Created (UTC)        : " + blobc.Properties.Created?.ToString("G"));
-                    sb.AppendLine("   Last modified (UTC)  : " + blobc.Properties.LastModified?.ToString("G"));
-                    sb.AppendLine("   Server Encrypted     : " + blobc.Properties.IsServerEncrypted);
-                    sb.AppendLine("   Content MD5          : " + blobc.Properties.ContentMD5);
-                    sb.AppendLine(string.Empty);
+                    infoStr.Add("   Block Blob Name", blobc.Name);
+                    infoStr.Add("   Type", blobc.BlobType.ToString());
+                    infoStr.Add("   Blob length", blobc.Properties.Length + " Bytes");
+                    infoStr.Add("   Content type", blobc.Properties.ContentType);
+                    infoStr.Add("   Created (UTC)", blobc.Properties.Created?.ToString("G"));
+                    infoStr.Add("   Last modified (UTC)", blobc.Properties.LastModified?.ToString("G"));
+                    infoStr.Add("   Server Encrypted", blobc.Properties.IsServerEncrypted.ToString());
+                    infoStr.Add("   Content MD5", blobc.Properties.ContentMD5);
+                    infoStr.Add(string.Empty);
 
                 }
                 else if (blob.GetType() == typeof(CloudBlobDirectory))
                 {
                     CloudBlobDirectory blobd = blob as CloudBlobDirectory;
-                    sb.AppendLine("   Blob Directory Name  : " + blobd.Prefix);
-                    sb.AppendLine("   Type                 : BlobDirectory");
-                    sb.AppendLine("   Blob Director length : " + GetSizeBlobDirectory(blobd) + " Bytes");
-                    sb.AppendLine(string.Empty);
+                    infoStr.Add("   Blob Directory Name", blobd.Prefix);
+                    infoStr.Add("   Type", "BlobDirectory");
+                    infoStr.Add("   Blob Director length", GetSizeBlobDirectory(blobd) + " Bytes");
+                    infoStr.Add(string.Empty);
                 }
             }
-            sb.Append(await GetDescriptionLocatorsAsync(MyAsset, _amsClient));
+            infoStr.Add(await GetDescriptionLocatorsAsync(MyAsset, _amsClient));
 
-            sb.AppendLine(string.Empty);
-            sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            sb.AppendLine(string.Empty);
+            infoStr.Add(string.Empty);
+            infoStr.Add("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            infoStr.Add(string.Empty);
 
-            return sb;
+            return infoStr.ReturnStringBuilder();
         }
 
         public static long GetSizeBlobDirectory(CloudBlobDirectory blobd)
@@ -1713,29 +1782,32 @@ namespace AMSExplorer
         }
 
 
-        public static async Task<StringBuilder> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient)
+        public static async Task<ListRepData> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient)
         {
-            StringBuilder sb = new StringBuilder();
             await amsClient.RefreshTokenIfNeededAsync();
 
             IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name))
                                                     .StreamingLocators;
+
+            ListRepData infoStr = new ListRepData();
+
             if (locators.Count == 0)
             {
-                sb.AppendLine("No streaming locator created for this asset.");
+                infoStr.Add("No streaming locator created for this asset.", null);
             }
 
             foreach (AssetStreamingLocator locatorbase in locators)
             {
                 StreamingLocator locator = await amsClient.AMSclient.StreamingLocators.GetAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
-                sb.AppendLine("Locator Name                    : " + locator.Name);
-                sb.AppendLine("Locator Id                      : " + locator.StreamingLocatorId);
-                sb.AppendLine("Start Time                      : " + locator.StartTime?.ToLongDateString());
-                sb.AppendLine("End Time                        : " + locator.EndTime?.ToLongDateString());
-                sb.AppendLine("Streaming Policy Name           : " + locator.StreamingPolicyName);
-                sb.AppendLine("Default Content Key Policy Name : " + locator.DefaultContentKeyPolicyName);
-                sb.AppendLine("Associated filters              : " + string.Join(", ", locator.Filters.ToArray()));
+
+                infoStr.Add("Locator Name", locator.Name);
+                infoStr.Add("Locator Id", locator.StreamingLocatorId.ToString());
+                infoStr.Add("Start Time", locator.StartTime?.ToLongDateString());
+                infoStr.Add("End Time", locator.EndTime?.ToLongDateString());
+                infoStr.Add("Streaming Policy Name", locator.StreamingPolicyName);
+                infoStr.Add("Default Content Key Policy Name", locator.DefaultContentKeyPolicyName);
+                infoStr.Add("Associated filters", string.Join(", ", locator.Filters.ToArray()));
 
                 IList<StreamingPath> streamingPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).StreamingPaths;
                 IList<string> downloadPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).DownloadPaths;
@@ -1744,19 +1816,20 @@ namespace AMSExplorer
                 {
                     foreach (string p in path.Paths)
                     {
-                        sb.AppendLine(path.StreamingProtocol.ToString() + " " + path.EncryptionScheme + new string(' ', 30 - path.StreamingProtocol.ToString().Length - path.EncryptionScheme.ToString().Length) + " : " + p);
+                        infoStr.Add(path.StreamingProtocol.ToString() + " " + path.EncryptionScheme, p);
                     }
                 }
 
                 foreach (string path in downloadPaths)
                 {
-                    sb.AppendLine("Download                        : " + path);
+                    infoStr.Add("Download", path);
                 }
 
-                sb.AppendLine("==============================================================================");
-                sb.AppendLine(string.Empty);
+                infoStr.Add("==============================================================================");
+                infoStr.Add(string.Empty);
+
             }
-            return sb;
+            return infoStr;
         }
 
 
@@ -3018,6 +3091,47 @@ namespace AMSExplorer
         }
     }
 
+    public class RepData
+    {
+        public string label;
+        public string value;
+    }
+
+    public class ListRepData
+    {
+        public List<RepData> data;
+        public ListRepData()
+        {
+            data = new List<RepData>();
+        }
+        public void Add(string label, string value)
+        {
+            data.Add(new RepData() { label = label, value = value ?? string.Empty });
+        }
+
+        public void Add(ListRepData listRepData)
+        {
+            data.AddRange(listRepData.data);
+        }
+
+        public void Add(string label)
+        {
+            data.Add(new RepData() { label = label, value = null });
+        }
+
+        public StringBuilder ReturnStringBuilder()
+        {
+            StringBuilder sb = new StringBuilder();
+            // calculate padding max
+            int maxLenghtStr = data.Where(d => d.value != null).Select(d => d.label.Length).Max();
+
+            // build StringBuilder
+            data.Select(d => d.value != null ? d.label + new string(' ', maxLenghtStr - d.label.Length) + ": " + d.value : d.label).ToList().ForEach(s => sb.AppendLine(s));
+
+            return sb;
+        }
+    }
+
     public enum AzureEnvType
     {
         Azure = 0,
@@ -3645,7 +3759,7 @@ namespace AMSExplorer
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, IntPtr lParam);
 
         [DllImport("Shcore.dll")]
-        private static extern IntPtr GetDpiForMonitor([In]IntPtr hmonitor, [In]DpiType dpiType, [Out]out uint dpiX, [Out]out uint dpiY);
+        private static extern IntPtr GetDpiForMonitor([In] IntPtr hmonitor, [In] DpiType dpiType, [Out] out uint dpiX, [Out] out uint dpiY);
 
         private static int GetPerMonitorDpiForControl(Control c)
         {
@@ -3705,6 +3819,8 @@ namespace AMSExplorer
 
         public static void UpdatedSizeFontAfterDPIChange(List<Control> controls, DpiChangedEventArgs e, Form currentForm)
         {
+            return; // test as we moved to .Net framework v8
+
             if (currentForm != null) currentForm.SuspendLayout();
             Debug.Print($"Old DPI: {e.DeviceDpiOld}, new DPI {e.DeviceDpiNew}");
             float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
@@ -3717,7 +3833,23 @@ namespace AMSExplorer
                     (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);
                 }
             }
-            //controls.ForEach(c => c.Font = new Font(c.Font.Name, c.Font.Size * factor));
+            if (currentForm != null) currentForm.ResumeLayout();
+        }
+
+        public static void UpdatedSizeFontAfterDPIChangeV8(List<Control> controls, DpiChangedEventArgs e, Form currentForm)
+        {
+            if (currentForm != null) currentForm.SuspendLayout();
+            Debug.Print($"Old DPI: {e.DeviceDpiOld}, new DPI {e.DeviceDpiNew}");
+            float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
+            foreach (var c in controls)
+            {
+                c.Font = new Font(c.Font.Name, c.Font.Size * factor);
+                if (c.GetType() == typeof(MenuStrip) || c.GetType() == typeof(ContextMenuStrip))// if menu  control
+                {
+                    var sizevar = Convert.ToInt32(16f * (float)e.DeviceDpiNew / 96f);
+                    (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);
+                }
+            }
             if (currentForm != null) currentForm.ResumeLayout();
         }
     }

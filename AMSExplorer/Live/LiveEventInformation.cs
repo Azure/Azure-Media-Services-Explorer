@@ -199,18 +199,23 @@ namespace AMSExplorer
 
                     if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
                     {
+                        DGLiveEvent.Rows.Add("Live Transcription", "Enabled");
+                        labelLoosingLiveTranscriptionFeature.Visible = true;
+
                         foreach (var transcript in liveEventRestProp.Transcriptions)
                         {
-                            DGLiveEvent.Rows.Add("Live Transcriptions language", transcript.Language);
+                            DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
                         }
                     }
+                    else
+                    {
+                        DGLiveEvent.Rows.Add("Live Transcription", "Disabled");
+                    }
                 }
-
                 catch
                 {
 
                 }
-
             }
             else // multiselect
             {

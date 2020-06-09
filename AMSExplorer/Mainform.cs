@@ -2159,7 +2159,7 @@ namespace AMSExplorer
                                                     OfflineRentalConfiguration = formFairPlay[i].FairPlayOfflineRentalConfig
                                                 },
                                                 Restriction = formFairPlayTokenClaims[i].GetContentKeyPolicyRestriction,
-                                                Name = formFairPlay[i].FairPlayePolicyName
+                                                Name = formFairPlay[i].FairPlayPolicyName
                                             });
                             }
 
@@ -2596,12 +2596,25 @@ namespace AMSExplorer
             List<Transform> SelectedTransforms = new List<Transform>();
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            Microsoft.Rest.Azure.IPage<Transform> Transforms = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            List<Transform> transforms = new List<Transform>();
+            IPage<Transform> transformsPage = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (transformsPage != null)
+            {
+                transforms.AddRange(transformsPage);
+                if (transformsPage.NextPageLink != null)
+                {
+                    transformsPage = await _amsClient.AMSclient.Transforms.ListNextAsync(transformsPage.NextPageLink);
+                }
+                else
+                {
+                    transformsPage = null;
+                }
+            }
 
             foreach (DataGridViewRow Row in dataGridViewTransformsV.SelectedRows)
             {
                 string transformName = Row.Cells[dataGridViewTransformsV.Columns["Name"].Index].Value.ToString();
-                Transform myTransform = Transforms.Where(f => f.Name == transformName).FirstOrDefault();
+                Transform myTransform = transforms.Where(f => f.Name == transformName).FirstOrDefault();
                 if (myTransform != null)
                 {
                     SelectedTransforms.Add(myTransform);
@@ -2633,11 +2646,26 @@ namespace AMSExplorer
             List<AccountFilter> SelectedFilters = new List<AccountFilter>();
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            Microsoft.Rest.Azure.IPage<AccountFilter> aFilters = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            // account filters
+            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (acctFiltersPage != null)
+            {
+                acctFilters.AddRange(acctFiltersPage);
+                if (acctFiltersPage.NextPageLink != null)
+                {
+                    acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    acctFiltersPage = null;
+                }
+            }
+
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filtername = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
-                AccountFilter myfilter = aFilters.Where(f => f.Name == filtername).FirstOrDefault();
+                AccountFilter myfilter = acctFilters.Where(f => f.Name == filtername).FirstOrDefault();
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -2797,7 +2825,21 @@ namespace AMSExplorer
                 //   foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
                 {
                     Transform transform = transforms.First();
-                    IPage<Job> listjobs = await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
+
+                    List<Job> listjobs = new List<Job>();
+                    IPage<Job> jobsPage = await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
+                    while (jobsPage != null)
+                    {
+                        listjobs.AddRange(jobsPage);
+                        if (jobsPage.NextPageLink != null)
+                        {
+                            jobsPage = await _amsClient.AMSclient.Jobs.ListNextAsync(jobsPage.NextPageLink);
+                        }
+                        else
+                        {
+                            jobsPage = null;
+                        }
+                    }
 
                     deleteTasks.AddRange(listjobs.ToList().Select(j => _amsClient.AMSclient.Jobs.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name, j.Name)));
                 }
@@ -2846,7 +2888,21 @@ namespace AMSExplorer
                 //  foreach (var transform in dataGridViewTransformsV.ReturnSelectedTransforms())
                 {
                     Transform transform = transforms.First();
-                    IPage<Job> listjobs = await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
+
+                    List<Job> listjobs = new List<Job>();
+                    IPage<Job> jobsPage = await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
+                    while (jobsPage != null)
+                    {
+                        listjobs.AddRange(jobsPage);
+                        if (jobsPage.NextPageLink != null)
+                        {
+                            jobsPage = await _amsClient.AMSclient.Jobs.ListNextAsync(jobsPage.NextPageLink);
+                        }
+                        else
+                        {
+                            jobsPage = null;
+                        }
+                    }
 
                     deleteTasks.AddRange(listjobs.ToList()
                         .Where(j => j.State == Microsoft.Azure.Management.Media.Models.JobState.Processing || j.State == Microsoft.Azure.Management.Media.Models.JobState.Queued || j.State == Microsoft.Azure.Management.Media.Models.JobState.Scheduled)
@@ -4212,8 +4268,23 @@ namespace AMSExplorer
             }
             dataGridViewFilters.Rows.Clear();
 
-            Microsoft.Rest.Azure.IPage<AccountFilter> filters = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
-            foreach (AccountFilter filter in filters)
+            // account filters
+            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (acctFiltersPage != null)
+            {
+                acctFilters.AddRange(acctFiltersPage);
+                if (acctFiltersPage.NextPageLink != null)
+                {
+                    acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    acctFiltersPage = null;
+                }
+            }
+
+            foreach (AccountFilter filter in acctFilters)
             {
                 string s = null;
                 string e = null;
@@ -4264,7 +4335,7 @@ namespace AMSExplorer
                     int rowi = dataGridViewFilters.Rows.Add(filter.Name, "Error", s, e, d, l);
                 }
             }
-            tabPageFilters.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count()));
+            tabPageFilters.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", acctFilters.Count()));
             //tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count());
         }
 

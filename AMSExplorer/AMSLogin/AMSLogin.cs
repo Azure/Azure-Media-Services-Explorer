@@ -17,9 +17,11 @@
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
+using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
+using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.Authentication;
 using Newtonsoft.Json;
 using System;
@@ -441,8 +443,22 @@ namespace AMSExplorer
                     TokenCredentials credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
                     SubscriptionClient subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
-                    Microsoft.Rest.Azure.IPage<Microsoft.Azure.Management.ResourceManager.Models.Subscription> subscriptions = subscriptionClient.Subscriptions.List();
 
+                    // Subcriptions listing
+                    List<Subscription> subscriptions = new List<Subscription>();
+                    IPage<Subscription> subscriptionsPage = subscriptionClient.Subscriptions.List();
+                    while (subscriptionsPage != null)
+                    {
+                        subscriptions.AddRange(subscriptionsPage);
+                        if (subscriptionsPage.NextPageLink != null)
+                        {
+                            subscriptionsPage = subscriptionClient.Subscriptions.ListNext(subscriptionsPage.NextPageLink);
+                        }
+                        else
+                        {
+                            subscriptionsPage = null;
+                        }
+                    }
 
 
                     // tenants browsing

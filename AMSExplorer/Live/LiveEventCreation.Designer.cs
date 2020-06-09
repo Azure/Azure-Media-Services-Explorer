@@ -64,8 +64,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
+            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
+            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxLiveTranscriptLanguage = new System.Windows.Forms.TextBox();
             this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
             this.checkBoxEnableLiveTranscript = new System.Windows.Forms.CheckBox();
             this.tabPageAdv = new System.Windows.Forms.TabPage();
@@ -83,7 +85,6 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -347,24 +348,41 @@
             // 
             // tabPageLiveTranscript
             // 
+            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscriptRegions);
+            this.tabPageLiveTranscript.Controls.Add(this.comboBoxLanguage);
             this.tabPageLiveTranscript.Controls.Add(this.label8);
             this.tabPageLiveTranscript.Controls.Add(this.label2);
-            this.tabPageLiveTranscript.Controls.Add(this.textBoxLiveTranscriptLanguage);
             this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
             this.tabPageLiveTranscript.Controls.Add(this.checkBoxEnableLiveTranscript);
             resources.ApplyResources(this.tabPageLiveTranscript, "tabPageLiveTranscript");
             this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
             this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
             // 
+            // linkLabelLiveTranscriptRegions
+            // 
+            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
+            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
+            this.linkLabelLiveTranscriptRegions.TabStop = true;
+            this.linkLabelLiveTranscriptRegions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            // 
+            // comboBoxLanguage
+            // 
+            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
+            this.comboBoxLanguage.FormattingEnabled = true;
+            this.comboBoxLanguage.Name = "comboBoxLanguage";
+            this.toolTip1.SetToolTip(this.comboBoxLanguage, resources.GetString("comboBoxLanguage.ToolTip"));
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Name = "label8";
+            // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            // 
-            // textBoxLiveTranscriptLanguage
-            // 
-            resources.ApplyResources(this.textBoxLiveTranscriptLanguage, "textBoxLiveTranscriptLanguage");
-            this.textBoxLiveTranscriptLanguage.Name = "textBoxLiveTranscriptLanguage";
             // 
             // linkLabelLiveTranscript
             // 
@@ -471,12 +489,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Name = "label8";
-            // 
             // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
@@ -570,9 +582,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TabPage tabPageLiveTranscript;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxLiveTranscriptLanguage;
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;
         private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBoxLanguage;
+        private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
     }
 }

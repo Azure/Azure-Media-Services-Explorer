@@ -14,7 +14,9 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +25,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AMSExplorer
 {
@@ -47,7 +50,6 @@ namespace AMSExplorer
         private string _labelDefaultEnd;
         private string _labelDefaultDVR;
         private string _labelDefaultBakckoff;
-        private StreamingLocator _tempStreamingLocator = null;
         private readonly object _filterToDisplay;
 
         public DynManifestFilter(AMSClientV3 amsClient, object filterToDisplay = null, Asset parentAsset = null, SubClipConfiguration subclipconfig = null)
@@ -71,14 +73,43 @@ namespace AMSExplorer
             await _amsClient.RefreshTokenIfNeededAsync();
             if (asset != null)
             {
-                Microsoft.Rest.Azure.IPage<AssetFilter> filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).Body;
+                // asset filters
+                List<AssetFilter> filters = new List<AssetFilter>();
+                IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name);
+                while (assetFiltersPage != null)
+                {
+                    filters.AddRange(assetFiltersPage);
+                    if (assetFiltersPage.NextPageLink != null)
+                    {
+                        assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                    }
+                    else
+                    {
+                        assetFiltersPage = null;
+                    }
+                }
+
                 filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
             }
             // account filters
 
-            Microsoft.Rest.Azure.IPage<AccountFilter> acFilters = (await _amsClient.AMSclient.AccountFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Body;
+            // account filters
+            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (acctFiltersPage != null)
+            {
+                acctFilters.AddRange(acctFiltersPage);
+                if (acctFiltersPage.NextPageLink != null)
+                {
+                    acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    acctFiltersPage = null;
+                }
+            }
 
-            acFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Account filter : " + g.Name, g.Name)));
+            acctFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Account filter : " + g.Name, g.Name)));
 
             if (comboBoxLocatorsFilters.Items.Count > 1)
             {
@@ -191,24 +222,34 @@ namespace AMSExplorer
                 textBoxAssetName.Text = _parentAsset != null ? _parentAsset.Name : string.Empty;
 
 
-                // temp locator creation
-                if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                // let's try to read asset timing
+                XDocument manifest = null;
+                try
+                {
+                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
+                }
+                catch
+                {
+                }
+
+                if (manifest == null)
                 {
                     try
                     {
-                        _tempStreamingLocator = await AssetInfo.CreateTemporaryOnDemandLocatorAsync(_parentAsset, _amsClient);
+                        if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
+                        }
                     }
                     catch
                     {
-
                     }
                 }
 
-                // let's try to read asset timing
-                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
-
-                // let's delete the temp locator
-                if (_tempStreamingLocator != null) await AssetInfo.DeleteStreamingLocatorAsync(_amsClient, _tempStreamingLocator.Name);
+                if (manifest != null)
+                {
+                    _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
+                }
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
@@ -289,27 +330,37 @@ namespace AMSExplorer
 
                 textBoxFilterName.Enabled = false; // no way to change the filter name
                 textBoxFilterName.Text = _filter_name;
+              
 
+                // let's try to read asset timing
+                XDocument manifest = null;
+                try
+                {
+                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
+                }
+                catch
+                {
+                }
 
-                // temp locator creation
-                if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                if (manifest == null)
                 {
                     try
                     {
-                        _tempStreamingLocator = await AssetInfo.CreateTemporaryOnDemandLocatorAsync(_parentAsset, _amsClient);
+                        if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
+                        }
                     }
                     catch
                     {
-
                     }
                 }
 
-                // let's try to read asset timing
-                _parentassetmanifestdata = await AssetInfo.GetManifestTimingDataAsync(_parentAsset, _amsClient, _tempStreamingLocator?.Name);
-
-                // let's delete the temp locator
-                await AssetInfo.DeleteStreamingLocatorAsync(_amsClient, _tempStreamingLocator.Name);
-
+                if (manifest != null)
+                {
+                    _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
+                }
+           
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
 
                 if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match
@@ -1025,8 +1076,23 @@ namespace AMSExplorer
                 object importfilter = null;
                 if (filtername.StartsWith(Constants.AssetIdPrefix)) // asset filter
                 {
-                    Microsoft.Rest.Azure.IPage<AssetFilter> filters = (await _amsClient.AMSclient.AssetFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _parentAsset.Name)).Body;
-                    importfilter = filters.Where(f => f.Id == filtername).FirstOrDefault();
+                    List<AssetFilter> assetFilters = new List<AssetFilter>();
+                    IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _parentAsset.Name);
+                    while (assetFiltersPage != null)
+                    {
+                        assetFilters.AddRange(assetFiltersPage);
+                        if (assetFiltersPage.NextPageLink != null)
+                        {
+                            assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                        }
+                        else
+                        {
+                            assetFiltersPage = null;
+                        }
+                    }
+
+
+                    importfilter = assetFilters.Where(f => f.Id == filtername).FirstOrDefault();
 
                     if (importfilter != null)
                     {
@@ -1038,8 +1104,23 @@ namespace AMSExplorer
                 }
                 else // global filter
                 {
-                    Microsoft.Rest.Azure.IPage<AccountFilter> filters = (await _amsClient.AMSclient.AccountFilters.ListWithHttpMessagesAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Body;
-                    importfilter = filters.Where(f => f.Name == filtername).FirstOrDefault();
+                    // account filters
+                    List<AccountFilter> acctFilters = new List<AccountFilter>();
+                    IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+                    while (acctFiltersPage != null)
+                    {
+                        acctFilters.AddRange(acctFiltersPage);
+                        if (acctFiltersPage.NextPageLink != null)
+                        {
+                            acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                        }
+                        else
+                        {
+                            acctFiltersPage = null;
+                        }
+                    }
+
+                    importfilter = acctFilters.Where(f => f.Name == filtername).FirstOrDefault();
 
                     if (importfilter != null)
                     {

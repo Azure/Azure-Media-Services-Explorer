@@ -344,7 +344,20 @@ namespace AMSExplorer
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            IPage<AssetFilter> assetFilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            while (assetFiltersPage != null)
+            {
+                assetFilters.AddRange(assetFiltersPage);
+                if (assetFiltersPage.NextPageLink != null)
+                {
+                    assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    assetFiltersPage = null;
+                }
+            }
 
             dataGridViewFilters.ColumnCount = 6;
             dataGridViewFilters.Columns[0].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
@@ -364,7 +377,33 @@ namespace AMSExplorer
 
             if (assetFilters.Count() > 0 && myassetmanifesttimingdata == null)
             {
-                myassetmanifesttimingdata = await AssetInfo.GetManifestTimingDataAsync(myAssetV3, _amsClient);
+
+                // let's read manifest data
+                XDocument manifest = null;
+                try
+                {
+                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(myAssetV3, _amsClient);
+                }
+                catch
+                {
+                }
+
+                if (manifest == null)
+                {
+                    try
+                    {
+                        manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAssetV3, _amsClient);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                if (manifest != null)
+                {
+                    myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(manifest);
+                }
             }
 
             foreach (AssetFilter filter in assetFilters)
@@ -1350,12 +1389,25 @@ namespace AMSExplorer
             List<AssetFilter> SelectedFilters = new List<AssetFilter>();
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            IPage<AssetFilter> afilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            while (assetFiltersPage != null)
+            {
+                assetFilters.AddRange(assetFiltersPage);
+                if (assetFiltersPage.NextPageLink != null)
+                {
+                    assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    assetFiltersPage = null;
+                }
+            }
 
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filterName = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
-                AssetFilter myfilter = afilters.Where(f => f.Name == filterName).FirstOrDefault();
+                AssetFilter myfilter = assetFilters.Where(f => f.Name == filterName).FirstOrDefault();
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -1616,13 +1668,7 @@ namespace AMSExplorer
                 {
                     progressBarUpload.Maximum = 100;
                     progressBarUpload.Visible = true;
-                    string tempPath = System.IO.Path.GetTempPath();
-                    string filePath = Path.Combine(tempPath, blobtoedit.Name);
 
-                    if (File.Exists(filePath))
-                    {
-                        File.Delete(filePath);
-                    }
                     string contentstring = await blobtoedit.DownloadTextAsync();
 
                     progressBarUpload.Visible = false;
@@ -1984,10 +2030,6 @@ namespace AMSExplorer
             }
         }
 
-        private async void ButtonGetDRMToken_Click(object sender, EventArgs e)
-        {
-        }
-
         private async Task GetDRMTestTokenAsync()
         {
             if (comboBoxPolicyLocators.SelectedItem == null)
@@ -2024,8 +2066,8 @@ namespace AMSExplorer
 
             ContentKeyPolicySymmetricTokenKey SymKey = (ContentKeyPolicySymmetricTokenKey)ckrestriction.PrimaryVerificationKey;
 
-           // ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
-           //         _amsClient.credentialsEntry.AccountName, locatorName);
+            // ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
+            //         _amsClient.credentialsEntry.AccountName, locatorName);
 
             string keyIdentifier = (comboBoxKeys.SelectedItem as Item).Value;
 
@@ -2090,6 +2132,7 @@ namespace AMSExplorer
         {
             // for controls which are not using the default font
             DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripBlobs, contextMenuStripKey, contextMenuStripFilter }, e, this);
+            //DpiUtils.UpdatedSizeFontAfterDPIChangeV8(new List<Control> { textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e, this);
         }
 
         private async void Button1_Click_2(object sender, EventArgs e)

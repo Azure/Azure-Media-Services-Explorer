@@ -793,17 +793,31 @@ Properties/StorageId
         public static async Task<int?> ReturnNumberAssetFiltersAsync(string assetName, AMSClientV3 client)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
-            IPage<AssetFilter> filters;
+
+            // asset filters
+            List<AssetFilter> assetFilters = new List<AssetFilter>();
             try
             {
-                filters = await client.AMSclient.AssetFilters.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName);
+                IPage<AssetFilter> assetFiltersPage = await client.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName);
+                while (assetFiltersPage != null)
+                {
+                    assetFilters.AddRange(assetFiltersPage);
+                    if (assetFiltersPage.NextPageLink != null)
+                    {
+                        assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                    }
+                    else
+                    {
+                        assetFiltersPage = null;
+                    }
+                }
             }
             catch
             {
                 return null;
             }
 
-            return filters.Count();
+            return assetFilters.Count();
         }
 
 

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AMSExplorer</RootNamespace>
     <AssemblyName>AMSExplorer</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -29,6 +29,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>AMSExplorer.Program</StartupObject>
@@ -72,8 +74,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -469,6 +469,7 @@
     <None Include="BitmapsPNG\redactor-blur-low.png" />
     <None Include="BitmapsPNG\redactor-blur-med.png" />
     <None Include="BitmapsPNG\Azure Explorer_ico-old.ico" />
+    <None Include="BitmapsPNG\AzureMedia_Full-Color-new.png" />
     <Content Include="Configurations\SampleSemaphore.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -511,7 +512,7 @@
     <None Include="IconsPNG\XY.png" />
     <None Include="IconsPNG\XYRect.png" />
     <None Include="IconsPNG\DRM_protection_Cbcs.png" />
-    <Content Include="IconsPNG\Clear.png" />
+    <None Include="IconsPNG\Clear.png" />
     <Content Include="Manifest\Manifest.ism">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -899,7 +900,6 @@
     <EmbeddedResource Include="Priority.resx">
       <DependentUpon>Priority.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="Azure Explorer_ico.ico" />
     <None Include="BitmapsPNG\8-12-2014-13-20-04.png" />
     <None Include="BitmapsPNG\Azure Explorer.png" />
     <None Include="BitmapsPNG\Azure Explorer_ico.ico" />
@@ -1004,23 +1004,23 @@
     <PackageReference Include="Microsoft.Azure.Common.Dependencies">
       <Version>1.0.0</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Azure.CosmosDB.Table">
-      <Version>2.1.2</Version>
+    <PackageReference Include="Microsoft.Azure.KeyVault.Core">
+      <Version>3.0.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Management.Media">
-      <Version>2.0.4</Version>
+      <Version>2.0.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager">
       <Version>3.7.1-preview</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Management.Storage">
-      <Version>16.0.0</Version>
+      <Version>17.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Storage.Blob">
-      <Version>11.1.5</Version>
+      <Version>11.1.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Storage.Common">
-      <Version>11.1.5</Version>
+      <Version>11.1.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Bcl.Build">
       <Version>1.0.21</Version>
@@ -1030,9 +1030,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory">
       <Version>5.2.7</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Net.Http">
-      <Version>2.2.29</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Platforms">
       <Version>3.1.1</Version>

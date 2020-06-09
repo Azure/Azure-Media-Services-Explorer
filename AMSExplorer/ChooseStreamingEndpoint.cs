@@ -183,7 +183,21 @@ namespace AMSExplorer
             // Filters
 
             // asset filters
-            Microsoft.Rest.Azure.IPage<AssetFilter> assetFilters = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
+            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
+            while (assetFiltersPage != null)
+            {
+                assetFilters.AddRange(assetFiltersPage);
+                if (assetFiltersPage.NextPageLink != null)
+                {
+                    assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    assetFiltersPage = null;
+                }
+            }
+
             List<string> afiltersnames = assetFilters.Select(a => a.Name).ToList();
 
             listViewFilters.BeginUpdate();
@@ -199,7 +213,20 @@ namespace AMSExplorer
            );
 
             // account filters
-            IPage<AccountFilter> acctFilters = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (acctFiltersPage != null)
+            {
+                acctFilters.AddRange(acctFiltersPage);
+                if (acctFiltersPage.NextPageLink != null)
+                {
+                    acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    acctFiltersPage = null;
+                }
+            }
 
             acctFilters.ToList().ForEach(f =>
             {

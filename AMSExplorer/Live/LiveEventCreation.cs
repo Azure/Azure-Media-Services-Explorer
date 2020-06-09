@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -35,6 +36,8 @@ namespace AMSExplorer
         private readonly BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
         private readonly string defaultLanguageString = "und";
         private readonly AMSClientV3 _client;
+
+        public readonly List<string> LanguagesLiveTranscript = new List<string> { "ca-ES", "da-DK", "de-DE", "en-AU", "en-CA", "en-GB", "en-IN", "en-NZ", "en-US", "es-ES", "es-MX", "fi-FI", "fr-CA", "fr-FR", "it-IT", "nl-NL", "pt-BR", "pt-PT", "sv-SE" };
 
         public string LiveEventName
         {
@@ -72,7 +75,7 @@ namespace AMSExplorer
             {
 
                 IList<TranscriptionForRest> transcriptionList = new List<TranscriptionForRest>();
-                transcriptionList.Add(new TranscriptionForRest(language: textBoxLiveTranscriptLanguage.Text));
+                transcriptionList.Add(new TranscriptionForRest(language: ((Item)comboBoxLanguage.SelectedItem).Value as string));
                 return transcriptionList;
             }
         }
@@ -216,6 +219,10 @@ namespace AMSExplorer
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
             linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
+            linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
+
+            LanguagesLiveTranscript.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
+            comboBoxLanguage.SelectedIndex = 0;
 
             checkChannelName();
             InitPhase = false;
@@ -478,7 +485,7 @@ namespace AMSExplorer
 
         private void CheckBoxEnableLiveTranscript_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxLiveTranscriptLanguage.Enabled = checkBoxEnableLiveTranscript.Checked;
+            comboBoxLanguage.Enabled = checkBoxEnableLiveTranscript.Checked;
         }
     }
 

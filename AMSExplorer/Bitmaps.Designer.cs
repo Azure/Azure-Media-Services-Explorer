@@ -161,31 +161,11 @@ namespace AMSExplorer {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon Azure_Explorer_ico_old {
-            get {
-                object obj = ResourceManager.GetObject("Azure_Explorer_ico_old", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon Azure_Explorer_ico1 {
-            get {
-                object obj = ResourceManager.GetObject("Azure_Explorer_ico1", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AzureMedia_Full_Color_64_opaque {
+        internal static System.Drawing.Bitmap AzureMedia_Full_Color_new {
             get {
-                object obj = ResourceManager.GetObject("AzureMedia_Full_Color_64_opaque", resourceCulture);
+                object obj = ResourceManager.GetObject("AzureMedia_Full_Color_new", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

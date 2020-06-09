@@ -175,9 +175,6 @@
   <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AzureMedia_Full_Color_64_opaque" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\AzureMedia_Full-Color-64-opaque.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="output_asset_information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\output_asset_information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -345,5 +342,8 @@
   </data>
   <data name="clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\clear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AzureMedia_Full_Color_new" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\AzureMedia_Full-Color-new.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

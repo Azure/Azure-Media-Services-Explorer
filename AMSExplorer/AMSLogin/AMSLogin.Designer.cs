@@ -200,7 +200,7 @@
             // pictureBoxJob
             // 
             resources.ApplyResources(this.pictureBoxJob, "pictureBoxJob");
-            this.pictureBoxJob.Image = global::AMSExplorer.Bitmaps.AzureMedia_Full_Color_64_opaque;
+            this.pictureBoxJob.Image = global::AMSExplorer.Bitmaps.AzureMedia_Full_Color_new;
             this.pictureBoxJob.Name = "pictureBoxJob";
             this.pictureBoxJob.TabStop = false;
             // 

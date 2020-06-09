@@ -22,7 +22,7 @@ namespace AMSExplorer
 {
     public partial class DRM_FairPlayLicense : Form
     {
-        public string FairPlayePolicyName
+        public string FairPlayPolicyName
         {
             get => string.IsNullOrWhiteSpace(textBoxPolicyName.Text) ? null : textBoxPolicyName.Text;
             set => textBoxPolicyName.Text = value;
@@ -35,13 +35,18 @@ namespace AMSExplorer
             {
                 if (radioButtonLimited.Checked)
                 {
-                    return (long)numericUpDownRentalHours.Value;
+                    return ReturnTotalSeconds(numericUpDownRentalHours.Value);
                 }
                 else
                 {
-                    return 0x9999;
+                    return 0x99999999;
                 }
             }
+        }
+
+        private long ReturnTotalSeconds(decimal nbHours)
+        {
+            return (long)TimeSpan.FromHours((double)nbHours).TotalSeconds;
         }
 
         public ContentKeyPolicyFairPlayRentalAndLeaseKeyType FairPlayRentalAndLeaseKeyType
@@ -76,7 +81,7 @@ namespace AMSExplorer
             {
                 if (radioButtonPersistent.Checked && radioButtonOfflineRental.Checked)
                 {
-                    return new ContentKeyPolicyFairPlayOfflineRentalConfiguration(((long)numericUpDownOfflinePlayback.Value) * 3600, ((long)numericUpDownOfflineStorage.Value) * 3600);
+                    return new ContentKeyPolicyFairPlayOfflineRentalConfiguration(ReturnTotalSeconds(numericUpDownOfflinePlayback.Value), ReturnTotalSeconds(numericUpDownOfflineStorage.Value));
                 }
                 else
                 {
@@ -84,7 +89,6 @@ namespace AMSExplorer
                 }
             }
         }
-
 
         public DRM_FairPlayLicense(int step = -1, int option = -1, bool laststep = true)
         {
