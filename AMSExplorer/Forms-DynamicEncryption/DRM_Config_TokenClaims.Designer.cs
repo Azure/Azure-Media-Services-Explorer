@@ -48,7 +48,6 @@
             this.buttonImportPFX = new System.Windows.Forms.Button();
             this.labelCertificateFile = new System.Windows.Forms.Label();
             this.radioButtonJWTX509 = new System.Windows.Forms.RadioButton();
-            this.radioButtonSWT = new System.Windows.Forms.RadioButton();
             this.dataGridViewTokenClaims = new System.Windows.Forms.DataGridView();
             this.buttonDelClaim = new System.Windows.Forms.Button();
             this.buttonAddClaim = new System.Windows.Forms.Button();
@@ -60,11 +59,7 @@
             this.labelStep = new System.Windows.Forms.Label();
             this.tabControlTokenType = new System.Windows.Forms.TabControl();
             this.tabPageTokenType = new System.Windows.Forms.TabPage();
-            this.label8 = new System.Windows.Forms.Label();
             this.radioButtonJWTOpenId = new System.Windows.Forms.RadioButton();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.tabPageTokenSymmetric = new System.Windows.Forms.TabPage();
             this.tabPageTokenX509 = new System.Windows.Forms.TabPage();
             this.tabPageOpenId = new System.Windows.Forms.TabPage();
@@ -235,13 +230,6 @@
             this.radioButtonJWTX509.UseVisualStyleBackColor = true;
             this.radioButtonJWTX509.CheckedChanged += new System.EventHandler(this.radioButtonTokenType_CheckedChanged);
             // 
-            // radioButtonSWT
-            // 
-            resources.ApplyResources(this.radioButtonSWT, "radioButtonSWT");
-            this.radioButtonSWT.Name = "radioButtonSWT";
-            this.radioButtonSWT.UseVisualStyleBackColor = true;
-            this.radioButtonSWT.CheckedChanged += new System.EventHandler(this.radioButtonTokenType_CheckedChanged);
-            // 
             // dataGridViewTokenClaims
             // 
             this.dataGridViewTokenClaims.AllowUserToAddRows = false;
@@ -313,23 +301,12 @@
             // 
             // tabPageTokenType
             // 
-            this.tabPageTokenType.Controls.Add(this.label8);
             this.tabPageTokenType.Controls.Add(this.radioButtonJWTOpenId);
-            this.tabPageTokenType.Controls.Add(this.label7);
-            this.tabPageTokenType.Controls.Add(this.label6);
-            this.tabPageTokenType.Controls.Add(this.label5);
             this.tabPageTokenType.Controls.Add(this.radioButtonJWTSymmetric);
-            this.tabPageTokenType.Controls.Add(this.radioButtonSWT);
             this.tabPageTokenType.Controls.Add(this.radioButtonJWTX509);
             resources.ApplyResources(this.tabPageTokenType, "tabPageTokenType");
             this.tabPageTokenType.Name = "tabPageTokenType";
             this.tabPageTokenType.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
             // 
             // radioButtonJWTOpenId
             // 
@@ -337,24 +314,6 @@
             this.radioButtonJWTOpenId.Name = "radioButtonJWTOpenId";
             this.radioButtonJWTOpenId.UseVisualStyleBackColor = true;
             this.radioButtonJWTOpenId.CheckedChanged += new System.EventHandler(this.radioButtonTokenType_CheckedChanged);
-            // 
-            // label7
-            // 
-            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // label6
-            // 
-            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // label5
-            // 
-            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
             // 
             // tabPageTokenSymmetric
             // 
@@ -511,7 +470,6 @@
         private System.Windows.Forms.Button buttonAddClaim;
         private System.Windows.Forms.DataGridView dataGridViewTokenClaims;
         private System.Windows.Forms.RadioButton radioButtonJWTX509;
-        private System.Windows.Forms.RadioButton radioButtonSWT;
         private System.Windows.Forms.Label labelCertificateFile;
         private System.Windows.Forms.Button buttonImportPFX;
         private System.Windows.Forms.Panel panelJWT;
@@ -530,14 +488,10 @@
         private System.Windows.Forms.TabPage tabPageTokenType;
         private System.Windows.Forms.TabPage tabPageTokenSymmetric;
         private System.Windows.Forms.TabPage tabPageTokenX509;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabControl tabControlTokenProperties;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RadioButton radioButtonJWTOpenId;
         private System.Windows.Forms.TabPage tabPageOpenId;
         private System.Windows.Forms.Label label9;

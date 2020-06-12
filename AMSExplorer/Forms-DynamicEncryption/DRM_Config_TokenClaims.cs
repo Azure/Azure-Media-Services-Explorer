@@ -34,7 +34,7 @@ namespace AMSExplorer
         private X509Certificate2 cert = null;
 
         public readonly List<ExplorerOpenIDSample> ListOpenIDSampleUris = new List<ExplorerOpenIDSample> {
-                new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.windows.net/common/.well-known/openid-configuration"},
+                new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration"},
                 new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
               };
 
@@ -53,17 +53,18 @@ namespace AMSExplorer
                 {
                     List<ContentKeyPolicyRestrictionTokenKey> alternateKeys = null;
 
-                    ContentKeyPolicyRestrictionTokenKey primarykey;
-                    if (GetDetailedTokenType == ExplorerTokenType.JWTSym || GetDetailedTokenType == ExplorerTokenType.SWTSym)
+                    ContentKeyPolicyRestrictionTokenKey primarykey = null;
+                    if (GetDetailedTokenType == ExplorerTokenType.JWTSym)
                     {
                         primarykey = new ContentKeyPolicySymmetricTokenKey(SymmetricKey);
                     }
-                    else
+                    else if (GetDetailedTokenType == ExplorerTokenType.JWTX509)
                     {
                         primarykey = new ContentKeyPolicyX509CertificateTokenKey(GetX509Certificate.RawData);
                     }
+                    // if OpenID, primary key is null
 
-                    return new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType, alternateKeys, GetTokenRequiredClaims);
+                    return new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType, alternateKeys, GetTokenRequiredClaims, GetOpenIdDiscoveryDocument);
                 }
             }
         }
@@ -92,7 +93,7 @@ namespace AMSExplorer
         }
 
 
-        public ContentKeyPolicyRestrictionTokenType TokenType => radioButtonSWT.Checked ? ContentKeyPolicyRestrictionTokenType.Swt : ContentKeyPolicyRestrictionTokenType.Jwt;
+        public ContentKeyPolicyRestrictionTokenType TokenType => ContentKeyPolicyRestrictionTokenType.Jwt;
 
 
         public ExplorerTokenType GetDetailedTokenType
@@ -105,11 +106,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    if (radioButtonSWT.Checked)
-                    {
-                        return ExplorerTokenType.SWTSym;
-                    }
-                    else if (radioButtonJWTSymmetric.Checked)
+                    if (radioButtonJWTSymmetric.Checked)
                     {
                         return ExplorerTokenType.JWTSym;
                     }
@@ -315,7 +312,7 @@ namespace AMSExplorer
         private void UpdateButtonOk()
         {
             buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked
-                || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || radioButtonJWTSymmetric.Checked || radioButtonJWTOpenId.Checked || (radioButtonJWTX509.Checked && cert != null))));
+                || (radioButtonTokenAuthPolicy.Checked && (radioButtonJWTSymmetric.Checked || radioButtonJWTOpenId.Checked || (radioButtonJWTX509.Checked && cert != null))));
         }
 
         private void buttongenerateContentKey_Click(object sender, EventArgs e)
