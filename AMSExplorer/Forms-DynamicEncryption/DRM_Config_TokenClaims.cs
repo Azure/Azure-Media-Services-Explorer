@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -172,9 +173,20 @@ namespace AMSExplorer
                 return null; // open mode
             }
 
-            Microsoft.IdentityModel.Tokens.SymmetricSecurityKey tokenSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(SymmetricKey);
-
-            Microsoft.IdentityModel.Tokens.SigningCredentials signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
+            SigningCredentials signingcredentials;
+            if (GetDetailedTokenType == ExplorerTokenType.JWTSym)
+            {
+                SymmetricSecurityKey tokenSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(SymmetricKey);
+                signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
+            }
+            else if (GetDetailedTokenType == ExplorerTokenType.JWTX509 && cert != null)
+            {
+                signingcredentials = new X509SigningCredentials(cert);
+            }
+            else
+            {
+                throw new Exception();
+            }
 
             List<Claim> claims = new List<Claim>();
 

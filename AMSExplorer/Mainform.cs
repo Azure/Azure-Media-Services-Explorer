@@ -2319,7 +2319,7 @@ namespace AMSExplorer
             StringBuilder sbuilder = new StringBuilder();
             foreach (form_DRM_Config_TokenClaims tokenClaims in formTokenClaims)
             {
-                if (tokenClaims.GetDetailedTokenType == ExplorerTokenType.JWTSym)
+                if (tokenClaims.GetDetailedTokenType == ExplorerTokenType.JWTSym || tokenClaims.GetDetailedTokenType == ExplorerTokenType.JWTX509)
                 {
                     // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
                     // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
