@@ -5,160 +5,161 @@
 <li class="has-line-data" data-line-start="3" data-line-end="4">Update to <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription">Live Transcription</a> with support of <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/azure-clouds-regions#feature-availability-in-preview">additional regions</a> and additional languages (more details later this month)</li>
 <li class="has-line-data" data-line-start="4" data-line-end="5">Generation of test token now uses the selected DRM key</li>
 <li class="has-line-data" data-line-start="5" data-line-end="6">New icon for AMSE v5</li>
-<li class="has-line-data" data-line-start="6" data-line-end="7">Removed the deprecated storage analytics (not in the new Storage SDK)</li>
-<li class="has-line-data" data-line-start="7" data-line-end="8">Bug fixes (FairPlay rental duration, Live archive duration, …)</li>
-<li class="has-line-data" data-line-start="8" data-line-end="9">Code optimizations, SDKs update</li>
+<li class="has-line-data" data-line-start="6" data-line-end="7">Content key policy : add support for OpenID Connect</li>
+<li class="has-line-data" data-line-start="7" data-line-end="8">Removed the deprecated storage analytics (not in the new Storage SDK)</li>
+<li class="has-line-data" data-line-start="8" data-line-end="9">Bug fixes (FairPlay rental duration, Live archive duration, …)</li>
+<li class="has-line-data" data-line-start="9" data-line-end="10">Code optimizations, SDKs update</li>
 </ul>
-<p class="has-line-data" data-line-start="11" data-line-end="12">Version 5.0.16.0 (March 16, 2020) brings the following features and improvements:</p>
+<p class="has-line-data" data-line-start="12" data-line-end="13">Version 5.0.16.0 (March 16, 2020) brings the following features and improvements:</p>
 <ul>
-<li class="has-line-data" data-line-start="13" data-line-end="14">Support for <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription">Live Transcriptions</a> (which is in preview in West Us 2 region)</li>
-<li class="has-line-data" data-line-start="14" data-line-end="15">Visual Studio Solution : <a href="https://docs.microsoft.com/en-us/nuget/consume-packages/migrate-packages-config-to-package-reference">migrated from packages.config to PackageReference</a></li>
+<li class="has-line-data" data-line-start="14" data-line-end="15">Support for <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription">Live Transcriptions</a> (which is in preview in West Us 2 region)</li>
+<li class="has-line-data" data-line-start="15" data-line-end="16">Visual Studio Solution : <a href="https://docs.microsoft.com/en-us/nuget/consume-packages/migrate-packages-config-to-package-reference">migrated from packages.config to PackageReference</a></li>
 </ul>
-<p class="has-line-data" data-line-start="17" data-line-end="18">Version 5.0.15.0 (January 10, 2020) brings the following features and improvements:</p>
+<p class="has-line-data" data-line-start="18" data-line-end="19">Version 5.0.15.0 (January 10, 2020) brings the following features and improvements:</p>
 <ul>
-<li class="has-line-data" data-line-start="19" data-line-end="23">Updated with the new v2.0.4 Azure Media SDK
+<li class="has-line-data" data-line-start="20" data-line-end="24">Updated with the new v2.0.4 Azure Media SDK
 <ul>
-<li class="has-line-data" data-line-start="20" data-line-end="21">Support for Job start and end times display. Duration of jobs are also displayed.</li>
-<li class="has-line-data" data-line-start="21" data-line-end="22">Support for the new FairPlay dual expiry settings (rentals)</li>
-<li class="has-line-data" data-line-start="22" data-line-end="23">New ContentAwareEncoding MES preset (GA)</li>
-</ul>
-</li>
-<li class="has-line-data" data-line-start="23" data-line-end="24">Asset copy feature has been introduced. It can be used to copy one or several assets to the same or a different AMS account. It supports VOD and live archive assets. The destination storage account attached to the account can also be selected.</li>
-<li class="has-line-data" data-line-start="24" data-line-end="25">Optimization of REST calls for the background assets listing</li>
-<li class="has-line-data" data-line-start="25" data-line-end="26">When submitting a job, the output asset name can now be customized</li>
-<li class="has-line-data" data-line-start="26" data-line-end="27">A short GUID of 10 characters is now used as uniqueness</li>
-<li class="has-line-data" data-line-start="27" data-line-end="28">Displays an example of Az Cli syntax at start</li>
-<li class="has-line-data" data-line-start="28" data-line-end="29">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="31" data-line-end="32">Version 5.0.14.0 (December 6, 2019) brings the following features and improvements:</p>
-<ul>
-<li class="has-line-data" data-line-start="33" data-line-end="34">It’s now possible to select an existing asset as an output of a new job. It allows to output several jobs to the same asset.</li>
-<li class="has-line-data" data-line-start="34" data-line-end="35">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="37" data-line-end="38">Version 5.0.13.0 (November 26, 2019) brings the following features and improvements:</p>
-<ul>
-<li class="has-line-data" data-line-start="39" data-line-end="40">AMSE uses a new way to generate asset name for output asset. Output asset name is now based on source asset name + Transform name + a short random GUID. This should make the search for assets easier : for example, using the search option “Asset name (starts with)” and specifying the source asset name should now return related output assets too.</li>
-<li class="has-line-data" data-line-start="40" data-line-end="41">Nugget packages update</li>
-<li class="has-line-data" data-line-start="41" data-line-end="42">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="44" data-line-end="45">Version 5.0.12.0 (October 14, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="46" data-line-end="47">New empty asset creation feature</li>
-<li class="has-line-data" data-line-start="47" data-line-end="48">Now it is possible to configure some advanced options for new assets, like the container name</li>
-<li class="has-line-data" data-line-start="48" data-line-end="49">Portions of the code moved to Async for better UI responsiveness (work on going)</li>
-<li class="has-line-data" data-line-start="49" data-line-end="50">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="52" data-line-end="53">Version 5.0.11.0 (September 20, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="54" data-line-end="55">Multi DRM (with Apple FairPlay) support when creating a locator</li>
-<li class="has-line-data" data-line-start="55" data-line-end="56">Better High DPI support (for Windows 10), several UI updates</li>
-<li class="has-line-data" data-line-start="56" data-line-end="57">Portions of the code moved to Async for better UI responsiveness (work on going)</li>
-<li class="has-line-data" data-line-start="57" data-line-end="58">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="60" data-line-end="61">Version 5.0.10.0 (September 9, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="62" data-line-end="63">Subclipping (preview) - for live and vod, with codec copy or transcoding</li>
-<li class="has-line-data" data-line-start="63" data-line-end="64">Better High DPI support (for Windows 10), several UI updates</li>
-<li class="has-line-data" data-line-start="64" data-line-end="65">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="67" data-line-end="68">Version 5.0.9.0 (August 23, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="69" data-line-end="70">Adds an option to create an Audio and Video streams copy preset for Media Encoder Standard</li>
-<li class="has-line-data" data-line-start="70" data-line-end="71">Fixes an issue with REST v2 call (deadlock)</li>
-<li class="has-line-data" data-line-start="71" data-line-end="72">All nuget packages were updated to latest version</li>
-</ul>
-<p class="has-line-data" data-line-start="74" data-line-end="75">Version 5.0.7.0 (July 30, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="76" data-line-end="77">Add an option in ‘Transforms &amp; Jobs’ tab to scale media reserved units using old AMS v2 REST API</li>
-<li class="has-line-data" data-line-start="77" data-line-end="78">There is now a way to generate a DRM token from Asset Information / Content Protection tab</li>
-<li class="has-line-data" data-line-start="78" data-line-end="79">Add .mpd and .m3u8 extensions to DASH and HLS Urls</li>
-<li class="has-line-data" data-line-start="79" data-line-end="80">UI update to make it more different from v4</li>
-<li class="has-line-data" data-line-start="80" data-line-end="81">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="83" data-line-end="84">Version 5.0.6.0 (July 17, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="85" data-line-end="86">Custom block size to leverage <a href="https://azure.microsoft.com/en-us/blog/high-throughput-with-azure-blob-storage/">Azure Storage high-throughput</a> for video file upload</li>
-<li class="has-line-data" data-line-start="86" data-line-end="87">Support for DRM token replay prevention (preview)</li>
-<li class="has-line-data" data-line-start="87" data-line-end="88">Job creation UI update</li>
-<li class="has-line-data" data-line-start="88" data-line-end="89">Application upgraded to .Net Framework 4.7</li>
-<li class="has-line-data" data-line-start="89" data-line-end="90">AMSE string in REST request user-agent</li>
-<li class="has-line-data" data-line-start="90" data-line-end="91">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="93" data-line-end="94">Version 5.0.5.0 (July 4, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="95" data-line-end="96">Support for time trimming when submitting a job from a transform (for MES presets)</li>
-<li class="has-line-data" data-line-start="96" data-line-end="97">Redesign of the job submit UI, transform info UI, job info UI, Transforms/Jobs panel UI</li>
-<li class="has-line-data" data-line-start="97" data-line-end="98">Fixes an issue when filtering assets based on assetid</li>
-<li class="has-line-data" data-line-start="98" data-line-end="99">Adds support for filtering assets using a beginwith method on asset name</li>
-<li class="has-line-data" data-line-start="99" data-line-end="100">It’s now possible to select the locator in the UI when playing back an asset</li>
-<li class="has-line-data" data-line-start="100" data-line-end="101">Displays the streaming URLs when a live output has been created and no data has yet arrived in it</li>
-<li class="has-line-data" data-line-start="101" data-line-end="102">Bug fixes</li>
-</ul>
-<p class="has-line-data" data-line-start="104" data-line-end="105">Version 5.0.4.1 (June 12, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="106" data-line-end="108">Support for <a href="https://azure.microsoft.com/en-us/updates/premium-live-encoder-now-supports-streaming-at-1080p-and-30-frames-per-second/">Premium Live encoder</a> when creating a live event. This encoder supports up to 1080p and 30 frames per second
-<ul>
-<li class="has-line-data" data-line-start="107" data-line-end="108">Live event creation UI updated with default preset info</li>
+<li class="has-line-data" data-line-start="21" data-line-end="22">Support for Job start and end times display. Duration of jobs are also displayed.</li>
+<li class="has-line-data" data-line-start="22" data-line-end="23">Support for the new FairPlay dual expiry settings (rentals)</li>
+<li class="has-line-data" data-line-start="23" data-line-end="24">New ContentAwareEncoding MES preset (GA)</li>
 </ul>
 </li>
-<li class="has-line-data" data-line-start="108" data-line-end="109">Redesign of locator creation UI to support <a href="https://docs.microsoft.com/bs-latn-ba/azure/media-services/latest/filters-concept#associating-filters-with-streaming-locator">associated filters</a></li>
-<li class="has-line-data" data-line-start="109" data-line-end="110">Number of filters and publication expiration now displayed in asset list</li>
-<li class="has-line-data" data-line-start="110" data-line-end="111">Media SDK update to latest version</li>
-<li class="has-line-data" data-line-start="111" data-line-end="112">Bug fixes</li>
+<li class="has-line-data" data-line-start="24" data-line-end="25">Asset copy feature has been introduced. It can be used to copy one or several assets to the same or a different AMS account. It supports VOD and live archive assets. The destination storage account attached to the account can also be selected.</li>
+<li class="has-line-data" data-line-start="25" data-line-end="26">Optimization of REST calls for the background assets listing</li>
+<li class="has-line-data" data-line-start="26" data-line-end="27">When submitting a job, the output asset name can now be customized</li>
+<li class="has-line-data" data-line-start="27" data-line-end="28">A short GUID of 10 characters is now used as uniqueness</li>
+<li class="has-line-data" data-line-start="28" data-line-end="29">Displays an example of Az Cli syntax at start</li>
+<li class="has-line-data" data-line-start="29" data-line-end="30">Bug fixes</li>
 </ul>
-<p class="has-line-data" data-line-start="114" data-line-end="115">Version 5.0.3.0 (June 3, 2019) brings the following features and improvements :</p>
+<p class="has-line-data" data-line-start="32" data-line-end="33">Version 5.0.14.0 (December 6, 2019) brings the following features and improvements:</p>
 <ul>
-<li class="has-line-data" data-line-start="116" data-line-end="117">Support for face detector preset</li>
-<li class="has-line-data" data-line-start="117" data-line-end="120">Major update on content protection for AMS v3 :
+<li class="has-line-data" data-line-start="34" data-line-end="35">It’s now possible to select an existing asset as an output of a new job. It allows to output several jobs to the same asset.</li>
+<li class="has-line-data" data-line-start="35" data-line-end="36">Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="38" data-line-end="39">Version 5.0.13.0 (November 26, 2019) brings the following features and improvements:</p>
 <ul>
-<li class="has-line-data" data-line-start="118" data-line-end="119">More info for content protection in asset info (streaming policy, content keys, content key policy)</li>
-<li class="has-line-data" data-line-start="119" data-line-end="120">When creating a locator: support for all predefined streaming policies (except FairPlay), with setup of options for PlayReady and Widevine for CENC policy</li>
+<li class="has-line-data" data-line-start="40" data-line-end="41">AMSE uses a new way to generate asset name for output asset. Output asset name is now based on source asset name + Transform name + a short random GUID. This should make the search for assets easier : for example, using the search option “Asset name (starts with)” and specifying the source asset name should now return related output assets too.</li>
+<li class="has-line-data" data-line-start="41" data-line-end="42">Nugget packages update</li>
+<li class="has-line-data" data-line-start="42" data-line-end="43">Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="45" data-line-end="46">Version 5.0.12.0 (October 14, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="47" data-line-end="48">New empty asset creation feature</li>
+<li class="has-line-data" data-line-start="48" data-line-end="49">Now it is possible to configure some advanced options for new assets, like the container name</li>
+<li class="has-line-data" data-line-start="49" data-line-end="50">Portions of the code moved to Async for better UI responsiveness (work on going)</li>
+<li class="has-line-data" data-line-start="50" data-line-end="51">Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="53" data-line-end="54">Version 5.0.11.0 (September 20, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="55" data-line-end="56">Multi DRM (with Apple FairPlay) support when creating a locator</li>
+<li class="has-line-data" data-line-start="56" data-line-end="57">Better High DPI support (for Windows 10), several UI updates</li>
+<li class="has-line-data" data-line-start="57" data-line-end="58">Portions of the code moved to Async for better UI responsiveness (work on going)</li>
+<li class="has-line-data" data-line-start="58" data-line-end="59">Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="61" data-line-end="62">Version 5.0.10.0 (September 9, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="63" data-line-end="64">Subclipping (preview) - for live and vod, with codec copy or transcoding</li>
+<li class="has-line-data" data-line-start="64" data-line-end="65">Better High DPI support (for Windows 10), several UI updates</li>
+<li class="has-line-data" data-line-start="65" data-line-end="66">Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="68" data-line-end="69">Version 5.0.9.0 (August 23, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="70" data-line-end="71">Adds an option to create an Audio and Video streams copy preset for Media Encoder Standard</li>
+<li class="has-line-data" data-line-start="71" data-line-end="72">Fixes an issue with REST v2 call (deadlock)</li>
+<li class="has-line-data" data-line-start="72" data-line-end="73">All nuget packages were updated to latest version</li>
+</ul>
+<p class="has-line-data" data-line-start="75" data-line-end="76">Version 5.0.7.0 (July 30, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="77" data-line-end="78">Add an option in ‘Transforms &amp; Jobs’ tab to scale media reserved units using old AMS v2 REST API</li>
+<li class="has-line-data" data-line-start="78" data-line-end="79">There is now a way to generate a DRM token from Asset Information / Content Protection tab</li>
+<li class="has-line-data" data-line-start="79" data-line-end="80">Add .mpd and .m3u8 extensions to DASH and HLS Urls</li>
+<li class="has-line-data" data-line-start="80" data-line-end="81">UI update to make it more different from v4</li>
+<li class="has-line-data" data-line-start="81" data-line-end="82">Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="84" data-line-end="85">Version 5.0.6.0 (July 17, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="86" data-line-end="87">Custom block size to leverage <a href="https://azure.microsoft.com/en-us/blog/high-throughput-with-azure-blob-storage/">Azure Storage high-throughput</a> for video file upload</li>
+<li class="has-line-data" data-line-start="87" data-line-end="88">Support for DRM token replay prevention (preview)</li>
+<li class="has-line-data" data-line-start="88" data-line-end="89">Job creation UI update</li>
+<li class="has-line-data" data-line-start="89" data-line-end="90">Application upgraded to .Net Framework 4.7</li>
+<li class="has-line-data" data-line-start="90" data-line-end="91">AMSE string in REST request user-agent</li>
+<li class="has-line-data" data-line-start="91" data-line-end="92">Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="94" data-line-end="95">Version 5.0.5.0 (July 4, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="96" data-line-end="97">Support for time trimming when submitting a job from a transform (for MES presets)</li>
+<li class="has-line-data" data-line-start="97" data-line-end="98">Redesign of the job submit UI, transform info UI, job info UI, Transforms/Jobs panel UI</li>
+<li class="has-line-data" data-line-start="98" data-line-end="99">Fixes an issue when filtering assets based on assetid</li>
+<li class="has-line-data" data-line-start="99" data-line-end="100">Adds support for filtering assets using a beginwith method on asset name</li>
+<li class="has-line-data" data-line-start="100" data-line-end="101">It’s now possible to select the locator in the UI when playing back an asset</li>
+<li class="has-line-data" data-line-start="101" data-line-end="102">Displays the streaming URLs when a live output has been created and no data has yet arrived in it</li>
+<li class="has-line-data" data-line-start="102" data-line-end="103">Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="105" data-line-end="106">Version 5.0.4.1 (June 12, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="107" data-line-end="109">Support for <a href="https://azure.microsoft.com/en-us/updates/premium-live-encoder-now-supports-streaming-at-1080p-and-30-frames-per-second/">Premium Live encoder</a> when creating a live event. This encoder supports up to 1080p and 30 frames per second
+<ul>
+<li class="has-line-data" data-line-start="108" data-line-end="109">Live event creation UI updated with default preset info</li>
 </ul>
 </li>
-<li class="has-line-data" data-line-start="120" data-line-end="121">Bug fixes : interactive token renewal, filters are back in streaming endpoint selection, download only locator display fix</li>
-<li class="has-line-data" data-line-start="121" data-line-end="122">Solve an issue with High DPI screen and Live tab</li>
+<li class="has-line-data" data-line-start="109" data-line-end="110">Redesign of locator creation UI to support <a href="https://docs.microsoft.com/bs-latn-ba/azure/media-services/latest/filters-concept#associating-filters-with-streaming-locator">associated filters</a></li>
+<li class="has-line-data" data-line-start="110" data-line-end="111">Number of filters and publication expiration now displayed in asset list</li>
+<li class="has-line-data" data-line-start="111" data-line-end="112">Media SDK update to latest version</li>
+<li class="has-line-data" data-line-start="112" data-line-end="113">Bug fixes</li>
 </ul>
-<p class="has-line-data" data-line-start="124" data-line-end="125">Version 5.0.2.0 (May 13, 2019) brings the following features and improvements :</p>
+<p class="has-line-data" data-line-start="115" data-line-end="116">Version 5.0.3.0 (June 3, 2019) brings the following features and improvements :</p>
 <ul>
-<li class="has-line-data" data-line-start="126" data-line-end="127">Code update to support High DPI screen</li>
-<li class="has-line-data" data-line-start="127" data-line-end="128">Support for SAS Urls creation, and asset import from SAS Container path</li>
-<li class="has-line-data" data-line-start="128" data-line-end="129">Update to latest ADAL SDK and other librairies</li>
-<li class="has-line-data" data-line-start="129" data-line-end="130">Bug fixes</li>
+<li class="has-line-data" data-line-start="117" data-line-end="118">Support for face detector preset</li>
+<li class="has-line-data" data-line-start="118" data-line-end="121">Major update on content protection for AMS v3 :
+<ul>
+<li class="has-line-data" data-line-start="119" data-line-end="120">More info for content protection in asset info (streaming policy, content keys, content key policy)</li>
+<li class="has-line-data" data-line-start="120" data-line-end="121">When creating a locator: support for all predefined streaming policies (except FairPlay), with setup of options for PlayReady and Widevine for CENC policy</li>
 </ul>
-<p class="has-line-data" data-line-start="132" data-line-end="133">Version 5.0.1.0 (April 19, 2019) brings the following features and improvements :</p>
-<ul>
-<li class="has-line-data" data-line-start="134" data-line-end="135">Support for <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/cae-experimental">experimental preset for content-aware encoding</a></li>
-<li class="has-line-data" data-line-start="135" data-line-end="136">Content keys are now displayed in asset info UI</li>
-<li class="has-line-data" data-line-start="136" data-line-end="137">Some deadlocks were removed, better management of authentication token renewal</li>
-<li class="has-line-data" data-line-start="137" data-line-end="138">AMS v2 SDK has been removed from code and binary, AMS v3 and Storage SDKs updated to latest version</li>
-<li class="has-line-data" data-line-start="138" data-line-end="139">Bug fixes</li>
+</li>
+<li class="has-line-data" data-line-start="121" data-line-end="122">Bug fixes : interactive token renewal, filters are back in streaming endpoint selection, download only locator display fix</li>
+<li class="has-line-data" data-line-start="122" data-line-end="123">Solve an issue with High DPI screen and Live tab</li>
 </ul>
-<p class="has-line-data" data-line-start="141" data-line-end="142">Version 5.0.0.21 Preview (March 27, 2019) brings the following features and improvements :</p>
+<p class="has-line-data" data-line-start="125" data-line-end="126">Version 5.0.2.0 (May 13, 2019) brings the following features and improvements :</p>
 <ul>
-<li class="has-line-data" data-line-start="143" data-line-end="144">Critical bug fixes and performance optimizations</li>
+<li class="has-line-data" data-line-start="127" data-line-end="128">Code update to support High DPI screen</li>
+<li class="has-line-data" data-line-start="128" data-line-end="129">Support for SAS Urls creation, and asset import from SAS Container path</li>
+<li class="has-line-data" data-line-start="129" data-line-end="130">Update to latest ADAL SDK and other librairies</li>
+<li class="has-line-data" data-line-start="130" data-line-end="131">Bug fixes</li>
 </ul>
-<p class="has-line-data" data-line-start="146" data-line-end="147">Version 5.0.0.17 Preview (March 18, 2019) brings the following features and improvements :</p>
+<p class="has-line-data" data-line-start="133" data-line-end="134">Version 5.0.1.0 (April 19, 2019) brings the following features and improvements :</p>
 <ul>
-<li class="has-line-data" data-line-start="148" data-line-end="149">Support for multi tenant browsing when adding an account</li>
-<li class="has-line-data" data-line-start="149" data-line-end="150">Support for Live Output outputSnapTime</li>
-<li class="has-line-data" data-line-start="150" data-line-end="151">Started implementation of content protection setup when publishing an asset - clear key mode</li>
-<li class="has-line-data" data-line-start="151" data-line-end="152">Athentication token is now refreshed when expired - this was causing crashes</li>
-<li class="has-line-data" data-line-start="152" data-line-end="153">Better error management for some live entities operations</li>
-<li class="has-line-data" data-line-start="153" data-line-end="154">Bug fixes</li>
+<li class="has-line-data" data-line-start="135" data-line-end="136">Support for <a href="https://docs.microsoft.com/en-us/azure/media-services/latest/cae-experimental">experimental preset for content-aware encoding</a></li>
+<li class="has-line-data" data-line-start="136" data-line-end="137">Content keys are now displayed in asset info UI</li>
+<li class="has-line-data" data-line-start="137" data-line-end="138">Some deadlocks were removed, better management of authentication token renewal</li>
+<li class="has-line-data" data-line-start="138" data-line-end="139">AMS v2 SDK has been removed from code and binary, AMS v3 and Storage SDKs updated to latest version</li>
+<li class="has-line-data" data-line-start="139" data-line-end="140">Bug fixes</li>
 </ul>
-<p class="has-line-data" data-line-start="156" data-line-end="157">Version 5.0.0.16 Preview (February 4, 2019) brings the following features and improvements :</p>
+<p class="has-line-data" data-line-start="142" data-line-end="143">Version 5.0.0.21 Preview (March 27, 2019) brings the following features and improvements :</p>
 <ul>
-<li class="has-line-data" data-line-start="158" data-line-end="159">Support for Azure national clouds authentication</li>
-<li class="has-line-data" data-line-start="159" data-line-end="160">Corrected file and asset size calculation (now 1 GB = 1000 MB)</li>
-<li class="has-line-data" data-line-start="160" data-line-end="161">Major Bug fixes</li>
+<li class="has-line-data" data-line-start="144" data-line-end="145">Critical bug fixes and performance optimizations</li>
 </ul>
-<p class="has-line-data" data-line-start="163" data-line-end="164">Version 5.0.0.12 Preview (January 11, 2019) brings the following features and improvements :</p>
+<p class="has-line-data" data-line-start="147" data-line-end="148">Version 5.0.0.17 Preview (March 18, 2019) brings the following features and improvements :</p>
 <ul>
-<li class="has-line-data" data-line-start="165" data-line-end="166">Displays capacity used by storage account, and support for storage settings</li>
-<li class="has-line-data" data-line-start="166" data-line-end="167">Major Bug fixes</li>
+<li class="has-line-data" data-line-start="149" data-line-end="150">Support for multi tenant browsing when adding an account</li>
+<li class="has-line-data" data-line-start="150" data-line-end="151">Support for Live Output outputSnapTime</li>
+<li class="has-line-data" data-line-start="151" data-line-end="152">Started implementation of content protection setup when publishing an asset - clear key mode</li>
+<li class="has-line-data" data-line-start="152" data-line-end="153">Athentication token is now refreshed when expired - this was causing crashes</li>
+<li class="has-line-data" data-line-start="153" data-line-end="154">Better error management for some live entities operations</li>
+<li class="has-line-data" data-line-start="154" data-line-end="155">Bug fixes</li>
 </ul>
-<p class="has-line-data" data-line-start="169" data-line-end="170">Version 5.0.0.11 Preview (January 8, 2019) brings the following features and improvements :</p>
+<p class="has-line-data" data-line-start="157" data-line-end="158">Version 5.0.0.16 Preview (February 4, 2019) brings the following features and improvements :</p>
 <ul>
-<li class="has-line-data" data-line-start="171" data-line-end="172">First public preview of AMSE for AMS v3</li>
+<li class="has-line-data" data-line-start="159" data-line-end="160">Support for Azure national clouds authentication</li>
+<li class="has-line-data" data-line-start="160" data-line-end="161">Corrected file and asset size calculation (now 1 GB = 1000 MB)</li>
+<li class="has-line-data" data-line-start="161" data-line-end="162">Major Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="164" data-line-end="165">Version 5.0.0.12 Preview (January 11, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="166" data-line-end="167">Displays capacity used by storage account, and support for storage settings</li>
+<li class="has-line-data" data-line-start="167" data-line-end="168">Major Bug fixes</li>
+</ul>
+<p class="has-line-data" data-line-start="170" data-line-end="171">Version 5.0.0.11 Preview (January 8, 2019) brings the following features and improvements :</p>
+<ul>
+<li class="has-line-data" data-line-start="172" data-line-end="173">First public preview of AMSE for AMS v3</li>
 </ul>
 </body></html>
