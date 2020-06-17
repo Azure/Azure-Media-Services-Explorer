@@ -102,6 +102,12 @@ namespace AMSExplorer
                     }
                 }
 
+                // Generate PlayRight
+                if (objContentKeyPolicyPlayReadyLicense.PlayRight == null)
+                {
+                    objContentKeyPolicyPlayReadyLicense.PlayRight = new ContentKeyPolicyPlayReadyPlayRight();
+                }
+
                 if (checkBoxFPExp.Checked)
                 {
                     objContentKeyPolicyPlayReadyLicense.PlayRight.FirstPlayExpiration = new TimeSpan((int)numericUpDownFPExpDays.Value, (int)numericUpDownFPExpHours.Value, (int)numericUpDownFPExpMinutes.Value, 0);
@@ -110,11 +116,6 @@ namespace AMSExplorer
                 if (checkBoxGrace.Checked)
                 {
                     objContentKeyPolicyPlayReadyLicense.GracePeriod = new TimeSpan((int)numericUpDownGraceDays.Value, (int)numericUpDownGraceHours.Value, (int)numericUpDownGraceMin.Value, 0);
-                }
-
-                if (objContentKeyPolicyPlayReadyLicense.PlayRight == null)
-                {
-                    objContentKeyPolicyPlayReadyLicense.PlayRight = new ContentKeyPolicyPlayReadyPlayRight();
                 }
 
                 if (checkBoxCompressedDigitalAudioOPL.Checked)
@@ -163,8 +164,6 @@ namespace AMSExplorer
                     objContentKeyPolicyPlayReadyLicense.PlayRight.AllowPassingVideoContentToUnknownOutput = ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown;
                 }
 
-
-
                 if (comboBoxContentType.SelectedItem?.ToString() == ContentKeyPolicyPlayReadyContentType.UltraVioletDownload)
                 {
                     objContentKeyPolicyPlayReadyLicense.ContentType = ContentKeyPolicyPlayReadyContentType.UltraVioletDownload;
@@ -183,6 +182,7 @@ namespace AMSExplorer
                 }
 
                 return objContentKeyPolicyPlayReadyConfiguration;
+                               
             }
         }
 
