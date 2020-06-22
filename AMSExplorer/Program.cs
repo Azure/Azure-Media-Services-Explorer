@@ -665,7 +665,7 @@ namespace AMSExplorer
 
         public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-create-account";
         public const string LinkAMSAADAut = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-get-started-with-aad";
-        public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-cli-how-to#access-the-media-services-api";
+        public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-cli-how-to";
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
@@ -2736,7 +2736,7 @@ namespace AMSExplorer
         public IEnumerable<IListBlobItem> Blobs;
     }
 
-    public class JsonFromAzureCli
+    public class JsonFromAzureCliOrPortal
     {
         public string AadClientId { get; set; }
         public Uri AadEndpoint { get; set; }
@@ -2746,6 +2746,7 @@ namespace AMSExplorer
         public Uri ArmAadAudience { get; set; }
         public Uri ArmEndpoint { get; set; }
         public string Region { get; set; }
+        public string Location { get; set; }
         public string ResourceGroup { get; set; }
         public string SubscriptionId { get; set; }
     }

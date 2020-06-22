@@ -500,8 +500,8 @@ namespace AMSExplorer
                 }
 
 
-                // Get info from the Azure CLI JSON
-                else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliJson)
+                // Get info from the Portal oçr Azure CLI JSON
+                else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliOrPortalJson)
                 {
                     string example = @"{
   ""AadClientId"": ""00000000-0000-0000-0000-000000000000"",
@@ -515,14 +515,14 @@ namespace AMSExplorer
   ""ResourceGroup"": ""amsResourceGroup"",
   ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000""
 }";
-                    EditorXMLJSON form = new EditorXMLJSON("Enter the JSON output of Azure Cli Service Principal creation (az ams account sp create)", example, true, false, true, "The Service Principal secret is stored encrypted in the application settings.");
+                    EditorXMLJSON form = new EditorXMLJSON("Enter the JSON output of the Azure Portal or Azure Cli Service Principal creation", example, true, false, true, "The Service Principal secret is stored encrypted in the application settings.");
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        JsonFromAzureCli json = null;
+                        JsonFromAzureCliOrPortal json = null;
                         try
                         {
-                            json = (JsonFromAzureCli)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCli));
+                            json = (JsonFromAzureCliOrPortal)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCliOrPortal));
 
                         }
                         catch (Exception ex)
@@ -535,7 +535,7 @@ namespace AMSExplorer
 
                         ActiveDirectoryServiceSettings aadSettings = new ActiveDirectoryServiceSettings()
                         {
-                            AuthenticationEndpoint = json.AadEndpoint,
+                            AuthenticationEndpoint = json.AadEndpoint ?? new Uri("https://login.microsoftonline.com"),
                             TokenAudience = json.ArmAadAudience,
                             ValidateAuthority = true
                         };
@@ -543,7 +543,7 @@ namespace AMSExplorer
                         AzureEnvironment env = new AzureEnvironment(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
 
                         CredentialsEntryV3 entry = new CredentialsEntryV3(
-                                                        new SubscriptionMediaService(resourceId, json.AccountName, null, null, json.Region),
+                                                        new SubscriptionMediaService(resourceId, json.AccountName, null, null, json.Location ?? json.Region),
                                                         env,
                                                         PromptBehavior.Auto,
                                                         true,
