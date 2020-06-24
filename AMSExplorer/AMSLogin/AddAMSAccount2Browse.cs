@@ -34,14 +34,14 @@ namespace AMSExplorer
     {
         private TokenCredentials credentials;
         private readonly AzureEnvironment environment;
-        private readonly myTenant[] _myTenants;
+        private readonly List<TenantIdDescription> _myTenants;
         private readonly IPlatformParameters _parameters;
         private List<Subscription> subscriptions;
         private readonly Dictionary<string, List<SubscriptionMediaService>> allAMSAccountsPerSub = new Dictionary<string, List<SubscriptionMediaService>>();
         public SubscriptionMediaService selectedAccount = null;
         public string selectedTenantId = null;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, myTenant[] myTenants, IPlatformParameters parameters)
+        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants, IPlatformParameters parameters)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -56,7 +56,7 @@ namespace AMSExplorer
         {
             DpiUtils.InitPerMonitorDpi(this);
 
-            _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(string.Format("{0} ({1})", t.displayName, t.tenantId), t.tenantId)));
+            _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(string.Format("{0} ({1})", t.DisplayName, t.TenantId), t.TenantId)));
 
             if (_myTenants.Count() > 0)
             {

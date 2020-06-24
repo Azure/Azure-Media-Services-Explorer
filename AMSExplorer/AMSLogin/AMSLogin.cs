@@ -461,9 +461,26 @@ namespace AMSExplorer
                     }
 
 
-                    // tenants browsing
+                    // Tenants listing
+                    List<TenantIdDescription> tenants = new List<TenantIdDescription>();
+                    IPage<TenantIdDescription> tenantsPage = subscriptionClient.Tenants.List();
+                    while (tenantsPage != null)
+                    {
+                        tenants.AddRange(tenantsPage);
+                        if (tenantsPage.NextPageLink != null)
+                        {
+                            tenantsPage = subscriptionClient.Tenants.ListNext(tenantsPage.NextPageLink);
+                        }
+                        else
+                        {
+                            tenantsPage = null;
+                        }
+                    }
+
+                    /*
+                    // Tenants browsing
                     myTenants tenants = new myTenants();
-                    string URL = environment.ArmEndpoint + "tenants?api-version=2017-08-01";
+                    string URL = environment.ArmEndpoint + "tenants?api-version=2020-01-01";
 
                     HttpClient client = new HttpClient();
                     client.DefaultRequestHeaders.Remove("Authorization");
@@ -474,7 +491,8 @@ namespace AMSExplorer
                         string str = await response.Content.ReadAsStringAsync();
                         tenants = (myTenants)JsonConvert.DeserializeObject(str, typeof(myTenants));
                     }
-                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants.value, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto));
+                    */
+                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto));
 
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {
@@ -622,19 +640,5 @@ namespace AMSExplorer
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
         }
-    }
-
-
-    public class myTenant
-    {
-        public string Id { get; set; }
-        public string tenantId { get; set; }
-        public string countryCode { get; set; }
-        public string displayName { get; set; }
-    }
-
-    public class myTenants
-    {
-        public myTenant[] value { get; set; }
     }
 }
