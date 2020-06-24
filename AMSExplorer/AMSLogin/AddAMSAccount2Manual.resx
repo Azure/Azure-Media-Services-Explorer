@@ -433,13 +433,13 @@
     <value>43, 105</value>
   </data>
   <data name="labelRegion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 15</value>
+    <value>53, 15</value>
   </data>
   <data name="labelRegion.TabIndex" type="System.Int32, mscorlib">
     <value>88</value>
   </data>
   <data name="labelRegion.Text" xml:space="preserve">
-    <value>Region</value>
+    <value>Location</value>
   </data>
   <data name="&gt;&gt;labelRegion.Name" xml:space="preserve">
     <value>labelRegion</value>
