@@ -64,8 +64,13 @@ namespace AMSExplorer
             }
         }
 
+        /// <summary>
+        /// Build the tree of subscriptions.
+        /// </summary>
         private async void BuildSubTree()
         {
+            ClearDisplayInfoAccount();
+
             if (comboBoxTenants.SelectedItem == null)
             {
                 return;
@@ -131,72 +136,12 @@ namespace AMSExplorer
             treeViewAzureSub.EndUpdate();
         }
 
-        private void treeViewAzureSub_MouseClick(object sender, MouseEventArgs e)
-        {
-            TreeViewHitTestInfo hitTest = treeViewAzureSub.HitTest(e.Location);
-            if (hitTest.Location == TreeViewHitTestLocations.PlusMinus && hitTest.Node.IsExpanded)
-            {
-                // user clicked on the '+' button
 
-                Cursor = Cursors.WaitCursor;
 
-                Subscription selectedSubscription = subscriptions.Where(s => s.DisplayName == hitTest.Node.Text).FirstOrDefault();
-
-                // Getting Media Services accounts...
-                AzureMediaServicesClient mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
-                {
-                    SubscriptionId = selectedSubscription.SubscriptionId
-                };
-
-                List<SubscriptionMediaService> mediaServicesAccounts = new List<SubscriptionMediaService>();
-                IPage<SubscriptionMediaService> mediaServicesAccountsPage = mediaServicesClient.Mediaservices.ListBySubscription();
-                while (mediaServicesAccountsPage != null)
-                {
-                    mediaServicesAccounts.AddRange(mediaServicesAccountsPage);
-                    if (mediaServicesAccountsPage.NextPageLink != null)
-                    {
-                        mediaServicesAccountsPage = mediaServicesClient.Mediaservices.ListBySubscriptionNext(mediaServicesAccountsPage.NextPageLink);
-                    }
-                    else
-                    {
-                        mediaServicesAccountsPage = null;
-                    }
-                }
-
-                // let's save the data
-                allAMSAccountsPerSub[mediaServicesClient.SubscriptionId] = mediaServicesAccounts;
-
-                treeViewAzureSub.BeginUpdate();
-                hitTest.Node.Nodes.Clear();
-                foreach (SubscriptionMediaService mediaAcct in mediaServicesAccounts)
-                {
-                    TreeNode node = new TreeNode(mediaAcct.Name)
-                    {
-                        Tag = mediaAcct.Id
-                    };
-                    hitTest.Node.Nodes.Add(node);
-                }
-                treeViewAzureSub.EndUpdate();
-                Cursor = Cursors.Arrow;
-                buttonNext.Enabled = false;
-
-            }
-            else if (hitTest.Location == TreeViewHitTestLocations.Label && hitTest.Node.Level == 1)
-            {
-                List<SubscriptionMediaService> accounts = allAMSAccountsPerSub[(string)hitTest.Node.Parent.Tag];
-                SubscriptionMediaService account = accounts.Where(a => a.Id == (string)hitTest.Node.Tag).FirstOrDefault();
-
-                // let's display account info
-                DisplayInfoAccount(account);
-                selectedAccount = account;
-                buttonNext.Enabled = true;
-            }
-            else
-            {
-                buttonNext.Enabled = false;
-            }
-        }
-
+        /// <summary>
+        /// Display the AMS account info on the right.
+        /// </summary>
+        /// <param name="account"></param>
         private void DisplayInfoAccount(SubscriptionMediaService account)
         {
             DGAcct.Rows.Clear();
@@ -206,12 +151,45 @@ namespace AMSExplorer
 
             // acount info
             DGAcct.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGAcct.Rows.Add("Name", account.Name);
+            DGAcct.Rows.Add("AMS Account Name", account.Name);
             DGAcct.Rows.Add("Location", account.Location);
-            DGAcct.Rows.Add("Id", account.Id);
+            DGAcct.Rows.Add("Resource Group", GetResourceGroupNameFromId(account.Id));
             DGAcct.Rows.Add("MediaServiceId", account.MediaServiceId);
+
+            int i = 1;
+            foreach (var stor in account.StorageAccounts)
+            {
+                string add = stor.Type == StorageAccountType.Primary ? " (primary)" : string.Empty;
+                DGAcct.Rows.Add($"Storage account #{i}" + add, GetStorageNameFromId(stor.Id));
+                i++;
+            }
         }
 
+        private string GetResourceGroupNameFromId(string Id)
+        {
+            string[] idParts = Id.Split('/');
+            return idParts[4];
+        }
+
+        private string GetStorageNameFromId(string Id)
+        {
+            string[] idParts = Id.Split('/');
+            return idParts.Last();
+        }
+
+        /// <summary>
+        /// Clear the AMS account info on the right.
+        /// </summary>
+        private void ClearDisplayInfoAccount()
+        {
+            DGAcct.Rows.Clear();
+        }
+
+        /// <summary>
+        /// Fired when the selected tenant has changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxTenants_SelectedIndexChanged(object sender, EventArgs e)
         {
             BuildSubTree();
@@ -220,6 +198,74 @@ namespace AMSExplorer
         private void AddAMSAccount2Browse_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
+        }
+
+        private void treeViewAzureSub_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            // user clicked on the '+' button
+
+            Cursor = Cursors.WaitCursor;
+
+            Subscription selectedSubscription = subscriptions.Where(s => s.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
+
+            // Getting Media Services accounts...
+            AzureMediaServicesClient mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
+            {
+                SubscriptionId = selectedSubscription.SubscriptionId
+            };
+
+            List<SubscriptionMediaService> mediaServicesAccounts = new List<SubscriptionMediaService>();
+            IPage<SubscriptionMediaService> mediaServicesAccountsPage = mediaServicesClient.Mediaservices.ListBySubscription();
+            while (mediaServicesAccountsPage != null)
+            {
+                mediaServicesAccounts.AddRange(mediaServicesAccountsPage);
+                if (mediaServicesAccountsPage.NextPageLink != null)
+                {
+                    mediaServicesAccountsPage = mediaServicesClient.Mediaservices.ListBySubscriptionNext(mediaServicesAccountsPage.NextPageLink);
+                }
+                else
+                {
+                    mediaServicesAccountsPage = null;
+                }
+            }
+
+            // let's save the data
+            allAMSAccountsPerSub[mediaServicesClient.SubscriptionId] = mediaServicesAccounts;
+
+            treeViewAzureSub.BeginUpdate();
+            e.Node.Nodes.Clear();
+            foreach (SubscriptionMediaService mediaAcct in mediaServicesAccounts)
+            {
+                TreeNode node = new TreeNode(mediaAcct.Name)
+                {
+                    Tag = mediaAcct.Id
+                };
+                e.Node.Nodes.Add(node);
+            }
+            treeViewAzureSub.EndUpdate();
+            Cursor = Cursors.Arrow;
+            buttonNext.Enabled = false;
+
+        }
+
+        private void treeViewAzureSub_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+            if (e.Node.Level == 1)
+            {
+                List<SubscriptionMediaService> accounts = allAMSAccountsPerSub[(string)e.Node.Parent.Tag];
+                SubscriptionMediaService account = accounts.Where(a => a.Id == (string)e.Node.Tag).FirstOrDefault();
+
+                // let's display account info
+                DisplayInfoAccount(account);
+                selectedAccount = account;
+                buttonNext.Enabled = true;
+            }
+            else
+            {
+                ClearDisplayInfoAccount();
+                buttonNext.Enabled = false;
+            }
         }
     }
 }
