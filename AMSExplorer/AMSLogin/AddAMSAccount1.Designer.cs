@@ -39,10 +39,10 @@
             this.radioButtonAddManual = new System.Windows.Forms.RadioButton();
             this.comboBoxAADMappingList = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.linkLabelAzCliDoc = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelEnv = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelEnv.SuspendLayout();
@@ -121,6 +121,11 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
             // linkLabelAzCliDoc
             // 
             resources.ApplyResources(this.linkLabelAzCliDoc, "linkLabelAzCliDoc");
@@ -139,11 +144,6 @@
             this.panelEnv.Controls.Add(this.comboBoxAADMappingList);
             resources.ApplyResources(this.panelEnv, "panelEnv");
             this.panelEnv.Name = "panelEnv";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
             // 
             // AddAMSAccount1
             // 

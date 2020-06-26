@@ -136,8 +136,6 @@ namespace AMSExplorer
             treeViewAzureSub.EndUpdate();
         }
 
-
-
         /// <summary>
         /// Display the AMS account info on the right.
         /// </summary>
@@ -250,7 +248,6 @@ namespace AMSExplorer
 
         private void treeViewAzureSub_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
             if (e.Node.Level == 1)
             {
                 List<SubscriptionMediaService> accounts = allAMSAccountsPerSub[(string)e.Node.Parent.Tag];

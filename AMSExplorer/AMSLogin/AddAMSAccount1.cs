@@ -58,7 +58,7 @@ namespace AMSExplorer
 
         private void radioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)
         {
-            panelEnv.Visible = !radioButtonJsonCliOutput.Checked;
+            //panelEnv.Visible = !radioButtonJsonCliOutput.Checked;
         }
 
         private void linkLabelAzCliDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -2974,7 +2974,7 @@ namespace AMSExplorer
         public bool UseSPAuth = false;
         public string Description;
 
-        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironment environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false)
+        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironment environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
         {
             MediaService = mediaService;
             Environment = environment;
@@ -2982,6 +2982,11 @@ namespace AMSExplorer
             PromptUser = promptUser;
             ManualConfig = manualConfig;
             AadTenantId = tenantId;
+            if (useSPAuth)
+            {
+                ADSPClientId = adSPClientId;
+                ClearADSPClientSecret = clearADSPClientSecret;
+            }
         }
 
         public string AccountName => MediaService.Name;

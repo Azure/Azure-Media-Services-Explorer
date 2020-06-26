@@ -232,13 +232,13 @@
     <value>20, 41</value>
   </data>
   <data name="radioButtonAddAMSAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>283, 19</value>
+    <value>347, 19</value>
   </data>
   <data name="radioButtonAddAMSAccount.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="radioButtonAddAMSAccount.Text" xml:space="preserve">
-    <value>Browse your subscriptions and select an Account</value>
+    <value>Browse your subscriptions and select an account (interactive)</value>
   </data>
   <data name="&gt;&gt;radioButtonAddAMSAccount.Name" xml:space="preserve">
     <value>radioButtonAddAMSAccount</value>
@@ -289,13 +289,13 @@
     <value>20, 110</value>
   </data>
   <data name="radioButtonJsonCliOutput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 19</value>
+    <value>263, 19</value>
   </data>
   <data name="radioButtonJsonCliOutput.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
   </data>
   <data name="radioButtonJsonCliOutput.Text" xml:space="preserve">
-    <value>Use JSON API Access data</value>
+    <value>Service Principal, using JSON API Access data</value>
   </data>
   <data name="&gt;&gt;radioButtonJsonCliOutput.Name" xml:space="preserve">
     <value>radioButtonJsonCliOutput</value>
@@ -364,7 +364,7 @@
     <value>True</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 131</value>
+    <value>36, 135</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>464, 15</value>

@@ -413,7 +413,6 @@ namespace AMSExplorer
             AddAMSAccount1 addaccount1 = new AddAMSAccount1();
             if (addaccount1.ShowDialog() == DialogResult.OK)
             {
-
                 if (addaccount1.SelectedMode == AddAccountMode.BrowseSubscriptions)
                 {
                     environment = addaccount1.GetEnvironment();
@@ -459,7 +458,6 @@ namespace AMSExplorer
                             subscriptionsPage = null;
                         }
                     }
-
 
                     // Tenants listing
                     List<TenantIdDescription> tenants = new List<TenantIdDescription>();
@@ -518,7 +516,7 @@ namespace AMSExplorer
                 }
 
 
-                // Get info from the Portal oçr Azure CLI JSON
+                // Get info from the Portal or Azure CLI JSON
                 else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliOrPortalJson)
                 {
                     string example = @"{
@@ -541,7 +539,6 @@ namespace AMSExplorer
                         try
                         {
                             json = (JsonFromAzureCliOrPortal)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCliOrPortal));
-
                         }
                         catch (Exception ex)
                         {
@@ -551,9 +548,10 @@ namespace AMSExplorer
                         string resourceId = string.Format("/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}", json.SubscriptionId, json.ResourceGroup, json.AccountName);
                         string AADtenantId = json.AadTenantId;
 
+                        // environment
                         ActiveDirectoryServiceSettings aadSettings = new ActiveDirectoryServiceSettings()
                         {
-                            AuthenticationEndpoint = json.AadEndpoint ?? new Uri("https://login.microsoftonline.com"),
+                            AuthenticationEndpoint = json.AadEndpoint ?? addaccount1.GetEnvironment().AADSettings.AuthenticationEndpoint,
                             TokenAudience = json.ArmAadAudience,
                             ValidateAuthority = true
                         };
@@ -566,12 +564,10 @@ namespace AMSExplorer
                                                         PromptBehavior.Auto,
                                                         true,
                                                         AADtenantId,
-                                                        false
-                                                        )
-                        {
-                            ADSPClientId = json.AadClientId,
-                            ClearADSPClientSecret = json.AadSecret
-                        };
+                                                        false,
+                                                        json.AadClientId,
+                                                        json.AadSecret
+                                                        );
 
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);
