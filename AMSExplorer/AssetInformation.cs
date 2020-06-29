@@ -527,7 +527,6 @@ namespace AMSExplorer
             }
         }
 
-
         private void LocTreeAddTextEntryToNode(int indexLoc, int indexNode, string text, string value)
 
         {
@@ -928,7 +927,6 @@ namespace AMSExplorer
         {
             await DoDASHIFPlayerAsync();
         }
-
 
         private async void buttonHTML_Click(object sender, EventArgs e)
         {
@@ -2284,8 +2282,6 @@ namespace AMSExplorer
                         }
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
