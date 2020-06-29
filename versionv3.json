@@ -1,6 +1,6 @@
 {
-    "Version": "5.2.0.2",
+    "Version": "5.2.0.4",
     "ReleaseNotesUrl": "https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/ReleaseNotes.html",
     "AllReleaseNotesUrl": "https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/AllReleaseNotes.html",
-    "BinaryUrl": "https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.2.0.2.exe"
+    "BinaryUrl": "https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.2.0.4.exe"
 }

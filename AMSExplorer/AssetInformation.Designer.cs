@@ -64,6 +64,7 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonGenerateClientManifest = new System.Windows.Forms.Button();
             this.checkBoxListBlobsDirectories = new System.Windows.Forms.CheckBox();
             this.buttonGenerateServerManifest = new System.Windows.Forms.Button();
             this.buttonEditOnline = new System.Windows.Forms.Button();
@@ -124,7 +125,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonGenerateClientManifest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -443,6 +443,14 @@
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Enter += new System.EventHandler(this.tabPageBlobs_Enter);
+            // 
+            // buttonGenerateClientManifest
+            // 
+            resources.ApplyResources(this.buttonGenerateClientManifest, "buttonGenerateClientManifest");
+            this.buttonGenerateClientManifest.Name = "buttonGenerateClientManifest";
+            this.toolTip1.SetToolTip(this.buttonGenerateClientManifest, resources.GetString("buttonGenerateClientManifest.ToolTip"));
+            this.buttonGenerateClientManifest.UseVisualStyleBackColor = true;
+            this.buttonGenerateClientManifest.Click += new System.EventHandler(this.buttonGenerateClientManifest_Click);
             // 
             // checkBoxListBlobsDirectories
             // 
@@ -894,14 +902,6 @@
             this.panel1.Controls.Add(this.buttonClose);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // buttonGenerateClientManifest
-            // 
-            resources.ApplyResources(this.buttonGenerateClientManifest, "buttonGenerateClientManifest");
-            this.buttonGenerateClientManifest.Name = "buttonGenerateClientManifest";
-            this.toolTip1.SetToolTip(this.buttonGenerateClientManifest, resources.GetString("buttonGenerateClientManifest.ToolTip"));
-            this.buttonGenerateClientManifest.UseVisualStyleBackColor = true;
-            this.buttonGenerateClientManifest.Click += new System.EventHandler(this.buttonGenerateClientManifest_Click);
             // 
             // AssetInformation
             // 
