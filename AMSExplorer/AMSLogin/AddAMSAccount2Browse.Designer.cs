@@ -70,7 +70,8 @@
             // 
             resources.ApplyResources(this.treeViewAzureSub, "treeViewAzureSub");
             this.treeViewAzureSub.Name = "treeViewAzureSub";
-            this.treeViewAzureSub.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeViewAzureSub_MouseClick);
+            this.treeViewAzureSub.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewAzureSub_BeforeExpand);
+            this.treeViewAzureSub.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewAzureSub_AfterSelect);
             // 
             // DGAcct
             // 

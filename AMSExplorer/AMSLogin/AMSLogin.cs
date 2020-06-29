@@ -413,7 +413,6 @@ namespace AMSExplorer
             AddAMSAccount1 addaccount1 = new AddAMSAccount1();
             if (addaccount1.ShowDialog() == DialogResult.OK)
             {
-
                 if (addaccount1.SelectedMode == AddAccountMode.BrowseSubscriptions)
                 {
                     environment = addaccount1.GetEnvironment();
@@ -460,10 +459,26 @@ namespace AMSExplorer
                         }
                     }
 
+                    // Tenants listing
+                    List<TenantIdDescription> tenants = new List<TenantIdDescription>();
+                    IPage<TenantIdDescription> tenantsPage = subscriptionClient.Tenants.List();
+                    while (tenantsPage != null)
+                    {
+                        tenants.AddRange(tenantsPage);
+                        if (tenantsPage.NextPageLink != null)
+                        {
+                            tenantsPage = subscriptionClient.Tenants.ListNext(tenantsPage.NextPageLink);
+                        }
+                        else
+                        {
+                            tenantsPage = null;
+                        }
+                    }
 
-                    // tenants browsing
+                    /*
+                    // Tenants browsing
                     myTenants tenants = new myTenants();
-                    string URL = environment.ArmEndpoint + "tenants?api-version=2017-08-01";
+                    string URL = environment.ArmEndpoint + "tenants?api-version=2020-01-01";
 
                     HttpClient client = new HttpClient();
                     client.DefaultRequestHeaders.Remove("Authorization");
@@ -474,7 +489,8 @@ namespace AMSExplorer
                         string str = await response.Content.ReadAsStringAsync();
                         tenants = (myTenants)JsonConvert.DeserializeObject(str, typeof(myTenants));
                     }
-                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants.value, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto));
+                    */
+                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto));
 
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {
@@ -500,8 +516,8 @@ namespace AMSExplorer
                 }
 
 
-                // Get info from the Azure CLI JSON
-                else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliJson)
+                // Get info from the Portal or Azure CLI JSON
+                else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliOrPortalJson)
                 {
                     string example = @"{
   ""AadClientId"": ""00000000-0000-0000-0000-000000000000"",
@@ -515,15 +531,14 @@ namespace AMSExplorer
   ""ResourceGroup"": ""amsResourceGroup"",
   ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000""
 }";
-                    EditorXMLJSON form = new EditorXMLJSON("Enter the JSON output of Azure Cli Service Principal creation (az ams account sp create)", example, true, false, true, "The Service Principal secret is stored encrypted in the application settings.");
+                    EditorXMLJSON form = new EditorXMLJSON("Enter the JSON output of the Azure Portal or Azure Cli Service Principal creation", example, true, false, true, "The Service Principal secret is stored encrypted in the application settings.");
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        JsonFromAzureCli json = null;
+                        JsonFromAzureCliOrPortal json = null;
                         try
                         {
-                            json = (JsonFromAzureCli)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCli));
-
+                            json = (JsonFromAzureCliOrPortal)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCliOrPortal));
                         }
                         catch (Exception ex)
                         {
@@ -533,9 +548,10 @@ namespace AMSExplorer
                         string resourceId = string.Format("/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}", json.SubscriptionId, json.ResourceGroup, json.AccountName);
                         string AADtenantId = json.AadTenantId;
 
+                        // environment
                         ActiveDirectoryServiceSettings aadSettings = new ActiveDirectoryServiceSettings()
                         {
-                            AuthenticationEndpoint = json.AadEndpoint,
+                            AuthenticationEndpoint = json.AadEndpoint ?? addaccount1.GetEnvironment().AADSettings.AuthenticationEndpoint,
                             TokenAudience = json.ArmAadAudience,
                             ValidateAuthority = true
                         };
@@ -543,17 +559,15 @@ namespace AMSExplorer
                         AzureEnvironment env = new AzureEnvironment(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
 
                         CredentialsEntryV3 entry = new CredentialsEntryV3(
-                                                        new SubscriptionMediaService(resourceId, json.AccountName, null, null, json.Region),
+                                                        new SubscriptionMediaService(resourceId, json.AccountName, null, null, json.Location ?? json.Region),
                                                         env,
                                                         PromptBehavior.Auto,
                                                         true,
                                                         AADtenantId,
-                                                        false
-                                                        )
-                        {
-                            ADSPClientId = json.AadClientId,
-                            ClearADSPClientSecret = json.AadSecret
-                        };
+                                                        false,
+                                                        json.AadClientId,
+                                                        json.AadSecret
+                                                        );
 
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);
@@ -622,19 +636,5 @@ namespace AMSExplorer
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
         }
-    }
-
-
-    public class myTenant
-    {
-        public string Id { get; set; }
-        public string tenantId { get; set; }
-        public string countryCode { get; set; }
-        public string displayName { get; set; }
-    }
-
-    public class myTenants
-    {
-        public myTenant[] value { get; set; }
     }
 }

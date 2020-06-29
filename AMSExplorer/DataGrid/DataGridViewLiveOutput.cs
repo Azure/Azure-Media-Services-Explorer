@@ -202,7 +202,6 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
                 await _amsClient.RefreshTokenIfNeededAsync();
-
                 liveOutput = await _amsClient.AMSclient.LiveOutputs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveeventName, liveOutput.Name); //refresh
                 if (liveOutput != null)
                 {

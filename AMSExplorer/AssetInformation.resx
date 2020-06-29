@@ -1501,7 +1501,7 @@
     <value>System</value>
   </data>
   <data name="comboBoxKeys.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 3</value>
+    <value>96, 3</value>
   </data>
   <data name="comboBoxKeys.Size" type="System.Drawing.Size, System.Drawing">
     <value>213, 23</value>
@@ -1525,10 +1525,10 @@
     <value>Fill</value>
   </data>
   <data name="dataGridViewKeys.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 32</value>
+    <value>96, 32</value>
   </data>
   <data name="dataGridViewKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>753, 207</value>
+    <value>754, 207</value>
   </data>
   <data name="dataGridViewKeys.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
@@ -1552,7 +1552,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonGetDRMToken.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 245</value>
+    <value>96, 245</value>
   </data>
   <data name="buttonGetDRMToken.Size" type="System.Drawing.Size, System.Drawing">
     <value>213, 23</value>
@@ -1585,7 +1585,7 @@
     <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>316, 249</value>
+    <value>315, 249</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>204, 15</value>
@@ -1618,7 +1618,7 @@
     <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 271</value>
+    <value>96, 271</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>213, 30</value>
@@ -1645,10 +1645,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="comboBoxOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>316, 274</value>
+    <value>315, 274</value>
   </data>
   <data name="comboBoxOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 23</value>
+    <value>535, 23</value>
   </data>
   <data name="comboBoxOptions.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
@@ -1708,7 +1708,7 @@
     <value>5</value>
   </data>
   <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>853, 434</value>
+    <value>853, 432</value>
   </data>
   <data name="tableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
@@ -1726,7 +1726,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label6" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxKeys" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewKeys" Row="1" RowSpan="1" Column="1" ColumnSpan="2" /&gt;&lt;Control Name="buttonGetDRMToken" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label10" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOptions" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,30,Percent,70,Absolute,539" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label6" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxKeys" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewKeys" Row="1" RowSpan="1" Column="1" ColumnSpan="2" /&gt;&lt;Control Name="buttonGetDRMToken" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label10" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxOptions" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,30,Percent,70,Absolute,540" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabPage7.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -1735,7 +1735,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>859, 440</value>
+    <value>859, 438</value>
   </data>
   <data name="tabPage7.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

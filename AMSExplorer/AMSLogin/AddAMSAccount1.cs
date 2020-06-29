@@ -25,7 +25,7 @@ namespace AMSExplorer
 
         public bool SelectUser => checkBoxSelectUser.Checked;
 
-        public AddAccountMode SelectedMode => radioButtonAddAMSAccount.Checked ? AddAccountMode.BrowseSubscriptions : (radioButtonJsonCliOutput.Checked ? AddAccountMode.FromAzureCliJson : AddAccountMode.ManualEntry);
+        public AddAccountMode SelectedMode => radioButtonAddAMSAccount.Checked ? AddAccountMode.BrowseSubscriptions : (radioButtonJsonCliOutput.Checked ? AddAccountMode.FromAzureCliOrPortalJson : AddAccountMode.ManualEntry);
 
 
         public AddAMSAccount1()
@@ -58,7 +58,7 @@ namespace AMSExplorer
 
         private void radioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)
         {
-            panelEnv.Visible = !radioButtonJsonCliOutput.Checked;
+            //panelEnv.Visible = !radioButtonJsonCliOutput.Checked;
         }
 
         private void linkLabelAzCliDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -70,7 +70,7 @@ namespace AMSExplorer
     public enum AddAccountMode
     {
         BrowseSubscriptions = 0,
-        FromAzureCliJson,
+        FromAzureCliOrPortalJson,
         ManualEntry
     }
 }

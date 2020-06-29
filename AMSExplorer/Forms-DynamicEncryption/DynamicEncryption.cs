@@ -31,7 +31,6 @@ namespace AMSExplorer
     public enum ExplorerTokenType
     {
         NoToken = 0,
-        SWTSym,
         JWTSym,
         JWTX509,
         JWTOpenID

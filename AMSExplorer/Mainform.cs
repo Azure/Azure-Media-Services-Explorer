@@ -2323,7 +2323,7 @@ namespace AMSExplorer
             StringBuilder sbuilder = new StringBuilder();
             foreach (form_DRM_Config_TokenClaims tokenClaims in formTokenClaims)
             {
-                if (tokenClaims.GetDetailedTokenType == ExplorerTokenType.JWTSym)
+                if (tokenClaims.GetDetailedTokenType == ExplorerTokenType.JWTSym || tokenClaims.GetDetailedTokenType == ExplorerTokenType.JWTX509)
                 {
                     // We are using the ContentKeyIdentifierClaim in the ContentKeyPolicy which means that the token presented
                     // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
@@ -4427,12 +4427,20 @@ namespace AMSExplorer
             List<LiveEvent> SelectedLiveEvents = new List<LiveEvent>();
             foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
             {
-                // sometimes, the live event can be null (if just deleted)
-                LiveEvent liveEvent = await GetLiveEventAsync(Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString());
-
-                if (liveEvent != null)
+                string liveEventName = string.Empty;
+                try
                 {
-                    SelectedLiveEvents.Add(liveEvent);
+                    liveEventName = Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString();
+                    LiveEvent liveEvent = await GetLiveEventAsync(liveEventName);
+                    // sometimes, the live event can be null (if just deleted)
+                    if (liveEvent != null)
+                    {
+                        SelectedLiveEvents.Add(liveEvent);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error getting the live event : '{0}'.", liveEventName) + Constants.endline + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             SelectedLiveEvents.Reverse();
@@ -4462,10 +4470,20 @@ namespace AMSExplorer
 
             foreach (DataGridViewRow Row in dataGridViewLiveOutputV.SelectedRows)
             {
-                LiveOutput liveOutput = await GetLiveOutputAsync(Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
-                if (liveOutput != null)
+                string liveOutputName = string.Empty;
+                try
                 {
-                    SelectedLiveOutputs.Add(liveOutput);
+                    string eventName = Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString();
+                    liveOutputName = Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString();
+                    LiveOutput liveOutput = await GetLiveOutputAsync(eventName, liveOutputName);
+                    if (liveOutput != null)
+                    {
+                        SelectedLiveOutputs.Add(liveOutput);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error getting the live output : '{0}'.", liveOutputName) + Constants.endline + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             SelectedLiveOutputs.Reverse();
@@ -5797,26 +5815,45 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                LiveEvent liveEvent = Task.Run(async () => await GetLiveEventAsync(dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString())).Result;
-
-                if (liveEvent != null)
+                string liveEventName = string.Empty;
+                try
                 {
-                    await DoDisplayLiveEventInfoAsync((new List<LiveEvent>() { liveEvent }));
+                    liveEventName = dataGridViewLiveEventsV.Rows[e.RowIndex].Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString();
+                    LiveEvent liveEvent = await GetLiveEventAsync(liveEventName);
+                    // sometimes, the live event can be null (if just deleted)
+                    if (liveEvent != null)
+                    {
+                        await DoDisplayLiveEventInfoAsync((new List<LiveEvent>() { liveEvent }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error getting the live event : '{0}'.", liveEventName) + Constants.endline + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        private void dataGridViewProgramV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridViewProgramV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                //_amsClient.RefreshTokenIfNeeded();
+                string liveEventName = dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString();
+                string liveOutputName = dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString();
 
-                LiveOutput liveoutput = _amsClient.AMSclient.LiveOutputs.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString(), dataGridViewLiveOutputV.Rows[e.RowIndex].Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString());
-                if (liveoutput != null)
+                try
                 {
-                    DoDisplayLiveOutputInfo(new List<LiveOutput>() { liveoutput });
+                    LiveOutput liveoutput = await GetLiveOutputAsync(liveEventName, liveOutputName);
+                    if (liveoutput != null)
+                    {
+                        DoDisplayLiveOutputInfo(new List<LiveOutput>() { liveoutput });
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error getting the live output : '{0}'.", liveOutputName) + Constants.endline + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
         }
 
@@ -6469,6 +6506,8 @@ namespace AMSExplorer
                         }
                         else
                         {
+                            MessageBox.Show(string.Format("The asset '{0}' does not seem to be playable with adaptive streaming.", myAsset.Name), "Adaptive streaming", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                             /* v3 migration
 
                             // there is a streaming locator but the asset cannot be played back with adaptive streaming. It could be a single file in the asset.

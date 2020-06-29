@@ -232,13 +232,13 @@
     <value>20, 41</value>
   </data>
   <data name="radioButtonAddAMSAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>283, 19</value>
+    <value>347, 19</value>
   </data>
   <data name="radioButtonAddAMSAccount.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="radioButtonAddAMSAccount.Text" xml:space="preserve">
-    <value>Browse your subscriptions and select an Account</value>
+    <value>Browse your subscriptions and select an account (interactive)</value>
   </data>
   <data name="&gt;&gt;radioButtonAddAMSAccount.Name" xml:space="preserve">
     <value>radioButtonAddAMSAccount</value>
@@ -250,7 +250,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonAddAMSAccount.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="checkBoxSelectUser.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -277,7 +277,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;checkBoxSelectUser.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="radioButtonJsonCliOutput.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -289,13 +289,13 @@
     <value>20, 110</value>
   </data>
   <data name="radioButtonJsonCliOutput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 19</value>
+    <value>263, 19</value>
   </data>
   <data name="radioButtonJsonCliOutput.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
   </data>
   <data name="radioButtonJsonCliOutput.Text" xml:space="preserve">
-    <value>Use the JSON output from Azure Cli (az ams account sp create)</value>
+    <value>Service Principal, using JSON API Access data</value>
   </data>
   <data name="&gt;&gt;radioButtonJsonCliOutput.Name" xml:space="preserve">
     <value>radioButtonJsonCliOutput</value>
@@ -307,7 +307,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonJsonCliOutput.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="radioButtonAddManual.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -316,7 +316,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonAddManual.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 167</value>
+    <value>20, 184</value>
   </data>
   <data name="radioButtonAddManual.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 19</value>
@@ -337,7 +337,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonAddManual.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="comboBoxAADMappingList.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 15</value>
@@ -360,6 +360,33 @@
   <data name="&gt;&gt;comboBoxAADMappingList.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 135</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>464, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Output from the Azure portal (AMS API Access) or Azure Cli (az ams account sp create)</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="linkLabelAzCliDoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -370,7 +397,7 @@
     <value>NoControl</value>
   </data>
   <data name="linkLabelAzCliDoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 132</value>
+    <value>36, 155</value>
   </data>
   <data name="linkLabelAzCliDoc.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 15</value>
@@ -391,13 +418,13 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;linkLabelAzCliDoc.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 52</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>514, 207</value>
+    <value>514, 226</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>94</value>
@@ -448,7 +475,7 @@
     <value>0</value>
   </data>
   <data name="panelEnv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 275</value>
+    <value>28, 284</value>
   </data>
   <data name="panelEnv.Size" type="System.Drawing.Size, System.Drawing">
     <value>458, 54</value>

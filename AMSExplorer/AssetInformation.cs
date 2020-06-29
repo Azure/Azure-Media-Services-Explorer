@@ -2061,17 +2061,16 @@ namespace AMSExplorer
 
             ContentKeyPolicyTokenRestriction ckrestriction = (ContentKeyPolicyTokenRestriction)ckpolicy.Options.Where(o => o.PolicyOptionId == optionId).FirstOrDefault()?.Restriction;
 
-            // we support only symetric key
-            if (ckrestriction.PrimaryVerificationKey.GetType() != typeof(ContentKeyPolicySymmetricTokenKey)) return;
+            // we support only symmetric key
+            if (ckrestriction.PrimaryVerificationKey.GetType() != typeof(ContentKeyPolicySymmetricTokenKey))
+            {
+                MessageBox.Show("From the asset information dialog box, AMSE can only generate a test token key when the signing key in the policy is symmetric.", "Not a symmetric key", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             ContentKeyPolicySymmetricTokenKey SymKey = (ContentKeyPolicySymmetricTokenKey)ckrestriction.PrimaryVerificationKey;
 
-            // ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
-            //         _amsClient.credentialsEntry.AccountName, locatorName);
-
             string keyIdentifier = (comboBoxKeys.SelectedItem as Item).Value;
-
-            //string keyIdentifier = response.ContentKeys.First().Id.ToString();
 
             using (DRM_GenerateToken formTokenProperties = new DRM_GenerateToken())
             {
@@ -2084,12 +2083,6 @@ namespace AMSExplorer
 
                     List<Claim> claims = new List<Claim>();
 
-                    /*
-                    if (ckrestriction.RequiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
-                    {
-                        claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
-                    }
-                    */
                     foreach (var claim in ckrestriction.RequiredClaims)
                     {
                         if (claim.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType)
@@ -2106,7 +2099,6 @@ namespace AMSExplorer
                     {
                         claims.Add(new Claim("urn:microsoft:azure:mediaservices:maxuses", ((int)formTokenProperties.TokenUse).ToString()));
                     }
-
 
                     JwtSecurityToken token = new JwtSecurityToken(
                                                                 issuer: ckrestriction.Issuer,

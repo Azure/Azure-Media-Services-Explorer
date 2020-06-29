@@ -4472,9 +4472,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{F04F2E7C-FD3C-431B-86CE-45F2A608D31B}</td><td/></row>
+		<row><td>ProductCode</td><td>{7516732B-5B3D-4440-9255-3A89B6C2D150}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer for v3</td><td/></row>
-		<row><td>ProductVersion</td><td>5.2.0.0</td><td/></row>
+		<row><td>ProductVersion</td><td>5.2.0.3</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
