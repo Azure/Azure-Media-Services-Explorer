@@ -58,7 +58,7 @@ namespace AMSExplorer
             _amsClientV3 = amsClient;
             _multifilesMode = multifilesMode;
 
-            Task.Run(() => ControlsResetToDefaultAsync()).GetAwaiter().GetResult();
+            ControlsResetToDefault();
 
             if (multifilesMode)
             {
@@ -72,10 +72,10 @@ namespace AMSExplorer
             comboBoxBlockSize.SelectedIndex = 3;
         }
 
-        private async Task ControlsResetToDefaultAsync()
+        private void ControlsResetToDefault()
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            var storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
+            var storAccounts = Task.Run(() =>  _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).GetAwaiter().GetResult().StorageAccounts;
 
             comboBoxStorage.Items.Clear();
             foreach (Microsoft.Azure.Management.Media.Models.StorageAccount storage in storAccounts)
