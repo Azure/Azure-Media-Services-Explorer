@@ -209,23 +209,6 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-            /*
-            // nb assets limits
-
-            int nbassets = _amsClient.AMSclient.Assets.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName).Count();
-            largeAccount = nbassets > triggerForLargeAccountNbAssets;
-            if (largeAccount)
-            {
-                TextBoxLogWriteLine("This account contains a lot of assets. Some queries are disabled."); // Warning
-            }
-            if (nbassets > (0.75 * maxNbAssets))
-            {
-                TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
-            }
-            */
-
-
-
             // let's check the encoding reserved unit and type
             try
             {

@@ -20,6 +20,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -147,7 +148,7 @@ namespace AMSExplorer
         private async Task GetRefreshTokenIfNeededAsync(AMSClientV3 AmsClientV3)
         {
             // If Service Principal mode, let's authenticate now (if token expired or first time)
-            if (AmsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
+            if (AmsClientV3.credentialsEntry.UseSPAuth && AmsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
             {
 
 
@@ -203,6 +204,7 @@ namespace AMSExplorer
 
         public async Task<InfoMediaRU> GetInfoMediaRUAsync(AMSClientV3 AmsClientV3)
         {
+            Debug.WriteLine("GetInfoMediaRUAsync");
 
             await GetRefreshTokenIfNeededAsync(AmsClientV3);
             await GetRestAPIEndpointforAccountv2IfNeededAsync(AmsClientV3);

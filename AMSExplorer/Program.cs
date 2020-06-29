@@ -2823,14 +2823,7 @@ namespace AMSExplorer
                                         redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
                                         parameters: new PlatformParameters(credentialsEntry.PromptUser)
                                         );
-
-
-                        accessTokenForRestV2 = await authContext.AcquireTokenAsync(
-                                                                resource: environment.MediaServicesV2Resource,
-                                                                clientId: environment.ClientApplicationId,
-                                                                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                parameters: new PlatformParameters(credentialsEntry.PromptUser)
-                                                                );
+                      
                     }
 
                     catch (AdalException adalException)
@@ -2838,6 +2831,22 @@ namespace AMSExplorer
                         Debug.Print("Adal token interact exception !" + adalException.Message);
                     }
                 }
+
+
+                try
+                {
+                    accessTokenForRestV2 = await authContext.AcquireTokenAsync(
+                                                               resource: environment.MediaServicesV2Resource,
+                                                               clientId: environment.ClientApplicationId,
+                                                               redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
+                                                               parameters: new PlatformParameters(credentialsEntry.PromptUser)
+                                                               );
+                }
+                catch
+                {
+
+                }
+
 
                 credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
