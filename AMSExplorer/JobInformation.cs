@@ -264,7 +264,7 @@ namespace AMSExplorer
 
                 using (AssetInformation form = new AssetInformation(_mainform, _amsClient)
                 {
-                    myAssetV3 = asset,
+                    myAsset = asset,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
                 })
                 {

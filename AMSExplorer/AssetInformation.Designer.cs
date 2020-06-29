@@ -65,7 +65,7 @@
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkBoxListBlobsDirectories = new System.Windows.Forms.CheckBox();
-            this.buttonGenerateManifest = new System.Windows.Forms.Button();
+            this.buttonGenerateServerManifest = new System.Windows.Forms.Button();
             this.buttonEditOnline = new System.Windows.Forms.Button();
             this.buttonDeleteAll = new System.Windows.Forms.Button();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
@@ -124,6 +124,7 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonGenerateClientManifest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -425,8 +426,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonGenerateClientManifest);
             this.tabPage2.Controls.Add(this.checkBoxListBlobsDirectories);
-            this.tabPage2.Controls.Add(this.buttonGenerateManifest);
+            this.tabPage2.Controls.Add(this.buttonGenerateServerManifest);
             this.tabPage2.Controls.Add(this.buttonEditOnline);
             this.tabPage2.Controls.Add(this.buttonDeleteAll);
             this.tabPage2.Controls.Add(this.progressBarUpload);
@@ -449,13 +451,13 @@
             this.checkBoxListBlobsDirectories.UseVisualStyleBackColor = true;
             this.checkBoxListBlobsDirectories.CheckedChanged += new System.EventHandler(this.CheckBoxListBlobsDirectories_CheckedChanged);
             // 
-            // buttonGenerateManifest
+            // buttonGenerateServerManifest
             // 
-            resources.ApplyResources(this.buttonGenerateManifest, "buttonGenerateManifest");
-            this.buttonGenerateManifest.Name = "buttonGenerateManifest";
-            this.toolTip1.SetToolTip(this.buttonGenerateManifest, resources.GetString("buttonGenerateManifest.ToolTip"));
-            this.buttonGenerateManifest.UseVisualStyleBackColor = true;
-            this.buttonGenerateManifest.Click += new System.EventHandler(this.buttonGenerateManifest_Click);
+            resources.ApplyResources(this.buttonGenerateServerManifest, "buttonGenerateServerManifest");
+            this.buttonGenerateServerManifest.Name = "buttonGenerateServerManifest";
+            this.toolTip1.SetToolTip(this.buttonGenerateServerManifest, resources.GetString("buttonGenerateServerManifest.ToolTip"));
+            this.buttonGenerateServerManifest.UseVisualStyleBackColor = true;
+            this.buttonGenerateServerManifest.Click += new System.EventHandler(this.buttonGenerateManifest_Click);
             // 
             // buttonEditOnline
             // 
@@ -893,6 +895,14 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
+            // buttonGenerateClientManifest
+            // 
+            resources.ApplyResources(this.buttonGenerateClientManifest, "buttonGenerateClientManifest");
+            this.buttonGenerateClientManifest.Name = "buttonGenerateClientManifest";
+            this.toolTip1.SetToolTip(this.buttonGenerateClientManifest, resources.GetString("buttonGenerateClientManifest.ToolTip"));
+            this.buttonGenerateClientManifest.UseVisualStyleBackColor = true;
+            this.buttonGenerateClientManifest.Click += new System.EventHandler(this.buttonGenerateClientManifest_Click);
+            // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -1012,7 +1022,7 @@
         private System.Windows.Forms.Button buttonDeleteAll;
         private System.Windows.Forms.ToolStripMenuItem deleteAllBlobsToolStripMenuItem;
         private System.Windows.Forms.Button buttonEditOnline;
-        private System.Windows.Forms.Button buttonGenerateManifest;
+        private System.Windows.Forms.Button buttonGenerateServerManifest;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxPolicyLocators;
         private System.Windows.Forms.TextBox textBoxStreamingPolicyOfLocator;
@@ -1041,5 +1051,6 @@
         private System.Windows.Forms.Button buttonGetDRMToken;
         private System.Windows.Forms.DataGridView dataGridViewKeys;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button buttonGenerateClientManifest;
     }
 }

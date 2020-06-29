@@ -39,7 +39,7 @@ namespace AMSExplorer
 {
     public partial class AssetInformation : Form
     {
-        public Asset myAssetV3;
+        public Asset myAsset;
         private readonly AMSClientV3 _amsClient;
         public IEnumerable<StreamingEndpoint> myStreamingEndpoints;
         private readonly Mainform myMainForm;
@@ -49,6 +49,7 @@ namespace AMSExplorer
         private List<IListBlobItem> blobs = null;
         private List<StreamingLocatorContentKey> contentKeysForCurrentLocator;
         private AssetContainerSas _assetContainerSas = null;
+        private string _serverManifestName = null;
 
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient)
         {
@@ -183,7 +184,7 @@ namespace AMSExplorer
                 AssetContainerSas response;
                 try
                 {
-                    response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime);
+                    response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name, input.Permissions, input.ExpiryTime);
                 }
                 catch (Exception ex)
                 {
@@ -211,6 +212,10 @@ namespace AMSExplorer
             DGFiles.Rows.Clear();
             listViewBlobs.BeginUpdate();
 
+            bool serverManifestPresent = false;
+            bool clientManifestPresent = false;
+            _serverManifestName = null;
+
             BlobContinuationToken continuationToken = null;
             blobs = new List<IListBlobItem>();
 
@@ -227,7 +232,15 @@ namespace AMSExplorer
                         //  bl.FetchAttributes();
 
                         ListViewItem item = new ListViewItem(bl.Name, 0);
-
+                        if (bl.Name.ToLower().EndsWith(".ism"))
+                        {
+                            serverManifestPresent = true;
+                            _serverManifestName = bl.Name;
+                        }
+                        else if (bl.Name.ToLower().EndsWith(".ismc"))
+                        {
+                            clientManifestPresent = true;
+                        }
 
                         if (bl.Properties.Length == 0)
                         {
@@ -269,6 +282,8 @@ namespace AMSExplorer
 
             checkBoxListBlobsDirectories.Visible = proposeListBlobsInDir || checkBoxListBlobsDirectories.Visible;
 
+            buttonGenerateServerManifest.Enabled = !serverManifestPresent;
+            buttonGenerateClientManifest.Enabled = serverManifestPresent && !clientManifestPresent;
         }
 
 
@@ -281,7 +296,7 @@ namespace AMSExplorer
         {
             DpiUtils.InitPerMonitorDpi(this);
 
-            labelAssetNameTitle.Text += myAssetV3.Name;
+            labelAssetNameTitle.Text += myAsset.Name;
 
             DGAsset.ColumnCount = 2;
             DGFiles.ColumnCount = 2;
@@ -293,23 +308,23 @@ namespace AMSExplorer
 
             // asset info
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, myAssetV3.Name);
-            DGAsset.Rows.Add("Description", myAssetV3.Description);
-            DGAsset.Rows.Add("Id", myAssetV3.Id);
-            DGAsset.Rows.Add("AlternateId", myAssetV3.AlternateId);
-            DGAsset.Rows.Add("AssetId", myAssetV3.AssetId);
-            DGAsset.Rows.Add("Container", myAssetV3.Container);
-            DGAsset.Rows.Add("StorageAccountName", myAssetV3.StorageAccountName);
-            DGAsset.Rows.Add("StorageEncryptionFormat", myAssetV3.StorageEncryptionFormat);
-            DGAsset.Rows.Add("Type", myAssetV3.Type);
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, myAsset.Name);
+            DGAsset.Rows.Add("Description", myAsset.Description);
+            DGAsset.Rows.Add("Id", myAsset.Id);
+            DGAsset.Rows.Add("AlternateId", myAsset.AlternateId);
+            DGAsset.Rows.Add("AssetId", myAsset.AssetId);
+            DGAsset.Rows.Add("Container", myAsset.Container);
+            DGAsset.Rows.Add("StorageAccountName", myAsset.StorageAccountName);
+            DGAsset.Rows.Add("StorageEncryptionFormat", myAsset.StorageEncryptionFormat);
+            DGAsset.Rows.Add("Type", myAsset.Type);
 
             if (size != -1)
             {
                 DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
             }
 
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, myAssetV3.Created.ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, myAssetV3.LastModified.ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, myAsset.Created.ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, myAsset.LastModified.ToLocalTime().ToString("G"));
 
             if (myStreamingEndpoints == null)
             {
@@ -345,7 +360,7 @@ namespace AMSExplorer
             await _amsClient.RefreshTokenIfNeededAsync();
 
             List<AssetFilter> assetFilters = new List<AssetFilter>();
-            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name);
             while (assetFiltersPage != null)
             {
                 assetFilters.AddRange(assetFiltersPage);
@@ -382,7 +397,7 @@ namespace AMSExplorer
                 XDocument manifest = null;
                 try
                 {
-                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(myAssetV3, _amsClient);
+                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(myAsset, _amsClient);
                 }
                 catch
                 {
@@ -392,7 +407,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAssetV3, _amsClient);
+                        manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClient);
                     }
                     catch
                     {
@@ -569,7 +584,7 @@ namespace AMSExplorer
                 IList<AssetStreamingLocator> locators;
                 try
                 {
-                    locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).StreamingLocators;
+                    locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name)).StreamingLocators;
                 }
                 catch (Exception ex)
                 {
@@ -747,7 +762,7 @@ namespace AMSExplorer
                     _assetContainerSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(
                                                                                                      _amsClient.credentialsEntry.ResourceGroup,
                                                                                                      _amsClient.credentialsEntry.AccountName,
-                                                                                                     myAssetV3.Name,
+                                                                                                     myAsset.Name,
                                                                                                      permissions: AssetContainerPermission.Read,
                                                                                                      expiryTime: DateTime.UtcNow.AddHours(1).ToUniversalTime());
 
@@ -816,10 +831,10 @@ namespace AMSExplorer
                         {
                             //foreach (var blob in SelectedBlobs)
                             {
-                                TransferEntryResponse response = myMainForm.DoGridTransferAddItem(string.Format("Download of blob(s) from asset '{0}'", myAssetV3.Name), TransferType.DownloadToLocal, true);
+                                TransferEntryResponse response = myMainForm.DoGridTransferAddItem(string.Format("Download of blob(s) from asset '{0}'", myAsset.Name), TransferType.DownloadToLocal, true);
                                 // Start a worker thread that does downloading.
                                 //myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, response);
-                                await myMainForm.DownloadOutputAssetAsync(_amsClient, myAssetV3.Name, openFolderDialog.FileName, response, DownloadToFolderOption.DoNotCreateSubfolder, false, SelectedBlobs.Select(f => (f as CloudBlockBlob).Name).ToList());
+                                await myMainForm.DownloadOutputAssetAsync(_amsClient, myAsset.Name, openFolderDialog.FileName, response, DownloadToFolderOption.DoNotCreateSubfolder, false, SelectedBlobs.Select(f => (f as CloudBlockBlob).Name).ToList());
                             }
                             MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTabToCheckTheProgress);
 
@@ -840,7 +855,7 @@ namespace AMSExplorer
 
         private async Task DoDisplayAssetStatsAsync()
         {
-            AssetInfo MyAssetReport = new AssetInfo(myAssetV3, _amsClient);
+            AssetInfo MyAssetReport = new AssetInfo(myAsset, _amsClient);
             StringBuilder SB = await MyAssetReport.GetStatsAsync();
             using (EditorXMLJSON tokenDisplayForm
                 = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, false, false))
@@ -1124,7 +1139,7 @@ namespace AMSExplorer
             };
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            AssetContainerSas response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, input.Permissions, input.ExpiryTime);
+            AssetContainerSas response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name, input.Permissions, input.ExpiryTime);
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
             Uri sasUri = new Uri(uploadSasUrl);
@@ -1174,7 +1189,7 @@ namespace AMSExplorer
                         {
                             await _amsClient.RefreshTokenIfNeededAsync();
 
-                            IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).StreamingLocators;
+                            IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name)).StreamingLocators;
 
                             await _amsClient.AMSclient.StreamingLocators.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locators[TreeViewLocators.SelectedNode.Index].Name);
                         }
@@ -1390,7 +1405,7 @@ namespace AMSExplorer
             await _amsClient.RefreshTokenIfNeededAsync();
 
             List<AssetFilter> assetFilters = new List<AssetFilter>();
-            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name);
+            IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name);
             while (assetFiltersPage != null)
             {
                 assetFilters.AddRange(assetFiltersPage);
@@ -1421,7 +1436,7 @@ namespace AMSExplorer
             if (filter != null || filters.Count == 1)
             {
                 filter = filter ?? filters.FirstOrDefault();
-                using (DynManifestFilter form = new DynManifestFilter(_amsClient, filter, myAssetV3))
+                using (DynManifestFilter form = new DynManifestFilter(_amsClient, filter, myAsset))
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -1439,7 +1454,7 @@ namespace AMSExplorer
                                  _amsClient.AMSclient.AssetFilters.UpdateAsync(
                                  _amsClient.credentialsEntry.ResourceGroup,
                                  _amsClient.credentialsEntry.AccountName,
-                                 myAssetV3.Name,
+                                 myAsset.Name,
                                  filter.Name,
                                  new AssetFilter(name: filtertoupdate.Name, presentationTimeRange: filtertoupdate.Presentationtimerange, firstQuality: filtertoupdate.Firstquality, tracks: filtertoupdate.Tracks)
                                  );
@@ -1465,7 +1480,7 @@ namespace AMSExplorer
 
         private async Task DoCreateAssetFilterAsync()
         {
-            using (DynManifestFilter form = new DynManifestFilter(_amsClient, null, myAssetV3))
+            using (DynManifestFilter form = new DynManifestFilter(_amsClient, null, myAsset))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -1480,7 +1495,7 @@ namespace AMSExplorer
                         _amsClient.AMSclient.AssetFilters.CreateOrUpdateAsync(
                              _amsClient.credentialsEntry.ResourceGroup,
                              _amsClient.credentialsEntry.AccountName,
-                             myAssetV3.Name,
+                             myAsset.Name,
                              filterinfo.Name,
                              new AssetFilter(name: filterinfo.Name, presentationTimeRange: filterinfo.Presentationtimerange, firstQuality: filterinfo.Firstquality, tracks: filterinfo.Tracks)
                              );
@@ -1511,7 +1526,7 @@ namespace AMSExplorer
             try
             {
                 await Task.WhenAll(filters.Select
-                    (f => _amsClient.AMSclient.AssetFilters.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, f.Name))
+                    (f => _amsClient.AMSclient.AssetFilters.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name, f.Name))
                 );
             }
 
@@ -1546,7 +1561,7 @@ namespace AMSExplorer
                         await _amsClient.AMSclient.AssetFilters.CreateOrUpdateAsync(
                              _amsClient.credentialsEntry.ResourceGroup,
                              _amsClient.credentialsEntry.AccountName,
-                             myAssetV3.Name,
+                             myAsset.Name,
                              newfiltername,
                              sourcefilter
                              );
@@ -1624,7 +1639,7 @@ namespace AMSExplorer
         private async Task DoPlayWithFilterAsync()
         {
             var selFilters = await ReturnSelectedFiltersAsync();
-            await myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer, new List<Asset>() { myAssetV3 }, selFilters.FirstOrDefault().Name);
+            await myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer, new List<Asset>() { myAsset }, selFilters.FirstOrDefault().Name);
         }
 
         private async void playWithThisFilterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1743,10 +1758,10 @@ namespace AMSExplorer
 
         private async void buttonGenerateManifest_Click(object sender, EventArgs e)
         {
-            await DoGenerateManifestAsync();
+            await DoGenerateServerManifestAsync();
         }
 
-        private async Task DoGenerateManifestAsync()
+        private async Task DoGenerateServerManifestAsync()
         {
             try
             {
@@ -1818,7 +1833,7 @@ namespace AMSExplorer
             {
                 await _amsClient.RefreshTokenIfNeededAsync();
 
-                AssetFilter filter = await _amsClient.AMSclient.AssetFilters.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
+                AssetFilter filter = await _amsClient.AMSclient.AssetFilters.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
                 await DoFilterInfoAsync(filter);
             }
         }
@@ -1838,7 +1853,7 @@ namespace AMSExplorer
             IList<AssetStreamingLocator> locators = null;
             try
             {
-                locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAssetV3.Name)).StreamingLocators;
+                locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name)).StreamingLocators;
             }
             catch (Exception ex)
             {
@@ -2177,6 +2192,112 @@ namespace AMSExplorer
         private async void buttonGetDRMToken_Click_1(object sender, EventArgs e)
         {
             await GetDRMTestTokenAsync();
+        }
+
+        private async void buttonGenerateClientManifest_Click(object sender, EventArgs e)
+        {
+            await DoGenerateClientManifestAsync();
+        }
+
+        private async Task DoGenerateClientManifestAsync()
+        {
+
+            // let's read the smooth manifest
+
+            StreamingLocator tempStreamingLocator = null;
+            // let's create a clear streaming locator
+            if (MessageBox.Show("A temporary clear locator is going to be created to read the client manifest from the streaming endpoint. It will be deleted just after.", "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                try
+                {
+                    tempStreamingLocator = Task.Run(() => AssetInfo.CreateTemporaryOnDemandLocatorAsync(myAsset, _amsClient)).GetAwaiter().GetResult();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            // let's try to read client manifest
+            XDocument manifest = null;
+            try
+            {
+                manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClient, tempStreamingLocator?.Name);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            finally
+            {
+                // let's delete the temp clear locator
+                try
+                {
+                    await AssetInfo.DeleteStreamingLocatorAsync(_amsClient, tempStreamingLocator.Name);
+                }
+                catch
+                {
+
+                }
+            }
+
+            try
+            {
+                string clientManifestName = _serverManifestName + "c";
+
+                using (EditorXMLJSON editform = new EditorXMLJSON(
+                string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, clientManifestName),
+                manifest.ToString(),
+                true,
+                false,
+                true,
+                null
+                ))
+                {
+                    if (editform.Display() == DialogResult.OK)
+                    { // OK
+
+                        string tempPath = System.IO.Path.GetTempPath();
+                        string filePath = Path.Combine(tempPath, clientManifestName);
+
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                        }
+
+                        XDocument doc = XDocument.Parse(editform.TextData);
+                        doc.Save(filePath);
+
+                        progressBarUpload.Visible = true;
+                        buttonClose.Enabled = false;
+
+                        CloudBlobContainer container = await GetRWContainerOfAssetAsync();
+                        CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
+
+                        await Task.Factory.StartNew(() => blob.UploadFromFile(filePath));
+
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                progressBarUpload.Visible = false;
+                buttonClose.Enabled = true;
+                await ListAssetBlobsAsync();
+                await BuildLocatorsTreeAsync();
+            }
         }
     }
 }

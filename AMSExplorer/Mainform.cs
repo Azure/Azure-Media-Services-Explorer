@@ -1608,7 +1608,7 @@ namespace AMSExplorer
                         Cursor = Cursors.WaitCursor;
                         AssetInformation form = new AssetInformation(this, _amsClient)
                         {
-                            myAssetV3 = asset,
+                            myAsset = asset,
 
                             myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
                         };
