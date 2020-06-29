@@ -415,6 +415,8 @@ namespace AMSExplorer
             {
                 if (addaccount1.SelectedMode == AddAccountMode.BrowseSubscriptions)
                 {
+                    Cursor = Cursors.WaitCursor;
+
                     environment = addaccount1.GetEnvironment();
 
                     AuthenticationContext authContext = new AuthenticationContext(
@@ -435,6 +437,7 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
+                        Cursor = Cursors.Default;
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
@@ -490,6 +493,8 @@ namespace AMSExplorer
                         tenants = (myTenants)JsonConvert.DeserializeObject(str, typeof(myTenants));
                     }
                     */
+                    Cursor = Cursors.Default;
+
                     AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto));
 
                     if (addaccount2.ShowDialog() == DialogResult.OK)
