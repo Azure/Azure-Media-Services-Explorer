@@ -56,12 +56,12 @@ namespace AMSExplorer
             return new AzureEnvironment((AzureEnvType)Enum.Parse(typeof(AzureEnvType), (comboBoxAADMappingList.SelectedItem as Item).Value));
         }
 
-        private void radioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonJsonCliOutput_CheckedChanged(object sender, EventArgs e)
         {
             //panelEnv.Visible = !radioButtonJsonCliOutput.Checked;
         }
 
-        private void linkLabelAzCliDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabelAzCliDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }

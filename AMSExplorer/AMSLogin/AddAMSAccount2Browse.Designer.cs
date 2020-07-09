@@ -70,8 +70,8 @@
             // 
             resources.ApplyResources(this.treeViewAzureSub, "treeViewAzureSub");
             this.treeViewAzureSub.Name = "treeViewAzureSub";
-            this.treeViewAzureSub.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewAzureSub_BeforeExpand);
-            this.treeViewAzureSub.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewAzureSub_AfterSelect);
+            this.treeViewAzureSub.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewAzureSub_BeforeExpand);
+            this.treeViewAzureSub.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewAzureSub_AfterSelect);
             // 
             // DGAcct
             // 
@@ -94,7 +94,7 @@
             this.comboBoxTenants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTenants.FormattingEnabled = true;
             this.comboBoxTenants.Name = "comboBoxTenants";
-            this.comboBoxTenants.SelectedIndexChanged += new System.EventHandler(this.comboBoxTenants_SelectedIndexChanged);
+            this.comboBoxTenants.SelectedIndexChanged += new System.EventHandler(this.ComboBoxTenants_SelectedIndexChanged);
             // 
             // labelADTenant
             // 

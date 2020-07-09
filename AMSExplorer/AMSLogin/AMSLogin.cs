@@ -60,9 +60,11 @@ namespace AMSExplorer
             DpiUtils.InitPerMonitorDpi(this);
 
             // Add a dummy column     
-            ColumnHeader header = new ColumnHeader();
-            header.Text = "";
-            header.Name = "col1";
+            ColumnHeader header = new ColumnHeader
+            {
+                Text = "",
+                Name = "col1"
+            };
             listViewAccounts.Columns.Add(header);
             // Then
             listViewAccounts.Scrollable = true;
@@ -133,7 +135,7 @@ namespace AMSExplorer
 
             AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo);
 
-            AzureMediaServicesClient response = null;
+            AzureMediaServicesClient response;
             try
             {
                 response = await AmsClient.ConnectAndGetNewClientV3Async();
@@ -265,7 +267,7 @@ namespace AMSExplorer
             }
         }
 
-        private void buttonImportAll_Click(object sender, EventArgs e)
+        private void ButtonImportAll_Click(object sender, EventArgs e)
         {
             bool mergesentries = false;
 
@@ -328,7 +330,7 @@ namespace AMSExplorer
             Program.SaveAndProtectUserConfig();
         }
 
-        private void accountmgtlink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Accountmgtlink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.Link.LinkData as string);
         }
@@ -342,7 +344,7 @@ namespace AMSExplorer
             await Program.CheckAMSEVersionAsync();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void Panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
@@ -362,14 +364,14 @@ namespace AMSExplorer
         }
 
 
-        private void listBoxAcounts_DoubleClick(object sender, EventArgs e)
+        private void ListBoxAcounts_DoubleClick(object sender, EventArgs e)
         {
             // Proceed to log in to the selected account in the listbox
             ButtonLogin_Click(sender, e);
         }
 
 
-        private void textBoxAADtenant_Validating(object sender, CancelEventArgs e)
+        private void TextBoxAADtenant_Validating(object sender, CancelEventArgs e)
         {
             CheckTextBox(sender);
         }
@@ -540,7 +542,7 @@ namespace AMSExplorer
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        JsonFromAzureCliOrPortal json = null;
+                        JsonFromAzureCliOrPortal json;
                         try
                         {
                             json = (JsonFromAzureCliOrPortal)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCliOrPortal));

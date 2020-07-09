@@ -104,7 +104,7 @@
             resources.ApplyResources(this.linkLabelAADAut, "linkLabelAADAut");
             this.linkLabelAADAut.Name = "linkLabelAADAut";
             this.linkLabelAADAut.TabStop = true;
-            this.linkLabelAADAut.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.accountmgtlink_LinkClicked);
+            this.linkLabelAADAut.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Accountmgtlink_LinkClicked);
             // 
             // groupBoxAADAutMode
             // 
@@ -178,7 +178,7 @@
             resources.ApplyResources(this.buttonImportAll, "buttonImportAll");
             this.buttonImportAll.Name = "buttonImportAll";
             this.buttonImportAll.UseVisualStyleBackColor = true;
-            this.buttonImportAll.Click += new System.EventHandler(this.buttonImportAll_Click);
+            this.buttonImportAll.Click += new System.EventHandler(this.ButtonImportAll_Click);
             // 
             // openFileDialog1
             // 
@@ -195,7 +195,7 @@
             resources.ApplyResources(this.accountmgtlink, "accountmgtlink");
             this.accountmgtlink.Name = "accountmgtlink";
             this.accountmgtlink.TabStop = true;
-            this.accountmgtlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.accountmgtlink_LinkClicked);
+            this.accountmgtlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Accountmgtlink_LinkClicked);
             // 
             // pictureBoxJob
             // 
@@ -212,7 +212,7 @@
             this.panel1.Controls.Add(this.buttonCancel);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
             // 
             // labelVersion
             // 
@@ -242,7 +242,7 @@
             this.listViewAccounts.UseCompatibleStateImageBehavior = false;
             this.listViewAccounts.View = System.Windows.Forms.View.List;
             this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.ListViewAccounts_SelectedIndexChanged);
-            this.listViewAccounts.DoubleClick += new System.EventHandler(this.listBoxAcounts_DoubleClick);
+            this.listViewAccounts.DoubleClick += new System.EventHandler(this.ListBoxAcounts_DoubleClick);
             this.listViewAccounts.DpiChangedAfterParent += new System.EventHandler(this.AmsLogin_DpiChangedAfterParent);
             // 
             // linkLabelAMSOfflineDoc

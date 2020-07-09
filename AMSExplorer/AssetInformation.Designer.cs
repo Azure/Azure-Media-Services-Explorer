@@ -863,7 +863,7 @@
             resources.ApplyResources(this.buttonAzureMediaPlayer, "buttonAzureMediaPlayer");
             this.buttonAzureMediaPlayer.Name = "buttonAzureMediaPlayer";
             this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
-            this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.button1_Click);
+            this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.Button1_Click);
             // 
             // buttonDASH
             // 

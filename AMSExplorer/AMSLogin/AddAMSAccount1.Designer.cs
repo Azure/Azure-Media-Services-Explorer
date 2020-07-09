@@ -94,7 +94,7 @@
             resources.ApplyResources(this.radioButtonJsonCliOutput, "radioButtonJsonCliOutput");
             this.radioButtonJsonCliOutput.Name = "radioButtonJsonCliOutput";
             this.radioButtonJsonCliOutput.UseVisualStyleBackColor = true;
-            this.radioButtonJsonCliOutput.CheckedChanged += new System.EventHandler(this.radioButtonJsonCliOutput_CheckedChanged);
+            this.radioButtonJsonCliOutput.CheckedChanged += new System.EventHandler(this.RadioButtonJsonCliOutput_CheckedChanged);
             // 
             // radioButtonAddManual
             // 
@@ -131,7 +131,7 @@
             resources.ApplyResources(this.linkLabelAzCliDoc, "linkLabelAzCliDoc");
             this.linkLabelAzCliDoc.Name = "linkLabelAzCliDoc";
             this.linkLabelAzCliDoc.TabStop = true;
-            this.linkLabelAzCliDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAzCliDoc_LinkClicked);
+            this.linkLabelAzCliDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelAzCliDoc_LinkClicked);
             // 
             // label1
             // 

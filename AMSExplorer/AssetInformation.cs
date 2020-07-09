@@ -928,7 +928,7 @@ namespace AMSExplorer
             await DoDASHIFPlayerAsync();
         }
 
-        private async void buttonHTML_Click(object sender, EventArgs e)
+        private async void ButtonHTML_Click(object sender, EventArgs e)
         {
             await DoAdvcTestPlayerAsync();
         }
@@ -1021,7 +1021,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void Button1_Click(object sender, EventArgs e)
         {
             await DoAzureMediaPlayerAsync();
         }

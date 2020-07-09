@@ -6844,9 +6844,6 @@ namespace AMSExplorer
 
             // playback preview
             playbackTheProgramToolStripMenuItem.Enabled = oneOrMore;
-
-            // telemetry
-            loadMetricsToolStripMenuItem.Enabled = false;// enableTelemetry;
         }
 
         private void liveLiveEventToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -7782,7 +7779,7 @@ namespace AMSExplorer
 
 
 
-        private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CancelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCancelTransfer();
         }
@@ -7799,13 +7796,13 @@ namespace AMSExplorer
             }
         }
 
-        private void cancelToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CancelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCancelTransfer();
         }
 
 
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoClearTransferts();
         }
@@ -7815,18 +7812,18 @@ namespace AMSExplorer
             DoGridTransferClearCompletedTransfers();
         }
 
-        private void clearCompletedTransfersToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearCompletedTransfersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoGridTransferClearCompletedTransfers();
         }
 
 
-        private async void filesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void FilesToSelectedAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             await DoMenuUploadFileToAsset_Step1Async();
         }
 
-        private void trackBarConcurrentTransfers_Scroll(object sender, EventArgs e)
+        private void TrackBarConcurrentTransfers_Scroll(object sender, EventArgs e)
         {
             UpdateLabelConcurrentTransfers();
         }
@@ -7838,19 +7835,19 @@ namespace AMSExplorer
             Program.SaveAndProtectUserConfig();
         }
 
-        private void analyzeAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AnalyzeAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
 
-        private void toolStripMenuItem15_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem15_Click(object sender, EventArgs e)
         {
             DoMenuImportFromHttp();
         }
 
 
-        private async void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void LoadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StreamingEndpoint SE = (await ReturnSelectedStreamingEndpointsAsync()).FirstOrDefault();
             if (SE != null)
@@ -7860,16 +7857,12 @@ namespace AMSExplorer
             }
         }
 
-        private void loadMetricsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private async void fromAzureStoragecontainerSASUrlToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void FromAzureStoragecontainerSASUrlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoMenuImportFromAzureStorageSASContainerAsync();
         }
 
-        private async void fromAzureStorageSASContainerPathToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void FromAzureStorageSASContainerPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoMenuImportFromAzureStorageSASContainerAsync();
         }
@@ -7901,32 +7894,32 @@ namespace AMSExplorer
             }
         }
 
-        private void tHEOPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void THEOPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(Constants.PlayerTHEOplayerPartnership);
         }
 
-        private void azureMediaServicesReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AzureMediaServicesReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(Constants.LinkMoreInfoAMSReleaseNotes);
         }
 
-        private async void selectedJobsToolStripMenuItem2_Click(object sender, EventArgs e)
+        private async void SelectedJobsToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             await DoCancelJobsAsync();
         }
 
-        private async void allJobsToolStripMenuItem3_Click(object sender, EventArgs e)
+        private async void AllJobsToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             await DoCancelAllJobsAsync();
         }
 
-        private void linkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void textBoxAssetSearch_KeyDown(object sender, KeyEventArgs e)
+        private void TextBoxAssetSearch_KeyDown(object sender, KeyEventArgs e)
         {
             // user pressed enter. let's apply the filter
             if (e.KeyCode == Keys.Enter)
@@ -7935,7 +7928,7 @@ namespace AMSExplorer
             }
         }
 
-        private void textBoxJobSearch_KeyDown(object sender, KeyEventArgs e)
+        private void TextBoxJobSearch_KeyDown(object sender, KeyEventArgs e)
         {
             // user pressed enter. let's apply the filter
             if (e.KeyCode == Keys.Enter)
@@ -7944,7 +7937,7 @@ namespace AMSExplorer
             }
         }
 
-        private void textBoxSearchNameLiveEvent_KeyDown(object sender, KeyEventArgs e)
+        private void TextBoxSearchNameLiveEvent_KeyDown(object sender, KeyEventArgs e)
         {
             // user pressed enter. let's apply the filter
             if (e.KeyCode == Keys.Enter)
@@ -7953,12 +7946,12 @@ namespace AMSExplorer
             }
         }
 
-        private void toolStripMenuItem31_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem31_Click(object sender, EventArgs e)
         {
             Process.Start(Constants.LinkReportBugAMSE);
         }
 
-        private async void dataGridViewTransformsV_SelectionChanged(object sender, EventArgs e)
+        private async void DataGridViewTransformsV_SelectionChanged(object sender, EventArgs e)
         {
             Debug.WriteLine("transform selection changed : begin");
             List<Transform> SelectedTransforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
@@ -7974,7 +7967,7 @@ namespace AMSExplorer
             }
         }
 
-        private void dataGridViewTransformsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewTransformsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {

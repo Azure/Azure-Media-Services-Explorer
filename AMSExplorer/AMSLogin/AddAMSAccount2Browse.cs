@@ -84,7 +84,7 @@ namespace AMSExplorer
             AuthenticationContext authContext = new Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext(
                                                                authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId ?? "common"),
                                                                    validateAuthority: true);
-            AuthenticationResult accessToken = null;
+            AuthenticationResult accessToken;
             try
             {
                 accessToken = await authContext.AcquireTokenAsync(
@@ -188,7 +188,7 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBoxTenants_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxTenants_SelectedIndexChanged(object sender, EventArgs e)
         {
             BuildSubTree();
         }
@@ -198,7 +198,7 @@ namespace AMSExplorer
             DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
         }
 
-        private void treeViewAzureSub_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        private void TreeViewAzureSub_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
             // user clicked on the '+' button
 
@@ -246,7 +246,7 @@ namespace AMSExplorer
 
         }
 
-        private void treeViewAzureSub_AfterSelect(object sender, TreeViewEventArgs e)
+        private void TreeViewAzureSub_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Level == 1)
             {

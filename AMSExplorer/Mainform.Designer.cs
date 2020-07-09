@@ -192,7 +192,6 @@
             this.refreshToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemLiveEventDisplayInfomation = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadMetricsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemLiveEventStart = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemLiveEventStop = new System.Windows.Forms.ToolStripMenuItem();
@@ -616,7 +615,7 @@
             // 
             resources.ApplyResources(this.analyzeAssetsToolStripMenuItem, "analyzeAssetsToolStripMenuItem");
             this.analyzeAssetsToolStripMenuItem.Name = "analyzeAssetsToolStripMenuItem";
-            this.analyzeAssetsToolStripMenuItem.Click += new System.EventHandler(this.analyzeAssetsToolStripMenuItem_Click);
+            this.analyzeAssetsToolStripMenuItem.Click += new System.EventHandler(this.AnalyzeAssetsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem43
             // 
@@ -669,7 +668,7 @@
             // 
             this.filesToSelectedAssetsToolStripMenuItem1.Name = "filesToSelectedAssetsToolStripMenuItem1";
             resources.ApplyResources(this.filesToSelectedAssetsToolStripMenuItem1, "filesToSelectedAssetsToolStripMenuItem1");
-            this.filesToSelectedAssetsToolStripMenuItem1.Click += new System.EventHandler(this.filesToSelectedAssetsToolStripMenuItem1_Click);
+            this.filesToSelectedAssetsToolStripMenuItem1.Click += new System.EventHandler(this.FilesToSelectedAssetsToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem19
             // 
@@ -708,13 +707,13 @@
             // 
             this.fromAzureStorageSASContainerPathToolStripMenuItem.Name = "fromAzureStorageSASContainerPathToolStripMenuItem";
             resources.ApplyResources(this.fromAzureStorageSASContainerPathToolStripMenuItem, "fromAzureStorageSASContainerPathToolStripMenuItem");
-            this.fromAzureStorageSASContainerPathToolStripMenuItem.Click += new System.EventHandler(this.fromAzureStorageSASContainerPathToolStripMenuItem_Click);
+            this.fromAzureStorageSASContainerPathToolStripMenuItem.Click += new System.EventHandler(this.FromAzureStorageSASContainerPathToolStripMenuItem_Click);
             // 
             // toolStripMenuItem15
             // 
             this.toolStripMenuItem15.Name = "toolStripMenuItem15";
             resources.ApplyResources(this.toolStripMenuItem15, "toolStripMenuItem15");
-            this.toolStripMenuItem15.Click += new System.EventHandler(this.toolStripMenuItem15_Click);
+            this.toolStripMenuItem15.Click += new System.EventHandler(this.ToolStripMenuItem15_Click);
             // 
             // exportToolStripMenuItem
             // 
@@ -906,7 +905,7 @@
             resources.ApplyResources(this.textBoxAssetSearch, "textBoxAssetSearch");
             this.textBoxAssetSearch.Name = "textBoxAssetSearch";
             this.toolTip1.SetToolTip(this.textBoxAssetSearch, resources.GetString("textBoxAssetSearch.ToolTip"));
-            this.textBoxAssetSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAssetSearch_KeyDown);
+            this.textBoxAssetSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxAssetSearch_KeyDown);
             // 
             // butPrevPageAsset
             // 
@@ -1157,13 +1156,13 @@
             this.cancelToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.cancel;
             this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
             resources.ApplyResources(this.cancelToolStripMenuItem, "cancelToolStripMenuItem");
-            this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
+            this.cancelToolStripMenuItem.Click += new System.EventHandler(this.CancelToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
             resources.ApplyResources(this.clearToolStripMenuItem, "clearToolStripMenuItem");
-            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
             // trackBarConcurrentTransfers
             // 
@@ -1173,7 +1172,7 @@
             this.trackBarConcurrentTransfers.Name = "trackBarConcurrentTransfers";
             this.trackBarConcurrentTransfers.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarConcurrentTransfers.Value = 1;
-            this.trackBarConcurrentTransfers.Scroll += new System.EventHandler(this.trackBarConcurrentTransfers_Scroll);
+            this.trackBarConcurrentTransfers.Scroll += new System.EventHandler(this.TrackBarConcurrentTransfers_Scroll);
             // 
             // labelConcurrentTransfers
             // 
@@ -1226,9 +1225,9 @@
             this.dataGridViewTransformsV.ReadOnly = true;
             this.dataGridViewTransformsV.RowHeadersVisible = false;
             this.dataGridViewTransformsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTransformsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTransformsV_CellDoubleClick);
+            this.dataGridViewTransformsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewTransformsV_CellDoubleClick);
             this.dataGridViewTransformsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewTransformsV_RowPostPaint);
-            this.dataGridViewTransformsV.SelectionChanged += new System.EventHandler(this.dataGridViewTransformsV_SelectionChanged);
+            this.dataGridViewTransformsV.SelectionChanged += new System.EventHandler(this.DataGridViewTransformsV_SelectionChanged);
             this.dataGridViewTransformsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
             this.dataGridViewTransformsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
             // 
@@ -1457,13 +1456,13 @@
             // 
             this.selectedJobsToolStripMenuItem2.Name = "selectedJobsToolStripMenuItem2";
             resources.ApplyResources(this.selectedJobsToolStripMenuItem2, "selectedJobsToolStripMenuItem2");
-            this.selectedJobsToolStripMenuItem2.Click += new System.EventHandler(this.selectedJobsToolStripMenuItem2_Click);
+            this.selectedJobsToolStripMenuItem2.Click += new System.EventHandler(this.SelectedJobsToolStripMenuItem2_Click);
             // 
             // allJobsToolStripMenuItem3
             // 
             this.allJobsToolStripMenuItem3.Name = "allJobsToolStripMenuItem3";
             resources.ApplyResources(this.allJobsToolStripMenuItem3, "allJobsToolStripMenuItem3");
-            this.allJobsToolStripMenuItem3.Click += new System.EventHandler(this.allJobsToolStripMenuItem3_Click);
+            this.allJobsToolStripMenuItem3.Click += new System.EventHandler(this.AllJobsToolStripMenuItem3_Click);
             // 
             // resubmitToolStripMenuItem
             // 
@@ -1569,7 +1568,7 @@
             resources.ApplyResources(this.textBoxJobSearch, "textBoxJobSearch");
             this.textBoxJobSearch.Name = "textBoxJobSearch";
             this.toolTip1.SetToolTip(this.textBoxJobSearch, resources.GetString("textBoxJobSearch.ToolTip"));
-            this.textBoxJobSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxJobSearch_KeyDown);
+            this.textBoxJobSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxJobSearch_KeyDown);
             // 
             // buttonJobSearch
             // 
@@ -1685,7 +1684,6 @@
             this.refreshToolStripMenuItem3,
             this.toolStripSeparator20,
             this.ContextMenuItemLiveEventDisplayInfomation,
-            this.loadMetricsToolStripMenuItem,
             this.createChannelToolStripMenuItem1,
             this.ContextMenuItemLiveEventStart,
             this.ContextMenuItemLiveEventStop,
@@ -1719,12 +1717,6 @@
             resources.ApplyResources(this.ContextMenuItemLiveEventDisplayInfomation, "ContextMenuItemLiveEventDisplayInfomation");
             this.ContextMenuItemLiveEventDisplayInfomation.Name = "ContextMenuItemLiveEventDisplayInfomation";
             this.ContextMenuItemLiveEventDisplayInfomation.Click += new System.EventHandler(this.displayLiveEventInfomationToolStripMenuItem_Click);
-            // 
-            // loadMetricsToolStripMenuItem
-            // 
-            resources.ApplyResources(this.loadMetricsToolStripMenuItem, "loadMetricsToolStripMenuItem");
-            this.loadMetricsToolStripMenuItem.Name = "loadMetricsToolStripMenuItem";
-            this.loadMetricsToolStripMenuItem.Click += new System.EventHandler(this.loadMetricsToolStripMenuItem_Click);
             // 
             // createChannelToolStripMenuItem1
             // 
@@ -1837,7 +1829,7 @@
             resources.ApplyResources(this.textBoxSearchNameLiveEvent, "textBoxSearchNameLiveEvent");
             this.textBoxSearchNameLiveEvent.Name = "textBoxSearchNameLiveEvent";
             this.toolTip1.SetToolTip(this.textBoxSearchNameLiveEvent, resources.GetString("textBoxSearchNameLiveEvent.ToolTip"));
-            this.textBoxSearchNameLiveEvent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearchNameLiveEvent_KeyDown);
+            this.textBoxSearchNameLiveEvent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxSearchNameLiveEvent_KeyDown);
             // 
             // comboBoxSearchLiveEventOption
             // 
@@ -2125,7 +2117,7 @@
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             resources.ApplyResources(this.loadToolStripMenuItem, "loadToolStripMenuItem");
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.LoadToolStripMenuItem_Click);
             // 
             // enableAzureCDNToolStripMenuItem
             // 
@@ -2409,7 +2401,7 @@
             // 
             this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Name = "fromAzureStoragecontainerSASUrlToolStripMenuItem";
             resources.ApplyResources(this.fromAzureStoragecontainerSASUrlToolStripMenuItem, "fromAzureStoragecontainerSASUrlToolStripMenuItem");
-            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Click += new System.EventHandler(this.fromAzureStoragecontainerSASUrlToolStripMenuItem_Click);
+            this.fromAzureStoragecontainerSASUrlToolStripMenuItem.Click += new System.EventHandler(this.FromAzureStoragecontainerSASUrlToolStripMenuItem_Click);
             // 
             // fromASingleHTTPURLAmazonS3EtcToolStripMenuItem
             // 
@@ -2626,7 +2618,7 @@
             this.tHEOPlayerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
             this.tHEOPlayerToolStripMenuItem.Name = "tHEOPlayerToolStripMenuItem";
             resources.ApplyResources(this.tHEOPlayerToolStripMenuItem, "tHEOPlayerToolStripMenuItem");
-            this.tHEOPlayerToolStripMenuItem.Click += new System.EventHandler(this.tHEOPlayerToolStripMenuItem_Click);
+            this.tHEOPlayerToolStripMenuItem.Click += new System.EventHandler(this.THEOPlayerToolStripMenuItem_Click);
             // 
             // toolStripSeparator29
             // 
@@ -2674,7 +2666,7 @@
             this.azureMediaServicesReleaseNotesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
             this.azureMediaServicesReleaseNotesToolStripMenuItem.Name = "azureMediaServicesReleaseNotesToolStripMenuItem";
             resources.ApplyResources(this.azureMediaServicesReleaseNotesToolStripMenuItem, "azureMediaServicesReleaseNotesToolStripMenuItem");
-            this.azureMediaServicesReleaseNotesToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesReleaseNotesToolStripMenuItem_Click);
+            this.azureMediaServicesReleaseNotesToolStripMenuItem.Click += new System.EventHandler(this.AzureMediaServicesReleaseNotesToolStripMenuItem_Click);
             // 
             // azureMediaServicesMSDNToolStripMenuItem
             // 
@@ -2717,7 +2709,7 @@
             this.toolStripMenuItem31.Image = global::AMSExplorer.Bitmaps.external_link;
             this.toolStripMenuItem31.Name = "toolStripMenuItem31";
             resources.ApplyResources(this.toolStripMenuItem31, "toolStripMenuItem31");
-            this.toolStripMenuItem31.Click += new System.EventHandler(this.toolStripMenuItem31_Click);
+            this.toolStripMenuItem31.Click += new System.EventHandler(this.ToolStripMenuItem31_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -2768,13 +2760,13 @@
             this.cancelToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.cancel;
             this.cancelToolStripMenuItem1.Name = "cancelToolStripMenuItem1";
             resources.ApplyResources(this.cancelToolStripMenuItem1, "cancelToolStripMenuItem1");
-            this.cancelToolStripMenuItem1.Click += new System.EventHandler(this.cancelToolStripMenuItem1_Click);
+            this.cancelToolStripMenuItem1.Click += new System.EventHandler(this.CancelToolStripMenuItem1_Click);
             // 
             // clearCompletedTransfersToolStripMenuItem
             // 
             this.clearCompletedTransfersToolStripMenuItem.Name = "clearCompletedTransfersToolStripMenuItem";
             resources.ApplyResources(this.clearCompletedTransfersToolStripMenuItem, "clearCompletedTransfersToolStripMenuItem");
-            this.clearCompletedTransfersToolStripMenuItem.Click += new System.EventHandler(this.clearCompletedTransfersToolStripMenuItem_Click);
+            this.clearCompletedTransfersToolStripMenuItem.Click += new System.EventHandler(this.ClearCompletedTransfersToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -3162,7 +3154,6 @@
         private System.Windows.Forms.Label labelConcurrentTransfers;
         private System.Windows.Forms.ToolStripMenuItem analyzeAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadMetricsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromAzureStoragecontainerSASUrlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromAzureStorageSASContainerPathToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tHEOPlayerToolStripMenuItem;
