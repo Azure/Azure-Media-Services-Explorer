@@ -794,7 +794,7 @@ namespace AMSExplorer
             }
         }
 
-        public async static Task<Uri> GetValidOnDemandURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
+        public async static Task<Uri> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
@@ -812,12 +812,20 @@ namespace AMSExplorer
             {
                 string locatorName = useThisLocatorName ?? locators.First().Name;
                 IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName)).StreamingPaths;
-                UriBuilder uribuilder = new UriBuilder
+                var smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
+                if (smoothPath.Count() > 0)
                 {
-                    Host = runningSes.HostName,
-                    Path = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming).FirstOrDefault().Paths.FirstOrDefault()
-                };
-                return uribuilder.Uri;
+                    UriBuilder uribuilder = new UriBuilder
+                    {
+                        Host = runningSes.HostName,
+                        Path = smoothPath.FirstOrDefault().Paths.FirstOrDefault()
+                    };
+                    return uribuilder.Uri;
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
@@ -1099,11 +1107,11 @@ namespace AMSExplorer
 
         public async static Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
         {
-            Uri myuri = await GetValidOnDemandURIAsync(asset, _amsClient, preferredLocatorName);
+            Uri myuri = await GetValidOnDemandSmoothURIAsync(asset, _amsClient, preferredLocatorName);
 
             if (myuri == null)
             {
-                myuri = await GetValidOnDemandURIAsync(asset, _amsClient);
+                myuri = await GetValidOnDemandSmoothURIAsync(asset, _amsClient);
             }
             if (myuri != null)
             {
@@ -2823,7 +2831,7 @@ namespace AMSExplorer
                                         redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
                                         parameters: new PlatformParameters(credentialsEntry.PromptUser)
                                         );
-                      
+
                     }
 
                     catch (AdalException adalException)

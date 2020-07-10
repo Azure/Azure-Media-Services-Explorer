@@ -6133,7 +6133,7 @@ namespace AMSExplorer
             Asset asset = (await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()).FirstOrDefault();
             if (asset != null)
             {
-                Uri ValidURI = await AssetInfo.GetValidOnDemandURIAsync(asset, _amsClient);
+                Uri ValidURI = await AssetInfo.GetValidOnDemandSmoothURIAsync(asset, _amsClient);
                 if (ValidURI != null)
                 {
                     string url = ValidURI.AbsoluteUri;
@@ -6555,31 +6555,6 @@ namespace AMSExplorer
             Process.Start(Constants.DemoCaptionMaker);
         }
 
-
-        private void toolStripMenuItem13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem8_Click(object sender, EventArgs e)
-        {
-
-        }
 
 
         private void toAnotherAzureMediaServicesAccountToolStripMenuItem_Click(object sender, EventArgs e)

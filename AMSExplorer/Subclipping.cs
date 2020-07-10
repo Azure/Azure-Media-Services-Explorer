@@ -123,7 +123,7 @@ namespace AMSExplorer
 
                 labelDiscountinuity.Visible = _parentAssetManifestData.DiscontinuityDetected;
 
-                if (!_parentAssetManifestData.Error)  // we were able to read asset timings and not live
+                if (manifest != null && !_parentAssetManifestData.Error)  // we were able to read asset timings and not live
                 {
                     _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = _parentAssetManifestData.TimeScale;
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentAssetManifestData.TimestampOffset;
@@ -474,7 +474,7 @@ namespace AMSExplorer
             {
                 Asset myAsset = _selectedAssets.FirstOrDefault();
 
-                Uri myuri = await AssetInfo.GetValidOnDemandURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
+                Uri myuri = await AssetInfo.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
 
                 if (myuri != null)
                 {
