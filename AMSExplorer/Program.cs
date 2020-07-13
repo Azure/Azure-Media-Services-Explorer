@@ -704,6 +704,7 @@ namespace AMSExplorer
         public const string Type_Workflow = "Workflow";
         public const string Type_Single = "Single Bitrate MP4";
         public const string Type_Multi = "Multi Bitrate MP4";
+        public const string Type_Extension_No_Client_Manifest = " with no ismc";
         public const string Type_Smooth = "Smooth Streaming";
         public const string Type_LiveArchive = "Live Archive";
         public const string Type_Fragmented = "Pre-fragmented";
@@ -1453,12 +1454,16 @@ namespace AMSExplorer
 
             CloudBlockBlob[] mp4files = blocsc.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            if (mp4files.Count() > 0 && ismcfiles.Count() == 1 && ismfiles.Count() == 1)  // Multi bitrate MP4
+            if (mp4files.Count() > 0 && ismcfiles.Count() <= 1 && ismfiles.Count() == 1)  // Multi bitrate MP4
             {
                 number = mp4files.Count();
                 type = number == 1 ? Type_Single : Type_Multi;
-            }
 
+                if (ismcfiles.Count() == 0) // no client manifest
+                {
+                    type += Type_Extension_No_Client_Manifest;
+                }
+            }
             else if (blocsc.Count == 0)
             {
                 return new AssetInfoData() { Size = size, Type = Type_Empty };
