@@ -51,6 +51,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Microsoft.Azure.Storage.Auth;
 using Microsoft.Azure.Storage;
+using Microsoft.Rest.Azure;
 
 namespace AMSExplorer
 {
@@ -766,6 +767,7 @@ namespace AMSExplorer
                     assetName: asset.Name,
                     streamingPolicyName: PredefinedStreamingPolicy.ClearStreamingOnly,
                     streamingLocatorId: null,
+                    startTime: DateTime.UtcNow.AddMinutes(-5),
                     endTime: DateTime.UtcNow.AddHours(1)
                     );
 
@@ -1233,7 +1235,7 @@ namespace AMSExplorer
         public class ManifestSegmentData
         {
             public ulong timestamp;
-            public bool calculated; // it means the timesatmp has been calculated from previous
+            public bool calculated; // it means the timestamp has been calculated from previous
             public bool timestamp_mismatch; // if there is a mismatch
         }
 

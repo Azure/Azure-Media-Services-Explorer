@@ -8832,6 +8832,11 @@ namespace AMSExplorer
             return Task.Delay(100);
         }
 
+        private async void generateClientManifestsismcWhenNeededToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateClientManifest.GenerateClientManifest.MyDelegate d = new GenerateClientManifest.GenerateClientManifest.MyDelegate(TextBoxLogWriteLine);
+            await GenerateClientManifest.GenerateClientManifest.DoGenerateClientManifestForAllAssetsAsync(_amsClient, d);
+        }
     }
 }
 

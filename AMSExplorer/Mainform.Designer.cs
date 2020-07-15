@@ -346,6 +346,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
+            this.generateClientManifestsismcWhenNeededToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -607,7 +608,8 @@
             this.analyzeAssetsToolStripMenuItem,
             this.toolStripMenuItem43,
             this.toolStripMenuItem41,
-            this.toolStripMenuItem42});
+            this.toolStripMenuItem42,
+            this.generateClientManifestsismcWhenNeededToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
             // 
@@ -2815,6 +2817,12 @@
             resources.ApplyResources(this.panelButtons, "panelButtons");
             this.panelButtons.Name = "panelButtons";
             // 
+            // generateClientManifestsismcWhenNeededToolStripMenuItem
+            // 
+            this.generateClientManifestsismcWhenNeededToolStripMenuItem.Name = "generateClientManifestsismcWhenNeededToolStripMenuItem";
+            resources.ApplyResources(this.generateClientManifestsismcWhenNeededToolStripMenuItem, "generateClientManifestsismcWhenNeededToolStripMenuItem");
+            this.generateClientManifestsismcWhenNeededToolStripMenuItem.Click += new System.EventHandler(this.generateClientManifestsismcWhenNeededToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -3211,6 +3219,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCKCreate;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCKDelete;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripCKPolicies;
+        private System.Windows.Forms.ToolStripMenuItem generateClientManifestsismcWhenNeededToolStripMenuItem;
     }
 }
 

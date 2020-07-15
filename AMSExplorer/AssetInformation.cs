@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSExplorer.GenerateClientManifest;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;
@@ -2199,7 +2200,6 @@ namespace AMSExplorer
 
         private async Task DoGenerateClientManifestAsync()
         {
-
             // let's read the smooth manifest
 
             StreamingLocator tempStreamingLocator = null;
@@ -2246,13 +2246,13 @@ namespace AMSExplorer
                 string clientManifestName = _serverManifestName + "c";
 
                 using (EditorXMLJSON editform = new EditorXMLJSON(
-                string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, clientManifestName),
-                manifest.ToString(),
-                true,
-                false,
-                true,
-                null
-                ))
+                                                                    string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, clientManifestName),
+                                                                    manifest.ToString(),
+                                                                    true,
+                                                                    false,
+                                                                    true,
+                                                                    null
+                                                                   ))
                 {
                     if (editform.Display() == DialogResult.OK)
                     { // OK
@@ -2280,6 +2280,14 @@ namespace AMSExplorer
                         {
                             File.Delete(filePath);
                         }
+
+                        // let's edit the server manifest file to add reference to client manifest
+                        CloudBlockBlob blobServerManifest = container.GetBlockBlobReference(_serverManifestName);
+                        string contentServerManifest = await blobServerManifest.DownloadTextAsync();
+                        contentServerManifest = XmlManifest.AddIsmcToIsm(contentServerManifest, clientManifestName);
+                        await blobServerManifest.UploadTextAsync(contentServerManifest);
+
+                        MessageBox.Show($"The client manifest '{clientManifestName}' has been created and the server manifest '{_serverManifestName}' has been updated to reference it.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
