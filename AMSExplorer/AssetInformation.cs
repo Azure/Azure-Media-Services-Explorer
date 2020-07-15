@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using AMSExplorer.GenerateClientManifest;
+using AMSExplorer.ManifestGeneration;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;
@@ -1764,7 +1764,7 @@ namespace AMSExplorer
         {
             try
             {
-                Program.ManifestGenerated smildata = await Program.LoadAndUpdateManifestTemplateAsync(container);
+                GeneratedServerManifest smildata = await ServerManifestUtils.LoadAndUpdateManifestTemplateAsync(container);
 
                 using (
                 EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,
@@ -2284,7 +2284,7 @@ namespace AMSExplorer
                         // let's edit the server manifest file to add reference to client manifest
                         CloudBlockBlob blobServerManifest = container.GetBlockBlobReference(_serverManifestName);
                         string contentServerManifest = await blobServerManifest.DownloadTextAsync();
-                        contentServerManifest = XmlManifest.AddIsmcToIsm(contentServerManifest, clientManifestName);
+                        contentServerManifest = XmlManifestUtils.AddIsmcToIsm(contentServerManifest, clientManifestName);
                         await blobServerManifest.UploadTextAsync(contentServerManifest);
 
                         MessageBox.Show($"The client manifest '{clientManifestName}' has been created and the server manifest '{_serverManifestName}' has been updated to reference it.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -7,13 +7,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace AMSExplorer.GenerateClientManifest
+namespace AMSExplorer.ManifestGeneration
 {
-    public class GenerateClientManifest
+    public class ClientManifestUtils
     {
 
         public delegate void MyDelegate(string s, object o, bool b);
@@ -111,14 +110,14 @@ namespace AMSExplorer.GenerateClientManifest
                         {
                             Console.WriteLine("Content is encrypted. Removing the protection header from the client manifest.");
                             //remove DRM from the ISCM manifest
-                            ismcContentXml = XmlManifest.RemoveXmlNode(ismcContentXml);
+                            ismcContentXml = XmlManifestUtils.RemoveXmlNode(ismcContentXml);
                         }
                         string newIsmcFileName = ismManifestFileName.Substring(0, ismManifestFileName.IndexOf(".")) + ".ismc";
                         CloudBlockBlob ismcBlob = WriteStringToBlob(ismcContentXml, newIsmcFileName, storageContainer);
 
                         // Download the ISM so that we can modify it to include the ISMC file link.
                         string ismXmlContent = GetFileXmlFromStorage(storageContainer, ismManifestFileName);
-                        ismXmlContent = XmlManifest.AddIsmcToIsm(ismXmlContent, newIsmcFileName);
+                        ismXmlContent = XmlManifestUtils.AddIsmcToIsm(ismXmlContent, newIsmcFileName);
                         WriteStringToBlob(ismXmlContent, ismManifestFileName, storageContainer);
                         // update the ism to point to the ismc (download, modify, delete original, upload new)
                     }
