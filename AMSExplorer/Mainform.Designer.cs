@@ -1239,6 +1239,7 @@
             this.createJobUsingAnHttpSourceToolStripMenuItem});
             this.contextMenuStripTransforms.Name = "contextMenuStripTransforms";
             resources.ApplyResources(this.contextMenuStripTransforms, "contextMenuStripTransforms");
+            this.contextMenuStripTransforms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransforms_Opening);
             // 
             // createATransformToolStripMenuItem
             // 

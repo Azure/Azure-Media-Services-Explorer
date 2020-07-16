@@ -2594,14 +2594,25 @@ namespace AMSExplorer
                 }
             }
 
-            foreach (DataGridViewRow Row in dataGridViewTransformsV.SelectedRows)
+            foreach (var transformName in ReturnSelectedTransformNames())
             {
-                string transformName = Row.Cells[dataGridViewTransformsV.Columns["Name"].Index].Value.ToString();
                 Transform myTransform = transforms.Where(f => f.Name == transformName).FirstOrDefault();
                 if (myTransform != null)
                 {
                     SelectedTransforms.Add(myTransform);
                 }
+            }
+            return SelectedTransforms;
+        }
+
+        private List<string> ReturnSelectedTransformNames()
+        {
+            List<string> SelectedTransforms = new List<string>();
+
+            foreach (DataGridViewRow Row in dataGridViewTransformsV.SelectedRows)
+            {
+                string transformName = Row.Cells[dataGridViewTransformsV.Columns["Name"].Index].Value.ToString();
+                SelectedTransforms.Add(transformName);
             }
             return SelectedTransforms;
         }
@@ -8871,14 +8882,22 @@ namespace AMSExplorer
         private async Task DoAddTaskToTransformAsync()
         {
 
-            var transforms = await ReturnSelectedTransformsAsync();
+            var transforms = ReturnSelectedTransformNames();
 
             if (transforms.Count != 1)
             {
                 return;
             }
 
-            await DoCreateOrUpdateATransformAsync(transforms.First());
+            await DoCreateOrUpdateATransformAsync(await GetTransformAsync(transforms.First()));
+        }
+
+        private void contextMenuStripTransforms_Opening(object sender, CancelEventArgs e)
+        {
+            var Transforms = ReturnSelectedTransformNames();
+            bool singleitem = (Transforms.Count == 1);
+
+            addATaskToTransformToolStripMenuItem.Enabled = singleitem;
         }
     }
 }
