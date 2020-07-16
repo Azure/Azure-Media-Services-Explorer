@@ -29,7 +29,8 @@ namespace AMSExplorer
     {
         static public readonly string CopyVideoAudioTransformName = "StandardEncoder-AMSE-CopyVideoAudio";
         private readonly string _unique;
-
+        private readonly string _existingTransformName;
+        private readonly string _existingTransformDesc;
         public readonly IList<Profile> Profiles = new List<Profile> {
             new Profile() {Prof=@"AdaptiveStreaming", Desc="Auto-generate a bitrate ladder (bitrate-resolution pairs) based on the input resolution and bitrate. This built-in encoder setting, or preset, will never exceed the input resolution and bitrate. For example, if the input is 720p at 3 Mbps, output remains 720p at best, and will start at rates lower than 3 Mbps. The output contains an audio-only MP4 file with stereo audio encoded at 128 kbps.", Automatic=true},
             new Profile() {Prof=@"ContentAwareEncoding", Desc="Produces a set of GOP-aligned MP4s by using content-aware encoding. Given any input content, the service performs an initial lightweight analysis of the input content, and uses the results to determine the optimal number of layers, appropriate bitrate and resolution settings for delivery by adaptive streaming. This preset is particularly effective for low and medium complexity videos, where the output files will be at lower bitrates but at a quality that still delivers a good experience to viewers. The output will contain MP4 files with video and audio interleaved.", Automatic=true},
@@ -85,13 +86,15 @@ namespace AMSExplorer
 
         public string TransformName => textBoxTransformName.Text;
 
-        public string Description => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
+        public string TransformDescription => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
 
-        public PresetStandardEncoder()
+        public PresetStandardEncoder(string existingTransformName = null, string existingTransformDesc = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _unique = Program.GetUniqueness();
+            _existingTransformName = existingTransformName;
+            _existingTransformDesc = existingTransformDesc;
         }
 
         private void PresetStandardEncoder_Load(object sender, EventArgs e)
@@ -115,6 +118,9 @@ namespace AMSExplorer
             listboxPresets.SelectedIndex = 0;
 
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoMediaEncoderBuiltIn));
+
+            textBoxDescription.Text = _existingTransformDesc;
+
             UpdateTransformLabel();
         }
 
@@ -126,14 +132,21 @@ namespace AMSExplorer
 
         private void UpdateTransformLabel()
         {
-            if (UseCustomCopyPreset)
+            if (_existingTransformName != null)
             {
-                textBoxTransformName.Text = CopyVideoAudioTransformName;
+                textBoxTransformName.Text = _existingTransformName;
+                textBoxTransformName.Enabled = false;
             }
             else
             {
-                textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();
-
+                if (UseCustomCopyPreset)
+                {
+                    textBoxTransformName.Text = CopyVideoAudioTransformName;
+                }
+                else
+                {
+                    textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();
+                }
             }
         }
 

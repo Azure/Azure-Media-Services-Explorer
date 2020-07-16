@@ -26,6 +26,8 @@ namespace AMSExplorer
     public partial class PresetVideoAnalyzer : Form
     {
         private readonly string _unique;
+        private readonly string _existingTransformName;
+        private readonly string _existingTransformDesc;
 
         // langage codes supported : https://go.microsoft.com/fwlink/?linkid=2109463
         public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-EG", "ar-SY", "ru-RU", "hi-IN", "ko-KR" };
@@ -34,15 +36,17 @@ namespace AMSExplorer
 
         public string TransformName => textBoxTransformName.Text;
 
-        public string Description => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
+        public string TransformDescription => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
 
         public InsightsType InsightsMode => radioButtonAudioOnly.Checked ? InsightsType.AudioInsightsOnly : radioButtonVideoOnly.Checked ? InsightsType.VideoInsightsOnly : InsightsType.AllInsights;
 
-        public PresetVideoAnalyzer()
+        public PresetVideoAnalyzer(string existingTransformName = null, string existingTransformDesc = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _unique = Program.GetUniqueness();
+            _existingTransformName = existingTransformName;
+            _existingTransformDesc = existingTransformDesc;
         }
 
         private void PresetVideoAnalyzer_Load(object sender, EventArgs e)
@@ -55,6 +59,9 @@ namespace AMSExplorer
             LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
+
+            textBoxDescription.Text = _existingTransformDesc;
+
             UpdateTransformLabel();
         }
 
@@ -72,14 +79,22 @@ namespace AMSExplorer
 
         private void UpdateTransformLabel()
         {
-            if (InsightsMode ==  InsightsType.AudioInsightsOnly)
+            if (_existingTransformName != null)
             {
-                textBoxTransformName.Text = "AudioAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
-
+                textBoxTransformName.Text = _existingTransformName;
+                textBoxTransformName.Enabled = false;
             }
             else
             {
-                textBoxTransformName.Text = "VideoAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
+                if (InsightsMode == InsightsType.AudioInsightsOnly)
+                {
+                    textBoxTransformName.Text = "AudioAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
+
+                }
+                else
+                {
+                    textBoxTransformName.Text = "VideoAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
+                }
             }
         }
 

@@ -56,7 +56,7 @@
             this.analyzeAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem43 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem41 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem42 = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateClientManifestsismcWhenNeededToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
             this.newAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,9 +136,7 @@
             this.dataGridViewTransformsV = new AMSExplorer.DataGridViewTransforms();
             this.contextMenuStripTransforms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.createATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.videoAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.faceDetectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mediaEncoderStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addATaskToTransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.createJobUsingAnHttpSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -346,7 +344,6 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
-            this.generateClientManifestsismcWhenNeededToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -608,7 +605,6 @@
             this.analyzeAssetsToolStripMenuItem,
             this.toolStripMenuItem43,
             this.toolStripMenuItem41,
-            this.toolStripMenuItem42,
             this.generateClientManifestsismcWhenNeededToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
@@ -631,11 +627,11 @@
             this.toolStripMenuItem41.Name = "toolStripMenuItem41";
             this.toolStripMenuItem41.Click += new System.EventHandler(this.toolStripMenuItem41_Click);
             // 
-            // toolStripMenuItem42
+            // generateClientManifestsismcWhenNeededToolStripMenuItem
             // 
-            resources.ApplyResources(this.toolStripMenuItem42, "toolStripMenuItem42");
-            this.toolStripMenuItem42.Name = "toolStripMenuItem42";
-            this.toolStripMenuItem42.Click += new System.EventHandler(this.toolStripMenuItem42_Click);
+            this.generateClientManifestsismcWhenNeededToolStripMenuItem.Name = "generateClientManifestsismcWhenNeededToolStripMenuItem";
+            resources.ApplyResources(this.generateClientManifestsismcWhenNeededToolStripMenuItem, "generateClientManifestsismcWhenNeededToolStripMenuItem");
+            this.generateClientManifestsismcWhenNeededToolStripMenuItem.Click += new System.EventHandler(this.generateClientManifestsismcWhenNeededToolStripMenuItem_Click);
             // 
             // toolStripSeparator36
             // 
@@ -1237,6 +1233,7 @@
             // 
             this.contextMenuStripTransforms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createATransformToolStripMenuItem,
+            this.addATaskToTransformToolStripMenuItem,
             this.deleteTransformsToolStripMenuItem,
             this.toolStripSeparator10,
             this.createJobUsingAnHttpSourceToolStripMenuItem});
@@ -1245,33 +1242,15 @@
             // 
             // createATransformToolStripMenuItem
             // 
-            this.createATransformToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.videoAnalyzerToolStripMenuItem,
-            this.faceDetectorToolStripMenuItem,
-            this.mediaEncoderStandardToolStripMenuItem});
             this.createATransformToolStripMenuItem.Name = "createATransformToolStripMenuItem";
             resources.ApplyResources(this.createATransformToolStripMenuItem, "createATransformToolStripMenuItem");
+            this.createATransformToolStripMenuItem.Click += new System.EventHandler(this.createATransformToolStripMenuItem_Click);
             // 
-            // videoAnalyzerToolStripMenuItem
+            // addATaskToTransformToolStripMenuItem
             // 
-            this.videoAnalyzerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.index;
-            this.videoAnalyzerToolStripMenuItem.Name = "videoAnalyzerToolStripMenuItem";
-            resources.ApplyResources(this.videoAnalyzerToolStripMenuItem, "videoAnalyzerToolStripMenuItem");
-            this.videoAnalyzerToolStripMenuItem.Click += new System.EventHandler(this.videoAnalyzerToolStripMenuItem_Click);
-            // 
-            // faceDetectorToolStripMenuItem
-            // 
-            this.faceDetectorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.media_redactor;
-            this.faceDetectorToolStripMenuItem.Name = "faceDetectorToolStripMenuItem";
-            resources.ApplyResources(this.faceDetectorToolStripMenuItem, "faceDetectorToolStripMenuItem");
-            this.faceDetectorToolStripMenuItem.Click += new System.EventHandler(this.faceDetectorToolStripMenuItem_Click);
-            // 
-            // mediaEncoderStandardToolStripMenuItem
-            // 
-            this.mediaEncoderStandardToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.mediaEncoderStandardToolStripMenuItem.Name = "mediaEncoderStandardToolStripMenuItem";
-            resources.ApplyResources(this.mediaEncoderStandardToolStripMenuItem, "mediaEncoderStandardToolStripMenuItem");
-            this.mediaEncoderStandardToolStripMenuItem.Click += new System.EventHandler(this.mediaEncoderStandardToolStripMenuItem_Click);
+            this.addATaskToTransformToolStripMenuItem.Name = "addATaskToTransformToolStripMenuItem";
+            resources.ApplyResources(this.addATaskToTransformToolStripMenuItem, "addATaskToTransformToolStripMenuItem");
+            this.addATaskToTransformToolStripMenuItem.Click += new System.EventHandler(this.addATaskToTransformToolStripMenuItem_Click);
             // 
             // deleteTransformsToolStripMenuItem
             // 
@@ -2817,12 +2796,6 @@
             resources.ApplyResources(this.panelButtons, "panelButtons");
             this.panelButtons.Name = "panelButtons";
             // 
-            // generateClientManifestsismcWhenNeededToolStripMenuItem
-            // 
-            this.generateClientManifestsismcWhenNeededToolStripMenuItem.Name = "generateClientManifestsismcWhenNeededToolStripMenuItem";
-            resources.ApplyResources(this.generateClientManifestsismcWhenNeededToolStripMenuItem, "generateClientManifestsismcWhenNeededToolStripMenuItem");
-            this.generateClientManifestsismcWhenNeededToolStripMenuItem.Click += new System.EventHandler(this.generateClientManifestsismcWhenNeededToolStripMenuItem_Click);
-            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -3149,7 +3122,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem38;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem41;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem42;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem43;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator36;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
@@ -3176,8 +3148,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteTransformsToolStripMenuItem;
         private System.Windows.Forms.TextBox textBoxAssetsPageNumber;
         private System.Windows.Forms.ToolStripMenuItem createATransformToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem videoAnalyzerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mediaEncoderStandardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createJobUsingAnHttpSourceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromHttpsSourceWithSelectedTransformToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
@@ -3185,7 +3155,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectATransformToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem storageSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createASASUrlToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem faceDetectorToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainerLive;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
@@ -3220,6 +3189,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCKDelete;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripCKPolicies;
         private System.Windows.Forms.ToolStripMenuItem generateClientManifestsismcWhenNeededToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addATaskToTransformToolStripMenuItem;
     }
 }
 

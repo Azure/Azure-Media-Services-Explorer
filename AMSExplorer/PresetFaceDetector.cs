@@ -23,10 +23,12 @@ namespace AMSExplorer
 {
     public partial class PresetFaceDetector : Form
     {
+        private string _existingTransformName;
+        private string _existingTransformDesc;
 
         public string TransformName => textBoxTransformName.Text;
 
-        public string Description => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
+        public string TransformDescription => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
 
         public AnalysisResolution AnalysisResolutionMode
         {
@@ -49,10 +51,12 @@ namespace AMSExplorer
         }
 
 
-        public PresetFaceDetector()
+        public PresetFaceDetector(string existingTransformName = null, string existingTransformDesc = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
+            _existingTransformName = existingTransformName;
+            _existingTransformDesc = existingTransformDesc;
         }
 
         private void PresetFaceDetector_Load(object sender, EventArgs e)
@@ -63,6 +67,9 @@ namespace AMSExplorer
             HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
+
+            textBoxDescription.Text = _existingTransformDesc;
+
             UpdateTransformLabel();
         }
 
@@ -80,18 +87,26 @@ namespace AMSExplorer
 
         private void UpdateTransformLabel()
         {
-            if (radioButtonSource.Checked)
+            if (_existingTransformName != null)
             {
-                textBoxTransformName.Text = "FaceDetector-SourceRes";
-
-            }
-            else if (radioButtonStandard.Checked)
-            {
-                textBoxTransformName.Text = "FaceDetector-StdRes";
+                textBoxTransformName.Text = _existingTransformName;
+                textBoxTransformName.Enabled = false;
             }
             else
             {
-                textBoxTransformName.Text = "FaceDetector";
+                if (radioButtonSource.Checked)
+                {
+                    textBoxTransformName.Text = "FaceDetector-SourceRes";
+
+                }
+                else if (radioButtonStandard.Checked)
+                {
+                    textBoxTransformName.Text = "FaceDetector-StdRes";
+                }
+                else
+                {
+                    textBoxTransformName.Text = "FaceDetector";
+                }
             }
         }
 

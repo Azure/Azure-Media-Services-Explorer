@@ -7967,12 +7967,36 @@ namespace AMSExplorer
         }
 
         /// <summary>
+        /// Create a transform
+        /// </summary>
+        public async Task CreateOrUpdateTransformAsync(Transform transformInfo)
+        {
+            try
+            {
+                await _amsClient.RefreshTokenIfNeededAsync();
+
+                // Create the Transform with the output defined above
+                Transform transform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transformInfo.Name, transformInfo.Outputs, transformInfo.Description);
+                TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
+
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
+                TextBoxLogWriteLine(ex);
+
+            }
+
+            DoRefreshGridTransformV(false);
+        }
+
+        /// <summary>
         /// Create a Video Analyzer transform
         /// </summary>
         /// <returns>The name of the transform</returns>
-        public async Task<string> CreateVideoAnalyzerTransformAsync()
+        public Transform GetSettingsVideoAnalyzerTransform(string existingTransformName = null, string existingTransformDesc = null)
         {
-            PresetVideoAnalyzer form = new PresetVideoAnalyzer();
+            PresetVideoAnalyzer form = new PresetVideoAnalyzer(existingTransformName, existingTransformDesc);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -7983,24 +8007,7 @@ namespace AMSExplorer
                                                                 new TransformOutput( new VideoAnalyzerPreset( ){ AudioLanguage=form.Language, InsightsToExtract= form.InsightsMode  }),
                                                  };
 
-                try
-                {
-                    await _amsClient.RefreshTokenIfNeededAsync();
-
-                    // Create the Transform with the output defined above
-                    Transform transform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
-                    TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
-
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
-                    TextBoxLogWriteLine(ex);
-
-                }
-
-                DoRefreshGridTransformV(false);
-                return form.TransformName;
+                return new Transform(outputs: outputs, name: form.TransformName, description: form.TransformDescription);
             }
             return null;
         }
@@ -8009,9 +8016,9 @@ namespace AMSExplorer
         /// Creates a Face Detector transform.
         /// </summary>
         /// <returns>The name of the transform.</returns>
-        public async Task<string> CreateFaceDetectorTransformAsync()
+        public Transform GetSettingsFaceDetectorTransform(string existingTransformName = null, string existingTransformDesc = null)
         {
-            PresetFaceDetector form = new PresetFaceDetector();
+            PresetFaceDetector form = new PresetFaceDetector(existingTransformName, existingTransformDesc);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -8022,23 +8029,8 @@ namespace AMSExplorer
                                                                 new TransformOutput( new FaceDetectorPreset( ){ Resolution =  form.AnalysisResolutionMode    }),
                                                  };
 
-                try
-                {
-                    await _amsClient.RefreshTokenIfNeededAsync();
 
-                    // Create the Transform with the output defined above
-                    Transform transform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
-                    TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
-
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
-                    TextBoxLogWriteLine(ex);
-                }
-
-                DoRefreshGridTransformV(false);
-                return form.TransformName;
+                return new Transform(outputs: outputs, name: form.TransformName, description: form.TransformDescription);
             }
             return null;
         }
@@ -8047,14 +8039,12 @@ namespace AMSExplorer
         /// Create a MES Transform
         /// </summary>
         /// <returns>The name of the transform</returns>
-        public async Task<string> CreateStandardEncoderTransformAsync()
+        public Transform GetSettingsStandardEncoderTransform(string existingTransformName = null, string existingTransformDesc = null)
         {
-            PresetStandardEncoder form = new PresetStandardEncoder();
+            PresetStandardEncoder form = new PresetStandardEncoder(existingTransformName, existingTransformDesc);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                await _amsClient.RefreshTokenIfNeededAsync();
-
                 TransformOutput[] outputs;
 
                 if (!form.UseCustomCopyPreset)
@@ -8074,21 +8064,7 @@ namespace AMSExplorer
 
                 }
 
-                try
-                {
-                    // Create the Transform with the output defined above
-                    Transform transform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, form.TransformName, outputs, form.Description);
-                    TextBoxLogWriteLine("Transform '{0}' created.", transform.Name); // Warning
-
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
-                    TextBoxLogWriteLine(ex);
-                }
-
-                DoRefreshGridTransformV(false);
-                return form.TransformName;
+                return new Transform(outputs: outputs, name: form.TransformName, description: form.TransformDescription);
             }
             return null;
         }
@@ -8121,7 +8097,7 @@ namespace AMSExplorer
                 try
                 {
                     // Create the Transform with the output defined above
-                    myTransform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.Description);
+                    myTransform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.TransformDescription);
                     TextBoxLogWriteLine("Transform '{0}' created.", myTransform.Name); // Warning
                 }
                 catch (Exception ex)
@@ -8368,12 +8344,14 @@ namespace AMSExplorer
 
         private async void videoAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await CreateVideoAnalyzerTransformAsync();
+            var transformInfo = GetSettingsVideoAnalyzerTransform();
+            await CreateOrUpdateTransformAsync(transformInfo);
         }
 
         private async void mediaEncoderStandardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await CreateStandardEncoderTransformAsync();
+            var transformInfo = GetSettingsStandardEncoderTransform();
+            await CreateOrUpdateTransformAsync(transformInfo);
         }
 
         private async void createJobUsingAnHttpSourceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8434,7 +8412,8 @@ namespace AMSExplorer
 
         private async void faceDetectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await CreateFaceDetectorTransformAsync();
+            var transformInfo = GetSettingsFaceDetectorTransform();
+            await CreateOrUpdateTransformAsync(transformInfo);
         }
 
 
@@ -8836,6 +8815,70 @@ namespace AMSExplorer
         {
             ManifestGeneration.ClientManifestUtils.MyDelegate writeLog = new ManifestGeneration.ClientManifestUtils.MyDelegate(TextBoxLogWriteLine);
             await ManifestGeneration.ClientManifestUtils.DoGenerateClientManifestForAllAssetsAsync(_amsClient, writeLog);
+        }
+
+        private async void createATransformToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoCreateOrUpdateATransformAsync();
+        }
+
+        private async Task DoCreateOrUpdateATransformAsync(Transform existingTransform = null)
+        {
+            try
+            {
+                Transform transformInfo;
+
+                TransformTypeCreation form = new TransformTypeCreation();
+                form.ShowDialog();
+
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    switch (form.TransformType)
+                    {
+                        case simpleTransformType.analyze:
+                            transformInfo = GetSettingsVideoAnalyzerTransform(existingTransform?.Name, existingTransform?.Description);
+                            break;
+
+                        case simpleTransformType.encode:
+                            transformInfo = GetSettingsStandardEncoderTransform(existingTransform?.Name, existingTransform?.Description);
+                            break;
+
+                        case simpleTransformType.facedetection:
+                            transformInfo = GetSettingsFaceDetectorTransform(existingTransform?.Name, existingTransform?.Description);
+                            break;
+
+                        default: throw new ArgumentOutOfRangeException();
+                    }
+
+                    if (existingTransform != null) // user wants to add a task to an existing transform
+                    {
+                        transformInfo = new Transform(outputs: transformInfo.Outputs.Concat(existingTransform.Outputs).ToList(), name: existingTransform.Name, description: transformInfo.Description);
+                    }
+                    await CreateOrUpdateTransformAsync(transformInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void addATaskToTransformToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoAddTaskToTransformAsync();
+        }
+
+        private async Task DoAddTaskToTransformAsync()
+        {
+
+            var transforms = await ReturnSelectedTransformsAsync();
+
+            if (transforms.Count != 1)
+            {
+                return;
+            }
+
+            await DoCreateOrUpdateATransformAsync(transforms.First());
         }
     }
 }
