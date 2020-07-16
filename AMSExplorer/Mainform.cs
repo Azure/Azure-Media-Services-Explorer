@@ -8834,8 +8834,8 @@ namespace AMSExplorer
 
         private async void generateClientManifestsismcWhenNeededToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ManifestGeneration.ClientManifestUtils.MyDelegate d = new ManifestGeneration.ClientManifestUtils.MyDelegate(TextBoxLogWriteLine);
-            await ManifestGeneration.ClientManifestUtils.DoGenerateClientManifestForAllAssetsAsync(_amsClient, d);
+            ManifestGeneration.ClientManifestUtils.MyDelegate writeLog = new ManifestGeneration.ClientManifestUtils.MyDelegate(TextBoxLogWriteLine);
+            await ManifestGeneration.ClientManifestUtils.DoGenerateClientManifestForAllAssetsAsync(_amsClient, writeLog);
         }
     }
 }

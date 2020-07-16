@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace AMSExplorer.ManifestGeneration
@@ -19,6 +20,12 @@ namespace AMSExplorer.ManifestGeneration
 
         public static async Task DoGenerateClientManifestForAllAssetsAsync(AMSClientV3 amsClient, MyDelegate TextBoxLogWriteLine)
         {
+            bool cancel = false;
+            if (MessageBox.Show("The tool will list the published assets and will create a client manifest when needed.", "Client manifest creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)
+            {
+                return;
+            }
+
 
             ListContainerSasInput input = new ListContainerSasInput()
             {
@@ -37,6 +44,8 @@ namespace AMSExplorer.ManifestGeneration
                 bool always = false;
                 foreach (StreamingLocator locator in currentPage)
                 {
+                    TextBoxLogWriteLine("Inspecting locator {0}...", locator.Name, false);
+
                     // Get the asset associated with the locator.
                     Asset asset = amsClient.AMSclient.Assets.Get(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.AssetName);
 
@@ -47,7 +56,8 @@ namespace AMSExplorer.ManifestGeneration
                     }
                     catch (Exception ex)
                     {
-                        //TextBoxLogWriteLine("Error when listing blobs of asset '{0}'.", asset.Name, true); // Warning
+                        TextBoxLogWriteLine("Error when listing blobs of asset '{0}'.", asset.Name, true); // Warning
+                        TextBoxLogWriteLine(Program.GetErrorMessage(ex), string.Empty, true); // Warning
 
                         //MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -55,7 +65,6 @@ namespace AMSExplorer.ManifestGeneration
                     string uploadSasUrl = response.AssetContainerSasUrls.First();
                     Uri sasUri = new Uri(uploadSasUrl);
                     CloudBlobContainer storageContainer = new CloudBlobContainer(sasUri);
-
 
                     // Get a manifest file list from the Storage container.
                     List<string> fileList = GetFilesListFromStorage(storageContainer);
@@ -65,63 +74,63 @@ namespace AMSExplorer.ManifestGeneration
                     // If there is no .ism then there's no reason to continue.  If there's no .ismc we need to add it.
                     if (ismManifestFileName != null && ismcFileName == null)
                     {
-                        Console.WriteLine("Asset {0} does not have an ISMC file.", asset.Name);
-
-                        /*
-                        if (!always)
+                        var dialog = MessageBox.Show($"Asset {asset.Name} it does not have an ISMC file. Create one ?", "Client manifest creation", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                        if (dialog == DialogResult.Yes)
                         {
-                            //Console.WriteLine("Add the ISMC?  (y)es, (n)o, (a)lways, (q)uit");
-                            //ConsoleKeyInfo response = Console.ReadKey();
-                            string responseChar = response.Key.ToString();
+                            TextBoxLogWriteLine("Asset {0} : it does not have an ISMC file.", asset.Name, false);
 
-                            if (responseChar.Equals("N"))
+                            // let's try to read client manifest
+                            XDocument manifest = null;
+                            try
+                            {
+                                manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(asset, amsClient, locator.Name);
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine("Error when trying to read client manifest for asset '{0}'.", asset.Name, true); // Warning
+                                TextBoxLogWriteLine(Program.GetErrorMessage(ex), string.Empty, true); // Warning
+                                return;
+                            }
+
+                            string ismcContentXml = manifest.ToString();
+                            if (ismcContentXml.Length == 0)
+                            {
+                                TextBoxLogWriteLine("Asset {0} : client manifest is empty.", asset.Name, true); // Warning
+
+                                //error state, skip this asset
                                 continue;
-                            if (responseChar.Equals("A"))
-                            {
-                                always = true;
                             }
-                            else if (!(responseChar.Equals("Y")))
+                            if (ismcContentXml.IndexOf("<Protection>") > 0)
                             {
-                                break; // At this point anything other than a 'yes' should quit the loop/application.
+                                TextBoxLogWriteLine("Asset {0} : content is encrypted. Removing the protection header from the client manifest.", asset.Name, false);
+                                //remove DRM from the ISCM manifest
+                                ismcContentXml = XmlManifestUtils.RemoveXmlNode(ismcContentXml);
                             }
-                        }
-                        */
+                            string newIsmcFileName = ismManifestFileName.Substring(0, ismManifestFileName.IndexOf(".")) + ".ismc";
+                            CloudBlockBlob ismcBlob = WriteStringToBlob(ismcContentXml, newIsmcFileName, storageContainer);
+                            TextBoxLogWriteLine("Asset {0} : client manifest created.", asset.Name, false);
 
-                        // let's try to read client manifest
-                        XDocument manifest = null;
-                        try
-                        {
-                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(asset, amsClient, locator.Name);
-                        }
-                        catch (Exception ex)
-                        {
-                            //MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                            // Download the ISM so that we can modify it to include the ISMC file link.
+                            string ismXmlContent = GetFileXmlFromStorage(storageContainer, ismManifestFileName);
+                            ismXmlContent = XmlManifestUtils.AddIsmcToIsm(ismXmlContent, newIsmcFileName);
+                            WriteStringToBlob(ismXmlContent, ismManifestFileName, storageContainer);
+                            TextBoxLogWriteLine("Asset {0} : server manifest updated.", asset.Name, false);
 
-
-                        string ismcContentXml = manifest.ToString();
-                        if (ismcContentXml.Length == 0)
-                        {
-                            //error state, skip this asset
-                            continue;
+                            // update the ism to point to the ismc (download, modify, delete original, upload new)
                         }
-                        if (ismcContentXml.IndexOf("<Protection>") > 0)
+                        else if (dialog == DialogResult.Cancel)
                         {
-                            Console.WriteLine("Content is encrypted. Removing the protection header from the client manifest.");
-                            //remove DRM from the ISCM manifest
-                            ismcContentXml = XmlManifestUtils.RemoveXmlNode(ismcContentXml);
+                            cancel = true;
+                            break;
                         }
-                        string newIsmcFileName = ismManifestFileName.Substring(0, ismManifestFileName.IndexOf(".")) + ".ismc";
-                        CloudBlockBlob ismcBlob = WriteStringToBlob(ismcContentXml, newIsmcFileName, storageContainer);
-
-                        // Download the ISM so that we can modify it to include the ISMC file link.
-                        string ismXmlContent = GetFileXmlFromStorage(storageContainer, ismManifestFileName);
-                        ismXmlContent = XmlManifestUtils.AddIsmcToIsm(ismXmlContent, newIsmcFileName);
-                        WriteStringToBlob(ismXmlContent, ismManifestFileName, storageContainer);
-                        // update the ism to point to the ismc (download, modify, delete original, upload new)
                     }
                 }
+
+                if (cancel)
+                {
+                    break;
+                }
+
                 // Continue on to the next page of locators.
                 try
                 {
@@ -132,6 +141,8 @@ namespace AMSExplorer.ManifestGeneration
                     // we'll get here at the end of the page when the page is empty.  This is okay.
                 }
             } while (currentPage.NextPageLink != null);
+            MessageBox.Show("Locator listing is complete.", "Client manifest creation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            TextBoxLogWriteLine("Locator listing is complete.", string.Empty, false);
         }
 
         private static string GetFileXmlFromStorage(CloudBlobContainer storageContainer, string ismManifestFileName)
@@ -156,39 +167,5 @@ namespace AMSExplorer.ManifestGeneration
                                                select b.Name;
             return filteredList.ToList();
         }
-
-
-        private static string SendManifestRequest(Uri url)
-        {
-            string response = string.Empty;
-            if (url.IsWellFormedOriginalString())
-            {
-                HttpWebRequest myHttpWebRequest = null;
-                HttpWebResponse myHttpWebResponse = null;
-                try
-                {
-                    // Creates an HttpWebRequest with the specified URL. 
-                    myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                    // Sends the HttpWebRequest and waits for the response.			
-                    myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
-
-                    if (myHttpWebResponse.StatusCode == HttpStatusCode.OK)
-                    {
-                        using (Stream responseStream = myHttpWebResponse.GetResponseStream())
-                        {
-                            using (StreamReader reader = new StreamReader(responseStream))
-                                response = reader.ReadToEnd();
-                        }
-                    }
-                    myHttpWebResponse.Close();
-                }
-                catch (Exception e)
-                {
-                    //Console.WriteLine("Error: " + e.Message);
-                }
-            }
-            return response;
-        }
-
     }
 }

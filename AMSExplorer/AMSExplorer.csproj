@@ -1018,7 +1018,7 @@
       <Version>3.7.3-preview</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Management.Storage">
-      <Version>17.1.0</Version>
+      <Version>17.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Storage.Blob">
       <Version>11.1.7</Version>
@@ -1033,7 +1033,7 @@
       <Version>5.8.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory">
-      <Version>5.2.7</Version>
+      <Version>5.2.8</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Platforms">
       <Version>3.1.1</Version>
