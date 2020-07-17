@@ -155,7 +155,7 @@ namespace AMSExplorer
             DGAcct.Rows.Add("MediaServiceId", account.MediaServiceId);
 
             int i = 1;
-            foreach (var stor in account.StorageAccounts)
+            foreach (StorageAccount stor in account.StorageAccounts)
             {
                 string add = stor.Type == StorageAccountType.Primary ? " (primary)" : string.Empty;
                 DGAcct.Rows.Add($"Storage account #{i}" + add, GetStorageNameFromId(stor.Id));

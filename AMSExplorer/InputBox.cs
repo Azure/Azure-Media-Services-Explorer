@@ -5,13 +5,7 @@ namespace AMSExplorer
 {
     public partial class InputBox : Form
     {
-        public string InputValue
-        {
-            get
-            {
-                return textBoxInput.Text;
-            }
-        }
+        public string InputValue => textBoxInput.Text;
         public InputBox(string title, string promptText, string inputValue = null, bool passwordWildcard = false)
         {
             InitializeComponent();

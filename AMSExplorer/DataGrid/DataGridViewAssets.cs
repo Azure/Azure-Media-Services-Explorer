@@ -112,7 +112,7 @@ namespace AMSExplorer
 
             _amsClient = client;
 
-            var assetsList = Task.Run(() =>
+            IPage<Asset> assetsList = Task.Run(() =>
                                         _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)
                                         ).GetAwaiter().GetResult();
 
@@ -241,7 +241,7 @@ namespace AMSExplorer
 
             // test - let analyze only visible assets
             int visibleRowsCount = DisplayedRowCount(true);
-            if (visibleRowsCount == 0) visibleRowsCount = this.RowCount; // in some cases, DisplayedCount returns 0 so let's use all rows
+            if (visibleRowsCount == 0) visibleRowsCount = RowCount; // in some cases, DisplayedCount returns 0 so let's use all rows
             int firstDisplayedRowIndex = (FirstDisplayedCell != null) ? FirstDisplayedCell.RowIndex : 0;
             int lastvisibleRowIndex = (firstDisplayedRowIndex + visibleRowsCount) - 1;
             List<string> VisibleAssets = new List<string>();
@@ -373,7 +373,7 @@ namespace AMSExplorer
 
 
         private static readonly SemaphoreLocker _locker = new SemaphoreLocker();
-        int i = 0;
+        private int i = 0;
 
         public async Task ReLaunchAnalyzeOfAssetsAsync()
         {

@@ -49,13 +49,7 @@ namespace AMSExplorer
 
         public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
 
-        public NewAsset assetCreationSetting
-        {
-            get
-            {
-                return newAssetForm;
-            }
-        }
+        public NewAsset assetCreationSetting => newAssetForm;
 
         public ImportHttp(AMSClientV3 amsClient, bool AzureStorageContainerSASListMode = false)
         {

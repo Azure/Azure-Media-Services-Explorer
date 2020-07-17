@@ -93,11 +93,11 @@ namespace AMSExplorer
         public DRM_FairPlayLicense(int step = -1, int option = -1, bool laststep = true)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             if (step > -1 && option > -1)
             {
-                this.Text = string.Format(this.Text, step);
+                Text = string.Format(Text, step);
                 labelstep.Text = string.Format(labelstep.Text, step, option);
             }
             if (!laststep)

@@ -330,7 +330,7 @@ namespace AMSExplorer
 
                 textBoxFilterName.Enabled = false; // no way to change the filter name
                 textBoxFilterName.Text = _filter_name;
-              
+
 
                 // let's try to read asset timing
                 XDocument manifest = null;
@@ -360,7 +360,7 @@ namespace AMSExplorer
                 {
                     _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
                 }
-           
+
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
 
                 if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match

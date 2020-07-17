@@ -34,9 +34,9 @@ namespace AMSExplorer.ManifestGeneration
             if (doc != null)// && ismXmlContent.IndexOf("clientManifestRelativePath") < 0)
             {
                 XElement bodyhead = doc.Element(ns + "smil").Element(ns + "head");
-                var element = new XElement(ns + "meta", new XAttribute("name", manPath), new XAttribute("content", newIsmcFileName));
+                XElement element = new XElement(ns + "meta", new XAttribute("name", manPath), new XAttribute("content", newIsmcFileName));
 
-                var manifestRelPath = bodyhead.Elements(ns + "meta").Where(e => e.Attribute("name").Value == manPath).FirstOrDefault();
+                XElement manifestRelPath = bodyhead.Elements(ns + "meta").Where(e => e.Attribute("name").Value == manPath).FirstOrDefault();
                 if (manifestRelPath != null)
                 {
                     manifestRelPath.ReplaceWith(element);

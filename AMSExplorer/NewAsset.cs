@@ -28,60 +28,30 @@ namespace AMSExplorer
     {
         private readonly AMSClientV3 _amsClientV3;
 
-        public string StorageSelected
-        {
-            get
-            {
-                return comboBoxStorage.Visible ? ((Item)comboBoxStorage.SelectedItem).Value : null;
-            }
-        }
+        public string StorageSelected => comboBoxStorage.Visible ? ((Item)comboBoxStorage.SelectedItem).Value : null;
 
         public string AssetName
         {
-            get
-            {
-                return textBoxAssetName.Text;
-            }
-            set
-            {
-                textBoxAssetName.Text = value;
-            }
+            get => textBoxAssetName.Text;
+            set => textBoxAssetName.Text = value;
         }
 
         public string AssetDescription
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
-            }
-            set
-            {
-                textBoxDescription.Text = value;
-            }
+            get => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
+            set => textBoxDescription.Text = value;
         }
 
         public string AssetAltId
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(textBoxAltId.Text) ? null : textBoxAltId.Text;
-            }
-            set
-            {
-                textBoxAltId.Text = value;
-            }
+            get => string.IsNullOrWhiteSpace(textBoxAltId.Text) ? null : textBoxAltId.Text;
+            set => textBoxAltId.Text = value;
         }
 
         public string AssetContainer
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(textBoxContainer.Text) ? null : textBoxContainer.Text;
-            }
-            set
-            {
-                textBoxContainer.Text = value;
-            }
+            get => string.IsNullOrWhiteSpace(textBoxContainer.Text) ? null : textBoxContainer.Text;
+            set => textBoxContainer.Text = value;
         }
 
 

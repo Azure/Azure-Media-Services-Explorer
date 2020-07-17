@@ -39,7 +39,7 @@ namespace AMSExplorer
 
                     else // Base 64
                     {
-                        var key = Convert.FromBase64String(textBoxASK.Text);
+                        byte[] key = Convert.FromBase64String(textBoxASK.Text);
                         return (key.Length == 16) ? key : null;
                     }
                 }
@@ -51,13 +51,7 @@ namespace AMSExplorer
             }
         }
 
-        public PFXCertificate FairPlayCertificate
-        {
-            get
-            {
-                return cert;
-            }
-        }
+        public PFXCertificate FairPlayCertificate => cert;
 
         public int GetNumberOfAuthorizationPolicyOptionsPlayReady // if 0, then no authorization policy. If > 0, then return the number of options
         {
@@ -197,7 +191,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(textBoxASK, String.Empty);
+                errorProvider1.SetError(textBoxASK, string.Empty);
             }
             ValidateButtonOk();
         }

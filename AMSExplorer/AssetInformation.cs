@@ -737,7 +737,7 @@ namespace AMSExplorer
                 AssetContainerSas assetContainerSas = await GetTemporaryAssetContainerSasAsync();
                 Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
 
-                foreach (var blob in SelectedBlobs)
+                foreach (IListBlobItem blob in SelectedBlobs)
                 {
                     if (blob.GetType() == typeof(CloudBlockBlob))
                     {
@@ -1582,7 +1582,7 @@ namespace AMSExplorer
                 string question = "Delete all blobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    var ArrayBlobs = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToArray();
+                    CloudBlockBlob[] ArrayBlobs = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToArray();
                     List<Task> deleteTasks = new List<Task>();
 
                     for (int i = 0; i < ArrayBlobs.Count(); i++)
@@ -1637,7 +1637,7 @@ namespace AMSExplorer
 
         private async Task DoPlayWithFilterAsync()
         {
-            var selFilters = await ReturnSelectedFiltersAsync();
+            List<AssetFilter> selFilters = await ReturnSelectedFiltersAsync();
             await myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer, new List<Asset>() { myAsset }, selFilters.FirstOrDefault().Name);
         }
 
@@ -1970,7 +1970,7 @@ namespace AMSExplorer
             comboBoxOptions.Enabled = true;
             buttonGetDRMToken.Enabled = true;
 
-            foreach (var o in ckpolicy.Options)
+            foreach (ContentKeyPolicyOption o in ckpolicy.Options)
             {
                 if (o.Restriction.GetType() == typeof(ContentKeyPolicyTokenRestriction))
                 {
@@ -2097,7 +2097,7 @@ namespace AMSExplorer
 
                     List<Claim> claims = new List<Claim>();
 
-                    foreach (var claim in ckrestriction.RequiredClaims)
+                    foreach (ContentKeyPolicyTokenClaim claim in ckrestriction.RequiredClaims)
                     {
                         if (claim.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType)
                         {

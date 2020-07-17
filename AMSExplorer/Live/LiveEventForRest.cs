@@ -62,12 +62,12 @@ namespace AMSExplorer
                     .OrderByDescending(t => t.ExpiresOn)
                     .First().AccessToken;
 
-            var client = _amsClient.AMSclient.HttpClient;
+            HttpClient client = _amsClient.AMSclient.HttpClient;
             client.DefaultRequestHeaders.Remove("Authorization");
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            var _requestContent = liveEventSettings.ToJson(); // Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(liveEvent, serializationSettings);
-            var httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+            string _requestContent = liveEventSettings.ToJson(); // Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(liveEvent, serializationSettings);
+            StringContent httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
             httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
 
             HttpResponseMessage amsRequestResult = await client.PutAsync(URL, httpContent).ConfigureAwait(false);
@@ -99,7 +99,7 @@ namespace AMSExplorer
                     .OrderByDescending(t => t.ExpiresOn)
                     .First().AccessToken;
 
-            var client = _amsClient.AMSclient.HttpClient;
+            HttpClient client = _amsClient.AMSclient.HttpClient;
             client.DefaultRequestHeaders.Remove("Authorization");
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
@@ -131,13 +131,16 @@ namespace AMSExplorer
 
     public class LiveEventForRest
     {
-        public static LiveEventForRest FromJson(string json) => JsonConvert.DeserializeObject<LiveEventForRest>(json, AMSExplorer.ConverterLE.Settings);
+        public static LiveEventForRest FromJson(string json)
+        {
+            return JsonConvert.DeserializeObject<LiveEventForRest>(json, AMSExplorer.ConverterLE.Settings);
+        }
 
         public LiveEventForRest(string name, string location, string description, bool? vanityUrl, LiveEventEncoding encoding, LiveEventInput input, LiveEventPreview preview, IList<StreamOptionsFlag?> streamOptions, IList<TranscriptionForRest> transcriptions)
         {
-            this.Name = name;
-            this.Location = location;
-            this.Properties = new PropertiesForRest { Description = description, VanityUrl = vanityUrl, Encoding = encoding, Input = input, Preview = preview, StreamOptions = streamOptions, Transcriptions = transcriptions };
+            Name = name;
+            Location = location;
+            Properties = new PropertiesForRest { Description = description, VanityUrl = vanityUrl, Encoding = encoding, Input = input, Preview = preview, StreamOptions = streamOptions, Transcriptions = transcriptions };
         }
 
         [JsonProperty("properties")]
@@ -183,14 +186,17 @@ namespace AMSExplorer
 
         public TranscriptionForRest(string language)
         {
-            this.Language = language;
+            Language = language;
         }
     }
 
 
     public static class SerializeForRest
     {
-        public static string ToJson(this LiveEventForRest self) => JsonConvert.SerializeObject(self, AMSExplorer.ConverterLE.Settings);
+        public static string ToJson(this LiveEventForRest self)
+        {
+            return JsonConvert.SerializeObject(self, AMSExplorer.ConverterLE.Settings);
+        }
     }
 
     internal static class ConverterLE

@@ -74,8 +74,10 @@ namespace AMSExplorer
             get
             {
 
-                IList<TranscriptionForRest> transcriptionList = new List<TranscriptionForRest>();
-                transcriptionList.Add(new TranscriptionForRest(language: ((Item)comboBoxLanguage.SelectedItem).Value as string));
+                IList<TranscriptionForRest> transcriptionList = new List<TranscriptionForRest>
+                {
+                    new TranscriptionForRest(language: ((Item)comboBoxLanguage.SelectedItem).Value)
+                };
                 return transcriptionList;
             }
         }

@@ -23,8 +23,8 @@ namespace AMSExplorer
 {
     public partial class PresetFaceDetector : Form
     {
-        private string _existingTransformName;
-        private string _existingTransformDesc;
+        private readonly string _existingTransformName;
+        private readonly string _existingTransformDesc;
 
         public string TransformName => textBoxTransformName.Text;
 

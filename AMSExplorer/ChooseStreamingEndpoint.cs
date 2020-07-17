@@ -41,7 +41,7 @@ namespace AMSExplorer
         {
             get
             {
-                string val = (listBoxSE.SelectedItem as Item).Value as string;
+                string val = (listBoxSE.SelectedItem as Item).Value;
                 string seName = val.Split("|".ToCharArray())[0];
                 _amsClient.RefreshTokenIfNeeded();
                 return Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, seName)).GetAwaiter().GetResult();
@@ -75,12 +75,12 @@ namespace AMSExplorer
         {
             get
             {
-                string val = (listBoxSE.SelectedItem as Item).Value as string;
+                string val = (listBoxSE.SelectedItem as Item).Value;
                 return val.Split("|".ToCharArray())[1];
             }
         }
 
-        public string ReturnSelectedBrowser => (comboBoxBrowser?.SelectedItem as Item).Value as string;
+        public string ReturnSelectedBrowser => (comboBoxBrowser?.SelectedItem as Item).Value;
 
         public bool ReturnHttps => radioButtonHttps.Checked;
 
@@ -163,7 +163,7 @@ namespace AMSExplorer
             // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
             StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_amsClient);
 
-            var myStreamingEndpoints = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+            IPage<StreamingEndpoint> myStreamingEndpoints = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
 
             foreach (StreamingEndpoint se in myStreamingEndpoints)
             {

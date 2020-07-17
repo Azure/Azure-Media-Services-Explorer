@@ -29,45 +29,33 @@ namespace AMSExplorer
 {
     public partial class Subclipping : Form
     {
-        AMSClientV3 _amsClientV3;
-        private List<Asset> _selectedAssets;
-        private ManifestTimingData _parentAssetManifestData;
-        private long? _timescale = TimeSpan.TicksPerSecond;
-        Mainform _mainform;
-        bool backupCheckboxTrim = false; // used when user select reencode to save the status of trim checkbox
+        private readonly AMSClientV3 _amsClientV3;
+        private readonly List<Asset> _selectedAssets;
+        private readonly ManifestTimingData _parentAssetManifestData;
+        private readonly long? _timescale = TimeSpan.TicksPerSecond;
+        private readonly Mainform _mainform;
+        private bool backupCheckboxTrim = false; // used when user select reencode to save the status of trim checkbox
         private string _buttonOk;
         private string _labelAccurate;
         private string _labeloutoutputasset;
-        private StreamingLocator _tempStreamingLocator = null;
+        private readonly StreamingLocator _tempStreamingLocator = null;
 
         public string EncodingJobName
         {
-            get
-            {
-                return textBoxJobName.Text;
-            }
-            set
-            {
-                textBoxJobName.Text = value;
-            }
+            get => textBoxJobName.Text;
+            set => textBoxJobName.Text = value;
         }
 
         public string EncodingOutputAssetName
         {
-            get
-            {
-                return textboxoutputassetname.Text;
-            }
-            set
-            {
-                textboxoutputassetname.Text = value;
-            }
+            get => textboxoutputassetname.Text;
+            set => textboxoutputassetname.Text = value;
         }
 
         public Subclipping(AMSClientV3 context, List<Asset> assetlist, Mainform mainform)
         {
             InitializeComponent();
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             _amsClientV3 = context;
             _parentAssetManifestData = new ManifestTimingData();
             _selectedAssets = assetlist;
@@ -92,7 +80,7 @@ namespace AMSExplorer
 
             if (_selectedAssets.Count == 1 && _selectedAssets.FirstOrDefault() != null)  // one asset only
             {
-                var myAsset = assetlist.FirstOrDefault();
+                Asset myAsset = assetlist.FirstOrDefault();
                 textBoxAssetName.Text = myAsset.Name;
 
                 // let's try to read asset timing
@@ -196,7 +184,7 @@ namespace AMSExplorer
 
         private SubClipTrimmingDataTimeSpan GetSubClipTrimmingDataTimeSpan()
         {
-            var trimmingdata = new SubClipTrimmingDataTimeSpan();
+            SubClipTrimmingDataTimeSpan trimmingdata = new SubClipTrimmingDataTimeSpan();
             if (checkBoxTrimming.Checked)
             {
                 trimmingdata.StartTime = timeControlStart.TimeStampWithOffset;
@@ -223,7 +211,7 @@ namespace AMSExplorer
             }
             else if (radioButtonClipWithReencode.Checked) // means Reencoding
             {
-                var config = new SubClipConfiguration()
+                SubClipConfiguration config = new SubClipConfiguration()
                 {
                     Reencode = true,
                     Trimming = false,
@@ -233,8 +221,8 @@ namespace AMSExplorer
                 if (checkBoxTrimming.Checked)
                 {
                     config.Trimming = true;
-                    var list = new List<ExplorerEDLEntryInOut>();
-                    var subdata = GetSubClipTrimmingDataTimeSpan();
+                    List<ExplorerEDLEntryInOut> list = new List<ExplorerEDLEntryInOut>();
+                    SubClipTrimmingDataTimeSpan subdata = GetSubClipTrimmingDataTimeSpan();
                     config.StartTime = timeControlStart.TimeStampWithOffset;
                     config.EndTime = timeControlEnd.TimeStampWithOffset;
                 }
@@ -242,7 +230,7 @@ namespace AMSExplorer
             }
             else  // means asset filter
             {
-                var config = new SubClipConfiguration()
+                SubClipConfiguration config = new SubClipConfiguration()
                 {
                     Reencode = false,
                     Trimming = false,
@@ -251,7 +239,7 @@ namespace AMSExplorer
 
                 if (checkBoxTrimming.Checked)
                 {
-                    var subdata = GetSubClipTrimmingDataTimeSpan();
+                    SubClipTrimmingDataTimeSpan subdata = GetSubClipTrimmingDataTimeSpan();
                     config.Trimming = true;
                     config.StartTime = subdata.StartTime;
                     config.EndTime = subdata.EndTime;
@@ -276,7 +264,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(timeControlStart, String.Empty);
+                errorProvider1.SetError(timeControlStart, string.Empty);
             }
 
             // time end control
@@ -286,7 +274,7 @@ namespace AMSExplorer
             }
             else
             {
-                errorProvider1.SetError(timeControlEnd, String.Empty);
+                errorProvider1.SetError(timeControlEnd, string.Empty);
             }
         }
 
@@ -336,12 +324,12 @@ namespace AMSExplorer
 
         private void UpdateJSONInfo()
         {
-            var obj = new JObject() as dynamic;
+            dynamic obj = new JObject() as dynamic;
             obj.Subclips = new JArray() as dynamic;
 
             if (checkBoxTrimming.Checked && checkBoxUseEDL.Checked) // EDL
             {
-                foreach (var entry in buttonShowEDL.GetEDLEntries())
+                foreach (ExplorerEDLEntryInOut entry in buttonShowEDL.GetEDLEntries())
                 {
                     dynamic sourceEntry = new JObject() as dynamic;
                     sourceEntry.StartTime = entry.Start + buttonShowEDL.Offset;
@@ -500,7 +488,7 @@ namespace AMSExplorer
 
         private async Task DoSubClipAsync()
         {
-            var subclipConfig = this.GetSubclippingInternalConfiguration();
+            SubClipConfiguration subclipConfig = GetSubclippingInternalConfiguration();
 
             if (subclipConfig.Reencode) // reencode the clip
             {
@@ -589,7 +577,7 @@ namespace AMSExplorer
                     };
                 }
 
-                var transform = await _mainform.CreateAndGetCopyCodecTransformIfNeededAsync();
+                Transform transform = await _mainform.CreateAndGetCopyCodecTransformIfNeededAsync();
                 await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, null);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);

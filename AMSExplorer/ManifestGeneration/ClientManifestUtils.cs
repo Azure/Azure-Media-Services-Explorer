@@ -4,9 +4,7 @@ using Microsoft.Azure.Storage.Blob;
 using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -73,7 +71,7 @@ namespace AMSExplorer.ManifestGeneration
                     // If there is no .ism then there's no reason to continue.  If there's no .ismc we need to add it.
                     if (ismManifestFileName != null && ismcFileName == null)
                     {
-                        var dialog = MessageBox.Show($"Asset {asset.Name} it does not have an ISMC file. Create one ?", "Client manifest creation", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                        DialogResult dialog = MessageBox.Show($"Asset {asset.Name} it does not have an ISMC file. Create one ?", "Client manifest creation", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                         if (dialog == DialogResult.Yes)
                         {
                             TextBoxLogWriteLine("Asset {0} : it does not have an ISMC file.", asset.Name, false);

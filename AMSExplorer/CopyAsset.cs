@@ -25,11 +25,11 @@ namespace AMSExplorer
 {
     public partial class CopyAsset : Form
     {
-        ListCredentialsRPv3 CredentialList = new ListCredentialsRPv3();
-        private CopyAssetBoxMode Mode;
-        bool ErrorConnectingAMS = false;
-        bool ErrorConnectingStorage = false;
-        private string _accountname;
+        private ListCredentialsRPv3 CredentialList = new ListCredentialsRPv3();
+        private readonly CopyAssetBoxMode Mode;
+        private bool ErrorConnectingAMS = false;
+        private bool ErrorConnectingStorage = false;
+        private readonly string _accountname;
 
 
         public string DestinationStorageAccount
@@ -49,32 +49,13 @@ namespace AMSExplorer
 
         public string CopyAssetName
         {
-            get
-            {
-                return copyassetname.Text;
-            }
-            set
-            {
-                copyassetname.Text = value;
-            }
+            get => copyassetname.Text;
+            set => copyassetname.Text = value;
         }
 
-        public bool SingleDestinationAsset
-        {
-            get
-            {
-                return checkBoxTargetSingleAsset.Checked;
-            }
-        }
+        public bool SingleDestinationAsset => checkBoxTargetSingleAsset.Checked;
 
-        public bool DeleteSourceAsset
-        {
-            get
-            {
-                return checkBoxDeleteSource.Checked;
-            }
-
-        }
+        public bool DeleteSourceAsset => checkBoxDeleteSource.Checked;
 
 
         public AMSClientV3 DestinationAmsClient { get; private set; }
@@ -84,14 +65,14 @@ namespace AMSExplorer
         {
             InitializeComponent();
             _accountname = accountname;
-            this.Icon = Bitmaps.Azure_Explorer_ico;
+            Icon = Bitmaps.Azure_Explorer_ico;
             //_context = context;
             Mode = mode;
 
             switch (Mode)
             {
                 case CopyAssetBoxMode.CopyAsset:
-                    buttonOk.Text = this.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CopyAssets : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CopyAsset;
+                    buttonOk.Text = Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CopyAssets : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CopyAsset;
                     labelinfo.Text = string.Format(numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0AssetsSelected : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0AssetSelected, numberofobjectselected);
                     checkBoxDeleteSource.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_DeleteSourceAssets : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_DeleteSourceAsset;
                     checkBoxTargetSingleAsset.Enabled = numberofobjectselected > 1;
@@ -103,7 +84,7 @@ namespace AMSExplorer
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
                     labelinfo.Text = string.Format(numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ChannelsSelected : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ChannelSelected, numberofobjectselected);
-                    buttonOk.Text = this.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannels : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannel;
+                    buttonOk.Text = Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannels : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneChannel;
                     panelStorageAccount.Visible = false;
                     groupBoxOptions.Visible = false;
                     break;
@@ -112,7 +93,7 @@ namespace AMSExplorer
                     labelAssetCopy.Text = "Clone Live Event";
                     labelExplanation.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheProgramsWillBeClonedToTheSameChannelNameInTheSelectedAccount : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_TheProgramWillBeClonedToTheSameChannelNameInTheSelectedAccount;
                     labelinfo.Text = string.Format(numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ProgramsSelected : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_0ProgramSelected, numberofobjectselected);
-                    buttonOk.Text = this.Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_ClonePrograms : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneProgram;
+                    buttonOk.Text = Text = numberofobjectselected > 1 ? AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_ClonePrograms : AMSExplorer.Properties.Resources.CopyAsset_CopyAsset_CloneProgram;
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
                     checkBoxDeleteSource.Visible = false;
@@ -134,9 +115,11 @@ namespace AMSExplorer
             DpiUtils.InitPerMonitorDpi(this);
 
             // Add a dummy column     
-            ColumnHeader header = new ColumnHeader();
-            header.Text = "";
-            header.Name = "col1";
+            ColumnHeader header = new ColumnHeader
+            {
+                Text = "",
+                Name = "col1"
+            };
             listViewAccounts.Columns.Add(header);
             // Then
             listViewAccounts.Scrollable = true;
@@ -185,7 +168,7 @@ namespace AMSExplorer
                 return;
             }
 
-            this.Cursor = Cursors.WaitCursor;
+            Cursor = Cursors.WaitCursor;
 
             DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.AzureSubscriptionId, DestinationLoginInfo);
 
@@ -218,7 +201,7 @@ namespace AMSExplorer
             {   // let's refresh storage accounts
                 DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts = (await DestinationAmsClient.AMSclient.Mediaservices.GetAsync(DestinationAmsClient.credentialsEntry.ResourceGroup, DestinationAmsClient.credentialsEntry.AccountName)).StorageAccounts;
 
-                foreach (var storage in DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts)
+                foreach (StorageAccount storage in DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts)
                 {
                     string storageName = AMSClientV3.GetStorageName(storage.Id);
 

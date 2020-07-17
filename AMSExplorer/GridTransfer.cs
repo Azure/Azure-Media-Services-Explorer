@@ -35,7 +35,7 @@ namespace AMSExplorer
 
     public class TransferEntry : INotifyPropertyChanged
     {
-        private SynchronizationContext syncContext;
+        private readonly SynchronizationContext syncContext;
 
         public TransferEntry(SynchronizationContext mysyncContext)
         {
@@ -203,7 +203,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var handler = PropertyChanged;
+                    PropertyChangedEventHandler handler = PropertyChanged;
 
                     if (syncContext != null)
                         syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);

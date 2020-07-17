@@ -27,7 +27,7 @@ namespace AMSExplorer
 
     public partial class PresetStandardEncoder : Form
     {
-        static public readonly string CopyVideoAudioTransformName = "StandardEncoder-AMSE-CopyVideoAudio";
+        public static readonly string CopyVideoAudioTransformName = "StandardEncoder-AMSE-CopyVideoAudio";
         private readonly string _unique;
         private readonly string _existingTransformName;
         private readonly string _existingTransformDesc;
@@ -51,19 +51,9 @@ namespace AMSExplorer
 
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
 
-        public bool UseCustomCopyPreset
-        {
-            get
-            {
-                return radioButtonCustom.Checked;
-            }
-        }
+        public bool UseCustomCopyPreset => radioButtonCustom.Checked;
 
-        public StandardEncoderPreset CustomCopyPreset
-        {
-            get
-            {
-                return new StandardEncoderPreset(
+        public StandardEncoderPreset CustomCopyPreset => new StandardEncoderPreset(
                   codecs: new Codec[]
                   {
                         // Add an Audio layer for the audio copy
@@ -79,8 +69,6 @@ namespace AMSExplorer
                             filenamePattern:"Archive-{Basename}{Extension}"
                         )
                     });
-            }
-        }
 
 
 

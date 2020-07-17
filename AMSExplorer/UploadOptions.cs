@@ -75,7 +75,7 @@ namespace AMSExplorer
         private void ControlsResetToDefault()
         {
             _amsClientV3.RefreshTokenIfNeeded();
-            var storAccounts = Task.Run(() =>  _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).GetAwaiter().GetResult().StorageAccounts;
+            IList<StorageAccount> storAccounts = Task.Run(() => _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).GetAwaiter().GetResult().StorageAccounts;
 
             comboBoxStorage.Items.Clear();
             foreach (Microsoft.Azure.Management.Media.Models.StorageAccount storage in storAccounts)

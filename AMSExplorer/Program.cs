@@ -18,11 +18,12 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.Storage;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Win32;
-using Microsoft.Azure.Storage.Blob;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -49,7 +50,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using Microsoft.Azure.Storage;
 
 namespace AMSExplorer
 {
@@ -222,7 +222,7 @@ namespace AMSExplorer
             }
             return myText;
         }
-      
+
 
         public static string MessageNewVersion = string.Empty;
 
@@ -669,13 +669,13 @@ namespace AMSExplorer
             }
         }
 
-        public async static Task<Uri> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
+        public static async Task<Uri> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
             IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
 
-            var ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             StreamingEndpoint runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
             if (runningSes == null)
@@ -687,7 +687,7 @@ namespace AMSExplorer
             {
                 string locatorName = useThisLocatorName ?? locators.First().Name;
                 IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName)).StreamingPaths;
-                var smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
+                IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
                 if (smoothPath.Count() > 0)
                 {
                     UriBuilder uribuilder = new UriBuilder
@@ -939,7 +939,7 @@ namespace AMSExplorer
         }
 
 
-        public async static Task<XDocument> TryToGetClientManifestContentAsABlobAsync(Asset asset, AMSClientV3 _amsClient)
+        public static async Task<XDocument> TryToGetClientManifestContentAsABlobAsync(Asset asset, AMSClientV3 _amsClient)
         {
             // get the manifest
             ListContainerSasInput input = new ListContainerSasInput()
@@ -954,11 +954,11 @@ namespace AMSExplorer
             string uploadSasUrl = responseSas.AssetContainerSasUrls.First();
 
             Uri sasUri = new Uri(uploadSasUrl);
-            var container = new CloudBlobContainer(sasUri);
+            CloudBlobContainer container = new CloudBlobContainer(sasUri);
 
 
             BlobContinuationToken continuationToken = null;
-            var blobs = new List<CloudBlockBlob>();
+            List<CloudBlockBlob> blobs = new List<CloudBlockBlob>();
 
             do
             {
@@ -968,19 +968,19 @@ namespace AMSExplorer
                 continuationToken = segment.ContinuationToken;
             }
             while (continuationToken != null);
-            var ismc = blobs.Where(b => b.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase));
+            IEnumerable<CloudBlockBlob> ismc = blobs.Where(b => b.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase));
 
             if (ismc.Count() == 0)
             {
                 throw new Exception("No ISMC file in asset.");
             }
 
-            var content = await ismc.First().DownloadTextAsync();
+            string content = await ismc.First().DownloadTextAsync();
 
             return XDocument.Parse(content);
         }
 
-        public async static Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
+        public static async Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
         {
             Uri myuri = await GetValidOnDemandSmoothURIAsync(asset, _amsClient, preferredLocatorName);
 
@@ -1030,7 +1030,7 @@ namespace AMSExplorer
                 ulong? overallDuration = null;
                 if (durationFromManifest != null) // there is a duration value. Let's take this one.
                 {
-                    overallDuration = (ulong?)ulong.Parse(durationFromManifest);
+                    overallDuration = ulong.Parse(durationFromManifest);
                 }
 
                 // Timestamp offset
@@ -1292,7 +1292,7 @@ namespace AMSExplorer
             List<IListBlobItem> rootBlobs = new List<IListBlobItem>();
             do
             {
-                var segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken1, null, null);
+                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken1, null, null);
                 continuationToken1 = segment.ContinuationToken;
                 rootBlobs = segment.Results.ToList();
             }
@@ -1318,7 +1318,7 @@ namespace AMSExplorer
                 List<CloudBlockBlob> subBlobs = new List<CloudBlockBlob>();
                 do
                 {
-                    var segment = await dirRef.ListBlobsSegmentedAsync(true, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                    BlobResultSegment segment = await dirRef.ListBlobsSegmentedAsync(true, BlobListingDetails.Metadata, null, continuationToken, null, null);
                     continuationToken = segment.ContinuationToken;
                     subBlobs = segment.Results.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
                     subBlobs.ForEach(b => size += b.Properties.Length);
@@ -1914,7 +1914,7 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            var culture = CultureInfo.GetCultureInfo(subtitleLanguageCode);
+                            CultureInfo culture = CultureInfo.GetCultureInfo(subtitleLanguageCode);
                             string trackName = WebUtility.HtmlEncode(culture.DisplayName);
                             playerurl += $"&imsc1Captions={trackName},{subtitleLanguageCode}";
                         }
@@ -1946,7 +1946,7 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            var culture = CultureInfo.GetCultureInfo(subtitleLanguageCode);
+                            CultureInfo culture = CultureInfo.GetCultureInfo(subtitleLanguageCode);
                             string trackName = WebUtility.HtmlEncode(culture.DisplayName);
                             playerurlAd += $"&imsc1CaptionsSettings={trackName},{subtitleLanguageCode}";
                         }
@@ -2463,7 +2463,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var handler = PropertyChanged;
+                    PropertyChangedEventHandler handler = PropertyChanged;
 
                     if (syncContext != null)
                         syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
@@ -2577,7 +2577,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var handler = PropertyChanged;
+                    PropertyChangedEventHandler handler = PropertyChanged;
 
                     if (syncContext != null)
                         syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
@@ -3664,14 +3664,13 @@ namespace AMSExplorer
 
         private static int GetPerMonitorDpiForControl(Control c)
         {
-            var dpi = 96;
+            int dpi = 96;
 
             try
             {
-                var p = c.PointToScreen(new Point(c.Bounds.X + c.Bounds.Width / 2, c.Bounds.Y + c.Bounds.Height / 2));
-                var monitorHandle = MonitorFromPoint(p, MonitorOptions.DefaultToNearest);
-                uint dpiX, dpiY;
-                GetDpiForMonitor(monitorHandle, DpiType.Effective, out dpiX, out dpiY);
+                Point p = c.PointToScreen(new Point(c.Bounds.X + c.Bounds.Width / 2, c.Bounds.Y + c.Bounds.Height / 2));
+                IntPtr monitorHandle = MonitorFromPoint(p, MonitorOptions.DefaultToNearest);
+                GetDpiForMonitor(monitorHandle, DpiType.Effective, out uint dpiX, out uint dpiY);
                 dpi = (int)dpiX;
             }
             catch (Exception e)
@@ -3684,15 +3683,15 @@ namespace AMSExplorer
 
         public static void InitPerMonitorDpi(Form form)
         {
-            var reportedDpi = form.DeviceDpi;
-            var trueDpi = GetPerMonitorDpiForControl(form);
+            int reportedDpi = form.DeviceDpi;
+            int trueDpi = GetPerMonitorDpiForControl(form);
 
             if (reportedDpi == trueDpi)
                 return;
 
-            var wParam = (trueDpi << 16) | (trueDpi & 0xffff);
-            var dpiRatio = trueDpi / (double)reportedDpi;
-            var suggestedBounds = new SuggestedBoundsRect
+            int wParam = (trueDpi << 16) | (trueDpi & 0xffff);
+            double dpiRatio = trueDpi / (double)reportedDpi;
+            SuggestedBoundsRect suggestedBounds = new SuggestedBoundsRect
             {
                 Left = form.Location.X,
                 Top = form.Location.Y,
@@ -3702,7 +3701,7 @@ namespace AMSExplorer
 
             try
             {
-                var ptr = Marshal.AllocHGlobal(Marshal.SizeOf(suggestedBounds));
+                IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(suggestedBounds));
                 Marshal.StructureToPtr(suggestedBounds, ptr, false);
                 SendMessage(form.Handle, WM_DPICHANGED, wParam, ptr);
                 Marshal.FreeHGlobal(ptr);
@@ -3724,13 +3723,13 @@ namespace AMSExplorer
 
             if (currentForm != null) currentForm.SuspendLayout();
             Debug.Print($"Old DPI: {e.DeviceDpiOld}, new DPI {e.DeviceDpiNew}");
-            float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
-            foreach (var c in controls)
+            float factor = e.DeviceDpiNew / (float)e.DeviceDpiOld;
+            foreach (Control c in controls)
             {
                 c.Font = new Font(c.Font.Name, c.Font.Size * factor);
                 if (c.GetType() == typeof(MenuStrip) || c.GetType() == typeof(ContextMenuStrip))// if menu  control
                 {
-                    var sizevar = Convert.ToInt32(16f * (float)e.DeviceDpiNew / 96f);
+                    int sizevar = Convert.ToInt32(16f * e.DeviceDpiNew / 96f);
                     (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);
                 }
             }
@@ -3741,13 +3740,13 @@ namespace AMSExplorer
         {
             if (currentForm != null) currentForm.SuspendLayout();
             Debug.Print($"Old DPI: {e.DeviceDpiOld}, new DPI {e.DeviceDpiNew}");
-            float factor = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
-            foreach (var c in controls)
+            float factor = e.DeviceDpiNew / (float)e.DeviceDpiOld;
+            foreach (Control c in controls)
             {
                 c.Font = new Font(c.Font.Name, c.Font.Size * factor);
                 if (c.GetType() == typeof(MenuStrip) || c.GetType() == typeof(ContextMenuStrip))// if menu  control
                 {
-                    var sizevar = Convert.ToInt32(16f * (float)e.DeviceDpiNew / 96f);
+                    int sizevar = Convert.ToInt32(16f * e.DeviceDpiNew / 96f);
                     (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);
                 }
             }
@@ -3761,7 +3760,7 @@ namespace AMSExplorer
         public static void AdjustControlImagesDpiScale(Control container)
         {
             //var dpiScale = GetDpiScale(container).Value;
-            var dpiScale = GetDpiScale(container);
+            float dpiScale = GetDpiScale(container);
             if (CloseToOne(dpiScale))
                 return;
 
@@ -3770,13 +3769,13 @@ namespace AMSExplorer
 
         public static void AdjustControlImagesAfterDpiChange(Control container, DpiChangedEventArgs e)
         {
-            float dpiScale = (float)e.DeviceDpiNew / (float)e.DeviceDpiOld;
+            float dpiScale = e.DeviceDpiNew / (float)e.DeviceDpiOld;
             AdjustControlImagesDpiScale(container.Controls, dpiScale);
         }
 
         private static void AdjustButtonImageDpiScale(ButtonBase button, float dpiScale)
         {
-            var image = button.Image;
+            System.Drawing.Image image = button.Image;
             if (image == null)
                 return;
 
@@ -3804,7 +3803,7 @@ namespace AMSExplorer
 
         private static void AdjustPictureBoxDpiScale(PictureBox pictureBox, float dpiScale)
         {
-            var image = pictureBox.Image;
+            System.Drawing.Image image = pictureBox.Image;
             if (image == null)
                 return;
 
@@ -3840,17 +3839,17 @@ namespace AMSExplorer
         {
             if (image == null) return null;
 
-            var newSize = ScaleSize(image.Size, dpiScale);
-            var newBitmap = new Bitmap(newSize.Width, newSize.Height);
+            Size newSize = ScaleSize(image.Size, dpiScale);
+            Bitmap newBitmap = new Bitmap(newSize.Width, newSize.Height);
 
             Bitmap tempbitmap = (Bitmap)image; // to avoid multi thread using the same bitmap and create an exception
 
-            using (var g = Graphics.FromImage(newBitmap))
+            using (Graphics g = Graphics.FromImage(newBitmap))
             {
                 // According to this blog post http://blogs.msdn.com/b/visualstudio/archive/2014/03/19/improving-high-dpi-support-for-visual-studio-2013.aspx
                 // NearestNeighbor is more adapted for 200% and 200%+ DPI
 
-                var interpolationMode = InterpolationMode.HighQualityBicubic;
+                InterpolationMode interpolationMode = InterpolationMode.HighQualityBicubic;
                 // if (dpiScale >= 2.0f)
                 //     interpolationMode = InterpolationMode.NearestNeighbor;
 

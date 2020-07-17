@@ -329,7 +329,7 @@ namespace AMSExplorer
                                             LOBitmap = await DataGridViewAssets.BuildBitmapPublicationAsync(item.LiveOutputItem.AssetName, _amsClient)
                                         });
 
-            var programquery = (await Task.WhenAll(tasksBuildBitmaps))
+            IEnumerable<LiveOutputEntry> programquery = (await Task.WhenAll(tasksBuildBitmaps))
                                             .Select(c =>
                                                           new LiveOutputEntry
                                                           {

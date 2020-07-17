@@ -451,9 +451,9 @@ namespace AMSExplorer
                               if (progress.progress > 3d && progress.progress < 101d)
                               {
                                   DateTime startlocaltime = ((DateTime)myJob.StartTime).ToLocalTime();
-                                  TimeSpan interval = (TimeSpan)(DateTime.Now - startlocaltime);
+                                  TimeSpan interval = DateTime.Now - startlocaltime;
                                   DateTime ETA = DateTime.Now.AddSeconds((100d / progress.progress - 1d) * interval.TotalSeconds);
-                                  TimeSpan estimatedduration = (TimeSpan)(ETA - startlocaltime);
+                                  TimeSpan estimatedduration = ETA - startlocaltime;
 
                                   ETAstr = "Estimated: " + ETA.ToString("G");
                                   Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
@@ -474,8 +474,8 @@ namespace AMSExplorer
                                               Rows[indexdisplayed].Cells[Columns["Progress"].Index].ToolTipText = progress.sb.ToString(); // mouse hover info
                                               if (progress.progress != 0)
                                               {
-                                                  this.Rows[indexdisplayed].Cells[Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
-                                                  this.Rows[indexdisplayed].Cells[Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
+                                                  Rows[indexdisplayed].Cells[Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
+                                                  Rows[indexdisplayed].Cells[Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
                                               }
                                               //base.Refresh();
                                               RefreshGridView();

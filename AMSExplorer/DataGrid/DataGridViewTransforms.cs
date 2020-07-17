@@ -42,7 +42,7 @@ namespace AMSExplorer
             _amsClient = client;
             _context = context;
 
-            var transformsList = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<Transform> transformsList = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             IEnumerable<Task<TransformEntryV3>> transforms = transformsList.Select(async a => new TransformEntryV3(_context)
             {

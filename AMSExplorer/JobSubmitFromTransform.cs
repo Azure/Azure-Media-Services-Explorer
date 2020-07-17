@@ -67,16 +67,10 @@ namespace AMSExplorer
         /// Return the selected asset object. Null if no asset.
         /// </summary>
         public Asset ExistingOutputAsset  // null if no asset
-        {
-            get => radioButtonExistingAsset.Checked ? listViewAssets1.GetSelectedAsset : null;
-
-        }
+=> radioButtonExistingAsset.Checked ? listViewAssets1.GetSelectedAsset : null;
 
         public string OutputAssetNameSyntax  // null if no asset
-        {
-            get => !radioButtonExistingAsset.Checked ? textBoxNewAssetNameSyntax.Text : null;
-
-        }
+=> !radioButtonExistingAsset.Checked ? textBoxNewAssetNameSyntax.Text : null;
 
 
         public JobSubmitFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? start = null, TimeSpan? end = null, bool noHttpSourceMode = false)

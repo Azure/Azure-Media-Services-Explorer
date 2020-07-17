@@ -194,15 +194,15 @@ namespace AMSExplorer
                 // let's use REST call (preview) to display live transcript settings if any
                 try
                 {
-                    var clientRest = new AmsClientRestLiveTranscript(_client);
-                    var liveEventRestProp = clientRest.GetLiveEvent(MyLiveEvent.Name).Properties;
+                    AmsClientRestLiveTranscript clientRest = new AmsClientRestLiveTranscript(_client);
+                    PropertiesForRest liveEventRestProp = clientRest.GetLiveEvent(MyLiveEvent.Name).Properties;
 
                     if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
                     {
                         DGLiveEvent.Rows.Add("Live Transcription", "Enabled");
                         labelLoosingLiveTranscriptionFeature.Visible = true;
 
-                        foreach (var transcript in liveEventRestProp.Transcriptions)
+                        foreach (TranscriptionForRest transcript in liveEventRestProp.Transcriptions)
                         {
                             DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
                         }

@@ -30,7 +30,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -49,7 +48,7 @@ namespace AMSExplorer
 
         public AmsLogin()
         {
-            this.Font = new Font("Segoe UI", 9);
+            Font = new Font("Segoe UI", 9);
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
         }

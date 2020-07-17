@@ -17,10 +17,13 @@
 // Azure Management dependencies
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Auth;
+using Microsoft.Azure.Storage.Blob;
+using Microsoft.Azure.Storage.Shared.Protocol;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.Azure.Storage.Blob;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -39,9 +42,6 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using System.Xml;
-using Microsoft.Azure.Storage.Shared.Protocol;
-using Microsoft.Azure.Storage.Auth;
-using Microsoft.Azure.Storage;
 
 namespace AMSExplorer
 {
@@ -87,7 +87,7 @@ namespace AMSExplorer
 
         public Mainform(string[] args)
         {
-            this.Font = new Font("Segoe UI", 9);
+            Font = new Font("Segoe UI", 9);
             InitializeComponent();
 
             // for player control embedded in UI
@@ -186,7 +186,7 @@ namespace AMSExplorer
             // Let's check if there is one streaming unit running
             try
             {
-                var seResults = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+                IPage<StreamingEndpoint> seResults = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
 
                 //Microsoft.Rest.Azure.IPage<StreamingEndpoint> se = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
 
@@ -195,7 +195,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
                 }
 
-                var leResults = Task.Run(() => _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
+                IPage<LiveEvent> leResults = Task.Run(() => _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
                 double nbLiveEvents = leResults.Count();
                 double nbse = seResults.Count();
                 if (nbse > 0 && nbLiveEvents > 0 && (nbLiveEvents / nbse) > 5)
@@ -641,7 +641,7 @@ namespace AMSExplorer
                     i++;
                     TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    var myTask = ProcessUploadFileAndMoreV3Async(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: form.BlockSize);
+                    Task myTask = ProcessUploadFileAndMoreV3Async(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: form.BlockSize);
                     MyTasks.Add(myTask);
                     if (i == 10) // let's use a batch of 10 threads at the same time
                     {
@@ -691,7 +691,7 @@ namespace AMSExplorer
             try
             {
                 //à fixer
-                var response2 = await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);//.ConfigureAwait(false);
+                MediaService response2 = await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);//.ConfigureAwait(false);
                 storAccounts = response2.StorageAccounts;
             }
             catch
@@ -722,7 +722,7 @@ namespace AMSExplorer
                 {
                     if (destAssetName == null) // let create a new asset
                     {
-                        var assetToCreateSettings = new Asset()
+                        Asset assetToCreateSettings = new Asset()
                         {
                             StorageAccountName = storageaccount
                         };
@@ -804,7 +804,7 @@ namespace AMSExplorer
                                 blob.Properties.ContentType = "video/mp4";
                             }
 
-                            var ado = blob.UploadFromFileAsync(fileWithPath, token);
+                            Task ado = blob.UploadFromFileAsync(fileWithPath, token);
                             Console.WriteLine(ado.Status);
                             await ado.ContinueWith(t =>
                              {
@@ -827,31 +827,31 @@ namespace AMSExplorer
                             long bytesUploaded = 0;
                             do
                             {
-                                var bytesToRead = Math.Min(blocksize * 1024 * 1024, bytesToUpload);
-                                var blobContents = new byte[bytesToRead];
+                                long bytesToRead = Math.Min(blocksize * 1024 * 1024, bytesToUpload);
+                                byte[] blobContents = new byte[bytesToRead];
                                 using (FileStream fs = new FileStream(fileWithPath, FileMode.Open))
                                 {
                                     fs.Position = startPosition;
                                     fs.Read(blobContents, 0, (int)bytesToRead);
                                 }
                                 ManualResetEvent manualResetEvent = new ManualResetEvent(false);
-                                var blockId = Convert.ToBase64String(Encoding.UTF8.GetBytes(index.ToString("d6")));
+                                string blockId = Convert.ToBase64String(Encoding.UTF8.GetBytes(index.ToString("d6")));
                                 blockIds.Add(blockId);
-                                var blockAsync = blob.PutBlockAsync(blockId, new MemoryStream(blobContents), null);
+                                Task blockAsync = blob.PutBlockAsync(blockId, new MemoryStream(blobContents), null);
                                 await blockAsync.ContinueWith(t =>
                                 {
                                     bytesUploaded += bytesToRead;
                                     bytesToUpload -= bytesToRead;
                                     startPosition += bytesToRead;
                                     index++;
-                                    double percentComplete = 100d * (long)(BytesCopiedForAllFiles + bytesUploaded) / LengthAllFiles;
+                                    double percentComplete = 100d * (BytesCopiedForAllFiles + bytesUploaded) / LengthAllFiles;
                                     DoGridTransferUpdateProgress(percentComplete, guidTransfer);
                                     manualResetEvent.Set();
                                 });
                                 manualResetEvent.WaitOne();
                             }
                             while (bytesToUpload > 0);
-                            var blockListAsync = blob.PutBlockListAsync(blockIds);
+                            Task blockListAsync = blob.PutBlockListAsync(blockIds);
                             await blockListAsync.ContinueWith(t =>
                             {
 
@@ -917,7 +917,7 @@ namespace AMSExplorer
 
             try
             {
-                var assetSettings = new Asset()
+                Asset assetSettings = new Asset()
                 {
                     StorageAccountName = storageaccount,
                     Description = assetCreationSettings?.AssetDescription.Replace(Constants.NameconvUrl, source.AbsoluteUri) ?? "Imported from : " + source.AbsoluteUri,
@@ -1049,7 +1049,7 @@ namespace AMSExplorer
 
             try
             {
-                var assetSettings = new Asset()
+                Asset assetSettings = new Asset()
                 {
                     StorageAccountName = storageaccount,
                     Description = assetCreationSettings?.AssetDescription.Replace(Constants.NameconvUrl, ObjectUrl.AbsoluteUri) ?? "Imported from : " + ObjectUrl.AbsoluteUri,
@@ -1478,9 +1478,9 @@ namespace AMSExplorer
 
                 _backuprootfolderupload = SelectedPath;
 
-                IEnumerable<string> filePaths = Directory.EnumerateFiles(SelectedPath as string);
+                IEnumerable<string> filePaths = Directory.EnumerateFiles(SelectedPath);
 
-                TextBoxLogWriteLine("There are {0} files in {1}", filePaths.Count().ToString(), (SelectedPath as string));
+                TextBoxLogWriteLine("There are {0} files in {1}", filePaths.Count().ToString(), SelectedPath);
                 if (!filePaths.Any())
                 {
                     throw new FileNotFoundException(string.Format("No files in directory, check folderPath: {0}", SelectedPath));
@@ -1514,7 +1514,7 @@ namespace AMSExplorer
                         i++;
                         TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
-                        var myTask = ProcessUploadFileAndMoreV3Async(
+                        Task myTask = ProcessUploadFileAndMoreV3Async(
                                                                       new List<string>() { f },
                                                                       response.Id,
                                                                       response.token,
@@ -2235,7 +2235,7 @@ namespace AMSExplorer
                                     }
                                     else
                                     {
-                                        foreach (var p in path.Paths)
+                                        foreach (string p in path.Paths)
                                         {
                                             appendExtension = string.Empty;
                                             if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash && !p.EndsWith(Constants.mpd))
@@ -2428,7 +2428,7 @@ namespace AMSExplorer
                 BlobContinuationToken continuationToken = null;
                 do
                 {
-                    var response = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.None, null, continuationToken, null, null);
+                    BlobResultSegment response = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.None, null, continuationToken, null, null);
                     continuationToken = response.ContinuationToken;
                     foreach (IListBlobItem blobItem in response.Results)
                     {
@@ -2616,7 +2616,7 @@ namespace AMSExplorer
 
         private async Task DoDeleteAllJobsAsync()
         {
-            var transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
+            List<Transform> transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
             if (transforms.Count > 1)
             {
                 return;
@@ -2679,7 +2679,7 @@ namespace AMSExplorer
 
         private async Task DoCancelAllJobsAsync()
         {
-            var transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
+            List<Transform> transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
             if (transforms.Count > 1)
             {
                 return;
@@ -2900,7 +2900,7 @@ namespace AMSExplorer
             comboBoxStateJobs.Items.AddRange(
             typeof(Microsoft.Azure.Management.Media.Models.JobState)
             .GetFields()
-            .Select(i => i.Name as string)
+            .Select(i => i.Name)
             .ToArray()
             );
             comboBoxStateJobs.Items[0] = "All";
@@ -2933,7 +2933,7 @@ namespace AMSExplorer
             comboBoxStatusLiveEvent.Items.AddRange(
               typeof(LiveEventResourceState)
               .GetFields()
-              .Select(i => i.Name as string)
+              .Select(i => i.Name)
               .ToArray()
               );
             comboBoxStatusLiveEvent.Items[0] = "All";
@@ -4191,9 +4191,9 @@ namespace AMSExplorer
                     if (ckPolicy.Options != null && ckPolicy.Options.Count > 0)
                     {
                         List<string> listTypeConfig = new List<string>();
-                        foreach (var option in ckPolicy.Options)
+                        foreach (ContentKeyPolicyOption option in ckPolicy.Options)
                         {
-                            var typeConfig = option.Configuration.GetType();
+                            Type typeConfig = option.Configuration.GetType();
                             if (typeConfig == typeof(ContentKeyPolicyPlayReadyConfiguration))
                             {
                                 listTypeConfig.Add("PlayReady");
@@ -4232,7 +4232,7 @@ namespace AMSExplorer
         }
 
 
-      
+
 
         private async Task DoStartLiveEventsAsync()
         {
@@ -4250,7 +4250,7 @@ namespace AMSExplorer
 
             foreach (LiveEvent le in ListEvents)
             {
-                var listOutputs = await _amsClient.AMSclient.LiveOutputs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, le.Name);
+                IPage<LiveOutput> listOutputs = await _amsClient.AMSclient.LiveOutputs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, le.Name);
                 LOList.AddRange(listOutputs.ToList());
             }
 
@@ -4480,9 +4480,9 @@ namespace AMSExplorer
                     if (form.LiveTranscript)
                     {
                         // let's use REST call
-                        var client = new AmsClientRestLiveTranscript(_amsClient);
+                        AmsClientRestLiveTranscript client = new AmsClientRestLiveTranscript(_amsClient);
 
-                        var liveEventForREst = new LiveEventForRest(
+                        LiveEventForRest liveEventForREst = new LiveEventForRest(
                                               name: liveEvent.Name,
                                               location: liveEvent.Location,
                                               transcriptions: form.LiveTranscriptionList,
@@ -5728,9 +5728,9 @@ namespace AMSExplorer
                         i++;
                         TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
 
-                        IEnumerable<string> filePaths = Directory.EnumerateFiles(folder as string);
+                        IEnumerable<string> filePaths = Directory.EnumerateFiles(folder);
 
-                        var myTask = ProcessUploadFileAndMoreV3Async(
+                        Task myTask = ProcessUploadFileAndMoreV3Async(
                                   filePaths.ToList(),
                                   response.Id,
                                   response.token,
@@ -6275,15 +6275,15 @@ namespace AMSExplorer
         private async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype)
         {
             string language = null;
-            var le = await ReturnSelectedLiveEventsAsync();
+            List<LiveEvent> le = await ReturnSelectedLiveEventsAsync();
 
             if (le.Count > 0)
             {
                 // let's try to use preview REST to get live transcript setting
                 try
                 {
-                    var clientRest = new AmsClientRestLiveTranscript(_amsClient);
-                    var liveEventRestProp = clientRest.GetLiveEvent(le.FirstOrDefault().Name).Properties;
+                    AmsClientRestLiveTranscript clientRest = new AmsClientRestLiveTranscript(_amsClient);
+                    PropertiesForRest liveEventRestProp = clientRest.GetLiveEvent(le.FirstOrDefault().Name).Properties;
 
                     if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
                     {
@@ -6536,7 +6536,7 @@ namespace AMSExplorer
             sbuilder.AppendLine(string.Format("Input URLs for live event name : {0}", liveEvent.Name));
             sbuilder.AppendLine("=================================" + new string('=', liveEvent.Name.Length));
 
-            foreach (var endpoint in liveEvent.Input.Endpoints)
+            foreach (LiveEventEndpoint endpoint in liveEvent.Input.Endpoints)
             {
                 sbuilder.AppendLine(string.Empty);
                 sbuilder.AppendLine(endpoint.Url);
@@ -6724,7 +6724,7 @@ namespace AMSExplorer
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            var filters = await ReturnSelectedAccountFiltersAsync();
+            List<AccountFilter> filters = await ReturnSelectedAccountFiltersAsync();
             Task[] deleteTasks = filters.Select(f => _amsClient.AMSclient.AccountFilters.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, f.Name)).ToArray();
 
             try
@@ -6908,7 +6908,7 @@ namespace AMSExplorer
 
         private async Task DoSubClipAsync()
         {
-            var selectedAssets = await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync();
+            List<Asset> selectedAssets = await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync();
             if (selectedAssets.Count > 0)
             {
                 // let's get the list of asset types
@@ -7214,20 +7214,20 @@ namespace AMSExplorer
         private async Task DoCopyAssetToAnotherAMSAccountAsync()
         {
 
-            var selectedAssets = await ReturnSelectedAssetsAsync();
+            List<Asset> selectedAssets = await ReturnSelectedAssetsAsync();
             CopyAsset copyAssetForm = new CopyAsset(selectedAssets.Count, CopyAssetBoxMode.CopyAsset, _amsClient.credentialsEntry.AccountName);
 
             if (copyAssetForm.ShowDialog() == DialogResult.OK)
             {
                 if (!copyAssetForm.SingleDestinationAsset) // standard mode: 1:1 asset copy
                 {
-                    foreach (var asset in selectedAssets)
+                    foreach (Asset asset in selectedAssets)
                     {
                         string assetName = copyAssetForm.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name);
 
                         TextBoxLogWriteLine($"Creating empty asset '{assetName}' in '{copyAssetForm.DestinationStorageAccount}' account...");
 
-                        var response = DoGridTransferAddItem($"Copy asset '{assetName}' to account '{copyAssetForm.DestinationStorageAccount}'", TransferType.ExportToOtherAMSAccount, false);
+                        TransferEntryResponse response = DoGridTransferAddItem($"Copy asset '{assetName}' to account '{copyAssetForm.DestinationStorageAccount}'", TransferType.ExportToOtherAMSAccount, false);
                         // Start a worker thread that does asset copy.
                         Task.Factory.StartNew(() =>
                         ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, new List<Asset>() { asset }, assetName, response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset), response.token);
@@ -7236,7 +7236,7 @@ namespace AMSExplorer
                 else // merge all assets into a single asset
                 {
 
-                    var response = DoGridTransferAddItem($"Copy several assets to account '{copyAssetForm.DestinationStorageAccount}'", TransferType.ExportToOtherAMSAccount, false);
+                    TransferEntryResponse response = DoGridTransferAddItem($"Copy several assets to account '{copyAssetForm.DestinationStorageAccount}'", TransferType.ExportToOtherAMSAccount, false);
                     // Start a worker thread that does asset copy.
                     Task.Factory.StartNew(() =>
                     ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, selectedAssets, copyAssetForm.CopyAssetName.Replace(Constants.NameconvAsset, selectedAssets.FirstOrDefault().Name), response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset), response.token);
@@ -7262,7 +7262,7 @@ namespace AMSExplorer
 
 
             // target asset creation
-            var assetParameters = new Asset
+            Asset assetParameters = new Asset
             {
                 StorageAccountName = DestinationStorageAccount,
                 Description = SourceAssets.First().Description,
@@ -7301,7 +7301,7 @@ namespace AMSExplorer
             string destSasUrl = response.AssetContainerSasUrls.First();
 
             Uri destSasUri = new Uri(destSasUrl);
-            var destContainer = new CloudBlobContainer(destSasUri);
+            CloudBlobContainer destContainer = new CloudBlobContainer(destSasUri);
 
 
             foreach (Asset asset in SourceAssets) // there are several assets only if user wants to do a copy with merge
@@ -7331,14 +7331,14 @@ namespace AMSExplorer
                 string uploadSasUrl = response.AssetContainerSasUrls.First();
 
                 Uri sasUri = new Uri(uploadSasUrl);
-                var container = new CloudBlobContainer(sasUri);
+                CloudBlobContainer container = new CloudBlobContainer(sasUri);
 
                 long Length = 0;
 
 
                 // let's list all blobs (at root) and calculate the size
                 BlobContinuationToken continuationToken = null;
-                var sourceBlobs = new List<IListBlobItem>();
+                List<IListBlobItem> sourceBlobs = new List<IListBlobItem>();
                 do
                 {
                     BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken, null, null);
@@ -7355,14 +7355,14 @@ namespace AMSExplorer
                 while (continuationToken != null);
 
 
-                var listDirectories = sourceBlobs.Where(blob => blob.GetType() == typeof(CloudBlobDirectory)).Select(blob => (CloudBlobDirectory)blob);
-                var listBlockBlobs = sourceBlobs.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(blob => (CloudBlockBlob)blob);
+                IEnumerable<CloudBlobDirectory> listDirectories = sourceBlobs.Where(blob => blob.GetType() == typeof(CloudBlobDirectory)).Select(blob => (CloudBlobDirectory)blob);
+                IEnumerable<CloudBlockBlob> listBlockBlobs = sourceBlobs.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(blob => (CloudBlockBlob)blob);
 
 
                 long BytesCopied = 0;
                 double percentComplete = 0;
 
-                foreach (var sourceCBB in listBlockBlobs)
+                foreach (CloudBlockBlob sourceCBB in listBlockBlobs)
                 {
 
                     if (sourceCBB.Properties.Length > 0)
@@ -7406,14 +7406,14 @@ namespace AMSExplorer
 
                 // lets copy directory and blobs if any
                 int indexdir = 0;
-                foreach (var blobdir in listDirectories)
+                foreach (CloudBlobDirectory blobdir in listDirectories)
                 {
                     try
                     {
 
                         // let's enumerate all blobs (in the directory) and calculate the size
                         continuationToken = null;
-                        var sourceBlobsLive = new List<IListBlobItem>();
+                        List<IListBlobItem> sourceBlobsLive = new List<IListBlobItem>();
                         do
                         {
                             BlobResultSegment segment = await blobdir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata, null, continuationToken, null, null);
@@ -7422,7 +7422,7 @@ namespace AMSExplorer
                         }
                         while (continuationToken != null);
 
-                        var listBlockBlobsLive = sourceBlobsLive.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(blob => (CloudBlockBlob)blob);
+                        IEnumerable<CloudBlockBlob> listBlockBlobsLive = sourceBlobsLive.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(blob => (CloudBlockBlob)blob);
 
                         TextBoxLogWriteLine($"Copying {listBlockBlobsLive.Count()} blobs of directory '{blobdir.Prefix}'...");
 
@@ -7431,11 +7431,11 @@ namespace AMSExplorer
                         int indexstartpacket = 0;
                         do
                         {
-                            var listBlockBlobsLivePacket = listBlockBlobsLive.Skip(indexstartpacket).Take(packet);
+                            IEnumerable<CloudBlockBlob> listBlockBlobsLivePacket = listBlockBlobsLive.Skip(indexstartpacket).Take(packet);
                             List<CloudBlockBlob> blobsCurrentCopy = new List<CloudBlockBlob>();
 
                             // for each pcket of blobs, let's start the copy
-                            foreach (var srcBlob in listBlockBlobsLivePacket)
+                            foreach (CloudBlockBlob srcBlob in listBlockBlobsLivePacket)
                             {
                                 CloudBlockBlob destinationBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
                                 string stringOperation = await destinationBlob.StartCopyAsync(srcBlob);
@@ -7448,15 +7448,15 @@ namespace AMSExplorer
                                 await Task.Delay(TimeSpan.FromSeconds(2d));
 
                                 // let's refresh the blobs which are in status pending only
-                                var tempBlobList = blobsCurrentCopy.Where(b => b.CopyState.Status != CopyStatus.Pending).ToList();
-                                foreach (var b in blobsCurrentCopy.Where(b => b.CopyState.Status == CopyStatus.Pending).ToList())
+                                List<CloudBlockBlob> tempBlobList = blobsCurrentCopy.Where(b => b.CopyState.Status != CopyStatus.Pending).ToList();
+                                foreach (CloudBlockBlob b in blobsCurrentCopy.Where(b => b.CopyState.Status == CopyStatus.Pending).ToList())
                                 {
                                     await b.FetchAttributesAsync();
                                     tempBlobList.Add(b);
                                 }
                                 blobsCurrentCopy = tempBlobList;
 
-                                var nbCompleted = blobsCurrentCopy.Where(b => b.CopyState.Status != CopyStatus.Pending).Count();
+                                int nbCompleted = blobsCurrentCopy.Where(b => b.CopyState.Status != CopyStatus.Pending).Count();
                                 percentComplete = 100d * (indexdir + Convert.ToDouble(indexstartpacket + nbCompleted) / Convert.ToDouble(listBlockBlobsLive.Count())) / Convert.ToDouble(listDirectories.Count());
                                 DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", blobdir.Prefix, indexstartpacket + nbCompleted, listBlockBlobsLive.Count()), (int)percentComplete, transferResponse.Id);
                             }
@@ -7913,7 +7913,7 @@ namespace AMSExplorer
 
                     if (OutputAssetNow == null)
                     {
-                        foreach (var outputTrans in transform.Outputs)
+                        foreach (TransformOutput outputTrans in transform.Outputs)
                         {
 
                             // output asset name management
@@ -8009,7 +8009,7 @@ namespace AMSExplorer
 
                 if (OutputAssetNow == null)
                 {
-                    foreach (var outputTrans in transform.Outputs)
+                    foreach (TransformOutput outputTrans in transform.Outputs)
                     {
                         // output asset name management
                         if (assetNameSyntax != null)
@@ -8105,13 +8105,13 @@ namespace AMSExplorer
 
         private async void videoAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var transformInfo = GetSettingsVideoAnalyzerTransform();
+            Transform transformInfo = GetSettingsVideoAnalyzerTransform();
             await CreateOrUpdateTransformAsync(transformInfo);
         }
 
         private async void mediaEncoderStandardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var transformInfo = GetSettingsStandardEncoderTransform();
+            Transform transformInfo = GetSettingsStandardEncoderTransform();
             await CreateOrUpdateTransformAsync(transformInfo);
         }
 
@@ -8173,7 +8173,7 @@ namespace AMSExplorer
 
         private async void faceDetectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var transformInfo = GetSettingsFaceDetectorTransform();
+            Transform transformInfo = GetSettingsFaceDetectorTransform();
             await CreateOrUpdateTransformAsync(transformInfo);
         }
 
@@ -8265,7 +8265,7 @@ namespace AMSExplorer
 
         private void ListAuthorizedOperations()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.AppendLine("All API operations :");
             sb.AppendLine("See https://docs.microsoft.com/en-us/azure/media-services/latest/rbac-overview for more info");
             sb.AppendLine("============================================================================================");
@@ -8277,7 +8277,7 @@ namespace AMSExplorer
             }
             TextBoxLogWriteLine("Listing operations completed.");
 
-            var form = new EditorXMLJSON("API operations (RBAC)", sb.ToString(), false, false, false);
+            EditorXMLJSON form = new EditorXMLJSON("API operations (RBAC)", sb.ToString(), false, false, false);
             form.ShowDialog();
         }
 
@@ -8294,7 +8294,7 @@ namespace AMSExplorer
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesAfterDpiChange(panelButtons, e);
 
-            this.Refresh();
+            Refresh();
         }
 
         private void FeedbackOnAzureMediaServicesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8357,7 +8357,7 @@ namespace AMSExplorer
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            var policies = await ReturnSelectedCKPoliciessAsync();
+            List<ContentKeyPolicy> policies = await ReturnSelectedCKPoliciessAsync();
             Task[] deleteTasks = policies.Select(ck => _amsClient.AMSclient.ContentKeyPolicies.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, ck.Name)).ToArray();
 
             try
@@ -8632,7 +8632,7 @@ namespace AMSExplorer
         private async Task DoAddTaskToTransformAsync()
         {
 
-            var transforms = ReturnSelectedTransformNames();
+            List<string> transforms = ReturnSelectedTransformNames();
 
             if (transforms.Count != 1)
             {
@@ -8644,7 +8644,7 @@ namespace AMSExplorer
 
         private void contextMenuStripTransforms_Opening(object sender, CancelEventArgs e)
         {
-            var Transforms = ReturnSelectedTransformNames();
+            List<string> Transforms = ReturnSelectedTransformNames();
             bool singleitem = (Transforms.Count == 1);
 
             addATaskToTransformToolStripMenuItem.Enabled = singleitem;

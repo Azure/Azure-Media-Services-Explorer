@@ -96,7 +96,7 @@ namespace AMSExplorer
             IEnumerable<StreamingEndpointEntry> originquery;
             _amsClient = client;
             await _amsClient.RefreshTokenIfNeededAsync();
-            var ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             originquery = ses.Select(o => new
                           StreamingEndpointEntry

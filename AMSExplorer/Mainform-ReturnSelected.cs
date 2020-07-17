@@ -17,31 +17,13 @@
 // Azure Management dependencies
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.Azure.Storage.Blob;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
-using System.Xml;
-using Microsoft.Azure.Storage.Shared.Protocol;
-using Microsoft.Azure.Storage.Auth;
-using Microsoft.Azure.Storage;
 
 namespace AMSExplorer
 {
@@ -154,7 +136,7 @@ namespace AMSExplorer
                 }
             }
 
-            foreach (var transformName in ReturnSelectedTransformNames())
+            foreach (string transformName in ReturnSelectedTransformNames())
             {
                 Transform myTransform = transforms.Where(f => f.Name == transformName).FirstOrDefault();
                 if (myTransform != null)
