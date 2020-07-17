@@ -41,7 +41,6 @@ namespace AMSExplorer.ManifestGeneration
 
             do
             {
-                bool always = false;
                 foreach (StreamingLocator locator in currentPage)
                 {
                     TextBoxLogWriteLine("Inspecting locator {0}...", locator.Name, false);

@@ -2661,7 +2661,6 @@ namespace AMSExplorer
             if (accessToken != null && accessToken.ExpiresOn.ToUniversalTime() < DateTimeOffset.UtcNow.AddMinutes(-3))
             {
                 ConnectAndGetNewClientV3Async().GetAwaiter().GetResult();
-                //Task.Run(async () => await ConnectAndGetNewClientV3Async());
             }
         }
 
