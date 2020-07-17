@@ -28,6 +28,7 @@ namespace AMSExplorer
 
     public partial class TransformTypeCreation : Form
     {
+        private bool _displayNewTransforMsg;
 
         public simpleTransformType TransformType
         {
@@ -49,15 +50,17 @@ namespace AMSExplorer
         }
 
 
-        public TransformTypeCreation()
+        public TransformTypeCreation(bool displayNewTransforMsg = true)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
+            _displayNewTransforMsg = displayNewTransforMsg;
         }
 
         private void TransformTypeCreation_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
+            labelNoAssetFilter.Visible = _displayNewTransforMsg;
         }
 
         private void TransformTypeCreation_DpiChanged(object sender, DpiChangedEventArgs e)

@@ -2768,6 +2768,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Transform(s) deleted.");
                     }
                     DoRefreshGridTransformV(false);
+                    DoRefreshGridJobV(false);
                 }
             }
         }
@@ -8589,7 +8590,7 @@ namespace AMSExplorer
             {
                 Transform transformInfo;
 
-                TransformTypeCreation form = new TransformTypeCreation();
+                TransformTypeCreation form = new TransformTypeCreation(existingTransform == null);
                 form.ShowDialog();
 
                 if (form.DialogResult == DialogResult.OK)
@@ -8613,7 +8614,7 @@ namespace AMSExplorer
 
                     if (existingTransform != null) // user wants to add a task to an existing transform
                     {
-                        transformInfo = new Transform(outputs: transformInfo.Outputs.Concat(existingTransform.Outputs).ToList(), name: existingTransform.Name, description: transformInfo.Description);
+                        transformInfo = new Transform(outputs: existingTransform.Outputs.Concat(transformInfo.Outputs).ToList(), name: existingTransform.Name, description: transformInfo.Description);
                     }
                     await CreateOrUpdateTransformAsync(transformInfo);
                 }

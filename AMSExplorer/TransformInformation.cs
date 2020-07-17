@@ -73,7 +73,7 @@ namespace AMSExplorer
 
             bool boutoutsintransform = (_transform.Outputs.Count() > 0);
 
-            int index = 1;
+            int index = 0;
             if (boutoutsintransform)
             {
                 foreach (TransformOutput output in _transform.Outputs)
@@ -81,6 +81,7 @@ namespace AMSExplorer
                     // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
                     string outputLabel = "output #" + index;
                     listBoxOutputs.Items.Add(outputLabel);
+                    index++;
                 }
                 listBoxOutputs.SelectedIndex = 0;
             }
