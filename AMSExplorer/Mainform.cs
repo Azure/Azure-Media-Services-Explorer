@@ -8626,10 +8626,10 @@ namespace AMSExplorer
 
         private async void addATaskToTransformToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await DoAddTaskToTransformAsync();
+            await DoAddOutputToTransformAsync();
         }
 
-        private async Task DoAddTaskToTransformAsync()
+        private async Task DoAddOutputToTransformAsync()
         {
 
             List<string> transforms = ReturnSelectedTransformNames();
