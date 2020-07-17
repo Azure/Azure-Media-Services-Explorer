@@ -502,7 +502,6 @@ Properties/StorageId
                     // Search on Asset name starts with
                     case SearchIn.AssetNameStartsWith:
                         search = "'" + search + "'";
-                        //                        odataQuery.Filter = "name gt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) - 1) + new string('z', 262 - search.Length) + "'" + " and name lt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) + 1) + "'";
                         odataQuery.Filter = "name gt " + search.Substring(0, search.Length - 2) + char.ConvertFromUtf32(char.ConvertToUtf32(search, search.Length - 2) - 1) + new string('z', 262 - search.Length) + "'" + " and name lt " + search.Substring(0, search.Length - 1) + new string('z', 262 - search.Length) + "'";
 
                         break;
@@ -596,23 +595,6 @@ Properties/StorageId
                     _currentPageNumberIsMax = true; // we reached max
                 }
             }
-
-
-
-
-            /*
-            var assets = currentPage.Select(a => new AssetEntryV3
-            {
-                Name = a.Name,
-                Description = a.Description,
-                AssetId = a.AssetId,
-                AlternateId = a.AlternateId,
-                Created = ((DateTime)a.Created).ToLocalTime().ToString("G"),
-                StorageAccountName = a.StorageAccountName
-            }
-            );
-            */
-
 
             IEnumerable<AssetEntryV3> assets = currentPage.Select(a =>
             (cacheAssetentriesV3.ContainsKey(a.Name)
