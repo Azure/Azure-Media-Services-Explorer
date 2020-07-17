@@ -1288,7 +1288,7 @@ namespace AMSExplorer
 
         private async Task DoMenuUploadFileToAsset_Step1Async()
         {
-            List<Asset> assets = await ReturnSelectedAssetsV3Async();
+            List<Asset> assets = await ReturnSelectedAssetsAsync();
 
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
@@ -1711,7 +1711,7 @@ namespace AMSExplorer
 
         private async Task DoMenuChangeAssetDescriptionAsync()
         {
-            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
             if (SelectedAssets.Count > 0)
             {
@@ -1743,7 +1743,7 @@ namespace AMSExplorer
 
         private async Task DoMenuEditAssetAltIdAsync()
         {
-            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
             if (SelectedAssets.Count > 0)
             {
@@ -1776,7 +1776,7 @@ namespace AMSExplorer
 
         private async Task DoMenuDownloadToLocalAsync()
         {
-            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
             if (SelectedAssets.Count == 0)
             {
                 return;
@@ -2510,7 +2510,7 @@ namespace AMSExplorer
         {
             if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)) // we are in the asset tab
             {
-                return await ReturnSelectedAssetsV3Async();
+                return await ReturnSelectedAssetsAsync();
             }
             else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
             {
@@ -2530,23 +2530,32 @@ namespace AMSExplorer
             }
         }
 
-        private async Task<List<Asset>> ReturnSelectedAssetsV3Async()
+        private List<string> ReturnSelectedAssetNames()
+        {
+            List<string> SelectedAssets = new List<string>();
+            foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
+            {
+                SelectedAssets.Add(Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+            }
+            SelectedAssets.Reverse();
+            return SelectedAssets;
+        }
+
+        private async Task<List<Asset>> ReturnSelectedAssetsAsync()
         {
             List<Asset> SelectedAssets = new List<Asset>();
             await _amsClient.RefreshTokenIfNeededAsync();
 
             try
             {
-                foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
+                foreach (string assetName in ReturnSelectedAssetNames())
                 {
-                    Asset asset = await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
-
+                    Asset asset = await GetAssetAsync(assetName);
                     if (asset != null)
                     {
                         SelectedAssets.Add(asset);
                     }
                 }
-                SelectedAssets.Reverse();
             }
             catch (Exception ex)
             {
@@ -2699,7 +2708,7 @@ namespace AMSExplorer
 
         private async Task DoMenuDeleteSelectedAssetsAsync()
         {
-            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
             await DoDeleteAssetsAsync(SelectedAssets);
         }
 
@@ -3498,12 +3507,12 @@ namespace AMSExplorer
 
         private async void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
         {
-            DisplayInfo((await ReturnSelectedAssetsV3Async()).FirstOrDefault());
+            DisplayInfo((await ReturnSelectedAssetsAsync()).FirstOrDefault());
         }
 
-        private async void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
+        private void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
         {
-            List<Asset> assets = await ReturnSelectedAssetsV3Async();
+            List<string> assets = ReturnSelectedAssetNames();
             bool singleitem = (assets.Count == 1);
 
             ContextMenuItemAssetDisplayInfo.Enabled =
@@ -3859,12 +3868,12 @@ namespace AMSExplorer
 
         private async Task DoCreateAssetReportEmailAsync()
         {
-            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsV3Async(), _amsClient);
+            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsAsync(), _amsClient);
         }
 
         private async Task DoDisplayAssetReportAsync()
         {
-            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsV3Async(), _amsClient);
+            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsAsync(), _amsClient);
             StringBuilder SB = await AR.GetStatsAsync();
             EditorXMLJSON tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
             tokenDisplayForm.Display();
@@ -4441,6 +4450,7 @@ namespace AMSExplorer
             return SelectedLiveEvents;
         }
 
+
         private async Task<List<StreamingEndpoint>> ReturnSelectedStreamingEndpointsAsync()
         {
             List<StreamingEndpoint> SelectedOrigins = new List<StreamingEndpoint>();
@@ -4456,6 +4466,19 @@ namespace AMSExplorer
             }
             SelectedOrigins.Reverse();
             return SelectedOrigins;
+        }
+
+        private List<string> ReturnSelectedLiveOutputNames()
+        {
+            List<string> SelectedLiveOutputs = new List<string>();
+
+            foreach (DataGridViewRow Row in dataGridViewLiveOutputV.SelectedRows)
+            {
+                string liveOutputName = Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString();
+                SelectedLiveOutputs.Add(liveOutputName);
+            }
+            SelectedLiveOutputs.Reverse();
+            return SelectedLiveOutputs;
         }
 
         private async Task<List<LiveOutput>> ReturnSelectedLiveOutputsAsync()
@@ -6135,7 +6158,7 @@ namespace AMSExplorer
 
         private async void deleteAllLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await DoDeleteAllLocatorsOnAssetsAsync(await ReturnSelectedAssetsV3Async());
+            await DoDeleteAllLocatorsOnAssetsAsync(await ReturnSelectedAssetsAsync());
         }
 
 
@@ -6346,7 +6369,7 @@ namespace AMSExplorer
 
         private async Task DoSelectTransformAndSubmitJobAsync()
         {
-            List<Asset> SelectedAssets = await ReturnSelectedAssetsV3Async();
+            List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
             //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
             JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClient, this, SelectedAssets);
@@ -6836,9 +6859,9 @@ namespace AMSExplorer
         {
         }
 
-        private async void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
+        private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
-            List<LiveOutput> liveOutputs = await ReturnSelectedLiveOutputsAsync();
+            List<string> liveOutputs = ReturnSelectedLiveOutputNames();
             bool single = liveOutputs.Count == 1;
             bool oneOrMore = liveOutputs.Count > 0;
 
@@ -7464,7 +7487,7 @@ namespace AMSExplorer
         private async Task DoCopyAssetToAnotherAMSAccountAsync()
         {
 
-            var selectedAssets = await ReturnSelectedAssetsV3Async();
+            var selectedAssets = await ReturnSelectedAssetsAsync();
             CopyAsset copyAssetForm = new CopyAsset(selectedAssets.Count, CopyAssetBoxMode.CopyAsset, _amsClient.credentialsEntry.AccountName);
 
             if (copyAssetForm.ShowDialog() == DialogResult.OK)
