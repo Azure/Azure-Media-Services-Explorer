@@ -15,13 +15,10 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -32,60 +29,6 @@ using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
-
-    public partial class MediaRUv2Answer
-    {
-        [JsonProperty("odata.metadata")]
-        public Uri OdataMetadata { get; set; }
-
-        [JsonProperty("value")]
-        public InfoMediaRU[] Value { get; set; }
-    }
-
-    public partial class InfoMediaRU
-    {
-        [JsonProperty("AccountId")]
-        public Guid AccountId { get; set; }
-
-        [JsonProperty("ReservedUnitType")]
-        public int ReservedUnitType { get; set; }
-
-        [JsonProperty("MaxReservableUnits")]
-        public int MaxReservableUnits { get; set; }
-
-        [JsonProperty("CurrentReservedUnits")]
-        public int CurrentReservedUnits { get; set; }
-    }
-
-    public partial class MediaRUv2Answer
-    {
-        public static MediaRUv2Answer FromJson(string json)
-        {
-            return JsonConvert.DeserializeObject<MediaRUv2Answer>(json, AMSExplorer.Converter.Settings);
-        }
-    }
-
-    public static class Serialize
-    {
-        public static string ToJson(this MediaRUv2Answer self)
-        {
-            return JsonConvert.SerializeObject(self, AMSExplorer.Converter.Settings);
-        }
-    }
-
-    internal static class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
-    }
-
     public class MediaRU
     {
         private static readonly HttpClient _client = new HttpClient();

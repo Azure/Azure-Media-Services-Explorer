@@ -114,6 +114,9 @@
     <Compile Include="AMSLogin\ExportSettings.Designer.cs">
       <DependentUpon>ExportSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\AssetInfo\AssetEntryV3.cs" />
+    <Compile Include="Utils\AssetInfo\AssetBitmapAndText.cs" />
+    <Compile Include="Utils\AssetInfo\AssetInfo.cs" />
     <Compile Include="CopyAsset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +139,10 @@
     <Compile Include="DataGrid\DataGridViewTransforms.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MediaRUv2\InfoMediaRU.cs" />
+    <Compile Include="MediaRUv2\MediaRU.cs" />
+    <Compile Include="MediaRUv2\MediaRUv2Answer.cs" />
+    <Compile Include="Models\FilterTime.cs" />
     <Compile Include="Forms-DynamicEncryption\DRM_FairPlayLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,13 +198,18 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Live\LiveEventForRest.cs" />
-    <Compile Include="MediaRUv2.cs" />
+    <Compile Include="MediaRUv2\Converter.cs" />
+    <Compile Include="Models\OrderAssets.cs" />
+    <Compile Include="Models\OrderJobs.cs" />
     <Compile Include="Subclipping.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Subclipping.Designer.cs">
       <DependentUpon>Subclipping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\TimeRangeValue.cs" />
+    <Compile Include="Models\TransferState.cs" />
+    <Compile Include="Models\TransferType.cs" />
     <Compile Include="TransformTypeCreation.cs">
       <SubType>Form</SubType>
     </Compile>

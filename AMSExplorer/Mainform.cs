@@ -7823,7 +7823,7 @@ namespace AMSExplorer
                                                     {
                                                                 new TransformOutput(form.CustomCopyPreset),
                                                     };
-
+                                   
                 }
 
                 return new Transform(outputs: outputs, name: form.TransformName, description: form.TransformDescription);
@@ -8650,105 +8650,5 @@ namespace AMSExplorer
 
             addATaskToTransformToolStripMenuItem.Enabled = singleitem;
         }
-    }
-}
-
-
-
-namespace AMSExplorer
-{
-    public static class OrderAssets
-    {
-        public const string CreatedDescending = "Created >";
-        public const string CreatedAscending = "Created <";
-        public const string NameDescending = "Name >";
-        public const string NameAscending = "Name <";
-
-    }
-
-    public static class OrderJobs
-    {
-        public const string CreatedDescending = "Created >";
-        public const string CreatedAscending = "Created <";
-        public const string NameDescending = "Name >";
-        public const string NameAscending = "Name <";
-    }
-
-
-    public static class FilterTime
-    {
-        // public const string First50Items = "First 50 items";
-        public const string AllItems = "All items";
-        public const string LastDay = "Last 24 hours";
-        public const string LastWeek = "Last week";
-        public const string LastMonth = "Last month";
-        public const string LastYear = "Last year";
-        public const string TimeRange = "Time Range";
-
-        public static int ReturnNumberOfDays(string timeFilter)
-        {
-            int days = -2;
-            if (timeFilter != null)
-            {
-                switch (timeFilter)
-                {
-                    case FilterTime.LastDay:
-                        days = 1;
-                        break;
-                    case FilterTime.LastWeek:
-                        days = 7;
-                        break;
-                    case FilterTime.LastMonth:
-                        days = 30;
-                        break;
-                    case FilterTime.LastYear:
-                        days = 365;
-                        break;
-
-                    case FilterTime.TimeRange:
-                        days = -1;
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-            return days;
-        }
-    }
-
-    public class TimeRangeValue
-    {
-        public DateTime StartDate;
-        public DateTime? EndDate;
-
-        public TimeRangeValue(DateTime start, DateTime? end = null)
-        {
-            StartDate = start;
-            EndDate = end;
-        }
-    }
-
-
-    public enum TransferState
-    {
-        Queued = 0,
-        Processing,
-        Cancelling,
-        Cancelled,
-        Finished,
-        Error
-    }
-
-    public enum TransferType
-    {
-        UploadFromFile = 0,
-        UploadFromFolder,
-        ImportFromAzureStorage,
-        ImportFromHttp,
-        ExportToOtherAMSAccount,
-        ExportToAzureStorage,
-        DownloadToLocal,
-        UploadWithExternalTool
     }
 }

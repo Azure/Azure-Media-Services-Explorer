@@ -275,8 +275,11 @@ namespace AMSExplorer
                     default: throw new ArgumentOutOfRangeException();
                 }
 
-                await _myMainform.CreateOrUpdateTransformAsync(transformInfo);
-                await listViewTransforms.LoadTransformsAsync(_client, transformInfo.Name);
+                if (transformInfo != null)
+                {
+                    await _myMainform.CreateOrUpdateTransformAsync(transformInfo);
+                    await listViewTransforms.LoadTransformsAsync(_client, transformInfo.Name);
+                }
             }
         }
 
