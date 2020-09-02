@@ -23,7 +23,8 @@ namespace AMSExplorer
     {
         encode = 0,
         analyze,
-        facedetection
+        facedetection,
+        customJson
     }
 
     public partial class TransformTypeCreation : Form
@@ -42,9 +43,13 @@ namespace AMSExplorer
                 {
                     return simpleTransformType.analyze;
                 }
-                else
+                else if (radioButtonFaceDetection.Checked)
                 {
                     return simpleTransformType.facedetection;
+                }
+                else
+                {
+                    return simpleTransformType.customJson;
                 }
             }
         }

@@ -42,6 +42,8 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using System.Xml;
+using AMSExplorer.LiveRest;
+using AMSExplorer.TransformRest;
 
 namespace AMSExplorer
 {
@@ -1691,7 +1693,12 @@ namespace AMSExplorer
                 try
                 {
                     Cursor = Cursors.WaitCursor;
-                    TransformInformation form = new TransformInformation(t);
+
+                    // let's get the info about the transform using REST, so we can display a good JSON preset.
+                    var restTransformClient = new AmsClientRestTransform(_amsClient);
+                    var transformRest = restTransformClient.GetTransformContent(t.Name);
+
+                    TransformInformation form = new TransformInformation(t, transformRest);
 
                     dialogResult = form.ShowDialog(this);
                 }
@@ -2281,7 +2288,7 @@ namespace AMSExplorer
                             }
                         }
 
-                        EditorXMLJSON displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, false, false);
+                        EditorXMLJSON displayResult = new EditorXMLJSON("Locator information", sbuilder.ToString(), false, ShowSampleMode.None, false);
                         displayResult.ShowDialog();
                     }
 
@@ -2345,7 +2352,7 @@ namespace AMSExplorer
                     ProcessCreateLocatorSAS(SelectedAssets)
                     );
 
-                    EditorXMLJSON displayResult = new EditorXMLJSON("SAS Urls", result, false, false, false);
+                    EditorXMLJSON displayResult = new EditorXMLJSON("SAS Urls", result, false, ShowSampleMode.None, false);
                     displayResult.ShowDialog();
                 }
             }
@@ -3683,7 +3690,7 @@ namespace AMSExplorer
         {
             AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsAsync(), _amsClient);
             StringBuilder SB = await AR.GetStatsAsync();
-            EditorXMLJSON tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, false, false);
+            EditorXMLJSON tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, ShowSampleMode.None, false);
             tokenDisplayForm.Display();
         }
 
@@ -5697,7 +5704,7 @@ namespace AMSExplorer
                 if (liveEvent.Preview.Endpoints.FirstOrDefault() != null && liveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
                 {
                     string preview = liveEvent.Preview.Endpoints.FirstOrDefault().Url;
-                    EditorXMLJSON DisplayForm = new EditorXMLJSON("Preview URL", preview, false, false, false);
+                    EditorXMLJSON DisplayForm = new EditorXMLJSON("Preview URL", preview, false, ShowSampleMode.None, false);
                     DisplayForm.Display();
                 }
                 else
@@ -5909,7 +5916,7 @@ namespace AMSExplorer
                         return;
                     }
 
-                    EditorXMLJSON tokenDisplayForm = new EditorXMLJSON("Output URL", url, false, false, false);
+                    EditorXMLJSON tokenDisplayForm = new EditorXMLJSON("Output URL", url, false, ShowSampleMode.None, false);
                     tokenDisplayForm.Display();
                 }
                 else
@@ -6548,7 +6555,7 @@ namespace AMSExplorer
                 }
             }
 
-            EditorXMLJSON DisplayForm = new EditorXMLJSON("Input URLs", sbuilder.ToString(), false, false, false);
+            EditorXMLJSON DisplayForm = new EditorXMLJSON("Input URLs", sbuilder.ToString(), false, ShowSampleMode.None, false);
             DisplayForm.Display();
         }
 
@@ -7823,7 +7830,7 @@ namespace AMSExplorer
                                                     {
                                                                 new TransformOutput(form.CustomCopyPreset),
                                                     };
-                                   
+
                 }
 
                 return new Transform(outputs: outputs, name: form.TransformName, description: form.TransformDescription);
@@ -8278,7 +8285,7 @@ namespace AMSExplorer
             }
             TextBoxLogWriteLine("Listing operations completed.");
 
-            EditorXMLJSON form = new EditorXMLJSON("API operations (RBAC)", sb.ToString(), false, false, false);
+            EditorXMLJSON form = new EditorXMLJSON("API operations (RBAC)", sb.ToString(), false, ShowSampleMode.None, false);
             form.ShowDialog();
         }
 
@@ -8595,6 +8602,7 @@ namespace AMSExplorer
 
                 if (form.DialogResult == DialogResult.OK)
                 {
+                    bool useRest = false;
                     switch (form.TransformType)
                     {
                         case simpleTransformType.analyze:
@@ -8609,14 +8617,91 @@ namespace AMSExplorer
                             transformInfo = GetSettingsFaceDetectorTransform(existingTransform?.Name, existingTransform?.Description);
                             break;
 
+                        case simpleTransformType.customJson:
+                            //transformInfo = GetSettingsFaceDetectorTransform(existingTransform?.Name, existingTransform?.Description);
+                            transformInfo = null;
+                            useRest = true;
+                            break;
+
                         default: throw new ArgumentOutOfRangeException();
                     }
 
-                    if (existingTransform != null) // user wants to add a task to an existing transform
+
+                    if (useRest) // We use REST for custom preset
                     {
-                        transformInfo = new Transform(outputs: existingTransform.Outputs.Concat(transformInfo.Outputs).ToList(), name: existingTransform.Name, description: transformInfo.Description);
+
+                        EditorXMLJSON formJSONPreset = new EditorXMLJSON("JSON Preset", "", true, ShowSampleMode.JsonPreset, true);
+
+                        if (formJSONPreset.ShowDialog() == DialogResult.OK)
+                        {
+
+                            dynamic preset;
+                            // let's make sure it can be serialized
+                            try
+                            {
+                                preset = JsonConvert.DeserializeObject(formJSONPreset.TextData);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message, "Error reading the json", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            string transformName = null;
+                            string transformDesc = null;
+                            TransformForRest existingT = null;
+                            AmsClientRestTransform restClientT = null;
+                            try
+                            {
+                                restClientT = new AmsClientRestTransform(_amsClient);
+                                if (existingTransform != null) // user wants to add a task to an existing transform
+                                {
+                                    transformName = existingTransform.Name;
+                                    transformDesc = existingTransform.Description;
+                                    existingT = await restClientT.GetTransformContentAsync(transformName);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine("Error with transform using REST call.", true);
+                                TextBoxLogWriteLine(ex);
+                            }
+
+
+                            if (transformName != null || Program.InputBox("New transform", "Enter the name of the transform to create :", ref transformName) == DialogResult.OK)
+                            {
+                                try
+                                {
+                                    var transformRest = new TransformForRest(transformName, transformDesc, new List<TransformRestOutput>() {
+                            new TransformRestOutput() { Preset = preset }
+                            });
+
+                                    if (existingT != null) // user wants to add a task to an existing transform
+                                    {
+                                        transformRest = new TransformForRest(outputs: existingT.Properties.Outputs.Concat(transformRest.Properties.Outputs).ToList(), name: transformRest.Name, description: transformRest.Properties.Description);
+                                    }
+
+                                    await restClientT.CreateTransformAsync(transformName, transformRest);
+                                    TextBoxLogWriteLine("Transform '{0}' created using REST call.", transformName);
+                                }
+                                catch (Exception ex)
+                                {
+                                    TextBoxLogWriteLine("Error with transform creation using REST call.", true);
+                                    TextBoxLogWriteLine(ex);
+                                }
+                            }
+
+                            DoRefreshGridTransformV(false);
+                        }
                     }
-                    await CreateOrUpdateTransformAsync(transformInfo);
+                    else // We use the SDK
+                    {
+                        if (existingTransform != null) // user wants to add a task to an existing transform
+                        {
+                            transformInfo = new Transform(outputs: existingTransform.Outputs.Concat(transformInfo.Outputs).ToList(), name: existingTransform.Name, description: transformInfo.Description);
+                        }
+                        await CreateOrUpdateTransformAsync(transformInfo);
+                    }
                 }
             }
             catch (Exception ex)

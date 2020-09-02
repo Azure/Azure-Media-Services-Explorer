@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
@@ -26,28 +25,27 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace AMSExplorer.LiveRest
+namespace AMSExplorer.TransformRest
 {
     /// <summary>
-    /// Rest call for live transcription preview
-    /// https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription
+    /// Rest call for transforms
+    /// https://docs.microsoft.com/en-us/rest/api/media/transforms
     /// 
     /// </summary>
-    public class AmsClientRestLiveTranscript
+    public class AmsClientRestTransform
     {
-        private const string liveEventApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2019-05-01-preview";
+        private const string transformApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/transforms/{3}?api-version=2018-07-01";
 
         private readonly AMSClientV3 _amsClient;
 
-        public AmsClientRestLiveTranscript(AMSClientV3 amsClient)
+        public AmsClientRestTransform(AMSClientV3 amsClient)
         {
             _amsClient = amsClient;
         }
 
-
-        public async Task<string> CreateLiveEventAsync(LiveEventForRest liveEventSettings, bool startLiveEventNow)
+        public async Task<string> CreateTransformAsync(string transformName, TransformForRest transformContent)
         {
-            string URL = GenerateApiUrl(liveEventSettings.Name) + string.Format("&autoStart={0}", startLiveEventNow.ToString());
+            string URL = GenerateApiUrl(transformName);
 
             string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
                 TokenCache.DefaultShared.ReadItems()
@@ -59,7 +57,7 @@ namespace AMSExplorer.LiveRest
             client.DefaultRequestHeaders.Remove("Authorization");
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            string _requestContent = liveEventSettings.ToJson(); // Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(liveEvent, serializationSettings);
+            string _requestContent = transformContent.ToJson(); // Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(liveEvent, serializationSettings);
             StringContent httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
             httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
 
@@ -75,16 +73,14 @@ namespace AMSExplorer.LiveRest
             return responseContent;
         }
 
-
-        public LiveEventForRest GetLiveEvent(string liveEventName)
+        public TransformForRest GetTransformContent(string transformName)
         {
-            return GetLiveEventAsync(liveEventName).GetAwaiter().GetResult();
+            return GetTransformContentAsync(transformName).GetAwaiter().GetResult();
         }
 
-
-        public async Task<LiveEventForRest> GetLiveEventAsync(string liveEventName)
+        public async Task<TransformForRest> GetTransformContentAsync(string transformName)
         {
-            string URL = GenerateApiUrl(liveEventName);
+            string URL = GenerateApiUrl(transformName);
 
             string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
                 TokenCache.DefaultShared.ReadItems()
@@ -106,87 +102,80 @@ namespace AMSExplorer.LiveRest
                 throw new Exception((string)error?.error?.message);
             }
 
-            return LiveEventForRest.FromJson(responseContent);
+            return TransformForRest.FromJson(responseContent);
         }
 
-        private string GenerateApiUrl(string liveEventName)
+        private string GenerateApiUrl(string transformName)
         {
             return _amsClient.environment.ArmEndpoint
-                                       + string.Format(liveEventApiUrl,
+                                       + string.Format(transformApiUrl,
                                                           _amsClient.credentialsEntry.AzureSubscriptionId,
                                                           _amsClient.credentialsEntry.ResourceGroup,
                                                           _amsClient.credentialsEntry.AccountName,
-                                                          liveEventName
+                                                          transformName
                                                   );
         }
     }
+       
 
-
-    public class LiveEventForRest
+    public class TransformForRest
     {
-        public static LiveEventForRest FromJson(string json)
+
+        public static TransformForRest FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<LiveEventForRest>(json, ConverterLE.Settings);
+            return JsonConvert.DeserializeObject<TransformForRest>(json, ConverterLE.Settings);
         }
 
-        public LiveEventForRest(string name, string location, string description, bool? vanityUrl, LiveEventEncoding encoding, LiveEventInput input, LiveEventPreview preview, IList<StreamOptionsFlag?> streamOptions, IList<TranscriptionForRest> transcriptions)
+        public TransformForRest(string name, string description, IList<TransformRestOutput> outputs)
         {
             Name = name;
-            Location = location;
-            Properties = new PropertiesForRest { Description = description, VanityUrl = vanityUrl, Encoding = encoding, Input = input, Preview = preview, StreamOptions = streamOptions, Transcriptions = transcriptions };
+            Properties = new Properties { Description = description, Outputs = outputs };
         }
 
-        [JsonProperty("properties")]
-        public PropertiesForRest Properties { get; set; }
 
-        [JsonProperty("location")]
-        public string Location { get; set; }
-
-        [JsonProperty("name")]
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
 
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        public string Type { get; set; }
+
+        [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
+        public Properties Properties { get; set; }
     }
 
-    public class PropertiesForRest
+    public class Properties
     {
-        [JsonProperty("description")]
+        [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Created { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
         public string Description { get; set; }
 
-        [JsonProperty("input")]
-        public LiveEventInput Input { get; set; }
+        [JsonProperty("lastModified", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? LastModified { get; set; }
 
-        [JsonProperty("preview")]
-        public LiveEventPreview Preview { get; set; }
-
-        [JsonProperty("encoding")]
-        public LiveEventEncoding Encoding { get; set; }
-
-        [JsonProperty("transcriptions")]
-        public IList<TranscriptionForRest> Transcriptions { get; set; }
-
-        [JsonProperty("vanityUrl")]
-        public bool? VanityUrl { get; set; }
-
-        [JsonProperty("streamOptions")]
-        public IList<StreamOptionsFlag?> StreamOptions { get; set; }
+        [JsonProperty("outputs", NullValueHandling = NullValueHandling.Ignore)]
+        public IList<TransformRestOutput> Outputs { get; set; }
     }
 
-
-    public class TranscriptionForRest
+    public class TransformRestOutput
     {
-        [JsonProperty("language")]
-        public string Language { get; set; }
+        [JsonProperty("onError", NullValueHandling = NullValueHandling.Ignore)]
+        public string OnError { get; set; }
 
-        public TranscriptionForRest(string language)
-        {
-            Language = language;
-        }
+        [JsonProperty("relativePriority", NullValueHandling = NullValueHandling.Ignore)]
+        public string RelativePriority { get; set; }
+
+        [JsonProperty("preset", NullValueHandling = NullValueHandling.Ignore)]
+        public dynamic Preset { get; set; }
     }
-
 
     public static class SerializeForRest
     {
-        public static string ToJson(this LiveEventForRest self)
+        public static string ToJson(this TransformForRest self)
         {
             return JsonConvert.SerializeObject(self, ConverterLE.Settings);
         }

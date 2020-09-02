@@ -114,6 +114,7 @@
     <Compile Include="AMSLogin\ExportSettings.Designer.cs">
       <DependentUpon>ExportSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransformRest\TransformForRest.cs" />
     <Compile Include="Utils\AssetInfo\AssetEntryV3.cs" />
     <Compile Include="Utils\AssetInfo\AssetBitmapAndText.cs" />
     <Compile Include="Utils\AssetInfo\AssetInfo.cs" />
@@ -517,6 +518,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="HelpFiles\AMSv3doc.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\Preset.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="IconsPNG\filter.png" />

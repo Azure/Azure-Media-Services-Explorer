@@ -42,11 +42,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.labelNoAssetFilter = new System.Windows.Forms.Label();
+            this.radioButtonCustomJson = new System.Windows.Forms.RadioButton();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonImport
@@ -128,6 +131,19 @@
             resources.ApplyResources(this.labelNoAssetFilter, "labelNoAssetFilter");
             this.labelNoAssetFilter.Name = "labelNoAssetFilter";
             // 
+            // radioButtonCustomJson
+            // 
+            resources.ApplyResources(this.radioButtonCustomJson, "radioButtonCustomJson");
+            this.radioButtonCustomJson.Name = "radioButtonCustomJson";
+            this.radioButtonCustomJson.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.rename;
+            resources.ApplyResources(this.pictureBox4, "pictureBox4");
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.TabStop = false;
+            // 
             // TransformTypeCreation
             // 
             this.AcceptButton = this.buttonImport;
@@ -135,6 +151,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.radioButtonCustomJson);
             this.Controls.Add(this.labelNoAssetFilter);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox1);
@@ -152,6 +170,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,5 +190,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label labelNoAssetFilter;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.RadioButton radioButtonCustomJson;
     }
 }

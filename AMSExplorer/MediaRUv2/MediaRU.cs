@@ -43,7 +43,6 @@ namespace AMSExplorer
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _client.DefaultRequestHeaders.Add("DataServiceVersion", "3.0;NetFx");
             _client.DefaultRequestHeaders.Add("MaxDataServiceVersion", "3.0;NetFx");
-
         }
 
         private async Task GetRestAPIEndpointforAccountv2IfNeededAsync(AMSClientV3 AmsClientV3)
@@ -93,8 +92,6 @@ namespace AMSExplorer
             // If Service Principal mode, let's authenticate now (if token expired or first time)
             if (AmsClientV3.credentialsEntry.UseSPAuth && AmsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
             {
-
-
                 string URLAut = string.Format(AmsClientV3.environment.AADSettings.AuthenticationEndpoint + "/{0}/oauth2/token", AmsClientV3.credentialsEntry.AadTenantId);
 
                 // if end user used the sp cli output then we don't know the MediaSercices Resource. Let's guess it.
@@ -162,7 +159,6 @@ namespace AMSExplorer
             string responseString = await _client.GetStringAsync(URL);
             _myanswer = MediaRUv2Answer.FromJson(responseString).Value[0];
             return _myanswer;
-
         }
 
         public void SetMediaRU(AMSClientV3 AmsClientV3, int? Number, int? ReservedUniType)

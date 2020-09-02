@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSExplorer.TransformRest;
 using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json;
 using System;
@@ -27,13 +28,15 @@ namespace AMSExplorer
     public partial class TransformInformation : Form
     {
         private readonly Transform _transform;
+        private readonly TransformForRest _transformRest;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
-        public TransformInformation(Transform transform)
+        public TransformInformation(Transform transform, TransformForRest transformRest)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _transform = transform;
+            _transformRest = transformRest;
         }
 
         private void ContextMenuStrip_MouseClick(object sender, MouseEventArgs e)
@@ -94,7 +97,9 @@ namespace AMSExplorer
 
             DGOutputs.Rows.Add("Preset type", output.Preset.GetType().ToString());
 
-            string presetJson;
+            var presetRest = _transformRest.Properties.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault().Preset;
+            string presetJson = JsonConvert.SerializeObject(presetRest, Formatting.Indented);
+            /*
             if (output.Preset.GetType() == typeof(BuiltInStandardEncoderPreset))
             {
                 BuiltInStandardEncoderPreset pmes = (BuiltInStandardEncoderPreset)output.Preset;
@@ -124,6 +129,7 @@ namespace AMSExplorer
             {
                 presetJson = JsonConvert.SerializeObject(output.Preset, Newtonsoft.Json.Formatting.Indented);
             }
+            */
             textBoxPresetJson.Text = presetJson;
             DGOutputs.Rows.Add("Relative Priority", output.RelativePriority);
         }
@@ -139,7 +145,7 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false, false);
+            EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false);
             editform.Display();
         }
 

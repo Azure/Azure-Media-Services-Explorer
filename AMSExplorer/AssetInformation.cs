@@ -858,7 +858,7 @@ namespace AMSExplorer
             AssetInfo MyAssetReport = new AssetInfo(myAsset, _amsClient);
             StringBuilder SB = await MyAssetReport.GetStatsAsync();
             using (EditorXMLJSON tokenDisplayForm
-                = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, false, false))
+                = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, ShowSampleMode.None, false))
             {
                 tokenDisplayForm.Display();
             }
@@ -1687,7 +1687,7 @@ namespace AMSExplorer
 
                     progressBarUpload.Visible = false;
 
-                    using (EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, blobtoedit.Name), contentstring, true, false))
+                    using (EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, blobtoedit.Name), contentstring, true))
                     {
                         if (editform.Display() == DialogResult.OK)
                         { // OK
@@ -1723,7 +1723,7 @@ namespace AMSExplorer
 
         private void SeeClearKey(string key)
         {
-            using (EditorXMLJSON editform = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_Value, key.ToString(), false, false))
+            using (EditorXMLJSON editform = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_Value, key.ToString(), false))
                 editform.Display();
         }
 
@@ -1751,7 +1751,7 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            using (EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false, false))
+            using (EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false))
                 editform.Display();
         }
 
@@ -1767,7 +1767,7 @@ namespace AMSExplorer
                 GeneratedServerManifest smildata = await ServerManifestUtils.LoadAndUpdateManifestTemplateAsync(container);
 
                 using (
-                EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, false, true,
+                EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, ShowSampleMode.None, true,
                     AMSExplorer.Properties.Resources.AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedManifestAsTheToolMakesGuesses))
                 {
                     if (editform.Display() == DialogResult.OK)
@@ -2130,7 +2130,7 @@ namespace AMSExplorer
                 }
             }
 
-            using (EditorXMLJSON displayResult = new EditorXMLJSON("Test token", sbuilder.ToString(), false, false, false))
+            using (EditorXMLJSON displayResult = new EditorXMLJSON("Test token", sbuilder.ToString(), false, ShowSampleMode.None, false))
                 displayResult.ShowDialog();
         }
 
@@ -2249,7 +2249,7 @@ namespace AMSExplorer
                                                                     string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, clientManifestName),
                                                                     manifest.ToString(),
                                                                     true,
-                                                                    false,
+                                                                    ShowSampleMode.None,
                                                                     true,
                                                                     null
                                                                    ))

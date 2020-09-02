@@ -537,7 +537,7 @@ namespace AMSExplorer
   ""ResourceGroup"": ""amsResourceGroup"",
   ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000""
 }";
-                    EditorXMLJSON form = new EditorXMLJSON("Enter the JSON output of the Azure Portal or Azure Cli Service Principal creation", example, true, false, true, "The Service Principal secret is stored encrypted in the application settings.");
+                    EditorXMLJSON form = new EditorXMLJSON("Enter the JSON output of the Azure Portal or Azure Cli Service Principal creation", example, true, ShowSampleMode.None, true, "The Service Principal secret is stored encrypted in the application settings.");
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {

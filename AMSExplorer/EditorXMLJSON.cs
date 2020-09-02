@@ -25,11 +25,12 @@ namespace AMSExplorer
     public partial class EditorXMLJSON : Form
     {
         private string savedConfig;
+        private ShowSampleMode _showSample;
         private readonly string defaultConfig;
 
         public string TextData => textBoxConfiguration.Text;
 
-        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false, bool DisplayFormatButton = true, string infoText = null)
+        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, ShowSampleMode showSample = ShowSampleMode.None, bool DisplayFormatButton = true, string infoText = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -50,7 +51,8 @@ namespace AMSExplorer
                 textBoxConfiguration.ReadOnly = true;
             }
 
-            buttonInsertSample.Visible = showSamplePremium;
+            buttonInsertSample.Visible = showSample != ShowSampleMode.None;
+            _showSample = showSample;
             labelWarningJSON.Text = string.Empty;
             buttonFormat.Visible = DisplayFormatButton;
 
@@ -87,8 +89,15 @@ namespace AMSExplorer
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
-            XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
-            textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
+            if (_showSample == ShowSampleMode.Premium)
+            {
+                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
+                textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
+            }
+            else if (_showSample == ShowSampleMode.JsonPreset)
+            {
+                textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "Preset.json"));
+            }
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
@@ -131,7 +140,7 @@ namespace AMSExplorer
 
         public void Initialize()
         {
-            myPremiumXML = new EditorXMLJSON(editMode: true, showSamplePremium: true);
+            myPremiumXML = new EditorXMLJSON(editMode: true, showSample: ShowSampleMode.Premium);
         }
 
         private void ButtonXML_Click(object sender, EventArgs e)
@@ -143,5 +152,12 @@ namespace AMSExplorer
         {
             return myPremiumXML.TextData;
         }
+    }
+
+    public enum ShowSampleMode
+    {
+        None = 0,
+        Premium,
+        JsonPreset
     }
 }
