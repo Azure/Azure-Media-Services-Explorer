@@ -41,13 +41,13 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DGOutputs = new System.Windows.Forms.DataGridView();
             this.textBoxPresetJson = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStripOutputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripInputAsset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelJobNameTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGTransform)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -157,6 +157,11 @@
             this.textBoxPresetJson.Name = "textBoxPresetJson";
             this.textBoxPresetJson.ReadOnly = true;
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // contextMenuStripOutputAsset
             // 
             this.contextMenuStripOutputAsset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -196,11 +201,6 @@
             this.panel1.Controls.Add(this.buttonClose);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
             // 
             // TransformInformation
             // 

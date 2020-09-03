@@ -25,7 +25,6 @@ namespace AMSExplorer
     public partial class EditorPresetJSON : Form
     {
         private string savedConfig;
-        private readonly string defaultConfig;
         private readonly string _existingTransformName;
 
         public string TextData => textBoxConfiguration.Text;
@@ -124,7 +123,7 @@ namespace AMSExplorer
             UpdateTransformLabel();
         }
 
-        private void EditorXMLJSON_DpiChanged(object sender, DpiChangedEventArgs e)
+        private void EditorPresetJSON_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
         }

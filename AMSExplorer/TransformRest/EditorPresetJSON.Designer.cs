@@ -37,12 +37,12 @@
             this.buttonInsertSample = new System.Windows.Forms.Button();
             this.buttonCopyClipboard = new System.Windows.Forms.Button();
             this.buttonFormat = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxTransformName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,16 +103,6 @@
             this.buttonFormat.UseVisualStyleBackColor = true;
             this.buttonFormat.Click += new System.EventHandler(this.buttonFormat_Click);
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // textBoxDescription
             // 
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
@@ -133,6 +123,16 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
             // EditorPresetJSON
             // 
             resources.ApplyResources(this, "$this");
@@ -152,7 +152,7 @@
             this.Name = "EditorPresetJSON";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.EditorPresetJSON_Load);
-            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.EditorXMLJSON_DpiChanged);
+            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.EditorPresetJSON_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
