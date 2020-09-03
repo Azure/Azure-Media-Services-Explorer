@@ -8629,11 +8629,32 @@ namespace AMSExplorer
 
                     if (useRest) // We use REST for custom preset
                     {
+                        string transformName = null;
+                        string transformDesc = null;
+                        TransformForRest existingT = null;
+                        AmsClientRestTransform restClientT = null;
+                        try
+                        {
+                            restClientT = new AmsClientRestTransform(_amsClient);
+                            if (existingTransform != null) // user wants to add a task to an existing transform
+                            {
+                                transformName = existingTransform.Name;
+                                transformDesc = existingTransform.Description;
+                                existingT = await restClientT.GetTransformContentAsync(transformName);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error with transform using REST call.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
 
-                        EditorXMLJSON formJSONPreset = new EditorXMLJSON("JSON Preset", "", true, ShowSampleMode.JsonPreset, true);
+                        EditorPresetJSON formJSONPreset = new EditorPresetJSON(transformName, transformDesc);
 
                         if (formJSONPreset.ShowDialog() == DialogResult.OK)
                         {
+                            transformName = formJSONPreset.TransformName;
+                            transformDesc = formJSONPreset.TransformDescription;
 
                             dynamic preset;
                             // let's make sure it can be serialized
@@ -8647,49 +8668,26 @@ namespace AMSExplorer
                                 return;
                             }
 
-                            string transformName = null;
-                            string transformDesc = null;
-                            TransformForRest existingT = null;
-                            AmsClientRestTransform restClientT = null;
                             try
                             {
-                                restClientT = new AmsClientRestTransform(_amsClient);
-                                if (existingTransform != null) // user wants to add a task to an existing transform
-                                {
-                                    transformName = existingTransform.Name;
-                                    transformDesc = existingTransform.Description;
-                                    existingT = await restClientT.GetTransformContentAsync(transformName);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                TextBoxLogWriteLine("Error with transform using REST call.", true);
-                                TextBoxLogWriteLine(ex);
-                            }
-
-
-                            if (transformName != null || Program.InputBox("New transform", "Enter the name of the transform to create :", ref transformName) == DialogResult.OK)
-                            {
-                                try
-                                {
-                                    var transformRest = new TransformForRest(transformName, transformDesc, new List<TransformRestOutput>() {
+                                var transformRest = new TransformForRest(transformName, transformDesc, new List<TransformRestOutput>() {
                             new TransformRestOutput() { Preset = preset }
                             });
 
-                                    if (existingT != null) // user wants to add a task to an existing transform
-                                    {
-                                        transformRest = new TransformForRest(outputs: existingT.Properties.Outputs.Concat(transformRest.Properties.Outputs).ToList(), name: transformRest.Name, description: transformRest.Properties.Description);
-                                    }
-
-                                    await restClientT.CreateTransformAsync(transformName, transformRest);
-                                    TextBoxLogWriteLine("Transform '{0}' created using REST call.", transformName);
-                                }
-                                catch (Exception ex)
+                                if (existingT != null) // user wants to add a task to an existing transform
                                 {
-                                    TextBoxLogWriteLine("Error with transform creation using REST call.", true);
-                                    TextBoxLogWriteLine(ex);
+                                    transformRest = new TransformForRest(outputs: existingT.Properties.Outputs.Concat(transformRest.Properties.Outputs).ToList(), name: transformRest.Name, description: transformRest.Properties.Description);
                                 }
+
+                                await restClientT.CreateTransformAsync(transformName, transformRest);
+                                TextBoxLogWriteLine("Transform '{0}' created using REST call.", transformName);
                             }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine("Error with transform creation using REST call.", true);
+                                TextBoxLogWriteLine(ex);
+                            }
+
 
                             DoRefreshGridTransformV(false);
                         }

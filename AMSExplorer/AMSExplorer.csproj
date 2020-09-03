@@ -114,6 +114,12 @@
     <Compile Include="AMSLogin\ExportSettings.Designer.cs">
       <DependentUpon>ExportSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransformRest\EditorPresetJSON.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransformRest\EditorPresetJSON.Designer.cs">
+      <DependentUpon>EditorPresetJSON.cs</DependentUpon>
+    </Compile>
     <Compile Include="TransformRest\TransformForRest.cs" />
     <Compile Include="Utils\AssetInfo\AssetEntryV3.cs" />
     <Compile Include="Utils\AssetInfo\AssetBitmapAndText.cs" />
@@ -674,6 +680,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Subclipping.resx">
       <DependentUpon>Subclipping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformRest\EditorPresetJSON.ja.resx">
+      <DependentUpon>EditorPresetJSON.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformRest\EditorPresetJSON.resx">
+      <DependentUpon>EditorPresetJSON.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformTypeCreation.ja.resx">
       <DependentUpon>TransformTypeCreation.cs</DependentUpon>
