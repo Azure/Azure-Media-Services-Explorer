@@ -96,12 +96,14 @@
             // 
             resources.ApplyResources(this.radioButtonAVAnalyze, "radioButtonAVAnalyze");
             this.radioButtonAVAnalyze.Name = "radioButtonAVAnalyze";
+            this.radioButtonAVAnalyze.TabStop = true;
             this.radioButtonAVAnalyze.UseVisualStyleBackColor = true;
             // 
             // radioButtonFaceDetection
             // 
             resources.ApplyResources(this.radioButtonFaceDetection, "radioButtonFaceDetection");
             this.radioButtonFaceDetection.Name = "radioButtonFaceDetection";
+            this.radioButtonFaceDetection.TabStop = true;
             this.radioButtonFaceDetection.UseVisualStyleBackColor = true;
             // 
             // pictureBox2
@@ -135,6 +137,7 @@
             // 
             resources.ApplyResources(this.radioButtonCustomJson, "radioButtonCustomJson");
             this.radioButtonCustomJson.Name = "radioButtonCustomJson";
+            this.radioButtonCustomJson.TabStop = true;
             this.radioButtonCustomJson.UseVisualStyleBackColor = true;
             // 
             // pictureBox4

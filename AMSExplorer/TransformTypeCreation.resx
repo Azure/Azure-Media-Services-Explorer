@@ -130,7 +130,7 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonImport.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>0</value>
   </data>
   <data name="buttonImport.Text" xml:space="preserve">
     <value>Ok</value>
@@ -157,7 +157,7 @@
     <value>115, 27</value>
   </data>
   <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>1</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Cancel</value>
@@ -184,7 +184,7 @@
     <value>441, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;panel1.Name" xml:space="preserve">
     <value>panel1</value>
@@ -211,7 +211,7 @@
     <value>131, 20</value>
   </data>
   <data name="labelTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>73</value>
+    <value>0</value>
   </data>
   <data name="labelTitle.Text" xml:space="preserve">
     <value>Select which type :</value>
@@ -277,13 +277,13 @@
     <value>104, 138</value>
   </data>
   <data name="radioButtonCustomJson.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 19</value>
+    <value>133, 19</value>
   </data>
   <data name="radioButtonCustomJson.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
+    <value>4</value>
   </data>
   <data name="radioButtonCustomJson.Text" xml:space="preserve">
-    <value>Custom Json preset</value>
+    <value>Custom JSON preset</value>
   </data>
   <data name="&gt;&gt;radioButtonCustomJson.Name" xml:space="preserve">
     <value>radioButtonCustomJson</value>
@@ -301,13 +301,13 @@
     <value>NoControl</value>
   </data>
   <data name="labelNoAssetFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 175</value>
+    <value>33, 182</value>
   </data>
   <data name="labelNoAssetFilter.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 28</value>
   </data>
   <data name="labelNoAssetFilter.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
+    <value>5</value>
   </data>
   <data name="labelNoAssetFilter.Text" xml:space="preserve">
     <value>This will create a simple transform with one output asset.</value>
@@ -418,7 +418,7 @@
     <value>102, 19</value>
   </data>
   <data name="radioButtonFaceDetection.TabIndex" type="System.Int32, mscorlib">
-    <value>76</value>
+    <value>3</value>
   </data>
   <data name="radioButtonFaceDetection.Text" xml:space="preserve">
     <value>Face detection</value>
@@ -448,7 +448,7 @@
     <value>136, 19</value>
   </data>
   <data name="radioButtonAVAnalyze.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
+    <value>2</value>
   </data>
   <data name="radioButtonAVAnalyze.Text" xml:space="preserve">
     <value>Audio/Video Analyze</value>
@@ -475,7 +475,7 @@
     <value>233, 19</value>
   </data>
   <data name="radioButtonEncoding.TabIndex" type="System.Int32, mscorlib">
-    <value>74</value>
+    <value>1</value>
   </data>
   <data name="radioButtonEncoding.Text" xml:space="preserve">
     <value>Encoding with Media Encoder Standard</value>
