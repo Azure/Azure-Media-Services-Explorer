@@ -40,46 +40,24 @@ namespace AMSExplorer.Rest
         public async Task<string> CreateLiveEventAsync(LiveEventRestObject liveEventSettings, bool startLiveEventNow)
         {
             string URL = GenerateApiUrl(liveEventApiUrl, liveEventSettings.Name) + string.Format("&autoStart={0}", startLiveEventNow.ToString());
-            HttpClient client = GetHttpClient();
-
-            string _requestContent = liveEventSettings.ToJson();
-            StringContent httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-            httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-
-            HttpResponseMessage amsRequestResult = await client.PutAsync(URL, httpContent).ConfigureAwait(false);
-            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            if (!amsRequestResult.IsSuccessStatusCode)
-            {
-                dynamic error = JsonConvert.DeserializeObject(responseContent);
-                throw new Exception((string)error?.error?.message);
-            }
-
+            string responseContent = await CreateObjectAsync(URL, liveEventSettings.ToJson());
             return responseContent;
         }
 
 
         public LiveEventRestObject GetLiveEvent(string liveEventName)
         {
-            return GetLiveEventAsync(liveEventName).GetAwaiter().GetResult();
+            Task<LiveEventRestObject> task = Task.Run<LiveEventRestObject>(async () => await GetLiveEventAsync(liveEventName));
+            return task.Result;
+
+            // return GetLiveEventAsync(liveEventName).GetAwaiter().GetResult();
         }
 
 
         public async Task<LiveEventRestObject> GetLiveEventAsync(string liveEventName)
         {
             string URL = GenerateApiUrl(liveEventApiUrl, liveEventName);
-            HttpClient client = GetHttpClient();
-
-            HttpResponseMessage amsRequestResult = await client.GetAsync(URL).ConfigureAwait(false);
-
-            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            if (!amsRequestResult.IsSuccessStatusCode)
-            {
-                dynamic error = JsonConvert.DeserializeObject(responseContent);
-                throw new Exception((string)error?.error?.message);
-            }
-
+            string responseContent = await GetObjectContentAsync(URL);
             return LiveEventRestObject.FromJson(responseContent);
         }
     }

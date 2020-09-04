@@ -39,44 +39,23 @@ namespace AMSExplorer.Rest
         public async Task<string> CreateTransformAsync(string transformName, TransformRestObject transformContent)
         {
             string URL = GenerateApiUrl(transformApiUrl, transformName);
-            HttpClient client = GetHttpClient();
-
-            string _requestContent = transformContent.ToJson();
-            StringContent httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-            httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-
-            HttpResponseMessage amsRequestResult = await client.PutAsync(URL, httpContent).ConfigureAwait(false);
-            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            if (!amsRequestResult.IsSuccessStatusCode)
-            {
-                dynamic error = JsonConvert.DeserializeObject(responseContent);
-                throw new Exception((string)error?.error?.message);
-            }
-
+            string responseContent = await CreateObjectAsync(URL, transformContent.ToJson());
             return responseContent;
         }
 
         public TransformRestObject GetTransformContent(string transformName)
         {
-            return GetTransformContentAsync(transformName).GetAwaiter().GetResult();
+            Task<TransformRestObject> task = Task.Run<TransformRestObject>(async () => await GetTransformContentAsync(transformName));
+            return task.Result;
+
+           // return GetTransformContentAsync(transformName).GetAwaiter().GetResult();
         }
 
         public async Task<TransformRestObject> GetTransformContentAsync(string transformName)
+
         {
             string URL = GenerateApiUrl(transformApiUrl, transformName);
-            HttpClient client = GetHttpClient();
-
-            HttpResponseMessage amsRequestResult = await client.GetAsync(URL).ConfigureAwait(false);
-
-            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            if (!amsRequestResult.IsSuccessStatusCode)
-            {
-                dynamic error = JsonConvert.DeserializeObject(responseContent);
-                throw new Exception((string)error?.error?.message);
-            }
-
+            string responseContent = await GetObjectContentAsync(URL);
             return TransformRestObject.FromJson(responseContent);
         }
     }

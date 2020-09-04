@@ -19,9 +19,11 @@ using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace AMSExplorer.Rest
 {
@@ -62,8 +64,43 @@ namespace AMSExplorer.Rest
             return client;
         }
 
+        private async Task<string> GetObjectContentAsync(string url)
+        {
+            HttpClient client = GetHttpClient();
 
-       
+            HttpResponseMessage amsRequestResult = await client.GetAsync(url).ConfigureAwait(false);
+
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                dynamic error = JsonConvert.DeserializeObject(responseContent);
+                throw new Exception((string)error?.error?.message);
+            }
+
+            return responseContent;
+        }
+
+
+        private async Task<string> CreateObjectAsync(string url, string amsJSONObject)
+        {
+            HttpClient client = GetHttpClient();
+
+            string _requestContent = amsJSONObject;
+            StringContent httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+            httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+
+            HttpResponseMessage amsRequestResult = await client.PutAsync(url, httpContent).ConfigureAwait(false);
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                dynamic error = JsonConvert.DeserializeObject(responseContent);
+                throw new Exception((string)error?.error?.message);
+            }
+
+            return responseContent;
+        }
     }
 
     internal static class ConverterLE
