@@ -8621,7 +8621,6 @@ namespace AMSExplorer
                             break;
 
                         case simpleTransformType.customJson:
-                            //transformInfo = GetSettingsFaceDetectorTransform(existingTransform?.Name, existingTransform?.Description);
                             transformInfo = null;
                             useRest = true;
                             break;
@@ -8682,17 +8681,12 @@ namespace AMSExplorer
 
                                 await restClientT.CreateTransformAsync(transformName, transformRest);
                                 TextBoxLogWriteLine("Transform '{0}' created using REST call.", transformName);
-
-                                transformName = transformRest.Name;
-                                transformDesc = transformRest.Properties.Description;
-
                             }
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Error with transform creation using REST call.", true);
                                 TextBoxLogWriteLine(ex);
                             }
-
 
                             DoRefreshGridTransformV(false);
                         }
@@ -8704,6 +8698,7 @@ namespace AMSExplorer
                             transformInfo = new Transform(outputs: existingTransform.Outputs.Concat(transformInfo.Outputs).ToList(), name: existingTransform.Name, description: transformInfo.Description);
                         }
                         await CreateOrUpdateTransformAsync(transformInfo);
+                        transformName = transformInfo.Name;
                     }
                 }
             }
