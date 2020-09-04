@@ -8591,8 +8591,11 @@ namespace AMSExplorer
             await DoCreateOrUpdateATransformAsync();
         }
 
-        private async Task DoCreateOrUpdateATransformAsync(Transform existingTransform = null)
+        public async Task<string> DoCreateOrUpdateATransformAsync(Transform existingTransform = null)
         {
+            string transformName = null;
+            string transformDesc = null;
+
             try
             {
                 Transform transformInfo;
@@ -8629,8 +8632,6 @@ namespace AMSExplorer
 
                     if (useRest) // We use REST for custom preset
                     {
-                        string transformName = null;
-                        string transformDesc = null;
                         TransformForRest existingT = null;
                         AmsClientRestTransform restClientT = null;
                         try
@@ -8665,7 +8666,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 MessageBox.Show(ex.Message, "Error reading the json", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
+                                return null;
                             }
 
                             try
@@ -8681,6 +8682,10 @@ namespace AMSExplorer
 
                                 await restClientT.CreateTransformAsync(transformName, transformRest);
                                 TextBoxLogWriteLine("Transform '{0}' created using REST call.", transformName);
+
+                                transformName = transformRest.Name;
+                                transformDesc = transformRest.Properties.Description;
+
                             }
                             catch (Exception ex)
                             {
@@ -8706,6 +8711,7 @@ namespace AMSExplorer
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            return transformName;
         }
 
         private async void addATaskToTransformToolStripMenuItem_Click(object sender, EventArgs e)

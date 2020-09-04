@@ -252,35 +252,8 @@ namespace AMSExplorer
 
         private async void ButtonCreateNewTransform_Click(object sender, EventArgs e)
         {
-            Transform transformInfo;
-            TransformTypeCreation form = new TransformTypeCreation();
-            form.ShowDialog();
-
-            if (form.DialogResult == DialogResult.OK)
-            {
-                switch (form.TransformType)
-                {
-                    case simpleTransformType.analyze:
-                        transformInfo = _myMainform.GetSettingsVideoAnalyzerTransform();
-                        break;
-
-                    case simpleTransformType.encode:
-                        transformInfo = _myMainform.GetSettingsStandardEncoderTransform();
-                        break;
-
-                    case simpleTransformType.facedetection:
-                        transformInfo = _myMainform.GetSettingsFaceDetectorTransform();
-                        break;
-
-                    default: throw new ArgumentOutOfRangeException();
-                }
-
-                if (transformInfo != null)
-                {
-                    await _myMainform.CreateOrUpdateTransformAsync(transformInfo);
-                    await listViewTransforms.LoadTransformsAsync(_client, transformInfo.Name);
-                }
-            }
+            string transformName = await _myMainform.DoCreateOrUpdateATransformAsync();
+            await listViewTransforms.LoadTransformsAsync(_client, transformName);
         }
 
         private void JobSubmitFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
