@@ -25,39 +25,23 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace AMSExplorer.TransformRest
+namespace AMSExplorer.Rest
 {
     /// <summary>
     /// Rest call for transforms
     /// https://docs.microsoft.com/en-us/rest/api/media/transforms
     /// 
     /// </summary>
-    public class AmsClientRestTransform
+    public partial class AmsClientRest
     {
         private const string transformApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/transforms/{3}?api-version=2018-07-01";
 
-        private readonly AMSClientV3 _amsClient;
-
-        public AmsClientRestTransform(AMSClientV3 amsClient)
+        public async Task<string> CreateTransformAsync(string transformName, TransformRestObject transformContent)
         {
-            _amsClient = amsClient;
-        }
+            string URL = GenerateApiUrl(transformApiUrl, transformName);
+            HttpClient client = GetHttpClient();
 
-        public async Task<string> CreateTransformAsync(string transformName, TransformForRest transformContent)
-        {
-            string URL = GenerateApiUrl(transformName);
-
-            string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
-                TokenCache.DefaultShared.ReadItems()
-                    .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
-                    .OrderByDescending(t => t.ExpiresOn)
-                    .First().AccessToken;
-
-            HttpClient client = _amsClient.AMSclient.HttpClient;
-            client.DefaultRequestHeaders.Remove("Authorization");
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
-            string _requestContent = transformContent.ToJson(); // Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(liveEvent, serializationSettings);
+            string _requestContent = transformContent.ToJson();
             StringContent httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
             httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
 
@@ -73,24 +57,15 @@ namespace AMSExplorer.TransformRest
             return responseContent;
         }
 
-        public TransformForRest GetTransformContent(string transformName)
+        public TransformRestObject GetTransformContent(string transformName)
         {
             return GetTransformContentAsync(transformName).GetAwaiter().GetResult();
         }
 
-        public async Task<TransformForRest> GetTransformContentAsync(string transformName)
+        public async Task<TransformRestObject> GetTransformContentAsync(string transformName)
         {
-            string URL = GenerateApiUrl(transformName);
-
-            string token = _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
-                TokenCache.DefaultShared.ReadItems()
-                    .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
-                    .OrderByDescending(t => t.ExpiresOn)
-                    .First().AccessToken;
-
-            HttpClient client = _amsClient.AMSclient.HttpClient;
-            client.DefaultRequestHeaders.Remove("Authorization");
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            string URL = GenerateApiUrl(transformApiUrl, transformName);
+            HttpClient client = GetHttpClient();
 
             HttpResponseMessage amsRequestResult = await client.GetAsync(URL).ConfigureAwait(false);
 
@@ -102,36 +77,28 @@ namespace AMSExplorer.TransformRest
                 throw new Exception((string)error?.error?.message);
             }
 
-            return TransformForRest.FromJson(responseContent);
-        }
-
-        private string GenerateApiUrl(string transformName)
-        {
-            return _amsClient.environment.ArmEndpoint
-                                       + string.Format(transformApiUrl,
-                                                          _amsClient.credentialsEntry.AzureSubscriptionId,
-                                                          _amsClient.credentialsEntry.ResourceGroup,
-                                                          _amsClient.credentialsEntry.AccountName,
-                                                          transformName
-                                                  );
+            return TransformRestObject.FromJson(responseContent);
         }
     }
-       
 
-    public class TransformForRest
+
+    public class TransformRestObject
     {
-
-        public static TransformForRest FromJson(string json)
+        public static TransformRestObject FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<TransformForRest>(json, ConverterLE.Settings);
+            return JsonConvert.DeserializeObject<TransformRestObject>(json, ConverterLE.Settings);
         }
 
-        public TransformForRest(string name, string description, IList<TransformRestOutput> outputs)
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, ConverterLE.Settings);
+        }
+
+        public TransformRestObject(string name, string description, IList<TransformRestOutput> outputs)
         {
             Name = name;
             Properties = new Properties { Description = description, Outputs = outputs };
         }
-
 
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
@@ -173,25 +140,11 @@ namespace AMSExplorer.TransformRest
         public dynamic Preset { get; set; }
     }
 
-    public static class SerializeForRest
+    public static class SerializeTransformForRest
     {
-        public static string ToJson(this TransformForRest self)
+        public static string ToJson(this Transform self)
         {
             return JsonConvert.SerializeObject(self, ConverterLE.Settings);
         }
-    }
-
-    internal static class ConverterLE
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
     }
 }

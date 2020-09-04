@@ -42,8 +42,8 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using System.Xml;
-using AMSExplorer.LiveRest;
-using AMSExplorer.TransformRest;
+using AMSExplorer.Rest;
+using AMSExplorer.Rest;
 
 namespace AMSExplorer
 {
@@ -1695,7 +1695,7 @@ namespace AMSExplorer
                     Cursor = Cursors.WaitCursor;
 
                     // let's get the info about the transform using REST, so we can display a good JSON preset.
-                    var restTransformClient = new AmsClientRestTransform(_amsClient);
+                    var restTransformClient = new AmsClientRest(_amsClient);
                     var transformRest = restTransformClient.GetTransformContent(t.Name);
 
                     TransformInformation form = new TransformInformation(t, transformRest);
@@ -4488,9 +4488,9 @@ namespace AMSExplorer
                     if (form.LiveTranscript)
                     {
                         // let's use REST call
-                        AmsClientRestLiveTranscript client = new AmsClientRestLiveTranscript(_amsClient);
+                        AmsClientRest client = new AmsClientRest(_amsClient);
 
-                        LiveEventForRest liveEventForREst = new LiveEventForRest(
+                        LiveEventRestObject liveEventForREst = new LiveEventRestObject(
                                               name: liveEvent.Name,
                                               location: liveEvent.Location,
                                               transcriptions: form.LiveTranscriptionList,
@@ -6290,7 +6290,7 @@ namespace AMSExplorer
                 // let's try to use preview REST to get live transcript setting
                 try
                 {
-                    AmsClientRestLiveTranscript clientRest = new AmsClientRestLiveTranscript(_amsClient);
+                    AmsClientRest clientRest = new AmsClientRest(_amsClient);
                     PropertiesForRest liveEventRestProp = clientRest.GetLiveEvent(le.FirstOrDefault().Name).Properties;
 
                     if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
@@ -8631,11 +8631,11 @@ namespace AMSExplorer
 
                     if (useRest) // We use REST for custom preset
                     {
-                        TransformForRest existingT = null;
-                        AmsClientRestTransform restClientT = null;
+                        TransformRestObject existingT = null;
+                        AmsClientRest restClientT = null;
                         try
                         {
-                            restClientT = new AmsClientRestTransform(_amsClient);
+                            restClientT = new AmsClientRest(_amsClient);
                             if (existingTransform != null) // user wants to add a task to an existing transform
                             {
                                 transformName = existingTransform.Name;
@@ -8670,13 +8670,13 @@ namespace AMSExplorer
 
                             try
                             {
-                                var transformRest = new TransformForRest(transformName, transformDesc, new List<TransformRestOutput>() {
+                                var transformRest = new TransformRestObject(transformName, transformDesc, new List<TransformRestOutput>() {
                             new TransformRestOutput() { Preset = preset }
                             });
 
                                 if (existingT != null) // user wants to add a task to an existing transform
                                 {
-                                    transformRest = new TransformForRest(outputs: existingT.Properties.Outputs.Concat(transformRest.Properties.Outputs).ToList(), name: transformRest.Name, description: transformRest.Properties.Description);
+                                    transformRest = new TransformRestObject(outputs: existingT.Properties.Outputs.Concat(transformRest.Properties.Outputs).ToList(), name: transformRest.Name, description: transformRest.Properties.Description);
                                 }
 
                                 await restClientT.CreateTransformAsync(transformName, transformRest);

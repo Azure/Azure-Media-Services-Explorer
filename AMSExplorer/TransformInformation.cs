@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using AMSExplorer.TransformRest;
+using AMSExplorer.Rest;
 using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json;
 using System;
@@ -28,10 +28,10 @@ namespace AMSExplorer
     public partial class TransformInformation : Form
     {
         private readonly Transform _transform;
-        private readonly TransformForRest _transformRest;
+        private readonly TransformRestObject _transformRest;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
-        public TransformInformation(Transform transform, TransformForRest transformRest)
+        public TransformInformation(Transform transform, TransformRestObject transformRest)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;

@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using AMSExplorer.LiveRest;
+using AMSExplorer.Rest;
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
@@ -195,7 +195,7 @@ namespace AMSExplorer
                 // let's use REST call (preview) to display live transcript settings if any
                 try
                 {
-                    AmsClientRestLiveTranscript clientRest = new AmsClientRestLiveTranscript(_client);
+                    AmsClientRest clientRest = new AmsClientRest(_client);
                     PropertiesForRest liveEventRestProp = clientRest.GetLiveEvent(MyLiveEvent.Name).Properties;
 
                     if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)

@@ -114,13 +114,14 @@
     <Compile Include="AMSLogin\ExportSettings.Designer.cs">
       <DependentUpon>ExportSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="TransformRest\EditorPresetJSON.cs">
+    <Compile Include="CustomJSONPreset\EditorPresetJSON.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TransformRest\EditorPresetJSON.Designer.cs">
+    <Compile Include="CustomJSONPreset\EditorPresetJSON.Designer.cs">
       <DependentUpon>EditorPresetJSON.cs</DependentUpon>
     </Compile>
-    <Compile Include="TransformRest\TransformForRest.cs" />
+    <Compile Include="Rest\CoreForRest.cs" />
+    <Compile Include="Rest\TransformRestObject.cs" />
     <Compile Include="Utils\AssetInfo\AssetEntryV3.cs" />
     <Compile Include="Utils\AssetInfo\AssetBitmapAndText.cs" />
     <Compile Include="Utils\AssetInfo\AssetInfo.cs" />
@@ -204,7 +205,7 @@
     <Compile Include="ListViews\ListViewAssets.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Live\LiveEventForRest.cs" />
+    <Compile Include="Rest\LiveEventRestObject.cs" />
     <Compile Include="MediaRUv2\Converter.cs" />
     <Compile Include="Models\OrderAssets.cs" />
     <Compile Include="Models\OrderJobs.cs" />
@@ -681,10 +682,10 @@
     <EmbeddedResource Include="Subclipping.resx">
       <DependentUpon>Subclipping.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TransformRest\EditorPresetJSON.ja.resx">
+    <EmbeddedResource Include="CustomJSONPreset\EditorPresetJSON.ja.resx">
       <DependentUpon>EditorPresetJSON.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TransformRest\EditorPresetJSON.resx">
+    <EmbeddedResource Include="CustomJSONPreset\EditorPresetJSON.resx">
       <DependentUpon>EditorPresetJSON.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransformTypeCreation.ja.resx">
