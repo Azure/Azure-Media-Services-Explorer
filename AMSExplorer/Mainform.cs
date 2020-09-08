@@ -6483,9 +6483,9 @@ namespace AMSExplorer
             }
         }
 
-        private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        private async void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
-            //DoCopyAssetToAnotherAMSAccount();
+            await DoCopyAssetToAnotherAMSAccountAsync();
         }
 
         private void toolStripMenuItem12_Click(object sender, EventArgs e)

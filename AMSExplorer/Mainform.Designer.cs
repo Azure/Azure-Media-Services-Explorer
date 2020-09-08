@@ -720,13 +720,13 @@
             this.toolStripSeparator37,
             this.contextMenuExportFilesToStorage,
             this.contextMenuExportToAnotherMediaServicesAccount});
-            resources.ApplyResources(this.exportToolStripMenuItem, "exportToolStripMenuItem");
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            resources.ApplyResources(this.exportToolStripMenuItem, "exportToolStripMenuItem");
             // 
             // exportAssetsInformationToExcelToolStripMenuItem
             // 
-            this.exportAssetsInformationToExcelToolStripMenuItem.Name = "exportAssetsInformationToExcelToolStripMenuItem";
             resources.ApplyResources(this.exportAssetsInformationToExcelToolStripMenuItem, "exportAssetsInformationToExcelToolStripMenuItem");
+            this.exportAssetsInformationToExcelToolStripMenuItem.Name = "exportAssetsInformationToExcelToolStripMenuItem";
             this.exportAssetsInformationToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportAssetsInformationToExcelToolStripMenuItem_Click);
             // 
             // toolStripSeparator37
