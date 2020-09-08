@@ -486,20 +486,25 @@ namespace AMSExplorer
                 IEnumerable<XElement> videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
 
                 // TIMESCALE
-                string timescaleFromManifest = smoothmedia.Attribute("TimeScale").Value;
+                long? rootTimeScaleFromManifest = smoothmedia.Attribute("TimeScale").Value != null ? long.Parse(smoothmedia.Attribute("TimeScale").Value) : (long?)null;
+
+                long? videoTimeScaleFromManifest = null;
                 if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
                 {
-                    timescaleFromManifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
+                    videoTimeScaleFromManifest = long.Parse(videotrack.FirstOrDefault().Attribute("TimeScale").Value);
                 }
-                long timescale = long.Parse(timescaleFromManifest);
-                response.TimeScale = timescale;
+
+                // by default, we use the timescale of the video track, except if there is no timescale. In that case, let's take the root one.
+                long timescaleVideo = (long)(videoTimeScaleFromManifest ?? rootTimeScaleFromManifest);
+                response.TimeScale = timescaleVideo;
 
                 // DURATION
                 string durationFromManifest = smoothmedia.Attribute("Duration").Value;
                 ulong? overallDuration = null;
-                if (durationFromManifest != null) // there is a duration value. Let's take this one.
+                if (durationFromManifest != null && rootTimeScaleFromManifest != null) // there is a duration value in the root (and a timescale). Let's take this one.
                 {
-                    overallDuration = ulong.Parse(durationFromManifest);
+                    var ratio = (double)rootTimeScaleFromManifest / (double)videoTimeScaleFromManifest;
+                    overallDuration = (ulong?)(ulong.Parse(durationFromManifest) / ratio); // value with the timescale of the video track
                 }
 
                 // Timestamp offset
@@ -550,18 +555,18 @@ namespace AMSExplorer
                 if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
                 { // Live asset.... No duration to read or it is always zero (but we can read scaling and compute duration)
                     response.IsLive = true;
-                    response.AssetDuration = TimeSpan.FromSeconds(totalDuration / ((double)timescale));
+                    response.AssetDuration = TimeSpan.FromSeconds(totalDuration / ((double)timescaleVideo));
                 }
                 else
                 {
                     if (overallDuration != null & overallDuration > 0) // let's trust the duration property in the manifest
                     {
-                        response.AssetDuration = TimeSpan.FromSeconds((ulong)overallDuration / ((double)timescale));
+                        response.AssetDuration = TimeSpan.FromSeconds((ulong)overallDuration / ((double)timescaleVideo));
 
                     }
                     else // no trust
                     {
-                        response.AssetDuration = TimeSpan.FromSeconds(totalDuration / ((double)timescale));
+                        response.AssetDuration = TimeSpan.FromSeconds(totalDuration / ((double)timescaleVideo));
                     }
                 }
             }
@@ -1061,7 +1066,7 @@ namespace AMSExplorer
                 return sb;
             }
 
-            bool bfileinasset = (MyAssetTypeInfo.Blobs.Count() == 0) ? false : true;
+            bool bfileinasset = MyAssetTypeInfo.Blobs.Count() != 0;
             long size = -1;
             if (bfileinasset)
             {
