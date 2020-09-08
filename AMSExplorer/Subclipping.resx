@@ -463,13 +463,13 @@
     <value>28, 119</value>
   </data>
   <data name="labelAssetTimescale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 15</value>
+    <value>96, 15</value>
   </data>
   <data name="labelAssetTimescale.TabIndex" type="System.Int32, mscorlib">
     <value>86</value>
   </data>
   <data name="labelAssetTimescale.Text" xml:space="preserve">
-    <value>Asset timescale :</value>
+    <value>Video timescale :</value>
   </data>
   <data name="labelAssetTimescale.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -625,7 +625,7 @@
     <value>timeControlStart</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.2.0.6, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStart.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -685,7 +685,7 @@
     <value>timeControlEnd</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.2.0.6, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEnd.Parent" xml:space="preserve">
     <value>groupBoxTrimming</value>
@@ -1189,7 +1189,7 @@
     <value>buttonShowEDL</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Type" xml:space="preserve">
-    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=5.0.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ButtonEDL, AMSExplorer, Version=5.2.0.6, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonShowEDL.Parent" xml:space="preserve">
     <value>panelEDL</value>
