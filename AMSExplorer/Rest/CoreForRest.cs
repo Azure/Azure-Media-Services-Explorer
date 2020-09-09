@@ -49,11 +49,11 @@ namespace AMSExplorer.Rest
 
         private string GetToken()
         {
-           return _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
-                TokenCache.DefaultShared.ReadItems()
-                    .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
-                    .OrderByDescending(t => t.ExpiresOn)
-                    .First().AccessToken;
+            return _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
+                 TokenCache.DefaultShared.ReadItems()
+                     .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
+                     .OrderByDescending(t => t.ExpiresOn)
+                     .First().AccessToken;
         }
 
         private HttpClient GetHttpClient()
@@ -77,7 +77,6 @@ namespace AMSExplorer.Rest
                 dynamic error = JsonConvert.DeserializeObject(responseContent);
                 throw new Exception((string)error?.error?.message);
             }
-
             return responseContent;
         }
 
@@ -99,6 +98,22 @@ namespace AMSExplorer.Rest
                 throw new Exception((string)error?.error?.message);
             }
 
+            if (amsRequestResult.StatusCode == System.Net.HttpStatusCode.Accepted)
+            {
+                // let's wait for the operation to complete
+                var monitorUrl = (string)amsRequestResult.Headers.Where(h => h.Key == "Azure-AsyncOperation").FirstOrDefault().Value.FirstOrDefault();
+                int monitorDelay = 1000* int.Parse(amsRequestResult.Headers.Where(h => h.Key == "Retry-After").FirstOrDefault().Value.FirstOrDefault());
+                bool notComplete = true;
+                do
+                {
+                    await Task.Delay(monitorDelay);
+                    HttpResponseMessage amsRequestResultWait = await client.GetAsync(monitorUrl).ConfigureAwait(false);
+                    string responseContentWait = await amsRequestResultWait.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    dynamic data = JsonConvert.DeserializeObject(responseContentWait);
+                    notComplete = data.status == "InProgress";
+                }
+                while (notComplete);
+            }
             return responseContent;
         }
     }

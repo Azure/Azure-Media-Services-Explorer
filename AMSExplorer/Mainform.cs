@@ -4504,7 +4504,9 @@ namespace AMSExplorer
 
                         try
                         {
-                            await client.CreateLiveEventAsync(liveEventForREst, form.StartLiveEventNow);
+                            await Task.Run(() =>
+                            client.CreateLiveEventAsync(liveEventForREst, form.StartLiveEventNow));
+
                             TextBoxLogWriteLine("Live event '{0}' created using REST call.", form.LiveEventName);
                         }
                         catch (Exception ex)
