@@ -129,7 +129,7 @@ namespace AMSExplorer
             DpiUtils.InitPerMonitorDpi(this);
 
             Text = string.Format(Text, LiveEventName);
-            checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
+            //checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
 
             await _client.RefreshTokenIfNeededAsync();
             System.Collections.Generic.IList<StorageAccount> storages = (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts;

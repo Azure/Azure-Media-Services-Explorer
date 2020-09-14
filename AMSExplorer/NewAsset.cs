@@ -28,7 +28,7 @@ namespace AMSExplorer
     {
         private readonly AMSClientV3 _amsClientV3;
 
-        public string StorageSelected => comboBoxStorage.Visible ? ((Item)comboBoxStorage.SelectedItem).Value : null;
+        public string StorageSelected => comboBoxStorage.Enabled ? ((Item)comboBoxStorage.SelectedItem).Value : null;
 
         public string AssetName
         {
@@ -63,7 +63,7 @@ namespace AMSExplorer
 
             if (displayAsAdvancedOptionWhenUpload)
             {
-                labelStorage.Visible = comboBoxStorage.Visible = false;
+                labelStorage.Visible = comboBoxStorage.Visible = labelStorage.Enabled = comboBoxStorage.Enabled = false;
                 labelNewAsset.Text = "Asset creation options";
                 buttonOk.Text = "Ok";
             }
