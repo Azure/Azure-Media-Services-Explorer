@@ -43,7 +43,6 @@ using System.Timers;
 using System.Windows.Forms;
 using System.Xml;
 using AMSExplorer.Rest;
-using AMSExplorer.Rest;
 
 namespace AMSExplorer
 {
