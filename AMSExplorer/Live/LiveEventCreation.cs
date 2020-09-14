@@ -451,7 +451,7 @@ namespace AMSExplorer
             if (!InitPhase && radio.Checked)
             {
                 moreinfoLiveEncodingProfilelink.Visible = !(Encoding.EncodingType == LiveEventEncodingType.None);
-                moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
+                moreinfoLiveStreamingProfilelink.Visible = (Encoding.EncodingType == LiveEventEncodingType.None);
 
                 // let's display the encoding tab if encoding has been choosen
                 if (Encoding.EncodingType == LiveEventEncodingType.None)
