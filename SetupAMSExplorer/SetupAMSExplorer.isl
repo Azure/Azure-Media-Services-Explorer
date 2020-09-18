@@ -3526,6 +3526,7 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME10</td><td>1033</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td>0</td><td/><td>2108078419</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME11</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2108070707</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME12</td><td>1033</td><td>AZUREM~1|Azure Media Services Explorer for v3</td><td>0</td><td/><td>2108052307</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME13</td><td>1033</td><td>LAUNCH~1.EXE|Launch AMSExplorer.exe</td><td>0</td><td/><td>-2069312822</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch KayakDemoInterface.vshost.exe</td><td>0</td><td/><td>-366838349</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>Azure Media Services Demo Interface</td><td>0</td><td/><td>983718384</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>983727793</td></row>
@@ -3826,11 +3827,11 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MicrosoftCorporation.com</td><td>0</td><td/><td>724063191</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>https://github.com/Azure/Azure-Media-Services-Explorer</td><td>0</td><td/><td>-2069321046</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>724063191</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>http://aka.ms/amse</td><td>0</td><td/><td>-341645173</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-1549656207</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/issues</td><td>0</td><td/><td>724063191</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>https://github.com/Azure/Azure-Media-Services-Explorer/issues</td><td>0</td><td/><td>-2069321046</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-366859085</td></row>
 	</table>
 
@@ -3953,6 +3954,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
+		<row><td>AMSExplorer.exe_5F03EA90B9384ABA8E490A889167CFB7.exe</td><td/><td>C:\OnDemandSigning\SignedFiles\AMSExplorer.exe</td><td>0</td></row>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</td><td>0</td></row>
 		<row><td>KayakDemoInterface_B01AA13565D54E19B2202AF22AAED385.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>_Built1_8E8F95F0734A4955BB693AA0367A822F.exe</td><td/><td>&lt;VSSolutionFolder&gt;\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</td><td>0</td></row>
@@ -4472,9 +4474,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{E330164D-3BFB-4EAC-AAFA-7C392B6F69CE}</td><td/></row>
+		<row><td>ProductCode</td><td>{34110075-8EDC-43C2-A0F5-4C812B5152D7}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer for v3</td><td/></row>
-		<row><td>ProductVersion</td><td>5.2.0.7</td><td/></row>
+		<row><td>ProductVersion</td><td>5.2.0.8</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

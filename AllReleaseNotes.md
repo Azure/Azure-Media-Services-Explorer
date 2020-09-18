@@ -1,3 +1,11 @@
+Version 5.2.0.8 (September 18, 2020) brings the following features and improvements:
+
+* Bug fix : storage account selection when creating a new asset now works properly
+* Bug fix : live event status is refreshed when using REST
+* Setup and AMSExplorer.exe files are now code signed to remove the strong security warnings when downloading the tool from GitHub
+* Nugget packages and documentation update
+
+
 Version 5.2.0.7 (September 8, 2020) brings the following features and improvements:
 
 * A **custom encoding JSON preset** can now be pasted when creating a new transform, or when adding an output to an existing transform (code uses the REST API)
