@@ -487,7 +487,6 @@
             // 
             resources.ApplyResources(this.progressBarUpload, "progressBarUpload");
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             // 
             // buttonUpload
             // 

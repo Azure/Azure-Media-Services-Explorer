@@ -43,6 +43,8 @@ using System.Timers;
 using System.Windows.Forms;
 using System.Xml;
 using AMSExplorer.Rest;
+using Microsoft.Azure.Storage.DataMovement;
+using AMSExplorer.Utils.FileInfo;
 
 namespace AMSExplorer
 {
@@ -719,6 +721,7 @@ namespace AMSExplorer
             }
             else
             {
+
                 try
                 {
                     if (destAssetName == null) // let create a new asset
@@ -770,6 +773,20 @@ namespace AMSExplorer
                         LengthAllFiles += new System.IO.FileInfo(file).Length;
                     }
 
+                    // Setup the number of the concurrent operations
+                    TransferManager.Configurations.ParallelOperations = 64;
+
+                    // block size
+                    TransferManager.Configurations.BlockSize = blocksize * 1024 * 1024;
+
+                    // Setup the transfer context and track the upload progress
+                    SingleTransferContext context = new SingleTransferContext();
+                    context.ProgressHandler = new Progress<TransferStatus>((progress) =>
+                    {
+                        double percentComplete = 100d * progress.BytesTransferred / LengthAllFiles;
+                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                    });
+
 
                     foreach (string fileWithPath in filenames)
                     {
@@ -782,90 +799,20 @@ namespace AMSExplorer
                         string filename = Path.GetFileName(fileWithPath);
                         TextBoxLogWriteLine("Starting upload of file '{0}'", fileWithPath);
 
-                        /*
                         CloudBlockBlob blob = container.GetBlockBlobReference(filename);
+                        long bytesToUpload = (new FileInfo(fileWithPath)).Length;
+
                         if (filename.ToLower().EndsWith(".mp4"))
                         {
                             blob.Properties.ContentType = "video/mp4";
                         }
 
-                        blob.StreamWriteSizeInBytes = blocksize * 1024 * 1024; // blocksize
+                        await TransferManager.UploadAsync(fileWithPath, blob, null, context, token);
 
-                        copyOperationsDict.Add(blob, blob.UploadFromFileAsync(file, token));
-                        Length += new System.IO.FileInfo(file).Length;
-                        //MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
-                        */
-                        CloudBlockBlob blob = container.GetBlockBlobReference(filename);
-                        long bytesToUpload = (new FileInfo(fileWithPath)).Length;
-
-                        if (new System.IO.FileInfo(fileWithPath).Length < blocksize * 1024 * 1024) // file is smaller than block size
-                        {
-                            if (filename.ToLower().EndsWith(".mp4"))
-                            {
-                                blob.Properties.ContentType = "video/mp4";
-                            }
-
-                            Task ado = blob.UploadFromFileAsync(fileWithPath, token);
-                            Console.WriteLine(ado.Status);
-                            await ado.ContinueWith(t =>
-                             {
-
-                                 if (t.Status != TaskStatus.RanToCompletion)
-                                 {
-                                     Error = true;
-                                 }
-                                 else
-                                 {
-                                     BytesCopiedForAllFiles += bytesToUpload;
-                                 }
-                             });
-                        }
-                        else
-                        {
-                            List<string> blockIds = new List<string>();
-                            int index = 1;
-                            long startPosition = 0;
-                            long bytesUploaded = 0;
-                            do
-                            {
-                                long bytesToRead = Math.Min(blocksize * 1024 * 1024, bytesToUpload);
-                                byte[] blobContents = new byte[bytesToRead];
-                                using (FileStream fs = new FileStream(fileWithPath, FileMode.Open))
-                                {
-                                    fs.Position = startPosition;
-                                    fs.Read(blobContents, 0, (int)bytesToRead);
-                                }
-                                ManualResetEvent manualResetEvent = new ManualResetEvent(false);
-                                string blockId = Convert.ToBase64String(Encoding.UTF8.GetBytes(index.ToString("d6")));
-                                blockIds.Add(blockId);
-                                Task blockAsync = blob.PutBlockAsync(blockId, new MemoryStream(blobContents), null);
-                                await blockAsync.ContinueWith(t =>
-                                {
-                                    bytesUploaded += bytesToRead;
-                                    bytesToUpload -= bytesToRead;
-                                    startPosition += bytesToRead;
-                                    index++;
-                                    double percentComplete = 100d * (BytesCopiedForAllFiles + bytesUploaded) / LengthAllFiles;
-                                    DoGridTransferUpdateProgress(percentComplete, guidTransfer);
-                                    manualResetEvent.Set();
-                                });
-                                manualResetEvent.WaitOne();
-                            }
-                            while (bytesToUpload > 0);
-                            Task blockListAsync = blob.PutBlockListAsync(blockIds);
-                            await blockListAsync.ContinueWith(t =>
-                            {
-
-                                if (t.Status != TaskStatus.RanToCompletion)
-                                {
-                                    Error = true;
-                                }
-                                else
-                                {
-                                    BytesCopiedForAllFiles += bytesUploaded;
-                                }
-                            });
-                        }
+                        // no need as MD5 is already computed by Data Movement lib
+                        // let compute MD5 and set the blob properties in it. Data movement library likes it.
+                        //lob.Properties.ContentMD5 = MD5Calc.GetFileContentMD5(fileWithPath);
+                        //await blob.SetPropertiesAsync();
                     }
                 }
                 catch (OperationCanceledException)
@@ -956,51 +903,22 @@ namespace AMSExplorer
                     blob.Properties.ContentType = "video/mp4";
                 }
 
-                string stringOperation = await blob.StartCopyAsync(source, token);
+                //string stringOperation = await blob.StartCopyAsync(source, token);
 
-                bool Cancelled = false;
+                // Setup the transfer context and track the upload progress
+                SingleTransferContext context = new SingleTransferContext();
 
-                bool continueLoop = true;
+                long urlFileSize = GetFileSize(source.ToString());
 
-                while (continueLoop)// && !token.IsCancellationRequested)
+                context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                 {
-                    if (token.IsCancellationRequested && !Cancelled)
-                    {
-                        await blob.AbortCopyAsync(stringOperation);
-                        Cancelled = true;
-                    }
+                    double percentComplete = 100d * progress.BytesTransferred / urlFileSize;
+                    DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                });
 
-                    blob.FetchAttributes();
-                    CopyState copyStatus = blob.CopyState;
-                    if (copyStatus != null)
-                    {
-                        double percentComplete = 100 * (long)copyStatus.BytesCopied / (long)copyStatus.TotalBytes;
-
-                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
-
-                        if (copyStatus.Status != CopyStatus.Pending)
-                        {
-                            continueLoop = false;
-                        }
-                    }
-                    await Task.Delay(1000);
-                }
-
-
-                if (blob.CopyState.Status == CopyStatus.Failed)
-                {
-                    DoGridTransferDeclareError(guidTransfer, blob.CopyState.StatusDescription);
-                    Error = true;
-                }
-
-                if (blob.CopyState.Status == CopyStatus.Aborted)
-                {
-                    DoGridTransferDeclareCancelled(guidTransfer);
-                    Error = true;
-                }
+                await TransferManager.CopyAsync(source, blob, true, null, context, token);
 
                 //   MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
-
             }
             catch (Exception e)
             {
@@ -1019,6 +937,30 @@ namespace AMSExplorer
                 DoGridTransferDeclareCancelled(guidTransfer);
             }
             DoRefreshGridAssetV(false);
+        }
+
+        private long GetFileSize(string url)
+        {
+            long result = 1;
+
+            try
+            {
+                System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                req.Method = "HEAD";
+                using (System.Net.WebResponse resp = req.GetResponse())
+                {
+                    if (long.TryParse(resp.Headers.Get("Content-Length"), out long ContentLength))
+                    {
+                        result = ContentLength;
+                    }
+                }
+            }
+            catch
+            {
+              
+            }
+            
+            return result;
         }
 
 
@@ -1400,7 +1342,6 @@ namespace AMSExplorer
             BlobContinuationToken continuationToken = null;
             IList<Task> downloadTasks = new List<Task>();
             long totalBytesToBeDownloaded = 0;
-            long bytesCopiedForAllFiles = 0;
 
             try
             {
@@ -1409,7 +1350,7 @@ namespace AMSExplorer
                 // listing blobs
                 do
                 {
-                    BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, continuationToken,  null, null);
+                    BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, continuationToken, null, null);
                     foreach (IListBlobItem blobItem in segment.Results)
                     {
                         if (blobItem is CloudBlockBlob blob && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
@@ -1421,9 +1362,18 @@ namespace AMSExplorer
                 }
                 while (continuationToken != null);
 
-                int segmentSize = 8 * 1024 * 1024;//8 MB chunk
-
                 TextBoxLogWriteLine($"Downloading blobs to '{outputFolderName}'...");
+
+                // Setup the number of the concurrent operations
+                TransferManager.Configurations.ParallelOperations = 64;
+
+                // Setup the transfer context and track the upload progress
+                SingleTransferContext context = new SingleTransferContext();
+                context.ProgressHandler = new Progress<TransferStatus>((progress) =>
+                {
+                    double percentComplete = 100d * progress.BytesTransferred / totalBytesToBeDownloaded;
+                    DoGridTransferUpdateProgress(percentComplete, response.Id);
+                });
 
                 do
                 {
@@ -1434,12 +1384,19 @@ namespace AMSExplorer
                         if (blobItem is CloudBlockBlob blob && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
                         {
                             string filePath = Path.Combine(outputFolderName, blob.Name);
-
+                            await blob.FetchAttributesAsync();
                             //Task downloadTask = blob.DownloadToFileAsync(path, FileMode.Create, response.token);
                             // downloadTasks.Add(downloadTask);
 
 
-                            
+
+
+                            // Upload a local blob
+                            downloadTasks.Add(TransferManager.DownloadAsync(blob, filePath, null, context, response.token));
+
+
+                            /*
+
                             //blob.FetchAttributes();
                             var blobLengthRemaining = blob.Properties.Length;
                             long startPosition = 0;
@@ -1466,6 +1423,7 @@ namespace AMSExplorer
                                 blobLengthRemaining -= blockSize;
                             }
                             while (blobLengthRemaining > 0);
+                            */
 
                         }
                     }
@@ -1474,7 +1432,7 @@ namespace AMSExplorer
                 }
                 while (continuationToken != null);
 
-               // await Task.WhenAll(downloadTasks);
+                await Task.WhenAll(downloadTasks);
             }
             catch (OperationCanceledException)
             {

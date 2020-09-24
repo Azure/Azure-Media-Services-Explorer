@@ -15,9 +15,11 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSExplorer.ManifestGeneration;
+using AMSExplorer.Utils.FileInfo;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;
+using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Rest.Azure;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
@@ -1044,6 +1046,13 @@ namespace AMSExplorer
                     string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, sourceblob.Name);
                     if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_EnterTheNameOfTheNewDuplicateFile, ref newfilename) == DialogResult.OK)
                     {
+                        progressBarUpload.Maximum = 100;
+                        progressBarUpload.Value = 0;
+                        progressBarUpload.Visible = true;
+
+                        buttonClose.Enabled = false;
+                        buttonDuplicate.Enabled = false;
+
                         CloudBlockBlob sourceCloudBlob, destinationBlob;
 
                         sourceCloudBlob = container.GetBlockBlobReference(sourceblob.Name);
@@ -1051,21 +1060,18 @@ namespace AMSExplorer
 
                         if (sourceCloudBlob.Properties.Length > 0)
                         {
-
                             destinationBlob = container.GetBlockBlobReference(newfilename);
 
-                            //destinationBlob.DeleteIfExists();
-                            destinationBlob.StartCopy(sourceCloudBlob);
+                            // Setup the transfer context and track the upload progress
+                            SingleTransferContext context = new SingleTransferContext();
 
-                            CloudBlockBlob blob;
-                            blob = (CloudBlockBlob)await container.GetBlobReferenceFromServerAsync(newfilename);
-
-                            while (blob.CopyState.Status == CopyStatus.Pending)
+                            context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                             {
-                                await Task.Delay(TimeSpan.FromSeconds(1d));
-                                blob.FetchAttributes();
-                            }
-                            await destinationBlob.FetchAttributesAsync();
+                                double percentComplete = 100d * progress.BytesTransferred / sourceCloudBlob.Properties.Length;
+                                progressBarUpload.Value = Convert.ToInt32(percentComplete);
+                            });
+
+                            await TransferManager.CopyAsync(sourceCloudBlob, destinationBlob, CopyMethod.ServiceSideSyncCopy, null, context);
                         }
                     }
                 }
@@ -1073,6 +1079,11 @@ namespace AMSExplorer
                 {
                     MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_ErrorWhenDuplicatingThisFile);
                 }
+
+                buttonClose.Enabled = true;
+                buttonDuplicate.Enabled = true;
+                progressBarUpload.Visible = false;
+
                 await ListAssetBlobsAsync();
                 await BuildLocatorsTreeAsync();
             }
@@ -1101,7 +1112,7 @@ namespace AMSExplorer
                 return;
             }
 
-            progressBarUpload.Maximum = 100 * (filenames.Count() + 1);
+            progressBarUpload.Maximum = 100;
             progressBarUpload.Value = 0;
             progressBarUpload.Visible = true;
 
@@ -1110,7 +1121,21 @@ namespace AMSExplorer
 
             CloudBlobContainer container = await GetRWContainerOfAssetAsync();
 
-            int i = 1;
+            long LengthAllFiles = 0;
+            foreach (string file in filenames)
+            {
+                LengthAllFiles += new System.IO.FileInfo(file).Length;
+            }
+
+            // Setup the transfer context and track the upload progress
+            SingleTransferContext context = new SingleTransferContext();
+
+            context.ProgressHandler = new Progress<TransferStatus>((progress) =>
+            {
+                double percentComplete = 100d * progress.BytesTransferred / LengthAllFiles;
+                progressBarUpload.Value = Convert.ToInt32(percentComplete);
+            });
+
             foreach (string file in filenames)
             {
                 CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(file));
@@ -1119,10 +1144,10 @@ namespace AMSExplorer
                     blob.Properties.ContentType = "video/mp4";
                 }
 
-                await blob.UploadFromFileAsync(file);
-                progressBarUpload.Value = 100 * i;
-                i++;
+                // Upload a local blob
+                await TransferManager.UploadAsync(file, blob, null, context);
             }
+
             progressBarUpload.Visible = false;
             buttonClose.Enabled = true;
             buttonUpload.Enabled = true;
@@ -1791,7 +1816,8 @@ namespace AMSExplorer
 
                         CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
 
-                        await Task.Factory.StartNew(() => blob.UploadFromFile(filePath));
+                        // await Task.Factory.StartNew(() => blob.UploadFromFile(filePath));
+                        await TransferManager.UploadAsync(filePath, blob);
 
                         if (File.Exists(filePath))
                         {
@@ -2274,7 +2300,8 @@ namespace AMSExplorer
                         CloudBlobContainer container = await GetRWContainerOfAssetAsync();
                         CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
 
-                        await Task.Factory.StartNew(() => blob.UploadFromFile(filePath));
+                        // await Task.Factory.StartNew(() => blob.UploadFromFile(filePath));
+                        await TransferManager.UploadAsync(filePath, blob);
 
                         if (File.Exists(filePath))
                         {
