@@ -41,9 +41,6 @@
     <Setting Name="PremiumWorkflowPresetXMLFilesCurrentFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Currency" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$</Value>
-    </Setting>
     <Setting Name="ffmpegPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%programfiles32%\ffmpeg\bin</Value>
     </Setting>
@@ -92,9 +89,6 @@
     <Setting Name="OutputAssetsAdaptiveStreamingFormat" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="MESPricePerMin" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.015</Value>
-    </Setting>
     <Setting Name="HideTaskbarNotifications" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -106,6 +100,18 @@
     </Setting>
     <Setting Name="DynEncTokenSymKeyv3" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DataMovementParallelOperations" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="DataMovementBlockSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="DataMovementNoMD5Check" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DataMovementDoNotIncreaseHttpLimit" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

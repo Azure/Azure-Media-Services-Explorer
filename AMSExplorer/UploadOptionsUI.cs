@@ -22,7 +22,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class UploadOptions : Form
+    public partial class UploadOptionsUI : Form
     {
         private readonly AMSClientV3 _amsClientV3;
         private readonly bool _multifilesMode;
@@ -31,15 +31,6 @@ namespace AMSExplorer
         public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
 
         public bool SingleAsset => radioButtonSingleAsset.Checked;
-
-        public int BlockSize
-        {
-            get
-            {
-                bool success = int.TryParse(comboBoxBlockSize.Text, out int x);
-                return success ? x : 4;
-            }
-        }
 
         public NewAsset assetCreationSetting
         {
@@ -51,7 +42,7 @@ namespace AMSExplorer
         }
 
 
-        public UploadOptions(AMSClientV3 amsClient, bool multifilesMode)
+        public UploadOptionsUI(AMSClientV3 amsClient, bool multifilesMode)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -65,11 +56,6 @@ namespace AMSExplorer
                 groupBoxMultifiles.Visible = true;
                 buttonAdvancedOptions.Visible = false;
             }
-
-            List<int> listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
-            comboBoxBlockSize.Items.Clear();
-            listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
-            comboBoxBlockSize.SelectedIndex = 3;
         }
 
         private void ControlsResetToDefault()
@@ -98,6 +84,9 @@ namespace AMSExplorer
         private void UploadOptions_Load(object sender, System.EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
+
+            var sizeText = AssetInfo.FormatByteSize(1024 * 1024L * Properties.Settings.Default.DataMovementBlockSize * 50000);
+            labelBlockSize.Text = string.Format(labelBlockSize.Text, Properties.Settings.Default.DataMovementBlockSize, sizeText);
         }
 
         private void ButtonAdvancedOptions_Click(object sender, System.EventArgs e)

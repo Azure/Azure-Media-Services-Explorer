@@ -45,6 +45,7 @@ using System.Xml;
 using AMSExplorer.Rest;
 using Microsoft.Azure.Storage.DataMovement;
 using AMSExplorer.Utils.FileInfo;
+using System.Net;
 
 namespace AMSExplorer
 {
@@ -87,6 +88,7 @@ namespace AMSExplorer
         private const string resetcredentials = "/resetcredentials";
 
         public bool MediaRUFeatureOn = true;
+        private DownloadOptions dataMovementDownloadOptions = new DownloadOptions();
 
         public Mainform(string[] args)
         {
@@ -190,8 +192,6 @@ namespace AMSExplorer
             try
             {
                 IPage<StreamingEndpoint> seResults = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
-
-                //Microsoft.Rest.Azure.IPage<StreamingEndpoint> se = _amsClientV3.AMSclient.StreamingEndpoints.List(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName);
 
                 if (seResults.AsEnumerable().Where(o => o.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
                 {
@@ -612,7 +612,7 @@ namespace AMSExplorer
                 return;
             }
 
-            UploadOptions form = new UploadOptions(_amsClient, FileNames.Count() > 1);
+            UploadOptionsUI form = new UploadOptionsUI(_amsClient, FileNames.Count() > 1);
             if (form.ShowDialog() == DialogResult.Cancel)
             {
                 return;
@@ -625,7 +625,7 @@ namespace AMSExplorer
                     TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
-                    await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: form.BlockSize, newAssetCreationSettings: form.assetCreationSetting);
+                    await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024, newAssetCreationSettings: form.assetCreationSetting);
                 }
                 catch (Exception ex)
                 {
@@ -644,7 +644,7 @@ namespace AMSExplorer
                     i++;
                     TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
-                    Task myTask = ProcessUploadFileAndMoreV3Async(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: form.BlockSize);
+                    Task myTask = ProcessUploadFileAndMoreV3Async(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024);
                     MyTasks.Add(myTask);
                     if (i == 10) // let's use a batch of 10 threads at the same time
                     {
@@ -772,12 +772,6 @@ namespace AMSExplorer
                     {
                         LengthAllFiles += new System.IO.FileInfo(file).Length;
                     }
-
-                    // Setup the number of the concurrent operations
-                    TransferManager.Configurations.ParallelOperations = 64;
-
-                    // block size
-                    TransferManager.Configurations.BlockSize = blocksize * 1024 * 1024;
 
                     // Setup the transfer context and track the upload progress
                     SingleTransferContext context = new SingleTransferContext();
@@ -957,9 +951,9 @@ namespace AMSExplorer
             }
             catch
             {
-              
+
             }
-            
+
             return result;
         }
 
@@ -1364,11 +1358,9 @@ namespace AMSExplorer
 
                 TextBoxLogWriteLine($"Downloading blobs to '{outputFolderName}'...");
 
-                // Setup the number of the concurrent operations
-                TransferManager.Configurations.ParallelOperations = 64;
-
                 // Setup the transfer context and track the upload progress
                 SingleTransferContext context = new SingleTransferContext();
+
                 context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                 {
                     double percentComplete = 100d * progress.BytesTransferred / totalBytesToBeDownloaded;
@@ -1388,12 +1380,8 @@ namespace AMSExplorer
                             //Task downloadTask = blob.DownloadToFileAsync(path, FileMode.Create, response.token);
                             // downloadTasks.Add(downloadTask);
 
-
-
-
                             // Upload a local blob
-                            downloadTasks.Add(TransferManager.DownloadAsync(blob, filePath, null, context, response.token));
-
+                            downloadTasks.Add(TransferManager.DownloadAsync(blob, filePath, dataMovementDownloadOptions, context, response.token));
 
                             /*
 
@@ -1424,7 +1412,6 @@ namespace AMSExplorer
                             }
                             while (blobLengthRemaining > 0);
                             */
-
                         }
                     }
 
@@ -1504,7 +1491,7 @@ namespace AMSExplorer
                     throw new FileNotFoundException(string.Format("No files in directory, check folderPath: {0}", SelectedPath));
                 }
 
-                UploadOptions form = new UploadOptions(_amsClient, filePaths.Count() > 1);
+                UploadOptionsUI form = new UploadOptionsUI(_amsClient, filePaths.Count() > 1);
                 if (form.ShowDialog() == DialogResult.Cancel)
                 {
                     return;
@@ -1519,7 +1506,7 @@ namespace AMSExplorer
                                                           response.Id,
                                                           response.token,
                                                           storageaccount: form.StorageSelected,
-                                                          blocksize: form.BlockSize,
+                                                          blocksize: Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024,
                                                           newAssetCreationSettings: form.assetCreationSetting
                                                          );
                 }
@@ -1537,7 +1524,7 @@ namespace AMSExplorer
                                                                       response.Id,
                                                                       response.token,
                                                                       storageaccount: form.StorageSelected,
-                                                                      blocksize: form.BlockSize
+                                                                      blocksize: Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024
                                                                       );
 
                         MyTasks.Add(myTask);
@@ -2809,6 +2796,9 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine(Program.MessageNewVersion);
             }
+
+            ApplySettingsOptions();
+
         }
 
 
@@ -3972,6 +3962,21 @@ namespace AMSExplorer
             TimerAutoRefresh.Enabled = Properties.Settings.Default.AutoRefresh;
             withCustomPlayerToolStripMenuItem1.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem2.Visible = Properties.Settings.Default.CustomPlayerEnabled;
+
+            // Setup the number of the concurrent operations for the data movement libray
+            if (Properties.Settings.Default.DataMovementParallelOperations > 0)
+            {
+                TransferManager.Configurations.ParallelOperations = Properties.Settings.Default.DataMovementParallelOperations;
+            }
+            if (!Properties.Settings.Default.DataMovementDoNotIncreaseHttpLimit)
+            {
+                ServicePointManager.DefaultConnectionLimit = Environment.ProcessorCount * 8;
+            }
+
+            // block size
+            TransferManager.Configurations.BlockSize =  Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024;
+
+            dataMovementDownloadOptions.DisableContentMD5Validation = Properties.Settings.Default.DataMovementNoMD5Check;
         }
 
 

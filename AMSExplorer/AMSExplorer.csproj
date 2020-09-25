@@ -295,11 +295,11 @@
     <Compile Include="NewAsset.Designer.cs">
       <DependentUpon>NewAsset.cs</DependentUpon>
     </Compile>
-    <Compile Include="UploadOptions.cs">
+    <Compile Include="UploadOptionsUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UploadOptions.Designer.cs">
-      <DependentUpon>UploadOptions.cs</DependentUpon>
+    <Compile Include="UploadOptionsUI.Designer.cs">
+      <DependentUpon>UploadOptionsUI.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsSelection.cs">
       <SubType>Form</SubType>
@@ -838,11 +838,11 @@
     <EmbeddedResource Include="NewAsset.resx">
       <DependentUpon>NewAsset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UploadOptions.ja.resx">
-      <DependentUpon>UploadOptions.cs</DependentUpon>
+    <EmbeddedResource Include="UploadOptionsUI.ja.resx">
+      <DependentUpon>UploadOptionsUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UploadOptions.resx">
-      <DependentUpon>UploadOptions.cs</DependentUpon>
+    <EmbeddedResource Include="UploadOptionsUI.resx">
+      <DependentUpon>UploadOptionsUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsSelection.resx">
       <DependentUpon>SettingsSelection.cs</DependentUpon>

@@ -12,7 +12,7 @@ namespace AMSExplorer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -177,18 +177,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["PremiumWorkflowPresetXMLFilesCurrentFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$")]
-        public string Currency {
-            get {
-                return ((string)(this["Currency"]));
-            }
-            set {
-                this["Currency"] = value;
             }
         }
         
@@ -386,18 +374,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.015")]
-        public decimal MESPricePerMin {
-            get {
-                return ((decimal)(this["MESPricePerMin"]));
-            }
-            set {
-                this["MESPricePerMin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool HideTaskbarNotifications {
             get {
@@ -441,6 +417,54 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["DynEncTokenSymKeyv3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int DataMovementParallelOperations {
+            get {
+                return ((int)(this["DataMovementParallelOperations"]));
+            }
+            set {
+                this["DataMovementParallelOperations"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public int DataMovementBlockSize {
+            get {
+                return ((int)(this["DataMovementBlockSize"]));
+            }
+            set {
+                this["DataMovementBlockSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DataMovementNoMD5Check {
+            get {
+                return ((bool)(this["DataMovementNoMD5Check"]));
+            }
+            set {
+                this["DataMovementNoMD5Check"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DataMovementDoNotIncreaseHttpLimit {
+            get {
+                return ((bool)(this["DataMovementDoNotIncreaseHttpLimit"]));
+            }
+            set {
+                this["DataMovementDoNotIncreaseHttpLimit"] = value;
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class UploadOptions
+    partial class UploadOptionsUI
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UploadOptions));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UploadOptionsUI));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -38,9 +38,8 @@
             this.radioButtonOneAssetPerFile = new System.Windows.Forms.RadioButton();
             this.radioButtonSingleAsset = new System.Windows.Forms.RadioButton();
             this.groupBoxMultifiles = new System.Windows.Forms.GroupBox();
-            this.comboBoxBlockSize = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelBlockSize = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonAdvancedOptions = new System.Windows.Forms.Button();
@@ -110,31 +109,16 @@
             this.groupBoxMultifiles.Name = "groupBoxMultifiles";
             this.groupBoxMultifiles.TabStop = false;
             // 
-            // comboBoxBlockSize
-            // 
-            this.comboBoxBlockSize.FormattingEnabled = true;
-            this.comboBoxBlockSize.Items.AddRange(new object[] {
-            resources.GetString("comboBoxBlockSize.Items"),
-            resources.GetString("comboBoxBlockSize.Items1"),
-            resources.GetString("comboBoxBlockSize.Items2"),
-            resources.GetString("comboBoxBlockSize.Items3"),
-            resources.GetString("comboBoxBlockSize.Items4"),
-            resources.GetString("comboBoxBlockSize.Items5"),
-            resources.GetString("comboBoxBlockSize.Items6"),
-            resources.GetString("comboBoxBlockSize.Items7")});
-            resources.ApplyResources(this.comboBoxBlockSize, "comboBoxBlockSize");
-            this.comboBoxBlockSize.Name = "comboBoxBlockSize";
-            // 
             // label1
             // 
             this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // label2
+            // labelBlockSize
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.labelBlockSize, "labelBlockSize");
+            this.labelBlockSize.Name = "labelBlockSize";
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -153,7 +137,7 @@
             this.buttonAdvancedOptions.UseVisualStyleBackColor = true;
             this.buttonAdvancedOptions.Click += new System.EventHandler(this.ButtonAdvancedOptions_Click);
             // 
-            // UploadOptions
+            // UploadOptionsUI
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -161,15 +145,14 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.buttonAdvancedOptions);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelBlockSize);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBoxBlockSize);
             this.Controls.Add(this.groupBoxMultifiles);
             this.Controls.Add(this.labelJobOptions);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.panel1);
-            this.Name = "UploadOptions";
+            this.Name = "UploadOptionsUI";
             this.Load += new System.EventHandler(this.UploadOptions_Load);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.UploadOptions_DpiChanged);
             this.panel1.ResumeLayout(false);
@@ -193,9 +176,8 @@
         private System.Windows.Forms.RadioButton radioButtonOneAssetPerFile;
         private System.Windows.Forms.RadioButton radioButtonSingleAsset;
         private System.Windows.Forms.GroupBox groupBoxMultifiles;
-        private System.Windows.Forms.ComboBox comboBoxBlockSize;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelBlockSize;
         private System.Windows.Forms.Button buttonAdvancedOptions;
     }
 }

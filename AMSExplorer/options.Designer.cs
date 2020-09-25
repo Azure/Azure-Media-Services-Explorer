@@ -57,12 +57,8 @@
             this.textBoxCustomPlayer = new System.Windows.Forms.TextBox();
             this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDownMESPrice = new System.Windows.Forms.NumericUpDown();
-            this.textBoxCurrency = new System.Windows.Forms.TextBox();
+            this.numericUpDownDataMovNumbParallelOp = new System.Windows.Forms.NumericUpDown();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.amspriceslink = new System.Windows.Forms.LinkLabel();
-            this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -72,6 +68,14 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.checkBoxAutoParOpe = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisableMD5Check = new System.Windows.Forms.CheckBox();
+            this.checkBoxDoNotIncreaseHTTPLimit = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxBlockSize = new System.Windows.Forms.ComboBox();
+            this.labelBlobSizeMax = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSASDuration)).BeginInit();
@@ -80,7 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDataMovNumbParallelOp)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -334,58 +338,41 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // label4
+            // numericUpDownDataMovNumbParallelOp
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label4.Name = "label4";
-            // 
-            // numericUpDownMESPrice
-            // 
-            this.numericUpDownMESPrice.DecimalPlaces = 3;
-            this.numericUpDownMESPrice.Increment = new decimal(new int[] {
+            resources.ApplyResources(this.numericUpDownDataMovNumbParallelOp, "numericUpDownDataMovNumbParallelOp");
+            this.numericUpDownDataMovNumbParallelOp.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownDataMovNumbParallelOp.Minimum = new decimal(new int[] {
             1,
             0,
             0,
-            196608});
-            resources.ApplyResources(this.numericUpDownMESPrice, "numericUpDownMESPrice");
-            this.numericUpDownMESPrice.Name = "numericUpDownMESPrice";
-            this.numericUpDownMESPrice.Value = new decimal(new int[] {
-            15,
+            0});
+            this.numericUpDownDataMovNumbParallelOp.Name = "numericUpDownDataMovNumbParallelOp";
+            this.numericUpDownDataMovNumbParallelOp.Value = new decimal(new int[] {
+            64,
             0,
             0,
-            196608});
-            // 
-            // textBoxCurrency
-            // 
-            resources.ApplyResources(this.textBoxCurrency, "textBoxCurrency");
-            this.textBoxCurrency.Name = "textBoxCurrency";
+            0});
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.amspriceslink);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.textBoxCurrency);
-            this.groupBox4.Controls.Add(this.numericUpDownMESPrice);
+            this.groupBox4.Controls.Add(this.labelBlobSizeMax);
+            this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.comboBoxBlockSize);
+            this.groupBox4.Controls.Add(this.checkBoxDoNotIncreaseHTTPLimit);
+            this.groupBox4.Controls.Add(this.checkBoxDisableMD5Check);
+            this.groupBox4.Controls.Add(this.checkBoxAutoParOpe);
+            this.groupBox4.Controls.Add(this.numericUpDownDataMovNumbParallelOp);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.ForeColor = System.Drawing.Color.DarkBlue;
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
-            // 
-            // amspriceslink
-            // 
-            resources.ApplyResources(this.amspriceslink, "amspriceslink");
-            this.amspriceslink.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.amspriceslink.Name = "amspriceslink";
-            this.amspriceslink.TabStop = true;
-            this.amspriceslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.amspriceslink_LinkClicked);
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label7.Name = "label7";
             // 
             // tabControl1
             // 
@@ -452,6 +439,72 @@
             resources.ApplyResources(this.textBoxffmpegPath, "textBoxffmpegPath");
             this.textBoxffmpegPath.Name = "textBoxffmpegPath";
             // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label4.Name = "label4";
+            // 
+            // checkBoxAutoParOpe
+            // 
+            resources.ApplyResources(this.checkBoxAutoParOpe, "checkBoxAutoParOpe");
+            this.checkBoxAutoParOpe.Checked = true;
+            this.checkBoxAutoParOpe.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAutoParOpe.ForeColor = System.Drawing.Color.Black;
+            this.checkBoxAutoParOpe.Name = "checkBoxAutoParOpe";
+            this.checkBoxAutoParOpe.UseVisualStyleBackColor = true;
+            this.checkBoxAutoParOpe.CheckedChanged += new System.EventHandler(this.checkBoxAutoParOpe_CheckedChanged);
+            // 
+            // checkBoxDisableMD5Check
+            // 
+            resources.ApplyResources(this.checkBoxDisableMD5Check, "checkBoxDisableMD5Check");
+            this.checkBoxDisableMD5Check.ForeColor = System.Drawing.Color.Black;
+            this.checkBoxDisableMD5Check.Name = "checkBoxDisableMD5Check";
+            this.checkBoxDisableMD5Check.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDoNotIncreaseHTTPLimit
+            // 
+            resources.ApplyResources(this.checkBoxDoNotIncreaseHTTPLimit, "checkBoxDoNotIncreaseHTTPLimit");
+            this.checkBoxDoNotIncreaseHTTPLimit.ForeColor = System.Drawing.Color.Black;
+            this.checkBoxDoNotIncreaseHTTPLimit.Name = "checkBoxDoNotIncreaseHTTPLimit";
+            this.checkBoxDoNotIncreaseHTTPLimit.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Name = "label2";
+            // 
+            // label6
+            // 
+            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // comboBoxBlockSize
+            // 
+            this.comboBoxBlockSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxBlockSize.FormattingEnabled = true;
+            this.comboBoxBlockSize.Items.AddRange(new object[] {
+            resources.GetString("comboBoxBlockSize.Items"),
+            resources.GetString("comboBoxBlockSize.Items1"),
+            resources.GetString("comboBoxBlockSize.Items2"),
+            resources.GetString("comboBoxBlockSize.Items3"),
+            resources.GetString("comboBoxBlockSize.Items4"),
+            resources.GetString("comboBoxBlockSize.Items5"),
+            resources.GetString("comboBoxBlockSize.Items6"),
+            resources.GetString("comboBoxBlockSize.Items7")});
+            resources.ApplyResources(this.comboBoxBlockSize, "comboBoxBlockSize");
+            this.comboBoxBlockSize.Name = "comboBoxBlockSize";
+            this.comboBoxBlockSize.SelectedIndexChanged += new System.EventHandler(this.comboBoxBlockSize_SelectedIndexChanged);
+            // 
+            // labelBlobSizeMax
+            // 
+            this.labelBlobSizeMax.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.labelBlobSizeMax, "labelBlobSizeMax");
+            this.labelBlobSizeMax.Name = "labelBlobSizeMax";
+            this.labelBlobSizeMax.Tag = "Maximum blob size is {0}.";
+            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -475,7 +528,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMESPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDataMovNumbParallelOp)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -506,12 +559,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownLocatorDuration;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetStorage;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.NumericUpDown numericUpDownMESPrice;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxCurrency;
+        private System.Windows.Forms.NumericUpDown numericUpDownDataMovNumbParallelOp;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.LinkLabel amspriceslink;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -532,5 +581,13 @@
         private System.Windows.Forms.CheckBox checkBoxHideTaskbarNotifications;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownSASDuration;
+        private System.Windows.Forms.CheckBox checkBoxAutoParOpe;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkBoxDoNotIncreaseHTTPLimit;
+        private System.Windows.Forms.CheckBox checkBoxDisableMD5Check;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBoxBlockSize;
+        private System.Windows.Forms.Label labelBlobSizeMax;
     }
 }
