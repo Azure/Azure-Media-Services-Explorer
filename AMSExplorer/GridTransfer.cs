@@ -325,21 +325,28 @@ namespace AMSExplorer
         private void DoGridTransferUpdateProgressText(string progresstext, double progress, Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
-            transfer.ProgressText = progresstext;
-            DoGridTransferUpdateProgress(progress, guid);
+
+            if (transfer.State != TransferState.Finished && transfer.State != TransferState.Cancelled && transfer.State != TransferState.Error)
+            {
+                transfer.ProgressText = progresstext;
+                DoGridTransferUpdateProgress(progress, guid);
+            }
         }
 
         private void DoGridTransferUpdateProgress(double progress, Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
 
-            transfer.Progress = progress;
-            if (progress > 3 && transfer.StartTime != null)
+            if (transfer.State != TransferState.Finished && transfer.State != TransferState.Cancelled && transfer.State != TransferState.Error)
             {
-                TimeSpan interval = DateTime.UtcNow - ((DateTime)transfer.StartTime).ToUniversalTime();
-                DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
-                transfer.EndTime = ETA.ToLocalTime().ToString("G") + " ?";
-            }
+                transfer.Progress = progress;
+                if (progress > 3 && transfer.StartTime != null)
+                {
+                    TimeSpan interval = DateTime.UtcNow - ((DateTime)transfer.StartTime).ToUniversalTime();
+                    DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
+                    transfer.EndTime = ETA.ToLocalTime().ToString("G") + " ?";
+                }
+            }                
         }
 
         private TransferEntry ReturnTransfer(Guid guid)
@@ -444,7 +451,7 @@ namespace AMSExplorer
             }
         }
 
-        private bool DoGridTransferIsQueueRequested(Guid guid)  // Return true trasfer is managed in the queue
+        private bool DoGridTransferIsQueueRequested(Guid guid)  // Return true transfer is managed in the queue
         {
             return (ReturnTransfer(guid).processedinqueue);
         }
