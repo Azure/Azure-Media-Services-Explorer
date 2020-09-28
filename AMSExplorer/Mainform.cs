@@ -1377,41 +1377,17 @@ namespace AMSExplorer
                         {
                             string filePath = Path.Combine(outputFolderName, blob.Name);
                             await blob.FetchAttributesAsync();
-                            //Task downloadTask = blob.DownloadToFileAsync(path, FileMode.Create, response.token);
-                            // downloadTasks.Add(downloadTask);
+
+                            var downloadOptionsCopy = dataMovementDownloadOptions;
+
+                            // if the MD5 is not existent in the blob, let's disable MD5 verification.
+                            if (blob.Properties.ContentMD5 == null)
+                            {
+                                downloadOptionsCopy.DisableContentMD5Validation = true;
+                            }
 
                             // Upload a local blob
-                            downloadTasks.Add(TransferManager.DownloadAsync(blob, filePath, dataMovementDownloadOptions, context, response.token));
-
-                            /*
-
-                            //blob.FetchAttributes();
-                            var blobLengthRemaining = blob.Properties.Length;
-                            long startPosition = 0;
-                            do
-                            {
-                                long blockSize = Math.Min(segmentSize, blobLengthRemaining);
-                                byte[] blobContents = new byte[blockSize];
-                                using (MemoryStream ms = new MemoryStream())
-                                {
-                                    await blob.DownloadRangeToStreamAsync(ms, startPosition, blockSize);
-                                    ms.Position = 0;
-                                    ms.Read(blobContents, 0, blobContents.Length);
-                                    using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
-                                    {
-                                        fs.Position = startPosition;
-                                        fs.Write(blobContents, 0, blobContents.Length);
-                                    }
-                                    bytesCopiedForAllFiles += blockSize;
-                                    //TextBoxLogWriteLine( (100 * bytesCopiedForAllFiles/ totalBytesToBeDownloaded).ToString());
-                                    double percentComplete = 100d * bytesCopiedForAllFiles / totalBytesToBeDownloaded;
-                                    DoGridTransferUpdateProgress(percentComplete, response.Id);
-                                }
-                                startPosition += blockSize;
-                                blobLengthRemaining -= blockSize;
-                            }
-                            while (blobLengthRemaining > 0);
-                            */
+                            downloadTasks.Add(TransferManager.DownloadAsync(blob, filePath, downloadOptionsCopy, context, response.token));
                         }
                     }
 
@@ -1431,7 +1407,6 @@ namespace AMSExplorer
                 DoGridTransferDeclareError(response.Id, e);
                 return;
             }
-
 
             if (!response.token.IsCancellationRequested)
             {
@@ -3974,7 +3949,7 @@ namespace AMSExplorer
             }
 
             // block size
-            TransferManager.Configurations.BlockSize =  Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024;
+            TransferManager.Configurations.BlockSize = Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024;
 
             dataMovementDownloadOptions.DisableContentMD5Validation = Properties.Settings.Default.DataMovementNoMD5Check;
         }

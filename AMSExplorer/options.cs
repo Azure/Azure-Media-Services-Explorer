@@ -147,7 +147,7 @@ namespace AMSExplorer
             checkBoxAutoParOpe.Checked = true;
             checkBoxDisableMD5Check.Checked = false;
             checkBoxDoNotIncreaseHTTPLimit.Checked = false;
-            comboBoxBlockSize.SelectedIndex = 3;
+            comboBoxBlockSize.SelectedIndex = 1;
 
             Properties.Settings.Default.DataMovementNoMD5Check = false;
             Properties.Settings.Default.DataMovementDoNotIncreaseHttpLimit = false;
