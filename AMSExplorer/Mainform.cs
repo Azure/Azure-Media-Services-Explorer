@@ -765,7 +765,6 @@ namespace AMSExplorer
                     CloudBlobContainer container = new CloudBlobContainer(sasUri);
 
                     long LengthAllFiles = 0;
-                    long BytesCopiedForAllFiles = 0;
 
                     // size calculation
                     foreach (string file in filenames)
@@ -6932,23 +6931,23 @@ namespace AMSExplorer
             }
         }
 
-        private void DoExportMetadata()
+        private async Task DoExportMetadataAsync()
         {
-            // ExportToExcel form = new ExportToExcel(_context, _accountname, ReturnSelectedAssets(), dataGridViewAssetsV.assets);
-            // if (form.ShowDialog() == DialogResult.OK)
+            ExportToExcel form = new ExportToExcel( _amsClient, await ReturnSelectedAssetsAsync());
+            if (form.ShowDialog() == DialogResult.OK)
             {
 
             }
         }
 
-        private void informationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void informationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoExportMetadata();
+            await DoExportMetadataAsync();
         }
 
-        private void exportAssetsInformationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void exportAssetsInformationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoExportMetadata();
+            await DoExportMetadataAsync();
         }
 
 

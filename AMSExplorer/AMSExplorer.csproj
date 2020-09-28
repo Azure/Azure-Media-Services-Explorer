@@ -120,6 +120,12 @@
     <Compile Include="CustomJSONPreset\EditorPresetJSON.Designer.cs">
       <DependentUpon>EditorPresetJSON.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportToExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportToExcel.designer.cs">
+      <DependentUpon>ExportToExcel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Rest\CoreForRest.cs" />
     <Compile Include="Rest\TransformRestObject.cs" />
     <Compile Include="Utils\AssetInfo\AssetEntryV3.cs" />
@@ -638,6 +644,12 @@
     <EmbeddedResource Include="CopyAsset.resx">
       <DependentUpon>CopyAsset.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExportToExcel.ja.resx">
+      <DependentUpon>ExportToExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportToExcel.resx">
+      <DependentUpon>ExportToExcel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_FairPlayLicense.ja.resx">
       <DependentUpon>DRM_FairPlayLicense.cs</DependentUpon>
     </EmbeddedResource>
@@ -785,10 +797,13 @@
     <EmbeddedResource Include="AMSLogin\AMSLoginServicePrincipal.resx">
       <DependentUpon>AMSLoginServicePrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.ja.resx" />
+    <EmbeddedResource Include="Properties\Resources.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointCDNEnable.ja.resx">
       <DependentUpon>StreamingEndpointCDNEnable.cs</DependentUpon>

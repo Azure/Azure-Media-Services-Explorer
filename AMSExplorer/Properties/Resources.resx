@@ -246,7 +246,7 @@ Select 'Yes' to replace them, 'No' to merge them.</value>
     <value>SupportsDynamicEncryption</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_StorageUrl" xml:space="preserve">
-    <value>Storage Url</value>
+    <value>Container name</value>
   </data>
   <data name="AssetInformation_AssetInformation_Load_StorageAccountName" xml:space="preserve">
     <value>Storage Account Name</value>

@@ -401,7 +401,7 @@ namespace AMSExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Storage Url.
+        ///   Looks up a localized string similar to Container name.
         /// </summary>
         internal static string AssetInformation_AssetInformation_Load_StorageUrl {
             get {

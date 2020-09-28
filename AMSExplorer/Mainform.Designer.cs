@@ -725,8 +725,8 @@
             // 
             // exportAssetsInformationToExcelToolStripMenuItem
             // 
-            resources.ApplyResources(this.exportAssetsInformationToExcelToolStripMenuItem, "exportAssetsInformationToExcelToolStripMenuItem");
             this.exportAssetsInformationToExcelToolStripMenuItem.Name = "exportAssetsInformationToExcelToolStripMenuItem";
+            resources.ApplyResources(this.exportAssetsInformationToExcelToolStripMenuItem, "exportAssetsInformationToExcelToolStripMenuItem");
             this.exportAssetsInformationToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportAssetsInformationToExcelToolStripMenuItem_Click);
             // 
             // toolStripSeparator37
