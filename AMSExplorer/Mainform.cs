@@ -4442,7 +4442,7 @@ namespace AMSExplorer
                     LiveEventInput liveEventInput = new LiveEventInput
                     {
                         StreamingProtocol = form.Protocol,
-                        AccessToken = form.AccessToken,
+                        AccessToken = form.InputID,
                         KeyFrameIntervalDuration = form.KeyframeIntervalSerialized,
                         AccessControl = new LiveEventInputAccessControl(
                                                                             ip: new IPAccessControl
@@ -8320,7 +8320,7 @@ namespace AMSExplorer
 
         private void AdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.AdvancedTestPlayer);
+            Process.Start(Constants.AdvancedTestPlayerRoot);
         }
 
         private async void NewAssetToolStripMenuItem_Click(object sender, EventArgs e)

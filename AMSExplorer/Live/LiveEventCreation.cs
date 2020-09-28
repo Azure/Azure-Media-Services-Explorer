@@ -198,10 +198,10 @@ namespace AMSExplorer
             set => checkBoxStartChannel.Checked = value;
         }
 
-        public string AccessToken
+        public string InputID
         {
-            get => string.IsNullOrWhiteSpace(textBoxToken.Text) ? null : textBoxToken.Text;
-            set => textBoxToken.Text = value;
+            get => string.IsNullOrWhiteSpace(textBoxInputId.Text) ? null : textBoxInputId.Text;
+            set => textBoxInputId.Text = value;
         }
 
         public LiveEventCreation(AMSClientV3 client)
@@ -226,6 +226,8 @@ namespace AMSExplorer
 
             LanguagesLiveTranscript.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
+
+            GenerateNewInputId();
 
             checkChannelName();
             InitPhase = false;
@@ -262,28 +264,28 @@ namespace AMSExplorer
             {
                 if (checkBoxVanityUrl.Checked)
                 {
-                    url = "rtmp(s)://<live event name>-<ams account name>-<region abbrev name>.channel.media.azure.net:<port>/live/<access token>";
+                    url = "rtmp(s)://<live event name>-<ams account name>-<region abbrev name>.channel.media.azure.net:<port>/live/<input id>";
                 }
                 else
                 {
-                    url = "rtmp(s)://<random 128bit hex string>.channel.media.azure.net:<port>/live/<access token>";
+                    url = "rtmp(s)://<random 128bit hex string>.channel.media.azure.net:<port>/live/<input id>";
                 }
             }
             else // smooth
             {
                 if (checkBoxVanityUrl.Checked)
                 {
-                    url = "http(s)://<live event name>-<ams account name>-<region abbrev name>.channel.media.azure.net/<access token>/ingest.isml";
+                    url = "http(s)://<live event name>-<ams account name>-<region abbrev name>.channel.media.azure.net/<input id>/ingest.isml";
                 }
                 else
                 {
-                    url = "http(s)://<random 128bit hex string>.channel.media.azure.net/<access token>/ingest.isml";
+                    url = "http(s)://<random 128bit hex string>.channel.media.azure.net/<input id>/ingest.isml";
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(AccessToken))
+            if (!string.IsNullOrWhiteSpace(InputID))
             {
-                url = url.Replace("<access token>", AccessToken);
+                url = url.Replace("<input id>", InputID);
             }
 
             url = url.Replace("<live event name>", LiveEventName);
@@ -431,9 +433,14 @@ namespace AMSExplorer
         {
         }
 
-        private void buttonGenerateToken_Click(object sender, EventArgs e)
+        private void buttonGenerateInputId_Click(object sender, EventArgs e)
         {
-            textBoxToken.Text = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            GenerateNewInputId();
+        }
+
+        private void GenerateNewInputId()
+        {
+            textBoxInputId.Text = Guid.NewGuid().ToString().Replace("-", string.Empty);
         }
 
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
@@ -481,7 +488,7 @@ namespace AMSExplorer
             UpdateLabelSyntax();
         }
 
-        private void textBoxToken_TextChanged(object sender, EventArgs e)
+        private void textBoxInputId_TextChanged(object sender, EventArgs e)
         {
             UpdateLabelSyntax();
         }

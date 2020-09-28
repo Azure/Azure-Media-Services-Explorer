@@ -79,7 +79,7 @@
             this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
             this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxToken = new System.Windows.Forms.TextBox();
+            this.textBoxInputId = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
@@ -408,7 +408,7 @@
             this.tabPageAdv.Controls.Add(this.checkBoxLowLatency);
             this.tabPageAdv.Controls.Add(this.checkBoxVanityUrl);
             this.tabPageAdv.Controls.Add(this.label7);
-            this.tabPageAdv.Controls.Add(this.textBoxToken);
+            this.tabPageAdv.Controls.Add(this.textBoxInputId);
             resources.ApplyResources(this.tabPageAdv, "tabPageAdv");
             this.tabPageAdv.Name = "tabPageAdv";
             this.tabPageAdv.UseVisualStyleBackColor = true;
@@ -430,7 +430,7 @@
             resources.ApplyResources(this.buttonGenerateToken, "buttonGenerateToken");
             this.buttonGenerateToken.Name = "buttonGenerateToken";
             this.buttonGenerateToken.UseVisualStyleBackColor = true;
-            this.buttonGenerateToken.Click += new System.EventHandler(this.buttonGenerateToken_Click);
+            this.buttonGenerateToken.Click += new System.EventHandler(this.buttonGenerateInputId_Click);
             // 
             // checkBoxKeyFrameIntDefined
             // 
@@ -464,9 +464,9 @@
             // 
             // textBoxToken
             // 
-            resources.ApplyResources(this.textBoxToken, "textBoxToken");
-            this.textBoxToken.Name = "textBoxToken";
-            this.textBoxToken.TextChanged += new System.EventHandler(this.textBoxToken_TextChanged);
+            resources.ApplyResources(this.textBoxInputId, "textBoxToken");
+            this.textBoxInputId.Name = "textBoxToken";
+            this.textBoxInputId.TextChanged += new System.EventHandler(this.textBoxInputId_TextChanged);
             // 
             // labelWarning
             // 
@@ -570,7 +570,7 @@
         private System.Windows.Forms.CheckBox checkBoxLowLatency;
         private System.Windows.Forms.CheckBox checkBoxVanityUrl;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxToken;
+        private System.Windows.Forms.TextBox textBoxInputId;
         private System.Windows.Forms.Button buttonGenerateToken;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonTranscodingPremium;

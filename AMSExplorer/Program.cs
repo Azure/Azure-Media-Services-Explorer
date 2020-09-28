@@ -480,7 +480,8 @@ namespace AMSExplorer
         public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/v3.0.0/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
-        public const string AdvancedTestPlayer = @"https://openidconnectweb.azurewebsites.net/AMTestPlayer?url={0}";
+        public const string AdvancedTestPlayerRoot = @"https://openidconnectweb.azurewebsites.net/";
+        public const string AdvancedTestPlayer = AdvancedTestPlayerRoot + @"AMTestPlayer?url={0}";
 
         public const string PlayerInfoHTML5Video = @"http://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"https://www.jwplayer.com/";
