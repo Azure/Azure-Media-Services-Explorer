@@ -39,7 +39,6 @@
             this.radioButtonNormalMode = new System.Windows.Forms.RadioButton();
             this.labelAssetName = new System.Windows.Forms.Label();
             this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
-            this.radioButtonDisplayedAssets = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.radioButtonAllAssets = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -51,7 +50,7 @@
             this.buttonBrowseFile = new System.Windows.Forms.Button();
             this.textBoxExcelFile = new System.Windows.Forms.TextBox();
             this.progressBarExport = new System.Windows.Forms.ProgressBar();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelProgress = new System.Windows.Forms.Label();
             this.backgroundWorkerExcel = new System.ComponentModel.BackgroundWorker();
             this.label5 = new System.Windows.Forms.Label();
             this.backgroundWorkerCSV = new System.ComponentModel.BackgroundWorker();
@@ -135,17 +134,10 @@
             this.radioButtonSelectedAssets.TabStop = true;
             this.radioButtonSelectedAssets.UseVisualStyleBackColor = true;
             // 
-            // radioButtonDisplayedAssets
-            // 
-            resources.ApplyResources(this.radioButtonDisplayedAssets, "radioButtonDisplayedAssets");
-            this.radioButtonDisplayedAssets.Name = "radioButtonDisplayedAssets";
-            this.radioButtonDisplayedAssets.UseVisualStyleBackColor = true;
-            // 
             // groupBox4
             // 
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.radioButtonAllAssets);
-            this.groupBox4.Controls.Add(this.radioButtonDisplayedAssets);
             this.groupBox4.Controls.Add(this.radioButtonSelectedAssets);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
@@ -219,10 +211,10 @@
             resources.ApplyResources(this.progressBarExport, "progressBarExport");
             this.progressBarExport.Name = "progressBarExport";
             // 
-            // label2
+            // labelProgress
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.labelProgress, "labelProgress");
+            this.labelProgress.Name = "labelProgress";
             // 
             // backgroundWorkerExcel
             // 
@@ -254,7 +246,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelProgress);
             this.Controls.Add(this.progressBarExport);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
@@ -282,7 +274,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelAssetName;
         private System.Windows.Forms.RadioButton radioButtonSelectedAssets;
-        private System.Windows.Forms.RadioButton radioButtonDisplayedAssets;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButtonDetailledMode;
@@ -293,7 +284,7 @@
         private System.Windows.Forms.Button buttonBrowseFile;
         private System.Windows.Forms.TextBox textBoxExcelFile;
         private System.Windows.Forms.ProgressBar progressBarExport;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelProgress;
         private System.ComponentModel.BackgroundWorker backgroundWorkerExcel;
         private System.Windows.Forms.CheckBox checkBoxOpenFileAfterExport;
         private System.Windows.Forms.Label label8;

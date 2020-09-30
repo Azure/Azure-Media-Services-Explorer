@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,8 +26,8 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System.IO;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Management.Media;
+using Microsoft.Rest.Azure;
 
 namespace AMSExplorer
 {
@@ -36,7 +35,6 @@ namespace AMSExplorer
     {
         private AMSClientV3 _amsClient;
         private List<Asset> _selassets;
-        private List<Asset> _visibleassets;
         private string filename;
 
         public ExportToExcel(AMSClientV3 amsClient, List<Asset> selassets)
@@ -45,7 +43,6 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _amsClient = amsClient;
             _selassets = selassets;
-            // _visibleassets = visibleassets;
 
             backgroundWorkerExcel.WorkerReportsProgress = true;
             backgroundWorkerExcel.WorkerSupportsCancellation = true;
@@ -55,8 +52,7 @@ namespace AMSExplorer
         private void ExportToExcel_Load(object sender, EventArgs e)
         {
             string extension = radioButtonFormatExcel.Checked ? "xlsx" : "csv";
-            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _amsClient.credentialsEntry.AccountName, DateTime.Now.ToString("dMMMyyyy"));
-
+            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _amsClient.credentialsEntry.AccountName, DateTime.Now.ToString("yyyy-MM-dd"));
         }
 
         private void UpdateFilePathAndname()
@@ -70,7 +66,6 @@ namespace AMSExplorer
             }
             string filter = radioButtonFormatExcel.Checked ? "Excel files| *.xlsx | All files | *.*" : "CSV files| *.csv | All files | *.*";
             saveFileDialog1.Filter = filter;
-
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -78,236 +73,109 @@ namespace AMSExplorer
             buttonOk.Enabled = false;
             filename = textBoxExcelFile.Text;
 
+            if (radioButtonAllAssets.Checked)
+            {
+                progressBarExport.Style = ProgressBarStyle.Marquee;
+            }
+            else
+            {
+                progressBarExport.Style = ProgressBarStyle.Blocks;
+            }
+
+            progressBarExport.Visible = labelProgress.Visible = true;
+
             if (radioButtonFormatExcel.Checked)
             {
                 backgroundWorkerExcel.RunWorkerAsync();
-
-            }
+             }
             else
             {
                 backgroundWorkerCSV.RunWorkerAsync();
-
             }
         }
 
-        private async Task ExportAssetExcelAsync(Asset asset, Excel.Worksheet xlWorkSheet, int row, bool detailed, bool localtime)
+        private async Task<int?> ExportAssetExcelAsync(Asset asset, Excel.Worksheet xlWorkSheet, int row, bool detailed, bool localtime, List<StreamingEndpoint> seList)
         {
-            /*
-            await _amsClient.RefreshTokenIfNeededAsync();
-            var assetType = await AssetInfo.GetAssetTypeAsync(asset.Name, _amsClient);
-
+            int? nbLocators = null;
 
             int index = 1;
             xlWorkSheet.Cells[row, index++] = asset.Name;
-            xlWorkSheet.Cells[row, index++] = asset.Id;
+            xlWorkSheet.Cells[row, index++] = asset.Description;
+            xlWorkSheet.Cells[row, index++] = asset.AlternateId;
+            xlWorkSheet.Cells[row, index++] = asset.AssetId.ToString();
+            xlWorkSheet.Cells[row, index++] = localtime ? asset.Created.ToLocalTime() : asset.Created;
             xlWorkSheet.Cells[row, index++] = localtime ? asset.LastModified.ToLocalTime() : asset.LastModified;
-            xlWorkSheet.Cells[row, index++] = assetType.Type;
-            xlWorkSheet.Cells[row, index++] = AssetInfo.FormatByteSize(assetType.Size);
-            int backindex = index;
-            var urls = AssetInfo.GetURIs(asset);
-            if (urls != null)
-            {
-                foreach (var url in urls)
-                {
-                    xlWorkSheet.Cells[row, index++] = url != null ? url.ToString() : string.Empty;
-                }
-
-            }
-            index = backindex + _context.StreamingEndpoints.Count();
-            var streamlocators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
-            if (streamlocators.Any())
-            {
-                if (localtime)
-                {
-                    xlWorkSheet.Cells[row, index++] = (DateTime?)streamlocators.Max(l => l.ExpirationDateTime).ToLocalTime();
-                }
-                else
-                {
-                    xlWorkSheet.Cells[row, index++] = (DateTime?)streamlocators.Max(l => l.ExpirationDateTime);
-                }
-            }
-            else
-            {
-                xlWorkSheet.Cells[row, index++] = string.Empty;
-            }
-
-
-            // SAS locator
-            var saslocators = asset.Locators.Where(l => l.Type == LocatorType.Sas);
-            var saslocator = saslocators.ToList().OrderByDescending(l => l.ExpirationDateTime).FirstOrDefault();
-            if (saslocator != null && asset.AssetFiles.Count() > 0)
-            {
-                if (asset.AssetFiles.Count() == 1)
-                {
-                    var ProgressiveDownloadUri = asset.AssetFiles.FirstOrDefault().GetSasUri(saslocator);
-                    xlWorkSheet.Cells[row, index++] = ProgressiveDownloadUri.AbsoluteUri;
-                }
-                else
-                {
-                    xlWorkSheet.Cells[row, index++] = saslocator.Path;
-                }
-
-                if (localtime)
-                {
-                    xlWorkSheet.Cells[row, index++] = saslocator.ExpirationDateTime.ToLocalTime();
-                }
-                else
-                {
-                    xlWorkSheet.Cells[row, index++] = saslocator.ExpirationDateTime;
-                }
-            }
-            else
-            {
-                xlWorkSheet.Cells[row, index++] = string.Empty;
-                xlWorkSheet.Cells[row, index++] = string.Empty;
-            }
-
+            xlWorkSheet.Cells[row, index++] = asset.StorageAccountName;
+            xlWorkSheet.Cells[row, index++] = asset.Container;
 
             if (detailed)
             {
-                xlWorkSheet.Cells[row, index++] = asset.AlternateId;
-                xlWorkSheet.Cells[row, index++] = asset.StorageAccount.Name;
-                xlWorkSheet.Cells[row, index++] = asset.Uri == null ? string.Empty : asset.Uri.ToString();
-                var streamingloc = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
-                xlWorkSheet.Cells[row, index++] = streamingloc.Count();
-                if (localtime)
-                {
-                    xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                    xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
-                }
-                else
-                {
-                    xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Min(l => l.ExpirationDateTime) : null;
-                    xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime) : null;
-                }
-
-                // SAS
-                xlWorkSheet.Cells[row, index++] = saslocators.Count();
-                if (localtime)
-                {
-                    xlWorkSheet.Cells[row, index++] = saslocators.Any() ? (DateTime?)saslocators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                    xlWorkSheet.Cells[row, index++] = saslocators.Any() ? (DateTime?)saslocators.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
-                }
-                else
-                {
-                    xlWorkSheet.Cells[row, index++] = saslocators.Any() ? (DateTime?)saslocators.Min(l => l.ExpirationDateTime) : null;
-                    xlWorkSheet.Cells[row, index++] = saslocators.Any() ? (DateTime?)saslocators.Max(l => l.ExpirationDateTime) : null;
-                }
-
-                xlWorkSheet.Cells[row, index++] = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString();
-                xlWorkSheet.Cells[row, index++] = asset.AssetFilters.Count().ToString();
-
+                var assetType = await AssetInfo.GetAssetTypeAsync(asset.Name, _amsClient);
+                xlWorkSheet.Cells[row, index++] = assetType.Type;
+                xlWorkSheet.Cells[row, index++] = assetType.Size;
             }
-            */
+
+            IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
+            nbLocators = locators.Count();
+            xlWorkSheet.Cells[row, index++] = nbLocators;
+
+            foreach (var locator in locators)
+            {
+                var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
+                xlWorkSheet.Cells[row, index++] = locator.Name;
+                foreach (var se in seList)
+                {
+                    var listPaths = new List<string>();
+                    foreach (var spath in paths.StreamingPaths)
+                    {
+                        listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
+                    }
+                    xlWorkSheet.Cells[row, index++] = string.Join("\n", listPaths);
+                }
+            }
+            return nbLocators;
         }
 
-        private async Task<string> ExportAssetCSVLineAsync(Asset asset, bool detailed, bool localtime)
+        private async Task<CsvLineResult> ExportAssetCSVLineAsync(Asset asset, bool detailed, bool localtime, List<StreamingEndpoint> seList)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-            var assetType = await AssetInfo.GetAssetTypeAsync(asset.Name, _amsClient);
-
+            int? nbLocators = null;
 
             List<string> linec = new List<string>();
             linec.Add(asset.Name);
-            linec.Add(asset.Id);
+            linec.Add(asset.Description);
+            linec.Add(asset.AlternateId);
+            linec.Add(asset.AssetId.ToString());
+            linec.Add(localtime ? asset.Created.ToLocalTime().ToString() : asset.Created.ToString());
             linec.Add(localtime ? asset.LastModified.ToLocalTime().ToString() : asset.LastModified.ToString());
-            linec.Add(assetType.Type);
-            linec.Add(AssetInfo.FormatByteSize(assetType.Size));
-
-
-
-            var url = await AssetInfo.GetValidOnDemandSmoothURIAsync(asset, _amsClient);
-            linec.Add(url != null ? url.ToString() : string.Empty);
-            /*
-            if (urls != null && urls.Count() > 0)
-            {
-                foreach (var url in urls)
-                {
-                    linec.Add(url != null ? url.ToString() : string.Empty);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < _context.StreamingEndpoints.Count(); i++)
-                {
-                    linec.Add(string.Empty);
-                }
-            }
-            */
-
-
-
-            //var streamlocators = await AssetInfo.GetDescriptionLocatorsAsync(asset, _amsClient);
-
-
-
-            var streamlocators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name))
-                                                    .StreamingLocators;
-
-
-
-
-            if (streamlocators.Any())
-            {
-                if (localtime)
-                {
-                    linec.Add(streamlocators.Max(l => l.EndTime).ToLocalTime().ToString());
-                }
-                else
-                {
-                    linec.Add(streamlocators.Max(l => l.EndTime).ToString());
-                }
-            }
-            else
-            {
-                linec.Add(string.Empty);
-            }
-
-
-            // SAS locator
-            var saslocators = (await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name))
-                                                .AssetContainerSasUrls;
-
-
-            linec.Add(string.Join(", ", saslocators));
-
+            linec.Add(asset.StorageAccountName);
+            linec.Add(asset.Container);
 
             if (detailed)
             {
-                linec.Add(asset.AlternateId);
-                linec.Add(asset.StorageAccountName);
-                linec.Add(asset.Container);
-                linec.Add(streamlocators.Count().ToString());
-                if (localtime)
-                {
-                    linec.Add(streamlocators.Any() ? streamlocators.Min(l => l.EndTime).ToLocalTime().ToString() : null);
-                    linec.Add(streamlocators.Any() ? streamlocators.Max(l => l.EndTime).ToLocalTime().ToString() : null);
-                }
-                else
-                {
-                    linec.Add(streamlocators.Any() ? streamlocators.Min(l => l.EndTime).ToString() : null);
-                    linec.Add(streamlocators.Any() ? streamlocators.Max(l => l.EndTime).ToString() : null);
-                }
-
-                // SAS
-                linec.Add(saslocators.Count().ToString());
-                if (localtime)
-                {
-                    //linec.Add(saslocators.Any() ? saslocators.Min(l => l.ExpirationDateTime).ToLocalTime().ToString() : null);
-                    //linec.Add(saslocators.Any() ? saslocators.Max(l => l.ExpirationDateTime).ToLocalTime().ToString() : null);
-                }
-                else
-                {
-                    //linec.Add(saslocators.Any() ? saslocators.Min(l => l.ExpirationDateTime).ToString() : null);
-                    // linec.Add(saslocators.Any() ? saslocators.Max(l => l.ExpirationDateTime).ToString() : null);
-                }
-
-                //    linec.Add(asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString());
-                //    linec.Add(asset.AssetFilters.Count().ToString());
-
+                var assetType = await AssetInfo.GetAssetTypeAsync(asset.Name, _amsClient);
+                linec.Add(assetType.Type);
+                linec.Add(assetType.Size.ToString());
             }
 
-            return convertCSVLine(linec);
+            IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
+            nbLocators = locators.Count();
+            linec.Add(nbLocators.ToString());
+            foreach (var locator in locators)
+            {
+                var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
+                linec.Add(locator.Name);
+                foreach (var se in seList)
+                {
+                    var listPaths = new List<string>();
+                    foreach (var spath in paths.StreamingPaths)
+                    {
+                        listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
+                    }
+                    linec.Add(string.Join(", ", listPaths));
+                }
+            }
+
+            return new CsvLineResult() { line = convertToCSVLine(linec), locatorCount = nbLocators };
         }
 
         private void releaseObject(object obj)
@@ -338,10 +206,17 @@ namespace AMSExplorer
 
         private void backgroundWorkerExcel_DoWork(object sender, DoWorkEventArgs e)
         {
-            /*
             try
             {
+                _amsClient.RefreshTokenIfNeeded();
 
+                // Streaming endpoints
+                Microsoft.Rest.Azure.IPage<StreamingEndpoint> streamingEndpoints = _amsClient.AMSclient.StreamingEndpoints.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+                var selist = streamingEndpoints.ToList();
+
+                int numberMaxLocators = 0;
+                var csvheader = new StringBuilder();
+                var csv = new StringBuilder();
                 bool detailed = radioButtonDetailledMode.Checked;
                 Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
 
@@ -362,11 +237,11 @@ namespace AMSExplorer
                 Excel.Range chartRange = xlWorkSheet.get_Range("a1", "f1");
                 if (radioButtonAllAssets.Checked)
                 {
-                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _accountname);
+                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName);
                 }
                 else
                 {
-                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _accountname);
+                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName);
                 }
                 chartRange.VerticalAlignment = 3;
                 chartRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
@@ -383,64 +258,30 @@ namespace AMSExplorer
                 chartRange2.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
                 chartRange2.Font.Size = 12;
 
-                int row = 4;
-                int index = 1;
-                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_AssetName;
-                xlWorkSheet.Cells[row, index++] = "Id";
-                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified;
-                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type;
-                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Size;
-                int backindex = index;
-                _context.StreamingEndpoints.ToList().ForEach(se =>
-                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingURL
-                );
-                index = backindex + _context.StreamingEndpoints.Count();
-                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingExpirationTime;
-
-                xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASURL;
-                //xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASExpirationTime;
-
-                if (detailed)
-                {
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AlternateId;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StorageAccount;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageUrl;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingLocatorsCount;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingMinExpirationTime;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingMaxExpirationTime;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASLocatorsCount;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASMinExpirationTime;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASMaxExpirationTime;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption;
-                    xlWorkSheet.Cells[row, index++] = AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount;
-                }
 
                 Excel.Range formatRange;
                 formatRange = xlWorkSheet.get_Range("a4");
                 formatRange.EntireRow.Font.Bold = true;
                 formatRange.EntireRow.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
 
+                int row = 5;
+                int index = 1;
 
                 if (radioButtonAllAssets.Checked)
                 {
-                    int skipSize = 0;
-                    int batchSize = 1000;
-                    int currentBatch = 0;
-
-                    int total = _context.Assets.Count();
-                    int index2 = 1;
+                    IPage<Asset> currentPage = null;
+                    currentPage = _amsClient.AMSclient.Assets.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
                     while (true)
                     {
-                        IQueryable _assetsCollectionQuery = _context.Assets.Skip(skipSize).Take(batchSize);
-                        foreach (IAsset asset in _assetsCollectionQuery)
+                        foreach (Asset asset in currentPage)
                         {
-                            row++;
-                            currentBatch++;
-                            ExportAssetExcel(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked);
+                            var locatorCount = Task.Run(async () => await ExportAssetExcelAsync(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                            if (locatorCount != null)
+                                numberMaxLocators = Math.Max(numberMaxLocators, (int)locatorCount);
 
-                            backgroundWorkerExcel.ReportProgress(100 * index2 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                      //if cancellation is pending, cancel work.  
+                            backgroundWorkerCSV.ReportProgress(index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                            //if cancellation is pending, cancel work.  
                             if (backgroundWorkerExcel.CancellationPending)
                             {
                                 xlApp.DisplayAlerts = false;
@@ -452,13 +293,13 @@ namespace AMSExplorer
                                 e.Cancel = true;
                                 return;
                             }
-                            index2++;
+                            index++;
+                            row++;
                         }
 
-                        if (currentBatch == batchSize)
+                        if (currentPage.NextPageLink != null)
                         {
-                            skipSize += batchSize;
-                            currentBatch = 0;
+                            currentPage = _amsClient.AMSclient.Assets.ListNext(currentPage.NextPageLink);
                         }
                         else
                         {
@@ -466,27 +307,18 @@ namespace AMSExplorer
                         }
                     }
                 }
-                else // Selected or visible asets
+                else // Selected assets
                 {
-                    IEnumerable<IAsset> myassets;
-                    if (radioButtonSelectedAssets.Checked)
-                    {
-                        myassets = _selassets;
-                    }
-                    else
-                    {
-                        myassets = _visibleassets;
-                    }
+                    int total = _selassets.Count();
 
-                    int total = myassets.Count();
-                    int index3 = 1;
-
-                    foreach (IAsset asset in myassets)
+                    foreach (Asset asset in _selassets)
                     {
-                        row++;
-                        ExportAssetExcel(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked);
-                        backgroundWorkerExcel.ReportProgress(100 * index3 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                  //if cancellation is pending, cancel work.  
+                        var locatorCount = Task.Run(async () => await ExportAssetExcelAsync(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                        if (locatorCount != null)
+                            numberMaxLocators = Math.Max(numberMaxLocators, (int)locatorCount);
+
+                        backgroundWorkerCSV.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                        //if cancellation is pending, cancel work.  
                         if (backgroundWorkerExcel.CancellationPending)
                         {
                             xlApp.DisplayAlerts = false;
@@ -498,12 +330,43 @@ namespace AMSExplorer
                             e.Cancel = true;
                             return;
                         }
-                        index3++;
+                        index++;
+                        row++;
+                    }
+                }
+
+                // Header
+                row = 4;
+                index = 1;
+                xlWorkSheet.Cells[row, index++] = "Asset name";
+                xlWorkSheet.Cells[row, index++] = "Description";
+                xlWorkSheet.Cells[row, index++] = "Alternate Id";
+                xlWorkSheet.Cells[row, index++] = "Asset Id";
+                xlWorkSheet.Cells[row, index++] = "Created time";
+                xlWorkSheet.Cells[row, index++] = "Last modified time";
+                xlWorkSheet.Cells[row, index++] = "Storage account";
+                xlWorkSheet.Cells[row, index++] = "Storage container";
+
+                if (detailed)
+                {
+                    xlWorkSheet.Cells[row, index++] = "Asset type";
+                    xlWorkSheet.Cells[row, index++] = "Size";
+                }
+
+                xlWorkSheet.Cells[row, index++] = "Streaming locators count";
+
+                int backindex = index;
+
+                for (int iloc = 0; iloc < numberMaxLocators; iloc++)
+                {
+                    xlWorkSheet.Cells[row, index++] = string.Format("Locator name #{0}", iloc + 1);
+                    foreach (var se in selist)
+                    {
+                        xlWorkSheet.Cells[row, index++] = string.Format("Streaming Urls with streaming endpoint #{0}", selist.IndexOf(se));
                     }
                 }
 
                 // Set the range to fill.
-
                 var aRange = xlWorkSheet.get_Range("A4", "Z100");
                 aRange.EntireColumn.AutoFit();
 
@@ -527,102 +390,53 @@ namespace AMSExplorer
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Error + ex.Message);
             }
-            */
         }
 
         private void backgroundWorkerCSV_DoWork(object sender, DoWorkEventArgs e)
         {
+            _amsClient.RefreshTokenIfNeeded();
+
+            int numberMaxLocators = 0;
+            var csvheader = new StringBuilder();
+            var csv = new StringBuilder();
+            bool detailed = radioButtonDetailledMode.Checked;
+
             try
             {
-
-                bool detailed = radioButtonDetailledMode.Checked;
-                var csv = new StringBuilder();
-
-                if (radioButtonAllAssets.Checked)
-                {
-                    csv.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName)));
-                }
-                else
-                {
-                    csv.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName)));
-                }
-
-                csv.AppendLine(checkStringForCSV(string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
-                    Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                    checkBoxLocalTime.Checked ? DateTime.Now.ToString() : DateTime.UtcNow.ToString(),
-                    checkBoxLocalTime.Checked ? "local" : "UTC based"
-                    )));
-
-                List<string> linec = new List<string>();
-                linec.Add(AMSExplorer.Properties.Resources.BulkContainerInfo_DoDisplayAssetManifest_AssetName);
-                linec.Add("Id");
-
-                linec.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified);
-                linec.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Type);
-                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Size);
-
-
+                // Streaming endpoints
                 Microsoft.Rest.Azure.IPage<StreamingEndpoint> streamingEndpoints = _amsClient.AMSclient.StreamingEndpoints.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+                var selist = streamingEndpoints.ToList();
 
-
-
-                streamingEndpoints.ToList().ForEach(se =>
-                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingURL));
-                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingExpirationTime);
-
-                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASURL);
-                linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASExpirationTime);
-
-                if (detailed)
-                {
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AlternateId);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StorageAccount);
-                    linec.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_StorageUrl);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingLocatorsCount);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingMinExpirationTime);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_StreamingMaxExpirationTime);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASLocatorsCount);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASMinExpirationTime);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SASMaxExpirationTime);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_DynamicEncryption);
-                    linec.Add(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AssetFiltersCount);
-                }
-
-                csv.AppendLine(convertCSVLine(linec));
+                // Asset lines 
+                int index = 1;
 
                 if (radioButtonAllAssets.Checked)
                 {
-                    int skipSize = 0;
-                    int batchSize = 1000;
-                    int currentBatch = 0;
-
-                    //int total = _context.Assets.Count();
-                    int index2 = 1;
+                    IPage<Asset> currentPage = null;
+                    currentPage = _amsClient.AMSclient.Assets.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
                     while (true)
                     {
-                        var _assetsCollectionQuery = _amsClient.AMSclient.Assets.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName).Skip(skipSize).Take(batchSize);
-                        foreach (Asset asset in _assetsCollectionQuery)
+                        foreach (Asset asset in currentPage)
                         {
-                            currentBatch++;
-                            var res = Task.Run(async () => await ExportAssetCSVLineAsync(asset, detailed, checkBoxLocalTime.Checked)).Result;
-                            csv.AppendLine(res);
+                            var res = Task.Run(async () => await ExportAssetCSVLineAsync(asset, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                            csv.AppendLine(res.line);
+                            if (res.locatorCount != null)
+                                numberMaxLocators = Math.Max(numberMaxLocators, (int)res.locatorCount);
 
-                            backgroundWorkerCSV.ReportProgress(100 * index2 / 1000 /*total*/, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                             //if cancellation is pending, cancel work.  
+                            backgroundWorkerCSV.ReportProgress(index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                            //if cancellation is pending, cancel work.  
                             if (backgroundWorkerCSV.CancellationPending)
                             {
-
                                 e.Cancel = true;
                                 return;
                             }
-                            index2++;
+                            index++;
                         }
 
-                        if (currentBatch == batchSize)
+                        if (currentPage.NextPageLink != null)
                         {
-                            skipSize += batchSize;
-                            currentBatch = 0;
+                            currentPage = _amsClient.AMSclient.Assets.ListNext(currentPage.NextPageLink);
                         }
                         else
                         {
@@ -630,40 +444,77 @@ namespace AMSExplorer
                         }
                     }
                 }
-                else // Selected or visible assets
+                else // Selected assets
                 {
-                    IEnumerable<Asset> myassets;
-                    if (radioButtonSelectedAssets.Checked)
-                    {
-                        myassets = _selassets;
-                    }
-                    else
-                    {
-                        myassets = _visibleassets;
-                    }
+                    int total = _selassets.Count();
 
-                    int total = myassets.Count();
-                    int index3 = 1;
-
-                    foreach (Asset asset in myassets)
+                    foreach (Asset asset in _selassets)
                     {
-                        var res = Task.Run(async () => await ExportAssetCSVLineAsync(asset, detailed, checkBoxLocalTime.Checked)).Result;
-                        csv.AppendLine(res);
+                        var res = Task.Run(async () => await ExportAssetCSVLineAsync(asset, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                        csv.AppendLine(res.line);
+                        if (res.locatorCount != null)
+                            numberMaxLocators = Math.Max(numberMaxLocators, (int)res.locatorCount);
 
-                        backgroundWorkerCSV.ReportProgress(100 * index3 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                //if cancellation is pending, cancel work.  
+                        backgroundWorkerCSV.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                               //if cancellation is pending, cancel work.  
                         if (backgroundWorkerCSV.CancellationPending)
                         {
                             e.Cancel = true;
                             return;
                         }
-                        index3++;
+                        index++;
                     }
                 }
 
+                // Header
+                if (radioButtonAllAssets.Checked)
+                {
+                    csvheader.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName)));
+                }
+                else
+                {
+                    csvheader.AppendLine(checkStringForCSV(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName)));
+                }
+
+                csvheader.AppendLine(checkStringForCSV(string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
+                    Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                    checkBoxLocalTime.Checked ? DateTime.Now.ToString() : DateTime.UtcNow.ToString(),
+                    checkBoxLocalTime.Checked ? "local" : "UTC based"
+                    )));
+
+                List<string> linec = new List<string>();
+                linec.Add("Asset name");
+                linec.Add("Description");
+                linec.Add("Alternate Id");
+                linec.Add("Asset Id");
+                linec.Add("Created time");
+                linec.Add("Last modified time");
+                linec.Add("Storage account");
+                linec.Add("Storage container");
+
+                if (detailed)
+                {
+                    linec.Add("Asset type");
+                    linec.Add("Size");
+                }
+
+                linec.Add("Streaming locators count");
+
+                for (int iloc = 0; iloc < numberMaxLocators; iloc++)
+                {
+                    linec.Add(string.Format("Locator name #{0}", iloc + 1));
+                    foreach (var se in selist)
+                    {
+                        linec.Add(string.Format("Streaming Urls with streaming endpoint #{0}", selist.IndexOf(se)));
+                    }
+                }
+
+                csvheader.AppendLine(convertToCSVLine(linec));
+                csvheader.Append(csv);
+
                 try
                 {
-                    File.WriteAllText(filename, csv.ToString());
+                    File.WriteAllText(filename, csvheader.ToString());
                 }
                 catch
                 {
@@ -679,16 +530,78 @@ namespace AMSExplorer
         }
 
 
-
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBarExport.Value = e.ProgressPercentage; //update progress bar  
+            if (radioButtonSelectedAssets.Checked)
+            {
+                if (progressBarExport.InvokeRequired)
+                {
+                    progressBarExport.BeginInvoke(new Action(() =>
+                    {
+                        progressBarExport.Value = e.ProgressPercentage; //update progress bar 
+                    }));
+                }
+                else
+                {
+                    progressBarExport.Value = e.ProgressPercentage; //update progress bar  
+                }
+            }
+            else
+            {
+                string text = $"Progress ({e.ProgressPercentage} assets)";
+                if (labelProgress.InvokeRequired)
+                {
+                    labelProgress.BeginInvoke(new Action(() =>
+                    {
+                        labelProgress.Text = text;
+                    }));
+                }
+                else
+                {
+                    progressBarExport.Text = text;
+                }
+            }
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            buttonOk.Enabled = true;
-            progressBarExport.Value = 0;
+            if (progressBarExport.InvokeRequired)
+            {
+                progressBarExport.BeginInvoke(new Action(() =>
+                {
+                    progressBarExport.Value = 0; //update progress bar
+                    progressBarExport.Visible = false;
+                }));
+            }
+            else
+            {
+                progressBarExport.Value = 0; //update progress bar 
+                progressBarExport.Visible = false;
+            }
+
+            if (labelProgress.InvokeRequired)
+            {
+                labelProgress.BeginInvoke(new Action(() =>
+                {
+                    labelProgress.Visible = false;
+                }));
+            }
+            else
+            {
+                labelProgress.Visible = false;
+            }
+
+            if (buttonOk.InvokeRequired)
+            {
+                buttonOk.BeginInvoke(new Action(() =>
+                {
+                    buttonOk.Enabled = true;
+                }));
+            }
+            else
+            {
+                buttonOk.Enabled = true;
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -712,12 +625,11 @@ namespace AMSExplorer
             return s;
         }
 
-        private string convertCSVLine(List<string> linec)
+        private string convertToCSVLine(List<string> linec)
         {
             var newlinec = linec.Select(s => checkStringForCSV(s));
             return string.Join(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator, newlinec);
         }
-
     }
 
     public enum AssetSelection
@@ -725,5 +637,11 @@ namespace AMSExplorer
         Selected = 0,
         Displayed,
         All
+    }
+
+    public class CsvLineResult
+    {
+        public int? locatorCount;
+        public string line;
     }
 }

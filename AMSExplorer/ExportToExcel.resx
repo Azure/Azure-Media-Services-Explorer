@@ -177,6 +177,90 @@
   <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="&gt;&gt;checkBoxLocalTime.Name" xml:space="preserve">
+    <value>checkBoxLocalTime</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLocalTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLocalTime.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLocalTime.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDetailledMode.Name" xml:space="preserve">
+    <value>radioButtonDetailledMode</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDetailledMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDetailledMode.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonDetailledMode.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNormalMode.Name" xml:space="preserve">
+    <value>radioButtonNormalMode</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNormalMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNormalMode.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNormalMode.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 178</value>
+  </data>
+  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 117</value>
+  </data>
+  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <data name="checkBoxLocalTime.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -184,7 +268,7 @@
     <value>27, 88</value>
   </data>
   <data name="checkBoxLocalTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 19</value>
+    <value>203, 19</value>
   </data>
   <data name="checkBoxLocalTime.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -214,7 +298,7 @@
     <value>70</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>+ locators count, expiration date,  storage account, dyn enc....</value>
+    <value>+ asset type, size</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -238,7 +322,7 @@
     <value>69</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>Name, ID, Last modified, Type, Size, URL</value>
+    <value>asset name, description, times, storage info, streaming Urls</value>
   </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
@@ -259,13 +343,13 @@
     <value>26, 47</value>
   </data>
   <data name="radioButtonDetailledMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 19</value>
+    <value>102, 19</value>
   </data>
   <data name="radioButtonDetailledMode.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="radioButtonDetailledMode.Text" xml:space="preserve">
-    <value>Detailled mode</value>
+    <value>Detailed mode</value>
   </data>
   <data name="&gt;&gt;radioButtonDetailledMode.Name" xml:space="preserve">
     <value>radioButtonDetailledMode</value>
@@ -306,30 +390,6 @@
   <data name="&gt;&gt;radioButtonNormalMode.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 178</value>
-  </data>
-  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>544, 117</value>
-  </data>
-  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="labelAssetName.Location" type="System.Drawing.Point, System.Drawing">
     <value>174, 20</value>
   </data>
@@ -358,7 +418,7 @@
     <value>True</value>
   </data>
   <data name="radioButtonSelectedAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 22</value>
+    <value>26, 31</value>
   </data>
   <data name="radioButtonSelectedAssets.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 19</value>
@@ -379,52 +439,10 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonSelectedAssets.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="radioButtonDisplayedAssets.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonDisplayedAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 47</value>
-  </data>
-  <data name="radioButtonDisplayedAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 19</value>
-  </data>
-  <data name="radioButtonDisplayedAssets.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="radioButtonDisplayedAssets.Text" xml:space="preserve">
-    <value>Visible assets in grid</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDisplayedAssets.Name" xml:space="preserve">
-    <value>radioButtonDisplayedAssets</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDisplayedAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDisplayedAssets.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;radioButtonDisplayedAssets.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="groupBox4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="radioButtonAllAssets.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAllAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 72</value>
-  </data>
-  <data name="radioButtonAllAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 19</value>
-  </data>
-  <data name="radioButtonAllAssets.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="radioButtonAllAssets.Text" xml:space="preserve">
-    <value>All assets</value>
   </data>
   <data name="&gt;&gt;radioButtonAllAssets.Name" xml:space="preserve">
     <value>radioButtonAllAssets</value>
@@ -462,6 +480,33 @@
   <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="radioButtonAllAssets.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonAllAssets.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 60</value>
+  </data>
+  <data name="radioButtonAllAssets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 19</value>
+  </data>
+  <data name="radioButtonAllAssets.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="radioButtonAllAssets.Text" xml:space="preserve">
+    <value>All assets</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAllAssets.Name" xml:space="preserve">
+    <value>radioButtonAllAssets</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAllAssets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAllAssets.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAllAssets.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
@@ -494,6 +539,90 @@
   </data>
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Name" xml:space="preserve">
+    <value>radioButton1</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButtonFormatExcel.Name" xml:space="preserve">
+    <value>radioButtonFormatExcel</value>
+  </data>
+  <data name="&gt;&gt;radioButtonFormatExcel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonFormatExcel.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonFormatExcel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxOpenFileAfterExport.Name" xml:space="preserve">
+    <value>checkBoxOpenFileAfterExport</value>
+  </data>
+  <data name="&gt;&gt;checkBoxOpenFileAfterExport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxOpenFileAfterExport.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxOpenFileAfterExport.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseFile.Name" xml:space="preserve">
+    <value>buttonBrowseFile</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseFile.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseFile.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;textBoxExcelFile.Name" xml:space="preserve">
+    <value>textBoxExcelFile</value>
+  </data>
+  <data name="&gt;&gt;textBoxExcelFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxExcelFile.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;textBoxExcelFile.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 311</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>545, 142</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Export to file</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="radioButton1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -532,7 +661,7 @@
     <value>16, 23</value>
   </data>
   <data name="radioButtonFormatExcel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 19</value>
+    <value>86, 19</value>
   </data>
   <data name="radioButtonFormatExcel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -630,30 +759,6 @@
   <data name="&gt;&gt;textBoxExcelFile.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 311</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>545, 142</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Export to file</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="progressBarExport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -665,6 +770,9 @@
   </data>
   <data name="progressBarExport.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
+  </data>
+  <data name="progressBarExport.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;progressBarExport.Name" xml:space="preserve">
     <value>progressBarExport</value>
@@ -678,31 +786,34 @@
   <data name="&gt;&gt;progressBarExport.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labelProgress.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>26, 474</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 15</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelProgress.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
+  <data name="labelProgress.Text" xml:space="preserve">
     <value>Progress</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="labelProgress.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelProgress.Name" xml:space="preserve">
+    <value>labelProgress</value>
+  </data>
+  <data name="&gt;&gt;labelProgress.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelProgress.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelProgress.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <metadata name="backgroundWorkerExcel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
