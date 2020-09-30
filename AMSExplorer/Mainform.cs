@@ -6321,85 +6321,11 @@ namespace AMSExplorer
             Process.Start(Constants.DemoCaptionMaker);
         }
 
-
-
-        private void toAnotherAzureMediaServicesAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void toAnotherAzureMediaServicesAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //   DoCopyAssetToAnotherAMSAccount();
+            await DoCopyAssetToAnotherAMSAccountAsync();
         }
-        /*
-        private void DoCopyAssetToAnotherAMSAccount()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive) || AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_Fragmented)))
-            {
-                MessageBox.Show("One of the source asset is fragmented (live stream, live archive or pre-fragmented asset)." + Constants.endline
-                    + "It is not recommended to copy such asset with this command. While the copied asset will be streamable, you could have issues to download it or run a processor on it because some asset files will not be tagged as fragments containers." + Constants.endline + Constants.endline
-                    + "It is recommended to use subclipping (all bitrates) and then to copy the multiple MP4 files asset with this command." + Constants.endline
-                    , "Fragmented asset", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            CopyAsset form = new CopyAsset(_context, SelectedAssets.Count, CopyAssetBoxMode.CopyAsset, _accountname)
-            {
-                CopyAssetName = string.Format("Copy of {0}", Constants.NameconvAsset),
-                EnableSingleDestinationAsset = SelectedAssets.Count > 1
-            };
-
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                var newdestinationcredentials = form.DestinationLoginCredentials;
-
-                // for service principal, the SP crednetials are asked in the previous form
-
-
-                bool usercanceled = false;
-                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, newdestinationcredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.DefaultStorageKey, form.DestinationStorageAccount);
-                if (!usercanceled)
-                {
-                    CloudMediaContext DestinationContext;
-                    try
-                    {
-                        DestinationContext = Program.ConnectAndGetNewContext(newdestinationcredentials);
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error", true);
-                        TextBoxLogWriteLine(ex);
-                        return;
-                    }
-
-                    if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
-                    {
-                        foreach (IAsset asset in SelectedAssets)
-                        {
-                            var response = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.ReturnAccountName()), TransferType.ExportToOtherAMSAccount, false);
-                            // Start a worker thread that does asset copy.
-                            Task.Factory.StartNew(() =>
-                            ProcessExportAssetToAnotherAMSAccount(newdestinationcredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), response, DestinationContext, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL, form.CloneAssetFilters, form.CloneLocators, form.UnpublishSourceAsset, form.CopyAlternateId), response.token);
-                        }
-                    }
-                    else // merge all assets into a single asset
-                    {
-                        if (SelectedAssets.Any(a => a.Options != AssetCreationOptions.None))
-                        {
-                            MessageBox.Show("Assets cannot be merged as at least one asset is encrypted.", "Asset encrypted", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
-                        else
-                        {
-                            var response = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.ReturnAccountName()), TransferType.ExportToOtherAMSAccount, false);
-                            // Start a worker thread that does asset copy.
-                            Task.Factory.StartNew(() =>
-                            ProcessExportAssetToAnotherAMSAccount(newdestinationcredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), response, DestinationContext, form.DeleteSourceAsset), response.token);
-                        }
-                    }
-                    DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
-                }
-            }
-        }
-        */
-
+        
         private async void enableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await ChangeAzureCDNAsync(true);

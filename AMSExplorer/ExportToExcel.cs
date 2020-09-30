@@ -87,7 +87,7 @@ namespace AMSExplorer
             if (radioButtonFormatExcel.Checked)
             {
                 backgroundWorkerExcel.RunWorkerAsync();
-             }
+            }
             else
             {
                 backgroundWorkerCSV.RunWorkerAsync();
@@ -103,8 +103,8 @@ namespace AMSExplorer
             xlWorkSheet.Cells[row, index++] = asset.Description;
             xlWorkSheet.Cells[row, index++] = asset.AlternateId;
             xlWorkSheet.Cells[row, index++] = asset.AssetId.ToString();
-            xlWorkSheet.Cells[row, index++] = localtime ? asset.Created.ToLocalTime() : asset.Created;
-            xlWorkSheet.Cells[row, index++] = localtime ? asset.LastModified.ToLocalTime() : asset.LastModified;
+            xlWorkSheet.Cells[row, index++] = returnDate(localtime, asset.Created);
+            xlWorkSheet.Cells[row, index++] = returnDate(localtime, asset.LastModified);
             xlWorkSheet.Cells[row, index++] = asset.StorageAccountName;
             xlWorkSheet.Cells[row, index++] = asset.Container;
 
@@ -119,21 +119,32 @@ namespace AMSExplorer
             nbLocators = locators.Count();
             xlWorkSheet.Cells[row, index++] = nbLocators;
 
-            foreach (var locator in locators)
+            if (detailed)
             {
-                var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
-                xlWorkSheet.Cells[row, index++] = locator.Name;
-                foreach (var se in seList)
+                foreach (var locator in locators)
                 {
-                    var listPaths = new List<string>();
-                    foreach (var spath in paths.StreamingPaths)
+                    var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
+                    xlWorkSheet.Cells[row, index++] = locator.Name;
+                    xlWorkSheet.Cells[row, index++] = returnDate(localtime, locator.Created);
+                    xlWorkSheet.Cells[row, index++] = returnDate(localtime, locator.StartTime);
+                    xlWorkSheet.Cells[row, index++] = returnDate(localtime, locator.StartTime);
+                    foreach (var se in seList)
                     {
-                        listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
+                        var listPaths = new List<string>();
+                        foreach (var spath in paths.StreamingPaths)
+                        {
+                            listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
+                        }
+                        xlWorkSheet.Cells[row, index++] = string.Join("\n", listPaths);
                     }
-                    xlWorkSheet.Cells[row, index++] = string.Join("\n", listPaths);
                 }
             }
             return nbLocators;
+        }
+
+        private static DateTime returnDate(bool localtime, DateTime time)
+        {
+            return localtime ? time.ToLocalTime() : time;
         }
 
         private async Task<CsvLineResult> ExportAssetCSVLineAsync(Asset asset, bool detailed, bool localtime, List<StreamingEndpoint> seList)
@@ -145,8 +156,8 @@ namespace AMSExplorer
             linec.Add(asset.Description);
             linec.Add(asset.AlternateId);
             linec.Add(asset.AssetId.ToString());
-            linec.Add(localtime ? asset.Created.ToLocalTime().ToString() : asset.Created.ToString());
-            linec.Add(localtime ? asset.LastModified.ToLocalTime().ToString() : asset.LastModified.ToString());
+            linec.Add(returnDate(localtime, asset.Created).ToString());
+            linec.Add(returnDate(localtime, asset.LastModified).ToString());
             linec.Add(asset.StorageAccountName);
             linec.Add(asset.Container);
 
@@ -160,18 +171,26 @@ namespace AMSExplorer
             IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
             nbLocators = locators.Count();
             linec.Add(nbLocators.ToString());
-            foreach (var locator in locators)
+
+            if (detailed)
             {
-                var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
-                linec.Add(locator.Name);
-                foreach (var se in seList)
+                foreach (var locator in locators)
                 {
-                    var listPaths = new List<string>();
-                    foreach (var spath in paths.StreamingPaths)
+                    var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
+                    linec.Add(locator.Name);
+                    linec.Add(returnDate(localtime, locator.Created).ToString());
+                    linec.Add(returnDate(localtime, locator.StartTime).ToString());
+                    linec.Add(returnDate(localtime, locator.EndTime).ToString());
+
+                    foreach (var se in seList)
                     {
-                        listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
+                        var listPaths = new List<string>();
+                        foreach (var spath in paths.StreamingPaths)
+                        {
+                            listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
+                        }
+                        linec.Add(string.Join(", ", listPaths));
                     }
-                    linec.Add(string.Join(", ", listPaths));
                 }
             }
 
@@ -281,7 +300,7 @@ namespace AMSExplorer
                                 numberMaxLocators = Math.Max(numberMaxLocators, (int)locatorCount);
 
                             backgroundWorkerCSV.ReportProgress(index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                            //if cancellation is pending, cancel work.  
+                                                                                     //if cancellation is pending, cancel work.  
                             if (backgroundWorkerExcel.CancellationPending)
                             {
                                 xlApp.DisplayAlerts = false;
@@ -318,7 +337,7 @@ namespace AMSExplorer
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)locatorCount);
 
                         backgroundWorkerCSV.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                        //if cancellation is pending, cancel work.  
+                                                                                               //if cancellation is pending, cancel work.  
                         if (backgroundWorkerExcel.CancellationPending)
                         {
                             xlApp.DisplayAlerts = false;
@@ -355,14 +374,18 @@ namespace AMSExplorer
 
                 xlWorkSheet.Cells[row, index++] = "Streaming locators count";
 
-                int backindex = index;
-
-                for (int iloc = 0; iloc < numberMaxLocators; iloc++)
+                if (detailed)
                 {
-                    xlWorkSheet.Cells[row, index++] = string.Format("Locator name #{0}", iloc + 1);
-                    foreach (var se in selist)
+                    for (int iloc = 0; iloc < numberMaxLocators; iloc++)
                     {
-                        xlWorkSheet.Cells[row, index++] = string.Format("Streaming Urls with streaming endpoint #{0}", selist.IndexOf(se));
+                        xlWorkSheet.Cells[row, index++] = string.Format("Locator name #{0}", iloc + 1);
+                        xlWorkSheet.Cells[row, index++] = "Created time";
+                        xlWorkSheet.Cells[row, index++] = "Start time";
+                        xlWorkSheet.Cells[row, index++] = "End time";
+                        foreach (var se in selist)
+                        {
+                            xlWorkSheet.Cells[row, index++] = string.Format("Streaming Urls with streaming endpoint #{0}", selist.IndexOf(se));
+                        }
                     }
                 }
 
@@ -425,7 +448,7 @@ namespace AMSExplorer
                                 numberMaxLocators = Math.Max(numberMaxLocators, (int)res.locatorCount);
 
                             backgroundWorkerCSV.ReportProgress(index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                            //if cancellation is pending, cancel work.  
+                                                                                     //if cancellation is pending, cancel work.  
                             if (backgroundWorkerCSV.CancellationPending)
                             {
                                 e.Cancel = true;
@@ -500,12 +523,18 @@ namespace AMSExplorer
 
                 linec.Add("Streaming locators count");
 
-                for (int iloc = 0; iloc < numberMaxLocators; iloc++)
+                if (detailed)
                 {
-                    linec.Add(string.Format("Locator name #{0}", iloc + 1));
-                    foreach (var se in selist)
+                    for (int iloc = 0; iloc < numberMaxLocators; iloc++)
                     {
-                        linec.Add(string.Format("Streaming Urls with streaming endpoint #{0}", selist.IndexOf(se)));
+                        linec.Add(string.Format("Locator name #{0}", iloc + 1));
+                        linec.Add("Created time");
+                        linec.Add("Start time");
+                        linec.Add("End time");
+                        foreach (var se in selist)
+                        {
+                            linec.Add(string.Format("Streaming Urls with streaming endpoint #{0}", selist.IndexOf(se)));
+                        }
                     }
                 }
 
@@ -631,13 +660,7 @@ namespace AMSExplorer
             return string.Join(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator, newlinec);
         }
     }
-
-    public enum AssetSelection
-    {
-        Selected = 0,
-        Displayed,
-        All
-    }
+      
 
     public class CsvLineResult
     {

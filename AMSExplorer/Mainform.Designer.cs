@@ -2420,15 +2420,15 @@
             // 
             // toAzureStorageToolStripMenuItem
             // 
-            this.toAzureStorageToolStripMenuItem.Name = "toAzureStorageToolStripMenuItem";
             resources.ApplyResources(this.toAzureStorageToolStripMenuItem, "toAzureStorageToolStripMenuItem");
+            this.toAzureStorageToolStripMenuItem.Name = "toAzureStorageToolStripMenuItem";
             this.toAzureStorageToolStripMenuItem.Click += new System.EventHandler(this.toAzureStorageToolStripMenuItem_Click);
             // 
             // toolStripMenuItemDownloadToLocal
             // 
-            resources.ApplyResources(this.toolStripMenuItemDownloadToLocal, "toolStripMenuItemDownloadToLocal");
             this.toolStripMenuItemDownloadToLocal.Image = global::AMSExplorer.Bitmaps.download;
             this.toolStripMenuItemDownloadToLocal.Name = "toolStripMenuItemDownloadToLocal";
+            resources.ApplyResources(this.toolStripMenuItemDownloadToLocal, "toolStripMenuItemDownloadToLocal");
             this.toolStripMenuItemDownloadToLocal.Click += new System.EventHandler(this.toolStripMenuItem38_Click);
             // 
             // liveLiveEventToolStripMenuItem
