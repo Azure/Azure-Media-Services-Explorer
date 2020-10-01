@@ -256,7 +256,10 @@ namespace AMSExplorer
 
         private void ScaleListViewColumns(ListView listview)
         {
-            listview.Columns[0].Width = listview.Width - 4 - SystemInformation.VerticalScrollBarWidth;
+            if (listview.Columns.Count > 0)
+            {
+                listview.Columns[0].Width = listview.Width - 4 - SystemInformation.VerticalScrollBarWidth;
+            }
         }
 
         private void listBoxAccounts_DpiChangedAfterParent(object sender, EventArgs e)

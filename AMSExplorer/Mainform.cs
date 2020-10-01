@@ -6325,7 +6325,7 @@ namespace AMSExplorer
         {
             await DoCopyAssetToAnotherAMSAccountAsync();
         }
-        
+
         private async void enableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await ChangeAzureCDNAsync(true);
@@ -6859,7 +6859,7 @@ namespace AMSExplorer
 
         private async Task DoExportMetadataAsync()
         {
-            ExportToExcel form = new ExportToExcel( _amsClient, await ReturnSelectedAssetsAsync());
+            ExportToExcel form = new ExportToExcel(_amsClient, await ReturnSelectedAssetsAsync());
             if (form.ShowDialog() == DialogResult.OK)
             {
 
@@ -8614,7 +8614,7 @@ namespace AMSExplorer
                             DoRefreshGridTransformV(false);
                         }
                     }
-                    else // We use the SDK
+                    else if (transformInfo != null) // We use the SDK
                     {
                         if (existingTransform != null) // user wants to add a task to an existing transform
                         {

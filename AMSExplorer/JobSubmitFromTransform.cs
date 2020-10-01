@@ -130,7 +130,7 @@ namespace AMSExplorer
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
-            await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault().Name);
+            await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault()?.Name);
             UpdateLabeltext();
             labelURLFileNameWarning.Text = string.Empty;
             UpdateStatusButtonOk();

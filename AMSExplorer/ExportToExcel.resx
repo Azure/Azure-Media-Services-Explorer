@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>329, 14</value>
+    <value>326, 14</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -151,7 +151,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>448, 14</value>
+    <value>445, 14</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -181,7 +181,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxLocalTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 88</value>
+    <value>25, 82</value>
   </data>
   <data name="checkBoxLocalTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>203, 19</value>
@@ -208,7 +208,7 @@
     <value>152, 49</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>386, 18</value>
+    <value>363, 18</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
@@ -229,7 +229,7 @@
     <value>1</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 23</value>
+    <value>152, 24</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>331, 18</value>
@@ -259,13 +259,13 @@
     <value>26, 47</value>
   </data>
   <data name="radioButtonDetailledMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 19</value>
+    <value>105, 19</value>
   </data>
   <data name="radioButtonDetailledMode.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="radioButtonDetailledMode.Text" xml:space="preserve">
-    <value>Detailed mode</value>
+    <value>Detailed export</value>
   </data>
   <data name="&gt;&gt;radioButtonDetailledMode.Name" xml:space="preserve">
     <value>radioButtonDetailledMode</value>
@@ -286,13 +286,13 @@
     <value>26, 22</value>
   </data>
   <data name="radioButtonNormalMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 19</value>
+    <value>63, 19</value>
   </data>
   <data name="radioButtonNormalMode.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="radioButtonNormalMode.Text" xml:space="preserve">
-    <value>Default mode</value>
+    <value>Default</value>
   </data>
   <data name="&gt;&gt;radioButtonNormalMode.Name" xml:space="preserve">
     <value>radioButtonNormalMode</value>
@@ -384,6 +384,21 @@
   <data name="groupBox4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="radioButtonAllAssets.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonAllAssets.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 56</value>
+  </data>
+  <data name="radioButtonAllAssets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 19</value>
+  </data>
+  <data name="radioButtonAllAssets.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="radioButtonAllAssets.Text" xml:space="preserve">
+    <value>All assets</value>
+  </data>
   <data name="&gt;&gt;radioButtonAllAssets.Name" xml:space="preserve">
     <value>radioButtonAllAssets</value>
   </data>
@@ -420,41 +435,14 @@
   <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="radioButtonAllAssets.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAllAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 60</value>
-  </data>
-  <data name="radioButtonAllAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 19</value>
-  </data>
-  <data name="radioButtonAllAssets.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="radioButtonAllAssets.Text" xml:space="preserve">
-    <value>All assets</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAllAssets.Name" xml:space="preserve">
-    <value>radioButtonAllAssets</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAllAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAllAssets.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAllAssets.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 553</value>
+    <value>0, 552</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 55</value>
+    <value>572, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -480,90 +468,6 @@
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;radioButton1.Name" xml:space="preserve">
-    <value>radioButton1</value>
-  </data>
-  <data name="&gt;&gt;radioButton1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButton1.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;radioButtonFormatExcel.Name" xml:space="preserve">
-    <value>radioButtonFormatExcel</value>
-  </data>
-  <data name="&gt;&gt;radioButtonFormatExcel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonFormatExcel.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonFormatExcel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxOpenFileAfterExport.Name" xml:space="preserve">
-    <value>checkBoxOpenFileAfterExport</value>
-  </data>
-  <data name="&gt;&gt;checkBoxOpenFileAfterExport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxOpenFileAfterExport.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxOpenFileAfterExport.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;buttonBrowseFile.Name" xml:space="preserve">
-    <value>buttonBrowseFile</value>
-  </data>
-  <data name="&gt;&gt;buttonBrowseFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonBrowseFile.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;buttonBrowseFile.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;textBoxExcelFile.Name" xml:space="preserve">
-    <value>textBoxExcelFile</value>
-  </data>
-  <data name="&gt;&gt;textBoxExcelFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxExcelFile.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;textBoxExcelFile.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 311</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>545, 142</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Export to file</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="radioButton1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -571,7 +475,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 48</value>
+    <value>27, 48</value>
   </data>
   <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
     <value>184, 19</value>
@@ -598,7 +502,7 @@
     <value>True</value>
   </data>
   <data name="radioButtonFormatExcel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 23</value>
+    <value>27, 23</value>
   </data>
   <data name="radioButtonFormatExcel.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 19</value>
@@ -625,7 +529,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxOpenFileAfterExport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 110</value>
+    <value>26, 106</value>
   </data>
   <data name="checkBoxOpenFileAfterExport.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 19</value>
@@ -679,10 +583,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxExcelFile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 77</value>
+    <value>27, 77</value>
   </data>
   <data name="textBoxExcelFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 23</value>
+    <value>399, 23</value>
   </data>
   <data name="textBoxExcelFile.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -698,6 +602,30 @@
   </data>
   <data name="&gt;&gt;textBoxExcelFile.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 311</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>545, 142</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Export to file</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="progressBarExport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -796,7 +724,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>572, 607</value>

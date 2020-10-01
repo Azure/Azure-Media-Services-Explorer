@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>528, 14</value>
+    <value>538, 14</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -151,7 +151,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>647, 14</value>
+    <value>657, 14</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -201,14 +201,14 @@
   <data name="&gt;&gt;labelDescription.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-2, 507</value>
+    <value>0, 506</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>774, 55</value>
+    <value>784, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -228,6 +228,18 @@
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="listViewAccounts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
+  </data>
+  <data name="listViewAccounts.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 48</value>
+  </data>
+  <data name="listViewAccounts.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 251</value>
+  </data>
+  <data name="listViewAccounts.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
   <data name="&gt;&gt;listViewAccounts.Name" xml:space="preserve">
     <value>listViewAccounts</value>
   </data>
@@ -240,6 +252,75 @@
   <data name="&gt;&gt;listViewAccounts.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="panelStorageAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 15</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Storage Account :</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panelStorageAccount</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="listBoxStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="listBoxStorage.ItemHeight" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="listBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 39</value>
+  </data>
+  <data name="listBoxStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 244</value>
+  </data>
+  <data name="listBoxStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="&gt;&gt;listBoxStorage.Name" xml:space="preserve">
+    <value>listBoxStorage</value>
+  </data>
+  <data name="&gt;&gt;listBoxStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listBoxStorage.Parent" xml:space="preserve">
+    <value>panelStorageAccount</value>
+  </data>
+  <data name="&gt;&gt;listBoxStorage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panelStorageAccount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>239, 15</value>
+  </data>
+  <data name="panelStorageAccount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>266, 304</value>
+  </data>
+  <data name="panelStorageAccount.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
   <data name="&gt;&gt;panelStorageAccount.Name" xml:space="preserve">
     <value>panelStorageAccount</value>
   </data>
@@ -251,6 +332,21 @@
   </data>
   <data name="&gt;&gt;panelStorageAccount.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 30</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Media Services Account :</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -287,132 +383,6 @@
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>7</value>
-  </data>
-  <data name="listViewAccounts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left</value>
-  </data>
-  <data name="listViewAccounts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 48</value>
-  </data>
-  <data name="listViewAccounts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 251</value>
-  </data>
-  <data name="listViewAccounts.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Name" xml:space="preserve">
-    <value>listViewAccounts</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;listViewAccounts.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panelStorageAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Name" xml:space="preserve">
-    <value>listBoxStorage</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Parent" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panelStorageAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>239, 15</value>
-  </data>
-  <data name="panelStorageAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>266, 304</value>
-  </data>
-  <data name="panelStorageAccount.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="&gt;&gt;panelStorageAccount.Name" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;panelStorageAccount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelStorageAccount.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;panelStorageAccount.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="listBoxStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="listBoxStorage.ItemHeight" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="listBoxStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 39</value>
-  </data>
-  <data name="listBoxStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 244</value>
-  </data>
-  <data name="listBoxStorage.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Name" xml:space="preserve">
-    <value>listBoxStorage</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.Parent" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;listBoxStorage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 30</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>139, 15</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Media Services Account :</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="labelnewassetname.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -525,6 +495,22 @@
   <data name="groupBoxOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
   </data>
+  <data name="checkBoxTargetSingleAsset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxTargetSingleAsset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 60</value>
+  </data>
+  <data name="checkBoxTargetSingleAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 34</value>
+  </data>
+  <data name="checkBoxTargetSingleAsset.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="checkBoxTargetSingleAsset.Text" xml:space="preserve">
+    <value>Merge all source assets to
+one single asset</value>
+  </data>
   <data name="&gt;&gt;checkBoxTargetSingleAsset.Name" xml:space="preserve">
     <value>checkBoxTargetSingleAsset</value>
   </data>
@@ -560,34 +546,6 @@
   </data>
   <data name="&gt;&gt;groupBoxOptions.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 60</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 34</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.Text" xml:space="preserve">
-    <value>Merge all source assets to
-one single asset</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTargetSingleAsset.Name" xml:space="preserve">
-    <value>checkBoxTargetSingleAsset</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTargetSingleAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTargetSingleAsset.Parent" xml:space="preserve">
-    <value>groupBoxOptions</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTargetSingleAsset.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="labelExplanation.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 39</value>
@@ -670,36 +628,6 @@ one single asset</value>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 15</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Storage Account :</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>panelStorageAccount</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

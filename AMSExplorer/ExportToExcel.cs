@@ -51,6 +51,8 @@ namespace AMSExplorer
 
         private void ExportToExcel_Load(object sender, EventArgs e)
         {
+            DpiUtils.InitPerMonitorDpi(this);
+
             string extension = radioButtonFormatExcel.Checked ? "xlsx" : "csv";
             textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _amsClient.credentialsEntry.AccountName, DateTime.Now.ToString("yyyy-MM-dd"));
         }
@@ -70,6 +72,28 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
+            
+            if (File.Exists(textBoxExcelFile.Text))
+            {
+                if (MessageBox.Show($"File '{textBoxExcelFile.Text}' already exists.\nOk to overwrite ?", "File exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        File.Delete(textBoxExcelFile.Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            
+            
             buttonOk.Enabled = false;
             filename = textBoxExcelFile.Text;
 
@@ -659,8 +683,14 @@ namespace AMSExplorer
             var newlinec = linec.Select(s => checkStringForCSV(s));
             return string.Join(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator, newlinec);
         }
+
+        private void ExportToExcel_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
+
+        }
     }
-      
+
 
     public class CsvLineResult
     {
