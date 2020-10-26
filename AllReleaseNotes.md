@@ -5,6 +5,7 @@ Version 5.2.1.0 (October 26, 2020) brings the following features and improvement
   * Progress bar is correctly updated for upload and download
 * New feature added : export assets information to Excel or CSV
 * Nugget packages and documentation update
+* No more exe for the installer, but a signed MSI file
 
 
 Version 5.2.0.8 (September 18, 2020) brings the following features and improvements:
