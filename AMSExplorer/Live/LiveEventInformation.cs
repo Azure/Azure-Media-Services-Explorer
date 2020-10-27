@@ -192,30 +192,19 @@ namespace AMSExplorer
                 DGLiveEvent.Rows.Add("Latency mode", mode);
 
 
-                // let's use REST call (preview) to display live transcript settings if any
-                try
+                if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
                 {
-                    AmsClientRest clientRest = new AmsClientRest(_client);
-                    PropertiesForRest liveEventRestProp = clientRest.GetLiveEvent(MyLiveEvent.Name).Properties;
+                    DGLiveEvent.Rows.Add("Live Transcription", "Enabled");
+                    labelLoosingLiveTranscriptionFeature.Visible = true;
 
-                    if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
+                    foreach (LiveEventTranscription transcript in MyLiveEvent.Transcriptions)
                     {
-                        DGLiveEvent.Rows.Add("Live Transcription", "Enabled");
-                        labelLoosingLiveTranscriptionFeature.Visible = true;
-
-                        foreach (TranscriptionForRest transcript in liveEventRestProp.Transcriptions)
-                        {
-                            DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
-                        }
-                    }
-                    else
-                    {
-                        DGLiveEvent.Rows.Add("Live Transcription", "Disabled");
+                        DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
                     }
                 }
-                catch
+                else
                 {
-
+                    DGLiveEvent.Rows.Add("Live Transcription", "Disabled");
                 }
             }
             else // multiselect

@@ -94,9 +94,6 @@ namespace AMSExplorer
                 case nameof(LiveEventEncodingType.None):
                     return null;
 
-                case nameof(LiveEventEncodingType.Basic):
-                    return EncodingImage;
-
                 case nameof(LiveEventEncodingType.Standard):
                     return StandardEncodingImage;
 

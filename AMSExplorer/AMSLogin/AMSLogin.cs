@@ -565,7 +565,9 @@ namespace AMSExplorer
                         AzureEnvironment env = new AzureEnvironment(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
 
                         CredentialsEntryV3 entry = new CredentialsEntryV3(
-                                                        new SubscriptionMediaService(resourceId, json.AccountName, null, null, json.Location ?? json.Region),
+                                                        // new MediaService(resourceId, json.AccountName, null, null, json.Location ?? json.Region),
+                                                        new MediaService(json.Location ?? json.Region, resourceId, json.AccountName),
+
                                                         env,
                                                         PromptBehavior.Auto,
                                                         true,
@@ -594,7 +596,7 @@ namespace AMSExplorer
                         string accountnamecc = form.textBoxAMSResourceId.Text.Split('/').Last();
 
                         CredentialsEntryV3 entry = new CredentialsEntryV3(
-                                                        new SubscriptionMediaService(form.textBoxAMSResourceId.Text, accountnamecc, null, null, form.textBoxLocation.Text),
+                                                        new MediaService(form.textBoxLocation.Text, form.textBoxAMSResourceId.Text, accountnamecc),
                                                         addaccount1.GetEnvironment(),
                                                         PromptBehavior.Auto,
                                                         form.radioButtonAADServicePrincipal.Checked,
