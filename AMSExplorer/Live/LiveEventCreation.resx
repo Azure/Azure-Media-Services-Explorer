@@ -537,6 +537,24 @@
   <data name="&gt;&gt;tabPageLiveEncoding.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="linkLabelLiveTranscriptRegions.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>369, 28</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 15</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Text" xml:space="preserve">
+    <value>Regions availability</value>
+  </data>
   <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Name" xml:space="preserve">
     <value>linkLabelLiveTranscriptRegions</value>
   </data>
@@ -548,6 +566,24 @@
   </data>
   <data name="&gt;&gt;linkLabelLiveTranscriptRegions.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="comboBoxLanguage.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 119</value>
+  </data>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 23</value>
+  </data>
+  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value>The natural language to be recognized in the multimedia file. If you know the language of your content, it is recommended that you specify it.</value>
   </data>
   <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
     <value>comboBoxLanguage</value>
@@ -561,17 +597,23 @@
   <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 101</value>
   </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Language :</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -583,7 +625,25 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
+  </data>
+  <data name="linkLabelLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelLiveTranscript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>294, 13</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 15</value>
+  </data>
+  <data name="linkLabelLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Text" xml:space="preserve">
+    <value>Live transcription documentation</value>
   </data>
   <data name="&gt;&gt;linkLabelLiveTranscript.Name" xml:space="preserve">
     <value>linkLabelLiveTranscript</value>
@@ -595,7 +655,22 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;linkLabelLiveTranscript.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 63</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>354, 19</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Text" xml:space="preserve">
+    <value>Enable live transcription (available as preview in some regions)</value>
   </data>
   <data name="&gt;&gt;checkBoxEnableLiveTranscript.Name" xml:space="preserve">
     <value>checkBoxEnableLiveTranscript</value>
@@ -607,7 +682,7 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;checkBoxEnableLiveTranscript.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="tabPageLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -636,21 +711,6 @@
   <data name="&gt;&gt;tabPageLiveTranscript.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 299</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 18</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>84</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Input URL syntax :</value>
-  </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
   </data>
@@ -662,21 +722,6 @@
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="labelUrlSyntax.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelUrlSyntax.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 317</value>
-  </data>
-  <data name="labelUrlSyntax.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 61</value>
-  </data>
-  <data name="labelUrlSyntax.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="labelUrlSyntax.Text" xml:space="preserve">
-    <value>rtmp://&lt;live event name&gt;-&lt;ams account name&gt;-&lt;region abbrev name&gt;.channel.media.azure.net:1935/live/&lt;input id&gt;/&lt;stream name&gt;</value>
   </data>
   <data name="&gt;&gt;labelUrlSyntax.Name" xml:space="preserve">
     <value>labelUrlSyntax</value>
@@ -690,18 +735,6 @@
   <data name="&gt;&gt;labelUrlSyntax.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="buttonGenerateToken.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 122</value>
-  </data>
-  <data name="buttonGenerateToken.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 23</value>
-  </data>
-  <data name="buttonGenerateToken.TabIndex" type="System.Int32, mscorlib">
-    <value>82</value>
-  </data>
-  <data name="buttonGenerateToken.Text" xml:space="preserve">
-    <value>Generate new</value>
-  </data>
   <data name="&gt;&gt;buttonGenerateToken.Name" xml:space="preserve">
     <value>buttonGenerateToken</value>
   </data>
@@ -713,24 +746,6 @@
   </data>
   <data name="&gt;&gt;buttonGenerateToken.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 179</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 19</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
-    <value>Key frame interval (s) :</value>
   </data>
   <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
     <value>checkBoxKeyFrameIntDefined</value>
@@ -744,18 +759,6 @@
   <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxKeyFrame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 206</value>
-  </data>
-  <data name="textBoxKeyFrame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
-  </data>
-  <data name="textBoxKeyFrame.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
-  </data>
   <data name="&gt;&gt;textBoxKeyFrame.Name" xml:space="preserve">
     <value>textBoxKeyFrame</value>
   </data>
@@ -767,24 +770,6 @@
   </data>
   <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="checkBoxLowLatency.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxLowLatency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxLowLatency.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 31</value>
-  </data>
-  <data name="checkBoxLowLatency.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 19</value>
-  </data>
-  <data name="checkBoxLowLatency.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="checkBoxLowLatency.Text" xml:space="preserve">
-    <value>Low latency mode</value>
   </data>
   <data name="&gt;&gt;checkBoxLowLatency.Name" xml:space="preserve">
     <value>checkBoxLowLatency</value>
@@ -798,24 +783,6 @@
   <data name="&gt;&gt;checkBoxLowLatency.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="checkBoxVanityUrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxVanityUrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxVanityUrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 69</value>
-  </data>
-  <data name="checkBoxVanityUrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 19</value>
-  </data>
-  <data name="checkBoxVanityUrl.TabIndex" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="checkBoxVanityUrl.Text" xml:space="preserve">
-    <value>Vanity Url (deterministic Input Url)</value>
-  </data>
   <data name="&gt;&gt;checkBoxVanityUrl.Name" xml:space="preserve">
     <value>checkBoxVanityUrl</value>
   </data>
@@ -827,24 +794,6 @@
   </data>
   <data name="&gt;&gt;checkBoxVanityUrl.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 105</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 15</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Input ID :</value>
   </data>
   <data name="&gt;&gt;label7.Name" xml:space="preserve">
     <value>label7</value>
@@ -858,25 +807,16 @@
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="textBoxToken.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 123</value>
+  <data name="&gt;&gt;textBoxInputId.Name" xml:space="preserve">
+    <value>textBoxInputId</value>
   </data>
-  <data name="textBoxToken.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 23</value>
-  </data>
-  <data name="textBoxToken.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="&gt;&gt;textBoxToken.Name" xml:space="preserve">
-    <value>textBoxToken</value>
-  </data>
-  <data name="&gt;&gt;textBoxToken.Type" xml:space="preserve">
+  <data name="&gt;&gt;textBoxInputId.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxToken.Parent" xml:space="preserve">
+  <data name="&gt;&gt;textBoxInputId.Parent" xml:space="preserve">
     <value>tabPageAdv</value>
   </data>
-  <data name="&gt;&gt;textBoxToken.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;textBoxInputId.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="tabPageAdv.Location" type="System.Drawing.Point, System.Drawing">
@@ -1608,182 +1548,248 @@
   <data name="&gt;&gt;radioButtonCustomPreset.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="linkLabelLiveTranscriptRegions.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="linkLabelLiveTranscriptRegions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 28</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 299</value>
   </data>
-  <data name="linkLabelLiveTranscriptRegions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 15</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 18</value>
   </data>
-  <data name="linkLabelLiveTranscriptRegions.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
   </data>
-  <data name="linkLabelLiveTranscriptRegions.Text" xml:space="preserve">
-    <value>Regions availability</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Input URL syntax :</value>
   </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Name" xml:space="preserve">
-    <value>linkLabelLiveTranscriptRegions</value>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
   </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
   </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="comboBoxLanguage.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="labelUrlSyntax.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 119</value>
+  <data name="labelUrlSyntax.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 317</value>
   </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 23</value>
+  <data name="labelUrlSyntax.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 61</value>
   </data>
-  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
+  <data name="labelUrlSyntax.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
   </data>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value>The natural language to be recognized in the multimedia file. If you know the language of your content, it is recommended that you specify it.</value>
+  <data name="labelUrlSyntax.Text" xml:space="preserve">
+    <value>rtmp://&lt;live event name&gt;-&lt;ams account name&gt;-&lt;region abbrev name&gt;.channel.media.azure.net:1935/live/&lt;input id&gt;/&lt;stream name&gt;</value>
   </data>
-  <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
-    <value>comboBoxLanguage</value>
+  <data name="&gt;&gt;labelUrlSyntax.Name" xml:space="preserve">
+    <value>labelUrlSyntax</value>
   </data>
-  <data name="&gt;&gt;comboBoxLanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;labelUrlSyntax.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBoxLanguage.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
+  <data name="&gt;&gt;labelUrlSyntax.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
   </data>
-  <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelUrlSyntax.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="buttonGenerateToken.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 122</value>
   </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="buttonGenerateToken.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 23</value>
   </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 165</value>
+  <data name="buttonGenerateToken.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
   </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 55</value>
+  <data name="buttonGenerateToken.Text" xml:space="preserve">
+    <value>Generate new</value>
   </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>78</value>
+  <data name="&gt;&gt;buttonGenerateToken.Name" xml:space="preserve">
+    <value>buttonGenerateToken</value>
   </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>To enable this feature, AMSE will do a REST call and will not use the SDK.</value>
+  <data name="&gt;&gt;buttonGenerateToken.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
+  <data name="&gt;&gt;buttonGenerateToken.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
   </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonGenerateToken.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+  <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxKeyFrameIntDefined.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 101</value>
+  <data name="checkBoxKeyFrameIntDefined.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 179</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 15</value>
+  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 19</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
+  <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Language :</value>
+  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
+    <value>Key frame interval (s) :</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
+    <value>checkBoxKeyFrameIntDefined</value>
   </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="linkLabelLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="linkLabelLiveTranscript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="linkLabelLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>294, 13</value>
-  </data>
-  <data name="linkLabelLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 15</value>
-  </data>
-  <data name="linkLabelLiveTranscript.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="linkLabelLiveTranscript.Text" xml:space="preserve">
-    <value>Live transcription documentation</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscript.Name" xml:space="preserve">
-    <value>linkLabelLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscript.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscript.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscript.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 63</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>354, 19</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.Text" xml:space="preserve">
-    <value>Enable live transcription (available as preview in some regions)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Name" xml:space="preserve">
-    <value>checkBoxEnableLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Type" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
   </data>
-  <data name="&gt;&gt;checkBoxEnableLiveTranscript.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxKeyFrame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 206</value>
+  </data>
+  <data name="textBoxKeyFrame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="textBoxKeyFrame.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Name" xml:space="preserve">
+    <value>textBoxKeyFrame</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="checkBoxLowLatency.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxLowLatency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxLowLatency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 31</value>
+  </data>
+  <data name="checkBoxLowLatency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 19</value>
+  </data>
+  <data name="checkBoxLowLatency.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="checkBoxLowLatency.Text" xml:space="preserve">
+    <value>Low latency mode</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Name" xml:space="preserve">
+    <value>checkBoxLowLatency</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="checkBoxVanityUrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxVanityUrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxVanityUrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 69</value>
+  </data>
+  <data name="checkBoxVanityUrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 19</value>
+  </data>
+  <data name="checkBoxVanityUrl.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="checkBoxVanityUrl.Text" xml:space="preserve">
+    <value>Use static hostname for Input Url</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Name" xml:space="preserve">
+    <value>checkBoxVanityUrl</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 105</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 15</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Input ID :</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="textBoxInputId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 123</value>
+  </data>
+  <data name="textBoxInputId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 23</value>
+  </data>
+  <data name="textBoxInputId.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputId.Name" xml:space="preserve">
+    <value>textBoxInputId</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputId.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputId.ZOrder" xml:space="preserve">
+    <value>8</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

@@ -52,7 +52,7 @@ namespace AMSExplorer
             set => textBoxDescription.Text = value;
         }
 
-        public bool VanityUrl
+        public bool UseStaticHostname
         {
             get => checkBoxVanityUrl.Checked;
             set => checkBoxVanityUrl.Checked = value;

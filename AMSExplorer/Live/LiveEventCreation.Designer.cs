@@ -66,7 +66,6 @@
             this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
             this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
             this.checkBoxEnableLiveTranscript = new System.Windows.Forms.CheckBox();
@@ -350,7 +349,6 @@
             // 
             this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscriptRegions);
             this.tabPageLiveTranscript.Controls.Add(this.comboBoxLanguage);
-            this.tabPageLiveTranscript.Controls.Add(this.label8);
             this.tabPageLiveTranscript.Controls.Add(this.label2);
             this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
             this.tabPageLiveTranscript.Controls.Add(this.checkBoxEnableLiveTranscript);
@@ -372,12 +370,6 @@
             this.comboBoxLanguage.FormattingEnabled = true;
             this.comboBoxLanguage.Name = "comboBoxLanguage";
             this.toolTip1.SetToolTip(this.comboBoxLanguage, resources.GetString("comboBoxLanguage.ToolTip"));
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Name = "label8";
             // 
             // label2
             // 
@@ -462,10 +454,10 @@
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
             // 
-            // textBoxToken
+            // textBoxInputId
             // 
-            resources.ApplyResources(this.textBoxInputId, "textBoxToken");
-            this.textBoxInputId.Name = "textBoxToken";
+            resources.ApplyResources(this.textBoxInputId, "textBoxInputId");
+            this.textBoxInputId.Name = "textBoxInputId";
             this.textBoxInputId.TextChanged += new System.EventHandler(this.textBoxInputId_TextChanged);
             // 
             // labelWarning
@@ -584,7 +576,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;
         private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
     }

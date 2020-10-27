@@ -77,7 +77,6 @@
             this.labelLiveEventStoppedOrStartedSettings = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.labelLoosingLiveTranscriptionFeature = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -447,7 +446,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.labelLoosingLiveTranscriptionFeature);
             this.panel1.Controls.Add(this.labelLiveEventStoppedOrStartedSettings);
             this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Controls.Add(this.buttonUpdateClose);
@@ -466,11 +464,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // labelLoosingLiveTranscriptionFeature
-            // 
-            resources.ApplyResources(this.labelLoosingLiveTranscriptionFeature, "labelLoosingLiveTranscriptionFeature");
-            this.labelLoosingLiveTranscriptionFeature.Name = "labelLoosingLiveTranscriptionFeature";
             // 
             // LiveEventInformation
             // 
@@ -562,6 +555,5 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
-        private System.Windows.Forms.Label labelLoosingLiveTranscriptionFeature;
     }
 }

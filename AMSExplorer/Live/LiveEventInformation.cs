@@ -159,7 +159,7 @@ namespace AMSExplorer
 
                 string[] stringnameurl = new string[] { AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Primary, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Secondary };
 
-                DGLiveEvent.Rows.Add("Vanity Url", MyLiveEvent.VanityUrl);
+                DGLiveEvent.Rows.Add("Vanity Url", MyLiveEvent.UseStaticHostname);
 
                 int i = 0;
                 foreach (LiveEventEndpoint endpoint in MyLiveEvent.Input.Endpoints)
@@ -195,7 +195,6 @@ namespace AMSExplorer
                 if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
                 {
                     DGLiveEvent.Rows.Add("Live Transcription", "Enabled");
-                    labelLoosingLiveTranscriptionFeature.Visible = true;
 
                     foreach (LiveEventTranscription transcript in MyLiveEvent.Transcriptions)
                     {

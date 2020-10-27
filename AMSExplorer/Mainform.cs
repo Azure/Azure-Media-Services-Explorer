@@ -4458,10 +4458,11 @@ namespace AMSExplorer
                                                                  name: form.LiveEventName,
                                                                  location: _amsClient.credentialsEntry.MediaService.Location,
                                                                  description: form.LiveEventDescription,
-                                                                 vanityUrl: form.VanityUrl,
+                                                                 useStaticHostname: form.UseStaticHostname,
                                                                  encoding: form.Encoding,
                                                                  input: liveEventInput,
                                                                  preview: liveEventPreview,
+                                                                 transcriptions: form.LiveTranscript ? form.LiveTranscriptionList : null,
                                                                  streamOptions: new List<StreamOptionsFlag?>()
                                                                              {
                                                 // Set this to Default or Low Latency
@@ -4480,59 +4481,26 @@ namespace AMSExplorer
 
                 if (!Error)
                 {
-                    if (form.LiveTranscript)
+                    // let's use the SDK
+
+                    try
                     {
-                        // let's use REST call
-                        AmsClientRest client = new AmsClientRest(_amsClient);
-
-                        LiveEventRestObject liveEventForREst = new LiveEventRestObject(
-                                              name: liveEvent.Name,
-                                              location: liveEvent.Location,
-                                              transcriptions: form.LiveTranscriptionList,
-                                              description: liveEvent.Description,
-                                              vanityUrl: liveEvent.VanityUrl,
-                                              encoding: liveEvent.Encoding,
-                                              input: liveEvent.Input,
-                                              preview: liveEvent.Preview,
-                                              streamOptions: liveEvent.StreamOptions
-                                                            );
-
-                        try
-                        {
-                            await Task.Run(() =>
-                            client.CreateLiveEventAsync(liveEventForREst, form.StartLiveEventNow));
-
-                            TextBoxLogWriteLine("Live event '{0}' created using REST call.", form.LiveEventName);
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Error with live event creation using REST call.", true);
-                            TextBoxLogWriteLine(ex);
-                        }
+                        await Task.Run(() =>
+                         _amsClient.AMSclient.LiveEvents.CreateAsync(
+                                                                         _amsClient.credentialsEntry.ResourceGroup,
+                                                                         _amsClient.credentialsEntry.AccountName,
+                                                                         form.LiveEventName,
+                                                                         liveEvent,
+                                                                         autoStart: form.StartLiveEventNow ? true : false)
+                                                                      );
+                        TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error with live event creation.", true);
+                        TextBoxLogWriteLine(ex);
                     }
 
-                    else
-                    {
-                        // let's use the SDK
-
-                        try
-                        {
-                            await Task.Run(() =>
-                             _amsClient.AMSclient.LiveEvents.CreateAsync(
-                                                                             _amsClient.credentialsEntry.ResourceGroup,
-                                                                             _amsClient.credentialsEntry.AccountName,
-                                                                             form.LiveEventName,
-                                                                             liveEvent,
-                                                                             autoStart: form.StartLiveEventNow ? true : false)
-                                                                          );
-                            TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
-                        }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Error with live event creation.", true);
-                            TextBoxLogWriteLine(ex);
-                        }
-                    }
                     await DoRefreshGridLiveEventVAsync(false);
                 }
             }
