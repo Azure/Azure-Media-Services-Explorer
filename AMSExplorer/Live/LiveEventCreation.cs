@@ -70,14 +70,14 @@ namespace AMSExplorer
             set => checkBoxEnableLiveTranscript.Checked = value;
         }
 
-        public IList<TranscriptionForRest> LiveTranscriptionList
+        public IList<LiveEventTranscription> LiveTranscriptionList
         {
             get
             {
 
-                IList<TranscriptionForRest> transcriptionList = new List<TranscriptionForRest>
+                IList<LiveEventTranscription> transcriptionList = new List<LiveEventTranscription>
                 {
-                    new TranscriptionForRest(language: ((Item)comboBoxLanguage.SelectedItem).Value)
+                    new LiveEventTranscription(language: ((Item)comboBoxLanguage.SelectedItem).Value)
                 };
                 return transcriptionList;
             }

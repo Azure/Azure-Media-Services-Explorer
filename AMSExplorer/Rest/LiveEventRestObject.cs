@@ -75,7 +75,7 @@ namespace AMSExplorer.Rest
             return JsonConvert.SerializeObject(this, ConverterLE.Settings);
         }
 
-        public LiveEventRestObject(string name, string location, string description, bool? vanityUrl, LiveEventEncoding encoding, LiveEventInput input, LiveEventPreview preview, IList<StreamOptionsFlag?> streamOptions, IList<TranscriptionForRest> transcriptions)
+        public LiveEventRestObject(string name, string location, string description, bool? vanityUrl, LiveEventEncoding encoding, LiveEventInput input, LiveEventPreview preview, IList<StreamOptionsFlag?> streamOptions, IList<LiveEventTranscription> transcriptions)
         {
             Name = name;
             Location = location;
@@ -108,24 +108,12 @@ namespace AMSExplorer.Rest
         public LiveEventEncoding Encoding { get; set; }
 
         [JsonProperty("transcriptions")]
-        public IList<TranscriptionForRest> Transcriptions { get; set; }
+        public IList<LiveEventTranscription> Transcriptions { get; set; }
 
         [JsonProperty("vanityUrl")]
         public bool? VanityUrl { get; set; }
 
         [JsonProperty("streamOptions")]
         public IList<StreamOptionsFlag?> StreamOptions { get; set; }
-    }
-
-
-    public class TranscriptionForRest
-    {
-        [JsonProperty("language")]
-        public string Language { get; set; }
-
-        public TranscriptionForRest(string language)
-        {
-            Language = language;
-        }
     }
 }
