@@ -954,7 +954,7 @@ namespace AMSExplorer
 
     public class CredentialsEntryV3 : IEquatable<CredentialsEntryV3>
     {
-        public SubscriptionMediaService MediaService;
+        public MediaService MediaService;
 
         public string ADSPClientId;
 
@@ -968,7 +968,7 @@ namespace AMSExplorer
         public bool UseSPAuth = false;
         public string Description;
 
-        public CredentialsEntryV3(SubscriptionMediaService mediaService, AzureEnvironment environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
+        public CredentialsEntryV3(MediaService mediaService, AzureEnvironment environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
         {
             MediaService = mediaService;
             Environment = environment;
