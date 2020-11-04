@@ -1061,7 +1061,7 @@
       <Version>3.0.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Management.Media">
-      <Version>3.0.0</Version>
+      <Version>3.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager">
       <Version>3.8.0-preview</Version>
