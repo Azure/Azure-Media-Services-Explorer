@@ -84,6 +84,8 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.labelStaticHostnamePrefix = new System.Windows.Forms.Label();
+            this.textBoxStaticHostname = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -392,6 +394,8 @@
             // 
             // tabPageAdv
             // 
+            this.tabPageAdv.Controls.Add(this.labelStaticHostnamePrefix);
+            this.tabPageAdv.Controls.Add(this.textBoxStaticHostname);
             this.tabPageAdv.Controls.Add(this.label1);
             this.tabPageAdv.Controls.Add(this.labelUrlSyntax);
             this.tabPageAdv.Controls.Add(this.buttonGenerateToken);
@@ -480,6 +484,17 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // labelStaticHostnamePrefix
+            // 
+            resources.ApplyResources(this.labelStaticHostnamePrefix, "labelStaticHostnamePrefix");
+            this.labelStaticHostnamePrefix.Name = "labelStaticHostnamePrefix";
+            // 
+            // textBoxStaticHostname
+            // 
+            resources.ApplyResources(this.textBoxStaticHostname, "textBoxStaticHostname");
+            this.textBoxStaticHostname.Name = "textBoxStaticHostname";
+            this.textBoxStaticHostname.TextChanged += new System.EventHandler(this.textBoxStaticHostname_TextChanged);
             // 
             // LiveEventCreation
             // 
@@ -578,5 +593,7 @@
         private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
+        private System.Windows.Forms.Label labelStaticHostnamePrefix;
+        private System.Windows.Forms.TextBox textBoxStaticHostname;
     }
 }

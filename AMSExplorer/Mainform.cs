@@ -4458,7 +4458,8 @@ namespace AMSExplorer
                                                                  name: form.LiveEventName,
                                                                  location: _amsClient.credentialsEntry.MediaService.Location,
                                                                  description: form.LiveEventDescription,
-                                                                 useStaticHostname: form.UseStaticHostname,
+                                                                 useStaticHostname: form.LiveEventUseStaticHostname,
+                                                                 hostnamePrefix: form.LiveEventUseStaticHostname ? form.LiveEventHostnamePrefix : null,
                                                                  encoding: form.Encoding,
                                                                  input: liveEventInput,
                                                                  preview: liveEventPreview,
@@ -4466,7 +4467,7 @@ namespace AMSExplorer
                                                                  streamOptions: new List<StreamOptionsFlag?>()
                                                                              {
                                                 // Set this to Default or Low Latency
-                                               form.LowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
+                                               form.LiveEventLowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
                                                                              }
                                                                                );
 

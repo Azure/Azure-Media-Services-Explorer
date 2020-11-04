@@ -52,13 +52,29 @@ namespace AMSExplorer
             set => textBoxDescription.Text = value;
         }
 
-        public bool UseStaticHostname
+        public bool LiveEventUseStaticHostname
         {
             get => checkBoxVanityUrl.Checked;
             set => checkBoxVanityUrl.Checked = value;
         }
 
-        public bool LowLatencyMode
+        public string LiveEventHostnamePrefix
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(textBoxStaticHostname.Text))
+                {
+                    return null;
+                }
+                else
+                {
+                    return textBoxStaticHostname.Text;
+                }
+            }
+            set => textBoxStaticHostname.Text = value;
+        }
+
+        public bool LiveEventLowLatencyMode
         {
             get => checkBoxLowLatency.Checked;
             set => checkBoxLowLatency.Checked = value;
@@ -264,7 +280,7 @@ namespace AMSExplorer
             {
                 if (checkBoxVanityUrl.Checked)
                 {
-                    url = "rtmp(s)://<live event name>-<ams account name>-<region abbrev name>.channel.media.azure.net:<port>/live/<input id>";
+                    url = "rtmp(s)://<hostname prefix>-<ams account name>-<region abbrev name>.channel.media.azure.net:<port>/live/<input id>";
                 }
                 else
                 {
@@ -275,7 +291,7 @@ namespace AMSExplorer
             {
                 if (checkBoxVanityUrl.Checked)
                 {
-                    url = "http(s)://<live event name>-<ams account name>-<region abbrev name>.channel.media.azure.net/<input id>/ingest.isml";
+                    url = "http(s)://<hostname prefix>-<ams account name>-<region abbrev name>.channel.media.azure.net/<input id>/ingest.isml";
                 }
                 else
                 {
@@ -288,7 +304,7 @@ namespace AMSExplorer
                 url = url.Replace("<input id>", InputID);
             }
 
-            url = url.Replace("<live event name>", LiveEventName);
+            url = url.Replace("<hostname prefix>", LiveEventHostnamePrefix ??  LiveEventName);
             url = url.Replace("<ams account name>", _client.credentialsEntry.AccountName);
 
             labelUrlSyntax.Text = url;
@@ -485,6 +501,7 @@ namespace AMSExplorer
 
         private void checkBoxVanityUrl_CheckedChanged(object sender, EventArgs e)
         {
+            textBoxStaticHostname.Enabled = labelStaticHostnamePrefix.Enabled = checkBoxVanityUrl.Checked;
             UpdateLabelSyntax();
         }
 
@@ -496,6 +513,11 @@ namespace AMSExplorer
         private void CheckBoxEnableLiveTranscript_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxLanguage.Enabled = checkBoxEnableLiveTranscript.Checked;
+        }
+
+        private void textBoxStaticHostname_TextChanged(object sender, EventArgs e)
+        {
+            UpdateLabelSyntax();
         }
     }
 
