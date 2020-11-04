@@ -4412,7 +4412,7 @@ namespace AMSExplorer
         {
             LiveEventCreation form = new LiveEventCreation(_amsClient)
             {
-                KeyframeIntervalSerialized = XmlConvert.ToString(Properties.Settings.Default.LiveKeyFrameInterval),
+                InputKeyframeIntervalSerialized = XmlConvert.ToString(Properties.Settings.Default.LiveKeyFrameInterval),
                 StartLiveEventNow = true
             };
 
@@ -4442,7 +4442,7 @@ namespace AMSExplorer
                     {
                         StreamingProtocol = form.Protocol,
                         AccessToken = form.InputID,
-                        KeyFrameIntervalDuration = form.KeyframeIntervalSerialized,
+                        KeyFrameIntervalDuration = form.InputKeyframeIntervalSerialized,
                         AccessControl = new LiveEventInputAccessControl(
                                                                             ip: new IPAccessControl
                                                                             (
@@ -4551,25 +4551,28 @@ namespace AMSExplorer
                         {
                             liveEvent.Description = form.GetLiveEventDescription;
                         }
-                        if (modifications.KeyFrameInterval)
+                        if (modifications.InputKeyFrameInterval)
                         {
-                            liveEvent.Input.KeyFrameIntervalDuration = form.KeyframeIntervalSerialized;
+                            liveEvent.Input.KeyFrameIntervalDuration = form.InputKeyframeIntervalSerialized;
                         }
 
                         if (liveEvent.Encoding.EncodingType == firstLiveEvent.Encoding.EncodingType)
                         {
 
-                            if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding != null && liveEvent.ResourceState == LiveEventResourceState.Stopped)
+                            if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding != null && (liveEvent.ResourceState == LiveEventResourceState.Stopped || liveEvent.ResourceState == LiveEventResourceState.StandBy))
                             {
                                 if (modifications.SystemPreset)
                                 {
                                     liveEvent.Encoding.PresetName = form.PresetName; // we update the system preset
                                 }
-
+                                if (modifications.EncodingKeyFrameInterval)
+                                {
+                                    liveEvent.Encoding.KeyFrameInterval = form.EncodingKeyframeInterval;
+                                }
                             }
-                            else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.ResourceState != LiveEventResourceState.Stopped)
+                            else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.ResourceState != LiveEventResourceState.Stopped && liveEvent.ResourceState != LiveEventResourceState.StandBy)
                             {
-                                TextBoxLogWriteLine("Live event '{0}' : must be stoped to update the encoding settings", liveEvent.Name);
+                                TextBoxLogWriteLine("Live event '{0}' : must be stopped or in standbye to update the encoding settings", liveEvent.Name);
                             }
                             else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding == null)
                             {

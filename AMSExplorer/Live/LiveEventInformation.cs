@@ -65,7 +65,7 @@ namespace AMSExplorer
 
         public string GetLiveEventCrossdomainPolicy => (checkBoxcrossdomains.Checked) ? textBoxCrossDomPolicy.Text : null;
 
-        public string KeyframeIntervalSerialized
+        public string InputKeyframeIntervalSerialized
         {
             get
             {
@@ -81,6 +81,25 @@ namespace AMSExplorer
                     }
                 }
                 return ts;
+            }
+        }
+
+        public TimeSpan? EncodingKeyframeInterval
+        {
+            get
+            {
+                if (checkBoxEncodingKeyFrameInterval.Checked)
+                {
+                    try
+                    {
+                        return TimeSpan.FromSeconds(double.Parse(textBoxEncodingKeyFrameInterval.Text));
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                }
+                return null;
             }
         }
 
@@ -146,13 +165,25 @@ namespace AMSExplorer
                     DGLiveEvent.Rows.Add("Encoding Type", MyLiveEvent.Encoding.EncodingType);
                     DGLiveEvent.Rows.Add("Preset Name", MyLiveEvent.Encoding.PresetName);
 
+                    if (MyLiveEvent.Encoding.KeyFrameInterval != null)
+                    {
+                        DGLiveEvent.Rows.Add("Encoding Key Frame Interval Duration", MyLiveEvent.Encoding.KeyFrameInterval);
+                        checkBoxEncodingKeyFrameInterval.Checked = true;
+                        textBoxEncodingKeyFrameInterval.Text = ((TimeSpan)MyLiveEvent.Encoding.KeyFrameInterval).TotalSeconds.ToString();
+                    }
+
+                    if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.None)
+                    {
+                        textBoxEncodingKeyFrameInterval.Enabled = false;
+                        checkBoxEncodingKeyFrameInterval.Enabled = false;
+                    }
+
                     //  DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
                 }
 
-
                 if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
                 {
-                    DGLiveEvent.Rows.Add("Key Frame Interval Duration", MyLiveEvent.Input.KeyFrameIntervalDuration);
+                    DGLiveEvent.Rows.Add("Input Key Frame Interval Duration", MyLiveEvent.Input.KeyFrameIntervalDuration);
                     checkBoxKeyFrameIntDefined.Checked = true;
                     textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
                 }
@@ -278,7 +309,7 @@ namespace AMSExplorer
                 ClientAccessPolicy = false,
                 CrossDomainPolicy = false,
                 InputIPAllowList = false,
-                KeyFrameInterval = false,
+                InputKeyFrameInterval = false,
                 PreviewIPAllowList = false,
                 SystemPreset = false,
                 Ignore708Captions = false
@@ -384,8 +415,8 @@ namespace AMSExplorer
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
-            checkKeyFrameValue();
-            Modifications.KeyFrameInterval = true;
+            checkInputKeyFrameValue();
+            Modifications.InputKeyFrameInterval = true;
         }
 
 
@@ -432,19 +463,37 @@ namespace AMSExplorer
 
         private void textBoxKeyFrame_TextChanged(object sender, EventArgs e)
         {
-            checkKeyFrameValue();
-            Modifications.KeyFrameInterval = true;
+            checkInputKeyFrameValue();
+            Modifications.InputKeyFrameInterval = true;
         }
 
-        private void checkKeyFrameValue()
+        private void textBoxEncodingKeyFrameInterval_TextChanged(object sender, EventArgs e)
         {
-            if (checkBoxKeyFrameIntDefined.Checked && KeyframeIntervalSerialized == null)
+            checkEncodingKeyFrameValue();
+            Modifications.EncodingKeyFrameInterval = true;
+        }
+
+        private void checkInputKeyFrameValue()
+        {
+            if (checkBoxKeyFrameIntDefined.Checked && InputKeyframeIntervalSerialized == null)
             {
                 errorProvider1.SetError(textBoxKeyFrame, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
             }
             else
             {
                 errorProvider1.SetError(textBoxKeyFrame, string.Empty);
+            }
+        }
+
+        private void checkEncodingKeyFrameValue()
+        {
+            if (checkBoxEncodingKeyFrameInterval.Checked && EncodingKeyframeInterval == null)
+            {
+                errorProvider1.SetError(textBoxEncodingKeyFrameInterval, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxEncodingKeyFrameInterval, string.Empty);
             }
         }
 
@@ -536,6 +585,15 @@ namespace AMSExplorer
             // for controls which are not using the default font
             DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelLEName, contextMenuStripDG }, e, this);
         }
+
+        private void checkBoxEncodingKeyFrameInterval_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxEncodingKeyFrameInterval.Enabled = checkBoxEncodingKeyFrameInterval.Checked;
+            checkEncodingKeyFrameValue();
+            Modifications.InputKeyFrameInterval = true;
+        }
+
+
     }
 
     public class ExplorerAudioStream
@@ -548,9 +606,9 @@ namespace AMSExplorer
     public class ExplorerLiveEventModifications
     {
         public bool Description { get; set; }
-        public bool KeyFrameInterval { get; set; }
+        public bool InputKeyFrameInterval { get; set; }
+        public bool EncodingKeyFrameInterval { get; set; }
         public bool SystemPreset { get; set; }
-
         public bool InputIPAllowList { get; set; }
         public bool PreviewIPAllowList { get; set; }
         public bool ClientAccessPolicy { get; set; }

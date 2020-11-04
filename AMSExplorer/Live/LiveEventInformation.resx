@@ -192,6 +192,60 @@
   <data name="&gt;&gt;tabPageLiveEventInfo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="checkBoxEncodingKeyFrameInterval.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 414</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 19</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.Text" xml:space="preserve">
+    <value>Key frame interval of encoding (s) :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Name" xml:space="preserve">
+    <value>checkBoxEncodingKeyFrameInterval</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 437</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Name" xml:space="preserve">
+    <value>textBoxEncodingKeyFrameInterval</value>
+  </data>
+  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Parent" xml:space="preserve">
+    <value>tabPageSettings</value>
+  </data>
+  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="buttonAllowAllPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>677, 261</value>
   </data>
@@ -214,7 +268,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonAllowAllPreviewIP.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="buttonAllowAllInputIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>260, 261</value>
@@ -238,7 +292,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonAllowAllInputIP.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -247,13 +301,13 @@
     <value>22, 339</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 19</value>
+    <value>188, 19</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
   </data>
   <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
-    <value>Key frame interval (s) :</value>
+    <value>Key frame interval of input (s) :</value>
   </data>
   <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
     <value>checkBoxKeyFrameIntDefined</value>
@@ -265,7 +319,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -289,7 +343,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="checkBoxInputSet.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -316,7 +370,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxInputSet.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="checkBoxPreviewSet.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -343,7 +397,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxPreviewSet.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="dataGridViewInputIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -367,7 +421,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;dataGridViewInputIP.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="dataGridViewPreviewIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -391,7 +445,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;dataGridViewPreviewIP.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="buttonDelPreviewIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -418,7 +472,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonDelPreviewIP.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="buttonDelInputIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -445,7 +499,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonDelInputIP.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="buttonAddPreviewIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -472,7 +526,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonAddPreviewIP.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -499,7 +553,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="buttonAddInputIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -526,7 +580,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonAddInputIP.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="textboxchannedesc.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 42</value>
@@ -547,7 +601,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;textboxchannedesc.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="tabPageSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>

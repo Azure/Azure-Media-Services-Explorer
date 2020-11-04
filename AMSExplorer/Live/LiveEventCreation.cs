@@ -116,7 +116,8 @@ namespace AMSExplorer
                 LiveEventEncoding encodingoption = new LiveEventEncoding()
                 {
                     PresetName = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : null, // default preset or custom
-                    EncodingType = type
+                    EncodingType = type,
+                    KeyFrameInterval = EncodingKeyframeInterval
                 };
 
                 return encodingoption;
@@ -126,7 +127,7 @@ namespace AMSExplorer
 
         public LiveEventInputProtocol Protocol => (comboBoxProtocolInput.SelectedItem as Item).Value;
 
-        public string KeyframeIntervalSerialized
+        public string InputKeyframeIntervalSerialized
         {
             get
             {
@@ -135,7 +136,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        ts = TimeSpan.FromSeconds(double.Parse(textBoxKeyFrame.Text));
+                        ts = TimeSpan.FromSeconds(double.Parse(textBoxInputKeyFrame.Text));
                         return XmlConvert.ToString(ts);
                     }
                     catch
@@ -149,9 +150,31 @@ namespace AMSExplorer
                     return null;
                 }
             }
+            set => textBoxInputKeyFrame.Text = (XmlConvert.ToTimeSpan(value)).TotalSeconds.ToString();
+        }
 
-            set => textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(value)).TotalSeconds.ToString();
+        public TimeSpan? EncodingKeyframeInterval
+        {
+            get
+            {
+                if (checkBoxEncodingKeyFrameInterval.Checked)
+                {
+                    try
+                    {
+                        return TimeSpan.FromSeconds(double.Parse(textBoxEncodingKeyFrameInterval.Text));
+                    }
+                    catch
+                    {
+                        return null;
+                    }
 
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set => textBoxEncodingKeyFrameInterval.Text = value != null ? ((TimeSpan)value).TotalSeconds.ToString() : string.Empty;
         }
 
 
@@ -234,6 +257,7 @@ namespace AMSExplorer
             FillComboProtocols();
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
+            tabControlLiveChannel.TabPages.Remove(tabPageAdvEncoding);
             moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
@@ -304,7 +328,7 @@ namespace AMSExplorer
                 url = url.Replace("<input id>", InputID);
             }
 
-            url = url.Replace("<hostname prefix>", LiveEventHostnamePrefix ??  LiveEventName);
+            url = url.Replace("<hostname prefix>", LiveEventHostnamePrefix ?? LiveEventName);
             url = url.Replace("<ams account name>", _client.credentialsEntry.AccountName);
 
             labelUrlSyntax.Text = url;
@@ -429,13 +453,13 @@ namespace AMSExplorer
 
         private void checkKeyFrameValue()
         {
-            if (checkBoxKeyFrameIntDefined.Checked && KeyframeIntervalSerialized == null)
+            if (checkBoxKeyFrameIntDefined.Checked && InputKeyframeIntervalSerialized == null)
             {
-                errorProvider1.SetError(textBoxKeyFrame, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
+                errorProvider1.SetError(textBoxInputKeyFrame, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
             }
             else
             {
-                errorProvider1.SetError(textBoxKeyFrame, string.Empty);
+                errorProvider1.SetError(textBoxInputKeyFrame, string.Empty);
             }
         }
 
@@ -461,7 +485,7 @@ namespace AMSExplorer
 
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
+            textBoxInputKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
         }
 
         private void radioButtonTranscodingNone_CheckedChanged(object sender, EventArgs e)
@@ -482,6 +506,7 @@ namespace AMSExplorer
                     if (EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
+                        tabControlLiveChannel.TabPages.Remove(tabPageAdvEncoding);
                         EncodingTabDisplayed = false;
                     }
                     FillComboProtocols();
@@ -491,6 +516,7 @@ namespace AMSExplorer
                     if (!EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
+                        tabControlLiveChannel.TabPages.Add(tabPageAdvEncoding);
                         EncodingTabDisplayed = true;
                     }
                     FillComboProtocols();
@@ -518,6 +544,11 @@ namespace AMSExplorer
         private void textBoxStaticHostname_TextChanged(object sender, EventArgs e)
         {
             UpdateLabelSyntax();
+        }
+
+        private void checkBoxEncodingKeyFrameInterval_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxEncodingKeyFrameInterval.Enabled = checkBoxEncodingKeyFrameInterval.Checked;
         }
     }
 

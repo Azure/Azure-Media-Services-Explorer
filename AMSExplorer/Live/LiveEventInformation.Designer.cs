@@ -36,6 +36,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageLiveEventInfo = new System.Windows.Forms.TabPage();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.checkBoxEncodingKeyFrameInterval = new System.Windows.Forms.CheckBox();
+            this.textBoxEncodingKeyFrameInterval = new System.Windows.Forms.TextBox();
             this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
             this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
             this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
@@ -146,6 +148,8 @@
             // 
             // tabPageSettings
             // 
+            this.tabPageSettings.Controls.Add(this.checkBoxEncodingKeyFrameInterval);
+            this.tabPageSettings.Controls.Add(this.textBoxEncodingKeyFrameInterval);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllPreviewIP);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllInputIP);
             this.tabPageSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
@@ -163,6 +167,19 @@
             resources.ApplyResources(this.tabPageSettings, "tabPageSettings");
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEncodingKeyFrameInterval
+            // 
+            resources.ApplyResources(this.checkBoxEncodingKeyFrameInterval, "checkBoxEncodingKeyFrameInterval");
+            this.checkBoxEncodingKeyFrameInterval.Name = "checkBoxEncodingKeyFrameInterval";
+            this.checkBoxEncodingKeyFrameInterval.UseVisualStyleBackColor = true;
+            this.checkBoxEncodingKeyFrameInterval.CheckedChanged += new System.EventHandler(this.checkBoxEncodingKeyFrameInterval_CheckedChanged);
+            // 
+            // textBoxEncodingKeyFrameInterval
+            // 
+            resources.ApplyResources(this.textBoxEncodingKeyFrameInterval, "textBoxEncodingKeyFrameInterval");
+            this.textBoxEncodingKeyFrameInterval.Name = "textBoxEncodingKeyFrameInterval";
+            this.textBoxEncodingKeyFrameInterval.TextChanged += new System.EventHandler(this.textBoxEncodingKeyFrameInterval_TextChanged);
             // 
             // buttonAllowAllPreviewIP
             // 
@@ -555,5 +572,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox checkBoxIgnore708;
+        private System.Windows.Forms.CheckBox checkBoxEncodingKeyFrameInterval;
+        private System.Windows.Forms.TextBox textBoxEncodingKeyFrameInterval;
     }
 }

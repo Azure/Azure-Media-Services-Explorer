@@ -70,22 +70,25 @@
             this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
             this.checkBoxEnableLiveTranscript = new System.Windows.Forms.CheckBox();
             this.tabPageAdv = new System.Windows.Forms.TabPage();
+            this.labelStaticHostnamePrefix = new System.Windows.Forms.Label();
+            this.textBoxStaticHostname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labelUrlSyntax = new System.Windows.Forms.Label();
             this.buttonGenerateToken = new System.Windows.Forms.Button();
             this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
-            this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
+            this.textBoxInputKeyFrame = new System.Windows.Forms.TextBox();
             this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
             this.checkBoxVanityUrl = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxInputId = new System.Windows.Forms.TextBox();
+            this.tabPageAdvEncoding = new System.Windows.Forms.TabPage();
+            this.checkBoxEncodingKeyFrameInterval = new System.Windows.Forms.CheckBox();
+            this.textBoxEncodingKeyFrameInterval = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.labelStaticHostnamePrefix = new System.Windows.Forms.Label();
-            this.textBoxStaticHostname = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -97,6 +100,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
             this.tabPageLiveTranscript.SuspendLayout();
             this.tabPageAdv.SuspendLayout();
+            this.tabPageAdvEncoding.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -182,6 +186,7 @@
             this.tabControlLiveChannel.Controls.Add(this.tabPageLiveEncoding);
             this.tabControlLiveChannel.Controls.Add(this.tabPageLiveTranscript);
             this.tabControlLiveChannel.Controls.Add(this.tabPageAdv);
+            this.tabControlLiveChannel.Controls.Add(this.tabPageAdvEncoding);
             this.tabControlLiveChannel.Name = "tabControlLiveChannel";
             this.tabControlLiveChannel.SelectedIndex = 0;
             // 
@@ -400,7 +405,7 @@
             this.tabPageAdv.Controls.Add(this.labelUrlSyntax);
             this.tabPageAdv.Controls.Add(this.buttonGenerateToken);
             this.tabPageAdv.Controls.Add(this.checkBoxKeyFrameIntDefined);
-            this.tabPageAdv.Controls.Add(this.textBoxKeyFrame);
+            this.tabPageAdv.Controls.Add(this.textBoxInputKeyFrame);
             this.tabPageAdv.Controls.Add(this.checkBoxLowLatency);
             this.tabPageAdv.Controls.Add(this.checkBoxVanityUrl);
             this.tabPageAdv.Controls.Add(this.label7);
@@ -408,6 +413,17 @@
             resources.ApplyResources(this.tabPageAdv, "tabPageAdv");
             this.tabPageAdv.Name = "tabPageAdv";
             this.tabPageAdv.UseVisualStyleBackColor = true;
+            // 
+            // labelStaticHostnamePrefix
+            // 
+            resources.ApplyResources(this.labelStaticHostnamePrefix, "labelStaticHostnamePrefix");
+            this.labelStaticHostnamePrefix.Name = "labelStaticHostnamePrefix";
+            // 
+            // textBoxStaticHostname
+            // 
+            resources.ApplyResources(this.textBoxStaticHostname, "textBoxStaticHostname");
+            this.textBoxStaticHostname.Name = "textBoxStaticHostname";
+            this.textBoxStaticHostname.TextChanged += new System.EventHandler(this.textBoxStaticHostname_TextChanged);
             // 
             // label1
             // 
@@ -432,13 +448,15 @@
             // 
             resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
             this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
+            this.toolTip1.SetToolTip(this.checkBoxKeyFrameIntDefined, resources.GetString("checkBoxKeyFrameIntDefined.ToolTip"));
             this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
             this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged);
             // 
-            // textBoxKeyFrame
+            // textBoxInputKeyFrame
             // 
-            resources.ApplyResources(this.textBoxKeyFrame, "textBoxKeyFrame");
-            this.textBoxKeyFrame.Name = "textBoxKeyFrame";
+            resources.ApplyResources(this.textBoxInputKeyFrame, "textBoxInputKeyFrame");
+            this.textBoxInputKeyFrame.Name = "textBoxInputKeyFrame";
+            this.toolTip1.SetToolTip(this.textBoxInputKeyFrame, resources.GetString("textBoxInputKeyFrame.ToolTip"));
             // 
             // checkBoxLowLatency
             // 
@@ -464,6 +482,28 @@
             this.textBoxInputId.Name = "textBoxInputId";
             this.textBoxInputId.TextChanged += new System.EventHandler(this.textBoxInputId_TextChanged);
             // 
+            // tabPageAdvEncoding
+            // 
+            this.tabPageAdvEncoding.Controls.Add(this.checkBoxEncodingKeyFrameInterval);
+            this.tabPageAdvEncoding.Controls.Add(this.textBoxEncodingKeyFrameInterval);
+            resources.ApplyResources(this.tabPageAdvEncoding, "tabPageAdvEncoding");
+            this.tabPageAdvEncoding.Name = "tabPageAdvEncoding";
+            this.tabPageAdvEncoding.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEncodingKeyFrameInterval
+            // 
+            resources.ApplyResources(this.checkBoxEncodingKeyFrameInterval, "checkBoxEncodingKeyFrameInterval");
+            this.checkBoxEncodingKeyFrameInterval.Name = "checkBoxEncodingKeyFrameInterval";
+            this.toolTip1.SetToolTip(this.checkBoxEncodingKeyFrameInterval, resources.GetString("checkBoxEncodingKeyFrameInterval.ToolTip"));
+            this.checkBoxEncodingKeyFrameInterval.UseVisualStyleBackColor = true;
+            this.checkBoxEncodingKeyFrameInterval.CheckedChanged += new System.EventHandler(this.checkBoxEncodingKeyFrameInterval_CheckedChanged);
+            // 
+            // textBoxEncodingKeyFrameInterval
+            // 
+            resources.ApplyResources(this.textBoxEncodingKeyFrameInterval, "textBoxEncodingKeyFrameInterval");
+            this.textBoxEncodingKeyFrameInterval.Name = "textBoxEncodingKeyFrameInterval";
+            this.toolTip1.SetToolTip(this.textBoxEncodingKeyFrameInterval, resources.GetString("textBoxEncodingKeyFrameInterval.ToolTip"));
+            // 
             // labelWarning
             // 
             resources.ApplyResources(this.labelWarning, "labelWarning");
@@ -484,17 +524,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // labelStaticHostnamePrefix
-            // 
-            resources.ApplyResources(this.labelStaticHostnamePrefix, "labelStaticHostnamePrefix");
-            this.labelStaticHostnamePrefix.Name = "labelStaticHostnamePrefix";
-            // 
-            // textBoxStaticHostname
-            // 
-            resources.ApplyResources(this.textBoxStaticHostname, "textBoxStaticHostname");
-            this.textBoxStaticHostname.Name = "textBoxStaticHostname";
-            this.textBoxStaticHostname.TextChanged += new System.EventHandler(this.textBoxStaticHostname_TextChanged);
             // 
             // LiveEventCreation
             // 
@@ -531,6 +560,8 @@
             this.tabPageLiveTranscript.PerformLayout();
             this.tabPageAdv.ResumeLayout(false);
             this.tabPageAdv.PerformLayout();
+            this.tabPageAdvEncoding.ResumeLayout(false);
+            this.tabPageAdvEncoding.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -573,7 +604,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabPage tabPageAdv;
         private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
-        private System.Windows.Forms.TextBox textBoxKeyFrame;
+        private System.Windows.Forms.TextBox textBoxInputKeyFrame;
         private System.Windows.Forms.CheckBox checkBoxLowLatency;
         private System.Windows.Forms.CheckBox checkBoxVanityUrl;
         private System.Windows.Forms.Label label7;
@@ -595,5 +626,8 @@
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
         private System.Windows.Forms.Label labelStaticHostnamePrefix;
         private System.Windows.Forms.TextBox textBoxStaticHostname;
+        private System.Windows.Forms.TabPage tabPageAdvEncoding;
+        private System.Windows.Forms.CheckBox checkBoxEncodingKeyFrameInterval;
+        private System.Windows.Forms.TextBox textBoxEncodingKeyFrameInterval;
     }
 }
