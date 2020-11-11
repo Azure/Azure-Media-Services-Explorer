@@ -12403,6 +12403,7 @@ namespace AMSExplorer
 
                                     try
                                     {
+                                        TextBoxLogWriteLine("Creating asset '{0}'", assetName);
                                         newAsset = _context.Assets.Create(assetName, assetstorageaccount, AssetCreationOptions.None);
                                     }
                                     catch (Exception ex)
