@@ -8565,7 +8565,7 @@ namespace AMSExplorer
             return SelectedPrograms;
         }
 
-        private async void DoStopChannels()
+        private async Task DoStopChannelsAsync()
         {
             List<IChannel> channels = ReturnSelectedChannels();
             List<string> ListChannelIDs = channels.Select(c => c.Id).ToList();
@@ -8583,16 +8583,18 @@ namespace AMSExplorer
                 {
                     if (MessageBox.Show("One or several programs are running. Do you want to stop the program(s) and then the channel(s) ?", "Channel stop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        Task.Run(async () =>
-                         {
-                             // let's stop the running programs
-                             var tasks = programqueryrunning.Select(p => StopProgramASync(p)).ToArray();
-                             await Task.WhenAll(tasks);
+                        await Task.Run(async () =>
+                        {
+                            // let's stop the running programs
+                            foreach (var program in programqueryrunning)
+                            {
+                                await StopProgramASync(program);
+                            }
 
-                             // let's stop the channels now that running programs are stopped
-                             var tasksstop = channels.Select(c => StopChannelAsync(c)).ToArray();
-                             await Task.WhenAll(tasksstop);
-                         }
+                            // let's stop the channels now that running programs are stopped
+                            var tasksstop = channels.Select(c => StopChannelAsync(c)).ToArray();
+                            await Task.WhenAll(tasksstop);
+                        }
                          );
                     }
                 }
@@ -8603,13 +8605,13 @@ namespace AMSExplorer
                     if (System.Windows.Forms.MessageBox.Show(question, "Channel stop", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
                         // let's stop the channels now that running programs are stopped
-                        Task.Run(async () =>
-                         {
-                             // let's stop the channels now
-                             var tasksstop = channels.Select(c => StopChannelAsync(c)).ToArray();
-                             await Task.WhenAll(tasksstop);
-                         }
-                    );
+
+                        await Task.Run(async () =>
+                          { // let's stop the channels now
+                              var tasksstop = channels.Select(c => StopChannelAsync(c)).ToArray();
+                              await Task.WhenAll(tasksstop);
+                          }
+                          );
                     }
                 }
             }
@@ -8976,40 +8978,40 @@ namespace AMSExplorer
 
                     if (System.Windows.Forms.MessageBox.Show(question, "C" + hannelstr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        Task.Run(async () =>
-                            {
+                        _ = Task.Run(async () =>
+                             {
                                 // Stop the channels which run
                                 var channelsrunning = SelectedChannels.Where(p => p.State == ChannelState.Running);
-                                if (channelsrunning.Count() > 0)
-                                {
-                                    try
-                                    {
-                                        var taskcstop = channelsrunning.Select(c => StopChannelAsync(c)).ToArray();
-                                        await Task.WhenAll(taskcstop);
-                                    }
-                                    catch (Exception ex)
-                                    {
+                                 if (channelsrunning.Count() > 0)
+                                 {
+                                     try
+                                     {
+                                         var taskcstop = channelsrunning.Select(c => StopChannelAsync(c)).ToArray();
+                                         await Task.WhenAll(taskcstop);
+                                     }
+                                     catch (Exception ex)
+                                     {
                                         // Add useful information to the exception
                                         TextBoxLogWriteLine("There is a problem when stopping a channel", true);
-                                        TextBoxLogWriteLine(ex);
-                                    }
-                                }
+                                         TextBoxLogWriteLine(ex);
+                                     }
+                                 }
 
                                 // delete the channels
                                 var taskcdel = SelectedChannels.Select(c => DeleteChannelAsync(c)).ToArray();
-                                try
-                                {
-                                    await Task.WhenAll(taskcdel);
-                                }
+                                 try
+                                 {
+                                     await Task.WhenAll(taskcdel);
+                                 }
 
-                                catch (Exception ex)
-                                {
+                                 catch (Exception ex)
+                                 {
                                     // Add useful information to the exception
                                     TextBoxLogWriteLine("There is a problem when deleting a channel", true);
-                                    TextBoxLogWriteLine(ex);
-                                }
-                                DoRefreshGridChannelV(false);
-                            }
+                                     TextBoxLogWriteLine(ex);
+                                 }
+                                 DoRefreshGridChannelV(false);
+                             }
                            );
                     }
                 }
@@ -9023,90 +9025,97 @@ namespace AMSExplorer
                     {
 
 
-                        Task.Run(async () =>
-                        {
-                            var assets = Programs.Select(p => p.Asset).ToArray();
+                        _ = Task.Run(async () =>
+                         {
+                             var assets = Programs.Select(p => p.Asset).ToArray();
 
                             // Stop the programs which run
                             var programsrunning = Programs.Where(p => p.State == ProgramState.Running);
-                            if (programsrunning.Count() > 0)
-                            {
-                                var taskpstop = programsrunning.Select(p => StopProgramASync(p)).ToArray();
-                                await Task.WhenAll(taskpstop);
-                            }
+                             if (programsrunning.Count() > 0)
+                             {
+                                 foreach (var program in programsrunning)
+                                 {
+                                     await StopProgramASync(program);
+                                 }
+                             }
 
                             // delete programs
-                            Programs.ToList().ForEach(p => TextBoxLogWriteLine("Program '{0}' : deleting...", p.Name));
-                            var tasks = Programs.Select(p => ProgramExecuteAsync(p.DeleteAsync, p, "deleted")).ToArray();
                             bool Error = false;
-                            try
-                            {
-                                await Task.WhenAll(tasks);
-                            }
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting a progam", true);
-                                TextBoxLogWriteLine(ex);
-                                Error = true;
-                            }
-                            DoRefreshGridProgramV(false);
+
+                             foreach (var program in Programs)
+                             {
+                                 TextBoxLogWriteLine("Program '{0}' : deleting...", program.Name);
+                                 try
+                                 {
+                                     await ProgramExecuteAsync(program.DeleteAsync, program, "deleted");
+
+                                 }
+                                 catch (Exception ex)
+                                 {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when deleting progam '{0}'.", program.Name, true);
+                                     TextBoxLogWriteLine(ex);
+                                     Error = true;
+                                 }
+                             }
+
+                             DoRefreshGridProgramV(false);
 
 
-                            if (form.DeleteAsset && Error == false)
-                            {
-                                assets.ToList().ForEach(a => TextBoxLogWriteLine("Asset '{0}' : deleting...", a.Name));
-                                var tasksassets = assets.Select(a => a.DeleteAsync()).ToArray();
-                                try
-                                {
-                                    await Task.WhenAll(tasksassets);
-                                    TextBoxLogWriteLine("Asset(s) deletion done.");
-                                }
-                                catch (Exception ex)
-                                {
+                             if (form.DeleteAsset && !Error)
+                             {
+                                 assets.ToList().ForEach(a => TextBoxLogWriteLine("Asset '{0}' : deleting...", a.Name));
+                                 var tasksassets = assets.Select(a => a.DeleteAsync()).ToArray();
+                                 try
+                                 {
+                                     await Task.WhenAll(tasksassets);
+                                     TextBoxLogWriteLine("Asset(s) deletion done.");
+                                 }
+                                 catch (Exception ex)
+                                 {
                                     // Add useful information to the exception
                                     TextBoxLogWriteLine("There is a problem when deleting an asset", true);
-                                    TextBoxLogWriteLine(ex);
-                                }
-                                DoRefreshGridAssetV(false);
+                                     TextBoxLogWriteLine(ex);
+                                 }
+                                 DoRefreshGridAssetV(false);
 
-                            }
+                             }
 
                             // Stop the channels which run
                             var channelsrunning = SelectedChannels.Where(p => p.State == ChannelState.Running);
-                            if (channelsrunning.Count() > 0)
-                            {
-                                try
-                                {
-                                    channelsrunning.ToList().ForEach(c => TextBoxLogWriteLine("Stopping channel '{0}'...", c.Name));
-                                    var taskcstop = channelsrunning.Select(c => c.StopAsync()).ToArray();
-                                    await Task.WhenAll(taskcstop);
-                                }
-                                catch (Exception ex)
-                                {
+                             if (channelsrunning.Count() > 0)
+                             {
+                                 try
+                                 {
+                                     channelsrunning.ToList().ForEach(c => TextBoxLogWriteLine("Stopping channel '{0}'...", c.Name));
+                                     var taskcstop = channelsrunning.Select(c => c.StopAsync()).ToArray();
+                                     await Task.WhenAll(taskcstop);
+                                 }
+                                 catch (Exception ex)
+                                 {
                                     // Add useful information to the exception
                                     TextBoxLogWriteLine("There is a problem when stopping a channel", true);
-                                    TextBoxLogWriteLine(ex);
-                                }
-                            }
+                                     TextBoxLogWriteLine(ex);
+                                 }
+                             }
 
                             // delete the channels
                             var taskcdel = SelectedChannels.Select(c => DeleteChannelAsync(c)).ToArray();
-                            try
-                            {
+                             try
+                             {
 
-                                await Task.WhenAll(taskcdel);
-                            }
+                                 await Task.WhenAll(taskcdel);
+                             }
 
-                            catch (Exception ex)
-                            {
+                             catch (Exception ex)
+                             {
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when deleting a channel", true);
-                                TextBoxLogWriteLine(ex);
-                            }
-                            DoRefreshGridChannelV(false);
+                                 TextBoxLogWriteLine(ex);
+                             }
+                             DoRefreshGridChannelV(false);
 
-                        }
+                         }
                          );
 
                     }
@@ -9156,9 +9165,9 @@ namespace AMSExplorer
             DoStartChannels();
         }
 
-        private void stopChannelsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void stopChannelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoStopChannels();
+            await DoStopChannelsAsync();
         }
 
         private void resetChannelsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9541,7 +9550,7 @@ namespace AMSExplorer
         }
 
 
-        private async void DoDeletePrograms()
+        private async void DoDeleteSelectedPrograms()
         {
 
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
@@ -9562,29 +9571,34 @@ namespace AMSExplorer
                         var programsrunning = SelectedPrograms.Where(p => p.State == ProgramState.Running);
                         if (programsrunning.Count() > 0)
                         {
-                            var taskpstop = programsrunning.Select(p => StopProgramASync(p)).ToArray();
-                            await Task.WhenAll(taskpstop);
+                            foreach (var program in programsrunning)
+                            {
+                                await StopProgramASync(program);
+                            }
                         }
 
                         // delete programs
-                        SelectedPrograms.ToList().ForEach(p => TextBoxLogWriteLine("Deleting program '{0}'...", p.Name));
-                        var tasks = SelectedPrograms.Select(p => ProgramExecuteAsync(p.DeleteAsync, p, "deleted")).ToArray();
                         bool Error = false;
-                        try
+                        foreach (var program in SelectedPrograms)
                         {
-                            await Task.WhenAll(tasks);
+                            TextBoxLogWriteLine("Deleting program '{0}'...", program.Name);
+                            try
+                            {
+                                await ProgramExecuteAsync(program.DeleteAsync, program, "deleted");
+                            }
+                            catch (Exception ex)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when deleting program '{0}'", program.Name, true);
+                                TextBoxLogWriteLine(ex);
+                                Error = true;
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting a progam", true);
-                            TextBoxLogWriteLine(ex);
-                            Error = true;
-                        }
+
                         DoRefreshGridProgramV(false);
 
 
-                        if (form.DeleteAsset && Error == false)
+                        if (form.DeleteAsset && !Error)
                         {
                             assets.ToList().ForEach(a => TextBoxLogWriteLine("Deleting asset '{0}'", a.Name));
                             var tasksassets = assets.Select(a => a.DeleteAsync()).ToArray();
@@ -9616,12 +9630,13 @@ namespace AMSExplorer
                 Task.Run(async () =>
                 {
                     // let's start the programs now
-                    var tasks = SelectedPrograms.Select(p => StartProgramASync(p)).ToArray();
-                    await Task.WhenAll(tasks);
+                    foreach (var program in SelectedPrograms)
+                    {
+                        await StartProgramASync(program);
+                    }
                 }
                         );
             }
-
         }
 
 
@@ -9637,8 +9652,10 @@ namespace AMSExplorer
                     Task.Run(async () =>
                 {
                     // let's stop the programs now
-                    var tasksstop = SelectedPrograms.Select(p => StopProgramASync(p)).ToArray();
-                    await Task.WhenAll(tasksstop);
+                    foreach (var program in SelectedPrograms)
+                    {
+                        await StopProgramASync(program);
+                    }
                 }
         );
                 }
@@ -9797,7 +9814,7 @@ namespace AMSExplorer
 
         private void deleteProgramsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeletePrograms();
+            DoDeleteSelectedPrograms();
         }
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -10363,9 +10380,9 @@ namespace AMSExplorer
             DoStartChannels();
         }
 
-        private void stopChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void stopChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStopChannels();
+            await DoStopChannelsAsync();
         }
 
         private void resetChannelsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -10390,7 +10407,7 @@ namespace AMSExplorer
 
         private void deleteProgramsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeletePrograms();
+            DoDeleteSelectedPrograms();
         }
 
         private void displayOriginInformationToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -12356,6 +12373,8 @@ namespace AMSExplorer
                     {
                         foreach (IProgram myP in SelectedPrograms)
                         {
+                            TextBoxLogWriteLine("Reseting program '{0}'...", myP.Name);
+
                             if (myP.State != ProgramState.Stopped) // program is not stopped
                             {
                                 TextBoxLogWriteLine("Program '{0}' must be stopped in order to reset it. Operation aborted.", myP.Name, true);
@@ -12389,22 +12408,23 @@ namespace AMSExplorer
                                     string locatorID = locator.FirstOrDefault().Id;
                                     DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
 
+                                    TextBoxLogWriteLine("Deleting program '{0}'...", myP.Name);
                                     try
                                     {
-                                        TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
-                                        myP.Delete();
+                                        await ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted");
                                     }
                                     catch (Exception ex)
                                     {
                                         // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
+                                        TextBoxLogWriteLine("There is a problem when deleting program '{0}'", myP.Name, true);
                                         TextBoxLogWriteLine(ex);
                                     }
 
                                     try
                                     {
-                                        TextBoxLogWriteLine("Creating asset '{0}'", assetName);
+                                        TextBoxLogWriteLine("Creating asset '{0}'...", assetName);
                                         newAsset = _context.Assets.Create(assetName, assetstorageaccount, AssetCreationOptions.None);
+                                        TextBoxLogWriteLine("Asset created.");
                                     }
                                     catch (Exception ex)
                                     {
@@ -12412,7 +12432,6 @@ namespace AMSExplorer
                                         TextBoxLogWriteLine("There is a problem when creating the new asset {0}.", assetName, true);
                                         TextBoxLogWriteLine(ex);
                                     }
-
 
 
                                     if (asset != null)
@@ -12444,7 +12463,7 @@ namespace AMSExplorer
                                         //delete
                                         try
                                         {
-                                            TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                            TextBoxLogWriteLine("Deleting asset '{0}'...", asset.Name);
                                             DeleteAsset(asset);
                                             if (AssetInfo.GetAsset(asset.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
                                         }
@@ -12463,6 +12482,7 @@ namespace AMSExplorer
                                     {
                                         TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
                                         ILocator locat = _context.Locators.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
+                                        TextBoxLogWriteLine("Locator created.");
                                     }
                                     catch (Exception ex)
                                     {
@@ -12480,6 +12500,8 @@ namespace AMSExplorer
                                         ManifestName = ismName,
                                     };
                                     await Task.Run(() => ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created"));
+
+                                    TextBoxLogWriteLine("Program '{0}' reset.", myP.Name);
                                 }
                             }
                         }
