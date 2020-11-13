@@ -770,27 +770,6 @@
   <data name="toolStripMenuItem40.Text" xml:space="preserve">
     <value>Generate thumbnails for the asset(s) with MES...</value>
   </data>
-  <data name="toolStripSeparator17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="toolStripMenuItem49.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 22</value>
-  </data>
-  <data name="toolStripMenuItem49.Text" xml:space="preserve">
-    <value>Encode asset(s) with Media Encoder (system preset)...</value>
-  </data>
-  <data name="toolStripMenuItem50.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 22</value>
-  </data>
-  <data name="toolStripMenuItem50.Text" xml:space="preserve">
-    <value>Encode asset(s) with Media Encoder (advanced mode with custom preset)...</value>
-  </data>
-  <data name="deprecatedToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="deprecatedToolStripMenuItem1.Text" xml:space="preserve">
-    <value>(Deprecated)</value>
-  </data>
   <data name="encodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
   </data>
@@ -891,36 +870,6 @@
   </data>
   <data name="toolStripMenuItem39.Text" xml:space="preserve">
     <value>Process asset(s) with multiple processors...</value>
-  </data>
-  <data name="toolStripMenuItem45.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 22</value>
-  </data>
-  <data name="toolStripMenuItem45.Text" xml:space="preserve">
-    <value>(deprecated) Validate the multi MP4 asset(s)....</value>
-  </data>
-  <data name="toolStripMenuItem46.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 22</value>
-  </data>
-  <data name="toolStripMenuItem46.Text" xml:space="preserve">
-    <value>(deprecated) Package the multi MP4 asset(s) to Smooth Streaming (static)</value>
-  </data>
-  <data name="toolStripMenuItem47.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 22</value>
-  </data>
-  <data name="toolStripMenuItem47.Text" xml:space="preserve">
-    <value>(deprecated) Package the Smooth Streaming asset(s) to HLS v3 (static)...</value>
-  </data>
-  <data name="toolStripMenuItem48.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 22</value>
-  </data>
-  <data name="toolStripMenuItem48.Text" xml:space="preserve">
-    <value>(deprecated) Encrypt the Smooth Streaming asset(s) with PlayReady (static)</value>
-  </data>
-  <data name="toolStripMenuItem44.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 22</value>
-  </data>
-  <data name="toolStripMenuItem44.Text" xml:space="preserve">
-    <value>Static packaging</value>
   </data>
   <data name="advancedProcessingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
@@ -1104,7 +1053,7 @@
     <value>Playback</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 452</value>
+    <value>290, 474</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -1125,7 +1074,7 @@
     <value>dataGridViewAssetsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewAssets, AMSExplorer, Version=4.3.15.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewAssetsV.Parent" xml:space="preserve">
     <value>tabPageAssets</value>
@@ -1682,7 +1631,7 @@
     <value>dataGridViewIngestManifestsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewIngestManifest, AMSExplorer, Version=4.3.15.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewIngestManifestsV.Parent" xml:space="preserve">
     <value>tabPageTransfers</value>
@@ -2568,7 +2517,7 @@
     <value>dataGridViewJobsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewJobs, AMSExplorer, Version=4.3.15.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewJobsV.Parent" xml:space="preserve">
     <value>tabPageJobs</value>
@@ -2884,7 +2833,7 @@
     <value>dataGridViewProgramsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveProgram, AMSExplorer, Version=4.3.15.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewProgramsV.Parent" xml:space="preserve">
     <value>panelPrograms</value>
@@ -3531,7 +3480,7 @@
     <value>dataGridViewChannelsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewLiveChannel, AMSExplorer, Version=4.3.15.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewChannelsV.Parent" xml:space="preserve">
     <value>panelChannels</value>
@@ -4086,7 +4035,7 @@
     <value>dataGridViewStreamingEndpointsV</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Type" xml:space="preserve">
-    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.3.10.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.DataGridViewStreamingEndpoints, AMSExplorer, Version=4.3.15.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewStreamingEndpointsV.Parent" xml:space="preserve">
     <value>tabPageOrigins</value>
@@ -4521,7 +4470,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;splitContainerMain.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>5</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4554,7 +4503,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>9</value>
   </data>
   <metadata name="menuStripMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -5202,75 +5151,6 @@
     <value>Storage decrypt the asset(s)...</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 6</value>
-  </data>
-  <data name="toolStripMenuItem33.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACXSURBVDhPpZKxDYNQDEQZAokZIjFTYITUaRmA4VJk
-        Azo6Uv/cKTY4xkGxeNL7pzuZjqqUcspwzBiOGcMxI+Fr7aGF3d9Yd8MLtpAw2f2N9fMId8j+hI3kevgr
-        tSg3yG2WJIepRRkht0mSHKYWMkD2B6wl2b8+8KkH6gIvkDDZ/Y11N3TQcoX+ZjP6OTKGY8ZwzBiO/1uq
-        N49Q04/9++YPAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripMenuItem33.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 22</value>
-  </data>
-  <data name="toolStripMenuItem33.Text" xml:space="preserve">
-    <value>System preset...</value>
-  </data>
-  <data name="toolStripMenuItem36.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACXSURBVDhPpZKxDYNQDEQZAokZIjFTYITUaRmA4VJk
-        Azo6Uv/cKTY4xkGxeNL7pzuZjqqUcspwzBiOGcMxI+Fr7aGF3d9Yd8MLtpAw2f2N9fMId8j+hI3kevgr
-        tSg3yG2WJIepRRkht0mSHKYWMkD2B6wl2b8+8KkH6gIvkDDZ/Y11N3TQcoX+ZjP6OTKGY8ZwzBiO/1uq
-        N49Q04/9++YPAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripMenuItem36.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 22</value>
-  </data>
-  <data name="toolStripMenuItem36.Text" xml:space="preserve">
-    <value>Advanced mode with custom preset...</value>
-  </data>
-  <data name="encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem.Text" xml:space="preserve">
-    <value>(deprecated) Encode asset(s) with Azure Media Encoder</value>
-  </data>
-  <data name="validateTheMultiMP4AssetsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 22</value>
-  </data>
-  <data name="validateTheMultiMP4AssetsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Validate the multi MP4 asset(s)....</value>
-  </data>
-  <data name="packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 22</value>
-  </data>
-  <data name="packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Package the multi MP4 asset(s) to Smooth Streaming (static)</value>
-  </data>
-  <data name="encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 22</value>
-  </data>
-  <data name="encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Encrypt the Smooth Streaming asset(s) with PlayReady (static)</value>
-  </data>
-  <data name="packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 22</value>
-  </data>
-  <data name="packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Package the Smooth Streaming asset(s) to HLS v3 (static)...</value>
-  </data>
-  <data name="deprecatedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 22</value>
-  </data>
-  <data name="deprecatedToolStripMenuItem.Text" xml:space="preserve">
-    <value>(deprecated) Static packaging</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
     <value>416, 6</value>
   </data>
   <data name="dynamicPackagingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
@@ -6359,7 +6239,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStripMain.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>10</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>533, 17</value>
@@ -6416,7 +6296,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>7</value>
   </data>
   <data name="label12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -6452,7 +6332,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>6</value>
   </data>
   <data name="buttonRefresh.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -6498,7 +6378,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRefresh.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>8</value>
   </data>
   <data name="linkLabelFeedbackAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -6534,7 +6414,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;linkLabelFeedbackAMS.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>4</value>
   </data>
   <metadata name="notifyIcon1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>822, 17</value>
@@ -8895,19 +8775,22 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRefreshTab.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>3</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>112</value>
+    <value>251</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1020, 639</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>{0} - Azure Media Services Explorer</value>
@@ -9158,30 +9041,6 @@
   <data name="&gt;&gt;toolStripMenuItem40.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
-    <value>toolStripSeparator17</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deprecatedToolStripMenuItem1.Name" xml:space="preserve">
-    <value>deprecatedToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;deprecatedToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem49.Name" xml:space="preserve">
-    <value>toolStripMenuItem49</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem49.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem50.Name" xml:space="preserve">
-    <value>toolStripMenuItem50</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem50.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;mediaIntelligenceToolStripMenuItem.Name" xml:space="preserve">
     <value>mediaIntelligenceToolStripMenuItem</value>
   </data>
@@ -9258,36 +9117,6 @@
     <value>toolStripMenuItem39</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem39.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem44.Name" xml:space="preserve">
-    <value>toolStripMenuItem44</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem44.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem45.Name" xml:space="preserve">
-    <value>toolStripMenuItem45</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem45.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem46.Name" xml:space="preserve">
-    <value>toolStripMenuItem46</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem46.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem47.Name" xml:space="preserve">
-    <value>toolStripMenuItem47</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem47.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem48.Name" xml:space="preserve">
-    <value>toolStripMenuItem48</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem48.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;subclipToolStripMenuItem.Name" xml:space="preserve">
@@ -10500,60 +10329,6 @@
     <value>toolStripSeparator3</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem.Name" xml:space="preserve">
-    <value>encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;encodeAssetsWithMediaEncodersystemPresetToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem33.Name" xml:space="preserve">
-    <value>toolStripMenuItem33</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem33.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem36.Name" xml:space="preserve">
-    <value>toolStripMenuItem36</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem36.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deprecatedToolStripMenuItem.Name" xml:space="preserve">
-    <value>deprecatedToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deprecatedToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;validateTheMultiMP4AssetsToolStripMenuItem1.Name" xml:space="preserve">
-    <value>validateTheMultiMP4AssetsToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;validateTheMultiMP4AssetsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Name" xml:space="preserve">
-    <value>packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Name" xml:space="preserve">
-    <value>encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Name" xml:space="preserve">
-    <value>packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dynamicPackagingToolStripMenuItem.Name" xml:space="preserve">
