@@ -9,7 +9,7 @@ See a full description on http://azure.microsoft.com/blog/2014/10/08/managing-me
 
 There are some nice [Azure Media Services Step-by-Step tutorials](https://www.slideshare.net/shigeyf/azure-media-services-stepbystep-tutorial-docs-series-agenda) using Azure Media Services Explorer.
 
-This solution has been developped with Visual Studio 2017/2019. It contains two projects: "AMSExplorer", the main application, and "SetupAMSExplorer", an InstallShield project that creates a Setup executable (EXE/MSI).
+This solution has been developped with Visual Studio 2019. It contains two projects: "AMSExplorer", the main application, and "SetupAMSExplorer", an InstallShield project that creates a Setup executable (EXE/MSI).
 
 In order to compile this setup project, which is optional, you should install [InstallShield Lite](https://marketplace.visualstudio.com/items?itemName=Flexera-InstallShield-Lite.InstallShield2018Lite).
 
