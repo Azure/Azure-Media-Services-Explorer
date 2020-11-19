@@ -42,6 +42,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTransformName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonVideoOnly = new System.Windows.Forms.RadioButton();
             this.radioButtonAudioAndVideo = new System.Windows.Forms.RadioButton();
             this.radioButtonAudioOnly = new System.Windows.Forms.RadioButton();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
@@ -49,11 +50,14 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.radioButtonVideoOnly = new System.Windows.Forms.RadioButton();
+            this.groupBoxAudioMode = new System.Windows.Forms.GroupBox();
+            this.radioButtonAudioStandard = new System.Windows.Forms.RadioButton();
+            this.radioButtonAudioBasic = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBoxAudioMode.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -135,6 +139,13 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // radioButtonVideoOnly
+            // 
+            resources.ApplyResources(this.radioButtonVideoOnly, "radioButtonVideoOnly");
+            this.radioButtonVideoOnly.Name = "radioButtonVideoOnly";
+            this.radioButtonVideoOnly.UseVisualStyleBackColor = true;
+            this.radioButtonVideoOnly.CheckedChanged += new System.EventHandler(this.radioButtonAudioAndVideo_CheckedChanged);
+            // 
             // radioButtonAudioAndVideo
             // 
             resources.ApplyResources(this.radioButtonAudioAndVideo, "radioButtonAudioAndVideo");
@@ -149,6 +160,7 @@
             resources.ApplyResources(this.radioButtonAudioOnly, "radioButtonAudioOnly");
             this.radioButtonAudioOnly.Name = "radioButtonAudioOnly";
             this.radioButtonAudioOnly.UseVisualStyleBackColor = true;
+            this.radioButtonAudioOnly.CheckedChanged += new System.EventHandler(this.radioButtonAudioAndVideo_CheckedChanged);
             // 
             // textBoxDescription
             // 
@@ -178,11 +190,28 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // radioButtonVideoOnly
+            // groupBoxAudioMode
             // 
-            resources.ApplyResources(this.radioButtonVideoOnly, "radioButtonVideoOnly");
-            this.radioButtonVideoOnly.Name = "radioButtonVideoOnly";
-            this.radioButtonVideoOnly.UseVisualStyleBackColor = true;
+            this.groupBoxAudioMode.Controls.Add(this.radioButtonAudioStandard);
+            this.groupBoxAudioMode.Controls.Add(this.radioButtonAudioBasic);
+            resources.ApplyResources(this.groupBoxAudioMode, "groupBoxAudioMode");
+            this.groupBoxAudioMode.Name = "groupBoxAudioMode";
+            this.groupBoxAudioMode.TabStop = false;
+            // 
+            // radioButtonAudioStandard
+            // 
+            resources.ApplyResources(this.radioButtonAudioStandard, "radioButtonAudioStandard");
+            this.radioButtonAudioStandard.Checked = true;
+            this.radioButtonAudioStandard.Name = "radioButtonAudioStandard";
+            this.radioButtonAudioStandard.TabStop = true;
+            this.radioButtonAudioStandard.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonAudioBasic
+            // 
+            resources.ApplyResources(this.radioButtonAudioBasic, "radioButtonAudioBasic");
+            this.radioButtonAudioBasic.Name = "radioButtonAudioBasic";
+            this.radioButtonAudioBasic.UseVisualStyleBackColor = true;
+            this.radioButtonAudioBasic.CheckedChanged += new System.EventHandler(this.radioButtonAudioBasic_CheckedChanged);
             // 
             // PresetVideoAnalyzer
             // 
@@ -190,6 +219,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.groupBoxAudioMode);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.label2);
@@ -209,6 +239,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBoxAudioMode.ResumeLayout(false);
+            this.groupBoxAudioMode.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,5 +267,8 @@
         private System.Windows.Forms.CheckBox checkBoxAutoLanguage;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButtonVideoOnly;
+        private System.Windows.Forms.GroupBox groupBoxAudioMode;
+        private System.Windows.Forms.RadioButton radioButtonAudioStandard;
+        private System.Windows.Forms.RadioButton radioButtonAudioBasic;
     }
 }

@@ -7668,7 +7668,7 @@ namespace AMSExplorer
 
                 outputs = new TransformOutput[]
                                                  {
-                                                                new TransformOutput( new VideoAnalyzerPreset( ){ AudioLanguage=form.Language, InsightsToExtract= form.InsightsMode  }),
+                                                                new TransformOutput( new VideoAnalyzerPreset( ){ AudioLanguage = form.Language, Mode = form.AudioAnalysisMode,  InsightsToExtract = form.InsightsMode }),
                                                  };
 
                 return new Transform(outputs: outputs, name: form.TransformName, description: form.TransformDescription);

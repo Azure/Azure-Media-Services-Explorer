@@ -40,6 +40,9 @@ namespace AMSExplorer
 
         public InsightsType InsightsMode => radioButtonAudioOnly.Checked ? InsightsType.AudioInsightsOnly : radioButtonVideoOnly.Checked ? InsightsType.VideoInsightsOnly : InsightsType.AllInsights;
 
+        public AudioAnalysisMode AudioAnalysisMode => radioButtonAudioBasic.Checked ? AudioAnalysisMode.Basic : AudioAnalysisMode.Standard;
+
+
         public PresetVideoAnalyzer(string existingTransformName = null, string existingTransformDesc = null)
         {
             InitializeComponent();
@@ -74,7 +77,18 @@ namespace AMSExplorer
 
         private void radioButtonAudioAndVideo_CheckedChanged(object sender, EventArgs e)
         {
+            var radiobutton = ((RadioButton)sender);
+            if (!radiobutton.Checked)
+            {
+                return;
+            }
+            ManageAudioGroup();
             UpdateTransformLabel();
+        }
+
+        private void ManageAudioGroup()
+        {
+            groupBoxAudioMode.Enabled = !radioButtonVideoOnly.Checked;
         }
 
         private void UpdateTransformLabel()
@@ -86,14 +100,26 @@ namespace AMSExplorer
             }
             else
             {
+                string audioMode = string.Empty;
+                if (InsightsMode != InsightsType.VideoInsightsOnly)
+                {
+                    if (AudioAnalysisMode == AudioAnalysisMode.Standard)
+                    {
+                        audioMode = "-AudioStandard";
+                    }
+                    else // Basic
+                    {
+                        audioMode = "-AudioBasic";
+                    }
+                }
+
                 if (InsightsMode == InsightsType.AudioInsightsOnly)
                 {
-                    textBoxTransformName.Text = "AudioAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
-
+                    textBoxTransformName.Text = "AudioAnalyzer" + audioMode + "-" + (Language ?? "Auto");
                 }
                 else
                 {
-                    textBoxTransformName.Text = "VideoAnalyzer-" + (Language ?? "Auto");// + "-" + _unique;
+                    textBoxTransformName.Text = "VideoAnalyzer" + audioMode + "-" + (Language ?? "Auto");
                 }
             }
         }
@@ -115,6 +141,11 @@ namespace AMSExplorer
 
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+        }
+
+        private void radioButtonAudioBasic_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTransformLabel();
         }
     }
 }
