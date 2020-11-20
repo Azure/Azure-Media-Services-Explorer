@@ -553,36 +553,6 @@
     <Content Include="Manifest\Manifest.ism">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PremiumWorkflowSamples\H264 Progressive Download MP4 SD.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\H264 Progresssive Download MP4.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\READMe.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MP4.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4-Enhanced-Thumbs.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4-Enhanced.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4-Frame-Trimmed.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4-Time-Trimmed.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\Tutorial\MXF-to-MultiMP4.workflow">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PremiumWorkflowSamples\Tutorial\README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\media-services-dvr-filter.png" />
     <None Include="Resources\media-services-livebackoff-filter.png" />
     <None Include="Resources\media-services-multiple-rules-filters.png" />
