@@ -28,6 +28,8 @@ namespace AMSExplorer
     public partial class PresetStandardEncoder : Form
     {
         public static readonly string CopyVideoAudioTransformName = "StandardEncoder-AMSE-CopyVideoAudio";
+        public static readonly string ThumbnailTransformName = "StandardEncoder-AMSE-Thumbnails";
+
         private readonly string _unique;
         private readonly string _existingTransformName;
         private readonly string _existingTransformDesc;
@@ -44,6 +46,9 @@ namespace AMSExplorer
             new Profile() {Prof=@"H264MultipleBitrateSD", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1600kbps to 400 kbps, and stereo AAC audio. Resolution starts at 480p and goes down to 360p.", Automatic=false},
                     };
 
+        private PresetStandardEncoderThumbnail formThumbnail = new PresetStandardEncoderThumbnail();
+        private StandardEncoderPreset encoderPresetThumbnail;
+
         private Profile ReturnProfile(string name)
         {
             return Profiles.Where(p => p.Prof == name).FirstOrDefault();
@@ -51,24 +56,53 @@ namespace AMSExplorer
 
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
 
-        public bool UseCustomCopyPreset => radioButtonCustom.Checked;
 
-        public StandardEncoderPreset CustomCopyPreset => new StandardEncoderPreset(
-                  codecs: new Codec[]
-                  {
+        public MESPresetTypeUI PresetType
+        {
+            get
+            {
+                if (radioButtonBuiltin.Checked)
+                {
+                    return MESPresetTypeUI.builtin;
+                }
+                else
+                {
+                    return MESPresetTypeUI.custom;
+                }
+            }
+        }
+
+
+        public StandardEncoderPreset CustomCopyPreset
+
+        {
+            get
+            {
+                if (radioButtonThumbnail.Checked) // Thumbnail
+                {
+                    return formThumbnail.CustomSpritePreset;
+                }
+                else // Copy only preset
+                {
+                    return new StandardEncoderPreset(
+               codecs: new Codec[]
+               {
                         // Add an Audio layer for the audio copy
                         new CopyAudio(),                 
                         // Next, add a Video for the video copy
                        new CopyVideo()
-                   },
-                    // Specify the format for the output files - one for video+audio, and another for the thumbnails
-                    formats: new Format[]
-                    {
+                },
+                 // Specify the format for the output files - one for video+audio, and another for the thumbnails
+                 formats: new Format[]
+                 {
 
                         new Mp4Format(
                             filenamePattern:"Archive-{Basename}{Extension}"
                         )
-                    });
+                 });
+                }
+            }
+        }
 
 
 
@@ -109,6 +143,8 @@ namespace AMSExplorer
 
             textBoxDescription.Text = _existingTransformDesc;
 
+            encoderPresetThumbnail = formThumbnail.CustomSpritePreset; // default thumbnail preset
+
             UpdateTransformLabel();
         }
 
@@ -127,9 +163,13 @@ namespace AMSExplorer
             }
             else
             {
-                if (UseCustomCopyPreset)
+                if (radioButtonCustomCopy.Checked)
                 {
                     textBoxTransformName.Text = CopyVideoAudioTransformName;
+                }
+                if (radioButtonThumbnail.Checked)
+                {
+                    textBoxTransformName.Text = ThumbnailTransformName;
                 }
                 else
                 {
@@ -166,6 +206,22 @@ namespace AMSExplorer
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
+
+        private void buttonCustomPresetCopyEdit_Click(object sender, EventArgs e)
+        {
+
+
+            if (formThumbnail.ShowDialog() == DialogResult.OK)
+            {
+                encoderPresetThumbnail = formThumbnail.CustomSpritePreset;
+            }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonCustomPresetThumbnail.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonThumbnail.Checked;
+            UpdateTransformLabel();
+        }
     }
 
     public class Profile
@@ -173,5 +229,11 @@ namespace AMSExplorer
         public string Prof { get; set; }
         public string Desc { get; set; }
         public bool Automatic { get; set; }
+    }
+
+    public enum MESPresetTypeUI
+    {
+        builtin = 0,
+        custom
     }
 }

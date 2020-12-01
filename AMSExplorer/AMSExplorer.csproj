@@ -126,6 +126,12 @@
     <Compile Include="ExportToExcel.designer.cs">
       <DependentUpon>ExportToExcel.cs</DependentUpon>
     </Compile>
+    <Compile Include="PresetStandardEncoderThumbnail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresetStandardEncoderThumbnail.Designer.cs">
+      <DependentUpon>PresetStandardEncoderThumbnail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Rest\CoreForRest.cs" />
     <Compile Include="Rest\TransformRestObject.cs" />
     <Compile Include="Utils\AssetInfo\AssetEntryV3.cs" />
@@ -662,6 +668,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms-DynamicEncryption\DRM_Config_TokenClaims.resx">
       <DependentUpon>DRM_Config_TokenClaims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetStandardEncoderThumbnail.ja.resx">
+      <DependentUpon>PresetStandardEncoderThumbnail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetStandardEncoderThumbnail.resx">
+      <DependentUpon>PresetStandardEncoderThumbnail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Subclipping.resx">
       <DependentUpon>Subclipping.cs</DependentUpon>

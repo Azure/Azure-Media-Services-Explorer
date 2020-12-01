@@ -43,10 +43,12 @@
             this.richTextBoxDesc = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.listboxPresets = new System.Windows.Forms.ListBox();
+            this.radioButtonBuiltin = new System.Windows.Forms.RadioButton();
+            this.radioButtonCustomCopy = new System.Windows.Forms.RadioButton();
+            this.buttonCustomPresetThumbnail = new System.Windows.Forms.Button();
+            this.radioButtonThumbnail = new System.Windows.Forms.RadioButton();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.radioButtonBuiltin = new System.Windows.Forms.RadioButton();
-            this.radioButtonCustom = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -128,6 +130,35 @@
             this.listboxPresets.Name = "listboxPresets";
             this.listboxPresets.SelectedIndexChanged += new System.EventHandler(this.listboxPresets_SelectedIndexChanged);
             // 
+            // radioButtonBuiltin
+            // 
+            resources.ApplyResources(this.radioButtonBuiltin, "radioButtonBuiltin");
+            this.radioButtonBuiltin.Checked = true;
+            this.radioButtonBuiltin.Name = "radioButtonBuiltin";
+            this.radioButtonBuiltin.TabStop = true;
+            this.radioButtonBuiltin.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonCustomCopy
+            // 
+            resources.ApplyResources(this.radioButtonCustomCopy, "radioButtonCustomCopy");
+            this.radioButtonCustomCopy.Name = "radioButtonCustomCopy";
+            this.radioButtonCustomCopy.UseVisualStyleBackColor = true;
+            this.radioButtonCustomCopy.CheckedChanged += new System.EventHandler(this.RadioButtonCustom_CheckedChanged);
+            // 
+            // buttonCustomPresetThumbnail
+            // 
+            resources.ApplyResources(this.buttonCustomPresetThumbnail, "buttonCustomPresetThumbnail");
+            this.buttonCustomPresetThumbnail.Name = "buttonCustomPresetThumbnail";
+            this.buttonCustomPresetThumbnail.UseVisualStyleBackColor = true;
+            this.buttonCustomPresetThumbnail.Click += new System.EventHandler(this.buttonCustomPresetCopyEdit_Click);
+            // 
+            // radioButtonThumbnail
+            // 
+            resources.ApplyResources(this.radioButtonThumbnail, "radioButtonThumbnail");
+            this.radioButtonThumbnail.Name = "radioButtonThumbnail";
+            this.radioButtonThumbnail.UseVisualStyleBackColor = true;
+            this.radioButtonThumbnail.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
@@ -138,28 +169,15 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // radioButtonBuiltin
-            // 
-            resources.ApplyResources(this.radioButtonBuiltin, "radioButtonBuiltin");
-            this.radioButtonBuiltin.Checked = true;
-            this.radioButtonBuiltin.Name = "radioButtonBuiltin";
-            this.radioButtonBuiltin.TabStop = true;
-            this.radioButtonBuiltin.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonCustom
-            // 
-            resources.ApplyResources(this.radioButtonCustom, "radioButtonCustom");
-            this.radioButtonCustom.Name = "radioButtonCustom";
-            this.radioButtonCustom.UseVisualStyleBackColor = true;
-            this.radioButtonCustom.CheckedChanged += new System.EventHandler(this.RadioButtonCustom_CheckedChanged);
-            // 
             // PresetStandardEncoder
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.radioButtonCustom);
+            this.Controls.Add(this.radioButtonThumbnail);
+            this.Controls.Add(this.buttonCustomPresetThumbnail);
+            this.Controls.Add(this.radioButtonCustomCopy);
             this.Controls.Add(this.radioButtonBuiltin);
             this.Controls.Add(this.listboxPresets);
             this.Controls.Add(this.pictureBox1);
@@ -198,6 +216,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.ListBox listboxPresets;
         private System.Windows.Forms.RadioButton radioButtonBuiltin;
-        private System.Windows.Forms.RadioButton radioButtonCustom;
+        private System.Windows.Forms.RadioButton radioButtonCustomCopy;
+        private System.Windows.Forms.Button buttonCustomPresetThumbnail;
+        private System.Windows.Forms.RadioButton radioButtonThumbnail;
     }
 }

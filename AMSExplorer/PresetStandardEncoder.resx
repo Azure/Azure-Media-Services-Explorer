@@ -220,7 +220,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelMES.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -244,7 +244,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -280,7 +280,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreinfoprofilelink.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -292,7 +292,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 274</value>
+    <value>14, 282</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 15</value>
@@ -313,13 +313,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="textBoxTransformName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
   <data name="textBoxTransformName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 293</value>
+    <value>17, 301</value>
   </data>
   <data name="textBoxTransformName.Size" type="System.Drawing.Size, System.Drawing">
     <value>609, 23</value>
@@ -337,13 +337,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxTransformName.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="textBoxDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
   <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 353</value>
+    <value>17, 356</value>
   </data>
   <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
     <value>609, 23</value>
@@ -361,7 +361,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -373,7 +373,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 334</value>
+    <value>14, 337</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 15</value>
@@ -394,7 +394,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="richTextBoxDesc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -421,7 +421,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;richTextBoxDesc.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -448,7 +448,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="listboxPresets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left</value>
@@ -475,16 +475,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;listboxPresets.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
-    <value>Key</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
-    <value>Value</value>
+    <value>4</value>
   </data>
   <data name="radioButtonBuiltin.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="radioButtonBuiltin.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="radioButtonBuiltin.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 78</value>
@@ -508,37 +505,109 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonBuiltin.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
-  <data name="radioButtonCustom.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="radioButtonCustomCopy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="radioButtonCustom.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButtonCustomCopy.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="radioButtonCustom.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 228</value>
+  <data name="radioButtonCustomCopy.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="radioButtonCustom.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="radioButtonCustomCopy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 224</value>
+  </data>
+  <data name="radioButtonCustomCopy.Size" type="System.Drawing.Size, System.Drawing">
     <value>360, 19</value>
   </data>
-  <data name="radioButtonCustom.TabIndex" type="System.Int32, mscorlib">
+  <data name="radioButtonCustomCopy.TabIndex" type="System.Int32, mscorlib">
     <value>94</value>
   </data>
-  <data name="radioButtonCustom.Text" xml:space="preserve">
+  <data name="radioButtonCustomCopy.Text" xml:space="preserve">
     <value>Custom preset : copy video and audio streams (no transcoding)</value>
   </data>
-  <data name="&gt;&gt;radioButtonCustom.Name" xml:space="preserve">
-    <value>radioButtonCustom</value>
+  <data name="&gt;&gt;radioButtonCustomCopy.Name" xml:space="preserve">
+    <value>radioButtonCustomCopy</value>
   </data>
-  <data name="&gt;&gt;radioButtonCustom.Type" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCustomCopy.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioButtonCustom.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCustomCopy.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;radioButtonCustom.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCustomCopy.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="buttonCustomPresetThumbnail.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonCustomPresetThumbnail.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonCustomPresetThumbnail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>194, 251</value>
+  </data>
+  <data name="buttonCustomPresetThumbnail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="buttonCustomPresetThumbnail.TabIndex" type="System.Int32, mscorlib">
+    <value>95</value>
+  </data>
+  <data name="buttonCustomPresetThumbnail.Text" xml:space="preserve">
+    <value>Configure...</value>
+  </data>
+  <data name="&gt;&gt;buttonCustomPresetThumbnail.Name" xml:space="preserve">
+    <value>buttonCustomPresetThumbnail</value>
+  </data>
+  <data name="&gt;&gt;buttonCustomPresetThumbnail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCustomPresetThumbnail.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonCustomPresetThumbnail.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonThumbnail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="radioButtonThumbnail.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonThumbnail.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonThumbnail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 253</value>
+  </data>
+  <data name="radioButtonThumbnail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 19</value>
+  </data>
+  <data name="radioButtonThumbnail.TabIndex" type="System.Int32, mscorlib">
+    <value>96</value>
+  </data>
+  <data name="radioButtonThumbnail.Text" xml:space="preserve">
+    <value>Custom preset : thumbnails</value>
+  </data>
+  <data name="&gt;&gt;radioButtonThumbnail.Name" xml:space="preserve">
+    <value>radioButtonThumbnail</value>
+  </data>
+  <data name="&gt;&gt;radioButtonThumbnail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonThumbnail.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButtonThumbnail.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>Value</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

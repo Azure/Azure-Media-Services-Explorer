@@ -7711,7 +7711,7 @@ namespace AMSExplorer
             {
                 TransformOutput[] outputs;
 
-                if (!form.UseCustomCopyPreset)
+                if (form.PresetType == MESPresetTypeUI.builtin)
                 {
                     outputs = new TransformOutput[]
                                                      {
@@ -7727,6 +7727,7 @@ namespace AMSExplorer
                                                     };
 
                 }
+                
 
                 return new Transform(outputs: outputs, name: form.TransformName, description: form.TransformDescription);
             }
