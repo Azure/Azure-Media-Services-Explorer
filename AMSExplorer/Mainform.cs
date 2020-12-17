@@ -736,7 +736,7 @@ namespace AMSExplorer
                             destAssetName = newAssetCreationSettings.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness());
                             assetToCreateSettings.AlternateId = newAssetCreationSettings.AssetAltId;
                             assetToCreateSettings.Container = newAssetCreationSettings.AssetContainer;
-                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0]));
+                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription != null ? newAssetCreationSettings.AssetDescription.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0])) : null;
                         }
                         else
                         {
@@ -7727,7 +7727,7 @@ namespace AMSExplorer
                                                     };
 
                 }
-                
+
 
                 return new Transform(outputs: outputs, name: form.TransformName, description: form.TransformDescription);
             }
