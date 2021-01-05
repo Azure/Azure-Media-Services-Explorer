@@ -88,7 +88,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (checkBoxEncodingKeyFrameInterval.Checked)
+                if (checkBoxEncodingKeyFrameInterval.Checked && !string.IsNullOrWhiteSpace(textBoxEncodingKeyFrameInterval.Text))
                 {
                     try
                     {
@@ -590,10 +590,13 @@ namespace AMSExplorer
         {
             textBoxEncodingKeyFrameInterval.Enabled = checkBoxEncodingKeyFrameInterval.Checked;
             checkEncodingKeyFrameValue();
-            Modifications.InputKeyFrameInterval = true;
+            Modifications.EncodingKeyFrameInterval = true;
         }
 
+        private void checkBoxKeyFrameIntDefined_TextChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 
     public class ExplorerAudioStream

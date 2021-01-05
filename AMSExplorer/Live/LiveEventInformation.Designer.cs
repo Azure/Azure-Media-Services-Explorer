@@ -200,7 +200,7 @@
             resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
             this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
             this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
-            this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged);
+            this.checkBoxKeyFrameIntDefined.TextChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_TextChanged);
             // 
             // textBoxKeyFrame
             // 
