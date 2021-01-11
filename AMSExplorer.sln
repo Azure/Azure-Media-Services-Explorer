@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSExplorer", "AMSExplorer\AMSExplorer.csproj", "{67573AA5-0316-4C90-8CE4-93A950CD0A86}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "SetupAMSExplorer", "SetupAMSExplorer\SetupAMSExplorer.isproj", "{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86} = {67573AA5-0316-4C90-8CE4-93A950CD0A86}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,7 +44,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {56028331-830B-4377-8919-694B44B54A0F}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+		SolutionGuid = {56028331-830B-4377-8919-694B44B54A0F}
 	EndGlobalSection
 EndGlobal

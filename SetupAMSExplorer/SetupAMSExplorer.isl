@@ -4474,9 +4474,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{46DB00F6-29FA-438B-83B3-FD28163DE0D4}</td><td/></row>
+		<row><td>ProductCode</td><td>{8A07188B-7406-4659-8BE1-198BA238E3AA}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
-		<row><td>ProductVersion</td><td>5.3.0.0</td><td/></row>
+		<row><td>ProductVersion</td><td>5.3.0.1</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4763,7 +4763,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
-		<row><td>{16FA33A7-9F0D-4022-91D5-6161725D5A09}</td><td></td><td></td><td></td><td>0</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry</td></row>
+		<row><td>{5145C7B3-B64F-42CA-A111-45E636E02027}</td><td></td><td></td><td></td><td>0</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry</td></row>
 	</table>
 
 	<table name="Verb">

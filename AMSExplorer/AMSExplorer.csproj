@@ -1043,7 +1043,7 @@
       <Version>3.0.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Management.Media">
-      <Version>3.0.2</Version>
+      <Version>3.0.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager">
       <Version>3.10.1-preview</Version>
