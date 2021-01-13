@@ -8142,7 +8142,14 @@ namespace AMSExplorer
 
         private void UpdateLabelProcessorUnits()
         {
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 1 ? "s" : string.Empty);
+            if (trackBarEncodingRU.Value > 0)
+            {
+                labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 1 ? "s" : string.Empty);
+            }
+            else
+            {
+                labelnbunits.Text = "Autoscale";
+            }
         }
 
         private void TrackBarEncodingRU_ValueChanged(object sender, EventArgs e)
