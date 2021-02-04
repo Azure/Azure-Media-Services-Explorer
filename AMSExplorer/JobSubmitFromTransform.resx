@@ -232,7 +232,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonDeleteTemplate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>655, 332</value>
+    <value>655, 334</value>
   </data>
   <data name="buttonDeleteTemplate.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 27</value>
@@ -345,423 +345,6 @@
   <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="&gt;&gt;buttonCreateNewTransform.Name" xml:space="preserve">
-    <value>buttonCreateNewTransform</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateNewTransform.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateNewTransform.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;buttonCreateNewTransform.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;listViewTransforms.Name" xml:space="preserve">
-    <value>listViewTransforms</value>
-  </data>
-  <data name="&gt;&gt;listViewTransforms.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewTransforms, AMSExplorer, Version=5.0.14.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;listViewTransforms.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;listViewTransforms.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>752, 365</value>
-  </data>
-  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>Source &amp; transform</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSourceTrimmingEnd.Name" xml:space="preserve">
-    <value>checkBoxSourceTrimmingEnd</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSourceTrimmingEnd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSourceTrimmingEnd.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSourceTrimmingEnd.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;textBoxSourceDurationTime.Name" xml:space="preserve">
-    <value>textBoxSourceDurationTime</value>
-  </data>
-  <data name="&gt;&gt;textBoxSourceDurationTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxSourceDurationTime.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;textBoxSourceDurationTime.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSourceTrimmingStart.Name" xml:space="preserve">
-    <value>checkBoxSourceTrimmingStart</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSourceTrimmingStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSourceTrimmingStart.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSourceTrimmingStart.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;timeControlEndTime.Name" xml:space="preserve">
-    <value>timeControlEndTime</value>
-  </data>
-  <data name="&gt;&gt;timeControlEndTime.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.14.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;timeControlEndTime.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;timeControlEndTime.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;timeControlStartTime.Name" xml:space="preserve">
-    <value>timeControlStartTime</value>
-  </data>
-  <data name="&gt;&gt;timeControlStartTime.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.14.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;timeControlStartTime.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;timeControlStartTime.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>752, 365</value>
-  </data>
-  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>Trimming</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="textBoxNewAssetName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxNewAssetName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>173, 17</value>
-  </data>
-  <data name="textBoxNewAssetName.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Horizontal</value>
-  </data>
-  <data name="textBoxNewAssetName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 23</value>
-  </data>
-  <data name="textBoxNewAssetName.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="&gt;&gt;textBoxNewAssetName.Name" xml:space="preserve">
-    <value>textBoxNewAssetName</value>
-  </data>
-  <data name="&gt;&gt;textBoxNewAssetName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxNewAssetName.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;textBoxNewAssetName.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 45</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>(should be different from input asset)</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panelSelectAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>panelSelectAsset</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;listViewAssets1.Name" xml:space="preserve">
-    <value>listViewAssets1</value>
-  </data>
-  <data name="&gt;&gt;listViewAssets1.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewAssets, AMSExplorer, Version=5.0.14.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;listViewAssets1.Parent" xml:space="preserve">
-    <value>panelSelectAsset</value>
-  </data>
-  <data name="&gt;&gt;listViewAssets1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;buttonSearchExactAssetName.Name" xml:space="preserve">
-    <value>buttonSearchExactAssetName</value>
-  </data>
-  <data name="&gt;&gt;buttonSearchExactAssetName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSearchExactAssetName.Parent" xml:space="preserve">
-    <value>panelSelectAsset</value>
-  </data>
-  <data name="&gt;&gt;buttonSearchExactAssetName.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;textBoxExactAssetName.Name" xml:space="preserve">
-    <value>textBoxExactAssetName</value>
-  </data>
-  <data name="&gt;&gt;textBoxExactAssetName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxExactAssetName.Parent" xml:space="preserve">
-    <value>panelSelectAsset</value>
-  </data>
-  <data name="&gt;&gt;textBoxExactAssetName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panelSelectAsset.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="panelSelectAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 68</value>
-  </data>
-  <data name="panelSelectAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>722, 293</value>
-  </data>
-  <data name="panelSelectAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>84</value>
-  </data>
-  <data name="&gt;&gt;panelSelectAsset.Name" xml:space="preserve">
-    <value>panelSelectAsset</value>
-  </data>
-  <data name="&gt;&gt;panelSelectAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelSelectAsset.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;panelSelectAsset.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="radioButtonExistingAsset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonExistingAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonExistingAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 43</value>
-  </data>
-  <data name="radioButtonExistingAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 19</value>
-  </data>
-  <data name="radioButtonExistingAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="radioButtonExistingAsset.Text" xml:space="preserve">
-    <value>Existing asset</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExistingAsset.Name" xml:space="preserve">
-    <value>radioButtonExistingAsset</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExistingAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExistingAsset.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;radioButtonExistingAsset.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="radioButtonNewAsset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonNewAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonNewAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 18</value>
-  </data>
-  <data name="radioButtonNewAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 19</value>
-  </data>
-  <data name="radioButtonNewAsset.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonNewAsset.Text" xml:space="preserve">
-    <value>New asset with name :</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNewAsset.Name" xml:space="preserve">
-    <value>radioButtonNewAsset</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNewAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNewAsset.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNewAsset.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>752, 365</value>
-  </data>
-  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>Output asset</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 67</value>
-  </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>760, 393</value>
-  </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="buttonCreateNewTransform.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -769,7 +352,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonCreateNewTransform.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 332</value>
+    <value>374, 334</value>
   </data>
   <data name="buttonCreateNewTransform.Size" type="System.Drawing.Size, System.Drawing">
     <value>275, 27</value>
@@ -794,78 +377,6 @@
   </data>
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;labelURLFileNameWarning.Name" xml:space="preserve">
-    <value>labelURLFileNameWarning</value>
-  </data>
-  <data name="&gt;&gt;labelURLFileNameWarning.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelURLFileNameWarning.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;labelURLFileNameWarning.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxURL.Name" xml:space="preserve">
-    <value>textBoxURL</value>
-  </data>
-  <data name="&gt;&gt;textBoxURL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxURL.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;textBoxURL.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHttpSource.Name" xml:space="preserve">
-    <value>radioButtonHttpSource</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHttpSource.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHttpSource.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonHttpSource.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSelectedAssets.Name" xml:space="preserve">
-    <value>radioButtonSelectedAssets</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSelectedAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSelectedAssets.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonSelectedAssets.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 6</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>721, 136</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Source</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="labelURLFileNameWarning.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -937,13 +448,13 @@
     <value>26, 48</value>
   </data>
   <data name="radioButtonHttpSource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 19</value>
+    <value>98, 19</value>
   </data>
   <data name="radioButtonHttpSource.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="radioButtonHttpSource.Text" xml:space="preserve">
-    <value>Http(s) source :</value>
+    <value>Https source :</value>
   </data>
   <data name="&gt;&gt;radioButtonHttpSource.Name" xml:space="preserve">
     <value>radioButtonHttpSource</value>
@@ -987,6 +498,30 @@
   <data name="&gt;&gt;radioButtonSelectedAssets.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 6</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>721, 136</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="listViewTransforms.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -994,7 +529,7 @@
     <value>11, 179</value>
   </data>
   <data name="listViewTransforms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>726, 147</value>
+    <value>726, 149</value>
   </data>
   <data name="listViewTransforms.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -1003,13 +538,40 @@
     <value>listViewTransforms</value>
   </data>
   <data name="&gt;&gt;listViewTransforms.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewTransforms, AMSExplorer, Version=5.0.14.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewTransforms, AMSExplorer, Version=5.3.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewTransforms.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;listViewTransforms.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>752, 365</value>
+  </data>
+  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Source &amp; transform</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1172,7 +734,7 @@ To trim a live asset (live or archive), use the subclipping feature in AMSE : ti
     <value>timeControlEndTime</value>
   </data>
   <data name="&gt;&gt;timeControlEndTime.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.14.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.3.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEndTime.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -1202,13 +764,103 @@ To trim a live asset (live or archive), use the subclipping feature in AMSE : ti
     <value>timeControlStartTime</value>
   </data>
   <data name="&gt;&gt;timeControlStartTime.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.0.14.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.3.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStartTime.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;timeControlStartTime.ZOrder" xml:space="preserve">
     <value>6</value>
+  </data>
+  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>752, 365</value>
+  </data>
+  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>Trimming</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBoxNewAssetNameSyntax.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxNewAssetNameSyntax.Location" type="System.Drawing.Point, System.Drawing">
+    <value>173, 17</value>
+  </data>
+  <data name="textBoxNewAssetNameSyntax.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="textBoxNewAssetNameSyntax.Size" type="System.Drawing.Size, System.Drawing">
+    <value>573, 23</value>
+  </data>
+  <data name="textBoxNewAssetNameSyntax.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="&gt;&gt;textBoxNewAssetNameSyntax.Name" xml:space="preserve">
+    <value>textBoxNewAssetNameSyntax</value>
+  </data>
+  <data name="&gt;&gt;textBoxNewAssetNameSyntax.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxNewAssetNameSyntax.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;textBoxNewAssetNameSyntax.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>125, 45</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 15</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>(should be different from input asset)</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panelSelectAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1247,7 +899,7 @@ To trim a live asset (live or archive), use the subclipping feature in AMSE : ti
     <value>8, 40</value>
   </data>
   <data name="listViewAssets1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>686, 221</value>
+    <value>686, 223</value>
   </data>
   <data name="listViewAssets1.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -1256,7 +908,7 @@ To trim a live asset (live or archive), use the subclipping feature in AMSE : ti
     <value>listViewAssets1</value>
   </data>
   <data name="&gt;&gt;listViewAssets1.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewAssets, AMSExplorer, Version=5.0.14.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewAssets, AMSExplorer, Version=5.3.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewAssets1.Parent" xml:space="preserve">
     <value>panelSelectAsset</value>
@@ -1317,6 +969,138 @@ To trim a live asset (live or archive), use the subclipping feature in AMSE : ti
   </data>
   <data name="&gt;&gt;textBoxExactAssetName.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="panelSelectAsset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panelSelectAsset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 68</value>
+  </data>
+  <data name="panelSelectAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>722, 295</value>
+  </data>
+  <data name="panelSelectAsset.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="&gt;&gt;panelSelectAsset.Name" xml:space="preserve">
+    <value>panelSelectAsset</value>
+  </data>
+  <data name="&gt;&gt;panelSelectAsset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelSelectAsset.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;panelSelectAsset.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonExistingAsset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonExistingAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonExistingAsset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 43</value>
+  </data>
+  <data name="radioButtonExistingAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 19</value>
+  </data>
+  <data name="radioButtonExistingAsset.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radioButtonExistingAsset.Text" xml:space="preserve">
+    <value>Existing asset</value>
+  </data>
+  <data name="&gt;&gt;radioButtonExistingAsset.Name" xml:space="preserve">
+    <value>radioButtonExistingAsset</value>
+  </data>
+  <data name="&gt;&gt;radioButtonExistingAsset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonExistingAsset.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;radioButtonExistingAsset.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButtonNewAsset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonNewAsset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonNewAsset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 18</value>
+  </data>
+  <data name="radioButtonNewAsset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 19</value>
+  </data>
+  <data name="radioButtonNewAsset.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonNewAsset.Text" xml:space="preserve">
+    <value>New asset with name :</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNewAsset.Name" xml:space="preserve">
+    <value>radioButtonNewAsset</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNewAsset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNewAsset.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNewAsset.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>752, 365</value>
+  </data>
+  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>Output asset</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 67</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>760, 393</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

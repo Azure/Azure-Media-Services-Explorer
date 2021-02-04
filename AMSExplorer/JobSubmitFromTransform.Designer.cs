@@ -55,6 +55,7 @@
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBoxNewAssetNameSyntax = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panelSelectAsset = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.textBoxExactAssetName = new System.Windows.Forms.TextBox();
             this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
-            this.textBoxNewAssetNameSyntax = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -287,6 +287,11 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // textBoxNewAssetNameSyntax
+            // 
+            resources.ApplyResources(this.textBoxNewAssetNameSyntax, "textBoxNewAssetNameSyntax");
+            this.textBoxNewAssetNameSyntax.Name = "textBoxNewAssetNameSyntax";
+            // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
@@ -344,11 +349,6 @@
             this.radioButtonNewAsset.Name = "radioButtonNewAsset";
             this.radioButtonNewAsset.TabStop = true;
             this.radioButtonNewAsset.UseVisualStyleBackColor = true;
-            // 
-            // textBoxNewAssetName
-            // 
-            resources.ApplyResources(this.textBoxNewAssetNameSyntax, "textBoxNewAssetName");
-            this.textBoxNewAssetNameSyntax.Name = "textBoxNewAssetName";
             // 
             // JobSubmitFromTransform
             // 
