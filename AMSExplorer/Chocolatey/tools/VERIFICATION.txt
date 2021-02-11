@@ -1,0 +1,3 @@
+﻿
+VERIFICATION
+This software is the same software than released on https://github.com/Azure/Azure-Media-Services-Explorer/releases

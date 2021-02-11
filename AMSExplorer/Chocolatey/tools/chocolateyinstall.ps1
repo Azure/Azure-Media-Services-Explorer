@@ -1,16 +1,42 @@
-﻿$ErrorActionPreference = 'Stop';
-$packageName = 'amsexplorer'
-$toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url = 'https://amsexplorer.blob.core.windows.net/release/AMSExplorerSetup_v3.28.0.0.exe'
+﻿
+$ErrorActionPreference = 'Stop';
+$toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
+$url        = 'https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.3.0.1.msi'
 
 $packageArgs = @{
-  packageName   = $packageName
+  packageName   = $env:ChocolateyPackageName
   unzipLocation = $toolsDir
-  fileType      = 'EXE'
+  fileType      = 'MSI'
   url           = $url
+
+  softwareName  = 'Azure Media Services Explorer'
+
+  checksum      = '54AC71A076C997EA7D033A4B078721440A0076282C550BA28E60910E7228F1CB'
+  checksumType  = 'sha256'
+  checksum64    = ''
+  checksumType64= 'sha256'
+
+  silentArgs    = "/quiet"
   validExitCodes= @(0, 3010, 1641)
-  silentArgs    = "/v/qn"
-  registryUninstallerKey = '{153DE731-881C-48CD-9A31-D52962B1F267}'
 }
 
 Install-ChocolateyPackage @packageArgs
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
