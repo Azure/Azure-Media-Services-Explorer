@@ -43,14 +43,14 @@ This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Refe
     <!-- If there is a license Url available, it is required for the community feed -->
     <licenseUrl>https://github.com/Azure/Azure-Media-Services-Explorer/blob/main/LICENSE.md</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <projectSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/</projectSourceUrl>
+    <!--<projectSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/</projectSourceUrl>-->
     <!--<docsUrl>At what url are the software docs located?</docsUrl>-->
     <!--<mailingListUrl></mailingListUrl>-->
     <bugTrackerUrl>https://github.com/Azure/Azure-Media-Services-Explorer/issues</bugTrackerUrl>
     <tags>amsexplorer AMSE AMS Azure Media Explorer Encoding Streaming</tags>
     <summary>Azure Media Services Explorer</summary>
     <description>Azure Media Services Explorer is a test tool for Windows that provides upload, download, process, encode, package, and stream assets and live events with Azure Media Services using the AMS .Net SDK and the REST API. Source code is also provided on GitHub.</description>
-    <!-- <releaseNotes>__REPLACE_OR_REMOVE__MarkDown_Okay</releaseNotes> -->
+    <releaseNotes>https://github.com/Azure/Azure-Media-Services-Explorer/blob/main/AllReleaseNotes.md</releaseNotes>
     <!-- =============================== -->      
 
     <!-- Specifying dependencies and version ranges? https://docs.nuget.org/create/versioning#specifying-version-ranges-in-.nuspec-files -->
