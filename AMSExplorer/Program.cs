@@ -424,7 +424,7 @@ namespace AMSExplorer
     public class Constants
     {
         public const string GitHubAMSEVersionPrimaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
-        public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/versionv3.json";
+        public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
 
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
@@ -539,7 +539,7 @@ namespace AMSExplorer
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
         public const string LinkReportBugAMSE = @"https://github.com/Azure/Azure-Media-Services-Explorer/issues";
-        public const string LinkAMSEReleaseNotes = @"https://rawgit.com/Azure/Azure-Media-Services-Explorer/master/AllReleaseNotes.html";
+        public const string LinkAMSEReleaseNotes = @"https://rawgit.com/Azure/Azure-Media-Services-Explorer/main/AllReleaseNotes.html";
 
         public const long maxSlateJPGFileSize = 3 * 1000 * 1000; // Max 3 MB
         public const int maxSlateJPGHorizontalResolution = 1920;
