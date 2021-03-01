@@ -239,7 +239,7 @@
     <value>81, 19</value>
   </data>
   <data name="checkBoxDisplayChannelID.Text" xml:space="preserve">
-    <value>チャネル ID</value>
+    <value>ライブイベント ID</value>
   </data>
   <data name="checkBoxDisplayChannelID.ToolTip" xml:space="preserve">
     <value />

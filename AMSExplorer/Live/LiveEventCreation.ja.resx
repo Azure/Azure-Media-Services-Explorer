@@ -936,7 +936,7 @@
     <value />
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>ライブチャネルの作成</value>
+    <value>ライブイベントの作成</value>
   </data>
   <data name="$this.ToolTip" xml:space="preserve">
     <value />
@@ -966,13 +966,13 @@
     <value>キャンセル</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>チャネル名: </value>
+    <value>ライブイベント名: </value>
   </data>
   <data name="TabSettings.Text" xml:space="preserve">
-    <value>チャネル設定 </value>
+    <value>ライブイベント設定 </value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
-    <value>チャネルの作成</value>
+    <value>ライブイベントの作成</value>
   </data>
   <data name="buttonDelAddOption.Text" xml:space="preserve">
     <value>削除</value>
@@ -1017,7 +1017,7 @@
     <value>オーディオ ストリーム インデックス :</value>
   </data>
   <data name="labelWarning.Text" xml:space="preserve">
-    <value>実行中の状態のチャネルは費用がかかります</value>
+    <value>実行中の状態のライブイベントは費用がかかります</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>広告マーカーのソース :</value>
@@ -1056,7 +1056,7 @@
     <value>ライブ エンコーディング (Azure Media Services) :</value>
   </data>
   <data name="checkBoxStartChannel.Text" xml:space="preserve">
-    <value>新しいチャネルをすぐに開始する</value>
+    <value>新しいライブイベントをすぐに開始する</value>
   </data>
   <data name="label14.Text" xml:space="preserve">
     <value>名前 または ID で検索 :</value>

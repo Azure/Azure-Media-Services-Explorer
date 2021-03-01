@@ -243,7 +243,7 @@
     <value>ライブ出力名 :</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>チャネル {0} の新しいライブ出力の作成</value>
+    <value>ライブイベント {0} の新しいライブ出力の作成</value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
     <value>ライブ出力の作成</value>
