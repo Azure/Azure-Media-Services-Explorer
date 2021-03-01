@@ -253,10 +253,10 @@
     <value>{0} チャネルが選択されました</value>
   </data>
   <data name="CopyAsset_CopyAsset_0ProgramSelected" xml:space="preserve">
-    <value>{0} プログラムが選択されました</value>
+    <value>{0} ライブ出力が選択されました</value>
   </data>
   <data name="CopyAsset_CopyAsset_0ProgramsSelected" xml:space="preserve">
-    <value>{0} プログラムが選択されました</value>
+    <value>{0} ライブ出力が選択されました</value>
   </data>
   <data name="DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPolicy" xml:space="preserve">
     <value>{0} 承認ポリシー</value>
@@ -391,10 +391,10 @@
     <value>チャネルの複製</value>
   </data>
   <data name="CopyAsset_CopyAsset_CloneProgram" xml:space="preserve">
-    <value>プログラムの複製</value>
+    <value>ライブ出力の複製</value>
   </data>
   <data name="CopyAsset_CopyAsset_ClonePrograms" xml:space="preserve">
-    <value>プログラムの複製</value>
+    <value>ライブ出力の複製</value>
   </data>
   <data name="EditorXMLJSON_EditorXMLJSON_Close" xml:space="preserve">
     <value>閉じる</value>

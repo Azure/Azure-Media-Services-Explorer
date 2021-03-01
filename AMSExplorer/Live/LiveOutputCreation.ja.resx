@@ -125,7 +125,7 @@
     <value>161, 19</value>
   </data>
   <data name="checkBoxStartProgramNow.Text" xml:space="preserve">
-    <value>プログラムをすぐに開始する</value>
+    <value>ライブ出力をすぐに開始する</value>
   </data>
   <data name="checkBoxDynEnc.Size" type="System.Drawing.Size, System.Drawing">
     <value>141, 19</value>
@@ -221,14 +221,14 @@
     <value>1ストリーミングユニットを追加する</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>ライブプログラムは、プログラムを停止した際に録画しているオンデマンドコンテンツに自動的に変換し、アセットタブからアクセスできます
-公開するすべてのストリーミングURLは、ライブプログラムが終了後も、そのまま利用可能となります</value>
+    <value>ライブ出力は、ライブ出力を停止した際に録画しているオンデマンドコンテンツに自動的に変換し、アセットタブからアクセスできます
+公開するすべてのストリーミングURLは、ライブ出力が終了後も、そのまま利用可能となります</value>
   </data>
   <data name="checkBoxCreateLocator.Size" type="System.Drawing.Size, System.Drawing">
     <value>398, 19</value>
   </data>
   <data name="checkBoxCreateLocator.Text" xml:space="preserve">
-    <value>このプログラム(アセット)をすぐに公開する (既定のロケーターの期間: {0} 日)</value>
+    <value>このライブ出力(アセット)をすぐに公開する (既定のロケーターの期間: {0} 日)</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 15</value>
@@ -240,24 +240,24 @@
     <value>75, 15</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>プログラム名 :</value>
+    <value>ライブ出力名 :</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>チャネル {0} の新しいプログラムの作成</value>
+    <value>チャネル {0} の新しいライブ出力の作成</value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
-    <value>プログラムの作成</value>
+    <value>ライブ出力の作成</value>
   </data>
   <data name="labelCloneLocators.Text" xml:space="preserve">
     <value>(自動生成の場合は空欄のまま)</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>レプリカ (複製プログラム) の出力 URL:</value>
+    <value>レプリカ (複製ライブ出力) の出力 URL:</value>
   </data>
   <data name="checkBoxReplica.Text" xml:space="preserve">
-    <value>このプログラムはもう1つのデータセンターにあるプログラムのレプリカである</value>
+    <value>このライブ出力はもう1つのデータセンターにあるライブ出力のレプリカである</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>このオプションは、もう1つのデータセンターにあるライブプログラムを作成し、同じ URL パスで新しいプログラムを生成したい場合に、利用します</value>
+    <value>このオプションは、もう1つのデータセンターにあるライブ出力を作成し、同じ URL パスで新しいライブ出力を生成したい場合に、利用します</value>
   </data>
 </root>
