@@ -6,7 +6,7 @@
 ### This change concerns: (mark with an `x`)
 ```
 - [ ] AMSE v4.x (for AMS v2) in 'AMSv2' branch
-- [ ] AMSE v5.x (for AMS v3) in 'master' branch
+- [ ] AMSE v5.x (for AMS v3) in 'main' branch
 - [ ] Other
 ```
 
