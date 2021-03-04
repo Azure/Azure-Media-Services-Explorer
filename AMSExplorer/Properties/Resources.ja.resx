@@ -226,7 +226,7 @@
     <value>(エラー)</value>
   </data>
   <data name="ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected" xml:space="preserve">
-    <value>(複数のチャネルが選択されています)</value>
+    <value>(複数のライブイベントが選択されています)</value>
   </data>
   <data name="BatchUploadFrame2_BatchUploadFrame2_01File" xml:space="preserve">
     <value>{0} ({1} ファイル)</value>
@@ -247,16 +247,16 @@
     <value>{0} アセットが選択されました</value>
   </data>
   <data name="CopyAsset_CopyAsset_0ChannelSelected" xml:space="preserve">
-    <value>{0} チャネルが選択されました</value>
+    <value>{0} ライブイベントが選択されました</value>
   </data>
   <data name="CopyAsset_CopyAsset_0ChannelsSelected" xml:space="preserve">
-    <value>{0} チャネルが選択されました</value>
+    <value>{0} ライブイベントが選択されました</value>
   </data>
   <data name="CopyAsset_CopyAsset_0ProgramSelected" xml:space="preserve">
-    <value>{0} プログラムが選択されました</value>
+    <value>{0} ライブ出力が選択されました</value>
   </data>
   <data name="CopyAsset_CopyAsset_0ProgramsSelected" xml:space="preserve">
-    <value>{0} プログラムが選択されました</value>
+    <value>{0} ライブ出力が選択されました</value>
   </data>
   <data name="DynamicEncryption_AddTokenRestrictedAuthorizationPolicyAES_0TokenAuthorizationPolicy" xml:space="preserve">
     <value>{0} 承認ポリシー</value>
@@ -343,40 +343,40 @@
     <value>証明書が必要です</value>
   </data>
   <data name="ChannelAdSlateControl_HideSlate_Channel0ErrorWhenHiddingSlate" xml:space="preserve">
-    <value>チャネル '{0}' : Error when hidding slate</value>
+    <value>ライブイベント '{0}' : Error when hidding slate</value>
   </data>
   <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWhenSendingSignal" xml:space="preserve">
-    <value>チャネル '{0}' : Error when sending signal</value>
+    <value>ライブイベント '{0}' : Error when sending signal</value>
   </data>
   <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWhenShowingSlate" xml:space="preserve">
-    <value>チャネル '{0}' : Error when showing slate</value>
+    <value>ライブイベント '{0}' : Error when showing slate</value>
   </data>
   <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithADDurationInput" xml:space="preserve">
-    <value>チャネル '{0}' : Error with AD duration input</value>
+    <value>ライブイベント '{0}' : Error with AD duration input</value>
   </data>
   <data name="ChannelAdSlateControl_InsertAd_Channel0ErrorWithCueIDInput" xml:space="preserve">
-    <value>チャネル '{0}' : Error with CueID input</value>
+    <value>ライブイベント '{0}' : Error with CueID input</value>
   </data>
   <data name="ChannelAdSlateControl_ShowSlate_Channel0ErrorWithSlateDurationInput" xml:space="preserve">
-    <value>チャネル '{0}' : Error with slate duration input</value>
+    <value>ライブイベント '{0}' : Error with slate duration input</value>
   </data>
   <data name="ChannelAdSlateControl_InsertAd_Channel0SendingADSignal" xml:space="preserve">
-    <value>チャネル '{0}' : sending AD signal</value>
+    <value>ライブイベント '{0}' : sending AD signal</value>
   </data>
   <data name="ChannelAdSlateControl_HideSlate_Channel0SendingHideSlateSignal" xml:space="preserve">
-    <value>チャネル '{0}' : sending hide slate signal</value>
+    <value>ライブイベント '{0}' : sending hide slate signal</value>
   </data>
   <data name="ChannelAdSlateControl_ShowSlate_Channel0SendingShowSlateSignal" xml:space="preserve">
-    <value>チャネル '{0}' : sending show slate signal</value>
+    <value>ライブイベント '{0}' : sending show slate signal</value>
   </data>
   <data name="ChannelRunOnPremisesEncoder_BuildArguments_ChannelIsNotRunning" xml:space="preserve">
-    <value>チャネルは実行されていません</value>
+    <value>ライブイベントは実行されていません</value>
   </data>
   <data name="CreateLiveChannel_checkChannelName_ChannelNameIsNotValid" xml:space="preserve">
-    <value>チャネル名が無効です</value>
+    <value>ライブイベント名が無効です</value>
   </data>
   <data name="LabelChannel" xml:space="preserve">
-    <value>チャネル</value>
+    <value>ライブイベント</value>
   </data>
   <data name="AssetInformation_DoDisplayKeyPropertiesAndAutOptions_Checksum" xml:space="preserve">
     <value>チェックサム</value>
@@ -385,16 +385,16 @@
     <value>クリア キーの値</value>
   </data>
   <data name="CopyAsset_CopyAsset_CloneChannel" xml:space="preserve">
-    <value>チャネルの複製</value>
+    <value>ライブイベントの複製</value>
   </data>
   <data name="CopyAsset_CopyAsset_CloneChannels" xml:space="preserve">
-    <value>チャネルの複製</value>
+    <value>ライブイベントの複製</value>
   </data>
   <data name="CopyAsset_CopyAsset_CloneProgram" xml:space="preserve">
-    <value>プログラムの複製</value>
+    <value>ライブ出力の複製</value>
   </data>
   <data name="CopyAsset_CopyAsset_ClonePrograms" xml:space="preserve">
-    <value>プログラムの複製</value>
+    <value>ライブ出力の複製</value>
   </data>
   <data name="EditorXMLJSON_EditorXMLJSON_Close" xml:space="preserve">
     <value>閉じる</value>
@@ -651,7 +651,7 @@
     <value>ジョブ</value>
   </data>
   <data name="TabLive" xml:space="preserve">
-    <value>ライブチャネル</value>
+    <value>ライブイベント</value>
   </data>
   <data name="AssetInformation_DoDelLocator_LocatorDeletion" xml:space="preserve">
     <value>ロケーター削除</value>

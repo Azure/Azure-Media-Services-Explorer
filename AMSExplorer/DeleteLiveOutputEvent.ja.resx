@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>プログラムの削除</value>
+    <value>ライブ出力の削除</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>プログラムの削除</value>
+    <value>ライブ出力の削除</value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
-    <value>プログラムの削除</value>
+    <value>ライブ出力の削除</value>
   </data>
   <data name="checkBoxDeleteAsset.Text" xml:space="preserve">
     <value>関連するアセットの削除</value>
