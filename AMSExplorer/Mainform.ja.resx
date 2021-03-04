@@ -1352,7 +1352,7 @@
     <value>256, 22</value>
   </data>
   <data name="ContextMenuItemProgramDisplayInformation.Text" xml:space="preserve">
-    <value>プログラムの情報表示と設定...</value>
+    <value>ライブ出力の情報表示と設定...</value>
   </data>
   <data name="ContextMenuItemProgramDisplayRelatedAssetInformation.Size" type="System.Drawing.Size, System.Drawing">
     <value>256, 22</value>
@@ -1371,13 +1371,13 @@
     <value>256, 22</value>
   </data>
   <data name="createProgramToolStripMenuItem.Text" xml:space="preserve">
-    <value>プログラムの作成...</value>
+    <value>ライブ出力の作成...</value>
   </data>
   <data name="recreateProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>256, 22</value>
   </data>
   <data name="recreateProgramToolStripMenuItem.Text" xml:space="preserve">
-    <value>プログラムのリセット</value>
+    <value>ライブ出力のリセット</value>
   </data>
   <data name="ContextMenuItemProgramStart.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1393,7 +1393,7 @@
     <value>256, 22</value>
   </data>
   <data name="ContextMenuItemProgramStart.Text" xml:space="preserve">
-    <value>プログラムの開始</value>
+    <value>ライブ出力の開始</value>
   </data>
   <data name="ContextMenuItemProgramStop.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1406,13 +1406,13 @@
     <value>256, 22</value>
   </data>
   <data name="ContextMenuItemProgramStop.Text" xml:space="preserve">
-    <value>プログラムの停止</value>
+    <value>ライブ出力の停止</value>
   </data>
   <data name="cloneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>256, 22</value>
   </data>
   <data name="cloneToolStripMenuItem.Text" xml:space="preserve">
-    <value>他のアカウントのプログラムの複製...</value>
+    <value>他のアカウントのライブ出力の複製...</value>
   </data>
   <data name="ContextMenuItemProgramDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1426,7 +1426,7 @@
     <value>256, 22</value>
   </data>
   <data name="ContextMenuItemProgramDelete.Text" xml:space="preserve">
-    <value>プログラムの削除...</value>
+    <value>ライブ出力の削除...</value>
   </data>
   <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 6</value>
@@ -1507,7 +1507,7 @@
     <value>256, 22</value>
   </data>
   <data name="subclipProgramsToolStripMenuItem.Text" xml:space="preserve">
-    <value>プログラムのサブクリッピング...</value>
+    <value>ライブ出力のサブクリッピング...</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 22</value>
@@ -1535,7 +1535,7 @@
     <value>256, 22</value>
   </data>
   <data name="ContextMenuItemProgramPlayback.Text" xml:space="preserve">
-    <value>プログラムの再生</value>
+    <value>ライブ出力の再生</value>
   </data>
   <data name="contextMenuStripPrograms.Size" type="System.Drawing.Size, System.Drawing">
     <value>257, 330</value>
@@ -1550,7 +1550,7 @@
     <value>61, 13</value>
   </data>
   <data name="labelPrograms.Text" xml:space="preserve">
-    <value>プログラム</value>
+    <value>ライブ出力</value>
   </data>
   <data name="labelPrograms.ToolTip" xml:space="preserve">
     <value />
@@ -1583,7 +1583,7 @@
     <value />
   </data>
   <data name="textBoxSearchNameProgram.ToolTip" xml:space="preserve">
-    <value>プログラム名/プログラム ID/アセットID で検索</value>
+    <value>ライブ出力名/ライブ出力 ID/アセットID で検索</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
     <value>745, 181</value>
@@ -1592,7 +1592,7 @@
     <value>54, 15</value>
   </data>
   <data name="label14.Text" xml:space="preserve">
-    <value>チャネル: </value>
+    <value>ライブイベント: </value>
   </data>
   <data name="label14.ToolTip" xml:space="preserve">
     <value />
@@ -1668,7 +1668,7 @@
     <value>288, 22</value>
   </data>
   <data name="ContextMenuItemChannelDisplayInfomation.Text" xml:space="preserve">
-    <value>チャネルの情報表示と更新...</value>
+    <value>ライブイベントの情報表示と更新...</value>
   </data>
   <data name="loadMetricsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
@@ -1680,7 +1680,7 @@
     <value>288, 22</value>
   </data>
   <data name="ContextMenuItemChannelAdAndSlateControl.Text" xml:space="preserve">
-    <value>チャネルの広告とスレートの制御...</value>
+    <value>ライブイベントの広告とスレートの制御...</value>
   </data>
   <data name="createChannelToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1693,7 +1693,7 @@
     <value>288, 22</value>
   </data>
   <data name="createChannelToolStripMenuItem1.Text" xml:space="preserve">
-    <value>チャネルの作成...</value>
+    <value>ライブイベントの作成...</value>
   </data>
   <data name="ContextMenuItemChannelStart.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1709,7 +1709,7 @@
     <value>288, 22</value>
   </data>
   <data name="ContextMenuItemChannelStart.Text" xml:space="preserve">
-    <value>チャネルの開始</value>
+    <value>ライブイベントの開始</value>
   </data>
   <data name="ContextMenuItemChannelStop.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1722,7 +1722,7 @@
     <value>288, 22</value>
   </data>
   <data name="ContextMenuItemChannelStop.Text" xml:space="preserve">
-    <value>チャネルの停止</value>
+    <value>ライブイベントの停止</value>
   </data>
   <data name="ContextMenuItemChannelReset.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1738,13 +1738,13 @@
     <value>288, 22</value>
   </data>
   <data name="ContextMenuItemChannelReset.Text" xml:space="preserve">
-    <value>チャネルのリセット</value>
+    <value>ライブイベントのリセット</value>
   </data>
   <data name="cloneChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
   </data>
   <data name="cloneChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>他のアカウントのチャネルの複製...</value>
+    <value>他のアカウントのライブイベントの複製...</value>
   </data>
   <data name="ContextMenuItemChannelDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1758,7 +1758,7 @@
     <value>288, 22</value>
   </data>
   <data name="ContextMenuItemChannelDelete.Text" xml:space="preserve">
-    <value>チャネルの削除...</value>
+    <value>ライブイベントの削除...</value>
   </data>
   <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
     <value>285, 6</value>
@@ -1843,7 +1843,7 @@
     <value>52, 13</value>
   </data>
   <data name="labelChannels.Text" xml:space="preserve">
-    <value>チャネル</value>
+    <value>ライブイベント</value>
   </data>
   <data name="labelChannels.ToolTip" xml:space="preserve">
     <value />
@@ -1852,7 +1852,7 @@
     <value />
   </data>
   <data name="textBoxSearchNameChannel.ToolTip" xml:space="preserve">
-    <value>チャネル名/チャネル ID で検索</value>
+    <value>ライブイベント名/ライブイベント ID で検索</value>
   </data>
   <data name="buttonSetFilterChannel.Text" xml:space="preserve">
     <value>適用</value>
@@ -1894,7 +1894,7 @@
     <value />
   </data>
   <data name="tabPageLive.Text" xml:space="preserve">
-    <value>ライブチャネル</value>
+    <value>ライブイベント</value>
   </data>
   <data name="tabPageLive.ToolTip" xml:space="preserve">
     <value />
@@ -3125,7 +3125,7 @@
     <value>288, 22</value>
   </data>
   <data name="channInfoToolStripMenuItem.Text" xml:space="preserve">
-    <value>チャネルの情報表示と設定...</value>
+    <value>ライブイベントの情報表示と設定...</value>
   </data>
   <data name="telemetryToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
@@ -3137,7 +3137,7 @@
     <value>288, 22</value>
   </data>
   <data name="channelsAdAndSlateControlToolStripMenuItem.Text" xml:space="preserve">
-    <value>チャネルの広告とスレートの制御...</value>
+    <value>ライブイベントの広告とスレートの制御...</value>
   </data>
   <data name="createChannelToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3150,7 +3150,7 @@
     <value>288, 22</value>
   </data>
   <data name="createChannelToolStripMenuItem.Text" xml:space="preserve">
-    <value>チャネルの作成...</value>
+    <value>ライブイベントの作成...</value>
   </data>
   <data name="startChannelsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3166,13 +3166,13 @@
     <value>288, 22</value>
   </data>
   <data name="startChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>チャネルの開始</value>
+    <value>ライブイベントの開始</value>
   </data>
   <data name="toolStripMenuItemCloneChannel.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
   </data>
   <data name="toolStripMenuItemCloneChannel.Text" xml:space="preserve">
-    <value>他のアカウントのチャネルの複製...</value>
+    <value>他のアカウントのライブイベントの複製...</value>
   </data>
   <data name="stopChannelsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3185,7 +3185,7 @@
     <value>288, 22</value>
   </data>
   <data name="stopChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>チャネルの停止</value>
+    <value>ライブイベントの停止</value>
   </data>
   <data name="resetChannelsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3201,7 +3201,7 @@
     <value>288, 22</value>
   </data>
   <data name="resetChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>チャネルのリセット</value>
+    <value>ライブイベントのリセット</value>
   </data>
   <data name="deleteChannelsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3215,7 +3215,7 @@
     <value>288, 22</value>
   </data>
   <data name="deleteChannelsToolStripMenuItem.Text" xml:space="preserve">
-    <value>チャネルの削除...</value>
+    <value>ライブイベントの削除...</value>
   </data>
   <data name="inputURLToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -3285,7 +3285,7 @@
     <value>288, 22</value>
   </data>
   <data name="displayProgramInformationToolStripMenuItem.Text" xml:space="preserve">
-    <value>プログラムの情報表示と設定...</value>
+    <value>ライブ出力の情報表示と設定...</value>
   </data>
   <data name="ProgramDisplayRelatedAssetInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
@@ -3304,13 +3304,13 @@
     <value>288, 22</value>
   </data>
   <data name="createProgramToolStripMenuItem1.Text" xml:space="preserve">
-    <value>プログラムの作成...</value>
+    <value>ライブ出力の作成...</value>
   </data>
   <data name="recreateProgramsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
   </data>
   <data name="recreateProgramsToolStripMenuItem.Text" xml:space="preserve">
-    <value>プログラムのリセット</value>
+    <value>ライブ出力のリセット</value>
   </data>
   <data name="startProgramsToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3326,7 +3326,7 @@
     <value>288, 22</value>
   </data>
   <data name="startProgramsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>プログラムの開始</value>
+    <value>ライブ出力の開始</value>
   </data>
   <data name="stopProgramsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3339,13 +3339,13 @@
     <value>288, 22</value>
   </data>
   <data name="stopProgramsToolStripMenuItem.Text" xml:space="preserve">
-    <value>プログラムの停止</value>
+    <value>ライブ出力の停止</value>
   </data>
   <data name="toolStripMenuItemCloneProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
   </data>
   <data name="toolStripMenuItemCloneProgram.Text" xml:space="preserve">
-    <value>他のアカウントのプログラムの複製...</value>
+    <value>他のアカウントのライブ出力の複製...</value>
   </data>
   <data name="deleteProgramsToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3359,19 +3359,19 @@
     <value>288, 22</value>
   </data>
   <data name="deleteProgramsToolStripMenuItem1.Text" xml:space="preserve">
-    <value>プログラムの削除...</value>
+    <value>ライブ出力の削除...</value>
   </data>
   <data name="subclipLiveStreamsarchivesToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 22</value>
   </data>
   <data name="subclipLiveStreamsarchivesToolStripMenuItem1.Text" xml:space="preserve">
-    <value>プログラムのサブクリッピング...</value>
+    <value>ライブ出力のサブクリッピング...</value>
   </data>
   <data name="liveChannelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 20</value>
   </data>
   <data name="liveChannelToolStripMenuItem.Text" xml:space="preserve">
-    <value>ライブチャネル</value>
+    <value>ライブイベント</value>
   </data>
   <data name="displayOriginInformationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

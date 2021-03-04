@@ -702,7 +702,7 @@
     <value>0</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>チャネル情報</value>
+    <value>ライブイベント情報</value>
   </data>
   <data name="contextMenuStripDG.Error" xml:space="preserve">
     <value />
@@ -741,10 +741,10 @@
     <value>追加</value>
   </data>
   <data name="labelChannelName.Text" xml:space="preserve">
-    <value>チャネル: </value>
+    <value>ライブイベント: </value>
   </data>
   <data name="tabPageChannelInfo.Text" xml:space="preserve">
-    <value>チャネル情報</value>
+    <value>ライブイベント情報</value>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
     <value>閉じる</value>
@@ -840,7 +840,7 @@
     <value>既定のオーディオ ストリーム</value>
   </data>
   <data name="labelChannelStoppedOrStartedSettings.Text" xml:space="preserve">
-    <value>設定を更新する場合は、チャネルは停止状態か実行状態である必要があります</value>
+    <value>設定を更新する場合は、ライブイベントは停止状態か実行状態である必要があります</value>
   </data>
   <data name="labelChannelStoppedOrStartedSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>148, 18</value>
@@ -849,10 +849,10 @@
     <value>416, 19</value>
   </data>
   <data name="labelIndexesChannelMustBeStopped.Text" xml:space="preserve">
-    <value>エンコーディング設定を変更する場合は、チャネルは停止状態である必要があります</value>
+    <value>エンコーディング設定を変更する場合は、ライブイベントは停止状態である必要があります</value>
   </data>
   <data name="labelChannelMustBeStopped.Text" xml:space="preserve">
-    <value>エンコーディング設定を変更する場合は、チャネルは停止状態である必要があります</value>
+    <value>エンコーディング設定を変更する場合は、ライブイベントは停止状態である必要があります</value>
   </data>
   <data name="checkBoxInputSet.Text" xml:space="preserve">
     <value>入力映像のアクセス許可 IP アドレスの設定 :</value>
