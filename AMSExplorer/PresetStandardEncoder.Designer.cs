@@ -47,6 +47,7 @@
             this.radioButtonCustomCopy = new System.Windows.Forms.RadioButton();
             this.buttonCustomPresetThumbnail = new System.Windows.Forms.Button();
             this.radioButtonThumbnail = new System.Windows.Forms.RadioButton();
+            this.labelCodec = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
@@ -159,6 +160,11 @@
             this.radioButtonThumbnail.UseVisualStyleBackColor = true;
             this.radioButtonThumbnail.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
+            // labelCodec
+            // 
+            resources.ApplyResources(this.labelCodec, "labelCodec");
+            this.labelCodec.Name = "labelCodec";
+            // 
             // dataGridViewTextBoxColumn1
             // 
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
@@ -175,6 +181,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.labelCodec);
             this.Controls.Add(this.radioButtonThumbnail);
             this.Controls.Add(this.buttonCustomPresetThumbnail);
             this.Controls.Add(this.radioButtonCustomCopy);
@@ -219,5 +226,6 @@
         private System.Windows.Forms.RadioButton radioButtonCustomCopy;
         private System.Windows.Forms.Button buttonCustomPresetThumbnail;
         private System.Windows.Forms.RadioButton radioButtonThumbnail;
+        private System.Windows.Forms.Label labelCodec;
     }
 }

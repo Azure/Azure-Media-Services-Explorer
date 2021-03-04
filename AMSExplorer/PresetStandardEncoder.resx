@@ -220,7 +220,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelMES.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -244,7 +244,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -280,7 +280,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreinfoprofilelink.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -313,7 +313,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="textBoxTransformName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -337,7 +337,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxTransformName.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="textBoxDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -361,7 +361,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -394,7 +394,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="richTextBoxDesc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -421,7 +421,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;richTextBoxDesc.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -448,7 +448,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="listboxPresets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left</value>
@@ -475,7 +475,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;listboxPresets.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="radioButtonBuiltin.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -505,7 +505,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonBuiltin.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="radioButtonCustomCopy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -538,7 +538,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonCustomCopy.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
+  </data>
+  <data name="buttonCustomPresetThumbnail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="buttonCustomPresetThumbnail.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -568,7 +571,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCustomPresetThumbnail.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="radioButtonThumbnail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -601,6 +604,39 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonThumbnail.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelCodec.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelCodec.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
+  </data>
+  <data name="labelCodec.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelCodec.Location" type="System.Drawing.Point, System.Drawing">
+    <value>305, 85</value>
+  </data>
+  <data name="labelCodec.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 15</value>
+  </data>
+  <data name="labelCodec.TabIndex" type="System.Int32, mscorlib">
+    <value>97</value>
+  </data>
+  <data name="labelCodec.Text" xml:space="preserve">
+    <value>H.264 / AAC</value>
+  </data>
+  <data name="&gt;&gt;labelCodec.Name" xml:space="preserve">
+    <value>labelCodec</value>
+  </data>
+  <data name="&gt;&gt;labelCodec.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelCodec.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelCodec.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
@@ -623,6 +659,9 @@
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
