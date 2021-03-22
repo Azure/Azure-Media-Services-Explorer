@@ -2734,19 +2734,25 @@ namespace AMSExplorer
                 {
                     await _amsClient.RefreshTokenIfNeededAsync();
                     bool Error = false;
-                    Task[] deleteTasks = SelectedTransforms.ToList().Select(t => _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, t.Name)).ToArray();
-                    TextBoxLogWriteLine("Deleting transform(s)...");
-                    try
+
+                    foreach (var transform in SelectedTransforms)
                     {
-                        await Task.WhenAll(deleteTasks);
+                        TextBoxLogWriteLine("Deleting transform '{0}'...", transform.Name);
+                        Task[] deleteTasks = SelectedTransforms.ToList().Select(t => _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, t.Name)).ToArray();
+                        try
+                        {
+                            await _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
+                            TextBoxLogWriteLine("Transform '{0}' deleted.", transform.Name);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting transform '{0}'.", transform.Name, true);
+                            TextBoxLogWriteLine(ex);
+                            Error = true;
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the transform(s).", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
+
                     if (!Error)
                     {
                         TextBoxLogWriteLine("Transform(s) deleted.");
