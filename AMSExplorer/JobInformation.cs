@@ -133,10 +133,26 @@ namespace AMSExplorer
             */
 
 
-            // input asset
+            // input assets
 
-            string inputLabel = "input";
-            listBoxInput.Items.Add(inputLabel);
+
+            if (MyJob.Input.GetType() == typeof(JobInputSequence)) // multiple inputs
+            {
+                var dd = (JobInputSequence)MyJob.Input;
+                int index1 = 1;
+                foreach (var input in dd.Inputs)
+                {
+                    string inputLabel = "input #" + index1;
+                    listBoxInput.Items.Add(inputLabel);
+                    index1++;
+                }
+            }
+            else
+            {
+                string inputLabel = "input";
+                listBoxInput.Items.Add(inputLabel);
+            }
+
             listBoxInput.SelectedIndex = 0;
 
             // output assets
@@ -159,6 +175,7 @@ namespace AMSExplorer
                             DGErrors.Rows.Add(outputLabel, output.Error.Details[i].Message, output.Error.Details[i].Code);
                         }
                     }
+                    index++;
                 }
                 listBoxOutputs.SelectedIndex = 0;
             }
@@ -300,6 +317,29 @@ namespace AMSExplorer
                 }
                 dataGridInput.Rows.Add("Label", inputA.Label);
                 dataGridInput.Rows.Add("Files", string.Join(Constants.endline, inputA.Files));
+            }
+            else if (MyJob.Input.GetType() == typeof(JobInputSequence))
+            {
+                JobInputSequence inputS = MyJob.Input as JobInputSequence;
+                dataGridInput.Rows.Add("Input type", "clip");
+                var clip = inputS.Inputs[listBoxInput.SelectedIndex];
+
+                if (clip.Start != null && clip.Start.GetType() == typeof(AbsoluteClipTime))
+                {
+                    AbsoluteClipTime startA = clip.Start as AbsoluteClipTime;
+                    dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
+                }
+                if (clip.End != null && clip.End.GetType() == typeof(AbsoluteClipTime))
+                {
+                    AbsoluteClipTime endA = clip.End as AbsoluteClipTime;
+                    dataGridInput.Rows.Add("Absolute Clip Time End", endA.Time.ToString());
+                }
+                dataGridInput.Rows.Add("Label", clip.Label);
+                dataGridInput.Rows.Add("Files", string.Join(Constants.endline, clip.Files));
+                foreach (var idef in clip.InputDefinitions)
+                {
+                    dataGridInput.Rows.Add("Input definition", idef.ToString());
+                }
             }
             else if (MyJob.Input.GetType() == typeof(JobInputHttp))
             {

@@ -6075,14 +6075,21 @@ namespace AMSExplorer
         {
             List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
-            //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
+            bool MultipleInputAssets = false;
+            if (SelectedAssets.Count > 1)
+            {
+                if (MessageBox.Show("You selected several assets." + Constants.endline + "Do you want to use them as multiple input assets to one single job (to do stitching), or generate one job per input asset." + Constants.endline + Constants.endline
+                    + "Yes : Multiple input assets to one task (for stitching)" + Constants.endline + "No : One task/job per input asset", "Multiple input assets", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    MultipleInputAssets = true;
+            }
+
             JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClient, this, SelectedAssets);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.SelectedAssetsMode) // assets selected
                 {
-                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime, null, form.ExistingOutputAsset, form.OutputAssetNameSyntax);
+                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime, null, form.ExistingOutputAsset, form.OutputAssetNameSyntax, MultipleInputAssets);
                 }
                 else // http source url instead
                 {
@@ -7792,12 +7799,36 @@ namespace AMSExplorer
             */
         }
 
-        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null)
+        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null, bool MultipleInputAssets = false)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
-            foreach (Asset asset in assets)
+            // Calculate the number of jobs
+            int numJob;
+            if (MultipleInputAssets)
             {
+                numJob = 1;
+            }
+            else
+            {
+                numJob = assets.Count();
+            }
+
+
+            //foreach (Asset asset in assets)
+            for (int i = 0; i < numJob; i++)
+            {
+                List<Asset> sourceAssets;
+                if (MultipleInputAssets)
+                {
+                    sourceAssets = assets;
+                }
+                else
+                {
+                    sourceAssets = new List<Asset>() { assets[i] };
+                }
+
+
                 foreach (Transform transform in sel)
                 {
                     string jobNameToUse = jobName;
@@ -7806,7 +7837,7 @@ namespace AMSExplorer
                     {
                         jobNameToUse = $"job-{transform.Name}-{uniqueness}";
                     }
-                    else if (assets.Count > 1) // job name defined but we need to add a uniqueness as there are several assets, so several jobs to submit
+                    else if (sourceAssets.Count > 1) // job name defined but we need to add a uniqueness as there are several assets, so several jobs to submit
                     {
                         jobNameToUse += uniqueness;
                     }
@@ -7824,7 +7855,7 @@ namespace AMSExplorer
                             if (assetNameSyntax != null)
                             {
                                 OutputAssetNameNow = assetNameSyntax
-                                    .Replace(Constants.NameconvInputasset, asset.Name)
+                                    .Replace(Constants.NameconvInputasset, sourceAssets[0].Name)
                                     .Replace(Constants.NameconvTransform, transform.Name)
                                     .Replace(Constants.NameconvShortUniqueness, uniqueness);
 
@@ -7832,7 +7863,7 @@ namespace AMSExplorer
                             }
                             else
                             {
-                                OutputAssetNameNow = $"{asset.Name}-{transform.Name}-{uniqueness}" + ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
+                                OutputAssetNameNow = $"{sourceAssets[0].Name}-{transform.Name}-{uniqueness}" + ((transform.Outputs.Count > 1) ? "-" + transform.Outputs.IndexOf(outputTrans) : null);
 
                             }
                             // if several outputs, we need to add an index
@@ -7865,7 +7896,32 @@ namespace AMSExplorer
                         transform.Outputs.ToList().ForEach(t => jobOutputs.Add(new JobOutputAsset(OutputAssetNameNow)));
                     }
 
-                    JobInputAsset jobInput = new JobInputAsset(asset.Name, start: start, end: end);
+                    // To do : correct start and end time per input asset
+                    var myJobInputAsset = sourceAssets.Select(a => new JobInputAsset(assetName: a.Name, start: new AbsoluteClipTime(new TimeSpan(0, 0, 0)), end: end, label: a.Name)).ToArray();
+
+                    JobInputSequence inputSequence = new JobInputSequence(inputs: myJobInputAsset);
+                    /*
+
+                    // Create a Job Input Sequence with the two assets to stitch together
+                    JobInputSequence inputSequence = new JobInputSequence(
+                        inputs: new JobInputAsset[]{
+                        new JobInputAsset(
+                            assetName: inputAsset1.Name,
+                            start: new AbsoluteClipTime(new TimeSpan(0, 0, 0)),
+                            label:"Bumper"
+                        ),
+                        new JobInputAsset(
+                            assetName: inputAsset2.Name,
+                            start: new AbsoluteClipTime(new TimeSpan(0, 0, 0)),
+                            label:"Main"
+                        )
+                        }
+                    );
+
+                    */
+
+
+                    //JobInputAsset jobInput = new JobInputAsset(asset.Name, start: start, end: end);
                     try
                     {
                         Job job = await
@@ -7876,7 +7932,7 @@ namespace AMSExplorer
                                                                     jobNameToUse,
                                                                     new Job
                                                                     {
-                                                                        Input = jobInput,
+                                                                        Input = inputSequence,
                                                                         Outputs = jobOutputs,
                                                                     });
 
