@@ -31,6 +31,7 @@ namespace AMSExplorer
         private readonly AMSExplorer.Mainform _myMainform;
         private readonly TimeSpan? _start;
         private readonly TimeSpan? _end;
+        private readonly bool _multipleInputAssets;
 
         public Transform SelectedTransform => listViewTransforms.GetSelectedTransform;
 
@@ -73,7 +74,29 @@ namespace AMSExplorer
 => !radioButtonExistingAsset.Checked ? textBoxNewAssetNameSyntax.Text : null;
 
 
-        public JobSubmitFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? start = null, TimeSpan? end = null, bool noHttpSourceMode = false)
+        public JobInputSequence InputSequence
+        {
+            get
+            {
+                if (buttonShowEDL.GetEDLEntries().Count == 0) return null;
+            
+                var myJobInputAsset = new List<JobInputAsset>();
+                foreach (var entry in buttonShowEDL.GetEDLEntries())
+                {
+                    var input = new JobInputAsset(
+                        assetName: entry.AssetName,
+                        start: entry.Start != null ? new AbsoluteClipTime((TimeSpan)entry.Start) : null,
+                        end: entry.End != null ? new AbsoluteClipTime((TimeSpan)entry.End) : null
+                        );
+                    myJobInputAsset.Add(input);
+
+                }
+                return new JobInputSequence(inputs: myJobInputAsset.ToArray());
+            }
+        }
+
+
+        public JobSubmitFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? start = null, TimeSpan? end = null, bool noHttpSourceMode = false, bool multipleInputAssets = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -104,6 +127,7 @@ namespace AMSExplorer
             _myMainform = myMainForm;
             _start = start;
             _end = end;
+            _multipleInputAssets = multipleInputAssets;
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
@@ -127,6 +151,8 @@ namespace AMSExplorer
         {
             DpiUtils.InitPerMonitorDpi(this);
 
+            buttonShowEDL.Initialize();
+
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
@@ -144,6 +170,17 @@ namespace AMSExplorer
             {
                 timeControlEndTime.SetTimeStamp((TimeSpan)_end);
                 checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
+            }
+
+            if (_multipleInputAssets && _listAssets.Count > 1)
+            {
+                comboBoxSourceAsset.Visible = labelInputAsset.Visible = true;
+                _listAssets.ForEach(a => comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Description), a.Name)));
+                comboBoxSourceAsset.SelectedIndex = 0;
+            }
+            else
+            {
+                labelInfoSeveralAssetStitching.Visible = true;
             }
         }
 
@@ -195,6 +232,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimmingStart_CheckStateChanged(object sender, EventArgs e)
         {
             timeControlStartTime.Enabled = (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked);
+            buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
         }
 
         private void radioButtonHttpSource_CheckedChanged(object sender, EventArgs e)
@@ -293,6 +331,45 @@ namespace AMSExplorer
             {
 
             }
+        }
+
+        private void buttonAddEDLEntry_Click(object sender, EventArgs e)
+        {
+            if ((checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) && !(checkBoxSourceTrimmingStart.CheckState == CheckState.Checked))
+            {
+                MessageBox.Show(AMSExplorer.Properties.Resources.EncodingMES_buttonAddEDLEntry_Click_YouCannotSpecifyOnlyAnEndTime, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked)
+            {
+
+                buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
+                {
+                    Start = timeControlStartTime.TimeStampWithoutOffset,
+                    End = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                    AssetName = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
+                    Offset = (TimeSpan?)null
+                });
+            }
+            else if (!(checkBoxSourceTrimmingStart.CheckState == CheckState.Checked) && !(checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked))
+            {
+                buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
+                {
+                    Start = null,
+                    AssetName = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
+                    Offset = (TimeSpan?)null
+                });
+            }
+        }
+
+        private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
+        {
+            timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked);
+            buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
+        }
+
+        private void checkBoxUseEDL_CheckStateChanged(object sender, EventArgs e)
+        {
+            buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
         }
     }
 }

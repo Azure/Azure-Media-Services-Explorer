@@ -212,7 +212,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssetID { get; set; }
+        public string AssetName { get; set; }
     }
 
 }

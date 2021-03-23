@@ -6089,13 +6089,13 @@ namespace AMSExplorer
                     MultipleInputAssets = true;
             }
 
-            JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClient, this, SelectedAssets);
+            JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClient, this, SelectedAssets, multipleInputAssets: MultipleInputAssets);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.SelectedAssetsMode) // assets selected
                 {
-                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime, null, form.ExistingOutputAsset, form.OutputAssetNameSyntax, MultipleInputAssets);
+                    await CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, SelectedAssets, form.StartClipTime, form.EndClipTime, null, form.ExistingOutputAsset, form.OutputAssetNameSyntax, MultipleInputAssets, form.InputSequence);
                 }
                 else // http source url instead
                 {
@@ -7805,7 +7805,7 @@ namespace AMSExplorer
             */
         }
 
-        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null, bool MultipleInputAssets = false)
+        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null, bool MultipleInputAssets = false, JobInputSequence jobInputSequence = null)
         {
             await _amsClient.RefreshTokenIfNeededAsync();
 
@@ -7903,9 +7903,10 @@ namespace AMSExplorer
                     }
 
                     // To do : correct start and end time per input asset
-                    var myJobInputAsset = sourceAssets.Select(a => new JobInputAsset(assetName: a.Name, start: new AbsoluteClipTime(new TimeSpan(0, 0, 0)), end: end, label: a.Name)).ToArray();
+                    //var myJobInputAsset = sourceAssets.Select(a => new JobInputAsset(assetName: a.Name, start: new AbsoluteClipTime(new TimeSpan(0, 0, 0)), end: end, label: a.Name)).ToArray();
+                    //JobInputSequence inputSequence = new JobInputSequence(inputs: myJobInputAsset);
 
-                    JobInputSequence inputSequence = new JobInputSequence(inputs: myJobInputAsset);
+
                     /*
 
                     // Create a Job Input Sequence with the two assets to stitch together
@@ -7928,6 +7929,21 @@ namespace AMSExplorer
 
 
                     //JobInputAsset jobInput = new JobInputAsset(asset.Name, start: start, end: end);
+
+                    if (!MultipleInputAssets)
+                    {
+                        jobInputSequence = new JobInputSequence(
+                        inputs: new JobInputAsset[]{
+                        new JobInputAsset(
+                            assetName: sourceAssets.First().Name,
+                            start: start,
+                            end : end
+                        )
+                        }
+                    );
+                    }
+
+
                     try
                     {
                         Job job = await
@@ -7938,7 +7954,7 @@ namespace AMSExplorer
                                                                     jobNameToUse,
                                                                     new Job
                                                                     {
-                                                                        Input = inputSequence,
+                                                                        Input = jobInputSequence,
                                                                         Outputs = jobOutputs,
                                                                     });
 

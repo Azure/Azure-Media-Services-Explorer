@@ -47,6 +47,13 @@
             this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
             this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panelEDL = new System.Windows.Forms.Panel();
+            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
+            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
+            this.labelInfoSeveralAssetStitching = new System.Windows.Forms.Label();
+            this.labelInputAsset = new System.Windows.Forms.Label();
+            this.comboBoxSourceAsset = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxSourceTrimmingEnd = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -69,6 +76,7 @@
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.panelEDL.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panelSelectAsset.SuspendLayout();
             this.SuspendLayout();
@@ -202,6 +210,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.panelEDL);
+            this.tabPage2.Controls.Add(this.labelInfoSeveralAssetStitching);
+            this.tabPage2.Controls.Add(this.labelInputAsset);
+            this.tabPage2.Controls.Add(this.comboBoxSourceAsset);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.checkBoxSourceTrimmingEnd);
             this.tabPage2.Controls.Add(this.label7);
@@ -212,6 +224,56 @@
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panelEDL
+            // 
+            resources.ApplyResources(this.panelEDL, "panelEDL");
+            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
+            this.panelEDL.Controls.Add(this.buttonShowEDL);
+            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
+            this.panelEDL.Name = "panelEDL";
+            // 
+            // buttonAddEDLEntry
+            // 
+            resources.ApplyResources(this.buttonAddEDLEntry, "buttonAddEDLEntry");
+            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
+            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
+            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
+            // 
+            // buttonShowEDL
+            // 
+            resources.ApplyResources(this.buttonShowEDL, "buttonShowEDL");
+            this.buttonShowEDL.Name = "buttonShowEDL";
+            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
+            this.buttonShowEDL.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUseEDL
+            // 
+            resources.ApplyResources(this.checkBoxUseEDL, "checkBoxUseEDL");
+            this.checkBoxUseEDL.Checked = true;
+            this.checkBoxUseEDL.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            this.checkBoxUseEDL.Name = "checkBoxUseEDL";
+            this.checkBoxUseEDL.ThreeState = true;
+            this.checkBoxUseEDL.UseVisualStyleBackColor = true;
+            this.checkBoxUseEDL.CheckStateChanged += new System.EventHandler(this.checkBoxUseEDL_CheckStateChanged);
+            // 
+            // labelInfoSeveralAssetStitching
+            // 
+            resources.ApplyResources(this.labelInfoSeveralAssetStitching, "labelInfoSeveralAssetStitching");
+            this.labelInfoSeveralAssetStitching.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelInfoSeveralAssetStitching.Name = "labelInfoSeveralAssetStitching";
+            // 
+            // labelInputAsset
+            // 
+            resources.ApplyResources(this.labelInputAsset, "labelInputAsset");
+            this.labelInputAsset.Name = "labelInputAsset";
+            // 
+            // comboBoxSourceAsset
+            // 
+            resources.ApplyResources(this.comboBoxSourceAsset, "comboBoxSourceAsset");
+            this.comboBoxSourceAsset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSourceAsset.FormattingEnabled = true;
+            this.comboBoxSourceAsset.Name = "comboBoxSourceAsset";
             // 
             // label6
             // 
@@ -225,6 +287,7 @@
             this.checkBoxSourceTrimmingEnd.Name = "checkBoxSourceTrimmingEnd";
             this.checkBoxSourceTrimmingEnd.ThreeState = true;
             this.checkBoxSourceTrimmingEnd.UseVisualStyleBackColor = true;
+            this.checkBoxSourceTrimmingEnd.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimmingEnd_CheckedChanged);
             this.checkBoxSourceTrimmingEnd.CheckStateChanged += new System.EventHandler(this.checkBoxSourceTrimmingEnd_CheckStateChanged);
             // 
             // label7
@@ -373,6 +436,8 @@
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panelEDL.ResumeLayout(false);
+            this.panelEDL.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panelSelectAsset.ResumeLayout(false);
@@ -419,5 +484,12 @@
         private System.Windows.Forms.TextBox textBoxExactAssetName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxNewAssetNameSyntax;
+        private System.Windows.Forms.Label labelInputAsset;
+        private System.Windows.Forms.ComboBox comboBoxSourceAsset;
+        public System.Windows.Forms.Label labelInfoSeveralAssetStitching;
+        private System.Windows.Forms.Panel panelEDL;
+        private System.Windows.Forms.Button buttonAddEDLEntry;
+        private ButtonEDL buttonShowEDL;
+        private System.Windows.Forms.CheckBox checkBoxUseEDL;
     }
 }
