@@ -45,12 +45,12 @@
             this.textBoxURL = new System.Windows.Forms.TextBox();
             this.radioButtonHttpSource = new System.Windows.Forms.RadioButton();
             this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
-            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panelEDL = new System.Windows.Forms.Panel();
+            this.buttonDown = new System.Windows.Forms.Button();
+            this.dataGridViewEDL = new System.Windows.Forms.DataGridView();
+            this.buttonUp = new System.Windows.Forms.Button();
+            this.buttonDelEntry = new System.Windows.Forms.Button();
             this.buttonAddEDLEntry = new System.Windows.Forms.Button();
-            this.buttonShowEDL = new AMSExplorer.ButtonEDL();
-            this.checkBoxUseEDL = new System.Windows.Forms.CheckBox();
             this.labelInfoSeveralAssetStitching = new System.Windows.Forms.Label();
             this.labelInputAsset = new System.Windows.Forms.Label();
             this.comboBoxSourceAsset = new System.Windows.Forms.ComboBox();
@@ -59,24 +59,25 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.textBoxNewAssetNameSyntax = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panelSelectAsset = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.listViewAssets1 = new AMSExplorer.ListViewAssets();
             this.buttonSearchExactAssetName = new System.Windows.Forms.Button();
             this.textBoxExactAssetName = new System.Windows.Forms.TextBox();
             this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
+            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
+            this.listViewAssets1 = new AMSExplorer.ListViewAssets();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.panelEDL.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEDL)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panelSelectAsset.SuspendLayout();
             this.SuspendLayout();
@@ -196,21 +197,13 @@
             this.radioButtonSelectedAssets.TabStop = true;
             this.radioButtonSelectedAssets.UseVisualStyleBackColor = true;
             // 
-            // listViewTransforms
-            // 
-            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
-            this.listViewTransforms.FullRowSelect = true;
-            this.listViewTransforms.HideSelection = false;
-            this.listViewTransforms.MultiSelect = false;
-            this.listViewTransforms.Name = "listViewTransforms";
-            this.listViewTransforms.Tag = -1;
-            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
-            this.listViewTransforms.View = System.Windows.Forms.View.Details;
-            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.Listbox_SelectedIndexChanged);
-            // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.panelEDL);
+            this.tabPage2.Controls.Add(this.buttonDown);
+            this.tabPage2.Controls.Add(this.dataGridViewEDL);
+            this.tabPage2.Controls.Add(this.buttonUp);
+            this.tabPage2.Controls.Add(this.buttonDelEntry);
+            this.tabPage2.Controls.Add(this.buttonAddEDLEntry);
             this.tabPage2.Controls.Add(this.labelInfoSeveralAssetStitching);
             this.tabPage2.Controls.Add(this.labelInputAsset);
             this.tabPage2.Controls.Add(this.comboBoxSourceAsset);
@@ -225,13 +218,39 @@
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // panelEDL
+            // buttonDown
             // 
-            resources.ApplyResources(this.panelEDL, "panelEDL");
-            this.panelEDL.Controls.Add(this.buttonAddEDLEntry);
-            this.panelEDL.Controls.Add(this.buttonShowEDL);
-            this.panelEDL.Controls.Add(this.checkBoxUseEDL);
-            this.panelEDL.Name = "panelEDL";
+            resources.ApplyResources(this.buttonDown, "buttonDown");
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+            // 
+            // dataGridViewEDL
+            // 
+            this.dataGridViewEDL.AllowUserToAddRows = false;
+            this.dataGridViewEDL.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
+            this.dataGridViewEDL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewEDL.Name = "dataGridViewEDL";
+            this.dataGridViewEDL.ReadOnly = true;
+            this.dataGridViewEDL.RowHeadersVisible = false;
+            this.dataGridViewEDL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewEDL.SelectionChanged += new System.EventHandler(this.dataGridViewEDL_SelectionChanged);
+            // 
+            // buttonUp
+            // 
+            resources.ApplyResources(this.buttonUp, "buttonUp");
+            this.buttonUp.Name = "buttonUp";
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
+            // 
+            // buttonDelEntry
+            // 
+            resources.ApplyResources(this.buttonDelEntry, "buttonDelEntry");
+            this.buttonDelEntry.Image = global::AMSExplorer.Bitmaps.delete;
+            this.buttonDelEntry.Name = "buttonDelEntry";
+            this.buttonDelEntry.UseVisualStyleBackColor = true;
+            this.buttonDelEntry.Click += new System.EventHandler(this.buttonDelEntry_Click);
             // 
             // buttonAddEDLEntry
             // 
@@ -239,23 +258,6 @@
             this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
             this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
             this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
-            // 
-            // buttonShowEDL
-            // 
-            resources.ApplyResources(this.buttonShowEDL, "buttonShowEDL");
-            this.buttonShowEDL.Name = "buttonShowEDL";
-            this.buttonShowEDL.Offset = System.TimeSpan.Parse("00:00:00");
-            this.buttonShowEDL.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUseEDL
-            // 
-            resources.ApplyResources(this.checkBoxUseEDL, "checkBoxUseEDL");
-            this.checkBoxUseEDL.Checked = true;
-            this.checkBoxUseEDL.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.checkBoxUseEDL.Name = "checkBoxUseEDL";
-            this.checkBoxUseEDL.ThreeState = true;
-            this.checkBoxUseEDL.UseVisualStyleBackColor = true;
-            this.checkBoxUseEDL.CheckStateChanged += new System.EventHandler(this.checkBoxUseEDL_CheckStateChanged);
             // 
             // labelInfoSeveralAssetStitching
             // 
@@ -285,7 +287,6 @@
             // 
             resources.ApplyResources(this.checkBoxSourceTrimmingEnd, "checkBoxSourceTrimmingEnd");
             this.checkBoxSourceTrimmingEnd.Name = "checkBoxSourceTrimmingEnd";
-            this.checkBoxSourceTrimmingEnd.ThreeState = true;
             this.checkBoxSourceTrimmingEnd.UseVisualStyleBackColor = true;
             this.checkBoxSourceTrimmingEnd.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimmingEnd_CheckedChanged);
             this.checkBoxSourceTrimmingEnd.CheckStateChanged += new System.EventHandler(this.checkBoxSourceTrimmingEnd_CheckStateChanged);
@@ -305,39 +306,8 @@
             // 
             resources.ApplyResources(this.checkBoxSourceTrimmingStart, "checkBoxSourceTrimmingStart");
             this.checkBoxSourceTrimmingStart.Name = "checkBoxSourceTrimmingStart";
-            this.checkBoxSourceTrimmingStart.ThreeState = true;
             this.checkBoxSourceTrimmingStart.UseVisualStyleBackColor = true;
             this.checkBoxSourceTrimmingStart.CheckStateChanged += new System.EventHandler(this.checkBoxSourceTrimmingStart_CheckStateChanged);
-            // 
-            // timeControlEndTime
-            // 
-            resources.ApplyResources(this.timeControlEndTime, "timeControlEndTime");
-            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEndTime.DisplayTrackBar = false;
-            this.timeControlEndTime.Label1 = "";
-            this.timeControlEndTime.Label2 = "End time";
-            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEndTime.Name = "timeControlEndTime";
-            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEndTime.TimeScale = null;
-            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlEndTime_ValueChanged);
-            // 
-            // timeControlStartTime
-            // 
-            resources.ApplyResources(this.timeControlStartTime, "timeControlStartTime");
-            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStartTime.DisplayTrackBar = false;
-            this.timeControlStartTime.Label1 = "";
-            this.timeControlStartTime.Label2 = "Start time";
-            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStartTime.Name = "timeControlStartTime";
-            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStartTime.TimeScale = null;
-            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.TimeControlStartTime_ValueChanged);
             // 
             // tabPage3
             // 
@@ -375,17 +345,6 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
-            // listViewAssets1
-            // 
-            resources.ApplyResources(this.listViewAssets1, "listViewAssets1");
-            this.listViewAssets1.FullRowSelect = true;
-            this.listViewAssets1.HideSelection = false;
-            this.listViewAssets1.MultiSelect = false;
-            this.listViewAssets1.Name = "listViewAssets1";
-            this.listViewAssets1.Tag = -1;
-            this.listViewAssets1.UseCompatibleStateImageBehavior = false;
-            this.listViewAssets1.View = System.Windows.Forms.View.Details;
-            // 
             // buttonSearchExactAssetName
             // 
             resources.ApplyResources(this.buttonSearchExactAssetName, "buttonSearchExactAssetName");
@@ -413,6 +372,59 @@
             this.radioButtonNewAsset.TabStop = true;
             this.radioButtonNewAsset.UseVisualStyleBackColor = true;
             // 
+            // listViewTransforms
+            // 
+            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
+            this.listViewTransforms.FullRowSelect = true;
+            this.listViewTransforms.HideSelection = false;
+            this.listViewTransforms.MultiSelect = false;
+            this.listViewTransforms.Name = "listViewTransforms";
+            this.listViewTransforms.Tag = -1;
+            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
+            this.listViewTransforms.View = System.Windows.Forms.View.Details;
+            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.Listbox_SelectedIndexChanged);
+            // 
+            // timeControlEndTime
+            // 
+            resources.ApplyResources(this.timeControlEndTime, "timeControlEndTime");
+            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEndTime.DisplayTrackBar = false;
+            this.timeControlEndTime.Label1 = "";
+            this.timeControlEndTime.Label2 = "End time";
+            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEndTime.Name = "timeControlEndTime";
+            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEndTime.TimeScale = null;
+            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlEndTime_ValueChanged);
+            // 
+            // timeControlStartTime
+            // 
+            resources.ApplyResources(this.timeControlStartTime, "timeControlStartTime");
+            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStartTime.DisplayTrackBar = false;
+            this.timeControlStartTime.Label1 = "";
+            this.timeControlStartTime.Label2 = "Start time";
+            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStartTime.Name = "timeControlStartTime";
+            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStartTime.TimeScale = null;
+            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.TimeControlStartTime_ValueChanged);
+            // 
+            // listViewAssets1
+            // 
+            resources.ApplyResources(this.listViewAssets1, "listViewAssets1");
+            this.listViewAssets1.FullRowSelect = true;
+            this.listViewAssets1.HideSelection = false;
+            this.listViewAssets1.MultiSelect = false;
+            this.listViewAssets1.Name = "listViewAssets1";
+            this.listViewAssets1.Tag = -1;
+            this.listViewAssets1.UseCompatibleStateImageBehavior = false;
+            this.listViewAssets1.View = System.Windows.Forms.View.Details;
+            // 
             // JobSubmitFromTransform
             // 
             this.AcceptButton = this.buttonOk;
@@ -436,8 +448,7 @@
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.panelEDL.ResumeLayout(false);
-            this.panelEDL.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEDL)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panelSelectAsset.ResumeLayout(false);
@@ -487,9 +498,10 @@
         private System.Windows.Forms.Label labelInputAsset;
         private System.Windows.Forms.ComboBox comboBoxSourceAsset;
         public System.Windows.Forms.Label labelInfoSeveralAssetStitching;
-        private System.Windows.Forms.Panel panelEDL;
+        private System.Windows.Forms.Button buttonDown;
+        private System.Windows.Forms.DataGridView dataGridViewEDL;
+        private System.Windows.Forms.Button buttonUp;
+        private System.Windows.Forms.Button buttonDelEntry;
         private System.Windows.Forms.Button buttonAddEDLEntry;
-        private ButtonEDL buttonShowEDL;
-        private System.Windows.Forms.CheckBox checkBoxUseEDL;
     }
 }

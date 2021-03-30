@@ -120,6 +120,7 @@
     <Compile Include="CustomJSONPreset\EditorPresetJSON.Designer.cs">
       <DependentUpon>EditorPresetJSON.cs</DependentUpon>
     </Compile>
+    <Compile Include="EDLEntryInOut.cs" />
     <Compile Include="ExportToExcel.cs">
       <SubType>Form</SubType>
     </Compile>

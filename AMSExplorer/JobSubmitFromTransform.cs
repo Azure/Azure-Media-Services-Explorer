@@ -17,6 +17,7 @@
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -32,6 +33,9 @@ namespace AMSExplorer
         private readonly TimeSpan? _start;
         private readonly TimeSpan? _end;
         private readonly bool _multipleInputAssets;
+
+        private BindingList<EDLEntryInOut> TimeCodeList = new BindingList<EDLEntryInOut>();
+        public delegate void ChangedEventHandler(object sender, EventArgs e);
 
         public Transform SelectedTransform => listViewTransforms.GetSelectedTransform;
 
@@ -78,10 +82,10 @@ namespace AMSExplorer
         {
             get
             {
-                if (buttonShowEDL.GetEDLEntries().Count == 0) return null;
-            
+                if (GetEDLEntries().Count == 0) return null;
+
                 var myJobInputAsset = new List<JobInputAsset>();
-                foreach (var entry in buttonShowEDL.GetEDLEntries())
+                foreach (var entry in GetEDLEntries())
                 {
                     var input = new JobInputAsset(
                         assetName: entry.AssetName,
@@ -151,7 +155,7 @@ namespace AMSExplorer
         {
             DpiUtils.InitPerMonitorDpi(this);
 
-            buttonShowEDL.Initialize();
+            dataGridViewEDL.DataSource = TimeCodeList;
 
             // to scale the bitmap in the buttons
             HighDpiHelper.AdjustControlImagesDpiScale(panel1);
@@ -160,6 +164,22 @@ namespace AMSExplorer
             UpdateLabeltext();
             labelURLFileNameWarning.Text = string.Empty;
             UpdateStatusButtonOk();
+
+
+            comboBoxSourceAsset.Visible = labelInputAsset.Visible = true;
+            foreach (var a in _listAssets)
+            {
+                comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Description), a.Name));
+                AddEDLEntry(new EDLEntryInOut()
+                {
+                    AssetName = a.Name,
+                    Start = _start,
+                    End = _end,
+                    Description = a.Description
+                });
+            }
+            comboBoxSourceAsset.SelectedIndex = 0;
+
 
             if (_start != null)
             {
@@ -172,13 +192,7 @@ namespace AMSExplorer
                 checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
             }
 
-            if (_multipleInputAssets && _listAssets.Count > 1)
-            {
-                comboBoxSourceAsset.Visible = labelInputAsset.Visible = true;
-                _listAssets.ForEach(a => comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Description), a.Name)));
-                comboBoxSourceAsset.SelectedIndex = 0;
-            }
-            else
+            if (!_multipleInputAssets)
             {
                 labelInfoSeveralAssetStitching.Visible = true;
             }
@@ -232,7 +246,7 @@ namespace AMSExplorer
         private void checkBoxSourceTrimmingStart_CheckStateChanged(object sender, EventArgs e)
         {
             timeControlStartTime.Enabled = (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked);
-            buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
+            //buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
         }
 
         private void radioButtonHttpSource_CheckedChanged(object sender, EventArgs e)
@@ -335,6 +349,17 @@ namespace AMSExplorer
 
         private void buttonAddEDLEntry_Click(object sender, EventArgs e)
         {
+            string assetName = ((Item)comboBoxSourceAsset.SelectedItem).Value;
+            AddEDLEntry(new EDLEntryInOut()
+            {
+                Start = (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked) ? timeControlStartTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                End = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                AssetName = assetName,
+                Description = _listAssets.Where(a => a.Name == assetName).First().Description
+            });
+            return;
+
+            /*
             if ((checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) && !(checkBoxSourceTrimmingStart.CheckState == CheckState.Checked))
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.EncodingMES_buttonAddEDLEntry_Click_YouCannotSpecifyOnlyAnEndTime, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -342,34 +367,91 @@ namespace AMSExplorer
             else if (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked)
             {
 
-                buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
+                AddEDLEntry(new EDLEntryInOut()
                 {
                     Start = timeControlStartTime.TimeStampWithoutOffset,
                     End = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
-                    AssetName = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
-                    Offset = (TimeSpan?)null
+                    AssetName = ((Item)comboBoxSourceAsset.SelectedItem).Value,
                 });
             }
             else if (!(checkBoxSourceTrimmingStart.CheckState == CheckState.Checked) && !(checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked))
             {
-                buttonShowEDL.AddEDLEntry(new ExplorerEDLEntryInOut()
+                AddEDLEntry(new EDLEntryInOut()
                 {
                     Start = null,
-                    AssetName = comboBoxSourceAsset.Items.Count > 1 ? ((Item)comboBoxSourceAsset.SelectedItem).Value : null,
-                    Offset = (TimeSpan?)null
+                    AssetName = ((Item)comboBoxSourceAsset.SelectedItem).Value,
                 });
             }
+            */
         }
 
         private void checkBoxSourceTrimmingEnd_CheckedChanged(object sender, EventArgs e)
         {
             timeControlEndTime.Enabled = textBoxSourceDurationTime.Enabled = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked);
-            buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
+            //buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
         }
 
-        private void checkBoxUseEDL_CheckStateChanged(object sender, EventArgs e)
+        private void dataGridViewEDL_SelectionChanged(object sender, EventArgs e)
         {
-            buttonShowEDL.Enabled = buttonAddEDLEntry.Enabled = (checkBoxUseEDL.CheckState == CheckState.Checked);
+            buttonDelEntry.Enabled = dataGridViewEDL.SelectedRows.Count > 0;
+            buttonUp.Enabled = dataGridViewEDL.SelectedRows.Count > 0 && dataGridViewEDL.SelectedRows[0].Index > 0;
+            buttonDown.Enabled = dataGridViewEDL.SelectedRows.Count > 0 && dataGridViewEDL.SelectedRows[0].Index < dataGridViewEDL.Rows.Count - 1;
+        }
+
+
+
+        public void AddEDLEntry(EDLEntryInOut entry)
+        {
+            TimeCodeList.Add(entry);
+        }
+
+        public List<EDLEntryInOut> GetEDLEntries()
+        {
+
+            return TimeCodeList.ToList();
+        }
+
+        public void SetEDLEntries(List<EDLEntryInOut> list)
+        {
+
+            TimeCodeList = new BindingList<EDLEntryInOut>(list);
+
+        }
+
+        private void buttonUp_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewEDL.SelectedRows.Count == 1 && dataGridViewEDL.SelectedRows[0].Index > 0)
+            {
+                int index = dataGridViewEDL.SelectedRows[0].Index;
+                EDLEntryInOut backup = TimeCodeList[index - 1];
+                TimeCodeList[index - 1] = TimeCodeList[index];
+                TimeCodeList[index] = backup;
+                dataGridViewEDL.ClearSelection();
+                dataGridViewEDL.Rows[index - 1].Selected = true;
+
+            }
+        }
+
+        private void buttonDown_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewEDL.SelectedRows.Count == 1 && dataGridViewEDL.SelectedRows[0].Index < TimeCodeList.Count - 1)
+            {
+                int index = dataGridViewEDL.SelectedRows[0].Index;
+                EDLEntryInOut backup = TimeCodeList[index + 1];
+                TimeCodeList[index + 1] = TimeCodeList[index];
+                TimeCodeList[index] = backup;
+                dataGridViewEDL.ClearSelection();
+                dataGridViewEDL.Rows[index + 1].Selected = true;
+
+            }
+        }
+
+        private void buttonDelEntry_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewEDL.SelectedRows.Count == 1)
+            {
+                TimeCodeList.RemoveAt(dataGridViewEDL.SelectedRows[0].Index);
+            }
         }
     }
 }
