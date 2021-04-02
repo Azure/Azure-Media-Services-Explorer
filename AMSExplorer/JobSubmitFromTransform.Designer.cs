@@ -47,12 +47,14 @@
             this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
             this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
-            this.buttonDelEntry = new System.Windows.Forms.Button();
-            this.buttonDown = new System.Windows.Forms.Button();
+            this.labelAssetDescription = new System.Windows.Forms.Label();
+            this.textBoxAssetDescription = new System.Windows.Forms.TextBox();
             this.dataGridViewEDL = new System.Windows.Forms.DataGridView();
-            this.buttonUp = new System.Windows.Forms.Button();
+            this.buttonDelEntry = new System.Windows.Forms.Button();
+            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.buttonDown = new System.Windows.Forms.Button();
             this.labelInfoSeveralAssetStitching = new System.Windows.Forms.Label();
+            this.buttonUp = new System.Windows.Forms.Button();
             this.labelInputAsset = new System.Windows.Forms.Label();
             this.comboBoxSourceAsset = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -63,16 +65,14 @@
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textBoxNewAssetNameSyntax = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.labelSelectAsset = new System.Windows.Forms.Label();
             this.listViewAssets1 = new AMSExplorer.ListViewAssets();
+            this.labelSelectAsset = new System.Windows.Forms.Label();
             this.buttonSearchExactAssetName = new System.Windows.Forms.Button();
+            this.textBoxNewAssetNameSyntax = new System.Windows.Forms.TextBox();
             this.textBoxExactAssetName = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
-            this.textBoxAssetDescription = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -211,7 +211,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.labelAssetDescription);
             this.tabPage2.Controls.Add(this.textBoxAssetDescription);
             this.tabPage2.Controls.Add(this.dataGridViewEDL);
             this.tabPage2.Controls.Add(this.buttonDelEntry);
@@ -232,27 +232,16 @@
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // buttonAddEDLEntry
+            // labelAssetDescription
             // 
-            resources.ApplyResources(this.buttonAddEDLEntry, "buttonAddEDLEntry");
-            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
-            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
-            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
+            resources.ApplyResources(this.labelAssetDescription, "labelAssetDescription");
+            this.labelAssetDescription.Name = "labelAssetDescription";
             // 
-            // buttonDelEntry
+            // textBoxAssetDescription
             // 
-            resources.ApplyResources(this.buttonDelEntry, "buttonDelEntry");
-            this.buttonDelEntry.Image = global::AMSExplorer.Bitmaps.delete;
-            this.buttonDelEntry.Name = "buttonDelEntry";
-            this.buttonDelEntry.UseVisualStyleBackColor = true;
-            this.buttonDelEntry.Click += new System.EventHandler(this.buttonDelEntry_Click);
-            // 
-            // buttonDown
-            // 
-            resources.ApplyResources(this.buttonDown, "buttonDown");
-            this.buttonDown.Name = "buttonDown";
-            this.buttonDown.UseVisualStyleBackColor = true;
-            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+            resources.ApplyResources(this.textBoxAssetDescription, "textBoxAssetDescription");
+            this.textBoxAssetDescription.Name = "textBoxAssetDescription";
+            this.textBoxAssetDescription.ReadOnly = true;
             // 
             // dataGridViewEDL
             // 
@@ -266,18 +255,40 @@
             this.dataGridViewEDL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewEDL.SelectionChanged += new System.EventHandler(this.dataGridViewEDL_SelectionChanged);
             // 
-            // buttonUp
+            // buttonDelEntry
             // 
-            resources.ApplyResources(this.buttonUp, "buttonUp");
-            this.buttonUp.Name = "buttonUp";
-            this.buttonUp.UseVisualStyleBackColor = true;
-            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
+            resources.ApplyResources(this.buttonDelEntry, "buttonDelEntry");
+            this.buttonDelEntry.Image = global::AMSExplorer.Bitmaps.delete;
+            this.buttonDelEntry.Name = "buttonDelEntry";
+            this.buttonDelEntry.UseVisualStyleBackColor = true;
+            this.buttonDelEntry.Click += new System.EventHandler(this.buttonDelEntry_Click);
+            // 
+            // buttonAddEDLEntry
+            // 
+            resources.ApplyResources(this.buttonAddEDLEntry, "buttonAddEDLEntry");
+            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
+            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
+            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
+            // 
+            // buttonDown
+            // 
+            resources.ApplyResources(this.buttonDown, "buttonDown");
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
             // 
             // labelInfoSeveralAssetStitching
             // 
             resources.ApplyResources(this.labelInfoSeveralAssetStitching, "labelInfoSeveralAssetStitching");
             this.labelInfoSeveralAssetStitching.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelInfoSeveralAssetStitching.Name = "labelInfoSeveralAssetStitching";
+            // 
+            // buttonUp
+            // 
+            resources.ApplyResources(this.buttonUp, "buttonUp");
+            this.buttonUp.Name = "buttonUp";
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
             // 
             // labelInputAsset
             // 
@@ -368,22 +379,6 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // textBoxNewAssetNameSyntax
-            // 
-            resources.ApplyResources(this.textBoxNewAssetNameSyntax, "textBoxNewAssetNameSyntax");
-            this.textBoxNewAssetNameSyntax.Name = "textBoxNewAssetNameSyntax";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Name = "label4";
-            // 
-            // labelSelectAsset
-            // 
-            resources.ApplyResources(this.labelSelectAsset, "labelSelectAsset");
-            this.labelSelectAsset.Name = "labelSelectAsset";
-            // 
             // listViewAssets1
             // 
             resources.ApplyResources(this.listViewAssets1, "listViewAssets1");
@@ -395,6 +390,11 @@
             this.listViewAssets1.UseCompatibleStateImageBehavior = false;
             this.listViewAssets1.View = System.Windows.Forms.View.Details;
             // 
+            // labelSelectAsset
+            // 
+            resources.ApplyResources(this.labelSelectAsset, "labelSelectAsset");
+            this.labelSelectAsset.Name = "labelSelectAsset";
+            // 
             // buttonSearchExactAssetName
             // 
             resources.ApplyResources(this.buttonSearchExactAssetName, "buttonSearchExactAssetName");
@@ -402,10 +402,21 @@
             this.buttonSearchExactAssetName.UseVisualStyleBackColor = true;
             this.buttonSearchExactAssetName.Click += new System.EventHandler(this.buttonSearchExactAssetName_Click);
             // 
+            // textBoxNewAssetNameSyntax
+            // 
+            resources.ApplyResources(this.textBoxNewAssetNameSyntax, "textBoxNewAssetNameSyntax");
+            this.textBoxNewAssetNameSyntax.Name = "textBoxNewAssetNameSyntax";
+            // 
             // textBoxExactAssetName
             // 
             resources.ApplyResources(this.textBoxExactAssetName, "textBoxExactAssetName");
             this.textBoxExactAssetName.Name = "textBoxExactAssetName";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Name = "label4";
             // 
             // radioButtonExistingAsset
             // 
@@ -421,17 +432,6 @@
             this.radioButtonNewAsset.Name = "radioButtonNewAsset";
             this.radioButtonNewAsset.TabStop = true;
             this.radioButtonNewAsset.UseVisualStyleBackColor = true;
-            // 
-            // textBoxAssetDescription
-            // 
-            resources.ApplyResources(this.textBoxAssetDescription, "textBoxAssetDescription");
-            this.textBoxAssetDescription.Name = "textBoxAssetDescription";
-            this.textBoxAssetDescription.ReadOnly = true;
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
             // 
             // JobSubmitFromTransform
             // 
@@ -509,6 +509,6 @@
         private System.Windows.Forms.Button buttonDelEntry;
         private System.Windows.Forms.Button buttonAddEDLEntry;
         private System.Windows.Forms.TextBox textBoxAssetDescription;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelAssetDescription;
     }
 }

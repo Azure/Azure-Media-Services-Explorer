@@ -29,7 +29,7 @@ namespace AMSExplorer
         private readonly AMSClientV3 _client;
         private readonly List<Transform> _listPreSelectedTransforms;
         private readonly int _numberselectedassets = 0;
-        private  List<Asset> _listAssets;
+        private List<Asset> _listAssets;
         private readonly AMSExplorer.Mainform _myMainform;
         private readonly TimeSpan? _start;
         private readonly TimeSpan? _end;
@@ -168,43 +168,48 @@ namespace AMSExplorer
             labelURLFileNameWarning.Text = string.Empty;
             UpdateStatusButtonOk();
 
-            if (_listAssets.Count > 1 && !_multipleInputAssets) // several jobs, one input asset per job
+            if (_listAssets != null) // we are not in http source only mode
             {
-                comboBoxSourceAsset.Items.Add(new Item("(multiple assets were selected)", null));
-                comboBoxSourceAsset.Enabled = false;
-                buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = false;
-            }
-            else
-            {
-                foreach (var a in _listAssets)
+                if (_listAssets.Count > 1 && !_multipleInputAssets) // several jobs, one input asset per job
                 {
-                    comboBoxSourceAsset.Items.Add(a.Name);
-                    AddEDLEntry(new EDLEntryInOut()
+                    comboBoxSourceAsset.Items.Add(new Item("(multiple assets were selected)", null));
+                    comboBoxSourceAsset.Enabled = false;
+                    buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = false;
+                }
+                else
+                {
+                    foreach (var a in _listAssets)
                     {
-                        AssetName = a.Name,
-                        Start = _start,
-                        End = _end,
-                        Description = a.Description
-                    });
+                        comboBoxSourceAsset.Items.Add(a.Name);
+                        AddEDLEntry(new EDLEntryInOut()
+                        {
+                            AssetName = a.Name,
+                            Start = _start,
+                            End = _end,
+                            Description = a.Description
+                        });
+                    }
+                }
+                comboBoxSourceAsset.SelectedIndex = 0;
+
+                if (_start != null)
+                {
+                    timeControlStartTime.SetTimeStamp((TimeSpan)_start);
+                    checkBoxSourceTrimmingStart.CheckState = CheckState.Checked;
+                }
+                if (_end != null)
+                {
+                    timeControlEndTime.SetTimeStamp((TimeSpan)_end);
+                    checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
+                }
+
+                if (!_multipleInputAssets)
+                {
+                    labelInfoSeveralAssetStitching.Visible = true;
                 }
             }
-            comboBoxSourceAsset.SelectedIndex = 0;
 
-            if (_start != null)
-            {
-                timeControlStartTime.SetTimeStamp((TimeSpan)_start);
-                checkBoxSourceTrimmingStart.CheckState = CheckState.Checked;
-            }
-            if (_end != null)
-            {
-                timeControlEndTime.SetTimeStamp((TimeSpan)_end);
-                checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
-            }
 
-            if (!_multipleInputAssets)
-            {
-                labelInfoSeveralAssetStitching.Visible = true;
-            }
         }
 
 
@@ -260,11 +265,16 @@ namespace AMSExplorer
 
             if (radioButtonHttpSource.Checked)
             {
-                textBoxNewAssetNameSyntax.Text = "httpsource-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
+                textBoxNewAssetNameSyntax.Text = "httpssource-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
+
+                // no way to access the EDL
+                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = false;
             }
             else
             {
                 textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
+
+                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = true;
             }
 
             if (radioButtonSelectedAssets.Checked)

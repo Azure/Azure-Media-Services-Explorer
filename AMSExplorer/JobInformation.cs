@@ -342,7 +342,7 @@ namespace AMSExplorer
             }
             else if (MyJob.Input is JobInputHttp inputH)
             {
-                dataGridInput.Rows.Add("Input type", "http");
+                dataGridInput.Rows.Add("Input type", "https");
                 dataGridInput.Rows.Add("Base Url", inputH.BaseUri);
                 if (inputH.Start != null && inputH.Start is AbsoluteClipTime startA)
                 {
