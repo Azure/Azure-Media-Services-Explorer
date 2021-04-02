@@ -15,7 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSExplorer.ManifestGeneration;
-using AMSExplorer.Utils.FileInfo;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;

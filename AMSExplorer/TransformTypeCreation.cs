@@ -29,7 +29,7 @@ namespace AMSExplorer
 
     public partial class TransformTypeCreation : Form
     {
-        private bool _displayNewTransforMsg;
+        private readonly bool _displayNewTransforMsg;
 
         public simpleTransformType TransformType
         {

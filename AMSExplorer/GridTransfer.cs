@@ -346,7 +346,7 @@ namespace AMSExplorer
                     DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
                     transfer.EndTime = ETA.ToLocalTime().ToString("G") + " ?";
                 }
-            }                
+            }
         }
 
         private TransferEntry ReturnTransfer(Guid guid)

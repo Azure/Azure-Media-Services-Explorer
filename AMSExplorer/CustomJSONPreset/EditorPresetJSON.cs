@@ -18,7 +18,6 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace AMSExplorer
 {

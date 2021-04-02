@@ -15,7 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -101,8 +100,8 @@ namespace AMSExplorer.Rest
             if (amsRequestResult.StatusCode == System.Net.HttpStatusCode.Accepted)
             {
                 // let's wait for the operation to complete
-                var monitorUrl = (string)amsRequestResult.Headers.Where(h => h.Key == "Azure-AsyncOperation").FirstOrDefault().Value.FirstOrDefault();
-                int monitorDelay = 1000* int.Parse(amsRequestResult.Headers.Where(h => h.Key == "Retry-After").FirstOrDefault().Value.FirstOrDefault());
+                var monitorUrl = amsRequestResult.Headers.Where(h => h.Key == "Azure-AsyncOperation").FirstOrDefault().Value.FirstOrDefault();
+                int monitorDelay = 1000 * int.Parse(amsRequestResult.Headers.Where(h => h.Key == "Retry-After").FirstOrDefault().Value.FirstOrDefault());
                 bool notComplete = true;
                 do
                 {

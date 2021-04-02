@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using AMSExplorer.Rest;
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;

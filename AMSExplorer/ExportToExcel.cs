@@ -14,27 +14,27 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Reflection;
-using System.IO;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Rest.Azure;
 
 namespace AMSExplorer
 {
     public partial class ExportToExcel : Form
     {
-        private AMSClientV3 _amsClient;
-        private List<Asset> _selassets;
+        private readonly AMSClientV3 _amsClient;
+        private readonly List<Asset> _selassets;
         private string filename;
 
         public ExportToExcel(AMSClientV3 amsClient, List<Asset> selassets)
@@ -72,7 +72,7 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            
+
             if (File.Exists(textBoxExcelFile.Text))
             {
                 if (MessageBox.Show($"File '{textBoxExcelFile.Text}' already exists.\nOk to overwrite ?", "File exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -92,8 +92,8 @@ namespace AMSExplorer
                     return;
                 }
             }
-            
-            
+
+
             buttonOk.Enabled = false;
             filename = textBoxExcelFile.Text;
 

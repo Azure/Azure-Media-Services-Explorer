@@ -1,7 +1,6 @@
 ﻿using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;
-using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;

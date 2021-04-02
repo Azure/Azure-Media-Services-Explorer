@@ -16,14 +16,8 @@
 
 
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace AMSExplorer.Rest

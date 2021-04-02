@@ -15,11 +15,13 @@
 //--------------------------------------------------------------------------------------------- 
 
 // Azure Management dependencies
+using AMSExplorer.Rest;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Auth;
 using Microsoft.Azure.Storage.Blob;
+using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Azure.Storage.Shared.Protocol;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure;
@@ -33,6 +35,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
@@ -42,10 +45,6 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using System.Xml;
-using AMSExplorer.Rest;
-using Microsoft.Azure.Storage.DataMovement;
-using AMSExplorer.Utils.FileInfo;
-using System.Net;
 
 namespace AMSExplorer
 {
@@ -88,7 +87,7 @@ namespace AMSExplorer
         private const string resetcredentials = "/resetcredentials";
 
         public bool MediaRUFeatureOn = true;
-        private DownloadOptions dataMovementDownloadOptions = new DownloadOptions();
+        private readonly DownloadOptions dataMovementDownloadOptions = new DownloadOptions();
 
         public Mainform(string[] args)
         {

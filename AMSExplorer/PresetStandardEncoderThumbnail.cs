@@ -96,7 +96,7 @@ namespace AMSExplorer
 
             }
         }
-      
+
 
         private string widthSize
         {

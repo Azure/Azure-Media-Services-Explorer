@@ -52,7 +52,7 @@ namespace AMSExplorer
 
                     };
 
-        private PresetStandardEncoderThumbnail formThumbnail = new PresetStandardEncoderThumbnail();
+        private readonly PresetStandardEncoderThumbnail formThumbnail = new PresetStandardEncoderThumbnail();
         private StandardEncoderPreset encoderPresetThumbnail;
 
         private Profile ReturnProfile(string name)

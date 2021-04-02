@@ -25,7 +25,7 @@ namespace AMSExplorer
     public partial class EditorXMLJSON : Form
     {
         private string savedConfig;
-        private ShowSampleMode _showSample;
+        private readonly ShowSampleMode _showSample;
         private readonly string defaultConfig;
 
         public string TextData => textBoxConfiguration.Text;

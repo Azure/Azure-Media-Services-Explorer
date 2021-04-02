@@ -166,7 +166,7 @@ namespace AMSExplorer
             UpdateStatusButtonOk();
 
 
-            if (_listAssets.Count>1 && !_multipleInputAssets) // several jobs, one input asset per job
+            if (_listAssets.Count > 1 && !_multipleInputAssets) // several jobs, one input asset per job
             {
                 comboBoxSourceAsset.Items.Add(new Item("(multiple assets were selected)", null));
                 panelEditingList.Visible = false;

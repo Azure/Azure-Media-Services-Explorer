@@ -178,7 +178,7 @@ namespace AMSExplorer
         }
 
 
-     
+
 
 
         public static async Task<AssetStreamingLocator> IsThereALocatorValidAsync(Asset asset, AMSClientV3 amsClient)

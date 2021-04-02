@@ -15,14 +15,9 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace AMSExplorer.Rest
@@ -48,7 +43,7 @@ namespace AMSExplorer.Rest
             Task<TransformRestObject> task = Task.Run<TransformRestObject>(async () => await GetTransformContentAsync(transformName));
             return task.Result;
 
-           // return GetTransformContentAsync(transformName).GetAwaiter().GetResult();
+            // return GetTransformContentAsync(transformName).GetAwaiter().GetResult();
         }
 
         public async Task<TransformRestObject> GetTransformContentAsync(string transformName)
