@@ -137,7 +137,7 @@ namespace AMSExplorer
         private void DGTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView senderGrid = (DataGridView)sender;
-            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex] is DataGridViewButtonCell)
             {
                 SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
             }

@@ -158,9 +158,8 @@ namespace AMSExplorer
             /////////////////////////////////////////////
             // Existing Account Filter
             /////////////////////////////////////////////
-            else if (_filterToDisplay != null && _filterToDisplay.GetType() == typeof(AccountFilter) && _parentAsset == null)
+            else if (_filterToDisplay != null && _filterToDisplay is AccountFilter accFilter && _parentAsset == null)
             {
-                AccountFilter accFilter = (AccountFilter)_filterToDisplay;
                 newfilter = false;
                 isAccountFilter = true;
                 DisplayFilterInfo();
@@ -307,9 +306,8 @@ namespace AMSExplorer
             /////////////////////////////////////////////
             // Existing Asset Filter
             /////////////////////////////////////////////
-            else if (_filterToDisplay != null && _filterToDisplay.GetType() == typeof(AssetFilter) && _parentAsset != null)
+            else if (_filterToDisplay != null && _filterToDisplay is AssetFilter assetFilter && _parentAsset != null)
             {
-                AssetFilter assetFilter = (AssetFilter)_filterToDisplay;
                 newfilter = false;
                 isAccountFilter = false;
                 DisplayFilterInfo();

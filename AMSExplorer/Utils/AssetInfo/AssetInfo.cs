@@ -436,7 +436,7 @@ namespace AMSExplorer
             do
             {
                 BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken, null, null);
-                blobs.AddRange(segment.Results.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(b => b as CloudBlockBlob));
+                blobs.AddRange(segment.Results.Where(blob => blob is CloudBlockBlob).Select(b => b as CloudBlockBlob));
 
                 continuationToken = segment.ContinuationToken;
             }
@@ -776,8 +776,8 @@ namespace AMSExplorer
             }
             while (continuationToken1 != null);
 
-            List<CloudBlockBlob> blocsc = rootBlobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
-            List<CloudBlobDirectory> blocsdir = rootBlobs.Where(b => b.GetType() == typeof(CloudBlobDirectory)).Select(b => (CloudBlobDirectory)b).ToList();
+            List<CloudBlockBlob> blocsc = rootBlobs.Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b).ToList();
+            List<CloudBlobDirectory> blocsdir = rootBlobs.Where(b => b is CloudBlobDirectory).Select(b => (CloudBlobDirectory)b).ToList();
 
             int number = blocsc.Count;
 
@@ -798,7 +798,7 @@ namespace AMSExplorer
                 {
                     BlobResultSegment segment = await dirRef.ListBlobsSegmentedAsync(true, BlobListingDetails.Metadata, null, continuationToken, null, null);
                     continuationToken = segment.ContinuationToken;
-                    subBlobs = segment.Results.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+                    subBlobs = segment.Results.Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b).ToList();
                     subBlobs.ForEach(b => size += b.Properties.Length);
                 }
                 while (continuationToken != null);
@@ -1075,7 +1075,7 @@ namespace AMSExplorer
             if (bfileinasset)
             {
                 size = 0;
-                foreach (IListBlobItem blob in MyAssetTypeInfo.Blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)))
+                foreach (IListBlobItem blob in MyAssetTypeInfo.Blobs.Where(b => b is CloudBlockBlob))
                 {
                     size += (blob as CloudBlockBlob).Properties.Length;
                 }
@@ -1105,9 +1105,8 @@ namespace AMSExplorer
             {
                 infoStr.Add("   -----------------------------------------------");
 
-                if (blob.GetType() == typeof(CloudBlockBlob))
+                if (blob is CloudBlockBlob blobc)
                 {
-                    CloudBlockBlob blobc = blob as CloudBlockBlob;
                     infoStr.Add("   Block Blob Name", blobc.Name);
                     infoStr.Add("   Type", blobc.BlobType.ToString());
                     infoStr.Add("   Blob length", blobc.Properties.Length + " Bytes");
@@ -1119,9 +1118,8 @@ namespace AMSExplorer
                     infoStr.Add(string.Empty);
 
                 }
-                else if (blob.GetType() == typeof(CloudBlobDirectory))
+                else if (blob is CloudBlobDirectory blobd)
                 {
-                    CloudBlobDirectory blobd = blob as CloudBlobDirectory;
                     infoStr.Add("   Blob Directory Name", blobd.Prefix);
                     infoStr.Add("   Type", "BlobDirectory");
                     infoStr.Add("   Blob Director length", GetSizeBlobDirectory(blobd) + " Bytes");
@@ -1140,7 +1138,7 @@ namespace AMSExplorer
         public static long GetSizeBlobDirectory(CloudBlobDirectory blobd)
         {
             long sizeDir = 0;
-            List<CloudBlockBlob> subBlobs = blobd.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToList();
+            List<CloudBlockBlob> subBlobs = blobd.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b).ToList();
             subBlobs.ForEach(b => sizeDir += b.Properties.Length);
 
             return sizeDir;

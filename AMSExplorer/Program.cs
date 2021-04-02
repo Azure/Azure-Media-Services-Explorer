@@ -100,9 +100,9 @@ namespace AMSExplorer
 
             while (e != null)
             {
-                if (e.GetType() == typeof(ApiErrorException))
+                if (e is ApiErrorException eApi)
                 {
-                    s = ((ApiErrorException)e).Body?.Error?.Message;
+                    s = eApi.Body?.Error?.Message;
                 }
                 else
                 {
@@ -1827,7 +1827,7 @@ namespace AMSExplorer
             foreach (Control c in controls)
             {
                 c.Font = new Font(c.Font.Name, c.Font.Size * factor);
-                if (c.GetType() == typeof(MenuStrip) || c.GetType() == typeof(ContextMenuStrip))// if menu  control
+                if (c is MenuStrip || c is ContextMenuStrip)// if menu  control
                 {
                     int sizevar = Convert.ToInt32(16f * e.DeviceDpiNew / 96f);
                     (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);
@@ -1844,7 +1844,7 @@ namespace AMSExplorer
             foreach (Control c in controls)
             {
                 c.Font = new Font(c.Font.Name, c.Font.Size * factor);
-                if (c.GetType() == typeof(MenuStrip) || c.GetType() == typeof(ContextMenuStrip))// if menu  control
+                if (c is MenuStrip || c is ContextMenuStrip)// if menu  control
                 {
                     int sizevar = Convert.ToInt32(16f * e.DeviceDpiNew / 96f);
                     (c as ToolStrip).ImageScalingSize = new Size(sizevar, sizevar);

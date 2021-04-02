@@ -68,6 +68,7 @@
             this.textBoxExactAssetName = new System.Windows.Forms.TextBox();
             this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
+            this.panelEditingList = new System.Windows.Forms.Panel();
             this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
@@ -80,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEDL)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panelSelectAsset.SuspendLayout();
+            this.panelEditingList.SuspendLayout();
             this.SuspendLayout();
             // 
             // label
@@ -199,11 +201,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.buttonDown);
-            this.tabPage2.Controls.Add(this.dataGridViewEDL);
-            this.tabPage2.Controls.Add(this.buttonUp);
-            this.tabPage2.Controls.Add(this.buttonDelEntry);
-            this.tabPage2.Controls.Add(this.buttonAddEDLEntry);
+            this.tabPage2.Controls.Add(this.panelEditingList);
             this.tabPage2.Controls.Add(this.labelInfoSeveralAssetStitching);
             this.tabPage2.Controls.Add(this.labelInputAsset);
             this.tabPage2.Controls.Add(this.comboBoxSourceAsset);
@@ -372,6 +370,16 @@
             this.radioButtonNewAsset.TabStop = true;
             this.radioButtonNewAsset.UseVisualStyleBackColor = true;
             // 
+            // panelEditingList
+            // 
+            resources.ApplyResources(this.panelEditingList, "panelEditingList");
+            this.panelEditingList.Controls.Add(this.buttonAddEDLEntry);
+            this.panelEditingList.Controls.Add(this.buttonDelEntry);
+            this.panelEditingList.Controls.Add(this.buttonDown);
+            this.panelEditingList.Controls.Add(this.dataGridViewEDL);
+            this.panelEditingList.Controls.Add(this.buttonUp);
+            this.panelEditingList.Name = "panelEditingList";
+            // 
             // listViewTransforms
             // 
             resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
@@ -453,6 +461,7 @@
             this.tabPage3.PerformLayout();
             this.panelSelectAsset.ResumeLayout(false);
             this.panelSelectAsset.PerformLayout();
+            this.panelEditingList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,5 +512,6 @@
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonDelEntry;
         private System.Windows.Forms.Button buttonAddEDLEntry;
+        private System.Windows.Forms.Panel panelEditingList;
     }
 }

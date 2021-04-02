@@ -381,9 +381,8 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine(Program.GetErrorMessage(e), true);
             }
-            if (e.GetType() == typeof(ApiErrorException))
+            if (e is ApiErrorException eApi)
             {
-                ApiErrorException eApi = (ApiErrorException)e;
                 dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
                 TextBoxLogWriteLine((string)error?.error?.message, true);
             }
@@ -1031,14 +1030,13 @@ namespace AMSExplorer
                 long Length = 0;
                 foreach (IListBlobItem blob in blobs)
                 {
-                    if (blob.GetType() == typeof(CloudBlockBlob))
+                    if (blob is CloudBlockBlob blobblock)
                     {
-                        CloudBlockBlob blobblock = (CloudBlockBlob)blob;
                         Length += blobblock.Properties.Length;
                     }
                 }
 
-                IEnumerable<IListBlobItem> blobsblock = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob));
+                IEnumerable<IListBlobItem> blobsblock = blobs.Where(b => b is CloudBlockBlob);
                 int nbtotalblobblock = blobsblock.Count();
                 int nbblob = 0;
                 long BytesCopied = 0;
@@ -1121,7 +1119,7 @@ namespace AMSExplorer
                 List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                 List<Task> mylistresults = new List<Task>();
 
-                IEnumerable<IListBlobItem> blobsdir = blobs.Where(b => b.GetType() == typeof(CloudBlobDirectory));
+                IEnumerable<IListBlobItem> blobsdir = blobs.Where(b => b is CloudBlobDirectory);
                 int nbtotalblobdir = blobsdir.Count();
                 int nbblobdir = 0;
                 foreach (IListBlobItem blob in blobsdir)
@@ -1147,7 +1145,7 @@ namespace AMSExplorer
                     while (continuationToken != null);
 
 
-                    IEnumerable<IListBlobItem> subblocks = srcBlobList.Where(s => s.GetType() == typeof(CloudBlockBlob));
+                    IEnumerable<IListBlobItem> subblocks = srcBlobList.Where(s => s is CloudBlockBlob);
                     long size = 0;
                     if (subblocks.Count() > 0)
                     {
@@ -2416,16 +2414,13 @@ namespace AMSExplorer
                     continuationToken = response.ContinuationToken;
                     foreach (IListBlobItem blobItem in response.Results)
                     {
-                        if (blobItem.GetType() == typeof(CloudBlockBlob))
+                        if (blobItem is CloudBlockBlob blob)
                         {
-                            if (blobItem is CloudBlockBlob blob)
-                            {
-                                UriBuilder bloburl = new UriBuilder(containerSasUrl);
-                                bloburl.Path += "/" + blob.Name;
-                                stringLines.AppendLine(blob.Name);
-                                stringLines.AppendLine(bloburl.ToString());
-                                stringLines.AppendLine(string.Empty);
-                            }
+                            UriBuilder bloburl = new UriBuilder(containerSasUrl);
+                            bloburl.Path += "/" + blob.Name;
+                            stringLines.AppendLine(blob.Name);
+                            stringLines.AppendLine(bloburl.ToString());
+                            stringLines.AppendLine(string.Empty);
                         }
                     }
                 }
@@ -3703,9 +3698,8 @@ namespace AMSExplorer
                     {
                         if (inputasset) // input
                         {
-                            if (jobToDisplay.Job.Input.GetType() == typeof(JobInputAsset))
+                            if (jobToDisplay.Job.Input is JobInputAsset jobinputasset)
                             {
-                                JobInputAsset jobinputasset = (JobInputAsset)jobToDisplay.Job.Input;
                                 Task<Asset> asset = GetAssetAsync(jobinputasset.AssetName);
                                 if (asset != null)
                                 {
@@ -3722,9 +3716,8 @@ namespace AMSExplorer
                         }
                         else // output
                         {
-                            if (jobToDisplay.Job.Outputs.FirstOrDefault() != null && (jobToDisplay.Job.Outputs.FirstOrDefault().GetType() == typeof(JobOutputAsset)))
+                            if (jobToDisplay.Job.Outputs.FirstOrDefault() != null && (jobToDisplay.Job.Outputs.FirstOrDefault() is JobOutputAsset joboutputasset))
                             {
-                                JobOutputAsset joboutputasset = (JobOutputAsset)jobToDisplay.Job.Outputs.FirstOrDefault();
                                 Task<Asset> asset = GetAssetAsync(joboutputasset.AssetName);
                                 if (asset != null)
                                 {
@@ -3872,9 +3865,8 @@ namespace AMSExplorer
             {
                 item.Enabled = bflag;
 
-                if (item.GetType() == typeof(ToolStripMenuItem))
+                if (item is ToolStripMenuItem itemt)
                 {
-                    ToolStripMenuItem itemt = (ToolStripMenuItem)item;
                     if (itemt.HasDropDownItems)
                     {
                         foreach (ToolStripItem itemd in itemt.DropDownItems)
@@ -3893,9 +3885,8 @@ namespace AMSExplorer
             {
                 item.Enabled = bflag;
 
-                if (item.GetType() == typeof(ToolStripMenuItem))
+                if (item is ToolStripMenuItem itemt)
                 {
-                    ToolStripMenuItem itemt = (ToolStripMenuItem)item;
                     if (itemt.HasDropDownItems)
                     {
                         foreach (ToolStripItem itemd in itemt.DropDownItems)
@@ -7261,7 +7252,7 @@ namespace AMSExplorer
                     sourceBlobs.AddRange(segment.Results);
 
                     // let's calculate the size of all blobs of the page/asset
-                    foreach (IListBlobItem sourceBlob in segment.Results.Where(b => b.GetType() == typeof(CloudBlockBlob)))
+                    foreach (IListBlobItem sourceBlob in segment.Results.Where(b => b is CloudBlockBlob))
                     {
                         Length += (sourceBlob as CloudBlockBlob).Properties.Length;
                     }
@@ -7271,8 +7262,8 @@ namespace AMSExplorer
                 while (continuationToken != null);
 
 
-                IEnumerable<CloudBlobDirectory> listDirectories = sourceBlobs.Where(blob => blob.GetType() == typeof(CloudBlobDirectory)).Select(blob => (CloudBlobDirectory)blob);
-                IEnumerable<CloudBlockBlob> listBlockBlobs = sourceBlobs.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(blob => (CloudBlockBlob)blob);
+                IEnumerable<CloudBlobDirectory> listDirectories = sourceBlobs.Where(blob => blob is CloudBlobDirectory).Select(blob => (CloudBlobDirectory)blob);
+                IEnumerable<CloudBlockBlob> listBlockBlobs = sourceBlobs.Where(blob => blob is CloudBlockBlob).Select(blob => (CloudBlockBlob)blob);
 
 
                 long BytesCopied = 0;
@@ -7338,7 +7329,7 @@ namespace AMSExplorer
                         }
                         while (continuationToken != null);
 
-                        IEnumerable<CloudBlockBlob> listBlockBlobsLive = sourceBlobsLive.Where(blob => blob.GetType() == typeof(CloudBlockBlob)).Select(blob => (CloudBlockBlob)blob);
+                        IEnumerable<CloudBlockBlob> listBlockBlobsLive = sourceBlobsLive.Where(blob => blob is CloudBlockBlob).Select(blob => (CloudBlockBlob)blob);
 
                         TextBoxLogWriteLine($"Copying {listBlockBlobsLive.Count()} blobs of directory '{blobdir.Prefix}'...");
 

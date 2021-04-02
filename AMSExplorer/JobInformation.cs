@@ -136,9 +136,8 @@ namespace AMSExplorer
             // input assets
 
 
-            if (MyJob.Input.GetType() == typeof(JobInputSequence)) // multiple inputs
+            if (MyJob.Input is JobInputSequence dd) // multiple inputs
             {
-                var dd = (JobInputSequence)MyJob.Input;
                 int index1 = 1;
                 foreach (var input in dd.Inputs)
                 {
@@ -210,9 +209,8 @@ namespace AMSExplorer
             DGOutputs.Rows.Add("Progress", output.Progress);
             DGOutputs.Rows.Add("State", output.State);
 
-            if (output.GetType() == typeof(JobOutputAsset))
+            if (output is JobOutputAsset outputA)
             {
-                JobOutputAsset outputA = output as JobOutputAsset;
                 DGOutputs.Rows.Add("Asset name", outputA.AssetName);
                 DGOutputs.Rows.Add("Asset type", (await AssetInfo.GetAssetTypeAsync(outputA.AssetName, _amsClient))?.Type);
             }
@@ -230,7 +228,7 @@ namespace AMSExplorer
         private void DGTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView senderGrid = (DataGridView)sender;
-            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex] is DataGridViewButtonCell)
             {
                 SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
             }
@@ -254,9 +252,8 @@ namespace AMSExplorer
 
             if (input)
             {
-                if (MyJob.Input.GetType() == typeof(JobInputAsset))
+                if (MyJob.Input is JobInputAsset inputAsset)
                 {
-                    JobInputAsset inputAsset = MyJob.Input as JobInputAsset;
                     assetName = inputAsset.AssetName;
                 }
 
@@ -265,9 +262,8 @@ namespace AMSExplorer
             {
                 int index = listBoxOutputs.SelectedIndices[0];
 
-                if (MyJob.Outputs[index].GetType() == typeof(JobOutputAsset))
+                if (MyJob.Outputs[index] is JobOutputAsset outputAsset)
                 {
-                    JobOutputAsset outputAsset = MyJob.Outputs[index] as JobOutputAsset;
                     assetName = outputAsset.AssetName;
                 }
             }
@@ -299,39 +295,42 @@ namespace AMSExplorer
         {
             dataGridInput.Rows.Clear();
 
-            if (MyJob.Input.GetType() == typeof(JobInputAsset))
+            if (MyJob.Input is JobInputAsset inputA)
             {
-                JobInputAsset inputA = MyJob.Input as JobInputAsset;
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
                 dataGridInput.Rows.Add("Asset type", (await AssetInfo.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
-                if (inputA.Start != null && inputA.Start.GetType() == typeof(AbsoluteClipTime))
+                if (inputA.Start != null && inputA.Start is AbsoluteClipTime startA)
                 {
-                    AbsoluteClipTime startA = inputA.Start as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
                 }
-                if (inputA.End != null && inputA.End.GetType() == typeof(AbsoluteClipTime))
+                if (inputA.End != null && inputA.End is AbsoluteClipTime endA)
                 {
-                    AbsoluteClipTime endA = inputA.End as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time End", endA.Time.ToString());
                 }
                 dataGridInput.Rows.Add("Label", inputA.Label);
                 dataGridInput.Rows.Add("Files", string.Join(Constants.endline, inputA.Files));
             }
-            else if (MyJob.Input.GetType() == typeof(JobInputSequence))
+            else if (MyJob.Input is JobInputSequence inputS)
             {
-                JobInputSequence inputS = MyJob.Input as JobInputSequence;
-                dataGridInput.Rows.Add("Input type", "clip");
-                var clip = inputS.Inputs[listBoxInput.SelectedIndex];
+                JobInputClip clip = inputS.Inputs[listBoxInput.SelectedIndex];
 
-                if (clip.Start != null && clip.Start.GetType() == typeof(AbsoluteClipTime))
+                if (clip is JobInputAsset iAsset)
                 {
-                    AbsoluteClipTime startA = clip.Start as AbsoluteClipTime;
+                    dataGridInput.Rows.Add("Input type", "asset");
+                    dataGridInput.Rows.Add("Asset name", iAsset.AssetName);
+                }
+                else
+                {
+                    dataGridInput.Rows.Add("Input type", "clip");
+                }
+
+                if (clip.Start != null && clip.Start is AbsoluteClipTime startA)
+                {
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
                 }
-                if (clip.End != null && clip.End.GetType() == typeof(AbsoluteClipTime))
+                if (clip.End != null && clip.End is AbsoluteClipTime endA)
                 {
-                    AbsoluteClipTime endA = clip.End as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time End", endA.Time.ToString());
                 }
                 dataGridInput.Rows.Add("Label", clip.Label);
@@ -341,25 +340,20 @@ namespace AMSExplorer
                     dataGridInput.Rows.Add("Input definition", idef.ToString());
                 }
             }
-            else if (MyJob.Input.GetType() == typeof(JobInputHttp))
+            else if (MyJob.Input is JobInputHttp inputH)
             {
-                JobInputHttp inputH = MyJob.Input as JobInputHttp;
                 dataGridInput.Rows.Add("Input type", "http");
                 dataGridInput.Rows.Add("Base Url", inputH.BaseUri);
-                if (inputH.Start != null && inputH.Start.GetType() == typeof(AbsoluteClipTime))
+                if (inputH.Start != null && inputH.Start is AbsoluteClipTime startA)
                 {
-                    AbsoluteClipTime startA = inputH.Start as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
                 }
-                if (inputH.End != null && inputH.End.GetType() == typeof(AbsoluteClipTime))
+                if (inputH.End != null && inputH.End is AbsoluteClipTime endA)
                 {
-                    AbsoluteClipTime endA = inputH.End as AbsoluteClipTime;
                     dataGridInput.Rows.Add("Absolute Clip Time End", endA.Time.ToString());
                 }
                 dataGridInput.Rows.Add("Label", inputH.Label);
                 dataGridInput.Rows.Add("Files", string.Join(Constants.endline, inputH.Files));
-
-
             }
         }
 

@@ -24,7 +24,7 @@ namespace AMSExplorer.ManifestGeneration
             }
             while (continuationToken != null);
 
-            IEnumerable<CloudBlockBlob> blobs = allBlobs.Where(c => c.GetType() == typeof(CloudBlockBlob)).Select(c => c as CloudBlockBlob);
+            IEnumerable<CloudBlockBlob> blobs = allBlobs.Where(c => c is CloudBlockBlob).Select(c => c as CloudBlockBlob);
 
             CloudBlockBlob[] mp4AssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
             CloudBlockBlob[] m4aAssetFiles = blobs.Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();

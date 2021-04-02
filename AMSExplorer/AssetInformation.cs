@@ -229,11 +229,8 @@ namespace AMSExplorer
 
                 foreach (IListBlobItem blob in segment.Results)
                 {
-                    if (blob.GetType() == typeof(CloudBlockBlob))
+                    if (blob is CloudBlockBlob bl)
                     {
-                        CloudBlockBlob bl = (CloudBlockBlob)blob;
-                        //  bl.FetchAttributes();
-
                         ListViewItem item = new ListViewItem(bl.Name, 0);
                         if (bl.Name.ToLower().EndsWith(".ism"))
                         {
@@ -260,11 +257,10 @@ namespace AMSExplorer
                         listViewBlobs.Items.Add(item);
                         //size += file.ContentFileSize;
                     }
-                    else if (blob.GetType() == typeof(CloudBlobDirectory))
+                    else if (blob is CloudBlobDirectory blobd)
                     {
                         proposeListBlobsInDir = true;
-                        CloudBlobDirectory bl = (CloudBlobDirectory)blob;
-                        ListViewItem item = new ListViewItem(bl.Prefix, 0)
+                        ListViewItem item = new ListViewItem(blobd.Prefix, 0)
                         {
                             ForeColor = Color.DarkGoldenrod
                         };
@@ -698,20 +694,16 @@ namespace AMSExplorer
 
             if (SelectedfBlobs.Count > 0)
             {
-                if (SelectedfBlobs.FirstOrDefault().GetType() == typeof(CloudBlockBlob))
+                if (SelectedfBlobs.FirstOrDefault() is CloudBlockBlob blob)
                 {
-                    CloudBlockBlob blob = (CloudBlockBlob)SelectedfBlobs.FirstOrDefault();
-
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, blob.Name);
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetInfo.FormatByteSize(blob.Properties.Length));
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, blob.Properties.LastModified != null ? ((DateTimeOffset)blob.Properties.LastModified).ToLocalTime().ToString("G") : null);
                     DGFiles.Rows.Add("Uri", blob.Uri);
                     DGFiles.Rows.Add("MD5", blob.Properties.ContentMD5);
                 }
-                else if (SelectedfBlobs.FirstOrDefault().GetType() == typeof(CloudBlobDirectory))
+                else if (SelectedfBlobs.FirstOrDefault() is CloudBlobDirectory dir)
                 {
-                    CloudBlobDirectory dir = (CloudBlobDirectory)SelectedfBlobs.FirstOrDefault();
-
                     DGFiles.Rows.Add("Prefix", dir.Prefix);
                     DGFiles.Rows.Add("Uri", dir.Uri);
                     DGFiles.Rows.Add("Size", AssetInfo.FormatByteSize(AssetInfo.GetSizeBlobDirectory(dir)));
@@ -741,9 +733,8 @@ namespace AMSExplorer
 
                 foreach (IListBlobItem blob in SelectedBlobs)
                 {
-                    if (blob.GetType() == typeof(CloudBlockBlob))
+                    if (blob is CloudBlockBlob blobtoopen)
                     {
-                        CloudBlockBlob blobtoopen = (CloudBlockBlob)blob;
                         //Generate the shared access signature on the blob, setting the constraints directly on the signature.
                         Process.Start(blobtoopen.Uri + containerSasUrl.Query);
                     }
@@ -873,7 +864,7 @@ namespace AMSExplorer
 
         private async Task DoDeleteBlobsAsync()
         {
-            IEnumerable<CloudBlockBlob> SelectedBlobs = ReturnSelectedBlobs().Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b);
+            IEnumerable<CloudBlockBlob> SelectedBlobs = ReturnSelectedBlobs().Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b);
 
             if (SelectedBlobs.Count() > 0)
             {
@@ -1038,9 +1029,8 @@ namespace AMSExplorer
         {
             IListBlobItem SelectedAssetBlob = ReturnSelectedBlobs().FirstOrDefault();
 
-            if (SelectedAssetBlob != null && SelectedAssetBlob.GetType() == typeof(CloudBlockBlob))
+            if (SelectedAssetBlob != null && SelectedAssetBlob is CloudBlockBlob sourceblob)
             {
-                CloudBlockBlob sourceblob = (CloudBlockBlob)SelectedAssetBlob;
                 try
                 {
                     string newfilename = string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_CopyOf0, sourceblob.Name);
@@ -1321,9 +1311,9 @@ namespace AMSExplorer
             foreach (int selectedindex in listViewBlobs.SelectedIndices)
             {
                 IListBlobItem AF = blobs.Where(af =>
-                (af.GetType() == typeof(CloudBlockBlob) && ((CloudBlockBlob)af).Name == listViewBlobs.Items[selectedindex].Text)
+                (af is CloudBlockBlob blob && blob.Name == listViewBlobs.Items[selectedindex].Text)
                 ||
-                (returnAlsoDirectory && (af.GetType() == typeof(CloudBlobDirectory) && ((CloudBlobDirectory)af).Prefix == listViewBlobs.Items[selectedindex].Text))
+                (returnAlsoDirectory && af is CloudBlobDirectory directory && directory.Prefix == listViewBlobs.Items[selectedindex].Text)
                 )
                 .FirstOrDefault();
 
@@ -1607,7 +1597,7 @@ namespace AMSExplorer
                 string question = "Delete all blobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    CloudBlockBlob[] ArrayBlobs = blobs.Where(b => b.GetType() == typeof(CloudBlockBlob)).Select(b => (CloudBlockBlob)b).ToArray();
+                    CloudBlockBlob[] ArrayBlobs = blobs.Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b).ToArray();
                     List<Task> deleteTasks = new List<Task>();
 
                     for (int i = 0; i < ArrayBlobs.Count(); i++)
@@ -1693,10 +1683,8 @@ namespace AMSExplorer
         {
             List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs();
 
-            if (SelectedBlobs.Count == 1 && SelectedBlobs.FirstOrDefault() != null && SelectedBlobs.FirstOrDefault().GetType() == typeof(CloudBlockBlob))
+            if (SelectedBlobs.Count == 1 && SelectedBlobs.FirstOrDefault() != null && SelectedBlobs.FirstOrDefault() is CloudBlockBlob blobtoedit)
             {
-                CloudBlockBlob blobtoedit = (CloudBlockBlob)SelectedBlobs.FirstOrDefault();
-
                 if (blobtoedit.Properties.Length > 500 * 1000)
                 {
                     MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_FileIsToLargeToEditItOnline);
@@ -1756,9 +1744,8 @@ namespace AMSExplorer
         {
             DataGridView senderGrid = (DataGridView)sender;
 
-            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex] is DataGridViewButtonCell)
             {
-
                 //TODO - Button Clicked - to see the key
                 SeeClearKey(senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
             }
@@ -1768,7 +1755,7 @@ namespace AMSExplorer
         private void dataGridViewAutPolOption_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView senderGrid = (DataGridView)sender;
-            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex] is DataGridViewButtonCell)
             {
                 SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
             }

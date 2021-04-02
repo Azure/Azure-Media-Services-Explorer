@@ -82,7 +82,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (GetEDLEntries().Count == 0) return null;
+                if (GetEDLEntries().Count == 0) return null; // maybe several assets, but not multiple assets for one job
 
                 var myJobInputAsset = new List<JobInputAsset>();
                 foreach (var entry in GetEDLEntries())
@@ -166,20 +166,26 @@ namespace AMSExplorer
             UpdateStatusButtonOk();
 
 
-            comboBoxSourceAsset.Visible = labelInputAsset.Visible = true;
-            foreach (var a in _listAssets)
+            if (_listAssets.Count>1 && !_multipleInputAssets) // several jobs, one input asset per job
             {
-                comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Description), a.Name));
-                AddEDLEntry(new EDLEntryInOut()
+                comboBoxSourceAsset.Items.Add(new Item("(multiple assets were selected)", null));
+                panelEditingList.Visible = false;
+            }
+            else
+            {
+                foreach (var a in _listAssets)
                 {
-                    AssetName = a.Name,
-                    Start = _start,
-                    End = _end,
-                    Description = a.Description
-                });
+                    comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Description), a.Name));
+                    AddEDLEntry(new EDLEntryInOut()
+                    {
+                        AssetName = a.Name,
+                        Start = _start,
+                        End = _end,
+                        Description = a.Description
+                    });
+                }
             }
             comboBoxSourceAsset.SelectedIndex = 0;
-
 
             if (_start != null)
             {
