@@ -71,6 +71,8 @@
             this.textBoxExactAssetName = new System.Windows.Forms.TextBox();
             this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
+            this.textBoxAssetDescription = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -209,6 +211,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.textBoxAssetDescription);
             this.tabPage2.Controls.Add(this.dataGridViewEDL);
             this.tabPage2.Controls.Add(this.buttonDelEntry);
             this.tabPage2.Controls.Add(this.buttonAddEDLEntry);
@@ -283,9 +287,10 @@
             // comboBoxSourceAsset
             // 
             resources.ApplyResources(this.comboBoxSourceAsset, "comboBoxSourceAsset");
-            this.comboBoxSourceAsset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSourceAsset.FormattingEnabled = true;
             this.comboBoxSourceAsset.Name = "comboBoxSourceAsset";
+            this.comboBoxSourceAsset.SelectedIndexChanged += new System.EventHandler(this.comboBoxSourceAsset_SelectedIndexChanged);
+            this.comboBoxSourceAsset.TextChanged += new System.EventHandler(this.comboBoxSourceAsset_TextChanged);
             // 
             // label6
             // 
@@ -417,6 +422,17 @@
             this.radioButtonNewAsset.TabStop = true;
             this.radioButtonNewAsset.UseVisualStyleBackColor = true;
             // 
+            // textBoxAssetDescription
+            // 
+            resources.ApplyResources(this.textBoxAssetDescription, "textBoxAssetDescription");
+            this.textBoxAssetDescription.Name = "textBoxAssetDescription";
+            this.textBoxAssetDescription.ReadOnly = true;
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
             // JobSubmitFromTransform
             // 
             this.AcceptButton = this.buttonOk;
@@ -492,5 +508,7 @@
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonDelEntry;
         private System.Windows.Forms.Button buttonAddEDLEntry;
+        private System.Windows.Forms.TextBox textBoxAssetDescription;
+        private System.Windows.Forms.Label label2;
     }
 }

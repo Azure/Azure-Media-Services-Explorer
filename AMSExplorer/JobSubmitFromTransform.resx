@@ -408,6 +408,63 @@
   <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>357, 97</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>147</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Description :</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxAssetDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="textBoxAssetDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>436, 94</value>
+  </data>
+  <data name="textBoxAssetDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>304, 23</value>
+  </data>
+  <data name="textBoxAssetDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>146</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetDescription.Name" xml:space="preserve">
+    <value>textBoxAssetDescription</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetDescription.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;textBoxAssetDescription.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="dataGridViewEDL.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -430,7 +487,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;dataGridViewEDL.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="buttonDelEntry.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -466,7 +523,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;buttonDelEntry.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="buttonAddEDLEntry.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -499,7 +556,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;buttonAddEDLEntry.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="buttonDown.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -532,7 +589,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;buttonDown.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="labelInfoSeveralAssetStitching.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -565,7 +622,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;labelInfoSeveralAssetStitching.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="buttonUp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -598,7 +655,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;buttonUp.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="labelInputAsset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -628,7 +685,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;labelInputAsset.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="comboBoxSourceAsset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -637,7 +694,7 @@
     <value>105, 94</value>
   </data>
   <data name="comboBoxSourceAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>582, 23</value>
+    <value>246, 23</value>
   </data>
   <data name="comboBoxSourceAsset.TabIndex" type="System.Int32, mscorlib">
     <value>139</value>
@@ -652,7 +709,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;comboBoxSourceAsset.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -683,7 +740,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="checkBoxSourceTrimmingEnd.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -710,7 +767,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;checkBoxSourceTrimmingEnd.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -740,7 +797,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="textBoxSourceDurationTime.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -764,7 +821,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;textBoxSourceDurationTime.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="checkBoxSourceTrimmingStart.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -791,7 +848,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;checkBoxSourceTrimmingStart.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="timeControlEndTime.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -821,7 +878,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;timeControlEndTime.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="timeControlStartTime.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -851,7 +908,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;timeControlStartTime.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>

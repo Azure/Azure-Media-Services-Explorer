@@ -6071,12 +6071,19 @@ namespace AMSExplorer
         {
             List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
-            bool MultipleInputAssets = false;
+            bool MultipleInputAssets = true;
             if (SelectedAssets.Count > 1)
             {
                 if (MessageBox.Show("You selected several assets." + Constants.endline + "Do you want to use them as multiple input assets to one single job (to do stitching), or generate one job per input asset." + Constants.endline + Constants.endline
                     + "Yes : Multiple input assets to one task (for stitching)" + Constants.endline + "No : One task/job per input asset", "Multiple input assets", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
                     MultipleInputAssets = true;
+                }
+                else
+                {
+                    MultipleInputAssets = false;
+                }
+                   
             }
 
             JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClient, this, SelectedAssets, multipleInputAssets: MultipleInputAssets);

@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace AMSExplorer
         private readonly AMSClientV3 _client;
         private readonly List<Transform> _listPreSelectedTransforms;
         private readonly int _numberselectedassets = 0;
-        private readonly List<Asset> _listAssets;
+        private  List<Asset> _listAssets;
         private readonly AMSExplorer.Mainform _myMainform;
         private readonly TimeSpan? _start;
         private readonly TimeSpan? _end;
@@ -167,17 +168,17 @@ namespace AMSExplorer
             labelURLFileNameWarning.Text = string.Empty;
             UpdateStatusButtonOk();
 
-
             if (_listAssets.Count > 1 && !_multipleInputAssets) // several jobs, one input asset per job
             {
                 comboBoxSourceAsset.Items.Add(new Item("(multiple assets were selected)", null));
+                comboBoxSourceAsset.Enabled = false;
                 buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = false;
             }
             else
             {
                 foreach (var a in _listAssets)
                 {
-                    comboBoxSourceAsset.Items.Add(new Item(string.Format("{0} ({1})", a.Name, a.Description), a.Name));
+                    comboBoxSourceAsset.Items.Add(a.Name);
                     AddEDLEntry(new EDLEntryInOut()
                     {
                         AssetName = a.Name,
@@ -352,7 +353,7 @@ namespace AMSExplorer
 
         private void buttonAddEDLEntry_Click(object sender, EventArgs e)
         {
-            string assetName = ((Item)comboBoxSourceAsset.SelectedItem).Value;
+            string assetName = comboBoxSourceAsset.Text;
             AddEDLEntry(new EDLEntryInOut()
             {
                 Start = (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked) ? timeControlStartTime.TimeStampWithoutOffset : (TimeSpan?)null,
@@ -454,6 +455,64 @@ namespace AMSExplorer
             if (dataGridViewEDL.SelectedRows.Count == 1)
             {
                 TimeCodeList.RemoveAt(dataGridViewEDL.SelectedRows[0].Index);
+            }
+        }
+
+        private void comboBoxSourceAsset_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string assetName = comboBoxSourceAsset.Text;
+
+            if (assetName != null)
+            {
+                var asset = _listAssets.Where(a => a.Name == assetName).FirstOrDefault();
+                if (asset != null)
+                {
+
+                    textBoxAssetDescription.Text = _listAssets.Where(a => a.Name == assetName).First()?.Description;
+                }
+            }
+        }
+
+        private async void comboBoxSourceAsset_TextChanged(object sender, EventArgs e)
+        {
+            string assetName = comboBoxSourceAsset.Text;
+
+            if (assetName != null)
+            {
+                var asset = _listAssets.Where(a => a.Name == assetName).FirstOrDefault();
+                if (asset == null)
+                {
+                    try
+                    {
+                        asset = await _client.AMSclient.Assets.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, assetName).ConfigureAwait(false);
+                        _listAssets.Add(asset);
+                        updateAssetDescription(asset.Description);
+                    }
+                    catch
+                    {
+                        updateAssetDescription("(no description, asset not found)");
+                    }
+                }
+                else
+                {
+                    updateAssetDescription(_listAssets.Where(a => a.Name == assetName).First()?.Description);
+                }
+
+            }
+        }
+
+        private void updateAssetDescription(string desc)
+        {
+            if (textBoxAssetDescription.InvokeRequired)
+            {
+                textBoxAssetDescription.BeginInvoke(new Action(() =>
+            {
+                textBoxAssetDescription.Text = desc;
+            }));
+            }
+            else
+            {
+                textBoxAssetDescription.Text = desc;
             }
         }
     }
