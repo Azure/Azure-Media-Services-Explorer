@@ -45,12 +45,13 @@
             this.textBoxURL = new System.Windows.Forms.TextBox();
             this.radioButtonHttpSource = new System.Windows.Forms.RadioButton();
             this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
+            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
+            this.buttonDelEntry = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.dataGridViewEDL = new System.Windows.Forms.DataGridView();
             this.buttonUp = new System.Windows.Forms.Button();
-            this.buttonDelEntry = new System.Windows.Forms.Button();
-            this.buttonAddEDLEntry = new System.Windows.Forms.Button();
             this.labelInfoSeveralAssetStitching = new System.Windows.Forms.Label();
             this.labelInputAsset = new System.Windows.Forms.Label();
             this.comboBoxSourceAsset = new System.Windows.Forms.ComboBox();
@@ -59,20 +60,17 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.checkBoxSourceTrimmingStart = new System.Windows.Forms.CheckBox();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.textBoxNewAssetNameSyntax = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.panelSelectAsset = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelSelectAsset = new System.Windows.Forms.Label();
+            this.listViewAssets1 = new AMSExplorer.ListViewAssets();
             this.buttonSearchExactAssetName = new System.Windows.Forms.Button();
             this.textBoxExactAssetName = new System.Windows.Forms.TextBox();
             this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
-            this.panelEditingList = new System.Windows.Forms.Panel();
-            this.listViewTransforms = new AMSExplorer.ListViewTransforms();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
-            this.listViewAssets1 = new AMSExplorer.ListViewAssets();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -80,8 +78,6 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEDL)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.panelSelectAsset.SuspendLayout();
-            this.panelEditingList.SuspendLayout();
             this.SuspendLayout();
             // 
             // label
@@ -199,10 +195,26 @@
             this.radioButtonSelectedAssets.TabStop = true;
             this.radioButtonSelectedAssets.UseVisualStyleBackColor = true;
             // 
+            // listViewTransforms
+            // 
+            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
+            this.listViewTransforms.FullRowSelect = true;
+            this.listViewTransforms.HideSelection = false;
+            this.listViewTransforms.MultiSelect = false;
+            this.listViewTransforms.Name = "listViewTransforms";
+            this.listViewTransforms.Tag = -1;
+            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
+            this.listViewTransforms.View = System.Windows.Forms.View.Details;
+            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.Listbox_SelectedIndexChanged);
+            // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.panelEditingList);
+            this.tabPage2.Controls.Add(this.dataGridViewEDL);
+            this.tabPage2.Controls.Add(this.buttonDelEntry);
+            this.tabPage2.Controls.Add(this.buttonAddEDLEntry);
+            this.tabPage2.Controls.Add(this.buttonDown);
             this.tabPage2.Controls.Add(this.labelInfoSeveralAssetStitching);
+            this.tabPage2.Controls.Add(this.buttonUp);
             this.tabPage2.Controls.Add(this.labelInputAsset);
             this.tabPage2.Controls.Add(this.comboBoxSourceAsset);
             this.tabPage2.Controls.Add(this.label6);
@@ -215,6 +227,21 @@
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddEDLEntry
+            // 
+            resources.ApplyResources(this.buttonAddEDLEntry, "buttonAddEDLEntry");
+            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
+            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
+            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
+            // 
+            // buttonDelEntry
+            // 
+            resources.ApplyResources(this.buttonDelEntry, "buttonDelEntry");
+            this.buttonDelEntry.Image = global::AMSExplorer.Bitmaps.delete;
+            this.buttonDelEntry.Name = "buttonDelEntry";
+            this.buttonDelEntry.UseVisualStyleBackColor = true;
+            this.buttonDelEntry.Click += new System.EventHandler(this.buttonDelEntry_Click);
             // 
             // buttonDown
             // 
@@ -241,21 +268,6 @@
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.UseVisualStyleBackColor = true;
             this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
-            // 
-            // buttonDelEntry
-            // 
-            resources.ApplyResources(this.buttonDelEntry, "buttonDelEntry");
-            this.buttonDelEntry.Image = global::AMSExplorer.Bitmaps.delete;
-            this.buttonDelEntry.Name = "buttonDelEntry";
-            this.buttonDelEntry.UseVisualStyleBackColor = true;
-            this.buttonDelEntry.Click += new System.EventHandler(this.buttonDelEntry_Click);
-            // 
-            // buttonAddEDLEntry
-            // 
-            resources.ApplyResources(this.buttonAddEDLEntry, "buttonAddEDLEntry");
-            this.buttonAddEDLEntry.Name = "buttonAddEDLEntry";
-            this.buttonAddEDLEntry.UseVisualStyleBackColor = true;
-            this.buttonAddEDLEntry.Click += new System.EventHandler(this.buttonAddEDLEntry_Click);
             // 
             // labelInfoSeveralAssetStitching
             // 
@@ -307,91 +319,6 @@
             this.checkBoxSourceTrimmingStart.UseVisualStyleBackColor = true;
             this.checkBoxSourceTrimmingStart.CheckStateChanged += new System.EventHandler(this.checkBoxSourceTrimmingStart_CheckStateChanged);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.textBoxNewAssetNameSyntax);
-            this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Controls.Add(this.panelSelectAsset);
-            this.tabPage3.Controls.Add(this.radioButtonExistingAsset);
-            this.tabPage3.Controls.Add(this.radioButtonNewAsset);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // textBoxNewAssetNameSyntax
-            // 
-            resources.ApplyResources(this.textBoxNewAssetNameSyntax, "textBoxNewAssetNameSyntax");
-            this.textBoxNewAssetNameSyntax.Name = "textBoxNewAssetNameSyntax";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Name = "label4";
-            // 
-            // panelSelectAsset
-            // 
-            resources.ApplyResources(this.panelSelectAsset, "panelSelectAsset");
-            this.panelSelectAsset.Controls.Add(this.label2);
-            this.panelSelectAsset.Controls.Add(this.listViewAssets1);
-            this.panelSelectAsset.Controls.Add(this.buttonSearchExactAssetName);
-            this.panelSelectAsset.Controls.Add(this.textBoxExactAssetName);
-            this.panelSelectAsset.Name = "panelSelectAsset";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // buttonSearchExactAssetName
-            // 
-            resources.ApplyResources(this.buttonSearchExactAssetName, "buttonSearchExactAssetName");
-            this.buttonSearchExactAssetName.Name = "buttonSearchExactAssetName";
-            this.buttonSearchExactAssetName.UseVisualStyleBackColor = true;
-            this.buttonSearchExactAssetName.Click += new System.EventHandler(this.buttonSearchExactAssetName_Click);
-            // 
-            // textBoxExactAssetName
-            // 
-            resources.ApplyResources(this.textBoxExactAssetName, "textBoxExactAssetName");
-            this.textBoxExactAssetName.Name = "textBoxExactAssetName";
-            // 
-            // radioButtonExistingAsset
-            // 
-            resources.ApplyResources(this.radioButtonExistingAsset, "radioButtonExistingAsset");
-            this.radioButtonExistingAsset.Name = "radioButtonExistingAsset";
-            this.radioButtonExistingAsset.UseVisualStyleBackColor = true;
-            this.radioButtonExistingAsset.CheckedChanged += new System.EventHandler(this.radioButtonExistingAsset_CheckedChanged);
-            // 
-            // radioButtonNewAsset
-            // 
-            resources.ApplyResources(this.radioButtonNewAsset, "radioButtonNewAsset");
-            this.radioButtonNewAsset.Checked = true;
-            this.radioButtonNewAsset.Name = "radioButtonNewAsset";
-            this.radioButtonNewAsset.TabStop = true;
-            this.radioButtonNewAsset.UseVisualStyleBackColor = true;
-            // 
-            // panelEditingList
-            // 
-            resources.ApplyResources(this.panelEditingList, "panelEditingList");
-            this.panelEditingList.Controls.Add(this.buttonAddEDLEntry);
-            this.panelEditingList.Controls.Add(this.buttonDelEntry);
-            this.panelEditingList.Controls.Add(this.buttonDown);
-            this.panelEditingList.Controls.Add(this.dataGridViewEDL);
-            this.panelEditingList.Controls.Add(this.buttonUp);
-            this.panelEditingList.Name = "panelEditingList";
-            // 
-            // listViewTransforms
-            // 
-            resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
-            this.listViewTransforms.FullRowSelect = true;
-            this.listViewTransforms.HideSelection = false;
-            this.listViewTransforms.MultiSelect = false;
-            this.listViewTransforms.Name = "listViewTransforms";
-            this.listViewTransforms.Tag = -1;
-            this.listViewTransforms.UseCompatibleStateImageBehavior = false;
-            this.listViewTransforms.View = System.Windows.Forms.View.Details;
-            this.listViewTransforms.SelectedIndexChanged += new System.EventHandler(this.Listbox_SelectedIndexChanged);
-            // 
             // timeControlEndTime
             // 
             resources.ApplyResources(this.timeControlEndTime, "timeControlEndTime");
@@ -422,6 +349,36 @@
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.TimeControlStartTime_ValueChanged);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.listViewAssets1);
+            this.tabPage3.Controls.Add(this.labelSelectAsset);
+            this.tabPage3.Controls.Add(this.buttonSearchExactAssetName);
+            this.tabPage3.Controls.Add(this.textBoxNewAssetNameSyntax);
+            this.tabPage3.Controls.Add(this.textBoxExactAssetName);
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.radioButtonExistingAsset);
+            this.tabPage3.Controls.Add(this.radioButtonNewAsset);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // textBoxNewAssetNameSyntax
+            // 
+            resources.ApplyResources(this.textBoxNewAssetNameSyntax, "textBoxNewAssetNameSyntax");
+            this.textBoxNewAssetNameSyntax.Name = "textBoxNewAssetNameSyntax";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Name = "label4";
+            // 
+            // labelSelectAsset
+            // 
+            resources.ApplyResources(this.labelSelectAsset, "labelSelectAsset");
+            this.labelSelectAsset.Name = "labelSelectAsset";
+            // 
             // listViewAssets1
             // 
             resources.ApplyResources(this.listViewAssets1, "listViewAssets1");
@@ -432,6 +389,33 @@
             this.listViewAssets1.Tag = -1;
             this.listViewAssets1.UseCompatibleStateImageBehavior = false;
             this.listViewAssets1.View = System.Windows.Forms.View.Details;
+            // 
+            // buttonSearchExactAssetName
+            // 
+            resources.ApplyResources(this.buttonSearchExactAssetName, "buttonSearchExactAssetName");
+            this.buttonSearchExactAssetName.Name = "buttonSearchExactAssetName";
+            this.buttonSearchExactAssetName.UseVisualStyleBackColor = true;
+            this.buttonSearchExactAssetName.Click += new System.EventHandler(this.buttonSearchExactAssetName_Click);
+            // 
+            // textBoxExactAssetName
+            // 
+            resources.ApplyResources(this.textBoxExactAssetName, "textBoxExactAssetName");
+            this.textBoxExactAssetName.Name = "textBoxExactAssetName";
+            // 
+            // radioButtonExistingAsset
+            // 
+            resources.ApplyResources(this.radioButtonExistingAsset, "radioButtonExistingAsset");
+            this.radioButtonExistingAsset.Name = "radioButtonExistingAsset";
+            this.radioButtonExistingAsset.UseVisualStyleBackColor = true;
+            this.radioButtonExistingAsset.CheckedChanged += new System.EventHandler(this.radioButtonExistingAsset_CheckedChanged);
+            // 
+            // radioButtonNewAsset
+            // 
+            resources.ApplyResources(this.radioButtonNewAsset, "radioButtonNewAsset");
+            this.radioButtonNewAsset.Checked = true;
+            this.radioButtonNewAsset.Name = "radioButtonNewAsset";
+            this.radioButtonNewAsset.TabStop = true;
+            this.radioButtonNewAsset.UseVisualStyleBackColor = true;
             // 
             // JobSubmitFromTransform
             // 
@@ -459,9 +443,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEDL)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.panelSelectAsset.ResumeLayout(false);
-            this.panelSelectAsset.PerformLayout();
-            this.panelEditingList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -497,8 +478,7 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.RadioButton radioButtonExistingAsset;
         private System.Windows.Forms.RadioButton radioButtonNewAsset;
-        private System.Windows.Forms.Panel panelSelectAsset;
-        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label labelSelectAsset;
         private ListViewAssets listViewAssets1;
         private System.Windows.Forms.Button buttonSearchExactAssetName;
         private System.Windows.Forms.TextBox textBoxExactAssetName;
@@ -512,6 +492,5 @@
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonDelEntry;
         private System.Windows.Forms.Button buttonAddEDLEntry;
-        private System.Windows.Forms.Panel panelEditingList;
     }
 }

@@ -1308,8 +1308,8 @@ namespace AMSExplorer
         public bool Reencode { get; set; }
         public bool Trimming { get; set; }
         public bool CreateAssetFilter { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public TimeSpan AbsoluteStartTime { get; set; }
+        public TimeSpan AbsoluteEndTime { get; set; }
     }
 
     internal class HostNameClass
@@ -1939,10 +1939,15 @@ namespace AMSExplorer
         {
             if (image == null) return null;
 
-            Size newSize = ScaleSize(image.Size, dpiScale);
-            Bitmap newBitmap = new Bitmap(newSize.Width, newSize.Height);
+            Size newSize;
+            Bitmap tempbitmap;
+            lock (image)
+            {
+                newSize = ScaleSize(image.Size, dpiScale);
+                tempbitmap = (Bitmap)image; // to avoid multi thread using the same bitmap and create an exception
+            }
 
-            Bitmap tempbitmap = (Bitmap)image; // to avoid multi thread using the same bitmap and create an exception
+            Bitmap newBitmap = new Bitmap(newSize.Width, newSize.Height);
 
             using (Graphics g = Graphics.FromImage(newBitmap))
             {

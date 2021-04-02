@@ -286,8 +286,8 @@ namespace AMSExplorer
 
                     if (_subclipconfig != null && _subclipconfig.Trimming) // user used the subclip UI before and timings are passed
                     {
-                        timeControlStart.SetTimeStamp(_subclipconfig.StartTime - timeControlStart.GetOffSetAsTimeSpan());
-                        timeControlEnd.SetTimeStamp(_subclipconfig.EndTime - timeControlStart.GetOffSetAsTimeSpan());
+                        timeControlStart.SetTimeStamp(_subclipconfig.AbsoluteStartTime - timeControlStart.GetOffSetAsTimeSpan());
+                        timeControlEnd.SetTimeStamp(_subclipconfig.AbsoluteEndTime - timeControlStart.GetOffSetAsTimeSpan());
                         checkBoxStartTime.Checked = checkBoxEndTime.Checked = true;
                         textBoxFilterName.Text = "subclip" + new Random().Next(9999).ToString();
                     }

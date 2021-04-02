@@ -100,7 +100,7 @@ namespace AMSExplorer
         }
 
 
-        public JobSubmitFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? start = null, TimeSpan? end = null, bool noHttpSourceMode = false, bool multipleInputAssets = false)
+        public JobSubmitFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? absoluteStart = null, TimeSpan? absoluteEnd = null, bool noHttpSourceMode = false, bool multipleInputAssets = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -129,8 +129,10 @@ namespace AMSExplorer
 
             _listAssets = listAssets;
             _myMainform = myMainForm;
-            _start = start;
-            _end = end;
+
+            _start = absoluteStart;
+            _end = absoluteEnd;
+
             _multipleInputAssets = multipleInputAssets;
         }
 
@@ -169,7 +171,7 @@ namespace AMSExplorer
             if (_listAssets.Count > 1 && !_multipleInputAssets) // several jobs, one input asset per job
             {
                 comboBoxSourceAsset.Items.Add(new Item("(multiple assets were selected)", null));
-                panelEditingList.Visible = false;
+                buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = false;
             }
             else
             {
@@ -204,10 +206,6 @@ namespace AMSExplorer
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private async void ButtonDeleteTemplate_Click(object sender, EventArgs e)
         {
@@ -325,9 +323,8 @@ namespace AMSExplorer
 
         private async void radioButtonExistingAsset_CheckedChanged(object sender, EventArgs e)
         {
-            panelSelectAsset.Enabled = radioButtonExistingAsset.Checked;
+            listViewAssets1.Enabled = labelSelectAsset.Enabled = textBoxExactAssetName.Enabled = buttonSearchExactAssetName.Enabled = radioButtonExistingAsset.Checked;
             textBoxNewAssetNameSyntax.Enabled = radioButtonNewAsset.Checked;
-            ;
 
             if (radioButtonExistingAsset.Checked)
             {

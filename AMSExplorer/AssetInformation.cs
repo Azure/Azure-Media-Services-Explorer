@@ -1370,7 +1370,14 @@ namespace AMSExplorer
             {
                 if (DG.SelectedCells[0].Value != null)
                 {
-                    System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
+                    try
+                    {
+                        System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {

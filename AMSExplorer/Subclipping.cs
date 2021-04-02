@@ -204,8 +204,8 @@ namespace AMSExplorer
                     Reencode = false,
                     Trimming = false,
                     CreateAssetFilter = false,
-                    StartTime = timeControlStart.TimeStampWithOffset,
-                    EndTime = timeControlEnd.TimeStampWithOffset
+                    AbsoluteStartTime = timeControlStart.TimeStampWithOffset,
+                    AbsoluteEndTime = timeControlEnd.TimeStampWithOffset
                 };
 
             }
@@ -223,8 +223,8 @@ namespace AMSExplorer
                     config.Trimming = true;
                     List<ExplorerEDLEntryInOut> list = new List<ExplorerEDLEntryInOut>();
                     SubClipTrimmingDataTimeSpan subdata = GetSubClipTrimmingDataTimeSpan();
-                    config.StartTime = timeControlStart.TimeStampWithOffset;
-                    config.EndTime = timeControlEnd.TimeStampWithOffset;
+                    config.AbsoluteStartTime = timeControlStart.TimeStampWithOffset;
+                    config.AbsoluteEndTime = timeControlEnd.TimeStampWithOffset;
                 }
                 return config;
             }
@@ -241,8 +241,8 @@ namespace AMSExplorer
                 {
                     SubClipTrimmingDataTimeSpan subdata = GetSubClipTrimmingDataTimeSpan();
                     config.Trimming = true;
-                    config.StartTime = subdata.StartTime;
-                    config.EndTime = subdata.EndTime;
+                    config.AbsoluteStartTime = subdata.StartTime;
+                    config.AbsoluteEndTime = subdata.EndTime;
                 }
                 return config;
             }
@@ -492,12 +492,26 @@ namespace AMSExplorer
 
             if (subclipConfig.Reencode) // reencode the clip
             {
-                JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.StartTime, subclipConfig.EndTime, true);
 
-                if (form.ShowDialog() == DialogResult.OK)
+                if (_selectedAssets.Count == 1)
                 {
-                    await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, form.StartClipTime, form.EndClipTime);
+                    JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
+
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, jobInputSequence: form.InputSequence, MultipleInputAssets: true);
+                    }
                 }
+                else if (_selectedAssets.Count > 1)
+                {
+                    JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
+
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, form.StartClipTime, form.EndClipTime, MultipleInputAssets: false);
+                    }
+                }
+
 
                 /*
                 var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
@@ -568,12 +582,12 @@ namespace AMSExplorer
                 {
                     startTime = new AbsoluteClipTime()
                     {
-                        Time = subclipConfig.StartTime
+                        Time = subclipConfig.AbsoluteStartTime
                     };
 
                     endTime = new AbsoluteClipTime()
                     {
-                        Time = subclipConfig.EndTime
+                        Time = subclipConfig.AbsoluteEndTime
                     };
                 }
 
