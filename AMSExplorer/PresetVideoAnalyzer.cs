@@ -30,7 +30,7 @@ namespace AMSExplorer
         private readonly string _existingTransformDesc;
 
         // langage codes supported : https://go.microsoft.com/fwlink/?linkid=2109463
-        public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "es-ES", "es-MX", "fr-FR", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-EG", "ar-SY", "ru-RU", "hi-IN", "ko-KR" };
+        public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "en-AU", "es-ES", "es-MX", "fr-FR", "fr-CA", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-BH", "ar-EG", "ar-IQ", "ar-JO", "ar-KW", "ar-LB", "ar-OM", "ar-QA", "ar-SA", "ar-SY", "ru-RU", "hi-IN", "ko-KR", "da-DK", "nb-NO", "sv-SE", "fi-FI", "th-TH", "tr-TR" };
 
         public string Language => checkBoxAutoLanguage.Checked ? null : ((Item)comboBoxLanguage.SelectedItem).Value;
 

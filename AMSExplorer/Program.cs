@@ -477,7 +477,7 @@ namespace AMSExplorer
         public const string AMPSubtitles = "&subtitles={0}";
 
         public const string PlayerDASHIFList = @"http://reference.dashif.org/dash.js/";
-        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/v3.0.0/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/latest/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
         public const string AdvancedTestPlayerRoot = @"https://openidconnectweb.azurewebsites.net/AMTestPlayer";
@@ -534,7 +534,7 @@ namespace AMSExplorer
 
         public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-create-account";
         public const string LinkAMSAADAut = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-get-started-with-aad";
-        public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-cli-how-to";
+        public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-howto";
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
