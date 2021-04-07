@@ -43,8 +43,6 @@
             this.textBoxAADtenantId = new System.Windows.Forms.TextBox();
             this.labelADTenant = new System.Windows.Forms.Label();
             this.labelE2 = new System.Windows.Forms.Label();
-            this.textBoxLocation = new System.Windows.Forms.TextBox();
-            this.labelLocation = new System.Windows.Forms.Label();
             this.labelenteramsacct = new System.Windows.Forms.Label();
             this.buttonExport = new System.Windows.Forms.Button();
             this.buttonImportAll = new System.Windows.Forms.Button();
@@ -149,17 +147,6 @@
             resources.ApplyResources(this.labelE2, "labelE2");
             this.labelE2.Name = "labelE2";
             // 
-            // textBoxLocation
-            // 
-            resources.ApplyResources(this.textBoxLocation, "textBoxLocation");
-            this.textBoxLocation.Name = "textBoxLocation";
-            this.toolTip1.SetToolTip(this.textBoxLocation, resources.GetString("textBoxLocation.ToolTip"));
-            // 
-            // labelLocation
-            // 
-            resources.ApplyResources(this.labelLocation, "labelLocation");
-            this.labelLocation.Name = "labelLocation";
-            // 
             // labelenteramsacct
             // 
             resources.ApplyResources(this.labelenteramsacct, "labelenteramsacct");
@@ -256,13 +243,11 @@
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.labelE2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxDescription, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.textBoxAMSResourceId, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelLocation, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxLocation, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.labelADTenant, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxAADtenantId, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.labelADTenant, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxAADtenantId, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxDescription, 0, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // AmsLogin
@@ -309,8 +294,6 @@
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonDeleteAccountEntry;
-        private System.Windows.Forms.TextBox textBoxLocation;
-        private System.Windows.Forms.Label labelLocation;
         private System.Windows.Forms.Label labelE2;
         private System.Windows.Forms.Label labelADTenant;
         private System.Windows.Forms.Label labelenteramsacct;

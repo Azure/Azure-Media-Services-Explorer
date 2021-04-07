@@ -184,7 +184,6 @@ namespace AMSExplorer
 
                 textBoxDescription.Text = LoginInfo.Description;
                 textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
-                textBoxLocation.Text = LoginInfo.MediaService.Location;
                 textBoxAADtenantId.Text = LoginInfo.AadTenantId;
 
                 DoEnableManualFields(false);
@@ -200,7 +199,6 @@ namespace AMSExplorer
         {
             textBoxAADtenantId.Enabled =
             textBoxAMSResourceId.Enabled =
-            textBoxLocation.Enabled =
                                     enable;
         }
 
@@ -527,15 +525,14 @@ namespace AMSExplorer
                 {
                     string example = @"{
   ""AadClientId"": ""00000000-0000-0000-0000-000000000000"",
-  ""AadEndpoint"": ""https://login.microsoftonline.com"",
   ""AadSecret"": ""00000000-0000-0000-0000-000000000000"",
   ""AadTenantId"": ""00000000-0000-0000-0000-000000000000"",
   ""AccountName"": ""amsaccount"",
+  ""ResourceGroup"": ""amsResourceGroup"",
+  ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000"",
   ""ArmAadAudience"": ""https://management.core.windows.net/"",
   ""ArmEndpoint"": ""https://management.azure.com/"",
-  ""Region"": ""West Europe"",
-  ""ResourceGroup"": ""amsResourceGroup"",
-  ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000""
+  ""AadEndpoint"": ""https://login.microsoftonline.com""
 }";
                     EditorXMLJSON form = new EditorXMLJSON("Enter the JSON output of the Azure Portal or Azure Cli Service Principal creation", example, true, ShowSampleMode.None, true, "The Service Principal secret is stored encrypted in the application settings.");
 
@@ -566,7 +563,7 @@ namespace AMSExplorer
 
                         CredentialsEntryV3 entry = new CredentialsEntryV3(
                                                         // new MediaService(resourceId, json.AccountName, null, null, json.Location ?? json.Region),
-                                                        new MediaService(json.Location ?? json.Region, resourceId, json.AccountName),
+                                                        new MediaService(null, resourceId, json.AccountName),
 
                                                         env,
                                                         PromptBehavior.Auto,
@@ -596,7 +593,7 @@ namespace AMSExplorer
                         string accountnamecc = form.textBoxAMSResourceId.Text.Split('/').Last();
 
                         CredentialsEntryV3 entry = new CredentialsEntryV3(
-                                                        new MediaService(form.textBoxLocation.Text, form.textBoxAMSResourceId.Text, accountnamecc),
+                                                        new MediaService(null, form.textBoxAMSResourceId.Text, accountnamecc),
                                                         addaccount1.GetEnvironment(),
                                                         PromptBehavior.Auto,
                                                         form.radioButtonAADServicePrincipal.Checked,

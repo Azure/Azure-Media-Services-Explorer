@@ -147,7 +147,7 @@ namespace AMSExplorer
             DGAcct.ColumnCount = 2;
             DGAcct.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
-            // acount info
+            // account info
             DGAcct.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGAcct.Rows.Add("AMS Account Name", account.Name);
             DGAcct.Rows.Add("Location", account.Location);

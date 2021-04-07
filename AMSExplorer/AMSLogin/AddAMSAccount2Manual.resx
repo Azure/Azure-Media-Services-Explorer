@@ -196,7 +196,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -227,33 +227,6 @@
   </data>
   <data name="&gt;&gt;textBoxAMSResourceId.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="textBoxLocation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 123</value>
-  </data>
-  <data name="textBoxLocation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>716, 23</value>
-  </data>
-  <data name="textBoxLocation.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="textBoxLocation.ToolTip" xml:space="preserve">
-    <value>Example : West Europe</value>
-  </data>
-  <data name="&gt;&gt;textBoxLocation.Name" xml:space="preserve">
-    <value>textBoxLocation</value>
-  </data>
-  <data name="&gt;&gt;textBoxLocation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxLocation.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBoxLocation.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="radioButtonAADServicePrincipal.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -316,7 +289,7 @@
     <value>1</value>
   </data>
   <data name="groupBoxAADAutMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 169</value>
+    <value>46, 139</value>
   </data>
   <data name="groupBoxAADAutMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 82</value>
@@ -423,36 +396,6 @@
   <data name="&gt;&gt;labelE2.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="labelRegion.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelRegion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelRegion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 105</value>
-  </data>
-  <data name="labelRegion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 15</value>
-  </data>
-  <data name="labelRegion.TabIndex" type="System.Int32, mscorlib">
-    <value>88</value>
-  </data>
-  <data name="labelRegion.Text" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="&gt;&gt;labelRegion.Name" xml:space="preserve">
-    <value>labelRegion</value>
-  </data>
-  <data name="&gt;&gt;labelRegion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelRegion.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelRegion.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -484,7 +427,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>7</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -517,40 +460,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>495, 149</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>92</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Example : West Europe</value>
-  </data>
-  <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>6</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

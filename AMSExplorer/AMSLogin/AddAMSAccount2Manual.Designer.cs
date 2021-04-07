@@ -35,17 +35,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBoxAMSResourceId = new System.Windows.Forms.TextBox();
-            this.textBoxLocation = new System.Windows.Forms.TextBox();
             this.groupBoxAADAutMode = new System.Windows.Forms.GroupBox();
             this.radioButtonAADServicePrincipal = new System.Windows.Forms.RadioButton();
             this.radioButtonAADInteractive = new System.Windows.Forms.RadioButton();
             this.textBoxAADtenantId = new System.Windows.Forms.TextBox();
             this.labelADTenant = new System.Windows.Forms.Label();
             this.labelE2 = new System.Windows.Forms.Label();
-            this.labelRegion = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBoxAADAutMode.SuspendLayout();
             this.SuspendLayout();
@@ -77,12 +74,6 @@
             resources.ApplyResources(this.textBoxAMSResourceId, "textBoxAMSResourceId");
             this.textBoxAMSResourceId.Name = "textBoxAMSResourceId";
             this.toolTip1.SetToolTip(this.textBoxAMSResourceId, resources.GetString("textBoxAMSResourceId.ToolTip"));
-            // 
-            // textBoxLocation
-            // 
-            resources.ApplyResources(this.textBoxLocation, "textBoxLocation");
-            this.textBoxLocation.Name = "textBoxLocation";
-            this.toolTip1.SetToolTip(this.textBoxLocation, resources.GetString("textBoxLocation.ToolTip"));
             // 
             // groupBoxAADAutMode
             // 
@@ -121,11 +112,6 @@
             resources.ApplyResources(this.labelE2, "labelE2");
             this.labelE2.Name = "labelE2";
             // 
-            // labelRegion
-            // 
-            resources.ApplyResources(this.labelRegion, "labelRegion");
-            this.labelRegion.Name = "labelRegion";
-            // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
@@ -137,12 +123,6 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label1.Name = "label1";
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label3.Name = "label3";
             // 
             // AddAMSAccount2Manual
             // 
@@ -156,11 +136,8 @@
             this.Controls.Add(this.textBoxAADtenantId);
             this.Controls.Add(this.labelADTenant);
             this.Controls.Add(this.labelE2);
-            this.Controls.Add(this.textBoxLocation);
-            this.Controls.Add(this.labelRegion);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Name = "AddAMSAccount2Manual";
             this.Load += new System.EventHandler(this.AddAMSAccount2_Load);
@@ -181,14 +158,11 @@
         private System.Windows.Forms.GroupBox groupBoxAADAutMode;
         private System.Windows.Forms.Label labelADTenant;
         private System.Windows.Forms.Label labelE2;
-        private System.Windows.Forms.Label labelRegion;
         public System.Windows.Forms.RadioButton radioButtonAADServicePrincipal;
         public System.Windows.Forms.RadioButton radioButtonAADInteractive;
         public System.Windows.Forms.TextBox textBoxAMSResourceId;
         public System.Windows.Forms.TextBox textBoxAADtenantId;
-        public System.Windows.Forms.TextBox textBoxLocation;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
     }
 }

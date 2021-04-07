@@ -879,6 +879,9 @@ namespace AMSExplorer
                 }
             }
 
+            // let's get info on mediaService, specifically to get the location (region)
+            credentialsEntry.MediaService = await AMSclient.Mediaservices.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName);
+
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             AMSclient.SetUserAgent("AMSE", version);
             return AMSclient;

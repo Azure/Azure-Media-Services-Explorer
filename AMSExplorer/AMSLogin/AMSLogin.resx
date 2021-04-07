@@ -211,7 +211,7 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 213</value>
+    <value>3, 208</value>
   </data>
   <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
     <value>457, 23</value>
@@ -229,7 +229,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -241,7 +241,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 195</value>
+    <value>3, 190</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 15</value>
@@ -394,7 +394,7 @@
     <value>False</value>
   </data>
   <data name="textBoxAMSResourceId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 33</value>
+    <value>3, 44</value>
   </data>
   <data name="textBoxAMSResourceId.Size" type="System.Drawing.Size, System.Drawing">
     <value>457, 23</value>
@@ -418,7 +418,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;textBoxAMSResourceId.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="textBoxAADtenantId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -427,7 +427,7 @@
     <value>False</value>
   </data>
   <data name="textBoxAADtenantId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 153</value>
+    <value>3, 126</value>
   </data>
   <data name="textBoxAADtenantId.Size" type="System.Drawing.Size, System.Drawing">
     <value>457, 23</value>
@@ -445,7 +445,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;textBoxAADtenantId.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>3</value>
   </data>
   <data name="labelADTenant.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -457,7 +457,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelADTenant.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 135</value>
+    <value>3, 108</value>
   </data>
   <data name="labelADTenant.Size" type="System.Drawing.Size, System.Drawing">
     <value>106, 15</value>
@@ -481,7 +481,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;labelADTenant.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>2</value>
   </data>
   <data name="labelE2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -493,7 +493,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelE2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 15</value>
+    <value>3, 26</value>
   </data>
   <data name="labelE2.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 15</value>
@@ -518,69 +518,6 @@
   </data>
   <data name="&gt;&gt;labelE2.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="textBoxLocation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxLocation.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 93</value>
-  </data>
-  <data name="textBoxLocation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 23</value>
-  </data>
-  <data name="textBoxLocation.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="textBoxLocation.ToolTip" xml:space="preserve">
-    <value>Example : West Europe</value>
-  </data>
-  <data name="&gt;&gt;textBoxLocation.Name" xml:space="preserve">
-    <value>textBoxLocation</value>
-  </data>
-  <data name="&gt;&gt;textBoxLocation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxLocation.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;textBoxLocation.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="labelLocation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="labelLocation.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 75</value>
-  </data>
-  <data name="labelLocation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 15</value>
-  </data>
-  <data name="labelLocation.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="labelLocation.Text" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="labelLocation.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;labelLocation.Name" xml:space="preserve">
-    <value>labelLocation</value>
-  </data>
-  <data name="&gt;&gt;labelLocation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelLocation.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;labelLocation.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="labelenteramsacct.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -844,7 +781,7 @@
     <value>296, 170</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>463, 247</value>
@@ -865,7 +802,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelE2" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxDescription" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxAMSResourceId" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelLocation" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxLocation" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelADTenant" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxAADtenantId" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelE2" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxAMSResourceId" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelADTenant" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxAADtenantId" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textBoxDescription" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5,Percent,12,5" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="linkLabelAMSOfflineDoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
