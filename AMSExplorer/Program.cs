@@ -377,43 +377,38 @@ namespace AMSExplorer
 
         private static uint GetBrowserEmulationMode()
         {
-            int browserVersion = 0;
-            using (RegistryKey ieKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Internet Explorer",
+            int browserVersion = 7;
+            using (var ieKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Internet Explorer",
                 RegistryKeyPermissionCheck.ReadSubTree,
                 System.Security.AccessControl.RegistryRights.QueryValues))
             {
-                object version = ieKey.GetValue("svcVersion");
+                var version = ieKey.GetValue("svcVersion");
                 if (null == version)
                 {
                     version = ieKey.GetValue("Version");
                     if (null == version)
-                    {
                         throw new ApplicationException("Microsoft Internet Explorer is required!");
-                    }
                 }
                 int.TryParse(version.ToString().Split('.')[0], out browserVersion);
             }
 
-            if (browserVersion < 7)
-            {
-                throw new ApplicationException("Unsupported version of Microsoft Internet Explorer!");
-            }
-
-            uint mode = 11000; // Internet Explorer 11. Webpages containing standards-based !DOCTYPE directives are displayed in IE11 Standards mode. 
-
+            UInt32 mode = 11000; // Internet Explorer 11. Webpages containing standards-based !DOCTYPE directives are displayed in IE11 Standards mode. Default value for Internet Explorer 11.
             switch (browserVersion)
             {
                 case 7:
-                    mode = 7000; // Webpages containing standards-based !DOCTYPE directives are displayed in IE7 Standards mode. 
+                    mode = 7000; // Webpages containing standards-based !DOCTYPE directives are displayed in IE7 Standards mode. Default value for applications hosting the WebBrowser Control.
                     break;
                 case 8:
-                    mode = 8000; // Webpages containing standards-based !DOCTYPE directives are displayed in IE8 mode. 
+                    mode = 8000; // Webpages containing standards-based !DOCTYPE directives are displayed in IE8 mode. Default value for Internet Explorer 8
                     break;
                 case 9:
-                    mode = 9000; // Internet Explorer 9. Webpages containing standards-based !DOCTYPE directives are displayed in IE9 mode.                    
+                    mode = 9000; // Internet Explorer 9. Webpages containing standards-based !DOCTYPE directives are displayed in IE9 mode. Default value for Internet Explorer 9.
                     break;
                 case 10:
-                    mode = 10000; // Internet Explorer 10.
+                    mode = 10000; // Internet Explorer 10. Webpages containing standards-based !DOCTYPE directives are displayed in IE10 mode. Default value for Internet Explorer 10.
+                    break;
+                default:
+                    // use IE11 mode by default
                     break;
             }
 
@@ -510,29 +505,29 @@ namespace AMSExplorer
         public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
 
-        public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-streaming-endpoints-overview";
-        public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy";
+        public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-streaming-endpoint-concept";
+        public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10";
 
         public const string LinkMoreInfoVideoAnalyzer = "https://docs.microsoft.com/en-us/azure/media-services/latest/analyzing-video-audio-files-concept";
         public const string LinkMoreInfoMediaEncoderBuiltIn = "https://docs.microsoft.com/en-us/azure/media-services/latest/encoding-concept";
-        public const string LinkMoreInfoMediaEncoderThumbnail = "https://docs.microsoft.com/en-us/azure/media-services/latest/media-services-generate-thumbnails-dotnet";
+        public const string LinkMoreInfoMediaEncoderThumbnail = "https://docs.microsoft.com/en-us/azure/media-services/latest/transform-generate-thumbnails-dotnet-how-to";
 
-        public const string LinkHowIMoreInfoDynamicManifest = "https://docs.microsoft.com/en-us/azure/media-services/latest/filters-dynamic-manifest-overview";
-        public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
+        public const string LinkHowIMoreInfoDynamicManifest = "https://docs.microsoft.com/en-us/azure/media-services/latest/filters-dynamic-manifest-concept";
+        public const string LinkHowIMoreInfoSubclipping = "https://azure.microsoft.com/en-us/blog/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
-        public const string LinkMoreInfoLiveEncoding = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-streaming-overview#live-encoding";
-        public const string LinkMoreInfoLiveStreaming = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-streaming-overview";
+        public const string LinkMoreInfoLiveEncoding = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-live-streaming-concept#live-encoding";
+        public const string LinkMoreInfoLiveStreaming = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-live-streaming-concept";
         public const string LinkMoreInfoPricing = "https://azure.microsoft.com/en-us/pricing/details/media-services/";
-        public const string LinkMoreInfoStorageVersioning = "https://msdn.microsoft.com/en-us/library/azure/dd894041.aspx";
-        public const string LinkMoreInfoStorageAnalytics = "https://msdn.microsoft.com/library/azure/hh343258.aspx";
-        public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-protect-hls-with-fairplay";
+        public const string LinkMoreInfoStorageVersioning = "https://docs.microsoft.com/en-us/rest/api/storageservices/Versioning-for-the-Azure-Storage-Services";
+        public const string LinkMoreInfoStorageAnalytics = "https://docs.microsoft.com/en-us/azure/storage/blobs/monitor-blob-storage";
+        public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-fairplay-license-overview";
         public const string LinkMoreInfoTelemetry = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-telemetry-overview";
 
-        public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/playready-license-template-overview";
+        public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-playready-license-template-concept";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
-        public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/widevine-license-template-overview";
+        public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-widevine-license-template-concept";
 
-        public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-create-account";
+        public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/latest/account-create-how-to";
         public const string LinkAMSAADAut = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-get-started-with-aad";
         public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-howto";
 
@@ -552,7 +547,7 @@ namespace AMSExplorer
         public const int MaxTransfersAsUnlimited = 5;
         public const string strTransfers = "{0} concurrent transfer{1}";
 
-        public const string LinkMoreInfoLiveTranscript = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription";
+        public const string LinkMoreInfoLiveTranscript = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-event-live-transcription-how-to";
         public const string LinkMoreInfoLiveTranscriptRegions = "https://docs.microsoft.com/en-us/azure/media-services/latest/azure-clouds-regions#feature-availability-in-preview";
     }
 
