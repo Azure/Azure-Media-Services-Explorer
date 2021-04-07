@@ -175,7 +175,7 @@ namespace AMSExplorer
             });
 
             // mainform title
-            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _accountname;
+            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version , _accountname,_amsClient.credentialsEntry.MediaService.Location );
 
             // notification title
             notifyIcon1.Text = string.Format(notifyIcon1.Text, _accountname);
@@ -6083,7 +6083,7 @@ namespace AMSExplorer
                 {
                     MultipleInputAssets = false;
                 }
-                   
+
             }
 
             JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClient, this, SelectedAssets, multipleInputAssets: MultipleInputAssets);
