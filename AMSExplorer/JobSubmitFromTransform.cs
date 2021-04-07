@@ -109,7 +109,7 @@ namespace AMSExplorer
             _listPreSelectedTransforms = listPreSelectedTransforms;
 
             textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
-
+            
             if (listAssets == null || listAssets.Count == 0)
             {
                 radioButtonHttpSource.Checked = true;
