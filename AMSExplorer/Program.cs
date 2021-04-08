@@ -802,7 +802,7 @@ namespace AMSExplorer
                                         resource: environment.AADSettings.TokenAudience.ToString(),
                                         clientId: environment.ClientApplicationId,
                                         redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                        parameters: new PlatformParameters(credentialsEntry.PromptUser)
+                                        parameters: new PlatformParameters()//credentialsEntry.PromptUser)
                                         );
 
                     }
@@ -820,7 +820,7 @@ namespace AMSExplorer
                                                                resource: environment.MediaServicesV2Resource,
                                                                clientId: environment.ClientApplicationId,
                                                                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                               parameters: new PlatformParameters(credentialsEntry.PromptUser)
+                                                               parameters: new PlatformParameters()//credentialsEntry.PromptUser)
                                                                );
                 }
                 catch

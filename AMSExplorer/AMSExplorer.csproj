@@ -42,9 +42,7 @@
     <PackageReference Include="Microsoft.Data.Services.Client">
       <Version>5.8.4</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory">
-      <Version>5.2.9</Version>
-    </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.29.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms">
       <Version>5.0.2</Version>
     </PackageReference>

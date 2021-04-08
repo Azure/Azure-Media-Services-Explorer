@@ -19,7 +19,7 @@ using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.Azure.Management.Storage;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Identity.Client;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.Authentication;
@@ -416,17 +416,27 @@ namespace AMSExplorer
                 {
                     Cursor = Cursors.WaitCursor;
 
+                    string[] scopes = { "User.Read" };
                     environment = addaccount1.GetEnvironment();
 
+                    IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                        .Build();
+
+                    /*
                     AuthenticationContext authContext = new AuthenticationContext(
                                                                 // authority:  environment.Authority,
                                                                 authority: environment.AADSettings.AuthenticationEndpoint.ToString() + "common",
-                                                                validateAuthority: true
+                                                             validateAuthority: true    
                     );
+                    */
 
-                    AuthenticationResult accessToken;
+                    AuthenticationResult accessToken = null;
+                    var accounts = await app.GetAccountsAsync();
                     try
                     {
+
+                        accessToken = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
+                        /*
                         accessToken = await authContext.AcquireTokenAsync(
                                                                              resource: environment.AADSettings.TokenAudience.ToString(),
                                                                              clientId: environment.ClientApplicationId,
@@ -434,6 +444,19 @@ namespace AMSExplorer
                                                                              parameters: new PlatformParameters()
                                                                              //parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto)
                                                                              );
+                        */
+
+                    }
+                    catch (MsalUiRequiredException ex)
+                    {
+                        try
+                        {
+                            accessToken = await app.AcquireTokenInteractive(scopes).ExecuteAsync();
+                        }
+                        catch (MsalException)
+                        {
+
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -495,7 +518,9 @@ namespace AMSExplorer
                     */
                     Cursor = Cursors.Default;
 
-                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants/*, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto)*/);
+                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants, new PlatformParameters());
+
+                    //  AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants/*, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto)*/);
 
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {
