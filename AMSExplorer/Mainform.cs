@@ -6841,11 +6841,6 @@ namespace AMSExplorer
 
         private async Task DoExportMetadataAsync()
         {
-            ExportToExcel form = new ExportToExcel(_amsClient, await ReturnSelectedAssetsAsync());
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-
-            }
         }
 
         private async void informationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
