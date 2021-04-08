@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -109,7 +110,7 @@ namespace AMSExplorer
             _listPreSelectedTransforms = listPreSelectedTransforms;
 
             textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
-            
+
             if (listAssets == null || listAssets.Count == 0)
             {
                 radioButtonHttpSource.Checked = true;
@@ -525,5 +526,76 @@ namespace AMSExplorer
                 textBoxAssetDescription.Text = desc;
             }
         }
+
+        private void buttonExportEDL_Click(object sender, EventArgs e)
+        {
+            PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                ContractResolver = jsonResolver
+            };
+
+            DialogResult diares = saveFileDialog1.ShowDialog();
+            if (diares == DialogResult.OK)
+            {
+                EDLImportExport export = new EDLImportExport();
+                export.AMSE_EDL_Entries.AddRange(TimeCodeList);
+                try
+                {
+
+                    System.IO.File.WriteAllText(saveFileDialog1.FileName, JsonConvert.SerializeObject(export, settings));
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void buttonImportEDL_Click(object sender, EventArgs e)
+        {
+            DialogResult diares = openFileDialog1.ShowDialog();
+            if (diares == DialogResult.OK)
+            {
+                string json = System.IO.File.ReadAllText(openFileDialog1.FileName);
+
+                EDLImportExport EDLImportExport = null;
+                try
+                {
+                    EDLImportExport = (EDLImportExport)JsonConvert.DeserializeObject(json, typeof(EDLImportExport));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error when importing json file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                TimeCodeList.Clear();
+
+                /*
+                if (ImportedCredentialList.Version < (new ListCredentialsRPv3()).Version)
+                {
+                    MessageBox.Show("This file was created with an older version of AMSE. Import is not possible.", "Wrong version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                */
+
+                foreach (var entry in EDLImportExport.AMSE_EDL_Entries)
+                {
+                    TimeCodeList.Add(entry);
+                }
+            }
+        }
+    }
+
+
+    public class EDLImportExport
+    {
+        public decimal Version = 1;
+        public List<EDLEntryInOut> AMSE_EDL_Entries = new List<EDLEntryInOut>();
     }
 }

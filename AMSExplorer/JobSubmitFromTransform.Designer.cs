@@ -47,6 +47,8 @@
             this.radioButtonSelectedAssets = new System.Windows.Forms.RadioButton();
             this.listViewTransforms = new AMSExplorer.ListViewTransforms();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonImportEDL = new System.Windows.Forms.Button();
+            this.buttonExportEDL = new System.Windows.Forms.Button();
             this.labelAssetDescription = new System.Windows.Forms.Label();
             this.textBoxAssetDescription = new System.Windows.Forms.TextBox();
             this.dataGridViewEDL = new System.Windows.Forms.DataGridView();
@@ -73,6 +75,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.radioButtonExistingAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonNewAsset = new System.Windows.Forms.RadioButton();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -211,6 +215,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonImportEDL);
+            this.tabPage2.Controls.Add(this.buttonExportEDL);
             this.tabPage2.Controls.Add(this.labelAssetDescription);
             this.tabPage2.Controls.Add(this.textBoxAssetDescription);
             this.tabPage2.Controls.Add(this.dataGridViewEDL);
@@ -231,6 +237,20 @@
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonImportEDL
+            // 
+            resources.ApplyResources(this.buttonImportEDL, "buttonImportEDL");
+            this.buttonImportEDL.Name = "buttonImportEDL";
+            this.buttonImportEDL.UseVisualStyleBackColor = true;
+            this.buttonImportEDL.Click += new System.EventHandler(this.buttonImportEDL_Click);
+            // 
+            // buttonExportEDL
+            // 
+            resources.ApplyResources(this.buttonExportEDL, "buttonExportEDL");
+            this.buttonExportEDL.Name = "buttonExportEDL";
+            this.buttonExportEDL.UseVisualStyleBackColor = true;
+            this.buttonExportEDL.Click += new System.EventHandler(this.buttonExportEDL_Click);
             // 
             // labelAssetDescription
             // 
@@ -433,6 +453,15 @@
             this.radioButtonNewAsset.TabStop = true;
             this.radioButtonNewAsset.UseVisualStyleBackColor = true;
             // 
+            // saveFileDialog1
+            // 
+            resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
+            // 
             // JobSubmitFromTransform
             // 
             this.AcceptButton = this.buttonOk;
@@ -510,5 +539,9 @@
         private System.Windows.Forms.Button buttonAddEDLEntry;
         private System.Windows.Forms.TextBox textBoxAssetDescription;
         private System.Windows.Forms.Label labelAssetDescription;
+        private System.Windows.Forms.Button buttonExportEDL;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button buttonImportEDL;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
