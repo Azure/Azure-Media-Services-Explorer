@@ -17,7 +17,7 @@
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Identity.Client;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Win32;
@@ -774,17 +774,47 @@ namespace AMSExplorer
             if (!credentialsEntry.UseSPAuth)
             {
                 // we specify the tenant id if there
-                AuthenticationContext authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
+                //AuthenticationContext authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
+
+
+
+                var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
+
+
+                IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                    .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
+                    .WithRedirectUri("http://localhost")
+                    .Build();
+
+
+            
+                var accounts = await app.GetAccountsAsync();
 
                 bool adalTokenInteract = false;
                 try
                 {
+                    /*
                     accessToken = await authContext.AcquireTokenSilentAsync(
                                                                resource: environment.AADSettings.TokenAudience.ToString(),
                                                                clientId: environment.ClientApplicationId
                                                                  );
+                    */
+
+                    accessToken = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
 
                 }
+                catch (MsalUiRequiredException ex)
+                {
+                    try
+                    {
+                        accessToken = await app.AcquireTokenInteractive(scopes).ExecuteAsync();
+                    }
+                    catch (MsalException)
+                    {
+
+                    }
+                }
+                /*
                 catch (AdalException adalException)
                 {
                     if (adalException.ErrorCode == AdalError.FailedToAcquireTokenSilently
@@ -812,16 +842,27 @@ namespace AMSExplorer
                         Debug.Print("Adal token interact exception !" + adalException.Message);
                     }
                 }
-
+                */
 
                 try
                 {
+                    var scopes2 = new[] { environment.MediaServicesV2Resource + "/user_impersonation" };
+
+
+                  /*  IPublicClientApplication app2 = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
+                        .WithRedirectUri("http://localhost")
+                        .Build();*/
+
+                    accessTokenForRestV2 = await app.AcquireTokenInteractive(scopes2).ExecuteAsync();
+                    /*
                     accessTokenForRestV2 = await authContext.AcquireTokenAsync(
                                                                resource: environment.MediaServicesV2Resource,
                                                                clientId: environment.ClientApplicationId,
                                                                redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
                                                                parameters: new PlatformParameters()//credentialsEntry.PromptUser)
                                                                );
+                    */
                 }
                 catch
                 {
@@ -840,6 +881,8 @@ namespace AMSExplorer
 
             else // Service Principal
             {
+                // let comment for now
+                /*
                 // other code for service principal
                 AmsLoginServicePrincipal form = new AmsLoginServicePrincipal
                 {
@@ -872,6 +915,7 @@ namespace AMSExplorer
                 {
                     return null;
                 }
+                */
             }
 
             // let's get info on mediaService, specifically to get the location (region)
@@ -883,62 +927,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task<string> GetStorageKeyAsync(string storageId)
-        {
-            string valuekey = null;
-            bool classic = false;
-            string version = "2016-01-01";
-            string token = accessToken?.AccessToken;
-
-            // if SP
-            if (accessToken == null && credentialsEntry.UseSPAuth)
-            {
-                // let's get the current token in Service Principal mode
-                TokenCacheItem accessTokenCache = TokenCache.DefaultShared.ReadItems()
-                        .Where(t => t.ClientId == credentialsEntry.ADSPClientId)
-                        .OrderByDescending(t => t.ExpiresOn)
-                        .First();
-                token = accessTokenCache?.AccessToken;
-            }
-
-            if (token == null)
-            {
-                return null;
-            }
-
-            if (storageId.Contains("/providers/Microsoft.ClassicStorage/storageAccounts"))
-            {
-                version = "2015-06-01";
-                classic = true;
-            }
-
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format(environment.ArmEndpoint + storageId.Substring(1) + "/listKeys?api-version=" + version, credentialsEntry.AzureSubscriptionId, GetStorageResourceName(storageId), GetStorageName(storageId)));
-
-            request.Method = "POST";
-            request.Headers["Authorization"] = "Bearer " + token;
-            request.ContentType = "application/json";
-            request.ContentLength = 0;
-
-            try
-            {
-                //Get the response
-                HttpWebResponse httpResponse = (HttpWebResponse)(await request.GetResponseAsync());
-
-                using (System.IO.StreamReader r = new System.IO.StreamReader(httpResponse.GetResponseStream()))
-                {
-                    string jsonResponse = await r.ReadToEndAsync();
-                    dynamic data = JsonConvert.DeserializeObject(jsonResponse);
-                    valuekey = classic ? data.primaryKey : data.keys[0].value;
-                }
-            }
-            catch // not authorization
-            {
-                return null;
-            }
-
-            return valuekey;
-        }
-
+  
         public static string GetStorageName(string storageId)
         {
             return storageId.Split('/').Last();
@@ -962,12 +951,12 @@ namespace AMSExplorer
 
         public string AadTenantId;
         public AzureEnvironment Environment;
-        public PromptBehavior PromptUser;
+        public bool PromptUser;
         public bool ManualConfig = false;
         public bool UseSPAuth = false;
         public string Description;
 
-        public CredentialsEntryV3(MediaService mediaService, AzureEnvironment environment, PromptBehavior promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
+        public CredentialsEntryV3(MediaService mediaService, AzureEnvironment environment, bool promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
         {
             MediaService = mediaService;
             Environment = environment;

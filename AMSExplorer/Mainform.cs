@@ -175,7 +175,7 @@ namespace AMSExplorer
             });
 
             // mainform title
-            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version , _accountname,_amsClient.credentialsEntry.MediaService.Location );
+            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.credentialsEntry.MediaService.Location);
 
             // notification title
             notifyIcon1.Text = string.Format(notifyIcon1.Text, _accountname);
@@ -6868,7 +6868,9 @@ namespace AMSExplorer
 
             try
             {
-                valuekey = await _amsClient.GetStorageKeyAsync(storageId);
+                // TODO
+                valuekey = null;
+                //valuekey = await _amsClient.GetStorageKeyAsync(storageId);
                 if (valuekey == null)
                 {
                     if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + AMSClientV3.GetStorageName(storageId) + ":", ref valuekey, true) != DialogResult.OK)

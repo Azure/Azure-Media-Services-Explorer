@@ -416,11 +416,17 @@ namespace AMSExplorer
                 {
                     Cursor = Cursors.WaitCursor;
 
-                    string[] scopes = { "User.Read" };
+                    //string[] scopes = { "User.Read" };
                     environment = addaccount1.GetEnvironment();
+                    var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
+
 
                     IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
+                        .WithRedirectUri("http://localhost")
                         .Build();
+                                              
+                       
 
                     /*
                     AuthenticationContext authContext = new AuthenticationContext(
@@ -518,7 +524,7 @@ namespace AMSExplorer
                     */
                     Cursor = Cursors.Default;
 
-                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants, new PlatformParameters());
+                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants);
 
                     //  AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants/*, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto)*/);
 
@@ -529,7 +535,7 @@ namespace AMSExplorer
 
                         CredentialsEntryV3 entry = new CredentialsEntryV3(addaccount2.selectedAccount,
                             environment,
-                            addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto,
+                            addaccount1.SelectUser,
                             false,
                             addaccount2.selectedTenantId,
                             false
@@ -592,7 +598,7 @@ namespace AMSExplorer
                                                         new MediaService(null, resourceId, json.AccountName),
 
                                                         env,
-                                                        PromptBehavior.Auto,
+                                                        true,
                                                         true,
                                                         AADtenantId,
                                                         false,
@@ -621,7 +627,7 @@ namespace AMSExplorer
                         CredentialsEntryV3 entry = new CredentialsEntryV3(
                                                         new MediaService(null, form.textBoxAMSResourceId.Text, accountnamecc),
                                                         addaccount1.GetEnvironment(),
-                                                        PromptBehavior.Auto,
+                                                        true,
                                                         form.radioButtonAADServicePrincipal.Checked,
                                                         form.textBoxAADtenantId.Text,
                                                         true

@@ -18,7 +18,7 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.ResourceManager.Models;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Identity.Client;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure;
 using System;
@@ -35,13 +35,12 @@ namespace AMSExplorer
         private TokenCredentials credentials;
         private readonly AzureEnvironment environment;
         private readonly List<TenantIdDescription> _myTenants;
-        private readonly IPlatformParameters _parameters;
         private List<Subscription> subscriptions;
         private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new Dictionary<string, List<MediaService>>();
         public MediaService selectedAccount = null;
         public string selectedTenantId = null;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants, IPlatformParameters parameters)
+        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -49,7 +48,6 @@ namespace AMSExplorer
             this.subscriptions = subscriptions;
             this.environment = environment;
             _myTenants = myTenants;
-            _parameters = parameters;
         }
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
@@ -81,18 +79,51 @@ namespace AMSExplorer
 
             selectedTenantId = ((Item)comboBoxTenants.SelectedItem).Value;
 
-            AuthenticationContext authContext = new Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext(
-                                                               authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId ?? "common"),
-                                                                   validateAuthority: true);
-            AuthenticationResult accessToken;
+
+           
+            var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/.default" };
+
+
+            IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId ?? "common"))
+                .WithRedirectUri("http://localhost")
+                .Build();
+
+
+
+
+            /*
+        AuthenticationContext authContext = new Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext(
+                                                           authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId ?? "common"),
+                                                               validateAuthority: true);
+        */
+            AuthenticationResult accessToken = null;
+            //string[] scopes = { "User.Read" };
+            var accounts = await app.GetAccountsAsync();
+
             try
             {
+                /*
                 accessToken = await authContext.AcquireTokenAsync(
                                                                      resource: environment.AADSettings.TokenAudience.ToString(),
                                                                      clientId: environment.ClientApplicationId,
                                                                      redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
                                                                      parameters: _parameters
                                                                      );
+                */
+
+                accessToken = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
+            }
+            catch (MsalUiRequiredException ex)
+            {
+                try
+                {
+                    accessToken = await app.AcquireTokenInteractive(scopes).ExecuteAsync();
+                }
+                catch (MsalException)
+                {
+
+                }
             }
             catch (Exception ex)
             {
