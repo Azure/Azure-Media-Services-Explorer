@@ -56,9 +56,6 @@
       <Version>2.4.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
-    <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager">
-      <Version>3.2.3</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
