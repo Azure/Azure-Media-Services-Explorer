@@ -48,7 +48,7 @@ namespace AMSExplorer.Rest
 
         private string GetToken()
         {
-            return _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
+            return _amsClient.authResult != null ? _amsClient.authResult.AccessToken :
                  TokenCache.DefaultShared.ReadItems()
                      .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
                      .OrderByDescending(t => t.ExpiresOn)

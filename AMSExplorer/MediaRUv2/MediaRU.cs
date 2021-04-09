@@ -50,10 +50,10 @@ namespace AMSExplorer
             if (_restEndpoint != null) return; // we already know the restpoint, no need to get it
 
             // This method get the RESTApiEndpoint URL
-            string token = AmsClientV3.accessToken?.AccessToken;
+            string token = AmsClientV3.authResult?.AccessToken;
 
             // if SP
-            if (AmsClientV3.accessToken == null && AmsClientV3.credentialsEntry.UseSPAuth)
+            if (AmsClientV3.authResult == null && AmsClientV3.credentialsEntry.UseSPAuth)
             {
                 // let's get the current token in Service Principal mode
                 TokenCacheItem accessTokenCache = TokenCache.DefaultShared.ReadItems()
@@ -90,7 +90,7 @@ namespace AMSExplorer
         private async Task GetRefreshTokenIfNeededAsync(AMSClientV3 AmsClientV3)
         {
             // If Service Principal mode, let's authenticate now (if token expired or first time)
-            if (AmsClientV3.credentialsEntry.UseSPAuth && AmsClientV3.accessTokenForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
+            if (AmsClientV3.credentialsEntry.UseSPAuth && AmsClientV3.authResultForRestV2 == null && _tokenSPExpirationTime < DateTime.Now)
             {
                 string URLAut = string.Format(AmsClientV3.environment.AADSettings.AuthenticationEndpoint + "/{0}/oauth2/token", AmsClientV3.credentialsEntry.AadTenantId);
 
@@ -151,7 +151,7 @@ namespace AMSExplorer
 
             string URL = _restEndpoint + "EncodingReservedUnitTypes";
 
-            string token = AmsClientV3.accessTokenForRestV2 != null ? AmsClientV3.accessTokenForRestV2.AccessToken : _tokenSP;
+            string token = AmsClientV3.authResultForRestV2 != null ? AmsClientV3.authResultForRestV2.AccessToken : _tokenSP;
 
             _client.DefaultRequestHeaders.Remove("Authorization");
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
@@ -178,7 +178,7 @@ namespace AMSExplorer
 
             string URL = _restEndpoint + "EncodingReservedUnitTypes(guid'" + _myanswer.AccountId.ToString() + "')";
 
-            string token = AmsClientV3.accessTokenForRestV2 != null ? AmsClientV3.accessTokenForRestV2.AccessToken : _tokenSP;
+            string token = AmsClientV3.authResultForRestV2 != null ? AmsClientV3.authResultForRestV2.AccessToken : _tokenSP;
 
             _client.DefaultRequestHeaders.Remove("Authorization");
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);

@@ -736,7 +736,7 @@ namespace AMSExplorer
     public class AMSClientV3
     {
         public AzureMediaServicesClient AMSclient;
-        public AuthenticationResult accessToken, accessTokenForRestV2;
+        public AuthenticationResult authResult, authResultForRestV2;
         public CredentialsEntryV3 credentialsEntry;
         public TokenCredentials credentials;
         public AzureEnvironment environment;
@@ -753,7 +753,7 @@ namespace AMSExplorer
         {
             // if end user use interactive authentication, then the token is not renewed automatically after it expired (one hour)
             // with Service Principal authentication, the token is renewed automatically apparently ! (result of tests)
-            if (accessToken != null && accessToken.ExpiresOn.ToUniversalTime() < DateTimeOffset.UtcNow.AddMinutes(-3))
+            if (authResult != null && authResult.ExpiresOn.ToUniversalTime() < DateTimeOffset.UtcNow.AddMinutes(-3))
             {
                 ConnectAndGetNewClientV3Async().GetAwaiter().GetResult();
             }
@@ -763,7 +763,7 @@ namespace AMSExplorer
         {
             // if end user use interactive authentication, then the token is not renewed automatically after it expired (one hour)
             // with Service Principal authentication, the token is renewed automatically apparently ! (result of tests)
-            if (accessToken != null && accessToken.ExpiresOn.ToUniversalTime() < DateTimeOffset.UtcNow.AddMinutes(-3))
+            if (authResult != null && authResult.ExpiresOn.ToUniversalTime() < DateTimeOffset.UtcNow.AddMinutes(-3))
             {
                 await ConnectAndGetNewClientV3Async();
             }
@@ -776,111 +776,97 @@ namespace AMSExplorer
                 // we specify the tenant id if there
                 //AuthenticationContext authContext = new AuthenticationContext(authority: environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), validateAuthority: true);
 
-
-
                 var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
 
-
                 IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                    //.WithAuthority(AzureCloudInstance.AzurePublic, credentialsEntry.AadTenantId)
                     .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
                     .WithRedirectUri("http://localhost")
                     .Build();
 
-
             
                 var accounts = await app.GetAccountsAsync();
 
-                bool adalTokenInteract = false;
                 try
                 {
-                    /*
-                    accessToken = await authContext.AcquireTokenSilentAsync(
-                                                               resource: environment.AADSettings.TokenAudience.ToString(),
-                                                               clientId: environment.ClientApplicationId
-                                                                 );
-                    */
-
-                    accessToken = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
-
+                    authResult = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync().ConfigureAwait(false); ;
                 }
                 catch (MsalUiRequiredException ex)
                 {
                     try
                     {
-                        accessToken = await app.AcquireTokenInteractive(scopes).ExecuteAsync();
+                        authResult = await app.AcquireTokenInteractive(scopes).ExecuteAsync().ConfigureAwait(false); ;
                     }
-                    catch (MsalException)
+                    catch (MsalException maslException)
                     {
-
-                    }
+                        Debug.Print("MSAL interactive authentication exception !" + maslException.Message);
+                                            }
                 }
-                /*
-                catch (AdalException adalException)
+                catch (MsalException maslException)
                 {
-                    if (adalException.ErrorCode == AdalError.FailedToAcquireTokenSilently
-                        || adalException.ErrorCode == AdalError.InteractionRequired)
-                    {
-                        adalTokenInteract = true;
-                    }
+                    Debug.Print("MSAL silent authentication exception !" + maslException.Message);
                 }
-
-                if (adalTokenInteract)
-                {
-                    try
-                    {
-                        accessToken = await authContext.AcquireTokenAsync(
-                                        resource: environment.AADSettings.TokenAudience.ToString(),
-                                        clientId: environment.ClientApplicationId,
-                                        redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                        parameters: new PlatformParameters()//credentialsEntry.PromptUser)
-                                        );
-
-                    }
-
-                    catch (AdalException adalException)
-                    {
-                        Debug.Print("Adal token interact exception !" + adalException.Message);
-                    }
-                }
-                */
+               
 
                 try
                 {
                     var scopes2 = new[] { environment.MediaServicesV2Resource + "/user_impersonation" };
 
-
-                  /*  IPublicClientApplication app2 = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
-                        .WithRedirectUri("http://localhost")
-                        .Build();*/
-
-                    accessTokenForRestV2 = await app.AcquireTokenInteractive(scopes2).ExecuteAsync();
-                    /*
-                    accessTokenForRestV2 = await authContext.AcquireTokenAsync(
-                                                               resource: environment.MediaServicesV2Resource,
-                                                               clientId: environment.ClientApplicationId,
-                                                               redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                               parameters: new PlatformParameters()//credentialsEntry.PromptUser)
-                                                               );
-                    */
+                    authResultForRestV2 = await app.AcquireTokenSilent(scopes2, authResult.Account).ExecuteAsync().ConfigureAwait(false);
                 }
                 catch
                 {
 
                 }
-
-
-                credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
-
-                // Getting Media Services accounts...
-                AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
-                {
-                    SubscriptionId = _azureSubscriptionId
-                };
             }
 
             else // Service Principal
             {
+                AmsLoginServicePrincipal form = new AmsLoginServicePrincipal
+                {
+                    ClientId = credentialsEntry.ADSPClientId,
+                    ClientSecret = credentialsEntry.ClearADSPClientSecret
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    credentialsEntry.ADSPClientId = form.ClientId;
+                    credentialsEntry.ClearADSPClientSecret = form.ClientSecret;
+
+                    var scopes3 = new[] { environment.AADSettings.TokenAudience.ToString() + "/.default" };
+
+
+                    var app3 = ConfidentialClientApplicationBuilder.Create(credentialsEntry.ADSPClientId)
+                        .WithClientSecret(credentialsEntry.ClearADSPClientSecret)
+                         .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), true)
+                        .Build();
+
+                    // IByRefreshToken appRt = app3 as IByRefreshToken;
+
+                    authResult = await app3.AcquireTokenForClient(scopes3)
+                                                             .ExecuteAsync()
+                                                             .ConfigureAwait(false);
+
+                }
+                else
+                {
+                    return null;
+                }
+                  
+              
+
+                //var accounts = await app3.GetAccountsAsync();
+
+
+                /*
+                      IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                    .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
+                    .WithRedirectUri("http://localhost")
+                    .Build();
+                */
+
+
+
                 // let comment for now
                 /*
                 // other code for service principal
@@ -917,6 +903,14 @@ namespace AMSExplorer
                 }
                 */
             }
+
+            credentials = new TokenCredentials(authResult.AccessToken, "Bearer");
+
+            // Getting Media Services account...
+            AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
+            {
+                SubscriptionId = _azureSubscriptionId
+            };
 
             // let's get info on mediaService, specifically to get the location (region)
             credentialsEntry.MediaService = await AMSclient.Mediaservices.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName);

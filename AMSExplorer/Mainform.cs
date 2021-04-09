@@ -252,7 +252,7 @@ namespace AMSExplorer
                   _amsClient.credentialsEntry.AccountName
                 );
 
-            string token = _amsClient.accessTokenForRestV2 != null ? _amsClient.accessTokenForRestV2.AccessToken :
+            string token = _amsClient.authResultForRestV2 != null ? _amsClient.authResultForRestV2.AccessToken :
                 TokenCache.DefaultShared.ReadItems()
         .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
         .OrderByDescending(t => t.ExpiresOn)
