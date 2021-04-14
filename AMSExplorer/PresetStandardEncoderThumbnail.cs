@@ -135,7 +135,7 @@ namespace AMSExplorer
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
         }
 
 

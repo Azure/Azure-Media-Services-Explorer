@@ -25,7 +25,6 @@ using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Azure.Storage.Shared.Protocol;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -89,6 +88,7 @@ namespace AMSExplorer
         public bool MediaRUFeatureOn = true;
         private readonly DownloadOptions dataMovementDownloadOptions = new DownloadOptions();
 
+
         public Mainform(string[] args)
         {
             Font = new Font("Segoe UI", 9);
@@ -132,11 +132,6 @@ namespace AMSExplorer
             }
             _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
 
-            // AME Premium Workflow preset folder
-            if ((Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder)))
-            {
-                Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
-            }
 
             // Default Slate Image
             if ((Properties.Settings.Default.DefaultSlateCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder)))
@@ -1410,7 +1405,13 @@ namespace AMSExplorer
                 DoGridTransferDeclareCompleted(response.Id, outputFolderName);
                 if (openFileExplorer)
                 {
-                    Process.Start(outputFolderName);
+                    var p = new Process();
+                    p.StartInfo = new ProcessStartInfo
+                    {
+                        FileName = outputFolderName,
+                        UseShellExecute = true
+                    };
+                    p.Start();
                 }
             }
             else
@@ -1428,16 +1429,16 @@ namespace AMSExplorer
 
         private async Task DoMenuUploadFromFolder_Step1Async()
         {
-            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true };
+            FolderBrowserDialog openFolderDialog = new FolderBrowserDialog();
 
             if (!string.IsNullOrEmpty(_backuprootfolderupload))
             {
-                openFolderDialog.DefaultDirectory = _backuprootfolderupload;
+                openFolderDialog.SelectedPath = _backuprootfolderupload;
             }
 
-            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            if (openFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                await DoMenuUploadFromFolder_Step2Async(openFolderDialog.FileName);
+                await DoMenuUploadFromFolder_Step2Async(openFolderDialog.SelectedPath);
             }
         }
 
@@ -2759,7 +2760,13 @@ namespace AMSExplorer
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.PlayerDASHIFList);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.PlayerDASHIFList,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
 
@@ -2828,12 +2835,24 @@ namespace AMSExplorer
 
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.PlayerAMP);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.PlayerAMP,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void hTML5VideoElementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.PlayerInfoHTML5Video);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.PlayerInfoHTML5Video,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
 
@@ -3473,7 +3492,13 @@ namespace AMSExplorer
                         case TransferType.DownloadToLocal:
                             if (!string.IsNullOrEmpty(location) && location != null)
                             {
-                                Process.Start(location);
+                                var p = new Process();
+                                p.StartInfo = new ProcessStartInfo
+                                {
+                                    FileName = location,
+                                    UseShellExecute = true
+                                };
+                                p.Start();
                             }
 
                             break;
@@ -3812,17 +3837,35 @@ namespace AMSExplorer
 
         private void azureMediaServicesDocumentationToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(Constants.LinkMoreInfoDocAMS);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkMoreInfoDocAMS,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void azureMediaServicesForumToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(Constants.LinkForumAMS);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkForumAMS,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(_HelpFiles + "AMSv3doc.pdf");
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = _HelpFiles + "AMSv3doc.pdf",
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5779,7 +5822,13 @@ namespace AMSExplorer
 
         private void azureMediaBlogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.LinkBlogAMS);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkBlogAMS,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private async void createProgramToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -5828,7 +5877,13 @@ namespace AMSExplorer
 
         private void richTextBoxLog_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            Process.Start(e.LinkText);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = e.LinkText,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void clearTextToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5898,7 +5953,13 @@ namespace AMSExplorer
 
         private void jwPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.PlayerJWPlayerPartnership);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.PlayerJWPlayerPartnership,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private async void withCustomPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -6300,7 +6361,13 @@ namespace AMSExplorer
 
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.DemoCaptionMaker);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.DemoCaptionMaker,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private async void toAnotherAzureMediaServicesAccountToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6931,8 +6998,13 @@ namespace AMSExplorer
 
         private void explorerReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            Process.Start(Constants.LinkAMSEReleaseNotes);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkAMSEReleaseNotes,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
 
@@ -7542,12 +7614,24 @@ namespace AMSExplorer
 
         private void THEOPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.PlayerTHEOplayerPartnership);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.PlayerTHEOplayerPartnership,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void AzureMediaServicesReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.LinkMoreInfoAMSReleaseNotes);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkMoreInfoAMSReleaseNotes,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private async void SelectedJobsToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -7562,7 +7646,7 @@ namespace AMSExplorer
 
         private void LinkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
         }
 
         private void TextBoxAssetSearch_KeyDown(object sender, KeyEventArgs e)
@@ -7594,7 +7678,13 @@ namespace AMSExplorer
 
         private void ToolStripMenuItem31_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.LinkReportBugAMSE);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkReportBugAMSE,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private async void DataGridViewTransformsV_SelectionChanged(object sender, EventArgs e)
@@ -8156,7 +8246,13 @@ namespace AMSExplorer
 
         private void toolStripMenuItemAzureUpdates_Click_1(object sender, EventArgs e)
         {
-            Process.Start(Constants.LinkAzureUpdates);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkAzureUpdates,
+                UseShellExecute = true
+            };
+            p.Start();
 
         }
 
@@ -8282,7 +8378,13 @@ namespace AMSExplorer
 
         private void FeedbackOnAzureMediaServicesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.LinkFeedbackAMS);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkFeedbackAMS,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private async void WithAdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8297,7 +8399,13 @@ namespace AMSExplorer
 
         private void AdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.AdvancedTestPlayerRoot);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.AdvancedTestPlayerRoot,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private async void NewAssetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8709,5 +8817,281 @@ namespace AMSExplorer
 
             addATaskToTransformToolStripMenuItem.Enabled = singleitem;
         }
+
+
+
+        private async Task<List<AccountFilter>> ReturnSelectedAccountFiltersAsync()
+        {
+            List<AccountFilter> SelectedFilters = new List<AccountFilter>();
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            // account filters
+            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (acctFiltersPage != null)
+            {
+                acctFilters.AddRange(acctFiltersPage);
+                if (acctFiltersPage.NextPageLink != null)
+                {
+                    acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
+                }
+                else
+                {
+                    acctFiltersPage = null;
+                }
+            }
+
+            foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
+            {
+                string filtername = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
+                AccountFilter myfilter = acctFilters.Where(f => f.Name == filtername).FirstOrDefault();
+                if (myfilter != null)
+                {
+                    SelectedFilters.Add(myfilter);
+                }
+            }
+
+            return SelectedFilters;
+        }
+
+        private List<string> ReturnSelectedAssetNames()
+        {
+            List<string> SelectedAssets = new List<string>();
+            foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
+            {
+                SelectedAssets.Add(Row.Cells[dataGridViewAssetsV.Columns["Name"].Index].Value.ToString());
+            }
+            SelectedAssets.Reverse();
+            return SelectedAssets;
+        }
+
+        private async Task<List<Asset>> ReturnSelectedAssetsAsync()
+        {
+            List<Asset> SelectedAssets = new List<Asset>();
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            try
+            {
+                foreach (string assetName in ReturnSelectedAssetNames())
+                {
+                    Asset asset = await GetAssetAsync(assetName);
+                    if (asset != null)
+                    {
+                        SelectedAssets.Add(asset);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // connection error ?
+                TextBoxLogWriteLine(ex);
+            }
+
+            return SelectedAssets;
+        }
+
+        private async Task<List<JobExtension>> ReturnSelectedJobsV3Async()
+        {
+            List<JobExtension> SelectedJobs = new List<JobExtension>();
+            foreach (DataGridViewRow Row in dataGridViewJobsV.SelectedRows)
+            {
+                Job job = await GetJobAsync(Row.Cells["TransformName"].Value.ToString(), Row.Cells["Name"].Value.ToString());
+                SelectedJobs.Add(new JobExtension()
+                {
+                    Job = job,
+                    TransformName = Row.Cells["TransformName"].Value.ToString()
+                });
+            }
+
+            SelectedJobs.Reverse();
+            return SelectedJobs;
+        }
+
+        private async Task<List<Transform>> ReturnSelectedTransformsAsync()
+        {
+            List<Transform> SelectedTransforms = new List<Transform>();
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            List<Transform> transforms = new List<Transform>();
+            IPage<Transform> transformsPage = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            while (transformsPage != null)
+            {
+                transforms.AddRange(transformsPage);
+                if (transformsPage.NextPageLink != null)
+                {
+                    transformsPage = await _amsClient.AMSclient.Transforms.ListNextAsync(transformsPage.NextPageLink);
+                }
+                else
+                {
+                    transformsPage = null;
+                }
+            }
+
+            foreach (string transformName in ReturnSelectedTransformNames())
+            {
+                Transform myTransform = transforms.Where(f => f.Name == transformName).FirstOrDefault();
+                if (myTransform != null)
+                {
+                    SelectedTransforms.Add(myTransform);
+                }
+            }
+            return SelectedTransforms;
+        }
+
+        private List<string> ReturnSelectedTransformNames()
+        {
+            List<string> SelectedTransforms = new List<string>();
+
+            foreach (DataGridViewRow Row in dataGridViewTransformsV.SelectedRows)
+            {
+                string transformName = Row.Cells[dataGridViewTransformsV.Columns["Name"].Index].Value.ToString();
+                SelectedTransforms.Add(transformName);
+            }
+            return SelectedTransforms;
+        }
+
+
+        private async Task<StorageAccount> ReturnSelectedStorageAsync()
+        {
+            StorageAccount SelectedStorage = null;
+            if (dataGridViewStorage.SelectedRows.Count == 1)
+            {
+                await _amsClient.RefreshTokenIfNeededAsync();
+
+                DataGridViewRow row = dataGridViewStorage.SelectedRows[0];
+                int index = dataGridViewStorage.Columns["Id"].Index;
+                string storagename = AMSClientV3.GetStorageName(row.Cells[index].Value.ToString());
+                SelectedStorage = (await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName))
+                    .StorageAccounts.Where(s => AMSClientV3.GetStorageName(s.Id) == storagename).FirstOrDefault();
+            }
+
+            return SelectedStorage;
+        }
+
+        private async Task<List<ContentKeyPolicy>> ReturnSelectedCKPoliciessAsync()
+        {
+            List<ContentKeyPolicy> SelectedCKPolicies = new List<ContentKeyPolicy>();
+            await _amsClient.RefreshTokenIfNeededAsync();
+
+            Microsoft.Rest.Azure.IPage<ContentKeyPolicy> ckPolicies = await _amsClient.AMSclient.ContentKeyPolicies.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            foreach (DataGridViewRow Row in dataGridViewCKPolicies.SelectedRows)
+            {
+                string ckpolName = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
+                ContentKeyPolicy myPolicy = ckPolicies.Where(f => f.Name == ckpolName).FirstOrDefault();
+                if (myPolicy != null)
+                {
+                    SelectedCKPolicies.Add(myPolicy);
+                }
+            }
+
+            return SelectedCKPolicies;
+        }
+
+        private async Task<List<Asset>> ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()
+        {
+            if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabAssets)) // we are in the asset tab
+            {
+                return await ReturnSelectedAssetsAsync();
+            }
+            else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
+            {
+                await _amsClient.RefreshTokenIfNeededAsync();
+
+                return (await ReturnSelectedLiveOutputsAsync())
+                        .Select(p =>
+                            Task.Run(() =>
+                                        _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, p.AssetName))
+                                        .GetAwaiter().GetResult()
+                        )
+                        .ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private async Task<List<LiveEvent>> ReturnSelectedLiveEventsAsync()
+        {
+            List<LiveEvent> SelectedLiveEvents = new List<LiveEvent>();
+            foreach (DataGridViewRow Row in dataGridViewLiveEventsV.SelectedRows)
+            {
+                string liveEventName = string.Empty;
+                try
+                {
+                    liveEventName = Row.Cells[dataGridViewLiveEventsV.Columns["Name"].Index].Value.ToString();
+                    LiveEvent liveEvent = await GetLiveEventAsync(liveEventName);
+                    // sometimes, the live event can be null (if just deleted)
+                    if (liveEvent != null)
+                    {
+                        SelectedLiveEvents.Add(liveEvent);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error getting the live event : '{0}'.", liveEventName) + Constants.endline + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            SelectedLiveEvents.Reverse();
+            return SelectedLiveEvents;
+        }
+
+
+        private async Task<List<StreamingEndpoint>> ReturnSelectedStreamingEndpointsAsync()
+        {
+            List<StreamingEndpoint> SelectedOrigins = new List<StreamingEndpoint>();
+
+            foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
+            {
+                string seName = Row.Cells[dataGridViewStreamingEndpointsV.Columns["Name"].Index].Value.ToString();
+                StreamingEndpoint se = await GetStreamingEndpointAsync(seName);
+                if (se != null)
+                {
+                    SelectedOrigins.Add(se);
+                }
+            }
+            SelectedOrigins.Reverse();
+            return SelectedOrigins;
+        }
+
+        private List<string> ReturnSelectedLiveOutputNames()
+        {
+            List<string> SelectedLiveOutputs = new List<string>();
+
+            foreach (DataGridViewRow Row in dataGridViewLiveOutputV.SelectedRows)
+            {
+                string liveOutputName = Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString();
+                SelectedLiveOutputs.Add(liveOutputName);
+            }
+            SelectedLiveOutputs.Reverse();
+            return SelectedLiveOutputs;
+        }
+
+        private async Task<List<LiveOutput>> ReturnSelectedLiveOutputsAsync()
+        {
+            List<LiveOutput> SelectedLiveOutputs = new List<LiveOutput>();
+
+            foreach (DataGridViewRow Row in dataGridViewLiveOutputV.SelectedRows)
+            {
+                string liveOutputName = string.Empty;
+                try
+                {
+                    string eventName = Row.Cells[dataGridViewLiveOutputV.Columns["LiveEventName"].Index].Value.ToString();
+                    liveOutputName = Row.Cells[dataGridViewLiveOutputV.Columns["Name"].Index].Value.ToString();
+                    LiveOutput liveOutput = await GetLiveOutputAsync(eventName, liveOutputName);
+                    if (liveOutput != null)
+                    {
+                        SelectedLiveOutputs.Add(liveOutput);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format("Error getting the live output : '{0}'.", liveOutputName) + Constants.endline + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            SelectedLiveOutputs.Reverse();
+            return SelectedLiveOutputs;
+        }
+
     }
 }

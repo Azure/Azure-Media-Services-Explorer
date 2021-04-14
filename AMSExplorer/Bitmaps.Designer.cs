@@ -103,6 +103,16 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _05_stabilization {
+            get {
+                object obj = ResourceManager.GetObject("_05_stabilization", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _06_emotion {
             get {
                 object obj = ResourceManager.GetObject("_06_emotion", resourceCulture);

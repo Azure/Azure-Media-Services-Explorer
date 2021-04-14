@@ -59,6 +59,16 @@ namespace AMSExplorer
         [STAThread]
         private static void Main(string[] args)
         {
+
+            /*
+            
+            .net v5 :
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            */
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
@@ -490,7 +500,6 @@ namespace AMSExplorer
         public const string TemporaryWidevineLicenseServer = "https://thiswillbereplacedbytheAMSwidevineurl/?KID=00000000-0000-0000-0000-000000000000";
 
         public static readonly string[] BrowserEdge = { "Microsoft Edge", "microsoft-edge:" };
-        public static readonly string[] BrowserIE = { "Internet Explorer", "iexplore.exe" };
         public static readonly string[] BrowserChrome = { "Google Chrome", "chrome.exe" };
         internal static string mpd = ".mpd";
         internal static string m3u8 = ".m3u8";

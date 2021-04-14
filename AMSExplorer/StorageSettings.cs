@@ -53,7 +53,7 @@ namespace AMSExplorer
         private void moreinfoLiveStreamingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
         }
 
         private void StorageSettings_DpiChanged(object sender, DpiChangedEventArgs e)

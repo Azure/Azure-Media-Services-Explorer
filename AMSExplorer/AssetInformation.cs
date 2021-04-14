@@ -20,7 +20,6 @@ using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Rest.Azure;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -166,7 +165,13 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    Process.Start(TreeViewLocators.SelectedNode.Text);
+                    var p = new Process();
+                    p.StartInfo = new ProcessStartInfo
+                    {
+                        FileName = TreeViewLocators.SelectedNode.Text,
+                        UseShellExecute = true
+                    };
+                    p.Start();
                 }
             }
         }
@@ -735,7 +740,13 @@ namespace AMSExplorer
                     if (blob is CloudBlockBlob blobtoopen)
                     {
                         //Generate the shared access signature on the blob, setting the constraints directly on the signature.
-                        Process.Start(blobtoopen.Uri + containerSasUrl.Query);
+                        var p = new Process();
+                        p.StartInfo = new ProcessStartInfo
+                        {
+                            FileName = blobtoopen.Uri + containerSasUrl.Query,
+                            UseShellExecute = true
+                        };
+                        p.Start();
                     }
                 }
             }
@@ -780,12 +791,12 @@ namespace AMSExplorer
 
             if (SelectedBlobs.Count > 0)
             {
-                using (CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) })
+                using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog() { RootFolder = Environment.SpecialFolder.MyVideos })
                 {
-                    if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                    if (openFolderDialog.ShowDialog() == DialogResult.OK)
                     {
                         // let's check if this overwites existing files
-                        List<string> listfiles = SelectedBlobs.ToList().Where(f => File.Exists(openFolderDialog.FileName + @"\\" + (f as CloudBlockBlob).Name)).Select(f => openFolderDialog.FileName + @"\\" + (f as CloudBlockBlob).Name).ToList();
+                        List<string> listfiles = SelectedBlobs.ToList().Where(f => File.Exists(openFolderDialog.SelectedPath + @"\\" + (f as CloudBlockBlob).Name)).Select(f => openFolderDialog.SelectedPath + @"\\" + (f as CloudBlockBlob).Name).ToList();
                         if (listfiles.Count > 0)
                         {
                             string text;
@@ -826,7 +837,7 @@ namespace AMSExplorer
                                 TransferEntryResponse response = myMainForm.DoGridTransferAddItem(string.Format("Download of blob(s) from asset '{0}'", myAsset.Name), TransferType.DownloadToLocal, true);
                                 // Start a worker thread that does downloading.
                                 //myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, openFolderDialog.FileName, response);
-                                await myMainForm.DownloadAssetAsync(_amsClient, myAsset.Name, openFolderDialog.FileName, response, DownloadToFolderOption.DoNotCreateSubfolder, false, SelectedBlobs.Select(f => (f as CloudBlockBlob).Name).ToList());
+                                await myMainForm.DownloadAssetAsync(_amsClient, myAsset.Name, openFolderDialog.SelectedPath, response, DownloadToFolderOption.DoNotCreateSubfolder, false, SelectedBlobs.Select(f => (f as CloudBlockBlob).Name).ToList());
                             }
                             MessageBox.Show(AMSExplorer.Properties.Resources.AssetInformation_DoDownloadFiles_DownloadProcessHasBeenInitiatedSeeTheTransfersTabToCheckTheProgress);
 
@@ -1178,8 +1189,13 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    Process.Start(TreeViewLocators.SelectedNode.Text);
-
+                    var p = new Process();
+                    p.StartInfo = new ProcessStartInfo
+                    {
+                        FileName = TreeViewLocators.SelectedNode.Text,
+                        UseShellExecute = true
+                    };
+                    p.Start();
                 }
             }
         }

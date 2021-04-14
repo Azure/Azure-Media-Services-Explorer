@@ -47,10 +47,10 @@ namespace AMSExplorer
 
         private void buttonSelectFolder_Click(object sender, EventArgs e)
         {
-            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true };
-            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            FolderBrowserDialog openFolderDialog = new FolderBrowserDialog();
+            if (openFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                textBoxFolder.Text = openFolderDialog.FileName;// FolderDialog.SelectedPath;
+                textBoxFolder.Text = openFolderDialog.SelectedPath;// FolderDialog.SelectedPath;
             }
         }
 

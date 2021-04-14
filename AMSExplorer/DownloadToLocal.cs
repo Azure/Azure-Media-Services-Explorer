@@ -50,6 +50,8 @@ namespace AMSExplorer
         private void DownloadToLocal_Load(object sender, EventArgs e)
         {
             DpiUtils.InitPerMonitorDpi(this);
+
+            /*
             if (string.IsNullOrEmpty(_backupfolder) || !Directory.Exists(_backupfolder))
             {
                 textBoxFolderPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
@@ -58,15 +60,16 @@ namespace AMSExplorer
             {
                 textBoxFolderPath.Text = _backupfolder;
             }
+            */
             labelAssetName.Text = string.Format(labelAssetName.Text, _selassets.Count());
         }
 
         private void buttonBrowseFile_Click(object sender, EventArgs e)
         {
-            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory = textBoxFolderPath.Text };
-            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            FolderBrowserDialog openFolderDialog = new FolderBrowserDialog() { RootFolder = Environment.SpecialFolder.MyVideos };
+            if (openFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                textBoxFolderPath.Text = openFolderDialog.FileName;
+                textBoxFolderPath.Text = openFolderDialog.SelectedPath;
             }
         }
 

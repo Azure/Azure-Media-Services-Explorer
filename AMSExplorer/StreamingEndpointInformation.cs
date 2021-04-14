@@ -403,7 +403,7 @@ namespace AMSExplorer
 
         private void hostnamelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
         }
 
         private void buttonAddExampleClientPolicy_Click(object sender, EventArgs e)
@@ -488,7 +488,7 @@ namespace AMSExplorer
 
         private void moreinfoSE_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
 
         }
 

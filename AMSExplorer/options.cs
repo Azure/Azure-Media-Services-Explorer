@@ -40,8 +40,6 @@ namespace AMSExplorer
             checkBoxAutoRefresh.Checked = Properties.Settings.Default.AutoRefresh;
             comboBoxAutoRefreshTime.SelectedItem = Properties.Settings.Default.AutoRefreshTime.ToString();
 
-            checkBoxUseAdaptiveStreamingFormat.Checked = Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat;
-
             textBoxCustomPlayer.Text = Properties.Settings.Default.CustomPlayerUrl;
             checkBoxEnableCustomPlayer.Checked = Properties.Settings.Default.CustomPlayerEnabled;
             textBoxCustomPlayer.Enabled = checkBoxEnableCustomPlayer.Checked;
@@ -86,8 +84,6 @@ namespace AMSExplorer
             Properties.Settings.Default.AutoRefresh = checkBoxAutoRefresh.Checked;
             Properties.Settings.Default.AutoRefreshTime = Convert.ToInt16(comboBoxAutoRefreshTime.SelectedItem);
 
-            Properties.Settings.Default.OutputAssetsAdaptiveStreamingFormat = checkBoxUseAdaptiveStreamingFormat.Checked;
-
             Properties.Settings.Default.AssetAnalysisStart = (int)numericUpDownAssetAnalysisStart.Value;
             Properties.Settings.Default.AssetAnalysisStep = (int)numericUpDownAssetAnalysisStep.Value;
 
@@ -120,7 +116,6 @@ namespace AMSExplorer
             checkBoxAutoRefresh.Checked = false;
             comboBoxAutoRefreshTime.SelectedItem = "60";
 
-            checkBoxUseAdaptiveStreamingFormat.Checked = false;
             checkBoxHideTaskbarNotifications.Checked = false;
 
             textBoxCustomPlayer.Text = string.Format(Constants.PlayerAMPinOptions, Constants.NameconvManifestURL);
@@ -135,7 +130,6 @@ namespace AMSExplorer
             textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
             textBoxVLCPath.Text = @"%programfiles32%\VideoLAN\VLC";
 
-            Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
 
             Properties.Settings.Default.DynEncTokenIssuerv3 = "http://testacs";
@@ -162,7 +156,7 @@ namespace AMSExplorer
 
         private void amspriceslink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
         }
 
         private void Options_DpiChanged(object sender, DpiChangedEventArgs e)

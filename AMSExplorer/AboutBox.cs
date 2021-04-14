@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -114,18 +115,37 @@ namespace AMSExplorer
 
         private void linkLabelContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(Constants.LinkMailtoAMSE);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkMailtoAMSE,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void linkLabelWebSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(Constants.LinkAMSE);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Constants.LinkAMSE,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void buttonLicTerms_Click(object sender, EventArgs e)
         {
             string licenseterms = Application.StartupPath + Constants.PathLicense;
-            System.Diagnostics.Process.Start(licenseterms);
+
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = licenseterms,
+                UseShellExecute = true
+            };
+            p.Start();
         }
     }
 }

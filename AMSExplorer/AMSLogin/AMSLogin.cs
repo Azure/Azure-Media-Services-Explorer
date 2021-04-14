@@ -18,7 +18,6 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.ResourceManager.Models;
-using Microsoft.Azure.Management.Storage;
 using Microsoft.Identity.Client;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure;
@@ -27,6 +26,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -329,7 +329,13 @@ namespace AMSExplorer
 
         private void Accountmgtlink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(e.Link.LinkData as string);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private async void AMSLogin_ShownAsync(object sender, EventArgs e)
@@ -654,7 +660,13 @@ namespace AMSExplorer
 
         private void linkLabelAMSOfflineDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(Application.StartupPath + @"\HelpFiles\" + @"AMSv3doc.pdf");
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = Application.StartupPath + @"\HelpFiles\" + @"AMSv3doc.pdf",
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
 

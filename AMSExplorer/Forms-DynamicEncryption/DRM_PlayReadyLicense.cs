@@ -214,7 +214,13 @@ namespace AMSExplorer
 
         private void Action_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            p.Start();
         }
 
         private void PlayReadyLicense_Load(object sender, EventArgs e)

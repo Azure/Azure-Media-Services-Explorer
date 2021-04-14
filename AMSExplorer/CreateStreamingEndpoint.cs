@@ -108,7 +108,13 @@ namespace AMSExplorer
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            p.Start();
 
         }
     }

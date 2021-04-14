@@ -32,14 +32,8 @@
     <Setting Name="CustomPlayerEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="DefaultLocatorDurationDays" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">365</Value>
-    </Setting>
     <Setting Name="DisplayAssetStorageinGrid" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="PremiumWorkflowPresetXMLFilesCurrentFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ffmpegPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%programfiles32%\ffmpeg\bin</Value>
@@ -82,12 +76,6 @@
     </Setting>
     <Setting Name="AssetAnalysisStep" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
-    </Setting>
-    <Setting Name="LoginListJSON" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="OutputAssetsAdaptiveStreamingFormat" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="HideTaskbarNotifications" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
