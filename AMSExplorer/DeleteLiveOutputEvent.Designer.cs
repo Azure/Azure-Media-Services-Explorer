@@ -55,8 +55,8 @@
             // 
             // labelmain
             // 
-            this.labelmain.ForeColor = System.Drawing.SystemColors.WindowText;
             resources.ApplyResources(this.labelmain, "labelmain");
+            this.labelmain.ForeColor = System.Drawing.SystemColors.WindowText;
             this.labelmain.Name = "labelmain";
             // 
             // checkBoxDeleteAsset
@@ -67,16 +67,16 @@
             // 
             // label5
             // 
-            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
             resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label5.Name = "label5";
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelTitle

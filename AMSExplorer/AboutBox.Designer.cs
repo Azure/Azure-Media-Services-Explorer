@@ -61,8 +61,8 @@
             // 
             // logoPictureBox
             // 
-            this.logoPictureBox.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
+            this.logoPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.logoPictureBox.Image = global::AMSExplorer.Bitmaps.Azure_Explorer;
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);

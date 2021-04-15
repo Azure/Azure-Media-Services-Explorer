@@ -61,6 +61,7 @@
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Name = "buttonOk";
+            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
@@ -68,20 +69,23 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // labelDescription
             // 
             resources.ApplyResources(this.labelDescription, "labelDescription");
             this.labelDescription.Name = "labelDescription";
+            this.toolTip1.SetToolTip(this.labelDescription, resources.GetString("labelDescription.ToolTip"));
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // groupBox1
             // 
@@ -92,6 +96,7 @@
             this.groupBox1.Controls.Add(this.labelDescription);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
             // 
             // listViewAccounts
             // 
@@ -101,6 +106,7 @@
             this.listViewAccounts.HideSelection = false;
             this.listViewAccounts.Name = "listViewAccounts";
             this.listViewAccounts.ShowItemToolTips = true;
+            this.toolTip1.SetToolTip(this.listViewAccounts, resources.GetString("listViewAccounts.ToolTip"));
             this.listViewAccounts.UseCompatibleStateImageBehavior = false;
             this.listViewAccounts.View = System.Windows.Forms.View.List;
             this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.listViewAccounts_SelectedIndexChanged);
@@ -112,43 +118,51 @@
             this.panelStorageAccount.Controls.Add(this.label1);
             this.panelStorageAccount.Controls.Add(this.listBoxStorage);
             this.panelStorageAccount.Name = "panelStorageAccount";
+            this.toolTip1.SetToolTip(this.panelStorageAccount, resources.GetString("panelStorageAccount.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // listBoxStorage
             // 
             resources.ApplyResources(this.listBoxStorage, "listBoxStorage");
             this.listBoxStorage.FormattingEnabled = true;
             this.listBoxStorage.Name = "listBoxStorage";
+            this.toolTip1.SetToolTip(this.listBoxStorage, resources.GetString("listBoxStorage.ToolTip"));
             this.listBoxStorage.SelectedIndexChanged += new System.EventHandler(this.listBoxStorage_SelectedIndexChanged);
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // labelnewassetname
             // 
             resources.ApplyResources(this.labelnewassetname, "labelnewassetname");
             this.labelnewassetname.Name = "labelnewassetname";
+            this.toolTip1.SetToolTip(this.labelnewassetname, resources.GetString("labelnewassetname.ToolTip"));
             // 
             // copyassetname
             // 
             resources.ApplyResources(this.copyassetname, "copyassetname");
             this.copyassetname.Name = "copyassetname";
+            this.toolTip1.SetToolTip(this.copyassetname, resources.GetString("copyassetname.ToolTip"));
             // 
             // labelinfo
             // 
             resources.ApplyResources(this.labelinfo, "labelinfo");
             this.labelinfo.Name = "labelinfo";
+            this.toolTip1.SetToolTip(this.labelinfo, resources.GetString("labelinfo.ToolTip"));
             // 
             // checkBoxDeleteSource
             // 
             resources.ApplyResources(this.checkBoxDeleteSource, "checkBoxDeleteSource");
             this.checkBoxDeleteSource.Name = "checkBoxDeleteSource";
+            this.toolTip1.SetToolTip(this.checkBoxDeleteSource, resources.GetString("checkBoxDeleteSource.ToolTip"));
             this.checkBoxDeleteSource.UseVisualStyleBackColor = true;
             // 
             // groupBoxOptions
@@ -158,31 +172,36 @@
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteSource);
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBoxOptions, resources.GetString("groupBoxOptions.ToolTip"));
             // 
             // checkBoxTargetSingleAsset
             // 
             resources.ApplyResources(this.checkBoxTargetSingleAsset, "checkBoxTargetSingleAsset");
             this.checkBoxTargetSingleAsset.Name = "checkBoxTargetSingleAsset";
+            this.toolTip1.SetToolTip(this.checkBoxTargetSingleAsset, resources.GetString("checkBoxTargetSingleAsset.ToolTip"));
             this.checkBoxTargetSingleAsset.UseVisualStyleBackColor = true;
             this.checkBoxTargetSingleAsset.CheckedChanged += new System.EventHandler(this.checkBoxTargetSingleAsset_CheckedChanged);
             // 
             // labelExplanation
             // 
-            this.labelExplanation.ForeColor = System.Drawing.SystemColors.WindowFrame;
             resources.ApplyResources(this.labelExplanation, "labelExplanation");
+            this.labelExplanation.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelExplanation.Name = "labelExplanation";
+            this.toolTip1.SetToolTip(this.labelExplanation, resources.GetString("labelExplanation.ToolTip"));
             // 
             // labelAssetCopy
             // 
             resources.ApplyResources(this.labelAssetCopy, "labelAssetCopy");
             this.labelAssetCopy.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelAssetCopy.Name = "labelAssetCopy";
+            this.toolTip1.SetToolTip(this.labelAssetCopy, resources.GetString("labelAssetCopy.ToolTip"));
             // 
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Name = "panel2";
+            this.toolTip1.SetToolTip(this.panel2, resources.GetString("panel2.ToolTip"));
             // 
             // CopyAsset
             // 
@@ -202,6 +221,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "CopyAsset";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.CopyAsset_Load);
             this.Shown += new System.EventHandler(this.CopyAsset_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.CopyAsset_DpiChanged);

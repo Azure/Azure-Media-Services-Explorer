@@ -1,64 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -120,58 +60,74 @@
   <data name="buttonOk.Text" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>アダプティブ ストリーミング プロトコル</value>
-  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
-  </data>
-  <data name="groupBoxForceLocator.Text" xml:space="preserve">
-    <value>フィルター</value>
-  </data>
-  <data name="radioButtonHDS.Text" xml:space="preserve">
-    <value>HDS (Adobe PrimeTime/Access ライセンシー向けのみ)</value>
-  </data>
-  <data name="radioButtonHLSv3.Text" xml:space="preserve">
-    <value>HLS v3</value>
-  </data>
-  <data name="radioButtonHLSv4.Text" xml:space="preserve">
-    <value>HLS v4</value>
-  </data>
-  <data name="radioButtonHttp.Text" xml:space="preserve">
-    <value>http</value>
-  </data>
-  <data name="radioButtonHttps.Text" xml:space="preserve">
-    <value>https</value>
-  </data>
-  <data name="radioButtonDASH.Text" xml:space="preserve">
-    <value>MPEG-DASH</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>最大で 3 フィルターを選択可能</value>
   </data>
   <data name="groupBox4.Text" xml:space="preserve">
     <value>ストリーミングエンドポイント</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>ストリーミング URL 生成</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="radioButtonHttps.Location" type="System.Drawing.Point, System.Drawing">
+    <value>468, 87</value>
   </data>
-  <data name="label.Text" xml:space="preserve">
-    <value>アセット : '{0}'</value>
+  <data name="radioButtonHttps.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 19</value>
+  </data>
+  <data name="radioButtonHttps.Text" xml:space="preserve">
+    <value>https</value>
+  </data>
+  <data name="radioButtonHttp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>468, 62</value>
+  </data>
+  <data name="radioButtonHttp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 19</value>
+  </data>
+  <data name="radioButtonHttp.Text" xml:space="preserve">
+    <value>http</value>
+  </data>
+  <data name="groupBoxForceLocator.Text" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>最大で 3 フィルターを選択可能</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>アダプティブ ストリーミング プロトコル</value>
+  </data>
+  <data name="checkBoxNoAudioOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 19</value>
+  </data>
+  <data name="checkBoxNoAudioOnly.Text" xml:space="preserve">
+    <value>No Audio Only モード</value>
+  </data>
+  <data name="labelaudiotrackname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 15</value>
   </data>
   <data name="labelaudiotrackname.Text" xml:space="preserve">
     <value>オーディオ トラック名 :</value>
   </data>
-  <data name="radioButtonSmooth.Text" xml:space="preserve">
-    <value>自動 / Smooth Streaming</value>
+  <data name="radioButtonSmoothLegacy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 19</value>
   </data>
   <data name="radioButtonSmoothLegacy.Text" xml:space="preserve">
     <value>レガシー Smooth Streaming</value>
   </data>
+  <data name="radioButtonSmooth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 19</value>
+  </data>
+  <data name="radioButtonSmooth.Text" xml:space="preserve">
+    <value>自動 / Smooth Streaming</value>
+  </data>
+  <data name="label.Text" xml:space="preserve">
+    <value>アセット : '{0}'</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 20</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>ストリーミング URL 生成</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>ストリーミング URL の生成</value>
-  </data>
-  <data name="checkBoxNoAudioOnly.Text" xml:space="preserve">
-    <value>No Audio Only モード</value>
   </data>
 </root>

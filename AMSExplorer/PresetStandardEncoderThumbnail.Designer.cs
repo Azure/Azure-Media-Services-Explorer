@@ -40,6 +40,10 @@
             this.textBoxThFileNameJPG = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBoxSize = new System.Windows.Forms.GroupBox();
+            this.textBoxHeight = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxWidth = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.numericUpDownThQuality = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
@@ -60,10 +64,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxThTimeRangeJPG = new System.Windows.Forms.TextBox();
-            this.textBoxWidth = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxHeight = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
@@ -80,6 +80,7 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
@@ -88,6 +89,7 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.index;
             this.buttonOk.Name = "buttonOk";
+            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // labelMES
@@ -95,41 +97,48 @@
             resources.ApplyResources(this.labelMES, "labelMES");
             this.labelMES.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelMES.Name = "labelMES";
+            this.toolTip1.SetToolTip(this.labelMES, resources.GetString("labelMES.ToolTip"));
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // moreinfoprofilelink
             // 
             resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.TabStop = true;
+            this.toolTip1.SetToolTip(this.moreinfoprofilelink, resources.GetString("moreinfoprofilelink.ToolTip"));
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.encoding_large;
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.encoding_large;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
             // 
             // textBoxThFileNameJPG
             // 
             resources.ApplyResources(this.textBoxThFileNameJPG, "textBoxThFileNameJPG");
             this.textBoxThFileNameJPG.Name = "textBoxThFileNameJPG";
+            this.toolTip1.SetToolTip(this.textBoxThFileNameJPG, resources.GetString("textBoxThFileNameJPG.ToolTip"));
             // 
             // label8
             // 
             resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
+            this.toolTip1.SetToolTip(this.label8, resources.GetString("label8.ToolTip"));
             // 
             // groupBoxSize
             // 
+            resources.ApplyResources(this.groupBoxSize, "groupBoxSize");
             this.groupBoxSize.Controls.Add(this.textBoxHeight);
             this.groupBoxSize.Controls.Add(this.label2);
             this.groupBoxSize.Controls.Add(this.textBoxWidth);
@@ -139,15 +148,42 @@
             this.groupBoxSize.Controls.Add(this.label13);
             this.groupBoxSize.Controls.Add(this.label18);
             this.groupBoxSize.Controls.Add(this.label17);
-            resources.ApplyResources(this.groupBoxSize, "groupBoxSize");
             this.groupBoxSize.Name = "groupBoxSize";
             this.groupBoxSize.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBoxSize, resources.GetString("groupBoxSize.ToolTip"));
+            // 
+            // textBoxHeight
+            // 
+            resources.ApplyResources(this.textBoxHeight, "textBoxHeight");
+            this.textBoxHeight.Name = "textBoxHeight";
+            this.toolTip1.SetToolTip(this.textBoxHeight, resources.GetString("textBoxHeight.ToolTip"));
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Name = "label2";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
+            // 
+            // textBoxWidth
+            // 
+            resources.ApplyResources(this.textBoxWidth, "textBoxWidth");
+            this.textBoxWidth.Name = "textBoxWidth";
+            this.toolTip1.SetToolTip(this.textBoxWidth, resources.GetString("textBoxWidth.ToolTip"));
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // label14
             // 
             resources.ApplyResources(this.label14, "label14");
             this.label14.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label14.Name = "label14";
+            this.toolTip1.SetToolTip(this.label14, resources.GetString("label14.ToolTip"));
             // 
             // numericUpDownThQuality
             // 
@@ -158,6 +194,7 @@
             0,
             0});
             this.numericUpDownThQuality.Name = "numericUpDownThQuality";
+            this.toolTip1.SetToolTip(this.numericUpDownThQuality, resources.GetString("numericUpDownThQuality.ToolTip"));
             this.numericUpDownThQuality.Value = new decimal(new int[] {
             90,
             0,
@@ -168,26 +205,30 @@
             // 
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
+            this.toolTip1.SetToolTip(this.label13, resources.GetString("label13.ToolTip"));
             // 
             // label18
             // 
             resources.ApplyResources(this.label18, "label18");
             this.label18.Name = "label18";
+            this.toolTip1.SetToolTip(this.label18, resources.GetString("label18.ToolTip"));
             // 
             // label17
             // 
             resources.ApplyResources(this.label17, "label17");
             this.label17.Name = "label17";
+            this.toolTip1.SetToolTip(this.label17, resources.GetString("label17.ToolTip"));
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.numericUpDownSpriteColumn);
             this.groupBox1.Controls.Add(this.radioButtonSprite);
             this.groupBox1.Controls.Add(this.radioButtonJPG);
             this.groupBox1.Controls.Add(this.radioButtonPNG);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
             // 
             // numericUpDownSpriteColumn
             // 
@@ -198,6 +239,7 @@
             0,
             0});
             this.numericUpDownSpriteColumn.Name = "numericUpDownSpriteColumn";
+            this.toolTip1.SetToolTip(this.numericUpDownSpriteColumn, resources.GetString("numericUpDownSpriteColumn.ToolTip"));
             this.numericUpDownSpriteColumn.Value = new decimal(new int[] {
             10,
             0,
@@ -208,6 +250,7 @@
             // 
             resources.ApplyResources(this.radioButtonSprite, "radioButtonSprite");
             this.radioButtonSprite.Name = "radioButtonSprite";
+            this.toolTip1.SetToolTip(this.radioButtonSprite, resources.GetString("radioButtonSprite.ToolTip"));
             this.radioButtonSprite.UseVisualStyleBackColor = true;
             this.radioButtonSprite.CheckedChanged += new System.EventHandler(this.radioButtonSprite_CheckedChanged);
             // 
@@ -215,6 +258,7 @@
             // 
             resources.ApplyResources(this.radioButtonJPG, "radioButtonJPG");
             this.radioButtonJPG.Name = "radioButtonJPG";
+            this.toolTip1.SetToolTip(this.radioButtonJPG, resources.GetString("radioButtonJPG.ToolTip"));
             this.radioButtonJPG.UseVisualStyleBackColor = true;
             this.radioButtonJPG.CheckedChanged += new System.EventHandler(this.radioButtonSprite_CheckedChanged);
             // 
@@ -224,10 +268,12 @@
             this.radioButtonPNG.Checked = true;
             this.radioButtonPNG.Name = "radioButtonPNG";
             this.radioButtonPNG.TabStop = true;
+            this.toolTip1.SetToolTip(this.radioButtonPNG, resources.GetString("radioButtonPNG.ToolTip"));
             this.radioButtonPNG.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label15);
@@ -237,79 +283,66 @@
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.textBoxThTimeRangeJPG);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox2, resources.GetString("groupBox2.ToolTip"));
             // 
             // label16
             // 
             resources.ApplyResources(this.label16, "label16");
             this.label16.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label16.Name = "label16";
+            this.toolTip1.SetToolTip(this.label16, resources.GetString("label16.ToolTip"));
             // 
             // label9
             // 
             resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
+            this.toolTip1.SetToolTip(this.label9, resources.GetString("label9.ToolTip"));
             // 
             // label15
             // 
             resources.ApplyResources(this.label15, "label15");
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label15.Name = "label15";
+            this.toolTip1.SetToolTip(this.label15, resources.GetString("label15.ToolTip"));
             // 
             // textBoxThTimeStartJPG
             // 
             resources.ApplyResources(this.textBoxThTimeStartJPG, "textBoxThTimeStartJPG");
             this.textBoxThTimeStartJPG.Name = "textBoxThTimeStartJPG";
+            this.toolTip1.SetToolTip(this.textBoxThTimeStartJPG, resources.GetString("textBoxThTimeStartJPG.ToolTip"));
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // textBoxThTimeStepJPG
             // 
             resources.ApplyResources(this.textBoxThTimeStepJPG, "textBoxThTimeStepJPG");
             this.textBoxThTimeStepJPG.Name = "textBoxThTimeStepJPG";
+            this.toolTip1.SetToolTip(this.textBoxThTimeStepJPG, resources.GetString("textBoxThTimeStepJPG.ToolTip"));
             // 
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
+            this.toolTip1.SetToolTip(this.label11, resources.GetString("label11.ToolTip"));
             // 
             // label10
             // 
             resources.ApplyResources(this.label10, "label10");
             this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label10.Name = "label10";
+            this.toolTip1.SetToolTip(this.label10, resources.GetString("label10.ToolTip"));
             // 
             // textBoxThTimeRangeJPG
             // 
             resources.ApplyResources(this.textBoxThTimeRangeJPG, "textBoxThTimeRangeJPG");
             this.textBoxThTimeRangeJPG.Name = "textBoxThTimeRangeJPG";
-            // 
-            // textBoxWidth
-            // 
-            resources.ApplyResources(this.textBoxWidth, "textBoxWidth");
-            this.textBoxWidth.Name = "textBoxWidth";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label1.Name = "label1";
-            // 
-            // textBoxHeight
-            // 
-            resources.ApplyResources(this.textBoxHeight, "textBoxHeight");
-            this.textBoxHeight.Name = "textBoxHeight";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Name = "label2";
+            this.toolTip1.SetToolTip(this.textBoxThTimeRangeJPG, resources.GetString("textBoxThTimeRangeJPG.ToolTip"));
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -337,6 +370,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelMES);
             this.Name = "PresetStandardEncoderThumbnail";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.PresetStandardEncoderThumbnail_Load);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetStandardEncoderThumbnail_DpiChanged);
             this.panel1.ResumeLayout(false);

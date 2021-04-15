@@ -85,6 +85,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
             this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxFolders);
             this.splitContainer1.Panel1.Controls.Add(this.buttonFolderDeselAll);
             this.splitContainer1.Panel1.Controls.Add(this.buttonFolderSelAll);
@@ -93,6 +94,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
             this.splitContainer1.Panel2.Controls.Add(this.checkedListBoxFiles);
             this.splitContainer1.Panel2.Controls.Add(this.buttonFileDeselAll);
             this.splitContainer1.Panel2.Controls.Add(this.buttonFileSelAll);
@@ -160,10 +162,10 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonUpload);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label3

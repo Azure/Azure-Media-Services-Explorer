@@ -117,11 +117,7 @@
             // trackBarTime
             // 
             resources.ApplyResources(this.trackBarTime, "trackBarTime");
-            this.trackBarTime.BackColor = System.Drawing.SystemColors.Window;
-            this.tableLayoutPanel1.SetColumnSpan(this.trackBarTime, 5);
-            this.trackBarTime.Maximum = 1000;
             this.trackBarTime.Name = "trackBarTime";
-            this.trackBarTime.ValueChanged += new System.EventHandler(this.HandleTrackBarValueChanged);
             // 
             // label1
             // 
