@@ -1,64 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -117,89 +57,47 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>ロケーターを作成</value>
+  <data name="buttonNext.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="treeViewAzureSub.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DGAcct.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxTenants.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelADTenant.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>469, 15</value>
+    <value>429, 15</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>ロケーターの URL はクリップボードにコピーされます。また、アセット情報からも参照可能です。</value>
   </data>
-  <data name="radioButtonEndUnlimited.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 19</value>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="radioButtonEndUnlimited.Text" xml:space="preserve">
-    <value>100 年間 公開する</value>
-  </data>
-  <data name="radioButtonEndYear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 19</value>
-  </data>
-  <data name="radioButtonEndYear.Text" xml:space="preserve">
-    <value>1 年間 公開する</value>
-  </data>
-  <data name="radioButtonEndCustom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 19</value>
-  </data>
-  <data name="radioButtonEndCustom.Text" xml:space="preserve">
-    <value>カスタムで日時を指定</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>終了日時</value>
-  </data>
-  <data name="checkBoxStartDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 19</value>
-  </data>
-  <data name="checkBoxStartDate.Text" xml:space="preserve">
-    <value>公開の開始日時を指定する :</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>開始日時</value>
-  </data>
-  <data name="radioButtonOrigin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 19</value>
-  </data>
-  <data name="radioButtonOrigin.Text" xml:space="preserve">
-    <value>ストリーミング ロケーター (アダプティブストリーミング, プログレッシブダウンロード)</value>
-  </data>
-  <data name="radioButtonSAS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 19</value>
-  </data>
-  <data name="radioButtonSAS.Text" xml:space="preserve">
-    <value>SAS ロケーター (ダウンロード)</value>
-  </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>ロケーターのタイプ</value>
-  </data>
-  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 15</value>
-  </data>
-  <data name="labelWarning.Text" xml:space="preserve">
-    <value>警告</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 78</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>フォーマットの例: nb:lid:UUID:96687412-6d...  or 96687412-6d...</value>
-  </data>
-  <data name="checkBoxForLocatorGUID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>259, 19</value>
-  </data>
-  <data name="checkBoxForLocatorGUID.Text" xml:space="preserve">
-    <value>指定した ID のロケーター ID/GUID で公開する:</value>
-  </data>
-  <data name="groupBoxForceLocator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>528, 100</value>
-  </data>
-  <data name="groupBoxForceLocator.Text" xml:space="preserve">
-    <value>高度なユーザー向けの設定</value>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>アセットの公開</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>
