@@ -19,6 +19,7 @@ using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -1443,15 +1444,32 @@ namespace AMSExplorer
             {
                 try
                 {
+                    var p = new Process();
                     if (string.IsNullOrEmpty(selectedBrowser))
                     {
-                        Process.Start(FullPlayBackLink);
+
+                        p.StartInfo = new ProcessStartInfo
+                        {
+                            FileName = FullPlayBackLink,
+                            UseShellExecute = true
+                        };
+                        p.Start();
                     }
                     else
                     {
                         if (selectedBrowser.Contains("edge"))
                         {
-                            Process.Start(selectedBrowser + FullPlayBackLink);
+                            p.StartInfo = new ProcessStartInfo
+                            {
+                                FileName = selectedBrowser + FullPlayBackLink,
+                                UseShellExecute = true
+                            };
+                            p.Start();
+
+                        }
+                        else if (selectedBrowser.Contains("chrome"))
+                        {
+                            Process.Start(GetChromePath(), FullPlayBackLink);
                         }
                         else
                         {
@@ -1459,14 +1477,44 @@ namespace AMSExplorer
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     mainForm.TextBoxLogWriteLine("Error when launching the browser.", true);
+                    mainForm.TextBoxLogWriteLine(ex);
                 }
             }
 
 
             return FullPlayBackLink;
+        }
+
+        public static string GetChromePath()
+        {
+            string lPath = null;
+            try
+            {
+                var lTmp = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe", "", null);
+                if (lTmp != null)
+                    lPath = lTmp.ToString();
+                else
+                {
+                    lTmp = Registry.GetValue(@"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe", "", null);
+                    if (lTmp != null)
+                        lPath = lTmp.ToString();
+                }
+            }
+            catch (Exception lEx)
+            {
+                //Logger.Error(lEx);
+            }
+
+            if (lPath == null)
+            {
+                //Logger.Warn("Chrome install path not found! Returning hardcoded path");
+                lPath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
+            }
+
+            return lPath;
         }
 
 

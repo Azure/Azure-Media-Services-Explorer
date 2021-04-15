@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.IO;
 using System.Windows.Forms;

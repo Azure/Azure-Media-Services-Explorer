@@ -15,7 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
