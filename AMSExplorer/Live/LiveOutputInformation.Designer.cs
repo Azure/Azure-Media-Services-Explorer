@@ -57,20 +57,21 @@
             // 
             // contextMenuStripDG
             // 
+            resources.ApplyResources(this.contextMenuStripDG, "contextMenuStripDG");
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
-            resources.ApplyResources(this.contextMenuStripDG, "contextMenuStripDG");
             this.contextMenuStripDG.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDG_Opening);
             this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick);
             // 
             // toolStripMenuItemFilesCopyClipboard
             // 
-            this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
             resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
+            this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
             // 
             // tabPageInfo
             // 
+            resources.ApplyResources(this.tabPageInfo, "tabPageInfo");
             this.tabPageInfo.Controls.Add(this.label2);
             this.tabPageInfo.Controls.Add(this.numericUpDownArchiveMinutes);
             this.tabPageInfo.Controls.Add(this.label4);
@@ -78,7 +79,6 @@
             this.tabPageInfo.Controls.Add(this.pictureBox1);
             this.tabPageInfo.Controls.Add(this.label5);
             this.tabPageInfo.Controls.Add(this.DGLiveEvent);
-            resources.ApplyResources(this.tabPageInfo, "tabPageInfo");
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.UseVisualStyleBackColor = true;
             // 
@@ -126,10 +126,10 @@
             // 
             // DGLiveEvent
             // 
+            resources.ApplyResources(this.DGLiveEvent, "DGLiveEvent");
             this.DGLiveEvent.AllowUserToAddRows = false;
             this.DGLiveEvent.AllowUserToDeleteRows = false;
             this.DGLiveEvent.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGLiveEvent, "DGLiveEvent");
             this.DGLiveEvent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGLiveEvent.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGLiveEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -170,9 +170,9 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonClose);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // LiveOutputInformation

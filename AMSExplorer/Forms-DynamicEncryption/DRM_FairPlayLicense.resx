@@ -1,64 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -117,593 +57,593 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="&gt;&gt;radioButtonNonPersistent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>567, 13</value>
   </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 27</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>94</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPersistent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="&gt;&gt;radioButtonLimited.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
   </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonOk.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>384, 13</value>
-  </data>
-  <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 27</value>
-  </data>
-  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>Ok</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
-    <value>buttonOk</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="radioButtonPersistent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="panelPersistent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 253</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="textBoxPolicyName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 120</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="radioButtonNonPersistent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 19</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>panelOffline</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOfflineRental.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>93</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPersistent.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="numericUpDownRentalHours.Location" type="System.Drawing.Point, System.Drawing">
+    <value>111, 37</value>
+  </data>
+  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 102</value>
+  </data>
+  <data name="panelOffline.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;panelPersistent.Name" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="&gt;&gt;panelOffline.Name" xml:space="preserve">
+    <value>panelOffline</value>
+  </data>
+  <data name="radioButtonLimited.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 41</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 67</value>
+  </data>
+  <data name="radioButtonOfflineRental.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 19</value>
+  </data>
+  <data name="&gt;&gt;textBoxPolicyName.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelPersistent.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radioButtonLimited.Text" xml:space="preserve">
+    <value>Limited to :</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="textBoxPolicyName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownOfflinePlayback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonOfflineRental.Text" xml:space="preserve">
+    <value>Offline rental</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="radioButtonLimited.TabIndex" type="System.Int32, mscorlib">
+    <value>94</value>
+  </data>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 27</value>
+  </data>
+  <data name="radioButtonOfflineRental.TabIndex" type="System.Int32, mscorlib">
+    <value>95</value>
+  </data>
+  <data name="radioButtonLimited.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 15</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>681, 741</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOfflineRental.Name" xml:space="preserve">
+    <value>radioButtonOfflineRental</value>
+  </data>
+  <data name="numericUpDownOfflinePlayback.TabIndex" type="System.Int32, mscorlib">
+    <value>92</value>
+  </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
+  </data>
+  <data name="radioButtonNoLimit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 6</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Dynamic Encryption - Step {0}</value>
+  </data>
+  <data name="&gt;&gt;panelOffline.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonNonPersistent.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownOfflinePlayback.Parent" xml:space="preserve">
+    <value>panelOffline</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>89</value>
+  </data>
+  <data name="radioButtonNoLimit.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonOfflineRental.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="radioButtonPersistent.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxPolicyName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>262, 23</value>
+  </data>
+  <data name="&gt;&gt;panelOffline.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 15</value>
+  </data>
+  <data name="&gt;&gt;textBoxPolicyName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRentalHours.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="radioButtonOfflineRental.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 81</value>
+  </data>
+  <data name="label13.TabIndex" type="System.Int32, mscorlib">
+    <value>92</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPersistent.Name" xml:space="preserve">
+    <value>radioButtonPersistent</value>
+  </data>
+  <data name="radioButtonNonPersistent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;panelPersistent.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>Manual</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonNonPersistent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 203</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="panelPersistent.TabIndex" type="System.Int32, mscorlib">
+    <value>91</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 18</value>
+  </data>
+  <data name="&gt;&gt;radioButtonLimited.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRentalHours.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>384, 13</value>
+  </data>
+  <data name="buttonOk.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="radioButtonNoLimit.Text" xml:space="preserve">
+    <value>No limit</value>
+  </data>
+  <data name="numericUpDownOfflinePlayback.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 36</value>
+  </data>
+  <data name="labelstep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 21</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;radioButtonLimited.Name" xml:space="preserve">
+    <value>radioButtonLimited</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownOfflinePlayback.Name" xml:space="preserve">
+    <value>numericUpDownOfflinePlayback</value>
+  </data>
+  <data name="&gt;&gt;labelstep.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Storage duration :</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogPreset.Name" xml:space="preserve">
+    <value>openFileDialogPreset</value>
+  </data>
+  <data name="panelOffline.TabIndex" type="System.Int32, mscorlib">
+    <value>94</value>
+  </data>
+  <data name="&gt;&gt;labelstep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="numericUpDownRentalHours.TabIndex" type="System.Int32, mscorlib">
+    <value>88</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>panelOffline</value>
+  </data>
+  <data name="&gt;&gt;panelOffline.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 27</value>
+  </data>
+  <data name="&gt;&gt;labelstep.Name" xml:space="preserve">
+    <value>labelstep</value>
+  </data>
+  <data name="radioButtonNoLimit.TabIndex" type="System.Int32, mscorlib">
+    <value>96</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="numericUpDownOfflinePlayback.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>-1, 688</value>
   </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>684, 55</value>
   </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
+  <data name="&gt;&gt;numericUpDownOfflineStorage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNoLimit.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="labelstep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>313, 42</value>
+  </data>
+  <data name="radioButtonPersistent.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DRM_FairPlayLicense</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNoLimit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonLimited.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOfflineRental.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownOfflinePlayback.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
+    <value>buttonOk</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownOfflineStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Playback duration :</value>
   </data>
   <data name="&gt;&gt;panel1.Name" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonPersistent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 19</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="panelOffline.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 106</value>
+  </data>
+  <data name="numericUpDownOfflineStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>95</value>
+  </data>
+  <data name="numericUpDownRentalHours.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNonPersistent.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="labelstep.AutoSize" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;panelPersistent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonLimited.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 19</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numericUpDownRentalHours.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>96</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButtonLimited.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNonPersistent.Name" xml:space="preserve">
+    <value>radioButtonNonPersistent</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNonPersistent.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxPolicyName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labelstep.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 12pt, style=Bold</value>
   </data>
-  <data name="labelstep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 21</value>
-  </data>
-  <data name="labelstep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 42</value>
-  </data>
-  <data name="labelstep.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
-  </data>
-  <data name="labelstep.Text" xml:space="preserve">
-    <value>Step {0}
-Specify the Fairplay license for option #{1}</value>
-  </data>
-  <data name="&gt;&gt;labelstep.Name" xml:space="preserve">
-    <value>labelstep</value>
-  </data>
-  <data name="&gt;&gt;labelstep.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelstep.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelstep.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <metadata name="openFileDialogPreset.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="openFileDialogPreset.Filter" xml:space="preserve">
-    <value>XML files|*.xml|All files|*.*</value>
-  </data>
-  <data name="radioButtonNonPersistent.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonNonPersistent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonNonPersistent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 203</value>
-  </data>
-  <data name="radioButtonNonPersistent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 19</value>
-  </data>
-  <data name="radioButtonNonPersistent.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="radioButtonNonPersistent.Text" xml:space="preserve">
-    <value>Non persistent licenses</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNonPersistent.Name" xml:space="preserve">
-    <value>radioButtonNonPersistent</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNonPersistent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNonPersistent.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNonPersistent.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="radioButtonPersistent.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonPersistent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonPersistent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 228</value>
-  </data>
-  <data name="radioButtonPersistent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 19</value>
-  </data>
-  <data name="radioButtonPersistent.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
-  </data>
   <data name="radioButtonPersistent.Text" xml:space="preserve">
     <value>Persistent licenses</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPersistent.Name" xml:space="preserve">
-    <value>radioButtonPersistent</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPersistent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPersistent.Parent" xml:space="preserve">
-    <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonPersistent.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="numericUpDownRentalHours.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="numericUpDownRentalHours.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 37</value>
-  </data>
-  <data name="numericUpDownRentalHours.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 23</value>
-  </data>
-  <data name="numericUpDownRentalHours.TabIndex" type="System.Int32, mscorlib">
-    <value>88</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRentalHours.Name" xml:space="preserve">
-    <value>numericUpDownRentalHours</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRentalHours.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRentalHours.Parent" xml:space="preserve">
-    <value>panelPersistent</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownRentalHours.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 19</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>89</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Hours</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>panelPersistent</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="radioButtonNoLimit.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonNoLimit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonNoLimit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 6</value>
-  </data>
-  <data name="radioButtonNoLimit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 19</value>
-  </data>
-  <data name="radioButtonNoLimit.TabIndex" type="System.Int32, mscorlib">
-    <value>96</value>
-  </data>
-  <data name="radioButtonNoLimit.Text" xml:space="preserve">
-    <value>No limit</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNoLimit.Name" xml:space="preserve">
-    <value>radioButtonNoLimit</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNoLimit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNoLimit.Parent" xml:space="preserve">
-    <value>panelPersistent</value>
-  </data>
-  <data name="&gt;&gt;radioButtonNoLimit.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radioButtonOfflineRental.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonOfflineRental.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonOfflineRental.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 81</value>
-  </data>
-  <data name="radioButtonOfflineRental.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 19</value>
-  </data>
-  <data name="radioButtonOfflineRental.TabIndex" type="System.Int32, mscorlib">
-    <value>95</value>
-  </data>
-  <data name="radioButtonOfflineRental.Text" xml:space="preserve">
-    <value>Offline rental</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOfflineRental.Name" xml:space="preserve">
-    <value>radioButtonOfflineRental</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOfflineRental.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOfflineRental.Parent" xml:space="preserve">
-    <value>panelPersistent</value>
-  </data>
-  <data name="&gt;&gt;radioButtonOfflineRental.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radioButtonLimited.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonLimited.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonLimited.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 41</value>
-  </data>
-  <data name="radioButtonLimited.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 19</value>
-  </data>
-  <data name="radioButtonLimited.TabIndex" type="System.Int32, mscorlib">
-    <value>94</value>
-  </data>
-  <data name="radioButtonLimited.Text" xml:space="preserve">
-    <value>Limited to :</value>
-  </data>
-  <data name="&gt;&gt;radioButtonLimited.Name" xml:space="preserve">
-    <value>radioButtonLimited</value>
-  </data>
-  <data name="&gt;&gt;radioButtonLimited.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonLimited.Parent" xml:space="preserve">
-    <value>panelPersistent</value>
-  </data>
-  <data name="&gt;&gt;radioButtonLimited.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 67</value>
-  </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 15</value>
   </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>96</value>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Storage duration :</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>panelOffline</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownOfflinePlayback.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 36</value>
-  </data>
-  <data name="numericUpDownOfflinePlayback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 23</value>
-  </data>
-  <data name="numericUpDownOfflinePlayback.TabIndex" type="System.Int32, mscorlib">
-    <value>92</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownOfflinePlayback.Name" xml:space="preserve">
-    <value>numericUpDownOfflinePlayback</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownOfflinePlayback.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownOfflinePlayback.Parent" xml:space="preserve">
-    <value>panelOffline</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownOfflinePlayback.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="numericUpDownOfflineStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 65</value>
-  </data>
-  <data name="numericUpDownOfflineStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 23</value>
-  </data>
-  <data name="numericUpDownOfflineStorage.TabIndex" type="System.Int32, mscorlib">
-    <value>95</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownOfflineStorage.Name" xml:space="preserve">
-    <value>numericUpDownOfflineStorage</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownOfflineStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownOfflineStorage.Parent" xml:space="preserve">
-    <value>panelOffline</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownOfflineStorage.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, 18</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>93</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Hours</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>panelOffline</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 38</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 15</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>94</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Playback duration :</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>panelOffline</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="panelOffline.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="panelOffline.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 106</value>
-  </data>
-  <data name="panelOffline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 105</value>
-  </data>
-  <data name="panelOffline.TabIndex" type="System.Int32, mscorlib">
-    <value>94</value>
-  </data>
-  <data name="&gt;&gt;panelOffline.Name" xml:space="preserve">
-    <value>panelOffline</value>
-  </data>
-  <data name="&gt;&gt;panelOffline.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelOffline.Parent" xml:space="preserve">
-    <value>panelPersistent</value>
-  </data>
-  <data name="&gt;&gt;panelOffline.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panelPersistent.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="panelPersistent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 253</value>
-  </data>
-  <data name="panelPersistent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 266</value>
-  </data>
-  <data name="panelPersistent.TabIndex" type="System.Int32, mscorlib">
-    <value>91</value>
-  </data>
-  <data name="&gt;&gt;panelPersistent.Name" xml:space="preserve">
-    <value>panelPersistent</value>
-  </data>
-  <data name="&gt;&gt;panelPersistent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelPersistent.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panelPersistent.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textBoxPolicyName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxPolicyName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 120</value>
-  </data>
-  <data name="textBoxPolicyName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 23</value>
-  </data>
-  <data name="textBoxPolicyName.TabIndex" type="System.Int32, mscorlib">
-    <value>93</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicyName.Name" xml:space="preserve">
-    <value>textBoxPolicyName</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicyName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicyName.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicyName.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButtonNonPersistent.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 102</value>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 15</value>
+  <data name="&gt;&gt;numericUpDownOfflineStorage.Parent" xml:space="preserve">
+    <value>panelOffline</value>
   </data>
-  <data name="label13.TabIndex" type="System.Int32, mscorlib">
-    <value>92</value>
+  <data name="numericUpDownOfflineStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
+  </data>
+  <data name="openFileDialogPreset.Filter" xml:space="preserve">
+    <value>XML files|*.xml|All files|*.*</value>
+  </data>
+  <data name="&gt;&gt;panelPersistent.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRentalHours.Name" xml:space="preserve">
+    <value>numericUpDownRentalHours</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="panelPersistent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>339, 266</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 19</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownOfflineStorage.Name" xml:space="preserve">
+    <value>numericUpDownOfflineStorage</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="labelstep.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 38</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNoLimit.Name" xml:space="preserve">
+    <value>radioButtonNoLimit</value>
+  </data>
+  <data name="labelstep.Text" xml:space="preserve">
+    <value>Step {0}
+Specify the Fairplay license for option #{1}</value>
+  </data>
+  <data name="radioButtonNoLimit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonPersistent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 228</value>
+  </data>
+  <data name="&gt;&gt;labelstep.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="textBoxPolicyName.TabIndex" type="System.Int32, mscorlib">
+    <value>93</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="radioButtonNoLimit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 19</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panelOffline</value>
+  </data>
+  <data name="&gt;&gt;radioButtonNoLimit.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonOfflineRental.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="numericUpDownOfflineStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 65</value>
   </data>
   <data name="label13.Text" xml:space="preserve">
     <value>Option name :</value>
   </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
+  <data name="&gt;&gt;textBoxPolicyName.Name" xml:space="preserve">
+    <value>textBoxPolicyName</value>
   </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="radioButtonNonPersistent.Text" xml:space="preserve">
+    <value>Non persistent licenses</value>
   </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="labelstep.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOfflineRental.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>panelPersistent</value>
+  </data>
+  <data name="panelOffline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 105</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownRentalHours.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>681, 741</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>Manual</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Dynamic Encryption - Step {0}</value>
-  </data>
-  <data name="&gt;&gt;openFileDialogPreset.Name" xml:space="preserve">
-    <value>openFileDialogPreset</value>
-  </data>
-  <data name="&gt;&gt;openFileDialogPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>DRM_FairPlayLicense</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
+  <metadata name="openFileDialogPreset.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

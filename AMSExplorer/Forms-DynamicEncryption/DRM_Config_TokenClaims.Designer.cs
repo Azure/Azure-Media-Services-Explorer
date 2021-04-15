@@ -91,16 +91,16 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             resources.ApplyResources(this.buttonOk, "buttonOk");
+            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -133,11 +133,11 @@
             // 
             // panelSymKey
             // 
+            resources.ApplyResources(this.panelSymKey, "panelSymKey");
             this.panelSymKey.Controls.Add(this.label1);
             this.panelSymKey.Controls.Add(this.panel2);
             this.panelSymKey.Controls.Add(this.textBoxSymKey);
             this.panelSymKey.Controls.Add(this.buttongenerateContentKey);
-            resources.ApplyResources(this.panelSymKey, "panelSymKey");
             this.panelSymKey.Name = "panelSymKey";
             // 
             // label1
@@ -199,10 +199,10 @@
             // 
             // panelJWT
             // 
+            resources.ApplyResources(this.panelJWT, "panelJWT");
             this.panelJWT.Controls.Add(this.moreinfocGenX509);
             this.panelJWT.Controls.Add(this.buttonImportPFX);
             this.panelJWT.Controls.Add(this.labelCertificateFile);
-            resources.ApplyResources(this.panelJWT, "panelJWT");
             this.panelJWT.Name = "panelJWT";
             // 
             // moreinfocGenX509
@@ -232,9 +232,9 @@
             // 
             // dataGridViewTokenClaims
             // 
+            resources.ApplyResources(this.dataGridViewTokenClaims, "dataGridViewTokenClaims");
             this.dataGridViewTokenClaims.AllowUserToAddRows = false;
             this.dataGridViewTokenClaims.AllowUserToDeleteRows = false;
-            resources.ApplyResources(this.dataGridViewTokenClaims, "dataGridViewTokenClaims");
             this.dataGridViewTokenClaims.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewTokenClaims.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTokenClaims.Name = "dataGridViewTokenClaims";
@@ -277,10 +277,10 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelStep
@@ -301,10 +301,10 @@
             // 
             // tabPageTokenType
             // 
+            resources.ApplyResources(this.tabPageTokenType, "tabPageTokenType");
             this.tabPageTokenType.Controls.Add(this.radioButtonJWTOpenId);
             this.tabPageTokenType.Controls.Add(this.radioButtonJWTSymmetric);
             this.tabPageTokenType.Controls.Add(this.radioButtonJWTX509);
-            resources.ApplyResources(this.tabPageTokenType, "tabPageTokenType");
             this.tabPageTokenType.Name = "tabPageTokenType";
             this.tabPageTokenType.UseVisualStyleBackColor = true;
             // 
@@ -317,25 +317,25 @@
             // 
             // tabPageTokenSymmetric
             // 
-            this.tabPageTokenSymmetric.Controls.Add(this.panelSymKey);
             resources.ApplyResources(this.tabPageTokenSymmetric, "tabPageTokenSymmetric");
+            this.tabPageTokenSymmetric.Controls.Add(this.panelSymKey);
             this.tabPageTokenSymmetric.Name = "tabPageTokenSymmetric";
             this.tabPageTokenSymmetric.UseVisualStyleBackColor = true;
             // 
             // tabPageTokenX509
             // 
-            this.tabPageTokenX509.Controls.Add(this.panelJWT);
             resources.ApplyResources(this.tabPageTokenX509, "tabPageTokenX509");
+            this.tabPageTokenX509.Controls.Add(this.panelJWT);
             this.tabPageTokenX509.Name = "tabPageTokenX509";
             this.tabPageTokenX509.UseVisualStyleBackColor = true;
             // 
             // tabPageOpenId
             // 
+            resources.ApplyResources(this.tabPageOpenId, "tabPageOpenId");
             this.tabPageOpenId.Controls.Add(this.comboBoxMappingList);
             this.tabPageOpenId.Controls.Add(this.buttonAddMapping);
             this.tabPageOpenId.Controls.Add(this.label9);
             this.tabPageOpenId.Controls.Add(this.textBoxOpenIdDocument);
-            resources.ApplyResources(this.tabPageOpenId, "tabPageOpenId");
             this.tabPageOpenId.Name = "tabPageOpenId";
             this.tabPageOpenId.UseVisualStyleBackColor = true;
             // 
@@ -373,43 +373,43 @@
             // 
             // tabPage2
             // 
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.textBoxAudience);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.textBoxIssuer);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label11
             // 
-            this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
             resources.ApplyResources(this.label11, "label11");
+            this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label11.Name = "label11";
             // 
             // label10
             // 
-            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
             resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label10.Name = "label10";
             // 
             // tabPage3
             // 
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.checkBoxRequiresContentKeyIdentifierClaim);
             this.tabPage3.Controls.Add(this.dataGridViewTokenClaims);
             this.tabPage3.Controls.Add(this.buttonAddClaim);
             this.tabPage3.Controls.Add(this.buttonDelClaim);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
-            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
             resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label4.Name = "label4";
             // 
             // form_DRM_Config_TokenClaims

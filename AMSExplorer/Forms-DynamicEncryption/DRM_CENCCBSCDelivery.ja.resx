@@ -1,64 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -117,114 +57,290 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>動的暗号化 - ステップ 3</value>
+  </data>
+  <data name="buttonOk.Error" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonOk.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonOk.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="buttonOk.Text" xml:space="preserve">
     <value>次へ</value>
+  </data>
+  <data name="buttonCancel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonCancel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="label1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 42</value>
+    <value>220, 42</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>ステップ 3
 DRM ライセンス配信の構成</value>
   </data>
-  <data name="buttonPlayReadyTestSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 37</value>
+  <data name="panel1.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonPlayReadyTestSettings.Text" xml:space="preserve">
-    <value>PlayReady Test Server 設定を使用</value>
+  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 15</value>
+  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>ライセンス取得 URL :</value>
+  <data name="groupBoxPlayReady.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="radioButtonDeliverPRfromAMS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 19</value>
+  <data name="groupBoxPlayReady.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
   </data>
-  <data name="radioButtonDeliverPRfromAMS.Text" xml:space="preserve">
-    <value>Azure Media Services の DRM ライセンス配信を利用する</value>
+  <data name="groupBoxPlayReady.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="radioButtonExternalPRServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 19</value>
+  <data name="checkBoxPlayReady.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="radioButtonExternalPRServer.Text" xml:space="preserve">
-    <value>外部の PlayReady ライセンスサーバーを利用する</value>
+  <data name="checkBoxPlayReady.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxPlayReady.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownNbOptionsPlayReady.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownNbOptionsPlayReady.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="numericUpDownNbOptionsPlayReady.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="numericUpDownNbOptionsPlayReady.Location" type="System.Drawing.Point, System.Drawing">
     <value>480, 33</value>
+  </data>
+  <data name="label2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>362, 37</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 15</value>
+    <value>105, 15</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>ポリシーオプション数 :</value>
   </data>
+  <data name="label8.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label8.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label8.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="label8.Text" xml:space="preserve">
     <value>複数のタイプのトークンをサポートする場合や、トークンのクレームに応じて様々な PlayReady ライセンスを配信する場合、1つ以上のポリシーオプションを構成する.</value>
+  </data>
+  <data name="groupBoxWidevine.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBoxWidevine.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="groupBoxWidevine.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxWidevine.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxWidevine.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxWidevine.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownNbOptionsWidevine.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownNbOptionsWidevine.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="numericUpDownNbOptionsWidevine.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="numericUpDownNbOptionsWidevine.Location" type="System.Drawing.Point, System.Drawing">
     <value>480, 29</value>
   </data>
-  <data name="checkBoxWidevineFinalExtURL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>383, 19</value>
+  <data name="label6.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="checkBoxWidevineFinalExtURL.Text" xml:space="preserve">
-    <value>Final URL (Key ID が動的暗号化サービスによって URL に追加されない)</value>
+  <data name="label6.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 15</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>ライセンス取得 URL :</value>
+  <data name="label6.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>362, 34</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 15</value>
+    <value>105, 15</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>ポリシーオプション数 :</value>
   </data>
-  <data name="radioButtonExternalWVServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 19</value>
+  <data name="groupBoxFairPlay.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="radioButtonExternalWVServer.Text" xml:space="preserve">
-    <value>外部の Widevine ライセンスサーバーを利用する</value>
+  <data name="groupBoxFairPlay.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
   </data>
-  <data name="radioButtonDeliverWVFromAMS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 19</value>
+  <data name="groupBoxFairPlay.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="radioButtonDeliverWVFromAMS.Text" xml:space="preserve">
-    <value>Azure Media Services の DRM ライセンス配信を利用する</value>
+  <data name="panelFairPlayFromAMS.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>動的暗号化 - ステップ 3</value>
+  <data name="panelFairPlayFromAMS.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
   </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>(URL)</value>
+  <data name="panelFairPlayFromAMS.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="checkBoxEncodingSL.Text" xml:space="preserve">
-    <value>Silverlight 向けエンコード</value>
+  <data name="label10.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="groupBoxPlayReady.Text" xml:space="preserve">
-    <value>PlayReady</value>
+  <data name="label10.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>(URL)</value>
+  <data name="label10.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="labelPreview.Text" xml:space="preserve">
-    <value>パブリックプレビュー</value>
+  <data name="TextBoxCertificateFile.Error" xml:space="preserve">
+    <value />
   </data>
-  <data name="groupBoxWidevine.Text" xml:space="preserve">
-    <value>Widevine</value>
+  <data name="TextBoxCertificateFile.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="TextBoxCertificateFile.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxASK.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxASK.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxASK.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panel2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panel2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonASKBase64.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonASKBase64.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonASKBase64.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonASKHex.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonASKHex.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonASKHex.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label9.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label9.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label9.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonImportPFX.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonImportPFX.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonImportPFX.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxFairPlay.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxFairPlay.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxFairPlay.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="numericUpDownNbOptionsFairPlay.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label3.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label3.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>ライセンス取得 URL :</value>
   </data>
 </root>
