@@ -4726,7 +4726,7 @@ namespace AMSExplorer
                 List<LiveEvent> SelectedLiveEvents = await ReturnSelectedLiveEventsAsync();
                 if (SelectedLiveEvents.Count > 0)
                 {
-                    dataGridViewLiveOutputV.LiveEventSourceNames = SelectedLiveEvents.Select(c => c.Name).ToList();
+                    dataGridViewLiveOutputV.SetLiveEventSourceNames(SelectedLiveEvents.Select(c => c.Name).ToList());
                     Debug.WriteLine("live event selection changed : before refresh");
                     DoRefreshGridLiveOutputV(false);
                 }
@@ -7693,7 +7693,7 @@ namespace AMSExplorer
             List<Transform> SelectedTransforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
             if (SelectedTransforms.Count == 1)
             {
-                dataGridViewJobsV.TransformSourceNames = SelectedTransforms.Select(c => c.Name).ToList();
+                dataGridViewJobsV.SetTransformSourceNames(SelectedTransforms.Select(c => c.Name).ToList());
 
                 await Task.Run(() =>
                 {

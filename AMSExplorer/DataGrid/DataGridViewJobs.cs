@@ -174,11 +174,24 @@ namespace AMSExplorer
             return SelectedJobs;
         }
 
-
+        /*
         public List<string> TransformSourceNames
         {
             get => _transformName;
             set => _transformName = value;
+        }
+        */
+
+        public List<string> GetTransformSourceNames()
+        {
+            return _transformName;
+
+        }
+
+        public void SetTransformSourceNames(List<string> list)
+        {
+            _transformName = list;
+            return;
         }
 
 

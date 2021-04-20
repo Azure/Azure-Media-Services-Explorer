@@ -49,10 +49,14 @@ namespace AMSExplorer
         private static enumDisplayProgram _anyChannel = enumDisplayProgram.Selected;
         private AMSClientV3 _amsClient;
 
-        public List<string> LiveEventSourceNames
+        public void SetLiveEventSourceNames(List<string> list)
         {
-            get => idsList;
-            set => idsList = value;
+            idsList = list;
+        }
+
+        public List<string> GetLiveEventSourceNames()
+        {
+            return idsList;
         }
 
         public int ItemsPerPage
@@ -293,7 +297,7 @@ namespace AMSExplorer
             {
                 ListEvents = (await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName))
                     .ToList()
-                    .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && LiveEventSourceNames.Contains(l.Name)));
+                    .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && GetLiveEventSourceNames().Contains(l.Name)));
             }
 
 
