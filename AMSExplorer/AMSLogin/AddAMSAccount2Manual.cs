@@ -30,7 +30,7 @@ namespace AMSExplorer
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
     }
 }

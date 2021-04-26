@@ -118,13 +118,13 @@ namespace AMSExplorer
 
         private void EditorPresetJSON_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
             UpdateTransformLabel();
         }
 
         private void EditorPresetJSON_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
         }
     }
 }

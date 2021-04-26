@@ -225,9 +225,6 @@ namespace AMSExplorer
 
         private void PlayReadyLicense_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
-
             moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, Constants.LinkPlayReadyCompliance));
 
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.NonPersistent);
@@ -389,8 +386,6 @@ namespace AMSExplorer
 
         private void DRM_PlayReadyLicense_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
     }
 }

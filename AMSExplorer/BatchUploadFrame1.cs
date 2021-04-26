@@ -55,7 +55,7 @@ namespace AMSExplorer
 
         private void BathUploadFrame1_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void buttonNext_Click(object sender, EventArgs e)

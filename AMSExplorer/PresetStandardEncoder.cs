@@ -127,10 +127,7 @@ namespace AMSExplorer
 
         private void PresetStandardEncoder_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming, EncoderNamedPreset.AdaptiveStreaming));
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.ContentAwareEncoding, EncoderNamedPreset.ContentAwareEncoding));
@@ -214,10 +211,6 @@ namespace AMSExplorer
 
         private void PresetStandardEncoder_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelMES, e);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
 
         private void buttonCustomPresetCopyEdit_Click(object sender, EventArgs e)

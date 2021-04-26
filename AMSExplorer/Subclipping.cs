@@ -161,10 +161,7 @@ namespace AMSExplorer
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             _buttonOk = buttonOk.Text;
             _labelAccurate = labelAccurate.Text;
@@ -618,10 +615,7 @@ namespace AMSExplorer
         private void Subclipping_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelGen, timeControlStart, timeControlEnd, textBoxConfiguration }, e, this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelGen, timeControlStart, timeControlEnd, textBoxConfiguration }, e, this);
         }
 
         private void Subclipping_Shown(object sender, EventArgs e)

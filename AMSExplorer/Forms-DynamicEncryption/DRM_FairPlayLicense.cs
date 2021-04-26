@@ -111,7 +111,7 @@ namespace AMSExplorer
 
         private void DRM_FairPlayLicense_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void radioButtonPersistent_CheckedChanged(object sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace AMSExplorer
 
         private void DRM_FairPlayLicense_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
         }
 
         private void radioButtonLimited_CheckedChanged(object sender, EventArgs e)

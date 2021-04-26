@@ -34,12 +34,12 @@ namespace AMSExplorer
 
         private void DeleteLiveOutputEvent_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void DeleteLiveOutputEvent_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

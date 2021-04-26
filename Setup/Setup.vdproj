@@ -230,8 +230,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Azure Media Services Explorer"
-        "ProductCode" = "8:{A08B85D2-447F-4C4E-A2B8-3841086EC595}"
-        "PackageCode" = "8:{B1B57E53-ABD2-4785-B542-8F6D85185173}"
+        "ProductCode" = "8:{F542BBDE-DA7D-4840-A984-5913C300558C}"
+        "PackageCode" = "8:{21AFEBC3-1EAD-4DF4-935C-FDFF97B9C598}"
         "UpgradeCode" = "8:{5145C7B3-B64F-42CA-A111-45E636E02027}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -813,7 +813,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_40EE078B04724F5E8338D7B404AD37C4"
             {
-            "SourcePath" = "8:..\\AMSExplorer\\obj\\Release\\net5.0-windows\\AMSExplorer.dll"
+            "SourcePath" = "8:..\\AMSExplorer\\obj\\Debug\\net5.0-windows\\AMSExplorer.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
@@ -841,7 +841,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9D5CE24C90C9470491CE1D865EE7EFA4"
             {
-            "SourcePath" = "8:..\\AMSExplorer\\obj\\Release\\net5.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\AMSExplorer\\obj\\Debug\\net5.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"

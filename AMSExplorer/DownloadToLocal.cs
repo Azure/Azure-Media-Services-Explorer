@@ -48,7 +48,7 @@ namespace AMSExplorer
 
         private void DownloadToLocal_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             /*
             if (string.IsNullOrEmpty(_backupfolder) || !Directory.Exists(_backupfolder))
@@ -78,7 +78,7 @@ namespace AMSExplorer
 
         private void DownloadToLocal_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

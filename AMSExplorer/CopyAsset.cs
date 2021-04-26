@@ -112,7 +112,7 @@ namespace AMSExplorer
 
             copyassetname.Text = Constants.NameconvAsset + "-copy-" + Program.GetUniqueness();
 
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             // Add a dummy column     
             ColumnHeader header = new ColumnHeader
@@ -251,7 +251,7 @@ namespace AMSExplorer
 
         private void CopyAsset_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
         }
 
         private void ScaleListViewColumns(ListView listview)

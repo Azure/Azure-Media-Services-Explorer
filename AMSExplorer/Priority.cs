@@ -62,10 +62,6 @@ namespace AMSExplorer
 
         private void Priority_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -75,10 +71,7 @@ namespace AMSExplorer
 
         private void PriorityForm_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
         }
     }
 }

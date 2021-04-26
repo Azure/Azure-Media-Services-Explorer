@@ -54,10 +54,7 @@ namespace AMSExplorer
 
         private void PresetVideoAnalyzer_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
@@ -137,10 +134,7 @@ namespace AMSExplorer
 
         private void PresetVideoAnalyzer_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAVAnalyzer, e);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelAVAnalyzer, e);
         }
 
         private void radioButtonAudioBasic_CheckedChanged(object sender, EventArgs e)

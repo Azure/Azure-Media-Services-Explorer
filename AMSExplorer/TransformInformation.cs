@@ -59,7 +59,7 @@ namespace AMSExplorer
 
         private void TransformInformation_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             labelJobNameTitle.Text += _transform.Name;
 
@@ -190,7 +190,7 @@ namespace AMSExplorer
         private void TransformInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelJobNameTitle, contextMenuStrip, contextMenuStripInputAsset, contextMenuStripOutputAsset }, e, this);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelJobNameTitle, contextMenuStrip, contextMenuStripInputAsset, contextMenuStripOutputAsset }, e, this);
         }
     }
 }

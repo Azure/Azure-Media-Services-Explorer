@@ -121,10 +121,9 @@ namespace AMSExplorer
 
         private async void BathUploadFrame2_LoadAsync(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
             if (ErrorConnect)
             {
@@ -193,8 +192,6 @@ namespace AMSExplorer
 
         private void BatchUploadFrame2_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
     }
 }

@@ -97,12 +97,12 @@ namespace AMSExplorer
 
         private void NewAsset_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelNewAsset, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelNewAsset, e);
         }
 
         private void NewAsset_Load(object sender, System.EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void TextBoxAssetName_TextChanged(object sender, System.EventArgs e)

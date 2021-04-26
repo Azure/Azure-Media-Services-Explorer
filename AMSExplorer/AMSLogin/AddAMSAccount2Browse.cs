@@ -52,7 +52,7 @@ namespace AMSExplorer
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(string.Format("{0} ({1})", t.DisplayName, t.TenantId), t.TenantId)));
 
@@ -226,7 +226,7 @@ namespace AMSExplorer
 
         private void AddAMSAccount2Browse_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
         }
 
         private void TreeViewAzureSub_BeforeExpand(object sender, TreeViewCancelEventArgs e)

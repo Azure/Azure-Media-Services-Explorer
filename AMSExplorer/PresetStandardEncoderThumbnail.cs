@@ -123,10 +123,6 @@ namespace AMSExplorer
 
         private void PresetStandardEncoderThumbnail_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
             moreinfoprofilelink.Links.Clear();
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoMediaEncoderThumbnail));
@@ -141,10 +137,7 @@ namespace AMSExplorer
 
         private void PresetStandardEncoderThumbnail_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelMES, e);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelMES, e);
         }
 
 

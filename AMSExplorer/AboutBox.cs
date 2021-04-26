@@ -34,8 +34,6 @@ namespace AMSExplorer
             labelCompanyName.Text = AssemblyCompany;
         }
 
-        #region Assembly Attribute Accessors
-
         public string AssemblyTitle
         {
             get
@@ -49,7 +47,7 @@ namespace AMSExplorer
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return string.Empty;
             }
         }
 
@@ -106,11 +104,10 @@ namespace AMSExplorer
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
 
         private void AboutBox_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void linkLabelContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

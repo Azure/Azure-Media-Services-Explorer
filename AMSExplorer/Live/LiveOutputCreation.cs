@@ -126,7 +126,7 @@ namespace AMSExplorer
 
         private async void LiveOutputCreation_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             Text = string.Format(Text, LiveEventName);
             //checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);

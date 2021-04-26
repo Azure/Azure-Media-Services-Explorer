@@ -45,12 +45,12 @@ namespace AMSExplorer
 
         private void DisplayBox_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void DisplayBox_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

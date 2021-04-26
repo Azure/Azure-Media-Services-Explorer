@@ -110,7 +110,7 @@ namespace AMSExplorer
 
         private void TimeRangeSelection_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void radioButtonEndCustom_CheckedChanged(object sender, EventArgs e)

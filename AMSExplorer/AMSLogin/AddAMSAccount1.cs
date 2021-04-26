@@ -37,7 +37,7 @@ namespace AMSExplorer
 
         private void AddAMSAccount1_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             AzureEnvType[] envs = new AzureEnvType[] { AzureEnvType.Azure, AzureEnvType.AzureChina, AzureEnvType.AzureUSGovernment, AzureEnvType.AzureGermany, AzureEnvType.DevTest };
 

@@ -116,7 +116,7 @@ namespace AMSExplorer
 
         private void DRM_CENCCBCSDelivery_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             groupBoxPlayReady.Visible = checkBoxPlayReady.Checked = _PlayReadyPackagingEnabled;
             groupBoxWidevine.Visible = checkBoxWidevine.Checked = _WidevinePackagingEnabled;
@@ -130,7 +130,7 @@ namespace AMSExplorer
 
         private void DRM_CENCCBCSDelivery_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label1, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label1, e);
         }
 
         private void ValidateButtonOk()

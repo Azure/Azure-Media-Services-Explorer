@@ -61,10 +61,6 @@ namespace AMSExplorer
 
         private void PresetFaceDetector_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
 
@@ -112,10 +108,7 @@ namespace AMSExplorer
 
         private void PresetFaceDetector_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
     }
 }

@@ -292,7 +292,7 @@ namespace AMSExplorer
                         AssetBitmapAndText assetBitmapAndText = await DataGridViewAssets.BuildBitmapPublicationAsync(asset.Name, _amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
-                            AE.Publication = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
+                            AE.Publication = assetBitmapAndText.bitmap;
                         }
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
@@ -308,7 +308,7 @@ namespace AMSExplorer
                         assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset.Name, _amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
-                            AE.DynamicEncryption = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
+                            AE.DynamicEncryption = assetBitmapAndText.bitmap;
                         }
 
                         if (assetBitmapAndText.Locators != null)

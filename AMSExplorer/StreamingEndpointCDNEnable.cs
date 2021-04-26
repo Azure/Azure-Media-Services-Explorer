@@ -80,12 +80,12 @@ namespace AMSExplorer
 
         private void StreamingEndpointCDNEnable_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void StreamingEndpointCDNEnable_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelCDNOptions, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelCDNOptions, e);
         }
     }
 

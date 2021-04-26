@@ -56,7 +56,7 @@ namespace AMSExplorer
         private void AMSLogin_Load(object sender, EventArgs e)
         {
             //Properties.Settings.Default.LoginListRPv3JSON = "";
-            DpiUtils.InitPerMonitorDpi(this);
+            //// DpiUtils.InitPerMonitorDpi(this);
 
             // Add a dummy column     
             ColumnHeader header = new ColumnHeader
@@ -683,7 +683,7 @@ namespace AMSExplorer
 
         private void AmsLogin_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
         }
     }
 }

@@ -78,12 +78,12 @@ namespace AMSExplorer
 
         private void UploadOptions_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobOptions, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobOptions, e);
         }
 
         private void UploadOptions_Load(object sender, System.EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             var sizeText = AssetInfo.FormatByteSize(1024 * 1024L * Properties.Settings.Default.DataMovementBlockSize * 50000);
             labelBlockSize.Text = string.Format(labelBlockSize.Text, Properties.Settings.Default.DataMovementBlockSize, sizeText);

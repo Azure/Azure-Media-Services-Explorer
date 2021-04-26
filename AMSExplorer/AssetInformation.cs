@@ -297,7 +297,7 @@ namespace AMSExplorer
 
         private async Task LoadAsync()
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             labelAssetNameTitle.Text += myAsset.Name;
 
@@ -2172,7 +2172,7 @@ namespace AMSExplorer
         private void AssetInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripBlobs, contextMenuStripKey, contextMenuStripFilter }, e, this);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripBlobs, contextMenuStripKey, contextMenuStripFilter }, e, this);
             //DpiUtils.UpdatedSizeFontAfterDPIChangeV8(new List<Control> { textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e, this);
         }
 

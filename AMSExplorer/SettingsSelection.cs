@@ -63,7 +63,7 @@ namespace AMSExplorer
 
         private void SettingsSelection_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
 
@@ -80,7 +80,7 @@ namespace AMSExplorer
 
         private void SettingsSelection_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
         }
     }
 }

@@ -157,12 +157,7 @@ namespace AMSExplorer
 
         private async void JobSubmitFromTransform_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
             dataGridViewEDL.DataSource = TimeCodeList;
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
             await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault()?.Name);
             UpdateLabeltext();
@@ -326,11 +321,6 @@ namespace AMSExplorer
 
         private void JobSubmitFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, timeControlStartTime, timeControlEndTime }, e, this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
         }
 
         private async void radioButtonExistingAsset_CheckedChanged(object sender, EventArgs e)

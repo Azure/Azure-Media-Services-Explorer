@@ -65,7 +65,7 @@ namespace AMSExplorer
 
         private async void ImportHttp_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
             labelURLFileNameWarning.Text = string.Empty;
 
             await _amsClientV3.RefreshTokenIfNeededAsync();
@@ -115,7 +115,7 @@ namespace AMSExplorer
 
         private void ImportHttp_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
 
         private void ButtonAdvancedOptions_Click(object sender, EventArgs e)

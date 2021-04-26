@@ -33,7 +33,7 @@ namespace AMSExplorer
 
         private void options_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
             checkBoxDisplayAssetID.Checked = Properties.Settings.Default.DisplayAssetIDinGrid;
             checkBoxDisplayAssetAltId.Checked = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             checkBoxDisplayAssetStorage.Checked = Properties.Settings.Default.DisplayAssetStorageinGrid;
@@ -161,7 +161,7 @@ namespace AMSExplorer
 
         private void Options_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            //   DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            //   // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
 
         private void checkBoxAutoParOpe_CheckedChanged(object sender, EventArgs e)

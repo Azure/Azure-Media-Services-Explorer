@@ -189,7 +189,7 @@ namespace AMSExplorer
 
         private async void CreateLocator_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             // Filters
             List<string> afiltersnames = new List<string>();
@@ -308,7 +308,7 @@ namespace AMSExplorer
 
         private void CreateLocator_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
         }
     }
 }

@@ -220,7 +220,7 @@ namespace AMSExplorer
 
         private void DRM_Config_TokenClaims_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
@@ -382,7 +382,7 @@ namespace AMSExplorer
 
         private void Form_DRM_Config_TokenClaims_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelStep, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelStep, e);
         }
     }
 }

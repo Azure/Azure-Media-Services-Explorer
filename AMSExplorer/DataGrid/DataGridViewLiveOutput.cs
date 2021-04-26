@@ -342,7 +342,7 @@ namespace AMSExplorer
                                                               Description = c.LOExt.LiveOutputItem.Description,
                                                               ArchiveWindowLength = c.LOExt.LiveOutputItem.ArchiveWindowLength,
                                                               LastModified = c.LOExt.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LOExt.LiveOutputItem.LastModified).ToLocalTime() : null,
-                                                              Published = (Bitmap)HighDpiHelper.ScaleImage(c.LOBitmap.bitmap, scale),
+                                                              Published = c.LOBitmap.bitmap,
                                                               LiveEventName = c.LOExt.LiveEventName
                                                           });
 

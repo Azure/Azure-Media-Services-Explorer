@@ -251,7 +251,7 @@ namespace AMSExplorer
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             FillComboProtocols();
 

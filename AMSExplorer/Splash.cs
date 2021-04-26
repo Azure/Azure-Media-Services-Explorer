@@ -31,27 +31,6 @@ namespace AMSExplorer
 
         }
 
-
-
-        #region Assembly Attribute Accessors
-
-        public string AssemblyTitle
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != string.Empty)
-                    {
-                        return titleAttribute.Title;
-                    }
-                }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
-            }
-        }
-
         public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string AssemblyDescription
@@ -105,11 +84,10 @@ namespace AMSExplorer
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
 
         private void Splash_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void Splash_Paint(object sender, PaintEventArgs e)
@@ -123,7 +101,7 @@ namespace AMSExplorer
         private void Splash_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, labelConnecting }, e, this);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, labelConnecting }, e, this);
         }
     }
 }

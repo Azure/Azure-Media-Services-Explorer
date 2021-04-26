@@ -2858,9 +2858,8 @@ namespace AMSExplorer
 
         private void Mainform_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
             // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(this);
 
             Hide();
 
@@ -8367,12 +8366,6 @@ namespace AMSExplorer
 
         private void Mainform_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAMSBig, menuStripMain, contextMenuStripTransfers, contextMenuStripAssets, contextMenuStripJobs, contextMenuStripLiveEvents, contextMenuStripLiveOutputs, contextMenuStripStreaminEndpoints, contextMenuStripLog, contextMenuStripTransforms, contextMenuStripStorage, contextMenuStripFilters, statusStrip1 }, e, this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesAfterDpiChange(panelButtons, e);
-
             Refresh();
         }
 

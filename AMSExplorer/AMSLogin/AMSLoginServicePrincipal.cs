@@ -40,12 +40,12 @@ namespace AMSExplorer
 
         private void AmsLoginServicePrincipal_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
         }
 
         private void AmsLoginServicePrincipal_Load(object sender, System.EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
     }
 }
