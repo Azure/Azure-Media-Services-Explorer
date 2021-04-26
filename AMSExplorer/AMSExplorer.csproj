@@ -5,11 +5,13 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AMSExplorer.Program</StartupObject>
-    <Version>$(VersionPrefix)5.4.1.0</Version>
+    <Version>5.4.0.1</Version>
     <ApplicationIcon>C:\Repos\AMSExplorer.Net5\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
-    <Copyright>Copyright ©  2021</Copyright>
+    <Copyright>Copyright © 2021</Copyright>
     <Company>$(Authors)Microsoft</Company>
+    <AssemblyVersion></AssemblyVersion>
+    <FileVersion></FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

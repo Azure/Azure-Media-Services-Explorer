@@ -793,7 +793,7 @@ namespace AMSExplorer
                     .WithRedirectUri("http://localhost")
                     .Build();
 
-            
+
                 var accounts = await app.GetAccountsAsync();
 
                 try
@@ -804,18 +804,18 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        authResult = await app.AcquireTokenInteractive(scopes).ExecuteAsync().ConfigureAwait(false); ;
+                        authResult = await app.AcquireTokenInteractive(scopes).WithPrompt(credentialsEntry.PromptUser ? Prompt.ForceLogin : Prompt.NoPrompt).ExecuteAsync().ConfigureAwait(false);
                     }
                     catch (MsalException maslException)
                     {
                         Debug.Print("MSAL interactive authentication exception !" + maslException.Message);
-                                            }
+                    }
                 }
                 catch (MsalException maslException)
                 {
                     Debug.Print("MSAL silent authentication exception !" + maslException.Message);
                 }
-               
+
 
                 try
                 {
@@ -861,8 +861,8 @@ namespace AMSExplorer
                 {
                     return null;
                 }
-                  
-              
+
+
 
                 //var accounts = await app3.GetAccountsAsync();
 
@@ -930,7 +930,7 @@ namespace AMSExplorer
         }
 
 
-  
+
         public static string GetStorageName(string storageId)
         {
             return storageId.Split('/').Last();

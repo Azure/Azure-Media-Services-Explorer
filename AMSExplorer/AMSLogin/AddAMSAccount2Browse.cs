@@ -35,12 +35,13 @@ namespace AMSExplorer
         private TokenCredentials credentials;
         private readonly AzureEnvironment environment;
         private readonly List<TenantIdDescription> _myTenants;
+        private readonly Prompt _prompt;
         private List<Subscription> subscriptions;
         private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new Dictionary<string, List<MediaService>>();
         public MediaService selectedAccount = null;
         public string selectedTenantId = null;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants)
+        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants, Prompt prompt)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -48,6 +49,7 @@ namespace AMSExplorer
             this.subscriptions = subscriptions;
             this.environment = environment;
             _myTenants = myTenants;
+            _prompt = prompt;
         }
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
@@ -80,7 +82,7 @@ namespace AMSExplorer
             selectedTenantId = ((Item)comboBoxTenants.SelectedItem).Value;
 
 
-           
+
             var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/.default" };
 
 
@@ -118,7 +120,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    accessToken = await app.AcquireTokenInteractive(scopes).ExecuteAsync();
+                    accessToken = await app.AcquireTokenInteractive(scopes).WithPrompt(_prompt).ExecuteAsync();
                 }
                 catch (MsalException)
                 {

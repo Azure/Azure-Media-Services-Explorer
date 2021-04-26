@@ -421,6 +421,7 @@ namespace AMSExplorer
                 if (addaccount1.SelectedMode == AddAccountMode.BrowseSubscriptions)
                 {
                     Cursor = Cursors.WaitCursor;
+                    Prompt prompt = addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.NoPrompt;
 
                     //string[] scopes = { "User.Read" };
                     environment = addaccount1.GetEnvironment();
@@ -463,7 +464,7 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            accessToken = await app.AcquireTokenInteractive(scopes).ExecuteAsync();
+                            accessToken = await app.AcquireTokenInteractive(scopes).WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.NoPrompt).ExecuteAsync();
                         }
                         catch (MsalException)
                         {
@@ -530,7 +531,7 @@ namespace AMSExplorer
                     */
                     Cursor = Cursors.Default;
 
-                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants);
+                    AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants, prompt);
 
                     //  AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants/*, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto)*/);
 
