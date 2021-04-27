@@ -95,7 +95,7 @@ namespace AMSExplorer
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
-            textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "Preset.json"));
+            textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath, Constants.PathConfigFiles, "Preset.json"));
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)

@@ -18,6 +18,7 @@ using Microsoft.Azure.Storage.DataMovement;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 
@@ -130,7 +131,7 @@ namespace AMSExplorer
             textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
             textBoxVLCPath.Text = @"%programfiles32%\VideoLAN\VLC";
 
-            Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
+            Properties.Settings.Default.DefaultSlateCurrentFolder = Path.Combine(Application.StartupPath, Constants.PathDefaultSlateJPG);
 
             Properties.Settings.Default.DynEncTokenIssuerv3 = "http://testacs";
             Properties.Settings.Default.DynEncTokenAudiencev3 = "urn:test";

@@ -191,7 +191,7 @@ namespace AMSExplorer
 
             if (locators.Count > 0)
             {
-                AssetStreamingLocator LocatorQuery = locators.Where(l => ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.EndTime > DateTime.UtcNow)).FirstOrDefault();
+                AssetStreamingLocator LocatorQuery = locators.Where(l => l.StartTime < DateTime.UtcNow && (l.EndTime > DateTime.UtcNow)).FirstOrDefault();
                 if (LocatorQuery != null)
                 {
                     return LocatorQuery;
@@ -353,19 +353,14 @@ namespace AMSExplorer
         {
             PublishStatus LocPubStatus;
             if (!(Locator.EndTime < DateTime.UtcNow))
-            {// not in the past
-             // if  locator is not valid today but will be in the future
-                if (Locator.StartTime != null)
-                {
-                    LocPubStatus = (Locator.StartTime > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
-                }
-                else
-                {
-                    LocPubStatus = PublishStatus.PublishedActive;
-                }
-            }
-            else      // if locator is in the past
             {
+                // not in the past
+                // if  locator is not valid today but will be in the future
+                LocPubStatus = (Locator.StartTime > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
+            }
+            else
+            {
+                // if locator is in the past
                 LocPubStatus = PublishStatus.PublishedExpired;
             }
             return LocPubStatus;
@@ -1503,7 +1498,9 @@ namespace AMSExplorer
                         lPath = lTmp.ToString();
                 }
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception lEx)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 //Logger.Error(lEx);
             }

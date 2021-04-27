@@ -71,15 +71,10 @@ namespace AMSExplorer
         private const int maxNbJobs = 50000;
         private readonly bool enableTelemetry = true;
 
-#pragma warning disable CS0414 // The field 'Mainform.OneGB' is assigned but its value is never used
         private static readonly long OneGB = 1000L * 1000L * 1000L;
-#pragma warning disable CS0414 // The field 'Mainform.S1AssetSizeLimit' is assigned but its value is never used
         private static readonly int S1AssetSizeLimit = 26; // GBytes
-#pragma warning restore CS0414 // The field 'Mainform.S1AssetSizeLimit' is assigned but its value is never used
         private static readonly int S2AssetSizeLimit = 60; // GBytes
-#pragma warning restore CS0414 // The field 'Mainform.S2AssetSizeLimit' is assigned but its value is never used
         private static readonly int S3AssetSizeLimit = 260; // GBytes
-#pragma warning restore CS0414 // The field 'Mainform.S3AssetSizeLimit' is assigned but its value is never used
         public string _accountname;
         private static AMSClientV3 _amsClient;
         private readonly MediaRU _mediaRUContext;
@@ -130,18 +125,18 @@ namespace AMSExplorer
 
                 }
             }
-            _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
+            _configurationXMLFiles = Path.Combine(Application.StartupPath, Constants.PathConfigFiles);
 
 
             // Default Slate Image
             if ((Properties.Settings.Default.DefaultSlateCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder)))
             {
-                Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
+                Properties.Settings.Default.DefaultSlateCurrentFolder = Path.Combine(Application.StartupPath, Constants.PathDefaultSlateJPG);
             }
 
             Program.SaveAndProtectUserConfig(); // to save settings 
 
-            _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
+            _HelpFiles = Path.Combine(Application.StartupPath, Constants.PathHelpFiles);
 
             AmsLogin formLogin = new AmsLogin();
 

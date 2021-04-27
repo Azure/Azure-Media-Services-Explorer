@@ -432,8 +432,8 @@ namespace AMSExplorer
                         .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
                         .WithRedirectUri("http://localhost")
                         .Build();
-                                              
-                       
+
+
 
                     /*
                     AuthenticationContext authContext = new AuthenticationContext(
@@ -460,7 +460,9 @@ namespace AMSExplorer
                         */
 
                     }
+#pragma warning disable CS0168 // Variable is declared but never used
                     catch (MsalUiRequiredException ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                     {
                         try
                         {
@@ -664,7 +666,7 @@ namespace AMSExplorer
             var p = new Process();
             p.StartInfo = new ProcessStartInfo
             {
-                FileName = Application.StartupPath + @"\HelpFiles\" + @"AMSv3doc.pdf",
+                FileName = Path.Combine(Application.StartupPath, @"HelpFiles\", @"AMSv3doc.pdf"),
                 UseShellExecute = true
             };
             p.Start();

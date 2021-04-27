@@ -455,14 +455,14 @@ namespace AMSExplorer
 
         public const string endline = "\r\n";
 
-        public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
-        public const string PathMESFiles = @"\MESPresetFiles\";
-        public const string PathConfigFiles = @"\configurations\";
-        public const string PathManifestFile = @"\manifest\";
-        public const string PathHelpFiles = @"\HelpFiles\";
-        public const string PathDefaultSlateJPG = @"\SlateJPG\";
+        public const string PathPremiumWorkflowFiles = @"PremiumWorkflowSamples\";
+        public const string PathMESFiles = @"MESPresetFiles\";
+        public const string PathConfigFiles = @"configurations\";
+        public const string PathManifestFile = @"manifest\";
+        public const string PathHelpFiles = @"HelpFiles\";
+        public const string PathDefaultSlateJPG = @"SlateJPG\";
 
-        public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
+        public const string PathLicense = @"license\Azure Media Services Explorer.rtf";
 
         public const string PlayerAMPinOptions = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=flash&format=smooth&url={0}";
         public const string PlayerAMP = @"https://aka.ms/azuremediaplayer";
@@ -800,7 +800,9 @@ namespace AMSExplorer
                 {
                     authResult = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync().ConfigureAwait(false); ;
                 }
+#pragma warning disable CS0168 // Variable is declared but never used
                 catch (MsalUiRequiredException ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     try
                     {

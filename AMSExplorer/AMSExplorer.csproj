@@ -30,7 +30,9 @@
     <None Remove="Configurations\SampleWatchFolderJSONCall.json" />
     <None Remove="Configurations\Thumbnails.xml" />
     <None Remove="HelpFiles\AMSv3doc.pdf" />
+    <None Remove="LICENSE\Azure Media Services Explorer.rtf" />
     <None Remove="manifest\manifest.ism" />
+    <None Remove="SlateJPG\DefaultAzurePortalSlate.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,7 +69,13 @@
     <Content Include="HelpFiles\AMSv3doc.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="LICENSE\Azure Media Services Explorer.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="manifest\manifest.ism">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

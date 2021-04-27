@@ -16,6 +16,7 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -134,7 +135,7 @@ namespace AMSExplorer
 
         private void buttonLicTerms_Click(object sender, EventArgs e)
         {
-            string licenseterms = Application.StartupPath + Constants.PathLicense;
+            string licenseterms = Path.Combine(Application.StartupPath, Constants.PathLicense);
 
             var p = new Process();
             p.StartInfo = new ProcessStartInfo

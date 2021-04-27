@@ -116,7 +116,9 @@ namespace AMSExplorer
 
                 accessToken = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (MsalUiRequiredException ex)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 try
                 {

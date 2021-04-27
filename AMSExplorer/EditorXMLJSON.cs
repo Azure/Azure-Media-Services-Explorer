@@ -91,12 +91,12 @@ namespace AMSExplorer
         {
             if (_showSample == ShowSampleMode.Premium)
             {
-                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
+                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath, Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
                 textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
             }
             else if (_showSample == ShowSampleMode.JsonPreset)
             {
-                textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "Preset.json"));
+                textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath, Constants.PathConfigFiles, "Preset.json"));
             }
         }
 

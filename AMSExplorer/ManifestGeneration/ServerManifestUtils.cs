@@ -34,7 +34,7 @@ namespace AMSExplorer.ManifestGeneration
             {
                 // Prepare the manifest
                 string mp4fileuniqueaudio = null;
-                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathManifestFile, @"Manifest.ism"));
+                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath, Constants.PathManifestFile, @"Manifest.ism"));
 
                 XNamespace ns = "http://www.w3.org/2001/SMIL20/Language";
 
