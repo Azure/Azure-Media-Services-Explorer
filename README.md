@@ -27,4 +27,4 @@ Open a bug [here](https://github.com/Azure/Azure-Media-Services-Explorer/issues/
 
 This project welcomes contributions and suggestions. Please see our [contributing guide](CONTRIBUTING.md).
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct](CODE_OF_CONDUCT.md).
+This project has adopted the [Microsoft Open Source Code of Conduct](CODE_OF_CONDUCT.md).
