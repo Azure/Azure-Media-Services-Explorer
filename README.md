@@ -14,7 +14,7 @@ See a full description on http://azure.microsoft.com/blog/2014/10/08/managing-me
 
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**. Please note that AMSE v5 is for AMS v3 API (main branch), and AMSE v4 is for AMS v2 (AMSv2 branch).
 
-This solution has been developped with Visual Studio 2019. It contains two projects: "AMSExplorer", the main application, and "SetupAMSExplorer", an InstallShield project that creates a Setup executable (EXE/MSI).
+This solution has been developed with Visual Studio 2019. It contains two projects: "AMSExplorer", the main application, and "SetupAMSExplorer", an InstallShield project that creates a Setup executable (EXE/MSI).
 
 In order to compile this setup project, which is optional, you should install [InstallShield Lite](https://marketplace.visualstudio.com/items?itemName=Flexera-InstallShield-Lite.InstallShield2018Lite).
 
