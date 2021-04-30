@@ -15,7 +15,7 @@ See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managin
 
 **The latest binary for Windows (with a EXE installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**. Please note that AMSE v5 is for AMS v3 API (main branch), and AMSE v4 is for AMS v2 (AMSv2 branch).
 
-This solution has been developped with Visual Studio 2019 16.10.0 Preview 2.1. It contains two projects: "AMSExplorer", the main application, and "Setup", an installer project that creates a Setup executable (EXE/MSI).
+This solution has been developped with [Visual Studio 2019 16.10.0 Preview 2.1](https://visualstudio.microsoft.com/vs/preview/). It contains two projects: "AMSExplorer", the main application, and "Setup", a project that creates a Setup executable (EXE/MSI). Setup project is using the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects).
 
 Contact: amse@microsoft.com
 
