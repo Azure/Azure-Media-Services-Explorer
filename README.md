@@ -22,7 +22,7 @@ Contact: amse@microsoft.com
 
 Open a bug [here](https://github.com/Azure/Azure-Media-Services-Explorer/issues/new).
 
-![Screen capture](https://user-images.githubusercontent.com/8104205/94001232-88312580-fd98-11ea-9a4b-448fc0910f03.png)
+![Screen capture](https://user-images.githubusercontent.com/8104205/116678834-17935c80-a9aa-11eb-9419-6c79de82b8ca.png)
 
 ## Contributing
 
