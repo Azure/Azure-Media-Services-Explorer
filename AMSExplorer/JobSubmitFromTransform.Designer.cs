@@ -120,10 +120,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelTitle
@@ -148,12 +148,12 @@
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.buttonCreateNewTransform);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.listViewTransforms);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonDeleteTemplate);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
@@ -215,7 +215,6 @@
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.buttonImportEDL);
             this.tabPage2.Controls.Add(this.buttonExportEDL);
             this.tabPage2.Controls.Add(this.labelAssetDescription);
@@ -235,6 +234,7 @@
             this.tabPage2.Controls.Add(this.checkBoxSourceTrimmingStart);
             this.tabPage2.Controls.Add(this.timeControlEndTime);
             this.tabPage2.Controls.Add(this.timeControlStartTime);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
@@ -265,9 +265,9 @@
             // 
             // dataGridViewEDL
             // 
-            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
             this.dataGridViewEDL.AllowUserToAddRows = false;
             this.dataGridViewEDL.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
             this.dataGridViewEDL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEDL.Name = "dataGridViewEDL";
             this.dataGridViewEDL.ReadOnly = true;
@@ -387,7 +387,6 @@
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.listViewAssets1);
             this.tabPage3.Controls.Add(this.labelSelectAsset);
             this.tabPage3.Controls.Add(this.buttonSearchExactAssetName);
@@ -396,6 +395,7 @@
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.radioButtonExistingAsset);
             this.tabPage3.Controls.Add(this.radioButtonNewAsset);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
