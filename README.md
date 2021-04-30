@@ -5,11 +5,11 @@ Azure Media Services Explorer (AMSE) is a Winforms/C# application for Windows th
 
 See a full description on http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool
 
-**The latest binary for Windows (with a EXE installer) is available in the [releases section](https://aka.ms/amseforv2)**. Please note that AMSE v4 is for AMS v2 (AMSv2 branch), and AMSE v5 is for AMS v3 API (master branch).
+**The latest binary for Windows (with a MSI installer) is available in the [releases section](https://aka.ms/amseforv2)**. Please note that AMSE v4 is for AMS v2 (AMSv2 branch), and AMSE v5 is for AMS v3 API (master branch).
 
 There are some nice [Azure Media Services Step-by-Step tutorials](https://www.slideshare.net/shigeyf/azure-media-services-stepbystep-tutorial-docs-series-agenda) using Azure Media Services Explorer.
 
-This solution has been developped with Visual Studio 2019. It contains two projects: "AMSExplorer", the main application, and "SetupAMSExplorer", an InstallShield project that creates a Setup executable (EXE/MSI).
+This solution has been developed with Visual Studio 2019. It contains two projects: "AMSExplorer", the main application, and "SetupAMSExplorer", an InstallShield project that creates a Setup executable (EXE/MSI).
 
 In order to compile this setup project, which is optional, you should install [InstallShield Lite](https://marketplace.visualstudio.com/items?itemName=Flexera-InstallShield-Lite.InstallShield2018Lite).
 
