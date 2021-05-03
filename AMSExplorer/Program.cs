@@ -25,7 +25,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -38,7 +37,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -350,169 +348,6 @@ namespace AMSExplorer
             public string LiveEventName { get; set; }
         }
               
-    }
-
-    public class LiveOutputUtil
-    {
-        public static string ReturnLiveEventFromOutput(LiveOutput liveoutput)
-
-        {
-            string[] idParts = liveoutput.Id.Split('/');
-            return idParts[10];
-        }
-    }
-
-    public class RepData
-    {
-        public string label;
-        public string value;
-    }
-
-    public class ListRepData
-    {
-        public List<RepData> data;
-        public ListRepData()
-        {
-            data = new List<RepData>();
-        }
-        public void Add(string label, string value)
-        {
-            data.Add(new RepData() { label = label, value = value ?? string.Empty });
-        }
-
-        public void Add(ListRepData listRepData)
-        {
-            data.AddRange(listRepData.data);
-        }
-
-        public void Add(string label)
-        {
-            data.Add(new RepData() { label = label, value = null });
-        }
-
-        public StringBuilder ReturnStringBuilder()
-        {
-            StringBuilder sb = new StringBuilder();
-            // calculate padding max
-            int maxLenghtStr = data.Where(d => d.value != null).Select(d => d.label.Length).Max();
-
-            // build StringBuilder
-            data.Select(d => d.value != null ? d.label + new string(' ', maxLenghtStr - d.label.Length) + ": " + d.value : d.label).ToList().ForEach(s => sb.AppendLine(s));
-
-            return sb;
-        }
-    }
-
-    public enum AzureEnvType
-    {
-        Azure = 0,
-        DevTest,
-        AzureChina,
-        AzureUSGovernment,
-        AzureGermany,
-        Custom
-    }
-
-    public enum PlayerType
-    {
-        AzureMediaPlayer = 0,
-        AzureMediaPlayerFrame,
-        AzureMediaPlayerClear,
-        DASHIFRefPlayer,
-        MP4AzurePage,
-        AdvancedTestPlayer,
-        CustomPlayer
-    }
-
-
-    public enum PublishStatus
-    {
-        NotPublished = 0,
-        PublishedActive,
-        PublishedFuture,
-        PublishedExpired
-    }
-
-    public enum AzureMediaPlayerFormats
-    {
-        Auto = 0,
-        Smooth = 1,
-        Dash = 2,
-        HLS = 3,
-        VideoMP4 = 4
-    }
-
-    public enum AMSOutputProtocols
-    {
-        NotSpecified = 0,
-        Smooth,
-        SmoothLegacy,
-        DashCsf,
-        HLSv3,
-        HLSv4,
-        HLSCmaf,
-        DashCmaf
-    }
-
-    public enum AzureMediaPlayerTechnologies
-    {
-        Auto = 0,
-        JavaScript,
-        Flash,
-        Silverlight,
-        NativeHTML5
-    }
-
-
-    public enum AssetProtectionType
-    {
-        None = 0,
-        AES,
-        PlayReady,
-        Widevine,
-        PlayReadyAndWidevine,
-        PlayReadyAndWidevineAndFairplay
-
-    }
-
-    internal class HostNameClass
-    {
-        public string HostName { get; set; }
-    }
-
-
-    public enum SearchIn
-    {
-        AssetNameEquals = 0,
-        AssetNameStartsWith,
-        AssetNameGreaterThan,
-        AssetNameLessThan,
-        AssetId,
-        AssetAltId,
-        AssetFileName,
-        AssetFileId,
-        LocatorId,
-        JobName,
-        JobId,
-        TaskName,
-        TaskId,
-        TaskProcessorId,
-        LiveEventName,
-        LiveEventId,
-        LiveOutputName,
-        LiveOutputId
-    }
-
-    public enum DownloadToFolderOption
-    {
-        DoNotCreateSubfolder = 0,
-        SubfolderAssetName
-    }
-
-
-    public class ExFilterTrack
-    {
-        public List<ExCondition> Conditions { get; set; }
     }
 
 

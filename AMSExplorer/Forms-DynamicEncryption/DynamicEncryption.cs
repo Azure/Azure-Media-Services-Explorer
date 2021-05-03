@@ -22,19 +22,6 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public class MyTokenClaim
-    {
-        public string Type { get; set; }
-        public string Value { get; set; }
-    }
-
-    public enum ExplorerTokenType
-    {
-        NoToken = 0,
-        JWTSym,
-        JWTX509,
-        JWTOpenID
-    }
 
     internal class DynamicEncryption
     {
@@ -167,11 +154,5 @@ namespace AMSExplorer
             return contentKey;
         }
 
-    }
-
-    public class PFXCertificate
-    {
-        public string Password { get; set; }
-        public X509Certificate2 Certificate { get; set; }
     }
 }

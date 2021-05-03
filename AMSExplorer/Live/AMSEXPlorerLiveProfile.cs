@@ -16,64 +16,11 @@
 
 using Microsoft.Azure.Management.Media.Models;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace AMSExplorer
 {
-
-    public enum OperationType
+    public static partial class AMSEXPlorerLiveProfile
     {
-        Create = 0,
-        Delete,
-        Start,
-        Stop,
-        Edit,
-        Scale,
-        SettingsUpdate,
-        ResetAsset,
-        Reset
-    }
-
-
-    public enum enumDisplayProgram
-    {
-        Selected = 0,
-        Any,
-        None
-    }
-
-    public static class AMSEXPlorerLiveProfile
-    {
-        public class LiveVideoProfile
-        {
-            public string Codec { get; set; }
-            public int Bitrate { get; set; }
-            public int Width { get; set; }
-            public int Height { get; set; }
-            public int MaxFPS { get; set; }
-            public string Profile { get; set; }
-            public string OutputStreamName { get; set; }
-
-        }
-
-        public class LiveAudioProfile
-        {
-            public string Language { get; set; }
-            public string Codec { get; set; }
-            public int Bitrate { get; set; }
-            public double SamplingRate { get; set; }
-            public string Channels { get; set; }
-        }
-
-
-
-        public class LiveProfile
-        {
-            public string Name { get; set; }
-            public LiveEventEncodingType Type { get; set; }
-            public List<LiveVideoProfile> Video { get; set; }
-            public LiveAudioProfile Audio { get; set; }
-        }
 
         public static readonly List<LiveProfile> Profiles = new List<LiveProfile>
         {
@@ -114,13 +61,5 @@ namespace AMSExplorer
                     }
                 }
         };
-    }
-
-
-    [DataContract]
-    internal class OAuth2TokenResponse
-    {
-        [DataMember(Name = "access_token")]
-        public string AccessToken { get; set; }
     }
 }
