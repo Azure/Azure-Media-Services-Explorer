@@ -94,7 +94,7 @@ namespace AMSExplorer
         }
         private async Task LoadAssetsAsync()
         {
-            await _client.RefreshTokenIfNeededAsync();
+            
 
             ODataQuery<Asset> odataQuery = null;
             odataQuery = new ODataQuery<Asset>();

@@ -170,12 +170,12 @@ namespace AMSExplorer
 
             Cursor = Cursors.WaitCursor;
 
-            DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.AzureSubscriptionId, DestinationLoginInfo);
+            DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.AzureSubscriptionId, DestinationLoginInfo, this);
 
             AzureMediaServicesClient response = null;
             try
             {
-                response = await DestinationAmsClient.ConnectAndGetNewClientV3Async();
+                response = await DestinationAmsClient.ConnectAndGetNewClientV3Async(this);
             }
             catch (Exception ex)
             {

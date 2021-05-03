@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
@@ -67,7 +68,7 @@ namespace AMSExplorer
             // we want to keep the sorting in display
             get
             {
-                _amsClient.RefreshTokenIfNeeded();
+                
                 List<StreamingEndpoint> list = new List<StreamingEndpoint>();
                 foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
                 {
@@ -95,7 +96,7 @@ namespace AMSExplorer
         {
             IEnumerable<StreamingEndpointEntry> originquery;
             _amsClient = client;
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
             Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             originquery = ses.Select(o => new
@@ -148,7 +149,7 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                await _amsClient.RefreshTokenIfNeededAsync();
+                
                 streamingEndpoint = await _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingEndpoint.Name); //refresh
                 if (streamingEndpoint != null)
                 {
@@ -169,7 +170,7 @@ namespace AMSExplorer
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             StreamingEndpoint origin;
-            _amsClient.RefreshTokenIfNeeded();
+            
 
             foreach (StreamingEndpointEntry OE in _MyObservStreamingEndpoints)
             {
@@ -212,7 +213,7 @@ namespace AMSExplorer
 
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
             streamingendpoints = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             try

@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
@@ -129,7 +130,7 @@ namespace AMSExplorer
             {
                 Close();
             }
-            await _client.RefreshTokenIfNeededAsync();
+            
 
             foreach (StorageAccount storage in (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts)
             {

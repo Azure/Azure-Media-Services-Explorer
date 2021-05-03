@@ -14,6 +14,7 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
@@ -84,7 +85,7 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             IEnumerable<Task<TransformEntryV3>> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntryV3(_context)
             {
@@ -108,7 +109,7 @@ namespace AMSExplorer
 
         public async Task<List<Transform>> ReturnSelectedTransformsAsync()
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             List<Transform> SelectedTransforms = new List<Transform>();
             foreach (DataGridViewRow Row in SelectedRows)

@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
@@ -98,7 +99,6 @@ namespace AMSExplorer
         public static async Task<StreamingLocator> CreateTemporaryOnDemandLocatorAsync(Asset asset, AMSClientV3 _amsClientV3)
         {
             StreamingLocator tempLocator = null;
-            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             try
             {
@@ -126,8 +126,6 @@ namespace AMSExplorer
 
         public static async Task DeleteStreamingLocatorAsync(AMSClientV3 _amsClientV3, string streamingLocatorName)
         {
-            await _amsClientV3.RefreshTokenIfNeededAsync();
-
             try
             {
                 await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName);
@@ -140,7 +138,7 @@ namespace AMSExplorer
 
         public static async Task<Uri> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
 
@@ -185,7 +183,6 @@ namespace AMSExplorer
         {
             if (asset == null) return null;
 
-            await amsClient.RefreshTokenIfNeededAsync();
             IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, asset.Name))
                                                     .StreamingLocators;
 
@@ -415,7 +412,7 @@ namespace AMSExplorer
                 Permissions = AssetContainerPermission.Read,
                 ExpiryTime = DateTime.Now.AddMinutes(5).ToUniversalTime()
             };
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             AssetContainerSas responseSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name, input.Permissions, input.ExpiryTime);
 
@@ -741,7 +738,6 @@ namespace AMSExplorer
                 Permissions = AssetContainerPermission.ReadWriteDelete,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
-            await _amsClient.RefreshTokenIfNeededAsync();
 
             string type = string.Empty;
             long size = 0;
@@ -1142,8 +1138,6 @@ namespace AMSExplorer
 
         public static async Task<ListRepData> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient)
         {
-            await amsClient.RefreshTokenIfNeededAsync();
-
             IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name))
                                                     .StreamingLocators;
 
@@ -1517,7 +1511,6 @@ namespace AMSExplorer
 
         internal static async Task<StreamingEndpoint> GetBestStreamingEndpointAsync(AMSClientV3 client)
         {
-            await client.RefreshTokenIfNeededAsync();
             IEnumerable<StreamingEndpoint> SEList = (await client.AMSclient.StreamingEndpoints.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)).AsEnumerable();
             StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
             if (SESelected == null)

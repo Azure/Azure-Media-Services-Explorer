@@ -14,6 +14,7 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -107,8 +108,6 @@ namespace AMSExplorer
             Debug.WriteLine("AssetsInit");
 
             _syncontext = syncontext;
-
-            client.RefreshTokenIfNeeded();
 
             _amsClient = client;
 
@@ -259,7 +258,7 @@ namespace AMSExplorer
             IEnumerable<AssetEntryV3> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
             List<AssetEntryV3> listae2 = query.ToList();
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
             float scale = DeviceDpi / 96f;
 
             foreach (AssetEntryV3 AE in listae2)
@@ -574,7 +573,7 @@ Properties/StorageId
             }
 
             IPage<Asset> currentPage = null;
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             if (pagetodisplay == 1)
             {
@@ -636,7 +635,6 @@ Properties/StorageId
         {
             Bitmap returnedImage = null;
             string returnedText = null;
-            await _amsClient.RefreshTokenIfNeededAsync();
 
             if (locators == null)
             {
@@ -707,7 +705,6 @@ Properties/StorageId
         /// <returns></returns>
         public static async Task<AssetBitmapAndText> BuildBitmapDynEncryptionAsync(string assetName, AMSClientV3 amsClient, IList<AssetStreamingLocator> locators = null)
         {
-            await amsClient.RefreshTokenIfNeededAsync();
             if (locators == null)
             {
                 try
@@ -774,8 +771,6 @@ Properties/StorageId
 
         public static async Task<int?> ReturnNumberAssetFiltersAsync(string assetName, AMSClientV3 client)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-
             // asset filters
             List<AssetFilter> assetFilters = new List<AssetFilter>();
             try

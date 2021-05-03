@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
@@ -60,7 +61,7 @@ namespace AMSExplorer
 
             try
             {
-                _amsClient.RefreshTokenIfNeeded();
+                
 
                 mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.

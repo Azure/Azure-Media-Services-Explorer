@@ -70,7 +70,7 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
             if (asset != null)
             {
                 // asset filters
@@ -1067,7 +1067,7 @@ namespace AMSExplorer
         private async void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             if (filtername != null)
             {

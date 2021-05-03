@@ -14,6 +14,7 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -155,7 +156,6 @@ namespace AMSExplorer
         public List<JobExtension> ReturnSelectedJobs()
         {
             List<JobExtension> SelectedJobs = new List<JobExtension>();
-            _client.RefreshTokenIfNeeded();
 
             foreach (DataGridViewRow Row in SelectedRows)
             {
@@ -294,7 +294,7 @@ namespace AMSExplorer
 
 
             // Paging
-            await _client.RefreshTokenIfNeededAsync();
+            
 
             IPage<Job> currentPage = null;
             string transform = _transformName.First();
@@ -353,7 +353,7 @@ namespace AMSExplorer
         // Used to restore job progress. 2 cases: when app is launched or when a job has been created by an external program
         public async Task RestoreJobProgressAsync(List<string> transforms)  // when app is launched for example, we want to restore job progress updates
         {
-            await _client.RefreshTokenIfNeededAsync();
+            
 
             ODataQuery<Job> odataQuery = new ODataQuery<Job>
             {
@@ -419,8 +419,6 @@ namespace AMSExplorer
             _MyListJobsMonitored.Add(job.Job.Name, tokenSource); // to track the task and be able to cancel it later
 
             Debug.WriteLine("launch job monitor : " + job.Job.Name);
-
-            _client.RefreshTokenIfNeeded();
 
             _ = Task.Run(() =>
               {
@@ -519,7 +517,6 @@ namespace AMSExplorer
                       && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled);
 
                       // job finished
-                      _client.RefreshTokenIfNeeded();
                       myJob = Task.Run(() =>
                                              _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
                                              ).GetAwaiter().GetResult();

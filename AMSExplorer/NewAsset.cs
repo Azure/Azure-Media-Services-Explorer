@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage;
@@ -75,7 +76,6 @@ namespace AMSExplorer
 
         private async Task ControlsResetToDefaultAsync()
         {
-            await _amsClientV3.RefreshTokenIfNeededAsync();
             IList<StorageAccount> storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
 
             comboBoxStorage.Invoke(c => c.Items.Clear());

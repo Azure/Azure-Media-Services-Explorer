@@ -68,8 +68,6 @@ namespace AMSExplorer
             // DpiUtils.InitPerMonitorDpi(this);
             labelURLFileNameWarning.Text = string.Empty;
 
-            await _amsClientV3.RefreshTokenIfNeededAsync();
-
             if (_AzureStorageContainerSASListMode)
             {
                 labelExamples.Visible = false;

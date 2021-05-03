@@ -71,7 +71,7 @@ namespace AMSExplorer
 
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
-            _amsClient.RefreshTokenIfNeeded();
+            
 
             Asset AssetToDisplayP = Task.Run(() =>
                         _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, MyLiveOutput.AssetName))

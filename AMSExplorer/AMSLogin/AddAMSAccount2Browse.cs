@@ -14,11 +14,13 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSExplorer.AMSLogin;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure;
 using System;
@@ -122,7 +124,11 @@ namespace AMSExplorer
             {
                 try
                 {
-                    accessToken = await app.AcquireTokenInteractive(scopes).WithPrompt(_prompt).ExecuteAsync();
+                    accessToken = await app
+                        .AcquireTokenInteractive(scopes)
+                        .WithPrompt(_prompt)
+                        .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
+                        .ExecuteAsync();
                 }
                 catch (MsalException)
                 {

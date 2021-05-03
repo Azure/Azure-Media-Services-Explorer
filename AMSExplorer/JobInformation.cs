@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
@@ -270,7 +271,7 @@ namespace AMSExplorer
 
             if (assetName != null)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                
                 Asset asset = Task.Run(() =>
                                        _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName))
                                         .GetAwaiter().GetResult();

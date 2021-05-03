@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -43,7 +44,7 @@ namespace AMSExplorer
             {
                 string val = (listBoxSE.SelectedItem as Item).Value;
                 string seName = val.Split("|".ToCharArray())[0];
-                _amsClient.RefreshTokenIfNeeded();
+                
                 return Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, seName)).GetAwaiter().GetResult();
             }
         }
@@ -158,7 +159,7 @@ namespace AMSExplorer
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
             StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_amsClient);
@@ -274,7 +275,7 @@ namespace AMSExplorer
             comboBoxPolicyLocators.Items.Clear();
             comboBoxPolicyLocators.BeginUpdate();
 
-            _amsClient.RefreshTokenIfNeeded();
+            
             _locators =
             Task.Run(() =>
                         _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name)

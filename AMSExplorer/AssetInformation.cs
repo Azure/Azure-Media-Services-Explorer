@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using AMSExplorer.ManifestGeneration;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
@@ -186,7 +187,7 @@ namespace AMSExplorer
                     Permissions = AssetContainerPermission.ReadWriteDelete,
                     ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
                 };
-                await _amsClient.RefreshTokenIfNeededAsync();
+                
 
                 AssetContainerSas response;
                 try
@@ -331,7 +332,7 @@ namespace AMSExplorer
 
             if (myStreamingEndpoints == null)
             {
-                await _amsClient.RefreshTokenIfNeededAsync();
+                
                 myStreamingEndpoints = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }
 
@@ -360,7 +361,7 @@ namespace AMSExplorer
 
         private async Task DisplayAssetFiltersAsync()
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             List<AssetFilter> assetFilters = new List<AssetFilter>();
             IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name);
@@ -581,7 +582,7 @@ namespace AMSExplorer
                 TreeViewLocators.Nodes.Clear();
                 int indexloc = -1;
 
-                await _amsClient.RefreshTokenIfNeededAsync();
+                
 
                 IList<AssetStreamingLocator> locators;
                 try
@@ -1161,7 +1162,7 @@ namespace AMSExplorer
                 Permissions = AssetContainerPermission.ReadWrite,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             AssetContainerSas response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name, input.Permissions, input.ExpiryTime);
 
@@ -1216,7 +1217,7 @@ namespace AMSExplorer
                         bool Error = false;
                         try
                         {
-                            await _amsClient.RefreshTokenIfNeededAsync();
+                            
 
                             IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name)).StreamingLocators;
 
@@ -1438,7 +1439,7 @@ namespace AMSExplorer
         private async Task<List<AssetFilter>> ReturnSelectedFiltersAsync()
         {
             List<AssetFilter> SelectedFilters = new List<AssetFilter>();
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             List<AssetFilter> assetFilters = new List<AssetFilter>();
             IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name);
@@ -1477,7 +1478,7 @@ namespace AMSExplorer
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         FilterCreationInfo filtertoupdate;
-                        await _amsClient.RefreshTokenIfNeededAsync();
+                        
 
                         try
                         {
@@ -1520,7 +1521,7 @@ namespace AMSExplorer
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    await _amsClient.RefreshTokenIfNeededAsync();
+                    
 
                     FilterCreationInfo filterinfo = null;
                     try
@@ -1557,7 +1558,7 @@ namespace AMSExplorer
         private async Task DoDeleteAssetFilterAsync()
         {
             List<AssetFilter> filters = await ReturnSelectedFiltersAsync();
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             try
             {
@@ -1590,7 +1591,7 @@ namespace AMSExplorer
                 string newfiltername = sourcefilter.Name + AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_Copy;
                 if (Program.InputBox(AMSExplorer.Properties.Resources.AssetInformation_DoDuplicate_NewName, AMSExplorer.Properties.Resources.AssetInformation_DoDuplicateFilter_EnterTheNameOfTheNewDuplicateFilter, ref newfiltername) == DialogResult.OK)
                 {
-                    await _amsClient.RefreshTokenIfNeededAsync();
+                    
 
                     try
                     {
@@ -1865,7 +1866,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                await _amsClient.RefreshTokenIfNeededAsync();
+                
 
                 AssetFilter filter = await _amsClient.AMSclient.AssetFilters.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name, dataGridViewFilters.Rows[e.RowIndex].Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString());
                 await DoFilterInfoAsync(filter);
@@ -1882,7 +1883,7 @@ namespace AMSExplorer
             comboBoxPolicyLocators.Items.Clear();
             comboBoxPolicyLocators.BeginUpdate();
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             IList<AssetStreamingLocator> locators = null;
             try

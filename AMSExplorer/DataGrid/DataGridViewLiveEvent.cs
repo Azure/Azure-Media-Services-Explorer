@@ -14,6 +14,7 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -262,7 +263,7 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                await _amsClient.RefreshTokenIfNeededAsync();
+                
                 liveEventItem = await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
@@ -285,7 +286,7 @@ namespace AMSExplorer
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveEvent liveEventInputItem;
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
             foreach (LiveEventEntry CE in _MyObservLiveEvent)
             {
 
@@ -328,7 +329,7 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             // Listing live events
             List<LiveEvent> liveevents = new List<LiveEvent>();

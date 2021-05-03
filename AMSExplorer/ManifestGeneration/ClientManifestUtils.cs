@@ -30,8 +30,6 @@ namespace AMSExplorer.ManifestGeneration
                 Permissions = AssetContainerPermission.ReadWriteDelete,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
-            await amsClient.RefreshTokenIfNeededAsync();
-
 
             // Get a list of all of the locators and enumerate through them a page at a time.
             IPage<StreamingLocator> firstPage = await amsClient.AMSclient.StreamingLocators.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);

@@ -14,11 +14,14 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
+using AMSExplorer.AMSLogin;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.Authentication;
@@ -132,12 +135,12 @@ namespace AMSExplorer
                 return;
             }
 
-            AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo);
+            AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo, this);
 
             AzureMediaServicesClient response;
             try
             {
-                response = await AmsClient.ConnectAndGetNewClientV3Async();
+                response = await AmsClient.ConnectAndGetNewClientV3Async(this);
             }
             catch (Exception ex)
             {
@@ -421,7 +424,7 @@ namespace AMSExplorer
                 if (addaccount1.SelectedMode == AddAccountMode.BrowseSubscriptions)
                 {
                     Cursor = Cursors.WaitCursor;
-                    Prompt prompt = addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.NoPrompt;
+                    Prompt prompt = addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount;
 
                     //string[] scopes = { "User.Read" };
                     environment = addaccount1.GetEnvironment();
@@ -429,7 +432,7 @@ namespace AMSExplorer
 
 
                     IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
+                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "organizations")
                         .WithRedirectUri("http://localhost")
                         .Build();
 
@@ -466,7 +469,10 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            accessToken = await app.AcquireTokenInteractive(scopes).WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.NoPrompt).ExecuteAsync();
+                            accessToken = await app.AcquireTokenInteractive(scopes)
+                                .WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount)
+                                .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
+                                .ExecuteAsync();
                         }
                         catch (MsalException)
                         {
