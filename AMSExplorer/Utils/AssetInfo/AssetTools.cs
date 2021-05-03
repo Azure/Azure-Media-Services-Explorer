@@ -39,7 +39,7 @@ using System.Xml.Linq;
 
 namespace AMSExplorer
 {
-    public class AssetInfo
+    public class AssetTools
     {
         private readonly List<Asset> SelectedAssetsV3;
         private readonly AMSClientV3 _amsClient;
@@ -79,18 +79,18 @@ namespace AMSExplorer
         private const string ManifestFileExtension = ".ism";
 
 
-        public AssetInfo(Asset myAsset, AMSClientV3 amsClient)
+        public AssetTools(Asset myAsset, AMSClientV3 amsClient)
         {
             SelectedAssetsV3 = new List<Asset>() { myAsset };
             _amsClient = amsClient;
         }
 
-        public AssetInfo(List<Asset> mySelectedAssets, AMSClientV3 amsClient)
+        public AssetTools(List<Asset> mySelectedAssets, AMSClientV3 amsClient)
         {
             SelectedAssetsV3 = mySelectedAssets;
             _amsClient = amsClient;
         }
-        public AssetInfo(Asset asset)
+        public AssetTools(Asset asset)
         {
             SelectedAssetsV3 = new List<Asset>() { asset };
         }
@@ -206,7 +206,7 @@ namespace AMSExplorer
             // add a filter
             if (filter != null)
             {
-                return AddParameterToUrlString(urlstr, string.Format(AssetInfo.filter_url, filter));
+                return AddParameterToUrlString(urlstr, string.Format(AssetTools.filter_url, filter));
             }
             else
             {
@@ -219,7 +219,7 @@ namespace AMSExplorer
             // add a track name
             if (trackname != null)
             {
-                return AddParameterToUrlString(urlstr, string.Format(AssetInfo.audioTrack_url, trackname));
+                return AddParameterToUrlString(urlstr, string.Format(AssetTools.audioTrack_url, trackname));
             }
             else
             {
@@ -237,22 +237,22 @@ namespace AMSExplorer
             switch (protocol)
             {
                 case AMSOutputProtocols.DashCsf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf)) + Constants.mpd;
+                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_dash_csf)) + Constants.mpd;
 
                 case AMSOutputProtocols.DashCmaf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash_cmaf)) + Constants.mpd;
+                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_dash_cmaf)) + Constants.mpd;
 
                 case AMSOutputProtocols.HLSv3:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v3)) + Constants.m3u8;
+                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_v3)) + Constants.m3u8;
 
                 case AMSOutputProtocols.HLSv4:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_v4)) + Constants.m3u8;
+                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_v4)) + Constants.m3u8;
 
                 case AMSOutputProtocols.HLSCmaf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_hls_cmaf)) + Constants.m3u8;
+                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_cmaf)) + Constants.m3u8;
 
                 case AMSOutputProtocols.SmoothLegacy:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_smooth_legacy));
+                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_smooth_legacy));
 
                 case AMSOutputProtocols.NotSpecified:
                 default:
@@ -1053,7 +1053,7 @@ namespace AMSExplorer
         {
             ListRepData infoStr = new ListRepData();
 
-            AssetInfoData MyAssetTypeInfo = await AssetInfo.GetAssetTypeAsync(MyAsset.Name, _amsClient);
+            AssetInfoData MyAssetTypeInfo = await AssetTools.GetAssetTypeAsync(MyAsset.Name, _amsClient);
             if (MyAssetTypeInfo == null)
             {
                 StringBuilder sb = new StringBuilder();
@@ -1195,7 +1195,7 @@ namespace AMSExplorer
 
             if (!string.IsNullOrEmpty(path))
             {
-                StreamingEndpoint choosenSE = await AssetInfo.GetBestStreamingEndpointAsync(client);
+                StreamingEndpoint choosenSE = await AssetTools.GetBestStreamingEndpointAsync(client);
 
                 if (choosenSE == null)
                 {
@@ -1208,7 +1208,7 @@ namespace AMSExplorer
                     ChooseStreamingEndpoint form = new ChooseStreamingEndpoint(client, myasset, path, filter, typeplayer, true);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        path = AssetInfo.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
+                        path = AssetTools.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                         choosenSE = form.SelectStreamingEndpoint;
                         selectedBrowser = form.ReturnSelectedBrowser;
                     }
@@ -1220,7 +1220,7 @@ namespace AMSExplorer
 
                 if (myasset != null)
                 {
-                    keytype = AssetInfo.GetAssetProtection(locator); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
+                    keytype = AssetTools.GetAssetProtection(locator); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine V3 migration
                 }
             }
 
@@ -1393,9 +1393,9 @@ namespace AMSExplorer
                     break;
 
                 case PlayerType.DASHIFRefPlayer:
-                    if (!path.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf)) && !path.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash_cmaf)))
+                    if (!path.Contains(string.Format(AssetTools.format_url, AssetTools.format_dash_csf)) && !path.Contains(string.Format(AssetTools.format_url, AssetTools.format_dash_cmaf)))
                     {
-                        path = AssetInfo.AddParameterToUrlString(path, string.Format(AssetInfo.format_url, AssetInfo.format_dash_csf));
+                        path = AssetTools.AddParameterToUrlString(path, string.Format(AssetTools.format_url, AssetTools.format_dash_csf));
                     }
                     FullPlayBackLink = string.Format(Constants.PlayerDASHIFToLaunch, path);
                     break;

@@ -439,7 +439,7 @@ namespace AMSExplorer
         {
             if (MyLiveEvent.ResourceState == LiveEventResourceState.Running && MyLiveEvent.Preview != null && MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
             {
-                string myurl = await AssetInfo.DoPlayBackWithStreamingEndpointAsync(
+                string myurl = await AssetTools.DoPlayBackWithStreamingEndpointAsync(
                             typeplayer: PlayerType.AzureMediaPlayerFrame,
                             path: MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url,
                             DoNotRewriteURL: true,

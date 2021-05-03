@@ -78,7 +78,7 @@ namespace AMSExplorer.ManifestGeneration
                             XDocument manifest = null;
                             try
                             {
-                                manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(asset, amsClient, locator.Name);
+                                manifest = await AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(asset, amsClient, locator.Name);
                             }
                             catch (Exception ex)
                             {

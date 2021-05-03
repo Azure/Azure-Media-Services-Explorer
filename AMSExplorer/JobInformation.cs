@@ -213,7 +213,7 @@ namespace AMSExplorer
             if (output is JobOutputAsset outputA)
             {
                 DGOutputs.Rows.Add("Asset name", outputA.AssetName);
-                DGOutputs.Rows.Add("Asset type", (await AssetInfo.GetAssetTypeAsync(outputA.AssetName, _amsClient))?.Type);
+                DGOutputs.Rows.Add("Asset type", (await AssetTools.GetAssetTypeAsync(outputA.AssetName, _amsClient))?.Type);
             }
 
 
@@ -300,7 +300,7 @@ namespace AMSExplorer
             {
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
-                dataGridInput.Rows.Add("Asset type", (await AssetInfo.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
+                dataGridInput.Rows.Add("Asset type", (await AssetTools.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
                 if (inputA.Start != null && inputA.Start is AbsoluteClipTime startA)
                 {
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());

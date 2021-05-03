@@ -564,10 +564,10 @@ namespace AMSExplorer
 
         private async Task DoMenuUploadFromSingleFileS_Step2Async(string[] FileNames)
         {
-            List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
+            List<string> listpb = AssetTools.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
             {
-                MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(AssetTools.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -671,10 +671,10 @@ namespace AMSExplorer
             bool Error = false;
             Asset asset = null;
 
-            List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(filenames);
+            List<string> listpb = AssetTools.ReturnFilenamesWithProblem(filenames);
             if (listpb.Count > 0)
             {
-                TextBoxLogWriteLine(AssetInfo.FileNameProblemMessage(listpb), true);
+                TextBoxLogWriteLine(AssetTools.FileNameProblemMessage(listpb), true);
                 DoGridTransferDeclareError(guidTransfer);
                 Error = true;
             }
@@ -1120,7 +1120,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
-                    mylistresults.AddRange(AssetInfo.CopyBlobDirectory(dir, destinationContainer, ObjectUrl.Query, token));
+                    mylistresults.AddRange(AssetTools.CopyBlobDirectory(dir, destinationContainer, ObjectUrl.Query, token));
 
                     if (mylistresults.Count > 0)
                     {
@@ -1197,10 +1197,10 @@ namespace AMSExplorer
 
         private async Task DoMenuUploadFileToAsset_Step2Async(string[] FileNames, List<Asset> assets)
         {
-            List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(FileNames.ToList());
+            List<string> listpb = AssetTools.ReturnFilenamesWithProblem(FileNames.ToList());
             if (listpb.Count > 0)
             {
-                MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(AssetTools.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -1412,10 +1412,10 @@ namespace AMSExplorer
         {
             if (SelectedPath != null)
             {
-                List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(SelectedPath).ToList());
+                List<string> listpb = AssetTools.ReturnFilenamesWithProblem(Directory.GetFiles(SelectedPath).ToList());
                 if (listpb.Count > 0)
                 {
-                    MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(AssetTools.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -2167,12 +2167,12 @@ namespace AMSExplorer
                                         string syntax = "(format={0})";
                                         if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash)
                                         {
-                                            formatSyntax = AssetInfo.format_dash_csf;
+                                            formatSyntax = AssetTools.format_dash_csf;
                                             appendExtension = Constants.mpd;
                                         }
                                         else if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Hls)
                                         {
-                                            formatSyntax = AssetInfo.format_hls_v4;
+                                            formatSyntax = AssetTools.format_hls_v4;
                                             appendExtension = Constants.m3u8;
                                         }
                                         else
@@ -2776,7 +2776,7 @@ namespace AMSExplorer
 
            foreach (var asset in SelectedAssets)
            {
-               if (AssetInfo.GetSize(asset) >= limit)
+               if (AssetTools.GetSize(asset) >= limit)
                {
                    Warning = true;
                }
@@ -2786,11 +2786,11 @@ namespace AMSExplorer
            {
                if (!Indexer)
                {
-                   MessageBox.Show(string.Format("You are using {0} media unit(s).\nAt least one of the source assets has a size over {1}.\n\nLimits are :\n{2} GB with S1 media unit\n{3} GB with S2 media unit\n{4} GB with S3 media unit", unitname, AssetInfo.FormatByteSize(limit), S1AssetSizeLimit, S2AssetSizeLimit, S3AssetSizeLimit), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                   MessageBox.Show(string.Format("You are using {0} media unit(s).\nAt least one of the source assets has a size over {1}.\n\nLimits are :\n{2} GB with S1 media unit\n{3} GB with S2 media unit\n{4} GB with S3 media unit", unitname, AssetTools.FormatByteSize(limit), S1AssetSizeLimit, S2AssetSizeLimit, S3AssetSizeLimit), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                }
                else
                {
-                   MessageBox.Show(string.Format("At least one of the source assets has a size over {0}, which is the maximum supported by Indexer.", AssetInfo.FormatByteSize(limit)), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                   MessageBox.Show(string.Format("At least one of the source assets has a size over {0}, which is the maximum supported by Indexer.", AssetTools.FormatByteSize(limit)), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                }
 
            }
@@ -3226,7 +3226,7 @@ namespace AMSExplorer
             if (cell.Value != null)
             {
                 string TypeStr = (string)cell.Value;
-                if (TypeStr.Contains(AssetInfo.Type_Workflow))
+                if (TypeStr.Contains(AssetTools.Type_Workflow))
                 {
                     e.CellStyle.ForeColor = Color.Blue;
                 }
@@ -3653,12 +3653,12 @@ namespace AMSExplorer
 
         private async Task DoCreateAssetReportEmailAsync()
         {
-            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsAsync(), _amsClient);
+            AssetTools AR = new AssetTools(await ReturnSelectedAssetsAsync(), _amsClient);
         }
 
         private async Task DoDisplayAssetReportAsync()
         {
-            AssetInfo AR = new AssetInfo(await ReturnSelectedAssetsAsync(), _amsClient);
+            AssetTools AR = new AssetTools(await ReturnSelectedAssetsAsync(), _amsClient);
             StringBuilder SB = await AR.GetStatsAsync();
             EditorXMLJSON tokenDisplayForm = new EditorXMLJSON("Asset report", SB.ToString(), false, ShowSampleMode.None, false);
             tokenDisplayForm.Display();
@@ -5648,7 +5648,7 @@ namespace AMSExplorer
                 {
                     if (liveEvent.Preview.Endpoints.FirstOrDefault() != null && liveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
                     {
-                        await AssetInfo.DoPlayBackWithStreamingEndpointAsync(
+                        await AssetTools.DoPlayBackWithStreamingEndpointAsync(
                                typeplayer: ptype,
                                path: liveEvent.Preview.Endpoints.FirstOrDefault().Url,
                                DoNotRewriteURL: true,
@@ -5887,14 +5887,14 @@ namespace AMSExplorer
             Asset asset = (await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()).FirstOrDefault();
             if (asset != null)
             {
-                Uri ValidURI = await AssetInfo.GetValidOnDemandSmoothURIAsync(asset, _amsClient);
+                Uri ValidURI = await AssetTools.GetValidOnDemandSmoothURIAsync(asset, _amsClient);
                 if (ValidURI != null)
                 {
                     string url = ValidURI.AbsoluteUri;
                     ChooseStreamingEndpoint form = new ChooseStreamingEndpoint(_amsClient, asset, url);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        url = AssetInfo.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
+                        url = AssetTools.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                     }
                     else
                     {
@@ -6212,7 +6212,7 @@ namespace AMSExplorer
                 if (myAsset != null)
                 {
                     bool Error = false;
-                    PlayBackLocator = await AssetInfo.IsThereALocatorValidAsync(myAsset, _amsClient);
+                    PlayBackLocator = await AssetTools.IsThereALocatorValidAsync(myAsset, _amsClient);
                     if (PlayBackLocator == null) // No streaming locator valid
                     {
                         if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one (clear streaming) ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
@@ -6249,7 +6249,7 @@ namespace AMSExplorer
                         }
                     }
 
-                    PlayBackLocator = await AssetInfo.IsThereALocatorValidAsync(myAsset, _amsClient);
+                    PlayBackLocator = await AssetTools.IsThereALocatorValidAsync(myAsset, _amsClient);
 
                     if (!Error && PlayBackLocator != null) // There is a streaming locator valid
                     {
@@ -6259,7 +6259,7 @@ namespace AMSExplorer
 
                         if (MyUri != null)
                         {
-                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(playertype, MyUri, _amsClient, this, myAsset, false, filter, locator: PlayBackLocator, subtitleLanguageCode: subtitletracklanguage);
+                            await AssetTools.DoPlayBackWithStreamingEndpointAsync(playertype, MyUri, _amsClient, this, myAsset, false, filter, locator: PlayBackLocator, subtitleLanguageCode: subtitletracklanguage);
                         }
                         else
                         {
@@ -6272,7 +6272,7 @@ namespace AMSExplorer
                             if (myAsset.AssetFiles.Count() == 1 && myAsset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".mp4") && (playertype == PlayerType.AzureMediaPlayer))
                             {
                                 MessageBox.Show(string.Format("The asset '{0}' in a single MP4 file and cannot be played with adaptive streaming as there is no manifest file.\nThe MP4 file will be played through progressive download.", myAsset.Name), "Single MP4 file", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, this, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4, UISelectSEFiltersAndProtocols: false);
+                                AssetTools.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, this, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4, UISelectSEFiltersAndProtocols: false);
                             }
                             else
                             {
@@ -6857,11 +6857,11 @@ namespace AMSExplorer
             if (selectedAssets.Count > 0)
             {
                 // let's get the list of asset types
-                Task<AssetInfoData>[] gettypeTasks = selectedAssets.Select(a => AssetInfo.GetAssetTypeAsync(a.Name, _amsClient)).ToArray();
+                Task<AssetInfoData>[] gettypeTasks = selectedAssets.Select(a => AssetTools.GetAssetTypeAsync(a.Name, _amsClient)).ToArray();
                 await Task.WhenAll(gettypeTasks);
 
-                if (!gettypeTasks.All(a => a.Result.Type.StartsWith(AssetInfo.Type_LiveArchive) || a.Result.Type.StartsWith(AssetInfo.Type_Fragmented)))
-                //if (!selectedAssets.All(a => (await AssetInfo.GetAssetTypeAsync(a.Name, _amsClient)).Type.StartsWith(AssetInfo.Type_LiveArchive) || (AssetInfo.GetAssetType(a.Name, _amsClient)).Type.StartsWith(AssetInfo.Type_Fragmented)))
+                if (!gettypeTasks.All(a => a.Result.Type.StartsWith(AssetTools.Type_LiveArchive) || a.Result.Type.StartsWith(AssetTools.Type_Fragmented)))
+                //if (!selectedAssets.All(a => (await AssetTools.GetAssetTypeAsync(a.Name, _amsClient)).Type.StartsWith(AssetTools.Type_LiveArchive) || (AssetTools.GetAssetType(a.Name, _amsClient)).Type.StartsWith(AssetTools.Type_Fragmented)))
                 {
                     MessageBox.Show("Asset(s) should be a live, live archive or pre-fragmented asset." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -7067,7 +7067,7 @@ namespace AMSExplorer
 
                 if (!usercanceled)
                 {
-                    //assets.ForEach(asset => CheckListArchiveBlobs(storagekeys, asset, AssetInfo.GetManifestSegmentsList(asset)));
+                    //assets.ForEach(asset => CheckListArchiveBlobs(storagekeys, asset, AssetTools.GetManifestSegmentsList(asset)));
                 }
             }
         }

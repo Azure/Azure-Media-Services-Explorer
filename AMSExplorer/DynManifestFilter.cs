@@ -225,7 +225,7 @@ namespace AMSExplorer
                 XDocument manifest = null;
                 try
                 {
-                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
+                    manifest = await AssetTools.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
                 }
                 catch
                 {
@@ -237,7 +237,7 @@ namespace AMSExplorer
                     {
                         if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                         {
-                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
+                            manifest = await AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
                         }
                     }
                     catch
@@ -247,7 +247,7 @@ namespace AMSExplorer
 
                 if (manifest != null)
                 {
-                    _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
+                    _parentassetmanifestdata = AssetTools.GetManifestTimingData(manifest);
                 }
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
@@ -334,7 +334,7 @@ namespace AMSExplorer
                 XDocument manifest = null;
                 try
                 {
-                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
+                    manifest = await AssetTools.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
                 }
                 catch
                 {
@@ -346,7 +346,7 @@ namespace AMSExplorer
                     {
                         if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                         {
-                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
+                            manifest = await AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
                         }
                     }
                     catch
@@ -356,7 +356,7 @@ namespace AMSExplorer
 
                 if (manifest != null)
                 {
-                    _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
+                    _parentassetmanifestdata = AssetTools.GetManifestTimingData(manifest);
                 }
 
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;

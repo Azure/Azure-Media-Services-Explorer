@@ -44,7 +44,7 @@ namespace AMSExplorer
         public string _locatorexpirationdate = "LocatorExpirationDate";
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
         public string _assetwarning = "AssetWarning";
-        private static readonly Dictionary<string, AssetEntryV3> cacheAssetentriesV3 = new Dictionary<string, AssetEntryV3>();
+        private static readonly Dictionary<string, AssetEntry> cacheAssetentriesV3 = new Dictionary<string, AssetEntry>();
 
         private static int _currentPageNumber = 0;
         private static bool _currentPageNumberIsMax = false; // true when we reached the max
@@ -64,7 +64,7 @@ namespace AMSExplorer
         private static readonly Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
         private static AMSClientV3 _amsClient;
-        private static BindingList<AssetEntryV3> _MyObservAssetV3;
+        private static BindingList<AssetEntry> _MyObservAssetV3;
         private IPage<Asset> firstpage;
         private SynchronizationContext _syncontext;
 
@@ -115,7 +115,7 @@ namespace AMSExplorer
                                         _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)
                                         ).GetAwaiter().GetResult();
 
-            IEnumerable<AssetEntryV3> assets = assetsList.Select(a => new AssetEntryV3(_syncontext)
+            IEnumerable<AssetEntry> assets = assetsList.Select(a => new AssetEntry(_syncontext)
             {
                 Name = a.Name,
                 AssetId = a.AssetId,
@@ -160,7 +160,7 @@ namespace AMSExplorer
             */
 
             //BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
-            BindingList<AssetEntryV3> MyObservAssethisPageV3 = new BindingList<AssetEntryV3>(assets.ToList());
+            BindingList<AssetEntry> MyObservAssethisPageV3 = new BindingList<AssetEntry>(assets.ToList());
 
             DataSource = MyObservAssethisPageV3;
 
@@ -236,7 +236,7 @@ namespace AMSExplorer
 
             if (_MyObservAssetV3 == null) return;
 
-            List<AssetEntryV3> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
+            List<AssetEntry> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
 
             // test - let analyze only visible assets
             int visibleRowsCount = DisplayedRowCount(true);
@@ -255,13 +255,13 @@ namespace AMSExplorer
                 }
             }
 
-            IEnumerable<AssetEntryV3> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
-            List<AssetEntryV3> listae2 = query.ToList();
+            IEnumerable<AssetEntry> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
+            List<AssetEntry> listae2 = query.ToList();
 
 
             float scale = DeviceDpi / 96f;
 
-            foreach (AssetEntryV3 AE in listae2)
+            foreach (AssetEntry AE in listae2)
             {
                 await Task.Delay(1000);
                 try
@@ -295,12 +295,12 @@ namespace AMSExplorer
                         }
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
-                        AssetInfoData data = await AssetInfo.GetAssetTypeAsync(asset.Name, _amsClient);
+                        AssetInfoData data = await AssetTools.GetAssetTypeAsync(asset.Name, _amsClient);
                         if (data != null)
                         {
                             AE.Type = data.Type;
                             AE.SizeLong = data.Size;
-                            AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
+                            AE.Size = AssetTools.FormatByteSize(AE.SizeLong);
                             AE.AssetWarning = (AE.SizeLong == 0);
                         }
 
@@ -595,12 +595,12 @@ Properties/StorageId
                 }
             }
 
-            IEnumerable<AssetEntryV3> assets = currentPage.Select(a =>
+            IEnumerable<AssetEntry> assets = currentPage.Select(a =>
             (cacheAssetentriesV3.ContainsKey(a.Name)
                && cacheAssetentriesV3[a.Name].LastModified != null
                && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
                cacheAssetentriesV3[a.Name] :
-            new AssetEntryV3(_syncontext)
+            new AssetEntry(_syncontext)
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -612,7 +612,7 @@ Properties/StorageId
             }
          ));
 
-            _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
+            _MyObservAssetV3 = new BindingList<AssetEntry>(assets.ToList());
 
             Invoke(new Action(() => DataSource = _MyObservAssetV3));
 
@@ -657,7 +657,7 @@ Properties/StorageId
             {
                 Bitmap newbitmap = null;
                 string newtext = null;
-                PublishStatus Status = AssetInfo.GetPublishedStatusForLocator(locator);
+                PublishStatus Status = AssetTools.GetPublishedStatusForLocator(locator);
 
                 {
 

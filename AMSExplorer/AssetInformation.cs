@@ -87,9 +87,9 @@ namespace AMSExplorer
                 {
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
-                        case AssetInfo._dash_cmaf:
-                        case AssetInfo.format_dash_csf:
-                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.DASHIFRefPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
+                        case AssetTools._dash_cmaf:
+                        case AssetTools.format_dash_csf:
+                            await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.DASHIFRefPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                             break;
 
                         default:
@@ -110,25 +110,25 @@ namespace AMSExplorer
                     toolStripMenuItemOpen.Enabled = false;
                     deleteLocatorToolStripMenuItem.Enabled = false;
 
-                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._smooth) || TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetInfo._smooth_legacy))
+                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._smooth) || TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetTools._smooth_legacy))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
-                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash_csf) || (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash_cmaf)))
+                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._dash_csf) || (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._dash_cmaf)))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
                         toolStripMenuItemOpen.Enabled = false;
                     }
-                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https_SAS))
+                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._prog_down_https_SAS))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemOpen.Enabled = true;
                     }
-                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_http_streaming))
+                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._prog_down_http_streaming))
                     {
                         toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHIF.Enabled = false;
@@ -154,7 +154,7 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AdvancedTestPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
+                    await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AdvancedTestPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
                 }
             }
         }
@@ -257,7 +257,7 @@ namespace AMSExplorer
                             item.ForeColor = Color.DarkGoldenrod;
                         }
                         */
-                        item.SubItems.Add(AssetInfo.FormatByteSize(bl.Properties.Length));
+                        item.SubItems.Add(AssetTools.FormatByteSize(bl.Properties.Length));
 
                         listViewBlobs.Items.Add(item);
                         //size += file.ContentFileSize;
@@ -324,7 +324,7 @@ namespace AMSExplorer
 
             if (size != -1)
             {
-                DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
+                DGAsset.Rows.Add("Size", AssetTools.FormatByteSize(size));
             }
 
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, myAsset.Created.ToLocalTime().ToString("G"));
@@ -401,7 +401,7 @@ namespace AMSExplorer
                 XDocument manifest = null;
                 try
                 {
-                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(myAsset, _amsClient);
+                    manifest = await AssetTools.TryToGetClientManifestContentAsABlobAsync(myAsset, _amsClient);
                 }
                 catch
                 {
@@ -411,7 +411,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClient);
+                        manifest = await AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClient);
                     }
                     catch
                     {
@@ -421,7 +421,7 @@ namespace AMSExplorer
 
                 if (manifest != null)
                 {
-                    myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(manifest);
+                    myassetmanifesttimingdata = AssetTools.GetManifestTimingData(manifest);
                 }
             }
 
@@ -671,7 +671,7 @@ namespace AMSExplorer
         private static Color GetLocatorApparence(StreamingLocator locator, ref string locatorstatus)
         {
             Color colornode;
-            switch (AssetInfo.GetPublishedStatusForLocator(locator))
+            switch (AssetTools.GetPublishedStatusForLocator(locator))
             {
                 case PublishStatus.PublishedActive:
                     colornode = Color.Black;
@@ -702,7 +702,7 @@ namespace AMSExplorer
                 if (SelectedfBlobs.FirstOrDefault() is CloudBlockBlob blob)
                 {
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, blob.Name);
-                    DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetInfo.FormatByteSize(blob.Properties.Length));
+                    DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_FileSize, AssetTools.FormatByteSize(blob.Properties.Length));
                     DGFiles.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayFileProperties_LastModified, blob.Properties.LastModified != null ? ((DateTimeOffset)blob.Properties.LastModified).ToLocalTime().ToString("G") : null);
                     DGFiles.Rows.Add("Uri", blob.Uri);
                     DGFiles.Rows.Add("MD5", blob.Properties.ContentMD5);
@@ -711,7 +711,7 @@ namespace AMSExplorer
                 {
                     DGFiles.Rows.Add("Prefix", dir.Prefix);
                     DGFiles.Rows.Add("Uri", dir.Uri);
-                    DGFiles.Rows.Add("Size", AssetInfo.FormatByteSize(AssetInfo.GetSizeBlobDirectory(dir)));
+                    DGFiles.Rows.Add("Size", AssetTools.FormatByteSize(AssetTools.GetSizeBlobDirectory(dir)));
                 }
             }
         }
@@ -859,7 +859,7 @@ namespace AMSExplorer
 
         private async Task DoDisplayAssetStatsAsync()
         {
-            AssetInfo MyAssetReport = new AssetInfo(myAsset, _amsClient);
+            AssetTools MyAssetReport = new AssetTools(myAsset, _amsClient);
             StringBuilder SB = await MyAssetReport.GetStatsAsync();
             using (EditorXMLJSON tokenDisplayForm
                 = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, ShowSampleMode.None, false))
@@ -1003,20 +1003,20 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case "Dash":
-                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
+                            await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Dash, mainForm: myMainForm);
 
                             break;
 
                         case "SmoothStreaming":
-                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
+                            await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.Smooth, mainForm: myMainForm);
                             break;
 
                         case "Hls":
-                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
+                            await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.HLS, mainForm: myMainForm);
                             break;
 
                         case "Download":
-                            await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
+                            await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: playerType, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, formatamp: AzureMediaPlayerFormats.VideoMP4, mainForm: myMainForm);
                             break;
 
                         default:
@@ -1106,10 +1106,10 @@ namespace AMSExplorer
 
         private async Task DoUploadCoreAsync(List<string> filenames)
         {
-            List<string> listpb = AssetInfo.ReturnFilenamesWithProblem(filenames.Select(f => Path.GetFileName(f)).ToList());
+            List<string> listpb = AssetTools.ReturnFilenamesWithProblem(filenames.Select(f => Path.GetFileName(f)).ToList());
             if (listpb.Count > 0)
             {
-                MessageBox.Show(AssetInfo.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(AssetTools.FileNameProblemMessage(listpb), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2244,7 +2244,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    tempStreamingLocator = Task.Run(() => AssetInfo.CreateTemporaryOnDemandLocatorAsync(myAsset, _amsClient)).GetAwaiter().GetResult();
+                    tempStreamingLocator = Task.Run(() => AssetTools.CreateTemporaryOnDemandLocatorAsync(myAsset, _amsClient)).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
@@ -2257,7 +2257,7 @@ namespace AMSExplorer
             XDocument manifest = null;
             try
             {
-                manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClient, tempStreamingLocator?.Name);
+                manifest = await AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClient, tempStreamingLocator?.Name);
             }
             catch (Exception ex)
             {
@@ -2269,7 +2269,7 @@ namespace AMSExplorer
                 // let's delete the temp clear locator
                 try
                 {
-                    await AssetInfo.DeleteStreamingLocatorAsync(_amsClient, tempStreamingLocator.Name);
+                    await AssetTools.DeleteStreamingLocatorAsync(_amsClient, tempStreamingLocator.Name);
                 }
                 catch
                 {

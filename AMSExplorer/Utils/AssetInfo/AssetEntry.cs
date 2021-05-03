@@ -22,12 +22,12 @@ using System.Threading;
 
 namespace AMSExplorer
 {
-    public class AssetEntryV3 : INotifyPropertyChanged
+    public class AssetEntry : INotifyPropertyChanged
     {
 
         private readonly SynchronizationContext syncContext;
 
-        public AssetEntryV3(SynchronizationContext mysyncContext)
+        public AssetEntry(SynchronizationContext mysyncContext)
         {
             syncContext = mysyncContext;
         }

@@ -162,7 +162,7 @@ namespace AMSExplorer
             
 
             // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
-            StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_amsClient);
+            StreamingEndpoint BestSE = await AssetTools.GetBestStreamingEndpointAsync(_amsClient);
 
             IPage<StreamingEndpoint> myStreamingEndpoints = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
 
@@ -311,7 +311,7 @@ namespace AMSExplorer
         {
             try
             {
-                textBoxPreviewURL.Text = AssetInfo.RW(_path, SelectStreamingEndpoint, SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
+                textBoxPreviewURL.Text = AssetTools.RW(_path, SelectStreamingEndpoint, SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
             }
             catch
             {

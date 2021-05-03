@@ -175,7 +175,7 @@ namespace AMSExplorer
             bool success = int.TryParse(comboBoxBlockSize.Text, out int x);
             if (success)
             {
-                var sizeText = AssetInfo.FormatByteSize(1024 * 1024L * x * 50000);
+                var sizeText = AssetTools.FormatByteSize(1024 * 1024L * x * 50000);
                 labelBlobSizeMax.Text = string.Format((string)labelBlobSizeMax.Tag, sizeText);
             }
             else

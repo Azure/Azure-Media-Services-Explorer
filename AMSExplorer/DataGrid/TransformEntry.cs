@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
-    public class TransformEntryV3 : INotifyPropertyChanged
+    public class TransformEntry : INotifyPropertyChanged
     {
         private readonly SynchronizationContext syncContext;
 
-        public TransformEntryV3(SynchronizationContext mysyncContext)
+        public TransformEntry(SynchronizationContext mysyncContext)
         {
             syncContext = mysyncContext;
         }

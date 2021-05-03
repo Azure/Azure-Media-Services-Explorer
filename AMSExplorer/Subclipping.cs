@@ -70,7 +70,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    _tempStreamingLocator = Task.Run(() => AssetInfo.CreateTemporaryOnDemandLocatorAsync(_selectedAssets.First(), _amsClientV3)).GetAwaiter().GetResult();
+                    _tempStreamingLocator = Task.Run(() => AssetTools.CreateTemporaryOnDemandLocatorAsync(_selectedAssets.First(), _amsClientV3)).GetAwaiter().GetResult();
                 }
                 catch
                 {
@@ -87,7 +87,7 @@ namespace AMSExplorer
                 XDocument manifest = null;
                 try
                 {
-                    manifest = Task.Run(() => AssetInfo.TryToGetClientManifestContentAsABlobAsync(myAsset, _amsClientV3)).GetAwaiter().GetResult();
+                    manifest = Task.Run(() => AssetTools.TryToGetClientManifestContentAsABlobAsync(myAsset, _amsClientV3)).GetAwaiter().GetResult();
                 }
                 catch
                 {
@@ -97,7 +97,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        manifest = Task.Run(() => AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
+                        manifest = Task.Run(() => AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
                     }
                     catch
                     {
@@ -106,7 +106,7 @@ namespace AMSExplorer
 
                 if (manifest != null)
                 {
-                    _parentAssetManifestData = AssetInfo.GetManifestTimingData(manifest);
+                    _parentAssetManifestData = AssetTools.GetManifestTimingData(manifest);
                 }
 
                 labelDiscountinuity.Visible = _parentAssetManifestData.DiscontinuityDetected;
@@ -459,11 +459,11 @@ namespace AMSExplorer
             {
                 Asset myAsset = _selectedAssets.FirstOrDefault();
 
-                Uri myuri = await AssetInfo.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
+                Uri myuri = await AssetTools.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
 
                 if (myuri != null)
                 {
-                    string myurl = await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetInfo.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
+                    string myurl = await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetTools.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
                     webBrowserPreview.Url = new Uri(myurl);
                 }
                 else

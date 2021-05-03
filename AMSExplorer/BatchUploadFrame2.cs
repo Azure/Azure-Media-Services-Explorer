@@ -87,7 +87,7 @@ namespace AMSExplorer
                     {
                         ListViewItem it = checkedListBoxFiles.Items.Add(Path.GetFileName(file));
                         it.Checked = true;
-                        if (!AssetInfo.BlobNameForAMSIsOk(Path.GetFileName(file)))
+                        if (!AssetTools.BlobNameForAMSIsOk(Path.GetFileName(file)))
                         {
                             it.ForeColor = Color.Red;
                         }
@@ -105,7 +105,7 @@ namespace AMSExplorer
                         s = filecount > 1 ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01Files : AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01File;
                         ListViewItem it = checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount));
                         it.Checked = true;
-                        if (AssetInfo.ReturnFilenamesWithProblem(Directory.GetFiles(folder).ToList()).Count > 0)
+                        if (AssetTools.ReturnFilenamesWithProblem(Directory.GetFiles(folder).ToList()).Count > 0)
                         {
                             it.ForeColor = Color.Red;
                         }

@@ -385,6 +385,4 @@ namespace AMSExplorer
                 Refresh();
         }
     }
-
-
 }

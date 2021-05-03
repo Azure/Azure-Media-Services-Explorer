@@ -84,7 +84,7 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-            var sizeText = AssetInfo.FormatByteSize(1024 * 1024L * Properties.Settings.Default.DataMovementBlockSize * 50000);
+            var sizeText = AssetTools.FormatByteSize(1024 * 1024L * Properties.Settings.Default.DataMovementBlockSize * 50000);
             labelBlockSize.Text = string.Format(labelBlockSize.Text, Properties.Settings.Default.DataMovementBlockSize, sizeText);
         }
 
