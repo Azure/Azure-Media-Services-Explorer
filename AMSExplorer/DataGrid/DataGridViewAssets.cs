@@ -258,7 +258,7 @@ namespace AMSExplorer
             IEnumerable<AssetEntryV3> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
             List<AssetEntryV3> listae2 = query.ToList();
 
-            
+
             float scale = DeviceDpi / 96f;
 
             foreach (AssetEntryV3 AE in listae2)
@@ -266,7 +266,7 @@ namespace AMSExplorer
                 await Task.Delay(1000);
                 try
                 {
-                    asset = await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AE.Name);
+                    asset = await _amsClient.GetAssetAsync(AE.Name);
 
                     if (asset != null)
                     {
@@ -573,7 +573,7 @@ Properties/StorageId
             }
 
             IPage<Asset> currentPage = null;
-            
+
 
             if (pagetodisplay == 1)
             {

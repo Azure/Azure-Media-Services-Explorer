@@ -72,7 +72,7 @@ namespace AMSExplorer
                 List<StreamingEndpoint> list = new List<StreamingEndpoint>();
                 foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
                 {
-                    StreamingEndpoint detailedSE = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, se.Name)).GetAwaiter().GetResult();
+                    StreamingEndpoint detailedSE = Task.Run(() => _amsClient.GetStreamingEndpointAsync(se.Name)).GetAwaiter().GetResult();
                     if (detailedSE != null) // in some rare cases, SE is null in dev/test account
                     {
                         list.Add(detailedSE);
@@ -150,7 +150,7 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
                 
-                streamingEndpoint = await _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingEndpoint.Name); //refresh
+                streamingEndpoint = await _amsClient.GetStreamingEndpointAsync(streamingEndpoint.Name); //refresh
                 if (streamingEndpoint != null)
                 {
                     _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)streamingEndpoint.ResourceState;
@@ -177,7 +177,7 @@ namespace AMSExplorer
                 origin = null;
                 try
                 {
-                    origin = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, origin.Name)).GetAwaiter().GetResult();
+                    origin = Task.Run(() => _amsClient.GetStreamingEndpointAsync(origin.Name)).GetAwaiter().GetResult();
                     if (origin != null)
                     {
                         OE.State = (StreamingEndpointResourceState)origin.ResourceState;

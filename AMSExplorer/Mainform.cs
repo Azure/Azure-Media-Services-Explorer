@@ -8958,7 +8958,7 @@ namespace AMSExplorer
                 return (await ReturnSelectedLiveOutputsAsync())
                         .Select(p =>
                             Task.Run(() =>
-                                        _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, p.AssetName))
+                                        _amsClient.GetAssetAsync(p.AssetName))
                                         .GetAwaiter().GetResult()
                         )
                         .ToList();

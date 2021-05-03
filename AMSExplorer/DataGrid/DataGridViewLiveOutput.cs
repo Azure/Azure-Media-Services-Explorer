@@ -204,7 +204,7 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
                 
-                liveOutput = await _amsClient.AMSclient.LiveOutputs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveeventName, liveOutput.Name); //refresh
+                liveOutput = await _amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Name); //refresh
                 if (liveOutput != null)
                 {
                     try // sometimes, index could be wrong id program has been deleted
@@ -240,7 +240,7 @@ namespace AMSExplorer
                 liveOutputItem = null;
                 try
                 {
-                    liveOutputItem = await _amsClient.AMSclient.LiveOutputs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, CE.LiveEventName, CE.Name);
+                    liveOutputItem = await _amsClient.GetLiveOutputAsync(CE.LiveEventName, CE.Name);
                     if (liveOutputItem != null)
                     {
                         CE.State = liveOutputItem.ResourceState;

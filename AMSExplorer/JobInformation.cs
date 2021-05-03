@@ -273,7 +273,7 @@ namespace AMSExplorer
             {
                 
                 Asset asset = Task.Run(() =>
-                                       _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName))
+                                       _amsClient.GetAssetAsync(assetName))
                                         .GetAwaiter().GetResult();
 
                 using (AssetInformation form = new AssetInformation(_mainform, _amsClient)

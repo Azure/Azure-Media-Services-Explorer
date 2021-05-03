@@ -74,7 +74,7 @@ namespace AMSExplorer
             
 
             Asset AssetToDisplayP = Task.Run(() =>
-                        _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, MyLiveOutput.AssetName))
+                        _amsClient.GetAssetAsync(MyLiveOutput.AssetName))
                         .GetAwaiter().GetResult();
 
             if (AssetToDisplayP != null)

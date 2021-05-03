@@ -200,27 +200,27 @@ namespace AMSExplorer
             return await AMSclient.Assets.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, assetName, token).ConfigureAwait(false);
         }
 
-        public  async Task<Job> GetJobAsync(string transformName, string jobName)
+        public async Task<Job> GetJobAsync(string transformName, string jobName)
         {
             return await AMSclient.Jobs.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, transformName, jobName).ConfigureAwait(false);
         }
 
-        public  async Task<Transform> GetTransformAsync(string transformName)
+        public async Task<Transform> GetTransformAsync(string transformName)
         {
             return await AMSclient.Transforms.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, transformName).ConfigureAwait(false);
         }
 
-        public  async Task<LiveEvent> GetLiveEventAsync(string liveEventName)
+        public async Task<LiveEvent> GetLiveEventAsync(string liveEventName)
         {
             return await AMSclient.LiveEvents.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, liveEventName).ConfigureAwait(false);
         }
 
-        public  async Task<LiveOutput> GetLiveOutputAsync(string liveEventName, string liveOutputName)
+        public async Task<LiveOutput> GetLiveOutputAsync(string liveEventName, string liveOutputName)
         {
             return await AMSclient.LiveOutputs.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, liveEventName, liveOutputName).ConfigureAwait(false);
         }
 
-        public  async Task<StreamingEndpoint> GetStreamingEndpointAsync(string seName)
+        public async Task<StreamingEndpoint> GetStreamingEndpointAsync(string seName)
         {
             return await AMSclient.StreamingEndpoints.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, seName).ConfigureAwait(false);
         }

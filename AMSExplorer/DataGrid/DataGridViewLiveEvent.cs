@@ -264,7 +264,7 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
                 
-                liveEventItem = await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEventItem.Name); //refresh
+                liveEventItem = await _amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
@@ -293,7 +293,7 @@ namespace AMSExplorer
                 liveEventInputItem = null;
                 try
                 {
-                    liveEventInputItem = await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, CE.Name);
+                    liveEventInputItem = await _amsClient.GetLiveEventAsync(CE.Name);
                     if (liveEventInputItem != null)
                     {
                         CE.State = liveEventInputItem.ResourceState;

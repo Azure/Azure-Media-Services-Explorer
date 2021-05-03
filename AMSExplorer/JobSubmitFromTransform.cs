@@ -485,7 +485,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        asset = await _client.AMSclient.Assets.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, assetName).ConfigureAwait(false);
+                        asset = await _client.GetAssetAsync(assetName).ConfigureAwait(false);
                         _listAssets.Add(asset);
                         updateAssetDescription(asset.Description);
                     }

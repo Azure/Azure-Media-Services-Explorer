@@ -1515,7 +1515,7 @@ namespace AMSExplorer
             StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
             if (SESelected == null)
             {
-                SESelected = await client.AMSclient.StreamingEndpoints.GetAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, "default");
+                SESelected = await client.GetStreamingEndpointAsync("default");
             }
 
             if (SESelected == null)

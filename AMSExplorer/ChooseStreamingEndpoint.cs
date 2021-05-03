@@ -45,7 +45,7 @@ namespace AMSExplorer
                 string val = (listBoxSE.SelectedItem as Item).Value;
                 string seName = val.Split("|".ToCharArray())[0];
                 
-                return Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, seName)).GetAwaiter().GetResult();
+                return Task.Run(() => _amsClient.GetStreamingEndpointAsync(seName)).GetAwaiter().GetResult();
             }
         }
 

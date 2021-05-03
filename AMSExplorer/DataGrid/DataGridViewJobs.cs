@@ -162,7 +162,7 @@ namespace AMSExplorer
                 string tName = Row.Cells[Columns["TransformName"].Index].Value.ToString();
                 // sometimes, the transform can be null (if just deleted)
                 Job job = Task.Run(() =>
-            _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, tName, Row.Cells[Columns["Name"].Index].Value.ToString())
+            _client.GetJobAsync(tName, Row.Cells[Columns["Name"].Index].Value.ToString())
             ).GetAwaiter().GetResult();
 
                 if (job != null)
@@ -294,7 +294,7 @@ namespace AMSExplorer
 
 
             // Paging
-            
+
 
             IPage<Job> currentPage = null;
             string transform = _transformName.First();
@@ -353,7 +353,7 @@ namespace AMSExplorer
         // Used to restore job progress. 2 cases: when app is launched or when a job has been created by an external program
         public async Task RestoreJobProgressAsync(List<string> transforms)  // when app is launched for example, we want to restore job progress updates
         {
-            
+
 
             ODataQuery<Job> odataQuery = new ODataQuery<Job>
             {
@@ -429,7 +429,7 @@ namespace AMSExplorer
                       do
                       {
                           myJob = Task.Run(() =>
-              _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
+              _client.GetJobAsync(job.TransformName, job.Job.Name)
               ).GetAwaiter().GetResult();
 
                           if (token.IsCancellationRequested == true)
@@ -518,7 +518,7 @@ namespace AMSExplorer
 
                       // job finished
                       myJob = Task.Run(() =>
-                                             _client.AMSclient.Jobs.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, job.TransformName, job.Job.Name)
+                                             _client.GetJobAsync(job.TransformName, job.Job.Name)
                                              ).GetAwaiter().GetResult();
 
                       int index2 = -1;

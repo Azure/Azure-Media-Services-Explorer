@@ -115,7 +115,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in SelectedRows)
             {
                 // sometimes, the transform can be null (if just deleted)
-                Transform transform = await _amsClient.AMSclient.Transforms.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, Row.Cells[Columns["Name"].Index].Value.ToString());
+                Transform transform = await _amsClient.GetTransformAsync(Row.Cells[Columns["Name"].Index].Value.ToString());
                 if (transform != null)
                 {
                     SelectedTransforms.Add(transform);
