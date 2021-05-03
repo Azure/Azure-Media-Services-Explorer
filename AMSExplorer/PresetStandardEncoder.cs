@@ -33,29 +33,29 @@ namespace AMSExplorer
         private readonly string _unique;
         private readonly string _existingTransformName;
         private readonly string _existingTransformDesc;
-        public readonly IList<Profile> Profiles = new List<Profile> {
-            new Profile() {Prof=@"AdaptiveStreaming", Desc="Auto-generate a bitrate ladder (bitrate-resolution pairs) based on the input resolution and bitrate. This built-in encoder setting, or preset, will never exceed the input resolution and bitrate. For example, if the input is 720p at 3 Mbps, output remains 720p at best, and will start at rates lower than 3 Mbps. The output contains an audio-only MP4 file with stereo audio encoded at 128 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
-            new Profile() {Prof=@"ContentAwareEncoding", Desc="Produces a set of GOP-aligned MP4s by using content-aware encoding. Given any input content, the service performs an initial lightweight analysis of the input content, and uses the results to determine the optimal number of layers, appropriate bitrate and resolution settings for delivery by adaptive streaming. This preset is particularly effective for low and medium complexity videos, where the output files will be at lower bitrates but at a quality that still delivers a good experience to viewers. The output will contain MP4 files with video and audio interleaved.", Automatic=true, LabelCodec="H.264 / AAC"},
-            new Profile() {Prof=@"H264SingleBitrateSD", Desc="Produces an MP4 file where the video is encoded with H.264 codec at 2200 kbps and a picture height of 480 pixels, and the stereo audio is encoded with AAC-LC codec at 64 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
-            new Profile() {Prof=@"H264SingleBitrate1080p", Desc="Produces an MP4 file where the video is encoded with H.264 codec at 6750 kbps and a picture height of 1080 pixels, and the stereo audio is encoded with AAC-LC codec at 64 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
-            new Profile() {Prof=@"H264SingleBitrate720p", Desc="Produces an MP4 file where the video is encoded with H.264 codec at 4500 kbps and a picture height of 720 pixels, and the stereo audio is encoded with AAC-LC codec at 64 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
-            new Profile() {Prof=@"AACGoodQualityAudio", Desc="Produces a single MP4 file containing only stereo audio encoded at 192 kbps.", Automatic=false, LabelCodec="H.264 / AAC"},
-            new Profile() {Prof=@"H264MultipleBitrate1080p", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and stereo AAC audio.Resolution starts at 1080p and goes down to 360p.", Automatic=false, LabelCodec="H.264 / AAC"},
-            new Profile() {Prof=@"H264MultipleBitrate720p", Desc="Produces a set of 6 GOP-aligned MP4 files, ranging from 3400 kbps to 400 kbps, and stereo AAC audio. Resolution starts at 720p and goes down to 360p", Automatic=false, LabelCodec="H.264 / AAC"},
-            new Profile() {Prof=@"H264MultipleBitrateSD", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1600kbps to 400 kbps, and stereo AAC audio. Resolution starts at 480p and goes down to 360p.", Automatic=false, LabelCodec="H.264 / AAC"},
+        public readonly IList<EncodingProfile> Profiles = new List<EncodingProfile> {
+            new EncodingProfile() {Prof=@"AdaptiveStreaming", Desc="Auto-generate a bitrate ladder (bitrate-resolution pairs) based on the input resolution and bitrate. This built-in encoder setting, or preset, will never exceed the input resolution and bitrate. For example, if the input is 720p at 3 Mbps, output remains 720p at best, and will start at rates lower than 3 Mbps. The output contains an audio-only MP4 file with stereo audio encoded at 128 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"ContentAwareEncoding", Desc="Produces a set of GOP-aligned MP4s by using content-aware encoding. Given any input content, the service performs an initial lightweight analysis of the input content, and uses the results to determine the optimal number of layers, appropriate bitrate and resolution settings for delivery by adaptive streaming. This preset is particularly effective for low and medium complexity videos, where the output files will be at lower bitrates but at a quality that still delivers a good experience to viewers. The output will contain MP4 files with video and audio interleaved.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"H264SingleBitrateSD", Desc="Produces an MP4 file where the video is encoded with H.264 codec at 2200 kbps and a picture height of 480 pixels, and the stereo audio is encoded with AAC-LC codec at 64 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"H264SingleBitrate1080p", Desc="Produces an MP4 file where the video is encoded with H.264 codec at 6750 kbps and a picture height of 1080 pixels, and the stereo audio is encoded with AAC-LC codec at 64 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"H264SingleBitrate720p", Desc="Produces an MP4 file where the video is encoded with H.264 codec at 4500 kbps and a picture height of 720 pixels, and the stereo audio is encoded with AAC-LC codec at 64 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"AACGoodQualityAudio", Desc="Produces a single MP4 file containing only stereo audio encoded at 192 kbps.", Automatic=false, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"H264MultipleBitrate1080p", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and stereo AAC audio.Resolution starts at 1080p and goes down to 360p.", Automatic=false, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"H264MultipleBitrate720p", Desc="Produces a set of 6 GOP-aligned MP4 files, ranging from 3400 kbps to 400 kbps, and stereo AAC audio. Resolution starts at 720p and goes down to 360p", Automatic=false, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"H264MultipleBitrateSD", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1600kbps to 400 kbps, and stereo AAC audio. Resolution starts at 480p and goes down to 360p.", Automatic=false, LabelCodec="H.264 / AAC"},
 
-            new Profile() {Prof=@"H265SingleBitrate4K", Desc="Produces an MP4 file where the video is encoded with H.265 codec at 9500 kbps and a picture height of 2160 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.", Automatic=false, LabelCodec="H.265 / AAC"},
-            new Profile() {Prof=@"H265SingleBitrate1080p", Desc="Produces an MP4 file where the video is encoded with H.265 codec at 3500 kbps and a picture height of 1080 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.", Automatic=false, LabelCodec="H.265 / AAC"},
-            new Profile() {Prof=@"H265SingleBitrate720p", Desc="Produces an MP4 file where the video is encoded with H.265 codec at 1800 kbps and a picture height of 720 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.", Automatic=false, LabelCodec="H.265 / AAC"},
-            new Profile() {Prof=@"H265AdaptiveStreaming", Desc="Produces a set of GOP aligned MP4 files with H.265 video and stereo AAC audio. Auto-generates a bitrate ladder based on the input resolution, bitrate and frame rate. The auto-generated preset will never exceed the input resolution. For example, if the input is 720p, output will remain 720p at best.", Automatic=true, LabelCodec="H.265 / AAC"},
-            new Profile() {Prof=@"H265ContentAwareEncoding", Desc="Produces a set of GOP-aligned MP4s by using content-aware encoding. Given any input content, the service performs an initial lightweight analysis of the input content, and uses the results to determine the optimal number of layers, appropriate bitrate and resolution settings for delivery by adaptive streaming. This preset is particularly effective for low and medium complexity videos, where the output files will be at lower bitrates but at a quality that still delivers a good experience to viewers. The output will contain MP4 files with video and audio interleaved.", Automatic=true, LabelCodec="H.265 / AAC"},
+            new EncodingProfile() {Prof=@"H265SingleBitrate4K", Desc="Produces an MP4 file where the video is encoded with H.265 codec at 9500 kbps and a picture height of 2160 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.", Automatic=false, LabelCodec="H.265 / AAC"},
+            new EncodingProfile() {Prof=@"H265SingleBitrate1080p", Desc="Produces an MP4 file where the video is encoded with H.265 codec at 3500 kbps and a picture height of 1080 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.", Automatic=false, LabelCodec="H.265 / AAC"},
+            new EncodingProfile() {Prof=@"H265SingleBitrate720p", Desc="Produces an MP4 file where the video is encoded with H.265 codec at 1800 kbps and a picture height of 720 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.", Automatic=false, LabelCodec="H.265 / AAC"},
+            new EncodingProfile() {Prof=@"H265AdaptiveStreaming", Desc="Produces a set of GOP aligned MP4 files with H.265 video and stereo AAC audio. Auto-generates a bitrate ladder based on the input resolution, bitrate and frame rate. The auto-generated preset will never exceed the input resolution. For example, if the input is 720p, output will remain 720p at best.", Automatic=true, LabelCodec="H.265 / AAC"},
+            new EncodingProfile() {Prof=@"H265ContentAwareEncoding", Desc="Produces a set of GOP-aligned MP4s by using content-aware encoding. Given any input content, the service performs an initial lightweight analysis of the input content, and uses the results to determine the optimal number of layers, appropriate bitrate and resolution settings for delivery by adaptive streaming. This preset is particularly effective for low and medium complexity videos, where the output files will be at lower bitrates but at a quality that still delivers a good experience to viewers. The output will contain MP4 files with video and audio interleaved.", Automatic=true, LabelCodec="H.265 / AAC"},
 
                     };
 
         private readonly PresetStandardEncoderThumbnail formThumbnail = new PresetStandardEncoderThumbnail();
         private StandardEncoderPreset encoderPresetThumbnail;
 
-        private Profile ReturnProfile(string name)
+        private EncodingProfile ReturnProfile(string name)
         {
             return Profiles.Where(p => p.Prof == name).FirstOrDefault();
         }
@@ -190,7 +190,7 @@ namespace AMSExplorer
         {
             UpdateTransformLabel();
 
-            Profile profile = Profiles.Where(p => p.Prof == listboxPresets.SelectedItem.ToString()).FirstOrDefault();
+            EncodingProfile profile = Profiles.Where(p => p.Prof == listboxPresets.SelectedItem.ToString()).FirstOrDefault();
             if (profile != null)
             {
                 richTextBoxDesc.Text = profile.Desc;
@@ -228,14 +228,6 @@ namespace AMSExplorer
             buttonCustomPresetThumbnail.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonThumbnail.Checked;
             UpdateTransformLabel();
         }
-    }
-
-    public class Profile
-    {
-        public string Prof { get; set; }
-        public string Desc { get; set; }
-        public bool Automatic { get; set; }
-        public string LabelCodec { get; set; }
     }
 
     public enum MESPresetTypeUI

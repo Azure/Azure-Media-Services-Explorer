@@ -72,11 +72,4 @@ namespace AMSExplorer
             p.Start();
         }
     }
-
-    public enum AddAccountMode
-    {
-        BrowseSubscriptions = 0,
-        FromAzureCliOrPortalJson,
-        ManualEntry
-    }
 }
