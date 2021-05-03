@@ -17,15 +17,12 @@
 using AMSExplorer.AMSLogin;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Storage.Blob;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
-using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -355,177 +352,6 @@ namespace AMSExplorer
               
     }
 
-    public static class Constants
-    {
-        public const string GitHubAMSEVersionPrimaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
-        public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
-
-        public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
-        public const string GitHubAMSELink = "http://aka.ms/amse";
-
-        public const string NameconvInputasset = "{Input Asset Name}";
-        public const string NameconvUploadasset = "{File Name}";
-        public const string NameconvWorkflow = "{Workflow}";
-        public const string NameconvTemplate = "{Template}";
-        public const string NameconvFormathls = "{Format}";
-        public const string NameconvEncodername = "{Encoder}";
-        public const string NameconvLiveEvent = "{LiveEvent}";
-        public const string NameconvLiveOutput = "{LiveOutput}";
-        public const string NameconvProtocols = "{Protocols}";
-        public const string NameconvContentKeyType = "{Content key type}";
-        public const string NameconvManifestURL = "{manifest url}";
-        public const string NameconvToken = "{token}";
-        public const string NameconvAsset = "{Asset Name}";
-        public const string NameconvJob = "{Job Name}";
-        public const string NameconvTransform = "{Transform Name}";
-        public const string NameconvShortUniqueness = "{Uniqueness}";
-        public const string NameconvFileName = "{File Name}";
-        public const string NameconvUrl = "{Url}";
-
-        public const string endline = "\r\n";
-
-        public const string PathPremiumWorkflowFiles = @"PremiumWorkflowSamples\";
-        public const string PathMESFiles = @"MESPresetFiles\";
-        public const string PathConfigFiles = @"configurations\";
-        public const string PathManifestFile = @"manifest\";
-        public const string PathHelpFiles = @"HelpFiles\";
-        public const string PathDefaultSlateJPG = @"SlateJPG\";
-
-        public const string PathLicense = @"license\Azure Media Services Explorer.rtf";
-
-        public const string PlayerAMPinOptions = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=flash&format=smooth&url={0}";
-        public const string PlayerAMP = @"https://aka.ms/azuremediaplayer";
-        public const string PlayerAMPToLaunch = @"https://aka.ms/azuremediaplayer?url={0}";
-
-        public const string PlayerAMPIFrameToLaunch = @"https://ampdemo.azureedge.net/azuremediaplayer_embed.html?autoplay=true&url={0}";
-        public const string AMPprotectionsyntax = "&protection={0}";
-        public const string AMPtokensyntax = "&token={0}";
-        public const string AMPformatsyntax = "&format={0}";
-        public const string AMPtechsyntax = "&tech={0}";
-        public const string AMPPlayReady = "&playready={0}";
-        public const string AMPPlayReadyToken = "&playreadytoken={0}";
-        public const string AMPWidevine = "&widevine={0}";
-        public const string AMPWidevineToken = "&widevinetoken={0}";
-        public const string AMPAes = "&aes={0}";
-        public const string AMPAesToken = "&aestoken={0}";
-        public const string AMPSubtitles = "&subtitles={0}";
-
-        public const string PlayerDASHIFList = @"http://reference.dashif.org/dash.js/";
-        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/latest/samples/dash-if-reference-player/index.html?url={0}";
-
-        public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
-        public const string AdvancedTestPlayerRoot = @"https://openidconnectweb.azurewebsites.net/AMTestPlayer";
-        public const string AdvancedTestPlayer = AdvancedTestPlayerRoot + @"?url={0}";
-
-        public const string PlayerInfoHTML5Video = @"http://www.w3schools.com/html/html5_video.asp";
-        public const string PlayerJWPlayerPartnership = @"https://www.jwplayer.com/";
-        public const string PlayerTHEOplayerPartnership = @"https://www.theoplayer.com/partners/azure";
-
-        public const string DemoCaptionMaker = @"https://testdrive-archive.azurewebsites.net/Graphics/CaptionMaker/Default.html";
-
-        public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
-        public const string LinkInfoMediaUnit = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-scale-media-processing-overview";
-
-        public const string TemporaryWidevineLicenseServer = "https://thiswillbereplacedbytheAMSwidevineurl/?KID=00000000-0000-0000-0000-000000000000";
-
-        public static readonly string[] BrowserEdge = { "Microsoft Edge", "microsoft-edge:" };
-        public static readonly string[] BrowserChrome = { "Google Chrome", "chrome.exe" };
-        internal static string mpd = ".mpd";
-        internal static string m3u8 = ".m3u8";
-        public const string AssetIdPrefix = "nb:cid:UUID:";
-
-        public const string Bearer = "Bearer ";
-        public const string strUnits = "{0} unit{1}";
-
-        public const string LinkAzureUpdates = @"https://azure.microsoft.com/en-us/updates/?product=cdn,media-services";
-        public const string LinkMoreInfoAMSReleaseNotes = @"https://docs.microsoft.com/en-us/azure/media-services/latest/release-notes";
-        public const string LinkMoreInfoDocAMS = @"https://docs.microsoft.com/en-us/azure/media-services/";
-        public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
-        public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
-
-        public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-streaming-endpoint-concept";
-        public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10";
-
-        public const string LinkMoreInfoVideoAnalyzer = "https://docs.microsoft.com/en-us/azure/media-services/latest/analyzing-video-audio-files-concept";
-        public const string LinkMoreInfoMediaEncoderBuiltIn = "https://docs.microsoft.com/en-us/azure/media-services/latest/encoding-concept";
-        public const string LinkMoreInfoMediaEncoderThumbnail = "https://docs.microsoft.com/en-us/azure/media-services/latest/transform-generate-thumbnails-dotnet-how-to";
-
-        public const string LinkHowIMoreInfoDynamicManifest = "https://docs.microsoft.com/en-us/azure/media-services/latest/filters-dynamic-manifest-concept";
-        public const string LinkHowIMoreInfoSubclipping = "https://azure.microsoft.com/en-us/blog/dynamic-manifests-and-rendered-sub-clips/";
-        public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
-        public const string LinkMoreInfoLiveEncoding = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-live-streaming-concept#live-encoding";
-        public const string LinkMoreInfoLiveStreaming = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-live-streaming-concept";
-        public const string LinkMoreInfoPricing = "https://azure.microsoft.com/en-us/pricing/details/media-services/";
-        public const string LinkMoreInfoStorageVersioning = "https://docs.microsoft.com/en-us/rest/api/storageservices/Versioning-for-the-Azure-Storage-Services";
-        public const string LinkMoreInfoStorageAnalytics = "https://docs.microsoft.com/en-us/azure/storage/blobs/monitor-blob-storage";
-        public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-fairplay-license-overview";
-        public const string LinkMoreInfoTelemetry = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-telemetry-overview";
-
-        public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-playready-license-template-concept";
-        public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
-        public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-widevine-license-template-concept";
-
-        public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/latest/account-create-how-to";
-        public const string LinkAMSAADAut = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-get-started-with-aad";
-        public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-howto";
-
-        public const string LinkAMSE = "http://aka.ms/amse";
-        public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
-        public const string LinkReportBugAMSE = @"https://github.com/Azure/Azure-Media-Services-Explorer/issues";
-        public const string LinkAMSEReleaseNotes = @"https://rawgit.com/Azure/Azure-Media-Services-Explorer/main/AllReleaseNotes.html";
-
-        public const long maxSlateJPGFileSize = 3 * 1000 * 1000; // Max 3 MB
-        public const int maxSlateJPGHorizontalResolution = 1920;
-        public const int maxSlateJPGVerticalResolution = 1080;
-        public const double SlateJPGAspectRatio = 16d / 9d;
-        public const string SlateJPGExtension = ".jpg";
-
-        public const string stringNull = "(null)"; // To display null is textbox
-
-        public const int MaxTransfersAsUnlimited = 5;
-        public const string strTransfers = "{0} concurrent transfer{1}";
-
-        public const string LinkMoreInfoLiveTranscript = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-event-live-transcription-how-to";
-        public const string LinkMoreInfoLiveTranscriptRegions = "https://docs.microsoft.com/en-us/azure/media-services/latest/azure-clouds-regions#feature-availability-in-preview";
-    }
-
-
-    public class JobEntryV3
-    {
-        public string Name { get; set; }
-        public string TransformName { get; set; }
-        public string Description { get; set; }
-        public int Outputs { get; set; }
-        public Priority? Priority { get; set; }
-        public Microsoft.Azure.Management.Media.Models.JobState State { get; set; }
-        public string StartTime { get; set; }
-        public string LastModified { get; set; }
-        public string EndTime { get; set; }
-        public string Duration { get; set; }
-        public double Progress { get; set; }
-    }
-
-    public class JobExtension
-    {
-        public Job Job { get; set; }
-        public string TransformName { get; set; }
-    }
-
-
-
-    public class ExplorerOpenIDSample
-    {
-        public string Name { get; set; }
-        public string Uri { get; set; }
-    }
-
-
-    public class ListCredentialsRPv3
-    {
-        public decimal Version = 3;
-        public List<CredentialsEntryV3> MediaServicesAccounts = new List<CredentialsEntryV3>();
-    }
-
     public class LiveOutputUtil
     {
         public static string ReturnLiveEventFromOutput(LiveOutput liveoutput)
@@ -534,27 +360,6 @@ namespace AMSExplorer
             string[] idParts = liveoutput.Id.Split('/');
             return idParts[10];
         }
-    }
-    public class AssetInfoData
-    {
-        public long Size;
-        public string Type;
-        public IEnumerable<IListBlobItem> Blobs;
-    }
-
-    public class JsonFromAzureCliOrPortal
-    {
-        public string AadClientId { get; set; }
-        public Uri AadEndpoint { get; set; }
-        public string AadSecret { get; set; }
-        public string AadTenantId { get; set; }
-        public string AccountName { get; set; }
-        public Uri ArmAadAudience { get; set; }
-        public Uri ArmEndpoint { get; set; }
-        public string Region { get; set; }
-        public string Location { get; set; }
-        public string ResourceGroup { get; set; }
-        public string SubscriptionId { get; set; }
     }
 
     public class RepData
@@ -606,83 +411,6 @@ namespace AMSExplorer
         AzureUSGovernment,
         AzureGermany,
         Custom
-    }
-
-    public class AzureEnvironment
-    {
-        public string DisplayName { get; set; }
-        //public string Authority { get; set; }
-        public Uri ArmEndpoint { get; set; }
-        public string ClientApplicationId { get; set; }
-        public string MediaServicesV2Resource { get; set; }
-        public ActiveDirectoryServiceSettings AADSettings { get; set; }
-
-
-        public AzureEnvironment(AzureEnvType type)
-        {
-            switch (type)
-            {
-                case AzureEnvType.DevTest:
-                    DisplayName = "Azure Dev/Test";
-                    ArmEndpoint = new Uri("https://api-dogfood.resources.windows-int.net/");
-                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
-                    AADSettings = new ActiveDirectoryServiceSettings() { TokenAudience = new Uri("https://management.core.windows.net/"), ValidateAuthority = true, AuthenticationEndpoint = new Uri("https://login.windows-ppe.net/") };
-                    MediaServicesV2Resource = "https://rest.media.azure-test.net";
-                    break;
-
-                case AzureEnvType.Azure:
-                    DisplayName = "Azure";
-                    ArmEndpoint = new Uri("https://management.azure.com/");
-                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
-                    AADSettings = ActiveDirectoryServiceSettings.Azure;
-                    MediaServicesV2Resource = "https://rest.media.azure.net";
-                    break;
-
-                case AzureEnvType.AzureChina:
-                    DisplayName = "Azure China";
-                    ArmEndpoint = new Uri("https://management.chinacloudapi.cn/");
-                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
-                    AADSettings = ActiveDirectoryServiceSettings.AzureChina;
-                    MediaServicesV2Resource = "https://rest.media.chinacloudapi.cn";
-                    break;
-
-                case AzureEnvType.AzureUSGovernment:
-                    DisplayName = "Azure US Government";
-                    ArmEndpoint = new Uri("https://management.usgovcloudapi.net/");
-                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
-                    AADSettings = ActiveDirectoryServiceSettings.AzureUSGovernment;
-                    MediaServicesV2Resource = "https://rest.media.usgovcloudapi.net";
-                    break;
-
-                case AzureEnvType.AzureGermany:
-                    DisplayName = "Azure Germany";
-                    ArmEndpoint = new Uri("https://management.cloudapi.de/");
-                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
-                    AADSettings = ActiveDirectoryServiceSettings.AzureGermany;
-                    MediaServicesV2Resource = "https://rest.media.cloudapi.de";
-                    break;
-
-                case AzureEnvType.Custom:
-                    DisplayName = "Custom";
-                    ArmEndpoint = null;
-                    ClientApplicationId = string.Empty;
-                    AADSettings = new ActiveDirectoryServiceSettings();
-                    MediaServicesV2Resource = null;
-                    break;
-            }
-        }
-
-        public string ReturnStorageSuffix()
-        {
-            return "core." + ReturnHostNameTwoSegmentsRight(AADSettings.TokenAudience.ToString()); // "core.cloudapi.de"
-        }
-
-        private string ReturnHostNameTwoSegmentsRight(string myUrl)
-        {
-            string[] hosts = (new Uri(myUrl)).Host.Split('.');
-            int i = hosts.Count();
-            return hosts[i - 2] + "." + hosts[i - 1];
-        }
     }
 
     public enum PlayerType
@@ -747,54 +475,9 @@ namespace AMSExplorer
 
     }
 
-
-    public class ManifestTimingData
-    {
-        public TimeSpan AssetDuration { get; set; }
-        public ulong TimestampOffset { get; set; }
-        public long? TimeScale { get; set; }
-        public bool IsLive { get; set; }
-        public bool Error { get; set; }
-        public List<ulong> TimestampList { get; set; }
-        public ulong TimestampEndLastChunk { get; set; }
-        public bool DiscontinuityDetected { get; set; }
-    }
-
-
-    public class FilterCreationInfo
-    {
-        public string Name { get; set; }  // contains the full configuration for subclipping
-        public Microsoft.Azure.Management.Media.Models.FirstQuality Firstquality { get; set; }
-        public Microsoft.Azure.Management.Media.Models.PresentationTimeRange Presentationtimerange { get; set; }
-        public IList<FilterTrackSelection> Tracks { get; set; }
-    }
-    public class SubClipConfiguration
-    {
-        public bool Reencode { get; set; }
-        public bool Trimming { get; set; }
-        public bool CreateAssetFilter { get; set; }
-        public TimeSpan AbsoluteStartTime { get; set; }
-        public TimeSpan AbsoluteEndTime { get; set; }
-    }
-
     internal class HostNameClass
     {
         public string HostName { get; set; }
-    }
-
-    public class Item
-    {
-        public string Name;
-        public string Value;
-        public Item(string name, string value)
-        {
-            Name = name; Value = value;
-        }
-        public override string ToString()
-        {
-            // Generates the text shown in the combo box
-            return Name;
-        }
     }
 
 
@@ -826,125 +509,10 @@ namespace AMSExplorer
         SubfolderAssetName
     }
 
-    public class SearchObject
-    {
-        public string Text { get; set; }
-        public SearchIn SearchType { get; set; }
-
-    }
-
-    public class LocatorAndUrls
-    {
-        public List<StreamingPath> Paths { get; set; }
-        public string LocatorName { get; set; }
-        public Guid? LocatorId { get; set; }
-        public string AssetName { get; set; }
-    }
-
-
-    public sealed class FilterPropertyFourCCValue
-    {
-        public static readonly string mp4a = "mp4a";
-        public static readonly string avc1 = "avc1";
-        public static readonly string ec3 = "ec-3";
-        public static readonly string hev1 = "hev1";
-        public static readonly string hvc1 = "hvc1";
-    }
-
-    public sealed class FilterPropertyTypeValue
-    {
-        public static readonly string Audio = "audio";
-        public static readonly string Video = "video";
-        public static readonly string Text = "text";
-    }
-
 
     public class ExFilterTrack
     {
         public List<ExCondition> Conditions { get; set; }
-    }
-
-    public class ExCondition
-    {
-        public string Property { get; set; }
-        public string Oper { get; set; }
-        public string Value { get; set; }
-    }
-
-
-    public class PropertyRenameAndIgnoreSerializerContractResolver : DefaultContractResolver
-    {
-        private readonly Dictionary<Type, HashSet<string>> _ignores;
-        private readonly Dictionary<Type, Dictionary<string, string>> _renames;
-
-        public PropertyRenameAndIgnoreSerializerContractResolver()
-        {
-            _ignores = new Dictionary<Type, HashSet<string>>();
-            _renames = new Dictionary<Type, Dictionary<string, string>>();
-        }
-
-        public void IgnoreProperty(Type type, params string[] jsonPropertyNames)
-        {
-            if (!_ignores.ContainsKey(type))
-            {
-                _ignores[type] = new HashSet<string>();
-            }
-
-            foreach (string prop in jsonPropertyNames)
-            {
-                _ignores[type].Add(prop);
-            }
-        }
-
-        public void RenameProperty(Type type, string propertyName, string newJsonPropertyName)
-        {
-            if (!_renames.ContainsKey(type))
-            {
-                _renames[type] = new Dictionary<string, string>();
-            }
-
-            _renames[type][propertyName] = newJsonPropertyName;
-        }
-
-        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-        {
-            JsonProperty property = base.CreateProperty(member, memberSerialization);
-
-            if (IsIgnored(property.DeclaringType, property.PropertyName))
-            {
-                property.ShouldSerialize = i => false;
-                property.Ignored = true;
-            }
-
-            if (IsRenamed(property.DeclaringType, property.PropertyName, out string newJsonPropertyName))
-            {
-                property.PropertyName = newJsonPropertyName;
-            }
-
-            return property;
-        }
-
-        private bool IsIgnored(Type type, string jsonPropertyName)
-        {
-            if (!_ignores.ContainsKey(type))
-            {
-                return false;
-            }
-
-            return _ignores[type].Contains(jsonPropertyName);
-        }
-
-        private bool IsRenamed(Type type, string jsonPropertyName, out string newJsonPropertyName)
-        {
-
-            if (!_renames.TryGetValue(type, out Dictionary<string, string> renames) || !renames.TryGetValue(jsonPropertyName, out newJsonPropertyName))
-            {
-                newJsonPropertyName = null;
-                return false;
-            }
-
-            return true;
-        }
     }
 
 

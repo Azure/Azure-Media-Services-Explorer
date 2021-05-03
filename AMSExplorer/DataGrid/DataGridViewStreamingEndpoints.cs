@@ -28,19 +28,6 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public class StreamingEndpointEntry
-    {
-        public string Name { get; set; }
-        public string Id { get; set; }
-        public StreamingEndpointResourceState State { get; set; }
-        public StreamingEndpointInformation.StreamEndpointType Type { get; set; }
-        public string CDN { get; set; }
-        public string Description { get; set; }
-        public string ScaleUnits { get; set; }
-        public DateTime LastModified { get; set; }
-
-    }
-
     public class DataGridViewStreamingEndpoints : DataGridView
     {
 

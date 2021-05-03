@@ -15,40 +15,11 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Runtime.Serialization;
 
 namespace AMSExplorer
 {
-
-    public class LiveEventEntry
-    {
-        //   select new { j.Name, j.Id, j.State, j.StartTime, j.EndTime, j.Tasks[0].PerfMessage, Progress=j.GetOverallProgress() };
-        public string Name { get; set; }
-        public LiveEventResourceState? State { get; set; }
-        public DateTime? LastModified { get; set; }
-        public string Description { get; set; }
-        public string InputProtocol { get; set; }
-        public Bitmap Encoding { get; set; }
-        public string EncodingPreset { get; set; }
-        public string InputUrl { get; set; }
-        public string PreviewUrl { get; set; }
-    }
-
-    public class LiveOutputEntry
-    {
-        public string Name { get; set; }
-        public LiveOutputResourceState? State { get; set; }
-        public DateTime? LastModified { get; set; }
-        public string Description { get; set; }
-        public TimeSpan? ArchiveWindowLength { get; set; }
-        public Bitmap Published { get; set; }
-        public string LiveEventName { get; set; } // Name of live event where the output is attached
-
-    }
-
 
     public enum OperationType
     {
@@ -62,28 +33,6 @@ namespace AMSExplorer
         ResetAsset,
         Reset
     }
-
-    public class StatusInfo
-    {
-        public string EntityName { get; set; }
-        public string ErrorMessage { get; set; }
-
-        public OperationType OperationType { get; set; }
-
-        public DateTime TimeStamp { get; set; }
-
-        public StatusInfo()
-        {
-            TimeStamp = DateTime.Now;
-        }
-    }
-
-    public class EndpointSettingInfo
-    {
-        public string Name { get; set; }
-        public string IpV4 { get; set; }
-    }
-
 
 
     public enum enumDisplayProgram
