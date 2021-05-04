@@ -274,7 +274,7 @@ namespace AMSExplorer
             await DoRefreshAsync();
         }
 
-     
+
 
         public void Notify(string title, string text, bool Error = false)
         {
@@ -283,14 +283,14 @@ namespace AMSExplorer
                 notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
             }
         }
-   
+
 
 
         public async Task DeleteLocatorsForAssetAsync(Asset asset)
         {
             if (asset != null)
             {
-                
+
 
                 IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
 
@@ -648,7 +648,7 @@ namespace AMSExplorer
                 DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
-            
+
             IList<StorageAccount> storAccounts = null;
             try
             {
@@ -802,7 +802,7 @@ namespace AMSExplorer
                 DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
-            
+
             IList<StorageAccount> storAccounts = (await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).StorageAccounts;
 
             if (storageaccount == null)
@@ -924,7 +924,7 @@ namespace AMSExplorer
                 DoGridTransferDeclareCancelled(guidTransfer);
                 return;
             }
-            
+
             IList<StorageAccount> storAccounts = (await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).StorageAccounts;
 
             if (storageaccount == null)
@@ -1261,7 +1261,7 @@ namespace AMSExplorer
             {
                 Directory.CreateDirectory(outputFolderName);
             }
-            
+
             AssetContainerSas assetContainerSas = await client.AMSclient.Assets.ListContainerSasAsync(
                                                                                                         client.credentialsEntry.ResourceGroup,
                                                                                                         client.credentialsEntry.AccountName,
@@ -1542,7 +1542,7 @@ namespace AMSExplorer
             if (asset != null)
             {
                 // Refresh the asset.
-                
+
                 asset = Task.Run(async () => await _amsClient.GetAssetAsync(asset.Name)).Result;
                 if (asset != null)
                 {
@@ -1866,7 +1866,7 @@ namespace AMSExplorer
 
             if (SelectedJobs.Count > 0)
             {
-                
+
 
                 string question = "Cancel these " + SelectedJobs.Count + " jobs ?";
                 if (SelectedJobs.Count == 1)
@@ -1940,7 +1940,7 @@ namespace AMSExplorer
 
                 if (formLocator.ShowDialog() == DialogResult.OK)
                 {
-                    
+
 
                     // The duration for the locator's access policy.
                     TimeSpan accessPolicyDuration = formLocator.LocatorEndDate.Subtract(DateTime.UtcNow);
@@ -2287,7 +2287,7 @@ namespace AMSExplorer
 
                 if (MessageBox.Show(string.Format("Create a SAS Container Path Url and files SAS Urls valid for {0} hours ?", Properties.Settings.Default.DefaultSASDurationInHours), "SAS Urls", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    
+
 
                     string result = await Task.Run(() =>
                     ProcessCreateLocatorSAS(SelectedAssets)
@@ -2302,7 +2302,7 @@ namespace AMSExplorer
 
         private async Task<List<LocatorAndUrls>> ProcessCreateLocatorV3Async(string streamingPolicyName, List<Asset> assets, Nullable<DateTime> startTime, Nullable<DateTime> endTime, string ForceLocatorGUID, ContentKeyPolicy keyPolicy, List<string> listFilters = null)
         {
-            
+
 
             List<LocatorAndUrls> listLocatorNames = new List<LocatorAndUrls>();
 
@@ -2349,7 +2349,7 @@ namespace AMSExplorer
 
         private async Task<string> ProcessCreateLocatorSAS(List<Asset> assets)
         {
-            
+
 
             StringBuilder stringLines = new StringBuilder();
 
@@ -2475,7 +2475,7 @@ namespace AMSExplorer
 
                 if (MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    
+
 
                     bool Error = false;
                     try
@@ -2532,7 +2532,7 @@ namespace AMSExplorer
                 string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Job.Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    
+
 
                     bool Error = false;
                     Task[] deleteTasks = SelectedJobs.ToList().Select(j => _amsClient.AMSclient.Jobs.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, j.TransformName, j.Job.Name)).ToArray();
@@ -2569,7 +2569,7 @@ namespace AMSExplorer
 
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs from the selected transform?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                
+
 
                 bool Error = false;
 
@@ -2632,7 +2632,7 @@ namespace AMSExplorer
 
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs from the selected transform ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                
+
 
                 bool Error = false;
 
@@ -2693,7 +2693,7 @@ namespace AMSExplorer
                 string question = (SelectedTransforms.Count == 1) ? "Delete " + SelectedTransforms[0].Name + " ?" : "Delete these " + SelectedTransforms.Count + " transforms ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Transform deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    
+
                     bool Error = false;
 
                     foreach (var transform in SelectedTransforms)
@@ -3473,7 +3473,7 @@ namespace AMSExplorer
                         case TransferType.UploadFromFile:
                         case TransferType.UploadFromFolder:
                         case TransferType.UploadWithExternalTool:
-                            
+
                             Asset asset = await _amsClient.GetAssetAsync(location);
                             if (asset != null)
                             {
@@ -3554,7 +3554,7 @@ namespace AMSExplorer
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     List<Task> prioTasks = new List<Task>();
-                    
+
 
                     foreach (JobExtension JobToProcess in SelectedJobs)
                     {
@@ -3960,7 +3960,7 @@ namespace AMSExplorer
 
         private async Task DoRefreshGridLiveEventVAsync(bool firstime)
         {
-            
+
 
             if (firstime)
             {
@@ -4000,7 +4000,7 @@ namespace AMSExplorer
 
         private async Task DoRefreshGridStreamingEndpointVAsync(bool firstime)
         {
-            
+
 
             if (firstime)
             {
@@ -4017,7 +4017,7 @@ namespace AMSExplorer
 
         private async Task DoRefreshGridStorageVAsync(bool firstime)
         {
-            
+
             MediaService amsaccount = await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             if (firstime)
@@ -4057,7 +4057,7 @@ namespace AMSExplorer
 
         public async Task DoRefreshGridFiltersVAsync(bool firstime)
         {
-            
+
 
             if (firstime)
             {
@@ -4159,7 +4159,7 @@ namespace AMSExplorer
 
         public async Task DoRefreshGridCKPoliciesVAsync(bool firstime)
         {
-            
+
 
             if (firstime)
             {
@@ -4253,7 +4253,7 @@ namespace AMSExplorer
             // delete also if delete = true
             List<LiveEvent> ListEvents = await ReturnSelectedLiveEventsAsync();
             List<LiveOutput> LOList = new List<LiveOutput>();
-            
+
 
             foreach (LiveEvent le in ListEvents)
             {
@@ -4342,7 +4342,7 @@ namespace AMSExplorer
         {
             List<LiveEvent> ListEvents = await ReturnSelectedLiveEventsAsync();
             List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
-            
+
 
             foreach (LiveEvent le in ListEvents)
             {
@@ -4422,7 +4422,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                
+
 
                 TextBoxLogWriteLine("Creating live event '{0}'...", form.LiveEventName);
 
@@ -4663,7 +4663,7 @@ namespace AMSExplorer
                                 }
                             }
                         }
-                        
+
 
                         try
                         {
@@ -4706,7 +4706,7 @@ namespace AMSExplorer
 
             if (liveeventsrunning.Count() > 0)
             {
-                
+
 
                 try
                 {
@@ -4751,7 +4751,7 @@ namespace AMSExplorer
 
             if (deleteLiveEvents)
             {
-                
+
 
                 // delete the live events
                 try
@@ -4802,7 +4802,7 @@ namespace AMSExplorer
             string names = string.Join(", ", liveevntsstopped.Select(le => le.Name).ToArray());
             if (liveevntsstopped.Count() > 0)
             {
-                
+
 
                 try
                 {
@@ -4872,7 +4872,7 @@ namespace AMSExplorer
             string[] assets = ListOutputs.Select(p => p.AssetName).ToArray();
 
             bool Error = false;
-            
+
 
             try
             {   // delete programs
@@ -4938,7 +4938,7 @@ namespace AMSExplorer
             string names = string.Join(", ", streamingendpointsstopped.Select(le => le.Name).ToArray());
             if (streamingendpointsstopped.Count() > 0)
             {
-                
+
 
                 try
                 {
@@ -4987,7 +4987,7 @@ namespace AMSExplorer
 
         private async Task DoUpdateAndScaleStreamingEndpointEngineAsync(StreamingEndpoint se, int? units = null)
         {
-            
+
 
             try
             {
@@ -5022,7 +5022,7 @@ namespace AMSExplorer
 
             if (sesrunning.Count() > 0)
             {
-                
+
 
                 try
                 {
@@ -5125,7 +5125,7 @@ namespace AMSExplorer
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    
+
 
                     string assetname = form.AssetName.Replace(Constants.NameconvLiveOutput, form.LiveOutputName).Replace(Constants.NameconvLiveEvent, form.LiveEventName);
                     Asset newAsset = new Asset() { StorageAccountName = form.StorageSelected };
@@ -5501,7 +5501,7 @@ namespace AMSExplorer
                                                                  cdnProfile: (form.EnableAzureCDN ? cdnform.Profile : null),
                                                                  location: _amsClient.credentialsEntry.MediaService.Location
                                                                  );
-                
+
 
                 Task.Run(async () =>
                 {
@@ -6217,7 +6217,7 @@ namespace AMSExplorer
                     {
                         if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one (clear streaming) ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                         {
-                            
+
 
                             TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                             try
@@ -6292,21 +6292,12 @@ namespace AMSExplorer
 
             if (le.Count > 0)
             {
-                // let's try to use preview REST to get live transcript setting
-                try
+                var first_le = le.FirstOrDefault();
+
+
+                if (first_le.Transcriptions != null && first_le.Transcriptions.Count > 0)
                 {
-                    AmsClientRest clientRest = new AmsClientRest(_amsClient);
-                    PropertiesForRest liveEventRestProp = clientRest.GetLiveEvent(le.FirstOrDefault().Name).Properties;
-
-                    if (liveEventRestProp.Transcriptions != null && liveEventRestProp.Transcriptions.Count > 0)
-                    {
-                        language = liveEventRestProp.Transcriptions.FirstOrDefault()?.Language;
-                    }
-                }
-
-                catch
-                {
-
+                    language = first_le.Transcriptions.FirstOrDefault()?.Language;
                 }
             }
 
@@ -6636,7 +6627,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                
+
 
                 FilterCreationInfo filterinfo = null;
                 try
@@ -6667,7 +6658,7 @@ namespace AMSExplorer
 
         private async Task DoDeleteFilterAsync()
         {
-            
+
 
             List<AccountFilter> filters = await ReturnSelectedAccountFiltersAsync();
             Task[] deleteTasks = filters.Select(f => _amsClient.AMSclient.AccountFilters.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, f.Name)).ToArray();
@@ -6755,7 +6746,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                
+
 
                 FilterCreationInfo filterinfo = null;
                 try
@@ -6795,7 +6786,7 @@ namespace AMSExplorer
                 string newfiltername = sourcefilter.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
-                    
+
 
                     try
                     {
@@ -7698,7 +7689,7 @@ namespace AMSExplorer
         {
             try
             {
-                
+
 
                 // Create the Transform with the output defined above
                 Transform transform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transformInfo.Name, transformInfo.Outputs, transformInfo.Description);
@@ -7798,7 +7789,7 @@ namespace AMSExplorer
         public async Task<Transform> CreateAndGetCopyCodecTransformIfNeededAsync()
         {
             Transform myTransform = null;
-            
+
 
             bool found = true;
             try
@@ -7855,7 +7846,7 @@ namespace AMSExplorer
 
         public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null, bool MultipleInputAssets = false, JobInputSequence jobInputSequence = null)
         {
-            
+
 
             // Calculate the number of jobs
             int numJob;
@@ -8025,7 +8016,7 @@ namespace AMSExplorer
         // Job creation when source is http
         private async Task CreateAndSubmitJobsAsync(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null, Asset outputAsset = null, string assetNameSyntax = null)
         {
-            
+
 
             foreach (Transform transform in sel)
             {
@@ -8404,7 +8395,7 @@ namespace AMSExplorer
 
         private async Task DoDeleteCKPolAsync()
         {
-            
+
 
             List<ContentKeyPolicy> policies = await ReturnSelectedCKPoliciessAsync();
             Task[] deleteTasks = policies.Select(ck => _amsClient.AMSclient.ContentKeyPolicies.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, ck.Name)).ToArray();
@@ -8781,7 +8772,7 @@ namespace AMSExplorer
         private async Task<List<AccountFilter>> ReturnSelectedAccountFiltersAsync()
         {
             List<AccountFilter> SelectedFilters = new List<AccountFilter>();
-            
+
 
             // account filters
             List<AccountFilter> acctFilters = new List<AccountFilter>();
@@ -8826,7 +8817,7 @@ namespace AMSExplorer
         private async Task<List<Asset>> ReturnSelectedAssetsAsync()
         {
             List<Asset> SelectedAssets = new List<Asset>();
-            
+
 
             try
             {
@@ -8868,7 +8859,7 @@ namespace AMSExplorer
         private async Task<List<Transform>> ReturnSelectedTransformsAsync()
         {
             List<Transform> SelectedTransforms = new List<Transform>();
-            
+
 
             List<Transform> transforms = new List<Transform>();
             IPage<Transform> transformsPage = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
@@ -8914,7 +8905,7 @@ namespace AMSExplorer
             StorageAccount SelectedStorage = null;
             if (dataGridViewStorage.SelectedRows.Count == 1)
             {
-                
+
 
                 DataGridViewRow row = dataGridViewStorage.SelectedRows[0];
                 int index = dataGridViewStorage.Columns["Id"].Index;
@@ -8929,7 +8920,7 @@ namespace AMSExplorer
         private async Task<List<ContentKeyPolicy>> ReturnSelectedCKPoliciessAsync()
         {
             List<ContentKeyPolicy> SelectedCKPolicies = new List<ContentKeyPolicy>();
-            
+
 
             Microsoft.Rest.Azure.IPage<ContentKeyPolicy> ckPolicies = await _amsClient.AMSclient.ContentKeyPolicies.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             foreach (DataGridViewRow Row in dataGridViewCKPolicies.SelectedRows)
@@ -8953,7 +8944,7 @@ namespace AMSExplorer
             }
             else if (tabControlMain.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)) // we are in the live tab
             {
-                
+
 
                 return (await ReturnSelectedLiveOutputsAsync())
                         .Select(p =>

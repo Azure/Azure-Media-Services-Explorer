@@ -138,7 +138,7 @@ namespace AMSExplorer
 
         public static async Task<Uri> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
         {
-            
+
 
             IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
 
@@ -412,7 +412,7 @@ namespace AMSExplorer
                 Permissions = AssetContainerPermission.Read,
                 ExpiryTime = DateTime.Now.AddMinutes(5).ToUniversalTime()
             };
-            
+
 
             AssetContainerSas responseSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name, input.Permissions, input.ExpiryTime);
 
@@ -1380,7 +1380,7 @@ namespace AMSExplorer
                         try
                         {
                             CultureInfo culture = CultureInfo.GetCultureInfo(subtitleLanguageCode);
-                            string trackName = WebUtility.HtmlEncode(culture.DisplayName);
+                            string trackName = Uri.EscapeDataString(culture.DisplayName);
                             playerurl += $"&imsc1Captions={trackName},{subtitleLanguageCode}";
                         }
                         catch
