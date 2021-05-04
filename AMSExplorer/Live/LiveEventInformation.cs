@@ -330,7 +330,7 @@ namespace AMSExplorer
         private void LiveEventInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
             // let's sure we dispose the webbrowser control
-            webBrowserPreview.Url = null;
+            //webBrowserPreview. = null;
             webBrowserPreview.Dispose();
         }
 
@@ -451,13 +451,13 @@ namespace AMSExplorer
                             launchbrowser: false
                             );
 
-                webBrowserPreview.Url = new Uri(myurl.Replace("https://", "http://"));
+                webBrowserPreview.Source = new Uri(myurl.Replace("https://", "http://"));
             }
         }
 
         private void tabPage4_Leave(object sender, EventArgs e)
         {
-            webBrowserPreview.Url = null;
+            webBrowserPreview.Source = null;
         }
 
         private void textBoxKeyFrame_TextChanged(object sender, EventArgs e)
