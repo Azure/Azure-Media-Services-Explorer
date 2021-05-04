@@ -457,7 +457,7 @@ namespace AMSExplorer
 
         private void tabPage4_Leave(object sender, EventArgs e)
         {
-            webBrowserPreview.Source = null;
+            webBrowserPreview.Source = new Uri("about:blank");
         }
 
         private void textBoxKeyFrame_TextChanged(object sender, EventArgs e)

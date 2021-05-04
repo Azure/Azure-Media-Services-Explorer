@@ -439,7 +439,7 @@ namespace AMSExplorer
             }
 
             // let's sure we dispose the webbrowser control
-            webBrowserPreview.Url = null;
+            webBrowserPreview.Stop();
             webBrowserPreview.Dispose();
         }
 
@@ -464,16 +464,16 @@ namespace AMSExplorer
                 if (myuri != null)
                 {
                     string myurl = await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetTools.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
-                    webBrowserPreview.Url = new Uri(myurl);
+                    webBrowserPreview.Source = new Uri(myurl);
                 }
                 else
                 {
-                    webBrowserPreview.Url = null;
+                    webBrowserPreview.Source = new Uri("about:blank");
                 }
             }
             else
             {
-                webBrowserPreview.Url = null;
+                webBrowserPreview.Source = new Uri("about:blank");
             }
         }
 
