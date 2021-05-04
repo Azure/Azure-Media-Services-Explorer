@@ -55,11 +55,6 @@ namespace AMSExplorer
         private readonly PresetStandardEncoderThumbnail formThumbnail = new();
         private StandardEncoderPreset encoderPresetThumbnail;
 
-        private EncodingProfile ReturnProfile(string name)
-        {
-            return Profiles.Where(p => p.Prof == name).FirstOrDefault();
-        }
-
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
 
 

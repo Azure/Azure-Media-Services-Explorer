@@ -24,11 +24,11 @@ namespace AMSExplorer
         public TokenCredentials credentials;
         public AzureEnvironment environment;
         private readonly string _azureSubscriptionId;
-        private IPublicClientApplication _appInteract;
-        private IConfidentialClientApplication _appSP;
-        private string[] scopes, scopes2, scopes3;
+        private readonly IPublicClientApplication _appInteract;
+        private readonly IConfidentialClientApplication _appSP;
+        private readonly string[] scopes, scopes2, scopes3;
         private bool firstTimeAuth = true;
-        private System.Timers.Timer TimerAutoRefreshAuthToken;
+        private readonly System.Timers.Timer TimerAutoRefreshAuthToken;
 
 
         public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV3 myCredentialsEntry, Form form)
@@ -130,7 +130,7 @@ namespace AMSExplorer
             {
                 if (firstTimeAuth)
                 {
-                    AmsLoginServicePrincipal form = new AmsLoginServicePrincipal
+                    AmsLoginServicePrincipal form = new()
                     {
                         ClientId = credentialsEntry.ADSPClientId,
                         ClientSecret = credentialsEntry.ClearADSPClientSecret
@@ -192,7 +192,7 @@ namespace AMSExplorer
         public static string GetStorageResourceName(string storageId)
         {
             string[] split = storageId.Split('/');
-            return storageId.Split('/')[split.Count() - 5];
+            return storageId.Split('/')[split.Length - 5];
         }
 
         public async Task<Asset> GetAssetAsync(string assetName, CancellationToken token = default)
