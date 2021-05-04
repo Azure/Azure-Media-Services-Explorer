@@ -37,9 +37,7 @@ namespace AMSExplorer
         /// Only one of the allowed_track_types and content_key_specs values can be specified.
         /// </summary>
         [JsonProperty("content_key_specs")]
-#pragma warning disable CA1819 // Properties should not return arrays
         public ContentKeySpec[] ContentKeySpecs { get; set; }
-#pragma warning restore CA1819 // Properties should not return arrays
 
         /// <summary>
         /// Gets or sets policy settings for the license.

@@ -1659,7 +1659,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridViewLiveEventsV, 7);
             this.dataGridViewLiveEventsV.ContextMenuStrip = this.contextMenuStripLiveEvents;
             this.dataGridViewLiveEventsV.FilterState = "All";
-            this.dataGridViewLiveEventsV.LiveEventsPerPage = 50;
+            DataGridViewLiveEvent.LiveEventsPerPage = 50;
             this.dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             this.dataGridViewLiveEventsV.ReadOnly = true;
             this.dataGridViewLiveEventsV.RowHeadersVisible = false;
@@ -1876,7 +1876,7 @@
             this.dataGridViewLiveOutputV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel2.SetColumnSpan(this.dataGridViewLiveOutputV, 4);
             this.dataGridViewLiveOutputV.ContextMenuStrip = this.contextMenuStripLiveOutputs;
-            this.dataGridViewLiveOutputV.DisplayLiveEvent = AMSExplorer.enumDisplayProgram.Selected;
+            DataGridViewLiveOutput.DisplayLiveEvent = AMSExplorer.enumDisplayProgram.Selected;
             this.dataGridViewLiveOutputV.FilterState = "All";
             this.dataGridViewLiveOutputV.ItemsPerPage = 50;
             this.dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";

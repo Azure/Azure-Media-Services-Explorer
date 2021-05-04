@@ -31,9 +31,9 @@ namespace AMSExplorer
 
         }
 
-        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -46,7 +46,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssemblyProduct
+        public static string AssemblyProduct
         {
             get
             {
@@ -59,7 +59,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -72,7 +72,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssemblyCompany
+        public static string AssemblyCompany
         {
             get
             {

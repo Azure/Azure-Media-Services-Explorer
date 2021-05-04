@@ -89,7 +89,7 @@ namespace AMSExplorer
             return "core." + ReturnHostNameTwoSegmentsRight(AADSettings.TokenAudience.ToString()); // "core.cloudapi.de"
         }
 
-        private string ReturnHostNameTwoSegmentsRight(string myUrl)
+        private static string ReturnHostNameTwoSegmentsRight(string myUrl)
         {
             string[] hosts = (new Uri(myUrl)).Host.Split('.');
             int i = hosts.Length;

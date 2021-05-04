@@ -95,7 +95,7 @@ namespace AMSExplorer
         }
 
 
-        public ContentKeyPolicyRestrictionTokenType TokenType => ContentKeyPolicyRestrictionTokenType.Jwt;
+        public static ContentKeyPolicyRestrictionTokenType TokenType => ContentKeyPolicyRestrictionTokenType.Jwt;
 
 
         public ExplorerTokenType GetDetailedTokenType

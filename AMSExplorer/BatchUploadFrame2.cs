@@ -95,13 +95,13 @@ namespace AMSExplorer
                 }
                 if (BatchProcessSubFolders)
                 {
-                    folders.RemoveAll(f => Directory.GetFiles(f).Count() == 0); // we remove all folder with 0 file in it at the root
+                    folders.RemoveAll(f => Directory.GetFiles(f).Length == 0); // we remove all folder with 0 file in it at the root
 
                     string s;
                     int filecount;
                     foreach (string folder in folders)
                     {
-                        filecount = Directory.GetFiles(folder).Count();
+                        filecount = Directory.GetFiles(folder).Length;
                         s = filecount > 1 ? AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01Files : AMSExplorer.Properties.Resources.BatchUploadFrame2_BatchUploadFrame2_01File;
                         ListViewItem it = checkedListBoxFolders.Items.Add(string.Format(s, Path.GetFileName(folder), filecount));
                         it.Checked = true;

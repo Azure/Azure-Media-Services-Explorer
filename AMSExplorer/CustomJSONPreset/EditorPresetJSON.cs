@@ -106,7 +106,7 @@ namespace AMSExplorer
             MyThread.Start(textBoxConfiguration.Text);
         }
 
-        public void DoCopyClipboard(object text)
+        public static void DoCopyClipboard(object text)
         {
             Clipboard.SetText((string)text);
         }

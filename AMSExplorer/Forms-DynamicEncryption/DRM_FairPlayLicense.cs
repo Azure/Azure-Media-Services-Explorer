@@ -44,7 +44,7 @@ namespace AMSExplorer
             }
         }
 
-        private long ReturnTotalSeconds(decimal nbHours)
+        private static long ReturnTotalSeconds(decimal nbHours)
         {
             return (long)TimeSpan.FromHours((double)nbHours).TotalSeconds;
         }

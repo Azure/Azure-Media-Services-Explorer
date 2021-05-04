@@ -406,7 +406,8 @@ namespace AMSExplorer
             Process p = new()
             {
                 StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
-            }; p.Start();
+            };
+            p.Start();
         }
 
         private void buttonAddExampleClientPolicy_Click(object sender, EventArgs e)

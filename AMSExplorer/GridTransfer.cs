@@ -113,7 +113,7 @@ namespace AMSExplorer
 
             // refresh number in tab
             //tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", _MyListTransfer.Count())));
-            tabPageTransfers.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", _MyListTransfer.Count()));
+            tabPageTransfers.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", _MyListTransfer.Count));
 
             // to cancel task if needed
             CancellationTokenSource tokenSource = new();
@@ -124,14 +124,14 @@ namespace AMSExplorer
         }
 
 
-        public void DoGridTransferCancelTask(Guid guid)
+        public static void DoGridTransferCancelTask(Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
             transfer.tokenSource.Cancel();
             transfer.State = TransferState.Cancelling;
         }
 
-        private void DoGridTransferUpdateProgressText(string progresstext, double progress, Guid guid)
+        private static void DoGridTransferUpdateProgressText(string progresstext, double progress, Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
 
@@ -142,7 +142,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoGridTransferUpdateProgress(double progress, Guid guid)
+        private static void DoGridTransferUpdateProgress(double progress, Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
 
@@ -158,7 +158,7 @@ namespace AMSExplorer
             }
         }
 
-        private TransferEntry ReturnTransfer(Guid guid)
+        private static TransferEntry ReturnTransfer(Guid guid)
         {
             return _MyListTransfer.ToList().Where(t => t.Id == guid).FirstOrDefault();
         }
@@ -223,7 +223,7 @@ namespace AMSExplorer
             }));
         }
 
-        private void DoGridTransferClearCompletedTransfers()
+        private static void DoGridTransferClearCompletedTransfers()
         {
             List<TransferEntry> list = _MyListTransfer.Where(l => l.State == TransferState.Cancelled || l.State == TransferState.Error || l.State == TransferState.Finished).ToList();
             foreach (TransferEntry l in list)
@@ -246,7 +246,7 @@ namespace AMSExplorer
             TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started, transfer.Name));
         }
 
-        private bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
+        private static bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
         {
             IEnumerable<TransferEntry> runningTransfers = _MyListTransfer.ToList().Where(t => t.processedinqueue && t.State == TransferState.Processing);
 
@@ -260,7 +260,7 @@ namespace AMSExplorer
             }
         }
 
-        private bool DoGridTransferIsQueueRequested(Guid guid)  // Return true transfer is managed in the queue
+        private static bool DoGridTransferIsQueueRequested(Guid guid)  // Return true transfer is managed in the queue
         {
             return (ReturnTransfer(guid).processedinqueue);
         }

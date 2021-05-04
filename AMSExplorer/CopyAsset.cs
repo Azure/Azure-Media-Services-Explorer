@@ -254,7 +254,7 @@ namespace AMSExplorer
             // DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
         }
 
-        private void ScaleListViewColumns(ListView listview)
+        private static void ScaleListViewColumns(ListView listview)
         {
             if (listview.Columns.Count > 0)
             {

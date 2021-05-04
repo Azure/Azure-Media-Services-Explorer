@@ -68,7 +68,7 @@ namespace AMSExplorer
 
         protected override PropertyDescriptor SortPropertyCore => _sortPropertyValue;
 
-        private bool IsComparable(Type type)
+        private static bool IsComparable(Type type)
         {
             if (type.GetInterface("IComparable") != null)
             {

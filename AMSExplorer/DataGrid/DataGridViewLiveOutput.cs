@@ -69,7 +69,7 @@ namespace AMSExplorer
         public int PageCount => _pagecount;
         public int CurrentPage => _currentpage;
 
-        public enumDisplayProgram DisplayLiveEvent
+        public static enumDisplayProgram DisplayLiveEvent
         {
             get => _anyChannel;
             set => _anyChannel = value;

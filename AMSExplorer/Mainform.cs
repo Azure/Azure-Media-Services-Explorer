@@ -1174,7 +1174,7 @@ namespace AMSExplorer
         }
 
 
-        private void MyUploadFileProgressChanged(Guid guidTransfer, int indexfile, int nbfiles)
+        private static void MyUploadFileProgressChanged(Guid guidTransfer, int indexfile, int nbfiles)
         {
             double progress = 100 * (double)indexfile / nbfiles;
             DoGridTransferUpdateProgress(progress, guidTransfer);
@@ -7083,7 +7083,7 @@ namespace AMSExplorer
         {
             if (dataGridViewLiveOutputV.Initialized && !CheckboxAnyLiveEventChangedByCode)
             {
-                dataGridViewLiveOutputV.DisplayLiveEvent = ReturnDisplayProgram();
+                DataGridViewLiveOutput.DisplayLiveEvent = ReturnDisplayProgram();
 
                 Task.Run(() =>
                 {
@@ -7445,7 +7445,7 @@ namespace AMSExplorer
             DoClearTransferts();
         }
 
-        private void DoClearTransferts()
+        private static void DoClearTransferts()
         {
             DoGridTransferClearCompletedTransfers();
         }

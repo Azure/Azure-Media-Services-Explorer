@@ -32,7 +32,7 @@ namespace AMSExplorer
 {
     public class DataGridViewLiveEvent : DataGridView
     {
-        public int LiveEventsPerPage
+        public static int LiveEventsPerPage
         {
             get => _liveeventsperpage;
             set => _liveeventsperpage = value;

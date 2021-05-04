@@ -34,10 +34,7 @@ namespace AMSExplorer
 
         protected virtual void OnChanged(EventArgs e)
         {
-            if (Changed != null)
-            {
-                Changed(this, e);
-            }
+            Changed?.Invoke(this, e);
         }
 
         public EDL()

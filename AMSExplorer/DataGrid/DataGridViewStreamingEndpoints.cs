@@ -49,7 +49,7 @@ namespace AMSExplorer
             get => _timefilter;
             set => _timefilter = value;
         }
-        public int DisplayedCount => _MyObservStreamingEndpoints.Count();
+        public int DisplayedCount => _MyObservStreamingEndpoints.Count;
         public List<StreamingEndpoint> DisplayedStreamingEndpoints
         {
             // we want to keep the sorting in display
