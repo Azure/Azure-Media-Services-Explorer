@@ -39,7 +39,7 @@ namespace AMSExplorer
         private readonly List<TenantIdDescription> _myTenants;
         private readonly Prompt _prompt;
         private List<Subscription> subscriptions;
-        private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new Dictionary<string, List<MediaService>>();
+        private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new();
         public MediaService selectedAccount = null;
         public string selectedTenantId = null;
 

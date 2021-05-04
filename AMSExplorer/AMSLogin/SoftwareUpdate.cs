@@ -43,7 +43,7 @@ namespace AMSExplorer
             // DpiUtils.InitPerMonitorDpi(this);
             if (_urlRelNotes != null)
             {
-                webBrowser1.Url = _urlRelNotes;
+                webBrowser1.Source = _urlRelNotes;
             }
 
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkAMSE));
@@ -66,7 +66,7 @@ namespace AMSExplorer
         {
             progressBar1.Visible = true;
             buttonOk.Enabled = false;
-            WebClient webClientB = new WebClient();
+            WebClient webClientB = new();
             string filename = System.IO.Path.GetFileName(_binaryUrl.LocalPath);
 
             webClientB.DownloadFileCompleted += DownloadFileCompletedBinary(filename);
@@ -102,6 +102,11 @@ namespace AMSExplorer
         private void SoftwareUpdate_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+        }
+
+        private void SoftwareUpdate_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            webBrowser1.Dispose();
         }
     }
 }

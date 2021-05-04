@@ -63,11 +63,13 @@ namespace AMSExplorer
 
         private void LinkLabelAzCliDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = e.Link.LinkData as string,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
