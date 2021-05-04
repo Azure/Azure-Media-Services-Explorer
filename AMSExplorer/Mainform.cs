@@ -236,7 +236,7 @@ namespace AMSExplorer
 
 
         // Test
-        private async Task<object> ListEventsRest()
+        private static async Task<object> ListEventsRest()
         {
             // tenants browsing
             // GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/liveEvents?api-version=2018-07-01
@@ -891,7 +891,7 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
-        private long GetFileSize(string url)
+        private static long GetFileSize(string url)
         {
             long result = 1;
 
@@ -1107,7 +1107,7 @@ namespace AMSExplorer
 
                     IEnumerable<IListBlobItem> subblocks = srcBlobList.Where(s => s is CloudBlockBlob);
                     long size = 0;
-                    if (subblocks.Count() > 0)
+                    if (subblocks.Any())
                     {
                         size = subblocks.Sum(s => ((CloudBlockBlob)s).Properties.Length);
                     }
@@ -2251,7 +2251,7 @@ namespace AMSExplorer
             top = myForm.Top;
         }
 
-        public async Task<StringBuilder> AddTestTokenToSbuilderAsync(List<form_DRM_Config_TokenClaims> formTokenClaims, LocatorAndUrls myLocator, string DRMTechnology, int tokenDuration, int? tokenUse)
+        public static async Task<StringBuilder> AddTestTokenToSbuilderAsync(List<form_DRM_Config_TokenClaims> formTokenClaims, LocatorAndUrls myLocator, string DRMTechnology, int tokenDuration, int? tokenUse)
         {
             StringBuilder sbuilder = new();
             foreach (form_DRM_Config_TokenClaims tokenClaims in formTokenClaims)
@@ -2277,7 +2277,7 @@ namespace AMSExplorer
             return sbuilder;
         }
 
-        private async void DoCreateSASUrl(List<Asset> SelectedAssets)
+        private static async void DoCreateSASUrl(List<Asset> SelectedAssets)
         {
             if (SelectedAssets.Count > 0)
             {
@@ -2349,7 +2349,7 @@ namespace AMSExplorer
             return listLocatorNames;
         }
 
-        private async Task<string> ProcessCreateLocatorSAS(List<Asset> assets)
+        private static async Task<string> ProcessCreateLocatorSAS(List<Asset> assets)
         {
 
 
@@ -3382,31 +3382,14 @@ namespace AMSExplorer
                 {
 
                     TransferState JS = (TransferState)dataGridViewTransfer.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    Color mycolor;
-
-                    switch (JS)
+                    var mycolor = JS switch
                     {
-                        case TransferState.Error:
-                            mycolor = Color.Red;
-                            break;
-
-                        case TransferState.Processing:
-                            mycolor = Color.DarkGreen;
-                            break;
-
-                        case TransferState.Queued:
-                            mycolor = Color.Green;
-                            break;
-
-                        case TransferState.Cancelled:
-                            mycolor = Color.Blue;
-                            break;
-
-                        default:
-                            mycolor = Color.Black;
-                            break;
-
-                    }
+                        TransferState.Error => Color.Red,
+                        TransferState.Processing => Color.DarkGreen,
+                        TransferState.Queued => Color.Green,
+                        TransferState.Cancelled => Color.Blue,
+                        _ => Color.Black,
+                    };
                     for (int i = 0; i < dataGridViewTransfer.Columns.Count; i++)
                     {
                         dataGridViewTransfer.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
@@ -3870,18 +3853,14 @@ namespace AMSExplorer
 
 
 
-            switch (tabControlMain.SelectedTab.Name)
+            buttonRefreshTab.Enabled = tabControlMain.SelectedTab.Name switch
             {
-                case "tabPageChart":
-                    buttonRefreshTab.Enabled = false;
-                    break;
-                default:
-                    buttonRefreshTab.Enabled = true;
-                    break;
-            }
+                "tabPageChart" => false,
+                _ => true,
+            };
         }
 
-        private void EnableChildItems(ref ToolStripMenuItem menuitem, bool bflag)
+        private static void EnableChildItems(ref ToolStripMenuItem menuitem, bool bflag)
         {
             menuitem.Enabled = bflag;
             foreach (ToolStripItem item in menuitem.DropDownItems)
@@ -3901,7 +3880,7 @@ namespace AMSExplorer
             }
         }
 
-        private void EnableChildItems(ref ContextMenuStrip menuitem, bool bflag)
+        private static void EnableChildItems(ref ContextMenuStrip menuitem, bool bflag)
         {
             menuitem.Enabled = bflag;
             foreach (ToolStripItem item in menuitem.Items)
@@ -4327,29 +4306,15 @@ namespace AMSExplorer
             if (cellLiveEventStateValue != null)
             {
                 LiveEventResourceState CS = (LiveEventResourceState)cellLiveEventStateValue;
-                Color mycolor;
-
-                switch (CS)
+                var mycolor = (string)CS switch
                 {
-                    case nameof(LiveEventResourceState.Deleting):
-                        mycolor = Color.Red;
-                        break;
-                    case nameof(LiveEventResourceState.Stopping):
-                        mycolor = Color.OrangeRed;
-                        break;
-                    case nameof(LiveEventResourceState.Starting):
-                        mycolor = Color.DarkCyan;
-                        break;
-                    case nameof(LiveEventResourceState.Stopped):
-                        mycolor = Color.Blue;
-                        break;
-                    case nameof(LiveEventResourceState.Running):
-                        mycolor = Color.Green;
-                        break;
-                    default:
-                        mycolor = Color.Black;
-                        break;
-                }
+                    nameof(LiveEventResourceState.Deleting) => Color.Red,
+                    nameof(LiveEventResourceState.Stopping) => Color.OrangeRed,
+                    nameof(LiveEventResourceState.Starting) => Color.DarkCyan,
+                    nameof(LiveEventResourceState.Stopped) => Color.Blue,
+                    nameof(LiveEventResourceState.Running) => Color.Green,
+                    _ => Color.Black,
+                };
                 e.CellStyle.ForeColor = mycolor;
             }
         }
@@ -4368,13 +4333,13 @@ namespace AMSExplorer
 
             IEnumerable<Program.LiveOutputExt> liveOutputRunningQuery = LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Running);
 
-            if (LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Creating || p.LiveOutputItem.ResourceState == LiveOutputResourceState.Deleting).Count() > 0) // live outputs are in creation or deletion mode
+            if (LOList.Where(p => p.LiveOutputItem.ResourceState == LiveOutputResourceState.Creating || p.LiveOutputItem.ResourceState == LiveOutputResourceState.Deleting).Any()) // live outputs are in creation or deletion mode
             {
                 MessageBox.Show("Some live outputs are being created or deleted. Live event(s) cannot be reset now.", "Live event(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
-                if (liveOutputRunningQuery.Count() > 0) // some output exists
+                if (liveOutputRunningQuery.Any()) // some output exists
                 {
                     if (MessageBox.Show("One or several live outputs are running which prevents the live event(s) reset. Do you want to delete the live output(s) and then reset the live event(s) ?", "Live event reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
@@ -5216,24 +5181,13 @@ namespace AMSExplorer
             if (cellprogramstatevalue != null)
             {
                 LiveOutputResourceState PS = (LiveOutputResourceState)cellprogramstatevalue;
-                Color mycolor;
-
-                switch (PS)
+                var mycolor = (string)PS switch
                 {
-                    case nameof(LiveOutputResourceState.Deleting):
-                        mycolor = Color.OrangeRed;
-                        break;
-                    case nameof(LiveOutputResourceState.Creating):
-                        mycolor = Color.DarkCyan;
-                        break;
-                    case nameof(LiveOutputResourceState.Running):
-                        mycolor = Color.Green;
-                        break;
-
-                    default:
-                        mycolor = Color.Black;
-                        break;
-                }
+                    nameof(LiveOutputResourceState.Deleting) => Color.OrangeRed,
+                    nameof(LiveOutputResourceState.Creating) => Color.DarkCyan,
+                    nameof(LiveOutputResourceState.Running) => Color.Green,
+                    _ => Color.Black,
+                };
                 e.CellStyle.ForeColor = mycolor;
             }
         }
@@ -5275,30 +5229,15 @@ namespace AMSExplorer
             if (cellSEstatevalue != null)
             {
                 StreamingEndpointResourceState SES = (StreamingEndpointResourceState)cellSEstatevalue;
-                Color mycolor;
-
-                switch (SES)
+                var mycolor = (string)SES switch
                 {
-                    case nameof(StreamingEndpointResourceState.Deleting):
-                        mycolor = Color.Red;
-                        break;
-                    case nameof(StreamingEndpointResourceState.Stopping):
-                        mycolor = Color.OrangeRed;
-                        break;
-                    case nameof(StreamingEndpointResourceState.Starting):
-                        mycolor = Color.DarkCyan;
-                        break;
-                    case nameof(StreamingEndpointResourceState.Stopped):
-                        mycolor = Color.Red;
-                        break;
-                    case nameof(StreamingEndpointResourceState.Running):
-                        mycolor = Color.Green;
-                        break;
-                    default:
-                        mycolor = Color.Black;
-                        break;
-
-                }
+                    nameof(StreamingEndpointResourceState.Deleting) => Color.Red,
+                    nameof(StreamingEndpointResourceState.Stopping) => Color.OrangeRed,
+                    nameof(StreamingEndpointResourceState.Starting) => Color.DarkCyan,
+                    nameof(StreamingEndpointResourceState.Stopped) => Color.Red,
+                    nameof(StreamingEndpointResourceState.Running) => Color.Green,
+                    _ => Color.Black,
+                };
                 e.CellStyle.ForeColor = mycolor;
             }
         }
@@ -6080,7 +6019,7 @@ namespace AMSExplorer
                 if (JobToDisplayP != null)
                 {
                     IEnumerable<JobOutput> outputsError = JobToDisplayP.Job.Outputs.Where(o => o.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
-                    if (outputsError.Count() > 0)
+                    if (outputsError.Any())
                     {
                         StringBuilder sb = new();
                         foreach (JobOutput output in outputsError)
@@ -6476,7 +6415,7 @@ namespace AMSExplorer
             LiveEventRunOnPremisesLiveEncoder();
         }
 
-        private void LiveEventRunOnPremisesLiveEncoder()
+        private static void LiveEventRunOnPremisesLiveEncoder()
         {
             //  ChannelRunOnPremisesEncoder form = new ChannelRunOnPremisesEncoder(_context, ReturnSelectedChannels());
             //  form.ShowDialog();
@@ -6886,7 +6825,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoExportMetadataAsync()
+        private static async Task DoExportMetadataAsync()
         {
         }
 
@@ -7745,7 +7684,7 @@ namespace AMSExplorer
         /// Create a Video Analyzer transform
         /// </summary>
         /// <returns>The name of the transform</returns>
-        public Transform GetSettingsVideoAnalyzerTransform(string existingTransformName = null, string existingTransformDesc = null)
+        public static Transform GetSettingsVideoAnalyzerTransform(string existingTransformName = null, string existingTransformDesc = null)
         {
             PresetVideoAnalyzer form = new(existingTransformName, existingTransformDesc);
 
@@ -7767,7 +7706,7 @@ namespace AMSExplorer
         /// Creates a Face Detector transform.
         /// </summary>
         /// <returns>The name of the transform.</returns>
-        public Transform GetSettingsFaceDetectorTransform(string existingTransformName = null, string existingTransformDesc = null)
+        public static Transform GetSettingsFaceDetectorTransform(string existingTransformName = null, string existingTransformDesc = null)
         {
             PresetFaceDetector form = new(existingTransformName, existingTransformDesc);
 
@@ -7790,7 +7729,7 @@ namespace AMSExplorer
         /// Create a MES Transform
         /// </summary>
         /// <returns>The name of the transform</returns>
-        public Transform GetSettingsStandardEncoderTransform(string existingTransformName = null, string existingTransformDesc = null)
+        public static Transform GetSettingsStandardEncoderTransform(string existingTransformName = null, string existingTransformDesc = null)
         {
             PresetStandardEncoder form = new(existingTransformName, existingTransformDesc);
 
@@ -8466,7 +8405,7 @@ namespace AMSExplorer
             await DoCreateContentKeyPolicyAsync();
         }
 
-        private Task DoCreateContentKeyPolicyAsync()
+        private static Task DoCreateContentKeyPolicyAsync()
         {
             /*
 

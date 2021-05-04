@@ -683,7 +683,7 @@ namespace AMSExplorer
         }
 
 
-        private void ScaleListViewColumns(ListView listview)
+        private static void ScaleListViewColumns(ListView listview)
         {
             listview.Columns[0].Width = listview.Width - 4 - SystemInformation.VerticalScrollBarWidth;
         }

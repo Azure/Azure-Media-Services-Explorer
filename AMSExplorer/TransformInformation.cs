@@ -143,7 +143,7 @@ namespace AMSExplorer
             }
         }
 
-        private void SeeValueInEditor(string dataname, string key)
+        private static void SeeValueInEditor(string dataname, string key)
         {
             EditorXMLJSON editform = new(dataname, key, false);
             editform.Display();

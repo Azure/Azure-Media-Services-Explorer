@@ -46,6 +46,7 @@ namespace AMSExplorer.AMSLogin
         private void EmbeddedBrowserUI_FormClosed(object sender, FormClosedEventArgs e)
         {
             _taskCompletionSource.TrySetCanceled();
+            webBrowser.Dispose();
             _token.Dispose();
         }
 

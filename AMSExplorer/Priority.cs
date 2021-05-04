@@ -28,22 +28,12 @@ namespace AMSExplorer
         {
             get
             {
-                Priority p;
-                switch (comboBoxPriority.SelectedItem)
+                var p = comboBoxPriority.SelectedItem switch
                 {
-                    case "Low":
-                        p = Priority.Low;
-                        break;
-
-                    case "High":
-                        p = Priority.High;
-                        break;
-
-                    default:
-                        p = Priority.Normal;
-                        break;
-                }
-
+                    "Low" => Priority.Low,
+                    "High" => Priority.High,
+                    _ => Priority.Normal,
+                };
                 return p;
             }
 

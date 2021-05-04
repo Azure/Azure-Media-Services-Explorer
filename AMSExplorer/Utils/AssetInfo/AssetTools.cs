@@ -155,7 +155,7 @@ namespace AMSExplorer
                 string locatorName = useThisLocatorName ?? locators.First().Name;
                 IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName)).StreamingPaths;
                 IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
-                if (smoothPath.Count() > 0)
+                if (smoothPath.Any())
                 {
                     UriBuilder uribuilder = new()
                     {
@@ -234,30 +234,16 @@ namespace AMSExplorer
 
         public static string AddProtocolFormatInUrlString(string urlstr, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified)
         {
-            switch (protocol)
+            return protocol switch
             {
-                case AMSOutputProtocols.DashCsf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_dash_csf)) + Constants.mpd;
-
-                case AMSOutputProtocols.DashCmaf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_dash_cmaf)) + Constants.mpd;
-
-                case AMSOutputProtocols.HLSv3:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_v3)) + Constants.m3u8;
-
-                case AMSOutputProtocols.HLSv4:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_v4)) + Constants.m3u8;
-
-                case AMSOutputProtocols.HLSCmaf:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_cmaf)) + Constants.m3u8;
-
-                case AMSOutputProtocols.SmoothLegacy:
-                    return AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_smooth_legacy));
-
-                case AMSOutputProtocols.NotSpecified:
-                default:
-                    return urlstr;
-            }
+                AMSOutputProtocols.DashCsf => AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_dash_csf)) + Constants.mpd,
+                AMSOutputProtocols.DashCmaf => AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_dash_cmaf)) + Constants.mpd,
+                AMSOutputProtocols.HLSv3 => AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_v3)) + Constants.m3u8,
+                AMSOutputProtocols.HLSv4 => AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_v4)) + Constants.m3u8,
+                AMSOutputProtocols.HLSCmaf => AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_hls_cmaf)) + Constants.m3u8,
+                AMSOutputProtocols.SmoothLegacy => AddParameterToUrlString(urlstr, string.Format(AssetTools.format_url, AssetTools.format_smooth_legacy)),
+                _ => urlstr,
+            };
         }
 
         public static string AddParameterToUrlString(string urlstr, string parameter)
@@ -435,7 +421,7 @@ namespace AMSExplorer
             while (continuationToken != null);
             IEnumerable<CloudBlockBlob> ismc = blobs.Where(b => b.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase));
 
-            if (ismc.Count() == 0)
+            if (!ismc.Any())
             {
                 throw new Exception("No ISMC file in asset.");
             }
@@ -826,16 +812,11 @@ namespace AMSExplorer
                     ext = ext.Substring(1);
                 }
 
-                switch (ext)
+                type = ext switch
                 {
-                    case "WORKFLOW":
-                        type = Type_Workflow;
-                        break;
-
-                    default:
-                        type = ext;
-                        break;
-                }
+                    "WORKFLOW" => Type_Workflow,
+                    _ => ext,
+                };
             }
 
             else
@@ -1062,7 +1043,7 @@ namespace AMSExplorer
                 return sb;
             }
 
-            bool bfileinasset = MyAssetTypeInfo.Blobs.Count() != 0;
+            bool bfileinasset = MyAssetTypeInfo.Blobs.Any();
             long size = -1;
             if (bfileinasset)
             {

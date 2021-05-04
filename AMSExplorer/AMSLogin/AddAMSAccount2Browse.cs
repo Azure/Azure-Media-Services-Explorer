@@ -204,13 +204,13 @@ namespace AMSExplorer
             }
         }
 
-        private string GetResourceGroupNameFromId(string Id)
+        private static string GetResourceGroupNameFromId(string Id)
         {
             string[] idParts = Id.Split('/');
             return idParts[4];
         }
 
-        private string GetStorageNameFromId(string Id)
+        private static string GetStorageNameFromId(string Id)
         {
             string[] idParts = Id.Split('/');
             return idParts.Last();
