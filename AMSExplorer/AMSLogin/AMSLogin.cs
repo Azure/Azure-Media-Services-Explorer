@@ -332,11 +332,13 @@ namespace AMSExplorer
 
         private void Accountmgtlink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = e.Link.LinkData as string,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -669,11 +671,13 @@ namespace AMSExplorer
 
         private void linkLabelAMSOfflineDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Path.Combine(Application.StartupPath, @"HelpFiles\", @"AMSv3doc.pdf"),
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Path.Combine(Application.StartupPath, @"HelpFiles\", @"AMSv3doc.pdf"),
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }

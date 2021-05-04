@@ -571,17 +571,17 @@ namespace AMSExplorer
                 return;
             }
 
-            UploadOptionsUI form = new(_amsClient, FileNames.Count() > 1);
+            UploadOptionsUI form = new(_amsClient, FileNames.Length > 1);
             if (form.ShowDialog() == DialogResult.Cancel)
             {
                 return;
             }
 
-            if ((FileNames.Count() > 1 && form.SingleAsset) || (FileNames.Count() == 1)) // one file only, or all files in one asset
+            if ((FileNames.Length > 1 && form.SingleAsset) || (FileNames.Length == 1)) // one file only, or all files in one asset
             {
                 try
                 {
-                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Count()), TransferType.UploadFromFile, true);
+                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} files into a single asset", FileNames.Length), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                     await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, storageaccount: form.StorageSelected, blocksize: Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024, newAssetCreationSettings: form.assetCreationSetting);
@@ -695,7 +695,7 @@ namespace AMSExplorer
                             destAssetName = newAssetCreationSettings.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness());
                             assetToCreateSettings.AlternateId = newAssetCreationSettings.AssetAltId;
                             assetToCreateSettings.Container = newAssetCreationSettings.AssetContainer;
-                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription != null ? newAssetCreationSettings.AssetDescription.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0])) : null;
+                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription?.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0]));
                         }
                         else
                         {
@@ -1213,7 +1213,7 @@ namespace AMSExplorer
                 try
                 {
                     i++;
-                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Count(), FileNames.Count() > 1 ? "s" : string.Empty, asset.Name), TransferType.UploadFromFile, true);
+                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of {0} file{1} to asset '{2}'", FileNames.Length, FileNames.Length > 1 ? "s" : string.Empty, asset.Name), TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     //Task.Factory.StartNew(async () => await ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, null, asset.Name), response.token);
                     MyTasks.Add(ProcessUploadFileAndMoreV3Async(FileNames.ToList(), response.Id, response.token, null, asset.Name));
@@ -1371,11 +1371,13 @@ namespace AMSExplorer
                 DoGridTransferDeclareCompleted(response.Id, outputFolderName);
                 if (openFileExplorer)
                 {
-                    var p = new Process();
-                    p.StartInfo = new ProcessStartInfo
+                    var p = new Process
                     {
-                        FileName = outputFolderName,
-                        UseShellExecute = true
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = outputFolderName,
+                            UseShellExecute = true
+                        }
                     };
                     p.Start();
                 }
@@ -2726,11 +2728,13 @@ namespace AMSExplorer
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.PlayerDASHIFList,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.PlayerDASHIFList,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -2801,22 +2805,26 @@ namespace AMSExplorer
 
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.PlayerAMP,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.PlayerAMP,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
 
         private void hTML5VideoElementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.PlayerInfoHTML5Video,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.PlayerInfoHTML5Video,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -3457,11 +3465,13 @@ namespace AMSExplorer
                         case TransferType.DownloadToLocal:
                             if (!string.IsNullOrEmpty(location) && location != null)
                             {
-                                var p = new Process();
-                                p.StartInfo = new ProcessStartInfo
+                                var p = new Process
                                 {
-                                    FileName = location,
-                                    UseShellExecute = true
+                                    StartInfo = new ProcessStartInfo
+                                    {
+                                        FileName = location,
+                                        UseShellExecute = true
+                                    }
                                 };
                                 p.Start();
                             }
@@ -3802,33 +3812,39 @@ namespace AMSExplorer
 
         private void azureMediaServicesDocumentationToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkMoreInfoDocAMS,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkMoreInfoDocAMS,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
 
         private void azureMediaServicesForumToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkForumAMS,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkForumAMS,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = _HelpFiles + "AMSv3doc.pdf",
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = _HelpFiles + "AMSv3doc.pdf",
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -4051,7 +4067,7 @@ namespace AMSExplorer
                     dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
                 }
             }
-            tabPageStorage.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count()));
+            tabPageStorage.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count));
         }
 
 
@@ -4152,7 +4168,7 @@ namespace AMSExplorer
                     int rowi = dataGridViewFilters.Rows.Add(filter.Name, "Error", s, e, d, l);
                 }
             }
-            tabPageFilters.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", acctFilters.Count()));
+            tabPageFilters.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", acctFilters.Count));
             //tabPageFilters.Text = string.Format(AMSExplorer.Properties.Resources.TabFilters + " ({0})", filters.Count());
         }
 
@@ -4496,7 +4512,7 @@ namespace AMSExplorer
                                                                          _amsClient.credentialsEntry.AccountName,
                                                                          form.LiveEventName,
                                                                          liveEvent,
-                                                                         autoStart: form.StartLiveEventNow ? true : false)
+                                                                         autoStart: form.StartLiveEventNow)
                                                                       );
                         TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
                     }
@@ -4704,7 +4720,7 @@ namespace AMSExplorer
             List<LiveEvent> liveeventsrunning = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Running).ToList();
             string names = string.Join(", ", liveeventsrunning.Select(le => le.Name).ToArray());
 
-            if (liveeventsrunning.Count() > 0)
+            if (liveeventsrunning.Count > 0)
             {
 
 
@@ -4800,7 +4816,7 @@ namespace AMSExplorer
             // Start the live events which are stopped
             List<LiveEvent> liveevntsstopped = ListEvents.Where(p => p.ResourceState == LiveEventResourceState.Stopped).ToList();
             string names = string.Join(", ", liveevntsstopped.Select(le => le.Name).ToArray());
-            if (liveevntsstopped.Count() > 0)
+            if (liveevntsstopped.Count > 0)
             {
 
 
@@ -4936,7 +4952,7 @@ namespace AMSExplorer
             // Start the streaming endpoint which are stopped
             List<StreamingEndpoint> streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.ResourceState == StreamingEndpointResourceState.Stopped).ToList();
             string names = string.Join(", ", streamingendpointsstopped.Select(le => le.Name).ToArray());
-            if (streamingendpointsstopped.Count() > 0)
+            if (streamingendpointsstopped.Count > 0)
             {
 
 
@@ -5020,7 +5036,7 @@ namespace AMSExplorer
             List<StreamingEndpoint> sesrunning = ListStreamingEndpoints.Where(p => p.ResourceState == StreamingEndpointResourceState.Running).ToList();
             string names = string.Join(", ", sesrunning.Select(le => le.Name).ToArray());
 
-            if (sesrunning.Count() > 0)
+            if (sesrunning.Count > 0)
             {
 
 
@@ -5787,11 +5803,13 @@ namespace AMSExplorer
 
         private void azureMediaBlogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkBlogAMS,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkBlogAMS,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -5842,11 +5860,13 @@ namespace AMSExplorer
 
         private void richTextBoxLog_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = e.LinkText,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.LinkText,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -5918,11 +5938,13 @@ namespace AMSExplorer
 
         private void jwPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.PlayerJWPlayerPartnership,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.PlayerJWPlayerPartnership,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -6317,11 +6339,13 @@ namespace AMSExplorer
 
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.DemoCaptionMaker,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.DemoCaptionMaker,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -6665,7 +6689,7 @@ namespace AMSExplorer
 
             try
             {
-                TextBoxLogWriteLine("Deleting {0} filter(s)...", deleteTasks.Count());
+                TextBoxLogWriteLine("Deleting {0} filter(s)...", deleteTasks.Length);
                 await Task.WhenAll(deleteTasks);
                 TextBoxLogWriteLine("Filter(s) deleted.");
             }
@@ -6954,11 +6978,13 @@ namespace AMSExplorer
 
         private void explorerReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkAMSEReleaseNotes,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkAMSEReleaseNotes,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -7569,22 +7595,26 @@ namespace AMSExplorer
 
         private void THEOPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.PlayerTHEOplayerPartnership,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.PlayerTHEOplayerPartnership,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
 
         private void AzureMediaServicesReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkMoreInfoAMSReleaseNotes,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkMoreInfoAMSReleaseNotes,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -7601,7 +7631,10 @@ namespace AMSExplorer
 
         private void LinkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            }; p.Start();
         }
 
         private void TextBoxAssetSearch_KeyDown(object sender, KeyEventArgs e)
@@ -7633,11 +7666,13 @@ namespace AMSExplorer
 
         private void ToolStripMenuItem31_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkReportBugAMSE,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkReportBugAMSE,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -7856,7 +7891,7 @@ namespace AMSExplorer
             }
             else
             {
-                numJob = assets.Count();
+                numJob = assets.Count;
             }
 
 
@@ -8201,11 +8236,13 @@ namespace AMSExplorer
 
         private void toolStripMenuItemAzureUpdates_Click_1(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkAzureUpdates,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkAzureUpdates,
+                    UseShellExecute = true
+                }
             };
             p.Start();
 
@@ -8327,11 +8364,13 @@ namespace AMSExplorer
 
         private void FeedbackOnAzureMediaServicesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkFeedbackAMS,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkFeedbackAMS,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -8348,11 +8387,13 @@ namespace AMSExplorer
 
         private void AdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.AdvancedTestPlayerRoot,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.AdvancedTestPlayerRoot,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -8402,7 +8443,7 @@ namespace AMSExplorer
 
             try
             {
-                TextBoxLogWriteLine("Deleting {0} content key policies(s)...", deleteTasks.Count());
+                TextBoxLogWriteLine("Deleting {0} content key policies(s)...", deleteTasks.Length);
                 await Task.WhenAll(deleteTasks);
                 TextBoxLogWriteLine("Content key policy(s) deleted.");
             }

@@ -74,7 +74,7 @@ namespace AMSExplorer
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _transform.Created.ToLocalTime().ToString("G"));
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _transform.LastModified.ToLocalTime().ToString("G"));
 
-            bool boutoutsintransform = (_transform.Outputs.Count() > 0);
+            bool boutoutsintransform = (_transform.Outputs.Count > 0);
 
             int index = 0;
             if (boutoutsintransform)

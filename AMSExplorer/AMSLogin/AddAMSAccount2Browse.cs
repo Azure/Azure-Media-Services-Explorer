@@ -60,7 +60,7 @@ namespace AMSExplorer
 
             _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(string.Format("{0} ({1})", t.DisplayName, t.TenantId), t.TenantId)));
 
-            if (_myTenants.Count() > 0)
+            if (_myTenants.Count > 0)
             {
                 comboBoxTenants.SelectedIndex = 0;
             }

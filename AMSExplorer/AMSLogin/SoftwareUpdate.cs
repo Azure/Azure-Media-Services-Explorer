@@ -53,11 +53,13 @@ namespace AMSExplorer
         private void linkLabelMoreInfoPrice_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = e.Link.LinkData as string,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -86,11 +88,13 @@ namespace AMSExplorer
                 Properties.Settings.Default.DeleteInstallationFile = Path.GetTempPath() + filename;
                 Properties.Settings.Default.Save();
 
-                var p = new Process();
-                p.StartInfo = new ProcessStartInfo
+                var p = new Process
                 {
-                    FileName = Path.GetTempPath() + filename,
-                    UseShellExecute = true
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = Path.GetTempPath() + filename,
+                        UseShellExecute = true
+                    }
                 };
                 p.Start();
 

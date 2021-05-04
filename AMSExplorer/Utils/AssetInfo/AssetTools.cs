@@ -534,19 +534,19 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationPreviousChunk);
+                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count - 1] + durationPreviousChunk);
                     }
 
                     totalDuration += durationChunk * (ulong)repeatChunk;
 
                     for (int i = 1; i < repeatChunk; i++)
                     {
-                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count() - 1] + durationChunk);
+                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count - 1] + durationChunk);
                     }
 
                     durationPreviousChunk = durationChunk;
                 }
-                response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count() - 1] + durationPreviousChunk;
+                response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count - 1] + durationPreviousChunk;
 
                 if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
                 { // Live asset.... No duration to read or it is always zero (but we can read scaling and compute duration)
@@ -797,12 +797,12 @@ namespace AMSExplorer
 
             CloudBlockBlob[] mp4files = blocsc.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            if (mp4files.Count() > 0 && ismcfiles.Count() <= 1 && ismfiles.Count() == 1)  // Multi bitrate MP4
+            if (mp4files.Length > 0 && ismcfiles.Length <= 1 && ismfiles.Length == 1)  // Multi bitrate MP4
             {
-                number = mp4files.Count();
+                number = mp4files.Length;
                 type = number == 1 ? Type_Single : Type_Multi;
 
-                if (ismcfiles.Count() == 0) // no client manifest
+                if (ismcfiles.Length == 0) // no client manifest
                 {
                     type += Type_Extension_No_Client_Manifest;
                 }
@@ -811,7 +811,7 @@ namespace AMSExplorer
             {
                 return new AssetInfoData() { Size = size, Type = Type_Empty };
             }
-            else if (ismcfiles.Count() == 1 && ismfiles.Count() == 1 && blocsdir.Count > 0)
+            else if (ismcfiles.Length == 1 && ismfiles.Length == 1 && blocsdir.Count > 0)
             {
                 type = Type_LiveArchive;
                 number = blocsdir.Count;
