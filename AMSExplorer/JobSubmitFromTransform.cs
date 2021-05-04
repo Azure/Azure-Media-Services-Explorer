@@ -36,7 +36,7 @@ namespace AMSExplorer
         private readonly TimeSpan? _end;
         private readonly bool _multipleInputAssets;
 
-        private BindingList<EDLEntryInOut> TimeCodeList = new BindingList<EDLEntryInOut>();
+        private BindingList<EDLEntryInOut> TimeCodeList = new();
         public delegate void ChangedEventHandler(object sender, EventArgs e);
 
         public Transform SelectedTransform => listViewTransforms.GetSelectedTransform;
@@ -519,9 +519,9 @@ namespace AMSExplorer
 
         private void buttonExportEDL_Click(object sender, EventArgs e)
         {
-            PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+            PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
 
-            JsonSerializerSettings settings = new JsonSerializerSettings
+            JsonSerializerSettings settings = new()
             {
                 NullValueHandling = NullValueHandling.Ignore,
                 Formatting = Newtonsoft.Json.Formatting.Indented,
@@ -531,7 +531,7 @@ namespace AMSExplorer
             DialogResult diares = saveFileDialog1.ShowDialog();
             if (diares == DialogResult.OK)
             {
-                EDLImportExport export = new EDLImportExport();
+                EDLImportExport export = new();
                 export.AMSE_EDL_Entries.AddRange(TimeCodeList);
                 try
                 {
@@ -586,6 +586,6 @@ namespace AMSExplorer
     public class EDLImportExport
     {
         public decimal Version = 1;
-        public List<EDLEntryInOut> AMSE_EDL_Entries = new List<EDLEntryInOut>();
+        public List<EDLEntryInOut> AMSE_EDL_Entries = new();
     }
 }

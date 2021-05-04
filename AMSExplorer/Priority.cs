@@ -54,7 +54,7 @@ namespace AMSExplorer
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
 
-            List<string> ep = new List<string>() { Priority.Low, Priority.Normal, Priority.High };
+            List<string> ep = new() { Priority.Low, Priority.Normal, Priority.High };
             comboBoxPriority.Items.AddRange(ep.ToArray());
             comboBoxPriority.SelectedIndex = 1;
 

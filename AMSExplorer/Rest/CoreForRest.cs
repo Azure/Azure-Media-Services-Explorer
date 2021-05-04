@@ -83,7 +83,7 @@ namespace AMSExplorer.Rest
             HttpClient client = GetHttpClient();
 
             string _requestContent = amsJSONObject;
-            StringContent httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+            StringContent httpContent = new(_requestContent, System.Text.Encoding.UTF8);
             httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
 
             HttpResponseMessage amsRequestResult = await client.PutAsync(url, httpContent).ConfigureAwait(false);

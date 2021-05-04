@@ -102,7 +102,7 @@ namespace AMSExplorer
         private readonly bool _PlayReadyPackagingEnabled;
         private readonly bool _WidevinePackagingEnabled;
         private readonly bool _FairPlayPackagingEnabled;
-        private PFXCertificate cert = new PFXCertificate();
+        private PFXCertificate cert = new();
 
         public DRM_CENCCBSCDelivery(bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled, bool FairPlayPackagingEnabled)
         {

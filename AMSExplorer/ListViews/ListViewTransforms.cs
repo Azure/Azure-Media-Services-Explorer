@@ -102,7 +102,7 @@ namespace AMSExplorer
 
             foreach (Transform transform in _transforms)
             {
-                ListViewItem item = new ListViewItem(transform.Name);
+                ListViewItem item = new(transform.Name);
                 item.SubItems.Add(transform.Description);
                 item.SubItems.Add(transform.LastModified.ToLocalTime().ToString("G"));
                 if (_selectedTransformName == transform.Name)

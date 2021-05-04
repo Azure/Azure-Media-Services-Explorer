@@ -44,7 +44,7 @@ namespace AMSExplorer
 
         public StringBuilder ReturnStringBuilder()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             // calculate padding max
             int maxLenghtStr = data.Where(d => d.value != null).Select(d => d.label.Length).Max();
 

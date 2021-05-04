@@ -157,7 +157,7 @@ namespace AMSExplorer
                 IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
                 if (smoothPath.Count() > 0)
                 {
-                    UriBuilder uribuilder = new UriBuilder
+                    UriBuilder uribuilder = new()
                     {
                         Host = runningSes.HostName,
                         Path = smoothPath.FirstOrDefault().Paths.FirstOrDefault()
@@ -324,7 +324,7 @@ namespace AMSExplorer
                     hostname = se.HostName;
                 }
 
-                UriBuilder urib = new UriBuilder()
+                UriBuilder urib = new()
                 {
                     Host = hostname ?? url.Host,
                     Scheme = https ? "https://" : "http://",
@@ -407,7 +407,7 @@ namespace AMSExplorer
         public static async Task<XDocument> TryToGetClientManifestContentAsABlobAsync(Asset asset, AMSClientV3 _amsClient)
         {
             // get the manifest
-            ListContainerSasInput input = new ListContainerSasInput()
+            ListContainerSasInput input = new()
             {
                 Permissions = AssetContainerPermission.Read,
                 ExpiryTime = DateTime.Now.AddMinutes(5).ToUniversalTime()
@@ -418,12 +418,12 @@ namespace AMSExplorer
 
             string uploadSasUrl = responseSas.AssetContainerSasUrls.First();
 
-            Uri sasUri = new Uri(uploadSasUrl);
-            CloudBlobContainer container = new CloudBlobContainer(sasUri);
+            Uri sasUri = new(uploadSasUrl);
+            CloudBlobContainer container = new(sasUri);
 
 
             BlobContinuationToken continuationToken = null;
-            List<CloudBlockBlob> blobs = new List<CloudBlockBlob>();
+            List<CloudBlockBlob> blobs = new();
 
             do
             {
@@ -474,7 +474,7 @@ namespace AMSExplorer
 
             if (manifest == null) throw new ArgumentNullException();
 
-            ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
+            ManifestTimingData response = new() { IsLive = false, Error = false, TimestampOffset = 0, TimestampList = new List<ulong>(), DiscontinuityDetected = false };
 
             try
             {
@@ -733,7 +733,7 @@ namespace AMSExplorer
 
         public static async Task<AssetInfoData> GetAssetTypeAsync(string assetName, AMSClientV3 _amsClient)
         {
-            ListContainerSasInput input = new ListContainerSasInput()
+            ListContainerSasInput input = new()
             {
                 Permissions = AssetContainerPermission.ReadWriteDelete,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
@@ -754,11 +754,11 @@ namespace AMSExplorer
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
 
-            Uri sasUri = new Uri(uploadSasUrl);
-            CloudBlobContainer container = new CloudBlobContainer(sasUri);
+            Uri sasUri = new(uploadSasUrl);
+            CloudBlobContainer container = new(sasUri);
 
             BlobContinuationToken continuationToken1 = null;
-            List<IListBlobItem> rootBlobs = new List<IListBlobItem>();
+            List<IListBlobItem> rootBlobs = new();
             do
             {
                 BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.Metadata, null, continuationToken1, null, null);
@@ -784,7 +784,7 @@ namespace AMSExplorer
                 CloudBlobDirectory dirRef = container.GetDirectoryReference(dir.Prefix);
 
                 BlobContinuationToken continuationToken = null;
-                List<CloudBlockBlob> subBlobs = new List<CloudBlockBlob>();
+                List<CloudBlockBlob> subBlobs = new();
                 do
                 {
                     BlobResultSegment segment = await dirRef.ListBlobsSegmentedAsync(true, BlobListingDetails.Metadata, null, continuationToken, null, null);
@@ -883,7 +883,8 @@ namespace AMSExplorer
 
         public static long? Inverse_FormatByteSize(string mystring)
         {
-            List<UnitSize> sizes = new List<UnitSize> {
+            List<UnitSize> sizes = new()
+            {
                   new UnitSize() { Unitn = "B", Mult = 1 },
                   new UnitSize(){ Unitn = "KB", Mult = 1000 },
                   new UnitSize(){ Unitn = "MB", Mult = (long)1000*1000 },
@@ -944,7 +945,7 @@ namespace AMSExplorer
 
         public async Task<StringBuilder> GetStatsAsync()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             if (SelectedAssetsV3.Count > 0)
             {
@@ -1051,12 +1052,12 @@ namespace AMSExplorer
         */
         public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient)
         {
-            ListRepData infoStr = new ListRepData();
+            ListRepData infoStr = new();
 
             AssetInfoData MyAssetTypeInfo = await AssetTools.GetAssetTypeAsync(MyAsset.Name, _amsClient);
             if (MyAssetTypeInfo == null)
             {
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new();
                 sb.AppendLine("Error accessing asset type info");
                 return sb;
             }
@@ -1141,7 +1142,7 @@ namespace AMSExplorer
             IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name))
                                                     .StreamingLocators;
 
-            ListRepData infoStr = new ListRepData();
+            ListRepData infoStr = new();
 
             if (locators.Count == 0)
             {
@@ -1205,7 +1206,7 @@ namespace AMSExplorer
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
                 {
-                    ChooseStreamingEndpoint form = new ChooseStreamingEndpoint(client, myasset, path, filter, typeplayer, true);
+                    ChooseStreamingEndpoint form = new(client, myasset, path, filter, typeplayer, true);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         path = AssetTools.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
@@ -1530,7 +1531,7 @@ namespace AMSExplorer
         public static List<Task> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken, CancellationToken token)
         {
 
-            List<Task> mylistresults = new List<Task>();
+            List<Task> mylistresults = new();
 
             List<IListBlobItem> srcBlobList = srcDirectory.ListBlobs(
                 useFlatBlobListing: true,
@@ -1562,10 +1563,10 @@ namespace AMSExplorer
         public static string GetXMLSerializedTimeSpan(TimeSpan timespan)
         // return TimeSpan as a XML string: P28DT15H50M58.348S
         {
-            DataContractSerializer serialize = new DataContractSerializer(typeof(TimeSpan));
+            DataContractSerializer serialize = new(typeof(TimeSpan));
             XNamespace ns = "http://schemas.microsoft.com/2003/10/Serialization/";
 
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new())
             {
                 serialize.WriteObject(ms, timespan);
                 string xmlstart = Encoding.Default.GetString(ms.ToArray());
@@ -1574,8 +1575,8 @@ namespace AMSExplorer
             }
         }
 
-        private static readonly List<string> InvalidFileNamePrefixList = new List<string>
-                {
+        private static readonly List<string> InvalidFileNamePrefixList = new()
+        {
                     "CON",
                     "PRN",
                     "AUX",
@@ -1633,7 +1634,7 @@ namespace AMSExplorer
                 return false;
             }
 
-            Regex reg = new Regex(@"[+%#\[\]]", RegexOptions.Compiled);
+            Regex reg = new(@"[+%#\[\]]", RegexOptions.Compiled);
             if (filename.IndexOfAny(NtfsInvalidChars) > 0 || reg.IsMatch(filename))
             {
                 return false;
@@ -1662,7 +1663,7 @@ namespace AMSExplorer
         // Return the list of problematic filenames
         public static List<string> ReturnFilenamesWithProblem(List<string> filenames)
         {
-            List<string> listreturn = new List<string>();
+            List<string> listreturn = new();
             foreach (string f in filenames)
             {
                 if (!BlobNameForAMSIsOk(f))

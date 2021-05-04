@@ -232,7 +232,7 @@ namespace AMSExplorer
         public static async Task CheckAMSEVersionAsync()
 #pragma warning restore 1998
         {
-            WebClient webClient = new WebClient();
+            WebClient webClient = new();
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompletedV3(true, sender, e);
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimaryV3));
         }
@@ -244,16 +244,16 @@ namespace AMSExplorer
                 try
                 {
                     dynamic data = JsonConvert.DeserializeObject(e.Result);
-                    Version versionAMSEGitHub = new Version((string)data.Version);
-                    Uri RelNotesUrl = new Uri((string)data.ReleaseNotesUrl);
-                    Uri AllRelNotesUrl = new Uri((string)data.AllReleaseNotesUrl);
-                    Uri BinaryUrl = new Uri((string)data.BinaryUrl);
+                    Version versionAMSEGitHub = new((string)data.Version);
+                    Uri RelNotesUrl = new((string)data.ReleaseNotesUrl);
+                    Uri AllRelNotesUrl = new((string)data.AllReleaseNotesUrl);
+                    Uri BinaryUrl = new((string)data.BinaryUrl);
 
                     Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
                     if (versionAMSEGitHub > versionAMSELocal)
                     {
                         MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
-                        SoftwareUpdate form = new SoftwareUpdate(RelNotesUrl, versionAMSEGitHub, BinaryUrl);
+                        SoftwareUpdate form = new(RelNotesUrl, versionAMSEGitHub, BinaryUrl);
                         form.ShowDialog();
                     }
                 }
@@ -264,7 +264,7 @@ namespace AMSExplorer
             }
             else if (firsttry)
             {
-                WebClient webClient = new WebClient();
+                WebClient webClient = new();
                 webClient.DownloadStringCompleted += (sender2, e2) => DownloadVersionRequestCompletedV3(false, sender2, e2);
                 webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionSecondaryV3));
             }
@@ -274,7 +274,7 @@ namespace AMSExplorer
         public static Bitmap MakeRed(Bitmap original)
         {
             //make an empty bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            Bitmap newBitmap = new(original.Width, original.Height);
 
             for (int i = 0; i < original.Width; i++)
             {
@@ -293,7 +293,7 @@ namespace AMSExplorer
         public static Bitmap MakeBlue(Bitmap original)
         {
             //make an empty bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            Bitmap newBitmap = new(original.Width, original.Height);
 
             for (int i = 0; i < original.Width; i++)
             {
@@ -312,7 +312,7 @@ namespace AMSExplorer
 
         public static DialogResult InputBox(string title, string promptText, ref string value, bool passwordWildcard = false)
         {
-            InputBox inputForm = new InputBox(title, promptText, value, passwordWildcard);
+            InputBox inputForm = new(title, promptText, value, passwordWildcard);
 
             inputForm.ShowDialog();
             value = inputForm.InputValue;

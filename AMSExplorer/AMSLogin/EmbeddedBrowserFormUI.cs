@@ -70,7 +70,7 @@ namespace AMSExplorer.AMSLogin
 
         private void webBrowser_NavigationStarting(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
         {
-            Uri eUri = new Uri(e.Uri);
+            Uri eUri = new(e.Uri);
 
             if (!e.Uri.ToString().StartsWith(_redirectUri.ToString()))
             {

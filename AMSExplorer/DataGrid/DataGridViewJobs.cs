@@ -34,8 +34,8 @@ namespace AMSExplorer
 {
     public class DataGridViewJobs : DataGridView
     {
-        private static BindingList<JobEntryV3> _MyObservJobV3 = new BindingList<JobEntryV3>();
-        private static readonly Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new Dictionary<string, CancellationTokenSource>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
+        private static BindingList<JobEntryV3> _MyObservJobV3 = new();
+        private static readonly Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
 
         private static int _jobsperpage = 50; //nb of items per page
         private static readonly int _pagecount = 1;
@@ -43,13 +43,13 @@ namespace AMSExplorer
         public bool _initialized = false;
         private static string _orderjobs = OrderJobs.CreatedDescending;
         private static string _filterjobsstate = "All";
-        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = string.Empty };
+        private static SearchObject _searchinname = new() { SearchType = SearchIn.JobName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
-        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
         private static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
         private static AMSClientV3 _client;
-        private List<string> _transformName = new List<string>();
+        private List<string> _transformName = new();
         private bool _currentPageNumberIsMax;
         private int _currentPageNumber;
         private IPage<Job> firstpage;
@@ -101,9 +101,9 @@ namespace AMSExplorer
 
             _client = client;
 
-            List<JobEntryV3> jobs = new List<JobEntryV3>();
+            List<JobEntryV3> jobs = new();
 
-            DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
+            DataGridViewProgressBarColumn col = new()
             {
                 Name = "Progress",
                 DataPropertyName = "Progress",
@@ -130,7 +130,7 @@ namespace AMSExplorer
             this.Columns["Duration"].Width = 90;
             */
 
-            BindingList<JobEntryV3> MyObservJobthisPageV3 = new BindingList<JobEntryV3>(jobs);
+            BindingList<JobEntryV3> MyObservJobthisPageV3 = new(jobs);
             IAsyncResult result = BeginInvoke(new Action(() => DataSource = MyObservJobthisPageV3));
             //this.DataSource = MyObservJobthisPageV3;
 
@@ -155,7 +155,7 @@ namespace AMSExplorer
 
         public List<JobExtension> ReturnSelectedJobs()
         {
-            List<JobExtension> SelectedJobs = new List<JobExtension>();
+            List<JobExtension> SelectedJobs = new();
 
             foreach (DataGridViewRow Row in SelectedRows)
             {
@@ -209,7 +209,7 @@ namespace AMSExplorer
             ///////////////////////
             // SORTING
             ///////////////////////
-            ODataQuery<Job> odataQuery = new ODataQuery<Job>();
+            ODataQuery<Job> odataQuery = new();
 
             switch (_orderjobs)
             {
@@ -355,12 +355,12 @@ namespace AMSExplorer
         {
 
 
-            ODataQuery<Job> odataQuery = new ODataQuery<Job>
+            ODataQuery<Job> odataQuery = new()
             {
                 Filter = "Properties/State eq Microsoft.Media.JobState'Queued' or Properties/State eq Microsoft.Media.JobState'Scheduled' or Properties/State eq Microsoft.Media.JobState'Processing' "
             };
 
-            List<JobExtension> ActiveAndVisibleJobs = new List<JobExtension>();
+            List<JobExtension> ActiveAndVisibleJobs = new();
             foreach (string t in transforms)
             {
                 IPage<Job> jobsPage = await _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, t, odataQuery);
@@ -379,7 +379,7 @@ namespace AMSExplorer
             }
 
             // let's cancel monitor task of non visible jobs
-            List<string> listToCancel = new List<string>();
+            List<string> listToCancel = new();
             try
             {
                 foreach (KeyValuePair<string, CancellationTokenSource> jobmonitored in _MyListJobsMonitored)
@@ -413,7 +413,7 @@ namespace AMSExplorer
 
         public void DoJobProgress(JobExtension job)
         {
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationTokenSource tokenSource = new();
             CancellationToken token = tokenSource.Token;
 
             _MyListJobsMonitored.Add(job.Job.Name, tokenSource); // to track the task and be able to cancel it later
@@ -532,7 +532,7 @@ namespace AMSExplorer
                       }
                       if (index2 >= 0) // we found it
                       { // we update the observation collection
-                          StringBuilder sb2 = new StringBuilder(); // display percentage for each task for mouse hover (tooltiptext)
+                          StringBuilder sb2 = new(); // display percentage for each task for mouse hover (tooltiptext)
 
                           double progress2 = 0;
                           for (int i = 0; i < myJob.Outputs.Count; i++)
@@ -616,7 +616,7 @@ namespace AMSExplorer
 
         private static JobProgressInfo ReturnProgressJob(Job myJob)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             double progress = 0;
             for (int i = 0; i < myJob.Outputs.Count; i++)
             {

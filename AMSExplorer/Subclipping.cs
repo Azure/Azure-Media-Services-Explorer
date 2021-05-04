@@ -181,7 +181,7 @@ namespace AMSExplorer
 
         private SubClipTrimmingDataTimeSpan GetSubClipTrimmingDataTimeSpan()
         {
-            SubClipTrimmingDataTimeSpan trimmingdata = new SubClipTrimmingDataTimeSpan();
+            SubClipTrimmingDataTimeSpan trimmingdata = new();
             if (checkBoxTrimming.Checked)
             {
                 trimmingdata.StartTime = timeControlStart.TimeStampWithOffset;
@@ -208,7 +208,7 @@ namespace AMSExplorer
             }
             else if (radioButtonClipWithReencode.Checked) // means Reencoding
             {
-                SubClipConfiguration config = new SubClipConfiguration()
+                SubClipConfiguration config = new()
                 {
                     Reencode = true,
                     Trimming = false,
@@ -218,7 +218,7 @@ namespace AMSExplorer
                 if (checkBoxTrimming.Checked)
                 {
                     config.Trimming = true;
-                    List<ExplorerEDLEntryInOut> list = new List<ExplorerEDLEntryInOut>();
+                    List<ExplorerEDLEntryInOut> list = new();
                     SubClipTrimmingDataTimeSpan subdata = GetSubClipTrimmingDataTimeSpan();
                     config.AbsoluteStartTime = timeControlStart.TimeStampWithOffset;
                     config.AbsoluteEndTime = timeControlEnd.TimeStampWithOffset;
@@ -227,7 +227,7 @@ namespace AMSExplorer
             }
             else  // means asset filter
             {
-                SubClipConfiguration config = new SubClipConfiguration()
+                SubClipConfiguration config = new()
                 {
                     Reencode = false,
                     Trimming = false,
@@ -492,7 +492,7 @@ namespace AMSExplorer
 
                 if (_selectedAssets.Count == 1)
                 {
-                    JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
+                    JobSubmitFromTransform form = new(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -501,7 +501,7 @@ namespace AMSExplorer
                 }
                 else if (_selectedAssets.Count > 1)
                 {
-                    JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
+                    JobSubmitFromTransform form = new(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -547,14 +547,14 @@ namespace AMSExplorer
             else if (subclipConfig.CreateAssetFilter) // create a asset filter
             {
                 Asset selasset = _selectedAssets.FirstOrDefault();
-                DynManifestFilter formAF = new DynManifestFilter(_amsClientV3, null, selasset, subclipConfig);
+                DynManifestFilter formAF = new(_amsClientV3, null, selasset, subclipConfig);
                 if (formAF.ShowDialog() == DialogResult.OK)
                 {
                     FilterCreationInfo filterinfo = null;
                     try
                     {
                         filterinfo = formAF.GetFilterInfo;
-                        AssetFilter assetFilter = new AssetFilter() { PresentationTimeRange = filterinfo.Presentationtimerange };
+                        AssetFilter assetFilter = new() { PresentationTimeRange = filterinfo.Presentationtimerange };
 
                         await _amsClientV3.AMSclient.AssetFilters.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, selasset.Name, filterinfo.Name, assetFilter);
 

@@ -33,7 +33,7 @@ namespace AMSExplorer
     {
         private bool _initialized = false;
 
-        private readonly List<string> idsList = new List<string>();
+        private readonly List<string> idsList = new();
         private static AMSClientV3 _amsClient;
         private SynchronizationContext _context;
         private static BindingList<TransformEntry> _MyObservTransformsV3;
@@ -56,7 +56,7 @@ namespace AMSExplorer
 
             TransformEntry[] mappedItems = await Task.WhenAll(transforms);
 
-            BindingList<TransformEntry> MyObservTransformthisPageV3 = new BindingList<TransformEntry>(mappedItems);
+            BindingList<TransformEntry> MyObservTransformthisPageV3 = new(mappedItems);
             DataSource = MyObservTransformthisPageV3;
 
             Task myTask = Task.Factory.StartNew(() =>
@@ -111,7 +111,7 @@ namespace AMSExplorer
         {
             
 
-            List<Transform> SelectedTransforms = new List<Transform>();
+            List<Transform> SelectedTransforms = new();
             foreach (DataGridViewRow Row in SelectedRows)
             {
                 // sometimes, the transform can be null (if just deleted)

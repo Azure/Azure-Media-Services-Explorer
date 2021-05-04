@@ -143,7 +143,7 @@ namespace AMSExplorer
 
             credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
 
-            SubscriptionClient subscriptionClient = new SubscriptionClient(environment.ArmEndpoint, credentials);
+            SubscriptionClient subscriptionClient = new(environment.ArmEndpoint, credentials);
 
             // Subcriptions listing
             subscriptions = new List<Subscription>();
@@ -168,7 +168,7 @@ namespace AMSExplorer
             foreach (Subscription sub in subscriptions)
             {
                 indexSub++;
-                TreeNode mySubNode = new TreeNode(sub.DisplayName);
+                TreeNode mySubNode = new(sub.DisplayName);
                 mySubNode.Tag = mySubNode.ToolTipText = sub.SubscriptionId;
                 treeViewAzureSub.Nodes.Add(mySubNode);
                 treeViewAzureSub.Nodes[indexSub].Nodes.Add("");
@@ -248,12 +248,12 @@ namespace AMSExplorer
             Subscription selectedSubscription = subscriptions.Where(s => s.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
 
             // Getting Media Services accounts...
-            AzureMediaServicesClient mediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
+            AzureMediaServicesClient mediaServicesClient = new(environment.ArmEndpoint, credentials)
             {
                 SubscriptionId = selectedSubscription.SubscriptionId
             };
 
-            List<MediaService> mediaServicesAccounts = new List<MediaService>();
+            List<MediaService> mediaServicesAccounts = new();
             IPage<MediaService> mediaServicesAccountsPage = mediaServicesClient.Mediaservices.ListBySubscription();
             while (mediaServicesAccountsPage != null)
             {
@@ -275,7 +275,7 @@ namespace AMSExplorer
             e.Node.Nodes.Clear();
             foreach (MediaService mediaAcct in mediaServicesAccounts)
             {
-                TreeNode node = new TreeNode(mediaAcct.Name)
+                TreeNode node = new(mediaAcct.Name)
                 {
                     Tag = mediaAcct.Id
                 };

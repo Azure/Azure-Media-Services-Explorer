@@ -65,7 +65,7 @@ namespace AMSExplorer
 
         private void buttonBrowseFile_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog openFolderDialog = new FolderBrowserDialog() { RootFolder = Environment.SpecialFolder.MyVideos };
+            FolderBrowserDialog openFolderDialog = new() { RootFolder = Environment.SpecialFolder.MyVideos };
             if (openFolderDialog.ShowDialog() == DialogResult.OK)
             {
                 textBoxFolderPath.Text = openFolderDialog.SelectedPath;

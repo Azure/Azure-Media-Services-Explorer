@@ -40,8 +40,8 @@ namespace AMSExplorer
             _MyListTransfer = new BindingList<TransferEntry>();
             _MyListTransferQueue = new List<Guid>();
 
-            DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn();
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
+            DataGridViewProgressBarColumn col = new();
+            DataGridViewCellStyle cellstyle = new();
             col.Name = labelProgress;
             col.DataPropertyName = labelProgress;
 
@@ -79,7 +79,7 @@ namespace AMSExplorer
 
         public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool CanBePutInTheQueue)
         {
-            TransferEntry myTE = new TransferEntry(SynchronizationContext.Current)
+            TransferEntry myTE = new(SynchronizationContext.Current)
             {
                 Name = text,
                 SubmitTime = DateTime.Now,
@@ -116,7 +116,7 @@ namespace AMSExplorer
             tabPageTransfers.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", _MyListTransfer.Count()));
 
             // to cancel task if needed
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationTokenSource tokenSource = new();
             CancellationToken tokenloc = tokenSource.Token;
             myTE.tokenSource = tokenSource;
 
