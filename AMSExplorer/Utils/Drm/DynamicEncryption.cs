@@ -26,7 +26,6 @@ namespace AMSExplorer
     internal class DynamicEncryption
     {
 
-
         public static byte[] GetRandomBuffer(int size)
         {
             byte[] randomBytes = new byte[size];
@@ -37,8 +36,6 @@ namespace AMSExplorer
 
             return randomBytes;
         }
-
-
 
 
         public static PFXCertificate GetCertificateFromFile(bool informuser = false, X509KeyStorageFlags flags = X509KeyStorageFlags.DefaultKeySet)
@@ -90,7 +87,6 @@ namespace AMSExplorer
             return new PFXCertificate { Certificate = cert, Password = password };
         }
 
-
         public static byte[] HexStringToByteArray(string hex)
         {
             return Enumerable.Range(0, hex.Length)
@@ -103,8 +99,6 @@ namespace AMSExplorer
         {
             return string.Join(string.Empty, Array.ConvertAll(bytes, b => b.ToString("X2")));
         }
-
-
 
         public static byte[] GeneratePlayReadyContentKey(byte[] keySeed, Guid keyId)
         {

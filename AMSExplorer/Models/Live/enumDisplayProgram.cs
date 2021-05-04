@@ -14,15 +14,14 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Storage.Blob;
-using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace AMSExplorer
 {
-    public class AssetInfoData
+    public enum enumDisplayProgram
     {
-        public long Size;
-        public string Type;
-        public IEnumerable<IListBlobItem> Blobs;
+        Selected = 0,
+        Any,
+        None
     }
 }
