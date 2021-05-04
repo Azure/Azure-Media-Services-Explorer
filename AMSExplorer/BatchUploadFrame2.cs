@@ -37,7 +37,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<string> selectedfolders = new List<string>();
+                List<string> selectedfolders = new();
                 foreach (object f in checkedListBoxFolders.CheckedItems)
                 {
                     selectedfolders.Add(folders[checkedListBoxFolders.Items.IndexOf((ListViewItem)f)]);
@@ -50,7 +50,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<string> selectedfiles = new List<string>();
+                List<string> selectedfiles = new();
                 foreach (object f in checkedListBoxFiles.CheckedItems)
                 {
                     selectedfiles.Add(files[checkedListBoxFiles.Items.IndexOf((ListViewItem)f)]);
@@ -143,7 +143,7 @@ namespace AMSExplorer
                 }
             }
 
-            List<int> listInt = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
+            List<int> listInt = new() { 1, 2, 4, 8, 16, 32, 64 };
             comboBoxBlockSize.Items.Clear();
             listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
             comboBoxBlockSize.SelectedIndex = 3;

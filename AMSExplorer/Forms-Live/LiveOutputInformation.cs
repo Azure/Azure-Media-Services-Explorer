@@ -79,7 +79,7 @@ namespace AMSExplorer
 
             if (AssetToDisplayP != null)
             {
-                AssetInformation form = new AssetInformation(MyMainForm, _amsClient)
+                AssetInformation form = new(MyMainForm, _amsClient)
                 {
                     myAsset = AssetToDisplayP,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting

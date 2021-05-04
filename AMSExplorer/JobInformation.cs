@@ -157,7 +157,7 @@ namespace AMSExplorer
 
             // output assets
 
-            bool boutoutsinjobs = (MyJob.Outputs.Count() > 0);
+            bool boutoutsinjobs = (MyJob.Outputs.Count > 0);
 
             int index = 1;
             if (boutoutsinjobs)
@@ -170,7 +170,7 @@ namespace AMSExplorer
 
                     if (output.Error != null && output.Error.Details != null)
                     {
-                        for (int i = 0; i < output.Error.Details.Count(); i++)
+                        for (int i = 0; i < output.Error.Details.Count; i++)
                         {
                             DGErrors.Rows.Add(outputLabel, output.Error.Details[i].Message, output.Error.Details[i].Code);
                         }
@@ -219,7 +219,7 @@ namespace AMSExplorer
 
             if (output.Error != null && output.Error.Details != null)
             {
-                for (int j = 0; j < output.Error.Details.Count(); j++)
+                for (int j = 0; j < output.Error.Details.Count; j++)
                 {
                     DGOutputs.Rows.Add("Error", output.Error.Details[j].Code + ": " + output.Error.Details[j].Message);
                 }
@@ -237,7 +237,7 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            using (EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false))
+            using (EditorXMLJSON editform = new(dataname, key, false))
                 editform.Display();
         }
 
@@ -276,7 +276,7 @@ namespace AMSExplorer
                                        _amsClient.GetAssetAsync(assetName))
                                         .GetAwaiter().GetResult();
 
-                using (AssetInformation form = new AssetInformation(_mainform, _amsClient)
+                using (AssetInformation form = new(_mainform, _amsClient)
                 {
                     myAsset = asset,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting

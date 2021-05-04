@@ -33,11 +33,11 @@ namespace AMSExplorer
     {
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
-        private readonly BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
+        private readonly BindingList<ExplorerAudioStream> audiostreams = new();
         private readonly string defaultLanguageString = "und";
         private readonly AMSClientV3 _client;
 
-        public readonly List<string> LanguagesLiveTranscript = new List<string> { "ca-ES", "da-DK", "de-DE", "en-AU", "en-CA", "en-GB", "en-IN", "en-NZ", "en-US", "es-ES", "es-MX", "fi-FI", "fr-CA", "fr-FR", "it-IT", "nl-NL", "pt-BR", "pt-PT", "sv-SE" };
+        public readonly List<string> LanguagesLiveTranscript = new() { "ca-ES", "da-DK", "de-DE", "en-AU", "en-CA", "en-GB", "en-IN", "en-NZ", "en-US", "es-ES", "es-MX", "fi-FI", "fr-CA", "fr-FR", "it-IT", "nl-NL", "pt-BR", "pt-PT", "sv-SE" };
 
         public string LiveEventName
         {
@@ -112,7 +112,7 @@ namespace AMSExplorer
                     type = LiveEventEncodingType.Premium1080p;
                 }
 
-                LiveEventEncoding encodingoption = new LiveEventEncoding()
+                LiveEventEncoding encodingoption = new()
                 {
                     PresetName = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : null, // default preset or custom
                     EncodingType = type,
@@ -181,7 +181,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<Microsoft.Azure.Management.Media.Models.IPRange> ips = new List<Microsoft.Azure.Management.Media.Models.IPRange>();
+                List<Microsoft.Azure.Management.Media.Models.IPRange> ips = new();
                 Microsoft.Azure.Management.Media.Models.IPRange ip;
 
                 try
@@ -208,13 +208,13 @@ namespace AMSExplorer
         {
             get
             {
-                List<Microsoft.Azure.Management.Media.Models.IPRange> ips = new List<Microsoft.Azure.Management.Media.Models.IPRange>();
+                List<Microsoft.Azure.Management.Media.Models.IPRange> ips = new();
 
                 if (checkBoxRestrictPreviewIP.Checked)
                 {
                     try
                     {
-                        Microsoft.Azure.Management.Media.Models.IPRange ip = new Microsoft.Azure.Management.Media.Models.IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text).ToString() };
+                        Microsoft.Azure.Management.Media.Models.IPRange ip = new() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text).ToString() };
                         ips.Add(ip);
                     }
                     catch
@@ -298,7 +298,7 @@ namespace AMSExplorer
 
         private void UpdateLabelSyntax()
         {
-            string url = string.Empty;
+            string url;
             if (Protocol == LiveEventInputProtocol.RTMP)
             {
                 if (checkBoxVanityUrl.Checked)
@@ -359,7 +359,7 @@ namespace AMSExplorer
 
         internal static bool IsLiveEventNameValid(string name)
         {
-            Regex reg = new Regex(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
+            Regex reg = new(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
             return (name.Length > 0 && name.Length < 33 && reg.IsMatch(name));
         }
 
@@ -369,7 +369,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                Microsoft.Azure.Management.Media.Models.IPRange ip = new Microsoft.Azure.Management.Media.Models.IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(tb.Text).ToString() };
+                Microsoft.Azure.Management.Media.Models.IPRange ip = new() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(tb.Text).ToString() };
             }
             catch
             {
@@ -393,7 +393,7 @@ namespace AMSExplorer
                 if (profileliveselected != null)
                 {
                     dataGridViewVideoProf.DataSource = profileliveselected.Video;
-                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>
+                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new()
                     {
                         new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = defaultLanguageString, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate }
                     };
@@ -427,11 +427,13 @@ namespace AMSExplorer
         private void moreinfoLiveEncodingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = e.Link.LinkData as string,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }

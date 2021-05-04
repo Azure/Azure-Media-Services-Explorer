@@ -30,8 +30,8 @@ namespace AMSExplorer
 {
     public class DataGridViewLiveOutput : DataGridView
     {
-        private List<string> idsList = new List<string>();
-        private readonly List<StatusInfo> ListStatus = new List<StatusInfo>();
+        private List<string> idsList = new();
+        private readonly List<StatusInfo> ListStatus = new();
         private static SortableBindingList<LiveOutputEntry> _MyObservLiveOutputs;
 
         private static int _itemssperpage = 50; //nb of items per page
@@ -40,9 +40,9 @@ namespace AMSExplorer
         private static bool _initialized = false;
         private static bool _refreshedatleastonetime = false;
         private static string _statefilter = "All";
-        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.LiveOutputName, Text = string.Empty };
+        private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveOutputName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
-        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private static BackgroundWorker WorkerRefreshChannels;
         public string _published = "Published";
         private static readonly Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
@@ -97,7 +97,7 @@ namespace AMSExplorer
             get => _timefilterTimeRange;
             set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount => _MyObservLiveOutputs != null ? _MyObservLiveOutputs.Count() : 0;
+        public int DisplayedCount => _MyObservLiveOutputs != null ? _MyObservLiveOutputs.Count : 0;
 
 
 
@@ -108,7 +108,7 @@ namespace AMSExplorer
             _amsClient = client;
 
             List<LiveEvent> ListEvents = _amsClient.AMSclient.LiveEvents.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName).ToList();
-            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
+            List<Program.LiveOutputExt> LOList = new();
 
             foreach (LiveEvent le in ListEvents)
             {
@@ -129,12 +129,12 @@ namespace AMSExplorer
                                LiveEventName = c.LiveEventName
                            };
 
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
+            DataGridViewCellStyle cellstyle = new()
             {
                 NullValue = null,
                 Alignment = DataGridViewContentAlignment.MiddleCenter
             };
-            DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
+            DataGridViewImageColumn imageCol = new()
             {
                 DefaultCellStyle = cellstyle,
                 Name = _published,
@@ -143,7 +143,7 @@ namespace AMSExplorer
             Columns.Add(imageCol);
 
 
-            SortableBindingList<LiveOutputEntry> MyObservProgramInPage = new SortableBindingList<LiveOutputEntry>(programquery.Take(0).ToList());
+            SortableBindingList<LiveOutputEntry> MyObservProgramInPage = new(programquery.Take(0).ToList());
             DataSource = MyObservProgramInPage;
             //this.Columns["LiveEventName"].Visible = false;
             Columns[_published].DisplayIndex = ColumnCount - 3;
@@ -299,7 +299,7 @@ namespace AMSExplorer
             }
 
 
-            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
+            List<Program.LiveOutputExt> LOList = new();
 
             foreach (LiveEvent le in ListEvents)
             {

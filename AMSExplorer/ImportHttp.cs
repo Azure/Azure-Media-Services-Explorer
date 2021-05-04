@@ -35,7 +35,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    Uri myUri = new Uri(textBoxURL.Text);
+                    Uri myUri = new(textBoxURL.Text);
                     return myUri;
                 }
                 catch
@@ -95,7 +95,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                Uri myUri = new Uri(textBoxURL.Text);
+                Uri myUri = new(textBoxURL.Text);
             }
             catch
             {

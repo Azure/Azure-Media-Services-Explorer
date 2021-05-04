@@ -25,7 +25,7 @@ namespace AMSExplorer
 {
     public partial class CopyAsset : Form
     {
-        private ListCredentialsRPv3 CredentialList = new ListCredentialsRPv3();
+        private ListCredentialsRPv3 CredentialList = new();
         private readonly CopyAssetBoxMode Mode;
         private bool ErrorConnectingAMS = false;
         private bool ErrorConnectingStorage = false;
@@ -115,7 +115,7 @@ namespace AMSExplorer
             // DpiUtils.InitPerMonitorDpi(this);
 
             // Add a dummy column     
-            ColumnHeader header = new ColumnHeader
+            ColumnHeader header = new()
             {
                 Text = "",
                 Name = "col1"

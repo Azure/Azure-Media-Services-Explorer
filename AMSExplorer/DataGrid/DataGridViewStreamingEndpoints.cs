@@ -56,7 +56,7 @@ namespace AMSExplorer
             get
             {
                 
-                List<StreamingEndpoint> list = new List<StreamingEndpoint>();
+                List<StreamingEndpoint> list = new();
                 foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
                 {
                     StreamingEndpoint detailedSE = Task.Run(() => _amsClient.GetStreamingEndpointAsync(se.Name)).GetAwaiter().GetResult();
@@ -69,7 +69,7 @@ namespace AMSExplorer
             }
         }
 
-        private readonly List<StatusInfo> ListStatus = new List<StatusInfo>();
+        private readonly List<StatusInfo> ListStatus = new();
         private static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
         private static IEnumerable<StreamingEndpoint> streamingendpoints;
         private static bool _initialized = false;
@@ -100,7 +100,7 @@ namespace AMSExplorer
             });
 
 
-            SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new SortableBindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
+            SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new(originquery.Take(0).ToList());
             DataSource = MyObservOriginInPage;
             Columns["Id"].Visible = false;
             Columns["Name"].Width = 300;

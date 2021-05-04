@@ -23,8 +23,8 @@ namespace AMSExplorer
     {
         private long? timescale;
         private ulong scaledoffset = 0;
-        private TimeSpan min = new TimeSpan(0);
-        private TimeSpan max = new TimeSpan(long.MaxValue);
+        private TimeSpan min = new(0);
+        private TimeSpan max = new(long.MaxValue);
         private bool donotfirechangeevent = false;
         private TimeSpan _TotalDuration = TimeSpan.FromHours(24); // default max for DVR
         private bool _displaytrackbar = false;
@@ -166,13 +166,13 @@ namespace AMSExplorer
                 double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
 
                 double scale = TimeSpan.TicksPerSecond / (timescale2);
-                TimeSpan ts = new TimeSpan(Convert.ToInt64((valueToUse - (double)ScaledFirstTimestampOffset) * scale));
+                TimeSpan ts = new(Convert.ToInt64((valueToUse - (double)ScaledFirstTimestampOffset) * scale));
                 SetTimeStamp(ts);
             }
         }
 
 
-        public TimeSpan TimeStampWithoutOffset => new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
+        public TimeSpan TimeStampWithoutOffset => new((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
 
 
         public TimeSpan TimeStampWithOffset => GetOffSetAsTimeSpan() + new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));

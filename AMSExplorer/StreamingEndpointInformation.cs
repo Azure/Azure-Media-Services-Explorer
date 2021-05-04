@@ -31,12 +31,12 @@ namespace AMSExplorer
     {
         public StreamingEndpoint MySE;
         public bool MultipleSelection = false;
-        public ExplorerSEModifications Modifications = new ExplorerSEModifications();
+        public ExplorerSEModifications Modifications = new();
 
         private string MaxCacheAgeInitial;
-        private readonly BindingList<IPRange> endpointSettingList = new BindingList<IPRange>();
-        private readonly BindingList<AkamaiSignatureHeaderAuthenticationKey> AkamaiSettingList = new BindingList<AkamaiSignatureHeaderAuthenticationKey>();
-        private readonly BindingList<HostNameClass> CustomHostNamesList = new BindingList<HostNameClass>()
+        private readonly BindingList<IPRange> endpointSettingList = new();
+        private readonly BindingList<AkamaiSignatureHeaderAuthenticationKey> AkamaiSettingList = new();
+        private readonly BindingList<HostNameClass> CustomHostNamesList = new()
         {
             AllowNew = true
         };
@@ -403,7 +403,10 @@ namespace AMSExplorer
 
         private void hostnamelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
+            Process p = new()
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            }; p.Start();
         }
 
         private void buttonAddExampleClientPolicy_Click(object sender, EventArgs e)
@@ -488,7 +491,10 @@ namespace AMSExplorer
 
         private void moreinfoSE_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            }; p.Start();
 
         }
 

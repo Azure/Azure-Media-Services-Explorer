@@ -15,7 +15,7 @@ namespace AMSExplorer.ManifestGeneration
         {
             // Let's list the blobs
             BlobContinuationToken continuationToken = null;
-            List<IListBlobItem> allBlobs = new List<IListBlobItem>();
+            List<IListBlobItem> allBlobs = new();
             do
             {
                 BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, true, BlobListingDetails.Metadata, null, continuationToken, null, null);
@@ -30,7 +30,7 @@ namespace AMSExplorer.ManifestGeneration
             CloudBlockBlob[] m4aAssetFiles = blobs.Where(f => f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
             CloudBlockBlob[] mediaAssetFiles = blobs.Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            if (mediaAssetFiles.Count() != 0)
+            if (mediaAssetFiles.Length != 0)
             {
                 // Prepare the manifest
                 string mp4fileuniqueaudio = null;
@@ -49,7 +49,7 @@ namespace AMSExplorer.ManifestGeneration
                     switchxml.Add(new XElement(ns + "audio", new XAttribute("src", file.Name), new XAttribute("title", Path.GetFileNameWithoutExtension(file.Name))));
                 }
 
-                if (m4aAssetFiles.Count() == 0)
+                if (m4aAssetFiles.Length == 0)
                 {
                     // audio track(s)
                     IEnumerable<CloudBlockBlob> mp4AudioAssetFilesName = mp4AssetFiles.Where(f =>
@@ -63,7 +63,7 @@ namespace AMSExplorer.ManifestGeneration
                     string mp4fileaudio = (mp4AudioAssetFilesName.Count() == 1) ? mp4AudioAssetFilesName.FirstOrDefault().Name : mp4AudioAssetFilesSize.FirstOrDefault().Name; // if there is one file with audio or AAC in the name then let's use it for the audio track
                     switchxml.Add(new XElement(ns + "audio", new XAttribute("src", mp4fileaudio), new XAttribute("title", "audioname")));
 
-                    if (mp4AudioAssetFilesName.Count() == 1 && mediaAssetFiles.Count() > 1) //looks like there is one audio file and dome other video files
+                    if (mp4AudioAssetFilesName.Count() == 1 && mediaAssetFiles.Length > 1) //looks like there is one audio file and dome other video files
                     {
                         mp4fileuniqueaudio = mp4fileaudio;
                     }

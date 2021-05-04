@@ -24,7 +24,7 @@ namespace AMSExplorer
 
         public TimeRangeValue TimeRange
         {
-            get => new TimeRangeValue(TimeRangeStartDate, TimeRangeEndDate);
+            get => new(TimeRangeStartDate, TimeRangeEndDate);
             set
             {
                 TimeRangeStartDate = value.StartDate;

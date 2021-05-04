@@ -92,7 +92,7 @@ namespace AMSExplorer
         private string ReturnHostNameTwoSegmentsRight(string myUrl)
         {
             string[] hosts = (new Uri(myUrl)).Host.Split('.');
-            int i = hosts.Count();
+            int i = hosts.Length;
             return hosts[i - 2] + "." + hosts[i - 1];
         }
     }

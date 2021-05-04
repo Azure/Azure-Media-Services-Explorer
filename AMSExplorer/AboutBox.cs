@@ -113,22 +113,26 @@ namespace AMSExplorer
 
         private void linkLabelContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkMailtoAMSE,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkMailtoAMSE,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
 
         private void linkLabelWebSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = Constants.LinkAMSE,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkAMSE,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }
@@ -137,11 +141,13 @@ namespace AMSExplorer
         {
             string licenseterms = Path.Combine(Application.StartupPath, Constants.PathLicense);
 
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = licenseterms,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = licenseterms,
+                    UseShellExecute = true
+                }
             };
             p.Start();
         }

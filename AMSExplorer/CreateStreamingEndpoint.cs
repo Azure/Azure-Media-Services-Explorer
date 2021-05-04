@@ -92,7 +92,7 @@ namespace AMSExplorer
 
         internal static bool IsSENameValid(string name)
         {
-            Regex reg = new Regex(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
+            Regex reg = new(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
             return (name.Length > 0 && name.Length < 25 && reg.IsMatch(name));
         }
 
@@ -108,11 +108,13 @@ namespace AMSExplorer
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo
+            var p = new Process
             {
-                FileName = e.Link.LinkData as string,
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
             };
             p.Start();
 

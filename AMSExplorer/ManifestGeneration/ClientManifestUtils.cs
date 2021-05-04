@@ -25,7 +25,7 @@ namespace AMSExplorer.ManifestGeneration
             }
 
 
-            ListContainerSasInput input = new ListContainerSasInput()
+            ListContainerSasInput input = new()
             {
                 Permissions = AssetContainerPermission.ReadWriteDelete,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
@@ -58,8 +58,8 @@ namespace AMSExplorer.ManifestGeneration
                         return;
                     }
                     string uploadSasUrl = response.AssetContainerSasUrls.First();
-                    Uri sasUri = new Uri(uploadSasUrl);
-                    CloudBlobContainer storageContainer = new CloudBlobContainer(sasUri);
+                    Uri sasUri = new(uploadSasUrl);
+                    CloudBlobContainer storageContainer = new(sasUri);
 
                     // Get a manifest file list from the Storage container.
                     List<string> fileList = GetFilesListFromStorage(storageContainer);

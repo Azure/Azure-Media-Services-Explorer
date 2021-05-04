@@ -184,7 +184,7 @@ namespace AMSExplorer
             // Filters
 
             // asset filters
-            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            List<AssetFilter> assetFilters = new();
             IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
             while (assetFiltersPage != null)
             {
@@ -204,7 +204,7 @@ namespace AMSExplorer
             listViewFilters.BeginUpdate();
             assetFilters.ToList().ForEach(f =>
             {
-                ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
+                ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter)
                 {
                     lvitem.Checked = true;
@@ -214,7 +214,7 @@ namespace AMSExplorer
            );
 
             // account filters
-            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            List<AccountFilter> acctFilters = new();
             IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             while (acctFiltersPage != null)
             {
@@ -231,7 +231,7 @@ namespace AMSExplorer
 
             acctFilters.ToList().ForEach(f =>
             {
-                ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
+                ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count == 0) // only if not already selected (asset filter priority > account filter)
                 {
                     lvitem.Checked = true;

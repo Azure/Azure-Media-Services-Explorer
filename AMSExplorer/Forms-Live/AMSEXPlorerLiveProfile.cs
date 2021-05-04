@@ -22,7 +22,7 @@ namespace AMSExplorer
     public static partial class AMSEXPlorerLiveProfile
     {
 
-        public static readonly List<LiveProfile> Profiles = new List<LiveProfile>
+        public static readonly List<LiveProfile> Profiles = new()
         {
             new LiveProfile()
             {

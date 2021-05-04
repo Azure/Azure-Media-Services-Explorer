@@ -42,7 +42,7 @@ namespace AMSExplorer
 
         public TimeSpan ArchiveWindowLength
         {
-            get => new TimeSpan((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0);
+            get => new((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0);
             set
             {
                 numericUpDownArchiveHours.Value = value.Hours;
@@ -150,7 +150,7 @@ namespace AMSExplorer
 
         internal static bool IsLiveOutputNameValid(string name)
         {
-            Regex reg = new Regex(@"^([a-zA-Z0-9])+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
+            Regex reg = new(@"^([a-zA-Z0-9])+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
             return (name.Length > 0 && name.Length < 257 && reg.IsMatch(name));
         }
 

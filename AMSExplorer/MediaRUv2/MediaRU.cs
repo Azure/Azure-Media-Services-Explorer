@@ -32,7 +32,7 @@ namespace AMSExplorer
 {
     public class MediaRU
     {
-        private static readonly HttpClient _client = new HttpClient();
+        private static readonly HttpClient _client = new();
         private DateTime _tokenSPExpirationTime = DateTime.Now.AddMinutes(-1);
         private string _tokenSP = null;
         private InfoMediaRU _myanswer = null;
@@ -71,7 +71,7 @@ namespace AMSExplorer
 
             string URL = AmsClientV3.environment.ArmEndpoint + AmsClientV3.credentialsEntry.MediaService.Id.Substring(1) + "?api-version=2015-10-01";
 
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = new())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(
@@ -109,17 +109,17 @@ namespace AMSExplorer
                     return;
                 };
 
-                Dictionary<string, string> values = new Dictionary<string, string>
-                                                            {
+                Dictionary<string, string> values = new()
+                {
                                                                 { "grant_type", "client_credentials" },
                                                                 { "client_id", AmsClientV3.credentialsEntry.ADSPClientId },
                                                                 { "client_secret", AmsClientV3.credentialsEntry.ClearADSPClientSecret },
                                                                 { "resource", AmsClientV3.environment.MediaServicesV2Resource }
                                                             };
 
-                FormUrlEncodedContent content = new FormUrlEncodedContent(values);
+                FormUrlEncodedContent content = new(values);
 
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new())
                 {
                     HttpResponseMessage response = await client.PostAsync(URLAut, content);
                     if (!response.IsSuccessStatusCode)
@@ -195,7 +195,7 @@ namespace AMSExplorer
                 myObject.ReservedUnitType = (int)ReservedUniType;
             }
 
-            StringContent content = new StringContent(myObject.ToString(), Encoding.UTF8, "application/json");
+            StringContent content = new(myObject.ToString(), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PutAsync(URL, content);
 
             if (!response.IsSuccessStatusCode)

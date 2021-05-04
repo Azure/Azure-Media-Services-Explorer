@@ -46,7 +46,7 @@ namespace AMSExplorer
 
         private void buttonSelectFolder_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog openFolderDialog = new FolderBrowserDialog();
+            FolderBrowserDialog openFolderDialog = new();
             if (openFolderDialog.ShowDialog() == DialogResult.OK)
             {
                 textBoxFolder.Text = openFolderDialog.SelectedPath;// FolderDialog.SelectedPath;

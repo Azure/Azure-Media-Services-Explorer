@@ -126,7 +126,7 @@ namespace AMSExplorer
 
         internal static bool IsAssetNameValid(string name)
         {
-            Regex reg = new Regex(@"[<>%&:\\?/*+.']", RegexOptions.Compiled);
+            Regex reg = new(@"[<>%&:\\?/*+.']", RegexOptions.Compiled);
             return (name.Length > 0 && name.Length < 261 && !reg.IsMatch(name));
 
         }

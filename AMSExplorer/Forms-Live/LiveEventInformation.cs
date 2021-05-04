@@ -31,20 +31,20 @@ namespace AMSExplorer
     {
         public LiveEvent MyLiveEvent;
         public bool MultipleSelection = false;
-        public ExplorerLiveEventModifications Modifications = new ExplorerLiveEventModifications();
-        private readonly BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
-        private readonly BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
+        public ExplorerLiveEventModifications Modifications = new();
+        private readonly BindingList<IPRange> InputEndpointSettingList = new();
+        private readonly BindingList<IPRange> PreviewEndpointSettingList = new();
         private readonly Mainform MyMainForm;
         private readonly AMSClientV3 _client;
         private readonly string defaultEncodingPreset = null;
-        private readonly BindingList<ExplorerAudioStream> audiostreams = new BindingList<ExplorerAudioStream>();
+        private readonly BindingList<ExplorerAudioStream> audiostreams = new();
         private string _radioButtonDefaultPreset;
 
         public IPAccessControl GetInputAllowList
         {
             get
             {
-                IPAccessControl ipac = new IPAccessControl(InputEndpointSettingList);
+                IPAccessControl ipac = new(InputEndpointSettingList);
                 return (checkBoxInputSet.Checked) ? ipac : null;
             }
         }
@@ -53,7 +53,7 @@ namespace AMSExplorer
         {
             get
             {
-                IPAccessControl ipac = new IPAccessControl(PreviewEndpointSettingList);
+                IPAccessControl ipac = new(PreviewEndpointSettingList);
                 return (checkBoxPreviewSet.Checked) ? ipac : null;
             }
         }
@@ -512,7 +512,7 @@ namespace AMSExplorer
                 if (profileliveselected != null)
                 {
                     dataGridViewVideoProf.DataSource = profileliveselected.Video;
-                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new List<AMSEXPlorerLiveProfile.LiveAudioProfile>
+                    List<AMSEXPlorerLiveProfile.LiveAudioProfile> profmultiaudio = new()
                     {
                         new AMSEXPlorerLiveProfile.LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate }
                     };

@@ -26,7 +26,8 @@ namespace AMSExplorer
     public partial class StreamingEndpointCDNEnable : Form
     {
 
-        public static readonly List<Item> CDNProviders = new List<Item> {
+        public static readonly List<Item> CDNProviders = new()
+        {
             new Item("Standard Verizon",  "StandardVerizon"),
             new Item("Standard Akamai", "StandardAkamai"),
             new Item("Premium Verizon", "PremiumVerizon")

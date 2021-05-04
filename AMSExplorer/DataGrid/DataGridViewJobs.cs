@@ -93,7 +93,7 @@ namespace AMSExplorer
             get => _timefilterTimeRange;
             set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount => _MyObservJobV3.Count();
+        public int DisplayedCount => _MyObservJobV3.Count;
 
         public void Init(AMSClientV3 client)
         {
@@ -211,28 +211,14 @@ namespace AMSExplorer
             ///////////////////////
             ODataQuery<Job> odataQuery = new();
 
-            switch (_orderjobs)
+            odataQuery.OrderBy = _orderjobs switch
             {
-                case OrderJobs.CreatedDescending:
-                    odataQuery.OrderBy = "Properties/Created desc";
-                    break;
-
-                case OrderJobs.CreatedAscending:
-                    odataQuery.OrderBy = "Properties/Created";
-                    break;
-
-                case OrderJobs.NameAscending:
-                    odataQuery.OrderBy = "Name";
-                    break;
-
-                case OrderJobs.NameDescending:
-                    odataQuery.OrderBy = "Name desc";
-                    break;
-
-                default:
-                    odataQuery.OrderBy = "Properties/Created desc";
-                    break;
-            }
+                OrderJobs.CreatedDescending => "Properties/Created desc",
+                OrderJobs.CreatedAscending => "Properties/Created",
+                OrderJobs.NameAscending => "Name",
+                OrderJobs.NameDescending => "Name desc",
+                _ => "Properties/Created desc",
+            };
 
 
 
@@ -279,17 +265,17 @@ namespace AMSExplorer
             {
                 if (odataQuery.Filter != null)
                 {
-                    odataQuery.Filter = odataQuery.Filter + " and ";
+                    odataQuery.Filter += " and ";
                 }
-                odataQuery.Filter = odataQuery.Filter + $"Properties/Created gt {dateTimeStart.ToString("o")}";
+                odataQuery.Filter += $"Properties/Created gt {dateTimeStart:o}";
             }
             if (filterEndDate)
             {
                 if (odataQuery.Filter != null)
                 {
-                    odataQuery.Filter = odataQuery.Filter + " and ";
+                    odataQuery.Filter += " and ";
                 }
-                odataQuery.Filter = odataQuery.Filter + $"Properties/Created lt {dateTimeRangeEnd.ToString("o")}";
+                odataQuery.Filter += $"Properties/Created lt {dateTimeRangeEnd:o}";
             }
 
 
@@ -394,7 +380,7 @@ namespace AMSExplorer
 
                 // let's adjust the JobRefreshIntervalInMilliseconds based on the number of jobs to monitor
                 // 2500 ms if 5 jobs or less, 500ms*nbjobs otherwise
-                JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count() / 5d));
+                JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count / 5d));
 
                 // let's monitor job that are not yet monitored
                 foreach (JobExtension job in ActiveAndVisibleJobs)
@@ -548,7 +534,7 @@ namespace AMSExplorer
                           }
                           if (myJob.Outputs.Count > 0)
                           {
-                              progress2 = progress2 / myJob.Outputs.Count;
+                              progress2 /= myJob.Outputs.Count;
                           }
 
                           _MyObservJobV3[index2].Progress = 101d; // progress;  we don't want the progress bar to be displayed
@@ -576,7 +562,7 @@ namespace AMSExplorer
 
                                           if (output.Error != null && output.Error.Details != null)
                                           {
-                                              for (int i = 0; i < output.Error.Details.Count(); i++)
+                                              for (int i = 0; i < output.Error.Details.Count; i++)
                                               {
                                                   myform.TextBoxLogWriteLine(string.Format("Output '{0}', Error : {1}", output.Label, output.Error + " : " + output.Error.Message), true);
                                               }
@@ -630,7 +616,7 @@ namespace AMSExplorer
             }
             if (myJob.Outputs.Count > 0)
             {
-                progress = progress / myJob.Outputs.Count;
+                progress /= myJob.Outputs.Count;
             }
 
             if (myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Processing)

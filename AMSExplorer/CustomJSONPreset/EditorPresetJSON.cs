@@ -100,7 +100,7 @@ namespace AMSExplorer
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+            System.Threading.Thread MyThread = new(new ParameterizedThreadStart(DoCopyClipboard));
             MyThread.SetApartmentState(ApartmentState.STA);
             MyThread.IsBackground = true;
             MyThread.Start(textBoxConfiguration.Text);

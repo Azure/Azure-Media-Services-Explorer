@@ -114,7 +114,7 @@ namespace AMSExplorer
 
             foreach (Asset asset in _assets)
             {
-                ListViewItem item = new ListViewItem(asset.Name);
+                ListViewItem item = new(asset.Name);
                 item.SubItems.Add(asset.Description);
                 item.SubItems.Add(asset.LastModified.ToLocalTime().ToString("G"));
                 if (_searchExactAssetName == asset.Name)

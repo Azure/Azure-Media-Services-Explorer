@@ -92,7 +92,7 @@ namespace AMSExplorer
 
         private void Splash_Paint(object sender, PaintEventArgs e)
         {
-            System.Drawing.Pen myPen = new System.Drawing.Pen(System.Drawing.Color.DarkGray, 1);
+            System.Drawing.Pen myPen = new(System.Drawing.Color.DarkGray, 1);
             System.Drawing.Graphics formGraphics;
             formGraphics = CreateGraphics();
             formGraphics.DrawRectangle(myPen, 0, 0, Width - 1, Height - 1);

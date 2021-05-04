@@ -24,7 +24,7 @@ namespace AMSExplorer
 {
     public partial class EDL : Form
     {
-        private BindingList<ExplorerEDLEntryInOut> TimeCodeList = new BindingList<ExplorerEDLEntryInOut>();
+        private BindingList<ExplorerEDLEntryInOut> TimeCodeList = new();
 
         public delegate void ChangedEventHandler(object sender, EventArgs e);
 

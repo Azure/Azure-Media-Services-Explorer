@@ -175,7 +175,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<string> list = new List<string>();
+                List<string> list = new();
                 foreach (object f in listViewFilters.CheckedItems)
                 {
                     string v = (f as ListViewItem).SubItems[1].Text;
@@ -193,7 +193,7 @@ namespace AMSExplorer
             // DpiUtils.InitPerMonitorDpi(this);
 
             // Filters
-            List<string> afiltersnames = new List<string>();
+            List<string> afiltersnames = new();
 
             listViewFilters.BeginUpdate();
             // asset filters
@@ -201,7 +201,7 @@ namespace AMSExplorer
             {
                 labelNoAssetFilter.Visible = false;
 
-                List<AssetFilter> assetFilters = new List<AssetFilter>();
+                List<AssetFilter> assetFilters = new();
                 IPage<AssetFilter> assetFiltersPage = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
                 while (assetFiltersPage != null)
                 {
@@ -221,7 +221,7 @@ namespace AMSExplorer
 
                 assetFilters.ToList().ForEach(f =>
                 {
-                    ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
+                    ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
                     listViewFilters.Items.Add(lvitem);
                 }
                );
@@ -229,7 +229,7 @@ namespace AMSExplorer
 
 
             // account filters
-            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            List<AccountFilter> acctFilters = new();
             IPage<AccountFilter> acctFiltersPage = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
             while (acctFiltersPage != null)
             {
@@ -247,7 +247,7 @@ namespace AMSExplorer
 
             acctFilters.ToList().ForEach(f =>
             {
-                ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
+                ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
 
                 if (afiltersnames.Contains(f.Name)) // global filter with same name than asset filter
                 {

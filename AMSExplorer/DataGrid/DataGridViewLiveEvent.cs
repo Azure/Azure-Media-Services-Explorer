@@ -63,9 +63,9 @@ namespace AMSExplorer
             get => _timefilterTimeRange;
             set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount => _MyObservLiveEvent.Count();
+        public int DisplayedCount => _MyObservLiveEvent.Count;
 
-        private readonly List<StatusInfo> ListStatus = new List<StatusInfo>();
+        private readonly List<StatusInfo> ListStatus = new();
         private static SortableBindingList<LiveEventEntry> _MyObservLiveEvent;
 
         private static int _liveeventsperpage = 50; //nb of items per page
@@ -75,9 +75,9 @@ namespace AMSExplorer
         private static bool _refreshedatleastonetime = false;
         private static string _statefilter = "All";
         private AMSClientV3 _amsClient;
-        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.LiveEventName, Text = string.Empty };
+        private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveEventName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
-        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private static BackgroundWorker WorkerRefreshChannels;
         private static readonly Bitmap EncodingImage = Bitmaps.encoding;
         private static readonly Bitmap StandardEncodingImage = Bitmaps.encoding;
@@ -90,20 +90,13 @@ namespace AMSExplorer
         private Bitmap ReturnChannelBitmap(LiveEvent channel)
         {
 
-            switch (channel.Encoding.EncodingType)
+            return (string)channel.Encoding.EncodingType switch
             {
-                case nameof(LiveEventEncodingType.None):
-                    return null;
-
-                case nameof(LiveEventEncodingType.Standard):
-                    return StandardEncodingImage;
-
-                case nameof(LiveEventEncodingType.Premium1080p):
-                    return PremiumEncodingImage;
-
-                default:
-                    return null;
-            }
+                nameof(LiveEventEncodingType.None) => null,
+                nameof(LiveEventEncodingType.Standard) => StandardEncodingImage,
+                nameof(LiveEventEncodingType.Premium1080p) => PremiumEncodingImage,
+                _ => null,
+            };
 
 
             /*
@@ -134,7 +127,7 @@ namespace AMSExplorer
             float scale = DeviceDpi / 96f;
 
             // Listing live events
-            List<LiveEvent> liveevents = new List<LiveEvent>();
+            List<LiveEvent> liveevents = new();
             IPage<LiveEvent> liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             while (liveeventsPage != null)
             {
@@ -181,12 +174,12 @@ namespace AMSExplorer
                            };
 */
 
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
+            DataGridViewCellStyle cellstyle = new()
             {
                 NullValue = null,
                 Alignment = DataGridViewContentAlignment.MiddleCenter
             };
-            DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
+            DataGridViewImageColumn imageCol = new()
             {
                 DefaultCellStyle = cellstyle,
                 Name = _encoded,
@@ -194,7 +187,7 @@ namespace AMSExplorer
             };
             Columns.Add(imageCol);
 
-            SortableBindingList<LiveEventEntry> MyObservChannelsInPage = new SortableBindingList<LiveEventEntry>(channelquery.Take(0).ToList());
+            SortableBindingList<LiveEventEntry> MyObservChannelsInPage = new(channelquery.Take(0).ToList());
             DataSource = MyObservChannelsInPage;
             Columns["InputUrl"].HeaderText = "Primary Input Url";
             Columns["InputUrl"].Width = 140;
@@ -332,7 +325,7 @@ namespace AMSExplorer
             
 
             // Listing live events
-            List<LiveEvent> liveevents = new List<LiveEvent>();
+            List<LiveEvent> liveevents = new();
             IPage<LiveEvent> liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             while (liveeventsPage != null)
             {
@@ -348,7 +341,7 @@ namespace AMSExplorer
             }
 
 
-            totalLiveEvents = liveevents.Count();
+            totalLiveEvents = liveevents.Count;
             float scale = DeviceDpi / 96f;
 
             IEnumerable<LiveEventEntry> channelquery = liveevents.Select(c =>

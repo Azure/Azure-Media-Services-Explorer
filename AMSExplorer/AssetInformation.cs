@@ -166,11 +166,13 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    var p = new Process();
-                    p.StartInfo = new ProcessStartInfo
+                    var p = new Process
                     {
-                        FileName = TreeViewLocators.SelectedNode.Text,
-                        UseShellExecute = true
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = TreeViewLocators.SelectedNode.Text,
+                            UseShellExecute = true
+                        }
                     };
                     p.Start();
                 }
@@ -182,7 +184,7 @@ namespace AMSExplorer
             bool proposeListBlobsInDir = false;
             if (container == null) //first time
             {
-                ListContainerSasInput input = new ListContainerSasInput()
+                ListContainerSasInput input = new()
                 {
                     Permissions = AssetContainerPermission.ReadWriteDelete,
                     ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
@@ -202,7 +204,7 @@ namespace AMSExplorer
 
                 string uploadSasUrl = response.AssetContainerSasUrls.First();
 
-                Uri sasUri = new Uri(uploadSasUrl);
+                Uri sasUri = new(uploadSasUrl);
                 container = new CloudBlobContainer(sasUri);
             }
 
@@ -229,14 +231,14 @@ namespace AMSExplorer
 
             do
             {
-                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, checkBoxListBlobsDirectories.Visible ? checkBoxListBlobsDirectories.Checked : false, BlobListingDetails.Metadata, null, continuationToken, null, null);
+                BlobResultSegment segment = await container.ListBlobsSegmentedAsync(null, checkBoxListBlobsDirectories.Visible && checkBoxListBlobsDirectories.Checked, BlobListingDetails.Metadata, null, continuationToken, null, null);
                 blobs.AddRange(segment.Results);
 
                 foreach (IListBlobItem blob in segment.Results)
                 {
                     if (blob is CloudBlockBlob bl)
                     {
-                        ListViewItem item = new ListViewItem(bl.Name, 0);
+                        ListViewItem item = new(bl.Name, 0);
                         if (bl.Name.ToLower().EndsWith(".ism"))
                         {
                             serverManifestPresent = true;
@@ -265,7 +267,7 @@ namespace AMSExplorer
                     else if (blob is CloudBlobDirectory blobd)
                     {
                         proposeListBlobsInDir = true;
-                        ListViewItem item = new ListViewItem(blobd.Prefix, 0)
+                        ListViewItem item = new(blobd.Prefix, 0)
                         {
                             ForeColor = Color.DarkGoldenrod
                         };
@@ -350,7 +352,7 @@ namespace AMSExplorer
                 }
             }
             // if no SE has been selected (there is no SE named "default") then let's select the fist in the list
-            if (myStreamingEndpoints.Count() > 0 && comboBoxStreamingEndpoint.SelectedIndex == -1)
+            if (myStreamingEndpoints.Any() && comboBoxStreamingEndpoint.SelectedIndex == -1)
             {
                 comboBoxStreamingEndpoint.SelectedIndex = 0;
             }
@@ -363,7 +365,7 @@ namespace AMSExplorer
         {
             
 
-            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            List<AssetFilter> assetFilters = new();
             IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name);
             while (assetFiltersPage != null)
             {
@@ -394,7 +396,7 @@ namespace AMSExplorer
 
             dataGridViewFilters.Rows.Clear();
 
-            if (assetFilters.Count() > 0 && myassetmanifesttimingdata == null)
+            if (assetFilters.Count > 0 && myassetmanifesttimingdata == null)
             {
 
                 // let's read manifest data
@@ -568,7 +570,7 @@ namespace AMSExplorer
                 return;
             }
 
-            UriBuilder uriBuilder = new UriBuilder
+            UriBuilder uriBuilder = new()
             {
                 Scheme = checkBoxHttps.Checked ? "https" : "http",
                 Host = SelectedSE.HostName
@@ -610,7 +612,7 @@ namespace AMSExplorer
                         colornode = Color.Red;
                     }
 
-                    TreeNode myLocNode = new TreeNode(locator.Name)
+                    TreeNode myLocNode = new(locator.Name)
                     {
                         ForeColor = colornode
                     };
@@ -734,18 +736,20 @@ namespace AMSExplorer
             try
             {
                 AssetContainerSas assetContainerSas = await GetTemporaryAssetContainerSasAsync();
-                Uri containerSasUrl = new Uri(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
+                Uri containerSasUrl = new(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
 
                 foreach (IListBlobItem blob in SelectedBlobs)
                 {
                     if (blob is CloudBlockBlob blobtoopen)
                     {
                         //Generate the shared access signature on the blob, setting the constraints directly on the signature.
-                        var p = new Process();
-                        p.StartInfo = new ProcessStartInfo
+                        var p = new Process
                         {
-                            FileName = blobtoopen.Uri + containerSasUrl.Query,
-                            UseShellExecute = true
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = blobtoopen.Uri + containerSasUrl.Query,
+                                UseShellExecute = true
+                            }
                         };
                         p.Start();
                     }
@@ -792,7 +796,7 @@ namespace AMSExplorer
 
             if (SelectedBlobs.Count > 0)
             {
-                using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog() { RootFolder = Environment.SpecialFolder.MyVideos })
+                using (FolderBrowserDialog openFolderDialog = new() { RootFolder = Environment.SpecialFolder.MyVideos })
                 {
                     if (openFolderDialog.ShowDialog() == DialogResult.OK)
                     {
@@ -859,10 +863,10 @@ namespace AMSExplorer
 
         private async Task DoDisplayAssetStatsAsync()
         {
-            AssetTools MyAssetReport = new AssetTools(myAsset, _amsClient);
+            AssetTools MyAssetReport = new(myAsset, _amsClient);
             StringBuilder SB = await MyAssetReport.GetStatsAsync();
             using (EditorXMLJSON tokenDisplayForm
-                = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, ShowSampleMode.None, false))
+                = new(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, ShowSampleMode.None, false))
             {
                 tokenDisplayForm.Display();
             }
@@ -877,7 +881,7 @@ namespace AMSExplorer
         {
             IEnumerable<CloudBlockBlob> SelectedBlobs = ReturnSelectedBlobs().Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b);
 
-            if (SelectedBlobs.Count() > 0)
+            if (SelectedBlobs.Any())
             {
                 string question = SelectedBlobs.Count() == 1 ? string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_DeleteTheFile0, SelectedBlobs.FirstOrDefault().Name) : string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_DeleteThese0Files, SelectedBlobs.Count());
 
@@ -1064,13 +1068,14 @@ namespace AMSExplorer
                             destinationBlob = container.GetBlockBlobReference(newfilename);
 
                             // Setup the transfer context and track the upload progress
-                            SingleTransferContext context = new SingleTransferContext();
-
-                            context.ProgressHandler = new Progress<TransferStatus>((progress) =>
+                            SingleTransferContext context = new()
                             {
-                                double percentComplete = 100d * progress.BytesTransferred / sourceCloudBlob.Properties.Length;
-                                progressBarUpload.Value = Convert.ToInt32(percentComplete);
-                            });
+                                ProgressHandler = new Progress<TransferStatus>((progress) =>
+                                {
+                                    double percentComplete = 100d * progress.BytesTransferred / sourceCloudBlob.Properties.Length;
+                                    progressBarUpload.Value = Convert.ToInt32(percentComplete);
+                                })
+                            };
 
                             await TransferManager.CopyAsync(sourceCloudBlob, destinationBlob, CopyMethod.ServiceSideSyncCopy, null, context);
                         }
@@ -1092,7 +1097,7 @@ namespace AMSExplorer
 
         private async Task DoUploadAsync()
         {
-            using (OpenFileDialog Dialog = new OpenFileDialog
+            using (OpenFileDialog Dialog = new()
             {
                 Multiselect = true
             })
@@ -1129,13 +1134,14 @@ namespace AMSExplorer
             }
 
             // Setup the transfer context and track the upload progress
-            SingleTransferContext context = new SingleTransferContext();
-
-            context.ProgressHandler = new Progress<TransferStatus>((progress) =>
+            SingleTransferContext context = new()
             {
-                double percentComplete = 100d * progress.BytesTransferred / LengthAllFiles;
-                progressBarUpload.Value = Convert.ToInt32(percentComplete);
-            });
+                ProgressHandler = new Progress<TransferStatus>((progress) =>
+                {
+                    double percentComplete = 100d * progress.BytesTransferred / LengthAllFiles;
+                    progressBarUpload.Value = Convert.ToInt32(percentComplete);
+                })
+            };
 
             foreach (string file in filenames)
             {
@@ -1157,7 +1163,7 @@ namespace AMSExplorer
 
         private async Task<CloudBlobContainer> GetRWContainerOfAssetAsync()
         {
-            ListContainerSasInput input = new ListContainerSasInput()
+            ListContainerSasInput input = new()
             {
                 Permissions = AssetContainerPermission.ReadWrite,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
@@ -1167,8 +1173,8 @@ namespace AMSExplorer
             AssetContainerSas response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name, input.Permissions, input.ExpiryTime);
 
             string uploadSasUrl = response.AssetContainerSasUrls.First();
-            Uri sasUri = new Uri(uploadSasUrl);
-            CloudBlobContainer container = new CloudBlobContainer(sasUri);
+            Uri sasUri = new(uploadSasUrl);
+            CloudBlobContainer container = new(sasUri);
             return container;
         }
 
@@ -1190,11 +1196,13 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    var p = new Process();
-                    p.StartInfo = new ProcessStartInfo
+                    var p = new Process
                     {
-                        FileName = TreeViewLocators.SelectedNode.Text,
-                        UseShellExecute = true
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = TreeViewLocators.SelectedNode.Text,
+                            UseShellExecute = true
+                        }
                     };
                     p.Start();
                 }
@@ -1322,7 +1330,7 @@ namespace AMSExplorer
 
         private List<IListBlobItem> ReturnSelectedBlobs(bool returnAlsoDirectory = true)
         {
-            List<IListBlobItem> Selection = new List<IListBlobItem>();
+            List<IListBlobItem> Selection = new();
 
             foreach (int selectedindex in listViewBlobs.SelectedIndices)
             {
@@ -1438,10 +1446,10 @@ namespace AMSExplorer
         }
         private async Task<List<AssetFilter>> ReturnSelectedFiltersAsync()
         {
-            List<AssetFilter> SelectedFilters = new List<AssetFilter>();
+            List<AssetFilter> SelectedFilters = new();
             
 
-            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            List<AssetFilter> assetFilters = new();
             IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myAsset.Name);
             while (assetFiltersPage != null)
             {
@@ -1472,8 +1480,8 @@ namespace AMSExplorer
             List<AssetFilter> filters = await ReturnSelectedFiltersAsync();
             if (filter != null || filters.Count == 1)
             {
-                filter = filter ?? filters.FirstOrDefault();
-                using (DynManifestFilter form = new DynManifestFilter(_amsClient, filter, myAsset))
+                filter ??= filters.FirstOrDefault();
+                using (DynManifestFilter form = new(_amsClient, filter, myAsset))
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -1517,7 +1525,7 @@ namespace AMSExplorer
 
         private async Task DoCreateAssetFilterAsync()
         {
-            using (DynManifestFilter form = new DynManifestFilter(_amsClient, null, myAsset))
+            using (DynManifestFilter form = new(_amsClient, null, myAsset))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -1621,9 +1629,9 @@ namespace AMSExplorer
                 if (System.Windows.Forms.MessageBox.Show(question, AMSExplorer.Properties.Resources.AssetInformation_DoDeleteFiles_FileDeletion, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     CloudBlockBlob[] ArrayBlobs = blobs.Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b).ToArray();
-                    List<Task> deleteTasks = new List<Task>();
+                    List<Task> deleteTasks = new();
 
-                    for (int i = 0; i < ArrayBlobs.Count(); i++)
+                    for (int i = 0; i < ArrayBlobs.Length; i++)
                     {
                         deleteTasks.Add(ArrayBlobs[i].DeleteAsync());
                     }
@@ -1723,7 +1731,7 @@ namespace AMSExplorer
 
                     progressBarUpload.Visible = false;
 
-                    using (EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, blobtoedit.Name), contentstring, true))
+                    using (EditorXMLJSON editform = new(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, blobtoedit.Name), contentstring, true))
                     {
                         if (editform.Display() == DialogResult.OK)
                         { // OK
@@ -1759,7 +1767,7 @@ namespace AMSExplorer
 
         private void SeeClearKey(string key)
         {
-            using (EditorXMLJSON editform = new EditorXMLJSON(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_Value, key.ToString(), false))
+            using (EditorXMLJSON editform = new(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_Value, key.ToString(), false))
                 editform.Display();
         }
 
@@ -1786,7 +1794,7 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            using (EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false))
+            using (EditorXMLJSON editform = new(dataname, key, false))
                 editform.Display();
         }
 
@@ -1802,7 +1810,7 @@ namespace AMSExplorer
                 GeneratedServerManifest smildata = await ServerManifestUtils.LoadAndUpdateManifestTemplateAsync(container);
 
                 using (
-                EditorXMLJSON editform = new EditorXMLJSON(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, ShowSampleMode.None, true,
+                EditorXMLJSON editform = new(string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, smildata.FileName), smildata.Content, true, ShowSampleMode.None, true,
                     AMSExplorer.Properties.Resources.AssetInformation_DoGenerateManifest_PleaseCheckCarefullyTheContentOfTheGeneratedManifestAsTheToolMakesGuesses))
                 {
                     if (editform.Display() == DialogResult.OK)
@@ -2057,13 +2065,13 @@ namespace AMSExplorer
 
             string tracksJson = JsonConvert.SerializeObject(key.Tracks, Newtonsoft.Json.Formatting.Indented);
             int i = dataGridViewKeys.Rows.Add("Tracks", "Details");
-            DataGridViewButtonCell btn2 = new DataGridViewButtonCell();
+            DataGridViewButtonCell btn2 = new();
             dataGridViewKeys.Rows[i].Cells[1] = btn2;
             dataGridViewKeys.Rows[i].Cells[1].Value = "See details";
             dataGridViewKeys.Rows[i].Cells[1].Tag = tracksJson;
 
             i = dataGridViewKeys.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_ClearKeyValue, AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey);
-            DataGridViewButtonCell btn = new DataGridViewButtonCell();
+            DataGridViewButtonCell btn = new();
             dataGridViewKeys.Rows[i].Cells[1] = btn;
             dataGridViewKeys.Rows[i].Cells[1].Value = AMSExplorer.Properties.Resources.AssetInformation_DoDisplayKeyPropertiesAndAutOptions_SeeClearKey2;
             dataGridViewKeys.Rows[i].Cells[1].Tag = key.Value;
@@ -2087,7 +2095,7 @@ namespace AMSExplorer
                 return;
             }
 
-            StringBuilder sbuilder = new StringBuilder();
+            StringBuilder sbuilder = new();
 
             string locatorName = (comboBoxPolicyLocators.SelectedItem as Item).Value;
             StreamingLocator locator = await _amsClient.AMSclient.StreamingLocators.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName);
@@ -2122,16 +2130,16 @@ namespace AMSExplorer
 
             string keyIdentifier = (comboBoxKeys.SelectedItem as Item).Value;
 
-            using (DRM_GenerateToken formTokenProperties = new DRM_GenerateToken())
+            using (DRM_GenerateToken formTokenProperties = new())
             {
                 formTokenProperties.ShowDialog();
                 if (formTokenProperties.DialogResult == DialogResult.OK)
                 {
-                    Microsoft.IdentityModel.Tokens.SymmetricSecurityKey tokenSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(SymKey.KeyValue);
+                    Microsoft.IdentityModel.Tokens.SymmetricSecurityKey tokenSigningKey = new(SymKey.KeyValue);
 
-                    Microsoft.IdentityModel.Tokens.SigningCredentials signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
+                    Microsoft.IdentityModel.Tokens.SigningCredentials signingcredentials = new(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
 
-                    List<Claim> claims = new List<Claim>();
+                    List<Claim> claims = new();
 
                     foreach (ContentKeyPolicyTokenClaim claim in ckrestriction.RequiredClaims)
                     {
@@ -2150,7 +2158,7 @@ namespace AMSExplorer
                         claims.Add(new Claim("urn:microsoft:azure:mediaservices:maxuses", ((int)formTokenProperties.TokenUse).ToString()));
                     }
 
-                    JwtSecurityToken token = new JwtSecurityToken(
+                    JwtSecurityToken token = new(
                                                                 issuer: ckrestriction.Issuer,
                                                                 audience: ckrestriction.Audience,
                                                                 claims: claims.Count > 0 ? claims : null,
@@ -2160,13 +2168,13 @@ namespace AMSExplorer
                                                                 );
 
 
-                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                    JwtSecurityTokenHandler handler = new();
 
                     sbuilder.Append("Bearer " + handler.WriteToken(token));
                 }
             }
 
-            using (EditorXMLJSON displayResult = new EditorXMLJSON("Test token", sbuilder.ToString(), false, ShowSampleMode.None, false))
+            using (EditorXMLJSON displayResult = new("Test token", sbuilder.ToString(), false, ShowSampleMode.None, false))
                 displayResult.ShowDialog();
         }
 
@@ -2281,7 +2289,7 @@ namespace AMSExplorer
             {
                 string clientManifestName = _serverManifestName + "c";
 
-                using (EditorXMLJSON editform = new EditorXMLJSON(
+                using (EditorXMLJSON editform = new(
                                                                     string.Format(AMSExplorer.Properties.Resources.AssetInformation_DoEditFile_OnlineEditOf0, clientManifestName),
                                                                     manifest.ToString(),
                                                                     true,

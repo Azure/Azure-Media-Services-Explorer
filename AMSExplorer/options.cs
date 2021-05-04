@@ -66,7 +66,7 @@ namespace AMSExplorer
                 numericUpDownDataMovNumbParallelOp.Value = Properties.Settings.Default.DataMovementParallelOperations;
             }
 
-            List<int> listInt = new List<int>() { 4, 8, 16, 32, 64, 100 };
+            List<int> listInt = new() { 4, 8, 16, 32, 64, 100 };
             comboBoxBlockSize.Items.Clear();
             listInt.ForEach(l => comboBoxBlockSize.Items.Add(l.ToString()));
 
@@ -157,7 +157,10 @@ namespace AMSExplorer
 
         private void amspriceslink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var p = new Process(); p.StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }; p.Start();
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            }; p.Start();
         }
 
         private void Options_DpiChanged(object sender, DpiChangedEventArgs e)

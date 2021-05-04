@@ -35,7 +35,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<string> storages = new List<string>();
+                List<string> storages = new();
                 foreach (object stor in listViewStorage.CheckedItems)
                 {
                     string storeId = (stor as ListViewItem).SubItems[1].Text;
@@ -85,7 +85,7 @@ namespace AMSExplorer
                 if (s.Type == StorageAccountType.Secondary)
                 {
                     string[] names = s.Id.Split('/');
-                    ListViewItem lvitem = new ListViewItem(new string[] { names.Last(), s.Id })
+                    ListViewItem lvitem = new(new string[] { names.Last(), s.Id })
                     {
                         ToolTipText = s.Id
                     };
