@@ -67,9 +67,6 @@ namespace AMSExplorer
             int rightMargin = STANDARD_HORIZONTAL_MARGIN;
             int topMargin = STANDARD_VERTICAL_MARGIN;
             int bottomMargin = STANDARD_VERTICAL_MARGIN;
-            int imgHeight = 1;
-            int imgWidth = 1;
-            int progressWidth = 1;
             PointF fontPlacement = new(0, 0);
 
             int progressVal;
@@ -96,8 +93,8 @@ namespace AMSExplorer
             }
 
             // Calculate the sizes
-            imgHeight = cellBounds.Bottom - cellBounds.Top - (topMargin + bottomMargin);
-            imgWidth = cellBounds.Right - cellBounds.Left - (leftMargin + rightMargin);
+            int imgHeight = cellBounds.Bottom - cellBounds.Top - (topMargin + bottomMargin);
+            int imgWidth = cellBounds.Right - cellBounds.Left - (leftMargin + rightMargin);
             if (imgWidth <= 0)
             {
                 imgWidth = 1;
@@ -108,7 +105,7 @@ namespace AMSExplorer
             }
 
             // Calculate the progress
-            progressWidth = (imgWidth * (progressVal) / 100);
+            int progressWidth = imgWidth * progressVal / 100;
             if (progressWidth <= 0)
             {
                 if (progressVal > 0)

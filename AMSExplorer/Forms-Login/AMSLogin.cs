@@ -208,7 +208,6 @@ namespace AMSExplorer
 
         private void ButtonExport_Click(object sender, EventArgs e)
         {
-            bool exportAll = true;
             bool exportSPSecrets = false;
             ExportSettings form = new();
 
@@ -219,7 +218,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                exportAll = form.radioButtonAllEntries.Checked;
+                bool exportAll = form.radioButtonAllEntries.Checked;
                 exportSPSecrets = form.checkBoxIncludeSPSecrets.Checked;
 
                 PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
@@ -543,12 +542,9 @@ namespace AMSExplorer
 
                     AddAMSAccount2Browse addaccount2 = new(credentials, subscriptions, environment, tenants, prompt);
 
-                    //  AddAMSAccount2Browse addaccount2 = new AddAMSAccount2Browse(credentials, subscriptions, environment, tenants/*, new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto)*/);
-
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {
                         // Getting Media Services accounts...
-                        AzureMediaServicesClient mediaServicesClient = new(environment.ArmEndpoint, credentials);
 
                         CredentialsEntryV3 entry = new(addaccount2.selectedAccount,
                             environment,
@@ -557,6 +553,7 @@ namespace AMSExplorer
                             addaccount2.selectedTenantId,
                             false
                             );
+
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);
 

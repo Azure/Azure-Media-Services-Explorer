@@ -553,7 +553,7 @@ namespace AMSExplorer
             {
                 string json = System.IO.File.ReadAllText(openFileDialog1.FileName);
 
-                EDLImportExport EDLImportExport = null;
+                EDLImportExport EDLImportExport;
                 try
                 {
                     EDLImportExport = (EDLImportExport)JsonConvert.DeserializeObject(json, typeof(EDLImportExport));

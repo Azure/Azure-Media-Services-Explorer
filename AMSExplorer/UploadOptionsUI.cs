@@ -90,7 +90,7 @@ namespace AMSExplorer
 
         private void ButtonAdvancedOptions_Click(object sender, System.EventArgs e)
         {
-            string altid = null, assetName = null, desc = null, container = null;
+            string altid = null, desc = null, container = null;
 
             if (newAssetForm == null)
             {
@@ -103,7 +103,7 @@ namespace AMSExplorer
                 desc = newAssetForm.AssetDescription;
                 container = newAssetForm.AssetContainer;
             }
-            assetName = newAssetForm.AssetName;
+            string assetName = newAssetForm.AssetName;
 
 
             if (newAssetForm.ShowDialog() != DialogResult.OK)

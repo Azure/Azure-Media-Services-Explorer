@@ -3508,8 +3508,6 @@ namespace AMSExplorer
 
         private void contextMenuStripTransfers_Opening(object sender, CancelEventArgs e)
         {
-            ToolStrip toolStripMenuItemOpenDest = (ToolStrip)sender;
-
             bool bFinished = false;
             bool bCancel = false;
 
@@ -6653,10 +6651,9 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                FilterCreationInfo filterinfotoupdate = null;
                 try
                 {
-                    filterinfotoupdate = form.GetFilterInfo;
+                    FilterCreationInfo filterinfotoupdate = form.GetFilterInfo;
                     TextBoxLogWriteLine("Updating account filter '{0}'...", filter.Name);
 
                     await _amsClient.AMSclient.AccountFilters.CreateOrUpdateAsync(

@@ -98,8 +98,7 @@ namespace AMSExplorer
 
         public static async Task<StreamingLocator> CreateTemporaryOnDemandLocatorAsync(Asset asset, AMSClientV3 _amsClientV3)
         {
-            StreamingLocator tempLocator = null;
-
+            StreamingLocator tempLocator;
             try
             {
                 string streamingLocatorName = "templocator-" + Program.GetUniqueness();
@@ -520,19 +519,19 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count - 1] + durationPreviousChunk);
+                        response.TimestampList.Add(response.TimestampList[^1] + durationPreviousChunk);
                     }
 
                     totalDuration += durationChunk * (ulong)repeatChunk;
 
                     for (int i = 1; i < repeatChunk; i++)
                     {
-                        response.TimestampList.Add(response.TimestampList[response.TimestampList.Count - 1] + durationChunk);
+                        response.TimestampList.Add(response.TimestampList[^1] + durationChunk);
                     }
 
                     durationPreviousChunk = durationChunk;
                 }
-                response.TimestampEndLastChunk = response.TimestampList[response.TimestampList.Count - 1] + durationPreviousChunk;
+                response.TimestampEndLastChunk = response.TimestampList[^1] + durationPreviousChunk;
 
                 if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
                 { // Live asset.... No duration to read or it is always zero (but we can read scaling and compute duration)

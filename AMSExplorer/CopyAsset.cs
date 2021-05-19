@@ -172,7 +172,7 @@ namespace AMSExplorer
 
             DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.AzureSubscriptionId, DestinationLoginInfo, this);
 
-            AzureMediaServicesClient response = null;
+            AzureMediaServicesClient response;
             try
             {
                 response = await DestinationAmsClient.ConnectAndGetNewClientV3Async(this);
