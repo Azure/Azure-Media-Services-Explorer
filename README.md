@@ -14,10 +14,17 @@ Azure Media Services Explorer (AMSE) is a .NET 5.0 (C#) application for Windows 
 See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool).
 
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**. Please note that AMSE v5 is for AMS v3 API (main branch), and AMSE v4 is for AMS v2 (AMSv2 branch).
+This appliaction requires [.NET 5.0 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/5.0) to run.
 
 ## Prerequisites to compile
-This solution has been developed with [Visual Studio 2019 16.10.0 Preview 4](https://visualstudio.microsoft.com/vs/preview/). It contains two projects: "AMSExplorer", the main application, and "Setup", a project that creates a Setup executable (EXE/MSI). Setup project is using the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects).
-This solution requires [.NET 5.0 Desktop Runtime to run or .NET 5.0 SDK to compile](https://dotnet.microsoft.com/download/dotnet/5.0).
+
+This solution has been developed using [Visual Studio 2019 16.10.0 Preview 4](https://visualstudio.microsoft.com/vs/preview/). It contains two projects: "AMSExplorer", the main application, and "Setup", a project that creates a Setup executable (EXE/MSI).
+
+You need to install the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects) in order to open and build the Setup project in Visual Studio.
+
+This solution requires [.NET 5.0 SDK to compile](https://dotnet.microsoft.com/download/dotnet/5.0).
+
+## Contacts
 
 Contact: amse@microsoft.com
 
