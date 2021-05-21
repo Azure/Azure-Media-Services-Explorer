@@ -81,6 +81,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.17.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.17.0" />
     <PackageReference Include="Microsoft.Azure.Management.Media" Version="3.0.4" />
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.12.1-preview" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.2.3" />
