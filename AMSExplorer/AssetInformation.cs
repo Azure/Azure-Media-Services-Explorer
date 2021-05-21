@@ -295,7 +295,6 @@ namespace AMSExplorer
 
         private async void AssetInformation_Load(object sender, EventArgs e)
         {
-            throw new Exception("erreur");
             await LoadAsync();
         }
 
