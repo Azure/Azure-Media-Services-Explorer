@@ -57,7 +57,7 @@ namespace AMSExplorer
         private static void Main(string[] args)
         {
             Telemetry.StartTelemetry("4e7e1289-8b4f-4237-af00-c8d2b53ba1b2");
-            Telemetry.TrackEvent("ApplicationStart");
+
             /*
             
             .net v5 :

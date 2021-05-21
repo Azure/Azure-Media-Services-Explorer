@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace AMSExplorer
 {
@@ -22,7 +21,6 @@ namespace AMSExplorer
             var config = new TelemetryConfiguration();
             config.InstrumentationKey = TelemetryKey;
             config.TelemetryChannel = new Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.ServerTelemetryChannel();
-            //config.TelemetryChannel = new Microsoft.ApplicationInsights.Channel.InMemoryChannel(); // Default channel
             config.TelemetryChannel.DeveloperMode = Debugger.IsAttached;
 #if DEBUG
             config.TelemetryChannel.DeveloperMode = true;
@@ -32,6 +30,7 @@ namespace AMSExplorer
             client.Context.Session.Id = Guid.NewGuid().ToString();
             client.Context.User.Id = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             client.Context.Device.OperatingSystem = Environment.OSVersion.ToString();
+            client.Context.Cloud.RoleName = "AMSE";
             return client;
         }
 

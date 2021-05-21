@@ -148,8 +148,15 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
+
+
             // Get the service context.
             _amsClient = formLogin.AmsClient;
+
+            // Telemetry. Type of auth.
+            var dictionary = new Dictionary<string, string> { { "UseSPAuth", _amsClient.credentialsEntry.UseSPAuth.ToString() }, { "Region", _amsClient.credentialsEntry.MediaService.Location } };
+            Telemetry.TrackEvent("Login completed", dictionary);
+
             _amsClient.SetNewFormParent(this);
 
             _accountname = _amsClient.credentialsEntry.AccountName;
@@ -181,6 +188,9 @@ namespace AMSExplorer
             TimerAutoRefresh = new System.Timers.Timer(Properties.Settings.Default.AutoRefreshTime * 1000);
             TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
 
+            // Telemetry.
+            var dictionaryAccount = new Dictionary<string, string>();
+
             // Let's check if there is one streaming unit running
             try
             {
@@ -198,6 +208,10 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("There are {0} live events and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 live events.", nbLiveEvents, nbse, true); // Warning
                 }
+
+                dictionaryAccount.Add("NbSe", nbse.ToString());
+                dictionaryAccount.Add("NbLiveEvents", nbLiveEvents.ToString());
+
             }
             catch (Exception ex)
             {
@@ -221,6 +235,11 @@ namespace AMSExplorer
                 comboBoxEncodingRU.Items.Add(new Item("S2", "1"));
                 comboBoxEncodingRU.Items.Add(new Item("S3", "2"));
                 comboBoxEncodingRU.SelectedIndex = result.ReservedUnitType;
+
+                dictionaryAccount.Add("RUType", result.ReservedUnitType.ToString());
+                dictionaryAccount.Add("RUNb", result.CurrentReservedUnits.ToString());
+
+
             }
             catch // can occur on test account
             {
@@ -231,6 +250,8 @@ namespace AMSExplorer
 
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";
             TextBoxLogWriteLine(mes, _amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+
+            Telemetry.TrackEvent("Account info", dictionaryAccount);
         }
 
 
@@ -765,7 +786,11 @@ namespace AMSExplorer
                         // let compute MD5 and set the blob properties in it. Data movement library likes it.
                         //lob.Properties.ContentMD5 = MD5Calc.GetFileContentMD5(fileWithPath);
                         //await blob.SetPropertiesAsync();
+
                     }
+                    var dictionary = new Dictionary<string, string> { { "LengthAllFiles", LengthAllFiles.ToString() } };
+                    Telemetry.TrackEvent("ProcessUploadFileAndMoreV3Async", dictionary);
+
                 }
                 catch (OperationCanceledException)
                 {
@@ -7971,6 +7996,10 @@ namespace AMSExplorer
 
                         TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
 
+                        var dictionary = new Dictionary<string, string> { { "FromHttps", false.ToString() } };
+                        Telemetry.TrackEvent("CreateAndSubmitJobsAsync", dictionary);
+
+
                         dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
                     }
                     catch (Exception ex)
@@ -7987,7 +8016,6 @@ namespace AMSExplorer
         // Job creation when source is http
         private async Task CreateAndSubmitJobsAsync(List<Transform> sel, string url, ClipTime start = null, ClipTime end = null, Asset outputAsset = null, string assetNameSyntax = null)
         {
-
 
             foreach (Transform transform in sel)
             {
@@ -8063,6 +8091,9 @@ namespace AMSExplorer
                                                                     Outputs = jobOutputs,
                                                                 });
                     TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
+
+                    var dictionary = new Dictionary<string, string> { { "FromHttps", true.ToString() } };
+                    Telemetry.TrackEvent("CreateAndSubmitJobsAsync", dictionary);
 
                     dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
                 }

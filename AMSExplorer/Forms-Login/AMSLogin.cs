@@ -94,6 +94,8 @@ namespace AMSExplorer
             labelVersion.Text = string.Format(labelVersion.Text, Assembly.GetExecutingAssembly().GetName().Version);
 
             DoEnableManualFields(false);
+
+            Telemetry.TrackEvent("AMSLogin UI Loaded");
         }
 
         private void AddItemToListviewAccounts(CredentialsEntryV3 c)
