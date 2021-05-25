@@ -568,6 +568,7 @@ namespace AMSExplorer
                     {
                         _mainform.TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                         _mainform.TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
 
                     await _mainform.DoRefreshGridFiltersVAsync(false);

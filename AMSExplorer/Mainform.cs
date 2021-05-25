@@ -149,13 +149,15 @@ namespace AMSExplorer
             }
 
 
-
             // Get the service context.
             _amsClient = formLogin.AmsClient;
 
             // Telemetry. Type of auth.
-            var dictionary = new Dictionary<string, string> { { "UseSPAuth", _amsClient.credentialsEntry.UseSPAuth.ToString() }, { "Region", _amsClient.credentialsEntry.MediaService.Location } };
-            Telemetry.TrackEvent("Login completed", dictionary);
+            var dictionary = new Dictionary<string, string> {
+                { "UseSPAuth", _amsClient.credentialsEntry.UseSPAuth.ToString() },
+                { "Region", _amsClient.credentialsEntry.MediaService.Location },
+                { "ArmEndpoint", _amsClient.environment.ArmEndpoint.ToString() }
+            };
 
             _amsClient.SetNewFormParent(this);
 
@@ -188,9 +190,6 @@ namespace AMSExplorer
             TimerAutoRefresh = new System.Timers.Timer(Properties.Settings.Default.AutoRefreshTime * 1000);
             TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
 
-            // Telemetry.
-            var dictionaryAccount = new Dictionary<string, string>();
-
             // Let's check if there is one streaming unit running
             try
             {
@@ -209,8 +208,8 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("There are {0} live events and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 live events.", nbLiveEvents, nbse, true); // Warning
                 }
 
-                dictionaryAccount.Add("NbSe", nbse.ToString());
-                dictionaryAccount.Add("NbLiveEvents", nbLiveEvents.ToString());
+                dictionary.Add("NbSe", nbse.ToString());
+                dictionary.Add("NbLiveEvents", nbLiveEvents.ToString());
 
             }
             catch (Exception ex)
@@ -236,10 +235,8 @@ namespace AMSExplorer
                 comboBoxEncodingRU.Items.Add(new Item("S3", "2"));
                 comboBoxEncodingRU.SelectedIndex = result.ReservedUnitType;
 
-                dictionaryAccount.Add("RUType", result.ReservedUnitType.ToString());
-                dictionaryAccount.Add("RUNb", result.CurrentReservedUnits.ToString());
-
-
+                dictionary.Add("RUType", result.ReservedUnitType.ToString());
+                dictionary.Add("RUNb", result.CurrentReservedUnits.ToString());
             }
             catch // can occur on test account
             {
@@ -251,7 +248,7 @@ namespace AMSExplorer
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";
             TextBoxLogWriteLine(mes, _amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
-            Telemetry.TrackEvent("Account info", dictionaryAccount);
+            Telemetry.TrackEvent("Login completed", dictionary);
         }
 
 
@@ -327,10 +324,11 @@ namespace AMSExplorer
                     await Task.WhenAll(deleteTasks.ToArray());
                     TextBoxLogWriteLine("Locator(s) deleted.");
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     TextBoxLogWriteLine("Error when deleting locator(s)", true);
-                    TextBoxLogWriteLine(e);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
         }
@@ -553,6 +551,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                     if (mediaReserverdUnitsInfo != null)
                     {
@@ -611,6 +610,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Error: Could not read file from disk.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             else // one asset per file
@@ -635,6 +635,7 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
                         /*
                         do
@@ -653,6 +654,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             DoRefreshGridAssetV(false);
@@ -795,12 +797,13 @@ namespace AMSExplorer
                 catch (OperationCanceledException)
                 {
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     Error = true;
-                    DoGridTransferDeclareError(guidTransfer, e);
+                    DoGridTransferDeclareError(guidTransfer, ex);
                     TextBoxLogWriteLine("Error when uploading '{0}'.", string.Join(", ", filenames), true);
-                    TextBoxLogWriteLine(e);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -897,12 +900,13 @@ namespace AMSExplorer
 
                 //   MyUploadFileProgressChanged(guidTransfer, filename.IndexOf(file), filenames.Count);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 Error = true;
-                DoGridTransferDeclareError(guidTransfer, e);
+                DoGridTransferDeclareError(guidTransfer, ex);
                 TextBoxLogWriteLine("Error when importing '{0}'.", source.ToString());
-                TextBoxLogWriteLine(e);
+                TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
             }
 
             if (!Error && !token.IsCancellationRequested)
@@ -1183,6 +1187,7 @@ namespace AMSExplorer
                 Error = true;
                 TextBoxLogWriteLine("Error during file import.", true);
                 TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
                 DoGridTransferDeclareError(guidTransfer, ex);
             }
 
@@ -1252,6 +1257,7 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
                         /*
                         do
@@ -1266,6 +1272,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
         }
@@ -1304,11 +1311,12 @@ namespace AMSExplorer
                 {
                     Directory.CreateDirectory(outputFolderName);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     TextBoxLogWriteLine(string.Format("Error when creating folder '{0}' !", outputFolderName), true);
-                    TextBoxLogWriteLine(e);
-                    DoGridTransferDeclareError(response.Id, e);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                    DoGridTransferDeclareError(response.Id, ex);
                     return;
                 }
             }
@@ -1382,11 +1390,12 @@ namespace AMSExplorer
             catch (OperationCanceledException)
             {
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 TextBoxLogWriteLine(string.Format("Download of blobs from asset '{0}' failed !", assetName), true);
-                TextBoxLogWriteLine(e);
-                DoGridTransferDeclareError(response.Id, e);
+                TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
+                DoGridTransferDeclareError(response.Id, ex);
                 return;
             }
 
@@ -1503,6 +1512,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                             i = 0;
                         }
@@ -1514,6 +1524,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
                 DoRefreshGridAssetV(false);
@@ -1540,6 +1551,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Error: Could not read file from disk.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
         }
@@ -1864,6 +1876,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                             /*
                             do
@@ -1917,11 +1930,12 @@ namespace AMSExplorer
                         await Task.WhenAll(cancelTasks.ToArray());
                         TextBoxLogWriteLine("Job(s) cancelled.");
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         // Add useful information to the exception
                         TextBoxLogWriteLine("Error when canceling job(s).", true);
-                        TextBoxLogWriteLine(e);
+                        TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                     DoRefreshGridJobV(false);
                 }
@@ -2149,11 +2163,12 @@ namespace AMSExplorer
                         "keypolicy-" + Program.GetUniqueness(),
                         options);
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
                             // Add useful information to the exception
                             TextBoxLogWriteLine("There is a problem when creating the content key policy.", true);
-                            TextBoxLogWriteLine(e);
+                            TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
                     }
 
@@ -2260,11 +2275,12 @@ namespace AMSExplorer
                         displayResult.ShowDialog();
                     }
 
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There is a problem when creating a locator", true);
-                        TextBoxLogWriteLine(e);
+                        TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
             }
@@ -2365,6 +2381,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Error. Could not create a locator for '{0}' ", AssetToP.Name, true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                     return null;
                 }
             }
@@ -2469,6 +2486,7 @@ namespace AMSExplorer
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when deleting locators of the asset {0}.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                             DataGridViewAssets.PurgeCacheAssets(SelectedAssets);
                             await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
@@ -2518,6 +2536,7 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                         Error = true;
                     }
                     if (!Error)
@@ -2573,6 +2592,7 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                         Error = true;
                     }
                     if (!Error)
@@ -2636,6 +2656,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                     Error = true;
                 }
 
@@ -2701,6 +2722,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when canceling the job(s).", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                     Error = true;
                 }
 
@@ -2737,6 +2759,7 @@ namespace AMSExplorer
                             // Add useful information to the exception
                             TextBoxLogWriteLine("There is a problem when deleting transform '{0}'.", transform.Name, true);
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                             Error = true;
                         }
                     }
@@ -3588,11 +3611,12 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Job(s) updated.");
                     }
 
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There is a problem when changing priority for job(s).", true);
-                        TextBoxLogWriteLine(e);
+                        TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
             }
@@ -4388,6 +4412,7 @@ namespace AMSExplorer
                         {
                             TextBoxLogWriteLine("Error when reseting live events.", true);
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
                     }
                 }
@@ -4412,6 +4437,7 @@ namespace AMSExplorer
                         {
                             TextBoxLogWriteLine("Error when reseting live events.", true);
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
                     }
                 }
@@ -4493,6 +4519,7 @@ namespace AMSExplorer
                     Error = true;
                     TextBoxLogWriteLine("Error with live event settings.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
 
                 if (!Error)
@@ -4515,6 +4542,7 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Error with live event creation.", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
 
                     await DoRefreshGridLiveEventVAsync(false);
@@ -4688,6 +4716,7 @@ namespace AMSExplorer
                             // Add useful information to the exception
                             TextBoxLogWriteLine("There is a problem when updating a live event.", true);
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
                     }
                 }
@@ -4757,6 +4786,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when stopping a live event.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -4800,6 +4830,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when deleting a live event.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             await DoRefreshGridLiveEventVAsync(false);
@@ -4849,6 +4880,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when starting a live event.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -4918,6 +4950,7 @@ namespace AMSExplorer
                 // Add useful information to the exception
                 TextBoxLogWriteLine("There is a problem when deleting a live output.", true);
                 TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
                 //Error = true;
             }
             DoRefreshGridLiveOutputV(false);
@@ -4937,6 +4970,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when deleting an asset.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
                 DoRefreshGridAssetV(false);
             }
@@ -4989,6 +5023,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when starting a streaming endpoint.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -5019,6 +5054,7 @@ namespace AMSExplorer
                 // Add useful information to the exception
                 TextBoxLogWriteLine("There is a problem when updating/scaling a streaming endpoint.", true);
                 TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
             }
             await DoRefreshGridStreamingEndpointVAsync(false);
         }
@@ -5070,6 +5106,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when stopping a streaming endpoint.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -5111,6 +5148,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when deleting a streaming endpoint.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             await DoRefreshGridStreamingEndpointVAsync(false);
@@ -5183,6 +5221,7 @@ namespace AMSExplorer
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when publishing the asset of the live output.", true);
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                     }
@@ -5191,6 +5230,7 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There is a problem when creating a live output.", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
 
                     DoRefreshGridLiveOutputV(false);
@@ -5503,6 +5543,7 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There is a problem when creating a streaming endpoint.", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                     await DoRefreshGridStreamingEndpointVAsync(false);
                 }
@@ -5715,6 +5756,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                             /*
                             do
@@ -5751,6 +5793,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                             i = 0;
                         }
@@ -5763,6 +5806,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
 
                     DoRefreshGridAssetV(false);
@@ -6035,6 +6079,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Error when processing storage account attach/detach.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
         }
@@ -6235,6 +6280,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Error when creating locator for asset '{0}'", myAsset.Name, true); // this could happen if asset is storage protected with no delivery policy
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                                 Error = true;
                             }
                         }
@@ -6635,10 +6681,11 @@ namespace AMSExplorer
                          );
                     TextBoxLogWriteLine("Account filter '{0}' created.", filterinfo.Name);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
-                    TextBoxLogWriteLine(e);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
                 await DoRefreshGridFiltersVAsync(false);
             }
@@ -6663,10 +6710,11 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Filter(s) deleted.");
             }
 
-            catch (Exception e)
+            catch (Exception ex)
             {
                 TextBoxLogWriteLine("Error when deleting filter(s)", true);
-                TextBoxLogWriteLine(e);
+                TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
             }
             await DoRefreshGridFiltersVAsync(false);
         }
@@ -6696,10 +6744,11 @@ namespace AMSExplorer
                         );
                     TextBoxLogWriteLine("Account filter '{0}' updated.", filter.Name);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     TextBoxLogWriteLine("Error when updating account filter '{0}'.", filter.Name, true);
-                    TextBoxLogWriteLine(e);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
                 await DoRefreshGridFiltersVAsync(false);
             }
@@ -6757,10 +6806,11 @@ namespace AMSExplorer
 
                     TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
-                    TextBoxLogWriteLine(e);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
                 dataGridViewAssetsV.PurgeCacheAsset(selasset);
                 await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
@@ -6907,6 +6957,7 @@ namespace AMSExplorer
                 Error = true;
                 MessageBox.Show(ex.Message, "Error accessing the storage account", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
             }
 
             if (!Error)
@@ -6933,6 +6984,7 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Error when setting the storage version.", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
             }
@@ -7210,6 +7262,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error: Could not create new asset in destination account.", true);
                 TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
                 TextBoxLogWriteLine("Trying to continue if the goal is to copy blobs to an existing asset.", true);
             }
 
@@ -7227,6 +7280,7 @@ namespace AMSExplorer
             catch (Exception ex)
             {
                 TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
                 return;
             }
 
@@ -7256,6 +7310,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                     return;
                 }
 
@@ -7329,6 +7384,7 @@ namespace AMSExplorer
                         {
                             TextBoxLogWriteLine($"Error while copying '{sourceCBB.Name}' blob to destination.", true);
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                             ErrorCopyAsset = true;
                             break;
                         }
@@ -7403,6 +7459,7 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine($"Error while copying blobs of '{blobdir.Prefix}' directory to destination.", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                         ErrorCopyAsset = true;
                         break;
                     }
@@ -7422,6 +7479,7 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine($"Error when deleting asset '{asset.Name}'.", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
             }
@@ -7556,6 +7614,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Error: Could not read file from disk.", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
 
             }
@@ -7703,6 +7762,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
                 TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
 
             }
 
@@ -7824,6 +7884,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Error when creating the transform.", true); // Warning
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
 
                 DoRefreshGridTransformV(false);
@@ -7934,6 +7995,7 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Error when creating output asset.", true); // Warning
                                     TextBoxLogWriteLine(ex);
+                                    Telemetry.TrackException(ex);
                                     break;
                                 }
                             }
@@ -8013,6 +8075,7 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Error when creating output asset or submitting the job.", true); // Warning
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
             }
@@ -8074,6 +8137,7 @@ namespace AMSExplorer
                         {
                             TextBoxLogWriteLine("Error when creating output asset.", true); // Warning
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                             break;
                         }
                     }
@@ -8108,6 +8172,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Error when creating output asset or submitting the job.", true); // Warning
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -8260,6 +8325,7 @@ namespace AMSExplorer
                 {
                     TextBoxLogWriteLine("Error when updating Media Reserved Unit(s).", true);
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
 
                 DoRefreshGridJobV(false);
@@ -8389,10 +8455,11 @@ namespace AMSExplorer
                     await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myForm.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness()), assetParam);
                     TextBoxLogWriteLine("Asset '{0}' created.", myForm.AssetName);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     TextBoxLogWriteLine("Error when creating asset.", true);
-                    TextBoxLogWriteLine(e);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
                 DoRefreshGridAssetV(false);
             }
@@ -8422,10 +8489,11 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Content key policy(s) deleted.");
             }
 
-            catch (Exception e)
+            catch (Exception ex)
             {
                 TextBoxLogWriteLine("Error when deleting content key policy(s)", true);
-                TextBoxLogWriteLine(e);
+                TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
             }
             await DoRefreshGridCKPoliciesVAsync(false);
         }
@@ -8694,6 +8762,7 @@ namespace AMSExplorer
                         {
                             TextBoxLogWriteLine("Error with transform using REST call.", true);
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
 
                         EditorPresetJSON formJSONPreset = new(transformName, transformDesc);
@@ -8733,6 +8802,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Error with transform creation using REST call.", true);
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
 
                             DoRefreshGridTransformV(false);
@@ -8849,6 +8919,7 @@ namespace AMSExplorer
             {
                 // connection error ?
                 TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
             }
 
             return SelectedAssets;

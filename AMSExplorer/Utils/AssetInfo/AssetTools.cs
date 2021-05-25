@@ -865,14 +865,14 @@ namespace AMSExplorer
         {
             List<UnitSize> sizes = new()
             {
-                  new UnitSize() { Unitn = "B", Mult = 1 },
-                  new UnitSize(){ Unitn = "KB", Mult = 1000 },
-                  new UnitSize(){ Unitn = "MB", Mult = (long)1000*1000 },
-                  new UnitSize(){ Unitn = "GB", Mult = (long)1000*1000*1000 },
-                  new UnitSize(){ Unitn = "TB", Mult = (long)1000*1000*1000*1000 },
-                  new UnitSize(){ Unitn = "PB", Mult = (long)1000*1000*1000*1000*1000 },
-                  new UnitSize(){ Unitn = "EB", Mult = (long)1000*1000*1000*1000*1000*1000 }
-                  };
+                new UnitSize() { Unitn = "B", Mult = 1 },
+                new UnitSize() { Unitn = "KB", Mult = 1000 },
+                new UnitSize() { Unitn = "MB", Mult = (long)1000 * 1000 },
+                new UnitSize() { Unitn = "GB", Mult = (long)1000 * 1000 * 1000 },
+                new UnitSize() { Unitn = "TB", Mult = (long)1000 * 1000 * 1000 * 1000 },
+                new UnitSize() { Unitn = "PB", Mult = (long)1000 * 1000 * 1000 * 1000 * 1000 },
+                new UnitSize() { Unitn = "EB", Mult = (long)1000 * 1000 * 1000 * 1000 * 1000 * 1000 }
+            };
 
             if (sizes.Any(s => mystring.EndsWith(" " + s.Unitn)))
             {
@@ -1451,6 +1451,7 @@ namespace AMSExplorer
                 {
                     mainForm.TextBoxLogWriteLine("Error when launching the browser.", true);
                     mainForm.TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -1557,29 +1558,29 @@ namespace AMSExplorer
 
         private static readonly List<string> InvalidFileNamePrefixList = new()
         {
-                    "CON",
-                    "PRN",
-                    "AUX",
-                    "NUL",
-                    "COM1",
-                    "COM2",
-                    "COM3",
-                    "COM4",
-                    "COM5",
-                    "COM6",
-                    "COM7",
-                    "COM8",
-                    "COM9",
-                    "LPT1",
-                    "LPT2",
-                    "LPT3",
-                    "LPT4",
-                    "LPT5",
-                    "LPT6",
-                    "LPT7",
-                    "LPT8",
-                    "LPT9"
-                };
+            "CON",
+            "PRN",
+            "AUX",
+            "NUL",
+            "COM1",
+            "COM2",
+            "COM3",
+            "COM4",
+            "COM5",
+            "COM6",
+            "COM7",
+            "COM8",
+            "COM9",
+            "LPT1",
+            "LPT2",
+            "LPT3",
+            "LPT4",
+            "LPT5",
+            "LPT6",
+            "LPT7",
+            "LPT8",
+            "LPT9"
+        };
 
         private static readonly char[] NtfsInvalidChars = System.IO.Path.GetInvalidFileNameChars();
 

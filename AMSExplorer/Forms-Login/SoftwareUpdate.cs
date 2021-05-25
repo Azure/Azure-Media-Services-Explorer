@@ -48,6 +48,7 @@ namespace AMSExplorer
 
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkAMSE));
             labelTitle.Text = string.Format(labelTitle.Text, _newVersion);
+            Telemetry.TrackEvent("New update shown");
         }
 
         private void linkLabelMoreInfoPrice_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -85,6 +86,8 @@ namespace AMSExplorer
         {
             Action<object, AsyncCompletedEventArgs> action = (sender, e) =>
             {
+                Telemetry.TrackEvent("New update downloaded and starts");
+
                 Properties.Settings.Default.DeleteInstallationFile = Path.GetTempPath() + filename;
                 Properties.Settings.Default.Save();
 

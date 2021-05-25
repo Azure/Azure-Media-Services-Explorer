@@ -33,9 +33,15 @@ namespace AMSExplorer
             TelemetryClient client = new TelemetryClient(config);
             client.Context.Component.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
             client.Context.Session.Id = Guid.NewGuid().ToString();
-            client.Context.User.Id = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
+
+            // let's anonymize the user id
+            //client.Context.User.Id = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
+            client.Context.User.Id = (Environment.UserName + Environment.MachineName).GetDeterministicHashCode().ToString();
             client.Context.Device.OperatingSystem = Environment.OSVersion.ToString();
             client.Context.Cloud.RoleName = "AMSE";
+
+            // let's anonymize role instance
+            client.Context.Cloud.RoleInstance = Environment.MachineName.GetDeterministicHashCode().ToString();
             return client;
         }
 
@@ -100,6 +106,26 @@ namespace AMSExplorer
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             Telemetry.TrackEvent("Application started");
+        }
+
+
+        static int GetDeterministicHashCode(this string str)
+        {
+            unchecked
+            {
+                int hash1 = (5381 << 16) + 5381;
+                int hash2 = hash1;
+
+                for (int i = 0; i < str.Length; i += 2)
+                {
+                    hash1 = ((hash1 << 5) + hash1) ^ str[i];
+                    if (i == str.Length - 1)
+                        break;
+                    hash2 = ((hash2 << 5) + hash2) ^ str[i + 1];
+                }
+
+                return hash1 + (hash2 * 1566083941);
+            }
         }
     }
 }
