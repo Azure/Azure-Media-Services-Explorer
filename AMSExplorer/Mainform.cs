@@ -3973,6 +3973,12 @@ namespace AMSExplorer
             TransferManager.Configurations.BlockSize = Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024;
 
             dataMovementDownloadOptions.DisableContentMD5Validation = Properties.Settings.Default.DataMovementNoMD5Check;
+
+            // let's disable the telemetry now
+            if (!Properties.Settings.Default.Telemetry)
+            {
+                Telemetry.Enabled = false;
+            }
         }
 
 

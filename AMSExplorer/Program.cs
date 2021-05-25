@@ -56,7 +56,10 @@ namespace AMSExplorer
         [STAThread]
         private static void Main(string[] args)
         {
-            Telemetry.StartTelemetry("4e7e1289-8b4f-4237-af00-c8d2b53ba1b2");
+            if (Properties.Settings.Default.Telemetry)
+            {
+                Telemetry.StartTelemetry();
+            }
 
             /*
             
@@ -348,7 +351,7 @@ namespace AMSExplorer
             public LiveOutput LiveOutputItem { get; set; }
             public string LiveEventName { get; set; }
         }
-              
+
     }
 
 

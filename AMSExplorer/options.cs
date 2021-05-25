@@ -74,6 +74,8 @@ namespace AMSExplorer
 
             checkBoxDisableMD5Check.Checked = Properties.Settings.Default.DataMovementNoMD5Check;
             checkBoxDoNotIncreaseHTTPLimit.Checked = Properties.Settings.Default.DataMovementDoNotIncreaseHttpLimit;
+
+            checkBoxDisableTelemetry.Checked = !Properties.Settings.Default.Telemetry;
         }
 
 
@@ -106,6 +108,8 @@ namespace AMSExplorer
             bool success = int.TryParse(comboBoxBlockSize.Text, out int x);
             Properties.Settings.Default.DataMovementBlockSize = success ? x : 8;
 
+            Properties.Settings.Default.Telemetry = !checkBoxDisableTelemetry.Checked;
+
             Program.SaveAndProtectUserConfig();
         }
 
@@ -136,15 +140,17 @@ namespace AMSExplorer
             Properties.Settings.Default.DynEncTokenIssuerv3 = "http://testacs";
             Properties.Settings.Default.DynEncTokenAudiencev3 = "urn:test";
 
-            Properties.Settings.Default.DataMovementParallelOperations = -1;
+            //Properties.Settings.Default.DataMovementParallelOperations = -1;
             numericUpDownDataMovNumbParallelOp.Value = Environment.ProcessorCount * 8; ;
             checkBoxAutoParOpe.Checked = true;
             checkBoxDisableMD5Check.Checked = false;
             checkBoxDoNotIncreaseHTTPLimit.Checked = false;
             comboBoxBlockSize.SelectedIndex = 1;
 
-            Properties.Settings.Default.DataMovementNoMD5Check = false;
-            Properties.Settings.Default.DataMovementDoNotIncreaseHttpLimit = false;
+            //Properties.Settings.Default.DataMovementNoMD5Check = false;
+            //Properties.Settings.Default.DataMovementDoNotIncreaseHttpLimit = false;
+
+            checkBoxDisableTelemetry.Checked = false;
 
             Program.SaveAndProtectUserConfig();
         }

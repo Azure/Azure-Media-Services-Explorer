@@ -8,19 +8,24 @@ using System.Threading.Tasks;
 
 namespace AMSExplorer
 {
+    /// <summary>
+    /// Telemtry using Application Insights
+    /// </summary>
     public static class Telemetry
     {
         private static string TelemetryKey = "4e7e1289-8b4f-4237-af00-c8d2b53ba1b2";
 
         private static TelemetryClient _telemetry;
 
-        public static bool Enabled { get; set; } = true;
+        public static bool Enabled { get; set; } = false;
 
         private static TelemetryClient GetAppInsightsClient()
         {
-            var config = new TelemetryConfiguration();
-            config.InstrumentationKey = TelemetryKey;
-            config.TelemetryChannel = new Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.ServerTelemetryChannel();
+            var config = new TelemetryConfiguration()
+            {
+                InstrumentationKey = TelemetryKey,
+                TelemetryChannel = new Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.ServerTelemetryChannel(),
+            };
             config.TelemetryChannel.DeveloperMode = Debugger.IsAttached;
 #if DEBUG
             config.TelemetryChannel.DeveloperMode = true;
@@ -71,7 +76,6 @@ namespace AMSExplorer
         }
 
 
-
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var ex = e.ExceptionObject as Exception;
@@ -88,18 +92,14 @@ namespace AMSExplorer
             Telemetry.TrackEvent("Application exited");
         }
 
-        public static void StartTelemetry(string telemetryKey)
+        public static void StartTelemetry()
         {
-            TelemetryKey = telemetryKey;
-            if (_telemetry == null)
-            {
-                _telemetry = GetAppInsightsClient();
-            }
+            _telemetry = GetAppInsightsClient();
+            Enabled = true;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             Telemetry.TrackEvent("Application started");
         }
-
     }
 }

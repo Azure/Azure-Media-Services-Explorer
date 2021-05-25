@@ -12,6 +12,7 @@
     <Company>$(Authors)Microsoft</Company>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
