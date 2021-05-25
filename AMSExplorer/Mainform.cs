@@ -75,15 +75,10 @@ namespace AMSExplorer
         private readonly bool enableTelemetry = true;
 
         private static readonly long OneGB = 1000L * 1000L * 1000L;
-        private static readonly int S1AssetSizeLimit = 26; // GBytes
-        private static readonly int S2AssetSizeLimit = 60; // GBytes
-        private static readonly int S3AssetSizeLimit = 260; // GBytes
         public string _accountname;
         private static AMSClientV3 _amsClient;
-        private readonly MediaRU _mediaRUContext;
         private const string resetcredentials = "/resetcredentials";
 
-        public bool MediaRUFeatureOn = true;
         private readonly DownloadOptions dataMovementDownloadOptions = new();
 
 
@@ -218,74 +213,13 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-            // let's check the encoding reserved unit and type
-            try
-            {
-                // Management of media reserved units
-                _mediaRUContext = new MediaRU();
-                InfoMediaRU result = _mediaRUContext.GetInfoMediaRU(_amsClient);
-
-                if ((result.CurrentReservedUnits == 0) && (result.ReservedUnitType != 0))
-                {
-                    TextBoxLogWriteLine("There is no Media Reserved Unit (encoding will use a shared pool) but unit type is not set to S1.", true); // Warning
-                }
-
-                comboBoxEncodingRU.Items.Add(new Item("S1", "0"));
-                comboBoxEncodingRU.Items.Add(new Item("S2", "1"));
-                comboBoxEncodingRU.Items.Add(new Item("S3", "2"));
-                comboBoxEncodingRU.SelectedIndex = result.ReservedUnitType;
-
-                dictionary.Add("RUType", result.ReservedUnitType.ToString());
-                dictionary.Add("RUNb", result.CurrentReservedUnits.ToString());
-            }
-            catch // can occur on test account
-            {
-                MediaRUFeatureOn = false;
-                comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
-                TextBoxLogWriteLine("There is an error when accessing to the Media Reserved Units v2 API. Some controls are disabled in the transforms/jobs tab.", true); // Warning
-            }
-
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";
             TextBoxLogWriteLine(mes, _amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             Telemetry.TrackEvent("Login completed", dictionary);
         }
 
-
-
-        // Test
-        private static async Task<object> ListEventsRest()
-        {
-            // tenants browsing
-            // GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/liveEvents?api-version=2018-07-01
-            string URL = _amsClient.environment.ArmEndpoint + string.Format("subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents?api-version=2018-07-01",
-                _amsClient.credentialsEntry.AzureSubscriptionId,
-                _amsClient.credentialsEntry.ResourceGroup,
-                  _amsClient.credentialsEntry.AccountName
-                );
-
-            string token = _amsClient.authResultForRestV2 != null ? _amsClient.authResultForRestV2.AccessToken :
-                TokenCache.DefaultShared.ReadItems()
-        .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
-        .OrderByDescending(t => t.ExpiresOn)
-        .First().AccessToken;
-
-
-            HttpClient client = new();
-            client.DefaultRequestHeaders.Remove("Authorization");
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            HttpResponseMessage response = await client.GetAsync(URL);
-
-            object dynObject = null;
-            if (response.IsSuccessStatusCode)
-            {
-                string str = await response.Content.ReadAsStringAsync();
-                object list = JsonConvert.DeserializeObject(str);
-                dynObject = JsonConvert.DeserializeObject(str);
-
-            }
-            return dynObject;
-        }
+     
 
         private async void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
@@ -541,25 +475,6 @@ namespace AMSExplorer
             Task.Run(async () =>
             {
                 await dataGridViewJobsV.RefreshjobsAsync(page);
-                if (MediaRUFeatureOn)
-                {
-                    InfoMediaRU mediaReserverdUnitsInfo = null;
-                    try
-                    {
-                        mediaReserverdUnitsInfo = await _mediaRUContext.GetInfoMediaRUAsync(_amsClient);
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine(ex);
-                        Telemetry.TrackException(ex);
-                    }
-                    if (mediaReserverdUnitsInfo != null)
-                    {
-                        BeginInvoke(new Action(() => trackBarEncodingRU.Maximum = mediaReserverdUnitsInfo.MaxReservableUnits));
-                        BeginInvoke(new Action(() => trackBarEncodingRU.Value = mediaReserverdUnitsInfo.CurrentReservedUnits));
-                        BeginInvoke(new Action(() => UpdateLabelProcessorUnits()));
-                    }
-                }
             });
         }
 
@@ -2801,56 +2716,6 @@ namespace AMSExplorer
         }
 
 
-
-        /*      
-        private static void CheckAssetSizeRegardingMediaUnit(List<IAsset> SelectedAssets, bool Indexer = false)
-        {
-           bool Warning = false;
-
-           // let's find the limit
-           var unitype = SelectedAssets.FirstOrDefault().GetMediaContext().EncodingReservedUnits.FirstOrDefault().ReservedUnitType;
-           long limit = S1AssetSizeLimit * OneGB;
-           string unitname = "S1";
-
-           if (!Indexer)
-           {
-               if (unitype == ReservedUnitType.Standard)
-               {
-                   limit = S2AssetSizeLimit * OneGB;
-                   unitname = "S2";
-               }
-               else if (unitype == ReservedUnitType.Premium)
-               {
-                   limit = S3AssetSizeLimit * OneGB;
-                   unitname = "S3";
-               }
-           }
-
-           foreach (var asset in SelectedAssets)
-           {
-               if (AssetTools.GetSize(asset) >= limit)
-               {
-                   Warning = true;
-               }
-           }
-
-           if (Warning)
-           {
-               if (!Indexer)
-               {
-                   MessageBox.Show(string.Format("You are using {0} media unit(s).\nAt least one of the source assets has a size over {1}.\n\nLimits are :\n{2} GB with S1 media unit\n{3} GB with S2 media unit\n{4} GB with S3 media unit", unitname, AssetTools.FormatByteSize(limit), S1AssetSizeLimit, S2AssetSizeLimit, S3AssetSizeLimit), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-               }
-               else
-               {
-                   MessageBox.Show(string.Format("At least one of the source assets has a size over {0}, which is the maximum supported by Indexer.", AssetTools.FormatByteSize(limit)), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-               }
-
-           }
-        }
-        */
-
-
-
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var p = new Process
@@ -2884,8 +2749,6 @@ namespace AMSExplorer
             // to scale the bitmap in the buttons
 
             Hide();
-
-            //linkLabelMoreInfoMediaUnits.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoMediaUnits.Text.Length, Constants.LinkInfoMediaUnit));
 
             //comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
 
@@ -7656,14 +7519,6 @@ namespace AMSExplorer
             await DoCancelAllJobsAsync();
         }
 
-        private void LinkLabelMoreInfoMediaUnits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            var p = new Process
-            {
-                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
-            }; p.Start();
-        }
-
         private void TextBoxAssetSearch_KeyDown(object sender, KeyEventArgs e)
         {
             // user pressed enter. let's apply the filter
@@ -8219,7 +8074,6 @@ namespace AMSExplorer
         {
             List<Transform> sel = await ReturnSelectedTransformsAsync();
 
-            //CheckAssetSizeRegardingMediaUnit(SelectedAssets);
             JobSubmitFromTransform form = new(_amsClient, this, null, sel)
             {
                 //ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
@@ -8287,87 +8141,6 @@ namespace AMSExplorer
 
         }
 
-        private void ButtonUpdateEncodingRU_Click(object sender, EventArgs e)
-        {
-
-            DoUpdateMediaRU();
-        }
-
-        private async void DoUpdateMediaRU()
-        {
-            bool oktocontinue = true;
-
-            if (trackBarEncodingRU.Value == 0 && (((Item)comboBoxEncodingRU.SelectedItem).Name != "S1"))
-            // user selected 0 with a non S1 hardware...
-            {
-                if (MessageBox.Show("You selected 0 unit but the encoding type is not S1. Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
-                {
-                    oktocontinue = false;
-                }
-            }
-
-            if (oktocontinue)
-            {
-                TextBoxLogWriteLine(string.Format("Updating to {0} {1} Media Reserved Unit{2}...", trackBarEncodingRU.Value, ((Item)comboBoxEncodingRU.SelectedItem).Name, trackBarEncodingRU.Value > 1 ? "s" : string.Empty));
-
-                trackBarEncodingRU.Enabled = false;
-                comboBoxEncodingRU.Enabled = false;
-                buttonUpdateEncodingRU.Enabled = false;
-
-
-                try
-                {
-                    await _mediaRUContext.SetMediaRUAsync(_amsClient, trackBarEncodingRU.Value, int.Parse(((Item)comboBoxEncodingRU.SelectedItem).Value));
-                    TextBoxLogWriteLine("Media Reserved Unit(s) updated.");
-
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Error when updating Media Reserved Unit(s).", true);
-                    TextBoxLogWriteLine(ex);
-                    Telemetry.TrackException(ex);
-                }
-
-                DoRefreshGridJobV(false);
-                trackBarEncodingRU.Enabled = true;
-                comboBoxEncodingRU.Enabled = true;
-                buttonUpdateEncodingRU.Enabled = true;
-            }
-        }
-
-        private void TrackBarEncodingRU_Scroll(object sender, EventArgs e)
-        {
-            UpdateLabelProcessorUnits();
-        }
-
-        private void UpdateLabelProcessorUnits()
-        {
-            if (trackBarEncodingRU.Value > 0)
-            {
-                labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 1 ? "s" : string.Empty);
-            }
-            else
-            {
-                labelnbunits.Text = "Autoscale";
-            }
-        }
-
-        private void TrackBarEncodingRU_ValueChanged(object sender, EventArgs e)
-        {
-            RUEncodingUpdateControls();
-        }
-
-        private void RUEncodingUpdateControls()
-        {
-            // If RU is set to 0, let's switch to S1
-            if (trackBarEncodingRU.Value == 0)
-            {
-
-                comboBoxEncodingRU.SelectedIndex = 0;
-
-
-            }
-        }
 
         private void ListAuthorizedOperationsToolStripMenuItem_Click(object sender, EventArgs e)
         {

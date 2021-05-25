@@ -18,7 +18,7 @@ namespace AMSExplorer
     public class AMSClientV3
     {
         public AzureMediaServicesClient AMSclient;
-        public AuthenticationResult authResult, authResultForRestV2;
+        public AuthenticationResult authResult;
         public CredentialsEntryV3 credentialsEntry;
         private Form _form;
         public TokenCredentials credentials;
@@ -114,15 +114,6 @@ namespace AMSExplorer
                 catch (MsalException maslException)
                 {
                     Debug.Print("MSAL silent authentication exception !" + maslException.Message);
-                }
-
-                try
-                {
-                    authResultForRestV2 = await _appInteract.AcquireTokenSilent(scopes2, authResult.Account).ExecuteAsync().ConfigureAwait(false);
-                }
-                catch
-                {
-
                 }
             }
 

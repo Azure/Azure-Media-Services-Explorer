@@ -142,7 +142,6 @@
             this.createJobUsingAnHttpSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.label13 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxJobsPageNumber = new System.Windows.Forms.TextBox();
             this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
@@ -177,11 +176,6 @@
             this.comboBoxFilterJobsTime = new System.Windows.Forms.ComboBox();
             this.textBoxJobSearch = new System.Windows.Forms.TextBox();
             this.buttonJobSearch = new System.Windows.Forms.Button();
-            this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
-            this.labelnbunits = new System.Windows.Forms.Label();
-            this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
-            this.label22 = new System.Windows.Forms.Label();
-            this.comboBoxEncodingRU = new System.Windows.Forms.ComboBox();
             this.tabPageLive = new System.Windows.Forms.TabPage();
             this.splitContainerLive = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -375,7 +369,6 @@
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
             this.contextMenuStripJobs.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).BeginInit();
             this.tabPageLive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerLive)).BeginInit();
             this.splitContainerLive.Panel1.SuspendLayout();
@@ -1291,7 +1284,6 @@
             // 
             this.tableLayoutPanel4.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
-            this.tableLayoutPanel4.Controls.Add(this.label13, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.label9, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.textBoxJobsPageNumber, 11, 2);
             this.tableLayoutPanel4.Controls.Add(this.dataGridViewJobsV, 0, 1);
@@ -1307,17 +1299,7 @@
             this.tableLayoutPanel4.Controls.Add(this.comboBoxFilterJobsTime, 4, 2);
             this.tableLayoutPanel4.Controls.Add(this.textBoxJobSearch, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.buttonJobSearch, 2, 2);
-            this.tableLayoutPanel4.Controls.Add(this.buttonUpdateEncodingRU, 11, 3);
-            this.tableLayoutPanel4.Controls.Add(this.labelnbunits, 9, 3);
-            this.tableLayoutPanel4.Controls.Add(this.trackBarEncodingRU, 3, 3);
-            this.tableLayoutPanel4.Controls.Add(this.label22, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(this.comboBoxEncodingRU, 2, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
             // 
             // label9
             // 
@@ -1575,42 +1557,6 @@
             this.buttonJobSearch.UseVisualStyleBackColor = true;
             this.buttonJobSearch.Click += new System.EventHandler(this.buttonJobSearch_Click);
             // 
-            // buttonUpdateEncodingRU
-            // 
-            resources.ApplyResources(this.buttonUpdateEncodingRU, "buttonUpdateEncodingRU");
-            this.tableLayoutPanel4.SetColumnSpan(this.buttonUpdateEncodingRU, 2);
-            this.buttonUpdateEncodingRU.Name = "buttonUpdateEncodingRU";
-            this.buttonUpdateEncodingRU.UseVisualStyleBackColor = true;
-            this.buttonUpdateEncodingRU.Click += new System.EventHandler(this.ButtonUpdateEncodingRU_Click);
-            // 
-            // labelnbunits
-            // 
-            resources.ApplyResources(this.labelnbunits, "labelnbunits");
-            this.labelnbunits.Name = "labelnbunits";
-            this.labelnbunits.Tag = "";
-            // 
-            // trackBarEncodingRU
-            // 
-            resources.ApplyResources(this.trackBarEncodingRU, "trackBarEncodingRU");
-            this.tableLayoutPanel4.SetColumnSpan(this.trackBarEncodingRU, 6);
-            this.trackBarEncodingRU.Maximum = 25;
-            this.trackBarEncodingRU.Name = "trackBarEncodingRU";
-            this.trackBarEncodingRU.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarEncodingRU.Scroll += new System.EventHandler(this.TrackBarEncodingRU_Scroll);
-            this.trackBarEncodingRU.ValueChanged += new System.EventHandler(this.TrackBarEncodingRU_ValueChanged);
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.Name = "label22";
-            // 
-            // comboBoxEncodingRU
-            // 
-            resources.ApplyResources(this.comboBoxEncodingRU, "comboBoxEncodingRU");
-            this.comboBoxEncodingRU.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxEncodingRU.FormattingEnabled = true;
-            this.comboBoxEncodingRU.Name = "comboBoxEncodingRU";
-            // 
             // tabPageLive
             // 
             this.tabPageLive.Controls.Add(this.splitContainerLive);
@@ -1659,7 +1605,6 @@
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridViewLiveEventsV, 7);
             this.dataGridViewLiveEventsV.ContextMenuStrip = this.contextMenuStripLiveEvents;
             this.dataGridViewLiveEventsV.FilterState = "All";
-            DataGridViewLiveEvent.LiveEventsPerPage = 50;
             this.dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             this.dataGridViewLiveEventsV.ReadOnly = true;
             this.dataGridViewLiveEventsV.RowHeadersVisible = false;
@@ -1876,7 +1821,6 @@
             this.dataGridViewLiveOutputV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel2.SetColumnSpan(this.dataGridViewLiveOutputV, 4);
             this.dataGridViewLiveOutputV.ContextMenuStrip = this.contextMenuStripLiveOutputs;
-            DataGridViewLiveOutput.DisplayLiveEvent = AMSExplorer.enumDisplayProgram.Selected;
             this.dataGridViewLiveOutputV.FilterState = "All";
             this.dataGridViewLiveOutputV.ItemsPerPage = 50;
             this.dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";
@@ -2900,7 +2844,6 @@
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
             this.contextMenuStripJobs.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).EndInit();
             this.tabPageLive.ResumeLayout(false);
             this.splitContainerLive.Panel1.ResumeLayout(false);
             this.splitContainerLive.Panel2.ResumeLayout(false);
@@ -3218,12 +3161,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelTransfers;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button buttonUpdateEncodingRU;
-        private System.Windows.Forms.Label labelnbunits;
-        private System.Windows.Forms.TrackBar trackBarEncodingRU;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.ComboBox comboBoxEncodingRU;
         private System.Windows.Forms.ToolStripMenuItem listAuthorizedOperationsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem feedbackOnAzureMediaServicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
