@@ -24,15 +24,15 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class Options2 : Form
+    public partial class Options : Form
     {
-        public Options2()
+        public Options()
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
         }
 
-        private void options_Load(object sender, EventArgs e)
+        private void Options_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
             checkBoxDisplayAssetID.Checked = Properties.Settings.Default.DisplayAssetIDinGrid;

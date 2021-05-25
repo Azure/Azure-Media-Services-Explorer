@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class Options2
+    partial class Options
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
@@ -524,7 +524,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Options";
-            this.Load += new System.EventHandler(this.options_Load);
+            this.Load += new System.EventHandler(this.Options_Load);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Options_DpiChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
