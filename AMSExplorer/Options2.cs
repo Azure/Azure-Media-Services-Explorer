@@ -24,9 +24,9 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class Options : Form
+    public partial class Options2 : Form
     {
-        public Options()
+        public Options2()
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -140,7 +140,7 @@ namespace AMSExplorer
             Properties.Settings.Default.DynEncTokenIssuerv3 = "http://testacs";
             Properties.Settings.Default.DynEncTokenAudiencev3 = "urn:test";
 
-            //Properties.Settings.Default.DataMovementParallelOperations = -1;
+            Properties.Settings.Default.DataMovementParallelOperations = -1;
             numericUpDownDataMovNumbParallelOp.Value = Environment.ProcessorCount * 8; ;
             checkBoxAutoParOpe.Checked = true;
             checkBoxDisableMD5Check.Checked = false;

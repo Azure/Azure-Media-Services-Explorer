@@ -3975,8 +3975,9 @@ namespace AMSExplorer
             dataMovementDownloadOptions.DisableContentMD5Validation = Properties.Settings.Default.DataMovementNoMD5Check;
 
             // let's disable the telemetry now
-            if (!Properties.Settings.Default.Telemetry)
+            if (!Properties.Settings.Default.Telemetry && Telemetry.Enabled)
             {
+                Telemetry.TrackEvent("Telemetry disabled by user");
                 Telemetry.Enabled = false;
             }
         }
