@@ -94,7 +94,7 @@ namespace AMSExplorer
         }
         private async Task LoadAssetsAsync()
         {
-            ODataQuery<Asset> odataQuery = new ODataQuery<Asset>();
+            ODataQuery<Asset> odataQuery = new();
 
             if (_searchExactAssetName != null)
             {

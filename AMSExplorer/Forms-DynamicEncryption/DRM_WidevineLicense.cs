@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -120,8 +121,14 @@ namespace AMSExplorer
                 try
                 {
                     JObject jo = JObject.Parse(textBoxConfiguration.Text);
-                    WidevineTemplate jow = Newtonsoft.Json.JsonConvert.DeserializeObject<WidevineTemplate>(textBoxConfiguration.Text);
 
+                    // let's report an error if the user use a member outside of the WidevineTemplate model
+                    JsonSerializerSettings settings = new()
+                    {
+                        MissingMemberHandling = MissingMemberHandling.Error
+                    };
+
+                    WidevineTemplate jow = Newtonsoft.Json.JsonConvert.DeserializeObject<WidevineTemplate>(textBoxConfiguration.Text, settings);
                 }
                 catch (Exception ex)
                 {
@@ -131,6 +138,8 @@ namespace AMSExplorer
             }
             labelWarningJSON.Visible = Error;
         }
+
+       
 
 
         private void linkLabelWidevinePolicy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

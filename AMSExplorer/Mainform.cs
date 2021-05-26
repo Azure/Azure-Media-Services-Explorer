@@ -74,7 +74,6 @@ namespace AMSExplorer
         private const int maxNbJobs = 50000;
         private readonly bool enableTelemetry = true;
 
-        private static readonly long OneGB = 1000L * 1000L * 1000L;
         public string _accountname;
         private static AMSClientV3 _amsClient;
         private const string resetcredentials = "/resetcredentials";
@@ -3556,7 +3555,7 @@ namespace AMSExplorer
 
         private async Task DoCreateAssetReportEmailAsync()
         {
-            AssetTools AR = new(await ReturnSelectedAssetsAsync(), _amsClient);
+            _ = new AssetTools(await ReturnSelectedAssetsAsync(), _amsClient);
         }
 
         private async Task DoDisplayAssetReportAsync()

@@ -30,7 +30,7 @@ namespace AMSExplorer
 #if DEBUG
             config.TelemetryChannel.DeveloperMode = true;
 #endif
-            TelemetryClient client = new TelemetryClient(config);
+            TelemetryClient client = new(config);
             client.Context.Component.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
             client.Context.Session.Id = Guid.NewGuid().ToString();
 

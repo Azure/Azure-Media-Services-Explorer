@@ -26,7 +26,6 @@ namespace AMSExplorer
     {
         private string savedConfig;
         private readonly ShowSampleMode _showSample;
-        private readonly string defaultConfig;
 
         public string TextData => textBoxConfiguration.Text;
 
@@ -39,7 +38,7 @@ namespace AMSExplorer
                 Text = title;
             }
 
-            textBoxConfiguration.Text = savedConfig = defaultConfig = (text == null ? string.Empty : text);
+            textBoxConfiguration.Text = savedConfig = text ?? string.Empty;
             if (editMode)
             {
                 buttonOk.Text = AMSExplorer.Properties.Resources.EditorXMLJSON_EditorXMLJSON_Save;

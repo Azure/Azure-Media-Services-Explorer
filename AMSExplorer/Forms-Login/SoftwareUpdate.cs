@@ -84,7 +84,7 @@ namespace AMSExplorer
 
         public static AsyncCompletedEventHandler DownloadFileCompletedBinary(string filename)
         {
-            Action<object, AsyncCompletedEventArgs> action = (sender, e) =>
+            void action(object sender, AsyncCompletedEventArgs e)
             {
                 Telemetry.TrackEvent("New update downloaded and starts");
 
@@ -102,7 +102,7 @@ namespace AMSExplorer
                 p.Start();
 
                 Environment.Exit(0);
-            };
+            }
             return new AsyncCompletedEventHandler(action);
         }
 
