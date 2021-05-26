@@ -1068,6 +1068,7 @@
             this.toolStripMenuItemCKInfo.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
             this.toolStripMenuItemCKInfo.Name = "toolStripMenuItemCKInfo";
             resources.ApplyResources(this.toolStripMenuItemCKInfo, "toolStripMenuItemCKInfo");
+            this.toolStripMenuItemCKInfo.Click += new System.EventHandler(this.toolStripMenuItemCKInfo_Click);
             // 
             // toolStripMenuItemCKCreate
             // 

@@ -147,7 +147,8 @@ namespace AMSExplorer
             _amsClient = formLogin.AmsClient;
 
             // Telemetry. Type of auth.
-            var dictionary = new Dictionary<string, string> {
+            Dictionary<string, string> dictionary = new()
+            {
                 { "UseSPAuth", _amsClient.credentialsEntry.UseSPAuth.ToString() },
                 { "Region", _amsClient.credentialsEntry.MediaService.Location },
                 { "ArmEndpoint", _amsClient.environment.ArmEndpoint.ToString() }
@@ -184,6 +185,9 @@ namespace AMSExplorer
             TimerAutoRefresh = new System.Timers.Timer(Properties.Settings.Default.AutoRefreshTime * 1000);
             TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
 
+
+            Dictionary<string, double> dictionaryM = new();
+                        
             // Let's check if there is one streaming unit running
             try
             {
@@ -202,8 +206,8 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("There are {0} live events and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 live events.", nbLiveEvents, nbse, true); // Warning
                 }
 
-                dictionary.Add("NbSe", nbse.ToString());
-                dictionary.Add("NbLiveEvents", nbLiveEvents.ToString());
+                dictionaryM.Add("NbSe", nbse);
+                dictionaryM.Add("NbLiveEvents", nbLiveEvents);
 
             }
             catch (Exception ex)
@@ -215,10 +219,10 @@ namespace AMSExplorer
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";
             TextBoxLogWriteLine(mes, _amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
-            Telemetry.TrackEvent("Login completed", dictionary);
+            Telemetry.TrackEvent("Login completed", dictionary, dictionaryM);
         }
 
-     
+
 
         private async void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
@@ -485,6 +489,8 @@ namespace AMSExplorer
 
         private async Task DoMenuUploadFromSingleFiles_Step1Async()
         {
+            Telemetry.TrackEvent("DoMenuUploadFromSingleFiles_Step1Async");
+
             OpenFileDialog openFileDialog = new()
             {
                 Multiselect = true
@@ -704,8 +710,8 @@ namespace AMSExplorer
                         //await blob.SetPropertiesAsync();
 
                     }
-                    var dictionary = new Dictionary<string, string> { { "LengthAllFiles", LengthAllFiles.ToString() } };
-                    Telemetry.TrackEvent("ProcessUploadFileAndMoreV3Async", dictionary);
+                    Dictionary<string, string> dictionary = new() { { "LengthAllFiles", LengthAllFiles.ToString() } };
+                    Telemetry.TrackEvent("File(s) uploaded", dictionary);
 
                 }
                 catch (OperationCanceledException)
@@ -1345,6 +1351,7 @@ namespace AMSExplorer
 
         private async Task DoMenuUploadFromFolder_Step1Async()
         {
+            Telemetry.TrackEvent("DoMenuUploadFromFolder_Step1Async");
             FolderBrowserDialog openFolderDialog = new();
 
             if (!string.IsNullOrEmpty(_backuprootfolderupload))
@@ -1448,6 +1455,8 @@ namespace AMSExplorer
 
         private void DoMenuImportFromHttp()
         {
+            Telemetry.TrackEvent("DoMenuImportFromHttp");
+
             ImportHttp form = new(_amsClient);
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -1491,6 +1500,8 @@ namespace AMSExplorer
 
         public DialogResult? DisplayInfo(Asset asset)
         {
+            Telemetry.TrackEvent("DisplayInfo asset");
+
             DialogResult? dialogResult = null;
             if (asset != null)
             {
@@ -1555,6 +1566,8 @@ namespace AMSExplorer
 
         public DialogResult? DisplayInfo(JobExtension job)
         {
+            Telemetry.TrackEvent("DisplayInfo job");
+
             DialogResult? dialogResult = null;
             if (job != null)
             {
@@ -1612,6 +1625,8 @@ namespace AMSExplorer
 
         private async Task DoMenuChangeAssetDescriptionAsync()
         {
+            Telemetry.TrackEvent("DoMenuChangeAssetDescriptionAsync");
+
             List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
             if (SelectedAssets.Count > 0)
@@ -1644,6 +1659,8 @@ namespace AMSExplorer
 
         private async Task DoMenuEditAssetAltIdAsync()
         {
+            Telemetry.TrackEvent("DoMenuEditAssetAltIdAsync");
+
             List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
             if (SelectedAssets.Count > 0)
@@ -1677,6 +1694,8 @@ namespace AMSExplorer
 
         private async Task DoMenuDownloadToLocalAsync()
         {
+            Telemetry.TrackEvent("DoMenuDownloadToLocalAsync");
+
             List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
             if (SelectedAssets.Count == 0)
             {
@@ -1816,6 +1835,8 @@ namespace AMSExplorer
 
         private async Task DoCancelJobsAsync()
         {
+            Telemetry.TrackEvent("DoCancelJobsAsync");
+
             List<JobExtension> SelectedJobs = await ReturnSelectedJobsV3Async();
 
             if (SelectedJobs.Count > 0)
@@ -1843,6 +1864,8 @@ namespace AMSExplorer
                     {
                         await Task.WhenAll(cancelTasks.ToArray());
                         TextBoxLogWriteLine("Job(s) cancelled.");
+                        Telemetry.TrackEvent("Job(s) cancelled");
+
                     }
                     catch (Exception ex)
                     {
@@ -1864,6 +1887,8 @@ namespace AMSExplorer
 
         private async Task DoCreateLocatorAsync(List<Asset> SelectedAssets, string LiveAssetManifest = null)
         {
+            Telemetry.TrackEvent("DoCreateLocatorAsync");
+
             string labelAssetName;
             StringBuilder sbuilder = new(); // used for locator copy to clipboard
 
@@ -2234,6 +2259,8 @@ namespace AMSExplorer
 
         private static async void DoCreateSASUrl(List<Asset> SelectedAssets)
         {
+            Telemetry.TrackEvent("DoCreateSASUrl");
+
             if (SelectedAssets.Count > 0)
             {
                 if (SelectedAssets.Count == 1 && SelectedAssets.FirstOrDefault() == null)
@@ -2244,8 +2271,6 @@ namespace AMSExplorer
 
                 if (MessageBox.Show(string.Format("Create a SAS Container Path Url and files SAS Urls valid for {0} hours ?", Properties.Settings.Default.DefaultSASDurationInHours), "SAS Urls", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-
-
                     string result = await Task.Run(() =>
                     ProcessCreateLocatorSAS(SelectedAssets)
                     );
@@ -2286,6 +2311,8 @@ namespace AMSExplorer
                     locator = await _amsClient.AMSclient.StreamingLocators.CreateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, streamingLocatorName, locator);
 
                     TextBoxLogWriteLine("Locator created : {0}", locator.Name);
+                    Telemetry.TrackEvent("Locator created");
+
                     IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name)).StreamingPaths;
                     listLocatorNames.Add(new LocatorAndUrls() { AssetName = AssetToP.Name, LocatorName = streamingLocatorName, LocatorId = locator.StreamingLocatorId, Paths = streamingPaths.ToList() });
 
@@ -2367,6 +2394,8 @@ namespace AMSExplorer
 
         private async Task DoDeleteAllLocatorsOnAssetsAsync(List<Asset> SelectedAssets)
         {
+            Telemetry.TrackEvent("DoDeleteAllLocatorsOnAssetsAsync");
+
             if (SelectedAssets.Count > 0)
             {
                 if (SelectedAssets.Count == 1 && SelectedAssets[0] == null)
@@ -2425,6 +2454,7 @@ namespace AMSExplorer
 
         private async Task DoDeleteAssetsAsync(List<Asset> SelectedAssets)
         {
+            Telemetry.TrackEvent("DoDeleteAssetsAsync");
             if (SelectedAssets.Count > 0)
             {
                 //var form = new DeleteKeyAndPolicy(SelectedAssets.Count);
@@ -2487,6 +2517,8 @@ namespace AMSExplorer
 
         private async Task DoDeleteJobsAsync(List<JobExtension> SelectedJobs)
         {
+            Telemetry.TrackEvent("DoDeleteJobsAsync");
+
             if (SelectedJobs.Count > 0)
             {
                 string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Job.Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
@@ -2522,6 +2554,8 @@ namespace AMSExplorer
 
         private async Task DoDeleteAllJobsAsync()
         {
+            Telemetry.TrackEvent("DoDeleteAllJobsAsync");
+
             List<Transform> transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
             if (transforms.Count > 1)
             {
@@ -2586,6 +2620,8 @@ namespace AMSExplorer
 
         private async Task DoCancelAllJobsAsync()
         {
+            Telemetry.TrackEvent("DoCancelAllJobsAsync");
+
             List<Transform> transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
             if (transforms.Count > 1)
             {
@@ -2667,6 +2703,7 @@ namespace AMSExplorer
                         {
                             await _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
                             TextBoxLogWriteLine("Transform '{0}' deleted.", transform.Name);
+                            Telemetry.TrackEvent("Transform deleted");
                         }
                         catch (Exception ex)
                         {
@@ -3347,6 +3384,8 @@ namespace AMSExplorer
 
         private async void DoOpenTransferDestLocation()
         {
+            Telemetry.TrackEvent("DoOpenTransferDestLocation");
+
             if (dataGridViewTransfer.SelectedRows.Count > 0)
             {
                 if ((TransferState)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["State"].Index].Value == TransferState.Finished)
@@ -3396,6 +3435,8 @@ namespace AMSExplorer
 
         private void DoDisplayTransferError()
         {
+            Telemetry.TrackEvent("DoDisplayTransferError");
+
             if (dataGridViewTransfer.SelectedRows.Count > 0)
             {
                 if ((TransferState)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["State"].Index].Value == TransferState.Error)
@@ -3443,6 +3484,8 @@ namespace AMSExplorer
 
         private async Task DoChangeJobPriorityAsync()
         {
+            Telemetry.TrackEvent("DoChangeJobPriorityAsync");
+
             List<JobExtension> SelectedJobs = await ReturnSelectedJobsV3Async();
 
             if (SelectedJobs.Count > 0)
@@ -3579,6 +3622,9 @@ namespace AMSExplorer
 
         private async Task DoOpenJobAssetAsync(bool inputasset) // if false, then display first outputasset
         {
+            Dictionary<string, string> dictionary = new() { { "InputAsset", inputasset.ToString() } };
+            Telemetry.TrackEvent("DoOpenJobAssetAsync", dictionary);
+
             List<JobExtension> SelectedJobs = await ReturnSelectedJobsV3Async();
             if (SelectedJobs.Count != 0)
             {
@@ -4071,7 +4117,6 @@ namespace AMSExplorer
         public async Task DoRefreshGridCKPoliciesVAsync(bool firstime)
         {
 
-
             if (firstime)
             {
                 // Storage tab
@@ -4269,6 +4314,7 @@ namespace AMSExplorer
                             await Task.WhenAll(tasksreset);
                             ListEvents.ToList().ForEach(e => TextBoxLogWriteLine("Live event '{0}' reset.", e.Name));
                             ListEvents.ToList().ForEach(e => Notify("Live event reset", string.Format("Live event '{0}' has been reset.", e.Name), false));
+                            Telemetry.TrackEvent("Live event(s) reset");
                         }
                         catch (Exception ex)
                         {
@@ -4399,6 +4445,7 @@ namespace AMSExplorer
                                                                          autoStart: form.StartLiveEventNow)
                                                                       );
                         TextBoxLogWriteLine("Live event '{0}' created.", form.LiveEventName);
+                        Telemetry.TrackEvent("Live event created");
                     }
                     catch (Exception ex)
                     {
@@ -4421,6 +4468,8 @@ namespace AMSExplorer
 
         private async Task DoDisplayLiveEventInfoAsync(List<LiveEvent> liveEvents)
         {
+            Telemetry.TrackEvent("DoDisplayLiveEventInfoAsync");
+
             LiveEvent firstLiveEvent = liveEvents.FirstOrDefault();
             bool multiselection = liveEvents.Count > 1;
 
@@ -4571,6 +4620,7 @@ namespace AMSExplorer
                             await _amsClient.AMSclient.LiveEvents.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEvent.Name, liveEvent);
                             dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(liveEvent)), null);
                             TextBoxLogWriteLine("Live event '{0}' : updated.", liveEvent.Name);
+                            Telemetry.TrackEvent("Live event updated");
                         }
 
                         catch (Exception ex)
@@ -4632,6 +4682,7 @@ namespace AMSExplorer
                                 if (loitemR.ResourceState == LiveEventResourceState.Stopped)
                                 {
                                     TextBoxLogWriteLine("Live event stopped : {0}.", loitemR.Name);
+                                    Telemetry.TrackEvent("Live event stopped");
                                     complete++;
                                 }
                             }
@@ -4686,6 +4737,7 @@ namespace AMSExplorer
                     }
                     await Task.WhenAll(taskcdel);
                     TextBoxLogWriteLine("Live event(s) deleted : {0}.", names2);
+                    Telemetry.TrackEvent("Live event(s) deleted");
                 }
                 catch (Exception ex)
                 {
@@ -4706,8 +4758,6 @@ namespace AMSExplorer
             string names = string.Join(", ", liveevntsstopped.Select(le => le.Name).ToArray());
             if (liveevntsstopped.Count > 0)
             {
-
-
                 try
                 {
                     TextBoxLogWriteLine("Starting live event(s) : {0}...", names);
@@ -4729,6 +4779,7 @@ namespace AMSExplorer
                                 if (loitemR.ResourceState == LiveEventResourceState.Running)
                                 {
                                     TextBoxLogWriteLine("Live event started : {0}.", loitemR.Name);
+                                    Telemetry.TrackEvent("Live event started");
                                     complete++;
                                 }
                             }
@@ -4806,6 +4857,8 @@ namespace AMSExplorer
                 }
                 await Task.WhenAll(tasks);
                 TextBoxLogWriteLine("Live output(s) deleted.");
+                Telemetry.TrackEvent("Live output(s) deleted");
+
             }
             catch (Exception ex)
             {
@@ -4871,6 +4924,8 @@ namespace AMSExplorer
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Running)
                                 {
                                     TextBoxLogWriteLine("Streaming endpoint started : {0}.", loitemR.Name);
+                                    Telemetry.TrackEvent("Streaming endpoint started");
+
                                     complete++;
                                 }
                             }
@@ -4902,6 +4957,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Updating streaming endpoint '{0}'...", se.Name);
                 await _amsClient.AMSclient.StreamingEndpoints.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, se.Name, se);
                 TextBoxLogWriteLine("Streaming endpoint '{0}' updated.", se.Name);
+                Telemetry.TrackEvent("Streaming endpoint updated");
 
                 if (units != null)
                 {
@@ -4955,6 +5011,7 @@ namespace AMSExplorer
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Stopped)
                                 {
                                     TextBoxLogWriteLine("Streaming endpoint '{0}' stopped.", loitemR.Name);
+                                    Telemetry.TrackEvent("Streaming endpoint stopped");
                                     complete++;
                                 }
                             }
@@ -5003,6 +5060,7 @@ namespace AMSExplorer
                     }
                     await Task.WhenAll(taskSEdel);
                     TextBoxLogWriteLine("Streaming endpoint(s) deleted : {0}.", names2);
+                    Telemetry.TrackEvent("Streaming endpoint(s) deleted");
                 }
 
                 catch (Exception ex)
@@ -5071,6 +5129,7 @@ namespace AMSExplorer
 
                         LiveOutput liveOutput2 = await _amsClient.AMSclient.LiveOutputs.CreateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEvent.Name, form.LiveOutputName, liveOutput);
                         TextBoxLogWriteLine("Live output '{0}' created.", liveOutput2.Name);
+                        Telemetry.TrackEvent("Live output created");
 
                         if (form.CreateLocator)
                         {
@@ -5582,6 +5641,8 @@ namespace AMSExplorer
 
         private async Task DoBatchUploadAsync()
         {
+            Telemetry.TrackEvent("DoBatchUploadAsync");
+
             BatchUploadFrame1 form = new();
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -5592,6 +5653,7 @@ namespace AMSExplorer
 
                     List<Task> MyTasks = new();
                     int i = 0;
+
                     foreach (string folder in form2.BatchSelectedFolders)
                     {
                         i++;
@@ -5779,6 +5841,8 @@ namespace AMSExplorer
 
         private async Task DoDisplayOutputURLAssetOrProgramToWindowAsync()
         {
+            Telemetry.TrackEvent("DoDisplayOutputURLAssetOrProgramToWindowAsync");
+
             Asset asset = (await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()).FirstOrDefault();
             if (asset != null)
             {
@@ -5948,6 +6012,8 @@ namespace AMSExplorer
 
         private async Task DoDisplayJobErrorAsync()
         {
+            Telemetry.TrackEvent("DoDisplayJobErrorAsync");
+
             List<JobExtension> SelectedJobs = await ReturnSelectedJobsV3Async();
             if (SelectedJobs.Count == 1)
             {
@@ -5993,6 +6059,8 @@ namespace AMSExplorer
 
         private async Task DoSelectTransformAndSubmitJobAsync()
         {
+            Telemetry.TrackEvent("DoSelectTransformAndSubmitJobAsync");
+
             List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
             bool MultipleInputAssets = true;
@@ -6186,6 +6254,7 @@ namespace AMSExplorer
 
         private async Task DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType playertype)
         {
+            Telemetry.TrackEvent("DoPlaySelectedAssetsOrProgramsWithPlayerAsync");
             string language = null;
             List<LiveEvent> le = await ReturnSelectedLiveEventsAsync();
 
@@ -6643,6 +6712,8 @@ namespace AMSExplorer
 
         private async Task DoCreateAssetFilterAsync()
         {
+            Telemetry.TrackEvent("DoCreateAssetFilterAsync");
+
             Asset selasset = (await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync()).FirstOrDefault();
 
             DynManifestFilter form = new(_amsClient, null, selasset);
@@ -6748,6 +6819,8 @@ namespace AMSExplorer
 
         private async Task DoSubClipAsync()
         {
+            Telemetry.TrackEvent("DoSubClipAsync");
+
             List<Asset> selectedAssets = await ReturnSelectedAssetsFromLiveOutputsOrAssetsAsync();
             if (selectedAssets.Count > 0)
             {
@@ -6768,6 +6841,7 @@ namespace AMSExplorer
 
         private static async Task DoExportMetadataAsync()
         {
+            Telemetry.TrackEvent("DoExportMetadataAsync");
         }
 
         private async void informationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7059,6 +7133,7 @@ namespace AMSExplorer
 
         private async Task DoCopyAssetToAnotherAMSAccountAsync()
         {
+            Telemetry.TrackEvent("DoCopyAssetToAnotherAMSAccountAsync");
 
             List<Asset> selectedAssets = await ReturnSelectedAssetsAsync();
             CopyAsset copyAssetForm = new(selectedAssets.Count, CopyAssetBoxMode.CopyAsset, _amsClient.credentialsEntry.AccountName);
@@ -7373,6 +7448,8 @@ namespace AMSExplorer
 
         private void DoCancelTransfer()
         {
+            Telemetry.TrackEvent("DoCancelTransfer");
+
             if (dataGridViewTransfer.SelectedRows.Count > 0)
             {
                 foreach (DataGridViewRow selRow in dataGridViewTransfer.SelectedRows)
@@ -7456,6 +7533,8 @@ namespace AMSExplorer
 
         private async Task DoMenuImportFromAzureStorageSASContainerAsync()
         {
+            Telemetry.TrackEvent("DoMenuImportFromAzureStorageSASContainerAsync");
+
             ImportHttp form = new(_amsClient, true);
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -7733,6 +7812,8 @@ namespace AMSExplorer
                     // Create the Transform with the output defined above
                     myTransform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.TransformDescription);
                     TextBoxLogWriteLine("Transform '{0}' created.", myTransform.Name); // Warning
+                    Telemetry.TrackEvent("Transform created");
+
                 }
                 catch (Exception ex)
                 {
@@ -7764,7 +7845,6 @@ namespace AMSExplorer
 
         public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null, bool MultipleInputAssets = false, JobInputSequence jobInputSequence = null)
         {
-
 
             // Calculate the number of jobs
             int numJob;
@@ -7918,10 +7998,8 @@ namespace AMSExplorer
 
 
                         TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
-
-                        var dictionary = new Dictionary<string, string> { { "FromHttps", false.ToString() } };
-                        Telemetry.TrackEvent("CreateAndSubmitJobsAsync", dictionary);
-
+                        Dictionary<string, string> dictionary = new() { { "FromHttps", false.ToString() } };
+                        Telemetry.TrackEvent("Job created", dictionary);
 
                         dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
                     }
@@ -8016,9 +8094,8 @@ namespace AMSExplorer
                                                                     Outputs = jobOutputs,
                                                                 });
                     TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
-
-                    var dictionary = new Dictionary<string, string> { { "FromHttps", true.ToString() } };
-                    Telemetry.TrackEvent("CreateAndSubmitJobsAsync", dictionary);
+                    Dictionary<string, string> dictionary = new() { { "FromHttps", true.ToString() } };
+                    Telemetry.TrackEvent("Job created", dictionary);
 
                     dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
                 }
@@ -8071,6 +8148,8 @@ namespace AMSExplorer
 
         private async Task CreateJobFromTransformUsingHttpSourceAsync()
         {
+            Telemetry.TrackEvent("CreateJobFromTransformUsingHttpSourceAsync");
+
             List<Transform> sel = await ReturnSelectedTransformsAsync();
 
             JobSubmitFromTransform form = new(_amsClient, this, null, sel)
@@ -8222,10 +8301,11 @@ namespace AMSExplorer
             {
                 try
                 {
-                    TextBoxLogWriteLine("Creating asset '{0}'...", myForm.AssetName);
+                    TextBoxLogWriteLine("Creating new asset '{0}'...", myForm.AssetName);
                     Asset assetParam = new() { StorageAccountName = myForm.StorageSelected, Container = myForm.AssetContainer, AlternateId = myForm.AssetAltId, Description = myForm.AssetDescription };
                     await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, myForm.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness()), assetParam);
-                    TextBoxLogWriteLine("Asset '{0}' created.", myForm.AssetName);
+                    TextBoxLogWriteLine("New asset '{0}' created.", myForm.AssetName);
+                    Telemetry.TrackEvent("New asset created");
                 }
                 catch (Exception ex)
                 {
@@ -8249,7 +8329,7 @@ namespace AMSExplorer
 
         private async Task DoDeleteCKPolAsync()
         {
-
+            Telemetry.TrackEvent("DoDeleteCKPolAsync");
 
             List<ContentKeyPolicy> policies = await ReturnSelectedCKPoliciessAsync();
             Task[] deleteTasks = policies.Select(ck => _amsClient.AMSclient.ContentKeyPolicies.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, ck.Name)).ToArray();
@@ -8900,5 +8980,9 @@ namespace AMSExplorer
             return SelectedLiveOutputs;
         }
 
+        private void toolStripMenuItemCKInfo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

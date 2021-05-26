@@ -225,6 +225,8 @@ namespace AMSExplorer
 
         private static void DoGridTransferClearCompletedTransfers()
         {
+            Telemetry.TrackEvent("DoGridTransferClearCompletedTransfers");
+
             List<TransferEntry> list = _MyListTransfer.Where(l => l.State == TransferState.Cancelled || l.State == TransferState.Error || l.State == TransferState.Finished).ToList();
             foreach (TransferEntry l in list)
             {
