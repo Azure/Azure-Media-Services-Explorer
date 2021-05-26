@@ -14,7 +14,9 @@ Azure Media Services Explorer (AMSE) is a .NET 5.0 (C#) application for Windows 
 See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool).
 
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**. Please note that AMSE v5 is for AMS v3 API (main branch), and AMSE v4 is for AMS v2 (AMSv2 branch).
-This appliaction requires [.NET 5.0 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/5.0) to run.
+This application requires [.NET 5.0 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/5.0) to run.
+
+AMSE uses Application Insights for Telemetry. This feature can be turned off in Options.
 
 ## Prerequisites to compile
 
