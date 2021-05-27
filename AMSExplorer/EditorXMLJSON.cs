@@ -126,6 +126,11 @@ namespace AMSExplorer
         {
             // DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
         }
+
+        private void EditorXMLJSON_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 
     internal class ButtonPremiumXMLData : Button

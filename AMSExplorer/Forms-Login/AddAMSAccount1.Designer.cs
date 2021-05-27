@@ -158,6 +158,7 @@
             this.Controls.Add(this.labelAssetName);
             this.Name = "AddAMSAccount1";
             this.Load += new System.EventHandler(this.AddAMSAccount1_Load);
+            this.Shown += new System.EventHandler(this.AddAMSAccount1_Shown);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

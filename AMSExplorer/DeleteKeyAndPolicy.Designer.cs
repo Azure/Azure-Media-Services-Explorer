@@ -62,10 +62,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelTitle
@@ -88,8 +88,8 @@
             // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
             this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
             // DeleteKeyAndPolicy
@@ -107,6 +107,7 @@
             this.Controls.Add(this.checkBoxDeleteKeys);
             this.Name = "DeleteKeyAndPolicy";
             this.Load += new System.EventHandler(this.DeleteKeyAndPolicy_Load);
+            this.Shown += new System.EventHandler(this.DeleteKeyAndPolicy_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DeleteKeyAndPolicy_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

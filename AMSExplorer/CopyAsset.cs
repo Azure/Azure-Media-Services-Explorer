@@ -275,6 +275,7 @@ namespace AMSExplorer
         private void CopyAsset_Shown(object sender, EventArgs e)
         {
             ScaleListViewColumns(listViewAccounts);
+            Telemetry.TrackPageView(this.Name);
         }
     }
 

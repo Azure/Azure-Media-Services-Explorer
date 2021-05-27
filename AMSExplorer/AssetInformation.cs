@@ -731,6 +731,8 @@ namespace AMSExplorer
 
         private async Task DoOpenFilesAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoOpenFilesAsync");
+
             List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs();
 
             try
@@ -792,6 +794,8 @@ namespace AMSExplorer
 
         private async Task DoDownloadBlobsAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoDownloadBlobsAsync");
+
             List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs(false);
 
             if (SelectedBlobs.Count > 0)
@@ -863,6 +867,8 @@ namespace AMSExplorer
 
         private async Task DoDisplayAssetStatsAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoDisplayAssetStatsAsync");
+
             AssetTools MyAssetReport = new(myAsset, _amsClient);
             StringBuilder SB = await MyAssetReport.GetStatsAsync();
             using (EditorXMLJSON tokenDisplayForm
@@ -879,6 +885,8 @@ namespace AMSExplorer
 
         private async Task DoDeleteBlobsAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoDeleteBlobsAsync");
+
             IEnumerable<CloudBlockBlob> SelectedBlobs = ReturnSelectedBlobs().Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b);
 
             if (SelectedBlobs.Any())
@@ -999,6 +1007,8 @@ namespace AMSExplorer
 
         private async Task DoAzureMediaPlayerAsync(PlayerType playerType = PlayerType.AzureMediaPlayer)
         {
+            Telemetry.TrackEvent("AssetInformation DoAzureMediaPlayerAsync");
+
             if (TreeViewLocators.SelectedNode != null)
             {
                 // Root node's Parent property is null, so do check
@@ -1042,6 +1052,8 @@ namespace AMSExplorer
 
         private async Task DoDuplicateAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoDuplicateAsync");
+
             IListBlobItem SelectedAssetBlob = ReturnSelectedBlobs().FirstOrDefault();
 
             if (SelectedAssetBlob != null && SelectedAssetBlob is CloudBlockBlob sourceblob)
@@ -1097,6 +1109,8 @@ namespace AMSExplorer
 
         private async Task DoUploadAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoUploadAsync");
+
             using (OpenFileDialog Dialog = new()
             {
                 Multiselect = true
@@ -1191,6 +1205,8 @@ namespace AMSExplorer
 
         private void DoOpenFileLocator()
         {
+            Telemetry.TrackEvent("AssetInformation DoOpenFileLocator");
+
             if (TreeViewLocators.SelectedNode != null)
             {
                 // Root node's Parent property is null, so do check
@@ -1216,6 +1232,8 @@ namespace AMSExplorer
 
         private async Task DoDelLocatorAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoDelLocatorAsync");
+
             if (TreeViewLocators.SelectedNode != null)
             {
                 if (TreeViewLocators.SelectedNode.Parent == null)   // user selected the locator title
@@ -1477,6 +1495,8 @@ namespace AMSExplorer
         }
         private async Task DoFilterInfoAsync(AssetFilter filter = null)
         {
+            Telemetry.TrackEvent("AssetInformation DoFilterInfoAsync");
+
             List<AssetFilter> filters = await ReturnSelectedFiltersAsync();
             if (filter != null || filters.Count == 1)
             {
@@ -1525,6 +1545,8 @@ namespace AMSExplorer
 
         private async Task DoCreateAssetFilterAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoCreateAssetFilterAsync");
+
             using (DynManifestFilter form = new(_amsClient, null, myAsset))
             {
                 if (form.ShowDialog() == DialogResult.OK)
@@ -1566,8 +1588,9 @@ namespace AMSExplorer
 
         private async Task DoDeleteAssetFilterAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoDeleteAssetFilterAsync");
+
             List<AssetFilter> filters = await ReturnSelectedFiltersAsync();
-            
 
             try
             {
@@ -1592,6 +1615,8 @@ namespace AMSExplorer
 
         private async Task DoDuplicateFilterAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoDuplicateFilterAsync");
+
             List<AssetFilter> filters = await ReturnSelectedFiltersAsync();
             if (filters.Count == 1)
             {
@@ -1624,6 +1649,8 @@ namespace AMSExplorer
 
         private async Task DoDeleteAllBlobsAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoDeleteAllBlobsAsync");
+
             try
             {
                 string question = "Delete all blobs ?";
@@ -1684,6 +1711,8 @@ namespace AMSExplorer
 
         private async Task DoPlayWithFilterAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoPlayWithFilterAsync");
+
             List<AssetFilter> selFilters = await ReturnSelectedFiltersAsync();
             await myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer, new List<Asset>() { myAsset }, selFilters.FirstOrDefault().Name);
         }
@@ -1713,6 +1742,8 @@ namespace AMSExplorer
         /// </summary>
         private async void DoEditFile()
         {
+            Telemetry.TrackEvent("AssetInformation DoEditFile");
+
             List<IListBlobItem> SelectedBlobs = ReturnSelectedBlobs();
 
             if (SelectedBlobs.Count == 1 && SelectedBlobs.FirstOrDefault() != null && SelectedBlobs.FirstOrDefault() is CloudBlockBlob blobtoedit)
@@ -1806,6 +1837,7 @@ namespace AMSExplorer
 
         private async Task DoGenerateServerManifestAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoGenerateServerManifestAsync");
             try
             {
                 GeneratedServerManifest smildata = await ServerManifestUtils.LoadAndUpdateManifestTemplateAsync(container);
@@ -2091,6 +2123,8 @@ namespace AMSExplorer
 
         private async Task GetDRMTestTokenAsync()
         {
+            Telemetry.TrackEvent("AssetInformation GetDRMTestTokenAsync");
+
             if (comboBoxPolicyLocators.SelectedItem == null)
             {
                 return;
@@ -2245,6 +2279,8 @@ namespace AMSExplorer
 
         private async Task DoGenerateClientManifestAsync()
         {
+            Telemetry.TrackEvent("AssetInformation DoGenerateClientManifestAsync");
+
             // let's read the smooth manifest
 
             StreamingLocator tempStreamingLocator = null;
@@ -2348,6 +2384,11 @@ namespace AMSExplorer
                 await ListAssetBlobsAsync();
                 await BuildLocatorsTreeAsync();
             }
+        }
+
+        private void AssetInformation_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

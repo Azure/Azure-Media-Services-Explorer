@@ -341,7 +341,7 @@ namespace AMSExplorer
 
         private void OriginInformation_Shown(object sender, EventArgs e)
         {
-
+            Telemetry.TrackPageView(this.Name);
         }
 
         private void buttonAddAkamai_Click(object sender, EventArgs e)

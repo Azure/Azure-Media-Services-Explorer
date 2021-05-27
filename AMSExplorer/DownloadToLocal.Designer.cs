@@ -91,10 +91,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // groupBox1
@@ -137,6 +137,7 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "DownloadToLocal";
             this.Load += new System.EventHandler(this.DownloadToLocal_Load);
+            this.Shown += new System.EventHandler(this.DownloadToLocal_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DownloadToLocal_DpiChanged);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

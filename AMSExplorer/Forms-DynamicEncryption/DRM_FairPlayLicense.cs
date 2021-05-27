@@ -133,5 +133,10 @@ namespace AMSExplorer
         {
             panelOffline.Enabled = radioButtonOfflineRental.Checked;
         }
+
+        private void DRM_FairPlayLicense_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

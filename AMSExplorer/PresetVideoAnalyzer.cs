@@ -145,5 +145,10 @@ namespace AMSExplorer
         {
             UpdateTransformLabel();
         }
+
+        private void PresetVideoAnalyzer_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

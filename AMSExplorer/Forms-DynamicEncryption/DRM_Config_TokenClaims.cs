@@ -385,5 +385,10 @@ namespace AMSExplorer
         {
             // DpiUtils.UpdatedSizeFontAfterDPIChange(labelStep, e);
         }
+
+        private void form_DRM_Config_TokenClaims_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

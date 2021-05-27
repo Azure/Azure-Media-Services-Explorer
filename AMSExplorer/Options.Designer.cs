@@ -525,6 +525,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Options";
             this.Load += new System.EventHandler(this.Options_Load);
+            this.Shown += new System.EventHandler(this.Options_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Options_DpiChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

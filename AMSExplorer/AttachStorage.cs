@@ -61,7 +61,7 @@ namespace AMSExplorer
 
             try
             {
-                
+
 
                 mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
@@ -120,6 +120,11 @@ namespace AMSExplorer
         private void AttachStorage_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+        }
+
+        private void AttachStorage_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

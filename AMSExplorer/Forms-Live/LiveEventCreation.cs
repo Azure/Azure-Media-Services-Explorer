@@ -557,6 +557,11 @@ namespace AMSExplorer
         {
             textBoxEncodingKeyFrameInterval.Enabled = checkBoxEncodingKeyFrameInterval.Checked;
         }
+
+        private void LiveEventCreation_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 
     /*

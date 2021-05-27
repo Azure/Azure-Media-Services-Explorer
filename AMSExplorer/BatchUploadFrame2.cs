@@ -194,5 +194,10 @@ namespace AMSExplorer
         private void BatchUploadFrame2_DpiChanged(object sender, DpiChangedEventArgs e)
         {
         }
+
+        private void BatchUploadFrame2_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

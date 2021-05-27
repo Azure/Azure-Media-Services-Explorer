@@ -103,5 +103,10 @@ namespace AMSExplorer
             // for controls which are not using the default font
             // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, labelConnecting }, e, this);
         }
+
+        private void Splash_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

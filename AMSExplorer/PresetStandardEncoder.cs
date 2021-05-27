@@ -227,6 +227,11 @@ namespace AMSExplorer
             buttonCustomPresetThumbnail.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonThumbnail.Checked;
             UpdateTransformLabel();
         }
+
+        private void PresetStandardEncoder_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 
     public enum MESPresetTypeUI

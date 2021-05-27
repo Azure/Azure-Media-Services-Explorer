@@ -305,5 +305,10 @@ namespace AMSExplorer
                 buttonNext.Enabled = false;
             }
         }
+
+        private void AddAMSAccount2Browse_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

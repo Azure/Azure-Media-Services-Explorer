@@ -66,5 +66,10 @@ namespace AMSExplorer
                 DialogResult = DialogResult.None;
             }
         }
+
+        private void BatchUploadFrame1_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

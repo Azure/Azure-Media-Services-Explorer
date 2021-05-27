@@ -122,6 +122,7 @@
             this.Name = "SoftwareUpdate";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SoftwareUpdate_FormClosed);
             this.Load += new System.EventHandler(this.SoftwareUpdate_Load);
+            this.Shown += new System.EventHandler(this.SoftwareUpdate_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.SoftwareUpdate_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.webBrowser1)).EndInit();

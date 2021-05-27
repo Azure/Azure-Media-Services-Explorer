@@ -18,7 +18,7 @@ namespace AMSExplorer.ManifestGeneration
 
         public static async Task DoGenerateClientManifestForAllAssetsAsync(AMSClientV3 amsClient, MyDelegate TextBoxLogWriteLine)
         {
-            Telemetry.TrackEvent("DoGenerateClientManifestForAllAssetsAsync");
+            Telemetry.TrackEvent("ClientManifestUtils DoGenerateClientManifestForAllAssetsAsync");
 
             bool cancel = false;
             if (MessageBox.Show("The tool will list the published assets and will create a client manifest when needed.", "Client manifest creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)

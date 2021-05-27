@@ -149,5 +149,10 @@ namespace AMSExplorer
             numericUpDownSpriteColumn.Enabled = radioButtonSprite.Checked;
             numericUpDownThQuality.Enabled = radioButtonSprite.Checked || radioButtonJPG.Checked;
         }
+
+        private void PresetStandardEncoderThumbnail_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

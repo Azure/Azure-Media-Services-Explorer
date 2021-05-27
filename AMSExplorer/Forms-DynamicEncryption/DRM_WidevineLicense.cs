@@ -154,5 +154,10 @@ namespace AMSExplorer
         private void DRM_WidevineLicense_DpiChanged(object sender, DpiChangedEventArgs e)
         {
         }
+
+        private void DRM_WidevineLicense_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

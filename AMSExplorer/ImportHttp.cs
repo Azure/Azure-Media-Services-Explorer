@@ -146,5 +146,10 @@ namespace AMSExplorer
                 newAssetForm.AssetContainer = container;
             }
         }
+
+        private void ImportHttp_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

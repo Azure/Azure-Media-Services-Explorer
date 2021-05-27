@@ -389,5 +389,10 @@ namespace AMSExplorer
         private void DRM_PlayReadyLicense_DpiChanged(object sender, DpiChangedEventArgs e)
         {
         }
+
+        private void DRM_PlayReadyLicense_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

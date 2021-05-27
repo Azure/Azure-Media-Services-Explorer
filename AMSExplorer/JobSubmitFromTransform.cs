@@ -315,6 +315,8 @@ namespace AMSExplorer
 
         private async void ButtonCreateNewTransform_Click(object sender, EventArgs e)
         {
+            Telemetry.TrackEvent("JobSubmitFromTransform ButtonCreateNewTransform_Click");
+
             string transformName = await _myMainform.DoCreateOrUpdateATransformAsync();
             await listViewTransforms.LoadTransformsAsync(_client, transformName);
         }
@@ -354,6 +356,8 @@ namespace AMSExplorer
 
         private void buttonAddEDLEntry_Click(object sender, EventArgs e)
         {
+            Telemetry.TrackEvent("JobSubmitFromTransform buttonAddEDLEntry_Click");
+
             string assetName = comboBoxSourceAsset.Text;
             AddEDLEntry(new EDLEntryInOut()
             {
@@ -579,6 +583,11 @@ namespace AMSExplorer
                     TimeCodeList.Add(entry);
                 }
             }
+        }
+
+        private void JobSubmitFromTransform_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 

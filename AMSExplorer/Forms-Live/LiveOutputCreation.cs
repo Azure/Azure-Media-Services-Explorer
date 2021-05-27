@@ -203,5 +203,10 @@ namespace AMSExplorer
         {
             checkStartRecordingTimestamp();
         }
+
+        private void LiveOutputCreation_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

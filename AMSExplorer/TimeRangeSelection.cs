@@ -118,5 +118,10 @@ namespace AMSExplorer
             dateTimePickerEndDate.Enabled = radioButtonEndCustom.Checked;
             dateTimePickerEndTime.Enabled = radioButtonEndCustom.Checked;
         }
+
+        private void TimeRangeSelection_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

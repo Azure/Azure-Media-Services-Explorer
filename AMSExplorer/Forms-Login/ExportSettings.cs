@@ -37,5 +37,10 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
         }
+
+        private void ExportSettings_Shown(object sender, System.EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

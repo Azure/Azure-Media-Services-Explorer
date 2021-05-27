@@ -119,5 +119,10 @@ namespace AMSExplorer
             p.Start();
 
         }
+
+        private void CreateStreamingEndpoint_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

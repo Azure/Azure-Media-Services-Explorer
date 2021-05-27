@@ -42,5 +42,10 @@ namespace AMSExplorer
         {
             // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
+
+        private void DeleteKeyAndPolicy_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

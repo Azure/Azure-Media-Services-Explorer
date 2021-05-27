@@ -476,6 +476,7 @@
             this.Name = "JobSubmitFromTransform";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.JobSubmitFromTransform_Load);
+            this.Shown += new System.EventHandler(this.JobSubmitFromTransform_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.JobSubmitFromTransform_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

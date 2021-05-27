@@ -59,10 +59,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // textBoxConfiguration
@@ -133,6 +133,7 @@
             this.Name = "EditorXMLJSON";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.EditorXMLJSON_Load);
+            this.Shown += new System.EventHandler(this.EditorXMLJSON_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.EditorXMLJSON_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -80,5 +80,10 @@ namespace AMSExplorer
         {
             // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
+
+        private void DownloadToLocal_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

@@ -54,6 +54,8 @@ namespace AMSExplorer.AMSLogin
 
         private async void EmbeddedBrowserUI_Shown(object sender, EventArgs e)
         {
+            Telemetry.TrackPageView(this.Name);
+
             _token = _cancellationToken.Register(() => _taskCompletionSource.SetCanceled());
             // navigating to an uri that is entry point to authorization flow.
 

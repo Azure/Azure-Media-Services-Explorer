@@ -48,7 +48,6 @@ namespace AMSExplorer
 
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkAMSE));
             labelTitle.Text = string.Format(labelTitle.Text, _newVersion);
-            Telemetry.TrackEvent("New update shown");
         }
 
         private void linkLabelMoreInfoPrice_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -86,7 +85,7 @@ namespace AMSExplorer
         {
             void action(object sender, AsyncCompletedEventArgs e)
             {
-                Telemetry.TrackEvent("New update downloaded and starts");
+                Telemetry.TrackEvent("SoftwareUpdate New update downloaded and started");
 
                 Properties.Settings.Default.DeleteInstallationFile = Path.GetTempPath() + filename;
                 Properties.Settings.Default.Save();
@@ -114,6 +113,11 @@ namespace AMSExplorer
         private void SoftwareUpdate_FormClosed(object sender, FormClosedEventArgs e)
         {
             webBrowser1.Dispose();
+        }
+
+        private void SoftwareUpdate_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

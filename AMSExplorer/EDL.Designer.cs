@@ -58,9 +58,9 @@
             // 
             // dataGridViewEDL
             // 
-            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
             this.dataGridViewEDL.AllowUserToAddRows = false;
             this.dataGridViewEDL.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
             this.dataGridViewEDL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEDL.Name = "dataGridViewEDL";
             this.dataGridViewEDL.ReadOnly = true;
@@ -113,6 +113,7 @@
             this.Name = "EDL";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EDL_FormClosing);
             this.Load += new System.EventHandler(this.EDL_Load);
+            this.Shown += new System.EventHandler(this.EDL_Shown);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEDL)).EndInit();
             this.ResumeLayout(false);

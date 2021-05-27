@@ -88,6 +88,11 @@ namespace AMSExplorer
         {
             // DpiUtils.UpdatedSizeFontAfterDPIChange(labelCDNOptions, e);
         }
+
+        private void StreamingEndpointCDNEnable_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 
 }

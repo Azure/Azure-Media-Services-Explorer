@@ -205,5 +205,10 @@ namespace AMSExplorer
         {
             ValidateButtonOk();
         }
+
+        private void DRM_CENCCBSCDelivery_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

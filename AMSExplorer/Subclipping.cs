@@ -491,6 +491,13 @@ namespace AMSExplorer
         {
             SubClipConfiguration subclipConfig = GetSubclippingInternalConfiguration();
 
+            Dictionary<string, string> dictionary = new()
+            {
+                { "Reencode", subclipConfig.Reencode.ToString() },
+                { "CreateAssetFilter", subclipConfig.CreateAssetFilter.ToString() }
+            };
+            Telemetry.TrackEvent("Sublipping DoSubClipAsync", dictionary);
+
             if (subclipConfig.Reencode) // reencode the clip
             {
 
@@ -625,7 +632,7 @@ namespace AMSExplorer
 
         private void Subclipping_Shown(object sender, EventArgs e)
         {
-
+            Telemetry.TrackPageView(this.Name);
         }
     }
 

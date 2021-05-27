@@ -1021,7 +1021,7 @@ namespace AMSExplorer
 
         private void DynManifestFilter_Shown(object sender, EventArgs e)
         {
-
+            Telemetry.TrackPageView(this.Name);
         }
 
         private void tabPage1_Click(object sender, EventArgs e)

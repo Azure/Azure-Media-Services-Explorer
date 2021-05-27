@@ -71,7 +71,7 @@ namespace AMSExplorer
 
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
-            
+
 
             Asset AssetToDisplayP = Task.Run(() =>
                         _amsClient.GetAssetAsync(MyLiveOutput.AssetName))
@@ -152,7 +152,7 @@ namespace AMSExplorer
 
         private void ProgramInformation_Shown(object sender, EventArgs e)
         {
-
+            Telemetry.TrackPageView(this.Name);
         }
 
         private void LiveOutputInformation_DpiChanged(object sender, DpiChangedEventArgs e)

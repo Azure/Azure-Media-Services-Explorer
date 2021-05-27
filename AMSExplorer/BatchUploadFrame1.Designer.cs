@@ -44,16 +44,16 @@
             // 
             // buttonNext
             // 
-            resources.ApplyResources(this.buttonNext, "buttonNext");
             this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
+            resources.ApplyResources(this.buttonNext, "buttonNext");
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // buttonCancel
             // 
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -92,18 +92,18 @@
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.checkBoxProcessFiles);
             this.groupBox2.Controls.Add(this.checkBoxSubFolder);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonNext);
             this.panel1.Controls.Add(this.buttonCancel);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // BatchUploadFrame1
@@ -120,6 +120,7 @@
             this.Controls.Add(this.buttonSelectFolder);
             this.Name = "BatchUploadFrame1";
             this.Load += new System.EventHandler(this.BathUploadFrame1_Load);
+            this.Shown += new System.EventHandler(this.BatchUploadFrame1_Shown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);

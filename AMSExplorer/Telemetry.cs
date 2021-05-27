@@ -13,8 +13,8 @@ namespace AMSExplorer
     /// </summary>
     public static class Telemetry
     {
-        private static string TelemetryKey = "4e7e1289-8b4f-4237-af00-c8d2b53ba1b2";
-
+        private static string TelemetryKeyDev = "2c258d64-b2e4-4219-8108-e938f2f4fc02";
+        private static string TelemetryKeyProd = "5fb7cbe4-882c-4df8-ad29-df9733248597";
         private static TelemetryClient _telemetry;
 
         public static bool Enabled { get; set; } = false;
@@ -23,11 +23,12 @@ namespace AMSExplorer
         {
             var config = new TelemetryConfiguration()
             {
-                InstrumentationKey = TelemetryKey,
+                InstrumentationKey = TelemetryKeyProd,
                 TelemetryChannel = new Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.ServerTelemetryChannel(),
             };
             config.TelemetryChannel.DeveloperMode = Debugger.IsAttached;
 #if DEBUG
+            config.InstrumentationKey = TelemetryKeyDev;
             config.TelemetryChannel.DeveloperMode = true;
 #endif
             TelemetryClient client = new(config);

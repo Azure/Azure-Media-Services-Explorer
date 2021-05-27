@@ -49,10 +49,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonImport);
             this.panel1.Controls.Add(this.buttonCancel);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // buttonImport
@@ -103,6 +103,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "AmsLoginServicePrincipal";
             this.Load += new System.EventHandler(this.AmsLoginServicePrincipal_Load);
+            this.Shown += new System.EventHandler(this.AmsLoginServicePrincipal_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AmsLoginServicePrincipal_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -105,6 +105,8 @@ namespace AMSExplorer
 
         private void ButtonDeleteAccount_Click(object sender, EventArgs e)
         {
+            Telemetry.TrackEvent("AMSLogin ButtonDeleteAccount_Click");
+
             // let's remove the selected items
 
             for (int i = listViewAccounts.Items.Count - 1; i >= 0; i--)
@@ -208,6 +210,8 @@ namespace AMSExplorer
 
         private void ButtonExport_Click(object sender, EventArgs e)
         {
+            Telemetry.TrackEvent("AMSLogin ButtonExport_Click");
+
             bool exportSPSecrets = false;
             ExportSettings form = new();
 
@@ -268,6 +272,8 @@ namespace AMSExplorer
 
         private void ButtonImportAll_Click(object sender, EventArgs e)
         {
+            Telemetry.TrackEvent("AMSLogin ButtonImportAll_Click");
+
             bool mergesentries = false;
 
             if (CredentialList.MediaServicesAccounts.Count > 0) // There are entries. Let's ask if user want to delete them or merge
@@ -344,6 +350,7 @@ namespace AMSExplorer
 
         private async void AMSLogin_ShownAsync(object sender, EventArgs e)
         {
+            Telemetry.TrackPageView(this.Name);
 
             //await Task.Run(() => Program.CheckAMSEVersionAsync()).ConfigureAwait(false); //let not wait for this task - no need
             ScaleListViewColumns(listViewAccounts);
@@ -420,10 +427,14 @@ namespace AMSExplorer
         private async void buttonPickupAccount_Click(object sender, EventArgs e)
         {
             AddAMSAccount1 addaccount1 = new();
+
             if (addaccount1.ShowDialog() == DialogResult.OK)
             {
+
                 if (addaccount1.SelectedMode == AddAccountMode.BrowseSubscriptions)
                 {
+                    Telemetry.TrackEvent("AMSLogin buttonPickupAccount_Click BrowseSubscriptions");
+
                     Cursor = Cursors.WaitCursor;
                     Prompt prompt = addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount;
 
@@ -569,6 +580,8 @@ namespace AMSExplorer
                 // Get info from the Portal or Azure CLI JSON
                 else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliOrPortalJson)
                 {
+                    Telemetry.TrackEvent("AMSLogin buttonPickupAccount_Click FromAzureCliOrPortalJson");
+
                     string example = @"{
   ""AadClientId"": ""00000000-0000-0000-0000-000000000000"",
   ""AadSecret"": ""00000000-0000-0000-0000-000000000000"",
@@ -633,6 +646,8 @@ namespace AMSExplorer
                 }
                 else if (addaccount1.SelectedMode == AddAccountMode.ManualEntry)
                 {
+                    Telemetry.TrackEvent("AMSLogin buttonPickupAccount_Click ManualEntry");
+
                     AddAMSAccount2Manual form = new();
                     if (form.ShowDialog() == DialogResult.OK)
                     {

@@ -60,10 +60,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelstep
@@ -145,6 +145,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "DRM_GenerateToken";
             this.Load += new System.EventHandler(this.DRM_WidevineLicense_Load);
+            this.Shown += new System.EventHandler(this.DRM_GenerateToken_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_GenerateToken_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).EndInit();

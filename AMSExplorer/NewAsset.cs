@@ -156,5 +156,10 @@ namespace AMSExplorer
                 errorProvider1.SetError(tb, "Asset name is not valid.");
             }
         }
+
+        private void NewAsset_Shown(object sender, System.EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

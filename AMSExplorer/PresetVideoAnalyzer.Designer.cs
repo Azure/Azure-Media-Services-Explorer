@@ -48,11 +48,11 @@
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxAudioMode = new System.Windows.Forms.GroupBox();
             this.radioButtonAudioStandard = new System.Windows.Forms.RadioButton();
             this.radioButtonAudioBasic = new System.Windows.Forms.RadioButton();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -65,7 +65,6 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
-            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
@@ -74,7 +73,6 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.index;
             this.buttonOk.Name = "buttonOk";
-            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // labelAVAnalyzer
@@ -82,22 +80,20 @@
             resources.ApplyResources(this.labelAVAnalyzer, "labelAVAnalyzer");
             this.labelAVAnalyzer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelAVAnalyzer.Name = "labelAVAnalyzer";
-            this.toolTip1.SetToolTip(this.labelAVAnalyzer, resources.GetString("labelAVAnalyzer.ToolTip"));
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // comboBoxLanguage
             // 
-            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
             this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLanguage.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
             this.comboBoxLanguage.Name = "comboBoxLanguage";
             this.toolTip1.SetToolTip(this.comboBoxLanguage, resources.GetString("comboBoxLanguage.ToolTip"));
             this.comboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.comboBoxLanguage_SelectedIndexChanged);
@@ -115,44 +111,38 @@
             resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.TabStop = true;
-            this.toolTip1.SetToolTip(this.moreinfoprofilelink, resources.GetString("moreinfoprofilelink.ToolTip"));
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps._01_indexer;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // textBoxTransformName
             // 
             resources.ApplyResources(this.textBoxTransformName, "textBoxTransformName");
             this.textBoxTransformName.Name = "textBoxTransformName";
-            this.toolTip1.SetToolTip(this.textBoxTransformName, resources.GetString("textBoxTransformName.ToolTip"));
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.radioButtonVideoOnly);
             this.groupBox1.Controls.Add(this.radioButtonAudioAndVideo);
             this.groupBox1.Controls.Add(this.radioButtonAudioOnly);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
             // 
             // radioButtonVideoOnly
             // 
             resources.ApplyResources(this.radioButtonVideoOnly, "radioButtonVideoOnly");
             this.radioButtonVideoOnly.Name = "radioButtonVideoOnly";
-            this.toolTip1.SetToolTip(this.radioButtonVideoOnly, resources.GetString("radioButtonVideoOnly.ToolTip"));
             this.radioButtonVideoOnly.UseVisualStyleBackColor = true;
             this.radioButtonVideoOnly.CheckedChanged += new System.EventHandler(this.radioButtonAudioAndVideo_CheckedChanged);
             // 
@@ -162,7 +152,6 @@
             this.radioButtonAudioAndVideo.Checked = true;
             this.radioButtonAudioAndVideo.Name = "radioButtonAudioAndVideo";
             this.radioButtonAudioAndVideo.TabStop = true;
-            this.toolTip1.SetToolTip(this.radioButtonAudioAndVideo, resources.GetString("radioButtonAudioAndVideo.ToolTip"));
             this.radioButtonAudioAndVideo.UseVisualStyleBackColor = true;
             this.radioButtonAudioAndVideo.CheckedChanged += new System.EventHandler(this.radioButtonAudioAndVideo_CheckedChanged);
             // 
@@ -170,7 +159,6 @@
             // 
             resources.ApplyResources(this.radioButtonAudioOnly, "radioButtonAudioOnly");
             this.radioButtonAudioOnly.Name = "radioButtonAudioOnly";
-            this.toolTip1.SetToolTip(this.radioButtonAudioOnly, resources.GetString("radioButtonAudioOnly.ToolTip"));
             this.radioButtonAudioOnly.UseVisualStyleBackColor = true;
             this.radioButtonAudioOnly.CheckedChanged += new System.EventHandler(this.radioButtonAudioAndVideo_CheckedChanged);
             // 
@@ -178,22 +166,42 @@
             // 
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
             this.textBoxDescription.Name = "textBoxDescription";
-            this.toolTip1.SetToolTip(this.textBoxDescription, resources.GetString("textBoxDescription.ToolTip"));
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.comboBoxLanguage);
             this.groupBox2.Controls.Add(this.checkBoxAutoLanguage);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBox2, resources.GetString("groupBox2.ToolTip"));
+            // 
+            // groupBoxAudioMode
+            // 
+            this.groupBoxAudioMode.Controls.Add(this.radioButtonAudioStandard);
+            this.groupBoxAudioMode.Controls.Add(this.radioButtonAudioBasic);
+            resources.ApplyResources(this.groupBoxAudioMode, "groupBoxAudioMode");
+            this.groupBoxAudioMode.Name = "groupBoxAudioMode";
+            this.groupBoxAudioMode.TabStop = false;
+            // 
+            // radioButtonAudioStandard
+            // 
+            resources.ApplyResources(this.radioButtonAudioStandard, "radioButtonAudioStandard");
+            this.radioButtonAudioStandard.Checked = true;
+            this.radioButtonAudioStandard.Name = "radioButtonAudioStandard";
+            this.radioButtonAudioStandard.TabStop = true;
+            this.radioButtonAudioStandard.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonAudioBasic
+            // 
+            resources.ApplyResources(this.radioButtonAudioBasic, "radioButtonAudioBasic");
+            this.radioButtonAudioBasic.Name = "radioButtonAudioBasic";
+            this.radioButtonAudioBasic.UseVisualStyleBackColor = true;
+            this.radioButtonAudioBasic.CheckedChanged += new System.EventHandler(this.radioButtonAudioBasic_CheckedChanged);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -204,32 +212,6 @@
             // 
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // groupBoxAudioMode
-            // 
-            resources.ApplyResources(this.groupBoxAudioMode, "groupBoxAudioMode");
-            this.groupBoxAudioMode.Controls.Add(this.radioButtonAudioStandard);
-            this.groupBoxAudioMode.Controls.Add(this.radioButtonAudioBasic);
-            this.groupBoxAudioMode.Name = "groupBoxAudioMode";
-            this.groupBoxAudioMode.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBoxAudioMode, resources.GetString("groupBoxAudioMode.ToolTip"));
-            // 
-            // radioButtonAudioStandard
-            // 
-            resources.ApplyResources(this.radioButtonAudioStandard, "radioButtonAudioStandard");
-            this.radioButtonAudioStandard.Checked = true;
-            this.radioButtonAudioStandard.Name = "radioButtonAudioStandard";
-            this.radioButtonAudioStandard.TabStop = true;
-            this.toolTip1.SetToolTip(this.radioButtonAudioStandard, resources.GetString("radioButtonAudioStandard.ToolTip"));
-            this.radioButtonAudioStandard.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonAudioBasic
-            // 
-            resources.ApplyResources(this.radioButtonAudioBasic, "radioButtonAudioBasic");
-            this.radioButtonAudioBasic.Name = "radioButtonAudioBasic";
-            this.toolTip1.SetToolTip(this.radioButtonAudioBasic, resources.GetString("radioButtonAudioBasic.ToolTip"));
-            this.radioButtonAudioBasic.UseVisualStyleBackColor = true;
-            this.radioButtonAudioBasic.CheckedChanged += new System.EventHandler(this.radioButtonAudioBasic_CheckedChanged);
             // 
             // PresetVideoAnalyzer
             // 
@@ -249,8 +231,8 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAVAnalyzer);
             this.Name = "PresetVideoAnalyzer";
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.PresetVideoAnalyzer_Load);
+            this.Shown += new System.EventHandler(this.PresetVideoAnalyzer_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetVideoAnalyzer_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

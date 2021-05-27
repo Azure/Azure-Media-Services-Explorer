@@ -59,10 +59,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label33
@@ -72,9 +72,9 @@
             // 
             // comboBoxProvider
             // 
-            resources.ApplyResources(this.comboBoxProvider, "comboBoxProvider");
             this.comboBoxProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProvider.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxProvider, "comboBoxProvider");
             this.comboBoxProvider.Name = "comboBoxProvider";
             // 
             // labelCDNOptions
@@ -105,8 +105,8 @@
             // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
             this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
             // StreamingEndpointCDNEnable
@@ -125,6 +125,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "StreamingEndpointCDNEnable";
             this.Load += new System.EventHandler(this.StreamingEndpointCDNEnable_Load);
+            this.Shown += new System.EventHandler(this.StreamingEndpointCDNEnable_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.StreamingEndpointCDNEnable_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

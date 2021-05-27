@@ -55,10 +55,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonUpdate);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label2
@@ -69,9 +69,9 @@
             // 
             // comboBoxPriority
             // 
-            resources.ApplyResources(this.comboBoxPriority, "comboBoxPriority");
             this.comboBoxPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPriority.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxPriority, "comboBoxPriority");
             this.comboBoxPriority.Name = "comboBoxPriority";
             // 
             // PriorityForm
@@ -86,6 +86,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "PriorityForm";
             this.Load += new System.EventHandler(this.Priority_Load);
+            this.Shown += new System.EventHandler(this.PriorityForm_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PriorityForm_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

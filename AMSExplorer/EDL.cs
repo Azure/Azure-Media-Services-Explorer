@@ -129,6 +129,11 @@ namespace AMSExplorer
             e.Cancel = true;
             Hide();
         }
+
+        private void EDL_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 
     internal class ButtonEDL : Button

@@ -192,5 +192,10 @@ namespace AMSExplorer
                 labelBlobSizeMax.Text = string.Empty;
             }
         }
+
+        private void Options_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

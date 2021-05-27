@@ -55,9 +55,9 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.button1);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // DisplayBox
@@ -74,6 +74,7 @@
             this.Name = "DisplayBox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Load += new System.EventHandler(this.DisplayBox_Load);
+            this.Shown += new System.EventHandler(this.DisplayBox_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DisplayBox_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

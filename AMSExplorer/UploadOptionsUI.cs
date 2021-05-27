@@ -114,5 +114,10 @@ namespace AMSExplorer
                 newAssetForm.AssetContainer = container;
             }
         }
+
+        private void UploadOptionsUI_Shown(object sender, System.EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

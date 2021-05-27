@@ -64,10 +64,10 @@ namespace AMSExplorer
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonUpdate);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // comboBoxVersion
@@ -123,6 +123,7 @@ namespace AMSExplorer
             this.Controls.Add(this.label1);
             this.Name = "StorageSettings";
             this.Load += new System.EventHandler(this.StorageVersion_Load);
+            this.Shown += new System.EventHandler(this.StorageSettings_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.StorageSettings_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -58,10 +58,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label5
@@ -110,6 +110,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SettingsSelection";
             this.Load += new System.EventHandler(this.SettingsSelection_Load);
+            this.Shown += new System.EventHandler(this.SettingsSelection_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.SettingsSelection_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

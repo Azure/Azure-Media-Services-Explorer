@@ -151,5 +151,10 @@ namespace AMSExplorer
             };
             p.Start();
         }
+
+        private void AboutBox_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }

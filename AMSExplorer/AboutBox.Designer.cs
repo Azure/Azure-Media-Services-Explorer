@@ -61,8 +61,8 @@
             // 
             // logoPictureBox
             // 
-            resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
             this.logoPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
             this.logoPictureBox.Image = global::AMSExplorer.Bitmaps.Azure_Explorer;
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
@@ -119,6 +119,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.AboutBox_Load);
+            this.Shown += new System.EventHandler(this.AboutBox_Shown);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();

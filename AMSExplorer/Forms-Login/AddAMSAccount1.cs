@@ -73,5 +73,10 @@ namespace AMSExplorer
             };
             p.Start();
         }
+
+        private void AddAMSAccount1_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 }
