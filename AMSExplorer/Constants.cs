@@ -14,10 +14,14 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using System;
+
 namespace AMSExplorer
 {
     public static class Constants
     {
+        public static string webViewCachePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\AMSE";
+
         public const string GitHubAMSEVersionPrimaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
 

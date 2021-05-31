@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Microsoft.Web.WebView2.Core;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -41,10 +42,6 @@ namespace AMSExplorer
         private void SoftwareUpdate_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
-            if (_urlRelNotes != null)
-            {
-                webBrowser1.Source = _urlRelNotes;
-            }
 
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkAMSE));
             labelTitle.Text = string.Format(labelTitle.Text, _newVersion);
@@ -115,9 +112,18 @@ namespace AMSExplorer
             webBrowser1.Dispose();
         }
 
-        private void SoftwareUpdate_Shown(object sender, EventArgs e)
+        private async void SoftwareUpdate_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+
+            // We specify a env folder otherwise webview cannot create a cache in program files and crashes....
+            var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
+            await webBrowser1.EnsureCoreWebView2Async(env);
+
+            if (_urlRelNotes != null)
+            {
+                webBrowser1.Source = _urlRelNotes;
+            }
         }
     }
 }

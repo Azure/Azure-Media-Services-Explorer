@@ -604,12 +604,6 @@
   <data name="label7.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>195, 234</value>
-  </data>
-  <data name="label13.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 15</value>
   </data>
@@ -620,7 +614,7 @@
     <value />
   </data>
   <data name="textBoxJobsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>794, 191</value>
+    <value>772, 234</value>
   </data>
   <data name="textBoxJobsPageNumber.ToolTip" xml:space="preserve">
     <value />
@@ -737,7 +731,7 @@
     <value>すべてのジョブ...</value>
   </data>
   <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>825, 192</value>
+    <value>803, 235</value>
   </data>
   <data name="butNextPageJob.ToolTip" xml:space="preserve">
     <value />
@@ -746,7 +740,7 @@
     <value />
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>304, 188</value>
+    <value>297, 230</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 30</value>
@@ -758,19 +752,22 @@
     <value />
   </data>
   <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>758, 192</value>
+    <value>736, 235</value>
   </data>
   <data name="butPrevPageJob.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>473, 191</value>
+    <value>461, 234</value>
+  </data>
+  <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 23</value>
   </data>
   <data name="comboBoxStateJobs.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>424, 188</value>
+    <value>412, 230</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 30</value>
@@ -782,7 +779,7 @@
     <value />
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>709, 195</value>
+    <value>687, 238</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 15</value>
@@ -794,7 +791,7 @@
     <value />
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>547, 195</value>
+    <value>530, 238</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 15</value>
@@ -806,69 +803,27 @@
     <value />
   </data>
   <data name="comboBoxOrderJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>613, 191</value>
+    <value>596, 234</value>
+  </data>
+  <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 23</value>
   </data>
   <data name="comboBoxOrderJobs.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="comboBoxFilterJobsTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>350, 191</value>
+  <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 23</value>
   </data>
   <data name="comboBoxFilterJobsTime.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxJobSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 23</value>
-  </data>
   <data name="textBoxJobSearch.ToolTip" xml:space="preserve">
     <value>ジョブ名/ジョブ ID で検索</value>
-  </data>
-  <data name="buttonJobSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>246, 192</value>
   </data>
   <data name="buttonJobSearch.Text" xml:space="preserve">
     <value>適用</value>
   </data>
   <data name="buttonJobSearch.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonUpdateEncodingRU.Text" xml:space="preserve">
-    <value>更新</value>
-  </data>
-  <data name="buttonUpdateEncodingRU.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelnbunits.Location" type="System.Drawing.Point, System.Drawing">
-    <value>694, 226</value>
-  </data>
-  <data name="labelnbunits.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 30</value>
-  </data>
-  <data name="labelnbunits.Text" xml:space="preserve">
-    <value>{0} ユニット {1}</value>
-  </data>
-  <data name="labelnbunits.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="trackBarEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>304, 223</value>
-  </data>
-  <data name="trackBarEncodingRU.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 30</value>
-  </data>
-  <data name="label22.Text" xml:space="preserve">
-    <value>メディア予約ユニット タイプ :</value>
-  </data>
-  <data name="label22.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="comboBoxEncodingRU.Location" type="System.Drawing.Point, System.Drawing">
-    <value>246, 230</value>
-  </data>
-  <data name="comboBoxEncodingRU.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="tabPageLive.Text" xml:space="preserve">
@@ -914,16 +869,16 @@
     <value>Azure Media Player での再生</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>777, 200</value>
+    <value>766, 200</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 23</value>
+    <value>243, 23</value>
   </data>
   <data name="comboBoxStatusLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
-    <value>734, 204</value>
+    <value>723, 204</value>
   </data>
   <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 15</value>
@@ -935,22 +890,19 @@
     <value />
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>582, 200</value>
+    <value>571, 200</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="buttonSetFilterLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>458, 201</value>
+    <value>447, 201</value>
   </data>
   <data name="buttonSetFilterLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxSearchNameLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>133, 201</value>
-  </data>
-  <data name="comboBoxSearchLiveEventOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 23</value>
+  <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>311, 23</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.ToolTip" xml:space="preserve">
     <value />
@@ -959,7 +911,7 @@
     <value />
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>536, 197</value>
+    <value>525, 197</value>
   </data>
   <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 30</value>

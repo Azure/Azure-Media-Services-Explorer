@@ -12,6 +12,7 @@ using System.Web;
 using System.Windows.Forms;
 using Microsoft.Identity.Client;
 using Microsoft.Web.WebView2.WinForms;
+using Microsoft.Web.WebView2.Core;
 
 namespace AMSExplorer.AMSLogin
 {
@@ -59,7 +60,9 @@ namespace AMSExplorer.AMSLogin
             _token = _cancellationToken.Register(() => _taskCompletionSource.SetCanceled());
             // navigating to an uri that is entry point to authorization flow.
 
-            await webBrowser.EnsureCoreWebView2Async();
+            // We specify a env folder otherwise webview cannot create a cache in program files and crashes....
+            var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
+            await webBrowser.EnsureCoreWebView2Async(env);
             webBrowser.Source = _authorizationUri;
         }
 

@@ -69,10 +69,13 @@ namespace AMSExplorer
             Application.SetCompatibleTextRenderingDefault(false);
             */
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
-
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // BUG
+            // fix a crash on non english version of Windows. For now, let's force english UI per default
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en", false);
+
             if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
             {
                 string language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);

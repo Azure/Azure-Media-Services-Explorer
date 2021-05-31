@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_40EE078B04724F5E8338D7B404AD37C4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_40FD6AD8F9E6400495A4A1FB4C1E7A75"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -34,6 +28,12 @@
         "Entry"
         {
         "MsmKey" = "8:_9D68868F5A12419DA86FA0D880BCE7F1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DEBE73D2234841BF8DF7BF732FC33504"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -96,10 +96,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.5.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:.NET Desktop Runtime 5.0.6 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.5.0.x64"
                     }
                 }
             }
@@ -174,6 +174,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DEBE73D2234841BF8DF7BF732FC33504"
+            {
+            "SourcePath" = "8:..\\AMSExplorer\\bin\\Release\\net5.0-windows\\win-x64\\WebView2Loader.dll"
+            "TargetName" = "8:WebView2Loader.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -230,23 +250,23 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Azure Media Services Explorer"
-        "ProductCode" = "8:{78054D60-0227-4E3E-A682-0F9C745D4B2E}"
-        "PackageCode" = "8:{9910BD5E-0501-4452-9CBA-011119ED47F6}"
+        "ProductCode" = "8:{F8C587EF-C38D-48A5-8DEF-1A486187AF20}"
+        "PackageCode" = "8:{842E1C3D-B049-4549-9611-814F899FF90D}"
         "UpgradeCode" = "8:{5145C7B3-B64F-42CA-A111-45E636E02027}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:5.4.0"
+        "ProductVersion" = "8:5.4.1"
         "Manufacturer" = "8:Microsoft Corporation"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:AMSE Installer"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:"
+        "ARPCOMMENTS" = "8:A windows app to interact with Azure Media Services."
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_9D68868F5A12419DA86FA0D880BCE7F1"
         "ARPIconIndex" = "3:0"
@@ -811,37 +831,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_40EE078B04724F5E8338D7B404AD37C4"
-            {
-            "SourcePath" = "8:..\\AMSExplorer\\obj\\Debug\\net5.0-windows\\AMSExplorer.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{67573AA5-0316-4C90-8CE4-93A950CD0A86}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9D5CE24C90C9470491CE1D865EE7EFA4"
             {
-            "SourcePath" = "8:..\\AMSExplorer\\obj\\Debug\\net5.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\AMSExplorer\\obj\\Release\\net5.0-windows\\win-x64\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
@@ -863,6 +855,7 @@
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{67573AA5-0316-4C90-8CE4-93A950CD0A86}"
             "ShowKeyOutput" = "11:TRUE"
+            "PublishProfilePath" = "8:Properties\\PublishProfiles\\FolderProfile.pubxml"
                 "ExcludeFilters"
                 {
                 }

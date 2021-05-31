@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -372,9 +373,13 @@ namespace AMSExplorer
         }
 
 
-        private void LiveEventInformation_Shown(object sender, EventArgs e)
+        private async void LiveEventInformation_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+
+            // We specify a env folder otherwise webview cannot create a cache in program files and crashes....
+            var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
+            await webBrowserPreview.EnsureCoreWebView2Async(env);
         }
 
         private void checkBoxPreviewSet_CheckedChanged(object sender, EventArgs e)

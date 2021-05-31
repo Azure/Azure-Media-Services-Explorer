@@ -38,12 +38,13 @@ namespace AMSExplorer
         private readonly AzureEnvironment environment;
         private readonly List<TenantIdDescription> _myTenants;
         private readonly Prompt _prompt;
+        private readonly IPublicClientApplication _app;
         private List<Subscription> subscriptions;
         private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new();
         public MediaService selectedAccount = null;
         public string selectedTenantId = null;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants, Prompt prompt)
+        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants, Prompt prompt, IPublicClientApplication app)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -52,6 +53,7 @@ namespace AMSExplorer
             this.environment = environment;
             _myTenants = myTenants;
             _prompt = prompt;
+            _app = app;
         }
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
@@ -103,7 +105,7 @@ namespace AMSExplorer
         */
             AuthenticationResult accessToken = null;
             //string[] scopes = { "User.Read" };
-            var accounts = await app.GetAccountsAsync();
+            var accounts = await _app.GetAccountsAsync();
 
             try
             {
@@ -116,7 +118,7 @@ namespace AMSExplorer
                                                                      );
                 */
 
-                accessToken = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
+                accessToken = await _app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
             }
 #pragma warning disable CS0168 // Variable is declared but never used
             catch (MsalUiRequiredException ex)
@@ -124,7 +126,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    accessToken = await app
+                    accessToken = await _app
                         .AcquireTokenInteractive(scopes)
                         .WithPrompt(_prompt)
                         .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))

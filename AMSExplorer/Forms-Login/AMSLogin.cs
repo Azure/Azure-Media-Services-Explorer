@@ -551,7 +551,7 @@ namespace AMSExplorer
                     */
                     Cursor = Cursors.Default;
 
-                    AddAMSAccount2Browse addaccount2 = new(credentials, subscriptions, environment, tenants, prompt);
+                    AddAMSAccount2Browse addaccount2 = new(credentials, subscriptions, environment, tenants, prompt, app);
 
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {

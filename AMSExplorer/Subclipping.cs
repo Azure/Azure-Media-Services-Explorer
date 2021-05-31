@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -630,9 +631,13 @@ namespace AMSExplorer
             // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelGen, timeControlStart, timeControlEnd, textBoxConfiguration }, e, this);
         }
 
-        private void Subclipping_Shown(object sender, EventArgs e)
+        private async void Subclipping_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+
+            // We specify a env folder otherwise webview cannot create a cache in program files and crashes....
+            var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
+            await webBrowserPreview.EnsureCoreWebView2Async(env);
         }
     }
 
