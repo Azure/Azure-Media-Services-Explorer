@@ -116,13 +116,20 @@ namespace AMSExplorer
         {
             Telemetry.TrackPageView(this.Name);
 
-            // We specify a env folder otherwise webview cannot create a cache in program files and crashes....
-            var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
-            await webBrowser1.EnsureCoreWebView2Async(env);
-
-            if (_urlRelNotes != null)
+            try
             {
-                webBrowser1.Source = _urlRelNotes;
+                // We specify a env folder otherwise webview cannot create a cache in program files and crashes....
+                var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
+                await webBrowser1.EnsureCoreWebView2Async(env);
+
+                if (_urlRelNotes != null)
+                {
+                    webBrowser1.Source = _urlRelNotes;
+                }
+            }
+            catch (Exception ex)
+            {
+                Telemetry.TrackException(ex);
             }
         }
     }
