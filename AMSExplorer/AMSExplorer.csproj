@@ -92,7 +92,7 @@
     <PackageReference Include="Microsoft.Identity.Client" Version="4.31.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.824-prerelease" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
   </ItemGroup>
 
