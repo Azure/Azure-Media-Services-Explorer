@@ -74,7 +74,7 @@ namespace AMSExplorer
 
             // BUG
             // fix a crash on non english version of Windows. For now, let's force english UI per default
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en", false);
+            // System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en", false);
 
             if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
             {
