@@ -110,7 +110,7 @@ namespace AMSExplorer
         public const string LinkAzureUpdates = @"https://azure.microsoft.com/en-us/updates/?product=cdn,media-services";
         public const string LinkMoreInfoAMSReleaseNotes = @"https://docs.microsoft.com/en-us/azure/media-services/latest/release-notes";
         public const string LinkMoreInfoDocAMS = @"https://docs.microsoft.com/en-us/azure/media-services/";
-        public const string LinkForumAMS = @"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices";
+        public const string LinkQAAMS = @"https://docs.microsoft.com/en-us/answers/topics/azure-media-services.html";
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
 
         public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-streaming-endpoint-concept";

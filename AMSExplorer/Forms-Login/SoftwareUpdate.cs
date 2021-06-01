@@ -29,14 +29,16 @@ namespace AMSExplorer
         private readonly Uri _urlRelNotes;
         private readonly Version _newVersion;
         private readonly Uri _binaryUrl;
+        private readonly string _parameters;
 
-        public SoftwareUpdate(Uri urlRelNotes, Version newVersion, Uri binaryUrl)
+        public SoftwareUpdate(Uri urlRelNotes, Version newVersion, Uri binaryUrl, String parameters)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _urlRelNotes = urlRelNotes;
             _newVersion = newVersion;
             _binaryUrl = binaryUrl;
+            _parameters = parameters;
         }
 
         private void SoftwareUpdate_Load(object sender, EventArgs e)
@@ -68,7 +70,7 @@ namespace AMSExplorer
             WebClient webClientB = new();
             string filename = System.IO.Path.GetFileName(_binaryUrl.LocalPath);
 
-            webClientB.DownloadFileCompleted += DownloadFileCompletedBinary(filename);
+            webClientB.DownloadFileCompleted += DownloadFileCompletedBinary(filename, _parameters);
             webClientB.DownloadProgressChanged += WebClientB_DownloadProgressChanged;
             webClientB.DownloadFileAsync(_binaryUrl, Path.GetTempPath() + filename);
         }
@@ -78,7 +80,7 @@ namespace AMSExplorer
             progressBar1.Value = e.ProgressPercentage;
         }
 
-        public static AsyncCompletedEventHandler DownloadFileCompletedBinary(string filename)
+        public static AsyncCompletedEventHandler DownloadFileCompletedBinary(string filename, string arguments)
         {
             void action(object sender, AsyncCompletedEventArgs e)
             {
@@ -92,7 +94,8 @@ namespace AMSExplorer
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = Path.GetTempPath() + filename,
-                        UseShellExecute = true
+                        UseShellExecute = true,
+                        Arguments = arguments
                     }
                 };
                 p.Start();

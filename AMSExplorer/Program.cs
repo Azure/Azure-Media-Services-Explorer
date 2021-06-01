@@ -324,12 +324,13 @@ namespace AMSExplorer
                     Uri RelNotesUrl = new((string)data.ReleaseNotesUrl);
                     Uri AllRelNotesUrl = new((string)data.AllReleaseNotesUrl);
                     Uri BinaryUrl = new((string)data.BinaryUrl);
+                    string Parameters = (string)data.Parameters;
 
                     Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
                     if (versionAMSEGitHub > versionAMSELocal)
                     {
                         MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
-                        SoftwareUpdate form = new(RelNotesUrl, versionAMSEGitHub, BinaryUrl);
+                        SoftwareUpdate form = new(RelNotesUrl, versionAMSEGitHub, BinaryUrl, Parameters);
                         form.ShowDialog();
                     }
                 }

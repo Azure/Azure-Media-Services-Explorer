@@ -3800,7 +3800,7 @@ namespace AMSExplorer
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Constants.LinkForumAMS,
+                    FileName = Constants.LinkQAAMS,
                     UseShellExecute = true
                 }
             };
