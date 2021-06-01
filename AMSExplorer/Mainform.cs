@@ -3274,7 +3274,6 @@ namespace AMSExplorer
             ContextMenuItemAssetDisplayInfo.Enabled =
             ContextMenuItemAssetEditDescription.Enabled =
             editAlternateIdToolStripMenuItem.Enabled =
-            contextMenuExportFilesToStorage.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled = singleitem;
         }
 
@@ -3833,20 +3832,38 @@ namespace AMSExplorer
 
             EnableChildItems(ref contextMenuStripTransfers, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabTransfers)));
 
-            EnableChildItems(ref originToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
-            EnableChildItems(ref contextMenuStripStreaminEndpoints, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabOrigins)));
 
-            EnableChildItems(ref liveLiveEventToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
-            EnableChildItems(ref contextMenuStripLiveEvents, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
-            EnableChildItems(ref contextMenuStripLiveOutputs, (tabcontrol.SelectedTab.Text.StartsWith(AMSExplorer.Properties.Resources.TabLive)));
+            // Enable/Disable asset menus
+            EnableChildItems(ref contextMenuStripAssets, tabcontrol.SelectedIndex == 0);
+            EnableChildItems(ref assetToolStripMenuItem, tabcontrol.SelectedIndex == 0);
+
+            // Enable/Disable account filter menu
+            EnableChildItems(ref contextMenuStripFilters, tabcontrol.SelectedIndex == 1);
+
+            // Enable/Disable Content key policies context menu
+            EnableChildItems(ref contextMenuStripCKPolicies, tabcontrol.SelectedIndex == 2);
+
+            // Enable/Disable transfer menu
+            EnableChildItems(ref contextMenuStripTransfers, tabcontrol.SelectedIndex == 3);
+
+            // Enable/Disable transforms and jobs menus
+            EnableChildItems(ref contextMenuStripTransforms, tabcontrol.SelectedIndex == 4);
+            EnableChildItems(ref contextMenuStripJobs, tabcontrol.SelectedIndex == 4);
+
+            // Enable/Disable live objects menus
+            EnableChildItems(ref liveLiveEventToolStripMenuItem, tabcontrol.SelectedIndex == 5);
+            EnableChildItems(ref contextMenuStripLiveEvents, tabcontrol.SelectedIndex == 5);
+            EnableChildItems(ref contextMenuStripLiveOutputs, tabcontrol.SelectedIndex == 5);
+
+            // Enable/Disable se menus
+            EnableChildItems(ref originToolStripMenuItem, tabcontrol.SelectedIndex == 6);
+            EnableChildItems(ref contextMenuStripStreaminEndpoints, tabcontrol.SelectedIndex == 6);
+
+            // Enable/Disable storage menu
+            EnableChildItems(ref contextMenuStripStorage, tabcontrol.SelectedIndex == 7);
 
             Telemetry.TrackPageView("tab " + tabcontrol.SelectedTab.Name);
-
-            buttonRefreshTab.Enabled = tabControlMain.SelectedTab.Name switch
-            {
-                "tabPageChart" => false,
-                _ => true,
-            };
+          
         }
 
         private static void EnableChildItems(ref ToolStripMenuItem menuitem, bool bflag)
@@ -6738,6 +6755,7 @@ namespace AMSExplorer
             Telemetry.TrackEvent("DoUpdateFilterAsync");
 
             AccountFilter filter = (await ReturnSelectedAccountFiltersAsync()).FirstOrDefault();
+            if (filter == null) return;
             DynManifestFilter form = new(_amsClient, filter);
 
             if (form.ShowDialog() == DialogResult.OK)

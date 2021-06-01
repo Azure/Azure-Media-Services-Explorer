@@ -149,19 +149,19 @@
     <value>削除</value>
   </data>
   <data name="deleteSelectedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 22</value>
+    <value>244, 22</value>
   </data>
   <data name="deleteSelectedToolStripMenuItem.Text" xml:space="preserve">
     <value>選択したアセットの削除...</value>
   </data>
   <data name="deleteVisibleAssetsInGridToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 22</value>
+    <value>244, 22</value>
   </data>
   <data name="deleteVisibleAssetsInGridToolStripMenuItem.Text" xml:space="preserve">
     <value>グリッドに表示されたアセットの削除...</value>
   </data>
   <data name="deleteAllAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 22</value>
+    <value>244, 22</value>
   </data>
   <data name="deleteAllAssetsToolStripMenuItem.Text" xml:space="preserve">
     <value>すべてのアセットの削除...</value>
@@ -229,12 +229,6 @@
   <data name="toolStripMenuItem20.Text" xml:space="preserve">
     <value>バッチアップロード...</value>
   </data>
-  <data name="toolStripMenuItem21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>417, 22</value>
-  </data>
-  <data name="toolStripMenuItem21.Text" xml:space="preserve">
-    <value>ウォッチフォルダーの設定...</value>
-  </data>
   <data name="importToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 22</value>
   </data>
@@ -266,22 +260,16 @@
     <value>エクスポート</value>
   </data>
   <data name="exportAssetsInformationToExcelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>327, 22</value>
+    <value>401, 22</value>
   </data>
   <data name="exportAssetsInformationToExcelToolStripMenuItem.Text" xml:space="preserve">
     <value>アセット情報を Excel へエクスポート...</value>
   </data>
   <data name="toolStripSeparator37.Size" type="System.Drawing.Size, System.Drawing">
-    <value>324, 6</value>
-  </data>
-  <data name="contextMenuExportFilesToStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>327, 22</value>
-  </data>
-  <data name="contextMenuExportFilesToStorage.Text" xml:space="preserve">
-    <value>Azure ストレージへエクスポート...</value>
+    <value>398, 6</value>
   </data>
   <data name="contextMenuExportToAnotherMediaServicesAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>327, 22</value>
+    <value>401, 22</value>
   </data>
   <data name="contextMenuExportToAnotherMediaServicesAccount.Text" xml:space="preserve">
     <value>他の Azure Media Servicesアカウントへエクスポート...</value>
@@ -356,25 +344,25 @@
     <value>再生</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 22</value>
+    <value>356, 22</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Player での再生</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 6</value>
+    <value>353, 6</value>
   </data>
   <data name="withAdvancedTestPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 22</value>
+    <value>356, 22</value>
   </data>
   <data name="ContextMenuItemPlaybackWithMPEGDASHIFReference.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 22</value>
+    <value>356, 22</value>
   </data>
   <data name="ContextMenuItemPlaybackWithMPEGDASHIFReference.Text" xml:space="preserve">
     <value>MPEG-DASH IF Reference Player での再生</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 22</value>
+    <value>356, 22</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem1.Text" xml:space="preserve">
     <value>カスタムプレイヤーでの再生</value>
@@ -614,7 +602,7 @@
     <value />
   </data>
   <data name="textBoxJobsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>772, 234</value>
+    <value>763, 234</value>
   </data>
   <data name="textBoxJobsPageNumber.ToolTip" xml:space="preserve">
     <value />
@@ -713,25 +701,25 @@
     <value>削除</value>
   </data>
   <data name="selectedJobsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 22</value>
+    <value>201, 22</value>
   </data>
   <data name="selectedJobsToolStripMenuItem.Text" xml:space="preserve">
     <value>選択したジョブ...</value>
   </data>
   <data name="visibleJobsInGridToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 22</value>
+    <value>201, 22</value>
   </data>
   <data name="visibleJobsInGridToolStripMenuItem1.Text" xml:space="preserve">
     <value>グリッドに表示されたジョブ...</value>
   </data>
   <data name="allJobsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 22</value>
+    <value>201, 22</value>
   </data>
   <data name="allJobsToolStripMenuItem1.Text" xml:space="preserve">
     <value>すべてのジョブ...</value>
   </data>
   <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>803, 235</value>
+    <value>794, 235</value>
   </data>
   <data name="butNextPageJob.ToolTip" xml:space="preserve">
     <value />
@@ -740,7 +728,7 @@
     <value />
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>297, 230</value>
+    <value>294, 230</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 30</value>
@@ -752,22 +740,22 @@
     <value />
   </data>
   <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>736, 235</value>
+    <value>727, 235</value>
   </data>
   <data name="butPrevPageJob.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>461, 234</value>
+    <value>456, 234</value>
   </data>
   <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 23</value>
+    <value>61, 23</value>
   </data>
   <data name="comboBoxStateJobs.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>412, 230</value>
+    <value>407, 230</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 30</value>
@@ -779,7 +767,7 @@
     <value />
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>687, 238</value>
+    <value>678, 238</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 15</value>
@@ -791,7 +779,7 @@
     <value />
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>530, 238</value>
+    <value>523, 238</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 15</value>
@@ -803,16 +791,16 @@
     <value />
   </data>
   <data name="comboBoxOrderJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>596, 234</value>
+    <value>589, 234</value>
   </data>
   <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 23</value>
+    <value>61, 23</value>
   </data>
   <data name="comboBoxOrderJobs.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 23</value>
+    <value>61, 23</value>
   </data>
   <data name="comboBoxFilterJobsTime.ToolTip" xml:space="preserve">
     <value />
@@ -869,16 +857,16 @@
     <value>Azure Media Player での再生</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>766, 200</value>
+    <value>762, 200</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 23</value>
+    <value>247, 23</value>
   </data>
   <data name="comboBoxStatusLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
-    <value>723, 204</value>
+    <value>719, 204</value>
   </data>
   <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 15</value>
@@ -890,19 +878,19 @@
     <value />
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>571, 200</value>
+    <value>567, 200</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="buttonSetFilterLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>447, 201</value>
+    <value>443, 201</value>
   </data>
   <data name="buttonSetFilterLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>311, 23</value>
+    <value>308, 23</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.ToolTip" xml:space="preserve">
     <value />
@@ -911,7 +899,7 @@
     <value />
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>525, 197</value>
+    <value>521, 197</value>
   </data>
   <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 30</value>
@@ -1003,17 +991,8 @@
   <data name="ContextMenuItemProgramPlayback.Text" xml:space="preserve">
     <value>ライブ出力の再生</value>
   </data>
-  <data name="withAzureMediaPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 22</value>
-  </data>
   <data name="withAzureMediaPlayerToolStripMenuItem2.Text" xml:space="preserve">
     <value>Azure Media Player での再生</value>
-  </data>
-  <data name="withAdvancedTestPlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 22</value>
-  </data>
-  <data name="withCustomPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 22</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem2.Text" xml:space="preserve">
     <value>カスタムプレイヤーでの再生</value>
@@ -1241,37 +1220,37 @@
     <value>アセット</value>
   </data>
   <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
+    <value>227, 22</value>
   </data>
   <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
     <value>削除</value>
   </data>
   <data name="selectedAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="selectedAssetToolStripMenuItem.Text" xml:space="preserve">
     <value>選択したアセットの削除...</value>
   </data>
   <data name="visibleAssetsInGridToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="visibleAssetsInGridToolStripMenuItem.Text" xml:space="preserve">
     <value>グリッドに表示されたアセット...</value>
   </data>
   <data name="allAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="allAssetsToolStripMenuItem.Text" xml:space="preserve">
     <value>すべてのアセットの削除...</value>
   </data>
   <data name="toolStripSeparator40.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 6</value>
+    <value>224, 6</value>
   </data>
   <data name="newEmptyAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
+    <value>227, 22</value>
   </data>
   <data name="uploadFromASingleFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
+    <value>227, 22</value>
   </data>
   <data name="uploadFromASingleFileToolStripMenuItem.Text" xml:space="preserve">
     <value>アップロード</value>
@@ -1295,7 +1274,7 @@
     <value>バッチアップロード...</value>
   </data>
   <data name="importToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
+    <value>227, 22</value>
   </data>
   <data name="importToolStripMenuItem.Text" xml:space="preserve">
     <value>インポート</value>
@@ -1319,7 +1298,7 @@
     <value>単一の HTTP/HTTPS URL からインポート...</value>
   </data>
   <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
+    <value>227, 22</value>
   </data>
   <data name="copyAssetFilesToAzureStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>エクスポート</value>
@@ -1339,14 +1318,8 @@
   <data name="toAnotherAzureMediaServicesAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>他の Azure Media Services アカウントへエクスポート...</value>
   </data>
-  <data name="toAzureStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 22</value>
-  </data>
-  <data name="toAzureStorageToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure ストレージへエクスポート...</value>
-  </data>
   <data name="toolStripMenuItemDownloadToLocal.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
+    <value>227, 22</value>
   </data>
   <data name="toolStripMenuItemDownloadToLocal.Text" xml:space="preserve">
     <value>ローカルにダウンロード...</value>
