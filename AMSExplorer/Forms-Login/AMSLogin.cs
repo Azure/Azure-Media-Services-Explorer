@@ -354,7 +354,7 @@ namespace AMSExplorer
 
             //await Task.Run(() => Program.CheckAMSEVersionAsync()).ConfigureAwait(false); //let not wait for this task - no need
             ScaleListViewColumns(listViewAccounts);
-
+            await Program.CheckWebView2VersionAsync();
             await Program.CheckAMSEVersionAsync();
         }
 

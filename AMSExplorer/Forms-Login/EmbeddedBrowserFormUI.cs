@@ -61,9 +61,19 @@ namespace AMSExplorer.AMSLogin
             // navigating to an uri that is entry point to authorization flow.
 
             // We specify a env folder otherwise webview cannot create a cache in program files and crashes....
-            var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
-            await webBrowser.EnsureCoreWebView2Async(env);
-            webBrowser.Source = _authorizationUri;
+            try
+            {
+                var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
+                await webBrowser.EnsureCoreWebView2Async(env);
+                webBrowser.Source = _authorizationUri;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Telemetry.TrackException(ex);
+                throw;
+            }
         }
 
 

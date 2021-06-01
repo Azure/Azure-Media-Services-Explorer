@@ -232,6 +232,71 @@ namespace AMSExplorer
             return myText;
         }
 
+        public static async Task CheckWebView2VersionAsync()
+#pragma warning restore 1998
+        {
+            // https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution
+            // HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}
+            // HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}
+
+            try
+            {
+                string regPath;
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    regPath = Constants.Webview2RegPath64;
+                }
+                else
+                {
+                    regPath = Constants.Webview2RegPath32;
+                }
+
+                var webViewRegEntry = Registry.LocalMachine.OpenSubKey(regPath);
+
+                if (webViewRegEntry == null || (string)webViewRegEntry.GetValue("pv") == null || new Version((string)webViewRegEntry.GetValue("pv")) < new Version(Constants.Webview2MinVersion))
+                {
+                    if (MessageBox.Show("Microsoft Edge WebView2 runtime must be installed or updated. Launch the download and installation now ?", "Webview2 runtime", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        WebClient webClient = new();
+                        string filename = "EdgeViewSetup.exe";
+                        webClient.DownloadFileCompleted += DownloadWebview2VersionRequestCompleted(filename);
+                        webClient.DownloadFileAsync(new Uri(Constants.Webview2Installer), Path.GetTempPath() + filename);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Telemetry.TrackException(ex);
+            }
+
+        }
+
+        public static AsyncCompletedEventHandler DownloadWebview2VersionRequestCompleted(string filename)
+        {
+
+            void action(object sender, AsyncCompletedEventArgs e)
+            {
+                Telemetry.TrackEvent("AMSLogin Microsoft Edge WebView2 downloaded and started");
+
+                Properties.Settings.Default.DeleteInstallationFile = Path.GetTempPath() + filename;
+                Properties.Settings.Default.Save();
+
+                var p = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = Path.GetTempPath() + filename,
+                        UseShellExecute = true
+                    }
+                };
+                p.Start();
+
+                Environment.Exit(0);
+            }
+            return new AsyncCompletedEventHandler(action);
+        }
+
+
 
         public static string MessageNewVersion = string.Empty;
 
@@ -243,6 +308,10 @@ namespace AMSExplorer
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompletedV3(true, sender, e);
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimaryV3));
         }
+
+
+
+
 
         public static void DownloadVersionRequestCompletedV3(bool firsttry, object sender, DownloadStringCompletedEventArgs e)
         {
