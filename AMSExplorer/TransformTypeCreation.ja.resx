@@ -296,7 +296,6 @@
   <data name="labelExamples.Text" xml:space="preserve">
     <value>例:
 http://login:password@hostname.com/path
-Amazon : http://awskey:awssecretkey@bucket.s3.amazonaws.com/object
 Dropbox : http://dl.dropbox.com/object
 </value>
   </data>
