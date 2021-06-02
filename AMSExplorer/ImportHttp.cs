@@ -70,7 +70,6 @@ namespace AMSExplorer
 
             if (_AzureStorageContainerSASListMode)
             {
-                labelExamples.Visible = false;
                 labelSASListExample.Visible = true;
                 labelTitle.Text = Text = AMSExplorer.Properties.Resources.ImportHttp_ImportHttp_Load_ImportFromSASContainerPath;
             }
