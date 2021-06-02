@@ -74,6 +74,7 @@
             this.Name = "DisplayBox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Load += new System.EventHandler(this.DisplayBox_Load);
+            this.Shown += new System.EventHandler(this.DisplayBox_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DisplayBox_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -147,6 +147,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "DRM_WidevineLicense";
             this.Load += new System.EventHandler(this.DRM_WidevineLicense_Load);
+            this.Shown += new System.EventHandler(this.DRM_WidevineLicense_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_WidevineLicense_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

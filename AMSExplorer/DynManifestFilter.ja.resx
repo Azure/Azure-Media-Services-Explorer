@@ -1,64 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -117,14 +57,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonOk.Error" xml:space="preserve">
+  <data name="buttonCancel.Error" xml:space="preserve">
     <value />
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonOk.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonCancel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonOk.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonOk.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
   <data name="buttonOk.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -134,188 +89,200 @@
   <data name="buttonOk.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="checkBoxRawMode.Error" xml:space="preserve">
+  <data name="$this.Text" xml:space="preserve">
+    <value>動的マニフェストフィルター</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="checkBoxRawMode.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="panel1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="checkBoxRawMode.IconPadding" type="System.Int32, mscorlib">
+  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxFilterName.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxFilterName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxFilterName.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxFilterName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label4.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkBoxRawMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>899, 65</value>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 15</value>
   </data>
-  <data name="checkBoxRawMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 19</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>フィルター名 :</value>
   </data>
-  <data name="checkBoxRawMode.Text" xml:space="preserve">
-    <value>トラック フィルター (高度な設定)</value>
-  </data>
-  <data name="checkBoxRawMode.ToolTip" xml:space="preserve">
+  <data name="label4.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxOffset.Error" xml:space="preserve">
+  <data name="buttonInsertSample.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxOffset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="buttonInsertSample.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="textBoxOffset.IconPadding" type="System.Int32, mscorlib">
+  <data name="buttonInsertSample.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="textBoxOffset.ToolTip" xml:space="preserve">
+  <data name="buttonInsertSample.Text" xml:space="preserve">
+    <value>トラックフィルター サンプルの挿入</value>
+  </data>
+  <data name="checkBoxPresentationWindowDuration.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="labelOffset.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelOffset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="checkBoxPresentationWindowDuration.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="labelOffset.IconPadding" type="System.Int32, mscorlib">
+  <data name="checkBoxPresentationWindowDuration.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelOffset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 15</value>
-  </data>
-  <data name="labelOffset.Text" xml:space="preserve">
-    <value>アセット オフセット :</value>
-  </data>
-  <data name="labelOffset.ToolTip" xml:space="preserve">
+  <data name="checkBoxEndTime.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxFilterTimeScale.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxFilterTimeScale.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="checkBoxEndTime.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="textBoxFilterTimeScale.IconPadding" type="System.Int32, mscorlib">
+  <data name="checkBoxEndTime.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="textBoxFilterTimeScale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>231, 63</value>
-  </data>
-  <data name="textBoxFilterTimeScale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 23</value>
-  </data>
-  <data name="textBoxFilterTimeScale.ToolTip" xml:space="preserve">
+  <data name="checkBoxStartTime.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="checkBoxStartTime.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label2.IconPadding" type="System.Int32, mscorlib">
+  <data name="checkBoxStartTime.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 45</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 15</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>フィルター タイムスケール :</value>
-  </data>
-  <data name="label2.ToolTip" xml:space="preserve">
+  <data name="timeControlStart.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxAssetDuration.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxAssetDuration.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="timeControlStart.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="textBoxAssetDuration.IconPadding" type="System.Int32, mscorlib">
+  <data name="timeControlStart.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="textBoxAssetDuration.ToolTip" xml:space="preserve">
+  <data name="timeControlStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>479, 3</value>
+  </data>
+  <data name="timeControlStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 89</value>
+  </data>
+  <data name="timeControlDVR.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="labelassetduration.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelassetduration.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="timeControlDVR.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="labelassetduration.IconPadding" type="System.Int32, mscorlib">
+  <data name="timeControlDVR.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelassetduration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 15</value>
+  <data name="timeControlDVR.Location" type="System.Drawing.Point, System.Drawing">
+    <value>479, 273</value>
   </data>
-  <data name="labelassetduration.Text" xml:space="preserve">
-    <value>アセットの長さ :</value>
+  <data name="timeControlDVR.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 89</value>
   </data>
-  <data name="labelassetduration.ToolTip" xml:space="preserve">
+  <data name="timeControlEnd.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxAssetName.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxAssetName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="timeControlEnd.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="textBoxAssetName.IconPadding" type="System.Int32, mscorlib">
+  <data name="timeControlEnd.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="textBoxAssetName.ToolTip" xml:space="preserve">
+  <data name="timeControlEnd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>479, 138</value>
+  </data>
+  <data name="timeControlEnd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 89</value>
+  </data>
+  <data name="checkBoxLiveBackoff.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxLiveBackoff.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="labelassetname.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelassetname.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="checkBoxLiveBackoff.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="labelassetname.IconPadding" type="System.Int32, mscorlib">
+  <data name="checkBoxLiveBackoff.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelassetname.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 15</value>
+  <data name="checkBoxLiveBackoff.Location" type="System.Drawing.Point, System.Drawing">
+    <value>369, 408</value>
   </data>
-  <data name="labelassetname.Text" xml:space="preserve">
-    <value>アセット名: </value>
+  <data name="checkBoxLiveBackoff.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 24</value>
   </data>
-  <data name="labelassetname.ToolTip" xml:space="preserve">
+  <data name="checkBoxLiveBackoff.TabIndex" type="System.Int32, mscorlib">
+    <value>139</value>
+  </data>
+  <data name="checkBoxLiveBackoff.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="labelFilterTitle.Error" xml:space="preserve">
+  <data name="tabControl1.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="labelFilterTitle.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="labelFilterTitle.IconPadding" type="System.Int32, mscorlib">
+  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelFilterTitle.Text" xml:space="preserve">
-    <value>グローバル フィルター</value>
-  </data>
-  <data name="labelFilterTitle.ToolTip" xml:space="preserve">
+  <data name="tabControl1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="moreinfoprofilelink.Error" xml:space="preserve">
+  <data name="tabPageTR.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="moreinfoprofilelink.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="tabPageTR.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="moreinfoprofilelink.IconPadding" type="System.Int32, mscorlib">
+  <data name="tabPageTR.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="moreinfoprofilelink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 15</value>
+  <data name="tabPageTR.Text" xml:space="preserve">
+    <value>タイム フィルター</value>
   </data>
-  <data name="moreinfoprofilelink.Text" xml:space="preserve">
-    <value>詳細情報</value>
+  <data name="tabPageTR.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="moreinfoprofilelink.ToolTip" xml:space="preserve">
+  <data name="tableLayoutPanel2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanel2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tableLayoutPanel2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel2.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="textBoxDurationTime.Error" xml:space="preserve">
@@ -330,16 +297,16 @@
   <data name="textBoxDurationTime.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label39.Error" xml:space="preserve">
+  <data name="checkBoxForValueForLive.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label39.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="checkBoxForValueForLive.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label39.IconPadding" type="System.Int32, mscorlib">
+  <data name="checkBoxForValueForLive.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label39.ToolTip" xml:space="preserve">
+  <data name="checkBoxForValueForLive.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="labelDefaultBakckoff.Error" xml:space="preserve">
@@ -351,8 +318,11 @@
   <data name="labelDefaultBakckoff.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelDefaultBakckoff.Location" type="System.Drawing.Point, System.Drawing">
+    <value>479, 500</value>
+  </data>
   <data name="labelDefaultBakckoff.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 15</value>
+    <value>63, 15</value>
   </data>
   <data name="labelDefaultBakckoff.Text" xml:space="preserve">
     <value>(既定値: 0)</value>
@@ -360,40 +330,16 @@
   <data name="labelDefaultBakckoff.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="labelDefaultDVR.Error" xml:space="preserve">
+  <data name="numericUpDownBackoffSeconds.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="labelDefaultDVR.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="numericUpDownBackoffSeconds.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="labelDefaultDVR.IconPadding" type="System.Int32, mscorlib">
+  <data name="numericUpDownBackoffSeconds.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelDefaultDVR.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 15</value>
-  </data>
-  <data name="labelDefaultDVR.Text" xml:space="preserve">
-    <value>(既定値: 最大)</value>
-  </data>
-  <data name="labelDefaultDVR.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelDefaultEnd.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelDefaultEnd.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="labelDefaultEnd.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelDefaultEnd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 15</value>
-  </data>
-  <data name="labelDefaultEnd.Text" xml:space="preserve">
-    <value>(既定値: 最大)</value>
-  </data>
-  <data name="labelDefaultEnd.ToolTip" xml:space="preserve">
+  <data name="numericUpDownBackoffSeconds.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="labelStartTimeDefault.Error" xml:space="preserve">
@@ -405,13 +351,88 @@
   <data name="labelStartTimeDefault.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="labelStartTimeDefault.Location" type="System.Drawing.Point, System.Drawing">
+    <value>479, 95</value>
+  </data>
   <data name="labelStartTimeDefault.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 15</value>
+    <value>63, 15</value>
   </data>
   <data name="labelStartTimeDefault.Text" xml:space="preserve">
     <value>(既定値: 0)</value>
   </data>
   <data name="labelStartTimeDefault.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBox2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBox2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelDefaultEnd.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelDefaultEnd.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelDefaultEnd.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelDefaultEnd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>479, 230</value>
+  </data>
+  <data name="labelDefaultEnd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 15</value>
+  </data>
+  <data name="labelDefaultEnd.Text" xml:space="preserve">
+    <value>(既定値: 最大)</value>
+  </data>
+  <data name="labelDefaultEnd.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelDefaultDVR.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelDefaultDVR.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelDefaultDVR.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelDefaultDVR.Location" type="System.Drawing.Point, System.Drawing">
+    <value>479, 365</value>
+  </data>
+  <data name="labelDefaultDVR.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 15</value>
+  </data>
+  <data name="labelDefaultDVR.Text" xml:space="preserve">
+    <value>(既定値: 最大)</value>
+  </data>
+  <data name="labelDefaultDVR.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label39.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label39.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label39.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label39.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 15</value>
+  </data>
+  <data name="label39.Text" xml:space="preserve">
+    <value>間隔:</value>
+  </data>
+  <data name="label39.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="pictureBox1.Error" xml:space="preserve">
@@ -438,130 +459,31 @@
   <data name="pictureBox3.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="timeControlStart.Error" xml:space="preserve">
+  <data name="tabPageTRRaw.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="timeControlStart.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="tabPageTRRaw.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="timeControlStart.IconPadding" type="System.Int32, mscorlib">
+  <data name="tabPageTRRaw.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label42.Error" xml:space="preserve">
+  <data name="tabPageTRRaw.Text" xml:space="preserve">
+    <value>トラック フィルター(高度な設定)</value>
+  </data>
+  <data name="tabPageTRRaw.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label42.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="checkBoxForValueLiveRaw.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxForValueLiveRaw.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label42.IconPadding" type="System.Int32, mscorlib">
+  <data name="checkBoxForValueLiveRaw.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label42.Size" type="System.Drawing.Size, System.Drawing">
-    <value>20, 15</value>
-  </data>
-  <data name="label42.Text" xml:space="preserve">
-    <value>秒</value>
-  </data>
-  <data name="label42.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numericUpDownBackoffSeconds.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numericUpDownBackoffSeconds.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numericUpDownBackoffSeconds.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numericUpDownBackoffSeconds.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxLiveBackoff.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxLiveBackoff.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxLiveBackoff.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxLiveBackoff.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 19</value>
-  </data>
-  <data name="checkBoxLiveBackoff.Text" xml:space="preserve">
-    <value>ライブ バックオフ:</value>
-  </data>
-  <data name="timeControlDVR.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="timeControlDVR.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="timeControlDVR.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxDVRWindow.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxDVRWindow.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxDVRWindow.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="timeControlEnd.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="timeControlEnd.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="timeControlEnd.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxEndTime.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxEndTime.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxEndTime.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxStartTime.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxStartTime.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxStartTime.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pictureBox2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBox2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="pictureBox2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pictureBox2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageTR.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageTR.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPageTR.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageTR.Text" xml:space="preserve">
-    <value>タイム フィルター</value>
-  </data>
-  <data name="tabPageTR.ToolTip" xml:space="preserve">
+  <data name="checkBoxForValueLiveRaw.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label21.Error" xml:space="preserve">
@@ -651,22 +573,16 @@
   <data name="textBoxRawTimescale.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label9.Error" xml:space="preserve">
+  <data name="labeltime1.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label9.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labeltime1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label9.IconPadding" type="System.Int32, mscorlib">
+  <data name="labeltime1.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 15</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>タイムスケール:</value>
-  </data>
-  <data name="label9.ToolTip" xml:space="preserve">
+  <data name="labeltime1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="textBoxRawBackoff.Error" xml:space="preserve">
@@ -717,91 +633,67 @@
   <data name="textBoxRawStart.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label8.Error" xml:space="preserve">
+  <data name="labeltime5.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label8.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labeltime5.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label8.IconPadding" type="System.Int32, mscorlib">
+  <data name="labeltime5.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 15</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>ライブ バックオフ:</value>
-  </data>
-  <data name="label8.ToolTip" xml:space="preserve">
+  <data name="labeltime5.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label7.Error" xml:space="preserve">
+  <data name="labeltime4.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label7.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labeltime4.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label7.IconPadding" type="System.Int32, mscorlib">
+  <data name="labeltime4.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 15</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>DVR ウィンドウ:</value>
-  </data>
-  <data name="label7.ToolTip" xml:space="preserve">
+  <data name="labeltime4.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label5.Error" xml:space="preserve">
+  <data name="labeltime3.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label5.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labeltime3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label5.IconPadding" type="System.Int32, mscorlib">
+  <data name="labeltime3.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 15</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>終了時間 (VOD):</value>
-  </data>
-  <data name="label5.ToolTip" xml:space="preserve">
+  <data name="labeltime3.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label3.Error" xml:space="preserve">
+  <data name="labeltime2.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labeltime2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label3.IconPadding" type="System.Int32, mscorlib">
+  <data name="labeltime2.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 15</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>開始時間 (Live または VOD):</value>
-  </data>
-  <data name="label3.ToolTip" xml:space="preserve">
+  <data name="labeltime2.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="tabPageTRRaw.Error" xml:space="preserve">
+  <data name="tabPageTF.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="tabPageTRRaw.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="tabPageTF.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="tabPageTRRaw.IconPadding" type="System.Int32, mscorlib">
+  <data name="tabPageTF.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="tabPageTRRaw.Text" xml:space="preserve">
-    <value>トラック フィルター(高度な設定)</value>
+  <data name="tabPageTF.Text" xml:space="preserve">
+    <value>トラック フィルター</value>
   </data>
-  <data name="tabPageTRRaw.ToolTip" xml:space="preserve">
+  <data name="tabPageTF.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="numericUpDownFirstQualityBitrate.Error" xml:space="preserve">
@@ -862,6 +754,18 @@
     <value>0</value>
   </data>
   <data name="pictureBox4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanel1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tableLayoutPanel1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label10.Error" xml:space="preserve">
@@ -1215,18 +1119,6 @@
   <data name="label28.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="tableLayoutPanel1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tableLayoutPanel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tableLayoutPanel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label6.Error" xml:space="preserve">
     <value />
   </data>
@@ -1255,7 +1147,7 @@
     <value>0</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 15</value>
+    <value>49, 15</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>ルール:</value>
@@ -1347,31 +1239,19 @@
   <data name="dataGridViewTracks.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="buttonInsertSample.Error" xml:space="preserve">
+  <data name="tabPageInformation.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="buttonInsertSample.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="tabPageInformation.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="buttonInsertSample.IconPadding" type="System.Int32, mscorlib">
+  <data name="tabPageInformation.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="buttonInsertSample.Text" xml:space="preserve">
-    <value>トラックフィルター サンプルの挿入</value>
+  <data name="tabPageInformation.Text" xml:space="preserve">
+    <value>フィルター情報</value>
   </data>
-  <data name="tabPageTF.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageTF.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabPageTF.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageTF.Text" xml:space="preserve">
-    <value>トラック フィルター</value>
-  </data>
-  <data name="tabPageTF.ToolTip" xml:space="preserve">
+  <data name="tabPageInformation.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="contextMenuStripInfo.Error" xml:space="preserve">
@@ -1383,14 +1263,8 @@
   <data name="contextMenuStripInfo.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="toolStripMenuItemFilesCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
-  </data>
-  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
-    <value>クリップボードへコピー</value>
-  </data>
   <data name="contextMenuStripInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 26</value>
+    <value>172, 26</value>
   </data>
   <data name="contextMenuStripInfo.ToolTip" xml:space="preserve">
     <value />
@@ -1407,97 +1281,193 @@
   <data name="DGInfo.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="tabPageInformation.Error" xml:space="preserve">
+  <data name="toolStripMenuItemFilesCopyClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
+    <value>クリップボードへコピー</value>
+  </data>
+  <data name="moreinfoprofilelink.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="tabPageInformation.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="moreinfoprofilelink.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="tabPageInformation.IconPadding" type="System.Int32, mscorlib">
+  <data name="moreinfoprofilelink.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="tabPageInformation.Text" xml:space="preserve">
-    <value>フィルター情報</value>
+  <data name="moreinfoprofilelink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 15</value>
   </data>
-  <data name="tabPageInformation.ToolTip" xml:space="preserve">
+  <data name="moreinfoprofilelink.Text" xml:space="preserve">
+    <value>詳細情報</value>
+  </data>
+  <data name="moreinfoprofilelink.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="tabControl1.Error" xml:space="preserve">
+  <data name="labelFilterTitle.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labelFilterTitle.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
+  <data name="labelFilterTitle.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="tabControl1.ToolTip" xml:space="preserve">
+  <data name="labelFilterTitle.Text" xml:space="preserve">
+    <value>グローバル フィルター</value>
+  </data>
+  <data name="labelFilterTitle.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxFilterName.Error" xml:space="preserve">
+  <data name="textBoxAssetName.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxFilterName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="textBoxAssetName.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="textBoxFilterName.IconPadding" type="System.Int32, mscorlib">
+  <data name="textBoxAssetName.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="textBoxFilterName.ToolTip" xml:space="preserve">
+  <data name="textBoxAssetName.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label4.Error" xml:space="preserve">
+  <data name="labelassetname.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label4.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labelassetname.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label4.IconPadding" type="System.Int32, mscorlib">
+  <data name="labelassetname.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 15</value>
+  <data name="labelassetname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 15</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>フィルター名 :</value>
+  <data name="labelassetname.Text" xml:space="preserve">
+    <value>アセット名: </value>
   </data>
-  <data name="label4.ToolTip" xml:space="preserve">
+  <data name="labelassetname.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>動的マニフェストフィルター</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
+  <data name="textBoxAssetDuration.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="buttonCancel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonCancel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="textBoxAssetDuration.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="buttonCancel.IconPadding" type="System.Int32, mscorlib">
+  <data name="textBoxAssetDuration.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>キャンセル</value>
-  </data>
-  <data name="buttonCancel.ToolTip" xml:space="preserve">
+  <data name="textBoxAssetDuration.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="panel1.Error" xml:space="preserve">
+  <data name="labelassetduration.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labelassetduration.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
+  <data name="labelassetduration.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
+  <data name="labelassetduration.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 15</value>
+  </data>
+  <data name="labelassetduration.Text" xml:space="preserve">
+    <value>アセットの長さ :</value>
+  </data>
+  <data name="labelassetduration.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label39.Text" xml:space="preserve">
-    <value>間隔:</value>
+  <data name="textBoxFilterTimeScale.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxFilterTimeScale.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxFilterTimeScale.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxFilterTimeScale.Location" type="System.Drawing.Point, System.Drawing">
+    <value>231, 63</value>
+  </data>
+  <data name="textBoxFilterTimeScale.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 23</value>
+  </data>
+  <data name="textBoxFilterTimeScale.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 45</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>フィルター タイムスケール :</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxOffset.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxOffset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxOffset.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxOffset.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelOffset.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelOffset.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="labelOffset.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelOffset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 15</value>
+  </data>
+  <data name="labelOffset.Text" xml:space="preserve">
+    <value>アセット オフセット :</value>
+  </data>
+  <data name="labelOffset.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxRawMode.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxRawMode.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxRawMode.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxRawMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>912, 65</value>
+  </data>
+  <data name="checkBoxRawMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 19</value>
+  </data>
+  <data name="checkBoxRawMode.Text" xml:space="preserve">
+    <value>トラック フィルター (高度な設定)</value>
+  </data>
+  <data name="checkBoxRawMode.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

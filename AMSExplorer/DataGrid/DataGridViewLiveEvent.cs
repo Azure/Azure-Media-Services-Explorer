@@ -14,6 +14,7 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -31,7 +32,7 @@ namespace AMSExplorer
 {
     public class DataGridViewLiveEvent : DataGridView
     {
-        public int LiveEventsPerPage
+        public static int LiveEventsPerPage
         {
             get => _liveeventsperpage;
             set => _liveeventsperpage = value;
@@ -62,9 +63,9 @@ namespace AMSExplorer
             get => _timefilterTimeRange;
             set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount => _MyObservLiveEvent.Count();
+        public int DisplayedCount => _MyObservLiveEvent.Count;
 
-        private readonly List<StatusInfo> ListStatus = new List<StatusInfo>();
+        private readonly List<StatusInfo> ListStatus = new();
         private static SortableBindingList<LiveEventEntry> _MyObservLiveEvent;
 
         private static int _liveeventsperpage = 50; //nb of items per page
@@ -74,9 +75,9 @@ namespace AMSExplorer
         private static bool _refreshedatleastonetime = false;
         private static string _statefilter = "All";
         private AMSClientV3 _amsClient;
-        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.LiveEventName, Text = string.Empty };
+        private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveEventName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
-        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private static BackgroundWorker WorkerRefreshChannels;
         private static readonly Bitmap EncodingImage = Bitmaps.encoding;
         private static readonly Bitmap StandardEncodingImage = Bitmaps.encoding;
@@ -89,20 +90,13 @@ namespace AMSExplorer
         private Bitmap ReturnChannelBitmap(LiveEvent channel)
         {
 
-            switch (channel.Encoding.EncodingType)
+            return (string)channel.Encoding.EncodingType switch
             {
-                case nameof(LiveEventEncodingType.None):
-                    return null;
-
-                case nameof(LiveEventEncodingType.Standard):
-                    return StandardEncodingImage;
-
-                case nameof(LiveEventEncodingType.Premium1080p):
-                    return PremiumEncodingImage;
-
-                default:
-                    return null;
-            }
+                nameof(LiveEventEncodingType.None) => null,
+                nameof(LiveEventEncodingType.Standard) => StandardEncodingImage,
+                nameof(LiveEventEncodingType.Premium1080p) => PremiumEncodingImage,
+                _ => null,
+            };
 
 
             /*
@@ -133,7 +127,7 @@ namespace AMSExplorer
             float scale = DeviceDpi / 96f;
 
             // Listing live events
-            List<LiveEvent> liveevents = new List<LiveEvent>();
+            List<LiveEvent> liveevents = new();
             IPage<LiveEvent> liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             while (liveeventsPage != null)
             {
@@ -155,7 +149,7 @@ namespace AMSExplorer
                                Name = c.Name,
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
-                               Encoding = (Bitmap)HighDpiHelper.ScaleImage(ReturnChannelBitmap(c), scale),
+                               Encoding = ReturnChannelBitmap(c),
                                EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
                                InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
                                PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
@@ -180,12 +174,12 @@ namespace AMSExplorer
                            };
 */
 
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
+            DataGridViewCellStyle cellstyle = new()
             {
                 NullValue = null,
                 Alignment = DataGridViewContentAlignment.MiddleCenter
             };
-            DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
+            DataGridViewImageColumn imageCol = new()
             {
                 DefaultCellStyle = cellstyle,
                 Name = _encoded,
@@ -193,7 +187,7 @@ namespace AMSExplorer
             };
             Columns.Add(imageCol);
 
-            SortableBindingList<LiveEventEntry> MyObservChannelsInPage = new SortableBindingList<LiveEventEntry>(channelquery.Take(0).ToList());
+            SortableBindingList<LiveEventEntry> MyObservChannelsInPage = new(channelquery.Take(0).ToList());
             DataSource = MyObservChannelsInPage;
             Columns["InputUrl"].HeaderText = "Primary Input Url";
             Columns["InputUrl"].Width = 140;
@@ -262,8 +256,8 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                await _amsClient.RefreshTokenIfNeededAsync();
-                liveEventItem = await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEventItem.Name); //refresh
+                
+                liveEventItem = await _amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
@@ -285,14 +279,14 @@ namespace AMSExplorer
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveEvent liveEventInputItem;
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
             foreach (LiveEventEntry CE in _MyObservLiveEvent)
             {
 
                 liveEventInputItem = null;
                 try
                 {
-                    liveEventInputItem = await _amsClient.AMSclient.LiveEvents.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, CE.Name);
+                    liveEventInputItem = await _amsClient.GetLiveEventAsync(CE.Name);
                     if (liveEventInputItem != null)
                     {
                         CE.State = liveEventInputItem.ResourceState;
@@ -328,10 +322,10 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             // Listing live events
-            List<LiveEvent> liveevents = new List<LiveEvent>();
+            List<LiveEvent> liveevents = new();
             IPage<LiveEvent> liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             while (liveeventsPage != null)
             {
@@ -347,7 +341,7 @@ namespace AMSExplorer
             }
 
 
-            totalLiveEvents = liveevents.Count();
+            totalLiveEvents = liveevents.Count;
             float scale = DeviceDpi / 96f;
 
             IEnumerable<LiveEventEntry> channelquery = liveevents.Select(c =>
@@ -356,7 +350,7 @@ namespace AMSExplorer
                            Name = c.Name,
                            Description = c.Description,
                            InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString(), c.Input.Endpoints.Count),
-                           Encoding = (Bitmap)HighDpiHelper.ScaleImage(ReturnChannelBitmap(c), scale),
+                           Encoding = ReturnChannelBitmap(c),
                            EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
                            InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
                            PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
@@ -384,6 +378,4 @@ namespace AMSExplorer
                 Refresh();
         }
     }
-
-
 }

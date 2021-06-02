@@ -48,11 +48,11 @@
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxAudioMode = new System.Windows.Forms.GroupBox();
             this.radioButtonAudioStandard = new System.Windows.Forms.RadioButton();
             this.radioButtonAudioBasic = new System.Windows.Forms.RadioButton();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -180,16 +180,6 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // groupBoxAudioMode
             // 
             this.groupBoxAudioMode.Controls.Add(this.radioButtonAudioStandard);
@@ -213,6 +203,16 @@
             this.radioButtonAudioBasic.UseVisualStyleBackColor = true;
             this.radioButtonAudioBasic.CheckedChanged += new System.EventHandler(this.radioButtonAudioBasic_CheckedChanged);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
             // PresetVideoAnalyzer
             // 
             resources.ApplyResources(this, "$this");
@@ -232,6 +232,7 @@
             this.Controls.Add(this.labelAVAnalyzer);
             this.Name = "PresetVideoAnalyzer";
             this.Load += new System.EventHandler(this.PresetVideoAnalyzer_Load);
+            this.Shown += new System.EventHandler(this.PresetVideoAnalyzer_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetVideoAnalyzer_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

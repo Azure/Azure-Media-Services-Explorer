@@ -34,8 +34,8 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBoxInput = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.textBoxInput = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,17 +64,17 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // textBoxInput
-            // 
-            resources.ApplyResources(this.textBoxInput, "textBoxInput");
-            this.textBoxInput.Name = "textBoxInput";
-            // 
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             resources.ApplyResources(this.button2, "button2");
             this.button2.Name = "button2";
             this.button2.UseVisualStyleBackColor = true;
+            // 
+            // textBoxInput
+            // 
+            resources.ApplyResources(this.textBoxInput, "textBoxInput");
+            this.textBoxInput.Name = "textBoxInput";
             // 
             // InputBox
             // 
@@ -92,6 +92,7 @@
             this.Name = "InputBox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Load += new System.EventHandler(this.InputBox_Load);
+            this.Shown += new System.EventHandler(this.InputBox_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.InputBox_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

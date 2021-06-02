@@ -110,6 +110,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SettingsSelection";
             this.Load += new System.EventHandler(this.SettingsSelection_Load);
+            this.Shown += new System.EventHandler(this.SettingsSelection_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.SettingsSelection_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

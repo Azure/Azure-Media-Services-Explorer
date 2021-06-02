@@ -14,9 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,34 +25,6 @@ namespace AMSExplorer.Rest
     /// https://docs.microsoft.com/en-us/rest/api/media/transforms
     /// 
     /// </summary>
-    public partial class AmsClientRest
-    {
-        private const string transformApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/transforms/{3}?api-version=2018-07-01";
-
-        public async Task<string> CreateTransformAsync(string transformName, TransformRestObject transformContent)
-        {
-            string URL = GenerateApiUrl(transformApiUrl, transformName);
-            string responseContent = await CreateObjectAsync(URL, transformContent.ToJson());
-            return responseContent;
-        }
-
-        public TransformRestObject GetTransformContent(string transformName)
-        {
-            Task<TransformRestObject> task = Task.Run<TransformRestObject>(async () => await GetTransformContentAsync(transformName));
-            return task.Result;
-
-            // return GetTransformContentAsync(transformName).GetAwaiter().GetResult();
-        }
-
-        public async Task<TransformRestObject> GetTransformContentAsync(string transformName)
-
-        {
-            string URL = GenerateApiUrl(transformApiUrl, transformName);
-            string responseContent = await GetObjectContentAsync(URL);
-            return TransformRestObject.FromJson(responseContent);
-        }
-    }
-
 
     public class TransformRestObject
     {
@@ -85,40 +55,5 @@ namespace AMSExplorer.Rest
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
         public Properties Properties { get; set; }
-    }
-
-    public class Properties
-    {
-        [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? Created { get; set; }
-
-        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-        public string Description { get; set; }
-
-        [JsonProperty("lastModified", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? LastModified { get; set; }
-
-        [JsonProperty("outputs", NullValueHandling = NullValueHandling.Ignore)]
-        public IList<TransformRestOutput> Outputs { get; set; }
-    }
-
-    public class TransformRestOutput
-    {
-        [JsonProperty("onError", NullValueHandling = NullValueHandling.Ignore)]
-        public string OnError { get; set; }
-
-        [JsonProperty("relativePriority", NullValueHandling = NullValueHandling.Ignore)]
-        public string RelativePriority { get; set; }
-
-        [JsonProperty("preset", NullValueHandling = NullValueHandling.Ignore)]
-        public dynamic Preset { get; set; }
-    }
-
-    public static class SerializeTransformForRest
-    {
-        public static string ToJson(this Transform self)
-        {
-            return JsonConvert.SerializeObject(self, ConverterLE.Settings);
-        }
     }
 }

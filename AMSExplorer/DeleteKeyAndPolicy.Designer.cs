@@ -107,6 +107,7 @@
             this.Controls.Add(this.checkBoxDeleteKeys);
             this.Name = "DeleteKeyAndPolicy";
             this.Load += new System.EventHandler(this.DeleteKeyAndPolicy_Load);
+            this.Shown += new System.EventHandler(this.DeleteKeyAndPolicy_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DeleteKeyAndPolicy_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

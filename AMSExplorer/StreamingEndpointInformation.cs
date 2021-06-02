@@ -31,12 +31,12 @@ namespace AMSExplorer
     {
         public StreamingEndpoint MySE;
         public bool MultipleSelection = false;
-        public ExplorerSEModifications Modifications = new ExplorerSEModifications();
+        public ExplorerSEModifications Modifications = new();
 
         private string MaxCacheAgeInitial;
-        private readonly BindingList<IPRange> endpointSettingList = new BindingList<IPRange>();
-        private readonly BindingList<AkamaiSignatureHeaderAuthenticationKey> AkamaiSettingList = new BindingList<AkamaiSignatureHeaderAuthenticationKey>();
-        private readonly BindingList<HostNameClass> CustomHostNamesList = new BindingList<HostNameClass>()
+        private readonly BindingList<IPRange> endpointSettingList = new();
+        private readonly BindingList<AkamaiSignatureHeaderAuthenticationKey> AkamaiSettingList = new();
+        private readonly BindingList<HostNameClass> CustomHostNamesList = new()
         {
             AllowNew = true
         };
@@ -112,7 +112,7 @@ namespace AMSExplorer
 
         private void StreamingEndpointInformation_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             moreinfoSE.Links.Add(new LinkLabel.Link(0, moreinfoSE.Text.Length, Constants.LinkMoreInfoSE));
 
@@ -341,7 +341,7 @@ namespace AMSExplorer
 
         private void OriginInformation_Shown(object sender, EventArgs e)
         {
-
+            Telemetry.TrackPageView(this.Name);
         }
 
         private void buttonAddAkamai_Click(object sender, EventArgs e)
@@ -403,7 +403,11 @@ namespace AMSExplorer
 
         private void hostnamelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            Process p = new()
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            };
+            p.Start();
         }
 
         private void buttonAddExampleClientPolicy_Click(object sender, EventArgs e)
@@ -488,14 +492,17 @@ namespace AMSExplorer
 
         private void moreinfoSE_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            }; p.Start();
 
         }
 
         private void StreamingEndpointInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { textBoxClientPolicy, textBoxCrossDomPolicy, labelSEName, contextMenuStripOI }, e, this);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { textBoxClientPolicy, textBoxCrossDomPolicy, labelSEName, contextMenuStripOI }, e, this);
         }
     }
 

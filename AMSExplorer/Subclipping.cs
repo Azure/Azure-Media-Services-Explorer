@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -70,7 +71,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    _tempStreamingLocator = Task.Run(() => AssetInfo.CreateTemporaryOnDemandLocatorAsync(_selectedAssets.First(), _amsClientV3)).GetAwaiter().GetResult();
+                    _tempStreamingLocator = Task.Run(() => AssetTools.CreateTemporaryOnDemandLocatorAsync(_selectedAssets.First(), _amsClientV3)).GetAwaiter().GetResult();
                 }
                 catch
                 {
@@ -87,7 +88,7 @@ namespace AMSExplorer
                 XDocument manifest = null;
                 try
                 {
-                    manifest = Task.Run(() => AssetInfo.TryToGetClientManifestContentAsABlobAsync(myAsset, _amsClientV3)).GetAwaiter().GetResult();
+                    manifest = Task.Run(() => AssetTools.TryToGetClientManifestContentAsABlobAsync(myAsset, _amsClientV3)).GetAwaiter().GetResult();
                 }
                 catch
                 {
@@ -97,7 +98,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        manifest = Task.Run(() => AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
+                        manifest = Task.Run(() => AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
                     }
                     catch
                     {
@@ -106,7 +107,7 @@ namespace AMSExplorer
 
                 if (manifest != null)
                 {
-                    _parentAssetManifestData = AssetInfo.GetManifestTimingData(manifest);
+                    _parentAssetManifestData = AssetTools.GetManifestTimingData(manifest);
                 }
 
                 labelDiscountinuity.Visible = _parentAssetManifestData.DiscontinuityDetected;
@@ -161,10 +162,7 @@ namespace AMSExplorer
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             _buttonOk = buttonOk.Text;
             _labelAccurate = labelAccurate.Text;
@@ -184,7 +182,7 @@ namespace AMSExplorer
 
         private SubClipTrimmingDataTimeSpan GetSubClipTrimmingDataTimeSpan()
         {
-            SubClipTrimmingDataTimeSpan trimmingdata = new SubClipTrimmingDataTimeSpan();
+            SubClipTrimmingDataTimeSpan trimmingdata = new();
             if (checkBoxTrimming.Checked)
             {
                 trimmingdata.StartTime = timeControlStart.TimeStampWithOffset;
@@ -211,7 +209,7 @@ namespace AMSExplorer
             }
             else if (radioButtonClipWithReencode.Checked) // means Reencoding
             {
-                SubClipConfiguration config = new SubClipConfiguration()
+                SubClipConfiguration config = new()
                 {
                     Reencode = true,
                     Trimming = false,
@@ -221,7 +219,7 @@ namespace AMSExplorer
                 if (checkBoxTrimming.Checked)
                 {
                     config.Trimming = true;
-                    List<ExplorerEDLEntryInOut> list = new List<ExplorerEDLEntryInOut>();
+                    List<ExplorerEDLEntryInOut> list = new();
                     SubClipTrimmingDataTimeSpan subdata = GetSubClipTrimmingDataTimeSpan();
                     config.AbsoluteStartTime = timeControlStart.TimeStampWithOffset;
                     config.AbsoluteEndTime = timeControlEnd.TimeStampWithOffset;
@@ -230,7 +228,7 @@ namespace AMSExplorer
             }
             else  // means asset filter
             {
-                SubClipConfiguration config = new SubClipConfiguration()
+                SubClipConfiguration config = new()
                 {
                     Reencode = false,
                     Trimming = false,
@@ -251,7 +249,11 @@ namespace AMSExplorer
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            };
+            p.Start();
         }
 
 
@@ -442,7 +444,7 @@ namespace AMSExplorer
             }
 
             // let's sure we dispose the webbrowser control
-            webBrowserPreview.Url = null;
+            webBrowserPreview.Stop();
             webBrowserPreview.Dispose();
         }
 
@@ -462,21 +464,21 @@ namespace AMSExplorer
             {
                 Asset myAsset = _selectedAssets.FirstOrDefault();
 
-                Uri myuri = await AssetInfo.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
+                Uri myuri = await AssetTools.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
 
                 if (myuri != null)
                 {
-                    string myurl = await AssetInfo.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetInfo.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
-                    webBrowserPreview.Url = new Uri(myurl);
+                    string myurl = await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AzureMediaPlayerFrame, path: AssetTools.RW(myuri, https: true).ToString(), DoNotRewriteURL: true, client: _amsClientV3, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
+                    webBrowserPreview.Source = new Uri(myurl);
                 }
                 else
                 {
-                    webBrowserPreview.Url = null;
+                    webBrowserPreview.Source = new Uri("about:blank");
                 }
             }
             else
             {
-                webBrowserPreview.Url = null;
+                webBrowserPreview.Source = new Uri("about:blank");
             }
         }
 
@@ -490,12 +492,19 @@ namespace AMSExplorer
         {
             SubClipConfiguration subclipConfig = GetSubclippingInternalConfiguration();
 
+            Dictionary<string, string> dictionary = new()
+            {
+                { "Reencode", subclipConfig.Reencode.ToString() },
+                { "CreateAssetFilter", subclipConfig.CreateAssetFilter.ToString() }
+            };
+            Telemetry.TrackEvent("Sublipping DoSubClipAsync", dictionary);
+
             if (subclipConfig.Reencode) // reencode the clip
             {
 
                 if (_selectedAssets.Count == 1)
                 {
-                    JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
+                    JobSubmitFromTransform form = new(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -504,7 +513,7 @@ namespace AMSExplorer
                 }
                 else if (_selectedAssets.Count > 1)
                 {
-                    JobSubmitFromTransform form = new JobSubmitFromTransform(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
+                    JobSubmitFromTransform form = new(_amsClientV3, _mainform, _selectedAssets, null, subclipConfig.AbsoluteStartTime, subclipConfig.AbsoluteEndTime, true);
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -550,14 +559,14 @@ namespace AMSExplorer
             else if (subclipConfig.CreateAssetFilter) // create a asset filter
             {
                 Asset selasset = _selectedAssets.FirstOrDefault();
-                DynManifestFilter formAF = new DynManifestFilter(_amsClientV3, null, selasset, subclipConfig);
+                DynManifestFilter formAF = new(_amsClientV3, null, selasset, subclipConfig);
                 if (formAF.ShowDialog() == DialogResult.OK)
                 {
                     FilterCreationInfo filterinfo = null;
                     try
                     {
                         filterinfo = formAF.GetFilterInfo;
-                        AssetFilter assetFilter = new AssetFilter() { PresentationTimeRange = filterinfo.Presentationtimerange };
+                        AssetFilter assetFilter = new() { PresentationTimeRange = filterinfo.Presentationtimerange };
 
                         await _amsClientV3.AMSclient.AssetFilters.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, selasset.Name, filterinfo.Name, assetFilter);
 
@@ -567,6 +576,7 @@ namespace AMSExplorer
                     {
                         _mainform.TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                         _mainform.TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
 
                     await _mainform.DoRefreshGridFiltersVAsync(false);
@@ -618,15 +628,16 @@ namespace AMSExplorer
         private void Subclipping_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelGen, timeControlStart, timeControlEnd, textBoxConfiguration }, e, this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelGen, timeControlStart, timeControlEnd, textBoxConfiguration }, e, this);
         }
 
-        private void Subclipping_Shown(object sender, EventArgs e)
+        private async void Subclipping_Shown(object sender, EventArgs e)
         {
+            Telemetry.TrackPageView(this.Name);
 
+            // We specify a env folder otherwise webview cannot create a cache in program files and crashes....
+            var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
+            await webBrowserPreview.EnsureCoreWebView2Async(env);
         }
     }
 

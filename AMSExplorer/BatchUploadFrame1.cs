@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -47,16 +46,16 @@ namespace AMSExplorer
 
         private void buttonSelectFolder_Click(object sender, EventArgs e)
         {
-            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true };
-            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            FolderBrowserDialog openFolderDialog = new();
+            if (openFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                textBoxFolder.Text = openFolderDialog.FileName;// FolderDialog.SelectedPath;
+                textBoxFolder.Text = openFolderDialog.SelectedPath;// FolderDialog.SelectedPath;
             }
         }
 
         private void BathUploadFrame1_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
@@ -66,6 +65,11 @@ namespace AMSExplorer
                 MessageBox.Show(AMSExplorer.Properties.Resources.BatchUploadFrame1_buttonNext_Click_FolderDoesNotExist, AMSExplorer.Properties.Resources.BatchUploadFrame1_buttonNext_Click_Folder, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 DialogResult = DialogResult.None;
             }
+        }
+
+        private void BatchUploadFrame1_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

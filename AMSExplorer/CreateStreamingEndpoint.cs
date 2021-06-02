@@ -92,7 +92,7 @@ namespace AMSExplorer
 
         internal static bool IsSENameValid(string name)
         {
-            Regex reg = new Regex(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
+            Regex reg = new(@"^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$", RegexOptions.Compiled);
             return (name.Length > 0 && name.Length < 25 && reg.IsMatch(name));
         }
 
@@ -108,8 +108,21 @@ namespace AMSExplorer
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
 
+        }
+
+        private void CreateStreamingEndpoint_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

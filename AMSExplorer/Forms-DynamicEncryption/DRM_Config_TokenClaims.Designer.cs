@@ -426,6 +426,7 @@
             this.Controls.Add(this.groupBoxAuthPol);
             this.Name = "form_DRM_Config_TokenClaims";
             this.Load += new System.EventHandler(this.DRM_Config_TokenClaims_Load);
+            this.Shown += new System.EventHandler(this.form_DRM_Config_TokenClaims_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Form_DRM_Config_TokenClaims_DpiChanged);
             this.groupBoxAuthPol.ResumeLayout(false);
             this.groupBoxAuthPol.PerformLayout();

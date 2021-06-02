@@ -14,6 +14,7 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -43,15 +44,15 @@ namespace AMSExplorer
         public string _locatorexpirationdate = "LocatorExpirationDate";
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
         public string _assetwarning = "AssetWarning";
-        private static readonly Dictionary<string, AssetEntryV3> cacheAssetentriesV3 = new Dictionary<string, AssetEntryV3>();
+        private static readonly Dictionary<string, AssetEntry> cacheAssetentriesV3 = new();
 
         private static int _currentPageNumber = 0;
         private static bool _currentPageNumberIsMax = false; // true when we reached the max
         private static bool _initialized = false;
-        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetNameEquals, Text = "" };
+        private static SearchObject _searchinname = new() { SearchType = SearchIn.AssetNameEquals, Text = "" };
         private static string _statefilter = string.Empty;
         private static string _timefilter = FilterTime.AllItems;
-        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private static string _orderassets = OrderAssets.CreatedDescending;
         private static BackgroundWorker WorkerAnalyzeAssets;
         private static readonly Bitmap clearimage = Bitmaps.clear;
@@ -63,7 +64,7 @@ namespace AMSExplorer
         private static readonly Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
         private static AMSClientV3 _amsClient;
-        private static BindingList<AssetEntryV3> _MyObservAssetV3;
+        private static BindingList<AssetEntry> _MyObservAssetV3;
         private IPage<Asset> firstpage;
         private SynchronizationContext _syncontext;
 
@@ -99,7 +100,7 @@ namespace AMSExplorer
             get => _timefilterTimeRange;
             set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount => _MyObservAssetV3.Count();
+        public int DisplayedCount => _MyObservAssetV3.Count;
 
 
         public void Init(AMSClientV3 client, SynchronizationContext syncontext)
@@ -108,15 +109,13 @@ namespace AMSExplorer
 
             _syncontext = syncontext;
 
-            client.RefreshTokenIfNeeded();
-
             _amsClient = client;
 
             IPage<Asset> assetsList = Task.Run(() =>
                                         _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)
                                         ).GetAwaiter().GetResult();
 
-            IEnumerable<AssetEntryV3> assets = assetsList.Select(a => new AssetEntryV3(_syncontext)
+            IEnumerable<AssetEntry> assets = assetsList.Select(a => new AssetEntry(_syncontext)
             {
                 Name = a.Name,
                 AssetId = a.AssetId,
@@ -128,13 +127,13 @@ namespace AMSExplorer
             }
             );
 
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
+            DataGridViewCellStyle cellstyle = new()
             {
                 NullValue = null,
                 Alignment = DataGridViewContentAlignment.MiddleCenter
             };
 
-            DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
+            DataGridViewImageColumn imageCol = new()
             {
                 DefaultCellStyle = cellstyle,
                 Name = _publication,
@@ -142,7 +141,7 @@ namespace AMSExplorer
             };
             Columns.Add(imageCol);
 
-            DataGridViewImageColumn imageCol3 = new DataGridViewImageColumn()
+            DataGridViewImageColumn imageCol3 = new()
             {
                 DefaultCellStyle = cellstyle,
                 Name = _dynEnc,
@@ -161,7 +160,7 @@ namespace AMSExplorer
             */
 
             //BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
-            BindingList<AssetEntryV3> MyObservAssethisPageV3 = new BindingList<AssetEntryV3>(assets.ToList());
+            BindingList<AssetEntry> MyObservAssethisPageV3 = new(assets.ToList());
 
             DataSource = MyObservAssethisPageV3;
 
@@ -237,14 +236,14 @@ namespace AMSExplorer
 
             if (_MyObservAssetV3 == null) return;
 
-            List<AssetEntryV3> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
+            List<AssetEntry> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
 
             // test - let analyze only visible assets
             int visibleRowsCount = DisplayedRowCount(true);
             if (visibleRowsCount == 0) visibleRowsCount = RowCount; // in some cases, DisplayedCount returns 0 so let's use all rows
             int firstDisplayedRowIndex = (FirstDisplayedCell != null) ? FirstDisplayedCell.RowIndex : 0;
             int lastvisibleRowIndex = (firstDisplayedRowIndex + visibleRowsCount) - 1;
-            List<string> VisibleAssets = new List<string>();
+            List<string> VisibleAssets = new();
             for (int rowIndex = firstDisplayedRowIndex; rowIndex <= lastvisibleRowIndex; rowIndex++)
             {
                 if (Rows.Count > rowIndex)
@@ -256,18 +255,18 @@ namespace AMSExplorer
                 }
             }
 
-            IEnumerable<AssetEntryV3> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
-            List<AssetEntryV3> listae2 = query.ToList();
+            IEnumerable<AssetEntry> query = from ae in listae join visAsset in VisibleAssets on ae.Name equals visAsset select ae;
+            List<AssetEntry> listae2 = query.ToList();
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+
             float scale = DeviceDpi / 96f;
 
-            foreach (AssetEntryV3 AE in listae2)
+            foreach (AssetEntry AE in listae2)
             {
                 await Task.Delay(1000);
                 try
                 {
-                    asset = await _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, AE.Name);
+                    asset = await _amsClient.GetAssetAsync(AE.Name);
 
                     if (asset != null)
                     {
@@ -292,30 +291,30 @@ namespace AMSExplorer
                         AssetBitmapAndText assetBitmapAndText = await DataGridViewAssets.BuildBitmapPublicationAsync(asset.Name, _amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
-                            AE.Publication = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
+                            AE.Publication = assetBitmapAndText.bitmap;
                         }
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
-                        AssetInfoData data = await AssetInfo.GetAssetTypeAsync(asset.Name, _amsClient);
+                        AssetInfoData data = await AssetTools.GetAssetTypeAsync(asset.Name, _amsClient);
                         if (data != null)
                         {
                             AE.Type = data.Type;
                             AE.SizeLong = data.Size;
-                            AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
+                            AE.Size = AssetTools.FormatByteSize(AE.SizeLong);
                             AE.AssetWarning = (AE.SizeLong == 0);
                         }
 
                         assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset.Name, _amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
-                            AE.DynamicEncryption = (Bitmap)HighDpiHelper.ScaleImage(assetBitmapAndText.bitmap, scale);
+                            AE.DynamicEncryption = assetBitmapAndText.bitmap;
                         }
 
                         if (assetBitmapAndText.Locators != null)
                         {
                             DateTime? LocDate = assetBitmapAndText.Locators.Any() ? (DateTime?)assetBitmapAndText.Locators.Min(l => l.EndTime).ToLocalTime() : null;
                             AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString() : null;
-                            AE.LocatorExpirationDateWarning = LocDate.HasValue ? (LocDate < DateTime.Now.ToLocalTime()) : false;
+                            AE.LocatorExpirationDateWarning = LocDate.HasValue && (LocDate < DateTime.Now.ToLocalTime());
                         }
 
                         int? afcount = await ReturnNumberAssetFiltersAsync(asset.Name, _amsClient);
@@ -360,7 +359,7 @@ namespace AMSExplorer
         */
 
 
-        public void PurgeCacheAssets(List<Asset> assets)
+        public static void PurgeCacheAssets(List<Asset> assets)
         {
             assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
         }
@@ -372,7 +371,7 @@ namespace AMSExplorer
         }
 
 
-        private static readonly SemaphoreLocker _locker = new SemaphoreLocker();
+        private static readonly SemaphoreLocker _locker = new();
         private int i = 0;
 
         public async Task ReLaunchAnalyzeOfAssetsAsync()
@@ -457,30 +456,17 @@ Properties/StorageId
             ///////////////////////
             // SORTING
             ///////////////////////
-            ODataQuery<Asset> odataQuery = new ODataQuery<Asset>();
-
-            switch (_orderassets)
+            ODataQuery<Asset> odataQuery = new()
             {
-                case OrderAssets.CreatedDescending:
-                    odataQuery.OrderBy = "Properties/Created desc";
-                    break;
-
-                case OrderAssets.CreatedAscending:
-                    odataQuery.OrderBy = "Properties/Created";
-                    break;
-
-                case OrderAssets.NameAscending:
-                    odataQuery.OrderBy = "Name";
-                    break;
-
-                case OrderAssets.NameDescending:
-                    odataQuery.OrderBy = "Name desc";
-                    break;
-
-                default:
-                    odataQuery.OrderBy = "Properties/Created desc";
-                    break;
-            }
+                OrderBy = _orderassets switch
+                {
+                    OrderAssets.CreatedDescending => "Properties/Created desc",
+                    OrderAssets.CreatedAscending => "Properties/Created",
+                    OrderAssets.NameAscending => "Name",
+                    OrderAssets.NameDescending => "Name desc",
+                    _ => "Properties/Created desc",
+                }
+            };
 
 
 
@@ -574,7 +560,7 @@ Properties/StorageId
             }
 
             IPage<Asset> currentPage = null;
-            await _amsClient.RefreshTokenIfNeededAsync();
+
 
             if (pagetodisplay == 1)
             {
@@ -596,12 +582,12 @@ Properties/StorageId
                 }
             }
 
-            IEnumerable<AssetEntryV3> assets = currentPage.Select(a =>
+            IEnumerable<AssetEntry> assets = currentPage.Select(a =>
             (cacheAssetentriesV3.ContainsKey(a.Name)
                && cacheAssetentriesV3[a.Name].LastModified != null
                && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
                cacheAssetentriesV3[a.Name] :
-            new AssetEntryV3(_syncontext)
+            new AssetEntry(_syncontext)
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -613,7 +599,7 @@ Properties/StorageId
             }
          ));
 
-            _MyObservAssetV3 = new BindingList<AssetEntryV3>(assets.ToList());
+            _MyObservAssetV3 = new BindingList<AssetEntry>(assets.ToList());
 
             Invoke(new Action(() => DataSource = _MyObservAssetV3));
 
@@ -636,7 +622,6 @@ Properties/StorageId
         {
             Bitmap returnedImage = null;
             string returnedText = null;
-            await _amsClient.RefreshTokenIfNeededAsync();
 
             if (locators == null)
             {
@@ -659,7 +644,7 @@ Properties/StorageId
             {
                 Bitmap newbitmap = null;
                 string newtext = null;
-                PublishStatus Status = AssetInfo.GetPublishedStatusForLocator(locator);
+                PublishStatus Status = AssetTools.GetPublishedStatusForLocator(locator);
 
                 {
 
@@ -707,7 +692,6 @@ Properties/StorageId
         /// <returns></returns>
         public static async Task<AssetBitmapAndText> BuildBitmapDynEncryptionAsync(string assetName, AMSClientV3 amsClient, IList<AssetStreamingLocator> locators = null)
         {
-            await amsClient.RefreshTokenIfNeededAsync();
             if (locators == null)
             {
                 try
@@ -730,7 +714,7 @@ Properties/StorageId
                 return new AssetBitmapAndText();
             }
 
-            AssetBitmapAndText ABT = new AssetBitmapAndText() { Locators = locators };
+            AssetBitmapAndText ABT = new() { Locators = locators };
 
             bool ClearEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.ClearStreamingOnly || l.StreamingPolicyName == PredefinedStreamingPolicy.DownloadAndClearStreaming);
             bool CENCEnable = locators.Any(l => l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || l.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming);
@@ -774,10 +758,8 @@ Properties/StorageId
 
         public static async Task<int?> ReturnNumberAssetFiltersAsync(string assetName, AMSClientV3 client)
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
-
             // asset filters
-            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            List<AssetFilter> assetFilters = new();
             try
             {
                 IPage<AssetFilter> assetFiltersPage = await client.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName);
@@ -799,7 +781,7 @@ Properties/StorageId
                 return null;
             }
 
-            return assetFilters.Count();
+            return assetFilters.Count;
         }
 
 
@@ -840,7 +822,7 @@ Properties/StorageId
 
     public class SemaphoreLocker
     {
-        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+        private readonly SemaphoreSlim _semaphore = new(1, 1);
 
         public async Task LockAsync(Func<Task> worker)
         {

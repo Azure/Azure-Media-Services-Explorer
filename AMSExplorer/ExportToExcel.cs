@@ -27,7 +27,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml;
+using System.Diagnostics;
+using X14 = DocumentFormat.OpenXml.Office2010.Excel;
+using System.Globalization;
 
 namespace AMSExplorer
 {
@@ -51,8 +56,6 @@ namespace AMSExplorer
 
         private void ExportToExcel_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
             string extension = radioButtonFormatExcel.Checked ? "xlsx" : "csv";
             textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}." + extension, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _amsClient.credentialsEntry.AccountName, DateTime.Now.ToString("yyyy-MM-dd"));
         }
@@ -117,41 +120,33 @@ namespace AMSExplorer
                 backgroundWorkerCSV.RunWorkerAsync();
             }
         }
+     
 
-        private async Task<int?> ExportAssetExcelAsync(Asset asset, Excel.Worksheet xlWorkSheet, int row, bool detailed, bool localtime, List<StreamingEndpoint> seList)
+        private async Task<(int?, Row)> ExportAssetExcelAsync(Asset asset, uint row, bool detailed, bool localtime, List<StreamingEndpoint> seList)
         {
             int? nbLocators = null;
 
-            int index = 1;
-            xlWorkSheet.Cells[row, index++] = asset.Name;
-            xlWorkSheet.Cells[row, index++] = asset.Description;
-            xlWorkSheet.Cells[row, index++] = asset.AlternateId;
-            xlWorkSheet.Cells[row, index++] = asset.AssetId.ToString();
-            xlWorkSheet.Cells[row, index++] = returnDate(localtime, asset.Created);
-            xlWorkSheet.Cells[row, index++] = returnDate(localtime, asset.LastModified);
-            xlWorkSheet.Cells[row, index++] = asset.StorageAccountName;
-            xlWorkSheet.Cells[row, index++] = asset.Container;
 
+            var listContent = new List<object>() { asset.Name, asset.Description, asset.AlternateId, asset.AssetId.ToString(), returnDate(localtime, asset.Created), returnDate(localtime, asset.LastModified), asset.StorageAccountName, asset.Container };
             if (detailed)
             {
-                var assetType = await AssetInfo.GetAssetTypeAsync(asset.Name, _amsClient);
-                xlWorkSheet.Cells[row, index++] = assetType.Type;
-                xlWorkSheet.Cells[row, index++] = assetType.Size;
+                var assetType = await AssetTools.GetAssetTypeAsync(asset.Name, _amsClient);
+                listContent.Add(assetType.Type);
+                listContent.Add((decimal)assetType.Size);
             }
 
             IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
             nbLocators = locators.Count();
-            xlWorkSheet.Cells[row, index++] = nbLocators;
+            listContent.Add((decimal)nbLocators);
 
             if (detailed)
             {
                 foreach (var locator in locators)
                 {
                     var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
-                    xlWorkSheet.Cells[row, index++] = locator.Name;
-                    xlWorkSheet.Cells[row, index++] = returnDate(localtime, locator.Created);
-                    xlWorkSheet.Cells[row, index++] = returnDate(localtime, locator.StartTime);
-                    xlWorkSheet.Cells[row, index++] = returnDate(localtime, locator.StartTime);
+                    listContent.AddRange(new List<object>() { locator.Name, returnDate(localtime, locator.Created), returnDate(localtime, locator.StartTime), returnDate(localtime, locator.EndTime) });
+
+
                     foreach (var se in seList)
                     {
                         var listPaths = new List<string>();
@@ -159,11 +154,12 @@ namespace AMSExplorer
                         {
                             listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
                         }
-                        xlWorkSheet.Cells[row, index++] = string.Join("\n", listPaths);
+                        listContent.Add(string.Join("\n", listPaths));
                     }
                 }
             }
-            return nbLocators;
+
+            return (nbLocators, CreateNewRow(listContent));
         }
 
         private static DateTime returnDate(bool localtime, DateTime time)
@@ -187,7 +183,7 @@ namespace AMSExplorer
 
             if (detailed)
             {
-                var assetType = await AssetInfo.GetAssetTypeAsync(asset.Name, _amsClient);
+                var assetType = await AssetTools.GetAssetTypeAsync(asset.Name, _amsClient);
                 linec.Add(assetType.Type);
                 linec.Add(assetType.Size.ToString());
             }
@@ -221,23 +217,6 @@ namespace AMSExplorer
             return new CsvLineResult() { line = convertToCSVLine(linec), locatorCount = nbLocators };
         }
 
-        private void releaseObject(object obj)
-        {
-            try
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-                obj = null;
-            }
-            catch (Exception ex)
-            {
-                obj = null;
-                MessageBox.Show(string.Format(AMSExplorer.Properties.Resources.ExportToExcel_releaseObject_ExceptionOccuredWhileReleasingObject0, ex.ToString()));
-            }
-            finally
-            {
-                GC.Collect();
-            }
-        }
 
         private void buttonBrowseFile_Click(object sender, EventArgs e)
         {
@@ -251,8 +230,6 @@ namespace AMSExplorer
         {
             try
             {
-                _amsClient.RefreshTokenIfNeeded();
-
                 // Streaming endpoints
                 Microsoft.Rest.Azure.IPage<StreamingEndpoint> streamingEndpoints = _amsClient.AMSclient.StreamingEndpoints.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
                 var selist = streamingEndpoints.ToList();
@@ -261,54 +238,69 @@ namespace AMSExplorer
                 var csvheader = new StringBuilder();
                 var csv = new StringBuilder();
                 bool detailed = radioButtonDetailledMode.Checked;
-                Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
 
-                if (xlApp == null)
+                // Create a spreadsheet document by supplying the fileName.  
+                SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.
+                    Create(filename, SpreadsheetDocumentType.Workbook);
+
+                // Add a WorkbookPart to the document.  
+                WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
+                workbookpart.Workbook = new Workbook();
+
+                // stype sheet
+                WorkbookStylesPart wbsp = workbookpart.AddNewPart<WorkbookStylesPart>();
+                wbsp.Stylesheet = GetStylesheet();
+                wbsp.Stylesheet.Save();
+
+                // Add a WorksheetPart to the WorkbookPart.  
+                WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
+                worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+                // Add Sheets to the Workbook.  
+                Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+
+                // Append a new worksheet and associate it with the workbook.  
+                Sheet sheet = new Sheet()
                 {
-                    MessageBox.Show("Excel is not properly installed!!");
-                    return;
-                }
+                    Id = spreadsheetDocument.WorkbookPart.
+                        GetIdOfPart(worksheetPart),
+                    SheetId = 1,
+                    Name = "mySheet"
+                };
 
-                Excel.Workbook xlWorkBook;
-                Excel.Worksheet xlWorkSheet;
-                object misValue = System.Reflection.Missing.Value;
+                sheets.Append(sheet);
+                Worksheet worksheet = new Worksheet();
+                SheetData sheetData = new SheetData();
 
-                xlWorkBook = xlApp.Workbooks.Add(misValue);
-                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                //// END INIT
 
-                xlWorkSheet.get_Range("a1", "f1").Merge(false);
-                Excel.Range chartRange = xlWorkSheet.get_Range("a1", "f1");
+
+                string title;
                 if (radioButtonAllAssets.Checked)
                 {
-                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName);
+                    title = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_AllAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName);
                 }
                 else
                 {
-                    chartRange.FormulaR1C1 = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName);
+                    title = string.Format(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_SelectedAssetsInformationMediaAccount0, _amsClient.credentialsEntry.AccountName);
                 }
-                chartRange.VerticalAlignment = 3;
-                chartRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
-                chartRange.Font.Size = 20;
 
-                xlWorkSheet.get_Range("a2", "f2").Merge(false);
-                Excel.Range chartRange2 = xlWorkSheet.get_Range("a2", "f2");
-                chartRange2.FormulaR1C1 = string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
-                    Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                    checkBoxLocalTime.Checked ? DateTime.Now.ToString() : DateTime.UtcNow.ToString(),
-                    checkBoxLocalTime.Checked ? "local" : "UTC based"
-                    );
-                chartRange2.VerticalAlignment = 3;
-                chartRange2.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
-                chartRange2.Font.Size = 12;
+                Row rowTitle = CreateNewRow(title, 3U);
+                uint index = 1;
 
 
-                Excel.Range formatRange;
-                formatRange = xlWorkSheet.get_Range("a4");
-                formatRange.EntireRow.Font.Bold = true;
-                formatRange.EntireRow.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
+                string AMSENote = string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
+                   Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                   checkBoxLocalTime.Checked ? DateTime.Now.ToString() : DateTime.UtcNow.ToString(),
+                   checkBoxLocalTime.Checked ? "local" : "UTC based"
+                   );
+                Row rowAMSENote = CreateNewRow(AMSENote);
 
-                int row = 5;
-                int index = 1;
+
+                // ASSET ROWS
+
+                uint row = 4;
+                List<Row> Rows = new List<Row>();
 
                 if (radioButtonAllAssets.Checked)
                 {
@@ -319,20 +311,25 @@ namespace AMSExplorer
                     {
                         foreach (Asset asset in currentPage)
                         {
-                            var locatorCount = Task.Run(async () => await ExportAssetExcelAsync(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
-                            if (locatorCount != null)
-                                numberMaxLocators = Math.Max(numberMaxLocators, (int)locatorCount);
+                            var output = Task.Run(async () => await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                            if (output.Item1 != null)
+                                numberMaxLocators = Math.Max(numberMaxLocators, (int)output.Item1);
+                            Rows.Add(output.Item2);
 
-                            backgroundWorkerCSV.ReportProgress(index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                     //if cancellation is pending, cancel work.  
+                            backgroundWorkerCSV.ReportProgress((int)index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                          //if cancellation is pending, cancel work.  
                             if (backgroundWorkerExcel.CancellationPending)
                             {
-                                xlApp.DisplayAlerts = false;
-                                xlWorkBook.Close();
-                                xlApp.Quit();
-                                releaseObject(xlWorkSheet);
-                                releaseObject(xlWorkBook);
-                                releaseObject(xlApp);
+                                ////////
+
+                                worksheet.Append(sheetData);
+                                worksheetPart.Worksheet = worksheet;
+                                workbookpart.Workbook.Save();
+
+                                // Close the document.  
+                                spreadsheetDocument.Close();
+
+
                                 e.Cancel = true;
                                 return;
                             }
@@ -356,20 +353,23 @@ namespace AMSExplorer
 
                     foreach (Asset asset in _selassets)
                     {
-                        var locatorCount = Task.Run(async () => await ExportAssetExcelAsync(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
-                        if (locatorCount != null)
-                            numberMaxLocators = Math.Max(numberMaxLocators, (int)locatorCount);
+                        var output = Task.Run(async () => await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                        if (output.Item1 != null)
+                            numberMaxLocators = Math.Max(numberMaxLocators, (int)output.Item1);
 
-                        backgroundWorkerCSV.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                               //if cancellation is pending, cancel work.  
+                        Rows.Add(output.Item2);
+
+                        backgroundWorkerCSV.ReportProgress((int)(100d * (double)index / total), DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                               //if cancellation is pending, cancel work.  
                         if (backgroundWorkerExcel.CancellationPending)
                         {
-                            xlApp.DisplayAlerts = false;
-                            xlWorkBook.Close();
-                            xlApp.Quit();
-                            releaseObject(xlWorkSheet);
-                            releaseObject(xlWorkBook);
-                            releaseObject(xlApp);
+                            // Save the new worksheet.
+                            worksheetPart.Worksheet.Save();
+
+                            workbookpart.Workbook.Save();
+
+                            // Close the document.
+                            spreadsheetDocument.Close();
                             e.Cancel = true;
                             return;
                         }
@@ -378,70 +378,288 @@ namespace AMSExplorer
                     }
                 }
 
-                // Header
-                row = 4;
-                index = 1;
-                xlWorkSheet.Cells[row, index++] = "Asset name";
-                xlWorkSheet.Cells[row, index++] = "Description";
-                xlWorkSheet.Cells[row, index++] = "Alternate Id";
-                xlWorkSheet.Cells[row, index++] = "Asset Id";
-                xlWorkSheet.Cells[row, index++] = "Created time";
-                xlWorkSheet.Cells[row, index++] = "Last modified time";
-                xlWorkSheet.Cells[row, index++] = "Storage account";
-                xlWorkSheet.Cells[row, index++] = "Storage container";
 
+                // HEADER
+
+                var listHeader = new List<object>() { "Asset name", "Description", "Alternate Id", "Asset Id", "Created time", "Last modified time", "Storage account", "Storage container" };
                 if (detailed)
                 {
-                    xlWorkSheet.Cells[row, index++] = "Asset type";
-                    xlWorkSheet.Cells[row, index++] = "Size";
+                    listHeader.Add("Asset type");
+                    listHeader.Add("Size");
                 }
-
-                xlWorkSheet.Cells[row, index++] = "Streaming locators count";
-
+                listHeader.Add("Streaming locators count");
                 if (detailed)
                 {
                     for (int iloc = 0; iloc < numberMaxLocators; iloc++)
                     {
-                        xlWorkSheet.Cells[row, index++] = string.Format("Locator name #{0}", iloc + 1);
-                        xlWorkSheet.Cells[row, index++] = "Created time";
-                        xlWorkSheet.Cells[row, index++] = "Start time";
-                        xlWorkSheet.Cells[row, index++] = "End time";
+                        listHeader.AddRange(new List<string>() { string.Format("Locator name #{0}", iloc + 1), "Created time", "Start time", "End time" });
                         foreach (var se in selist)
                         {
-                            xlWorkSheet.Cells[row, index++] = string.Format("Streaming Urls with streaming endpoint #{0}", selist.IndexOf(se));
+                            listHeader.Add(string.Format("Streaming Urls with streaming endpoint #{0}", selist.IndexOf(se)));
                         }
                     }
                 }
+                Row rowHeader = CreateNewRow(listHeader, 2U);
 
-                // Set the range to fill.
-                var aRange = xlWorkSheet.get_Range("A4", "Z100");
-                aRange.EntireColumn.AutoFit();
+                // END HEADER
 
-                try
+
+                // Empty row
+                var listEmpty = new List<object>();
+                Row rowEmpty = CreateNewRow(listEmpty);
+
+
+                // Let's build the sheet with the rows
+                sheetData.Append(rowTitle);
+                sheetData.Append(rowAMSENote);
+                sheetData.Append(rowEmpty);
+                sheetData.Append(rowHeader);
+                sheetData.Append(Rows);
+
+
+                worksheet.Append(sheetData);
+
+                worksheetPart.Worksheet = worksheet;
+                workbookpart.Workbook.Save();
+
+                // Close the document.  
+                spreadsheetDocument.Close();
+
+                // Let's open the Excel file.
+                if (checkBoxOpenFileAfterExport.Checked)
                 {
-                    xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-                    xlWorkBook.Close(true, misValue, misValue);
-                    xlApp.Quit();
-                    releaseObject(xlWorkSheet);
-                    releaseObject(xlWorkBook);
-                    releaseObject(xlApp);
+                    var p = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = filename,
+                            UseShellExecute = true
+                        }
+                    };
+                    p.Start();
                 }
-                catch
-                {
-                    MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_ErrorWhenSavingTheExcelFile, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                if (checkBoxOpenFileAfterExport.Checked) System.Diagnostics.Process.Start(filename);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Error + ex.Message);
             }
+
+
         }
+
+        private static Row CreateNewRow(string cellValue, UInt32Value styleIndex = null)
+        {
+            Row row = new Row() { Spans = new ListValue<StringValue>() };
+            Cell cell = new Cell()
+            {
+                StyleIndex = styleIndex,
+                DataType = CellValues.String,
+                CellValue = new CellValue(cellValue),
+            };
+
+            row.Append(cell);
+            return row;
+        }
+
+        private static Row CreateNewRow(List<object> cellValues, UInt32Value styleIndex = null)
+        {
+            Row row = new Row() { Spans = new ListValue<StringValue>() };
+            foreach (var value in cellValues)
+            {
+                Cell cell = null;
+
+                if (value == null || typeof(string) == value.GetType())
+                {
+                    cell = new Cell()
+                    {
+                        StyleIndex = styleIndex,
+                        DataType = CellValues.String,
+                        CellValue = new CellValue((string)value),
+                    };
+                }
+                else if (typeof(decimal) == value.GetType())
+                {
+                    var iValue = (decimal)value;
+
+                    cell = new Cell()
+                    {
+                        StyleIndex = 0,
+                        DataType = CellValues.Number,
+                        CellValue = new CellValue(iValue)
+                    };
+                }
+                else if (typeof(DateTime) == value.GetType())
+                {
+                    var oaValue = (DateTime)value;
+
+                    cell = new Cell()
+                    {
+                        StyleIndex = 1,
+                        CellValue = new CellValue(oaValue.ToOADate().ToString(CultureInfo.InvariantCulture))
+                    };
+                }
+
+                row.Append(cell);
+            }
+            return row;
+        }
+
+        /// <summary>
+        /// Create a default style sheet. Needed to manage correctly the dates in the sheet
+        /// </summary>
+        /// <returns></returns>
+        private static Stylesheet GetStylesheet()
+        {
+            var StyleSheet = new Stylesheet();
+
+            // Create "fonts" node.
+            var Fonts = new Fonts();
+            Fonts.Append(new Font()
+            {
+                FontName = new FontName() { Val = "Calibri" },
+                FontSize = new FontSize() { Val = 11 },
+                FontFamilyNumbering = new FontFamilyNumbering() { Val = 2 },
+            });
+            Fonts.Append(new Font()
+            {
+                FontName = new FontName() { Val = "Calibri" },
+                FontSize = new FontSize() { Val = 20 },
+                FontFamilyNumbering = new FontFamilyNumbering() { Val = 2 },
+                Color = new Color { Rgb = "FF00008B" }
+            });
+            Fonts.Append(new Font()  // standard font but in bold
+            {
+                FontName = new FontName() { Val = "Calibri" },
+                FontSize = new FontSize() { Val = 11 },
+                FontFamilyNumbering = new FontFamilyNumbering() { Val = 2 },
+                Bold = new Bold()
+            });
+
+            Fonts.Count = (uint)Fonts.ChildElements.Count;
+
+            // Create "fills" node.
+            var Fills = new Fills();
+            Fills.Append(new Fill() // reserved
+            {
+                PatternFill = new PatternFill() { PatternType = PatternValues.None }
+            });
+            Fills.Append(new Fill() // reserved
+            {
+                PatternFill = new PatternFill() { PatternType = PatternValues.Gray125 }
+            });
+            Fills.Append(new Fill() // for the header columb titles
+            {
+                PatternFill = new PatternFill()
+                {
+                    PatternType = PatternValues.Solid,
+                    ForegroundColor = new ForegroundColor() { Rgb = "FFADD8E6" },
+                    BackgroundColor = new BackgroundColor() { Indexed = (UInt32Value)64U }
+                }
+            });
+
+            Fills.Count = (uint)Fills.ChildElements.Count;
+
+            // Create "borders" node.
+            var Borders = new Borders();
+            Borders.Append(new Border()
+            {
+                LeftBorder = new LeftBorder(),
+                RightBorder = new RightBorder(),
+                TopBorder = new TopBorder(),
+                BottomBorder = new BottomBorder(),
+                DiagonalBorder = new DiagonalBorder()
+            });
+
+            Borders.Count = (uint)Borders.ChildElements.Count;
+
+            // Create "cellStyleXfs" node.
+            var CellStyleFormats = new CellStyleFormats();
+            CellStyleFormats.Append(new CellFormat()
+            {
+                NumberFormatId = 0,
+                FontId = 0,
+                FillId = 0,
+                BorderId = 0
+            });
+
+
+            CellStyleFormats.Count = (uint)CellStyleFormats.ChildElements.Count;
+
+            // Create "cellXfs" node.
+            var CellFormats = new CellFormats();
+
+            // A default style that works for everything but DateTime
+            CellFormats.Append(new CellFormat()
+            {
+                BorderId = 0,
+                FillId = 0,
+                FontId = 0,
+                NumberFormatId = 0,
+                FormatId = 0,
+                ApplyNumberFormat = true
+            });
+
+            // A style that works for DateTime (just the date)
+            CellFormats.Append(new CellFormat()
+            {
+                BorderId = 0,
+                FillId = 0,
+                FontId = 0,
+                NumberFormatId = 14, // or 22 to include the time
+                FormatId = 0,
+                ApplyNumberFormat = true
+            });
+
+            // A default style that works for everything but DateTime for the columns titles
+            CellFormats.Append(new CellFormat()
+            {
+                BorderId = 0,
+                FillId = 2,
+                FontId = 2,
+                NumberFormatId = 0,
+                FormatId = 0,
+                ApplyNumberFormat = true,
+                ApplyFill = true
+            });
+            // A default style that works for everything but DateTime for the header
+            CellFormats.Append(new CellFormat()
+            {
+                BorderId = 0,
+                FillId = 0,
+                FontId = 1,
+                NumberFormatId = 0,
+                FormatId = 0,
+                ApplyNumberFormat = true,
+                ApplyFill = true
+            });
+
+
+            CellFormats.Count = (uint)CellFormats.ChildElements.Count;
+
+            // Create "cellStyles" node.
+            var CellStyles = new CellStyles();
+            CellStyles.Append(new CellStyle()
+            {
+                Name = "Normal",
+                FormatId = 0,
+                BuiltinId = 0
+            });
+            CellStyles.Count = (uint)CellStyles.ChildElements.Count;
+
+            // Append all nodes in order.
+            StyleSheet.Append(Fonts);
+            StyleSheet.Append(Fills);
+            StyleSheet.Append(Borders);
+            StyleSheet.Append(CellStyleFormats);
+            StyleSheet.Append(CellFormats);
+            StyleSheet.Append(CellStyles);
+
+            return StyleSheet;
+        }
+
 
         private void backgroundWorkerCSV_DoWork(object sender, DoWorkEventArgs e)
         {
-            _amsClient.RefreshTokenIfNeeded();
 
             int numberMaxLocators = 0;
             var csvheader = new StringBuilder();
@@ -574,7 +792,18 @@ namespace AMSExplorer
                     MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_ErrorWhenSavingTheExcelFile, AMSExplorer.Properties.Resources.AMSLogin_buttonExport_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                if (checkBoxOpenFileAfterExport.Checked) System.Diagnostics.Process.Start(filename);
+                if (checkBoxOpenFileAfterExport.Checked)
+                {
+                    var p = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = filename,
+                            UseShellExecute = true
+                        }
+                    };
+                    p.Start();
+                }
             }
             catch (Exception ex)
             {
@@ -686,8 +915,12 @@ namespace AMSExplorer
 
         private void ExportToExcel_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
 
+        }
+
+        private void ExportToExcel_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 

@@ -61,10 +61,6 @@ namespace AMSExplorer
 
         private void PresetFaceDetector_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
 
@@ -77,7 +73,11 @@ namespace AMSExplorer
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            };
+            p.Start();
         }
 
         private void radioButtonAudioAndVideo_CheckedChanged(object sender, EventArgs e)
@@ -112,10 +112,12 @@ namespace AMSExplorer
 
         private void PresetFaceDetector_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+        }
 
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+        private void PresetFaceDetector_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

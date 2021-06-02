@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage;
@@ -75,7 +76,6 @@ namespace AMSExplorer
 
         private async Task ControlsResetToDefaultAsync()
         {
-            await _amsClientV3.RefreshTokenIfNeededAsync();
             IList<StorageAccount> storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
 
             comboBoxStorage.Invoke(c => c.Items.Clear());
@@ -97,12 +97,12 @@ namespace AMSExplorer
 
         private void NewAsset_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelNewAsset, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelNewAsset, e);
         }
 
         private void NewAsset_Load(object sender, System.EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void TextBoxAssetName_TextChanged(object sender, System.EventArgs e)
@@ -126,7 +126,7 @@ namespace AMSExplorer
 
         internal static bool IsAssetNameValid(string name)
         {
-            Regex reg = new Regex(@"[<>%&:\\?/*+.']", RegexOptions.Compiled);
+            Regex reg = new(@"[<>%&:\\?/*+.']", RegexOptions.Compiled);
             return (name.Length > 0 && name.Length < 261 && !reg.IsMatch(name));
 
         }
@@ -155,6 +155,11 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, "Asset name is not valid.");
             }
+        }
+
+        private void NewAsset_Shown(object sender, System.EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

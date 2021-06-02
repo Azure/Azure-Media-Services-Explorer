@@ -1,64 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -117,7 +57,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -142,7 +82,7 @@
     <value>label</value>
   </data>
   <data name="&gt;&gt;label.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label.Parent" xml:space="preserve">
     <value>$this</value>
@@ -172,7 +112,7 @@
     <value>buttonCancel</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -208,7 +148,7 @@
     <value>buttonOk</value>
   </data>
   <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -247,7 +187,7 @@
     <value>buttonDeleteTemplate</value>
   </data>
   <data name="&gt;&gt;buttonDeleteTemplate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonDeleteTemplate.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -271,7 +211,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -304,7 +244,7 @@
     <value>labelTitle</value>
   </data>
   <data name="&gt;&gt;labelTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelTitle.Parent" xml:space="preserve">
     <value>$this</value>
@@ -334,7 +274,7 @@
     <value>label1</value>
   </data>
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -367,7 +307,7 @@
     <value>buttonCreateNewTransform</value>
   </data>
   <data name="&gt;&gt;buttonCreateNewTransform.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonCreateNewTransform.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -400,7 +340,7 @@
     <value>labelURLFileNameWarning</value>
   </data>
   <data name="&gt;&gt;labelURLFileNameWarning.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelURLFileNameWarning.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -430,7 +370,7 @@
     <value>textBoxURL</value>
   </data>
   <data name="&gt;&gt;textBoxURL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxURL.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -460,7 +400,7 @@
     <value>radioButtonHttpSource</value>
   </data>
   <data name="&gt;&gt;radioButtonHttpSource.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonHttpSource.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -490,7 +430,7 @@
     <value>radioButtonSelectedAssets</value>
   </data>
   <data name="&gt;&gt;radioButtonSelectedAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonSelectedAssets.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -514,7 +454,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -538,7 +478,7 @@
     <value>listViewTransforms</value>
   </data>
   <data name="&gt;&gt;listViewTransforms.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewTransforms, AMSExplorer, Version=5.3.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewTransforms, AMSExplorer, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewTransforms.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -549,6 +489,7 @@
   <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
@@ -565,7 +506,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
     <value>tabControl1</value>
@@ -598,7 +539,7 @@
     <value>buttonImportEDL</value>
   </data>
   <data name="&gt;&gt;buttonImportEDL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonImportEDL.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -631,7 +572,7 @@
     <value>buttonExportEDL</value>
   </data>
   <data name="&gt;&gt;buttonExportEDL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonExportEDL.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -664,7 +605,7 @@
     <value>labelAssetDescription</value>
   </data>
   <data name="&gt;&gt;labelAssetDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelAssetDescription.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -688,7 +629,7 @@
     <value>textBoxAssetDescription</value>
   </data>
   <data name="&gt;&gt;textBoxAssetDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAssetDescription.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -703,7 +644,7 @@
     <value>32, 287</value>
   </data>
   <data name="dataGridViewEDL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>618, 81</value>
+    <value>618, 75</value>
   </data>
   <data name="dataGridViewEDL.TabIndex" type="System.Int32, mscorlib">
     <value>142</value>
@@ -712,7 +653,7 @@
     <value>dataGridViewEDL</value>
   </data>
   <data name="&gt;&gt;dataGridViewEDL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridViewEDL.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -733,7 +674,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonDelEntry.Location" type="System.Drawing.Point, System.Drawing">
-    <value>656, 348</value>
+    <value>656, 335</value>
   </data>
   <data name="buttonDelEntry.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -748,7 +689,7 @@
     <value>buttonDelEntry</value>
   </data>
   <data name="&gt;&gt;buttonDelEntry.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonDelEntry.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -781,7 +722,7 @@
     <value>buttonAddEDLEntry</value>
   </data>
   <data name="&gt;&gt;buttonAddEDLEntry.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonAddEDLEntry.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -796,7 +737,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>656, 315</value>
+    <value>656, 302</value>
   </data>
   <data name="buttonDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -814,7 +755,7 @@
     <value>buttonDown</value>
   </data>
   <data name="&gt;&gt;buttonDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonDown.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -847,7 +788,7 @@
     <value>labelInfoSeveralAssetStitching</value>
   </data>
   <data name="&gt;&gt;labelInfoSeveralAssetStitching.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelInfoSeveralAssetStitching.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -862,7 +803,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonUp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>656, 282</value>
+    <value>656, 269</value>
   </data>
   <data name="buttonUp.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 27</value>
@@ -880,7 +821,7 @@
     <value>buttonUp</value>
   </data>
   <data name="&gt;&gt;buttonUp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonUp.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -910,7 +851,7 @@
     <value>labelInputAsset</value>
   </data>
   <data name="&gt;&gt;labelInputAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelInputAsset.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -934,7 +875,7 @@
     <value>comboBoxSourceAsset</value>
   </data>
   <data name="&gt;&gt;comboBoxSourceAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;comboBoxSourceAsset.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -959,13 +900,13 @@
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>This functionality works with any Transform that is built using either the BuiltInStandardEncoderPreset presets, or the StandardEncoderPreset presets.
-To trim a live asset,  use instead the subclipping feature in AMSE (times will be correctly calculated).</value>
+To trim a live asset, use instead the subclipping feature in AMSE (times will be correctly calculated).</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
   </data>
   <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -992,7 +933,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>checkBoxSourceTrimmingEnd</value>
   </data>
   <data name="&gt;&gt;checkBoxSourceTrimmingEnd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxSourceTrimmingEnd.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -1022,7 +963,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>label7</value>
   </data>
   <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label7.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -1046,7 +987,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>textBoxSourceDurationTime</value>
   </data>
   <data name="&gt;&gt;textBoxSourceDurationTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxSourceDurationTime.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -1073,7 +1014,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>checkBoxSourceTrimmingStart</value>
   </data>
   <data name="&gt;&gt;checkBoxSourceTrimmingStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxSourceTrimmingStart.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -1103,7 +1044,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>timeControlEndTime</value>
   </data>
   <data name="&gt;&gt;timeControlEndTime.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.3.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlEndTime.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -1133,7 +1074,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>timeControlStartTime</value>
   </data>
   <data name="&gt;&gt;timeControlStartTime.Type" xml:space="preserve">
-    <value>AMSExplorer.TimeControl, AMSExplorer, Version=5.3.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.TimeControl, AMSExplorer, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timeControlStartTime.Parent" xml:space="preserve">
     <value>tabPage2</value>
@@ -1160,7 +1101,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
     <value>tabControl1</value>
@@ -1187,7 +1128,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>listViewAssets1</value>
   </data>
   <data name="&gt;&gt;listViewAssets1.Type" xml:space="preserve">
-    <value>AMSExplorer.ListViewAssets, AMSExplorer, Version=5.3.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>AMSExplorer.ListViewAssets, AMSExplorer, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;listViewAssets1.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -1220,7 +1161,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>labelSelectAsset</value>
   </data>
   <data name="&gt;&gt;labelSelectAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelSelectAsset.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -1253,7 +1194,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>buttonSearchExactAssetName</value>
   </data>
   <data name="&gt;&gt;buttonSearchExactAssetName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonSearchExactAssetName.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -1280,7 +1221,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>textBoxNewAssetNameSyntax</value>
   </data>
   <data name="&gt;&gt;textBoxNewAssetNameSyntax.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxNewAssetNameSyntax.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -1307,7 +1248,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>textBoxExactAssetName</value>
   </data>
   <data name="&gt;&gt;textBoxExactAssetName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxExactAssetName.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -1340,7 +1281,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>label4</value>
   </data>
   <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label4.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -1370,7 +1311,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>radioButtonExistingAsset</value>
   </data>
   <data name="&gt;&gt;radioButtonExistingAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonExistingAsset.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -1400,7 +1341,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>radioButtonNewAsset</value>
   </data>
   <data name="&gt;&gt;radioButtonNewAsset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonNewAsset.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -1427,7 +1368,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
     <value>tabControl1</value>
@@ -1448,7 +1389,7 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>tabControl1</value>
   </data>
   <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1490,24 +1431,24 @@ To trim a live asset,  use instead the subclipping feature in AMSE (times will b
     <value>openFileDialogWorkflow</value>
   </data>
   <data name="&gt;&gt;openFileDialogWorkflow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
     <value>saveFileDialog1</value>
   </data>
   <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
     <value>openFileDialog1</value>
   </data>
   <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>JobSubmitFromTransform</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

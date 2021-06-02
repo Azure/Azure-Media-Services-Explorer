@@ -36,7 +36,7 @@ namespace AMSExplorer
         private readonly TimeSpan? _end;
         private readonly bool _multipleInputAssets;
 
-        private BindingList<EDLEntryInOut> TimeCodeList = new BindingList<EDLEntryInOut>();
+        private BindingList<EDLEntryInOut> TimeCodeList = new();
         public delegate void ChangedEventHandler(object sender, EventArgs e);
 
         public Transform SelectedTransform => listViewTransforms.GetSelectedTransform;
@@ -157,12 +157,7 @@ namespace AMSExplorer
 
         private async void JobSubmitFromTransform_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
             dataGridViewEDL.DataSource = TimeCodeList;
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
             await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault()?.Name);
             UpdateLabeltext();
@@ -320,17 +315,14 @@ namespace AMSExplorer
 
         private async void ButtonCreateNewTransform_Click(object sender, EventArgs e)
         {
+            Telemetry.TrackEvent("JobSubmitFromTransform ButtonCreateNewTransform_Click");
+
             string transformName = await _myMainform.DoCreateOrUpdateATransformAsync();
             await listViewTransforms.LoadTransformsAsync(_client, transformName);
         }
 
         private void JobSubmitFromTransform_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, timeControlStartTime, timeControlEndTime }, e, this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
         }
 
         private async void radioButtonExistingAsset_CheckedChanged(object sender, EventArgs e)
@@ -364,6 +356,8 @@ namespace AMSExplorer
 
         private void buttonAddEDLEntry_Click(object sender, EventArgs e)
         {
+            Telemetry.TrackEvent("JobSubmitFromTransform buttonAddEDLEntry_Click");
+
             string assetName = comboBoxSourceAsset.Text;
             AddEDLEntry(new EDLEntryInOut()
             {
@@ -495,7 +489,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        asset = await _client.AMSclient.Assets.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, assetName).ConfigureAwait(false);
+                        asset = await _client.GetAssetAsync(assetName).ConfigureAwait(false);
                         _listAssets.Add(asset);
                         updateAssetDescription(asset.Description);
                     }
@@ -529,9 +523,9 @@ namespace AMSExplorer
 
         private void buttonExportEDL_Click(object sender, EventArgs e)
         {
-            PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+            PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
 
-            JsonSerializerSettings settings = new JsonSerializerSettings
+            JsonSerializerSettings settings = new()
             {
                 NullValueHandling = NullValueHandling.Ignore,
                 Formatting = Newtonsoft.Json.Formatting.Indented,
@@ -541,7 +535,7 @@ namespace AMSExplorer
             DialogResult diares = saveFileDialog1.ShowDialog();
             if (diares == DialogResult.OK)
             {
-                EDLImportExport export = new EDLImportExport();
+                EDLImportExport export = new();
                 export.AMSE_EDL_Entries.AddRange(TimeCodeList);
                 try
                 {
@@ -563,7 +557,7 @@ namespace AMSExplorer
             {
                 string json = System.IO.File.ReadAllText(openFileDialog1.FileName);
 
-                EDLImportExport EDLImportExport = null;
+                EDLImportExport EDLImportExport;
                 try
                 {
                     EDLImportExport = (EDLImportExport)JsonConvert.DeserializeObject(json, typeof(EDLImportExport));
@@ -590,12 +584,17 @@ namespace AMSExplorer
                 }
             }
         }
+
+        private void JobSubmitFromTransform_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
+        }
     }
 
 
     public class EDLImportExport
     {
         public decimal Version = 1;
-        public List<EDLEntryInOut> AMSE_EDL_Entries = new List<EDLEntryInOut>();
+        public List<EDLEntryInOut> AMSE_EDL_Entries = new();
     }
 }

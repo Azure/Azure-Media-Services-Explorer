@@ -214,6 +214,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "TransformInformation";
             this.Load += new System.EventHandler(this.TransformInformation_Load);
+            this.Shown += new System.EventHandler(this.TransformInformation_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.TransformInformation_DpiChanged);
             this.contextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGTransform)).EndInit();

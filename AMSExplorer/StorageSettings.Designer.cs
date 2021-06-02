@@ -123,6 +123,7 @@ namespace AMSExplorer
             this.Controls.Add(this.label1);
             this.Name = "StorageSettings";
             this.Load += new System.EventHandler(this.StorageVersion_Load);
+            this.Shown += new System.EventHandler(this.StorageSettings_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.StorageSettings_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

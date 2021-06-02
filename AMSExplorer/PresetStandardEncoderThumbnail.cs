@@ -123,10 +123,6 @@ namespace AMSExplorer
 
         private void PresetStandardEncoderThumbnail_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
 
             moreinfoprofilelink.Links.Clear();
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoMediaEncoderThumbnail));
@@ -135,16 +131,16 @@ namespace AMSExplorer
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            }; p.Start();
         }
 
 
         private void PresetStandardEncoderThumbnail_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelMES, e);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelMES, e);
         }
 
 
@@ -152,6 +148,11 @@ namespace AMSExplorer
         {
             numericUpDownSpriteColumn.Enabled = radioButtonSprite.Checked;
             numericUpDownThQuality.Enabled = radioButtonSprite.Checked || radioButtonJPG.Checked;
+        }
+
+        private void PresetStandardEncoderThumbnail_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

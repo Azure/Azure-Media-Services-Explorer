@@ -120,6 +120,7 @@
             this.Controls.Add(this.buttonSelectFolder);
             this.Name = "BatchUploadFrame1";
             this.Load += new System.EventHandler(this.BathUploadFrame1_Load);
+            this.Shown += new System.EventHandler(this.BatchUploadFrame1_Shown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);

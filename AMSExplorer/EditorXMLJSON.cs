@@ -26,7 +26,6 @@ namespace AMSExplorer
     {
         private string savedConfig;
         private readonly ShowSampleMode _showSample;
-        private readonly string defaultConfig;
 
         public string TextData => textBoxConfiguration.Text;
 
@@ -39,7 +38,7 @@ namespace AMSExplorer
                 Text = title;
             }
 
-            textBoxConfiguration.Text = savedConfig = defaultConfig = (text == null ? string.Empty : text);
+            textBoxConfiguration.Text = savedConfig = text ?? string.Empty;
             if (editMode)
             {
                 buttonOk.Text = AMSExplorer.Properties.Resources.EditorXMLJSON_EditorXMLJSON_Save;
@@ -91,24 +90,24 @@ namespace AMSExplorer
         {
             if (_showSample == ShowSampleMode.Premium)
             {
-                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
+                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath, Constants.PathConfigFiles, "SampleMPWESetRunTime.xml"));
                 textBoxConfiguration.Text = doc.Declaration.ToString() + Environment.NewLine + doc.ToString();
             }
             else if (_showSample == ShowSampleMode.JsonPreset)
             {
-                textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "Preset.json"));
+                textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath, Constants.PathConfigFiles, "Preset.json"));
             }
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+            System.Threading.Thread MyThread = new(new ParameterizedThreadStart(DoCopyClipboard));
             MyThread.SetApartmentState(ApartmentState.STA);
             MyThread.IsBackground = true;
             MyThread.Start(textBoxConfiguration.Text);
         }
 
-        public void DoCopyClipboard(object text)
+        public static void DoCopyClipboard(object text)
         {
             Clipboard.SetText((string)text);
         }
@@ -120,12 +119,17 @@ namespace AMSExplorer
 
         private void EditorXMLJSON_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void EditorXMLJSON_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
+        }
+
+        private void EditorXMLJSON_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 

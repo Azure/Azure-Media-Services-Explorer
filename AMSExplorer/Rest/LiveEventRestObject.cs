@@ -18,44 +18,9 @@
 using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace AMSExplorer.Rest
 {
-    /// <summary>
-    /// Rest call for live transcription preview
-    /// https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription
-    /// 
-    /// </summary>
-    public partial class AmsClientRest
-    {
-        private const string liveEventApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2019-05-01-preview";
-
-        public async Task<string> CreateLiveEventAsync(LiveEventRestObject liveEventSettings, bool startLiveEventNow)
-        {
-            string URL = GenerateApiUrl(liveEventApiUrl, liveEventSettings.Name) + string.Format("&autoStart={0}", startLiveEventNow.ToString());
-            string responseContent = await CreateObjectAsync(URL, liveEventSettings.ToJson());
-            return responseContent;
-        }
-
-
-        public LiveEventRestObject GetLiveEvent(string liveEventName)
-        {
-            Task<LiveEventRestObject> task = Task.Run<LiveEventRestObject>(async () => await GetLiveEventAsync(liveEventName));
-            return task.Result;
-
-            // return GetLiveEventAsync(liveEventName).GetAwaiter().GetResult();
-        }
-
-
-        public async Task<LiveEventRestObject> GetLiveEventAsync(string liveEventName)
-        {
-            string URL = GenerateApiUrl(liveEventApiUrl, liveEventName);
-            string responseContent = await GetObjectContentAsync(URL);
-            return LiveEventRestObject.FromJson(responseContent);
-        }
-    }
-
 
     public class LiveEventRestObject
     {
@@ -85,29 +50,5 @@ namespace AMSExplorer.Rest
         [JsonProperty("name")]
         public string Name { get; set; }
 
-    }
-
-    public class PropertiesForRest
-    {
-        [JsonProperty("description")]
-        public string Description { get; set; }
-
-        [JsonProperty("input")]
-        public LiveEventInput Input { get; set; }
-
-        [JsonProperty("preview")]
-        public LiveEventPreview Preview { get; set; }
-
-        [JsonProperty("encoding")]
-        public LiveEventEncoding Encoding { get; set; }
-
-        [JsonProperty("transcriptions")]
-        public IList<LiveEventTranscription> Transcriptions { get; set; }
-
-        [JsonProperty("vanityUrl")]
-        public bool? VanityUrl { get; set; }
-
-        [JsonProperty("streamOptions")]
-        public IList<StreamOptionsFlag?> StreamOptions { get; set; }
     }
 }

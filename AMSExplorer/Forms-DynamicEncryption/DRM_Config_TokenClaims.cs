@@ -31,10 +31,11 @@ namespace AMSExplorer
 {
     public partial class form_DRM_Config_TokenClaims : Form
     {
-        private readonly BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
+        private readonly BindingList<MyTokenClaim> TokenClaimsList = new();
         private X509Certificate2 cert = null;
 
-        public readonly List<ExplorerOpenIDSample> ListOpenIDSampleUris = new List<ExplorerOpenIDSample> {
+        public readonly List<ExplorerOpenIDSample> ListOpenIDSampleUris = new()
+        {
                 new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration"},
                 new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
               };
@@ -77,7 +78,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<ContentKeyPolicyTokenClaim> mylist = new List<ContentKeyPolicyTokenClaim>();
+                List<ContentKeyPolicyTokenClaim> mylist = new();
                 foreach (MyTokenClaim j in TokenClaimsList)
                 {
                     if (!string.IsNullOrEmpty(j.Type))
@@ -94,7 +95,7 @@ namespace AMSExplorer
         }
 
 
-        public ContentKeyPolicyRestrictionTokenType TokenType => ContentKeyPolicyRestrictionTokenType.Jwt;
+        public static ContentKeyPolicyRestrictionTokenType TokenType => ContentKeyPolicyRestrictionTokenType.Jwt;
 
 
         public ExplorerTokenType GetDetailedTokenType
@@ -176,7 +177,7 @@ namespace AMSExplorer
             SigningCredentials signingcredentials;
             if (GetDetailedTokenType == ExplorerTokenType.JWTSym)
             {
-                SymmetricSecurityKey tokenSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(SymmetricKey);
+                SymmetricSecurityKey tokenSigningKey = new(SymmetricKey);
                 signingcredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(tokenSigningKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
             }
             else if (GetDetailedTokenType == ExplorerTokenType.JWTX509 && cert != null)
@@ -188,7 +189,7 @@ namespace AMSExplorer
                 throw new Exception();
             }
 
-            List<Claim> claims = new List<Claim>();
+            List<Claim> claims = new();
 
             if (requiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
             {
@@ -201,7 +202,7 @@ namespace AMSExplorer
             }
 
 
-            JwtSecurityToken token = new JwtSecurityToken(
+            JwtSecurityToken token = new(
                                                         issuer: Issuer,
                                                         audience: Audience,
                                                         claims: claims.Count > 0 ? claims : null,
@@ -211,7 +212,7 @@ namespace AMSExplorer
                                                         );
 
 
-            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler handler = new();
 
             return handler.WriteToken(token);
         }
@@ -220,7 +221,7 @@ namespace AMSExplorer
 
         private void DRM_Config_TokenClaims_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
@@ -337,7 +338,7 @@ namespace AMSExplorer
             radioButtonContentKeyBase64.Checked = true;
 
             byte[] TokenSigningKey = new byte[40];
-            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            RNGCryptoServiceProvider rng = new();
             rng.GetBytes(TokenSigningKey);
             textBoxSymKey.Text = Convert.ToBase64String(new ContentKeyPolicySymmetricTokenKey(TokenSigningKey).KeyValue);
         }
@@ -382,7 +383,12 @@ namespace AMSExplorer
 
         private void Form_DRM_Config_TokenClaims_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelStep, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelStep, e);
+        }
+
+        private void form_DRM_Config_TokenClaims_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

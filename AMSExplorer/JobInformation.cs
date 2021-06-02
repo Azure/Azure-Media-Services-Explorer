@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
@@ -79,7 +80,7 @@ namespace AMSExplorer
 
         private void JobInformation_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             labelJobNameTitle.Text += MyJob.Name;
 
@@ -156,7 +157,7 @@ namespace AMSExplorer
 
             // output assets
 
-            bool boutoutsinjobs = (MyJob.Outputs.Count() > 0);
+            bool boutoutsinjobs = (MyJob.Outputs.Count > 0);
 
             int index = 1;
             if (boutoutsinjobs)
@@ -169,7 +170,7 @@ namespace AMSExplorer
 
                     if (output.Error != null && output.Error.Details != null)
                     {
-                        for (int i = 0; i < output.Error.Details.Count(); i++)
+                        for (int i = 0; i < output.Error.Details.Count; i++)
                         {
                             DGErrors.Rows.Add(outputLabel, output.Error.Details[i].Message, output.Error.Details[i].Code);
                         }
@@ -212,13 +213,13 @@ namespace AMSExplorer
             if (output is JobOutputAsset outputA)
             {
                 DGOutputs.Rows.Add("Asset name", outputA.AssetName);
-                DGOutputs.Rows.Add("Asset type", (await AssetInfo.GetAssetTypeAsync(outputA.AssetName, _amsClient))?.Type);
+                DGOutputs.Rows.Add("Asset type", (await AssetTools.GetAssetTypeAsync(outputA.AssetName, _amsClient))?.Type);
             }
 
 
             if (output.Error != null && output.Error.Details != null)
             {
-                for (int j = 0; j < output.Error.Details.Count(); j++)
+                for (int j = 0; j < output.Error.Details.Count; j++)
                 {
                     DGOutputs.Rows.Add("Error", output.Error.Details[j].Code + ": " + output.Error.Details[j].Message);
                 }
@@ -236,7 +237,7 @@ namespace AMSExplorer
 
         private void SeeValueInEditor(string dataname, string key)
         {
-            using (EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false))
+            using (EditorXMLJSON editform = new(dataname, key, false))
                 editform.Display();
         }
 
@@ -270,12 +271,12 @@ namespace AMSExplorer
 
             if (assetName != null)
             {
-                _amsClient.RefreshTokenIfNeeded();
+                
                 Asset asset = Task.Run(() =>
-                                       _amsClient.AMSclient.Assets.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName))
+                                       _amsClient.GetAssetAsync(assetName))
                                         .GetAwaiter().GetResult();
 
-                using (AssetInformation form = new AssetInformation(_mainform, _amsClient)
+                using (AssetInformation form = new(_mainform, _amsClient)
                 {
                     myAsset = asset,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
@@ -299,7 +300,7 @@ namespace AMSExplorer
             {
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
-                dataGridInput.Rows.Add("Asset type", (await AssetInfo.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
+                dataGridInput.Rows.Add("Asset type", (await AssetTools.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
                 if (inputA.Start != null && inputA.Start is AbsoluteClipTime startA)
                 {
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
@@ -360,7 +361,12 @@ namespace AMSExplorer
         private void JobInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelJobNameTitle, contextMenuStrip, contextMenuStripInputAsset, contextMenuStripOutputAsset }, e, this);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelJobNameTitle, contextMenuStrip, contextMenuStripInputAsset, contextMenuStripOutputAsset }, e, this);
+        }
+
+        private void JobInformation_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

@@ -196,6 +196,7 @@
             this.Controls.Add(this.groupBox4);
             this.Name = "CreateStreamingEndpoint";
             this.Load += new System.EventHandler(this.CreateStreamingEndpoint_Load);
+            this.Shown += new System.EventHandler(this.CreateStreamingEndpoint_Shown);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUnits)).EndInit();

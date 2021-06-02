@@ -28,22 +28,12 @@ namespace AMSExplorer
         {
             get
             {
-                Priority p;
-                switch (comboBoxPriority.SelectedItem)
+                var p = comboBoxPriority.SelectedItem switch
                 {
-                    case "Low":
-                        p = Priority.Low;
-                        break;
-
-                    case "High":
-                        p = Priority.High;
-                        break;
-
-                    default:
-                        p = Priority.Normal;
-                        break;
-                }
-
+                    "Low" => Priority.Low,
+                    "High" => Priority.High,
+                    _ => Priority.Normal,
+                };
                 return p;
             }
 
@@ -54,7 +44,7 @@ namespace AMSExplorer
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
 
-            List<string> ep = new List<string>() { Priority.Low, Priority.Normal, Priority.High };
+            List<string> ep = new() { Priority.Low, Priority.Normal, Priority.High };
             comboBoxPriority.Items.AddRange(ep.ToArray());
             comboBoxPriority.SelectedIndex = 1;
 
@@ -62,10 +52,6 @@ namespace AMSExplorer
 
         private void Priority_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -75,10 +61,12 @@ namespace AMSExplorer
 
         private void PriorityForm_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label2, e);
+        }
 
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+        private void PriorityForm_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

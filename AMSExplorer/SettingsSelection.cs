@@ -47,12 +47,12 @@ namespace AMSExplorer
 
             _modifications = modifications;
 
-            Dictionary<string, bool> dico = new Dictionary<string, bool>();
+            Dictionary<string, bool> dico = new();
 
             IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
             foreach (PropertyInfo info in props)
             {
-                ListViewItem lvitem = new ListViewItem(info.Name);
+                ListViewItem lvitem = new(info.Name);
                 if ((bool)info.GetValue(modifications))
                 {
                     lvitem.Checked = true;
@@ -63,7 +63,7 @@ namespace AMSExplorer
 
         private void SettingsSelection_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
 
@@ -80,7 +80,12 @@ namespace AMSExplorer
 
         private void SettingsSelection_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
+        }
+
+        private void SettingsSelection_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

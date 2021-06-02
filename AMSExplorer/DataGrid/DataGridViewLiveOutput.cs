@@ -30,8 +30,8 @@ namespace AMSExplorer
 {
     public class DataGridViewLiveOutput : DataGridView
     {
-        private List<string> idsList = new List<string>();
-        private readonly List<StatusInfo> ListStatus = new List<StatusInfo>();
+        private List<string> idsList = new();
+        private readonly List<StatusInfo> ListStatus = new();
         private static SortableBindingList<LiveOutputEntry> _MyObservLiveOutputs;
 
         private static int _itemssperpage = 50; //nb of items per page
@@ -40,19 +40,23 @@ namespace AMSExplorer
         private static bool _initialized = false;
         private static bool _refreshedatleastonetime = false;
         private static string _statefilter = "All";
-        private static SearchObject _searchinname = new SearchObject { SearchType = SearchIn.LiveOutputName, Text = string.Empty };
+        private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveOutputName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
-        private static TimeRangeValue _timefilterTimeRange = new TimeRangeValue(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
+        private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private static BackgroundWorker WorkerRefreshChannels;
         public string _published = "Published";
         private static readonly Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
         private static enumDisplayProgram _anyChannel = enumDisplayProgram.Selected;
         private AMSClientV3 _amsClient;
 
-        public List<string> LiveEventSourceNames
+        public void SetLiveEventSourceNames(List<string> list)
         {
-            get => idsList;
-            set => idsList = value;
+            idsList = list;
+        }
+
+        public List<string> GetLiveEventSourceNames()
+        {
+            return idsList;
         }
 
         public int ItemsPerPage
@@ -65,7 +69,7 @@ namespace AMSExplorer
         public int PageCount => _pagecount;
         public int CurrentPage => _currentpage;
 
-        public enumDisplayProgram DisplayLiveEvent
+        public static enumDisplayProgram DisplayLiveEvent
         {
             get => _anyChannel;
             set => _anyChannel = value;
@@ -93,20 +97,18 @@ namespace AMSExplorer
             get => _timefilterTimeRange;
             set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount => _MyObservLiveOutputs != null ? _MyObservLiveOutputs.Count() : 0;
+        public int DisplayedCount => _MyObservLiveOutputs != null ? _MyObservLiveOutputs.Count : 0;
 
 
 
         public void Init(AMSClientV3 client)
         {
             IEnumerable<LiveOutputEntry> programquery;
-            client.RefreshTokenIfNeeded();
 
             _amsClient = client;
-            _amsClient.RefreshTokenIfNeeded();
 
             List<LiveEvent> ListEvents = _amsClient.AMSclient.LiveEvents.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName).ToList();
-            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
+            List<Program.LiveOutputExt> LOList = new();
 
             foreach (LiveEvent le in ListEvents)
             {
@@ -127,12 +129,12 @@ namespace AMSExplorer
                                LiveEventName = c.LiveEventName
                            };
 
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
+            DataGridViewCellStyle cellstyle = new()
             {
                 NullValue = null,
                 Alignment = DataGridViewContentAlignment.MiddleCenter
             };
-            DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
+            DataGridViewImageColumn imageCol = new()
             {
                 DefaultCellStyle = cellstyle,
                 Name = _published,
@@ -141,7 +143,7 @@ namespace AMSExplorer
             Columns.Add(imageCol);
 
 
-            SortableBindingList<LiveOutputEntry> MyObservProgramInPage = new SortableBindingList<LiveOutputEntry>(programquery.Take(0).ToList());
+            SortableBindingList<LiveOutputEntry> MyObservProgramInPage = new(programquery.Take(0).ToList());
             DataSource = MyObservProgramInPage;
             //this.Columns["LiveEventName"].Visible = false;
             Columns[_published].DisplayIndex = ColumnCount - 3;
@@ -201,8 +203,8 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                await _amsClient.RefreshTokenIfNeededAsync();
-                liveOutput = await _amsClient.AMSclient.LiveOutputs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveeventName, liveOutput.Name); //refresh
+                
+                liveOutput = await _amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Name); //refresh
                 if (liveOutput != null)
                 {
                     try // sometimes, index could be wrong id program has been deleted
@@ -230,7 +232,7 @@ namespace AMSExplorer
             Debug.WriteLine("WorkerRefreshLiveOutputs_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             LiveOutput liveOutputItem;
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             foreach (LiveOutputEntry CE in _MyObservLiveOutputs)
             {
@@ -238,7 +240,7 @@ namespace AMSExplorer
                 liveOutputItem = null;
                 try
                 {
-                    liveOutputItem = await _amsClient.AMSclient.LiveOutputs.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, CE.LiveEventName, CE.Name);
+                    liveOutputItem = await _amsClient.GetLiveOutputAsync(CE.LiveEventName, CE.Name);
                     if (liveOutputItem != null)
                     {
                         CE.State = liveOutputItem.ResourceState;
@@ -282,7 +284,7 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             IEnumerable<LiveEvent> ListEvents;
             if (_anyChannel == enumDisplayProgram.None)
@@ -293,11 +295,11 @@ namespace AMSExplorer
             {
                 ListEvents = (await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName))
                     .ToList()
-                    .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && LiveEventSourceNames.Contains(l.Name)));
+                    .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && GetLiveEventSourceNames().Contains(l.Name)));
             }
 
 
-            List<Program.LiveOutputExt> LOList = new List<Program.LiveOutputExt>();
+            List<Program.LiveOutputExt> LOList = new();
 
             foreach (LiveEvent le in ListEvents)
             {
@@ -338,7 +340,7 @@ namespace AMSExplorer
                                                               Description = c.LOExt.LiveOutputItem.Description,
                                                               ArchiveWindowLength = c.LOExt.LiveOutputItem.ArchiveWindowLength,
                                                               LastModified = c.LOExt.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LOExt.LiveOutputItem.LastModified).ToLocalTime() : null,
-                                                              Published = (Bitmap)HighDpiHelper.ScaleImage(c.LOBitmap.bitmap, scale),
+                                                              Published = c.LOBitmap.bitmap,
                                                               LiveEventName = c.LOExt.LiveEventName
                                                           });
 

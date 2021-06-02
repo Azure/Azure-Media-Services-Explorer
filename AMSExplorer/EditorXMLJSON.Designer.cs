@@ -133,6 +133,7 @@
             this.Name = "EditorXMLJSON";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.EditorXMLJSON_Load);
+            this.Shown += new System.EventHandler(this.EditorXMLJSON_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.EditorXMLJSON_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

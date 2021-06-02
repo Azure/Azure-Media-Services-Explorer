@@ -12,7 +12,7 @@ namespace AMSExplorer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -146,18 +146,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("365")]
-        public int DefaultLocatorDurationDays {
-            get {
-                return ((int)(this["DefaultLocatorDurationDays"]));
-            }
-            set {
-                this["DefaultLocatorDurationDays"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool DisplayAssetStorageinGrid {
             get {
@@ -165,18 +153,6 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["DisplayAssetStorageinGrid"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PremiumWorkflowPresetXMLFilesCurrentFolder {
-            get {
-                return ((string)(this["PremiumWorkflowPresetXMLFilesCurrentFolder"]));
-            }
-            set {
-                this["PremiumWorkflowPresetXMLFilesCurrentFolder"] = value;
             }
         }
         
@@ -350,30 +326,6 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LoginListJSON {
-            get {
-                return ((string)(this["LoginListJSON"]));
-            }
-            set {
-                this["LoginListJSON"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool OutputAssetsAdaptiveStreamingFormat {
-            get {
-                return ((bool)(this["OutputAssetsAdaptiveStreamingFormat"]));
-            }
-            set {
-                this["OutputAssetsAdaptiveStreamingFormat"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool HideTaskbarNotifications {
             get {
@@ -465,6 +417,18 @@ namespace AMSExplorer.Properties {
             }
             set {
                 this["DataMovementDoNotIncreaseHttpLimit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Telemetry {
+            get {
+                return ((bool)(this["Telemetry"]));
+            }
+            set {
+                this["Telemetry"] = value;
             }
         }
     }

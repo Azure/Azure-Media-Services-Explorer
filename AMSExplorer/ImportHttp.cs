@@ -35,7 +35,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    Uri myUri = new Uri(textBoxURL.Text);
+                    Uri myUri = new(textBoxURL.Text);
                     return myUri;
                 }
                 catch
@@ -65,10 +65,8 @@ namespace AMSExplorer
 
         private async void ImportHttp_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
             labelURLFileNameWarning.Text = string.Empty;
-
-            await _amsClientV3.RefreshTokenIfNeededAsync();
 
             if (_AzureStorageContainerSASListMode)
             {
@@ -97,7 +95,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                Uri myUri = new Uri(textBoxURL.Text);
+                Uri myUri = new(textBoxURL.Text);
             }
             catch
             {
@@ -115,12 +113,12 @@ namespace AMSExplorer
 
         private void ImportHttp_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
         }
 
         private void ButtonAdvancedOptions_Click(object sender, EventArgs e)
         {
-            string altid = null, assetName = null, desc = null, container = null;
+            string altid = null, desc = null, container = null;
 
             if (newAssetForm == null)
             {
@@ -137,7 +135,7 @@ namespace AMSExplorer
                 desc = newAssetForm.AssetDescription;
                 container = newAssetForm.AssetContainer;
             }
-            assetName = newAssetForm.AssetName;
+            string assetName = newAssetForm.AssetName;
 
 
             if (newAssetForm.ShowDialog() != DialogResult.OK)
@@ -147,6 +145,11 @@ namespace AMSExplorer
                 newAssetForm.AssetDescription = desc;
                 newAssetForm.AssetContainer = container;
             }
+        }
+
+        private void ImportHttp_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

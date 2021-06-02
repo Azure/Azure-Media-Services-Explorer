@@ -40,6 +40,10 @@
             this.textBoxThFileNameJPG = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBoxSize = new System.Windows.Forms.GroupBox();
+            this.textBoxHeight = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxWidth = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.numericUpDownThQuality = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
@@ -60,10 +64,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxThTimeRangeJPG = new System.Windows.Forms.TextBox();
-            this.textBoxWidth = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxHeight = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
@@ -142,6 +142,28 @@
             resources.ApplyResources(this.groupBoxSize, "groupBoxSize");
             this.groupBoxSize.Name = "groupBoxSize";
             this.groupBoxSize.TabStop = false;
+            // 
+            // textBoxHeight
+            // 
+            resources.ApplyResources(this.textBoxHeight, "textBoxHeight");
+            this.textBoxHeight.Name = "textBoxHeight";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Name = "label2";
+            // 
+            // textBoxWidth
+            // 
+            resources.ApplyResources(this.textBoxWidth, "textBoxWidth");
+            this.textBoxWidth.Name = "textBoxWidth";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Name = "label1";
             // 
             // label14
             // 
@@ -289,28 +311,6 @@
             resources.ApplyResources(this.textBoxThTimeRangeJPG, "textBoxThTimeRangeJPG");
             this.textBoxThTimeRangeJPG.Name = "textBoxThTimeRangeJPG";
             // 
-            // textBoxWidth
-            // 
-            resources.ApplyResources(this.textBoxWidth, "textBoxWidth");
-            this.textBoxWidth.Name = "textBoxWidth";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label1.Name = "label1";
-            // 
-            // textBoxHeight
-            // 
-            resources.ApplyResources(this.textBoxHeight, "textBoxHeight");
-            this.textBoxHeight.Name = "textBoxHeight";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Name = "label2";
-            // 
             // dataGridViewTextBoxColumn1
             // 
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
@@ -338,6 +338,7 @@
             this.Controls.Add(this.labelMES);
             this.Name = "PresetStandardEncoderThumbnail";
             this.Load += new System.EventHandler(this.PresetStandardEncoderThumbnail_Load);
+            this.Shown += new System.EventHandler(this.PresetStandardEncoderThumbnail_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetStandardEncoderThumbnail_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -64,13 +64,18 @@ namespace AMSExplorer
 
         private void TransformTypeCreation_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
             labelNoAssetFilter.Visible = _displayNewTransforMsg;
         }
 
         private void TransformTypeCreation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+        }
+
+        private void TransformTypeCreation_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

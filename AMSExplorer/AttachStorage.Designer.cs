@@ -112,6 +112,7 @@
             this.Controls.Add(this.label3);
             this.Name = "AttachStorage";
             this.Load += new System.EventHandler(this.AttachStorage_Load);
+            this.Shown += new System.EventHandler(this.AttachStorage_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AttachStorage_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

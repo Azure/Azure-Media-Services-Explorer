@@ -15,6 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -33,8 +35,6 @@ namespace AMSExplorer
             labelCompanyName.Text = AssemblyCompany;
         }
 
-        #region Assembly Attribute Accessors
-
         public string AssemblyTitle
         {
             get
@@ -48,7 +48,7 @@ namespace AMSExplorer
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return string.Empty;
             }
         }
 
@@ -105,27 +105,56 @@ namespace AMSExplorer
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
 
         private void AboutBox_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void linkLabelContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(Constants.LinkMailtoAMSE);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkMailtoAMSE,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
         }
 
         private void linkLabelWebSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(Constants.LinkAMSE);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkAMSE,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
         }
 
         private void buttonLicTerms_Click(object sender, EventArgs e)
         {
-            string licenseterms = Application.StartupPath + Constants.PathLicense;
-            System.Diagnostics.Process.Start(licenseterms);
+            string licenseterms = Path.Combine(Application.StartupPath, Constants.PathLicense);
+
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = licenseterms,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
+        }
+
+        private void AboutBox_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

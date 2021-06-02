@@ -1,64 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -117,44 +57,63 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>アセットのコピー</value>
+  </data>
   <data name="buttonOk.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
   </data>
   <data name="buttonCancel.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="labelDescription.ToolTip" xml:space="preserve">
-    <value />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 15</value>
   </data>
-  <data name="labelWarning.ToolTip" xml:space="preserve">
+  <data name="labelDescription.Text" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="labelDescription.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="panel1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="listBoxAccounts.ToolTip" xml:space="preserve">
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>出力先</value>
+  </data>
+  <data name="groupBox1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="radioButtonDefaultStorage.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonSpecifyStorage.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelWarningStorage.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="listBoxStorage.ToolTip" xml:space="preserve">
+  <data name="listViewAccounts.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="panelStorageAccount.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="listBoxStorage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Media Services アカウント:</value>
+  </data>
   <data name="label2.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="groupBox1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelnewassetname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 15</value>
+  </data>
+  <data name="labelnewassetname.Text" xml:space="preserve">
+    <value>新しいアセットの名前: </value>
   </data>
   <data name="labelnewassetname.ToolTip" xml:space="preserve">
     <value />
@@ -162,80 +121,51 @@
   <data name="copyassetname.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="labelinfo.Text" xml:space="preserve">
+    <value>{0} アセットが選択されました {1}</value>
+  </data>
   <data name="labelinfo.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="checkBoxDeleteSource.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 19</value>
+  </data>
+  <data name="checkBoxDeleteSource.Text" xml:space="preserve">
+    <value>ソース アセットの削除</value>
   </data>
   <data name="checkBoxDeleteSource.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="checkBoxDeleteSource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 19</value>
+  <data name="groupBoxOptions.Text" xml:space="preserve">
+    <value>オプション</value>
   </data>
-  <data name="checkBoxUnPublishSourceAsset.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxUnPublishSourceAsset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 257</value>
-  </data>
-  <data name="checkBoxUnPublishSourceAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 19</value>
-  </data>
-  <data name="labelCloneFilters.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelCloneFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 168</value>
-  </data>
-  <data name="checkBoxCloneAssetFilters.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxRewriteURL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 120</value>
-  </data>
-  <data name="checkBoxRewriteURL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 19</value>
-  </data>
-  <data name="labelCloneLocators.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labelCloneLocators.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 282</value>
-  </data>
-  <data name="labelCloneLocators.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 37</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxCopyDynEnc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 95</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 19</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.ToolTip" xml:space="preserve">
+  <data name="groupBoxOptions.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="checkBoxTargetSingleAsset.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 55</value>
   </data>
   <data name="checkBoxTargetSingleAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 34</value>
+    <value>123, 34</value>
   </data>
-  <data name="labelCloneLocatorForPrograms.ToolTip" xml:space="preserve">
+  <data name="checkBoxTargetSingleAsset.Text" xml:space="preserve">
+    <value>すべてのファイルを
+1つのアセットにマージ</value>
+  </data>
+  <data name="checkBoxTargetSingleAsset.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="labelCloneLocatorForPrograms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 217</value>
-  </data>
-  <data name="labelCloneLocatorForPrograms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 37</value>
-  </data>
-  <data name="groupBoxOptions.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelExplanation.Text" xml:space="preserve">
+    <value>オンデマンド アセットとライブアーカイブ アセットのコピーがサポートされます - (静的暗号化以外のアセットのみ)</value>
   </data>
   <data name="labelExplanation.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="labelAssetCopy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 20</value>
+  </data>
+  <data name="labelAssetCopy.Text" xml:space="preserve">
+    <value>アセットのコピー</value>
   </data>
   <data name="labelAssetCopy.ToolTip" xml:space="preserve">
     <value />
@@ -248,87 +178,5 @@
   </data>
   <data name="$this.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="labelnewassetname.Text" xml:space="preserve">
-    <value>新しいアセットの名前: </value>
-  </data>
-  <data name="groupBoxOptions.Text" xml:space="preserve">
-    <value>オプション</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>キャンセル</value>
-  </data>
-  <data name="checkBoxCloneAssetFilters.Text" xml:space="preserve">
-    <value>アセット フィルターの複製</value>
-  </data>
-  <data name="checkBoxCloneAssetFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 145</value>
-  </data>
-  <data name="checkBoxCloneLocators.Text" xml:space="preserve">
-    <value>ストリーミング ロケーターの複製</value>
-  </data>
-  <data name="checkBoxCloneLocators.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 194</value>
-  </data>
-  <data name="checkBoxCloneLocators.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 20</value>
-  </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>アセットのコピー</value>
-  </data>
-  <data name="checkBoxCopyDynEnc.Text" xml:space="preserve">
-    <value>動的暗号化のコピー</value>
-  </data>
-  <data name="checkBoxDeleteSource.Text" xml:space="preserve">
-    <value>ソース アセットの削除</value>
-  </data>
-  <data name="labelDescription.Text" xml:space="preserve">
-    <value>説明</value>
-  </data>
-  <data name="labelWarningStorage.Text" xml:space="preserve">
-    <value>警告</value>
-  </data>
-  <data name="labelWarning.Text" xml:space="preserve">
-    <value>警告</value>
-  </data>
-  <data name="labelinfo.Text" xml:space="preserve">
-    <value>{0} アセットが選択されました {1}</value>
-  </data>
-  <data name="labelAssetCopy.Text" xml:space="preserve">
-    <value>アセットのコピー</value>
-  </data>
-  <data name="radioButtonDefaultStorage.Text" xml:space="preserve">
-    <value>既定のストレージアカウント</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>出力先</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Media Services アカウント:</value>
-  </data>
-  <data name="checkBoxTargetSingleAsset.Text" xml:space="preserve">
-    <value>すべてのファイルを
-1つのアセットにマージ</value>
-  </data>
-  <data name="checkBoxRewriteURL.Text" xml:space="preserve">
-    <value>ライセンス取得 URL を書き換え</value>
-  </data>
-  <data name="checkBoxUnPublishSourceAsset.Text" xml:space="preserve">
-    <value>ソースアセットの公開停止</value>
-  </data>
-  <data name="radioButtonSpecifyStorage.Text" xml:space="preserve">
-    <value>特定のストレージアカウントの選択:</value>
-  </data>
-  <data name="labelCloneFilters.Text" xml:space="preserve">
-    <value>(開始・終了時刻は削除されます)</value>
-  </data>
-  <data name="labelCloneLocatorForPrograms.Text" xml:space="preserve">
-    <value>複製元と複製先は異なるリージョンでなければなりません</value>
-  </data>
-  <data name="labelExplanation.Text" xml:space="preserve">
-    <value>オンデマンド アセットとライブアーカイブ アセットのコピーがサポートされます - (静的暗号化以外のアセットのみ)</value>
-  </data>
-  <data name="labelCloneLocators.Text" xml:space="preserve">
-    <value>複製元と複製先が同じリージョンの場合は必要となります</value>
   </data>
 </root>

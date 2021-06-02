@@ -93,7 +93,7 @@ namespace AMSExplorer
         }
         private async Task LoadTransformsAsync()
         {
-            await _client.RefreshTokenIfNeededAsync();
+            
 
             _transforms = await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
@@ -102,7 +102,7 @@ namespace AMSExplorer
 
             foreach (Transform transform in _transforms)
             {
-                ListViewItem item = new ListViewItem(transform.Name);
+                ListViewItem item = new(transform.Name);
                 item.SubItems.Add(transform.Description);
                 item.SubItems.Add(transform.LastModified.ToLocalTime().ToString("G"));
                 if (_selectedTransformName == transform.Name)
@@ -124,7 +124,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        await _client.RefreshTokenIfNeededAsync();
+                        
                         await _client.AMSclient.Transforms.DeleteAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform.Name);
                     }
                     catch

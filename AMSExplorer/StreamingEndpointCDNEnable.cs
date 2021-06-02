@@ -26,7 +26,8 @@ namespace AMSExplorer
     public partial class StreamingEndpointCDNEnable : Form
     {
 
-        public static readonly List<Item> CDNProviders = new List<Item> {
+        public static readonly List<Item> CDNProviders = new()
+        {
             new Item("Standard Verizon",  "StandardVerizon"),
             new Item("Standard Akamai", "StandardAkamai"),
             new Item("Premium Verizon", "PremiumVerizon")
@@ -80,12 +81,17 @@ namespace AMSExplorer
 
         private void StreamingEndpointCDNEnable_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void StreamingEndpointCDNEnable_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelCDNOptions, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelCDNOptions, e);
+        }
+
+        private void StreamingEndpointCDNEnable_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 

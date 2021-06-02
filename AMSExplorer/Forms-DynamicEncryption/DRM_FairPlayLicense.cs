@@ -44,7 +44,7 @@ namespace AMSExplorer
             }
         }
 
-        private long ReturnTotalSeconds(decimal nbHours)
+        private static long ReturnTotalSeconds(decimal nbHours)
         {
             return (long)TimeSpan.FromHours((double)nbHours).TotalSeconds;
         }
@@ -111,7 +111,7 @@ namespace AMSExplorer
 
         private void DRM_FairPlayLicense_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void radioButtonPersistent_CheckedChanged(object sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace AMSExplorer
 
         private void DRM_FairPlayLicense_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
         }
 
         private void radioButtonLimited_CheckedChanged(object sender, EventArgs e)
@@ -132,6 +132,11 @@ namespace AMSExplorer
         private void radioButtonOfflineRental_CheckedChanged(object sender, EventArgs e)
         {
             panelOffline.Enabled = radioButtonOfflineRental.Checked;
+        }
+
+        private void DRM_FairPlayLicense_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

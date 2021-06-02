@@ -255,6 +255,7 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "ExportToExcel";
             this.Load += new System.EventHandler(this.ExportToExcel_Load);
+            this.Shown += new System.EventHandler(this.ExportToExcel_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ExportToExcel_DpiChanged);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

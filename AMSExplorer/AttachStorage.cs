@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
@@ -34,7 +35,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<string> storages = new List<string>();
+                List<string> storages = new();
                 foreach (object stor in listViewStorage.CheckedItems)
                 {
                     string storeId = (stor as ListViewItem).SubItems[1].Text;
@@ -56,11 +57,11 @@ namespace AMSExplorer
 
         private void AttachStorage_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             try
             {
-                _amsClient.RefreshTokenIfNeeded();
+
 
                 mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
@@ -84,7 +85,7 @@ namespace AMSExplorer
                 if (s.Type == StorageAccountType.Secondary)
                 {
                     string[] names = s.Id.Split('/');
-                    ListViewItem lvitem = new ListViewItem(new string[] { names.Last(), s.Id })
+                    ListViewItem lvitem = new(new string[] { names.Last(), s.Id })
                     {
                         ToolTipText = s.Id
                     };
@@ -118,7 +119,12 @@ namespace AMSExplorer
 
         private void AttachStorage_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+        }
+
+        private void AttachStorage_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

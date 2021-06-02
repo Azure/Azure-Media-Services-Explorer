@@ -31,30 +31,9 @@ namespace AMSExplorer
 
         }
 
+        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-
-        #region Assembly Attribute Accessors
-
-        public string AssemblyTitle
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != string.Empty)
-                    {
-                        return titleAttribute.Title;
-                    }
-                }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
-            }
-        }
-
-        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -67,7 +46,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssemblyProduct
+        public static string AssemblyProduct
         {
             get
             {
@@ -80,7 +59,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -93,7 +72,7 @@ namespace AMSExplorer
             }
         }
 
-        public string AssemblyCompany
+        public static string AssemblyCompany
         {
             get
             {
@@ -105,16 +84,15 @@ namespace AMSExplorer
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
 
         private void Splash_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void Splash_Paint(object sender, PaintEventArgs e)
         {
-            System.Drawing.Pen myPen = new System.Drawing.Pen(System.Drawing.Color.DarkGray, 1);
+            System.Drawing.Pen myPen = new(System.Drawing.Color.DarkGray, 1);
             System.Drawing.Graphics formGraphics;
             formGraphics = CreateGraphics();
             formGraphics.DrawRectangle(myPen, 0, 0, Width - 1, Height - 1);
@@ -123,7 +101,12 @@ namespace AMSExplorer
         private void Splash_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, labelConnecting }, e, this);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelTitle, labelConnecting }, e, this);
+        }
+
+        private void Splash_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

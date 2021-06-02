@@ -24,7 +24,7 @@ namespace AMSExplorer
 {
     public partial class EDL : Form
     {
-        private BindingList<ExplorerEDLEntryInOut> TimeCodeList = new BindingList<ExplorerEDLEntryInOut>();
+        private BindingList<ExplorerEDLEntryInOut> TimeCodeList = new();
 
         public delegate void ChangedEventHandler(object sender, EventArgs e);
 
@@ -34,10 +34,7 @@ namespace AMSExplorer
 
         protected virtual void OnChanged(EventArgs e)
         {
-            if (Changed != null)
-            {
-                Changed(this, e);
-            }
+            Changed?.Invoke(this, e);
         }
 
         public EDL()
@@ -131,6 +128,11 @@ namespace AMSExplorer
 
             e.Cancel = true;
             Hide();
+        }
+
+        private void EDL_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 

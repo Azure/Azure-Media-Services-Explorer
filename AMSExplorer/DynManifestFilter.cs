@@ -70,11 +70,11 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
             if (asset != null)
             {
                 // asset filters
-                List<AssetFilter> filters = new List<AssetFilter>();
+                List<AssetFilter> filters = new();
                 IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name);
                 while (assetFiltersPage != null)
                 {
@@ -94,7 +94,7 @@ namespace AMSExplorer
             // account filters
 
             // account filters
-            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            List<AccountFilter> acctFilters = new();
             IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             while (acctFiltersPage != null)
             {
@@ -121,7 +121,7 @@ namespace AMSExplorer
 
         private async void DynManifestFilter_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             _labelStartTimeDefault = labelStartTimeDefault.Text;
             _labelDefaultEnd = labelDefaultEnd.Text;
@@ -144,7 +144,7 @@ namespace AMSExplorer
                 newfilter = true;
                 isAccountFilter = true;
                 tabControl1.TabPages.Remove(tabPageInformation);
-                PresentationTimeRange _filter_presentationtimerange = new PresentationTimeRange() { Timescale = 10000000 };
+                PresentationTimeRange _filter_presentationtimerange = new() { Timescale = 10000000 };
                 filtertracks = new List<ExFilterTrack>();
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
 
@@ -225,7 +225,7 @@ namespace AMSExplorer
                 XDocument manifest = null;
                 try
                 {
-                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
+                    manifest = await AssetTools.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
                 }
                 catch
                 {
@@ -237,7 +237,7 @@ namespace AMSExplorer
                     {
                         if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                         {
-                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
+                            manifest = await AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
                         }
                     }
                     catch
@@ -247,7 +247,7 @@ namespace AMSExplorer
 
                 if (manifest != null)
                 {
-                    _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
+                    _parentassetmanifestdata = AssetTools.GetManifestTimingData(manifest);
                 }
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
@@ -334,7 +334,7 @@ namespace AMSExplorer
                 XDocument manifest = null;
                 try
                 {
-                    manifest = await AssetInfo.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
+                    manifest = await AssetTools.TryToGetClientManifestContentAsABlobAsync(_parentAsset, _amsClient);
                 }
                 catch
                 {
@@ -346,7 +346,7 @@ namespace AMSExplorer
                     {
                         if (MessageBox.Show(TextCreateTempLoc, "Locator creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                         {
-                            manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
+                            manifest = await AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(_parentAsset, _amsClient);
                         }
                     }
                     catch
@@ -356,7 +356,7 @@ namespace AMSExplorer
 
                 if (manifest != null)
                 {
-                    _parentassetmanifestdata = AssetInfo.GetManifestTimingData(manifest);
+                    _parentassetmanifestdata = AssetTools.GetManifestTimingData(manifest);
                 }
 
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
@@ -459,7 +459,7 @@ namespace AMSExplorer
             dataOperator.Rows.Add(FilterTrackPropertyCompareOperation.Equal.ToString(), FilterTrackPropertyCompareOperation.Equal.ToString());
             dataOperator.Rows.Add(FilterTrackPropertyCompareOperation.NotEqual.ToString(), FilterTrackPropertyCompareOperation.NotEqual.ToString());
 
-            DataGridViewComboBoxColumn columnProperty = new DataGridViewComboBoxColumn
+            DataGridViewComboBoxColumn columnProperty = new()
             {
                 DataSource = dataProperty,
                 ValueMember = "Property",
@@ -467,7 +467,7 @@ namespace AMSExplorer
             };
             dataGridViewTracks.Columns.Add(columnProperty);
 
-            DataGridViewComboBoxColumn columnOperator = new DataGridViewComboBoxColumn
+            DataGridViewComboBoxColumn columnOperator = new()
             {
                 DataSource = dataOperator,
                 ValueMember = "Operator",
@@ -475,7 +475,7 @@ namespace AMSExplorer
             };
             dataGridViewTracks.Columns.Add(columnOperator);
 
-            DataGridViewTextBoxColumn columnValue = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn columnValue = new();
             dataGridViewTracks.Columns.Add(columnValue);
 
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
@@ -531,14 +531,14 @@ namespace AMSExplorer
         private List<ExFilterTrack> ConvertFilterTracksToInternalVar(IList<FilterTrackSelection> tracks)
         // copy filter tracks to internal list used for display in grid
         {
-            List<ExFilterTrack> targettracks = new List<ExFilterTrack>();
+            List<ExFilterTrack> targettracks = new();
             foreach (FilterTrackSelection track in tracks)
             {
-                ExFilterTrack mytrack = new ExFilterTrack();
-                List<ExCondition> myconditions = new List<ExCondition>();
+                ExFilterTrack mytrack = new();
+                List<ExCondition> myconditions = new();
                 foreach (FilterTrackPropertyCondition condition in track.TrackSelections)
                 {
-                    ExCondition mycondition = new ExCondition
+                    ExCondition mycondition = new()
                     {
                         Oper = condition.Operation.ToString(),
                         Property = condition.Property.ToString(),
@@ -557,11 +557,11 @@ namespace AMSExplorer
         private List<FilterTrackSelection> CreateFilterTracks()
         // use internal list to create filter tracks
         {
-            List<FilterTrackSelection> filterTrackSelectStatements = new List<FilterTrackSelection>();
+            List<FilterTrackSelection> filterTrackSelectStatements = new();
 
             foreach (ExFilterTrack track in filtertracks)
             {
-                FilterTrackSelection filterTrackSelectStatement = new FilterTrackSelection
+                FilterTrackSelection filterTrackSelectStatement = new()
                 {
                     TrackSelections = new List<FilterTrackPropertyCondition>()
                 };
@@ -634,7 +634,7 @@ namespace AMSExplorer
         {
             get
             {
-                FilterCreationInfo filterinfo = new FilterCreationInfo
+                FilterCreationInfo filterinfo = new()
                 {
                     Name = newfilter ? textBoxFilterName.Text : _filter_name,
                     Firstquality = checkBoxFirstQualityBitrate.Checked ? new FirstQuality((int)numericUpDownFirstQualityBitrate.Value) : null
@@ -669,7 +669,7 @@ namespace AMSExplorer
             }
         }
 
-        private PresentationTimeRange GetFilterPresenTationTRDefaultMode => new PresentationTimeRange(
+        private PresentationTimeRange GetFilterPresenTationTRDefaultMode => new(
                      startTimestamp: checkBoxStartTime.Checked ? timeControlStart.ScaledTimeStampWithOffset : (long?)null,
                      endTimestamp: checkBoxEndTime.Checked ? timeControlEnd.ScaledTimeStampWithOffset : (long?)null,
                      presentationWindowDuration: checkBoxPresentationWindowDuration.Checked ? timeControlDVR.TimeStampWithoutOffset.Ticks : (long?)null,
@@ -698,7 +698,7 @@ namespace AMSExplorer
                     string pstring = dataGridViewTracks.CurrentCell.Value.ToString();
                     if (pstring == nameof(FilterTrackPropertyType.Type)) // property type
                     {
-                        DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
+                        DataGridViewComboBoxCell cellValue = new()
                         {
                             DataSource = dataPropertyType,
                             ValueMember = "Value",
@@ -709,7 +709,7 @@ namespace AMSExplorer
                     }
                     else if (pstring == nameof(FilterTrackPropertyType.FourCC)) // property FourCC
                     {
-                        DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
+                        DataGridViewComboBoxCell cellValue = new()
                         {
                             DataSource = dataPropertyFourCC,
                             ValueMember = "Value",
@@ -720,7 +720,7 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        DataGridViewTextBoxCell cellValue = new DataGridViewTextBoxCell();
+                        DataGridViewTextBoxCell cellValue = new();
                         dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
                         dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
@@ -748,7 +748,7 @@ namespace AMSExplorer
 
         private void buttonAddTrack_Click(object sender, EventArgs e)
         {
-            ExFilterTrack track = new ExFilterTrack() { Conditions = new List<ExCondition>() };
+            ExFilterTrack track = new() { Conditions = new List<ExCondition>() };
             filtertracks.Add(track);
             RefreshTracks();
         }
@@ -783,7 +783,7 @@ namespace AMSExplorer
                     if (condition.Property == FilterTrackPropertyType.Type.ToString()) // property type - we want to propose audio, video or text dropbox
                     {
                         int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.Type.ToString(), condition.Oper, condition.Value);
-                        DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
+                        DataGridViewComboBoxCell cellValue = new()
                         {
                             DataSource = dataPropertyType,
                             ValueMember = "Value",
@@ -795,7 +795,7 @@ namespace AMSExplorer
                     else if (condition.Property == FilterTrackPropertyType.FourCC.ToString()) // property FourCC - we want to propose supported FourCC
                     {
                         int index = dataGridViewTracks.Rows.Add(FilterTrackPropertyType.FourCC.ToString(), condition.Oper, condition.Value);
-                        DataGridViewComboBoxCell cellValue = new DataGridViewComboBoxCell
+                        DataGridViewComboBoxCell cellValue = new()
                         {
                             DataSource = dataPropertyFourCC,
                             ValueMember = "Value",
@@ -856,7 +856,7 @@ namespace AMSExplorer
         {
             // Filter sample
 
-            List<FilterTrackSelection> filterTrackSelections = new List<FilterTrackSelection>()
+            List<FilterTrackSelection> filterTrackSelections = new()
             {
                 new FilterTrackSelection
                 {
@@ -894,7 +894,10 @@ namespace AMSExplorer
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            }; p.Start();
         }
 
 
@@ -1018,7 +1021,7 @@ namespace AMSExplorer
 
         private void DynManifestFilter_Shown(object sender, EventArgs e)
         {
-
+            Telemetry.TrackPageView(this.Name);
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -1067,14 +1070,14 @@ namespace AMSExplorer
         private async void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             if (filtername != null)
             {
                 object importfilter = null;
                 if (filtername.StartsWith(Constants.AssetIdPrefix)) // asset filter
                 {
-                    List<AssetFilter> assetFilters = new List<AssetFilter>();
+                    List<AssetFilter> assetFilters = new();
                     IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _parentAsset.Name);
                     while (assetFiltersPage != null)
                     {
@@ -1103,7 +1106,7 @@ namespace AMSExplorer
                 else // global filter
                 {
                     // account filters
-                    List<AccountFilter> acctFilters = new List<AccountFilter>();
+                    List<AccountFilter> acctFilters = new();
                     IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
                     while (acctFiltersPage != null)
                     {
@@ -1206,7 +1209,7 @@ namespace AMSExplorer
         private void DynManifestFilter_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelFilterTitle, labeltime1, labeltime2, labeltime3, labeltime4, labeltime5, checkBoxLiveBackoff, timeControlStart, timeControlEnd, timeControlDVR, contextMenuStripInfo }, e, this);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelFilterTitle, labeltime1, labeltime2, labeltime3, labeltime4, labeltime5, checkBoxLiveBackoff, timeControlStart, timeControlEnd, timeControlDVR, contextMenuStripInfo }, e, this);
         }
     }
 }

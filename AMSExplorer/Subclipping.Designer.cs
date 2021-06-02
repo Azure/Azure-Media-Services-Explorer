@@ -34,7 +34,6 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.labelassetname = new System.Windows.Forms.Label();
@@ -53,7 +52,6 @@
             this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
             this.labelAccurate = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.timeControlStart = new AMSExplorer.TimeControl();
             this.textBoxDurationTime = new System.Windows.Forms.TextBox();
             this.timeControlEnd = new AMSExplorer.TimeControl();
@@ -78,8 +76,9 @@
             this.panelJob = new System.Windows.Forms.Panel();
             this.labelGen = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.webBrowserPreview = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageJSON.SuspendLayout();
             this.tabPageTR.SuspendLayout();
             this.panelAssetInfo.SuspendLayout();
@@ -89,6 +88,8 @@
             this.tabControl1.SuspendLayout();
             this.panelJob.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webBrowserPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -113,10 +114,6 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
             // 
             // moreinfoprofilelink
             // 
@@ -225,9 +222,9 @@
             // groupBoxTrimming
             // 
             resources.ApplyResources(this.groupBoxTrimming, "groupBoxTrimming");
+            this.groupBoxTrimming.Controls.Add(this.webBrowserPreview);
             this.groupBoxTrimming.Controls.Add(this.labelAccurate);
             this.groupBoxTrimming.Controls.Add(this.label7);
-            this.groupBoxTrimming.Controls.Add(this.webBrowserPreview);
             this.groupBoxTrimming.Controls.Add(this.timeControlStart);
             this.groupBoxTrimming.Controls.Add(this.textBoxDurationTime);
             this.groupBoxTrimming.Controls.Add(this.timeControlEnd);
@@ -248,12 +245,6 @@
             resources.ApplyResources(this.label7, "label7");
             this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label7.Name = "label7";
-            // 
-            // webBrowserPreview
-            // 
-            resources.ApplyResources(this.webBrowserPreview, "webBrowserPreview");
-            this.webBrowserPreview.Name = "webBrowserPreview";
-            this.webBrowserPreview.ScriptErrorsSuppressed = true;
             // 
             // timeControlStart
             // 
@@ -448,6 +439,18 @@
             this.tableLayoutPanel1.Controls.Add(this.panelJob, 0, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // webBrowserPreview
+            // 
+            resources.ApplyResources(this.webBrowserPreview, "webBrowserPreview");
+            this.webBrowserPreview.CreationProperties = null;
+            this.webBrowserPreview.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webBrowserPreview.Name = "webBrowserPreview";
+            this.webBrowserPreview.ZoomFactor = 1D;
+            // 
             // Subclipping
             // 
             this.AcceptButton = this.buttonOk;
@@ -466,7 +469,6 @@
             this.Shown += new System.EventHandler(this.Subclipping_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Subclipping_DpiChanged);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.tabPageJSON.ResumeLayout(false);
             this.tabPageJSON.PerformLayout();
             this.tabPageTR.ResumeLayout(false);
@@ -482,6 +484,8 @@
             this.panelJob.ResumeLayout(false);
             this.panelJob.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webBrowserPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -524,7 +528,6 @@
         public System.Windows.Forms.Label labelGen;
         private System.Windows.Forms.Label labelAccurate;
         private System.Windows.Forms.CheckBox checkBoxPreviewStream;
-        private System.Windows.Forms.WebBrowser webBrowserPreview;
         private System.Windows.Forms.Panel panelAssetInfo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioButtonAssetFilter;
@@ -537,5 +540,6 @@
         private System.Windows.Forms.Panel panelEDL;
         private System.Windows.Forms.Label labelDiscountinuity;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webBrowserPreview;
     }
 }

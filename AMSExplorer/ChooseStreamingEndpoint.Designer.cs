@@ -289,6 +289,7 @@
             this.Controls.Add(this.groupBox4);
             this.Name = "ChooseStreamingEndpoint";
             this.Load += new System.EventHandler(this.ChooseStreamingEndpoint_Load);
+            this.Shown += new System.EventHandler(this.ChooseStreamingEndpoint_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ChooseStreamingEndpoint_DpiChanged);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

@@ -192,6 +192,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "NewAsset";
             this.Load += new System.EventHandler(this.NewAsset_Load);
+            this.Shown += new System.EventHandler(this.NewAsset_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.NewAsset_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

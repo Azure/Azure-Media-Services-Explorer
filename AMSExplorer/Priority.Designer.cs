@@ -86,6 +86,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "PriorityForm";
             this.Load += new System.EventHandler(this.Priority_Load);
+            this.Shown += new System.EventHandler(this.PriorityForm_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PriorityForm_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

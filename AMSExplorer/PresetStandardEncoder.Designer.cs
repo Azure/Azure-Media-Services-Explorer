@@ -198,6 +198,7 @@
             this.Controls.Add(this.labelMES);
             this.Name = "PresetStandardEncoder";
             this.Load += new System.EventHandler(this.PresetStandardEncoder_Load);
+            this.Shown += new System.EventHandler(this.PresetStandardEncoder_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetStandardEncoder_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

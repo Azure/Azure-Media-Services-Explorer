@@ -59,7 +59,7 @@ namespace AMSExplorer
 
         private void TransformInformation_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             labelJobNameTitle.Text += _transform.Name;
 
@@ -74,7 +74,7 @@ namespace AMSExplorer
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _transform.Created.ToLocalTime().ToString("G"));
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _transform.LastModified.ToLocalTime().ToString("G"));
 
-            bool boutoutsintransform = (_transform.Outputs.Count() > 0);
+            bool boutoutsintransform = (_transform.Outputs.Count > 0);
 
             int index = 0;
             if (boutoutsintransform)
@@ -143,9 +143,9 @@ namespace AMSExplorer
             }
         }
 
-        private void SeeValueInEditor(string dataname, string key)
+        private static void SeeValueInEditor(string dataname, string key)
         {
-            EditorXMLJSON editform = new EditorXMLJSON(dataname, key, false);
+            EditorXMLJSON editform = new(dataname, key, false);
             editform.Display();
         }
 
@@ -190,7 +190,12 @@ namespace AMSExplorer
         private void TransformInformation_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelJobNameTitle, contextMenuStrip, contextMenuStripInputAsset, contextMenuStripOutputAsset }, e, this);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelJobNameTitle, contextMenuStrip, contextMenuStripInputAsset, contextMenuStripOutputAsset }, e, this);
+        }
+
+        private void TransformInformation_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

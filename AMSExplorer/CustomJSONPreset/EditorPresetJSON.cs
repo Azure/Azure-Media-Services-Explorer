@@ -95,18 +95,18 @@ namespace AMSExplorer
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
-            textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "Preset.json"));
+            textBoxConfiguration.Text = File.ReadAllText(Path.Combine(Application.StartupPath, Constants.PathConfigFiles, "Preset.json"));
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+            System.Threading.Thread MyThread = new(new ParameterizedThreadStart(DoCopyClipboard));
             MyThread.SetApartmentState(ApartmentState.STA);
             MyThread.IsBackground = true;
             MyThread.Start(textBoxConfiguration.Text);
         }
 
-        public void DoCopyClipboard(object text)
+        public static void DoCopyClipboard(object text)
         {
             Clipboard.SetText((string)text);
         }
@@ -118,13 +118,13 @@ namespace AMSExplorer
 
         private void EditorPresetJSON_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
             UpdateTransformLabel();
         }
 
         private void EditorPresetJSON_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(textBoxConfiguration, e);
         }
     }
 }

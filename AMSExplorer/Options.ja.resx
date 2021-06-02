@@ -1,0 +1,340 @@
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonOk.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonReset.Text" xml:space="preserve">
+    <value>既定値にリセット</value>
+  </data>
+  <data name="buttonReset.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxDisplayAssetID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 19</value>
+  </data>
+  <data name="checkBoxDisplayAssetID.Text" xml:space="preserve">
+    <value>アセット ID</value>
+  </data>
+  <data name="checkBoxDisplayAssetID.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>グリッド ディスプレイ</value>
+  </data>
+  <data name="groupBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxDisplayAssetAltId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 19</value>
+  </data>
+  <data name="checkBoxDisplayAssetAltId.Text" xml:space="preserve">
+    <value>アセットの代替 ID</value>
+  </data>
+  <data name="checkBoxDisplayAssetAltId.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxDisplayAssetStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 19</value>
+  </data>
+  <data name="checkBoxDisplayAssetStorage.Text" xml:space="preserve">
+    <value>アセット ストレージ</value>
+  </data>
+  <data name="checkBoxDisplayAssetStorage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxAutoRefresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 19</value>
+  </data>
+  <data name="checkBoxAutoRefresh.Text" xml:space="preserve">
+    <value>自動更新の間隔 (秒) :</value>
+  </data>
+  <data name="comboBoxAutoRefreshTime.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>その他の設定</value>
+  </data>
+  <data name="groupBox2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>ページあたりの表示アイテム数</value>
+  </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownSASDuration.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxHideTaskbarNotifications.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 19</value>
+  </data>
+  <data name="checkBoxHideTaskbarNotifications.Text" xml:space="preserve">
+    <value>タスクバーの通知を隠す</value>
+  </data>
+  <data name="checkBoxHideTaskbarNotifications.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxUseAdaptiveStreamingFormat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 19</value>
+  </data>
+  <data name="checkBoxUseAdaptiveStreamingFormat.Text" xml:space="preserve">
+    <value>出力アセットに Adptive Streaming フォーマット (プリフラグメント化) を使用</value>
+  </data>
+  <data name="checkBoxUseAdaptiveStreamingFormat.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>ステップ (%): </value>
+  </data>
+  <data name="label13.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownAssetAnalysisStep.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>開始 (%): </value>
+  </data>
+  <data name="label12.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 15</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>アセット分析ジョブ</value>
+  </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownAssetAnalysisStart.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 15</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>既定のロケーター有効期限 (日) :</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownLocatorDuration.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>カスタム プレイヤー</value>
+  </data>
+  <data name="groupBox3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelcdn.Text" xml:space="preserve">
+    <value>次の変数が利用可能です : {manifest url} および {token}</value>
+  </data>
+  <data name="labelcdn.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxCustomPlayer.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxEnableCustomPlayer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 19</value>
+  </data>
+  <data name="checkBoxEnableCustomPlayer.Text" xml:space="preserve">
+    <value>有効</value>
+  </data>
+  <data name="checkBoxEnableCustomPlayer.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numericUpDownDataMovNumbParallelOp.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>価格</value>
+  </data>
+  <data name="groupBox4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelBlobSizeMax.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>既定のジョブの優先度 :</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 15</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>コンテンツ インデクサー価格 (分あたり) :</value>
+  </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxBlockSize.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxDoNotIncreaseHTTPLimit.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxDisableMD5Check.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxAutoParOpe.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 15</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>スタンダードエンコーダーの価格 (出力分ごと): </value>
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabControl1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="tabPage1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>コスト試算</value>
+  </data>
+  <data name="tabPage2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="tabPage3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox5.Text" xml:space="preserve">
+    <value>ソフトウェアのパス</value>
+  </data>
+  <data name="groupBox5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 15</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>VLC のパス :</value>
+  </data>
+  <data name="label11.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxVLCPath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 93</value>
+  </data>
+  <data name="textBoxVLCPath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>448, 23</value>
+  </data>
+  <data name="textBoxVLCPath.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 15</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>ffmpeg のパス :</value>
+  </data>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxffmpegPath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 51</value>
+  </data>
+  <data name="textBoxffmpegPath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>447, 23</value>
+  </data>
+  <data name="textBoxffmpegPath.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>オプション</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+</root>

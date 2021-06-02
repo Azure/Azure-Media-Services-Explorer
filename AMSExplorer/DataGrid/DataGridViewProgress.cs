@@ -16,7 +16,7 @@ namespace AMSExplorer
             CellTemplate = new DataGridViewProgressBarCell();
 
             // Set the default style padding
-            Padding pad = new Padding(
+            Padding pad = new(
               DataGridViewProgressBarCell.STANDARD_HORIZONTAL_MARGIN,
               DataGridViewProgressBarCell.STANDARD_VERTICAL_MARGIN,
               DataGridViewProgressBarCell.STANDARD_HORIZONTAL_MARGIN,
@@ -67,10 +67,7 @@ namespace AMSExplorer
             int rightMargin = STANDARD_HORIZONTAL_MARGIN;
             int topMargin = STANDARD_VERTICAL_MARGIN;
             int bottomMargin = STANDARD_VERTICAL_MARGIN;
-            int imgHeight = 1;
-            int imgWidth = 1;
-            int progressWidth = 1;
-            PointF fontPlacement = new PointF(0, 0);
+            PointF fontPlacement = new(0, 0);
 
             int progressVal;
             if (value != null)
@@ -96,8 +93,8 @@ namespace AMSExplorer
             }
 
             // Calculate the sizes
-            imgHeight = cellBounds.Bottom - cellBounds.Top - (topMargin + bottomMargin);
-            imgWidth = cellBounds.Right - cellBounds.Left - (leftMargin + rightMargin);
+            int imgHeight = cellBounds.Bottom - cellBounds.Top - (topMargin + bottomMargin);
+            int imgWidth = cellBounds.Right - cellBounds.Left - (leftMargin + rightMargin);
             if (imgWidth <= 0)
             {
                 imgWidth = 1;
@@ -108,7 +105,7 @@ namespace AMSExplorer
             }
 
             // Calculate the progress
-            progressWidth = (imgWidth * (progressVal) / 100);
+            int progressWidth = imgWidth * progressVal / 100;
             if (progressWidth <= 0)
             {
                 if (progressVal > 0)
@@ -124,7 +121,7 @@ namespace AMSExplorer
             // Calculate the font
             if (null != formattedValue)
             {
-                SizeF availArea = new SizeF(imgWidth, imgHeight);
+                SizeF availArea = new(imgWidth, imgHeight);
                 SizeF fontSize = g.MeasureString(formattedValue.ToString(), cellStyle.Font, availArea);
 
                 #region [Font Placement Calc]
@@ -198,8 +195,8 @@ namespace AMSExplorer
             if (progressVal <= 100) // because when job is done or in error, we set progress > 100 % to avoid displaying the progress bar
             {
                 // Draw the background
-                System.Drawing.Rectangle backRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, imgWidth, imgHeight);
-                using (SolidBrush backgroundBrush = new SolidBrush(Color.FromKnownColor(KnownColor.LightGray)))
+                System.Drawing.Rectangle backRectangle = new(cellBounds.X + leftMargin, cellBounds.Y + topMargin, imgWidth, imgHeight);
+                using (SolidBrush backgroundBrush = new(Color.FromKnownColor(KnownColor.LightGray)))
                 {
                     g.FillRectangle(backgroundBrush, backRectangle);
                 }
@@ -207,8 +204,8 @@ namespace AMSExplorer
                 // Draw the progress bar
                 if (progressWidth > 0)
                 {
-                    System.Drawing.Rectangle progressRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, progressWidth, imgHeight);
-                    using (LinearGradientBrush progressGradientBrush = new LinearGradientBrush(progressRectangle, Color.LightGreen, Color.MediumSeaGreen, LinearGradientMode.Vertical))
+                    System.Drawing.Rectangle progressRectangle = new(cellBounds.X + leftMargin, cellBounds.Y + topMargin, progressWidth, imgHeight);
+                    using (LinearGradientBrush progressGradientBrush = new(progressRectangle, Color.LightGreen, Color.MediumSeaGreen, LinearGradientMode.Vertical))
                     {
                         progressGradientBrush.SetBlendTriangularShape((float).5);
                         g.FillRectangle(progressGradientBrush, progressRectangle);
@@ -218,7 +215,7 @@ namespace AMSExplorer
                 // Draw the text
                 if (null != formattedValue && null != cellStyle)
                 {
-                    using (SolidBrush fontBrush = new SolidBrush(cellStyle.ForeColor))
+                    using (SolidBrush fontBrush = new(cellStyle.ForeColor))
                     {
                         g.DrawString(formattedValue.ToString(), cellStyle.Font, fontBrush, fontPlacement);
                     }

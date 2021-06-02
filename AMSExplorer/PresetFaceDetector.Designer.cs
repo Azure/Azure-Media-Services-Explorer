@@ -172,6 +172,7 @@
             this.Controls.Add(this.labelTitle);
             this.Name = "PresetFaceDetector";
             this.Load += new System.EventHandler(this.PresetFaceDetector_Load);
+            this.Shown += new System.EventHandler(this.PresetFaceDetector_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetFaceDetector_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -167,6 +167,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "TransformTypeCreation";
             this.Load += new System.EventHandler(this.TransformTypeCreation_Load);
+            this.Shown += new System.EventHandler(this.TransformTypeCreation_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.TransformTypeCreation_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

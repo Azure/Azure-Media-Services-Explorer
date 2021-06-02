@@ -99,6 +99,7 @@
             this.Controls.Add(this.labelmain);
             this.Name = "DeleteLiveOutputEvent";
             this.Load += new System.EventHandler(this.DeleteLiveOutputEvent_Load);
+            this.Shown += new System.EventHandler(this.DeleteLiveOutputEvent_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DeleteLiveOutputEvent_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -158,6 +158,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "TimeRangeSelection";
             this.Load += new System.EventHandler(this.TimeRangeSelection_Load);
+            this.Shown += new System.EventHandler(this.TimeRangeSelection_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

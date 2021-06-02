@@ -60,7 +60,6 @@ namespace AMSExplorer
 
         private void ControlsResetToDefault()
         {
-            _amsClientV3.RefreshTokenIfNeeded();
             IList<StorageAccount> storAccounts = Task.Run(() => _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).GetAwaiter().GetResult().StorageAccounts;
 
             comboBoxStorage.Items.Clear();
@@ -78,20 +77,20 @@ namespace AMSExplorer
 
         private void UploadOptions_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobOptions, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelJobOptions, e);
         }
 
         private void UploadOptions_Load(object sender, System.EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
-            var sizeText = AssetInfo.FormatByteSize(1024 * 1024L * Properties.Settings.Default.DataMovementBlockSize * 50000);
+            var sizeText = AssetTools.FormatByteSize(1024 * 1024L * Properties.Settings.Default.DataMovementBlockSize * 50000);
             labelBlockSize.Text = string.Format(labelBlockSize.Text, Properties.Settings.Default.DataMovementBlockSize, sizeText);
         }
 
         private void ButtonAdvancedOptions_Click(object sender, System.EventArgs e)
         {
-            string altid = null, assetName = null, desc = null, container = null;
+            string altid = null, desc = null, container = null;
 
             if (newAssetForm == null)
             {
@@ -104,7 +103,7 @@ namespace AMSExplorer
                 desc = newAssetForm.AssetDescription;
                 container = newAssetForm.AssetContainer;
             }
-            assetName = newAssetForm.AssetName;
+            string assetName = newAssetForm.AssetName;
 
 
             if (newAssetForm.ShowDialog() != DialogResult.OK)
@@ -114,6 +113,11 @@ namespace AMSExplorer
                 newAssetForm.AssetDescription = desc;
                 newAssetForm.AssetContainer = container;
             }
+        }
+
+        private void UploadOptionsUI_Shown(object sender, System.EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

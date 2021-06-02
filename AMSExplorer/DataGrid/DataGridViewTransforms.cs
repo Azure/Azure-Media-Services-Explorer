@@ -14,6 +14,7 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
@@ -32,10 +33,10 @@ namespace AMSExplorer
     {
         private bool _initialized = false;
 
-        private readonly List<string> idsList = new List<string>();
+        private readonly List<string> idsList = new();
         private static AMSClientV3 _amsClient;
         private SynchronizationContext _context;
-        private static BindingList<TransformEntryV3> _MyObservTransformsV3;
+        private static BindingList<TransformEntry> _MyObservTransformsV3;
 
         public async Task InitAsync(AMSClientV3 client, SynchronizationContext context)
         {
@@ -44,7 +45,7 @@ namespace AMSExplorer
 
             Microsoft.Rest.Azure.IPage<Transform> transformsList = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
-            IEnumerable<Task<TransformEntryV3>> transforms = transformsList.Select(async a => new TransformEntryV3(_context)
+            IEnumerable<Task<TransformEntry>> transforms = transformsList.Select(async a => new TransformEntry(_context)
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -53,9 +54,9 @@ namespace AMSExplorer
             }
             );
 
-            TransformEntryV3[] mappedItems = await Task.WhenAll(transforms);
+            TransformEntry[] mappedItems = await Task.WhenAll(transforms);
 
-            BindingList<TransformEntryV3> MyObservTransformthisPageV3 = new BindingList<TransformEntryV3>(mappedItems);
+            BindingList<TransformEntry> MyObservTransformthisPageV3 = new(mappedItems);
             DataSource = MyObservTransformthisPageV3;
 
             Task myTask = Task.Factory.StartNew(() =>
@@ -84,9 +85,9 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
-            IEnumerable<Task<TransformEntryV3>> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntryV3(_context)
+            IEnumerable<Task<TransformEntry>> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntry(_context)
             {
                 Name = a.Name,
                 Description = a.Description,
@@ -95,9 +96,9 @@ namespace AMSExplorer
                 LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
           );
-            TransformEntryV3[] mappedItems = await Task.WhenAll(transforms);
+            TransformEntry[] mappedItems = await Task.WhenAll(transforms);
 
-            _MyObservTransformsV3 = new BindingList<TransformEntryV3>(mappedItems);
+            _MyObservTransformsV3 = new BindingList<TransformEntry>(mappedItems);
 
             BeginInvoke(new Action(() => DataSource = _MyObservTransformsV3));
 
@@ -108,13 +109,13 @@ namespace AMSExplorer
 
         public async Task<List<Transform>> ReturnSelectedTransformsAsync()
         {
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
-            List<Transform> SelectedTransforms = new List<Transform>();
+            List<Transform> SelectedTransforms = new();
             foreach (DataGridViewRow Row in SelectedRows)
             {
                 // sometimes, the transform can be null (if just deleted)
-                Transform transform = await _amsClient.AMSclient.Transforms.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, Row.Cells[Columns["Name"].Index].Value.ToString());
+                Transform transform = await _amsClient.GetTransformAsync(Row.Cells[Columns["Name"].Index].Value.ToString());
                 if (transform != null)
                 {
                     SelectedTransforms.Add(transform);

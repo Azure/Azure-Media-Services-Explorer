@@ -30,7 +30,7 @@ namespace AMSExplorer
         private readonly string _existingTransformDesc;
 
         // langage codes supported : https://go.microsoft.com/fwlink/?linkid=2109463
-        public readonly List<string> LanguagesIndexV2s = new List<string> { "en-US", "en-GB", "en-AU", "es-ES", "es-MX", "fr-FR", "fr-CA", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-BH", "ar-EG", "ar-IQ", "ar-JO", "ar-KW", "ar-LB", "ar-OM", "ar-QA", "ar-SA", "ar-SY", "ru-RU", "hi-IN", "ko-KR", "da-DK", "nb-NO", "sv-SE", "fi-FI", "th-TH", "tr-TR" };
+        public readonly List<string> LanguagesIndexV2s = new() { "en-US", "en-GB", "en-AU", "es-ES", "es-MX", "fr-FR", "fr-CA", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-BH", "ar-EG", "ar-IQ", "ar-JO", "ar-KW", "ar-LB", "ar-OM", "ar-QA", "ar-SA", "ar-SY", "ru-RU", "hi-IN", "ko-KR", "da-DK", "nb-NO", "sv-SE", "fi-FI", "th-TH", "tr-TR" };
 
         public string Language => checkBoxAutoLanguage.Checked ? null : ((Item)comboBoxLanguage.SelectedItem).Value;
 
@@ -54,10 +54,7 @@ namespace AMSExplorer
 
         private void PresetVideoAnalyzer_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
@@ -72,7 +69,11 @@ namespace AMSExplorer
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            };
+            p.Start();
         }
 
         private void radioButtonAudioAndVideo_CheckedChanged(object sender, EventArgs e)
@@ -137,15 +138,17 @@ namespace AMSExplorer
 
         private void PresetVideoAnalyzer_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAVAnalyzer, e);
-
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelAVAnalyzer, e);
         }
 
         private void radioButtonAudioBasic_CheckedChanged(object sender, EventArgs e)
         {
             UpdateTransformLabel();
+        }
+
+        private void PresetVideoAnalyzer_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

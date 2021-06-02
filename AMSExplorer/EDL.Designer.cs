@@ -113,6 +113,7 @@
             this.Name = "EDL";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EDL_FormClosing);
             this.Load += new System.EventHandler(this.EDL_Load);
+            this.Shown += new System.EventHandler(this.EDL_Shown);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEDL)).EndInit();
             this.ResumeLayout(false);

@@ -25,7 +25,7 @@ namespace AMSExplorer
 {
     public partial class CopyAsset : Form
     {
-        private ListCredentialsRPv3 CredentialList = new ListCredentialsRPv3();
+        private ListCredentialsRPv3 CredentialList = new();
         private readonly CopyAssetBoxMode Mode;
         private bool ErrorConnectingAMS = false;
         private bool ErrorConnectingStorage = false;
@@ -112,10 +112,10 @@ namespace AMSExplorer
 
             copyassetname.Text = Constants.NameconvAsset + "-copy-" + Program.GetUniqueness();
 
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             // Add a dummy column     
-            ColumnHeader header = new ColumnHeader
+            ColumnHeader header = new()
             {
                 Text = "",
                 Name = "col1"
@@ -170,12 +170,12 @@ namespace AMSExplorer
 
             Cursor = Cursors.WaitCursor;
 
-            DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.AzureSubscriptionId, DestinationLoginInfo);
+            DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.AzureSubscriptionId, DestinationLoginInfo, this);
 
-            AzureMediaServicesClient response = null;
+            AzureMediaServicesClient response;
             try
             {
-                response = await DestinationAmsClient.ConnectAndGetNewClientV3Async();
+                response = await DestinationAmsClient.ConnectAndGetNewClientV3Async(this);
             }
             catch (Exception ex)
             {
@@ -251,10 +251,10 @@ namespace AMSExplorer
 
         private void CopyAsset_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelAssetCopy, e);
         }
 
-        private void ScaleListViewColumns(ListView listview)
+        private static void ScaleListViewColumns(ListView listview)
         {
             if (listview.Columns.Count > 0)
             {
@@ -275,6 +275,7 @@ namespace AMSExplorer
         private void CopyAsset_Shown(object sender, EventArgs e)
         {
             ScaleListViewColumns(listViewAccounts);
+            Telemetry.TrackPageView(this.Name);
         }
     }
 

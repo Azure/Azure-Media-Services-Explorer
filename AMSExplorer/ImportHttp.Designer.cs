@@ -37,13 +37,13 @@
             this.labelExamples = new System.Windows.Forms.Label();
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonAdvancedOptions = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelSASListExample = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.buttonAdvancedOptions = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -95,6 +95,13 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // buttonAdvancedOptions
+            // 
+            resources.ApplyResources(this.buttonAdvancedOptions, "buttonAdvancedOptions");
+            this.buttonAdvancedOptions.Name = "buttonAdvancedOptions";
+            this.buttonAdvancedOptions.UseVisualStyleBackColor = true;
+            this.buttonAdvancedOptions.Click += new System.EventHandler(this.ButtonAdvancedOptions_Click);
+            // 
             // label33
             // 
             resources.ApplyResources(this.label33, "label33");
@@ -131,13 +138,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // buttonAdvancedOptions
-            // 
-            resources.ApplyResources(this.buttonAdvancedOptions, "buttonAdvancedOptions");
-            this.buttonAdvancedOptions.Name = "buttonAdvancedOptions";
-            this.buttonAdvancedOptions.UseVisualStyleBackColor = true;
-            this.buttonAdvancedOptions.Click += new System.EventHandler(this.ButtonAdvancedOptions_Click);
-            // 
             // ImportHttp
             // 
             this.AcceptButton = this.buttonImport;
@@ -155,6 +155,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ImportHttp";
             this.Load += new System.EventHandler(this.ImportHttp_Load);
+            this.Shown += new System.EventHandler(this.ImportHttp_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ImportHttp_DpiChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

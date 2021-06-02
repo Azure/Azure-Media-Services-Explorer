@@ -15,7 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,7 +48,9 @@ namespace AMSExplorer
 
         private void DownloadToLocal_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
+
+            /*
             if (string.IsNullOrEmpty(_backupfolder) || !Directory.Exists(_backupfolder))
             {
                 textBoxFolderPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
@@ -58,15 +59,16 @@ namespace AMSExplorer
             {
                 textBoxFolderPath.Text = _backupfolder;
             }
+            */
             labelAssetName.Text = string.Format(labelAssetName.Text, _selassets.Count());
         }
 
         private void buttonBrowseFile_Click(object sender, EventArgs e)
         {
-            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog() { IsFolderPicker = true, InitialDirectory = textBoxFolderPath.Text };
-            if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            FolderBrowserDialog openFolderDialog = new() { RootFolder = Environment.SpecialFolder.MyVideos };
+            if (openFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                textBoxFolderPath.Text = openFolderDialog.FileName;
+                textBoxFolderPath.Text = openFolderDialog.SelectedPath;
             }
         }
 
@@ -76,7 +78,12 @@ namespace AMSExplorer
 
         private void DownloadToLocal_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(labelTitle, e);
+        }
+
+        private void DownloadToLocal_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

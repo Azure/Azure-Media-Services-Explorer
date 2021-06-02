@@ -76,6 +76,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.Splash_Load);
+            this.Shown += new System.EventHandler(this.Splash_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.Splash_DpiChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Splash_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();

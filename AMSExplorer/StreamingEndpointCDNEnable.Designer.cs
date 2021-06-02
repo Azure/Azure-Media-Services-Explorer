@@ -125,6 +125,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "StreamingEndpointCDNEnable";
             this.Load += new System.EventHandler(this.StreamingEndpointCDNEnable_Load);
+            this.Shown += new System.EventHandler(this.StreamingEndpointCDNEnable_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.StreamingEndpointCDNEnable_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

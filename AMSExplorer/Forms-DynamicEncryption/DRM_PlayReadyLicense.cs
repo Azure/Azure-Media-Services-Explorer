@@ -57,7 +57,7 @@ namespace AMSExplorer
 
                 };
 
-                ContentKeyPolicyPlayReadyConfiguration objContentKeyPolicyPlayReadyConfiguration = new ContentKeyPolicyPlayReadyConfiguration
+                ContentKeyPolicyPlayReadyConfiguration objContentKeyPolicyPlayReadyConfiguration = new()
                 {
                     Licenses = new List<ContentKeyPolicyPlayReadyLicense> { objContentKeyPolicyPlayReadyLicense }
                 };
@@ -214,14 +214,19 @@ namespace AMSExplorer
 
         private void Action_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
         }
 
         private void PlayReadyLicense_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
-
             moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, Constants.LinkPlayReadyCompliance));
 
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.NonPersistent);
@@ -383,8 +388,11 @@ namespace AMSExplorer
 
         private void DRM_PlayReadyLicense_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(labelstep, e);
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+        }
+
+        private void DRM_PlayReadyLicense_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

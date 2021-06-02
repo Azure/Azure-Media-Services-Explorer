@@ -270,6 +270,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "JobInformation";
             this.Load += new System.EventHandler(this.JobInformation_Load);
+            this.Shown += new System.EventHandler(this.JobInformation_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.JobInformation_DpiChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);

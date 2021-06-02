@@ -823,6 +823,7 @@
             this.Controls.Add(this.moreinfocompliance);
             this.Name = "DRM_PlayReadyLicense";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);
+            this.Shown += new System.EventHandler(this.DRM_PlayReadyLicense_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_PlayReadyLicense_DpiChanged);
             this.tabControlPlayReadySettings.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);

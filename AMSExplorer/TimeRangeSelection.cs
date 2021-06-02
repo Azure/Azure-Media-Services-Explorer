@@ -24,7 +24,7 @@ namespace AMSExplorer
 
         public TimeRangeValue TimeRange
         {
-            get => new TimeRangeValue(TimeRangeStartDate, TimeRangeEndDate);
+            get => new(TimeRangeStartDate, TimeRangeEndDate);
             set
             {
                 TimeRangeStartDate = value.StartDate;
@@ -110,13 +110,18 @@ namespace AMSExplorer
 
         private void TimeRangeSelection_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
         }
 
         private void radioButtonEndCustom_CheckedChanged(object sender, EventArgs e)
         {
             dateTimePickerEndDate.Enabled = radioButtonEndCustom.Checked;
             dateTimePickerEndTime.Enabled = radioButtonEndCustom.Checked;
+        }
+
+        private void TimeRangeSelection_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

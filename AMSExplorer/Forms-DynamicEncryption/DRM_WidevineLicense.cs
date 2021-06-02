@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace AMSExplorer
         }
 
 
-        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration => new ContentKeyPolicyWidevineConfiguration
+        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration => new()
         {
             WidevineTemplate = textBoxConfiguration.Text
         };
@@ -59,8 +60,7 @@ namespace AMSExplorer
 
         private void DRM_WidevineLicense_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
-            HighDpiHelper.AdjustControlImagesDpiScale(panel1);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             _labelWarningJSON = labelWarningJSON.Text;
             linkLabelWidevinePolicy.Links.Add(new LinkLabel.Link(0, linkLabelWidevinePolicy.Text.Length, Constants.LinkWidevineTemplateInfo));
@@ -74,7 +74,7 @@ namespace AMSExplorer
             {
 
 
-                WidevineTemplate template = new WidevineTemplate()
+                WidevineTemplate template = new()
                 {
                     AllowedTrackTypes = "SD_HD",
                     ContentKeySpecs = new ContentKeySpec[]
@@ -121,8 +121,14 @@ namespace AMSExplorer
                 try
                 {
                     JObject jo = JObject.Parse(textBoxConfiguration.Text);
-                    WidevineTemplate jow = Newtonsoft.Json.JsonConvert.DeserializeObject<WidevineTemplate>(textBoxConfiguration.Text);
 
+                    // let's report an error if the user use a member outside of the WidevineTemplate model
+                    JsonSerializerSettings settings = new()
+                    {
+                        MissingMemberHandling = MissingMemberHandling.Error
+                    };
+
+                    WidevineTemplate jow = Newtonsoft.Json.JsonConvert.DeserializeObject<WidevineTemplate>(textBoxConfiguration.Text, settings);
                 }
                 catch (Exception ex)
                 {
@@ -133,20 +139,25 @@ namespace AMSExplorer
             labelWarningJSON.Visible = Error;
         }
 
+       
+
 
         private void linkLabelWidevinePolicy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo { FileName = e.Link.LinkData as string, UseShellExecute = true }
+            }; p.Start();
 
         }
 
         private void DRM_WidevineLicense_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            // for controls which are not using the default font
-            DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelstep, textBoxConfiguration }, e, this);
+        }
 
-            // to scale the bitmap in the buttons
-            HighDpiHelper.AdjustControlImagesAfterDpiChange(panel1, e);
+        private void DRM_WidevineLicense_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

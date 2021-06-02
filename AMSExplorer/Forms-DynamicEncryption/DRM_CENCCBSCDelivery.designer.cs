@@ -333,6 +333,7 @@
             this.Controls.Add(this.label1);
             this.Name = "DRM_CENCCBSCDelivery";
             this.Load += new System.EventHandler(this.DRM_CENCCBCSDelivery_Load);
+            this.Shown += new System.EventHandler(this.DRM_CENCCBSCDelivery_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.DRM_CENCCBCSDelivery_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.groupBoxPlayReady.ResumeLayout(false);

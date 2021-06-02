@@ -94,10 +94,7 @@ namespace AMSExplorer
         }
         private async Task LoadAssetsAsync()
         {
-            await _client.RefreshTokenIfNeededAsync();
-
-            ODataQuery<Asset> odataQuery = null;
-            odataQuery = new ODataQuery<Asset>();
+            ODataQuery<Asset> odataQuery = new();
 
             if (_searchExactAssetName != null)
             {
@@ -114,7 +111,7 @@ namespace AMSExplorer
 
             foreach (Asset asset in _assets)
             {
-                ListViewItem item = new ListViewItem(asset.Name);
+                ListViewItem item = new(asset.Name);
                 item.SubItems.Add(asset.Description);
                 item.SubItems.Add(asset.LastModified.ToLocalTime().ToString("G"));
                 if (_searchExactAssetName == asset.Name)

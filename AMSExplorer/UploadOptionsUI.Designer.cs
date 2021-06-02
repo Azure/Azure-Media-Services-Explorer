@@ -154,6 +154,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "UploadOptionsUI";
             this.Load += new System.EventHandler(this.UploadOptions_Load);
+            this.Shown += new System.EventHandler(this.UploadOptionsUI_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.UploadOptions_DpiChanged);
             this.panel1.ResumeLayout(false);
             this.groupBoxMultifiles.ResumeLayout(false);

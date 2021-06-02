@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -43,8 +44,8 @@ namespace AMSExplorer
             {
                 string val = (listBoxSE.SelectedItem as Item).Value;
                 string seName = val.Split("|".ToCharArray())[0];
-                _amsClient.RefreshTokenIfNeeded();
-                return Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, seName)).GetAwaiter().GetResult();
+                
+                return Task.Run(() => _amsClient.GetStreamingEndpointAsync(seName)).GetAwaiter().GetResult();
             }
         }
 
@@ -153,15 +154,15 @@ namespace AMSExplorer
 
         private async void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
-            await _amsClient.RefreshTokenIfNeededAsync();
+            
 
             // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
-            StreamingEndpoint BestSE = await AssetInfo.GetBestStreamingEndpointAsync(_amsClient);
+            StreamingEndpoint BestSE = await AssetTools.GetBestStreamingEndpointAsync(_amsClient);
 
             IPage<StreamingEndpoint> myStreamingEndpoints = Task.Run(() => _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).GetAwaiter().GetResult();
 
@@ -183,7 +184,7 @@ namespace AMSExplorer
             // Filters
 
             // asset filters
-            List<AssetFilter> assetFilters = new List<AssetFilter>();
+            List<AssetFilter> assetFilters = new();
             IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
             while (assetFiltersPage != null)
             {
@@ -203,7 +204,7 @@ namespace AMSExplorer
             listViewFilters.BeginUpdate();
             assetFilters.ToList().ForEach(f =>
             {
-                ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
+                ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter)
                 {
                     lvitem.Checked = true;
@@ -213,7 +214,7 @@ namespace AMSExplorer
            );
 
             // account filters
-            List<AccountFilter> acctFilters = new List<AccountFilter>();
+            List<AccountFilter> acctFilters = new();
             IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             while (acctFiltersPage != null)
             {
@@ -230,7 +231,7 @@ namespace AMSExplorer
 
             acctFilters.ToList().ForEach(f =>
             {
-                ListViewItem lvitem = new ListViewItem(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
+                ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count == 0) // only if not already selected (asset filter priority > account filter)
                 {
                     lvitem.Checked = true;
@@ -258,7 +259,6 @@ namespace AMSExplorer
                     comboBoxBrowser.Items.Add(new Item(Constants.BrowserEdge[0], Constants.BrowserEdge[1]));
                 }
 
-                comboBoxBrowser.Items.Add(new Item(Constants.BrowserIE[0], Constants.BrowserIE[1]));
                 comboBoxBrowser.Items.Add(new Item(Constants.BrowserChrome[0], Constants.BrowserChrome[1]));
                 comboBoxBrowser.SelectedIndex = 0;
             }
@@ -275,7 +275,7 @@ namespace AMSExplorer
             comboBoxPolicyLocators.Items.Clear();
             comboBoxPolicyLocators.BeginUpdate();
 
-            _amsClient.RefreshTokenIfNeeded();
+            
             _locators =
             Task.Run(() =>
                         _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name)
@@ -311,7 +311,7 @@ namespace AMSExplorer
         {
             try
             {
-                textBoxPreviewURL.Text = AssetInfo.RW(_path, SelectStreamingEndpoint, SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
+                textBoxPreviewURL.Text = AssetTools.RW(_path, SelectStreamingEndpoint, SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
             }
             catch
             {
@@ -398,7 +398,12 @@ namespace AMSExplorer
 
         private void ChooseStreamingEndpoint_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label5, e);
+        }
+
+        private void ChooseStreamingEndpoint_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

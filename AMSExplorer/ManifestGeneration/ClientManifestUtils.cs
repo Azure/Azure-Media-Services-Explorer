@@ -18,20 +18,19 @@ namespace AMSExplorer.ManifestGeneration
 
         public static async Task DoGenerateClientManifestForAllAssetsAsync(AMSClientV3 amsClient, MyDelegate TextBoxLogWriteLine)
         {
+            Telemetry.TrackEvent("ClientManifestUtils DoGenerateClientManifestForAllAssetsAsync");
+
             bool cancel = false;
             if (MessageBox.Show("The tool will list the published assets and will create a client manifest when needed.", "Client manifest creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)
             {
                 return;
             }
 
-
-            ListContainerSasInput input = new ListContainerSasInput()
+            ListContainerSasInput input = new()
             {
                 Permissions = AssetContainerPermission.ReadWriteDelete,
                 ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
             };
-            await amsClient.RefreshTokenIfNeededAsync();
-
 
             // Get a list of all of the locators and enumerate through them a page at a time.
             IPage<StreamingLocator> firstPage = await amsClient.AMSclient.StreamingLocators.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
@@ -60,8 +59,8 @@ namespace AMSExplorer.ManifestGeneration
                         return;
                     }
                     string uploadSasUrl = response.AssetContainerSasUrls.First();
-                    Uri sasUri = new Uri(uploadSasUrl);
-                    CloudBlobContainer storageContainer = new CloudBlobContainer(sasUri);
+                    Uri sasUri = new(uploadSasUrl);
+                    CloudBlobContainer storageContainer = new(sasUri);
 
                     // Get a manifest file list from the Storage container.
                     List<string> fileList = GetFilesListFromStorage(storageContainer);
@@ -80,7 +79,7 @@ namespace AMSExplorer.ManifestGeneration
                             XDocument manifest = null;
                             try
                             {
-                                manifest = await AssetInfo.TryToGetClientManifestContentUsingStreamingLocatorAsync(asset, amsClient, locator.Name);
+                                manifest = await AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(asset, amsClient, locator.Name);
                             }
                             catch (Exception ex)
                             {

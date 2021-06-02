@@ -102,7 +102,7 @@ namespace AMSExplorer
         private readonly bool _PlayReadyPackagingEnabled;
         private readonly bool _WidevinePackagingEnabled;
         private readonly bool _FairPlayPackagingEnabled;
-        private PFXCertificate cert = new PFXCertificate();
+        private PFXCertificate cert = new();
 
         public DRM_CENCCBSCDelivery(bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled, bool FairPlayPackagingEnabled)
         {
@@ -116,7 +116,7 @@ namespace AMSExplorer
 
         private void DRM_CENCCBCSDelivery_Load(object sender, EventArgs e)
         {
-            DpiUtils.InitPerMonitorDpi(this);
+            // DpiUtils.InitPerMonitorDpi(this);
 
             groupBoxPlayReady.Visible = checkBoxPlayReady.Checked = _PlayReadyPackagingEnabled;
             groupBoxWidevine.Visible = checkBoxWidevine.Checked = _WidevinePackagingEnabled;
@@ -130,7 +130,7 @@ namespace AMSExplorer
 
         private void DRM_CENCCBCSDelivery_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            DpiUtils.UpdatedSizeFontAfterDPIChange(label1, e);
+            // DpiUtils.UpdatedSizeFontAfterDPIChange(label1, e);
         }
 
         private void ValidateButtonOk()
@@ -204,6 +204,11 @@ namespace AMSExplorer
         private void CheckBoxWidevine_CheckedChanged(object sender, EventArgs e)
         {
             ValidateButtonOk();
+        }
+
+        private void DRM_CENCCBSCDelivery_Shown(object sender, EventArgs e)
+        {
+            Telemetry.TrackPageView(this.Name);
         }
     }
 }

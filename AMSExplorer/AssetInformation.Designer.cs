@@ -57,8 +57,8 @@
             this.buttonDownloadFile = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.listViewBlobs = new System.Windows.Forms.ListView();
-            this.ListViewFilesName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ListViewFilesSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ListViewFilesName = new System.Windows.Forms.ColumnHeader();
+            this.ListViewFilesSize = new System.Windows.Forms.ColumnHeader();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -401,6 +401,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tabPage1
             // 
@@ -916,6 +917,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
             this.Load += new System.EventHandler(this.AssetInformation_Load);
+            this.Shown += new System.EventHandler(this.AssetInformation_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AssetInformation_DpiChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).EndInit();
             this.contextMenuStripDG.ResumeLayout(false);

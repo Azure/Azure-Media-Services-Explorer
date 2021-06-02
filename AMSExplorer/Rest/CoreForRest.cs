@@ -17,9 +17,7 @@
 
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -48,7 +46,7 @@ namespace AMSExplorer.Rest
 
         private string GetToken()
         {
-            return _amsClient.accessToken != null ? _amsClient.accessToken.AccessToken :
+            return _amsClient.authResult != null ? _amsClient.authResult.AccessToken :
                  TokenCache.DefaultShared.ReadItems()
                      .Where(t => t.ClientId == _amsClient.credentialsEntry.ADSPClientId)
                      .OrderByDescending(t => t.ExpiresOn)
@@ -85,7 +83,7 @@ namespace AMSExplorer.Rest
             HttpClient client = GetHttpClient();
 
             string _requestContent = amsJSONObject;
-            StringContent httpContent = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+            StringContent httpContent = new(_requestContent, System.Text.Encoding.UTF8);
             httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
 
             HttpResponseMessage amsRequestResult = await client.PutAsync(url, httpContent).ConfigureAwait(false);
@@ -115,19 +113,5 @@ namespace AMSExplorer.Rest
             }
             return responseContent;
         }
-    }
-
-    internal static class ConverterLE
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
     }
 }

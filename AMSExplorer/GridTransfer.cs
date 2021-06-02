@@ -27,198 +27,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public class TransferEntryResponse
-    {
-        public Guid Id;
-        public CancellationToken token;
-    }
-
-    public class TransferEntry : INotifyPropertyChanged
-    {
-        private readonly SynchronizationContext syncContext;
-
-        public TransferEntry(SynchronizationContext mysyncContext)
-        {
-            syncContext = mysyncContext;
-        }
-
-        private string _Name;
-        public string Name
-        {
-            get => _Name;
-            set
-            {
-                if (value != _Name)
-                {
-                    _Name = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private TransferType _Type;
-        public TransferType Type
-        {
-            get => _Type;
-            set
-            {
-                if (value != _Type)
-                {
-                    _Type = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private TransferState _State;
-        public TransferState State
-        {
-            get => _State;
-            set
-            {
-                if (value != _State)
-                {
-                    _State = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private double _Progress;
-        public double Progress
-        {
-            get => _Progress;
-            set
-            {
-                if (value != _Progress)
-                {
-                    _Progress = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private string _ProgressText;
-        public string ProgressText
-        {
-            get => _ProgressText;
-            set
-            {
-                if (value != _ProgressText)
-                {
-                    _ProgressText = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        private Nullable<DateTime> _SubmitTime;
-        public Nullable<DateTime> SubmitTime
-        {
-            get => _SubmitTime;
-            set
-            {
-                if (value != _SubmitTime)
-                {
-                    _SubmitTime = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private Nullable<DateTime> _StartTime;
-        public Nullable<DateTime> StartTime
-        {
-            get => _StartTime;
-            set
-            {
-                if (value != _StartTime)
-                {
-                    _StartTime = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private string _EndTime;
-        public string EndTime
-        {
-            get => _EndTime;
-            set
-            {
-                if (value != _EndTime)
-                {
-                    _EndTime = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        private string _DestLocation;
-        public string DestLocation
-        {
-            get => _DestLocation;
-            set
-            {
-                if (value != _DestLocation)
-                {
-                    _DestLocation = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
-        public CancellationTokenSource tokenSource { get; set; }
-        public Guid Id { get; set; }
-
-        private string _ErrorDescription;
-        public string ErrorDescription
-        {
-            get => _ErrorDescription;
-            set
-            {
-                if (value != _ErrorDescription)
-                {
-                    _ErrorDescription = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        /*
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string p = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(p));
-            }
-        }
-        */
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] string p = "")
-        {
-            if (PropertyChanged != null)
-            {
-                try
-                {
-                    PropertyChangedEventHandler handler = PropertyChanged;
-
-                    if (syncContext != null)
-                        syncContext.Post(_ => handler(this, new PropertyChangedEventArgs(p)), null);
-                    else
-                        handler(this, new PropertyChangedEventArgs(p));
-
-                }
-                catch
-                {
-
-                }
-            }
-        }
-    }
-
+    
     public partial class Mainform : Form
     {
         private static BindingList<TransferEntry> _MyListTransfer; // list of upload/download
@@ -231,8 +40,8 @@ namespace AMSExplorer
             _MyListTransfer = new BindingList<TransferEntry>();
             _MyListTransferQueue = new List<Guid>();
 
-            DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn();
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
+            DataGridViewProgressBarColumn col = new();
+            DataGridViewCellStyle cellstyle = new();
             col.Name = labelProgress;
             col.DataPropertyName = labelProgress;
 
@@ -270,7 +79,7 @@ namespace AMSExplorer
 
         public TransferEntryResponse DoGridTransferAddItem(string text, TransferType TType, bool CanBePutInTheQueue)
         {
-            TransferEntry myTE = new TransferEntry(SynchronizationContext.Current)
+            TransferEntry myTE = new(SynchronizationContext.Current)
             {
                 Name = text,
                 SubmitTime = DateTime.Now,
@@ -304,10 +113,10 @@ namespace AMSExplorer
 
             // refresh number in tab
             //tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", _MyListTransfer.Count())));
-            tabPageTransfers.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", _MyListTransfer.Count()));
+            tabPageTransfers.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabTransfers + " ({0})", _MyListTransfer.Count));
 
             // to cancel task if needed
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationTokenSource tokenSource = new();
             CancellationToken tokenloc = tokenSource.Token;
             myTE.tokenSource = tokenSource;
 
@@ -315,14 +124,14 @@ namespace AMSExplorer
         }
 
 
-        public void DoGridTransferCancelTask(Guid guid)
+        public static void DoGridTransferCancelTask(Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
             transfer.tokenSource.Cancel();
             transfer.State = TransferState.Cancelling;
         }
 
-        private void DoGridTransferUpdateProgressText(string progresstext, double progress, Guid guid)
+        private static void DoGridTransferUpdateProgressText(string progresstext, double progress, Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
 
@@ -333,7 +142,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoGridTransferUpdateProgress(double progress, Guid guid)
+        private static void DoGridTransferUpdateProgress(double progress, Guid guid)
         {
             TransferEntry transfer = ReturnTransfer(guid);
 
@@ -349,7 +158,7 @@ namespace AMSExplorer
             }
         }
 
-        private TransferEntry ReturnTransfer(Guid guid)
+        private static TransferEntry ReturnTransfer(Guid guid)
         {
             return _MyListTransfer.ToList().Where(t => t.Id == guid).FirstOrDefault();
         }
@@ -414,8 +223,10 @@ namespace AMSExplorer
             }));
         }
 
-        private void DoGridTransferClearCompletedTransfers()
+        private static void DoGridTransferClearCompletedTransfers()
         {
+            Telemetry.TrackEvent("GridTransfer DoGridTransferClearCompletedTransfers");
+
             List<TransferEntry> list = _MyListTransfer.Where(l => l.State == TransferState.Cancelled || l.State == TransferState.Error || l.State == TransferState.Finished).ToList();
             foreach (TransferEntry l in list)
             {
@@ -437,7 +248,7 @@ namespace AMSExplorer
             TextBoxLogWriteLine(string.Format(AMSExplorer.Properties.Resources.Mainform_DoGridTransferDeclareTransferStarted_Transfer0Started, transfer.Name));
         }
 
-        private bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
+        private static bool DoGridTransferQueueOurTurn(Guid guid)  // Return true if this is our turn
         {
             IEnumerable<TransferEntry> runningTransfers = _MyListTransfer.ToList().Where(t => t.processedinqueue && t.State == TransferState.Processing);
 
@@ -451,7 +262,7 @@ namespace AMSExplorer
             }
         }
 
-        private bool DoGridTransferIsQueueRequested(Guid guid)  // Return true transfer is managed in the queue
+        private static bool DoGridTransferIsQueueRequested(Guid guid)  // Return true transfer is managed in the queue
         {
             return (ReturnTransfer(guid).processedinqueue);
         }

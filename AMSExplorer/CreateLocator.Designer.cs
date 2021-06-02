@@ -455,6 +455,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CreateLocator";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
+            this.Shown += new System.EventHandler(this.CreateLocator_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.CreateLocator_DpiChanged);
             this.groupBoxEnd.ResumeLayout(false);
             this.groupBoxEnd.PerformLayout();
