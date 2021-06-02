@@ -141,9 +141,6 @@
   <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
     <value>errorProvider1</value>
   </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
   <data name="pictureBox3.Location" type="System.Drawing.Point, System.Drawing">
     <value>82, 88</value>
   </data>
@@ -155,9 +152,6 @@
   </data>
   <data name="labelTitle.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.Parent" xml:space="preserve">
-    <value>$this</value>
   </data>
   <data name="radioButtonFaceDetection.Error" xml:space="preserve">
     <value />
@@ -177,8 +171,8 @@
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="&gt;&gt;pictureBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Transform</value>
   </data>
   <data name="radioButtonFaceDetection.Text" xml:space="preserve">
     <value>Face detection</value>
@@ -252,6 +246,9 @@
   <data name="&gt;&gt;labelNoAssetFilter.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
   </data>
@@ -306,8 +303,8 @@
   <data name="&gt;&gt;buttonImport.Name" xml:space="preserve">
     <value>buttonImport</value>
   </data>
-  <data name="&gt;&gt;labelTitle.Name" xml:space="preserve">
-    <value>labelTitle</value>
+  <data name="&gt;&gt;pictureBox2.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="labelTitle.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -354,6 +351,12 @@
   <data name="labelNoAssetFilter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="&gt;&gt;pictureBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelTitle.Name" xml:space="preserve">
+    <value>labelTitle</value>
+  </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>441, 55</value>
   </data>
@@ -368,9 +371,6 @@
   </data>
   <data name="panel1.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Transform</value>
   </data>
   <data name="radioButtonAVAnalyze.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -420,8 +420,8 @@
   <data name="&gt;&gt;pictureBox3.Type" xml:space="preserve">
     <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
   </data>
   <data name="&gt;&gt;radioButtonFaceDetection.Parent" xml:space="preserve">
     <value>$this</value>
