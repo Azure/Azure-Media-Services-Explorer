@@ -234,14 +234,8 @@
   <data name="checkBoxLiveBackoff.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="checkBoxLiveBackoff.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 408</value>
-  </data>
   <data name="checkBoxLiveBackoff.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 24</value>
-  </data>
-  <data name="checkBoxLiveBackoff.TabIndex" type="System.Int32, mscorlib">
-    <value>139</value>
   </data>
   <data name="checkBoxLiveBackoff.ToolTip" xml:space="preserve">
     <value />

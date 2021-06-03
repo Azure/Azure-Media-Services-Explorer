@@ -363,6 +363,21 @@
   <data name="groupBoxTrimming.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="webBrowserPreview.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="webBrowserPreview.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="webBrowserPreview.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="webBrowserPreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>500, 219</value>
+  </data>
+  <data name="webBrowserPreview.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labelAccurate.Error" xml:space="preserve">
     <value />
   </data>
@@ -397,21 +412,6 @@
     <value>間隔: </value>
   </data>
   <data name="label7.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="webBrowserPreview.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="webBrowserPreview.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="webBrowserPreview.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="webBrowserPreview.Size" type="System.Drawing.Size, System.Drawing">
-    <value>500, 219</value>
-  </data>
-  <data name="webBrowserPreview.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="timeControlStart.Error" xml:space="preserve">

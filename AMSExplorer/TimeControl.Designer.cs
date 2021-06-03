@@ -117,8 +117,6 @@
             // trackBarTime
             // 
             resources.ApplyResources(this.trackBarTime, "trackBarTime");
-            this.tableLayoutPanel1.SetColumnSpan(this.trackBarTime, 5);
-            this.trackBarTime.Maximum = 1000;
             this.trackBarTime.Name = "trackBarTime";
             // 
             // label1

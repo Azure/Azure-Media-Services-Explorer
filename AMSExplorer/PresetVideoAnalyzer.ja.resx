@@ -121,12 +121,6 @@
   <data name="groupBox2.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
-    <value>キー</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
-    <value>値</value>
-  </data>
   <data name="groupBoxAudioMode.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -135,6 +129,12 @@
   </data>
   <data name="radioButtonAudioBasic.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>キー</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>値</value>
   </data>
   <data name="$this.ToolTip" xml:space="preserve">
     <value />

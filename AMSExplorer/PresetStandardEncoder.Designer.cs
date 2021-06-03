@@ -59,6 +59,7 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
@@ -67,6 +68,7 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.index;
             this.buttonOk.Name = "buttonOk";
+            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // labelMES
@@ -74,41 +76,48 @@
             resources.ApplyResources(this.labelMES, "labelMES");
             this.labelMES.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelMES.Name = "labelMES";
+            this.toolTip1.SetToolTip(this.labelMES, resources.GetString("labelMES.ToolTip"));
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // moreinfoprofilelink
             // 
             resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.TabStop = true;
+            this.toolTip1.SetToolTip(this.moreinfoprofilelink, resources.GetString("moreinfoprofilelink.ToolTip"));
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // textBoxTransformName
             // 
             resources.ApplyResources(this.textBoxTransformName, "textBoxTransformName");
             this.textBoxTransformName.Name = "textBoxTransformName";
+            this.toolTip1.SetToolTip(this.textBoxTransformName, resources.GetString("textBoxTransformName.ToolTip"));
             // 
             // textBoxDescription
             // 
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
             this.textBoxDescription.Name = "textBoxDescription";
+            this.toolTip1.SetToolTip(this.textBoxDescription, resources.GetString("textBoxDescription.ToolTip"));
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // richTextBoxDesc
             // 
@@ -116,19 +125,22 @@
             resources.ApplyResources(this.richTextBoxDesc, "richTextBoxDesc");
             this.richTextBoxDesc.Name = "richTextBoxDesc";
             this.richTextBoxDesc.ReadOnly = true;
+            this.toolTip1.SetToolTip(this.richTextBoxDesc, resources.GetString("richTextBoxDesc.ToolTip"));
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.encoding_large;
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.encoding_large;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
             // 
             // listboxPresets
             // 
             resources.ApplyResources(this.listboxPresets, "listboxPresets");
             this.listboxPresets.FormattingEnabled = true;
             this.listboxPresets.Name = "listboxPresets";
+            this.toolTip1.SetToolTip(this.listboxPresets, resources.GetString("listboxPresets.ToolTip"));
             this.listboxPresets.SelectedIndexChanged += new System.EventHandler(this.listboxPresets_SelectedIndexChanged);
             // 
             // radioButtonBuiltin
@@ -137,12 +149,14 @@
             this.radioButtonBuiltin.Checked = true;
             this.radioButtonBuiltin.Name = "radioButtonBuiltin";
             this.radioButtonBuiltin.TabStop = true;
+            this.toolTip1.SetToolTip(this.radioButtonBuiltin, resources.GetString("radioButtonBuiltin.ToolTip"));
             this.radioButtonBuiltin.UseVisualStyleBackColor = true;
             // 
             // radioButtonCustomCopy
             // 
             resources.ApplyResources(this.radioButtonCustomCopy, "radioButtonCustomCopy");
             this.radioButtonCustomCopy.Name = "radioButtonCustomCopy";
+            this.toolTip1.SetToolTip(this.radioButtonCustomCopy, resources.GetString("radioButtonCustomCopy.ToolTip"));
             this.radioButtonCustomCopy.UseVisualStyleBackColor = true;
             this.radioButtonCustomCopy.CheckedChanged += new System.EventHandler(this.RadioButtonCustom_CheckedChanged);
             // 
@@ -150,6 +164,7 @@
             // 
             resources.ApplyResources(this.buttonCustomPresetThumbnail, "buttonCustomPresetThumbnail");
             this.buttonCustomPresetThumbnail.Name = "buttonCustomPresetThumbnail";
+            this.toolTip1.SetToolTip(this.buttonCustomPresetThumbnail, resources.GetString("buttonCustomPresetThumbnail.ToolTip"));
             this.buttonCustomPresetThumbnail.UseVisualStyleBackColor = true;
             this.buttonCustomPresetThumbnail.Click += new System.EventHandler(this.buttonCustomPresetCopyEdit_Click);
             // 
@@ -157,6 +172,7 @@
             // 
             resources.ApplyResources(this.radioButtonThumbnail, "radioButtonThumbnail");
             this.radioButtonThumbnail.Name = "radioButtonThumbnail";
+            this.toolTip1.SetToolTip(this.radioButtonThumbnail, resources.GetString("radioButtonThumbnail.ToolTip"));
             this.radioButtonThumbnail.UseVisualStyleBackColor = true;
             this.radioButtonThumbnail.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
@@ -164,6 +180,7 @@
             // 
             resources.ApplyResources(this.labelCodec, "labelCodec");
             this.labelCodec.Name = "labelCodec";
+            this.toolTip1.SetToolTip(this.labelCodec, resources.GetString("labelCodec.ToolTip"));
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -197,6 +214,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelMES);
             this.Name = "PresetStandardEncoder";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.PresetStandardEncoder_Load);
             this.Shown += new System.EventHandler(this.PresetStandardEncoder_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetStandardEncoder_DpiChanged);
