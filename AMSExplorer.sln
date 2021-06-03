@@ -30,13 +30,14 @@ Global
 		{BA871D4E-EAAC-4CC7-8A5D-15F4B5B4BDB4}.Debug|Any CPU.ActiveCfg = Debug
 		{BA871D4E-EAAC-4CC7-8A5D-15F4B5B4BDB4}.DVD-5|Any CPU.ActiveCfg = Debug
 		{BA871D4E-EAAC-4CC7-8A5D-15F4B5B4BDB4}.Release|Any CPU.ActiveCfg = Release
+		{BA871D4E-EAAC-4CC7-8A5D-15F4B5B4BDB4}.Release|Any CPU.Build.0 = Release
 		{BA871D4E-EAAC-4CC7-8A5D-15F4B5B4BDB4}.SingleImage|Any CPU.ActiveCfg = Debug
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {56028331-830B-4377-8919-694B44B54A0F}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+		SolutionGuid = {56028331-830B-4377-8919-694B44B54A0F}
 	EndGlobalSection
 EndGlobal

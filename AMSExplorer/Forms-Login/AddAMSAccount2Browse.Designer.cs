@@ -49,6 +49,7 @@
             resources.ApplyResources(this.buttonNext, "buttonNext");
             this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonNext.Name = "buttonNext";
+            this.toolTip1.SetToolTip(this.buttonNext, resources.GetString("buttonNext.ToolTip"));
             this.buttonNext.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
@@ -56,29 +57,32 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonNext);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // treeViewAzureSub
             // 
             resources.ApplyResources(this.treeViewAzureSub, "treeViewAzureSub");
             this.treeViewAzureSub.Name = "treeViewAzureSub";
+            this.toolTip1.SetToolTip(this.treeViewAzureSub, resources.GetString("treeViewAzureSub.ToolTip"));
             this.treeViewAzureSub.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewAzureSub_BeforeExpand);
             this.treeViewAzureSub.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewAzureSub_AfterSelect);
             // 
             // DGAcct
             // 
+            resources.ApplyResources(this.DGAcct, "DGAcct");
             this.DGAcct.AllowUserToAddRows = false;
             this.DGAcct.AllowUserToDeleteRows = false;
             this.DGAcct.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGAcct, "DGAcct");
             this.DGAcct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGAcct.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGAcct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -87,6 +91,7 @@
             this.DGAcct.Name = "DGAcct";
             this.DGAcct.ReadOnly = true;
             this.DGAcct.RowHeadersVisible = false;
+            this.toolTip1.SetToolTip(this.DGAcct, resources.GetString("DGAcct.ToolTip"));
             // 
             // comboBoxTenants
             // 
@@ -94,23 +99,27 @@
             this.comboBoxTenants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTenants.FormattingEnabled = true;
             this.comboBoxTenants.Name = "comboBoxTenants";
+            this.toolTip1.SetToolTip(this.comboBoxTenants, resources.GetString("comboBoxTenants.ToolTip"));
             this.comboBoxTenants.SelectedIndexChanged += new System.EventHandler(this.ComboBoxTenants_SelectedIndexChanged);
             // 
             // labelADTenant
             // 
             resources.ApplyResources(this.labelADTenant, "labelADTenant");
             this.labelADTenant.Name = "labelADTenant";
+            this.toolTip1.SetToolTip(this.labelADTenant, resources.GetString("labelADTenant.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
             this.label2.Name = "label2";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // AddAMSAccount2Browse
             // 
@@ -127,6 +136,7 @@
             this.Controls.Add(this.treeViewAzureSub);
             this.Controls.Add(this.panel1);
             this.Name = "AddAMSAccount2Browse";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.AddAMSAccount2_Load);
             this.Shown += new System.EventHandler(this.AddAMSAccount2Browse_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AddAMSAccount2Browse_DpiChanged);

@@ -57,25 +57,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonUpload.Text" xml:space="preserve">
-    <value>アップロード</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>キャンセル</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 15</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>複数ファイルのアセットとしてアップロードされるフォルダ : </value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 15</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>単一ファイルのアセットとしてアップロードされるファイル :</value>
-  </data>
   <data name="buttonFolderDeselAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 27</value>
   </data>
@@ -85,11 +67,17 @@
   <data name="buttonFolderSelAll.Text" xml:space="preserve">
     <value>すべて選択</value>
   </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>260, 15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>複数ファイルのアセットとしてアップロードされるフォルダ : </value>
+  </data>
   <data name="checkedListBoxFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>587, 39</value>
+    <value>587, 38</value>
   </data>
   <data name="buttonFileDeselAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 160</value>
+    <value>101, 159</value>
   </data>
   <data name="buttonFileDeselAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 27</value>
@@ -98,10 +86,22 @@
     <value>すべて選択解除</value>
   </data>
   <data name="buttonFileSelAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 160</value>
+    <value>7, 159</value>
   </data>
   <data name="buttonFileSelAll.Text" xml:space="preserve">
     <value>すべて選択</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 15</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>単一ファイルのアセットとしてアップロードされるファイル :</value>
+  </data>
+  <data name="buttonUpload.Text" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
   </data>
   <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 15</value>

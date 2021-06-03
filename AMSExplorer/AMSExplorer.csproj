@@ -6,7 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AMSExplorer.Program</StartupObject>
     <Version>5.4.1.1</Version>
-    <ApplicationIcon>C:\Repos\AMSExplorer.Net5\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</ApplicationIcon>
+    <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
     <Copyright>Copyright © 2021</Copyright>
     <Company>$(Authors)Microsoft</Company>

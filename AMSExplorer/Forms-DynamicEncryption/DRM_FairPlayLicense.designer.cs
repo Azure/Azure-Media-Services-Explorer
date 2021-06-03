@@ -129,13 +129,13 @@
             // 
             // panelPersistent
             // 
+            resources.ApplyResources(this.panelPersistent, "panelPersistent");
             this.panelPersistent.Controls.Add(this.radioButtonNoLimit);
             this.panelPersistent.Controls.Add(this.radioButtonOfflineRental);
             this.panelPersistent.Controls.Add(this.radioButtonLimited);
             this.panelPersistent.Controls.Add(this.panelOffline);
             this.panelPersistent.Controls.Add(this.numericUpDownRentalHours);
             this.panelPersistent.Controls.Add(this.label3);
-            resources.ApplyResources(this.panelPersistent, "panelPersistent");
             this.panelPersistent.Name = "panelPersistent";
             // 
             // radioButtonNoLimit
@@ -162,12 +162,12 @@
             // 
             // panelOffline
             // 
+            resources.ApplyResources(this.panelOffline, "panelOffline");
             this.panelOffline.Controls.Add(this.label4);
             this.panelOffline.Controls.Add(this.numericUpDownOfflinePlayback);
             this.panelOffline.Controls.Add(this.numericUpDownOfflineStorage);
             this.panelOffline.Controls.Add(this.label1);
             this.panelOffline.Controls.Add(this.label2);
-            resources.ApplyResources(this.panelOffline, "panelOffline");
             this.panelOffline.Name = "panelOffline";
             // 
             // label4
