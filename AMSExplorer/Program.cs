@@ -73,14 +73,22 @@ namespace AMSExplorer
             Application.SetCompatibleTextRenderingDefault(false);
 
             // BUG
-            // fix a crash on non english version of Windows. For now, let's force english UI per default
-            // System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en", false);
+            // fix a crash on non english version of Windows with some shortcut keys.
+            // See https://github.com/dotnet/winforms/issues/5036
+            // All shortcuts with Del have been removed. But the issue can see occurs with CTRL on German OS for example
+            // For now, let's force english UI per default, except for Japanese
+            if (System.Threading.Thread.CurrentThread.CurrentUICulture != new CultureInfo("ja-JA", false))
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US", false);
+            }
 
+            // if the user forces the language using /language: parameter...
             if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
             {
                 string language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language, false);
             }
+
             Application.Run(new Mainform(args));
         }
 
