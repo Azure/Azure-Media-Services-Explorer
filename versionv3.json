@@ -1,7 +1,7 @@
 {
     "Version": "5.4.2.1",
-    "ReleaseNotesUrl": "https://rawgit.com/Azure/Azure-Media-Services-Explorer/main/ReleaseNotes.html",
-    "AllReleaseNotesUrl": "https://rawgit.com/Azure/Azure-Media-Services-Explorer/main/AllReleaseNotes.html",
+    "ReleaseNotesUrl": "https://amsexplorer.azureedge.net/release/ReleaseNotes.html",
+    "AllReleaseNotesUrl": "https://amsexplorer.azureedge.net/release/AllReleaseNotes.html",
     "BinaryUrl": "https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.4.2.1.msi",
     "Parameters": ""
 }
