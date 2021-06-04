@@ -3863,7 +3863,7 @@ namespace AMSExplorer
             EnableChildItems(ref contextMenuStripStorage, tabcontrol.SelectedIndex == 7);
 
             Telemetry.TrackPageView("tab " + tabcontrol.SelectedTab.Name);
-          
+
         }
 
         private static void EnableChildItems(ref ToolStripMenuItem menuitem, bool bflag)
@@ -6150,17 +6150,13 @@ namespace AMSExplorer
 
             List<Asset> SelectedAssets = await ReturnSelectedAssetsAsync();
 
-            bool MultipleInputAssets = true;
+            bool MultipleInputAssets = false;
             if (SelectedAssets.Count > 1)
             {
                 if (MessageBox.Show("You selected several assets." + Constants.endline + "Do you want to use them as multiple input assets to one single job (to do stitching), or generate one job per input asset." + Constants.endline + Constants.endline
                     + "Yes : Multiple input assets to one task (for stitching)" + Constants.endline + "No : One task/job per input asset", "Multiple input assets", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     MultipleInputAssets = true;
-                }
-                else
-                {
-                    MultipleInputAssets = false;
                 }
 
             }
@@ -7950,7 +7946,7 @@ namespace AMSExplorer
             */
         }
 
-        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null, bool MultipleInputAssets = false, JobInputSequence jobInputSequence = null)
+        public async Task CreateAndSubmitJobsAsync(List<Transform> sel, List<Asset> assets, ClipTime start = null, ClipTime end = null, string jobName = null, Asset outputAsset = null, string assetNameSyntax = null, bool MultipleInputAssets = false, JobInput jobInput = null)
         {
 
             // Calculate the number of jobs
@@ -8077,14 +8073,11 @@ namespace AMSExplorer
 
                     if (!MultipleInputAssets)
                     {
-                        jobInputSequence = new JobInputSequence(
-                        inputs: new JobInputAsset[]{
-                        new JobInputAsset(
-                            assetName: sourceAssets.First().Name,
-                            start: start,
-                            end : end
-                        )
-                        }
+                        jobInput =
+                            new JobInputAsset(
+                                assetName: sourceAssets.First().Name,
+                                start: start,
+                                end: end
                     );
                     }
 
@@ -8099,14 +8092,14 @@ namespace AMSExplorer
                                                                     jobNameToUse,
                                                                     new Job
                                                                     {
-                                                                        Input = jobInputSequence,
+                                                                        Input = jobInput,
                                                                         Outputs = jobOutputs,
                                                                     });
 
 
                         TextBoxLogWriteLine("Job '{0}' created.", job.Name); // Warning
                         Dictionary<string, string> dictionary = new() { { "FromHttps", false.ToString() } };
-                        Dictionary<string, double> dictionaryM = new() { { "Input count", jobInputSequence.Inputs.Count }, { "Output count", jobOutputs.Count } };
+                        Dictionary<string, double> dictionaryM = new() { { "Input count", jobInput is JobInputAsset ? 1 : (jobInput as JobInputSequence).Inputs.Count }, { "Output count", jobOutputs.Count } };
                         Telemetry.TrackEvent("Job created", dictionary, dictionaryM);
 
                         dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
