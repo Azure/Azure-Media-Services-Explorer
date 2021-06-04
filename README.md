@@ -13,7 +13,7 @@ Azure Media Services Explorer (AMSE) is a .NET 5.0 (C#) application for Windows 
 
 See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool).
 
-## Prerequisites to run the application from the binary
+## Prerequisites to run the application
 
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
 
@@ -21,7 +21,7 @@ This application requires the installlation of
 - [.NET 5.0 **Desktop** Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
 - [Microsoft Edge Webview2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
-## Prerequisites to compile
+## Prerequisites to compile the solution from source
 
 This solution has been developed using [Visual Studio 2019 16.10.0](https://visualstudio.microsoft.com/vs/). It contains two projects: "AMSExplorer", the main application, and "Setup", a project that creates a Setup executable (EXE/MSI).
 
