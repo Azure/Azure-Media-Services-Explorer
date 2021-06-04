@@ -17,3 +17,10 @@
 * Nugget packages and documentation update
 * Code refactoring
 * Bugs fixes
+
+---
+**Note on the update and the media services account list**
+
+As the .Net runtime changed, you will loose the list of your favorites media services accounts in the connection window. To avoid this, export the list using the "Export" button before the upgrade, and reimport the list after the upgrade.
+
+---
