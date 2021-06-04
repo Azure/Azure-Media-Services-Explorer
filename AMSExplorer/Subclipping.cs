@@ -508,7 +508,7 @@ namespace AMSExplorer
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, jobInputSequence: form.InputSequence, MultipleInputAssets: true);
+                        await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, jobInput: form.InputSequence, MultipleInputAssets: true);
                     }
                 }
                 else if (_selectedAssets.Count > 1)
