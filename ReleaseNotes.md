@@ -1,4 +1,4 @@
-# Version 5.4.1.1 (June 4, 2021) brings the following features and improvements
+# Version 5.4.2.1 (June 4, 2021) brings the following features and improvements
 
 * Project has been migrated to [Window Forms .Net v5](https://devblogs.microsoft.com/dotnet/whats-new-in-windows-forms-runtime-in-net-5-0/)
   * Code is now based on .Net v5. Improvements should be a better management of high DPI display and better performances. AMSE needs the [.NET **Desktop** Runtime](https://dotnet.microsoft.com/download/dotnet/5.0) 5.0.6 or later
