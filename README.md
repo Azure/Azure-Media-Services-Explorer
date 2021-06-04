@@ -13,10 +13,13 @@ Azure Media Services Explorer (AMSE) is a .NET 5.0 (C#) application for Windows 
 
 See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool).
 
-**The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**. Please note that AMSE v5 is for AMS v3 API (main branch), and AMSE v4 is for AMS v2 (AMSv2 branch).
-This application requires [.NET 5.0 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/5.0) and [Microsoft Edge Webview2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) to run.
+## Prerequisites to run the application from the binary
 
-AMSE uses Application Insights for Telemetry. This feature can be turned off in the Options of AMSE.
+**The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
+
+This application requires the installlation of
+- [.NET 5.0 **Desktop** Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [Microsoft Edge Webview2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
 ## Prerequisites to compile
 
@@ -25,6 +28,10 @@ This solution has been developed using [Visual Studio 2019 16.10.0](https://visu
 You need to install the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects) in order to open and build the Setup project in Visual Studio.
 
 This solution requires [.NET 5.0 SDK to compile](https://dotnet.microsoft.com/download/dotnet/5.0).
+
+## Note
+
+AMSE uses Application Insights for Telemetry. This feature can be turned off in the Options of AMSE.
 
 ## Contacts
 
