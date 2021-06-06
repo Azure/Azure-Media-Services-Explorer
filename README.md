@@ -18,7 +18,7 @@ See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managin
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
 
 This application requires the installlation of
-- [.NET 5.0 **Desktop** Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [.NET **Desktop** Runtime 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
 - [Microsoft Edge Webview2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
 ## Prerequisites to compile the solution from source
@@ -27,7 +27,7 @@ This solution has been developed using [Visual Studio 2019 16.10.0](https://visu
 
 You need to install the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects) in order to open and build the Setup project in Visual Studio.
 
-This solution requires [.NET 5.0 SDK to compile](https://dotnet.microsoft.com/download/dotnet/5.0).
+This solution requires [.NET SDK 5.0](https://dotnet.microsoft.com/download/dotnet/5.0) to compile.
 
 ## Notes
 
