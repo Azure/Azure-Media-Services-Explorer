@@ -29,7 +29,9 @@ You need to install the [Microsoft Visual Studio Installer Projects](https://mar
 
 This solution requires [.NET 5.0 SDK to compile](https://dotnet.microsoft.com/download/dotnet/5.0).
 
-## Note
+## Notes
+
+You can force the English or Japanese language by using /language:en-US or /language:ja-JA as a parameter of the AMSExplorer.exe executable.
 
 AMSE uses Application Insights for Telemetry. This feature can be turned off in the Options of AMSE.
 
