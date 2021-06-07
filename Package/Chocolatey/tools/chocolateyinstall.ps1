@@ -1,7 +1,7 @@
 ﻿
 $ErrorActionPreference = 'Stop';
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url        = 'https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.3.0.1.msi'
+$url        = 'https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.4.2.1.msi'
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
@@ -11,7 +11,7 @@ $packageArgs = @{
 
   softwareName  = 'Azure Media Services Explorer'
 
-  checksum      = '54AC71A076C997EA7D033A4B078721440A0076282C550BA28E60910E7228F1CB'
+  checksum      = '55C8C3998F3C5BAA6629027694B1EE66F56BF777BE14B18C2D31D1CE484EF2A3'
   checksumType  = 'sha256'
   checksum64    = ''
   checksumType64= 'sha256'
