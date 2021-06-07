@@ -1509,14 +1509,24 @@ namespace AMSExplorer
         }
 
         // copy a directory of the same container to another container
-        public static List<Task> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken, CancellationToken token)
+        public static async Task<List<(CloudBlob,string)>> StartCopyBlobDirectoryAsync(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken, CancellationToken token)
         {
 
-            List<Task> mylistresults = new();
+            List<(CloudBlob,string)> mylistresults = new();
 
-            List<IListBlobItem> srcBlobList = srcDirectory.ListBlobs(
-                useFlatBlobListing: true,
-                blobListingDetails: BlobListingDetails.None).ToList();
+
+            // Let's list the blobs in the directory
+            BlobContinuationToken continuationToken = null;
+            List<IListBlobItem> srcBlobList = new();
+            do
+            {
+                BlobResultSegment segment = await srcDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None, null, continuationToken, null, null, token);
+                srcBlobList.AddRange(segment.Results);
+                continuationToken = segment.ContinuationToken;
+            }
+            while (continuationToken != null);
+
+
 
             foreach (IListBlobItem src in srcBlobList)
             {
@@ -1534,7 +1544,9 @@ namespace AMSExplorer
                 }
 
                 // copy using src blob as SAS
-                mylistresults.Add(destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), token));
+                string operationId = await destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), token);
+
+                mylistresults.Add(new(destBlob, operationId));
             }
 
             return mylistresults;

@@ -332,7 +332,7 @@ namespace AMSExplorer
                     return;
                 }
             }
-            RefreshGridView();
+            //RefreshGridView();
             //BeginInvoke(new Action(() => Refresh()), null);
         }
 

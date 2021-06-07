@@ -927,7 +927,7 @@ namespace AMSExplorer
                     return;
                 }
 
-                // Let's list the blobs
+                // Let's list ALL the blobs container
                 BlobContinuationToken continuationToken = null;
                 List<IListBlobItem> blobs = new();
                 do
@@ -939,7 +939,7 @@ namespace AMSExplorer
                 while (continuationToken != null);
 
 
-                // size calculation
+                // size calculation of ALL the blobs
                 long Length = 0;
                 foreach (IListBlobItem blob in blobs)
                 {
@@ -949,11 +949,22 @@ namespace AMSExplorer
                     }
                 }
 
+                // Let's list the blobs in the root of the container
+                continuationToken = null;
+                blobs.Clear();
+                do
+                {
+                    BlobResultSegment segment = await Container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.None, null, continuationToken, null, null);
+                    blobs.AddRange(segment.Results);
+                    continuationToken = segment.ContinuationToken;
+                }
+                while (continuationToken != null);
+
                 IEnumerable<IListBlobItem> blobsblock = blobs.Where(b => b is CloudBlockBlob);
                 int nbtotalblobblock = blobsblock.Count();
                 int nbblob = 0;
                 long BytesCopied = 0;
-                Dictionary<CloudBlockBlob, Task<string>> copyOperationsDict = new();
+                Dictionary<CloudBlob, string> copyOperationsDict = new();
 
                 // let's parallelize the copy
                 foreach (IListBlobItem blob in blobsblock)
@@ -967,7 +978,7 @@ namespace AMSExplorer
                     UriBuilder urib = new(ObjectUrl);
                     urib.Path = urib.Path + "/" + Path.GetFileName(blob.Uri.ToString());
 
-                    copyOperationsDict.Add(blockBlob, blockBlob.StartCopyAsync(urib.Uri, token));
+                    copyOperationsDict.Add(blockBlob, await blockBlob.StartCopyAsync(urib.Uri, token));
                 }
                 bool Cancelled = false;
 
@@ -978,32 +989,32 @@ namespace AMSExplorer
                 {
                     if (token.IsCancellationRequested && !Cancelled)
                     {
-                        foreach (KeyValuePair<CloudBlockBlob, Task<string>> entry in copyOperationsDict)
+                        foreach (KeyValuePair<CloudBlob, string> entry in copyOperationsDict)
                         {
                             // do something with entry.Value or entry.Key
-                            await entry.Key.AbortCopyAsync(entry.Value.Result);
+                            await entry.Key.AbortCopyAsync(entry.Value);
                             Cancelled = true;
                         }
                     }
 
                     await Task.Delay(1000);
 
-                    List<CloudBlockBlob> copyCompleted = new();
-                    foreach (KeyValuePair<CloudBlockBlob, Task<string>> entry in copyOperationsDict)
+                    List<CloudBlob> copyCompleted = new();
+                    foreach (KeyValuePair<CloudBlob, string> entry in copyOperationsDict)
                     {
-                        CloudBlockBlob blockBlobToCheck = entry.Key;
+                        var blobToCheck = entry.Key;
                         try
                         {
-                            await blockBlobToCheck.FetchAttributesAsync();
+                            await blobToCheck.FetchAttributesAsync();
                         }
-                        catch { }
-                        CopyState copyStatus = blockBlobToCheck.CopyState;
+                        catch
+                        {
+                        }
+
+                        CopyState copyStatus = blobToCheck.CopyState;
+
                         if (copyStatus != null)
                         {
-                            double percentComplete = 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
-
-                            DoGridTransferUpdateProgress(percentComplete, guidTransfer);
-
                             if (copyStatus.Status != CopyStatus.Pending)
                             {
                                 if (copyStatus.Status == CopyStatus.Failed)
@@ -1017,75 +1028,137 @@ namespace AMSExplorer
                                 }
                                 if (copyStatus.Status == CopyStatus.Success)
                                 {
-                                    BytesCopied += blockBlobToCheck.Properties.Length;
+                                    BytesCopied += blobToCheck.Properties.Length;
+                                    if (Length > 0)
+                                    {
+                                        double percentComplete = 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
+                                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                                    }
                                 }
-                                copyCompleted.Add(blockBlobToCheck);
+                                copyCompleted.Add(blobToCheck);
                             }
                         }
                     }
                     copyCompleted.ForEach(b => copyOperationsDict.Remove(b));
                 }
 
-                DateTime endTime = DateTime.UtcNow;
-                TimeSpan diffTime = endTime - startTime;
+                //DateTime endTime = DateTime.UtcNow;
+                //TimeSpan diffTime = endTime - startTime;
 
-                List<CloudBlobDirectory> ListDirectories = new();
+
+                // let's now copy the content of the directories
+                List<(CloudBlobDirectory, long)> ListDirectories = new();
                 List<Task> mylistresults = new();
 
-                IEnumerable<IListBlobItem> blobsdir = blobs.Where(b => b is CloudBlobDirectory);
-                int nbtotalblobdir = blobsdir.Count();
-                int nbblobdir = 0;
-                foreach (IListBlobItem blob in blobsdir)
-                {
-                    nbblobdir++;
-                    string fileName = blob.Uri.Segments[2];
-
-                    CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
-                    ListDirectories.Add(blobdir);
-                    TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
-
-
-
-                    // Let's list the blobs in the directory
-                    continuationToken = null;
-                    List<IListBlobItem> srcBlobList = new();
-                    do
-                    {
-                        BlobResultSegment segment = await blobdir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, null, continuationToken, null, null);
-                        srcBlobList.AddRange(segment.Results);
-                        continuationToken = segment.ContinuationToken;
-                    }
-                    while (continuationToken != null);
-
-
-                    IEnumerable<IListBlobItem> subblocks = srcBlobList.Where(s => s is CloudBlockBlob);
-                    long size = 0;
-                    if (subblocks.Any())
-                    {
-                        size = subblocks.Sum(s => ((CloudBlockBlob)s).Properties.Length);
-                    }
-                }
+                var blobsdir = blobs.Where(b => b is CloudBlobDirectory).Select(c => c as CloudBlobDirectory);
 
 
                 // let's launch the copy of fragblobs
-                double ind = 0;
-                foreach (CloudBlobDirectory dir in ListDirectories)
+                copyOperationsDict.Clear();
+                foreach (var dir in blobsdir)
                 {
-                    TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
-                    mylistresults.AddRange(AssetTools.CopyBlobDirectory(dir, destinationContainer, ObjectUrl.Query, token));
+                    TextBoxLogWriteLine("Copying directory '{0}'....", dir.Prefix);
 
-                    if (mylistresults.Count > 0)
+                    // Let's list the blobs in the directory
+                    continuationToken = null;
+                    int batch = 50;
+                    int nbBlobinDirCopied = 0;
+                    do
                     {
-                        while (!mylistresults.All(r => r.IsCompleted))
+                        // let copy per batch of 50
+                        BlobResultSegment segment = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, batch, continuationToken, null, null, token);
+                        continuationToken = segment.ContinuationToken;
+
+
+                        List<(Task<string>, CloudBlob)> myTasks = new();
+                        foreach (IListBlobItem src in segment.Results.ToList())
                         {
-                            Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
-                            double percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
-                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, guidTransfer);
+                            ICloudBlob srcBlob = src as ICloudBlob;
+
+                            // Create appropriate destination blob type to match the source blob
+                            CloudBlob destBlob;
+                            if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
+                            {
+                                destBlob = destinationContainer.GetBlockBlobReference(srcBlob.Name);
+                            }
+                            else
+                            {
+                                destBlob = destinationContainer.GetPageBlobReference(srcBlob.Name);
+                            }
+
+                            myTasks.Add(
+                                (destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + ObjectUrl.Query), token), destBlob)
+                                );
                         }
+
+                        // let's wait for all copy to have started
+                        var results = await Task.WhenAll(myTasks.Select(a => a.Item1));
+                        myTasks.ForEach(t => copyOperationsDict.Add(t.Item2, t.Item1.Result));
+
+                        Cancelled = false;
+
+                        // let's check the copy status
+                        while ((copyOperationsDict.Count > 0) && (!Cancelled))
+                        {
+                            if (token.IsCancellationRequested && !Cancelled)
+                            {
+                                foreach (KeyValuePair<CloudBlob, string> entry in copyOperationsDict)
+                                {
+                                    // do something with entry.Value or entry.Key
+                                    await entry.Key.AbortCopyAsync(entry.Value);
+                                    Cancelled = true;
+                                }
+                            }
+
+                            await Task.Delay(1000);
+
+                            List<CloudBlob> copyCompleted = new();
+                            foreach (KeyValuePair<CloudBlob, string> entry in copyOperationsDict)
+                            {
+                                var blobToCheck = entry.Key;
+                                try
+                                {
+                                    await blobToCheck.FetchAttributesAsync();
+                                }
+                                catch
+                                {
+                                }
+
+                                CopyState copyStatus = blobToCheck.CopyState;
+
+                                if (copyStatus != null)
+                                {
+                                    if (copyStatus.Status != CopyStatus.Pending)
+                                    {
+                                        if (copyStatus.Status == CopyStatus.Failed)
+                                        {
+                                            Error = true;
+                                            ErrorMessage = copyStatus.StatusDescription;
+                                        }
+                                        if (copyStatus.Status == CopyStatus.Aborted)
+                                        {
+                                            Canceled = true;
+                                        }
+                                        if (copyStatus.Status == CopyStatus.Success)
+                                        {
+                                            BytesCopied += blobToCheck.Properties.Length;
+                                            if (Length > 0)
+                                            {
+                                                double percentComplete = 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
+                                                DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                                            }
+                                        }
+                                        copyCompleted.Add(blobToCheck);
+                                    }
+                                }
+                            }
+                            copyCompleted.ForEach(b => copyOperationsDict.Remove(b));
+                        }
+                        nbBlobinDirCopied += myTasks.Count;
+                        TextBoxLogWriteLine("Copying directory '{0}'.... {1} blobs copied.", dir.Prefix, nbBlobinDirCopied, false);
                     }
-                    ind++;
-                    mylistresults.Clear();
+                    while (continuationToken != null);
                 }
 
                 if (!Error && !Canceled)
@@ -1115,18 +1188,10 @@ namespace AMSExplorer
                 DoGridTransferDeclareError(guidTransfer, ex);
             }
 
-            /*
-            if (!Error && !token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCompleted(guidTransfer, destAssetName);
-            }
-            else if (token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCancelled(guidTransfer);
-            }
-            */
+
         }
 
+     
 
         private static void MyUploadFileProgressChanged(Guid guidTransfer, int indexfile, int nbfiles)
         {
