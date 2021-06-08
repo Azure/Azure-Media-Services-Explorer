@@ -2404,7 +2404,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Error. Could not create a locator for '{0}' ", AssetToP.Name, true);
                     TextBoxLogWriteLine(ex);
                     Telemetry.TrackException(ex);
-                    return null;
+                    throw;
                 }
             }
             DataGridViewAssets.PurgeCacheAssets(assets);
