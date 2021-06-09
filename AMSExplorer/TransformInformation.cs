@@ -15,12 +15,14 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSExplorer.Rest;
+using AMSExplorer.Utils.TransformInfo;
 using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -29,14 +31,16 @@ namespace AMSExplorer
     {
         private readonly Transform _transform;
         private readonly TransformRestObject _transformRest;
+        private readonly AMSClientV3 _amsClient;
         public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
 
-        public TransformInformation(Transform transform, TransformRestObject transformRest)
+        public TransformInformation(Transform transform, TransformRestObject transformRest, AMSClientV3 amsClient)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _transform = transform;
             _transformRest = transformRest;
+            _amsClient = amsClient;
         }
 
         private void ContextMenuStrip_MouseClick(object sender, MouseEventArgs e)
@@ -196,6 +200,19 @@ namespace AMSExplorer
         private void TransformInformation_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+        }
+
+        private void buttonCopyStats_Click(object sender, EventArgs e)
+        {
+            DoTransformStat();
+        }
+
+        public void DoTransformStat()
+        {
+            Telemetry.TrackEvent("TransformInformation DoTransformStat");
+            StringBuilder SB = TransformTools.GetStat(_transform, _amsClient, _transformRest);
+            var tokenDisplayForm = new EditorXMLJSON("Transform report", SB.ToString(), false, ShowSampleMode.None, false);
+            tokenDisplayForm.Display();
         }
     }
 }

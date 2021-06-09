@@ -1653,11 +1653,7 @@ namespace AMSExplorer
                 try
                 {
                     Cursor = Cursors.WaitCursor;
-                    JobInformation form = new(this, _amsClient)
-                    {
-                        MyJob = job.Job
-                        //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
-                    };
+                    JobInformation form = new(this, _amsClient, job);
                     dialogResult = form.ShowDialog(this);
                 }
                 finally
@@ -1684,7 +1680,7 @@ namespace AMSExplorer
                     var restTransformClient = new AmsClientRest(_amsClient);
                     var transformRest = restTransformClient.GetTransformContent(t.Name);
 
-                    TransformInformation form = new(t, transformRest);
+                    TransformInformation form = new(t, transformRest, _amsClient);
 
                     dialogResult = form.ShowDialog(this);
                 }
