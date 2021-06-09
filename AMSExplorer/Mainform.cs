@@ -6633,7 +6633,6 @@ namespace AMSExplorer
             ContextMenuItemLiveEventStart.Enabled = oneOrMore;
             ContextMenuItemLiveEventStop.Enabled = oneOrMore;
             ContextMenuItemLiveEventReset.Enabled = oneOrMore;
-            cloneLiveEventsToolStripMenuItem.Enabled = false;// oneOrMore;
             ContextMenuItemLiveEventDelete.Enabled = oneOrMore;
 
             // playback preview
