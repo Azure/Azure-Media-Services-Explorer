@@ -869,8 +869,7 @@ namespace AMSExplorer
         {
             Telemetry.TrackEvent("AssetInformation DoDisplayAssetStatsAsync");
 
-            AssetTools MyAssetReport = new(myAsset, _amsClient);
-            StringBuilder SB = await MyAssetReport.GetStatsAsync();
+            StringBuilder SB = await AssetTools.GetStatAsync(myAsset, _amsClient);
             using (EditorXMLJSON tokenDisplayForm
                 = new(AMSExplorer.Properties.Resources.AssetInformation_DoDisplayAssetStats_AssetReport, SB.ToString(), false, ShowSampleMode.None, false))
             {

@@ -18,6 +18,8 @@
 
 
 using AMSExplorer.Rest;
+using AMSExplorer.Utils.JobInfo;
+using AMSExplorer.Utils.TransformInfo;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage;
@@ -1191,7 +1193,7 @@ namespace AMSExplorer
 
         }
 
-     
+
 
         private static void MyUploadFileProgressChanged(Guid guidTransfer, int indexfile, int nbfiles)
         {
@@ -3395,14 +3397,19 @@ namespace AMSExplorer
         }
 
 
-        private void DoDisplayJobReport()
+        private async Task DoDisplayJobReportAsync()
         {
-            /*
-            JobInfo JR = new JobInfo(ReturnSelectedJobs(), _accountname);
-            StringBuilder SB = JR.GetStats();
-            var tokenDisplayForm = new EditorXMLJSON("Job report", SB.ToString(), false, false, false);
-            tokenDisplayForm.Display();
-            */
+            Telemetry.TrackEvent("DoDisplayJobReportAsync");
+
+            var jobs = await ReturnSelectedJobsV3Async();
+            if (jobs.Count == 0) return;
+
+            StringBuilder SB = await JobTools.GetStatAsync(jobs.First(), _amsClient);
+            using (EditorXMLJSON jobDisplayForm
+                = new("Job report", SB.ToString(), false, ShowSampleMode.None, false))
+            {
+                jobDisplayForm.Display();
+            }
         }
 
 
@@ -3685,26 +3692,6 @@ namespace AMSExplorer
             await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.DASHIFRefPlayer);
         }
 
-
-        private async Task DoCreateAssetReportEmailAsync()
-        {
-            _ = new AssetTools(await ReturnSelectedAssetsAsync(), _amsClient);
-        }
-
-        private async Task DoDisplayAssetReportAsync()
-        {
-            Telemetry.TrackEvent("DoDisplayAssetReportAsync");
-
-            AssetTools AR = new(await ReturnSelectedAssetsAsync(), _amsClient);
-            StringBuilder SB = await AR.GetStatsAsync();
-            EditorXMLJSON tokenDisplayForm = new("Asset report", SB.ToString(), false, ShowSampleMode.None, false);
-            tokenDisplayForm.Display();
-        }
-
-        private async void createOutlookReportEmailToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            await DoCreateAssetReportEmailAsync();
-        }
 
 
         private async void openOutputAssetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7113,20 +7100,12 @@ namespace AMSExplorer
         }
 
 
-        private void copyReportToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void copyReportToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDisplayJobReport();
+            await DoDisplayJobReportAsync();
         }
 
-        private async void toolStripMenuItem30_Click(object sender, EventArgs e)
-        {
-            await DoCreateAssetReportEmailAsync();
-        }
 
-        private async void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            await DoDisplayAssetReportAsync();
-        }
 
         private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -9159,5 +9138,73 @@ namespace AMSExplorer
         {
 
         }
+
+        private async void displayTransformReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DisplayTransformReportAsync();
+        }
+
+        private async Task DisplayTransformReportAsync()
+        {
+            Telemetry.TrackEvent("DisplayTransformReportAsync");
+
+            var transforms = await ReturnSelectedTransformsAsync();
+            if (transforms.Count == 0) return;
+
+            // let's get the info about the transform using REST, so we can display a good JSON preset.
+            var restTransformClient = new AmsClientRest(_amsClient);
+            var transformRest = restTransformClient.GetTransformContent(transforms.First().Name);
+
+            StringBuilder SB = TransformTools.GetStat(transforms.First(), _amsClient, transformRest);
+            using (EditorXMLJSON transformDisplayForm
+                = new("Transform report", SB.ToString(), false, ShowSampleMode.None, false))
+            {
+                transformDisplayForm.Display();
+            }
+        }
+
+        private async void displayAssetReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DisplayAssetReportAsync();
+        }
+
+        private async Task DisplayAssetReportAsync()
+        {
+            Telemetry.TrackEvent("DisplayAssetReportAsync");
+
+            var assets = await ReturnSelectedAssetsAsync();
+            if (assets.Count == 0) return;
+
+            StringBuilder SB = await AssetTools.GetStatAsync(assets.First(), _amsClient);
+            using (EditorXMLJSON assetDisplayForm
+                = new("Asset report", SB.ToString(), false, ShowSampleMode.None, false))
+            {
+                assetDisplayForm.Display();
+            }
+        }
+
+        private async void displayInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoDisplayTransformInfoAsync();
+        }
+
+        private async Task DoDisplayTransformInfoAsync()
+        {
+            var transforms = await ReturnSelectedTransformsAsync();
+            if (transforms == null || transforms.Count == 0) return;
+
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                if (DisplayInfo(transforms.First()) == DialogResult.OK)
+                {
+                }
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+            }
+        }
+
     }
 }

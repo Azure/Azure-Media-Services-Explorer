@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
+            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
@@ -43,6 +43,7 @@
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemAssetDisplayInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayAssetReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetEditDescription = new System.Windows.Forms.ToolStripMenuItem();
             this.editAlternateIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,9 +51,7 @@
             this.deleteVisibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.analyzeAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem43 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem41 = new System.Windows.Forms.ToolStripMenuItem();
             this.generateClientManifestsismcWhenNeededToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
             this.newAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,6 +127,7 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewTransformsV = new AMSExplorer.DataGridViewTransforms();
             this.contextMenuStripTransforms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.displayTransformReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addATaskToTransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,7 +146,6 @@
             this.ContextMenuItemJobInputAssetInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobOpenOutputAsset = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCreateOutlookReportEmail = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyReportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemJobChangePriority = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCancel = new System.Windows.Forms.ToolStripMenuItem();
@@ -327,6 +326,8 @@
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.displayInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -459,9 +460,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject4.SearchType = AMSExplorer.SearchIn.AssetNameEquals;
-            searchObject4.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject4;
+            searchObject1.SearchType = AMSExplorer.SearchIn.AssetNameEquals;
+            searchObject1.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject1;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.StateFilter = "";
             this.dataGridViewAssetsV.TimeFilter = "Last week";
@@ -481,6 +482,7 @@
             this.refreshToolStripMenuItem1,
             this.toolStripSeparator9,
             this.ContextMenuItemAssetDisplayInfo,
+            this.displayAssetReportToolStripMenuItem,
             this.ContextMenuItemAssetEditDescription,
             this.editAlternateIdToolStripMenuItem,
             this.ContextMenuItemAssetDelete,
@@ -519,6 +521,12 @@
             this.ContextMenuItemAssetDisplayInfo.Name = "ContextMenuItemAssetDisplayInfo";
             resources.ApplyResources(this.ContextMenuItemAssetDisplayInfo, "ContextMenuItemAssetDisplayInfo");
             this.ContextMenuItemAssetDisplayInfo.Click += new System.EventHandler(this.toolStripMenuItemDisplayInfo_Click);
+            // 
+            // displayAssetReportToolStripMenuItem
+            // 
+            this.displayAssetReportToolStripMenuItem.Name = "displayAssetReportToolStripMenuItem";
+            resources.ApplyResources(this.displayAssetReportToolStripMenuItem, "displayAssetReportToolStripMenuItem");
+            this.displayAssetReportToolStripMenuItem.Click += new System.EventHandler(this.displayAssetReportToolStripMenuItem_Click);
             // 
             // ContextMenuItemAssetEditDescription
             // 
@@ -565,30 +573,16 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.analyzeAssetsToolStripMenuItem,
             this.toolStripMenuItem43,
-            this.toolStripMenuItem41,
             this.generateClientManifestsismcWhenNeededToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
-            // 
-            // analyzeAssetsToolStripMenuItem
-            // 
-            resources.ApplyResources(this.analyzeAssetsToolStripMenuItem, "analyzeAssetsToolStripMenuItem");
-            this.analyzeAssetsToolStripMenuItem.Name = "analyzeAssetsToolStripMenuItem";
-            this.analyzeAssetsToolStripMenuItem.Click += new System.EventHandler(this.AnalyzeAssetsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem43
             // 
             this.toolStripMenuItem43.Name = "toolStripMenuItem43";
             resources.ApplyResources(this.toolStripMenuItem43, "toolStripMenuItem43");
             this.toolStripMenuItem43.Click += new System.EventHandler(this.toolStripMenuItem43_Click);
-            // 
-            // toolStripMenuItem41
-            // 
-            resources.ApplyResources(this.toolStripMenuItem41, "toolStripMenuItem41");
-            this.toolStripMenuItem41.Name = "toolStripMenuItem41";
-            this.toolStripMenuItem41.Click += new System.EventHandler(this.toolStripMenuItem41_Click);
             // 
             // generateClientManifestsismcWhenNeededToolStripMenuItem
             // 
@@ -1173,6 +1167,9 @@
             // contextMenuStripTransforms
             // 
             this.contextMenuStripTransforms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.displayInformationToolStripMenuItem,
+            this.displayTransformReportToolStripMenuItem,
+            this.toolStripSeparator4,
             this.createATransformToolStripMenuItem,
             this.addATaskToTransformToolStripMenuItem,
             this.deleteTransformsToolStripMenuItem,
@@ -1181,6 +1178,12 @@
             this.contextMenuStripTransforms.Name = "contextMenuStripTransforms";
             resources.ApplyResources(this.contextMenuStripTransforms, "contextMenuStripTransforms");
             this.contextMenuStripTransforms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransforms_Opening);
+            // 
+            // displayTransformReportToolStripMenuItem
+            // 
+            this.displayTransformReportToolStripMenuItem.Name = "displayTransformReportToolStripMenuItem";
+            resources.ApplyResources(this.displayTransformReportToolStripMenuItem, "displayTransformReportToolStripMenuItem");
+            this.displayTransformReportToolStripMenuItem.Click += new System.EventHandler(this.displayTransformReportToolStripMenuItem_Click);
             // 
             // createATransformToolStripMenuItem
             // 
@@ -1335,17 +1338,10 @@
             // 
             // ContextMenuItemJobCreateOutlookReportEmail
             // 
-            this.ContextMenuItemJobCreateOutlookReportEmail.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyReportToClipboardToolStripMenuItem});
-            resources.ApplyResources(this.ContextMenuItemJobCreateOutlookReportEmail, "ContextMenuItemJobCreateOutlookReportEmail");
             this.ContextMenuItemJobCreateOutlookReportEmail.Image = global::AMSExplorer.Bitmaps.create_outlook_report;
             this.ContextMenuItemJobCreateOutlookReportEmail.Name = "ContextMenuItemJobCreateOutlookReportEmail";
-            // 
-            // copyReportToClipboardToolStripMenuItem
-            // 
-            this.copyReportToClipboardToolStripMenuItem.Name = "copyReportToClipboardToolStripMenuItem";
-            resources.ApplyResources(this.copyReportToClipboardToolStripMenuItem, "copyReportToClipboardToolStripMenuItem");
-            this.copyReportToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyReportToClipboardToolStripMenuItem_Click);
+            resources.ApplyResources(this.ContextMenuItemJobCreateOutlookReportEmail, "ContextMenuItemJobCreateOutlookReportEmail");
+            this.ContextMenuItemJobCreateOutlookReportEmail.Click += new System.EventHandler(this.copyReportToClipboardToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
@@ -1538,9 +1534,9 @@
             this.dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             this.dataGridViewLiveEventsV.ReadOnly = true;
             this.dataGridViewLiveEventsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.LiveEventName;
-            searchObject1.Text = "";
-            this.dataGridViewLiveEventsV.SearchInName = searchObject1;
+            searchObject2.SearchType = AMSExplorer.SearchIn.LiveEventName;
+            searchObject2.Text = "";
+            this.dataGridViewLiveEventsV.SearchInName = searchObject2;
             this.dataGridViewLiveEventsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewLiveEventsV.TimeFilter = "Last week";
             this.dataGridViewLiveEventsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
@@ -1749,9 +1745,9 @@
             this.dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";
             this.dataGridViewLiveOutputV.ReadOnly = true;
             this.dataGridViewLiveOutputV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.LiveOutputName;
-            searchObject2.Text = "";
-            this.dataGridViewLiveOutputV.SearchInName = searchObject2;
+            searchObject3.SearchType = AMSExplorer.SearchIn.LiveOutputName;
+            searchObject3.Text = "";
+            this.dataGridViewLiveOutputV.SearchInName = searchObject3;
             this.dataGridViewLiveOutputV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewLiveOutputV.TimeFilter = "Last week";
             this.dataGridViewLiveOutputV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
@@ -2702,6 +2698,18 @@
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
             // 
+            // displayInformationToolStripMenuItem
+            // 
+            this.displayInformationToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.displayInformationToolStripMenuItem.Name = "displayInformationToolStripMenuItem";
+            resources.ApplyResources(this.displayInformationToolStripMenuItem, "displayInformationToolStripMenuItem");
+            this.displayInformationToolStripMenuItem.Click += new System.EventHandler(this.displayInformationToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -2985,7 +2993,6 @@
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
         private System.Windows.Forms.ComboBox comboBoxSearchLiveEventOption;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyReportToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem30;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem visibleAssetsInGridToolStripMenuItem;
@@ -3018,7 +3025,6 @@
         private System.Windows.Forms.RadioButton radioButtonChAll;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem38;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem41;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem43;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator36;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
@@ -3029,7 +3035,6 @@
         private System.Windows.Forms.ToolStripMenuItem filesToSelectedAssetsToolStripMenuItem1;
         private System.Windows.Forms.TrackBar trackBarConcurrentTransfers;
         private System.Windows.Forms.Label labelConcurrentTransfers;
-        private System.Windows.Forms.ToolStripMenuItem analyzeAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromAzureStoragecontainerSASUrlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromAzureStorageSASContainerPathToolStripMenuItem;
@@ -3081,6 +3086,10 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripCKPolicies;
         private System.Windows.Forms.ToolStripMenuItem generateClientManifestsismcWhenNeededToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addATaskToTransformToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayTransformReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayAssetReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayInformationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
 
