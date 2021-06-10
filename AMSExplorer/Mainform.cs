@@ -40,6 +40,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -729,6 +730,7 @@ namespace AMSExplorer
                     DoGridTransferDeclareError(guidTransfer, ex);
                     TextBoxLogWriteLine("Error when uploading '{0}'.", string.Join(", ", filenames), true);
                     TextBoxLogWriteLine(ex);
+                    TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
                     Telemetry.TrackException(ex);
                 }
             }
@@ -1389,6 +1391,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine(string.Format("Download of blobs from asset '{0}' failed !", assetName), true);
                 TextBoxLogWriteLine(ex);
+                TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
                 Telemetry.TrackException(ex);
                 DoGridTransferDeclareError(response.Id, ex);
                 return;
