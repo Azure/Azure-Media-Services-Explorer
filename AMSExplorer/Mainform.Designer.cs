@@ -120,6 +120,7 @@
             this.displayErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.retryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trackBarConcurrentTransfers = new System.Windows.Forms.TrackBar();
             this.labelConcurrentTransfers = new System.Windows.Forms.Label();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
@@ -127,7 +128,9 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewTransformsV = new AMSExplorer.DataGridViewTransforms();
             this.contextMenuStripTransforms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.displayInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayTransformReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.createATransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addATaskToTransformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTransformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -326,8 +329,6 @@
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.displayInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -1065,7 +1066,8 @@
             this.ContextMenuItemTransferOpenDest,
             this.displayErrorToolStripMenuItem,
             this.cancelToolStripMenuItem,
-            this.clearToolStripMenuItem});
+            this.clearToolStripMenuItem,
+            this.retryToolStripMenuItem});
             this.contextMenuStripTransfers.Name = "contextMenuStripTransfers";
             resources.ApplyResources(this.contextMenuStripTransfers, "contextMenuStripTransfers");
             this.contextMenuStripTransfers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransfers_Opening);
@@ -1096,6 +1098,12 @@
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
             resources.ApplyResources(this.clearToolStripMenuItem, "clearToolStripMenuItem");
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
+            // 
+            // retryToolStripMenuItem
+            // 
+            this.retryToolStripMenuItem.Name = "retryToolStripMenuItem";
+            resources.ApplyResources(this.retryToolStripMenuItem, "retryToolStripMenuItem");
+            this.retryToolStripMenuItem.Click += new System.EventHandler(this.retryToolStripMenuItem_Click);
             // 
             // trackBarConcurrentTransfers
             // 
@@ -1179,11 +1187,23 @@
             resources.ApplyResources(this.contextMenuStripTransforms, "contextMenuStripTransforms");
             this.contextMenuStripTransforms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransforms_Opening);
             // 
+            // displayInformationToolStripMenuItem
+            // 
+            this.displayInformationToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.displayInformationToolStripMenuItem.Name = "displayInformationToolStripMenuItem";
+            resources.ApplyResources(this.displayInformationToolStripMenuItem, "displayInformationToolStripMenuItem");
+            this.displayInformationToolStripMenuItem.Click += new System.EventHandler(this.displayInformationToolStripMenuItem_Click);
+            // 
             // displayTransformReportToolStripMenuItem
             // 
             this.displayTransformReportToolStripMenuItem.Name = "displayTransformReportToolStripMenuItem";
             resources.ApplyResources(this.displayTransformReportToolStripMenuItem, "displayTransformReportToolStripMenuItem");
             this.displayTransformReportToolStripMenuItem.Click += new System.EventHandler(this.displayTransformReportToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // createATransformToolStripMenuItem
             // 
@@ -2698,18 +2718,6 @@
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
             // 
-            // displayInformationToolStripMenuItem
-            // 
-            this.displayInformationToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.displayInformationToolStripMenuItem.Name = "displayInformationToolStripMenuItem";
-            resources.ApplyResources(this.displayInformationToolStripMenuItem, "displayInformationToolStripMenuItem");
-            this.displayInformationToolStripMenuItem.Click += new System.EventHandler(this.displayInformationToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
-            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -3090,6 +3098,7 @@
         private System.Windows.Forms.ToolStripMenuItem displayAssetReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem retryToolStripMenuItem;
     }
 }
 

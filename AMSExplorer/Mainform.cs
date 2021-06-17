@@ -83,6 +83,12 @@ namespace AMSExplorer
 
         private readonly DownloadOptions dataMovementDownloadOptions = new();
 
+        private List<(Guid, string, CloudBlockBlob)> listTransferUploadOperations = new(); // used to resume upload if needed
+        private List<(Guid, TransferCheckpoint, long, string)> listTransferUploadCheckpoints = new(); // used to resume upload if needed
+
+        private List<(Guid, string, CloudBlockBlob, DownloadOptions)> listTransferDownloadOperations = new(); // used to resume download if needed
+        private List<(Guid, TransferCheckpoint, long, string)> listTransferDownloadCheckpoints = new(); // used to resume download if needed
+
 
         public Mainform(string[] args)
         {
@@ -631,6 +637,8 @@ namespace AMSExplorer
             }
             else
             {
+                SingleTransferContext context = new();
+                long LengthAllFiles = 0;
 
                 try
                 {
@@ -674,7 +682,6 @@ namespace AMSExplorer
                     Uri sasUri = new(uploadSasUrl);
                     CloudBlobContainer container = new(sasUri);
 
-                    long LengthAllFiles = 0;
 
                     // size calculation
                     foreach (string file in filenames)
@@ -683,7 +690,7 @@ namespace AMSExplorer
                     }
 
                     // Setup the transfer context and track the upload progress
-                    SingleTransferContext context = new();
+
                     context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                     {
                         double percentComplete = 100d * progress.BytesTransferred / LengthAllFiles;
@@ -710,12 +717,17 @@ namespace AMSExplorer
                             blob.Properties.ContentType = "video/mp4";
                         }
 
+                        // let's save the operations to restore the upload if needed
+                        listTransferUploadOperations.Add(new(guidTransfer, fileWithPath, blob));
+
                         await TransferManager.UploadAsync(fileWithPath, blob, null, context, token);
 
                         // no need as MD5 is already computed by Data Movement lib
                         // let compute MD5 and set the blob properties in it. Data movement library likes it.
                         //lob.Properties.ContentMD5 = MD5Calc.GetFileContentMD5(fileWithPath);
                         //await blob.SetPropertiesAsync();
+
+
 
                     }
                     Dictionary<string, double> dictionaryM = new() { { "LengthAllFilesMB", ((double)LengthAllFiles) / (1024 * 1024) }, { "NbFiles", filenames.Count } };
@@ -733,6 +745,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
                     Telemetry.TrackException(ex);
                 }
+                listTransferUploadCheckpoints.Add(new(guidTransfer, context.LastCheckpoint, LengthAllFiles, destAssetName));
             }
 
             if (!Error && !token.IsCancellationRequested)
@@ -748,6 +761,160 @@ namespace AMSExplorer
                 DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
             }
         }
+
+
+        /// <summary>
+        /// Resume the transfer operations when possible
+        /// </summary>
+        /// <param name="guidTransfer"></param>
+        /// <param name="transferType"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private async Task DoGridTransferRetryTaskAsync(Guid guidTransfer, TransferType transferType, CancellationToken token)
+        {
+
+            switch ((TransferType)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["Type"].Index].Value)
+            {
+
+                case TransferType.UploadFromFile:
+
+                    bool Error = false;
+                    var checkpoint = listTransferUploadCheckpoints.Where(a => a.Item1 == guidTransfer).Last();
+
+                    // Create a new TransferContext with the store checkpoint
+                    SingleTransferContext resumeContext = new SingleTransferContext(checkpoint.Item2);
+
+                    long LengthAllFiles = checkpoint.Item3;
+                    string location = checkpoint.Item4;
+
+                    resumeContext.ProgressHandler = new Progress<TransferStatus>((progress) =>
+                    {
+                        double percentComplete = 100d * progress.BytesTransferred / LengthAllFiles;
+                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                    });
+
+                    var operations = listTransferUploadOperations.Where(a => a.Item1 == guidTransfer);
+                    try
+                    {
+                        foreach (var op in operations)
+                        {
+
+                            await TransferManager.UploadAsync(op.Item2, op.Item3, null, resumeContext, token);
+
+                        }
+                        Dictionary<string, double> dictionaryM = new() { { "LengthAllFilesMB", ((double)LengthAllFiles) / (1024 * 1024) }, { "NbFiles", operations.Count() } };
+                        Telemetry.TrackEvent("File(s) uploaded", null, dictionaryM);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                    }
+                    catch (Exception ex)
+                    {
+                        Error = true;
+                        DoGridTransferDeclareError(guidTransfer, ex);
+                        TextBoxLogWriteLine("Error when uploading.", true);
+                        TextBoxLogWriteLine(ex);
+                        TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
+                        Telemetry.TrackException(ex);
+                    }
+
+                    listTransferUploadCheckpoints.Remove(checkpoint);
+                    listTransferUploadCheckpoints.Add(new(guidTransfer, resumeContext.LastCheckpoint, LengthAllFiles, location));
+
+
+                    if (!Error && !token.IsCancellationRequested)
+                    {
+
+                        DoGridTransferDeclareCompleted(guidTransfer, location);
+                    }
+                    else if (token.IsCancellationRequested)
+                    {
+                        DoGridTransferDeclareCancelled(guidTransfer);
+                    }
+                    else // Error!
+                    {
+                        DoGridTransferDeclareError(guidTransfer, "Error during import. ");
+                    }
+                    break;
+
+
+                case TransferType.DownloadToLocal:
+                    bool ErrorD = false;
+                    var checkpointD = listTransferDownloadCheckpoints.Where(a => a.Item1 == guidTransfer).Last();
+
+                    // Create a new TransferContext with the store checkpoint
+                    SingleTransferContext resumeContextD = new SingleTransferContext(checkpointD.Item2);
+
+                    long totalBytesToBeDownloaded = checkpointD.Item3;
+                    string folder = checkpointD.Item4;
+
+                    resumeContextD.ProgressHandler = new Progress<TransferStatus>((progress) =>
+                    {
+                        double percentComplete = 100d * progress.BytesTransferred / totalBytesToBeDownloaded;
+                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                    });
+
+                    var operationsD = listTransferDownloadOperations.Where(a => a.Item1 == guidTransfer);
+                    try
+                    {
+                        foreach (var op in operationsD)
+                        {
+
+                            await TransferManager.DownloadAsync(op.Item3, op.Item2, op.Item4, resumeContextD, token);
+
+                        }
+                        Dictionary<string, double> dictionaryM = new() { { "LengthAllFilesMB", ((double)totalBytesToBeDownloaded) / (1024 * 1024) }, { "NbFiles", operationsD.Count() } };
+                        Telemetry.TrackEvent("File(s) downloaded", null, dictionaryM);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorD = true;
+                        DoGridTransferDeclareError(guidTransfer, ex);
+                        TextBoxLogWriteLine("Error when downloading.", true);
+                        TextBoxLogWriteLine(ex);
+                        TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
+                        Telemetry.TrackException(ex);
+                    }
+
+                    listTransferDownloadCheckpoints.Remove(checkpointD);
+                    listTransferDownloadCheckpoints.Add(new(guidTransfer, resumeContextD.LastCheckpoint, totalBytesToBeDownloaded, checkpointD.Item4));
+
+
+                    if (!ErrorD && !token.IsCancellationRequested)
+                    {
+
+                        DoGridTransferDeclareCompleted(guidTransfer, checkpointD.Item4);
+                    }
+                    else if (token.IsCancellationRequested)
+                    {
+                        DoGridTransferDeclareCancelled(guidTransfer);
+                    }
+                    else // Error!
+                    {
+                        DoGridTransferDeclareError(guidTransfer, "Error during download. ");
+                    }
+                    break;
+
+
+
+                case TransferType.ImportFromAzureStorage:
+                case TransferType.ImportFromHttp:
+                case TransferType.UploadFromFolder:
+                case TransferType.UploadWithExternalTool:
+                    MessageBox.Show("It is not possible to resume this transfer.", "Information");
+                    break;
+
+                case TransferType.ExportToAzureStorage:
+                default:
+                    break;
+
+
+            }
+        }
+
 
 
         private async Task ProcessHttpSourceV3(Uri source, Guid guidTransfer, CancellationToken token, string storageaccount = null, NewAsset assetCreationSettings = null)
@@ -1324,6 +1491,9 @@ namespace AMSExplorer
             IList<Task> downloadTasks = new List<Task>();
             long totalBytesToBeDownloaded = 0;
 
+            // Setup the transfer context and track the upload progress
+            SingleTransferContext context = new();
+
             try
             {
                 TextBoxLogWriteLine("Listing blobs'...");
@@ -1345,8 +1515,7 @@ namespace AMSExplorer
 
                 TextBoxLogWriteLine($"Downloading blobs to '{outputFolderName}'...");
 
-                // Setup the transfer context and track the upload progress
-                SingleTransferContext context = new();
+              
 
                 context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                 {
@@ -1373,7 +1542,10 @@ namespace AMSExplorer
                                 downloadOptionsCopy.DisableContentMD5Validation = true;
                             }
 
-                            // Upload a local blob
+                            // let's save the operations to restore the upload if needed
+                            listTransferDownloadOperations.Add(new(response.Id, filePath, blob, downloadOptionsCopy));
+
+                            // Download blob
                             downloadTasks.Add(TransferManager.DownloadAsync(blob, filePath, downloadOptionsCopy, context, response.token));
                         }
                     }
@@ -1396,6 +1568,7 @@ namespace AMSExplorer
                 DoGridTransferDeclareError(response.Id, ex);
                 return;
             }
+            listTransferDownloadCheckpoints.Add(new(response.Id, context.LastCheckpoint, totalBytesToBeDownloaded, outputFolderName));
 
             if (!response.token.IsCancellationRequested)
             {
@@ -9202,6 +9375,40 @@ namespace AMSExplorer
             finally
             {
                 Cursor = Cursors.Arrow;
+            }
+        }
+
+        private void retryTransferToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void retryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoRetryTransferAsync();
+        }
+
+        private async Task DoRetryTransferAsync()
+        {
+            Telemetry.TrackEvent("DoRetryTransferAsync");
+
+            if (dataGridViewTransfer.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow selRow in dataGridViewTransfer.SelectedRows)
+                {
+                    var transferState = (TransferState)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["State"].Index].Value;
+                    if (transferState == TransferState.Error || transferState == TransferState.Cancelled)
+                    {
+                        Guid guid = (Guid)selRow.Cells[dataGridViewTransfer.Columns["Id"].Index].Value;
+                        var transferType = (TransferType)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["Type"].Index].Value;
+
+                        DoGridTransferRetryTask(guid);
+                        TransferEntry transfer = ReturnTransfer(guid);
+
+                        await DoGridTransferRetryTaskAsync(guid, transferType, transfer.tokenSource.Token);
+                    }
+                }
+
             }
         }
 

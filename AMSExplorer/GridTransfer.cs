@@ -123,6 +123,14 @@ namespace AMSExplorer
             return new TransferEntryResponse() { Id = myTE.Id, token = tokenloc };
         }
 
+        public static void DoGridTransferRetryTask(Guid guid)
+        {
+            TransferEntry transfer = ReturnTransfer(guid);
+            transfer.tokenSource = new();
+            transfer.State = TransferState.Processing;
+            DoGridTransferUpdateProgress(0, guid);
+        }
+
 
         public static void DoGridTransferCancelTask(Guid guid)
         {
