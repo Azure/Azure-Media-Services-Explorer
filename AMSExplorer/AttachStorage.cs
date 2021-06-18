@@ -99,22 +99,25 @@ namespace AMSExplorer
 
         public async Task UpdateStorageAccountsAsync()
         {
+            List<StorageAccount> listStorage = new List<StorageAccount>();
+
             // storage to detach
             foreach (StorageAccount stor in mediaService.StorageAccounts.ToList())
             {
-                if (StorageResourceIdToDetach.Contains(stor.Id))
+                if (!StorageResourceIdToDetach.Contains(stor.Id))
                 {
-                    mediaService.StorageAccounts.Remove(stor);
+                    listStorage.Add(stor); // we only keep storage whch should not be attached
                 }
             }
 
             // storage to attach
             foreach (string storId in StorageResourceIdToAttach)
             {
-                mediaService.StorageAccounts.Add(new StorageAccount(StorageAccountType.Secondary, storId));
+                listStorage.Add(new StorageAccount(StorageAccountType.Secondary, storId));
             }
 
-            await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, mediaService);
+            MediaServiceUpdate msUpdate = new() { StorageAccounts = listStorage };
+            await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, msUpdate);
         }
 
         private void AttachStorage_DpiChanged(object sender, DpiChangedEventArgs e)

@@ -39,6 +39,8 @@
             this.listViewStorage = new System.Windows.Forms.ListView();
             this.label2 = new System.Windows.Forms.Label();
             this.labelAssetCopy = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,24 +49,21 @@
             resources.ApplyResources(this.buttonAttach, "buttonAttach");
             this.buttonAttach.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonAttach.Name = "buttonAttach";
-            this.toolTip1.SetToolTip(this.buttonAttach, resources.GetString("buttonAttach.ToolTip"));
             this.buttonAttach.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.buttonAttach);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Name = "button1";
-            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
             this.button1.UseVisualStyleBackColor = true;
             // 
             // textBoxAttachStorage
@@ -78,7 +77,6 @@
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
             // 
             // listViewStorage
             // 
@@ -88,7 +86,6 @@
             this.listViewStorage.GridLines = true;
             this.listViewStorage.HideSelection = false;
             this.listViewStorage.Name = "listViewStorage";
-            this.toolTip1.SetToolTip(this.listViewStorage, resources.GetString("listViewStorage.ToolTip"));
             this.listViewStorage.UseCompatibleStateImageBehavior = false;
             this.listViewStorage.View = System.Windows.Forms.View.List;
             // 
@@ -96,14 +93,22 @@
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // labelAssetCopy
             // 
             resources.ApplyResources(this.labelAssetCopy, "labelAssetCopy");
             this.labelAssetCopy.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelAssetCopy.Name = "labelAssetCopy";
-            this.toolTip1.SetToolTip(this.labelAssetCopy, resources.GetString("labelAssetCopy.ToolTip"));
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
             // 
             // AttachStorage
             // 
@@ -111,6 +116,8 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelAssetCopy);
             this.Controls.Add(this.textBoxAttachStorage);
             this.Controls.Add(this.label2);
@@ -118,7 +125,6 @@
             this.Controls.Add(this.listViewStorage);
             this.Controls.Add(this.label3);
             this.Name = "AttachStorage";
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.AttachStorage_Load);
             this.Shown += new System.EventHandler(this.AttachStorage_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AttachStorage_DpiChanged);
@@ -139,5 +145,7 @@
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxAttachStorage;
         private System.Windows.Forms.Label labelAssetCopy;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label label4;
     }
 }

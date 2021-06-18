@@ -85,11 +85,11 @@
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.0" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.17.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.17.0" />
-    <PackageReference Include="Microsoft.Azure.Management.Media" Version="3.0.4" />
+    <PackageReference Include="Microsoft.Azure.Management.Media" Version="4.0.0" />
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.13.1-preview" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.2.3" />
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.32.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.32.1" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
