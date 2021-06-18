@@ -97,6 +97,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="KeyDeliverySettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Bitmaps.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

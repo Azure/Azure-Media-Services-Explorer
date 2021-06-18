@@ -9412,5 +9412,37 @@ namespace AMSExplorer
             }
         }
 
+        private async void keyDeliveryConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoKeyDeliveryConfigAsync();
+        }
+
+        private async Task DoKeyDeliveryConfigAsync()
+        {
+            Telemetry.TrackEvent("DoKeyDeliveryConfigAsync");
+
+            KeyDeliverySettings form = new(_amsClient);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+
+                // Update key delivery config
+                try
+                {
+                    TextBoxLogWriteLine("Updating key delivery configuration for the account...");
+
+                    await form.UpdateKeyDeliveryConfigAsync();
+
+                    TextBoxLogWriteLine("Key delivery configuration updated.");
+                    //await DoRefreshGridStorageVAsync(false);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when updating key delivery configuration for the account.", true);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                }
+            }
+        }
     }
 }
