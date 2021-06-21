@@ -236,9 +236,10 @@ namespace AMSExplorer
 
             if (_MyObservAssetV3 == null) return;
 
+            List<AssetEntry> listae;
             lock (cacheAssetentriesV3)
             {
-                List<AssetEntry> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
+                listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
             }
             // test - let analyze only visible assets
             int visibleRowsCount = DisplayedRowCount(true);
@@ -592,24 +593,25 @@ Properties/StorageId
                 }
             }
 
+            IEnumerable<AssetEntry> assets;
             lock (cacheAssetentriesV3)
             {
-                IEnumerable<AssetEntry> assets = currentPage.Select(a =>
-            (cacheAssetentriesV3.ContainsKey(a.Name)
-               && cacheAssetentriesV3[a.Name].LastModified != null
-               && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
-               cacheAssetentriesV3[a.Name] :
-            new AssetEntry(_syncontext)
-            {
-                Name = a.Name,
-                Description = a.Description,
-                AssetId = a.AssetId,
-                AlternateId = a.AlternateId,
-                Created = a.Created.ToLocalTime().ToString("G"),
-                LastModified = a.LastModified.ToLocalTime().ToString("G"),
-                StorageAccountName = a.StorageAccountName
-            }
-         ));
+                assets = currentPage.Select(a =>
+           (cacheAssetentriesV3.ContainsKey(a.Name)
+              && cacheAssetentriesV3[a.Name].LastModified != null
+              && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
+              cacheAssetentriesV3[a.Name] :
+           new AssetEntry(_syncontext)
+           {
+               Name = a.Name,
+               Description = a.Description,
+               AssetId = a.AssetId,
+               AlternateId = a.AlternateId,
+               Created = a.Created.ToLocalTime().ToString("G"),
+               LastModified = a.LastModified.ToLocalTime().ToString("G"),
+               StorageAccountName = a.StorageAccountName
+           }
+        ));
             }
 
             _MyObservAssetV3 = new BindingList<AssetEntry>(assets.ToList());

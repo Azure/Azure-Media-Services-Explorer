@@ -204,8 +204,6 @@ namespace AMSExplorer
                     labelInfoSeveralAssetStitching.Visible = true;
                 }
             }
-
-
         }
 
 
@@ -288,7 +286,14 @@ namespace AMSExplorer
         {
             if (SelectedAssetsMode)
             {
-                label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Name);
+                if (_multipleInputAssets)
+                {
+                    label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Name);
+                }
+                else
+                {
+                    label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. {0} jobs will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Name);
+                }
             }
             else // http source mode
             {
@@ -480,6 +485,12 @@ namespace AMSExplorer
 
         private async void comboBoxSourceAsset_TextChanged(object sender, EventArgs e)
         {
+            if (_listAssets.Count > 1 && !_multipleInputAssets)
+            {
+                // several assets as input but one asset per job
+                return;
+            }
+
             string assetName = comboBoxSourceAsset.Text;
 
             if (assetName != null)
