@@ -255,15 +255,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Azure Media Services Explorer"
-        "ProductCode" = "8:{C43697A4-B362-41EF-A18E-EA2834609515}"
-        "PackageCode" = "8:{115ADA58-1090-4D0B-ABA4-4592308F5064}"
+        "ProductCode" = "8:{AFFD51BB-0D86-497F-87EE-E8DA5798A5A9}"
+        "PackageCode" = "8:{ACB19A40-54FC-4351-B942-7D083C41EC88}"
         "UpgradeCode" = "8:{5145C7B3-B64F-42CA-A111-45E636E02027}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:5.4.2"
+        "ProductVersion" = "8:5.4.3"
         "Manufacturer" = "8:Microsoft Corporation"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -838,7 +838,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9D5CE24C90C9470491CE1D865EE7EFA4"
             {
-            "SourcePath" = "8:..\\AMSExplorer\\obj\\Release\\net5.0-windows\\win-x64\\apphost.exe"
+            "SourcePath" = "8:"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"

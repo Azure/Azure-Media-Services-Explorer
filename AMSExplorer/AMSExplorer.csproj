@@ -5,14 +5,16 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AMSExplorer.Program</StartupObject>
-    <Version>5.4.1.1</Version>
+    <Version>5.4.3.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
     <Copyright>Copyright © 2021</Copyright>
     <Company>$(Authors)Microsoft</Company>
-    <AssemblyVersion>5.4.2.1</AssemblyVersion>
-    <FileVersion>5.4.2.1</FileVersion>
+    <AssemblyVersion>5.4.3.0</AssemblyVersion>
+    <FileVersion>5.4.3.0</FileVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+    <PackageIcon>Azure Explorer.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -34,6 +36,10 @@
     <None Remove="LICENSE\Azure Media Services Explorer.rtf" />
     <None Remove="manifest\manifest.ism" />
     <None Remove="SlateJPG\DefaultAzurePortalSlate.jpg" />
+    <None Include="..\..\AMSE\AMSExplorer\BitmapsPNG\Azure Explorer.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
