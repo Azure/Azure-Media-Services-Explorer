@@ -86,7 +86,7 @@ namespace AMSExplorer
         private List<(Guid, string, CloudBlockBlob)> listTransferUploadOperations = new(); // used to resume upload if needed
         private List<(Guid, TransferCheckpoint, long, string)> listTransferUploadCheckpoints = new(); // used to resume upload if needed
 
-        private List<(Guid, string, CloudBlockBlob, DownloadOptions)> listTransferDownloadOperations = new(); // used to resume download if needed
+        private List<(Guid, string, IListBlobItem, DownloadOptions)> listTransferDownloadOperations = new(); // used to resume download if needed
         private List<(Guid, TransferCheckpoint, long, string)> listTransferDownloadCheckpoints = new(); // used to resume download if needed
 
 
@@ -779,7 +779,14 @@ namespace AMSExplorer
                 case TransferType.UploadFromFile:
 
                     bool Error = false;
-                    var checkpoint = listTransferUploadCheckpoints.Where(a => a.Item1 == guidTransfer).Last();
+
+                    var checkpoints = listTransferUploadCheckpoints.Where(a => a.Item1 == guidTransfer);
+                    if (checkpoints == null)
+                    {
+                        MessageBox.Show("It is not possible to resume this transfer.", "Information");
+                        break;
+                    }
+                    var checkpoint = checkpoints.Last();
 
                     // Create a new TransferContext with the store checkpoint
                     SingleTransferContext resumeContext = new SingleTransferContext(checkpoint.Item2);
@@ -840,7 +847,14 @@ namespace AMSExplorer
 
                 case TransferType.DownloadToLocal:
                     bool ErrorD = false;
-                    var checkpointD = listTransferDownloadCheckpoints.Where(a => a.Item1 == guidTransfer).Last();
+
+                    var checkpointsD = listTransferDownloadCheckpoints.Where(a => a.Item1 == guidTransfer);
+                    if (checkpointsD == null)
+                    {
+                        MessageBox.Show("It is not possible to resume this transfer.", "Information");
+                        break;
+                    }
+                    var checkpointD = checkpointsD.Last();
 
                     // Create a new TransferContext with the store checkpoint
                     SingleTransferContext resumeContextD = new SingleTransferContext(checkpointD.Item2);
@@ -855,13 +869,24 @@ namespace AMSExplorer
                     });
 
                     var operationsD = listTransferDownloadOperations.Where(a => a.Item1 == guidTransfer);
+                    List<string> listDir = new();
+
                     try
                     {
                         foreach (var op in operationsD)
                         {
+                            if (op.Item3 is CloudBlockBlob bblob)
+                            {
+                                if (bblob.Parent is CloudBlobDirectory blobDir && !string.IsNullOrEmpty(blobDir.Prefix) && !listDir.Contains(blobDir.Prefix))
+                                {
+                                    listDir.Add(blobDir.Prefix); // let's create the directory only one time :-)
+                                    string pathString = System.IO.Path.Combine(checkpointD.Item4, blobDir.Prefix);
 
-                            await TransferManager.DownloadAsync(op.Item3, op.Item2, op.Item4, resumeContextD, token);
+                                    Directory.CreateDirectory(pathString);
+                                }
 
+                                await TransferManager.DownloadAsync(bblob, op.Item2, op.Item4, resumeContextD, token);
+                            }
                         }
                         Dictionary<string, double> dictionaryM = new() { { "LengthAllFilesMB", ((double)totalBytesToBeDownloaded) / (1024 * 1024) }, { "NbFiles", operationsD.Count() } };
                         Telemetry.TrackEvent("File(s) downloaded", null, dictionaryM);
@@ -1494,6 +1519,8 @@ namespace AMSExplorer
             // Setup the transfer context and track the upload progress
             SingleTransferContext context = new();
 
+            bool Error = false;
+
             try
             {
                 TextBoxLogWriteLine("Listing blobs'...");
@@ -1515,13 +1542,15 @@ namespace AMSExplorer
 
                 TextBoxLogWriteLine($"Downloading blobs to '{outputFolderName}'...");
 
-              
+
 
                 context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                 {
                     double percentComplete = 100d * progress.BytesTransferred / totalBytesToBeDownloaded;
                     DoGridTransferUpdateProgress(percentComplete, response.Id);
                 });
+
+                List<string> listDir = new();
 
                 do
                 {
@@ -1531,7 +1560,15 @@ namespace AMSExplorer
                     {
                         if (blobItem is CloudBlockBlob blob && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
                         {
-                            string filePath = Path.Combine(outputFolderName, blob.Name);
+                            if (blob.Parent is CloudBlobDirectory blobDir && !string.IsNullOrEmpty(blobDir.Prefix) && !listDir.Contains(blobDir.Prefix))
+                            {
+                                listDir.Add(blobDir.Prefix); // let's create the directory only one time :-)
+                                string pathString = System.IO.Path.Combine(outputFolderName, blobDir.Prefix);
+
+                                Directory.CreateDirectory(pathString);
+                            }
+
+                            string filePath = Path.Combine(outputFolderName, blob.Name.Replace('/', '\\'));
                             await blob.FetchAttributesAsync();
 
                             var downloadOptionsCopy = dataMovementDownloadOptions;
@@ -1566,32 +1603,34 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
                 Telemetry.TrackException(ex);
                 DoGridTransferDeclareError(response.Id, ex);
-                return;
+                Error = true;
             }
             listTransferDownloadCheckpoints.Add(new(response.Id, context.LastCheckpoint, totalBytesToBeDownloaded, outputFolderName));
 
-            if (!response.token.IsCancellationRequested)
+            if (!Error)
             {
-                TextBoxLogWriteLine("Download complete.");
-                DoGridTransferDeclareCompleted(response.Id, outputFolderName);
-                if (openFileExplorer)
+                if (!response.token.IsCancellationRequested)
                 {
-                    var p = new Process
+                    TextBoxLogWriteLine("Download complete.");
+                    DoGridTransferDeclareCompleted(response.Id, outputFolderName);
+                    if (openFileExplorer)
                     {
-                        StartInfo = new ProcessStartInfo
+                        var p = new Process
                         {
-                            FileName = outputFolderName,
-                            UseShellExecute = true
-                        }
-                    };
-                    p.Start();
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = outputFolderName,
+                                UseShellExecute = true
+                            }
+                        };
+                        p.Start();
+                    }
+                }
+                else
+                {
+                    DoGridTransferDeclareCancelled(response.Id);
                 }
             }
-            else
-            {
-                DoGridTransferDeclareCancelled(response.Id);
-            }
-
         }
 
 
