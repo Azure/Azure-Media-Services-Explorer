@@ -414,7 +414,14 @@ namespace AMSExplorer
 
             lock (_MyListJobsMonitored)
             {
-                _MyListJobsMonitored.Add(job.Job.Name, tokenSource); // to track the task and be able to cancel it later
+                if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
+                {
+                    _MyListJobsMonitored.Add(job.Job.Name, tokenSource); // to track the task and be able to cancel it later
+                }
+                else
+                {
+                    _MyListJobsMonitored[job.Job.Name] = tokenSource; // to track the task and be able to cancel it later
+                }
             }
 
             Debug.WriteLine("launch job monitor : " + job.Job.Name);
