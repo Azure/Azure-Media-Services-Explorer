@@ -236,8 +236,10 @@ namespace AMSExplorer
 
             if (_MyObservAssetV3 == null) return;
 
-            List<AssetEntry> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
-
+            lock (cacheAssetentriesV3)
+            {
+                List<AssetEntry> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
+            }
             // test - let analyze only visible assets
             int visibleRowsCount = DisplayedRowCount(true);
             if (visibleRowsCount == 0) visibleRowsCount = RowCount; // in some cases, DisplayedCount returns 0 so let's use all rows
@@ -320,7 +322,10 @@ namespace AMSExplorer
                         int? afcount = await ReturnNumberAssetFiltersAsync(asset.Name, _amsClient);
                         AE.Filters = afcount > 0 ? afcount : null;
 
-                        cacheAssetentriesV3[asset.Name] = AE; // let's put it in cache (or update the cache)
+                        lock (cacheAssetentriesV3)
+                        {
+                            cacheAssetentriesV3[asset.Name] = AE; // let's put it in cache (or update the cache)
+                        }
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -361,13 +366,19 @@ namespace AMSExplorer
 
         public static void PurgeCacheAssets(List<Asset> assets)
         {
-            assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
+            lock (cacheAssetentriesV3)
+            {
+                assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
+            }
         }
 
 
         public void PurgeCacheAsset(Asset asset)
         {
-            cacheAssetentriesV3.Remove(asset.Name);
+            lock (cacheAssetentriesV3)
+            {
+                cacheAssetentriesV3.Remove(asset.Name);
+            }
         }
 
 
@@ -581,7 +592,9 @@ Properties/StorageId
                 }
             }
 
-            IEnumerable<AssetEntry> assets = currentPage.Select(a =>
+            lock (cacheAssetentriesV3)
+            {
+                IEnumerable<AssetEntry> assets = currentPage.Select(a =>
             (cacheAssetentriesV3.ContainsKey(a.Name)
                && cacheAssetentriesV3[a.Name].LastModified != null
                && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
@@ -597,6 +610,7 @@ Properties/StorageId
                 StorageAccountName = a.StorageAccountName
             }
          ));
+            }
 
             _MyObservAssetV3 = new BindingList<AssetEntry>(assets.ToList());
 
