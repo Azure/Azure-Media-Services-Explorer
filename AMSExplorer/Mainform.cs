@@ -430,7 +430,16 @@ namespace AMSExplorer
             {
                 SetTextBoxAssetsPageNumber(1);
 
-                dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current);
+                try
+                {
+                    dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                }
+                
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
             }
 
@@ -441,7 +450,16 @@ namespace AMSExplorer
 
             Task.Run(async () =>
         {
-            await dataGridViewAssetsV.RefreshAssetsAsync(page);
+            try
+            {
+                await dataGridViewAssetsV.RefreshAssetsAsync(page);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
+            }
+
         });
 
             //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));

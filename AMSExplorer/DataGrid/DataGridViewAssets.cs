@@ -561,7 +561,6 @@ Properties/StorageId
 
             IPage<Asset> currentPage = null;
 
-
             if (pagetodisplay == 1)
             {
                 firstpage = await _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, odataQuery);
