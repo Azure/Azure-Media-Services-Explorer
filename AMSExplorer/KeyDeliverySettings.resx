@@ -187,13 +187,13 @@
     <value>38, 25</value>
   </data>
   <data name="labelAssetCopy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 20</value>
+    <value>248, 20</value>
   </data>
   <data name="labelAssetCopy.TabIndex" type="System.Int32, mscorlib">
     <value>74</value>
   </data>
   <data name="labelAssetCopy.Text" xml:space="preserve">
-    <value>Key delivery settings</value>
+    <value>Key delivery settings for the account</value>
   </data>
   <data name="&gt;&gt;labelAssetCopy.Name" xml:space="preserve">
     <value>labelAssetCopy</value>

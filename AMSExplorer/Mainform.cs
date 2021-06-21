@@ -9501,5 +9501,10 @@ namespace AMSExplorer
                 }
             }
         }
+
+        private async void keyDeliveryConfigurationToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            await DoKeyDeliveryConfigAsync();
+        }
     }
 }
