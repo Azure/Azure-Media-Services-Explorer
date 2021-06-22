@@ -439,7 +439,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                     Telemetry.TrackException(ex);
                 }
-                
+
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
             }
 
@@ -8159,13 +8159,28 @@ namespace AMSExplorer
 
         public async Task<Transform> CreateAndGetCopyCodecTransformIfNeededAsync()
         {
-            Transform myTransform = null;
+            return await CreateAndGetSpecialTransformIfNeededAsync(PresetStandardEncoder.CopyOnlyPreset(), PresetStandardEncoder.CopyVideoAudioTransformName);
+        }
 
+        public async Task<Transform> CreateAndGetCopyAllBitrateNonInterleavedTransformIfNeededAsync()
+        {
+            return await CreateAndGetSpecialTransformIfNeededAsync(new BuiltInStandardEncoderPreset() { PresetName = EncoderNamedPreset.CopyAllBitrateNonInterleaved }, PresetStandardEncoder.CopyAllBitrateNonInterleavedTransformName);
+        }
+
+        /// <summary>
+        /// Create a transform if needed for some preset (used by subclipping)
+        /// </summary>
+        /// <param name="preset"></param>
+        /// <param name="transformName"></param>
+        /// <returns></returns>
+        private async Task<Transform> CreateAndGetSpecialTransformIfNeededAsync(Preset preset, string transformName)
+        {
+            Transform myTransform = null;
 
             bool found = true;
             try
             {
-                myTransform = await _amsClient.GetTransformAsync(PresetStandardEncoder.CopyVideoAudioTransformName);
+                myTransform = await _amsClient.GetTransformAsync(transformName);
             }
             catch
             {
@@ -8175,17 +8190,16 @@ namespace AMSExplorer
             if (!found | myTransform == null)
             {
                 TransformOutput[] outputs;
-                PresetStandardEncoder form = new();
 
                 outputs = new TransformOutput[]
-                                                {
-                                                                new TransformOutput(form.CustomCopyPreset),
-                                                };
+                                                     {
+                                                                new TransformOutput(preset)
+                                                     };
 
                 try
                 {
                     // Create the Transform with the output defined above
-                    myTransform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.TransformDescription);
+                    myTransform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transformName, outputs, string.Empty);
                     TextBoxLogWriteLine("Transform '{0}' created.", myTransform.Name); // Warning
                     Telemetry.TrackEvent("Transform created");
 
@@ -8202,6 +8216,7 @@ namespace AMSExplorer
 
             return myTransform;
         }
+
 
         private void toolStripMenuItem32_DropDownOpening(object sender, EventArgs e)
         {

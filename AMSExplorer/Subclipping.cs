@@ -195,25 +195,22 @@ namespace AMSExplorer
 
         private SubClipConfiguration GetSubclippingInternalConfiguration()
         {
-            if (radioButtonArchiveTopBitrate.Checked) // Archive, no reencoding
+            if (radioButtonArchiveTopBitrate.Checked || radioButtonArchiveAllBitrates.Checked) // Archive, no reencoding
             {
                 return new SubClipConfiguration()
                 {
-                    Reencode = false,
+                    Mode = radioButtonArchiveTopBitrate.Checked ? SubclipMode.ArchiveTopBitrate: SubclipMode.ArchiveAllBitrates,
                     Trimming = false,
-                    CreateAssetFilter = false,
                     AbsoluteStartTime = timeControlStart.TimeStampWithOffset,
                     AbsoluteEndTime = timeControlEnd.TimeStampWithOffset
                 };
-
             }
             else if (radioButtonClipWithReencode.Checked) // means Reencoding
             {
                 SubClipConfiguration config = new()
                 {
-                    Reencode = true,
+                    Mode = SubclipMode.Reencode,
                     Trimming = false,
-                    CreateAssetFilter = false,
                 };
 
                 if (checkBoxTrimming.Checked)
@@ -230,9 +227,8 @@ namespace AMSExplorer
             {
                 SubClipConfiguration config = new()
                 {
-                    Reencode = false,
                     Trimming = false,
-                    CreateAssetFilter = true,
+                    Mode = SubclipMode.CreateAssetFilter
                 };
 
                 if (checkBoxTrimming.Checked)
@@ -394,6 +390,13 @@ namespace AMSExplorer
                 panelJob.Visible = true;
                 // panelEDL.Visible = true;
             }
+            else if (radioButtonArchiveAllBitrates.Checked && senderr.Name == radioButtonArchiveAllBitrates.Name) // archive all bitrates
+            {
+                checkBoxTrimming.Checked = backupCheckboxTrim;
+                checkBoxTrimming.Enabled = true;
+                panelJob.Visible = true;
+                // panelEDL.Visible = true;
+            }
             UpdateButtonOk();
             DisplayAccuracy();
 
@@ -401,7 +404,7 @@ namespace AMSExplorer
 
         private void UpdateButtonOk()
         {
-            if (radioButtonArchiveTopBitrate.Checked)
+            if (radioButtonArchiveTopBitrate.Checked || radioButtonArchiveAllBitrates.Checked)
             {
                 buttonOk.Text = _buttonOk;
             }
@@ -494,12 +497,12 @@ namespace AMSExplorer
 
             Dictionary<string, string> dictionary = new()
             {
-                { "Reencode", subclipConfig.Reencode.ToString() },
-                { "CreateAssetFilter", subclipConfig.CreateAssetFilter.ToString() }
+                { "Mode", subclipConfig.Mode.ToString() },
+                { "Trimming", subclipConfig.Trimming.ToString() }
             };
             Telemetry.TrackEvent("Sublipping DoSubClipAsync", dictionary);
 
-            if (subclipConfig.Reencode) // reencode the clip
+            if (subclipConfig.Mode == SubclipMode.Reencode) // reencode the clip
             {
 
                 if (_selectedAssets.Count == 1)
@@ -556,7 +559,7 @@ namespace AMSExplorer
                 }
                 */
             }
-            else if (subclipConfig.CreateAssetFilter) // create a asset filter
+            else if (subclipConfig.Mode == SubclipMode.CreateAssetFilter) // create a asset filter
             {
                 Asset selasset = _selectedAssets.FirstOrDefault();
                 DynManifestFilter formAF = new(_amsClientV3, null, selasset, subclipConfig);
@@ -583,7 +586,7 @@ namespace AMSExplorer
                 }
 
             }
-            else // no reencode or asset filter but stream copy
+            else // no reencode or asset filter but stream copy (top or all bitrate)
             {
                 ClipTime startTime = null;
                 ClipTime endTime = null;
@@ -601,7 +604,16 @@ namespace AMSExplorer
                     };
                 }
 
-                Transform transform = await _mainform.CreateAndGetCopyCodecTransformIfNeededAsync();
+                Transform transform;
+                if (subclipConfig.Mode == SubclipMode.ArchiveTopBitrate)
+                {
+                    transform = await _mainform.CreateAndGetCopyCodecTransformIfNeededAsync();
+                }
+                else
+                {
+                    transform = await _mainform.CreateAndGetCopyAllBitrateNonInterleavedTransformIfNeededAsync();
+                }
+                
                 await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, null);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);

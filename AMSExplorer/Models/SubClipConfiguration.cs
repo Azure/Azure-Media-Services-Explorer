@@ -20,11 +20,17 @@ namespace AMSExplorer
 {
     public class SubClipConfiguration
     {
-        public bool Reencode { get; set; }
+        public SubclipMode Mode { get; set; }
         public bool Trimming { get; set; }
-        public bool CreateAssetFilter { get; set; }
         public TimeSpan AbsoluteStartTime { get; set; }
         public TimeSpan AbsoluteEndTime { get; set; }
     }
 
+    public enum SubclipMode
+    {
+        Reencode = 0,
+        ArchiveTopBitrate,
+        ArchiveAllBitrates,
+        CreateAssetFilter
+    }
 }
