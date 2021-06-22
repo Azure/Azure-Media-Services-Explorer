@@ -113,6 +113,7 @@
             // buttonDeleteTemplate
             // 
             resources.ApplyResources(this.buttonDeleteTemplate, "buttonDeleteTemplate");
+            this.buttonDeleteTemplate.Image = global::AMSExplorer.Bitmaps.delete;
             this.buttonDeleteTemplate.Name = "buttonDeleteTemplate";
             this.buttonDeleteTemplate.UseVisualStyleBackColor = true;
             this.buttonDeleteTemplate.Click += new System.EventHandler(this.ButtonDeleteTemplate_Click);
@@ -159,6 +160,7 @@
             // buttonCreateNewTransform
             // 
             resources.ApplyResources(this.buttonCreateNewTransform, "buttonCreateNewTransform");
+            this.buttonCreateNewTransform.Image = global::AMSExplorer.Bitmaps.create;
             this.buttonCreateNewTransform.Name = "buttonCreateNewTransform";
             this.buttonCreateNewTransform.UseVisualStyleBackColor = true;
             this.buttonCreateNewTransform.Click += new System.EventHandler(this.ButtonCreateNewTransform_Click);
