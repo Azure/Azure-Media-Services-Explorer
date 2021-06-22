@@ -30,6 +30,14 @@ namespace AMSExplorer
 {
     public class DataGridViewStreamingEndpoints : DataGridView
     {
+        private readonly List<StatusInfo> ListStatus = new();
+        private static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
+        private static IEnumerable<StreamingEndpoint> streamingendpoints;
+        private static bool _initialized = false;
+        private static string _filterstreamingendpointsstate = "All";
+        private static string _searchinname = string.Empty;
+        private static string _timefilter = FilterTime.LastWeek;
+        private AMSClientV3 _amsClient;
 
         public string FilterStreamingEndpointsState
         {
@@ -69,16 +77,6 @@ namespace AMSExplorer
             }
         }
 
-        private readonly List<StatusInfo> ListStatus = new();
-        private static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
-        private static IEnumerable<StreamingEndpoint> streamingendpoints;
-        private static bool _initialized = false;
-        private static string _filterstreamingendpointsstate = "All";
-        private static string _searchinname = string.Empty;
-        private static string _timefilter = FilterTime.LastWeek;
-        private static BackgroundWorker WorkerRefreshStreamingEndpoints;
-        private AMSClientV3 _amsClient;
-
         public async Task InitAsync(AMSClientV3 client)
         {
             IEnumerable<StreamingEndpointEntry> originquery;
@@ -99,7 +97,6 @@ namespace AMSExplorer
                 LastModified = ((DateTime)o.LastModified).ToLocalTime()
             });
 
-
             SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new(originquery.Take(0).ToList());
             DataSource = MyObservOriginInPage;
             Columns["Id"].Visible = false;
@@ -111,12 +108,6 @@ namespace AMSExplorer
             Columns["ScaleUnits"].HeaderText = "Streaming Units";
             Columns["LastModified"].Width = 150;
             Columns["LastModified"].HeaderText = "Last Modified";
-
-            WorkerRefreshStreamingEndpoints = new BackgroundWorker
-            {
-                WorkerSupportsCancellation = true
-            };
-            WorkerRefreshStreamingEndpoints.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshStreamingEndpoints_DoWork);
 
             _initialized = true;
         }
@@ -149,43 +140,6 @@ namespace AMSExplorer
                     BeginInvoke(new Action(() => Refresh()));
                 }
             }
-        }
-
-        private void WorkerRefreshStreamingEndpoints_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-            Debug.WriteLine("WorkerRefreshChannels_DoWork");
-            BackgroundWorker worker = sender as BackgroundWorker;
-            StreamingEndpoint origin;
-            
-
-            foreach (StreamingEndpointEntry OE in _MyObservStreamingEndpoints)
-            {
-                origin = null;
-                try
-                {
-                    origin = Task.Run(() => _amsClient.GetStreamingEndpointAsync(origin.Name)).GetAwaiter().GetResult();
-                    if (origin != null)
-                    {
-                        OE.State = (StreamingEndpointResourceState)origin.ResourceState;
-
-                        //if ((i % 5) == 0) this.BeginInvoke(new Action(() => this.Refresh()), null);
-                        BeginInvoke(new Action(() => Refresh()), null);
-                        //i++;
-                    }
-                }
-                catch // in some case, we have a timeout on Assets.Where...
-                {
-
-                }
-                if (worker.CancellationPending == true)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-
-            }
-            BeginInvoke(new Action(() => Refresh()), null);
         }
 
 
