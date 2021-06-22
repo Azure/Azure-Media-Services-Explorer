@@ -43,7 +43,7 @@ namespace AMSExplorer
         private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveOutputName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
         private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
-        private static BackgroundWorker WorkerRefreshChannels;
+        private static BackgroundWorker WorkerRefreshLiveOutputs;
         public string _published = "Published";
         private static readonly Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
         private static enumDisplayProgram _anyChannel = enumDisplayProgram.Selected;
@@ -156,11 +156,11 @@ namespace AMSExplorer
             Columns["ArchiveWindowLength"].HeaderText = "Archive window";
             Columns["LiveEventName"].HeaderText = "Live event name";
 
-            WorkerRefreshChannels = new BackgroundWorker
+            WorkerRefreshLiveOutputs = new BackgroundWorker
             {
                 WorkerSupportsCancellation = true
             };
-            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshLiveOutputs_DoWork);
+            WorkerRefreshLiveOutputs.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshLiveOutputs_DoWork);
 
             _initialized = true;
         }
