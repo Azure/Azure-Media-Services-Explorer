@@ -49,7 +49,7 @@ namespace AMSExplorer
         private void DownloadToLocal_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
-           
+
             if (string.IsNullOrEmpty(_backupfolder) || !Directory.Exists(_backupfolder))
             {
                 textBoxFolderPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
@@ -58,7 +58,7 @@ namespace AMSExplorer
             {
                 textBoxFolderPath.Text = _backupfolder;
             }
-            
+
             labelAssetName.Text = string.Format(labelAssetName.Text, _selassets.Count());
         }
 

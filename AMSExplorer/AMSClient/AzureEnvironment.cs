@@ -16,7 +16,6 @@
 
 using Microsoft.Rest.Azure.Authentication;
 using System;
-using System.Linq;
 
 namespace AMSExplorer
 {

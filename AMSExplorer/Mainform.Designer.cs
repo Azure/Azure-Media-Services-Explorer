@@ -2885,7 +2885,6 @@
         private System.Windows.Forms.ComboBox comboBoxFilterJobsTime;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemAssetPlayback;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemPlaybackWithMPEGDASHIFReference;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemAssetCreateOutlookReportEmail;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemJobOpenOutputAsset;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemJobInputAssetInformation;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
@@ -3024,8 +3023,6 @@
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
         private System.Windows.Forms.ComboBox comboBoxSearchLiveEventOption;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem30;
-        private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem visibleAssetsInGridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteVisibleAssetsInGridToolStripMenuItem;

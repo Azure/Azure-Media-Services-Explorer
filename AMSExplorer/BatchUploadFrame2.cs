@@ -130,7 +130,7 @@ namespace AMSExplorer
             {
                 Close();
             }
-            
+
 
             foreach (StorageAccount storage in (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts)
             {

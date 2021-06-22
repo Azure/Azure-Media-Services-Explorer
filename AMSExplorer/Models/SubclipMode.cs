@@ -16,10 +16,11 @@
 
 namespace AMSExplorer
 {
-    public enum enumDisplayProgram
+    public enum SubclipMode
     {
-        Selected = 0,
-        Any,
-        None
+        Reencode = 0,
+        ArchiveTopBitrate,
+        ArchiveAllBitrates,
+        CreateAssetFilter
     }
 }

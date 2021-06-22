@@ -14,6 +14,9 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
@@ -21,17 +24,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml;
-using System.Diagnostics;
-using System.Globalization;
 
 namespace AMSExplorer
 {
@@ -119,7 +119,7 @@ namespace AMSExplorer
                 backgroundWorkerCSV.RunWorkerAsync();
             }
         }
-     
+
 
         private async Task<(int?, Row)> ExportAssetExcelAsync(Asset asset, uint row, bool detailed, bool localtime, List<StreamingEndpoint> seList)
         {

@@ -85,7 +85,7 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
-            
+
 
             IEnumerable<Task<TransformEntry>> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntry(_context)
             {
@@ -109,7 +109,7 @@ namespace AMSExplorer
 
         public async Task<List<Transform>> ReturnSelectedTransformsAsync()
         {
-            
+
 
             List<Transform> SelectedTransforms = new();
             foreach (DataGridViewRow Row in SelectedRows)

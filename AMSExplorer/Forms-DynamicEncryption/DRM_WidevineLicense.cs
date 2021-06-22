@@ -18,7 +18,6 @@ using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -139,7 +138,7 @@ namespace AMSExplorer
             labelWarningJSON.Visible = Error;
         }
 
-       
+
 
 
         private void linkLabelWidevinePolicy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -114,6 +114,13 @@
             resources.ApplyResources(this.label40, "label40");
             this.label40.Name = "label40";
             // 
+            // trackBarTime
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.trackBarTime, 5);
+            resources.ApplyResources(this.trackBarTime, "trackBarTime");
+            this.trackBarTime.Maximum = 1000;
+            this.trackBarTime.Name = "trackBarTime";
+            // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
@@ -151,6 +158,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDays)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarTime)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

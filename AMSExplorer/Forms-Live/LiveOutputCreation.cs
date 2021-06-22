@@ -132,7 +132,7 @@ namespace AMSExplorer
             Text = string.Format(Text, LiveEventName);
             //checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
 
-            
+
             System.Collections.Generic.IList<StorageAccount> storages = (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts;
             foreach (StorageAccount storage in storages)
             {

@@ -472,7 +472,7 @@ namespace AMSExplorer
                 ulong? overallDuration = null;
                 if (durationFromManifest != null && rootTimeScaleFromManifest != null) // there is a duration value in the root (and a timescale). Let's take this one.
                 {
-                    var ratio = (double)rootTimeScaleFromManifest / (double)videoTimeScaleFromManifest;
+                    var ratio = (double)rootTimeScaleFromManifest / (double)timescaleVideo;
                     overallDuration = (ulong?)(ulong.Parse(durationFromManifest) / ratio); // value with the timescale of the video track
                 }
 

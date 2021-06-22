@@ -19,9 +19,7 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -63,7 +61,7 @@ namespace AMSExplorer
             // we want to keep the sorting in display
             get
             {
-                
+
                 List<StreamingEndpoint> list = new();
                 foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
                 {
@@ -81,7 +79,7 @@ namespace AMSExplorer
         {
             IEnumerable<StreamingEndpointEntry> originquery;
             _amsClient = client;
-            
+
             Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             originquery = ses.Select(o => new
@@ -127,7 +125,7 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                
+
                 streamingEndpoint = await _amsClient.GetStreamingEndpointAsync(streamingEndpoint.Name); //refresh
                 if (streamingEndpoint != null)
                 {
@@ -154,7 +152,7 @@ namespace AMSExplorer
 
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
-            
+
             streamingendpoints = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
 
             try

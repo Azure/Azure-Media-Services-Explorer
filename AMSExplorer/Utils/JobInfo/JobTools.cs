@@ -1,12 +1,7 @@
-﻿using AMSExplorer.Rest;
-using Microsoft.Azure.Management.Media.Models;
-using Newtonsoft.Json;
+﻿using Microsoft.Azure.Management.Media.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace AMSExplorer.Utils.JobInfo
 {

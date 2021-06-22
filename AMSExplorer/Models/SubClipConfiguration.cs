@@ -25,12 +25,4 @@ namespace AMSExplorer
         public TimeSpan AbsoluteStartTime { get; set; }
         public TimeSpan AbsoluteEndTime { get; set; }
     }
-
-    public enum SubclipMode
-    {
-        Reencode = 0,
-        ArchiveTopBitrate,
-        ArchiveAllBitrates,
-        CreateAssetFilter
-    }
 }

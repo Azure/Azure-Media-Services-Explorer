@@ -20,7 +20,6 @@ using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

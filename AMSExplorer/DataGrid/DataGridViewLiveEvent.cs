@@ -22,7 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -135,7 +134,7 @@ namespace AMSExplorer
                                State = c.ResourceState,
                                LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
                            };
-         
+
 
             DataGridViewCellStyle cellstyle = new()
             {
@@ -176,7 +175,7 @@ namespace AMSExplorer
             Columns["State"].Width = 75;
             Columns["Description"].Width = 110;
 
-          
+
             _initialized = true;
         }
 
@@ -214,7 +213,7 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                
+
                 liveEventItem = await _amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
@@ -225,7 +224,7 @@ namespace AMSExplorer
                 }
             }
         }
-      
+
 
         public async Task RefreshLiveEventAsync(int pagetodisplay) // all assets are refreshed
         {

@@ -14,29 +14,19 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using AMSExplorer.AMSLogin;
-using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
-using Microsoft.Rest;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -242,7 +232,6 @@ namespace AMSExplorer
         }
 
         public static async Task CheckWebView2VersionAsync()
-#pragma warning restore 1998
         {
             // https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution
             // HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}

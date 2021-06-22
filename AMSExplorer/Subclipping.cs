@@ -199,7 +199,7 @@ namespace AMSExplorer
             {
                 return new SubClipConfiguration()
                 {
-                    Mode = radioButtonArchiveTopBitrate.Checked ? SubclipMode.ArchiveTopBitrate: SubclipMode.ArchiveAllBitrates,
+                    Mode = radioButtonArchiveTopBitrate.Checked ? SubclipMode.ArchiveTopBitrate : SubclipMode.ArchiveAllBitrates,
                     Trimming = false,
                     AbsoluteStartTime = timeControlStart.TimeStampWithOffset,
                     AbsoluteEndTime = timeControlEnd.TimeStampWithOffset
@@ -613,7 +613,7 @@ namespace AMSExplorer
                 {
                     transform = await _mainform.CreateAndGetCopyAllBitrateNonInterleavedTransformIfNeededAsync();
                 }
-                
+
                 await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, null);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);

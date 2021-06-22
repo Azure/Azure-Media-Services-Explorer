@@ -28,5 +28,5 @@ namespace AMSExplorer
         ResetAsset,
         Reset
     }
-          
+
 }
