@@ -31,7 +31,6 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml;
 using System.Diagnostics;
-using X14 = DocumentFormat.OpenXml.Office2010.Excel;
 using System.Globalization;
 
 namespace AMSExplorer
