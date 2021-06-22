@@ -6364,6 +6364,8 @@ namespace AMSExplorer
                     await form.UpdateStorageAccountsAsync();
 
                     TextBoxLogWriteLine("Storage account attached/detached.");
+                    Telemetry.TrackEvent("DoAttachAnotherStorageAccountAsync configupdated");
+
                     await DoRefreshGridStorageVAsync(false);
                 }
                 catch (Exception ex)
@@ -9503,6 +9505,8 @@ namespace AMSExplorer
                     await form.UpdateKeyDeliveryConfigAsync();
 
                     TextBoxLogWriteLine("Key delivery configuration updated.");
+                    Telemetry.TrackEvent("DoKeyDeliveryConfigAsync configupdated");
+
                     //await DoRefreshGridStorageVAsync(false);
                 }
                 catch (Exception ex)
