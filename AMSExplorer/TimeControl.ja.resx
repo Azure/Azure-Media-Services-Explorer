@@ -82,20 +82,6 @@
   <data name="label40.Text" xml:space="preserve">
     <value>時</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="trackBarTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
-  </data>
-  <data name="trackBarTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 47</value>
-  </data>
-  <data name="trackBarTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 45</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="trackBarTime.TabIndex" type="System.Int32, mscorlib">
-    <value>126</value>
-  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 15</value>
   </data>
