@@ -169,7 +169,7 @@ namespace AMSExplorer
                 {
                     comboBoxSourceAsset.Items.Add(new Item("(multiple assets were selected)", null));
                     comboBoxSourceAsset.Enabled = false;
-                    buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = false;
+                    buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = buttonExportEDL.Visible = buttonImportEDL.Visible = false;
                 }
                 else
                 {
@@ -196,11 +196,6 @@ namespace AMSExplorer
                 {
                     timeControlEndTime.SetTimeStamp((TimeSpan)_end);
                     checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
-                }
-
-                if (!_multipleInputAssets)
-                {
-                    labelInfoSeveralAssetStitching.Visible = true;
                 }
             }
         }
@@ -261,13 +256,13 @@ namespace AMSExplorer
                 textBoxNewAssetNameSyntax.Text = "httpssource-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
 
                 // no way to access the EDL
-                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = false;
+                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonExportEDL.Visible = buttonImportEDL.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = false;
             }
             else
             {
                 textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
 
-                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = true;
+                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonExportEDL.Visible = buttonImportEDL.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = true;
             }
 
             if (radioButtonSelectedAssets.Checked)
