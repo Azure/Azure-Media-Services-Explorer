@@ -76,6 +76,7 @@
             // 
             this.dataGridViewIP.AllowUserToAddRows = false;
             this.dataGridViewIP.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataGridViewIP, "dataGridViewIP");
             this.dataGridViewIP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewIP.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -95,7 +96,6 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewIP.DefaultCellStyle = dataGridViewCellStyle2;
-            resources.ApplyResources(this.dataGridViewIP, "dataGridViewIP");
             this.dataGridViewIP.Name = "dataGridViewIP";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -122,11 +122,11 @@
             // 
             // panelStreamingAllowedIP
             // 
+            resources.ApplyResources(this.panelStreamingAllowedIP, "panelStreamingAllowedIP");
             this.panelStreamingAllowedIP.Controls.Add(this.dataGridViewIP);
             this.panelStreamingAllowedIP.Controls.Add(this.buttonAddIP);
             this.panelStreamingAllowedIP.Controls.Add(this.buttonDelIP);
             this.panelStreamingAllowedIP.Controls.Add(this.checkBoxUseIpList);
-            resources.ApplyResources(this.panelStreamingAllowedIP, "panelStreamingAllowedIP");
             this.panelStreamingAllowedIP.Name = "panelStreamingAllowedIP";
             // 
             // buttonAddIP
