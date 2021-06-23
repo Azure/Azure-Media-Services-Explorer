@@ -3,5 +3,5 @@
     "ReleaseNotesUrl": "https://amsexplorer.azureedge.net/release/ReleaseNotes.html",
     "AllReleaseNotesUrl": "https://amsexplorer.azureedge.net/release/AllReleaseNotes.html",
     "BinaryUrl": "https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.4.3.msi",
-    "Parameters": "/qr"
+    "Parameters": ""
 }
