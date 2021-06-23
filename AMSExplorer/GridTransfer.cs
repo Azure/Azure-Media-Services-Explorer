@@ -20,14 +20,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    
+
     public partial class Mainform : Form
     {
         private static BindingList<TransferEntry> _MyListTransfer; // list of upload/download
@@ -121,6 +120,14 @@ namespace AMSExplorer
             myTE.tokenSource = tokenSource;
 
             return new TransferEntryResponse() { Id = myTE.Id, token = tokenloc };
+        }
+
+        public static void DoGridTransferRetryTask(Guid guid)
+        {
+            TransferEntry transfer = ReturnTransfer(guid);
+            transfer.tokenSource = new();
+            transfer.State = TransferState.Processing;
+            DoGridTransferUpdateProgress(0, guid);
         }
 
 

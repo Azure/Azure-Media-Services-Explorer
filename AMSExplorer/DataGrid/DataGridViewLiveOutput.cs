@@ -43,7 +43,6 @@ namespace AMSExplorer
         private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveOutputName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
         private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
-        private static BackgroundWorker WorkerRefreshChannels;
         public string _published = "Published";
         private static readonly Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
         private static enumDisplayProgram _anyChannel = enumDisplayProgram.Selected;
@@ -64,7 +63,6 @@ namespace AMSExplorer
             get => _itemssperpage;
             set => _itemssperpage = value;
         }
-
 
         public int PageCount => _pagecount;
         public int CurrentPage => _currentpage;
@@ -98,8 +96,6 @@ namespace AMSExplorer
             set => _timefilterTimeRange = value;
         }
         public int DisplayedCount => _MyObservLiveOutputs != null ? _MyObservLiveOutputs.Count : 0;
-
-
 
         public void Init(AMSClientV3 client)
         {
@@ -156,12 +152,6 @@ namespace AMSExplorer
             Columns["ArchiveWindowLength"].HeaderText = "Archive window";
             Columns["LiveEventName"].HeaderText = "Live event name";
 
-            WorkerRefreshChannels = new BackgroundWorker
-            {
-                WorkerSupportsCancellation = true
-            };
-            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshLiveOutputs_DoWork);
-
             _initialized = true;
         }
 
@@ -203,7 +193,7 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                
+
                 liveOutput = await _amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Name); //refresh
                 if (liveOutput != null)
                 {
@@ -222,51 +212,6 @@ namespace AMSExplorer
             }
         }
 
-        private void WorkerRefreshLiveOutputs_DoWork(object sender, DoWorkEventArgs e) // all assets are refreshed
-        {
-            Task.Run(() => WorkerRefreshLiveOutputs_DoWorkAsync(sender, e)).ConfigureAwait(false);
-        }
-
-        private async Task WorkerRefreshLiveOutputs_DoWorkAsync(object sender, DoWorkEventArgs e)
-        {
-            Debug.WriteLine("WorkerRefreshLiveOutputs_DoWork");
-            BackgroundWorker worker = sender as BackgroundWorker;
-            LiveOutput liveOutputItem;
-            
-
-            foreach (LiveOutputEntry CE in _MyObservLiveOutputs)
-            {
-
-                liveOutputItem = null;
-                try
-                {
-                    liveOutputItem = await _amsClient.GetLiveOutputAsync(CE.LiveEventName, CE.Name);
-                    if (liveOutputItem != null)
-                    {
-                        CE.State = liveOutputItem.ResourceState;
-                        RefreshGridView();
-                        // BeginInvoke(new Action(() => Refresh()), null);
-                    }
-                }
-                catch // in some case, we have a timeout on Assets.Where...
-                {
-
-                }
-                if (worker.CancellationPending == true)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-            }
-            RefreshGridView();
-            // BeginInvoke(new Action(() => Refresh()), null);
-        }
-
-        private void RefreshPrograms() // all assets are refreshed
-        {
-            Task.Run(async () => await RefreshLiveOutputsAsync(_currentpage));
-
-        }
 
         public async Task RefreshLiveOutputsAsync(int pagetodisplay) // all assets are refreshed
         {
@@ -283,8 +228,6 @@ namespace AMSExplorer
             Debug.WriteLine("RefreshPrograms : start");
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
-
-            
 
             IEnumerable<LiveEvent> ListEvents;
             if (_anyChannel == enumDisplayProgram.None)
@@ -309,20 +252,6 @@ namespace AMSExplorer
             }
 
             float scale = DeviceDpi / 96f;
-            /*
-            IEnumerable<LiveOutputEntry> programquery = from c in (LOList)
-                                                            //orderby c.LastModified descending
-                                                        select new LiveOutputEntry
-                                                        {
-                                                            Name = c.LiveOutputItem.Name,
-                                                            State = c.LiveOutputItem.ResourceState,
-                                                            Description = c.LiveOutputItem.Description,
-                                                            ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
-                                                            LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
-                                                            Published = (Bitmap)HighDpiHelper.ScaleImage((await DataGridViewAssets.BuildBitmapPublicationAsync(c.LiveOutputItem.AssetName, _client)).bitmap, scale),
-                                                            LiveEventName = c.LiveEventName
-                                                        };
-                                                        */
 
             var tasksBuildBitmaps = LOList.Select(
                                         async item => new

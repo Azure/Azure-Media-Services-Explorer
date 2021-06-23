@@ -28,10 +28,10 @@ namespace AMSExplorer
 
         public static readonly List<Item> CDNProviders = new()
         {
-            new Item("Standard Verizon",  "StandardVerizon"),
+            new Item("Standard Verizon", "StandardVerizon"),
             new Item("Standard Akamai", "StandardAkamai"),
             new Item("Premium Verizon", "PremiumVerizon")
-                   };
+        };
 
         public string ProviderSelected => ((Item)comboBoxProvider.SelectedItem).Value.ToString();
 

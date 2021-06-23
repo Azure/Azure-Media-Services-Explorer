@@ -18,6 +18,8 @@
 
 
 using AMSExplorer.Rest;
+using AMSExplorer.Utils.JobInfo;
+using AMSExplorer.Utils.TransformInfo;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage;
@@ -25,7 +27,6 @@ using Microsoft.Azure.Storage.Auth;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Azure.Storage.Shared.Protocol;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure;
 using Newtonsoft.Json;
 using System;
@@ -37,7 +38,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -79,6 +79,12 @@ namespace AMSExplorer
         private const string resetcredentials = "/resetcredentials";
 
         private readonly DownloadOptions dataMovementDownloadOptions = new();
+
+        private List<(Guid, string, CloudBlockBlob)> listTransferUploadOperations = new(); // used to resume upload if needed
+        private List<(Guid, TransferCheckpoint, long, string)> listTransferUploadCheckpoints = new(); // used to resume upload if needed
+
+        private List<(Guid, string, IListBlobItem, DownloadOptions)> listTransferDownloadOperations = new(); // used to resume download if needed
+        private List<(Guid, TransferCheckpoint, long, string)> listTransferDownloadCheckpoints = new(); // used to resume download if needed
 
 
         public Mainform(string[] args)
@@ -421,7 +427,16 @@ namespace AMSExplorer
             {
                 SetTextBoxAssetsPageNumber(1);
 
-                dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current);
+                try
+                {
+                    dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                }
+
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
             }
 
@@ -432,7 +447,16 @@ namespace AMSExplorer
 
             Task.Run(async () =>
         {
-            await dataGridViewAssetsV.RefreshAssetsAsync(page);
+            try
+            {
+                await dataGridViewAssetsV.RefreshAssetsAsync(page);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine(ex);
+                Telemetry.TrackException(ex);
+            }
+
         });
 
             //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
@@ -628,6 +652,8 @@ namespace AMSExplorer
             }
             else
             {
+                SingleTransferContext context = new();
+                long LengthAllFiles = 0;
 
                 try
                 {
@@ -671,7 +697,6 @@ namespace AMSExplorer
                     Uri sasUri = new(uploadSasUrl);
                     CloudBlobContainer container = new(sasUri);
 
-                    long LengthAllFiles = 0;
 
                     // size calculation
                     foreach (string file in filenames)
@@ -680,7 +705,7 @@ namespace AMSExplorer
                     }
 
                     // Setup the transfer context and track the upload progress
-                    SingleTransferContext context = new();
+
                     context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                     {
                         double percentComplete = 100d * progress.BytesTransferred / LengthAllFiles;
@@ -707,12 +732,17 @@ namespace AMSExplorer
                             blob.Properties.ContentType = "video/mp4";
                         }
 
+                        // let's save the operations to restore the upload if needed
+                        listTransferUploadOperations.Add(new(guidTransfer, fileWithPath, blob));
+
                         await TransferManager.UploadAsync(fileWithPath, blob, null, context, token);
 
                         // no need as MD5 is already computed by Data Movement lib
                         // let compute MD5 and set the blob properties in it. Data movement library likes it.
                         //lob.Properties.ContentMD5 = MD5Calc.GetFileContentMD5(fileWithPath);
                         //await blob.SetPropertiesAsync();
+
+
 
                     }
                     Dictionary<string, double> dictionaryM = new() { { "LengthAllFilesMB", ((double)LengthAllFiles) / (1024 * 1024) }, { "NbFiles", filenames.Count } };
@@ -727,8 +757,10 @@ namespace AMSExplorer
                     DoGridTransferDeclareError(guidTransfer, ex);
                     TextBoxLogWriteLine("Error when uploading '{0}'.", string.Join(", ", filenames), true);
                     TextBoxLogWriteLine(ex);
+                    TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
                     Telemetry.TrackException(ex);
                 }
+                listTransferUploadCheckpoints.Add(new(guidTransfer, context.LastCheckpoint, LengthAllFiles, destAssetName));
             }
 
             if (!Error && !token.IsCancellationRequested)
@@ -744,6 +776,185 @@ namespace AMSExplorer
                 DoGridTransferDeclareError(guidTransfer, "Error during import. " + ErrorMessage);
             }
         }
+
+
+        /// <summary>
+        /// Resume the transfer operations when possible
+        /// </summary>
+        /// <param name="guidTransfer"></param>
+        /// <param name="transferType"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private async Task DoGridTransferRetryTaskAsync(Guid guidTransfer, TransferType transferType, CancellationToken token)
+        {
+
+            switch ((TransferType)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["Type"].Index].Value)
+            {
+
+                case TransferType.UploadFromFile:
+
+                    bool Error = false;
+
+                    var checkpoints = listTransferUploadCheckpoints.Where(a => a.Item1 == guidTransfer);
+                    if (checkpoints == null)
+                    {
+                        MessageBox.Show("It is not possible to resume this transfer.", "Information");
+                        break;
+                    }
+                    var checkpoint = checkpoints.Last();
+
+                    // Create a new TransferContext with the store checkpoint
+                    SingleTransferContext resumeContext = new SingleTransferContext(checkpoint.Item2);
+
+                    long LengthAllFiles = checkpoint.Item3;
+                    string location = checkpoint.Item4;
+
+                    resumeContext.ProgressHandler = new Progress<TransferStatus>((progress) =>
+                    {
+                        double percentComplete = 100d * progress.BytesTransferred / LengthAllFiles;
+                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                    });
+
+                    var operations = listTransferUploadOperations.Where(a => a.Item1 == guidTransfer);
+                    try
+                    {
+                        foreach (var op in operations)
+                        {
+
+                            await TransferManager.UploadAsync(op.Item2, op.Item3, null, resumeContext, token);
+
+                        }
+                        Dictionary<string, double> dictionaryM = new() { { "LengthAllFilesMB", ((double)LengthAllFiles) / (1024 * 1024) }, { "NbFiles", operations.Count() } };
+                        Telemetry.TrackEvent("File(s) uploaded", null, dictionaryM);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                    }
+                    catch (Exception ex)
+                    {
+                        Error = true;
+                        DoGridTransferDeclareError(guidTransfer, ex);
+                        TextBoxLogWriteLine("Error when uploading.", true);
+                        TextBoxLogWriteLine(ex);
+                        TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
+                        Telemetry.TrackException(ex);
+                    }
+
+                    listTransferUploadCheckpoints.Remove(checkpoint);
+                    listTransferUploadCheckpoints.Add(new(guidTransfer, resumeContext.LastCheckpoint, LengthAllFiles, location));
+
+
+                    if (!Error && !token.IsCancellationRequested)
+                    {
+
+                        DoGridTransferDeclareCompleted(guidTransfer, location);
+                    }
+                    else if (token.IsCancellationRequested)
+                    {
+                        DoGridTransferDeclareCancelled(guidTransfer);
+                    }
+                    else // Error!
+                    {
+                        DoGridTransferDeclareError(guidTransfer, "Error during import. ");
+                    }
+                    break;
+
+
+                case TransferType.DownloadToLocal:
+                    bool ErrorD = false;
+
+                    var checkpointsD = listTransferDownloadCheckpoints.Where(a => a.Item1 == guidTransfer);
+                    if (checkpointsD == null)
+                    {
+                        MessageBox.Show("It is not possible to resume this transfer.", "Information");
+                        break;
+                    }
+                    var checkpointD = checkpointsD.Last();
+
+                    // Create a new TransferContext with the store checkpoint
+                    SingleTransferContext resumeContextD = new SingleTransferContext(checkpointD.Item2);
+
+                    long totalBytesToBeDownloaded = checkpointD.Item3;
+                    string folder = checkpointD.Item4;
+
+                    resumeContextD.ProgressHandler = new Progress<TransferStatus>((progress) =>
+                    {
+                        double percentComplete = 100d * progress.BytesTransferred / totalBytesToBeDownloaded;
+                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                    });
+
+                    var operationsD = listTransferDownloadOperations.Where(a => a.Item1 == guidTransfer);
+                    List<string> listDir = new();
+
+                    try
+                    {
+                        foreach (var op in operationsD)
+                        {
+                            if (op.Item3 is CloudBlockBlob bblob)
+                            {
+                                if (bblob.Parent is CloudBlobDirectory blobDir && !string.IsNullOrEmpty(blobDir.Prefix) && !listDir.Contains(blobDir.Prefix))
+                                {
+                                    listDir.Add(blobDir.Prefix); // let's create the directory only one time :-)
+                                    string pathString = System.IO.Path.Combine(checkpointD.Item4, blobDir.Prefix);
+
+                                    Directory.CreateDirectory(pathString);
+                                }
+
+                                await TransferManager.DownloadAsync(bblob, op.Item2, op.Item4, resumeContextD, token);
+                            }
+                        }
+                        Dictionary<string, double> dictionaryM = new() { { "LengthAllFilesMB", ((double)totalBytesToBeDownloaded) / (1024 * 1024) }, { "NbFiles", operationsD.Count() } };
+                        Telemetry.TrackEvent("File(s) downloaded", null, dictionaryM);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorD = true;
+                        DoGridTransferDeclareError(guidTransfer, ex);
+                        TextBoxLogWriteLine("Error when downloading.", true);
+                        TextBoxLogWriteLine(ex);
+                        TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
+                        Telemetry.TrackException(ex);
+                    }
+
+                    listTransferDownloadCheckpoints.Remove(checkpointD);
+                    listTransferDownloadCheckpoints.Add(new(guidTransfer, resumeContextD.LastCheckpoint, totalBytesToBeDownloaded, checkpointD.Item4));
+
+
+                    if (!ErrorD && !token.IsCancellationRequested)
+                    {
+
+                        DoGridTransferDeclareCompleted(guidTransfer, checkpointD.Item4);
+                    }
+                    else if (token.IsCancellationRequested)
+                    {
+                        DoGridTransferDeclareCancelled(guidTransfer);
+                    }
+                    else // Error!
+                    {
+                        DoGridTransferDeclareError(guidTransfer, "Error during download. ");
+                    }
+                    break;
+
+
+
+                case TransferType.ImportFromAzureStorage:
+                case TransferType.ImportFromHttp:
+                case TransferType.UploadFromFolder:
+                case TransferType.UploadWithExternalTool:
+                    MessageBox.Show("It is not possible to resume this transfer.", "Information");
+                    break;
+
+                case TransferType.ExportToAzureStorage:
+                default:
+                    break;
+
+
+            }
+        }
+
 
 
         private async Task ProcessHttpSourceV3(Uri source, Guid guidTransfer, CancellationToken token, string storageaccount = null, NewAsset assetCreationSettings = null)
@@ -927,7 +1138,7 @@ namespace AMSExplorer
                     return;
                 }
 
-                // Let's list the blobs
+                // Let's list ALL the blobs container
                 BlobContinuationToken continuationToken = null;
                 List<IListBlobItem> blobs = new();
                 do
@@ -939,7 +1150,7 @@ namespace AMSExplorer
                 while (continuationToken != null);
 
 
-                // size calculation
+                // size calculation of ALL the blobs
                 long Length = 0;
                 foreach (IListBlobItem blob in blobs)
                 {
@@ -949,11 +1160,22 @@ namespace AMSExplorer
                     }
                 }
 
+                // Let's list the blobs in the root of the container
+                continuationToken = null;
+                blobs.Clear();
+                do
+                {
+                    BlobResultSegment segment = await Container.ListBlobsSegmentedAsync(null, false, BlobListingDetails.None, null, continuationToken, null, null);
+                    blobs.AddRange(segment.Results);
+                    continuationToken = segment.ContinuationToken;
+                }
+                while (continuationToken != null);
+
                 IEnumerable<IListBlobItem> blobsblock = blobs.Where(b => b is CloudBlockBlob);
                 int nbtotalblobblock = blobsblock.Count();
                 int nbblob = 0;
                 long BytesCopied = 0;
-                Dictionary<CloudBlockBlob, Task<string>> copyOperationsDict = new();
+                Dictionary<CloudBlob, string> copyOperationsDict = new();
 
                 // let's parallelize the copy
                 foreach (IListBlobItem blob in blobsblock)
@@ -967,7 +1189,7 @@ namespace AMSExplorer
                     UriBuilder urib = new(ObjectUrl);
                     urib.Path = urib.Path + "/" + Path.GetFileName(blob.Uri.ToString());
 
-                    copyOperationsDict.Add(blockBlob, blockBlob.StartCopyAsync(urib.Uri, token));
+                    copyOperationsDict.Add(blockBlob, await blockBlob.StartCopyAsync(urib.Uri, token));
                 }
                 bool Cancelled = false;
 
@@ -978,32 +1200,32 @@ namespace AMSExplorer
                 {
                     if (token.IsCancellationRequested && !Cancelled)
                     {
-                        foreach (KeyValuePair<CloudBlockBlob, Task<string>> entry in copyOperationsDict)
+                        foreach (KeyValuePair<CloudBlob, string> entry in copyOperationsDict)
                         {
                             // do something with entry.Value or entry.Key
-                            await entry.Key.AbortCopyAsync(entry.Value.Result);
+                            await entry.Key.AbortCopyAsync(entry.Value);
                             Cancelled = true;
                         }
                     }
 
                     await Task.Delay(1000);
 
-                    List<CloudBlockBlob> copyCompleted = new();
-                    foreach (KeyValuePair<CloudBlockBlob, Task<string>> entry in copyOperationsDict)
+                    List<CloudBlob> copyCompleted = new();
+                    foreach (KeyValuePair<CloudBlob, string> entry in copyOperationsDict)
                     {
-                        CloudBlockBlob blockBlobToCheck = entry.Key;
+                        var blobToCheck = entry.Key;
                         try
                         {
-                            await blockBlobToCheck.FetchAttributesAsync();
+                            await blobToCheck.FetchAttributesAsync();
                         }
-                        catch { }
-                        CopyState copyStatus = blockBlobToCheck.CopyState;
+                        catch
+                        {
+                        }
+
+                        CopyState copyStatus = blobToCheck.CopyState;
+
                         if (copyStatus != null)
                         {
-                            double percentComplete = 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
-
-                            DoGridTransferUpdateProgress(percentComplete, guidTransfer);
-
                             if (copyStatus.Status != CopyStatus.Pending)
                             {
                                 if (copyStatus.Status == CopyStatus.Failed)
@@ -1017,75 +1239,137 @@ namespace AMSExplorer
                                 }
                                 if (copyStatus.Status == CopyStatus.Success)
                                 {
-                                    BytesCopied += blockBlobToCheck.Properties.Length;
+                                    BytesCopied += blobToCheck.Properties.Length;
+                                    if (Length > 0)
+                                    {
+                                        double percentComplete = 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
+                                        DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                                    }
                                 }
-                                copyCompleted.Add(blockBlobToCheck);
+                                copyCompleted.Add(blobToCheck);
                             }
                         }
                     }
                     copyCompleted.ForEach(b => copyOperationsDict.Remove(b));
                 }
 
-                DateTime endTime = DateTime.UtcNow;
-                TimeSpan diffTime = endTime - startTime;
+                //DateTime endTime = DateTime.UtcNow;
+                //TimeSpan diffTime = endTime - startTime;
 
-                List<CloudBlobDirectory> ListDirectories = new();
+
+                // let's now copy the content of the directories
+                List<(CloudBlobDirectory, long)> ListDirectories = new();
                 List<Task> mylistresults = new();
 
-                IEnumerable<IListBlobItem> blobsdir = blobs.Where(b => b is CloudBlobDirectory);
-                int nbtotalblobdir = blobsdir.Count();
-                int nbblobdir = 0;
-                foreach (IListBlobItem blob in blobsdir)
-                {
-                    nbblobdir++;
-                    string fileName = blob.Uri.Segments[2];
-
-                    CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
-                    ListDirectories.Add(blobdir);
-                    TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
-
-
-
-                    // Let's list the blobs in the directory
-                    continuationToken = null;
-                    List<IListBlobItem> srcBlobList = new();
-                    do
-                    {
-                        BlobResultSegment segment = await blobdir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, null, continuationToken, null, null);
-                        srcBlobList.AddRange(segment.Results);
-                        continuationToken = segment.ContinuationToken;
-                    }
-                    while (continuationToken != null);
-
-
-                    IEnumerable<IListBlobItem> subblocks = srcBlobList.Where(s => s is CloudBlockBlob);
-                    long size = 0;
-                    if (subblocks.Any())
-                    {
-                        size = subblocks.Sum(s => ((CloudBlockBlob)s).Properties.Length);
-                    }
-                }
+                var blobsdir = blobs.Where(b => b is CloudBlobDirectory).Select(c => c as CloudBlobDirectory);
 
 
                 // let's launch the copy of fragblobs
-                double ind = 0;
-                foreach (CloudBlobDirectory dir in ListDirectories)
+                copyOperationsDict.Clear();
+                foreach (var dir in blobsdir)
                 {
-                    TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
-                    mylistresults.AddRange(AssetTools.CopyBlobDirectory(dir, destinationContainer, ObjectUrl.Query, token));
+                    TextBoxLogWriteLine("Copying directory '{0}'....", dir.Prefix);
 
-                    if (mylistresults.Count > 0)
+                    // Let's list the blobs in the directory
+                    continuationToken = null;
+                    int batch = 50;
+                    int nbBlobinDirCopied = 0;
+                    do
                     {
-                        while (!mylistresults.All(r => r.IsCompleted))
+                        // let copy per batch of 50
+                        BlobResultSegment segment = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, batch, continuationToken, null, null, token);
+                        continuationToken = segment.ContinuationToken;
+
+
+                        List<(Task<string>, CloudBlob)> myTasks = new();
+                        foreach (IListBlobItem src in segment.Results.ToList())
                         {
-                            Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
-                            double percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
-                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, guidTransfer);
+                            ICloudBlob srcBlob = src as ICloudBlob;
+
+                            // Create appropriate destination blob type to match the source blob
+                            CloudBlob destBlob;
+                            if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
+                            {
+                                destBlob = destinationContainer.GetBlockBlobReference(srcBlob.Name);
+                            }
+                            else
+                            {
+                                destBlob = destinationContainer.GetPageBlobReference(srcBlob.Name);
+                            }
+
+                            myTasks.Add(
+                                (destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + ObjectUrl.Query), token), destBlob)
+                                );
                         }
+
+                        // let's wait for all copy to have started
+                        var results = await Task.WhenAll(myTasks.Select(a => a.Item1));
+                        myTasks.ForEach(t => copyOperationsDict.Add(t.Item2, t.Item1.Result));
+
+                        Cancelled = false;
+
+                        // let's check the copy status
+                        while ((copyOperationsDict.Count > 0) && (!Cancelled))
+                        {
+                            if (token.IsCancellationRequested && !Cancelled)
+                            {
+                                foreach (KeyValuePair<CloudBlob, string> entry in copyOperationsDict)
+                                {
+                                    // do something with entry.Value or entry.Key
+                                    await entry.Key.AbortCopyAsync(entry.Value);
+                                    Cancelled = true;
+                                }
+                            }
+
+                            await Task.Delay(1000);
+
+                            List<CloudBlob> copyCompleted = new();
+                            foreach (KeyValuePair<CloudBlob, string> entry in copyOperationsDict)
+                            {
+                                var blobToCheck = entry.Key;
+                                try
+                                {
+                                    await blobToCheck.FetchAttributesAsync();
+                                }
+                                catch
+                                {
+                                }
+
+                                CopyState copyStatus = blobToCheck.CopyState;
+
+                                if (copyStatus != null)
+                                {
+                                    if (copyStatus.Status != CopyStatus.Pending)
+                                    {
+                                        if (copyStatus.Status == CopyStatus.Failed)
+                                        {
+                                            Error = true;
+                                            ErrorMessage = copyStatus.StatusDescription;
+                                        }
+                                        if (copyStatus.Status == CopyStatus.Aborted)
+                                        {
+                                            Canceled = true;
+                                        }
+                                        if (copyStatus.Status == CopyStatus.Success)
+                                        {
+                                            BytesCopied += blobToCheck.Properties.Length;
+                                            if (Length > 0)
+                                            {
+                                                double percentComplete = 100d * (long)(BytesCopied + copyStatus.BytesCopied) / Length;
+                                                DoGridTransferUpdateProgress(percentComplete, guidTransfer);
+                                            }
+                                        }
+                                        copyCompleted.Add(blobToCheck);
+                                    }
+                                }
+                            }
+                            copyCompleted.ForEach(b => copyOperationsDict.Remove(b));
+                        }
+                        nbBlobinDirCopied += myTasks.Count;
+                        TextBoxLogWriteLine("Copying directory '{0}'.... {1} blobs copied.", dir.Prefix, nbBlobinDirCopied, false);
                     }
-                    ind++;
-                    mylistresults.Clear();
+                    while (continuationToken != null);
                 }
 
                 if (!Error && !Canceled)
@@ -1115,17 +1399,9 @@ namespace AMSExplorer
                 DoGridTransferDeclareError(guidTransfer, ex);
             }
 
-            /*
-            if (!Error && !token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCompleted(guidTransfer, destAssetName);
-            }
-            else if (token.IsCancellationRequested)
-            {
-                DoGridTransferDeclareCancelled(guidTransfer);
-            }
-            */
+
         }
+
 
 
         private static void MyUploadFileProgressChanged(Guid guidTransfer, int indexfile, int nbfiles)
@@ -1255,6 +1531,11 @@ namespace AMSExplorer
             IList<Task> downloadTasks = new List<Task>();
             long totalBytesToBeDownloaded = 0;
 
+            // Setup the transfer context and track the upload progress
+            SingleTransferContext context = new();
+
+            bool Error = false;
+
             try
             {
                 TextBoxLogWriteLine("Listing blobs'...");
@@ -1276,14 +1557,15 @@ namespace AMSExplorer
 
                 TextBoxLogWriteLine($"Downloading blobs to '{outputFolderName}'...");
 
-                // Setup the transfer context and track the upload progress
-                SingleTransferContext context = new();
+
 
                 context.ProgressHandler = new Progress<TransferStatus>((progress) =>
                 {
                     double percentComplete = 100d * progress.BytesTransferred / totalBytesToBeDownloaded;
                     DoGridTransferUpdateProgress(percentComplete, response.Id);
                 });
+
+                List<string> listDir = new();
 
                 do
                 {
@@ -1293,7 +1575,15 @@ namespace AMSExplorer
                     {
                         if (blobItem is CloudBlockBlob blob && (onlySomeBlobsName == null || (onlySomeBlobsName != null && onlySomeBlobsName.Contains(blob.Name))))
                         {
-                            string filePath = Path.Combine(outputFolderName, blob.Name);
+                            if (blob.Parent is CloudBlobDirectory blobDir && !string.IsNullOrEmpty(blobDir.Prefix) && !listDir.Contains(blobDir.Prefix))
+                            {
+                                listDir.Add(blobDir.Prefix); // let's create the directory only one time :-)
+                                string pathString = System.IO.Path.Combine(outputFolderName, blobDir.Prefix);
+
+                                Directory.CreateDirectory(pathString);
+                            }
+
+                            string filePath = Path.Combine(outputFolderName, blob.Name.Replace('/', '\\'));
                             await blob.FetchAttributesAsync();
 
                             var downloadOptionsCopy = dataMovementDownloadOptions;
@@ -1304,7 +1594,10 @@ namespace AMSExplorer
                                 downloadOptionsCopy.DisableContentMD5Validation = true;
                             }
 
-                            // Upload a local blob
+                            // let's save the operations to restore the upload if needed
+                            listTransferDownloadOperations.Add(new(response.Id, filePath, blob, downloadOptionsCopy));
+
+                            // Download blob
                             downloadTasks.Add(TransferManager.DownloadAsync(blob, filePath, downloadOptionsCopy, context, response.token));
                         }
                     }
@@ -1322,33 +1615,37 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine(string.Format("Download of blobs from asset '{0}' failed !", assetName), true);
                 TextBoxLogWriteLine(ex);
+                TextBoxLogWriteLine("IMPORTANT : If you have a low bitrate connection, set the number of parallel operations from Auto to 2. Go to Options/Options/Storage Data Movement Library to change this setting.");
                 Telemetry.TrackException(ex);
                 DoGridTransferDeclareError(response.Id, ex);
-                return;
+                Error = true;
             }
+            listTransferDownloadCheckpoints.Add(new(response.Id, context.LastCheckpoint, totalBytesToBeDownloaded, outputFolderName));
 
-            if (!response.token.IsCancellationRequested)
+            if (!Error)
             {
-                TextBoxLogWriteLine("Download complete.");
-                DoGridTransferDeclareCompleted(response.Id, outputFolderName);
-                if (openFileExplorer)
+                if (!response.token.IsCancellationRequested)
                 {
-                    var p = new Process
+                    TextBoxLogWriteLine("Download complete.");
+                    DoGridTransferDeclareCompleted(response.Id, outputFolderName);
+                    if (openFileExplorer)
                     {
-                        StartInfo = new ProcessStartInfo
+                        var p = new Process
                         {
-                            FileName = outputFolderName,
-                            UseShellExecute = true
-                        }
-                    };
-                    p.Start();
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = outputFolderName,
+                                UseShellExecute = true
+                            }
+                        };
+                        p.Start();
+                    }
+                }
+                else
+                {
+                    DoGridTransferDeclareCancelled(response.Id);
                 }
             }
-            else
-            {
-                DoGridTransferDeclareCancelled(response.Id);
-            }
-
         }
 
 
@@ -1586,11 +1883,7 @@ namespace AMSExplorer
                 try
                 {
                     Cursor = Cursors.WaitCursor;
-                    JobInformation form = new(this, _amsClient)
-                    {
-                        MyJob = job.Job
-                        //  MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the job info dialog box
-                    };
+                    JobInformation form = new(this, _amsClient, job);
                     dialogResult = form.ShowDialog(this);
                 }
                 finally
@@ -1617,7 +1910,7 @@ namespace AMSExplorer
                     var restTransformClient = new AmsClientRest(_amsClient);
                     var transformRest = restTransformClient.GetTransformContent(t.Name);
 
-                    TransformInformation form = new(t, transformRest);
+                    TransformInformation form = new(t, transformRest, _amsClient);
 
                     dialogResult = form.ShowDialog(this);
                 }
@@ -2339,7 +2632,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Error. Could not create a locator for '{0}' ", AssetToP.Name, true);
                     TextBoxLogWriteLine(ex);
                     Telemetry.TrackException(ex);
-                    return null;
+                    throw;
                 }
             }
             DataGridViewAssets.PurgeCacheAssets(assets);
@@ -3330,14 +3623,19 @@ namespace AMSExplorer
         }
 
 
-        private void DoDisplayJobReport()
+        private async Task DoDisplayJobReportAsync()
         {
-            /*
-            JobInfo JR = new JobInfo(ReturnSelectedJobs(), _accountname);
-            StringBuilder SB = JR.GetStats();
-            var tokenDisplayForm = new EditorXMLJSON("Job report", SB.ToString(), false, false, false);
-            tokenDisplayForm.Display();
-            */
+            Telemetry.TrackEvent("DoDisplayJobReportAsync");
+
+            var jobs = await ReturnSelectedJobsV3Async();
+            if (jobs.Count == 0) return;
+
+            StringBuilder SB = await JobTools.GetStatAsync(jobs.First(), _amsClient);
+            using (EditorXMLJSON jobDisplayForm
+                = new("Job report", SB.ToString(), false, ShowSampleMode.None, false))
+            {
+                jobDisplayForm.Display();
+            }
         }
 
 
@@ -3620,26 +3918,6 @@ namespace AMSExplorer
             await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.DASHIFRefPlayer);
         }
 
-
-        private async Task DoCreateAssetReportEmailAsync()
-        {
-            _ = new AssetTools(await ReturnSelectedAssetsAsync(), _amsClient);
-        }
-
-        private async Task DoDisplayAssetReportAsync()
-        {
-            Telemetry.TrackEvent("DoDisplayAssetReportAsync");
-
-            AssetTools AR = new(await ReturnSelectedAssetsAsync(), _amsClient);
-            StringBuilder SB = await AR.GetStatsAsync();
-            EditorXMLJSON tokenDisplayForm = new("Asset report", SB.ToString(), false, ShowSampleMode.None, false);
-            tokenDisplayForm.Display();
-        }
-
-        private async void createOutlookReportEmailToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            await DoCreateAssetReportEmailAsync();
-        }
 
 
         private async void openOutputAssetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6086,6 +6364,8 @@ namespace AMSExplorer
                     await form.UpdateStorageAccountsAsync();
 
                     TextBoxLogWriteLine("Storage account attached/detached.");
+                    Telemetry.TrackEvent("DoAttachAnotherStorageAccountAsync configupdated");
+
                     await DoRefreshGridStorageVAsync(false);
                 }
                 catch (Exception ex)
@@ -6568,7 +6848,6 @@ namespace AMSExplorer
             ContextMenuItemLiveEventStart.Enabled = oneOrMore;
             ContextMenuItemLiveEventStop.Enabled = oneOrMore;
             ContextMenuItemLiveEventReset.Enabled = oneOrMore;
-            cloneLiveEventsToolStripMenuItem.Enabled = false;// oneOrMore;
             ContextMenuItemLiveEventDelete.Enabled = oneOrMore;
 
             // playback preview
@@ -7049,20 +7328,12 @@ namespace AMSExplorer
         }
 
 
-        private void copyReportToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void copyReportToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDisplayJobReport();
+            await DoDisplayJobReportAsync();
         }
 
-        private async void toolStripMenuItem30_Click(object sender, EventArgs e)
-        {
-            await DoCreateAssetReportEmailAsync();
-        }
 
-        private async void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            await DoDisplayAssetReportAsync();
-        }
 
         private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -7887,13 +8158,28 @@ namespace AMSExplorer
 
         public async Task<Transform> CreateAndGetCopyCodecTransformIfNeededAsync()
         {
-            Transform myTransform = null;
+            return await CreateAndGetSpecialTransformIfNeededAsync(PresetStandardEncoder.CopyOnlyPreset(), PresetStandardEncoder.CopyVideoAudioTransformName);
+        }
 
+        public async Task<Transform> CreateAndGetCopyAllBitrateNonInterleavedTransformIfNeededAsync()
+        {
+            return await CreateAndGetSpecialTransformIfNeededAsync(new BuiltInStandardEncoderPreset() { PresetName = EncoderNamedPreset.CopyAllBitrateNonInterleaved }, PresetStandardEncoder.CopyAllBitrateNonInterleavedTransformName);
+        }
+
+        /// <summary>
+        /// Create a transform if needed for some preset (used by subclipping)
+        /// </summary>
+        /// <param name="preset"></param>
+        /// <param name="transformName"></param>
+        /// <returns></returns>
+        private async Task<Transform> CreateAndGetSpecialTransformIfNeededAsync(Preset preset, string transformName)
+        {
+            Transform myTransform = null;
 
             bool found = true;
             try
             {
-                myTransform = await _amsClient.GetTransformAsync(PresetStandardEncoder.CopyVideoAudioTransformName);
+                myTransform = await _amsClient.GetTransformAsync(transformName);
             }
             catch
             {
@@ -7903,17 +8189,16 @@ namespace AMSExplorer
             if (!found | myTransform == null)
             {
                 TransformOutput[] outputs;
-                PresetStandardEncoder form = new();
 
                 outputs = new TransformOutput[]
-                                                {
-                                                                new TransformOutput(form.CustomCopyPreset),
-                                                };
+                                                     {
+                                                                new TransformOutput(preset)
+                                                     };
 
                 try
                 {
                     // Create the Transform with the output defined above
-                    myTransform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, PresetStandardEncoder.CopyVideoAudioTransformName, outputs, form.TransformDescription);
+                    myTransform = await _amsClient.AMSclient.Transforms.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transformName, outputs, string.Empty);
                     TextBoxLogWriteLine("Transform '{0}' created.", myTransform.Name); // Warning
                     Telemetry.TrackEvent("Transform created");
 
@@ -7930,6 +8215,7 @@ namespace AMSExplorer
 
             return myTransform;
         }
+
 
         private void toolStripMenuItem32_DropDownOpening(object sender, EventArgs e)
         {
@@ -9094,6 +9380,147 @@ namespace AMSExplorer
         private void toolStripMenuItemCKInfo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private async void displayTransformReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DisplayTransformReportAsync();
+        }
+
+        private async Task DisplayTransformReportAsync()
+        {
+            Telemetry.TrackEvent("DisplayTransformReportAsync");
+
+            var transforms = await ReturnSelectedTransformsAsync();
+            if (transforms.Count == 0) return;
+
+            // let's get the info about the transform using REST, so we can display a good JSON preset.
+            var restTransformClient = new AmsClientRest(_amsClient);
+            var transformRest = restTransformClient.GetTransformContent(transforms.First().Name);
+
+            StringBuilder SB = TransformTools.GetStat(transforms.First(), _amsClient, transformRest);
+            using (EditorXMLJSON transformDisplayForm
+                = new("Transform report", SB.ToString(), false, ShowSampleMode.None, false))
+            {
+                transformDisplayForm.Display();
+            }
+        }
+
+        private async void displayAssetReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DisplayAssetReportAsync();
+        }
+
+        private async Task DisplayAssetReportAsync()
+        {
+            Telemetry.TrackEvent("DisplayAssetReportAsync");
+
+            var assets = await ReturnSelectedAssetsAsync();
+            if (assets.Count == 0) return;
+
+            StringBuilder SB = await AssetTools.GetStatAsync(assets.First(), _amsClient);
+            using (EditorXMLJSON assetDisplayForm
+                = new("Asset report", SB.ToString(), false, ShowSampleMode.None, false))
+            {
+                assetDisplayForm.Display();
+            }
+        }
+
+        private async void displayInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoDisplayTransformInfoAsync();
+        }
+
+        private async Task DoDisplayTransformInfoAsync()
+        {
+            var transforms = await ReturnSelectedTransformsAsync();
+            if (transforms == null || transforms.Count == 0) return;
+
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                if (DisplayInfo(transforms.First()) == DialogResult.OK)
+                {
+                }
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+            }
+        }
+
+        private void retryTransferToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void retryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoRetryTransferAsync();
+        }
+
+        private async Task DoRetryTransferAsync()
+        {
+            Telemetry.TrackEvent("DoRetryTransferAsync");
+
+            if (dataGridViewTransfer.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow selRow in dataGridViewTransfer.SelectedRows)
+                {
+                    var transferState = (TransferState)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["State"].Index].Value;
+                    if (transferState == TransferState.Error || transferState == TransferState.Cancelled)
+                    {
+                        Guid guid = (Guid)selRow.Cells[dataGridViewTransfer.Columns["Id"].Index].Value;
+                        var transferType = (TransferType)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["Type"].Index].Value;
+
+                        DoGridTransferRetryTask(guid);
+                        TransferEntry transfer = ReturnTransfer(guid);
+
+                        await DoGridTransferRetryTaskAsync(guid, transferType, transfer.tokenSource.Token);
+                    }
+                }
+
+            }
+        }
+
+        private async void keyDeliveryConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoKeyDeliveryConfigAsync();
+        }
+
+        private async Task DoKeyDeliveryConfigAsync()
+        {
+            Telemetry.TrackEvent("DoKeyDeliveryConfigAsync");
+
+            KeyDeliverySettings form = new(_amsClient);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+
+                // Update key delivery config
+                try
+                {
+                    TextBoxLogWriteLine("Updating key delivery configuration for the account...");
+
+                    await form.UpdateKeyDeliveryConfigAsync();
+
+                    TextBoxLogWriteLine("Key delivery configuration updated.");
+                    Telemetry.TrackEvent("DoKeyDeliveryConfigAsync configupdated");
+
+                    //await DoRefreshGridStorageVAsync(false);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when updating key delivery configuration for the account.", true);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                }
+            }
+        }
+
+        private async void keyDeliveryConfigurationToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            await DoKeyDeliveryConfigAsync();
         }
     }
 }

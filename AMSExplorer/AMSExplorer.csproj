@@ -5,14 +5,16 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AMSExplorer.Program</StartupObject>
-    <Version>5.4.1.1</Version>
+    <Version>5.4.3.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
     <Copyright>Copyright © 2021</Copyright>
     <Company>$(Authors)Microsoft</Company>
-    <AssemblyVersion>5.4.2.1</AssemblyVersion>
-    <FileVersion>5.4.2.1</FileVersion>
+    <AssemblyVersion>5.4.3.0</AssemblyVersion>
+    <FileVersion>5.4.3.0</FileVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+    <PackageIcon>Azure Explorer.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -34,6 +36,10 @@
     <None Remove="LICENSE\Azure Media Services Explorer.rtf" />
     <None Remove="manifest\manifest.ism" />
     <None Remove="SlateJPG\DefaultAzurePortalSlate.jpg" />
+    <None Include="..\..\AMSE\AMSExplorer\BitmapsPNG\Azure Explorer.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -85,11 +91,11 @@
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.0" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.17.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.17.0" />
-    <PackageReference Include="Microsoft.Azure.Management.Media" Version="3.0.4" />
+    <PackageReference Include="Microsoft.Azure.Management.Media" Version="4.0.0" />
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.13.1-preview" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.2.3" />
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.31.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.33.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
@@ -97,6 +103,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="KeyDeliverySettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Bitmaps.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

@@ -116,8 +116,11 @@
             // 
             // trackBarTime
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.trackBarTime, 5);
             resources.ApplyResources(this.trackBarTime, "trackBarTime");
+            this.trackBarTime.Maximum = 1000;
             this.trackBarTime.Name = "trackBarTime";
+            this.trackBarTime.ValueChanged += new System.EventHandler(this.HandleTrackBarValueChanged);
             // 
             // label1
             // 

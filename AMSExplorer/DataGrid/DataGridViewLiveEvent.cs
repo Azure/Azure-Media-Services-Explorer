@@ -22,7 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -78,7 +77,6 @@ namespace AMSExplorer
         private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveEventName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
         private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
-        private static BackgroundWorker WorkerRefreshChannels;
         private static readonly Bitmap EncodingImage = Bitmaps.encoding;
         private static readonly Bitmap StandardEncodingImage = Bitmaps.encoding;
         private static readonly Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
@@ -97,26 +95,6 @@ namespace AMSExplorer
                 nameof(LiveEventEncodingType.Premium1080p) => PremiumEncodingImage,
                 _ => null,
             };
-
-
-            /*
-            if (channel.Encoding.EncodingType == LiveEventEncodingType.None)
-            {
-                return null;
-            }
-            else if (channel.Encoding.EncodingType == LiveEventEncodingType.Standard)
-            {
-                return StandardEncodingImage;
-            }
-            else if (channel.Encoding.EncodingType == LiveEventEncodingType.Premium1080p)
-            {
-                return PremiumEncodingImage;
-            }
-            else
-            {
-                return EncodingImage;
-            }
-            */
         }
 
         public async Task InitAsync(AMSClientV3 client)
@@ -156,23 +134,7 @@ namespace AMSExplorer
                                State = c.ResourceState,
                                LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
                            };
-            /*
-            channelquery = from c in _context.Channels.Take(0)
-                           orderby c.LastModified descending
-                           select new ChannelEntry
-                           {
-                               Name = c.Name,
-                               Id = c.Id,
-                               Description = c.Description,
-                               InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                               Encoding = ReturnChannelBitmap(c),
-                               EncodingPreset = (c.EncodingType != ChannelEncodingType.None && c.Encoding != null) ? c.Encoding.SystemPreset : string.Empty,
-                               InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                               PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                               State = c.State,
-                               LastModified = c.LastModified.ToLocalTime()
-                           };
-*/
+
 
             DataGridViewCellStyle cellstyle = new()
             {
@@ -213,11 +175,6 @@ namespace AMSExplorer
             Columns["State"].Width = 75;
             Columns["Description"].Width = 110;
 
-            WorkerRefreshChannels = new BackgroundWorker
-            {
-                WorkerSupportsCancellation = true
-            };
-            WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerRefreshLiveEvents_DoWork);
 
             _initialized = true;
         }
@@ -256,7 +213,7 @@ namespace AMSExplorer
 
             if (index >= 0) // we found it
             { // we update the observation collection
-                
+
                 liveEventItem = await _amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
@@ -268,50 +225,6 @@ namespace AMSExplorer
             }
         }
 
-        private void WorkerRefreshLiveEvents_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Task.Run(() => WorkerRefreshLiveEvents_DoWorkAsync(sender, e)).ConfigureAwait(false);
-        }
-
-        private async Task WorkerRefreshLiveEvents_DoWorkAsync(object sender, DoWorkEventArgs e)
-        {
-            Debug.WriteLine("WorkerRefreshChannels_DoWork");
-            BackgroundWorker worker = sender as BackgroundWorker;
-            LiveEvent liveEventInputItem;
-
-            
-            foreach (LiveEventEntry CE in _MyObservLiveEvent)
-            {
-
-                liveEventInputItem = null;
-                try
-                {
-                    liveEventInputItem = await _amsClient.GetLiveEventAsync(CE.Name);
-                    if (liveEventInputItem != null)
-                    {
-                        CE.State = liveEventInputItem.ResourceState;
-                        RefreshGridView();
-                        //BeginInvoke(new Action(() => Refresh()), null);
-                    }
-                }
-                catch // in some case, we have a timeout on Assets.Where...
-                {
-
-                }
-                if (worker.CancellationPending == true)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-            }
-            RefreshGridView();
-            //            BeginInvoke(new Action(() => Refresh()), null);
-        }
-
-        private void RefreshLiveEvents() // all assets are refreshed
-        {
-            Task.Run(async () => await RefreshLiveEventAsync(_currentpage));
-        }
 
         public async Task RefreshLiveEventAsync(int pagetodisplay) // all assets are refreshed
         {
@@ -321,8 +234,6 @@ namespace AMSExplorer
             }
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
-
-            
 
             // Listing live events
             List<LiveEvent> liveevents = new();

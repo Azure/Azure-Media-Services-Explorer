@@ -44,7 +44,7 @@ namespace AMSExplorer
             {
                 string val = (listBoxSE.SelectedItem as Item).Value;
                 string seName = val.Split("|".ToCharArray())[0];
-                
+
                 return Task.Run(() => _amsClient.GetStreamingEndpointAsync(seName)).GetAwaiter().GetResult();
             }
         }
@@ -159,7 +159,7 @@ namespace AMSExplorer
             label.Text = string.Format(label.Text, _asset.Name);
 
             // SE List
-            
+
 
             // StreamingEndpoint BestSE = Task.Run(async () => await AssetInfo.GetBestStreamingEndpointAsync(_client)).Result;
             StreamingEndpoint BestSE = await AssetTools.GetBestStreamingEndpointAsync(_amsClient);
@@ -275,7 +275,7 @@ namespace AMSExplorer
             comboBoxPolicyLocators.Items.Clear();
             comboBoxPolicyLocators.BeginUpdate();
 
-            
+
             _locators =
             Task.Run(() =>
                         _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name)

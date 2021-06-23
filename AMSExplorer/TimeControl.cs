@@ -180,9 +180,7 @@ namespace AMSExplorer
 
         public TimeSpan GetOffSetAsTimeSpan()
         {
-            //double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
             double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
-
             return new TimeSpan((long)(TimeSpan.TicksPerSecond * (double)ScaledFirstTimestampOffset / (timescale2)));
         }
 
@@ -193,15 +191,15 @@ namespace AMSExplorer
             // trackbar update
             if (DisplayTrackBar)
             {
-                double scale = (timescale == null) ? 1d : TimeSpan.TicksPerSecond / ((double)timescale);
+                //double scale = (timescale == null) ? 1d : TimeSpan.TicksPerSecond / ((double)timescale);
                 trackBarTime.Value = (int)(value.TotalMilliseconds / _TotalDuration.TotalMilliseconds * 1000d);
             }
 
             numericUpDownDays.Value = value.Days;
             numericUpDownHours.Value = value.Hours;
             numericUpDownMinutes.Value = value.Minutes;
-            donotfirechangeevent = false;
             numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + value.Milliseconds / 1000d);
+            donotfirechangeevent = false;
         }
     }
 }

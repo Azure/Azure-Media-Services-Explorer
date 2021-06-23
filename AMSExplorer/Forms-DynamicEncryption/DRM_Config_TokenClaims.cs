@@ -36,9 +36,9 @@ namespace AMSExplorer
 
         public readonly List<ExplorerOpenIDSample> ListOpenIDSampleUris = new()
         {
-                new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration"},
-                new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
-              };
+            new ExplorerOpenIDSample() { Name = "Azure Active Directory", Uri = "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration" },
+            new ExplorerOpenIDSample() { Name = "Google", Uri = "https://accounts.google.com/.well-known/openid-configuration" }
+        };
 
 
         public bool NeedToken => !radioButtonOpenAuthPolicy.Checked;

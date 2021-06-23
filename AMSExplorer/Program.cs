@@ -14,29 +14,19 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using AMSExplorer.AMSLogin;
-using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
-using Microsoft.Rest;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -61,13 +51,6 @@ namespace AMSExplorer
                 Telemetry.StartTelemetry();
             }
 
-            /*
-            
-            .net v5 :
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            */
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -77,16 +60,24 @@ namespace AMSExplorer
             // See https://github.com/dotnet/winforms/issues/5036
             // All shortcuts with Del have been removed. But the issue can see occurs with CTRL on German OS for example
             // For now, let's force english UI per default, except for Japanese
-            if (System.Threading.Thread.CurrentThread.CurrentUICulture != new CultureInfo("ja-JA", false))
+
+            try
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US", false);
+                if (Thread.CurrentThread.CurrentUICulture != new CultureInfo("ja-JA", false))
+                {
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US", false);
+                }
+                // if the user forces the language using /language: parameter...
+                if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
+                {
+                    string language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language, false);
+                }
             }
 
-            // if the user forces the language using /language: parameter...
-            if (args.Length > 0 && args.Any(a => a.StartsWith(languageparam)))
+            catch (Exception ex)
             {
-                string language = args.Where(a => a.StartsWith(languageparam)).FirstOrDefault().Substring(languageparam.Length);
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language, false);
+                Telemetry.TrackException(ex);
             }
 
             Application.Run(new Mainform(args));
@@ -241,7 +232,6 @@ namespace AMSExplorer
         }
 
         public static async Task CheckWebView2VersionAsync()
-#pragma warning restore 1998
         {
             // https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution
             // HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}

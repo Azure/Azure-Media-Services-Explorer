@@ -55,7 +55,6 @@
             this.buttonDelEntry = new System.Windows.Forms.Button();
             this.buttonAddEDLEntry = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
-            this.labelInfoSeveralAssetStitching = new System.Windows.Forms.Label();
             this.buttonUp = new System.Windows.Forms.Button();
             this.labelInputAsset = new System.Windows.Forms.Label();
             this.comboBoxSourceAsset = new System.Windows.Forms.ComboBox();
@@ -114,16 +113,17 @@
             // buttonDeleteTemplate
             // 
             resources.ApplyResources(this.buttonDeleteTemplate, "buttonDeleteTemplate");
+            this.buttonDeleteTemplate.Image = global::AMSExplorer.Bitmaps.delete;
             this.buttonDeleteTemplate.Name = "buttonDeleteTemplate";
             this.buttonDeleteTemplate.UseVisualStyleBackColor = true;
             this.buttonDeleteTemplate.Click += new System.EventHandler(this.ButtonDeleteTemplate_Click);
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelTitle
@@ -148,18 +148,19 @@
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.buttonCreateNewTransform);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.listViewTransforms);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonDeleteTemplate);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // buttonCreateNewTransform
             // 
             resources.ApplyResources(this.buttonCreateNewTransform, "buttonCreateNewTransform");
+            this.buttonCreateNewTransform.Image = global::AMSExplorer.Bitmaps.create;
             this.buttonCreateNewTransform.Name = "buttonCreateNewTransform";
             this.buttonCreateNewTransform.UseVisualStyleBackColor = true;
             this.buttonCreateNewTransform.Click += new System.EventHandler(this.ButtonCreateNewTransform_Click);
@@ -215,7 +216,6 @@
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.buttonImportEDL);
             this.tabPage2.Controls.Add(this.buttonExportEDL);
             this.tabPage2.Controls.Add(this.labelAssetDescription);
@@ -224,7 +224,6 @@
             this.tabPage2.Controls.Add(this.buttonDelEntry);
             this.tabPage2.Controls.Add(this.buttonAddEDLEntry);
             this.tabPage2.Controls.Add(this.buttonDown);
-            this.tabPage2.Controls.Add(this.labelInfoSeveralAssetStitching);
             this.tabPage2.Controls.Add(this.buttonUp);
             this.tabPage2.Controls.Add(this.labelInputAsset);
             this.tabPage2.Controls.Add(this.comboBoxSourceAsset);
@@ -235,11 +234,13 @@
             this.tabPage2.Controls.Add(this.checkBoxSourceTrimmingStart);
             this.tabPage2.Controls.Add(this.timeControlEndTime);
             this.tabPage2.Controls.Add(this.timeControlStartTime);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // buttonImportEDL
             // 
+            this.buttonImportEDL.Image = global::AMSExplorer.Bitmaps.import;
             resources.ApplyResources(this.buttonImportEDL, "buttonImportEDL");
             this.buttonImportEDL.Name = "buttonImportEDL";
             this.buttonImportEDL.UseVisualStyleBackColor = true;
@@ -247,6 +248,7 @@
             // 
             // buttonExportEDL
             // 
+            this.buttonExportEDL.Image = global::AMSExplorer.Bitmaps.export;
             resources.ApplyResources(this.buttonExportEDL, "buttonExportEDL");
             this.buttonExportEDL.Name = "buttonExportEDL";
             this.buttonExportEDL.UseVisualStyleBackColor = true;
@@ -265,9 +267,9 @@
             // 
             // dataGridViewEDL
             // 
-            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
             this.dataGridViewEDL.AllowUserToAddRows = false;
             this.dataGridViewEDL.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
             this.dataGridViewEDL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEDL.Name = "dataGridViewEDL";
             this.dataGridViewEDL.ReadOnly = true;
@@ -278,7 +280,7 @@
             // buttonDelEntry
             // 
             resources.ApplyResources(this.buttonDelEntry, "buttonDelEntry");
-            this.buttonDelEntry.Image = global::AMSExplorer.Bitmaps.delete;
+            this.buttonDelEntry.Image = global::AMSExplorer.Bitmaps.cancel;
             this.buttonDelEntry.Name = "buttonDelEntry";
             this.buttonDelEntry.UseVisualStyleBackColor = true;
             this.buttonDelEntry.Click += new System.EventHandler(this.buttonDelEntry_Click);
@@ -296,12 +298,6 @@
             this.buttonDown.Name = "buttonDown";
             this.buttonDown.UseVisualStyleBackColor = true;
             this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
-            // 
-            // labelInfoSeveralAssetStitching
-            // 
-            resources.ApplyResources(this.labelInfoSeveralAssetStitching, "labelInfoSeveralAssetStitching");
-            this.labelInfoSeveralAssetStitching.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelInfoSeveralAssetStitching.Name = "labelInfoSeveralAssetStitching";
             // 
             // buttonUp
             // 
@@ -387,7 +383,6 @@
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.listViewAssets1);
             this.tabPage3.Controls.Add(this.labelSelectAsset);
             this.tabPage3.Controls.Add(this.buttonSearchExactAssetName);
@@ -396,6 +391,7 @@
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.radioButtonExistingAsset);
             this.tabPage3.Controls.Add(this.radioButtonNewAsset);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -532,7 +528,6 @@
         private System.Windows.Forms.TextBox textBoxNewAssetNameSyntax;
         private System.Windows.Forms.Label labelInputAsset;
         private System.Windows.Forms.ComboBox comboBoxSourceAsset;
-        public System.Windows.Forms.Label labelInfoSeveralAssetStitching;
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.DataGridView dataGridViewEDL;
         private System.Windows.Forms.Button buttonUp;

@@ -54,7 +54,6 @@ namespace AMSExplorer
         private static string _timefilter = FilterTime.AllItems;
         private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private static string _orderassets = OrderAssets.CreatedDescending;
-        private static BackgroundWorker WorkerAnalyzeAssets;
         private static readonly Bitmap clearimage = Bitmaps.clear;
         private static readonly Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
         private static readonly Bitmap CENCencryptedimage = Bitmaps.DRM_protection;
@@ -213,31 +212,23 @@ namespace AMSExplorer
             //Columns["StorageAccountName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             //Columns["StorageAccountName"].Width = 140;
 
-            WorkerAnalyzeAssets = new BackgroundWorker()
-            {
-                WorkerSupportsCancellation = true
-            };
-            WorkerAnalyzeAssets.DoWork += new System.ComponentModel.DoWorkEventHandler(WorkerAnalyzeAssets_DoWork);
 
             _initialized = true;
         }
 
-        private void WorkerAnalyzeAssets_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Task.Run(() => WorkerAnalyzeAssets_DoWorkAsync(sender, e)).ConfigureAwait(false);
-        }
 
-
-        private async Task WorkerAnalyzeAssets_DoWorkAsync(object sender, DoWorkEventArgs e)
+        private async Task WorkerAnalyzeAssets_DoWorkAsync()
         {
             Debug.WriteLine("WorkerAnalyzeAssets_DoWork");
-            BackgroundWorker worker = sender as BackgroundWorker;
             Asset asset = null;
 
             if (_MyObservAssetV3 == null) return;
 
-            List<AssetEntry> listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
-
+            List<AssetEntry> listae;
+            lock (cacheAssetentriesV3)
+            {
+                listae = _MyObservAssetV3.OrderBy(a => cacheAssetentriesV3.ContainsKey(a.Name)).ToList(); // as priority, assets not yet analyzed
+            }
             // test - let analyze only visible assets
             int visibleRowsCount = DisplayedRowCount(true);
             if (visibleRowsCount == 0) visibleRowsCount = RowCount; // in some cases, DisplayedCount returns 0 so let's use all rows
@@ -320,19 +311,21 @@ namespace AMSExplorer
                         int? afcount = await ReturnNumberAssetFiltersAsync(asset.Name, _amsClient);
                         AE.Filters = afcount > 0 ? afcount : null;
 
-                        cacheAssetentriesV3[asset.Name] = AE; // let's put it in cache (or update the cache)
+                        lock (cacheAssetentriesV3)
+                        {
+                            cacheAssetentriesV3[asset.Name] = AE; // let's put it in cache (or update the cache)
+                        }
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
                 {
                 }
-                if (worker.CancellationPending)
+                if (_analyzeAssetTaskTokenSource.IsCancellationRequested)
                 {
-                    e.Cancel = true;
                     return;
                 }
             }
-            RefreshGridView();
+            //RefreshGridView();
             //BeginInvoke(new Action(() => Refresh()), null);
         }
 
@@ -361,18 +354,24 @@ namespace AMSExplorer
 
         public static void PurgeCacheAssets(List<Asset> assets)
         {
-            assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
+            lock (cacheAssetentriesV3)
+            {
+                assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
+            }
         }
 
 
         public void PurgeCacheAsset(Asset asset)
         {
-            cacheAssetentriesV3.Remove(asset.Name);
+            lock (cacheAssetentriesV3)
+            {
+                cacheAssetentriesV3.Remove(asset.Name);
+            }
         }
 
-
-        private static readonly SemaphoreLocker _locker = new();
-        private int i = 0;
+        private static Task _analyzeAssetTask;
+        private static CancellationTokenSource _analyzeAssetTaskTokenSource;
+        private static long instanceNumber = 0;
 
         public async Task ReLaunchAnalyzeOfAssetsAsync()
         {
@@ -381,33 +380,39 @@ namespace AMSExplorer
                 return;
             }
 
-            await _locker.LockAsync(async () =>
-             {
-                 Debug.Print("relaunch" + i++);
-                 if (WorkerAnalyzeAssets.IsBusy)
-                 {
-                     // cancel the analyze.
-                     WorkerAnalyzeAssets.CancelAsync();
-                     Debug.Print("ask for cancel");
-                 }
+            if (_analyzeAssetTask != null && !_analyzeAssetTask.IsCompleted)
+            {
+                // cancel the analyze.
+                _analyzeAssetTaskTokenSource.Cancel();
+                Debug.Print("ask for cancel");
+            }
 
-                 while (WorkerAnalyzeAssets.IsBusy)
-                 {
-                     await Task.Delay(2000);
-                 }
+            // let's wait if the same function is called many times
+            instanceNumber++;
+            long instanceNb = instanceNumber;
+            await Task.Delay(2000);
+            if (instanceNb != instanceNumber)
+            {
+                return;
+            }
 
-                 if (!WorkerAnalyzeAssets.IsBusy)
-                 {
-                     // Start the asynchronous operation.
-                     try
-                     {
-                         Debug.Print("run again !" + i);
+            Debug.Print("wait for complete " + instanceNumber);
+            if (_analyzeAssetTask != null)
+            {
+                while (!_analyzeAssetTask.IsCompleted)
+                {
+                    await Task.Delay(1000);
+                }
+            }
 
-                         WorkerAnalyzeAssets.RunWorkerAsync();
-                     }
-                     catch { }
-                 }
-             });
+            // Start the asynchronous operation.
+            try
+            {
+                _analyzeAssetTaskTokenSource = new CancellationTokenSource();
+                Debug.Print("run again ! " + instanceNumber);
+                _analyzeAssetTask = Task.Run(() => WorkerAnalyzeAssets_DoWorkAsync(), _analyzeAssetTaskTokenSource.Token);
+            }
+            catch { }
         }
 
 
@@ -427,10 +432,10 @@ namespace AMSExplorer
 
             Debug.WriteLine("RefreshAssets Start");
 
-            if (WorkerAnalyzeAssets.IsBusy)
+            if (_analyzeAssetTask != null && !_analyzeAssetTask.IsCompleted)
             {
                 // cancel the analyze.
-                WorkerAnalyzeAssets.CancelAsync();
+                _analyzeAssetTaskTokenSource.Cancel();
             }
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
@@ -561,7 +566,6 @@ Properties/StorageId
 
             IPage<Asset> currentPage = null;
 
-
             if (pagetodisplay == 1)
             {
                 firstpage = await _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, odataQuery);
@@ -582,22 +586,26 @@ Properties/StorageId
                 }
             }
 
-            IEnumerable<AssetEntry> assets = currentPage.Select(a =>
-            (cacheAssetentriesV3.ContainsKey(a.Name)
-               && cacheAssetentriesV3[a.Name].LastModified != null
-               && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
-               cacheAssetentriesV3[a.Name] :
-            new AssetEntry(_syncontext)
+            IEnumerable<AssetEntry> assets;
+            lock (cacheAssetentriesV3)
             {
-                Name = a.Name,
-                Description = a.Description,
-                AssetId = a.AssetId,
-                AlternateId = a.AlternateId,
-                Created = a.Created.ToLocalTime().ToString("G"),
-                LastModified = a.LastModified.ToLocalTime().ToString("G"),
-                StorageAccountName = a.StorageAccountName
+                assets = currentPage.Select(a =>
+           (cacheAssetentriesV3.ContainsKey(a.Name)
+              && cacheAssetentriesV3[a.Name].LastModified != null
+              && (cacheAssetentriesV3[a.Name].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
+              cacheAssetentriesV3[a.Name] :
+           new AssetEntry(_syncontext)
+           {
+               Name = a.Name,
+               Description = a.Description,
+               AssetId = a.AssetId,
+               AlternateId = a.AlternateId,
+               Created = a.Created.ToLocalTime().ToString("G"),
+               LastModified = a.LastModified.ToLocalTime().ToString("G"),
+               StorageAccountName = a.StorageAccountName
+           }
+        ));
             }
-         ));
 
             _MyObservAssetV3 = new BindingList<AssetEntry>(assets.ToList());
 

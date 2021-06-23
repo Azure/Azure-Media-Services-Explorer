@@ -27,7 +27,7 @@ namespace AMSExplorer
             new LiveProfile()
             {
                 Type = LiveEventEncodingType.Standard,
-                Name ="default720p",
+                Name = "default720p",
                 Video = new List<LiveVideoProfile>()
                 {
                     new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, MaxFPS=30, Profile= "High", OutputStreamName= "Video_1280x720_3500kbps"},
@@ -38,14 +38,17 @@ namespace AMSExplorer
                     new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, MaxFPS=30, Profile= "High", OutputStreamName= "Video_340x192_200kbps"},
                         },
                 Audio = new LiveAudioProfile()
-                    {
-                        Codec= "AAC-LC", Bitrate= 128, SamplingRate= 48, Channels= "Stereo"
-                    }
+                {
+                    Codec = "AAC-LC",
+                    Bitrate = 128,
+                    SamplingRate = 48,
+                    Channels = "Stereo"
+                }
             },
             new LiveProfile()
             {
                 Type = LiveEventEncodingType.Premium1080p,
-                Name ="default1080p",
+                Name = "default1080p",
                 Video = new List<LiveVideoProfile>()
                 {
                         new LiveVideoProfile(){Codec = "H.264", Bitrate= 5500, Width= 1920, Height= 1080, MaxFPS=30, Profile= "High", OutputStreamName= "Video_1920x1080_5500kbps"},
@@ -56,10 +59,13 @@ namespace AMSExplorer
                         new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 320, Height= 180, MaxFPS=30, Profile= "High", OutputStreamName= "Video_320x180_200kbps"},
                         },
                 Audio = new LiveAudioProfile()
-                    {
-                        Codec= "AAC-LC", Bitrate= 128, SamplingRate= 48, Channels= "Stereo"
-                    }
+                {
+                    Codec = "AAC-LC",
+                    Bitrate = 128,
+                    SamplingRate = 48,
+                    Channels = "Stereo"
                 }
+            }
         };
     }
 }

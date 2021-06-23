@@ -1,8 +1,5 @@
 ﻿using Microsoft.Identity.Client.Extensibility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,9 +30,9 @@ namespace AMSExplorer.AMSLogin
             _windowStartupLocation = windowStartupLocation;
             _owner = owner;
         }
-               
 
-        public  Task<Uri> AcquireAuthorizationCodeAsync(Uri authorizationUri, Uri redirectUri, CancellationToken cancellationToken)
+
+        public Task<Uri> AcquireAuthorizationCodeAsync(Uri authorizationUri, Uri redirectUri, CancellationToken cancellationToken)
         {
             var tcs = new TaskCompletionSource<Uri>();
 

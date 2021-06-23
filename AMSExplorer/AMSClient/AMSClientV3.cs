@@ -60,9 +60,7 @@ namespace AMSExplorer
 
 
             // Timer Auto Refresh of Auth token
-            TimerAutoRefreshAuthToken = new System.Timers.Timer();
-
-
+            TimerAutoRefreshAuthToken = new System.Timers.Timer() { AutoReset = false };
         }
 
         public void SetNewFormParent(Form form)
@@ -76,8 +74,17 @@ namespace AMSExplorer
             await ConnectAndGetNewClientV3Async();
             if (authResult != null)
             {
-                // next refresh for the token : 3 minutes before it expires
-                TimerAutoRefreshAuthToken.Interval = (authResult.ExpiresOn.ToUniversalTime() - DateTimeOffset.UtcNow.AddMinutes(3)).TotalMilliseconds;
+                var interval = (authResult.ExpiresOn.ToUniversalTime() - DateTimeOffset.UtcNow.AddMinutes(3)).TotalMilliseconds;
+                try
+                {
+                    // next refresh for the token : 3 minutes before it expires
+                    TimerAutoRefreshAuthToken.Interval = (authResult.ExpiresOn.ToUniversalTime() - DateTimeOffset.UtcNow.AddMinutes(3)).TotalMilliseconds;
+                    TimerAutoRefreshAuthToken.Start();
+                }
+                catch (Exception ex)
+                {
+                    Telemetry.TrackException(ex);
+                }
             }
         }
 

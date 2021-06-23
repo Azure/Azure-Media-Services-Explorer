@@ -35,7 +35,7 @@ namespace AMSExplorer
     public class DataGridViewJobs : DataGridView
     {
         private static BindingList<JobEntryV3> _MyObservJobV3 = new();
-        private static readonly Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
+        private static readonly Dictionary<string, CancellationTokenSource> _MyListJobsMonitored = new(); // List of jobs monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
 
         private static int _jobsperpage = 50; //nb of items per page
         private static readonly int _pagecount = 1;
@@ -368,28 +368,37 @@ namespace AMSExplorer
             List<string> listToCancel = new();
             try
             {
-                foreach (KeyValuePair<string, CancellationTokenSource> jobmonitored in _MyListJobsMonitored)
+                lock (_MyListJobsMonitored)
                 {
-                    if (ActiveAndVisibleJobs.Where(j => j.Job.Name == jobmonitored.Key).FirstOrDefault() == null)
+                    foreach (KeyValuePair<string, CancellationTokenSource> jobmonitored in _MyListJobsMonitored)
                     {
-                        jobmonitored.Value.Cancel();
-                        listToCancel.Add(jobmonitored.Key);
+                        if (ActiveAndVisibleJobs.Where(j => j.Job.Name == jobmonitored.Key).FirstOrDefault() == null)
+                        {
+                            jobmonitored.Value.Cancel();
+                            listToCancel.Add(jobmonitored.Key);
+                        }
                     }
+                    listToCancel.ForEach(j => _MyListJobsMonitored.Remove(j));
                 }
-                listToCancel.ForEach(j => _MyListJobsMonitored.Remove(j));
 
                 // let's adjust the JobRefreshIntervalInMilliseconds based on the number of jobs to monitor
                 // 2500 ms if 5 jobs or less, 500ms*nbjobs otherwise
                 JobRefreshIntervalInMilliseconds = Math.Max(DefaultJobRefreshIntervalInMilliseconds, Convert.ToInt32(DefaultJobRefreshIntervalInMilliseconds * ActiveAndVisibleJobs.Count / 5d));
 
                 // let's monitor job that are not yet monitored
-                foreach (JobExtension job in ActiveAndVisibleJobs)
+
+                lock (_MyListJobsMonitored)
                 {
-                    if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
+                    foreach (JobExtension job in ActiveAndVisibleJobs)
                     {
-                        DoJobProgress(job); // token will be added to dictionnary in this function
+                        if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
+                        {
+                            DoJobProgress(job); // token will be added to dictionnary in this function
+                        }
                     }
                 }
+
+
             }
             catch
             {
@@ -402,7 +411,17 @@ namespace AMSExplorer
             CancellationTokenSource tokenSource = new();
             CancellationToken token = tokenSource.Token;
 
-            _MyListJobsMonitored.Add(job.Job.Name, tokenSource); // to track the task and be able to cancel it later
+            lock (_MyListJobsMonitored)
+            {
+                if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
+                {
+                    _MyListJobsMonitored.Add(job.Job.Name, tokenSource); // to track the task and be able to cancel it later
+                }
+                else
+                {
+                    _MyListJobsMonitored[job.Job.Name] = tokenSource; // to track the task and be able to cancel it later
+                }
+            }
 
             Debug.WriteLine("launch job monitor : " + job.Job.Name);
 
@@ -543,42 +562,45 @@ namespace AMSExplorer
                           _MyObservJobV3[index2].EndTime = ReportLocalTime(myJob.EndTime);
                           _MyObservJobV3[index2].Duration = ReportDuration(myJob);
 
-                          if (_MyListJobsMonitored.ContainsKey(myJob.Name)) // we want to display only one time
+                          lock (_MyListJobsMonitored)
                           {
-                              _MyListJobsMonitored.Remove(myJob.Name); // let's remove from the list of monitored jobs
-                              Mainform myform = (Mainform)FindForm();
-
-                              // string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
-                              string status = myJob.State.ToString();
-
-                              myform.BeginInvoke(new Action(() =>
+                              if (_MyListJobsMonitored.ContainsKey(myJob.Name)) // we want to display only one time
                               {
-                                  myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJobV3[index2].Name), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
-                                  myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJobV3[index2].Name, status), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
-                                  if (myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error)
-                                  {
-                                      foreach (JobOutput output in myJob.Outputs)
-                                      {
+                                  _MyListJobsMonitored.Remove(myJob.Name); // let's remove from the list of monitored jobs
+                                  Mainform myform = (Mainform)FindForm();
 
-                                          if (output.Error != null && output.Error.Details != null)
+                                  // string status = Enum.GetName(typeof(Microsoft.Azure.Management.Media.Models.JobState), myJob.State).ToLower();
+                                  string status = myJob.State.ToString();
+
+                                  myform.BeginInvoke(new Action(() =>
+                                  {
+                                      myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJobV3[index2].Name), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
+                                      myform.TextBoxLogWriteLine(string.Format("Job '{0}' : {1}.", _MyObservJobV3[index2].Name, status), myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error);
+                                      if (myJob.State == Microsoft.Azure.Management.Media.Models.JobState.Error)
+                                      {
+                                          foreach (JobOutput output in myJob.Outputs)
                                           {
-                                              for (int i = 0; i < output.Error.Details.Count; i++)
+
+                                              if (output.Error != null && output.Error.Details != null)
                                               {
-                                                  myform.TextBoxLogWriteLine(string.Format("Output '{0}', Error : {1}", output.Label, output.Error + " : " + output.Error.Message), true);
+                                                  for (int i = 0; i < output.Error.Details.Count; i++)
+                                                  {
+                                                      myform.TextBoxLogWriteLine(string.Format("Output '{0}', Error : {1}", output.Label, output.Error + " : " + output.Error.Message), true);
+                                                  }
                                               }
                                           }
                                       }
-                                  }
-                                  myform.DoRefreshGridAssetV(false);
-                              }));
+                                      myform.DoRefreshGridAssetV(false);
+                                  }));
 
-                              RefreshGridView();
-                              /*
-                              BeginInvoke(new Action(() =>
-                              {
-                                  base.Refresh();
-                              }));
-                              */
+                                  RefreshGridView();
+                                  /*
+                                  BeginInvoke(new Action(() =>
+                                  {
+                                      base.Refresh();
+                                  }));
+                                  */
+                              }
                           }
                       }
                   }

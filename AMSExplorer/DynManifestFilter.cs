@@ -70,7 +70,7 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
-            
+
             if (asset != null)
             {
                 // asset filters
@@ -866,22 +866,22 @@ namespace AMSExplorer
                         new FilterTrackPropertyCondition(FilterTrackPropertyType.Bitrate, "0-1048576", FilterTrackPropertyCompareOperation.Equal)
                     }
                 },
-                 new FilterTrackSelection
-                 {
-                     TrackSelections = new List<FilterTrackPropertyCondition>()
+                new FilterTrackSelection
+                {
+                    TrackSelections = new List<FilterTrackPropertyCondition>()
                     {
                         new FilterTrackPropertyCondition(FilterTrackPropertyType.Type, FilterPropertyTypeValue.Audio, FilterTrackPropertyCompareOperation.Equal),
                         new FilterTrackPropertyCondition(FilterTrackPropertyType.FourCC, FilterPropertyFourCCValue.mp4a, FilterTrackPropertyCompareOperation.Equal)
                     }
-                 },
-                 new FilterTrackSelection
-                 {
-                     TrackSelections = new List<FilterTrackPropertyCondition>()
+                },
+                new FilterTrackSelection
+                {
+                    TrackSelections = new List<FilterTrackPropertyCondition>()
                     {
                         new FilterTrackPropertyCondition(FilterTrackPropertyType.Type, FilterPropertyTypeValue.Text, FilterTrackPropertyCompareOperation.Equal),
                         new FilterTrackPropertyCondition(FilterTrackPropertyType.Language, "en", FilterTrackPropertyCompareOperation.Equal)
                     }
-                 }
+                }
             };
 
             filtertracks = ConvertFilterTracksToInternalVar(filterTrackSelections);
@@ -1070,7 +1070,7 @@ namespace AMSExplorer
         private async void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
-            
+
 
             if (filtername != null)
             {

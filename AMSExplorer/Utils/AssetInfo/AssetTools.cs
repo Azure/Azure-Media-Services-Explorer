@@ -85,16 +85,6 @@ namespace AMSExplorer
             _amsClient = amsClient;
         }
 
-        public AssetTools(List<Asset> mySelectedAssets, AMSClientV3 amsClient)
-        {
-            SelectedAssetsV3 = mySelectedAssets;
-            _amsClient = amsClient;
-        }
-        public AssetTools(Asset asset)
-        {
-            SelectedAssetsV3 = new List<Asset>() { asset };
-        }
-
 
         public static async Task<StreamingLocator> CreateTemporaryOnDemandLocatorAsync(Asset asset, AMSClientV3 _amsClientV3)
         {
@@ -173,8 +163,6 @@ namespace AMSExplorer
                 return null;
             }
         }
-
-
 
 
 
@@ -484,7 +472,7 @@ namespace AMSExplorer
                 ulong? overallDuration = null;
                 if (durationFromManifest != null && rootTimeScaleFromManifest != null) // there is a duration value in the root (and a timescale). Let's take this one.
                 {
-                    var ratio = (double)rootTimeScaleFromManifest / (double)videoTimeScaleFromManifest;
+                    var ratio = (double)rootTimeScaleFromManifest / (double)timescaleVideo;
                     overallDuration = (ulong?)(ulong.Parse(durationFromManifest) / ratio); // value with the timescale of the video track
                 }
 
@@ -582,133 +570,6 @@ namespace AMSExplorer
             }
         }
 
-        /*
-        static public ManifestSegmentsResponse GetManifestSegmentsList(IAsset asset)
-        // Parse the manifest and get data from it
-        {
-            ManifestSegmentsResponse response = new ManifestSegmentsResponse();
-
-            try
-            {
-                ILocator mytemplocator = null;
-                Uri myuri = AssetInfo.GetValidOnDemandURI(asset);
-                if (myuri == null)
-                {
-                    mytemplocator = AssetInfo.CreatedTemporaryOnDemandLocator(asset);
-                    myuri = AssetInfo.GetValidOnDemandURI(asset);
-                }
-                if (myuri != null)
-                {
-                    XDocument manifest = XDocument.Load(myuri.ToString());
-                    var smoothmedia = manifest.Element("SmoothStreamingMedia");
-
-                    ulong d = 0, r;
-                    bool calc = true;
-                    bool mismatch = false;
-                    bool firstchunk = true;
-                    ulong timeStamp = 0;
-
-                    // video track
-                    var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video").FirstOrDefault();
-                    response.videoBitrates = videotrack.Elements("QualityLevel").Select(e => int.Parse(e.Attribute("Bitrate").Value)).ToList();
-                    response.videoName = videotrack.Attribute("Name").Value;
-
-                    foreach (var chunk in videotrack.Elements("c"))
-                    {
-                        mismatch = false;
-                        if (chunk.Attribute("t") != null)
-                        {
-                            var readtimeStamp = ulong.Parse(chunk.Attribute("t").Value);
-                            mismatch = (!firstchunk && readtimeStamp != timeStamp);
-                            timeStamp = readtimeStamp;
-                            calc = false;
-                            firstchunk = false;
-                        }
-                        else
-                        {
-                            calc = true;
-                        }
-
-                        d = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
-                        r = chunk.Attribute("r") != null ? ulong.Parse(chunk.Attribute("r").Value) : 1;
-                        for (ulong i = 0; i < r; i++)
-                        {
-                            response.videoSegments.Add(new ManifestSegmentData()
-                            {
-                                timestamp = timeStamp,
-                                timestamp_mismatch = (i == 0) ? mismatch : false,
-                                calculated = (i == 0) ? calc : true
-                            });
-                            timeStamp += d;
-                        }
-                    }
-
-                    // audio track
-                    var audiotracks = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "audio");
-                    response.audioBitrates = new int[audiotracks.Count()][];
-                    response.audioSegments = new ManifestSegmentData[audiotracks.Count()][];
-                    response.audioName = new string[audiotracks.Count()];
-
-
-                    int a_index = 0;
-                    foreach (var audiotrack in audiotracks)
-                    {
-                        response.audioBitrates[a_index] = audiotrack.Elements("QualityLevel").Select(e => int.Parse(e.Attribute("Bitrate").Value)).ToArray();
-                        response.audioName[a_index] = audiotrack.Attribute("Name").Value;
-
-                        var audiotracksegmentdata = new List<ManifestSegmentData>();
-
-                        timeStamp = 0;
-                        d = 0;
-                        firstchunk = true;
-                        foreach (var chunk in audiotrack.Elements("c"))
-                        {
-                            mismatch = false;
-                            if (chunk.Attribute("t") != null)
-                            {
-                                var readtimeStamp = ulong.Parse(chunk.Attribute("t").Value);
-                                mismatch = (!firstchunk && readtimeStamp != timeStamp);
-                                timeStamp = readtimeStamp;
-                                calc = false;
-                                firstchunk = false;
-                            }
-                            else
-                            {
-                                calc = true;
-                            }
-
-                            d = chunk.Attribute("d") != null ? ulong.Parse(chunk.Attribute("d").Value) : 0;
-                            r = chunk.Attribute("r") != null ? ulong.Parse(chunk.Attribute("r").Value) : 1;
-                            for (ulong i = 0; i < r; i++)
-                            {
-                                audiotracksegmentdata.Add(new ManifestSegmentData()
-                                {
-                                    timestamp = timeStamp,
-                                    timestamp_mismatch = (i == 0) ? mismatch : false,
-                                    calculated = (i == 0) ? calc : true
-                                });
-                                timeStamp += d;
-                            }
-
-                        }
-                        response.audioSegments[a_index] = audiotracksegmentdata.ToArray();
-                        a_index++;
-                    }
-                }
-                else
-                {
-                    // Error
-                }
-                if (mytemplocator != null) mytemplocator.Delete();
-            }
-            catch
-            {
-                // Error
-            }
-            return response;
-        }
-        */
-
         public static long ReturnTimestampInTicks(ulong timestamp, ulong? timescale)
         {
             double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
@@ -760,7 +621,7 @@ namespace AMSExplorer
             CloudBlockBlob[] ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
             CloudBlockBlob[] ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            // size calculation
+            // size calculation - for the root now
             blocsc.ForEach(b => size += b.Properties.Length);
 
             // fragments in subfolders (live archive)
@@ -831,12 +692,6 @@ namespace AMSExplorer
             };
         }
 
-
-        public async Task CopyStatsToClipBoardAsync()
-        {
-            StringBuilder SB = await GetStatsAsync();
-            Clipboard.SetText(SB.ToString());
-        }
 
 
         public static string FormatByteSize(long? byteCountl)
@@ -923,113 +778,6 @@ namespace AMSExplorer
         }
 
 
-        public async Task<StringBuilder> GetStatsAsync()
-        {
-            StringBuilder sb = new();
-
-            if (SelectedAssetsV3.Count > 0)
-            {
-                // Asset Stats
-                foreach (Asset theAsset in SelectedAssetsV3)
-                {
-                    sb.Append(await GetStatAsync(theAsset, _amsClient));
-                }
-            }
-            return sb;
-        }
-        /*
-        public static StringBuilder GetStat(IAsset MyAsset, StreamingEndpoint SelectedSE = null)
-        {
-            StringBuilder sb = new StringBuilder();
-            string MyAssetType = AssetInfo.GetAssetType(MyAsset);
-            bool bfileinasset = (MyAsset.AssetFiles.Count() == 0) ? false : true;
-            long size = -1;
-            if (bfileinasset)
-            {
-                size = 0;
-                foreach (IAssetFile file in MyAsset.AssetFiles)
-                {
-                    size += file.ContentFileSize;
-                }
-            }
-            sb.AppendLine("Asset Name          : " + MyAsset.Name);
-            sb.AppendLine("Asset Type          : " + MyAsset.AssetType);
-            sb.AppendLine("Asset Id            : " + MyAsset.Id);
-            sb.AppendLine("Alternate ID        : " + MyAsset.AlternateId);
-            if (size != -1)
-                sb.AppendLine("Size                : " + FormatByteSize(size));
-            sb.AppendLine("State               : " + MyAsset.State);
-            sb.AppendLine("Created (UTC)       : " + MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
-            sb.AppendLine("Last Modified (UTC) : " + MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
-            sb.AppendLine("Creations Options   : " + MyAsset.Options);
-
-            if (MyAsset.State != AssetState.Deleted)
-            {
-                sb.AppendLine("IsStreamable        : " + MyAsset.IsStreamable);
-                sb.AppendLine("SupportsDynEnc      : " + MyAsset.SupportsDynamicEncryption);
-                sb.AppendLine("Uri                 : " + MyAsset.Uri.AbsoluteUri);
-                sb.AppendLine("");
-                sb.AppendLine("Storage Name        : " + MyAsset.StorageAccountName);
-                sb.AppendLine("Storage Bytes used  : " + FormatByteSize(MyAsset.StorageAccount.BytesUsed));
-                sb.AppendLine("Storage IsDefault   : " + MyAsset.StorageAccount.IsDefault);
-                sb.AppendLine("");
-
-                foreach (IAsset p_asset in MyAsset.ParentAssets)
-                {
-                    sb.AppendLine("Parent asset Name   : " + p_asset.Name);
-                    sb.AppendLine("Parent asset Id     : " + p_asset.Id);
-                }
-                sb.AppendLine("");
-                foreach (IContentKey key in MyAsset.ContentKeys)
-                {
-                    sb.AppendLine("Content key         : " + key.Name);
-                    sb.AppendLine("Content key Id      : " + key.Id);
-                    sb.AppendLine("Content key Type    : " + key.ContentKeyType);
-                }
-                sb.AppendLine("");
-                foreach (var pol in MyAsset.DeliveryPolicies)
-                {
-                    sb.AppendLine("Deliv policy Name   : " + pol.Name);
-                    sb.AppendLine("Deliv policy Id     : " + pol.Id);
-                    sb.AppendLine("Deliv policy Type   : " + pol.AssetDeliveryPolicyType);
-                    sb.AppendLine("Deliv pol Protocol  : " + pol.AssetDeliveryProtocol);
-                }
-                sb.AppendLine("");
-
-                foreach (IAssetFile fileItem in MyAsset.AssetFiles)
-                {
-                    if (fileItem.IsPrimary)
-                    {
-                        sb.AppendLine("   ------------(-P-R-I-M-A-R-Y-)------------------");
-                    }
-                    else
-                    {
-                        sb.AppendLine("   -----------------------------------------------");
-                    }
-                    sb.AppendLine("   Name                 : " + fileItem.Name);
-                    sb.AppendLine("   Id                   : " + fileItem.Id);
-                    sb.AppendLine("   File size            : " + fileItem.ContentFileSize + " Bytes");
-                    sb.AppendLine("   Mime type            : " + fileItem.MimeType);
-                    sb.AppendLine("   Init vector          : " + fileItem.InitializationVector);
-                    sb.AppendLine("   Created (UTC)        : " + fileItem.Created.ToString("G"));
-                    sb.AppendLine("   Last modified (UTC)  : " + fileItem.LastModified.ToString("G"));
-                    sb.AppendLine("   Encrypted            : " + fileItem.IsEncrypted);
-                    sb.AppendLine("   EncryptionScheme     : " + fileItem.EncryptionScheme);
-                    sb.AppendLine("   EncryptionVersion    : " + fileItem.EncryptionVersion);
-                    sb.AppendLine("   Encryption key id    : " + fileItem.EncryptionKeyId);
-                    sb.AppendLine("   InitializationVector : " + fileItem.InitializationVector);
-                    sb.AppendLine("   ParentAssetId        : " + fileItem.ParentAssetId);
-                    sb.AppendLine("");
-                }
-                sb.Append(GetDescriptionLocators(MyAsset, SelectedSE));
-            }
-            sb.AppendLine("");
-            sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            sb.AppendLine("");
-
-            return sb;
-        }
-        */
         public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient)
         {
             ListRepData infoStr = new();
@@ -1042,8 +790,10 @@ namespace AMSExplorer
                 return sb;
             }
 
-            bool bfileinasset = MyAssetTypeInfo.Blobs.Any();
-            long size = -1;
+            bool bfileinasset = MyAssetTypeInfo.Blobs != null && MyAssetTypeInfo.Blobs.Any();
+            //long size = -1;
+
+            /*
             if (bfileinasset)
             {
                 size = 0;
@@ -1052,18 +802,21 @@ namespace AMSExplorer
                     size += (blob as CloudBlockBlob).Properties.Length;
                 }
             }
+            */
+
+            infoStr.Add("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            infoStr.Add(string.Empty);
 
             infoStr.Add("Asset Name", MyAsset.Name);
-            infoStr.Add("Asset Description", MyAsset.Description);
+            infoStr.Add("Description", MyAsset.Description);
 
-            infoStr.Add("Asset Type", MyAssetTypeInfo.Type);
+            infoStr.Add("Type", MyAssetTypeInfo.Type);
             infoStr.Add("Id", MyAsset.Id);
             infoStr.Add("Asset Id", MyAsset.AssetId.ToString());
             infoStr.Add("Alternate ID", MyAsset.AlternateId);
-            if (size != -1)
-            {
-                infoStr.Add("Size", FormatByteSize(size));
-            }
+
+            infoStr.Add("Size", FormatByteSize(MyAssetTypeInfo.Size));
+
 
             infoStr.Add("Container", MyAsset.Container);
             infoStr.Add("Created (UTC)", MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
@@ -1073,31 +826,38 @@ namespace AMSExplorer
 
             infoStr.Add(string.Empty);
 
-            foreach (IListBlobItem blob in MyAssetTypeInfo.Blobs)
+            if (bfileinasset)
             {
-                infoStr.Add("   -----------------------------------------------");
-
-                if (blob is CloudBlockBlob blobc)
+                foreach (IListBlobItem blob in MyAssetTypeInfo.Blobs)
                 {
-                    infoStr.Add("   Block Blob Name", blobc.Name);
-                    infoStr.Add("   Type", blobc.BlobType.ToString());
-                    infoStr.Add("   Blob length", blobc.Properties.Length + " Bytes");
-                    infoStr.Add("   Content type", blobc.Properties.ContentType);
-                    infoStr.Add("   Created (UTC)", blobc.Properties.Created?.ToString("G"));
-                    infoStr.Add("   Last modified (UTC)", blobc.Properties.LastModified?.ToString("G"));
-                    infoStr.Add("   Server Encrypted", blobc.Properties.IsServerEncrypted.ToString());
-                    infoStr.Add("   Content MD5", blobc.Properties.ContentMD5);
-                    infoStr.Add(string.Empty);
 
-                }
-                else if (blob is CloudBlobDirectory blobd)
-                {
-                    infoStr.Add("   Blob Directory Name", blobd.Prefix);
-                    infoStr.Add("   Type", "BlobDirectory");
-                    infoStr.Add("   Blob Director length", GetSizeBlobDirectory(blobd) + " Bytes");
-                    infoStr.Add(string.Empty);
+                    if (blob is CloudBlockBlob blobc)
+                    {
+                        infoStr.Add("   --- Blob (block) ---------------------------------------------");
+
+                        infoStr.Add("   Blob Name", blobc.Name);
+                        infoStr.Add("   Type", blobc.BlobType.ToString());
+                        infoStr.Add("   Blob length", blobc.Properties.Length + " Bytes");
+                        infoStr.Add("   Content type", blobc.Properties.ContentType);
+                        infoStr.Add("   Created (UTC)", blobc.Properties.Created?.ToString("G"));
+                        infoStr.Add("   Last modified (UTC)", blobc.Properties.LastModified?.ToString("G"));
+                        infoStr.Add("   Server Encrypted", blobc.Properties.IsServerEncrypted.ToString());
+                        infoStr.Add("   Content MD5", blobc.Properties.ContentMD5);
+                        infoStr.Add(string.Empty);
+
+                    }
+                    else if (blob is CloudBlobDirectory blobd)
+                    {
+                        infoStr.Add("   --- Blob (directory) -----------------------------------------");
+
+                        infoStr.Add("   Name", blobd.Prefix);
+                        infoStr.Add("   Size", await GetSizeBlobDirectoryAsync(blobd) + " Bytes");
+                        infoStr.Add(string.Empty);
+                    }
                 }
             }
+
+
             infoStr.Add(await GetDescriptionLocatorsAsync(MyAsset, _amsClient));
 
             infoStr.Add(string.Empty);
@@ -1110,11 +870,34 @@ namespace AMSExplorer
         public static long GetSizeBlobDirectory(CloudBlobDirectory blobd)
         {
             long sizeDir = 0;
-            List<CloudBlockBlob> subBlobs = blobd.ListBlobs(blobListingDetails: BlobListingDetails.Metadata).Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b).ToList();
+            List<CloudBlockBlob> subBlobs = blobd.ListBlobs(true, blobListingDetails: BlobListingDetails.Metadata).Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b).ToList();
             subBlobs.ForEach(b => sizeDir += b.Properties.Length);
 
             return sizeDir;
         }
+
+        public static async Task<long> GetSizeBlobDirectoryAsync(CloudBlobDirectory blobd)
+        {
+            long sizeDir = 0;
+
+            // Let's list the blobs in the directory
+            BlobContinuationToken continuationToken = null;
+            List<IListBlobItem> srcBlobList = new();
+            do
+            {
+                BlobResultSegment segment = await blobd.ListBlobsSegmentedAsync(true, BlobListingDetails.None, null, continuationToken, null, null);
+                srcBlobList.AddRange(segment.Results);
+                continuationToken = segment.ContinuationToken;
+            }
+            while (continuationToken != null);
+
+            List<CloudBlockBlob> subBlobs = srcBlobList.Where(b => b is CloudBlockBlob).Select(b => (CloudBlockBlob)b).ToList();
+
+            subBlobs.ForEach(b => sizeDir += b.Properties.Length);
+
+            return sizeDir;
+        }
+
 
 
         public static async Task<ListRepData> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient)
@@ -1133,14 +916,15 @@ namespace AMSExplorer
             {
                 StreamingLocator locator = await amsClient.AMSclient.StreamingLocators.GetAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
 
+                infoStr.Add("   --- Locator --------------------------------------------------");
 
-                infoStr.Add("Locator Name", locator.Name);
-                infoStr.Add("Locator Id", locator.StreamingLocatorId.ToString());
-                infoStr.Add("Start Time", locator.StartTime?.ToLongDateString());
-                infoStr.Add("End Time", locator.EndTime?.ToLongDateString());
-                infoStr.Add("Streaming Policy Name", locator.StreamingPolicyName);
-                infoStr.Add("Default Content Key Policy Name", locator.DefaultContentKeyPolicyName);
-                infoStr.Add("Associated filters", string.Join(", ", locator.Filters.ToArray()));
+                infoStr.Add("   Locator Name", locator.Name);
+                infoStr.Add("   Id", locator.StreamingLocatorId.ToString());
+                infoStr.Add("   Start Time", locator.StartTime?.ToLongDateString() + " " + locator.StartTime?.ToLongTimeString());
+                infoStr.Add("   End Time", locator.EndTime?.ToLongDateString() + " " + locator.EndTime?.ToLongTimeString());
+                infoStr.Add("   Streaming Policy Name", locator.StreamingPolicyName);
+                infoStr.Add("   Default Content Key Policy Name", locator.DefaultContentKeyPolicyName);
+                infoStr.Add("   Associated filters", string.Join(", ", locator.Filters.ToArray()));
 
                 IList<StreamingPath> streamingPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).StreamingPaths;
                 IList<string> downloadPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).DownloadPaths;
@@ -1149,16 +933,15 @@ namespace AMSExplorer
                 {
                     foreach (string p in path.Paths)
                     {
-                        infoStr.Add(path.StreamingProtocol.ToString() + " " + path.EncryptionScheme, p);
+                        infoStr.Add("   " + path.StreamingProtocol.ToString() + " " + path.EncryptionScheme, p);
                     }
                 }
 
                 foreach (string path in downloadPaths)
                 {
-                    infoStr.Add("Download", path);
+                    infoStr.Add("   Download", path);
                 }
 
-                infoStr.Add("==============================================================================");
                 infoStr.Add(string.Empty);
 
             }
@@ -1509,14 +1292,24 @@ namespace AMSExplorer
         }
 
         // copy a directory of the same container to another container
-        public static List<Task> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken, CancellationToken token)
+        public static async Task<List<(CloudBlob, string)>> StartCopyBlobDirectoryAsync(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken, CancellationToken token)
         {
 
-            List<Task> mylistresults = new();
+            List<(CloudBlob, string)> mylistresults = new();
 
-            List<IListBlobItem> srcBlobList = srcDirectory.ListBlobs(
-                useFlatBlobListing: true,
-                blobListingDetails: BlobListingDetails.None).ToList();
+
+            // Let's list the blobs in the directory
+            BlobContinuationToken continuationToken = null;
+            List<IListBlobItem> srcBlobList = new();
+            do
+            {
+                BlobResultSegment segment = await srcDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None, null, continuationToken, null, null, token);
+                srcBlobList.AddRange(segment.Results);
+                continuationToken = segment.ContinuationToken;
+            }
+            while (continuationToken != null);
+
+
 
             foreach (IListBlobItem src in srcBlobList)
             {
@@ -1534,7 +1327,9 @@ namespace AMSExplorer
                 }
 
                 // copy using src blob as SAS
-                mylistresults.Add(destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), token));
+                string operationId = await destBlob.StartCopyAsync(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), token);
+
+                mylistresults.Add(new(destBlob, operationId));
             }
 
             return mylistresults;

@@ -156,7 +156,7 @@ namespace AMSExplorer
                 }
             }
         }
-       
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

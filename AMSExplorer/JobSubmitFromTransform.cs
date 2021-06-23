@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Newtonsoft.Json;
 using System;
@@ -170,7 +169,7 @@ namespace AMSExplorer
                 {
                     comboBoxSourceAsset.Items.Add(new Item("(multiple assets were selected)", null));
                     comboBoxSourceAsset.Enabled = false;
-                    buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = false;
+                    buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = buttonExportEDL.Visible = buttonImportEDL.Visible = false;
                 }
                 else
                 {
@@ -198,14 +197,7 @@ namespace AMSExplorer
                     timeControlEndTime.SetTimeStamp((TimeSpan)_end);
                     checkBoxSourceTrimmingEnd.CheckState = CheckState.Checked;
                 }
-
-                if (!_multipleInputAssets)
-                {
-                    labelInfoSeveralAssetStitching.Visible = true;
-                }
             }
-
-
         }
 
 
@@ -264,13 +256,13 @@ namespace AMSExplorer
                 textBoxNewAssetNameSyntax.Text = "httpssource-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
 
                 // no way to access the EDL
-                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = false;
+                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonExportEDL.Visible = buttonImportEDL.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = false;
             }
             else
             {
                 textBoxNewAssetNameSyntax.Text = Constants.NameconvInputasset + "-" + Constants.NameconvTransform + "-" + Constants.NameconvShortUniqueness;
 
-                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = true;
+                comboBoxSourceAsset.Visible = buttonDelEntry.Visible = buttonUp.Visible = buttonDown.Visible = buttonExportEDL.Visible = buttonImportEDL.Visible = buttonAddEDLEntry.Visible = dataGridViewEDL.Visible = labelInputAsset.Visible = textBoxAssetDescription.Visible = labelAssetDescription.Visible = true;
             }
 
             if (radioButtonSelectedAssets.Checked)
@@ -288,7 +280,14 @@ namespace AMSExplorer
         {
             if (SelectedAssetsMode)
             {
-                label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Name);
+                if (_multipleInputAssets)
+                {
+                    label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Name);
+                }
+                else
+                {
+                    label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. {0} jobs will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Name);
+                }
             }
             else // http source mode
             {
@@ -480,6 +479,12 @@ namespace AMSExplorer
 
         private async void comboBoxSourceAsset_TextChanged(object sender, EventArgs e)
         {
+            if (_listAssets.Count > 1 && !_multipleInputAssets)
+            {
+                // several assets as input but one asset per job
+                return;
+            }
+
             string assetName = comboBoxSourceAsset.Text;
 
             if (assetName != null)
