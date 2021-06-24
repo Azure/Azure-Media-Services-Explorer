@@ -2697,7 +2697,10 @@ namespace AMSExplorer
 
         public void DoCopyClipboard(object text)
         {
-            Clipboard.SetText((string)text);
+            if (text != null)
+            {
+                Clipboard.SetText((string)text);
+            }
         }
 
 
