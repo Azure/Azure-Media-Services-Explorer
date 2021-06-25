@@ -95,5 +95,4 @@ namespace AMSExplorer
             return hosts[i - 2] + "." + hosts[i - 1];
         }
     }
-
 }

@@ -110,8 +110,6 @@ namespace AMSExplorer
                              .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(callerForm ?? _form))
                              .ExecuteAsync();
 
-
-                        // authResult = await app.AcquireTokenInteractive(scopes).WithPrompt(credentialsEntry.PromptUser ? Prompt.ForceLogin : Prompt.NoPrompt).ExecuteAsync().ConfigureAwait(false);
                     }
                     catch (MsalException maslException)
                     {
@@ -178,8 +176,6 @@ namespace AMSExplorer
             AMSclient.SetUserAgent("AMSE", version);
             return AMSclient;
         }
-
-
 
 
         public static string GetStorageName(string storageId)
