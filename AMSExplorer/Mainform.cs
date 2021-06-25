@@ -2699,7 +2699,15 @@ namespace AMSExplorer
         {
             if (text != null)
             {
-                Clipboard.SetText((string)text);
+                string textS = (string)text;
+                if (string.IsNullOrEmpty(textS))
+                {
+                    Clipboard.Clear();
+                }
+                else
+                {
+                    Clipboard.SetText(textS);
+                }
             }
         }
 
