@@ -18,6 +18,8 @@ using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.ResourceManager.Models;
+using Microsoft.Azure.Management.Storage;
+using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.Rest;
 using Newtonsoft.Json;
 using System;
@@ -32,15 +34,19 @@ namespace AMSExplorer
         private List<Microsoft.Azure.Management.ResourceManager.Models.Location> _locations;
         private AzureMediaServicesClient _mediaServicesClient;
         private TokenCredentials _tokenCredentials;
+        private string _questionMark;
+        private string _checkedMark;
         private MediaService _mediaServiceCreated = null;
+
+        private bool OkAMSAccount = false;
+        private bool OkStorageAccount = false;
+        private string _uniqueness;
 
         public string SelectedLocation => (comboBoxAzureLocations.SelectedItem as Item).Value;
 
         public string AccountName => textBoxAccountName.Text;
 
-        public string StorageId => textBoxStorageId.Text;
-
-        public string ResourceGroup => textBoxRG.Text;
+        public string ResourceGroupName => textBoxRG.Text;
 
         public MediaService MediaServiceCreated
         {
@@ -57,20 +63,29 @@ namespace AMSExplorer
             _locations = locations;
             _mediaServicesClient = mediaServicesClient;
             _tokenCredentials = tokenCredentials;
+
+            _questionMark = labelOkAMSAccount.Text;
+            _checkedMark = (string)labelOkAMSAccount.Tag;
+
         }
 
         private void CreateAccount_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-
             foreach (var loc in _locations)
             {
                 comboBoxAzureLocations.Items.Add(new Item(loc.RegionalDisplayName, loc.Name));
             }
-
             comboBoxAzureLocations.SelectedIndex = 0;
-            labelErrorMessage.Text = string.Empty;
+
+            comboBoxStorageType.Items.Add(new Item("Locally-redundant storage (LRS)", SkuName.StandardLRS));
+            comboBoxStorageType.Items.Add(new Item("Read-access geo-redundant storage (RA-GRS)", SkuName.StandardRAGRS));
+            comboBoxStorageType.SelectedIndex = 0;
+
+            _uniqueness = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 13); // Create a GUID for uniqueness.
+
+            UpdateDefaultNames();
         }
 
 
@@ -92,19 +107,22 @@ namespace AMSExplorer
                               locationName: SelectedLocation,
                               name: AccountName);
 
-            buttonCreate.Enabled = availability.NameAvailable;
-            buttonCheckAvail.Enabled = false;
+            buttonCheckAvailAMS.Enabled = false;
 
             if (!availability.NameAvailable)
             {
-                labelErrorMessage.ForeColor = System.Drawing.Color.Red;
-                labelErrorMessage.Text = availability.Message;
+                errorProvider1.SetError(textBoxAccountName, availability.Message);
+                labelOkAMSAccount.Text = string.Empty;
+                OkAMSAccount = false;
             }
             else
             {
-                labelErrorMessage.ForeColor = System.Drawing.Color.Black;
-                labelErrorMessage.Text = "Account name is available !";
+                errorProvider1.SetError(textBoxAccountName, string.Empty);
+                labelOkAMSAccount.Text = _checkedMark;
+                OkAMSAccount = true;
             }
+
+            UpdateButtonCreate();
         }
 
         private void comboBoxAzureLocations_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,12 +130,37 @@ namespace AMSExplorer
             ChangeToAccountNameOrRegion();
         }
 
+        private void UpdateDefaultNames()
+        {
+            textBoxAccountName.Text = "media" + _uniqueness;
+            textBoxNewStorageName.Text = "storage" + _uniqueness;
+            textBoxRG.Text = "rg-" + _uniqueness;
+        }
+
         private void ChangeToAccountNameOrRegion()
         {
-            buttonCreate.Enabled = false;
-            buttonCheckAvail.Enabled = true;
-            labelErrorMessage.Text = string.Empty;
+            buttonCheckAvailAMS.Enabled = true;
+            labelOkAMSAccount.Text = _questionMark;
+            errorProvider1.SetError(textBoxAccountName, string.Empty);
+            OkAMSAccount = false;
+            UpdateButtonCreate();
         }
+
+
+        private void ChangeToStorageName()
+        {
+            buttonCheckAvailStorage.Enabled = true;
+            labelOkStorageAccount.Text = _questionMark;
+            errorProvider1.SetError(textBoxNewStorageName, string.Empty);
+            OkStorageAccount = false;
+            UpdateButtonCreate();
+        }
+
+        private void UpdateButtonCreate()
+        {
+            buttonCreate.Enabled = OkAMSAccount && (!checkBoxCreateStorage.Checked || OkStorageAccount);
+        }
+
 
         private async void buttonNext_Click(object sender, EventArgs e)
         {
@@ -129,18 +172,6 @@ namespace AMSExplorer
             progressBarCreation.Visible = true;
             buttonCreate.Enabled = false;
 
-            // Set up the values for your Media Services account 
-            MediaService parameters = new(
-                location: SelectedLocation, // This is the location for the account to be created. 
-                storageAccounts: new List<StorageAccount>(){
-                    new StorageAccount(
-                        type: StorageAccountType.Primary,
-                        // set this to the name of a storage account in your subscription using the full resource path formatting for Microsoft.Storage
-                        id: StorageId
-                    )
-                }
-            );
-
             try
             {
                 if (checkBoxCreateRG.Checked)
@@ -149,11 +180,45 @@ namespace AMSExplorer
                     var resourceClient = new ResourceManagementClient(_tokenCredentials) { SubscriptionId = _mediaServicesClient.SubscriptionId };
                     var resourceGroupsClient = resourceClient.ResourceGroups;
                     var resourceGroup = new ResourceGroup(SelectedLocation);
-                    resourceGroup = await resourceGroupsClient.CreateOrUpdateAsync(ResourceGroup, resourceGroup);
+                    resourceGroup = await resourceGroupsClient.CreateOrUpdateAsync(ResourceGroupName, resourceGroup);
                 }
 
+                string storageId;
+                if (checkBoxCreateStorage.Checked)
+                {
+                    // New storage account
+                    var storageManagementClient = new StorageManagementClient(_tokenCredentials);
+                    storageManagementClient.SubscriptionId = _mediaServicesClient.SubscriptionId;
+
+                    StorageAccountCreateParameters parametersStorage = new StorageAccountCreateParameters
+                    {
+                        Location = SelectedLocation,
+                        Sku = new Microsoft.Azure.Management.Storage.Models.Sku { Name = ((Item)comboBoxStorageType.SelectedItem).Value },
+                        Kind = Kind.StorageV2,
+                    };
+                    var newStorage = await storageManagementClient.StorageAccounts.CreateAsync(ResourceGroupName, textBoxNewStorageName.Text, parametersStorage);
+                    storageId = newStorage.Id;
+                }
+                else
+                {
+                    // existing storage account
+                    storageId = textBoxStorageId.Text;
+                }
+
+                // Set up the values for your Media Services account 
+                MediaService parameters = new(
+                    location: SelectedLocation, // This is the location for the account to be created. 
+                    storageAccounts: new List<Microsoft.Azure.Management.Media.Models.StorageAccount>(){
+                    new Microsoft.Azure.Management.Media.Models.StorageAccount(
+                        type: StorageAccountType.Primary,
+                        // set this to the name of a storage account in your subscription using the full resource path formatting for Microsoft.Storage
+                        id: storageId
+                    )
+                    }
+                );
+
                 // Create a new Media Services account
-                _mediaServiceCreated = await _mediaServicesClient.Mediaservices.CreateOrUpdateAsync(ResourceGroup, AccountName, parameters);
+                _mediaServiceCreated = await _mediaServicesClient.Mediaservices.CreateOrUpdateAsync(ResourceGroupName, AccountName, parameters);
 
                 MessageBox.Show($"Account '{AccountName}' has been successfully created.", "Account creation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -179,6 +244,55 @@ namespace AMSExplorer
             }
             progressBarCreation.Visible = false;
             buttonCreate.Enabled = true;
+        }
+
+        private async void buttonCheckAvailStorage_Click(object sender, EventArgs e)
+        {
+
+            var storageManagementClient = new StorageManagementClient(_tokenCredentials);
+            storageManagementClient.SubscriptionId = _mediaServicesClient.SubscriptionId;
+            var availability = await storageManagementClient.StorageAccounts.CheckNameAvailabilityAsync(textBoxNewStorageName.Text);
+
+            buttonCheckAvailStorage.Enabled = false;
+
+            if (!(bool)availability.NameAvailable)
+            {
+                errorProvider1.SetError(textBoxNewStorageName, availability.Message);
+                labelOkStorageAccount.Text = string.Empty;
+                OkStorageAccount = false;
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxNewStorageName, string.Empty);
+                labelOkStorageAccount.Text = _checkedMark;
+                OkStorageAccount = true;
+            }
+
+            UpdateButtonCreate();
+        }
+
+        private void checkBoxCreateStorage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxCreateStorage.Checked)
+            {
+                textBoxNewStorageName.Enabled = true;
+                comboBoxStorageType.Enabled = true;
+                textBoxStorageId.Enabled = false;
+                ChangeToStorageName();
+            }
+            else
+            {
+                textBoxNewStorageName.Enabled = false;
+                comboBoxStorageType.Enabled = false;
+                textBoxStorageId.Enabled = true;
+                buttonCheckAvailStorage.Enabled = false;
+                UpdateButtonCreate();
+            }
+        }
+
+        private void textBoxNewStorageName_TextChanged(object sender, EventArgs e)
+        {
+            ChangeToStorageName();
         }
     }
 }

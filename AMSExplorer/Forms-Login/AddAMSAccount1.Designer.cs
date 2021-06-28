@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddAMSAccount1));
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelAssetName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButtonAddAMSAccount = new System.Windows.Forms.RadioButton();
             this.checkBoxSelectUser = new System.Windows.Forms.CheckBox();
@@ -43,6 +42,7 @@
             this.linkLabelAzCliDoc = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelEnv = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelEnv.SuspendLayout();
@@ -61,11 +61,6 @@
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // labelAssetName
-            // 
-            resources.ApplyResources(this.labelAssetName, "labelAssetName");
-            this.labelAssetName.Name = "labelAssetName";
             // 
             // panel1
             // 
@@ -145,6 +140,12 @@
             resources.ApplyResources(this.panelEnv, "panelEnv");
             this.panelEnv.Name = "panelEnv";
             // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label6.Name = "label6";
+            // 
             // AddAMSAccount1
             // 
             this.AcceptButton = this.buttonNext;
@@ -152,10 +153,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.panelEnv);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelAssetName);
             this.Name = "AddAMSAccount1";
             this.Load += new System.EventHandler(this.AddAMSAccount1_Load);
             this.Shown += new System.EventHandler(this.AddAMSAccount1_Shown);
@@ -165,6 +166,7 @@
             this.panelEnv.ResumeLayout(false);
             this.panelEnv.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -172,7 +174,6 @@
 
         public System.Windows.Forms.Button buttonNext;
         public System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label labelAssetName;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButtonAddAMSAccount;
         private System.Windows.Forms.CheckBox checkBoxSelectUser;
@@ -184,5 +185,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelEnv;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label6;
     }
 }

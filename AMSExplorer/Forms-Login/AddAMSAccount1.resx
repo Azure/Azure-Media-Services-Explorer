@@ -114,30 +114,6 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="labelAssetName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="labelAssetName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 15</value>
-  </data>
-  <data name="labelAssetName.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="labelAssetName.Text" xml:space="preserve">
-    <value>Select how you want to add a Media Services account</value>
-  </data>
-  <data name="&gt;&gt;labelAssetName.Name" xml:space="preserve">
-    <value>labelAssetName</value>
-  </data>
-  <data name="&gt;&gt;labelAssetName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelAssetName.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelAssetName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
@@ -160,7 +136,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="radioButtonAddAMSAccount.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -172,13 +148,13 @@
     <value>20, 41</value>
   </data>
   <data name="radioButtonAddAMSAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>365, 19</value>
+    <value>390, 19</value>
   </data>
   <data name="radioButtonAddAMSAccount.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="radioButtonAddAMSAccount.Text" xml:space="preserve">
-    <value>Browse your tenants &amp;&amp; subscriptions, select or create an account</value>
+    <value>Select or create an account by browsing your tenants &amp;&amp; subscriptions</value>
   </data>
   <data name="&gt;&gt;radioButtonAddAMSAccount.Name" xml:space="preserve">
     <value>radioButtonAddAMSAccount</value>
@@ -229,13 +205,13 @@
     <value>20, 110</value>
   </data>
   <data name="radioButtonJsonCliOutput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>439, 19</value>
+    <value>416, 19</value>
   </data>
   <data name="radioButtonJsonCliOutput.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
   </data>
   <data name="radioButtonJsonCliOutput.Text" xml:space="preserve">
-    <value>Existing account : Service Principal authentication, using JSON API Access data</value>
+    <value>Connect to an account using a Service Principal and JSON API Access data</value>
   </data>
   <data name="&gt;&gt;radioButtonJsonCliOutput.Name" xml:space="preserve">
     <value>radioButtonJsonCliOutput</value>
@@ -259,13 +235,13 @@
     <value>20, 184</value>
   </data>
   <data name="radioButtonAddManual.Size" type="System.Drawing.Size, System.Drawing">
-    <value>264, 19</value>
+    <value>280, 19</value>
   </data>
   <data name="radioButtonAddManual.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
   </data>
   <data name="radioButtonAddManual.Text" xml:space="preserve">
-    <value>Existing account : enter manually the settings</value>
+    <value>Connect to an account by providing the settings</value>
   </data>
   <data name="&gt;&gt;radioButtonAddManual.Name" xml:space="preserve">
     <value>radioButtonAddManual</value>
@@ -382,7 +358,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -433,6 +409,39 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panelEnv.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 11.25pt</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 19</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>375, 20</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>How to add an Azure Media Services account to the list</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
