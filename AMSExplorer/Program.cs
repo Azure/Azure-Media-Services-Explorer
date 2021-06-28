@@ -307,10 +307,6 @@ namespace AMSExplorer
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimaryV3));
         }
 
-
-
-
-
         public static void DownloadVersionRequestCompletedV3(bool firsttry, object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error == null)
@@ -384,7 +380,6 @@ namespace AMSExplorer
             return newBitmap;
         }
 
-
         public static DialogResult InputBox(string title, string promptText, ref string value, bool passwordWildcard = false)
         {
             InputBox inputForm = new(title, promptText, value, passwordWildcard);
@@ -422,9 +417,7 @@ namespace AMSExplorer
             public LiveOutput LiveOutputItem { get; set; }
             public string LiveEventName { get; set; }
         }
-
     }
-
 
 
     public static class Extensions
@@ -438,5 +431,4 @@ namespace AMSExplorer
                 del(control);
         }
     }
-
 }

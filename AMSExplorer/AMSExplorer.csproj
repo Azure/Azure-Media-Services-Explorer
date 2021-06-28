@@ -103,6 +103,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms-Login\CreateAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="KeyDeliverySettings.cs">
       <SubType>Form</SubType>
     </Compile>
