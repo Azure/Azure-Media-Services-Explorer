@@ -549,7 +549,7 @@ namespace AMSExplorer
                                 SubscriptionId = addaccount2.SelectedSubscription.SubscriptionId
                             };
 
-                            CreateAccount createAccount = new(myLocations, MediaServicesClient);
+                            CreateAccount createAccount = new(myLocations, MediaServicesClient, credentials);
 
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {

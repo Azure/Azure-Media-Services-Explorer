@@ -16,11 +16,12 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.ResourceManager.Models;
+using Microsoft.Rest;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -30,6 +31,7 @@ namespace AMSExplorer
     {
         private List<Microsoft.Azure.Management.ResourceManager.Models.Location> _locations;
         private AzureMediaServicesClient _mediaServicesClient;
+        private TokenCredentials _tokenCredentials;
         private MediaService _mediaServiceCreated = null;
 
         public string SelectedLocation => (comboBoxAzureLocations.SelectedItem as Item).Value;
@@ -48,12 +50,13 @@ namespace AMSExplorer
             }
         }
 
-        public CreateAccount(List<Microsoft.Azure.Management.ResourceManager.Models.Location> locations, AzureMediaServicesClient mediaServicesClient)
+        public CreateAccount(List<Microsoft.Azure.Management.ResourceManager.Models.Location> locations, AzureMediaServicesClient mediaServicesClient, TokenCredentials tokenCredentials)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _locations = locations;
             _mediaServicesClient = mediaServicesClient;
+            _tokenCredentials = tokenCredentials;
         }
 
         private void CreateAccount_Load(object sender, EventArgs e)
@@ -140,6 +143,15 @@ namespace AMSExplorer
 
             try
             {
+                if (checkBoxCreateRG.Checked)
+                {
+                    // create resource group if needed
+                    var resourceClient = new ResourceManagementClient(_tokenCredentials) { SubscriptionId = _mediaServicesClient.SubscriptionId };
+                    var resourceGroupsClient = resourceClient.ResourceGroups;
+                    var resourceGroup = new ResourceGroup(SelectedLocation);
+                    resourceGroup = await resourceGroupsClient.CreateOrUpdateAsync(ResourceGroup, resourceGroup);
+                }
+
                 // Create a new Media Services account
                 _mediaServiceCreated = await _mediaServicesClient.Mediaservices.CreateOrUpdateAsync(ResourceGroup, AccountName, parameters);
 

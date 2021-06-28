@@ -46,6 +46,7 @@
             this.textBoxRG = new System.Windows.Forms.TextBox();
             this.progressBarCreation = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
+            this.checkBoxCreateRG = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -159,6 +160,14 @@
             this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label5.Name = "label5";
             // 
+            // checkBoxCreateRG
+            // 
+            resources.ApplyResources(this.checkBoxCreateRG, "checkBoxCreateRG");
+            this.checkBoxCreateRG.Checked = true;
+            this.checkBoxCreateRG.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCreateRG.Name = "checkBoxCreateRG";
+            this.checkBoxCreateRG.UseVisualStyleBackColor = true;
+            // 
             // CreateAccount
             // 
             this.AcceptButton = this.buttonCreate;
@@ -166,6 +175,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.checkBoxCreateRG);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.progressBarCreation);
             this.Controls.Add(this.label4);
@@ -205,5 +215,6 @@
         private System.Windows.Forms.TextBox textBoxRG;
         private System.Windows.Forms.ProgressBar progressBarCreation;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox checkBoxCreateRG;
     }
 }
