@@ -17,6 +17,7 @@
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,6 +30,7 @@ namespace AMSExplorer
     {
         private List<Microsoft.Azure.Management.ResourceManager.Models.Location> _locations;
         private AzureMediaServicesClient _mediaServicesClient;
+        private MediaService _mediaServiceCreated = null;
 
         public string SelectedLocation => (comboBoxAzureLocations.SelectedItem as Item).Value;
 
@@ -38,6 +40,13 @@ namespace AMSExplorer
 
         public string ResourceGroup => textBoxRG.Text;
 
+        public MediaService MediaServiceCreated
+        {
+            get
+            {
+                return _mediaServiceCreated;
+            }
+        }
 
         public CreateAccount(List<Microsoft.Azure.Management.ResourceManager.Models.Location> locations, AzureMediaServicesClient mediaServicesClient)
         {
@@ -70,9 +79,7 @@ namespace AMSExplorer
 
         private void textBoxAccountName_TextChanged(object sender, EventArgs e)
         {
-            buttonCreate.Enabled = false;
-            buttonCheckAvail.Enabled = true;
-
+            ChangeToAccountNameOrRegion();
         }
 
         private void buttonCheckAvail_Click(object sender, EventArgs e)
@@ -87,18 +94,26 @@ namespace AMSExplorer
 
             if (!availability.NameAvailable)
             {
+                labelErrorMessage.ForeColor = System.Drawing.Color.Red;
                 labelErrorMessage.Text = availability.Message;
             }
             else
             {
-                labelErrorMessage.Text = string.Empty;
+                labelErrorMessage.ForeColor = System.Drawing.Color.Black;
+                labelErrorMessage.Text = "Account name is available !";
             }
         }
 
         private void comboBoxAzureLocations_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ChangeToAccountNameOrRegion();
+        }
+
+        private void ChangeToAccountNameOrRegion()
+        {
             buttonCreate.Enabled = false;
             buttonCheckAvail.Enabled = true;
+            labelErrorMessage.Text = string.Empty;
         }
 
         private async void buttonNext_Click(object sender, EventArgs e)
@@ -126,7 +141,7 @@ namespace AMSExplorer
             try
             {
                 // Create a new Media Services account
-                await _mediaServicesClient.Mediaservices.CreateOrUpdateAsync(ResourceGroup, AccountName, parameters);
+                _mediaServiceCreated = await _mediaServicesClient.Mediaservices.CreateOrUpdateAsync(ResourceGroup, AccountName, parameters);
 
                 MessageBox.Show($"Account '{AccountName}' has been successfully created.", "Account creation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -135,7 +150,19 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Account '{AccountName}' has not been successfully created." + Environment.NewLine + $"{ex.Message}", "Account creation failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string message = $"Account '{AccountName}' has not been successfully created." + Environment.NewLine + $"{ex.Message}";
+
+                if (ex.InnerException != null)
+                {
+                    message += Environment.NewLine + Program.GetErrorMessage(ex);
+                }
+                if (ex is ApiErrorException eApi)
+                {
+                    dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
+                    message += Environment.NewLine + (string)error?.error?.message;
+                }
+
+                MessageBox.Show(message, "Account creation failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Telemetry.TrackException(ex);
             }
             progressBarCreation.Visible = false;

@@ -289,13 +289,13 @@
     <value>14, 21</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 20</value>
+    <value>333, 20</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Select an Azure Media Services account</value>
+    <value>Select or create an Azure Media Services account</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -325,7 +325,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Add an account</value>
+    <value>Add/create an account</value>
   </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>

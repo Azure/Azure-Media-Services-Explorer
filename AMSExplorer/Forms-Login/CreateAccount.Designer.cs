@@ -45,14 +45,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxRG = new System.Windows.Forms.TextBox();
             this.progressBarCreation = new System.Windows.Forms.ProgressBar();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonNext
+            // buttonCreate
             // 
-            resources.ApplyResources(this.buttonCreate, "buttonNext");
-            this.buttonCreate.Name = "buttonNext";
+            resources.ApplyResources(this.buttonCreate, "buttonCreate");
+            this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.UseVisualStyleBackColor = true;
             this.buttonCreate.Click += new System.EventHandler(this.buttonNext_Click);
             // 
@@ -152,6 +153,12 @@
             this.progressBarCreation.Name = "progressBarCreation";
             this.progressBarCreation.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label5.Name = "label5";
+            // 
             // CreateAccount
             // 
             this.AcceptButton = this.buttonCreate;
@@ -159,6 +166,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.progressBarCreation);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxRG);
@@ -196,5 +204,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxRG;
         private System.Windows.Forms.ProgressBar progressBarCreation;
+        private System.Windows.Forms.Label label5;
     }
 }

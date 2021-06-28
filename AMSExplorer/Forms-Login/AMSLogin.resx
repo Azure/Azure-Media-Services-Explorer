@@ -688,16 +688,16 @@
     <value>NoControl</value>
   </data>
   <data name="buttonPickupAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>605, 423</value>
+    <value>565, 423</value>
   </data>
   <data name="buttonPickupAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 27</value>
+    <value>189, 27</value>
   </data>
   <data name="buttonPickupAccount.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
   <data name="buttonPickupAccount.Text" xml:space="preserve">
-    <value>Pick-up an account...</value>
+    <value>Pick-up / create an account...</value>
   </data>
   <data name="&gt;&gt;buttonPickupAccount.Name" xml:space="preserve">
     <value>buttonPickupAccount</value>

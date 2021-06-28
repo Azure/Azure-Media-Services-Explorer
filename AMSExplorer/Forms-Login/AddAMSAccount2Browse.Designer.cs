@@ -49,7 +49,7 @@
             resources.ApplyResources(this.buttonNext, "buttonNext");
             this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Tag = "Create an account";
+            this.buttonNext.Tag = "Create an account here";
             this.buttonNext.UseVisualStyleBackColor = true;
             // 
             // buttonCancel

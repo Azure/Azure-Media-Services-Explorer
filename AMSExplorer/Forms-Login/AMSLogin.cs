@@ -528,22 +528,19 @@ namespace AMSExplorer
                             // Getting Media Services accounts...
 
                             CredentialsEntryV3 entry = new(addaccount2.selectedAccount,
-                                environment,
-                                addaccount1.SelectUser,
-                                false,
-                                addaccount2.selectedTenantId,
-                                false
-                                );
+                               environment,
+                               addaccount1.SelectUser,
+                               false,
+                               addaccount2.selectedTenantId,
+                               false
+                               );
 
                             CredentialList.MediaServicesAccounts.Add(entry);
                             AddItemToListviewAccounts(entry);
-
                             SaveCredentialsToSettings();
                         }
                         else // creation mode
                         {
-                            string accountName = "testaccount123";
-
                             var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").ToList();
 
                             // Getting Media Services accounts...
@@ -556,9 +553,23 @@ namespace AMSExplorer
 
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {
+                                // Add account to list
+                                CredentialsEntryV3 entry = new(
+                                  createAccount.MediaServiceCreated,
+                                  environment,
+                                  addaccount1.SelectUser,
+                                  false,
+                                  addaccount2.selectedTenantId,
+                                  false
+                                  );
 
-                             // Add account to list
-                             // TODO
+                                CredentialList.MediaServicesAccounts.Add(entry);
+                                AddItemToListviewAccounts(entry);
+                                SaveCredentialsToSettings();
+                            }
+                            else
+                            {
+                                return;
                             }
                         }
                     }
