@@ -37,6 +37,7 @@ namespace AMSExplorer
         private TokenCredentials credentials;
         private readonly AzureEnvironment environment;
         private readonly List<TenantIdDescription> _myTenants;
+        private Dictionary<string, IPublicClientApplication> _clientApplications = new();
         private readonly Prompt _prompt;
         private readonly IPublicClientApplication _app;
         private List<Subscription> subscriptions;
@@ -94,16 +95,21 @@ namespace AMSExplorer
             selectedTenantId = ((Item)comboBoxTenants.SelectedItem).Value;
             var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/.default" };
 
-            IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId ?? "common"))
+            if (!_clientApplications.ContainsKey(selectedTenantId))
+            {
+                _clientApplications[selectedTenantId] = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId))
                 .WithRedirectUri("http://localhost")
                 .Build();
+            }
+
+            IPublicClientApplication app = _clientApplications[selectedTenantId];
 
             AuthenticationResult accessToken = null;
             var accounts = await _app.GetAccountsAsync();
             try
             {
-                accessToken = await _app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
+                accessToken = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
             }
 #pragma warning disable CS0168 // Variable is declared but never used
             catch (MsalUiRequiredException ex)
@@ -111,7 +117,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    accessToken = await _app
+                    accessToken = await app
                         .AcquireTokenInteractive(scopes)
                         .WithPrompt(_prompt)
                         .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
@@ -234,7 +240,7 @@ namespace AMSExplorer
             SelectedSubscription = subscriptions.Where(s => s.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
 
             // Getting Media Services accounts...
-             MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
+            MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
             {
                 SubscriptionId = SelectedSubscription.SubscriptionId
             };
