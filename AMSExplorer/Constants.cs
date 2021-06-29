@@ -94,7 +94,6 @@ namespace AMSExplorer
         public const string DemoCaptionMaker = @"https://testdrive-archive.azurewebsites.net/Graphics/CaptionMaker/Default.html";
 
         public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
-        public const string LinkInfoMediaUnit = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-scale-media-processing-overview";
 
         public const string TemporaryWidevineLicenseServer = "https://thiswillbereplacedbytheAMSwidevineurl/?KID=00000000-0000-0000-0000-000000000000";
 
@@ -129,14 +128,12 @@ namespace AMSExplorer
         public const string LinkMoreInfoStorageVersioning = "https://docs.microsoft.com/en-us/rest/api/storageservices/Versioning-for-the-Azure-Storage-Services";
         public const string LinkMoreInfoStorageAnalytics = "https://docs.microsoft.com/en-us/azure/storage/blobs/monitor-blob-storage";
         public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-fairplay-license-overview";
-        public const string LinkMoreInfoTelemetry = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-telemetry-overview";
 
         public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-playready-license-template-concept";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
         public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-widevine-license-template-concept";
 
         public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/latest/account-create-how-to";
-        public const string LinkAMSAADAut = "https://docs.microsoft.com/en-us/azure/media-services/previous/media-services-portal-get-started-with-aad";
         public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-howto";
 
         public const string LinkAMSE = "http://aka.ms/amse";

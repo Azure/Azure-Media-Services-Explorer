@@ -70,7 +70,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonCreate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 14</value>
+    <value>312, 16</value>
   </data>
   <data name="buttonCreate.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -97,7 +97,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>196, 14</value>
+    <value>430, 16</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 27</value>
@@ -175,13 +175,13 @@
     <value>28, 50</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 15</value>
+    <value>53, 15</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>96</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Region</value>
+    <value>Location</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -382,7 +382,7 @@
     <value>104</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>AMS Account to create</value>
+    <value>Media Services account</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>
@@ -694,7 +694,7 @@
     <value>111</value>
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
-    <value>Primary storage</value>
+    <value>Primary storage account</value>
   </data>
   <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
     <value>groupBox2</value>

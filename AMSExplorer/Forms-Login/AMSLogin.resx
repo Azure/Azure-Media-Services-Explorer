@@ -151,7 +151,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonDeleteAccountEntry.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="textBoxDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -223,16 +223,16 @@
     <value>NoControl</value>
   </data>
   <data name="linkLabelAADAut.Location" type="System.Drawing.Point, System.Drawing">
-    <value>622, 117</value>
+    <value>582, 97</value>
   </data>
   <data name="linkLabelAADAut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 15</value>
+    <value>177, 15</value>
   </data>
   <data name="linkLabelAADAut.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
   </data>
   <data name="linkLabelAADAut.Text" xml:space="preserve">
-    <value>AAD Authentication Info</value>
+    <value>Create a Media Services account</value>
   </data>
   <data name="&gt;&gt;linkLabelAADAut.Name" xml:space="preserve">
     <value>linkLabelAADAut</value>
@@ -493,7 +493,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelenteramsacct.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="buttonExport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -526,7 +526,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonExport.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="buttonImportAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -559,7 +559,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonImportAll.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -572,36 +572,6 @@
   </metadata>
   <data name="saveFileDialog1.Filter" xml:space="preserve">
     <value>json file (*.json)|*.json</value>
-  </data>
-  <data name="accountmgtlink.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="accountmgtlink.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="accountmgtlink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>612, 93</value>
-  </data>
-  <data name="accountmgtlink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 15</value>
-  </data>
-  <data name="accountmgtlink.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="accountmgtlink.Text" xml:space="preserve">
-    <value>How to Create an Account</value>
-  </data>
-  <data name="&gt;&gt;accountmgtlink.Name" xml:space="preserve">
-    <value>accountmgtlink</value>
-  </data>
-  <data name="&gt;&gt;accountmgtlink.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;accountmgtlink.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;accountmgtlink.ZOrder" xml:space="preserve">
-    <value>8</value>
   </data>
   <data name="pictureBoxJob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -745,16 +715,16 @@
     <value>NoControl</value>
   </data>
   <data name="linkLabelAMSOfflineDoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>576, 138</value>
+    <value>552, 117</value>
   </data>
   <data name="linkLabelAMSOfflineDoc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 15</value>
+    <value>207, 15</value>
   </data>
   <data name="linkLabelAMSOfflineDoc.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
   </data>
   <data name="linkLabelAMSOfflineDoc.Text" xml:space="preserve">
-    <value>AMS Documentation (local copy)</value>
+    <value>Media Services Documentation (local)</value>
   </data>
   <data name="&gt;&gt;linkLabelAMSOfflineDoc.Name" xml:space="preserve">
     <value>linkLabelAMSOfflineDoc</value>

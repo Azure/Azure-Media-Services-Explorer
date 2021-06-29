@@ -48,7 +48,6 @@
             this.buttonImportAll = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.accountmgtlink = new System.Windows.Forms.LinkLabel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelVersion = new System.Windows.Forms.Label();
@@ -180,13 +179,6 @@
             this.saveFileDialog1.DefaultExt = "json";
             resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
             // 
-            // accountmgtlink
-            // 
-            resources.ApplyResources(this.accountmgtlink, "accountmgtlink");
-            this.accountmgtlink.Name = "accountmgtlink";
-            this.accountmgtlink.TabStop = true;
-            this.accountmgtlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Accountmgtlink_LinkClicked);
-            // 
             // pictureBoxJob
             // 
             resources.ApplyResources(this.pictureBoxJob, "pictureBoxJob");
@@ -268,7 +260,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonPickupAccount);
             this.Controls.Add(this.pictureBoxJob);
-            this.Controls.Add(this.accountmgtlink);
             this.Controls.Add(this.buttonImportAll);
             this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.labelenteramsacct);
@@ -304,7 +295,6 @@
         private System.Windows.Forms.Button buttonImportAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.LinkLabel accountmgtlink;
         private System.Windows.Forms.PictureBox pictureBoxJob;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolTip toolTip1;
