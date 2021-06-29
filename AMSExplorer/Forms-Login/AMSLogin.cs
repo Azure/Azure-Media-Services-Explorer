@@ -482,6 +482,12 @@ namespace AMSExplorer
                         return;
                     }
 
+                    if (accessToken == null)// User cancelled ?
+                    {
+                        Cursor = Cursors.Default;
+                        return;
+                    }
+
                     TokenCredentials credentials = new(accessToken.AccessToken, "Bearer");
                     SubscriptionClient subscriptionClient = new(environment.ArmEndpoint, credentials);
                     // Subcriptions listing
