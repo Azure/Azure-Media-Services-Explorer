@@ -46,8 +46,8 @@ namespace AMSExplorer
             client.Context.Cloud.RoleInstance = Environment.MachineName.GetDeterministicHashCode().ToString();
 
             // let's log the version of the Media SDK
-            var versionMediaSdk = System.Reflection.Assembly.GetAssembly(typeof(MediaService)).GetName().Version;
-            client.Context.GlobalProperties.Add("Microsoft.Azure.Management.Media", versionMediaSdk.ToString());
+            var mediaAssembly = System.Reflection.Assembly.GetAssembly(typeof(MediaService)).GetName();
+            client.Context.GlobalProperties.Add(mediaAssembly.Name, mediaAssembly.Version.ToString());
 
             return client;
         }
