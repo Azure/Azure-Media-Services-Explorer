@@ -36,7 +36,6 @@ namespace AMSExplorer
         private TokenCredentials _tokenCredentials;
         private string _questionMark;
         private string _checkedMark;
-        private MediaService _mediaServiceCreated = null;
 
         private bool OkAMSAccount = false;
         private bool OkStorageAccount = false;
@@ -48,13 +47,8 @@ namespace AMSExplorer
 
         public string ResourceGroupName => textBoxRG.Text;
 
-        public MediaService MediaServiceCreated
-        {
-            get
-            {
-                return _mediaServiceCreated;
-            }
-        }
+        public MediaService MediaServiceCreated { get; private set; }
+
 
         public CreateAccount(List<Microsoft.Azure.Management.ResourceManager.Models.Location> locations, AzureMediaServicesClient mediaServicesClient, TokenCredentials tokenCredentials)
         {
@@ -66,7 +60,6 @@ namespace AMSExplorer
 
             _questionMark = labelOkAMSAccount.Text;
             _checkedMark = (string)labelOkAMSAccount.Tag;
-
         }
 
         private void CreateAccount_Load(object sender, EventArgs e)
@@ -87,7 +80,6 @@ namespace AMSExplorer
 
             UpdateDefaultNames();
         }
-
 
 
         private void CreateAccount_Shown(object sender, EventArgs e)
@@ -187,8 +179,10 @@ namespace AMSExplorer
                 if (checkBoxCreateStorage.Checked)
                 {
                     // New storage account
-                    var storageManagementClient = new StorageManagementClient(_tokenCredentials);
-                    storageManagementClient.SubscriptionId = _mediaServicesClient.SubscriptionId;
+                    StorageManagementClient storageManagementClient = new(_tokenCredentials)
+                    {
+                        SubscriptionId = _mediaServicesClient.SubscriptionId
+                    };
 
                     StorageAccountCreateParameters parametersStorage = new StorageAccountCreateParameters
                     {
@@ -218,7 +212,7 @@ namespace AMSExplorer
                 );
 
                 // Create a new Media Services account
-                _mediaServiceCreated = await _mediaServicesClient.Mediaservices.CreateOrUpdateAsync(ResourceGroupName, AccountName, parameters);
+                MediaServiceCreated = await _mediaServicesClient.Mediaservices.CreateOrUpdateAsync(ResourceGroupName, AccountName, parameters);
 
                 MessageBox.Show($"Account '{AccountName}' has been successfully created.", "Account creation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -249,8 +243,10 @@ namespace AMSExplorer
         private async void buttonCheckAvailStorage_Click(object sender, EventArgs e)
         {
 
-            var storageManagementClient = new StorageManagementClient(_tokenCredentials);
-            storageManagementClient.SubscriptionId = _mediaServicesClient.SubscriptionId;
+            StorageManagementClient storageManagementClient = new(_tokenCredentials)
+            {
+                SubscriptionId = _mediaServicesClient.SubscriptionId
+            };
             var availability = await storageManagementClient.StorageAccounts.CheckNameAvailabilityAsync(textBoxNewStorageName.Text);
 
             buttonCheckAvailStorage.Enabled = false;
