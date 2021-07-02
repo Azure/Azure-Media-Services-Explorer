@@ -4732,7 +4732,7 @@ namespace AMSExplorer
                         AccessControl = new LiveEventPreviewAccessControl(
                                                                             ip: new IPAccessControl
                                                                             (
-                                                                                allow: form.inputIPAllow
+                                                                                allow: form.InputIPAllow
                                                                             )
                                                                          )
                     };
@@ -4745,7 +4745,7 @@ namespace AMSExplorer
                         AccessControl = new LiveEventInputAccessControl(
                                                                             ip: new IPAccessControl
                                                                             (
-                                                                                allow: form.inputIPAllow
+                                                                                allow: form.InputIPAllow
                                                                             )
                                                                        )
                     };

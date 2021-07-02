@@ -17,7 +17,6 @@
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
@@ -33,9 +32,14 @@ namespace AMSExplorer
     {
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
-        private readonly BindingList<ExplorerAudioStream> audiostreams = new();
         private readonly string defaultLanguageString = "und";
         private readonly AMSClientV3 _client;
+
+        private bool liveEventNameOk = false;
+        private bool ingestIpOk = true;
+        private bool previewIpOk = true;
+        private bool inputKeyFrameOk = true;
+        private bool encodingKeyFrameOk = true;
 
         public readonly List<string> LanguagesLiveTranscript = new() { "ca-ES", "da-DK", "de-DE", "en-AU", "en-CA", "en-GB", "en-IN", "en-NZ", "en-US", "es-ES", "es-MX", "fi-FI", "fr-CA", "fr-FR", "it-IT", "nl-NL", "pt-BR", "pt-PT", "sv-SE" };
 
@@ -142,7 +146,6 @@ namespace AMSExplorer
                     {
                         return null;
                     }
-
                 }
                 else
                 {
@@ -166,7 +169,6 @@ namespace AMSExplorer
                     {
                         return null;
                     }
-
                 }
                 else
                 {
@@ -177,7 +179,7 @@ namespace AMSExplorer
         }
 
 
-        public List<Microsoft.Azure.Management.Media.Models.IPRange> inputIPAllow
+        public List<Microsoft.Azure.Management.Media.Models.IPRange> InputIPAllow
         {
             get
             {
@@ -204,7 +206,7 @@ namespace AMSExplorer
             }
         }
 
-        public List<Microsoft.Azure.Management.Media.Models.IPRange> previewIPAllow
+        public List<Microsoft.Azure.Management.Media.Models.IPRange> PreviewIPAllow
         {
             get
             {
@@ -268,30 +270,28 @@ namespace AMSExplorer
 
             GenerateNewInputId();
 
-            checkChannelName();
+            CheckLiveEventName();
             InitPhase = false;
         }
 
-        private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            MessageBox.Show(AMSExplorer.Properties.Resources.CreateLiveChannel_dataGridView_DataError_WrongFormat);
-        }
 
-        private void checkBoxRestrictIngestIP_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxRestrictIngestIP_CheckedChanged(object sender, EventArgs e)
         {
             textBoxRestrictIngestIP.Enabled = checkBoxRestrictIngestIP.Checked;
             if (!checkBoxRestrictIngestIP.Checked)
             {
                 errorProvider1.SetError(textBoxRestrictIngestIP, string.Empty);
+                ingestIpOk = true;
             }
             else
             {
-                checkIPAddress(textBoxRestrictIngestIP);
+                ingestIpOk = CheckIPAddress(textBoxRestrictIngestIP);
             }
+            EnableOrDisableCreateButton();
         }
 
 
-        private void comboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateLabelSyntax();
         }
@@ -342,17 +342,19 @@ namespace AMSExplorer
         }
 
 
-        private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
         {
             textBoxRestrictPreviewIP.Enabled = checkBoxRestrictPreviewIP.Checked;
             if (!checkBoxRestrictPreviewIP.Checked)
             {
                 errorProvider1.SetError(textBoxRestrictPreviewIP, string.Empty);
+                previewIpOk = true;
             }
             else
             {
-                checkIPAddress(textBoxRestrictPreviewIP);
+                previewIpOk = CheckIPAddress(textBoxRestrictPreviewIP);
             }
+            EnableOrDisableCreateButton();
         }
 
 
@@ -363,8 +365,12 @@ namespace AMSExplorer
             return (name.Length > 0 && name.Length < 33 && reg.IsMatch(name));
         }
 
-
-        private void checkIPAddress(TextBox tb)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tb"></param>
+        /// <returns>True if ok</returns>
+        private bool CheckIPAddress(TextBox tb)
         {
             bool Error = false;
             try
@@ -380,6 +386,7 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, string.Empty);
             }
+            return !Error;
         }
 
 
@@ -413,18 +420,18 @@ namespace AMSExplorer
         }
 
 
-        private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
+        private void TextBoxCustomPreset_TextChanged(object sender, EventArgs e)
         {
             UpdateProfileGrids();
         }
 
-        private void radioButtonCustomPreset_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonCustomPreset_CheckedChanged(object sender, EventArgs e)
         {
             UpdateProfileGrids();
             textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
         }
 
-        private void moreinfoLiveEncodingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void MoreinfoLiveEncodingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Send the URL to the operating system.
             var p = new Process
@@ -438,49 +445,68 @@ namespace AMSExplorer
             p.Start();
         }
 
-        private void textboxchannelname_TextChanged(object sender, EventArgs e)
+        private void Textboxchannelname_TextChanged(object sender, EventArgs e)
         {
-            checkChannelName();
+            CheckLiveEventName();
             UpdateLabelSyntax();
+            EnableOrDisableCreateButton();
         }
 
-        private void checkChannelName()
+        private void EnableOrDisableCreateButton()
+        {
+            buttonOk.Enabled = liveEventNameOk && ingestIpOk & previewIpOk && inputKeyFrameOk && encodingKeyFrameOk;
+        }
+
+        private void CheckLiveEventName()
         {
             TextBox tb = textboxchannelname;
 
             if (!IsLiveEventNameValid(tb.Text))
             {
                 errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateLiveChannel_checkChannelName_ChannelNameIsNotValid);
+                liveEventNameOk = false;
             }
             else
             {
                 errorProvider1.SetError(tb, string.Empty);
+                liveEventNameOk = true;
             }
         }
 
-        private void checkKeyFrameValue()
+        private void CheckInputKeyFrameValue()
         {
             if (checkBoxKeyFrameIntDefined.Checked && InputKeyframeIntervalSerialized == null)
             {
                 errorProvider1.SetError(textBoxInputKeyFrame, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
+                inputKeyFrameOk = false;
             }
             else
             {
                 errorProvider1.SetError(textBoxInputKeyFrame, string.Empty);
+                inputKeyFrameOk = true;
             }
         }
 
-        private void textBoxIP_TextChanged(object sender, EventArgs e)
+        private void CheckEncodingKeyFrameValue()
         {
-            checkIPAddress((TextBox)sender);
+            if (checkBoxEncodingKeyFrameInterval.Checked && EncodingKeyframeInterval == null)
+            {
+                errorProvider1.SetError(textBoxEncodingKeyFrameInterval, AMSExplorer.Properties.Resources.ChannelInformation_checkKeyFrameValue_ValueIsNotValid);
+                encodingKeyFrameOk = false;
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxEncodingKeyFrameInterval, string.Empty);
+                encodingKeyFrameOk = true;
+            }
         }
 
 
-        private void radioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonDefaultPreset_CheckedChanged(object sender, EventArgs e)
         {
         }
 
-        private void buttonGenerateInputId_Click(object sender, EventArgs e)
+        private void ButtonGenerateInputId_Click(object sender, EventArgs e)
         {
             GenerateNewInputId();
         }
@@ -490,12 +516,13 @@ namespace AMSExplorer
             textBoxInputId.Text = Guid.NewGuid().ToString().Replace("-", string.Empty);
         }
 
-        private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxInputKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
+            EnableOrDisableCreateButton();
         }
 
-        private void radioButtonTranscodingNone_CheckedChanged(object sender, EventArgs e)
+        private void RadioButtonTranscodingNone_CheckedChanged(object sender, EventArgs e)
         {
             UpdateUIBasedOnLEMode(sender as RadioButton);
         }
@@ -532,13 +559,13 @@ namespace AMSExplorer
             }
         }
 
-        private void checkBoxVanityUrl_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxVanityUrl_CheckedChanged(object sender, EventArgs e)
         {
             textBoxStaticHostname.Enabled = labelStaticHostnamePrefix.Enabled = checkBoxVanityUrl.Checked;
             UpdateLabelSyntax();
         }
 
-        private void textBoxInputId_TextChanged(object sender, EventArgs e)
+        private void TextBoxInputId_TextChanged(object sender, EventArgs e)
         {
             UpdateLabelSyntax();
         }
@@ -548,31 +575,44 @@ namespace AMSExplorer
             comboBoxLanguage.Enabled = checkBoxEnableLiveTranscript.Checked;
         }
 
-        private void textBoxStaticHostname_TextChanged(object sender, EventArgs e)
+        private void TextBoxStaticHostname_TextChanged(object sender, EventArgs e)
         {
             UpdateLabelSyntax();
         }
 
-        private void checkBoxEncodingKeyFrameInterval_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxEncodingKeyFrameInterval_CheckedChanged(object sender, EventArgs e)
         {
             textBoxEncodingKeyFrameInterval.Enabled = checkBoxEncodingKeyFrameInterval.Checked;
+            EnableOrDisableCreateButton();
         }
 
         private void LiveEventCreation_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
         }
-    }
 
-    /*
-    public class LiveEventTranscription
-    {
-        private string language;
-
-        public LiveEventTranscription(string language)
+        private void TextBoxRestrictIngestIP_TextChanged(object sender, EventArgs e)
         {
-            this.language = language;
+            ingestIpOk = CheckIPAddress((TextBox)sender);
+            EnableOrDisableCreateButton();
+        }
+
+        private void TextBoxRestrictPreviewIP_TextChanged(object sender, EventArgs e)
+        {
+            previewIpOk = CheckIPAddress((TextBox)sender);
+            EnableOrDisableCreateButton();
+        }
+
+        private void TextBoxInputKeyFrame_TextChanged(object sender, EventArgs e)
+        {
+            CheckInputKeyFrameValue();
+            EnableOrDisableCreateButton();
+        }
+
+        private void TextBoxEncodingKeyFrameInterval_TextChanged(object sender, EventArgs e)
+        {
+            CheckEncodingKeyFrameValue();
+            EnableOrDisableCreateButton();
         }
     }
-    */
 }
