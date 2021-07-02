@@ -23,6 +23,8 @@ namespace AMSExplorer
 {
     public partial class CreateStreamingEndpoint : Form
     {
+        bool seNameOk = true;
+
         public string StreamingEndpointName
         {
             get => textboxSEName.Text;
@@ -83,10 +85,12 @@ namespace AMSExplorer
             if (!IsSENameValid(tb.Text))
             {
                 errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateStreamingEndpoint_checkSEName_StreamingEndpointNameIsNotValid);
+                seNameOk = false;
             }
             else
             {
                 errorProvider1.SetError(tb, string.Empty);
+                seNameOk = true;
             }
         }
 
@@ -99,6 +103,12 @@ namespace AMSExplorer
         private void textboxSEName_TextChanged(object sender, EventArgs e)
         {
             checkSEName();
+            EnableOrDisableCreateButton();
+        }
+
+        private void EnableOrDisableCreateButton()
+        {
+            buttonOk.Enabled = seNameOk;
         }
 
         private void radioButtonPremium_CheckedChanged(object sender, EventArgs e)
