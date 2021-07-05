@@ -48,7 +48,6 @@ namespace AMSExplorer
         private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
         private const int DefaultJobRefreshIntervalInMilliseconds = 2500;
         private static int JobRefreshIntervalInMilliseconds = DefaultJobRefreshIntervalInMilliseconds;
-        private static AMSClientV3 _client;
         private List<string> _transformName = new();
         private bool _currentPageNumberIsMax;
         private int _currentPageNumber;
@@ -98,8 +97,6 @@ namespace AMSExplorer
         public void Init(AMSClientV3 client)
         {
             // if (_transformName.Count == 0) return;  // no transform name set
-
-            _client = client;
 
             List<JobEntryV3> jobs = new();
 
@@ -153,7 +150,7 @@ namespace AMSExplorer
             _initialized = true;
         }
 
-        public List<JobExtension> ReturnSelectedJobs()
+        public List<JobExtension> ReturnSelectedJobs(AMSClientV3 amsClient)
         {
             List<JobExtension> SelectedJobs = new();
 
@@ -162,7 +159,7 @@ namespace AMSExplorer
                 string tName = Row.Cells[Columns["TransformName"].Index].Value.ToString();
                 // sometimes, the transform can be null (if just deleted)
                 Job job = Task.Run(() =>
-            _client.GetJobAsync(tName, Row.Cells[Columns["Name"].Index].Value.ToString())
+            amsClient.GetJobAsync(tName, Row.Cells[Columns["Name"].Index].Value.ToString())
             ).GetAwaiter().GetResult();
 
                 if (job != null)
@@ -195,7 +192,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task RefreshjobsAsync(int pagetodisplay) // all jobs are refreshed
+        public async Task RefreshjobsAsync(int pagetodisplay, AMSClientV3 amsClient) // all jobs are refreshed
         {
             if ((!_initialized) || _transformName.Count == 0)
             {
@@ -287,7 +284,7 @@ namespace AMSExplorer
 
             if (pagetodisplay == 1)
             {
-                firstpage = await _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform, odataQuery);
+                firstpage = await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, transform, odataQuery);
                 currentPage = firstpage;
             }
             else
@@ -297,7 +294,7 @@ namespace AMSExplorer
                 while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
                     _currentPageNumber++;
-                    currentPage = await _client.AMSclient.Jobs.ListNextAsync(currentPage.NextPageLink);
+                    currentPage = await amsClient.AMSclient.Jobs.ListNextAsync(currentPage.NextPageLink);
                 }
                 if (currentPage.NextPageLink == null)
                 {
@@ -329,7 +326,7 @@ namespace AMSExplorer
 
             Debug.WriteLine("RefreshJobs End");
 
-            await RestoreJobProgressAsync(new List<string> { transform });
+            await RestoreJobProgressAsync(new List<string> { transform }, amsClient);
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
@@ -337,7 +334,7 @@ namespace AMSExplorer
 
 
         // Used to restore job progress. 2 cases: when app is launched or when a job has been created by an external program
-        public async Task RestoreJobProgressAsync(List<string> transforms)  // when app is launched for example, we want to restore job progress updates
+        public async Task RestoreJobProgressAsync(List<string> transforms, AMSClientV3 amsClient)  // when app is launched for example, we want to restore job progress updates
         {
 
 
@@ -349,13 +346,13 @@ namespace AMSExplorer
             List<JobExtension> ActiveAndVisibleJobs = new();
             foreach (string t in transforms)
             {
-                IPage<Job> jobsPage = await _client.AMSclient.Jobs.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, t, odataQuery);
+                IPage<Job> jobsPage = await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, t, odataQuery);
                 while (jobsPage != null)
                 {
                     ActiveAndVisibleJobs.AddRange(jobsPage.Select(j => new JobExtension() { Job = j, TransformName = t }));
                     if (jobsPage.NextPageLink != null)
                     {
-                        jobsPage = await _client.AMSclient.Jobs.ListNextAsync(jobsPage.NextPageLink);
+                        jobsPage = await amsClient.AMSclient.Jobs.ListNextAsync(jobsPage.NextPageLink);
                     }
                     else
                     {
@@ -393,7 +390,7 @@ namespace AMSExplorer
                     {
                         if (!_MyListJobsMonitored.ContainsKey(job.Job.Name))
                         {
-                            DoJobProgress(job); // token will be added to dictionnary in this function
+                            DoJobProgress(job, amsClient); // token will be added to dictionnary in this function
                         }
                     }
                 }
@@ -406,7 +403,7 @@ namespace AMSExplorer
             }
         }
 
-        public void DoJobProgress(JobExtension job)
+        public void DoJobProgress(JobExtension job, AMSClientV3 amsClient)
         {
             CancellationTokenSource tokenSource = new();
             CancellationToken token = tokenSource.Token;
@@ -434,7 +431,7 @@ namespace AMSExplorer
                       do
                       {
                           myJob = Task.Run(() =>
-              _client.GetJobAsync(job.TransformName, job.Job.Name)
+              amsClient.GetJobAsync(job.TransformName, job.Job.Name)
               ).GetAwaiter().GetResult();
 
                           if (token.IsCancellationRequested == true)
@@ -523,7 +520,7 @@ namespace AMSExplorer
 
                       // job finished
                       myJob = Task.Run(() =>
-                                             _client.GetJobAsync(job.TransformName, job.Job.Name)
+                                             amsClient.GetJobAsync(job.TransformName, job.Job.Name)
                                              ).GetAwaiter().GetResult();
 
                       int index2 = -1;

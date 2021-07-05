@@ -449,7 +449,7 @@ namespace AMSExplorer
         {
             try
             {
-                await dataGridViewAssetsV.RefreshAssetsAsync(page);
+                await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
             }
             catch (Exception ex)
             {
@@ -483,7 +483,7 @@ namespace AMSExplorer
 
             Task.Run(async () =>
             {
-                await dataGridViewTransformsV.RefreshTransformsAsync();
+                await dataGridViewTransformsV.RefreshTransformsAsync(_amsClient);
             });
         }
 
@@ -504,7 +504,7 @@ namespace AMSExplorer
             int page = GetTextBoxJobsPageNumber();
             Task.Run(async () =>
             {
-                await dataGridViewJobsV.RefreshjobsAsync(page);
+                await dataGridViewJobsV.RefreshjobsAsync(page, _amsClient);
             });
         }
 
@@ -1824,7 +1824,7 @@ namespace AMSExplorer
                         {
                             myAsset = asset,
 
-                            myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+                            myStreamingEndpoints = dataGridViewStreamingEndpointsV.GetDisplayedStreamingEndpoints(_amsClient) // we want to keep the same sorting
                         };
 
                         dialogResult = form.ShowDialog(this);
@@ -1834,7 +1834,7 @@ namespace AMSExplorer
                     {
                         Cursor = Cursors.Arrow;
                         dataGridViewAssetsV.PurgeCacheAsset(asset);
-                        Task.Run(async () => await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync());
+                        Task.Run(async () => await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient));
                     }
                 }
 
@@ -1956,7 +1956,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("There is a problem when updating the asset description.", true);
                         }
                         dataGridViewAssetsV.PurgeCacheAsset(AssetTORename);
-                        await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
+                        await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient);
                     }
                 }
             }
@@ -1990,7 +1990,7 @@ namespace AMSExplorer
                         }
                         TextBoxLogWriteLine("Alternate Id for Asset Id '{0}' is now '{1}'.", AssetToEditAltId.Id, AssetToEditAltId.AlternateId);
                         dataGridViewAssetsV.PurgeCacheAsset(AssetToEditAltId);
-                        await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
+                        await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient);
                     }
                 }
             }
@@ -2636,7 +2636,7 @@ namespace AMSExplorer
                 }
             }
             DataGridViewAssets.PurgeCacheAssets(assets);
-            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
+            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient);
 
             return listLocatorNames;
         }
@@ -2752,7 +2752,7 @@ namespace AMSExplorer
                                 Telemetry.TrackException(ex);
                             }
                             DataGridViewAssets.PurgeCacheAssets(SelectedAssets);
-                            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
+                            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient);
                         }
                     }
                 }
@@ -2834,7 +2834,7 @@ namespace AMSExplorer
 
         private async Task DoDeleteSelectedJobsAsync()
         {
-            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
+            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs(_amsClient));
         }
 
         private async Task DoDeleteJobsAsync(List<JobExtension> SelectedJobs)
@@ -2878,7 +2878,7 @@ namespace AMSExplorer
         {
             Telemetry.TrackEvent("DoDeleteAllJobsAsync");
 
-            List<Transform> transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
+            List<Transform> transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync(_amsClient);
             if (transforms.Count > 1)
             {
                 return;
@@ -2944,7 +2944,7 @@ namespace AMSExplorer
         {
             Telemetry.TrackEvent("DoCancelAllJobsAsync");
 
-            List<Transform> transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
+            List<Transform> transforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync(_amsClient);
             if (transforms.Count > 1)
             {
                 return;
@@ -3307,7 +3307,7 @@ namespace AMSExplorer
             int page = GetTextBoxAssetsPageNumber() + 1;
             Task.Run(async () =>
             {
-                await dataGridViewAssetsV.RefreshAssetsAsync(page);
+                await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
             });
             if (!dataGridViewAssetsV.CurrentPageIsMax)
             {
@@ -3322,7 +3322,7 @@ namespace AMSExplorer
                 int page = GetTextBoxAssetsPageNumber() - 1;
                 Task.Run(async () =>
                 {
-                    await dataGridViewAssetsV.RefreshAssetsAsync(page);
+                    await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
                 });
 
                 SetTextBoxAssetsPageNumber(page);
@@ -3334,7 +3334,7 @@ namespace AMSExplorer
             int page = GetTextBoxJobsPageNumber() + 1;
             Task.Run(async () =>
             {
-                await dataGridViewJobsV.RefreshjobsAsync(page);
+                await dataGridViewJobsV.RefreshjobsAsync(page, _amsClient);
             });
             if (!dataGridViewJobsV.CurrentPageIsMax)
             {
@@ -3349,7 +3349,7 @@ namespace AMSExplorer
                 int page = GetTextBoxJobsPageNumber() - 1;
                 Task.Run(async () =>
                 {
-                    await dataGridViewJobsV.RefreshjobsAsync(page);
+                    await dataGridViewJobsV.RefreshjobsAsync(page, _amsClient);
                 });
 
                 SetTextBoxJobsPageNumber(page);
@@ -4268,7 +4268,7 @@ namespace AMSExplorer
 
             await Task.Run(async () =>
              {
-                 await dataGridViewLiveEventsV.RefreshLiveEventAsync(1);
+                 await dataGridViewLiveEventsV.RefreshLiveEventAsync(1, _amsClient);
                  //tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
                  tabPageLive.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents));
                  //labelLiveEvents.Invoke(new Action(() => labelLiveEvents.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
@@ -4291,7 +4291,7 @@ namespace AMSExplorer
 
             Task.Run(async () =>
             {
-                await dataGridViewLiveOutputV.RefreshLiveOutputsAsync(1);
+                await dataGridViewLiveOutputV.RefreshLiveOutputsAsync(1, _amsClient);
                 //labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0})", dataGridViewLiveOutputV.DisplayedCount)));
                 labelPrograms.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0})", dataGridViewLiveOutputV.DisplayedCount));
             });
@@ -4299,18 +4299,15 @@ namespace AMSExplorer
 
         private async Task DoRefreshGridStreamingEndpointVAsync(bool firstime)
         {
-
-
             if (firstime)
             {
                 await dataGridViewStreamingEndpointsV.InitAsync(_amsClient);
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
 
-            await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointsAsync();
+            await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointsAsync(_amsClient);
             //tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
             tabPageOrigins.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount));
-
         }
 
 
@@ -4968,7 +4965,7 @@ namespace AMSExplorer
                         try
                         {
                             await _amsClient.AMSclient.LiveEvents.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, liveEvent.Name, liveEvent);
-                            dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(liveEvent)), null);
+                            dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(liveEvent, _amsClient)), null);
                             TextBoxLogWriteLine("Live event '{0}' : updated.", liveEvent.Name);
                             Telemetry.TrackEvent("Live event updated");
                         }
@@ -5028,7 +5025,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[liveeventsrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveeventsrunning.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(loitemR)), null);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(loitemR, _amsClient)), null);
                                 if (loitemR.ResourceState == LiveEventResourceState.Stopped)
                                 {
                                     TextBoxLogWriteLine("Live event stopped : {0}.", loitemR.Name);
@@ -5076,7 +5073,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[ListEvents.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListEvents.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(loitemR)), null);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(loitemR, _amsClient)), null);
                             }
                             else if (loitemR != null)
                             {
@@ -5125,7 +5122,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[liveevntsstopped.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[liveevntsstopped.IndexOf(loitem)] = loitemR.ResourceState;
-                                dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(loitemR)), null);
+                                dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(loitemR, _amsClient)), null);
                                 if (loitemR.ResourceState == LiveEventResourceState.Running)
                                 {
                                     TextBoxLogWriteLine("Live event started : {0}.", loitemR.Name);
@@ -5198,7 +5195,7 @@ namespace AMSExplorer
                         if (loitemR != null && states[ListOutputs.IndexOf(loitem)] != loitemR.ResourceState)
                         {
                             states[ListOutputs.IndexOf(loitem)] = loitemR.ResourceState;
-                            dataGridViewLiveOutputV.BeginInvoke(new Action(async () => await dataGridViewLiveOutputV.RefreshLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitemR), loitemR)), null);
+                            dataGridViewLiveOutputV.BeginInvoke(new Action(async () => await dataGridViewLiveOutputV.RefreshLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitemR), loitemR, _amsClient)), null);
                         }
                         else if (loitemR != null)
                         {
@@ -5243,7 +5240,7 @@ namespace AMSExplorer
             }
         }
 
-        private async Task DoStartStreamingEndpointEngineAsync(List<StreamingEndpoint> ListStreamingEndpoints)
+        private async Task DoStartStreamingEndpointEngineAsync(List<StreamingEndpoint> ListStreamingEndpoints, AMSClientV3 amsClient)
         {
             // Start the streaming endpoint which are stopped
             List<StreamingEndpoint> streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.ResourceState == StreamingEndpointResourceState.Stopped).ToList();
@@ -5271,7 +5268,7 @@ namespace AMSExplorer
                             {
                                 states[streamingendpointsstopped.IndexOf(loitem)] = loitemR.ResourceState;
 
-                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
+                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, amsClient);
 
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Running)
                                 {
@@ -5357,7 +5354,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[sesrunning.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[sesrunning.IndexOf(loitem)] = loitemR.ResourceState;
-                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
+                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, _amsClient);
 
                                 if (loitemR.ResourceState == StreamingEndpointResourceState.Stopped)
                                 {
@@ -5400,7 +5397,7 @@ namespace AMSExplorer
                             if (loitemR != null && states[ListStreamingEndpoints.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListStreamingEndpoints.IndexOf(loitem)] = loitemR.ResourceState;
-                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR);
+                                await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, _amsClient);
                             }
                             else if (loitemR != null)
                             {
@@ -5555,7 +5552,7 @@ namespace AMSExplorer
                     LiveOutputInformation form = new(this, _amsClient)
                     {
                         MyLiveOutput = liveoutputs.FirstOrDefault(),
-                        MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints, // we pass this information if user open asset info from the program info dialog box
+                        MyStreamingEndpoints = dataGridViewStreamingEndpointsV.GetDisplayedStreamingEndpoints(_amsClient), // we pass this information if user open asset info from the program info dialog box
                         MultipleSelection = multiselection
                     };
                     form.ShowDialog();
@@ -5753,7 +5750,7 @@ namespace AMSExplorer
         {
             Telemetry.TrackEvent("DoStartStreamingEndpointsAsync");
 
-            await DoStartStreamingEndpointEngineAsync(await ReturnSelectedStreamingEndpointsAsync());
+            await DoStartStreamingEndpointEngineAsync(await ReturnSelectedStreamingEndpointsAsync(), _amsClient);
         }
 
         private async Task DoStopStreamingEndpointsAsync()
@@ -6580,7 +6577,7 @@ namespace AMSExplorer
                                             .Where(l => l.Name == locator.Name).FirstOrDefault();
 
                                 dataGridViewAssetsV.PurgeCacheAsset(myAsset);
-                                await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
+                                await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient);
                             }
                             catch (Exception ex)
                             {
@@ -7130,7 +7127,7 @@ namespace AMSExplorer
                     Telemetry.TrackException(ex);
                 }
                 dataGridViewAssetsV.PurgeCacheAsset(selasset);
-                await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
+                await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient);
             }
         }
 
@@ -7368,7 +7365,7 @@ namespace AMSExplorer
 
         private async void visibleJobsInGridToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
+            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs(_amsClient));
         }
 
         private async void allJobsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -7378,7 +7375,7 @@ namespace AMSExplorer
 
         private async void selectedJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs());
+            await DoDeleteJobsAsync(dataGridViewJobsV.ReturnSelectedJobs(_amsClient));
         }
 
         private async void dataGridViewStorage_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -8025,7 +8022,7 @@ namespace AMSExplorer
         private async void DataGridViewTransformsV_SelectionChanged(object sender, EventArgs e)
         {
             Debug.WriteLine("transform selection changed : begin");
-            List<Transform> SelectedTransforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync();
+            List<Transform> SelectedTransforms = await dataGridViewTransformsV.ReturnSelectedTransformsAsync(_amsClient);
             if (SelectedTransforms.Count == 1)
             {
                 dataGridViewJobsV.SetTransformSourceNames(SelectedTransforms.Select(c => c.Name).ToList());
@@ -8399,7 +8396,7 @@ namespace AMSExplorer
                         Dictionary<string, double> dictionaryM = new() { { "Input count", jobInput is JobInputAsset ? 1 : (jobInput as JobInputSequence).Inputs.Count }, { "Output count", jobOutputs.Count } };
                         Telemetry.TrackEvent("Job created", dictionary, dictionaryM);
 
-                        dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
+                        dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name }, _amsClient);
                     }
                     catch (Exception ex)
                     {
@@ -8496,7 +8493,7 @@ namespace AMSExplorer
                     Dictionary<string, double> dictionaryM = new() { { "Input count", 1 }, { "Output count", jobOutputs.Count } };
                     Telemetry.TrackEvent("Job created", dictionary, dictionaryM);
 
-                    dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name });
+                    dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Name }, _amsClient);
                 }
                 catch (Exception ex)
                 {
@@ -8581,14 +8578,12 @@ namespace AMSExplorer
 
         private async void dataGridViewAssetsV_Scroll(object sender, ScrollEventArgs e)
         {
-            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
-
+            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient);
         }
 
         private async void dataGridViewAssetsV_SizeChanged(object sender, EventArgs e)
         {
-            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync();
-
+            await dataGridViewAssetsV.ReLaunchAnalyzeOfAssetsAsync(_amsClient);
         }
 
         private async void createASASUrlToolStripMenuItem_Click(object sender, EventArgs e)

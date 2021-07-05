@@ -73,7 +73,6 @@ namespace AMSExplorer
         private static bool _initialized = false;
         private static bool _refreshedatleastonetime = false;
         private static string _statefilter = "All";
-        private AMSClientV3 _amsClient;
         private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveEventName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
         private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
@@ -97,22 +96,21 @@ namespace AMSExplorer
             };
         }
 
-        public async Task InitAsync(AMSClientV3 client)
+        public async Task InitAsync(AMSClientV3 amsClient)
         {
             IEnumerable<LiveEventEntry> channelquery;
 
-            _amsClient = client;
             float scale = DeviceDpi / 96f;
 
             // Listing live events
             List<LiveEvent> liveevents = new();
-            IPage<LiveEvent> liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            IPage<LiveEvent> liveeventsPage = await amsClient.AMSclient.LiveEvents.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
             while (liveeventsPage != null)
             {
                 liveevents.AddRange(liveeventsPage);
                 if (liveeventsPage.NextPageLink != null)
                 {
-                    liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListNextAsync(liveeventsPage.NextPageLink);
+                    liveeventsPage = await amsClient.AMSclient.LiveEvents.ListNextAsync(liveeventsPage.NextPageLink);
                 }
                 else
                 {
@@ -199,7 +197,7 @@ namespace AMSExplorer
             }
         }
 
-        public async Task RefreshLiveEventAsync(LiveEvent liveEventItem)
+        public async Task RefreshLiveEventAsync(LiveEvent liveEventItem, AMSClientV3 amsClient)
         {
             int index = -1;
             foreach (LiveEventEntry CE in _MyObservLiveEvent) // let's search for index
@@ -214,7 +212,7 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
 
-                liveEventItem = await _amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
+                liveEventItem = await amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
                 if (liveEventItem != null)
                 {
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
@@ -226,7 +224,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task RefreshLiveEventAsync(int pagetodisplay) // all assets are refreshed
+        public async Task RefreshLiveEventAsync(int pagetodisplay, AMSClientV3 amsClient) // all assets are refreshed
         {
             if (!_initialized)
             {
@@ -237,13 +235,13 @@ namespace AMSExplorer
 
             // Listing live events
             List<LiveEvent> liveevents = new();
-            IPage<LiveEvent> liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            IPage<LiveEvent> liveeventsPage = await amsClient.AMSclient.LiveEvents.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
             while (liveeventsPage != null)
             {
                 liveevents.AddRange(liveeventsPage);
                 if (liveeventsPage.NextPageLink != null)
                 {
-                    liveeventsPage = await _amsClient.AMSclient.LiveEvents.ListNextAsync(liveeventsPage.NextPageLink);
+                    liveeventsPage = await amsClient.AMSclient.LiveEvents.ListNextAsync(liveeventsPage.NextPageLink);
                 }
                 else
                 {
