@@ -144,6 +144,9 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
+  <data name="comboBoxAzureLocations.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="comboBoxAzureLocations.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 68</value>
   </data>

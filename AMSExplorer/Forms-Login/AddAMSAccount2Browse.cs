@@ -40,6 +40,7 @@ namespace AMSExplorer
         private Dictionary<string, IPublicClientApplication> _clientApplications = new();
         private readonly Prompt _prompt;
         private readonly IPublicClientApplication _app;
+        private readonly AuthenticationResult _accessToken;
         private List<Subscription> subscriptions;
         private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new();
         public MediaService selectedAccount = null;
@@ -51,7 +52,7 @@ namespace AMSExplorer
         public Subscription SelectedSubscription;
         public AzureMediaServicesClient MediaServicesClient;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants, Prompt prompt, IPublicClientApplication app)
+        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants, Prompt prompt, IPublicClientApplication app, AuthenticationResult accessToken)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -61,6 +62,12 @@ namespace AMSExplorer
             _myTenants = myTenants;
             _prompt = prompt;
             _app = app;
+            _accessToken = accessToken;
+
+            if (accessToken.TenantId != null)
+            {
+                _clientApplications[accessToken.TenantId] = app;
+            }
         }
 
         private void AddAMSAccount2_Load(object sender, EventArgs e)
@@ -98,14 +105,13 @@ namespace AMSExplorer
             if (!_clientApplications.ContainsKey(selectedTenantId))
             {
                 _clientApplications[selectedTenantId] = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", "common"))
+                .WithAuthority(environment.AADSettings.AuthenticationEndpoint + selectedTenantId)
                 .WithDefaultRedirectUri()
                 //.WithRedirectUri("http://localhost")
                 .Build();
             }
 
             IPublicClientApplication app = _clientApplications[selectedTenantId];
-
             AuthenticationResult accessToken = null;
             var accounts = await _app.GetAccountsAsync();
             try

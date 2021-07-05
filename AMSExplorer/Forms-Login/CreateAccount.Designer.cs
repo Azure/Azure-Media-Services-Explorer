@@ -86,9 +86,9 @@
             // 
             // comboBoxAzureLocations
             // 
+            resources.ApplyResources(this.comboBoxAzureLocations, "comboBoxAzureLocations");
             this.comboBoxAzureLocations.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAzureLocations.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAzureLocations, "comboBoxAzureLocations");
             this.comboBoxAzureLocations.Name = "comboBoxAzureLocations";
             this.comboBoxAzureLocations.SelectedIndexChanged += new System.EventHandler(this.comboBoxAzureLocations_SelectedIndexChanged);
             // 
