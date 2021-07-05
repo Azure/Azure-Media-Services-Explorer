@@ -55,6 +55,7 @@
             this.buttonCheckAvailStorage = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.label6 = new System.Windows.Forms.Label();
+            this.linkLabelAvailZone = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -122,7 +123,7 @@
             resources.ApplyResources(this.buttonCheckAvailAMS, "buttonCheckAvailAMS");
             this.buttonCheckAvailAMS.Name = "buttonCheckAvailAMS";
             this.buttonCheckAvailAMS.UseVisualStyleBackColor = true;
-            this.buttonCheckAvailAMS.Click += new System.EventHandler(this.buttonCheckAvail_Click);
+            this.buttonCheckAvailAMS.Click += new System.EventHandler(this.buttonCheckAvailAMS_Click);
             // 
             // groupBox1
             // 
@@ -231,6 +232,13 @@
             this.label6.ForeColor = System.Drawing.Color.DarkBlue;
             this.label6.Name = "label6";
             // 
+            // linkLabelAvailZone
+            // 
+            resources.ApplyResources(this.linkLabelAvailZone, "linkLabelAvailZone");
+            this.linkLabelAvailZone.Name = "linkLabelAvailZone";
+            this.linkLabelAvailZone.TabStop = true;
+            this.linkLabelAvailZone.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAvailZone_LinkClicked);
+            // 
             // CreateAccount
             // 
             this.AcceptButton = this.buttonCreate;
@@ -238,6 +246,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.linkLabelAvailZone);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkBoxCreateRG);
@@ -289,5 +298,6 @@
         private System.Windows.Forms.ComboBox comboBoxStorageType;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel linkLabelAvailZone;
     }
 }

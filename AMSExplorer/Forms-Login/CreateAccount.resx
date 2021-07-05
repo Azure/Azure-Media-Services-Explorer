@@ -142,13 +142,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="comboBoxAzureLocations.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 68</value>
   </data>
   <data name="comboBoxAzureLocations.Size" type="System.Drawing.Size, System.Drawing">
-    <value>252, 23</value>
+    <value>270, 23</value>
   </data>
   <data name="comboBoxAzureLocations.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -163,7 +163,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBoxAzureLocations.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -193,7 +193,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="textBoxAccountName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -394,7 +394,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -424,7 +424,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="textBoxRG.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -448,7 +448,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxRG.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="progressBarCreation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -478,7 +478,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;progressBarCreation.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="checkBoxCreateRG.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -508,7 +508,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBoxCreateRG.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="checkBoxCreateStorage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -517,13 +517,13 @@
     <value>16, 33</value>
   </data>
   <data name="checkBoxCreateStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>266, 19</value>
+    <value>216, 19</value>
   </data>
   <data name="checkBoxCreateStorage.TabIndex" type="System.Int32, mscorlib">
     <value>109</value>
   </data>
   <data name="checkBoxCreateStorage.Text" xml:space="preserve">
-    <value>Create a storage account (GPv2). Replication :</value>
+    <value>Create a GPv2 account. Replication :</value>
   </data>
   <data name="&gt;&gt;checkBoxCreateStorage.Name" xml:space="preserve">
     <value>checkBoxCreateStorage</value>
@@ -598,10 +598,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="comboBoxStorageType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>288, 31</value>
+    <value>238, 31</value>
   </data>
   <data name="comboBoxStorageType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 23</value>
+    <value>256, 23</value>
   </data>
   <data name="comboBoxStorageType.TabIndex" type="System.Int32, mscorlib">
     <value>114</value>
@@ -706,7 +706,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -719,6 +719,39 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>572, 607</value>
+  </data>
+  <data name="linkLabelAvailZone.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="linkLabelAvailZone.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelAvailZone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelAvailZone.Location" type="System.Drawing.Point, System.Drawing">
+    <value>304, 71</value>
+  </data>
+  <data name="linkLabelAvailZone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 15</value>
+  </data>
+  <data name="linkLabelAvailZone.TabIndex" type="System.Int32, mscorlib">
+    <value>114</value>
+  </data>
+  <data name="linkLabelAvailZone.Text" xml:space="preserve">
+    <value>Availability zones supported in that location</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAvailZone.Name" xml:space="preserve">
+    <value>linkLabelAvailZone</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAvailZone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAvailZone.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAvailZone.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -751,7 +784,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>

@@ -98,8 +98,9 @@ namespace AMSExplorer
             if (!_clientApplications.ContainsKey(selectedTenantId))
             {
                 _clientApplications[selectedTenantId] = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", selectedTenantId))
-                .WithRedirectUri("http://localhost")
+                .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", "common"))
+                .WithDefaultRedirectUri()
+                //.WithRedirectUri("http://localhost")
                 .Build();
             }
 

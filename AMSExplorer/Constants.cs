@@ -135,6 +135,7 @@ namespace AMSExplorer
 
         public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/latest/account-create-how-to";
         public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-howto";
+        public const string LinkAMSAvailabilityZones = "https://docs.microsoft.com/en-us/azure/media-services/latest/concept-availability-zones";
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";

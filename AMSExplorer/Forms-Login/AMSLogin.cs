@@ -16,6 +16,7 @@
 
 
 using AMSExplorer.AMSLogin;
+using AMSExplorer.Rest;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
@@ -447,7 +448,7 @@ namespace AMSExplorer
                     var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
 
                     IPublicClientApplication appPickUp = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "organizations")
+                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
                         .WithRedirectUri("http://localhost")
                         .Build();
 
@@ -554,7 +555,17 @@ namespace AMSExplorer
                                 SubscriptionId = addaccount2.SelectedSubscription.SubscriptionId
                             };
 
-                            CreateAccount createAccount = new(myLocations, MediaServicesClient, credentials);
+                            // let's get the list of avaibility zones
+                            AzureProviders aP = new AzureProviders(environment.ArmEndpoint);
+                            var list = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.SubscriptionId, "Microsoft.Network", accessToken.AccessToken);
+                            var listNatGateways = list.ResourceTypes.Where(r => r.ResourceType == "natGateways").FirstOrDefault();
+                            List<string> listRegionWithAvailabilityZone = new();
+                            if (listNatGateways != null)
+                            {
+                                listRegionWithAvailabilityZone = listNatGateways.ZoneMappings.Where(z => z.Zones.Count >= 3).Select(z => z.Location).ToList();
+                            }
+
+                            CreateAccount createAccount = new(myLocations, MediaServicesClient, credentials, listRegionWithAvailabilityZone);
 
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {
