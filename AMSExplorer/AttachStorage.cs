@@ -66,8 +66,6 @@ namespace AMSExplorer
         }
 
 
-
-
         public AttachStorage(AMSClientV3 amsClient)
         {
             InitializeComponent();
@@ -81,8 +79,6 @@ namespace AMSExplorer
 
             try
             {
-
-
                 mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
                 // The default value is 30 seconds for the .NET client SDK

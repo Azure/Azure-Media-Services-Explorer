@@ -253,6 +253,7 @@ namespace AMSExplorer
 
                 if (webViewRegEntry == null || (string)webViewRegEntry.GetValue("pv") == null || new Version((string)webViewRegEntry.GetValue("pv")) < new Version(Constants.Webview2MinVersion))
                 {
+                    Telemetry.TrackEvent("Program CheckWebView2VersionAsync Webview2 update required");
                     if (MessageBox.Show("Microsoft Edge WebView2 runtime must be installed or updated. Launch the download and installation now ?", "Webview2 runtime", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         WebClient webClient = new();

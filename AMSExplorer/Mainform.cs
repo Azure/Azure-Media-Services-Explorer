@@ -6385,7 +6385,6 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
                 // Update storage accounts
                 try
                 {

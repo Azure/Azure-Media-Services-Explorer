@@ -230,6 +230,7 @@ namespace AMSExplorer
         {
             progressBarCreation.Visible = true;
             buttonCreate.Enabled = false;
+            Telemetry.TrackEvent("CreateAccount DoCreationAsync");
 
             try
             {
