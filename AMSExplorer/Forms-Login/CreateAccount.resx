@@ -220,7 +220,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;textBoxAccountName.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -250,7 +250,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -334,10 +334,110 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;buttonCheckAvailAMS.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="linkLabelManagedIdentities.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="linkLabelManagedIdentities.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelManagedIdentities.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelManagedIdentities.Location" type="System.Drawing.Point, System.Drawing">
+    <value>386, 88</value>
+  </data>
+  <data name="linkLabelManagedIdentities.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 15</value>
+  </data>
+  <data name="linkLabelManagedIdentities.TabIndex" type="System.Int32, mscorlib">
+    <value>116</value>
+  </data>
+  <data name="linkLabelManagedIdentities.Text" xml:space="preserve">
+    <value>Managed identities</value>
+  </data>
+  <data name="&gt;&gt;linkLabelManagedIdentities.Name" xml:space="preserve">
+    <value>linkLabelManagedIdentities</value>
+  </data>
+  <data name="&gt;&gt;linkLabelManagedIdentities.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelManagedIdentities.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;linkLabelManagedIdentities.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.Location" type="System.Drawing.Point, System.Drawing">
+    <value>356, 73</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 15</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.TabIndex" type="System.Int32, mscorlib">
+    <value>115</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.Text" xml:space="preserve">
+    <value>Customer managed keys</value>
+  </data>
+  <data name="&gt;&gt;linkLabelCustomerManagedKeys.Name" xml:space="preserve">
+    <value>linkLabelCustomerManagedKeys</value>
+  </data>
+  <data name="&gt;&gt;linkLabelCustomerManagedKeys.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelCustomerManagedKeys.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;linkLabelCustomerManagedKeys.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxManagedIdentity.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxManagedIdentity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 77</value>
+  </data>
+  <data name="checkBoxManagedIdentity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 19</value>
+  </data>
+  <data name="checkBoxManagedIdentity.TabIndex" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="checkBoxManagedIdentity.Text" xml:space="preserve">
+    <value>Create a system managed identity in Azure AD</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>147, 17</value>
+  </metadata>
+  <data name="checkBoxManagedIdentity.ToolTip" xml:space="preserve">
+    <value>You can create an account using a system-managed identity. Managed Service Identities are automatically managed by Azure and enable you to authenticate to services that support Azure AD authentication, without including authentication information in your code.
+Making this selection will allow you to use customer managed keys, or bring your own key (BYOK) and Media Services to enable trusted storage. </value>
+  </data>
+  <data name="&gt;&gt;checkBoxManagedIdentity.Name" xml:space="preserve">
+    <value>checkBoxManagedIdentity</value>
+  </data>
+  <data name="&gt;&gt;checkBoxManagedIdentity.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxManagedIdentity.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxManagedIdentity.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="labelOkAMSAccount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -373,13 +473,13 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;labelOkAMSAccount.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 107</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>514, 101</value>
+    <value>514, 110</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>104</value>
@@ -803,6 +903,12 @@
   </data>
   <data name="&gt;&gt;errorProvider1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>CreateAccount</value>

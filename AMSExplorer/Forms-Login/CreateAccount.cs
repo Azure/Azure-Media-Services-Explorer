@@ -73,7 +73,8 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
             linkLabelAvailZone.Links.Add(new LinkLabel.Link(0, linkLabelAvailZone.Text.Length, Constants.LinkAMSAvailabilityZones));
-
+            linkLabelCustomerManagedKeys.Links.Add(new LinkLabel.Link(0, linkLabelCustomerManagedKeys.Text.Length, Constants.LinkAMSCustomerManagedKeys));
+            linkLabelManagedIdentities.Links.Add(new LinkLabel.Link(0, linkLabelManagedIdentities.Text.Length, Constants.LinkAMSManagedIdentities));
 
             foreach (var loc in _locations)
             {
@@ -226,13 +227,13 @@ namespace AMSExplorer
                 MediaService parameters = new(
                     location: SelectedLocationName, // This is the location for the account to be created. 
                     storageAccounts: new List<Microsoft.Azure.Management.Media.Models.StorageAccount>(){
-                    new Microsoft.Azure.Management.Media.Models.StorageAccount(
-                        type: StorageAccountType.Primary,
-                        // set this to the name of a storage account in your subscription using the full resource path formatting for Microsoft.Storage
-                        id: storageId
-                    ),
-                     
-                    }
+                        new Microsoft.Azure.Management.Media.Models.StorageAccount(
+                            type: StorageAccountType.Primary,
+                            // set this to the name of a storage account in your subscription using the full resource path formatting for Microsoft.Storage
+                            id: storageId
+                        )
+                    },
+                    identity: new MediaServiceIdentity(checkBoxManagedIdentity.Checked ? ManagedIdentityType.SystemAssigned : ManagedIdentityType.None)
                 );
 
                 // Create a new Media Services account
@@ -315,7 +316,7 @@ namespace AMSExplorer
             ChangeToStorageName();
         }
 
-        private void linkLabelAvailZone_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var p = new Process
             {

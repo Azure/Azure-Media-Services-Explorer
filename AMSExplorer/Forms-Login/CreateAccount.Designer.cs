@@ -41,6 +41,9 @@
             this.textBoxStorageId = new System.Windows.Forms.TextBox();
             this.buttonCheckAvailAMS = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linkLabelManagedIdentities = new System.Windows.Forms.LinkLabel();
+            this.linkLabelCustomerManagedKeys = new System.Windows.Forms.LinkLabel();
+            this.checkBoxManagedIdentity = new System.Windows.Forms.CheckBox();
             this.labelOkAMSAccount = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxRG = new System.Windows.Forms.TextBox();
@@ -56,6 +59,7 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.linkLabelAvailZone = new System.Windows.Forms.LinkLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -128,12 +132,37 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox1.Controls.Add(this.linkLabelManagedIdentities);
+            this.groupBox1.Controls.Add(this.linkLabelCustomerManagedKeys);
+            this.groupBox1.Controls.Add(this.checkBoxManagedIdentity);
             this.groupBox1.Controls.Add(this.labelOkAMSAccount);
             this.groupBox1.Controls.Add(this.buttonCheckAvailAMS);
             this.groupBox1.Controls.Add(this.textBoxAccountName);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // linkLabelManagedIdentities
+            // 
+            resources.ApplyResources(this.linkLabelManagedIdentities, "linkLabelManagedIdentities");
+            this.linkLabelManagedIdentities.Name = "linkLabelManagedIdentities";
+            this.linkLabelManagedIdentities.TabStop = true;
+            this.linkLabelManagedIdentities.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // linkLabelCustomerManagedKeys
+            // 
+            resources.ApplyResources(this.linkLabelCustomerManagedKeys, "linkLabelCustomerManagedKeys");
+            this.linkLabelCustomerManagedKeys.Name = "linkLabelCustomerManagedKeys";
+            this.linkLabelCustomerManagedKeys.TabStop = true;
+            this.linkLabelCustomerManagedKeys.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // checkBoxManagedIdentity
+            // 
+            resources.ApplyResources(this.checkBoxManagedIdentity, "checkBoxManagedIdentity");
+            this.checkBoxManagedIdentity.Name = "checkBoxManagedIdentity";
+            this.toolTip1.SetToolTip(this.checkBoxManagedIdentity, resources.GetString("checkBoxManagedIdentity.ToolTip"));
+            this.checkBoxManagedIdentity.UseVisualStyleBackColor = true;
             // 
             // labelOkAMSAccount
             // 
@@ -185,6 +214,7 @@
             // groupBox2
             // 
             resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.comboBoxStorageType);
             this.groupBox2.Controls.Add(this.labelOkStorageAccount);
@@ -237,7 +267,7 @@
             resources.ApplyResources(this.linkLabelAvailZone, "linkLabelAvailZone");
             this.linkLabelAvailZone.Name = "linkLabelAvailZone";
             this.linkLabelAvailZone.TabStop = true;
-            this.linkLabelAvailZone.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAvailZone_LinkClicked);
+            this.linkLabelAvailZone.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // CreateAccount
             // 
@@ -299,5 +329,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.LinkLabel linkLabelAvailZone;
+        private System.Windows.Forms.CheckBox checkBoxManagedIdentity;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.LinkLabel linkLabelManagedIdentities;
+        private System.Windows.Forms.LinkLabel linkLabelCustomerManagedKeys;
     }
 }
