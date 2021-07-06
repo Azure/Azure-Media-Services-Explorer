@@ -667,7 +667,7 @@ namespace AMSExplorer
                         if (newAssetCreationSettings != null)
                         {
                             destAssetName = newAssetCreationSettings.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness());
-                            assetToCreateSettings.AlternateId = newAssetCreationSettings.AssetAltId;
+                            assetToCreateSettings.AlternateId = newAssetCreationSettings.AssetAltId?.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0]));
                             assetToCreateSettings.Container = newAssetCreationSettings.AssetContainer;
                             assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription?.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0]));
                         }
@@ -675,6 +675,7 @@ namespace AMSExplorer
                         {
                             destAssetName = "uploaded-" + Program.GetUniqueness();
                             assetToCreateSettings.Description = Path.GetFileName(filenames[0]);
+                            assetToCreateSettings.AlternateId = Path.GetFileName(filenames[0]);
                         }
 
                         asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetToCreateSettings, token);
@@ -980,11 +981,12 @@ namespace AMSExplorer
 
             try
             {
+                string fileName = Path.GetFileName(new Uri(source.AbsoluteUri).AbsolutePath);
                 Asset assetSettings = new()
                 {
                     StorageAccountName = storageaccount,
                     Description = assetCreationSettings?.AssetDescription.Replace(Constants.NameconvUrl, source.AbsoluteUri) ?? "Imported from : " + source.AbsoluteUri,
-                    AlternateId = assetCreationSettings?.AssetAltId,
+                    AlternateId = assetCreationSettings?.AssetAltId.Replace(Constants.NameconvFileName, fileName) ?? fileName,
                     Container = assetCreationSettings?.AssetContainer
                 };
 
@@ -8712,7 +8714,10 @@ namespace AMSExplorer
         {
             Telemetry.TrackEvent("DoNewAssetAsync");
 
-            NewAsset myForm = new(_amsClient) { AssetName = "asset-" + Constants.NameconvShortUniqueness };
+            NewAsset myForm = new(_amsClient) 
+            {
+                AssetName = "asset-" + Constants.NameconvShortUniqueness
+            };
             if (myForm.ShowDialog() == DialogResult.OK)
             {
                 try
