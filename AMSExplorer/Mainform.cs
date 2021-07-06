@@ -3305,10 +3305,21 @@ namespace AMSExplorer
         private void butNextPageAsset_Click(object sender, EventArgs e)
         {
             int page = GetTextBoxAssetsPageNumber() + 1;
+
             Task.Run(async () =>
             {
-                await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
+                try
+                {
+                    await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                }
+
             });
+
             if (!dataGridViewAssetsV.CurrentPageIsMax)
             {
                 SetTextBoxAssetsPageNumber(page);
@@ -3320,9 +3331,18 @@ namespace AMSExplorer
             if (GetTextBoxAssetsPageNumber() > 1)
             {
                 int page = GetTextBoxAssetsPageNumber() - 1;
+
                 Task.Run(async () =>
                 {
-                    await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
+                    try
+                    {
+                        await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
+                    }
                 });
 
                 SetTextBoxAssetsPageNumber(page);
