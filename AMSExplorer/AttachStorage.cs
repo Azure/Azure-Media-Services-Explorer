@@ -17,6 +17,8 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Azure.Management.ResourceManager;
+using Microsoft.Azure.Management.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace AMSExplorer
             get
             {
                 List<string> storages = new();
-                foreach (object stor in listViewStorage.CheckedItems)
+                foreach (object stor in listViewDetachStorage.CheckedItems)
                 {
                     string storeId = (stor as ListViewItem).SubItems[1].Text;
                     storages.Add(storeId);
@@ -45,8 +47,26 @@ namespace AMSExplorer
             }
         }
 
-        public List<string> StorageResourceIdToAttach => textBoxAttachStorage.Text.Split(new[] { Environment.NewLine },
-                               StringSplitOptions.RemoveEmptyEntries).ToList();
+        public List<string> StorageResourceIdToAttach
+
+        {
+            get
+            {
+                List<string> storages = new();
+                foreach (object stor in listViewAttachStorage.CheckedItems)
+                {
+                    string storeId = (stor as ListViewItem).SubItems[1].Text;
+                    storages.Add(storeId);
+                }
+
+                storages.AddRange(textBoxAttachStorage.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList());
+
+                return storages;
+            }
+        }
+
+
+
 
         public AttachStorage(AMSClientV3 amsClient)
         {
@@ -78,7 +98,7 @@ namespace AMSExplorer
             }
 
             List<StorageAccount> storages = mediaService.StorageAccounts.ToList();
-            listViewStorage.Items.Clear();
+            listViewDetachStorage.Items.Clear();
 
             storages.ForEach(s =>
             {
@@ -87,12 +107,39 @@ namespace AMSExplorer
                     string[] names = s.Id.Split('/');
                     ListViewItem lvitem = new(new string[] { names.Last(), s.Id })
                     {
-                        ToolTipText = s.Id
+                        ToolTipText = string.Format("Resource Group : {0}", AMSClientV3.GetStorageResourceName(s.Id))
                     };
-                    listViewStorage.Items.Add(lvitem);
+                    listViewDetachStorage.Items.Add(lvitem);
                 }
             }
             );
+
+            // list locations in order to be able the long name of location 
+            SubscriptionClient subscriptionClient = new(_amsClient.environment.ArmEndpoint, _amsClient.credentials);
+            var myLocations = subscriptionClient.Subscriptions.ListLocations(_amsClient.AMSclient.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").ToList();
+            var shortLocationName = myLocations.Where(l => l.DisplayName == _amsClient.credentialsEntry.MediaService.Location).FirstOrDefault()?.Name;
+
+            // List storage accounts in subscription
+            StorageManagementClient storageManagementClient = new(_amsClient.credentials)
+            {
+                SubscriptionId = _amsClient.AMSclient.SubscriptionId
+            };
+
+            var storageAccountsInSub2 = storageManagementClient.StorageAccounts.List().ToList();
+            var storageAccountsInSub = storageManagementClient.StorageAccounts.List().Where(s => s.Location == shortLocationName).ToList();
+
+            storageAccountsInSub.ForEach(s =>
+            {
+                ListViewItem lvitem = new(new string[] { s.Name, s.Id })
+                {
+                    ToolTipText = string.Format("Resource Group : {0} (Replication : {1})", AMSClientV3.GetStorageResourceName(s.Id), s.Sku.Name)
+                };
+                listViewAttachStorage.Items.Add(lvitem);
+
+            }
+           );
+
+            labelAttachFromList.Text = string.Format(labelAttachFromList.Text, _amsClient.credentialsEntry.MediaService.Location);
             buttonAttach.Enabled = true;
         }
 

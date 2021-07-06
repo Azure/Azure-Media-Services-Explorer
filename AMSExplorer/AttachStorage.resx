@@ -124,7 +124,7 @@
     <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 480</value>
+    <value>0, 506</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>784, 55</value>
@@ -142,16 +142,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <data name="textBoxAttachStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxAttachStorage.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
   <data name="textBoxAttachStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 295</value>
+    <value>22, 267</value>
   </data>
   <data name="textBoxAttachStorage.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -160,7 +163,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxAttachStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>699, 155</value>
+    <value>401, 141</value>
   </data>
   <data name="textBoxAttachStorage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -178,83 +181,88 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxAttachStorage.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;textBoxAttachStorage.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 262</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 30</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Attach additional storage account(s). Provide the Resource Id (one per line).
-It can be found in the Azure portal, in the 'endpoints' section of the storage account.</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="listViewStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelAttachFromList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="listViewStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 100</value>
+  <data name="labelAttachFromList.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="listViewStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>699, 125</value>
+  <data name="labelAttachFromList.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="listViewStorage.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelAttachFromList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 29</value>
+  </data>
+  <data name="labelAttachFromList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>401, 35</value>
+  </data>
+  <data name="labelAttachFromList.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="labelAttachFromList.Text" xml:space="preserve">
+    <value>Attach additional storage account(s) from the same location '{0}'</value>
+  </data>
+  <data name="&gt;&gt;labelAttachFromList.Name" xml:space="preserve">
+    <value>labelAttachFromList</value>
+  </data>
+  <data name="&gt;&gt;labelAttachFromList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAttachFromList.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;labelAttachFromList.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="listViewDetachStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="listViewDetachStorage.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="listViewDetachStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 78</value>
+  </data>
+  <data name="listViewDetachStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 330</value>
+  </data>
+  <data name="listViewDetachStorage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;listViewStorage.Name" xml:space="preserve">
-    <value>listViewStorage</value>
+  <data name="&gt;&gt;listViewDetachStorage.Name" xml:space="preserve">
+    <value>listViewDetachStorage</value>
   </data>
-  <data name="&gt;&gt;listViewStorage.Type" xml:space="preserve">
+  <data name="&gt;&gt;listViewDetachStorage.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;listViewStorage.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;listViewDetachStorage.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;listViewStorage.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="&gt;&gt;listViewDetachStorage.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
   <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 82</value>
+    <value>22, 32</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 15</value>
+    <value>225, 43</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Select the secondary accounts to detach :</value>
+    <value>Select the secondary account(s) to detach :</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -263,10 +271,10 @@ It can be found in the Azure portal, in the 'endpoints' section of the storage a
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>0</value>
   </data>
   <data name="labelAssetCopy.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -301,70 +309,125 @@ It can be found in the Azure portal, in the 'endpoints' section of the storage a
   <data name="&gt;&gt;labelAssetCopy.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="listViewAttachStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt, style=Bold</value>
+  <data name="listViewAttachStorage.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="listViewAttachStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 67</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 247</value>
+  <data name="listViewAttachStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>401, 127</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 15</value>
+  <data name="listViewAttachStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
+  <data name="&gt;&gt;listViewAttachStorage.Name" xml:space="preserve">
+    <value>listViewAttachStorage</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Attach</value>
+  <data name="&gt;&gt;listViewAttachStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="&gt;&gt;listViewAttachStorage.Parent" xml:space="preserve">
+    <value>groupBox2</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;listViewAttachStorage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
   </data>
-  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt, style=Bold</value>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 67</value>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 213</value>
   </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 15</value>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>401, 51</value>
   </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>76</value>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Detach</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Or provide the Resource Id (one per line).
+It can be found in the Azure portal, in the 'endpoints' section of the storage account.</value>
   </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
   </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
+  </data>
+  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 58</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>255, 423</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Detach</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="groupBox2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
+  </data>
+  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>322, 58</value>
+  </data>
+  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>447, 423</value>
+  </data>
+  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Attach</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -377,13 +440,10 @@ It can be found in the Azure portal, in the 'endpoints' section of the storage a
     <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>784, 535</value>
+    <value>784, 561</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
