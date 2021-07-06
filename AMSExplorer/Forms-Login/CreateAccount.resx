@@ -220,7 +220,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;textBoxAccountName.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -250,7 +250,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -280,7 +280,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="textBoxStorageId.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -307,34 +307,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;textBoxStorageId.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="buttonCheckAvailAMS.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="buttonCheckAvailAMS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>372, 47</value>
-  </data>
-  <data name="buttonCheckAvailAMS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 23</value>
-  </data>
-  <data name="buttonCheckAvailAMS.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonCheckAvailAMS.Text" xml:space="preserve">
-    <value>Check availability</value>
-  </data>
-  <data name="&gt;&gt;buttonCheckAvailAMS.Name" xml:space="preserve">
-    <value>buttonCheckAvailAMS</value>
-  </data>
-  <data name="&gt;&gt;buttonCheckAvailAMS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCheckAvailAMS.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;buttonCheckAvailAMS.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -638,7 +611,7 @@ Making this selection will allow you to use customer managed keys, or bring your
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;checkBoxCreateStorage.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="textBoxNewStorageName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -662,7 +635,7 @@ Making this selection will allow you to use customer managed keys, or bring your
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;textBoxNewStorageName.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -756,36 +729,6 @@ Making this selection will allow you to use customer managed keys, or bring your
   </data>
   <data name="&gt;&gt;labelOkStorageAccount.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="buttonCheckAvailStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="buttonCheckAvailStorage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonCheckAvailStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>372, 76</value>
-  </data>
-  <data name="buttonCheckAvailStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 23</value>
-  </data>
-  <data name="buttonCheckAvailStorage.TabIndex" type="System.Int32, mscorlib">
-    <value>111</value>
-  </data>
-  <data name="buttonCheckAvailStorage.Text" xml:space="preserve">
-    <value>Check availability</value>
-  </data>
-  <data name="&gt;&gt;buttonCheckAvailStorage.Name" xml:space="preserve">
-    <value>buttonCheckAvailStorage</value>
-  </data>
-  <data name="&gt;&gt;buttonCheckAvailStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCheckAvailStorage.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;buttonCheckAvailStorage.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 233</value>

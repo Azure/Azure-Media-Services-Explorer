@@ -44,6 +44,9 @@ namespace AMSExplorer
         private bool OkStorageAccount = false;
         private string _uniqueness;
 
+        private Timer _typingAMSAccountTimer;
+        private Timer _typingStorageAccountTimer;
+
         public string SelectedLocationDisplayName => (comboBoxAzureLocations.SelectedItem as Item).Value;
 
         public string SelectedLocationName => _locations.Where(l => l.DisplayName == (comboBoxAzureLocations.SelectedItem as Item).Value).First().Name;
@@ -84,6 +87,16 @@ namespace AMSExplorer
 
             _uniqueness = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 13); // Create a GUID for uniqueness.
 
+
+            _typingAMSAccountTimer = new Timer();
+            _typingAMSAccountTimer.Interval = 1000;
+            _typingAMSAccountTimer.Tick += new EventHandler(this.handleTypingAMSAccountTimerTimeout);
+
+            _typingStorageAccountTimer = new Timer();
+            _typingStorageAccountTimer.Interval = 1000;
+            _typingStorageAccountTimer.Tick += new EventHandler(this.handleTypingStorageAccountTimerTimeout);
+
+
             UpdateDefaultNames();
 
         }
@@ -97,16 +110,48 @@ namespace AMSExplorer
         private void textBoxAccountName_TextChanged(object sender, EventArgs e)
         {
             ChangeToAccountNameOrRegion();
+
+            _typingAMSAccountTimer.Stop(); // Resets the timer
+            _typingAMSAccountTimer.Start();
         }
 
-        private void buttonCheckAvailAMS_Click(object sender, EventArgs e)
+        private void handleTypingAMSAccountTimerTimeout(object sender, EventArgs e)
         {
-            var availability = _mediaServicesClient.Locations.CheckNameAvailability(
-                              type: "Microsoft.Media/mediaservices",
-                              locationName: SelectedLocationName,
-                              name: AccountName);
+            var timer = sender as Timer;
+            if (timer == null)
+            {
+                return;
+            }
 
-            buttonCheckAvailAMS.Enabled = false;
+            // The timer must be stopped! We want to act only once per keystroke.
+            timer.Stop();
+            CheckAvailAMSAccount();
+        }
+
+
+        private async void handleTypingStorageAccountTimerTimeout(object sender, EventArgs e)
+        {
+            var timer = sender as Timer;
+            if (timer == null)
+            {
+                return;
+            }
+
+            // The timer must be stopped! We want to act only once per keystroke.
+            timer.Stop();
+            await CheckAvailStorage();
+        }
+
+
+        private void CheckAvailAMSAccount()
+        {
+            if (string.IsNullOrEmpty(AccountName)) return;
+            if (string.IsNullOrEmpty(SelectedLocationName)) return;
+
+            var availability = _mediaServicesClient.Locations.CheckNameAvailability(
+                                          type: "Microsoft.Media/mediaservices",
+                                          locationName: SelectedLocationName,
+                                          name: AccountName);
 
             if (!availability.NameAvailable)
             {
@@ -143,7 +188,7 @@ namespace AMSExplorer
             comboBoxStorageType.Items.Add(new Item("Read-access geo-redundant storage (RA-GRS)", SkuName.StandardRAGRS));
             comboBoxStorageType.SelectedIndex = 0;
 
-            ChangeToAccountNameOrRegion();
+            CheckAvailAMSAccount();
         }
 
         private void UpdateDefaultNames()
@@ -155,7 +200,6 @@ namespace AMSExplorer
 
         private void ChangeToAccountNameOrRegion()
         {
-            buttonCheckAvailAMS.Enabled = true;
             labelOkAMSAccount.Text = _questionMark;
             errorProvider1.SetError(textBoxAccountName, string.Empty);
             OkAMSAccount = false;
@@ -165,7 +209,6 @@ namespace AMSExplorer
 
         private void ChangeToStorageName()
         {
-            buttonCheckAvailStorage.Enabled = true;
             labelOkStorageAccount.Text = _questionMark;
             errorProvider1.SetError(textBoxNewStorageName, string.Empty);
             OkStorageAccount = false;
@@ -265,16 +308,14 @@ namespace AMSExplorer
             buttonCreate.Enabled = true;
         }
 
-        private async void buttonCheckAvailStorage_Click(object sender, EventArgs e)
-        {
 
+        private async Task CheckAvailStorage()
+        {
             StorageManagementClient storageManagementClient = new(_tokenCredentials)
             {
                 SubscriptionId = _mediaServicesClient.SubscriptionId
             };
             var availability = await storageManagementClient.StorageAccounts.CheckNameAvailabilityAsync(textBoxNewStorageName.Text);
-
-            buttonCheckAvailStorage.Enabled = false;
 
             if (!(bool)availability.NameAvailable)
             {
@@ -306,7 +347,6 @@ namespace AMSExplorer
                 textBoxNewStorageName.Enabled = false;
                 comboBoxStorageType.Enabled = false;
                 textBoxStorageId.Enabled = true;
-                buttonCheckAvailStorage.Enabled = false;
                 UpdateButtonCreate();
             }
         }
@@ -314,6 +354,9 @@ namespace AMSExplorer
         private void textBoxNewStorageName_TextChanged(object sender, EventArgs e)
         {
             ChangeToStorageName();
+
+            _typingStorageAccountTimer.Stop(); // Resets the timer
+            _typingStorageAccountTimer.Start();
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
