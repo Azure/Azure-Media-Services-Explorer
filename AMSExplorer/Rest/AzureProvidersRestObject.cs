@@ -15,17 +15,12 @@
 //---------------------------------------------------------------------------------------------
 
 
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace AMSExplorer.Rest
 {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
 
-   
 
     public class Authorization
     {

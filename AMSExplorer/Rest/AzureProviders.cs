@@ -15,15 +15,16 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace AMSExplorer.Rest
 {
+    /// <summary>
+    /// This class is used for the REST call on Azure provides. AMSE uses this to know the Azure locations which have availability zones for AMS account creation.
+    /// </summary>
     public class AzureProviders
     {
         private string _managementUrl;
