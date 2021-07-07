@@ -210,7 +210,7 @@ namespace AMSExplorer
         public void DoTransformStat()
         {
             Telemetry.TrackEvent("TransformInformation DoTransformStat");
-            StringBuilder SB = TransformTools.GetStat(_transform, _amsClient, _transformRest);
+            StringBuilder SB = TransformTools.GetStat(_transform, _transformRest);
             var tokenDisplayForm = new EditorXMLJSON("Transform report", SB.ToString(), false, ShowSampleMode.None, false);
             tokenDisplayForm.Display();
         }

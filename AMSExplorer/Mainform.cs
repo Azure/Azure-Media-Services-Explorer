@@ -4286,7 +4286,7 @@ namespace AMSExplorer
 
             await Task.Run(async () =>
              {
-                 await dataGridViewLiveEventsV.RefreshLiveEventAsync(1, _amsClient);
+                 await dataGridViewLiveEventsV.RefreshLiveEventAsync(_amsClient);
                  //tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
                  tabPageLive.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents));
                  //labelLiveEvents.Invoke(new Action(() => labelLiveEvents.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
@@ -4309,8 +4309,7 @@ namespace AMSExplorer
 
             Task.Run(async () =>
             {
-                await dataGridViewLiveOutputV.RefreshLiveOutputsAsync(1, _amsClient);
-                //labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0})", dataGridViewLiveOutputV.DisplayedCount)));
+                await dataGridViewLiveOutputV.RefreshLiveOutputsAsync(_amsClient);
                 labelPrograms.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelProgram + " ({0})", dataGridViewLiveOutputV.DisplayedCount));
             });
         }
@@ -4324,7 +4323,6 @@ namespace AMSExplorer
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
 
             await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointsAsync(_amsClient);
-            //tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
             tabPageOrigins.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount));
         }
 
@@ -7540,6 +7538,7 @@ namespace AMSExplorer
 
             if (copyAssetForm.ShowDialog() == DialogResult.OK)
             {
+                List<Task> myTasks = new();
                 if (!copyAssetForm.SingleDestinationAsset) // standard mode: 1:1 asset copy
                 {
                     foreach (Asset asset in selectedAssets)
@@ -7550,8 +7549,9 @@ namespace AMSExplorer
 
                         TransferEntryResponse response = DoGridTransferAddItem($"Copy asset '{assetName}' to account '{copyAssetForm.DestinationStorageAccount}'", TransferType.ExportToOtherAMSAccount, false);
                         // Start a worker thread that does asset copy.
-                        Task.Factory.StartNew(() =>
-                        ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, new List<Asset>() { asset }, assetName, response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset), response.token);
+                        myTasks.Add(
+                             ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, new List<Asset>() { asset }, assetName, response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset)
+                             );
                     }
                 }
                 else // merge all assets into a single asset
@@ -7559,11 +7559,13 @@ namespace AMSExplorer
 
                     TransferEntryResponse response = DoGridTransferAddItem($"Copy several assets to account '{copyAssetForm.DestinationStorageAccount}'", TransferType.ExportToOtherAMSAccount, false);
                     // Start a worker thread that does asset copy.
-                    Task.Factory.StartNew(() =>
-                    ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, selectedAssets, copyAssetForm.CopyAssetName.Replace(Constants.NameconvAsset, selectedAssets.FirstOrDefault().Name), response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset), response.token);
+                    myTasks.Add(
+                        ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, selectedAssets, copyAssetForm.CopyAssetName.Replace(Constants.NameconvAsset, selectedAssets.FirstOrDefault().Name), response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset)
+                        );
 
                 }
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
+                await Task.WhenAll(myTasks);
             }
         }
 
@@ -9429,7 +9431,7 @@ namespace AMSExplorer
             var restTransformClient = new AmsClientRest(_amsClient);
             var transformRest = restTransformClient.GetTransformContent(transforms.First().Name);
 
-            StringBuilder SB = TransformTools.GetStat(transforms.First(), _amsClient, transformRest);
+            StringBuilder SB = TransformTools.GetStat(transforms.First(), transformRest);
             using (EditorXMLJSON transformDisplayForm
                 = new("Transform report", SB.ToString(), false, ShowSampleMode.None, false))
             {

@@ -82,7 +82,7 @@ namespace AMSExplorer
                     _streamingEndpoints // we want to keep the same sorting
                     );
 
-                DialogResult dialogResult = form.ShowDialog(this);
+                form.ShowDialog(this);
             }
             else
             {

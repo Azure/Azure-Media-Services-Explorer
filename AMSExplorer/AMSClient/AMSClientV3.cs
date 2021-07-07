@@ -90,7 +90,6 @@ namespace AMSExplorer
             await ConnectAndGetNewClientV3Async();
             if (authResult != null)
             {
-                var interval = (authResult.ExpiresOn.ToUniversalTime() - DateTimeOffset.UtcNow.AddMinutes(3)).TotalMilliseconds;
                 try
                 {
                     // next refresh for the token : 3 minutes before it expires

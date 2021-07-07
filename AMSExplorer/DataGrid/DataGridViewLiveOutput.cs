@@ -210,7 +210,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task RefreshLiveOutputsAsync(int pagetodisplay, AMSClientV3 amsClient) // all assets are refreshed
+        public async Task RefreshLiveOutputsAsync(AMSClientV3 amsClient) // all assets are refreshed
         {
             if (!_initialized)
             {

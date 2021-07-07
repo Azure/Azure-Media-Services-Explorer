@@ -216,8 +216,6 @@ namespace AMSExplorer
                 if (checkBoxTrimming.Checked)
                 {
                     config.Trimming = true;
-                    List<ExplorerEDLEntryInOut> list = new();
-                    SubClipTrimmingDataTimeSpan subdata = GetSubClipTrimmingDataTimeSpan();
                     config.AbsoluteStartTime = timeControlStart.TimeStampWithOffset;
                     config.AbsoluteEndTime = timeControlEnd.TimeStampWithOffset;
                 }

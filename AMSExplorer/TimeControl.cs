@@ -59,7 +59,6 @@ namespace AMSExplorer
         private void HandleTrackBarValueChanged(object sender, EventArgs e)
         {
             donotfirechangeevent = true;
-            double scale = (timescale == null) ? 1d : TimeSpan.TicksPerSecond / ((double)timescale);
             SetTimeStamp(TimeSpan.FromTicks((long)(_TotalDuration.Ticks * ((double)trackBarTime.Value) / 1000d)));
             donotfirechangeevent = false;
             OnNumValueChanged(EventArgs.Empty);

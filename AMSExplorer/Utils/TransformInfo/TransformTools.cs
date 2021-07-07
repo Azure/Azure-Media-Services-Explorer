@@ -8,7 +8,7 @@ namespace AMSExplorer.Utils.TransformInfo
 {
     public class TransformTools
     {
-        public static StringBuilder GetStat(Transform transform, AMSClientV3 amsClient, TransformRestObject transformRest)
+        public static StringBuilder GetStat(Transform transform, TransformRestObject transformRest)
         {
             ListRepData infoStr = new();
 
