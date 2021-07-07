@@ -29,7 +29,6 @@ namespace AMSExplorer
         private readonly CopyAssetBoxMode Mode;
         private bool ErrorConnectingAMS = false;
         private bool ErrorConnectingStorage = false;
-        private readonly string _accountname;
 
 
         public string DestinationStorageAccount
@@ -61,10 +60,9 @@ namespace AMSExplorer
         public AMSClientV3 DestinationAmsClient { get; private set; }
         public CredentialsEntryV3 DestinationLoginInfo { get; private set; }
 
-        public CopyAsset(int numberofobjectselected, CopyAssetBoxMode mode, string accountname)
+        public CopyAsset(int numberofobjectselected, CopyAssetBoxMode mode)
         {
             InitializeComponent();
-            _accountname = accountname;
             Icon = Bitmaps.Azure_Explorer_ico;
             //_context = context;
             Mode = mode;

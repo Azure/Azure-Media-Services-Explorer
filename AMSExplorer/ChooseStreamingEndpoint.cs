@@ -37,6 +37,7 @@ namespace AMSExplorer
         private readonly bool _displayBrowserSelection;
         private readonly AMSClientV3 _amsClient;
         private IList<AssetStreamingLocator> _locators;
+        private readonly bool _emptyliveOutput;
 
         public StreamingEndpoint SelectStreamingEndpoint
         {
@@ -139,7 +140,7 @@ namespace AMSExplorer
 
 
 
-        public ChooseStreamingEndpoint(AMSClientV3 client, Asset asset, string path, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
+        public ChooseStreamingEndpoint(AMSClientV3 client, Asset asset, string path, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false, bool emptyliveOutput = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -149,6 +150,7 @@ namespace AMSExplorer
             _playertype = playertype;
             _path = path;
             _displayBrowserSelection = displayBrowserSelection;
+            _emptyliveOutput = emptyliveOutput;
         }
 
 
@@ -289,6 +291,12 @@ namespace AMSExplorer
                     comboBoxPolicyLocators.SelectedIndex = index;
                 }
             }
+
+            if (comboBoxPolicyLocators.SelectedIndex == -1 && comboBoxPolicyLocators.Items.Count > 0)
+            {
+                comboBoxPolicyLocators.SelectedIndex = 0;
+            }
+
             comboBoxPolicyLocators.EndUpdate();
         }
 
@@ -389,9 +397,20 @@ namespace AMSExplorer
 
             // _path = "/" + locator.StreamingLocatorId.ToString() + _path.Substring(_path.IndexOf('/', 2));
 
-            _path = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name))
+            if (!_emptyliveOutput)
+            {
+                _path = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name))
             .StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
             .FirstOrDefault().Paths.FirstOrDefault();
+            }
+            else // we should not use ListPaths as liveOutput is empty
+            {
+                UriBuilder uribuilder = new()
+                {
+                    Path = locator.StreamingLocatorId.ToString() + _path.Substring(_path.IndexOf("/", 1))
+                };
+                _path = uribuilder.Uri.PathAndQuery;
+            }
 
             UpdatePreviewUrl();
         }

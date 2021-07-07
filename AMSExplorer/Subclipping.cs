@@ -467,7 +467,7 @@ namespace AMSExplorer
             {
                 Asset myAsset = _selectedAssets.FirstOrDefault();
 
-                Uri myuri = await AssetTools.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name);
+                Uri myuri = (await AssetTools.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name)).Item1;
 
                 if (myuri != null)
                 {
