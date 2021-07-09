@@ -5,12 +5,12 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AMSExplorer.Program</StartupObject>
-    <Version>5.4.3.0</Version>
+    <Version>5.4.4.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
     <Copyright>Copyright © 2021</Copyright>
     <Company>$(Authors)Microsoft</Company>
-    <AssemblyVersion>5.4.3.0</AssemblyVersion>
+    <AssemblyVersion>5.4.4.0</AssemblyVersion>
     <FileVersion>5.4.3.0</FileVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <PackageIcon>Azure Explorer.png</PackageIcon>
@@ -95,7 +95,7 @@
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.13.1-preview" />
     <PackageReference Include="Microsoft.Azure.Management.Storage" Version="22.0.0" />
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.33.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.34.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
