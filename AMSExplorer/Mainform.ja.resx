@@ -92,7 +92,7 @@
     <value />
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 380</value>
+    <value>323, 402</value>
   </data>
   <data name="contextMenuStripAssets.ToolTip" xml:space="preserve">
     <value />
@@ -115,23 +115,8 @@
   <data name="ContextMenuItemAssetDisplayInfo.Text" xml:space="preserve">
     <value>情報の表示</value>
   </data>
-  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="displayAssetReportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 22</value>
-  </data>
-  <data name="ContextMenuItemAssetCreateOutlookReportEmail.Text" xml:space="preserve">
-    <value>レポート</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 22</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem3.Text" xml:space="preserve">
-    <value>レポートの表示...</value>
-  </data>
-  <data name="toolStripMenuItem30.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 22</value>
-  </data>
-  <data name="toolStripMenuItem30.Text" xml:space="preserve">
-    <value>レポートメールの作成</value>
   </data>
   <data name="ContextMenuItemAssetEditDescription.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 22</value>
@@ -172,23 +157,11 @@
   <data name="toolsToolStripMenuItem.Text" xml:space="preserve">
     <value>ツール</value>
   </data>
-  <data name="analyzeAssetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 22</value>
-  </data>
-  <data name="analyzeAssetsToolStripMenuItem.Text" xml:space="preserve">
-    <value>アセットの分析...</value>
-  </data>
   <data name="toolStripMenuItem43.Size" type="System.Drawing.Size, System.Drawing">
     <value>329, 22</value>
   </data>
   <data name="toolStripMenuItem43.Text" xml:space="preserve">
     <value>新しいアセットとしてコピー/マージ...</value>
-  </data>
-  <data name="toolStripMenuItem41.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 22</value>
-  </data>
-  <data name="toolStripMenuItem41.Text" xml:space="preserve">
-    <value>ライブアーカイブの整合性チェック...</value>
   </data>
   <data name="generateClientManifestsismcWhenNeededToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>329, 22</value>
@@ -234,12 +207,6 @@
   </data>
   <data name="importToolStripMenuItem1.Text" xml:space="preserve">
     <value>インポート</value>
-  </data>
-  <data name="toolStripMenuItem14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>420, 22</value>
-  </data>
-  <data name="toolStripMenuItem14.Text" xml:space="preserve">
-    <value>Azure ストレージからインポート...</value>
   </data>
   <data name="fromAzureStorageSASContainerPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>420, 22</value>
@@ -310,12 +277,6 @@
   <data name="createALocatorToolStripMenuItem.Text" xml:space="preserve">
     <value>ロケーターの作成...</value>
   </data>
-  <data name="extendExistingLocatorsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="extendExistingLocatorsToolStripMenuItem.Text" xml:space="preserve">
-    <value>既存のロケーターへの追加...</value>
-  </data>
   <data name="deleteAllLocatorsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>301, 22</value>
   </data>
@@ -331,11 +292,8 @@
   <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>アセットフィルターの作成...</value>
   </data>
-  <data name="toolStripMenuItem38.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 22</value>
-  </data>
-  <data name="toolStripMenuItem38.Text" xml:space="preserve">
-    <value>発行 URL のクリップボードへのコピー...</value>
+  <data name="displayOutputUrlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>322, 22</value>
   </data>
   <data name="ContextMenuItemAssetPlayback.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 22</value>
@@ -512,7 +470,7 @@
     <value />
   </data>
   <data name="contextMenuStripTransfers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 92</value>
+    <value>207, 114</value>
   </data>
   <data name="contextMenuStripTransfers.ToolTip" xml:space="preserve">
     <value />
@@ -543,6 +501,9 @@
   </data>
   <data name="clearToolStripMenuItem.Text" xml:space="preserve">
     <value>完了したアイテムのクリア</value>
+  </data>
+  <data name="retryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
   </data>
   <data name="trackBarConcurrentTransfers.ToolTip" xml:space="preserve">
     <value />
@@ -602,13 +563,13 @@
     <value />
   </data>
   <data name="textBoxJobsPageNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>758, 234</value>
+    <value>726, 234</value>
   </data>
   <data name="textBoxJobsPageNumber.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="contextMenuStripJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 236</value>
+    <value>207, 214</value>
   </data>
   <data name="contextMenuStripJobs.ToolTip" xml:space="preserve">
     <value />
@@ -617,61 +578,55 @@
     <value />
   </data>
   <data name="refreshToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="refreshToolStripMenuItem2.Text" xml:space="preserve">
     <value>更新</value>
   </data>
   <data name="toolStripSeparator18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 6</value>
+    <value>203, 6</value>
   </data>
   <data name="ContextMenuItemJobDisplayInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="ContextMenuItemJobDisplayInfo.Text" xml:space="preserve">
     <value>情報の表示</value>
   </data>
   <data name="displayErrorToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="displayErrorToolStripMenuItem3.Text" xml:space="preserve">
     <value>エラーの表示</value>
   </data>
   <data name="ContextMenuItemJobInputAssetInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="ContextMenuItemJobInputAssetInformation.Text" xml:space="preserve">
     <value>入力アセットの情報</value>
   </data>
   <data name="ContextMenuItemJobOpenOutputAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="ContextMenuItemJobOpenOutputAsset.Text" xml:space="preserve">
     <value>出力先アセットの情報</value>
   </data>
   <data name="ContextMenuItemJobCreateOutlookReportEmail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="ContextMenuItemJobCreateOutlookReportEmail.Text" xml:space="preserve">
     <value>ジョブレポート</value>
   </data>
-  <data name="copyReportToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 22</value>
-  </data>
-  <data name="copyReportToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>レポートの表示...</value>
-  </data>
   <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 6</value>
+    <value>203, 6</value>
   </data>
   <data name="ContextMenuItemJobChangePriority.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="ContextMenuItemJobChangePriority.Text" xml:space="preserve">
     <value>優先度の変更...</value>
   </data>
   <data name="ContextMenuItemJobCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="ContextMenuItemJobCancel.Text" xml:space="preserve">
     <value>キャンセル...</value>
@@ -688,14 +643,8 @@
   <data name="allJobsToolStripMenuItem3.Text" xml:space="preserve">
     <value>すべてのジョブ...</value>
   </data>
-  <data name="resubmitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
-  </data>
-  <data name="resubmitToolStripMenuItem.Text" xml:space="preserve">
-    <value>再実行...</value>
-  </data>
   <data name="ContextMenuItemJobDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="ContextMenuItemJobDelete.Text" xml:space="preserve">
     <value>削除</value>
@@ -719,7 +668,7 @@
     <value>すべてのジョブ...</value>
   </data>
   <data name="butNextPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>789, 235</value>
+    <value>757, 235</value>
   </data>
   <data name="butNextPageJob.ToolTip" xml:space="preserve">
     <value />
@@ -728,7 +677,7 @@
     <value />
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>292, 230</value>
+    <value>281, 230</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 30</value>
@@ -740,22 +689,22 @@
     <value />
   </data>
   <data name="butPrevPageJob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>722, 235</value>
+    <value>690, 235</value>
   </data>
   <data name="butPrevPageJob.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="comboBoxStateJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>453, 234</value>
+    <value>435, 234</value>
   </data>
   <data name="comboBoxStateJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 23</value>
+    <value>53, 23</value>
   </data>
   <data name="comboBoxStateJobs.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>404, 230</value>
+    <value>386, 230</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 30</value>
@@ -767,7 +716,7 @@
     <value />
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>673, 238</value>
+    <value>641, 238</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 15</value>
@@ -779,7 +728,7 @@
     <value />
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>519, 238</value>
+    <value>494, 238</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 15</value>
@@ -791,16 +740,16 @@
     <value />
   </data>
   <data name="comboBoxOrderJobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>585, 234</value>
+    <value>560, 234</value>
   </data>
   <data name="comboBoxOrderJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 23</value>
+    <value>53, 23</value>
   </data>
   <data name="comboBoxOrderJobs.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="comboBoxFilterJobsTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 23</value>
+    <value>53, 23</value>
   </data>
   <data name="comboBoxFilterJobsTime.ToolTip" xml:space="preserve">
     <value />
@@ -857,16 +806,16 @@
     <value>Azure Media Player での再生</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>759, 200</value>
+    <value>743, 200</value>
   </data>
   <data name="comboBoxStatusLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 23</value>
+    <value>266, 23</value>
   </data>
   <data name="comboBoxStatusLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
-    <value>716, 204</value>
+    <value>700, 204</value>
   </data>
   <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 15</value>
@@ -878,19 +827,19 @@
     <value />
   </data>
   <data name="comboBoxFilterTimeLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>564, 200</value>
+    <value>548, 200</value>
   </data>
   <data name="comboBoxFilterTimeLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="buttonSetFilterLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>440, 201</value>
+    <value>424, 201</value>
   </data>
   <data name="buttonSetFilterLiveEvent.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="textBoxSearchNameLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 23</value>
+    <value>294, 23</value>
   </data>
   <data name="comboBoxSearchLiveEventOption.ToolTip" xml:space="preserve">
     <value />
@@ -899,7 +848,7 @@
     <value />
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>518, 197</value>
+    <value>502, 197</value>
   </data>
   <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 30</value>
@@ -1279,12 +1228,6 @@
   <data name="importToolStripMenuItem.Text" xml:space="preserve">
     <value>インポート</value>
   </data>
-  <data name="fromAzureStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>420, 22</value>
-  </data>
-  <data name="fromAzureStorageToolStripMenuItem.Text" xml:space="preserve">
-    <value>Azure ストレージからインポート...</value>
-  </data>
   <data name="fromAzureStoragecontainerSASUrlToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>420, 22</value>
   </data>
@@ -1374,6 +1317,9 @@
   </data>
   <data name="attachAnotherStoragheAccountToolStripMenuItem.Text" xml:space="preserve">
     <value>ストレージアカウントの追加...</value>
+  </data>
+  <data name="keyDeliveryConfigurationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 22</value>
   </data>
   <data name="listAuthorizedOperationsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>236, 22</value>

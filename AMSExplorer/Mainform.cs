@@ -6435,11 +6435,31 @@ namespace AMSExplorer
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            var autEndpoint = _amsClient.environment.AADSettings.AuthenticationEndpoint.ToString();
+            string linkPortal;
+         
+            if (autEndpoint == @"https://login.microsoftonline.us/")
+            {
+                linkPortal = @"https://portal.azure.us";
+            }
+            else if (autEndpoint == @"https://login.microsoftonline.de/")
+            {
+                linkPortal = @"https://portal.microsoftazure.de";
+            }
+            else if (autEndpoint == @"https://login.chinacloudapi.cn/")
+            {
+                linkPortal = @"https://portal.azure.cn";
+            }
+            else // Azure global or else
+            {
+                linkPortal = @"https://portal.azure.com";
+            }
+
             var p = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Constants.LinkAMSPortal,
+                    FileName = linkPortal,
                     UseShellExecute = true
                 }
             };
