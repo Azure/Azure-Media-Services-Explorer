@@ -15,8 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
-using System;
-using System.Drawing;
 
 namespace AMSExplorer
 {

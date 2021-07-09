@@ -143,6 +143,7 @@ namespace AMSExplorer
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
         public const string LinkReportBugAMSE = @"https://github.com/Azure/Azure-Media-Services-Explorer/issues";
         public const string LinkAMSEReleaseNotes = @"https://github.com/Azure/Azure-Media-Services-Explorer/blob/main/AllReleaseNotes.md";
+        public const string LinkAMSPortal = @"https://portal.azure.com";
 
         public const long maxSlateJPGFileSize = 3 * 1000 * 1000; // Max 3 MB
         public const int maxSlateJPGHorizontalResolution = 1920;

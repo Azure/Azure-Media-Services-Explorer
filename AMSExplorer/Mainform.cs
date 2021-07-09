@@ -1921,10 +1921,6 @@ namespace AMSExplorer
             return dialogResult;
         }
 
-        private async void renameToolStripMenuItem_Click(object sender, EventArgs e)  // RENAME ASSET
-        {
-            await DoMenuChangeAssetDescriptionAsync();
-        }
 
 
         private async Task DoMenuChangeAssetDescriptionAsync()
@@ -2181,11 +2177,6 @@ namespace AMSExplorer
                     DoRefreshGridJobV(false);
                 }
             }
-        }
-
-        private void assetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
 
@@ -6444,13 +6435,17 @@ namespace AMSExplorer
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.LinkAMSPortal,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
         }
 
-        private void resubmitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private async Task DoSelectTransformAndSubmitJobAsync()
         {
