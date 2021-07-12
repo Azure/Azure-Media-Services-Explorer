@@ -6435,9 +6435,16 @@ namespace AMSExplorer
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            OpenInPortal();
+        }
+
+        private static void OpenInPortal()
+        {
+            Telemetry.TrackEvent("OpenInPortal");
+
             var autEndpoint = _amsClient.environment.AADSettings.AuthenticationEndpoint.ToString();
             string linkPortal;
-         
+
             if (autEndpoint == @"https://login.microsoftonline.us/")
             {
                 linkPortal = @"https://portal.azure.us";
@@ -6455,6 +6462,9 @@ namespace AMSExplorer
                 linkPortal = @"https://portal.azure.com";
             }
 
+            string path = @"#@{0}/resource/subscriptions/{1}/resourceGroups/{2}/providers/microsoft.media/mediaservices/{3}";
+            linkPortal += string.Format(path, _amsClient.credentialsEntry.AadTenantId, _amsClient.credentialsEntry.AzureSubscriptionId, _amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+
             var p = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -6465,7 +6475,6 @@ namespace AMSExplorer
             };
             p.Start();
         }
-
 
         private async Task DoSelectTransformAndSubmitJobAsync()
         {
