@@ -11,7 +11,7 @@
     <Copyright>Copyright © 2021</Copyright>
     <Company>$(Authors)Microsoft</Company>
     <AssemblyVersion>5.4.4.0</AssemblyVersion>
-    <FileVersion>5.4.3.0</FileVersion>
+    <FileVersion>5.4.4.0</FileVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <PackageIcon>Azure Explorer.png</PackageIcon>
     <PackageIconUrl />
