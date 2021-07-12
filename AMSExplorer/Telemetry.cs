@@ -1,5 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Azure.Management.Media.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -43,6 +45,11 @@ namespace AMSExplorer
 
             // let's anonymize role instance
             client.Context.Cloud.RoleInstance = Environment.MachineName.GetDeterministicHashCode().ToString();
+
+            // let's log the version of the Media SDK
+            var mediaAssembly = System.Reflection.Assembly.GetAssembly(typeof(MediaService)).GetName();
+            client.Context.GlobalProperties.Add(mediaAssembly.Name, mediaAssembly.Version.ToString());
+
             return client;
         }
 
@@ -71,8 +78,21 @@ namespace AMSExplorer
         {
             if (ex != null && Enabled)
             {
-                var telex = new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(ex);
-                _telemetry.TrackException(telex);
+                Dictionary<string, string> dic = new();
+                if (ex.InnerException != null)
+                {
+                    dic.Add("InnerExceptionMessage", Program.GetErrorMessage(ex));
+                }
+                if (ex is ApiErrorException eApi)
+                {
+                    dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
+                    dic.Add("ApiErrorExceptionMessage", (string)error?.error?.message);
+                }
+
+                //var telex = new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(ex);
+                //_telemetry.TrackException(telex);
+
+                _telemetry.TrackException(ex, dic);
                 Flush();
             }
         }

@@ -108,7 +108,18 @@ namespace AMSExplorer
 
         public static void DoCopyClipboard(object text)
         {
-            Clipboard.SetText((string)text);
+            if (text != null)
+            {
+                string textS = (string)text;
+                if (string.IsNullOrEmpty(textS))
+                {
+                    Clipboard.Clear();
+                }
+                else
+                {
+                    Clipboard.SetText(textS);
+                }
+            }
         }
 
         private void buttonFormat_Click(object sender, EventArgs e)

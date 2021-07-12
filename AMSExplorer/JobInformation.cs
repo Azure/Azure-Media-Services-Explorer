@@ -276,11 +276,13 @@ namespace AMSExplorer
                                        _amsClient.GetAssetAsync(assetName))
                                         .GetAwaiter().GetResult();
 
-                using (AssetInformation form = new(_mainform, _amsClient)
-                {
-                    myAsset = asset,
-                    myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
-                })
+                using (AssetInformation form = new(
+                    _mainform,
+                    _amsClient,
+                    asset,
+                    MyStreamingEndpoints // we want to keep the same sorting
+                    )
+               )
                 {
                     DialogResult dialogResult = form.ShowDialog(this);
                 }

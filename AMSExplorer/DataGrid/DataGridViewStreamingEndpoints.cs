@@ -35,7 +35,6 @@ namespace AMSExplorer
         private static string _filterstreamingendpointsstate = "All";
         private static string _searchinname = string.Empty;
         private static string _timefilter = FilterTime.LastWeek;
-        private AMSClientV3 _amsClient;
 
         public string FilterStreamingEndpointsState
         {
@@ -56,31 +55,26 @@ namespace AMSExplorer
             set => _timefilter = value;
         }
         public int DisplayedCount => _MyObservStreamingEndpoints.Count;
-        public List<StreamingEndpoint> DisplayedStreamingEndpoints
+        public List<StreamingEndpoint> GetDisplayedStreamingEndpoints(AMSClientV3 amsClient)
         {
-            // we want to keep the sorting in display
-            get
+            List<StreamingEndpoint> list = new();
+            foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
             {
-
-                List<StreamingEndpoint> list = new();
-                foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
+                StreamingEndpoint detailedSE = Task.Run(() => amsClient.GetStreamingEndpointAsync(se.Name)).GetAwaiter().GetResult();
+                if (detailedSE != null) // in some rare cases, SE is null in dev/test account
                 {
-                    StreamingEndpoint detailedSE = Task.Run(() => _amsClient.GetStreamingEndpointAsync(se.Name)).GetAwaiter().GetResult();
-                    if (detailedSE != null) // in some rare cases, SE is null in dev/test account
-                    {
-                        list.Add(detailedSE);
-                    }
+                    list.Add(detailedSE);
                 }
-                return list;
             }
+            return list;
+
         }
 
-        public async Task InitAsync(AMSClientV3 client)
+        public async Task InitAsync(AMSClientV3 amsClient)
         {
             IEnumerable<StreamingEndpointEntry> originquery;
-            _amsClient = client;
 
-            Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = await amsClient.AMSclient.StreamingEndpoints.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
 
             originquery = ses.Select(o => new
                           StreamingEndpointEntry
@@ -111,7 +105,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task RefreshStreamingEndpointAsync(StreamingEndpoint streamingEndpoint)
+        public async Task RefreshStreamingEndpointAsync(StreamingEndpoint streamingEndpoint, AMSClientV3 amsClient)
         {
             int index = -1;
             foreach (StreamingEndpointEntry CE in _MyObservStreamingEndpoints) // let's search for index
@@ -126,7 +120,7 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
 
-                streamingEndpoint = await _amsClient.GetStreamingEndpointAsync(streamingEndpoint.Name); //refresh
+                streamingEndpoint = await amsClient.GetStreamingEndpointAsync(streamingEndpoint.Name); //refresh
                 if (streamingEndpoint != null)
                 {
                     _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)streamingEndpoint.ResourceState;
@@ -141,7 +135,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task RefreshStreamingEndpointsAsync()
+        public async Task RefreshStreamingEndpointsAsync(AMSClientV3 amsClient)
         {
             if (!_initialized)
             {
@@ -153,7 +147,7 @@ namespace AMSExplorer
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
 
-            streamingendpoints = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            streamingendpoints = await amsClient.AMSclient.StreamingEndpoints.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
 
             try
             {

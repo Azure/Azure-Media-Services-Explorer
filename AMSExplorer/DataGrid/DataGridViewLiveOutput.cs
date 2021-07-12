@@ -46,7 +46,6 @@ namespace AMSExplorer
         public string _published = "Published";
         private static readonly Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
         private static enumDisplayProgram _anyChannel = enumDisplayProgram.Selected;
-        private AMSClientV3 _amsClient;
 
         public void SetLiveEventSourceNames(List<string> list)
         {
@@ -97,18 +96,16 @@ namespace AMSExplorer
         }
         public int DisplayedCount => _MyObservLiveOutputs != null ? _MyObservLiveOutputs.Count : 0;
 
-        public void Init(AMSClientV3 client)
+        public void Init(AMSClientV3 amsClient)
         {
             IEnumerable<LiveOutputEntry> programquery;
 
-            _amsClient = client;
-
-            List<LiveEvent> ListEvents = _amsClient.AMSclient.LiveEvents.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName).ToList();
+            List<LiveEvent> ListEvents = amsClient.AMSclient.LiveEvents.List(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName).ToList();
             List<Program.LiveOutputExt> LOList = new();
 
             foreach (LiveEvent le in ListEvents)
             {
-                List<LiveOutput> plist = _amsClient.AMSclient.LiveOutputs.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, le.Name).ToList();
+                List<LiveOutput> plist = amsClient.AMSclient.LiveOutputs.List(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, le.Name).ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
 
@@ -175,7 +172,7 @@ namespace AMSExplorer
             }
         }
 
-        public async Task RefreshLiveOutputAsync(string liveeventName, LiveOutput liveOutput)
+        public async Task RefreshLiveOutputAsync(string liveeventName, LiveOutput liveOutput, AMSClientV3 amsClient)
         {
             int index = -1;
 
@@ -194,7 +191,7 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
 
-                liveOutput = await _amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Name); //refresh
+                liveOutput = await amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Name); //refresh
                 if (liveOutput != null)
                 {
                     try // sometimes, index could be wrong id program has been deleted
@@ -213,7 +210,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task RefreshLiveOutputsAsync(int pagetodisplay) // all assets are refreshed
+        public async Task RefreshLiveOutputsAsync(AMSClientV3 amsClient) // all assets are refreshed
         {
             if (!_initialized)
             {
@@ -236,7 +233,7 @@ namespace AMSExplorer
             }
             else
             {
-                ListEvents = (await _amsClient.AMSclient.LiveEvents.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName))
+                ListEvents = (await amsClient.AMSclient.LiveEvents.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName))
                     .ToList()
                     .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && GetLiveEventSourceNames().Contains(l.Name)));
             }
@@ -246,7 +243,7 @@ namespace AMSExplorer
 
             foreach (LiveEvent le in ListEvents)
             {
-                List<LiveOutput> plist = (await _amsClient.AMSclient.LiveOutputs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, le.Name))
+                List<LiveOutput> plist = (await amsClient.AMSclient.LiveOutputs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, le.Name))
                     .ToList();
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
             }
@@ -257,7 +254,7 @@ namespace AMSExplorer
                                         async item => new
                                         {
                                             LOExt = item,
-                                            LOBitmap = await DataGridViewAssets.BuildBitmapPublicationAsync(item.LiveOutputItem.AssetName, _amsClient)
+                                            LOBitmap = await DataGridViewAssets.BuildBitmapPublicationAsync(item.LiveOutputItem.AssetName, amsClient)
                                         });
 
             IEnumerable<LiveOutputEntry> programquery = (await Task.WhenAll(tasksBuildBitmaps))

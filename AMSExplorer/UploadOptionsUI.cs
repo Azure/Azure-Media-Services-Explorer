@@ -94,7 +94,12 @@ namespace AMSExplorer
 
             if (newAssetForm == null)
             {
-                newAssetForm = new NewAsset(_amsClientV3, true) { AssetName = "uploaded-" + Constants.NameconvShortUniqueness, AssetDescription = Constants.NameconvFileName };
+                newAssetForm = new NewAsset(_amsClientV3, true)
+                {
+                    AssetName = "uploaded-" + Constants.NameconvShortUniqueness,
+                    AssetDescription = Constants.NameconvFileName,
+                    AssetAltId = Constants.NameconvFileName
+                };
             }
             else
             {

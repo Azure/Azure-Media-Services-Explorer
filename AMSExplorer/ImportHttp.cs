@@ -124,7 +124,8 @@ namespace AMSExplorer
                 newAssetForm = new NewAsset(_amsClientV3, true)
                 {
                     AssetName = "uploaded-" + Constants.NameconvShortUniqueness,
-                    AssetDescription = "Imported from : " + Constants.NameconvUrl
+                    AssetDescription = "Imported from : " + Constants.NameconvUrl,
+                    AssetAltId = _AzureStorageContainerSASListMode ? string.Empty : Constants.NameconvFileName
                 };
             }
             else

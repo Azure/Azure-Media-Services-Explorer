@@ -34,22 +34,20 @@ namespace AMSExplorer
         private bool _initialized = false;
 
         private readonly List<string> idsList = new();
-        private static AMSClientV3 _amsClient;
         private SynchronizationContext _context;
         private static BindingList<TransformEntry> _MyObservTransformsV3;
 
-        public async Task InitAsync(AMSClientV3 client, SynchronizationContext context)
+        public async Task InitAsync(AMSClientV3 amsClient, SynchronizationContext context)
         {
-            _amsClient = client;
             _context = context;
 
-            Microsoft.Rest.Azure.IPage<Transform> transformsList = await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            Microsoft.Rest.Azure.IPage<Transform> transformsList = await amsClient.AMSclient.Transforms.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
 
             IEnumerable<Task<TransformEntry>> transforms = transformsList.Select(async a => new TransformEntry(_context)
             {
                 Name = a.Name,
                 Description = a.Description,
-                Jobs = (await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).Count(),
+                Jobs = (await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, a.Name)).Count(),
                 LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
             );
@@ -74,7 +72,7 @@ namespace AMSExplorer
         }
 
 
-        public async Task RefreshTransformsAsync() // all transforms are refreshed
+        public async Task RefreshTransformsAsync(AMSClientV3 amsClient) // all transforms are refreshed
         {
             if (!_initialized)
             {
@@ -87,12 +85,12 @@ namespace AMSExplorer
 
 
 
-            IEnumerable<Task<TransformEntry>> transforms = (await _amsClient.AMSclient.Transforms.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntry(_context)
+            IEnumerable<Task<TransformEntry>> transforms = (await amsClient.AMSclient.Transforms.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntry(_context)
             {
                 Name = a.Name,
                 Description = a.Description,
                 Outputs = a.Outputs.Count,
-                Jobs = (await _amsClient.AMSclient.Jobs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).Count(),
+                Jobs = (await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, a.Name)).Count(),
                 LastModified = a.LastModified.ToLocalTime().ToString("G")
             }
           );
@@ -107,7 +105,7 @@ namespace AMSExplorer
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
 
-        public async Task<List<Transform>> ReturnSelectedTransformsAsync()
+        public async Task<List<Transform>> ReturnSelectedTransformsAsync(AMSClientV3 amsClient)
         {
 
 
@@ -115,7 +113,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in SelectedRows)
             {
                 // sometimes, the transform can be null (if just deleted)
-                Transform transform = await _amsClient.GetTransformAsync(Row.Cells[Columns["Name"].Index].Value.ToString());
+                Transform transform = await amsClient.GetTransformAsync(Row.Cells[Columns["Name"].Index].Value.ToString());
                 if (transform != null)
                 {
                     SelectedTransforms.Add(transform);

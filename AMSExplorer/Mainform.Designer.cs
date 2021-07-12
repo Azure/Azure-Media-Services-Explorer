@@ -79,7 +79,7 @@
             this.deleteAllLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createASASUrlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createAnAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem38 = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayOutputUrlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -111,6 +111,8 @@
             this.toolStripMenuItemCKInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCKCreate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCKDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.keyDeliveryConfigurationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageTransfers = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelTransfers = new System.Windows.Forms.TableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
@@ -284,8 +286,8 @@
             this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureManagementPortalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listAuthorizedOperationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyDeliveryConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listAuthorizedOperationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -330,8 +332,6 @@
             this.buttonRefreshTab = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.keyDeliveryConfigurationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -502,6 +502,7 @@
             this.subclipToolStripMenuItem,
             this.toolStripSeparator6,
             this.publishToolStripMenuItem1,
+            this.displayOutputUrlsToolStripMenuItem,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
             resources.ApplyResources(this.contextMenuStripAssets, "contextMenuStripAssets");
@@ -741,8 +742,7 @@
             this.createALocatorToolStripMenuItem,
             this.deleteAllLocatorsToolStripMenuItem,
             this.createASASUrlToolStripMenuItem,
-            this.createAnAssetFilterToolStripMenuItem,
-            this.toolStripMenuItem38});
+            this.createAnAssetFilterToolStripMenuItem});
             this.publishToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.publishToolStripMenuItem1.Name = "publishToolStripMenuItem1";
             resources.ApplyResources(this.publishToolStripMenuItem1, "publishToolStripMenuItem1");
@@ -775,11 +775,11 @@
             resources.ApplyResources(this.createAnAssetFilterToolStripMenuItem, "createAnAssetFilterToolStripMenuItem");
             this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem38
+            // displayOutputUrlsToolStripMenuItem
             // 
-            this.toolStripMenuItem38.Name = "toolStripMenuItem38";
-            resources.ApplyResources(this.toolStripMenuItem38, "toolStripMenuItem38");
-            this.toolStripMenuItem38.Click += new System.EventHandler(this.toolStripMenuItem38_Click_2);
+            this.displayOutputUrlsToolStripMenuItem.Name = "displayOutputUrlsToolStripMenuItem";
+            resources.ApplyResources(this.displayOutputUrlsToolStripMenuItem, "displayOutputUrlsToolStripMenuItem");
+            this.displayOutputUrlsToolStripMenuItem.Click += new System.EventHandler(this.displayOutputUrlsToolStripMenuItem_Click);
             // 
             // ContextMenuItemAssetPlayback
             // 
@@ -1020,6 +1020,17 @@
             this.toolStripMenuItemCKDelete.Name = "toolStripMenuItemCKDelete";
             resources.ApplyResources(this.toolStripMenuItemCKDelete, "toolStripMenuItemCKDelete");
             this.toolStripMenuItemCKDelete.Click += new System.EventHandler(this.toolStripMenuItemCKDelete_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
+            // 
+            // keyDeliveryConfigurationToolStripMenuItem1
+            // 
+            this.keyDeliveryConfigurationToolStripMenuItem1.Name = "keyDeliveryConfigurationToolStripMenuItem1";
+            resources.ApplyResources(this.keyDeliveryConfigurationToolStripMenuItem1, "keyDeliveryConfigurationToolStripMenuItem1");
+            this.keyDeliveryConfigurationToolStripMenuItem1.Click += new System.EventHandler(this.keyDeliveryConfigurationToolStripMenuItem1_Click);
             // 
             // tabPageTransfers
             // 
@@ -2192,10 +2203,10 @@
             // 
             this.menuStripMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.managementToolStripMenuItem,
             this.assetToolStripMenuItem,
             this.liveLiveEventToolStripMenuItem,
             this.originToolStripMenuItem,
-            this.managementToolStripMenuItem,
             this.toolStripMenuItem1,
             this.samplePlayersToolStripMenuItem,
             this.helpToolStripMenuItem});
@@ -2216,7 +2227,6 @@
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
             resources.ApplyResources(this.assetToolStripMenuItem, "assetToolStripMenuItem");
             this.assetToolStripMenuItem.DropDownOpening += new System.EventHandler(this.toolStripMenuAsset_DropDownOpening);
-            this.assetToolStripMenuItem.Click += new System.EventHandler(this.assetToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -2416,17 +2426,17 @@
             resources.ApplyResources(this.attachAnotherStoragheAccountToolStripMenuItem, "attachAnotherStoragheAccountToolStripMenuItem");
             this.attachAnotherStoragheAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStoragheAccountToolStripMenuItem_Click);
             // 
-            // listAuthorizedOperationsToolStripMenuItem
-            // 
-            this.listAuthorizedOperationsToolStripMenuItem.Name = "listAuthorizedOperationsToolStripMenuItem";
-            resources.ApplyResources(this.listAuthorizedOperationsToolStripMenuItem, "listAuthorizedOperationsToolStripMenuItem");
-            this.listAuthorizedOperationsToolStripMenuItem.Click += new System.EventHandler(this.ListAuthorizedOperationsToolStripMenuItem_Click);
-            // 
             // keyDeliveryConfigurationToolStripMenuItem
             // 
             this.keyDeliveryConfigurationToolStripMenuItem.Name = "keyDeliveryConfigurationToolStripMenuItem";
             resources.ApplyResources(this.keyDeliveryConfigurationToolStripMenuItem, "keyDeliveryConfigurationToolStripMenuItem");
             this.keyDeliveryConfigurationToolStripMenuItem.Click += new System.EventHandler(this.keyDeliveryConfigurationToolStripMenuItem_Click);
+            // 
+            // listAuthorizedOperationsToolStripMenuItem
+            // 
+            this.listAuthorizedOperationsToolStripMenuItem.Name = "listAuthorizedOperationsToolStripMenuItem";
+            resources.ApplyResources(this.listAuthorizedOperationsToolStripMenuItem, "listAuthorizedOperationsToolStripMenuItem");
+            this.listAuthorizedOperationsToolStripMenuItem.Click += new System.EventHandler(this.ListAuthorizedOperationsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -2435,7 +2445,6 @@
             this.optionsToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // refreshToolStripMenuItem
             // 
@@ -2729,17 +2738,6 @@
             // 
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
-            // 
-            // keyDeliveryConfigurationToolStripMenuItem1
-            // 
-            this.keyDeliveryConfigurationToolStripMenuItem1.Name = "keyDeliveryConfigurationToolStripMenuItem1";
-            resources.ApplyResources(this.keyDeliveryConfigurationToolStripMenuItem1, "keyDeliveryConfigurationToolStripMenuItem1");
-            this.keyDeliveryConfigurationToolStripMenuItem1.Click += new System.EventHandler(this.keyDeliveryConfigurationToolStripMenuItem1_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
             // 
             // Mainform
             // 
@@ -3051,7 +3049,6 @@
         private System.Windows.Forms.RadioButton radioButtonChSelected;
         private System.Windows.Forms.RadioButton radioButtonChNone;
         private System.Windows.Forms.RadioButton radioButtonChAll;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem38;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem43;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator36;
@@ -3122,6 +3119,7 @@
         private System.Windows.Forms.ToolStripMenuItem keyDeliveryConfigurationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem keyDeliveryConfigurationToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem displayOutputUrlsToolStripMenuItem;
     }
 }
 

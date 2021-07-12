@@ -47,8 +47,6 @@ namespace AMSExplorer
 
             _modifications = modifications;
 
-            Dictionary<string, bool> dico = new();
-
             IEnumerable<PropertyInfo> props = modifications.GetType().GetProperties();
             foreach (PropertyInfo info in props)
             {

@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddAMSAccount1));
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelAssetName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButtonAddAMSAccount = new System.Windows.Forms.RadioButton();
             this.checkBoxSelectUser = new System.Windows.Forms.CheckBox();
@@ -43,6 +42,7 @@
             this.linkLabelAzCliDoc = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelEnv = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelEnv.SuspendLayout();
@@ -62,17 +62,12 @@
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // labelAssetName
-            // 
-            resources.ApplyResources(this.labelAssetName, "labelAssetName");
-            this.labelAssetName.Name = "labelAssetName";
-            // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonNext);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // radioButtonAddAMSAccount
@@ -104,20 +99,20 @@
             // 
             // comboBoxAADMappingList
             // 
-            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
             this.comboBoxAADMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAADMappingList.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
             this.comboBoxAADMappingList.Name = "comboBoxAADMappingList";
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.linkLabelAzCliDoc);
             this.groupBox1.Controls.Add(this.radioButtonAddAMSAccount);
             this.groupBox1.Controls.Add(this.checkBoxSelectUser);
             this.groupBox1.Controls.Add(this.radioButtonJsonCliOutput);
             this.groupBox1.Controls.Add(this.radioButtonAddManual);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -140,10 +135,16 @@
             // 
             // panelEnv
             // 
-            resources.ApplyResources(this.panelEnv, "panelEnv");
             this.panelEnv.Controls.Add(this.label1);
             this.panelEnv.Controls.Add(this.comboBoxAADMappingList);
+            resources.ApplyResources(this.panelEnv, "panelEnv");
             this.panelEnv.Name = "panelEnv";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label6.Name = "label6";
             // 
             // AddAMSAccount1
             // 
@@ -152,10 +153,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.panelEnv);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelAssetName);
             this.Name = "AddAMSAccount1";
             this.Load += new System.EventHandler(this.AddAMSAccount1_Load);
             this.Shown += new System.EventHandler(this.AddAMSAccount1_Shown);
@@ -165,6 +166,7 @@
             this.panelEnv.ResumeLayout(false);
             this.panelEnv.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -172,7 +174,6 @@
 
         public System.Windows.Forms.Button buttonNext;
         public System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label labelAssetName;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButtonAddAMSAccount;
         private System.Windows.Forms.CheckBox checkBoxSelectUser;
@@ -184,5 +185,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelEnv;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label6;
     }
 }

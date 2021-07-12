@@ -16,6 +16,7 @@
 
 
 using AMSExplorer.AMSLogin;
+using AMSExplorer.Rest;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.ResourceManager;
@@ -34,6 +35,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -87,8 +89,7 @@ namespace AMSExplorer
 
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
-            accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, Constants.LinkAMSCreateAccount));
-            linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSAADAut));
+            linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSCreateAccount));
 
             // version
             labelVersion.Text = string.Format(labelVersion.Text, Assembly.GetExecutingAssembly().GetName().Version);
@@ -426,6 +427,11 @@ namespace AMSExplorer
 
         private async void buttonPickupAccount_Click(object sender, EventArgs e)
         {
+            await PickUpAcountAsync();
+        }
+
+        private async Task PickUpAcountAsync()
+        {
             AddAMSAccount1 addaccount1 = new();
 
             if (addaccount1.ShowDialog() == DialogResult.OK)
@@ -438,41 +444,20 @@ namespace AMSExplorer
                     Cursor = Cursors.WaitCursor;
                     Prompt prompt = addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount;
 
-                    //string[] scopes = { "User.Read" };
                     environment = addaccount1.GetEnvironment();
                     var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
 
-
-                    IPublicClientApplication app = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "organizations")
+                    IPublicClientApplication appPickUp = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
                         .WithRedirectUri("http://localhost")
                         .Build();
 
-
-
-                    /*
-                    AuthenticationContext authContext = new AuthenticationContext(
-                                                                // authority:  environment.Authority,
-                                                                authority: environment.AADSettings.AuthenticationEndpoint.ToString() + "common",
-                                                             validateAuthority: true    
-                    );
-                    */
-
                     AuthenticationResult accessToken = null;
-                    var accounts = await app.GetAccountsAsync();
+                    var accounts = await appPickUp.GetAccountsAsync();
                     try
                     {
 
-                        accessToken = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
-                        /*
-                        accessToken = await authContext.AcquireTokenAsync(
-                                                                             resource: environment.AADSettings.TokenAudience.ToString(),
-                                                                             clientId: environment.ClientApplicationId,
-                                                                             redirectUri: new Uri("urn:ietf:wg:oauth:2.0:oob"),
-                                                                             parameters: new PlatformParameters()
-                                                                             //parameters: new PlatformParameters(addaccount1.SelectUser ? PromptBehavior.SelectAccount : PromptBehavior.Auto)
-                                                                             );
-                        */
+                        accessToken = await appPickUp.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
 
                     }
 #pragma warning disable CS0168 // Variable is declared but never used
@@ -481,7 +466,7 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            accessToken = await app.AcquireTokenInteractive(scopes)
+                            accessToken = await appPickUp.AcquireTokenInteractive(scopes)
                                 .WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount)
                                 .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
                                 .ExecuteAsync();
@@ -498,10 +483,14 @@ namespace AMSExplorer
                         return;
                     }
 
+                    if (accessToken == null)// User cancelled ?
+                    {
+                        Cursor = Cursors.Default;
+                        return;
+                    }
+
                     TokenCredentials credentials = new(accessToken.AccessToken, "Bearer");
-
                     SubscriptionClient subscriptionClient = new(environment.ArmEndpoint, credentials);
-
                     // Subcriptions listing
                     List<Subscription> subscriptions = new();
                     IPage<Subscription> subscriptionsPage = subscriptionClient.Subscriptions.List();
@@ -534,41 +523,71 @@ namespace AMSExplorer
                         }
                     }
 
-                    /*
-                    // Tenants browsing
-                    myTenants tenants = new myTenants();
-                    string URL = environment.ArmEndpoint + "tenants?api-version=2020-01-01";
-
-                    HttpClient client = new HttpClient();
-                    client.DefaultRequestHeaders.Remove("Authorization");
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken.AccessToken);
-                    HttpResponseMessage response = await client.GetAsync(URL);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string str = await response.Content.ReadAsStringAsync();
-                        tenants = (myTenants)JsonConvert.DeserializeObject(str, typeof(myTenants));
-                    }
-                    */
                     Cursor = Cursors.Default;
 
-                    AddAMSAccount2Browse addaccount2 = new(credentials, subscriptions, environment, tenants, prompt, app);
+                    AddAMSAccount2Browse addaccount2 = new(credentials, subscriptions, environment, tenants, prompt, appPickUp, accessToken);
 
                     if (addaccount2.ShowDialog() == DialogResult.OK)
                     {
-                        // Getting Media Services accounts...
+                        if (addaccount2.SelectMode) // An account has been selected
+                        {
+                            // Getting Media Services accounts...
 
-                        CredentialsEntryV3 entry = new(addaccount2.selectedAccount,
-                            environment,
-                            addaccount1.SelectUser,
-                            false,
-                            addaccount2.selectedTenantId,
-                            false
-                            );
+                            CredentialsEntryV3 entry = new(addaccount2.selectedAccount,
+                               environment,
+                               addaccount1.SelectUser,
+                               false,
+                               addaccount2.selectedTenantId,
+                               false
+                               );
 
-                        CredentialList.MediaServicesAccounts.Add(entry);
-                        AddItemToListviewAccounts(entry);
+                            CredentialList.MediaServicesAccounts.Add(entry);
+                            AddItemToListviewAccounts(entry);
+                            SaveCredentialsToSettings();
+                        }
+                        else // creation mode
+                        {
+                            var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").ToList();
 
-                        SaveCredentialsToSettings();
+                            // Getting Media Services accounts...
+                            var MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
+                            {
+                                SubscriptionId = addaccount2.SelectedSubscription.SubscriptionId
+                            };
+
+                            // let's get the list of avaibility zones
+                            AzureProviders aP = new AzureProviders(environment.ArmEndpoint);
+                            var list = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.SubscriptionId, "Microsoft.Network", accessToken.AccessToken);
+                            var listNatGateways = list.ResourceTypes.Where(r => r.ResourceType == "natGateways").FirstOrDefault();
+                            List<string> listRegionWithAvailabilityZone = new();
+                            if (listNatGateways != null)
+                            {
+                                listRegionWithAvailabilityZone = listNatGateways.ZoneMappings.Where(z => z.Zones.Count >= 3).Select(z => z.Location).ToList();
+                            }
+
+                            CreateAccount createAccount = new(myLocations, MediaServicesClient, credentials, listRegionWithAvailabilityZone);
+
+                            if (createAccount.ShowDialog() == DialogResult.OK)
+                            {
+                                // Add account to list
+                                CredentialsEntryV3 entry = new(
+                                  createAccount.MediaServiceCreated,
+                                  environment,
+                                  addaccount1.SelectUser,
+                                  false,
+                                  addaccount2.selectedTenantId,
+                                  false
+                                  );
+
+                                CredentialList.MediaServicesAccounts.Add(entry);
+                                AddItemToListviewAccounts(entry);
+                                SaveCredentialsToSettings();
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
                     }
                     else
                     {
@@ -621,9 +640,7 @@ namespace AMSExplorer
                         AzureEnvironment env = new(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
 
                         CredentialsEntryV3 entry = new(
-                                                        // new MediaService(resourceId, json.AccountName, null, null, json.Location ?? json.Region),
                                                         new MediaService(null, resourceId, json.AccountName),
-
                                                         env,
                                                         true,
                                                         true,

@@ -253,6 +253,7 @@ namespace AMSExplorer
 
                 if (webViewRegEntry == null || (string)webViewRegEntry.GetValue("pv") == null || new Version((string)webViewRegEntry.GetValue("pv")) < new Version(Constants.Webview2MinVersion))
                 {
+                    Telemetry.TrackEvent("Program CheckWebView2VersionAsync Webview2 update required");
                     if (MessageBox.Show("Microsoft Edge WebView2 runtime must be installed or updated. Launch the download and installation now ?", "Webview2 runtime", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         WebClient webClient = new();
@@ -306,10 +307,6 @@ namespace AMSExplorer
             webClient.DownloadStringCompleted += (sender, e) => DownloadVersionRequestCompletedV3(true, sender, e);
             webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersionPrimaryV3));
         }
-
-
-
-
 
         public static void DownloadVersionRequestCompletedV3(bool firsttry, object sender, DownloadStringCompletedEventArgs e)
         {
@@ -384,7 +381,6 @@ namespace AMSExplorer
             return newBitmap;
         }
 
-
         public static DialogResult InputBox(string title, string promptText, ref string value, bool passwordWildcard = false)
         {
             InputBox inputForm = new(title, promptText, value, passwordWildcard);
@@ -422,9 +418,7 @@ namespace AMSExplorer
             public LiveOutput LiveOutputItem { get; set; }
             public string LiveEventName { get; set; }
         }
-
     }
-
 
 
     public static class Extensions
@@ -438,5 +432,4 @@ namespace AMSExplorer
                 del(control);
         }
     }
-
 }

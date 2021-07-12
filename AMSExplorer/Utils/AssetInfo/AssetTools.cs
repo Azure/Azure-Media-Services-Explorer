@@ -125,9 +125,9 @@ namespace AMSExplorer
             }
         }
 
-        public static async Task<Uri> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null)
+        public static async Task<(Uri, bool)> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null, LiveOutput liveOutput = null)
         {
-
+            bool emptyLiveOutput = false; // used to signal the live output is empty (do not use ListPathsAsync)
 
             IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
 
@@ -142,25 +142,37 @@ namespace AMSExplorer
             if (locators.Count > 0 && runningSes != null)
             {
                 string locatorName = useThisLocatorName ?? locators.First().Name;
+                AssetStreamingLocator locatorToUse = locators.Where(l => l.Name == locatorName).First();
+
                 IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName)).StreamingPaths;
                 IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
-                if (smoothPath.Any())
+                if (smoothPath.Any(s => s.Paths.Count != 0))
                 {
                     UriBuilder uribuilder = new()
                     {
                         Host = runningSes.HostName,
                         Path = smoothPath.FirstOrDefault().Paths.FirstOrDefault()
                     };
-                    return uribuilder.Uri;
+                    return (uribuilder.Uri, emptyLiveOutput);
+                }
+                else if (smoothPath.Any() && liveOutput != null) // A live output with no data in it as live event not started. But we can determine the output URLs
+                {
+                    UriBuilder uribuilder = new()
+                    {
+                        Host = runningSes.HostName,
+                        Path = locatorToUse.StreamingLocatorId.ToString() + "/" + liveOutput.ManifestName + ".ism/manifest"
+                    };
+                    emptyLiveOutput = true;
+                    return (uribuilder.Uri, emptyLiveOutput);
                 }
                 else
                 {
-                    return null;
+                    return (null, emptyLiveOutput);
                 }
             }
             else
             {
-                return null;
+                return (null, emptyLiveOutput);
             }
         }
 
@@ -420,11 +432,11 @@ namespace AMSExplorer
 
         public static async Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
         {
-            Uri myuri = await GetValidOnDemandSmoothURIAsync(asset, _amsClient, preferredLocatorName);
+            Uri myuri = (await GetValidOnDemandSmoothURIAsync(asset, _amsClient, preferredLocatorName)).Item1;
 
             if (myuri == null)
             {
-                myuri = await GetValidOnDemandSmoothURIAsync(asset, _amsClient);
+                myuri = (await GetValidOnDemandSmoothURIAsync(asset, _amsClient)).Item1;
             }
             if (myuri != null)
             {
@@ -926,8 +938,10 @@ namespace AMSExplorer
                 infoStr.Add("   Default Content Key Policy Name", locator.DefaultContentKeyPolicyName);
                 infoStr.Add("   Associated filters", string.Join(", ", locator.Filters.ToArray()));
 
-                IList<StreamingPath> streamingPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).StreamingPaths;
-                IList<string> downloadPaths = (await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name)).DownloadPaths;
+                var listPaths = await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name);
+
+                IList<StreamingPath> streamingPaths = listPaths.StreamingPaths;
+                IList<string> downloadPaths = listPaths.DownloadPaths;
 
                 foreach (StreamingPath path in streamingPaths)
                 {
@@ -949,11 +963,23 @@ namespace AMSExplorer
         }
 
 
-        public static async Task<string> DoPlayBackWithStreamingEndpointAsync(PlayerType typeplayer, string path, AMSClientV3 client, Mainform mainForm,
-            Asset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
+        public static async Task<string> DoPlayBackWithStreamingEndpointAsync(
+            PlayerType typeplayer,
+            string path,
+            AMSClientV3 client,
+            Mainform mainForm,
+            Asset myasset = null,
+            bool DoNotRewriteURL = false,
+            string filter = null,
+            AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
-            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true, string selectedBrowser = "",
-            AssetStreamingLocator locator = null, string subtitleLanguageCode = null)
+            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto,
+            bool launchbrowser = true,
+            bool UISelectSEFiltersAndProtocols = true,
+            string selectedBrowser = "",
+            AssetStreamingLocator locator = null,
+            string subtitleLanguageCode = null,
+            bool emptyLiveOutput = false)
         {
             string FullPlayBackLink = null;
 
@@ -969,7 +995,7 @@ namespace AMSExplorer
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
                 {
-                    ChooseStreamingEndpoint form = new(client, myasset, path, filter, typeplayer, true);
+                    ChooseStreamingEndpoint form = new(client, myasset, path, filter, typeplayer, true, emptyLiveOutput);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         path = AssetTools.RW(form.UpdatedPath, form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();

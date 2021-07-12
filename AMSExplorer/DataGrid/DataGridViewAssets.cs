@@ -62,7 +62,6 @@ namespace AMSExplorer
         private static readonly Bitmap Redstreamimage = Program.MakeRed(Streaminglocatorimage);
         private static readonly Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
-        private static AMSClientV3 _amsClient;
         private static BindingList<AssetEntry> _MyObservAssetV3;
         private IPage<Asset> firstpage;
         private SynchronizationContext _syncontext;
@@ -108,10 +107,8 @@ namespace AMSExplorer
 
             _syncontext = syncontext;
 
-            _amsClient = client;
-
             IPage<Asset> assetsList = Task.Run(() =>
-                                        _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName)
+                                        client.AMSclient.Assets.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)
                                         ).GetAwaiter().GetResult();
 
             IEnumerable<AssetEntry> assets = assetsList.Select(a => new AssetEntry(_syncontext)
@@ -217,7 +214,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task WorkerAnalyzeAssets_DoWorkAsync()
+        private async Task WorkerAnalyzeAssets_DoWorkAsync(AMSClientV3 amsClient)
         {
             Debug.WriteLine("WorkerAnalyzeAssets_DoWork");
             Asset asset = null;
@@ -257,7 +254,7 @@ namespace AMSExplorer
                 await Task.Delay(1000);
                 try
                 {
-                    asset = await _amsClient.GetAssetAsync(AE.Name);
+                    asset = await amsClient.GetAssetAsync(AE.Name);
 
                     if (asset != null)
                     {
@@ -272,21 +269,21 @@ namespace AMSExplorer
                         IList<AssetStreamingLocator> locators = null;
                         try
                         {
-                            locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name))
+                            locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, asset.Name))
                                 .StreamingLocators;
                         }
                         catch
                         {
                         }
 
-                        AssetBitmapAndText assetBitmapAndText = await DataGridViewAssets.BuildBitmapPublicationAsync(asset.Name, _amsClient, locators);
+                        AssetBitmapAndText assetBitmapAndText = await DataGridViewAssets.BuildBitmapPublicationAsync(asset.Name, amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.Publication = assetBitmapAndText.bitmap;
                         }
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
 
-                        AssetInfoData data = await AssetTools.GetAssetTypeAsync(asset.Name, _amsClient);
+                        AssetInfoData data = await AssetTools.GetAssetTypeAsync(asset.Name, amsClient);
                         if (data != null)
                         {
                             AE.Type = data.Type;
@@ -295,7 +292,7 @@ namespace AMSExplorer
                             AE.AssetWarning = (AE.SizeLong == 0);
                         }
 
-                        assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset.Name, _amsClient, locators);
+                        assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset.Name, amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.DynamicEncryption = assetBitmapAndText.bitmap;
@@ -308,7 +305,7 @@ namespace AMSExplorer
                             AE.LocatorExpirationDateWarning = LocDate.HasValue && (LocDate < DateTime.Now.ToLocalTime());
                         }
 
-                        int? afcount = await ReturnNumberAssetFiltersAsync(asset.Name, _amsClient);
+                        int? afcount = await ReturnNumberAssetFiltersAsync(asset.Name, amsClient);
                         AE.Filters = afcount > 0 ? afcount : null;
 
                         lock (cacheAssetentriesV3)
@@ -373,7 +370,7 @@ namespace AMSExplorer
         private static CancellationTokenSource _analyzeAssetTaskTokenSource;
         private static long instanceNumber = 0;
 
-        public async Task ReLaunchAnalyzeOfAssetsAsync()
+        public async Task ReLaunchAnalyzeOfAssetsAsync(AMSClientV3 amsClient)
         {
             if (!_initialized)
             {
@@ -410,13 +407,13 @@ namespace AMSExplorer
             {
                 _analyzeAssetTaskTokenSource = new CancellationTokenSource();
                 Debug.Print("run again ! " + instanceNumber);
-                _analyzeAssetTask = Task.Run(() => WorkerAnalyzeAssets_DoWorkAsync(), _analyzeAssetTaskTokenSource.Token);
+                _analyzeAssetTask = Task.Run(() => WorkerAnalyzeAssets_DoWorkAsync(amsClient), _analyzeAssetTaskTokenSource.Token);
             }
             catch { }
         }
 
 
-        public async Task RefreshAssetsAsync(int pagetodisplay) // all assets are refreshed
+        public async Task RefreshAssetsAsync(int pagetodisplay, AMSClientV3 amsClient) // all assets are refreshed
         {
 
             Debug.WriteLine("RefreshAssetsAsync");
@@ -568,7 +565,7 @@ Properties/StorageId
 
             if (pagetodisplay == 1)
             {
-                firstpage = await _amsClient.AMSclient.Assets.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, odataQuery);
+                firstpage = await amsClient.AMSclient.Assets.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, odataQuery);
                 currentPage = firstpage;
             }
             else
@@ -578,7 +575,7 @@ Properties/StorageId
                 while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
                 {
                     _currentPageNumber++;
-                    currentPage = await _amsClient.AMSclient.Assets.ListNextAsync(currentPage.NextPageLink);
+                    currentPage = await amsClient.AMSclient.Assets.ListNextAsync(currentPage.NextPageLink);
                 }
                 if (currentPage.NextPageLink == null)
                 {
@@ -612,7 +609,7 @@ Properties/StorageId
             Invoke(new Action(() => DataSource = _MyObservAssetV3));
 
             Debug.WriteLine("RefreshAssets End");
-            await ReLaunchAnalyzeOfAssetsAsync();
+            await ReLaunchAnalyzeOfAssetsAsync(amsClient);
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
@@ -770,13 +767,13 @@ Properties/StorageId
             List<AssetFilter> assetFilters = new();
             try
             {
-                IPage<AssetFilter> assetFiltersPage = await client.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName);
+                IPage<AssetFilter> assetFiltersPage = await client.AMSclient.AssetFilters.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName, assetName);
                 while (assetFiltersPage != null)
                 {
                     assetFilters.AddRange(assetFiltersPage);
                     if (assetFiltersPage.NextPageLink != null)
                     {
-                        assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                        assetFiltersPage = await client.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
                     }
                     else
                     {

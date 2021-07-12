@@ -1,10 +1,10 @@
-# Version 5.4.3.0 (June 23, 2021) brings the following features and improvements
+# Version 5.4.4.0 (July 12, 2021) brings the following features and improvements
 
-* Support for archiving all bitrates in subclipping UI, using the new CopyAllBitrateNonInterleaved preset. This preset is also exposed in Media Encoder Standard UI
-* Support for [IP addresses allow list](https://docs.microsoft.com/en-us/azure/media-services/latest/drm-content-protection-key-delivery-ip-allow) for AES & DRM key delivery
-* Upload and download transfers can now be resumed
-* Job and Transform reports
-* Fixes an issue when downloading a live archive, and when copying asset between two storage accounts
-* Azure Media Services SDK update to version 4.0.0
+* It's now possible to create an AMS Account (using the account pickup button) in interactive authentication mode
+  * if location supports Availability Zones then more redundancy options are presented for the storage account creation
+* Program Output URLs are now displayed even if live event is not started or no live data reached the asset yet
+* Storage attachment UI update that lists the existing storage accounts in the same location
+* By default, when uploading a file, the file name is stored in alternate Id field. As this field is indexed, it makes the assets search easier
+* New "Open in portal" option in Account Management menu
 * Nugget packages and documentation update
 * Code optimization, bugs and crashes fixes

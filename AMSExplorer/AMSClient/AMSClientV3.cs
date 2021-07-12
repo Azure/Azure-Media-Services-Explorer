@@ -1,4 +1,20 @@
-﻿using AMSExplorer.AMSLogin;
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2021 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
+
+using AMSExplorer.AMSLogin;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Identity.Client;
@@ -74,7 +90,6 @@ namespace AMSExplorer
             await ConnectAndGetNewClientV3Async();
             if (authResult != null)
             {
-                var interval = (authResult.ExpiresOn.ToUniversalTime() - DateTimeOffset.UtcNow.AddMinutes(3)).TotalMilliseconds;
                 try
                 {
                     // next refresh for the token : 3 minutes before it expires
@@ -110,8 +125,6 @@ namespace AMSExplorer
                              .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(callerForm ?? _form))
                              .ExecuteAsync();
 
-
-                        // authResult = await app.AcquireTokenInteractive(scopes).WithPrompt(credentialsEntry.PromptUser ? Prompt.ForceLogin : Prompt.NoPrompt).ExecuteAsync().ConfigureAwait(false);
                     }
                     catch (MsalException maslException)
                     {
@@ -178,8 +191,6 @@ namespace AMSExplorer
             AMSclient.SetUserAgent("AMSE", version);
             return AMSclient;
         }
-
-
 
 
         public static string GetStorageName(string storageId)

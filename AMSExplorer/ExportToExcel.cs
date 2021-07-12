@@ -170,15 +170,17 @@ namespace AMSExplorer
         {
             int? nbLocators = null;
 
-            List<string> linec = new List<string>();
-            linec.Add(asset.Name);
-            linec.Add(asset.Description);
-            linec.Add(asset.AlternateId);
-            linec.Add(asset.AssetId.ToString());
-            linec.Add(returnDate(localtime, asset.Created).ToString());
-            linec.Add(returnDate(localtime, asset.LastModified).ToString());
-            linec.Add(asset.StorageAccountName);
-            linec.Add(asset.Container);
+            List<string> linec = new List<string>
+            {
+                asset.Name,
+                asset.Description,
+                asset.AlternateId,
+                asset.AssetId.ToString(),
+                returnDate(localtime, asset.Created).ToString(),
+                returnDate(localtime, asset.LastModified).ToString(),
+                asset.StorageAccountName,
+                asset.Container
+            };
 
             if (detailed)
             {
@@ -746,15 +748,17 @@ namespace AMSExplorer
                     checkBoxLocalTime.Checked ? "local" : "UTC based"
                     )));
 
-                List<string> linec = new List<string>();
-                linec.Add("Asset name");
-                linec.Add("Description");
-                linec.Add("Alternate Id");
-                linec.Add("Asset Id");
-                linec.Add("Created time");
-                linec.Add("Last modified time");
-                linec.Add("Storage account");
-                linec.Add("Storage container");
+                List<string> linec = new()
+                {
+                    "Asset name",
+                    "Description",
+                    "Alternate Id",
+                    "Asset Id",
+                    "Created time",
+                    "Last modified time",
+                    "Storage account",
+                    "Storage container"
+                };
 
                 if (detailed)
                 {

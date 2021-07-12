@@ -20,25 +20,28 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer
 {
     public partial class LiveOutputInformation : Form
     {
-        public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
+        private IEnumerable<StreamingEndpoint> _streamingEndpoints;
         private readonly Mainform MyMainForm;
         private readonly AMSClientV3 _amsClient;
-        public bool MultipleSelection = false;
-        public LiveOutput MyLiveOutput;
+        private bool _multipleSelection = false;
+        private LiveOutput _liveOutput;
+        private Asset _relatedAsset = null;
 
-        public LiveOutputInformation(Mainform mainform, AMSClientV3 client)
+        public LiveOutputInformation(Mainform mainform, AMSClientV3 client, LiveOutput liveOutput, IEnumerable<StreamingEndpoint> streamingEndpoints, bool multipleSelection = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
             _amsClient = client;
+            _liveOutput = liveOutput;
+            _multipleSelection = multipleSelection;
+            _streamingEndpoints = streamingEndpoints;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -61,7 +64,6 @@ namespace AMSExplorer
         }
 
 
-
         private void contextMenuStripDG_Opening(object sender, CancelEventArgs e)
         {
 
@@ -70,49 +72,45 @@ namespace AMSExplorer
 
         private void buttonOpenAsset_Click(object sender, EventArgs e)
         {
-
-
-            Asset AssetToDisplayP = Task.Run(() =>
-                        _amsClient.GetAssetAsync(MyLiveOutput.AssetName))
-                        .GetAwaiter().GetResult();
-
-            if (AssetToDisplayP != null)
+            if (_relatedAsset != null)
             {
-                AssetInformation form = new(MyMainForm, _amsClient)
-                {
-                    myAsset = AssetToDisplayP,
-                    myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
-                };
-                DialogResult dialogResult = form.ShowDialog(this);
+                AssetInformation form = new(
+                    MyMainForm,
+                    _amsClient,
+                    _relatedAsset,
+                    _streamingEndpoints // we want to keep the same sorting
+                    );
+
+                form.ShowDialog(this);
             }
             else
             {
-                MessageBox.Show(string.Format("Asset '{0}' not found !", MyLiveOutput.AssetName), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("Asset '{0}' not found !", _liveOutput.AssetName), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void LiveOutputInformation_Load(object sender, EventArgs e)
+        private async void LiveOutputInformation_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-            if (!MultipleSelection)
+            if (!_multipleSelection)
             {
-                labelProgramName.Text += MyLiveOutput.Name;
+                labelProgramName.Text += _liveOutput.Name;
                 DGLiveEvent.ColumnCount = 2;
 
                 // Program info
                 DGLiveEvent.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-                DGLiveEvent.Rows.Add("Name", MyLiveOutput.Name);
-                DGLiveEvent.Rows.Add("Id", MyLiveOutput.Id);
-                DGLiveEvent.Rows.Add("State", MyLiveOutput.ResourceState);
-                DGLiveEvent.Rows.Add("Created", ((DateTime)MyLiveOutput.Created).ToLocalTime().ToString("G"));
-                DGLiveEvent.Rows.Add("Last Modified", ((DateTime)MyLiveOutput.LastModified).ToLocalTime().ToString("G"));
-                DGLiveEvent.Rows.Add("Description", MyLiveOutput.Description);
-                DGLiveEvent.Rows.Add("Archive Window Length", MyLiveOutput.ArchiveWindowLength);
-                DGLiveEvent.Rows.Add("Manifest Name", MyLiveOutput.ManifestName);
-                DGLiveEvent.Rows.Add("Asset Name", MyLiveOutput.AssetName);
-                DGLiveEvent.Rows.Add("Output snap time", MyLiveOutput.OutputSnapTime);
-                DGLiveEvent.Rows.Add("Fragments Per Ts Segment", MyLiveOutput.Hls?.FragmentsPerTsSegment);
+                DGLiveEvent.Rows.Add("Name", _liveOutput.Name);
+                DGLiveEvent.Rows.Add("Id", _liveOutput.Id);
+                DGLiveEvent.Rows.Add("State", _liveOutput.ResourceState);
+                DGLiveEvent.Rows.Add("Created", ((DateTime)_liveOutput.Created).ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add("Last Modified", ((DateTime)_liveOutput.LastModified).ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add("Description", _liveOutput.Description);
+                DGLiveEvent.Rows.Add("Archive Window Length", _liveOutput.ArchiveWindowLength);
+                DGLiveEvent.Rows.Add("Manifest Name", _liveOutput.ManifestName);
+                DGLiveEvent.Rows.Add("Asset Name", _liveOutput.AssetName);
+                DGLiveEvent.Rows.Add("Output snap time", _liveOutput.OutputSnapTime);
+                DGLiveEvent.Rows.Add("Fragments Per Ts Segment", _liveOutput.Hls?.FragmentsPerTsSegment);
 
                 /*
                 ProgramInfo PI = new ProgramInfo(MyLiveOutput, MyContext);
@@ -129,6 +127,21 @@ namespace AMSExplorer
                     DGChannel.Rows[i].Cells[1].Style.ForeColor = Color.Red;
                 }
                 */
+
+                _relatedAsset = await _amsClient.GetAssetAsync(_liveOutput.AssetName);
+                if (_relatedAsset != null)
+                {
+                    var result = await AssetTools.GetValidOnDemandSmoothURIAsync(_relatedAsset, _amsClient, null, _liveOutput);
+                    if (result.Item1 != null)
+                    {
+                        string text = "Output Url";
+                        if (result.Item2)
+                        {
+                            text += " (not active yet)";
+                        }
+                        DGLiveEvent.Rows.Add(text, result.Item1);
+                    }
+                }
             }
             else
             {
@@ -138,8 +151,8 @@ namespace AMSExplorer
             }
 
 
-            numericUpDownArchiveHours.Value = Convert.ToInt16(MyLiveOutput.ArchiveWindowLength.TotalHours);
-            numericUpDownArchiveMinutes.Value = MyLiveOutput.ArchiveWindowLength.Minutes;
+            numericUpDownArchiveHours.Value = Convert.ToInt16(_liveOutput.ArchiveWindowLength.TotalHours);
+            numericUpDownArchiveMinutes.Value = _liveOutput.ArchiveWindowLength.Minutes;
 
         }
 
