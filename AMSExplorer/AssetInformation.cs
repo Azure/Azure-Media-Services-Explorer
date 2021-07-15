@@ -312,8 +312,6 @@ namespace AMSExplorer
             dataGridViewKeys.ColumnCount = 2;
             dataGridViewKeys.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
-            long size = -1;
-
             // asset info
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _asset.Name);
@@ -324,13 +322,14 @@ namespace AMSExplorer
             DGAsset.Rows.Add("Container", _asset.Container);
             DGAsset.Rows.Add("StorageAccountName", _asset.StorageAccountName);
             DGAsset.Rows.Add("StorageEncryptionFormat", _asset.StorageEncryptionFormat);
-            DGAsset.Rows.Add("Type", _asset.Type);
 
-            if (size != -1)
+            AssetInfoData MyAssetTypeInfo = await AssetTools.GetAssetTypeAsync(_asset.Name, _amsClient);
+            if (MyAssetTypeInfo != null)
             {
-                DGAsset.Rows.Add("Size", AssetTools.FormatByteSize(size));
+                DGAsset.Rows.Add("Type", MyAssetTypeInfo.Type);
+                DGAsset.Rows.Add("Size", AssetTools.FormatByteSize(MyAssetTypeInfo.Size));
             }
-
+          
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _asset.Created.ToLocalTime().ToString("G"));
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _asset.LastModified.ToLocalTime().ToString("G"));
 
