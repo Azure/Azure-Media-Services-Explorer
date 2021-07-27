@@ -243,9 +243,16 @@ namespace AMSExplorer
 
             foreach (LiveEvent le in ListEvents)
             {
-                List<LiveOutput> plist = (await amsClient.AMSclient.LiveOutputs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, le.Name))
-                    .ToList();
-                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+                try
+                {
+                    List<LiveOutput> plist = (await amsClient.AMSclient.LiveOutputs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, le.Name))
+                       .ToList();
+                    plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+                }
+                catch
+                {
+
+                }
             }
 
             float scale = DeviceDpi / 96f;
