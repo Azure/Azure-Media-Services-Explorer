@@ -100,6 +100,7 @@ namespace AMSExplorer
                 };
                 p.Start();
 
+                Telemetry.Flush();
                 Environment.Exit(0);
             }
             return new AsyncCompletedEventHandler(action);
