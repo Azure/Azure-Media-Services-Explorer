@@ -23,7 +23,7 @@ This application requires the installlation of
 
 ## Prerequisites to compile the solution from source
 
-This solution has been developed using [Visual Studio 2019 16.10.0](https://visualstudio.microsoft.com/vs/). It contains two projects: "AMSExplorer", the main application, and "Setup", a project that creates a Setup executable (EXE/MSI).
+This solution has been developed using [Visual Studio 2019 16.10.4](https://visualstudio.microsoft.com/vs/). It contains two projects: "AMSExplorer", the main application, and "Setup", a project that creates a Setup executable (EXE/MSI).
 
 You need to install the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects) in order to open and build the Setup project in Visual Studio.
 
