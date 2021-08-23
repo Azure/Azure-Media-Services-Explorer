@@ -88,18 +88,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.17.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.17.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.18.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.18.0" />
     <PackageReference Include="Microsoft.Azure.Management.Media" Version="4.0.0" />
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.13.1-preview" />
     <PackageReference Include="Microsoft.Azure.Management.Storage" Version="22.0.0" />
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.34.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.35.1" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.902.49" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
   </ItemGroup>
 
   <ItemGroup>
