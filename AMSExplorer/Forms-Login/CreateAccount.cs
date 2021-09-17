@@ -277,7 +277,7 @@ namespace AMSExplorer
                             id: storageId
                         )
                     },
-                    identity: new MediaServiceIdentity(checkBoxManagedIdentity.Checked ? ManagedIdentityType.SystemAssigned : ManagedIdentityType.None)
+                    identity: new MediaServiceIdentity(checkBoxManagedIdentity.Checked ? "SystemAssigned" : "None")
                 );
 
                 // Create a new Media Services account
@@ -296,7 +296,7 @@ namespace AMSExplorer
                 {
                     message += Environment.NewLine + Program.GetErrorMessage(ex);
                 }
-                if (ex is ApiErrorException eApi)
+                if (ex is Microsoft.Azure.Management.Media.Models.ErrorResponseException eApi)
                 {
                     dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
                     message += Environment.NewLine + (string)error?.error?.message;

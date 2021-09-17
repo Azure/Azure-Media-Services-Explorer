@@ -113,10 +113,14 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in SelectedRows)
             {
                 // sometimes, the transform can be null (if just deleted)
-                Transform transform = await amsClient.GetTransformAsync(Row.Cells[Columns["Name"].Index].Value.ToString());
-                if (transform != null)
+                try
                 {
+                    Transform transform = await amsClient.GetTransformAsync(Row.Cells[Columns["Name"].Index].Value.ToString());
                     SelectedTransforms.Add(transform);
+                }
+                catch
+                {
+
                 }
             }
             SelectedTransforms.Reverse();

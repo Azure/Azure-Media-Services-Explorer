@@ -83,7 +83,7 @@ namespace AMSExplorer
                 {
                     dic.Add("InnerExceptionMessage", Program.GetErrorMessage(ex));
                 }
-                if (ex is ApiErrorException eApi)
+                if (ex is ErrorResponseException eApi)
                 {
                     dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
                     dic.Add("ApiErrorExceptionMessage", (string)error?.error?.message);

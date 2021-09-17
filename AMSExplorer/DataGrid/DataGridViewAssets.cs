@@ -254,9 +254,17 @@ namespace AMSExplorer
                 await Task.Delay(1000);
                 try
                 {
-                    asset = await amsClient.GetAssetAsync(AE.Name);
+                    bool existAsset = true;
+                    try
+                    {
+                        asset = await amsClient.GetAssetAsync(AE.Name);
+                    }
+                    catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        existAsset = false;
+                    }
 
-                    if (asset != null)
+                    if (existAsset)
                     {
                         Debug.WriteLine("analyze : " + asset.Name);
 

@@ -60,14 +60,17 @@ namespace AMSExplorer
             List<StreamingEndpoint> list = new();
             foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
             {
-                StreamingEndpoint detailedSE = Task.Run(() => amsClient.GetStreamingEndpointAsync(se.Name)).GetAwaiter().GetResult();
-                if (detailedSE != null) // in some rare cases, SE is null in dev/test account
+                try
                 {
+                    StreamingEndpoint detailedSE = Task.Run(() => amsClient.GetStreamingEndpointAsync(se.Name)).GetAwaiter().GetResult();
                     list.Add(detailedSE);
+                }
+                catch
+                {
+
                 }
             }
             return list;
-
         }
 
         public async Task InitAsync(AMSClientV3 amsClient)
@@ -120,9 +123,9 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
 
-                streamingEndpoint = await amsClient.GetStreamingEndpointAsync(streamingEndpoint.Name); //refresh
-                if (streamingEndpoint != null)
+                try
                 {
+                    streamingEndpoint = await amsClient.GetStreamingEndpointAsync(streamingEndpoint.Name); //refresh
                     _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)streamingEndpoint.ResourceState;
                     _MyObservStreamingEndpoints[index].Description = streamingEndpoint.Description;
                     _MyObservStreamingEndpoints[index].LastModified = ((DateTime)streamingEndpoint.LastModified).ToLocalTime();
@@ -130,6 +133,10 @@ namespace AMSExplorer
                     _MyObservStreamingEndpoints[index].CDN = ((bool)streamingEndpoint.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(streamingEndpoint.CdnProvider) ?? "CDN" : string.Empty;
                     _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : streamingEndpoint.ScaleUnits.ToString();
                     BeginInvoke(new Action(() => Refresh()));
+                }
+               catch
+                {
+
                 }
             }
         }
