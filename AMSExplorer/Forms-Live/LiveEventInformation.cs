@@ -172,7 +172,7 @@ namespace AMSExplorer
                         textBoxEncodingKeyFrameInterval.Text = ((TimeSpan)MyLiveEvent.Encoding.KeyFrameInterval).TotalSeconds.ToString();
                     }
 
-                    if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.None)
+                    if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                     {
                         textBoxEncodingKeyFrameInterval.Enabled = false;
                         checkBoxEncodingKeyFrameInterval.Enabled = false;
@@ -536,7 +536,7 @@ namespace AMSExplorer
 
         private string ReturnLiveEncodingProfile()
         {
-            if (MyLiveEvent.Encoding.EncodingType != LiveEventEncodingType.None)
+            if (MyLiveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && MyLiveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic)
             {
                 return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
             }

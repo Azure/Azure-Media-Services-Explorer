@@ -89,7 +89,8 @@ namespace AMSExplorer
 
             return (string)channel.Encoding.EncodingType switch
             {
-                nameof(LiveEventEncodingType.None) => null,
+                nameof(LiveEventEncodingType.PassthroughBasic) => null,
+                nameof(LiveEventEncodingType.PassthroughStandard) => null,
                 nameof(LiveEventEncodingType.Standard) => StandardEncodingImage,
                 nameof(LiveEventEncodingType.Premium1080p) => PremiumEncodingImage,
                 _ => null,
@@ -126,7 +127,7 @@ namespace AMSExplorer
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
                                Encoding = ReturnChannelBitmap(c),
-                               EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
+                               EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic) ? c.Encoding.PresetName : string.Empty,
                                InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
                                PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
                                State = c.ResourceState,
@@ -260,7 +261,7 @@ namespace AMSExplorer
                            Description = c.Description,
                            InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString(), c.Input.Endpoints.Count),
                            Encoding = ReturnChannelBitmap(c),
-                           EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.None) ? c.Encoding.PresetName : string.Empty,
+                           EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic) ? c.Encoding.PresetName : string.Empty,
                            InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
                            PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
                            State = c.ResourceState,

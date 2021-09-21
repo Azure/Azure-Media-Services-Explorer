@@ -93,7 +93,6 @@ namespace AMSExplorer
         {
             get
             {
-
                 IList<LiveEventTranscription> transcriptionList = new List<LiveEventTranscription>
                 {
                     new LiveEventTranscription(language: ((Item)comboBoxLanguage.SelectedItem).Value)
@@ -106,8 +105,12 @@ namespace AMSExplorer
         {
             get
             {
-                LiveEventEncodingType type = LiveEventEncodingType.None;
-                if (radioButtonTranscodingStd.Checked)
+                LiveEventEncodingType type = LiveEventEncodingType.PassthroughStandard;
+                if (radioButtonPassThroughBasic.Checked)
+                {
+                    type = LiveEventEncodingType.PassthroughBasic;
+                }
+                else if(radioButtonTranscodingStd.Checked)
                 {
                     type = LiveEventEncodingType.Standard;
                 }
@@ -394,7 +397,7 @@ namespace AMSExplorer
         {
             bool displayEncProfile = false;
             LiveEventEncoding myEncoding = Encoding;
-            if (radioButtonDefaultPreset.Checked && myEncoding.EncodingType != LiveEventEncodingType.None)
+            if (radioButtonDefaultPreset.Checked && myEncoding.EncodingType != LiveEventEncodingType.PassthroughStandard && myEncoding.EncodingType != LiveEventEncodingType.PassthroughBasic)
             {
                 AMSEXPlorerLiveProfile.LiveProfile profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == myEncoding.EncodingType).FirstOrDefault();
                 if (profileliveselected != null)
@@ -531,11 +534,11 @@ namespace AMSExplorer
         {
             if (!InitPhase && radio.Checked)
             {
-                moreinfoLiveEncodingProfilelink.Visible = !(Encoding.EncodingType == LiveEventEncodingType.None);
-                moreinfoLiveStreamingProfilelink.Visible = (Encoding.EncodingType == LiveEventEncodingType.None);
+                moreinfoLiveEncodingProfilelink.Visible = Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic;
+                moreinfoLiveStreamingProfilelink.Visible = (Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic);
 
                 // let's display the encoding tab if encoding has been choosen
-                if (Encoding.EncodingType == LiveEventEncodingType.None)
+                if (Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
                     if (EncodingTabDisplayed)
                     {

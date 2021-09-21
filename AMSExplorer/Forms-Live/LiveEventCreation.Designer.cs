@@ -49,7 +49,7 @@
             this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
             this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
             this.radioButtonTranscodingStd = new System.Windows.Forms.RadioButton();
-            this.radioButtonTranscodingNone = new System.Windows.Forms.RadioButton();
+            this.radioButtonPassThroughStandard = new System.Windows.Forms.RadioButton();
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
             this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
@@ -89,6 +89,7 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.radioButtonPassThroughBasic = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -205,11 +206,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioButtonPassThroughBasic);
             this.groupBox1.Controls.Add(this.radioButtonTranscodingPremium);
             this.groupBox1.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.groupBox1.Controls.Add(this.moreinfoLiveStreamingProfilelink);
             this.groupBox1.Controls.Add(this.radioButtonTranscodingStd);
-            this.groupBox1.Controls.Add(this.radioButtonTranscodingNone);
+            this.groupBox1.Controls.Add(this.radioButtonPassThroughStandard);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
@@ -242,14 +244,13 @@
             this.radioButtonTranscodingStd.UseVisualStyleBackColor = true;
             this.radioButtonTranscodingStd.CheckedChanged += new System.EventHandler(this.RadioButtonTranscodingNone_CheckedChanged);
             // 
-            // radioButtonTranscodingNone
+            // radioButtonPassThroughStandard
             // 
-            resources.ApplyResources(this.radioButtonTranscodingNone, "radioButtonTranscodingNone");
-            this.radioButtonTranscodingNone.Checked = true;
-            this.radioButtonTranscodingNone.Name = "radioButtonTranscodingNone";
-            this.radioButtonTranscodingNone.TabStop = true;
-            this.radioButtonTranscodingNone.UseVisualStyleBackColor = true;
-            this.radioButtonTranscodingNone.CheckedChanged += new System.EventHandler(this.RadioButtonTranscodingNone_CheckedChanged);
+            resources.ApplyResources(this.radioButtonPassThroughStandard, "radioButtonPassThroughStandard");
+            this.radioButtonPassThroughStandard.Checked = true;
+            this.radioButtonPassThroughStandard.Name = "radioButtonPassThroughStandard";
+            this.radioButtonPassThroughStandard.UseVisualStyleBackColor = true;
+            this.radioButtonPassThroughStandard.CheckedChanged += new System.EventHandler(this.RadioButtonTranscodingNone_CheckedChanged);
             // 
             // checkBoxRestrictPreviewIP
             // 
@@ -527,6 +528,12 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // radioButtonPassThroughBasic
+            // 
+            resources.ApplyResources(this.radioButtonPassThroughBasic, "radioButtonPassThroughBasic");
+            this.radioButtonPassThroughBasic.Name = "radioButtonPassThroughBasic";
+            this.radioButtonPassThroughBasic.UseVisualStyleBackColor = true;
+            // 
             // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
@@ -616,7 +623,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonTranscodingPremium;
         private System.Windows.Forms.RadioButton radioButtonTranscodingStd;
-        private System.Windows.Forms.RadioButton radioButtonTranscodingNone;
+        private System.Windows.Forms.RadioButton radioButtonPassThroughStandard;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelUrlSyntax;
         private System.Windows.Forms.TableLayoutPanel panelPresetLiveEncoding;
@@ -632,5 +639,6 @@
         private System.Windows.Forms.TabPage tabPageAdvEncoding;
         private System.Windows.Forms.CheckBox checkBoxEncodingKeyFrameInterval;
         private System.Windows.Forms.TextBox textBoxEncodingKeyFrameInterval;
+        private System.Windows.Forms.RadioButton radioButtonPassThroughBasic;
     }
 }

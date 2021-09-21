@@ -4741,7 +4741,6 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
 
-
                 TextBoxLogWriteLine("Creating live event '{0}'...", form.LiveEventName);
 
                 bool Error = false;
@@ -4886,7 +4885,7 @@ namespace AMSExplorer
                         if (liveEvent.Encoding.EncodingType == firstLiveEvent.Encoding.EncodingType)
                         {
 
-                            if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding != null && (liveEvent.ResourceState == LiveEventResourceState.Stopped || liveEvent.ResourceState == LiveEventResourceState.StandBy))
+                            if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && liveEvent.Encoding != null && (liveEvent.ResourceState == LiveEventResourceState.Stopped || liveEvent.ResourceState == LiveEventResourceState.StandBy))
                             {
                                 if (modifications.SystemPreset)
                                 {
@@ -4897,11 +4896,11 @@ namespace AMSExplorer
                                     liveEvent.Encoding.KeyFrameInterval = form.EncodingKeyframeInterval;
                                 }
                             }
-                            else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.ResourceState != LiveEventResourceState.Stopped && liveEvent.ResourceState != LiveEventResourceState.StandBy)
+                            else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && liveEvent.ResourceState != LiveEventResourceState.Stopped && liveEvent.ResourceState != LiveEventResourceState.StandBy)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : must be stopped or in standbye to update the encoding settings", liveEvent.Name);
                             }
-                            else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.None && liveEvent.Encoding == null)
+                            else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && liveEvent.Encoding == null)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", liveEvent.Name, true);
                             }
