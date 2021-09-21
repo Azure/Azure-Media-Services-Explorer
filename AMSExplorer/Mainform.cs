@@ -8256,7 +8256,7 @@ namespace AMSExplorer
                 {
                     outputs = new TransformOutput[]
                                                      {
-                                                                new TransformOutput( new BuiltInStandardEncoderPreset( ){ PresetName= form.BuiltInPreset }),
+                                                                new TransformOutput( new BuiltInStandardEncoderPreset( ){ PresetName= form.BuiltInPreset, Configurations = form.CAEConfigurations}),
                                                      };
 
                 }

@@ -30,6 +30,8 @@ namespace AMSExplorer
         public static readonly string CopyVideoAudioTransformName = "StandardEncoder-AMSE-CopyVideoAudio";
         public static readonly string CopyAllBitrateNonInterleavedTransformName = "StandardEncoder-AMSE-CopyAllBitrateNonInterleaved";
         public static readonly string ThumbnailTransformName = "StandardEncoder-AMSE-Thumbnails";
+        public static readonly string ConstrainedCAETransformName = "StandardEncoder-AMSE-ConstrainedCAE";
+
 
         private readonly string _existingTransformName;
         private readonly string _existingTransformDesc;
@@ -55,6 +57,10 @@ namespace AMSExplorer
         private readonly PresetStandardEncoderThumbnail formThumbnail = new();
         private StandardEncoderPreset encoderPresetThumbnail;
 
+        private readonly PresetStandardEncoderCAEConstrained presetStandardEncoderCAEConstrained = new();
+        private PresetConfigurations presetConfigurations;
+
+
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
 
 
@@ -62,17 +68,27 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonBuiltin.Checked)
+                if (radioButtonBuiltin.Checked || radioButtonConstrainedCAE.Checked)
                 {
                     return MESPresetTypeUI.builtin;
                 }
-                else
+                else // (radioButtonThumbnail.Checked || radioButtonCustomCopy.Checked)
                 {
                     return MESPresetTypeUI.custom;
                 }
             }
         }
 
+        public PresetConfigurations CAEConfigurations
+        {
+            get
+            {
+                if (radioButtonConstrainedCAE.Checked)
+                    return presetConfigurations;
+                else
+                    return null;
+            }
+        }
 
         public StandardEncoderPreset CustomCopyPreset
         {
@@ -178,6 +194,10 @@ namespace AMSExplorer
                 {
                     textBoxTransformName.Text = ThumbnailTransformName;
                 }
+                if (radioButtonConstrainedCAE.Checked)
+                {
+                    textBoxTransformName.Text = ConstrainedCAETransformName;
+                }
                 else
                 {
                     textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();
@@ -229,6 +249,20 @@ namespace AMSExplorer
         private void PresetStandardEncoder_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+        }
+
+        private void buttonConstrainedCAE_Click(object sender, EventArgs e)
+        {
+            if (presetStandardEncoderCAEConstrained.ShowDialog() == DialogResult.OK)
+            {
+                presetConfigurations = presetStandardEncoderCAEConstrained.presetConfigurations;
+            }
+        }
+
+        private void radioButtonConstrainedCAE_CheckedChanged(object sender, EventArgs e)
+        {
+         buttonConstrainedCAE.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonConstrainedCAE.Checked;
+            UpdateTransformLabel();
         }
     }
 
