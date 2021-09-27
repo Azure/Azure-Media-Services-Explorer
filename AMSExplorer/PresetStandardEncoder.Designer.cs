@@ -50,10 +50,12 @@
             this.labelCodec = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.radioButtonConstrainedCAE = new System.Windows.Forms.RadioButton();
             this.buttonConstrainedCAE = new System.Windows.Forms.Button();
+            this.checkBoxCAEConstrained = new System.Windows.Forms.CheckBox();
+            this.panelConfigureConstrained = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelConfigureConstrained.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -140,6 +142,7 @@
             this.radioButtonBuiltin.Name = "radioButtonBuiltin";
             this.radioButtonBuiltin.TabStop = true;
             this.radioButtonBuiltin.UseVisualStyleBackColor = true;
+            this.radioButtonBuiltin.CheckedChanged += new System.EventHandler(this.radioButtonBuiltin_CheckedChanged);
             // 
             // radioButtonCustomCopy
             // 
@@ -177,13 +180,6 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // radioButtonConstrainedCAE
-            // 
-            resources.ApplyResources(this.radioButtonConstrainedCAE, "radioButtonConstrainedCAE");
-            this.radioButtonConstrainedCAE.Name = "radioButtonConstrainedCAE";
-            this.radioButtonConstrainedCAE.UseVisualStyleBackColor = true;
-            this.radioButtonConstrainedCAE.CheckedChanged += new System.EventHandler(this.radioButtonConstrainedCAE_CheckedChanged);
-            // 
             // buttonConstrainedCAE
             // 
             resources.ApplyResources(this.buttonConstrainedCAE, "buttonConstrainedCAE");
@@ -191,14 +187,27 @@
             this.buttonConstrainedCAE.UseVisualStyleBackColor = true;
             this.buttonConstrainedCAE.Click += new System.EventHandler(this.buttonConstrainedCAE_Click);
             // 
+            // checkBoxCAEConstrained
+            // 
+            resources.ApplyResources(this.checkBoxCAEConstrained, "checkBoxCAEConstrained");
+            this.checkBoxCAEConstrained.Name = "checkBoxCAEConstrained";
+            this.checkBoxCAEConstrained.UseVisualStyleBackColor = true;
+            this.checkBoxCAEConstrained.CheckedChanged += new System.EventHandler(this.checkBoxCAEConstrained_CheckedChanged);
+            // 
+            // panelConfigureConstrained
+            // 
+            this.panelConfigureConstrained.Controls.Add(this.checkBoxCAEConstrained);
+            this.panelConfigureConstrained.Controls.Add(this.buttonConstrainedCAE);
+            resources.ApplyResources(this.panelConfigureConstrained, "panelConfigureConstrained");
+            this.panelConfigureConstrained.Name = "panelConfigureConstrained";
+            // 
             // PresetStandardEncoder
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.radioButtonConstrainedCAE);
-            this.Controls.Add(this.buttonConstrainedCAE);
+            this.Controls.Add(this.panelConfigureConstrained);
             this.Controls.Add(this.labelCodec);
             this.Controls.Add(this.radioButtonThumbnail);
             this.Controls.Add(this.buttonCustomPresetThumbnail);
@@ -220,6 +229,8 @@
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetStandardEncoder_DpiChanged);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelConfigureConstrained.ResumeLayout(false);
+            this.panelConfigureConstrained.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,7 +257,8 @@
         private System.Windows.Forms.Button buttonCustomPresetThumbnail;
         private System.Windows.Forms.RadioButton radioButtonThumbnail;
         private System.Windows.Forms.Label labelCodec;
-        private System.Windows.Forms.RadioButton radioButtonConstrainedCAE;
         private System.Windows.Forms.Button buttonConstrainedCAE;
+        private System.Windows.Forms.CheckBox checkBoxCAEConstrained;
+        private System.Windows.Forms.Panel panelConfigureConstrained;
     }
 }

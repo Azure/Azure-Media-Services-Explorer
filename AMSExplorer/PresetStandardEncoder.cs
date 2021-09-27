@@ -57,8 +57,7 @@ namespace AMSExplorer
         private readonly PresetStandardEncoderThumbnail formThumbnail = new();
         private StandardEncoderPreset encoderPresetThumbnail;
 
-        private readonly PresetStandardEncoderCAEConstrained presetStandardEncoderCAEConstrained = new();
-        private PresetConfigurations presetConfigurations;
+        private PresetConfigurations presetConfigurations = null;
 
 
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
@@ -68,7 +67,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonBuiltin.Checked || radioButtonConstrainedCAE.Checked)
+                if (radioButtonBuiltin.Checked)
                 {
                     return MESPresetTypeUI.builtin;
                 }
@@ -83,7 +82,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonConstrainedCAE.Checked)
+                if (checkBoxCAEConstrained.Checked)
                     return presetConfigurations;
                 else
                     return null;
@@ -194,18 +193,26 @@ namespace AMSExplorer
                 {
                     textBoxTransformName.Text = ThumbnailTransformName;
                 }
-                if (radioButtonConstrainedCAE.Checked)
-                {
-                    textBoxTransformName.Text = ConstrainedCAETransformName;
-                }
                 else
                 {
-                    textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();
+                    if (checkBoxCAEConstrained.Checked)
+                    {
+                        textBoxTransformName.Text = ConstrainedCAETransformName;
+                    }
+                    else
+                    {
+                        textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();
+                    }
                 }
             }
         }
 
         private void listboxPresets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateUIWhenPresetSelected();
+        }
+
+        private void UpdateUIWhenPresetSelected()
         {
             UpdateTransformLabel();
 
@@ -220,11 +227,12 @@ namespace AMSExplorer
                 richTextBoxDesc.Text = string.Empty;
                 labelCodec.Text = string.Empty;
             }
+            panelConfigureConstrained.Enabled = profile != null && profile.Prof.Contains("ContentAwareEncoding");
         }
 
         private void RadioButtonCustom_CheckedChanged(object sender, EventArgs e)
         {
-            listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonBuiltin.Checked;
+            listboxPresets.Enabled = richTextBoxDesc.Enabled = panelConfigureConstrained.Enabled = radioButtonBuiltin.Checked;
             UpdateTransformLabel();
         }
 
@@ -242,7 +250,8 @@ namespace AMSExplorer
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            buttonCustomPresetThumbnail.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonThumbnail.Checked;
+            listboxPresets.Enabled = richTextBoxDesc.Enabled = panelConfigureConstrained.Enabled = radioButtonBuiltin.Checked;
+            buttonCustomPresetThumbnail.Enabled = radioButtonThumbnail.Checked;
             UpdateTransformLabel();
         }
 
@@ -253,16 +262,26 @@ namespace AMSExplorer
 
         private void buttonConstrainedCAE_Click(object sender, EventArgs e)
         {
+            PresetStandardEncoderCAEConstrained presetStandardEncoderCAEConstrained = new() { presetConfigurations = presetConfigurations };
+
             if (presetStandardEncoderCAEConstrained.ShowDialog() == DialogResult.OK)
             {
                 presetConfigurations = presetStandardEncoderCAEConstrained.presetConfigurations;
             }
         }
 
-        private void radioButtonConstrainedCAE_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxCAEConstrained_CheckedChanged(object sender, EventArgs e)
         {
-         buttonConstrainedCAE.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonConstrainedCAE.Checked;
+            buttonConstrainedCAE.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = checkBoxCAEConstrained.Checked;
             UpdateTransformLabel();
+        }
+
+        private void radioButtonBuiltin_CheckedChanged(object sender, EventArgs e)
+        {
+            listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonBuiltin.Checked;
+            buttonCustomPresetThumbnail.Enabled = radioButtonThumbnail.Checked;
+
+            if (radioButtonBuiltin.Checked) UpdateUIWhenPresetSelected();
         }
     }
 

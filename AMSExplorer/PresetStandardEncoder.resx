@@ -160,7 +160,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelMES.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>15</value>
   </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -184,7 +184,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -220,7 +220,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreinfoprofilelink.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -253,7 +253,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="textBoxTransformName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -277,7 +277,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxTransformName.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="textBoxDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -301,7 +301,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -334,7 +334,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="richTextBoxDesc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -361,7 +361,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;richTextBoxDesc.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -388,7 +388,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="listboxPresets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left</value>
@@ -415,7 +415,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;listboxPresets.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="radioButtonBuiltin.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -445,7 +445,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonBuiltin.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="radioButtonCustomCopy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -457,7 +457,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonCustomCopy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 330</value>
+    <value>17, 320</value>
   </data>
   <data name="radioButtonCustomCopy.Size" type="System.Drawing.Size, System.Drawing">
     <value>360, 19</value>
@@ -478,7 +478,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonCustomCopy.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="buttonCustomPresetThumbnail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -490,10 +490,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonCustomPresetThumbnail.Location" type="System.Drawing.Point, System.Drawing">
-    <value>194, 357</value>
+    <value>194, 347</value>
   </data>
   <data name="buttonCustomPresetThumbnail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>85, 23</value>
   </data>
   <data name="buttonCustomPresetThumbnail.TabIndex" type="System.Int32, mscorlib">
     <value>95</value>
@@ -511,7 +511,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCustomPresetThumbnail.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="radioButtonThumbnail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -523,7 +523,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonThumbnail.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 359</value>
+    <value>17, 349</value>
   </data>
   <data name="radioButtonThumbnail.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 19</value>
@@ -544,7 +544,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonThumbnail.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="labelCodec.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -577,49 +577,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelCodec.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
     <value>Key</value>
   </data>
   <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
     <value>Value</value>
-  </data>
-  <data name="radioButtonConstrainedCAE.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="radioButtonConstrainedCAE.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonConstrainedCAE.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonConstrainedCAE.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 296</value>
-  </data>
-  <data name="radioButtonConstrainedCAE.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 19</value>
-  </data>
-  <data name="radioButtonConstrainedCAE.TabIndex" type="System.Int32, mscorlib">
-    <value>99</value>
-  </data>
-  <data name="radioButtonConstrainedCAE.Text" xml:space="preserve">
-    <value>Constrained Content Aware Encoding</value>
-  </data>
-  <data name="&gt;&gt;radioButtonConstrainedCAE.Name" xml:space="preserve">
-    <value>radioButtonConstrainedCAE</value>
-  </data>
-  <data name="&gt;&gt;radioButtonConstrainedCAE.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonConstrainedCAE.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;radioButtonConstrainedCAE.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonConstrainedCAE.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
   </data>
   <data name="buttonConstrainedCAE.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -628,10 +592,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonConstrainedCAE.Location" type="System.Drawing.Point, System.Drawing">
-    <value>247, 294</value>
+    <value>234, 0</value>
   </data>
   <data name="buttonConstrainedCAE.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>85, 23</value>
   </data>
   <data name="buttonConstrainedCAE.TabIndex" type="System.Int32, mscorlib">
     <value>98</value>
@@ -646,10 +610,61 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonConstrainedCAE.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panelConfigureConstrained</value>
   </data>
   <data name="&gt;&gt;buttonConstrainedCAE.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="checkBoxCAEConstrained.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxCAEConstrained.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="checkBoxCAEConstrained.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 19</value>
+  </data>
+  <data name="checkBoxCAEConstrained.TabIndex" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="checkBoxCAEConstrained.Text" xml:space="preserve">
+    <value>Constrained Content Aware Encoding</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCAEConstrained.Name" xml:space="preserve">
+    <value>checkBoxCAEConstrained</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCAEConstrained.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCAEConstrained.Parent" xml:space="preserve">
+    <value>panelConfigureConstrained</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCAEConstrained.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelConfigureConstrained.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panelConfigureConstrained.Location" type="System.Drawing.Point, System.Drawing">
+    <value>38, 278</value>
+  </data>
+  <data name="panelConfigureConstrained.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 28</value>
+  </data>
+  <data name="panelConfigureConstrained.TabIndex" type="System.Int32, mscorlib">
+    <value>101</value>
+  </data>
+  <data name="&gt;&gt;panelConfigureConstrained.Name" xml:space="preserve">
+    <value>panelConfigureConstrained</value>
+  </data>
+  <data name="&gt;&gt;panelConfigureConstrained.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelConfigureConstrained.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelConfigureConstrained.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
