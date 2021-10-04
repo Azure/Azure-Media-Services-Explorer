@@ -592,7 +592,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonConstrainedCAE.Location" type="System.Drawing.Point, System.Drawing">
-    <value>234, 0</value>
+    <value>324, 0</value>
   </data>
   <data name="buttonConstrainedCAE.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 23</value>
@@ -622,13 +622,13 @@
     <value>3, 3</value>
   </data>
   <data name="checkBoxCAEConstrained.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 19</value>
+    <value>312, 19</value>
   </data>
   <data name="checkBoxCAEConstrained.TabIndex" type="System.Int32, mscorlib">
     <value>100</value>
   </data>
   <data name="checkBoxCAEConstrained.Text" xml:space="preserve">
-    <value>Constrained Content Aware Encoding</value>
+    <value>Set constraints (Content Aware Encoding presets only)</value>
   </data>
   <data name="&gt;&gt;checkBoxCAEConstrained.Name" xml:space="preserve">
     <value>checkBoxCAEConstrained</value>
@@ -649,7 +649,7 @@
     <value>38, 278</value>
   </data>
   <data name="panelConfigureConstrained.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 28</value>
+    <value>449, 28</value>
   </data>
   <data name="panelConfigureConstrained.TabIndex" type="System.Int32, mscorlib">
     <value>101</value>

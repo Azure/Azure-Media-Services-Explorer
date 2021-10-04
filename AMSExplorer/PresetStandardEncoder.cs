@@ -272,7 +272,7 @@ namespace AMSExplorer
 
         private void checkBoxCAEConstrained_CheckedChanged(object sender, EventArgs e)
         {
-            buttonConstrainedCAE.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = checkBoxCAEConstrained.Checked;
+            buttonConstrainedCAE.Enabled = richTextBoxDesc.Enabled = checkBoxCAEConstrained.Checked;
             UpdateTransformLabel();
         }
 

@@ -39,9 +39,17 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.numericUpDownKeyFrame = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxInterleave = new System.Windows.Forms.CheckBox();
+            this.checkBoxComplexity = new System.Windows.Forms.CheckBox();
             this.comboBoxInterleaveOutput = new System.Windows.Forms.ComboBox();
             this.comboBoxComplexity = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxKeyFrame = new System.Windows.Forms.CheckBox();
+            this.checkBoxMaxLayers = new System.Windows.Forms.CheckBox();
+            this.checkBoxMaxHeight = new System.Windows.Forms.CheckBox();
+            this.checkBoxMinHeight = new System.Windows.Forms.CheckBox();
+            this.checkBoxMaxBitrate = new System.Windows.Forms.CheckBox();
+            this.checkBoxMinBitrate = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDownMaxLayers = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,14 +59,6 @@
             this.numericUpDownMaxHeight = new System.Windows.Forms.NumericUpDown();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkBoxMinBitrate = new System.Windows.Forms.CheckBox();
-            this.checkBoxMaxBitrate = new System.Windows.Forms.CheckBox();
-            this.checkBoxMinHeight = new System.Windows.Forms.CheckBox();
-            this.checkBoxMaxHeight = new System.Windows.Forms.CheckBox();
-            this.checkBoxMaxLayers = new System.Windows.Forms.CheckBox();
-            this.checkBoxKeyFrame = new System.Windows.Forms.CheckBox();
-            this.checkBoxComplexity = new System.Windows.Forms.CheckBox();
-            this.checkBoxInterleave = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKeyFrame)).BeginInit();
@@ -139,6 +139,20 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // checkBoxInterleave
+            // 
+            resources.ApplyResources(this.checkBoxInterleave, "checkBoxInterleave");
+            this.checkBoxInterleave.Name = "checkBoxInterleave";
+            this.checkBoxInterleave.UseVisualStyleBackColor = true;
+            this.checkBoxInterleave.CheckedChanged += new System.EventHandler(this.checkBoxInterleave_CheckedChanged);
+            // 
+            // checkBoxComplexity
+            // 
+            resources.ApplyResources(this.checkBoxComplexity, "checkBoxComplexity");
+            this.checkBoxComplexity.Name = "checkBoxComplexity";
+            this.checkBoxComplexity.UseVisualStyleBackColor = true;
+            this.checkBoxComplexity.CheckedChanged += new System.EventHandler(this.checkBoxComplexity_CheckedChanged);
+            // 
             // comboBoxInterleaveOutput
             // 
             this.comboBoxInterleaveOutput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -172,6 +186,48 @@
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // checkBoxKeyFrame
+            // 
+            resources.ApplyResources(this.checkBoxKeyFrame, "checkBoxKeyFrame");
+            this.checkBoxKeyFrame.Name = "checkBoxKeyFrame";
+            this.checkBoxKeyFrame.UseVisualStyleBackColor = true;
+            this.checkBoxKeyFrame.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrame_CheckedChanged);
+            // 
+            // checkBoxMaxLayers
+            // 
+            resources.ApplyResources(this.checkBoxMaxLayers, "checkBoxMaxLayers");
+            this.checkBoxMaxLayers.Name = "checkBoxMaxLayers";
+            this.checkBoxMaxLayers.UseVisualStyleBackColor = true;
+            this.checkBoxMaxLayers.CheckedChanged += new System.EventHandler(this.checkBoxMaxLayers_CheckedChanged);
+            // 
+            // checkBoxMaxHeight
+            // 
+            resources.ApplyResources(this.checkBoxMaxHeight, "checkBoxMaxHeight");
+            this.checkBoxMaxHeight.Name = "checkBoxMaxHeight";
+            this.checkBoxMaxHeight.UseVisualStyleBackColor = true;
+            this.checkBoxMaxHeight.CheckedChanged += new System.EventHandler(this.checkBoxMaxHeight_CheckedChanged);
+            // 
+            // checkBoxMinHeight
+            // 
+            resources.ApplyResources(this.checkBoxMinHeight, "checkBoxMinHeight");
+            this.checkBoxMinHeight.Name = "checkBoxMinHeight";
+            this.checkBoxMinHeight.UseVisualStyleBackColor = true;
+            this.checkBoxMinHeight.CheckedChanged += new System.EventHandler(this.checkBoxMinHeight_CheckedChanged);
+            // 
+            // checkBoxMaxBitrate
+            // 
+            resources.ApplyResources(this.checkBoxMaxBitrate, "checkBoxMaxBitrate");
+            this.checkBoxMaxBitrate.Name = "checkBoxMaxBitrate";
+            this.checkBoxMaxBitrate.UseVisualStyleBackColor = true;
+            this.checkBoxMaxBitrate.CheckedChanged += new System.EventHandler(this.checkBoxMaxBitrate_CheckedChanged);
+            // 
+            // checkBoxMinBitrate
+            // 
+            resources.ApplyResources(this.checkBoxMinBitrate, "checkBoxMinBitrate");
+            this.checkBoxMinBitrate.Name = "checkBoxMinBitrate";
+            this.checkBoxMinBitrate.UseVisualStyleBackColor = true;
+            this.checkBoxMinBitrate.CheckedChanged += new System.EventHandler(this.checkBoxMinBitrate_CheckedChanged);
             // 
             // label6
             // 
@@ -289,62 +345,6 @@
             // 
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // checkBoxMinBitrate
-            // 
-            resources.ApplyResources(this.checkBoxMinBitrate, "checkBoxMinBitrate");
-            this.checkBoxMinBitrate.Name = "checkBoxMinBitrate";
-            this.checkBoxMinBitrate.UseVisualStyleBackColor = true;
-            this.checkBoxMinBitrate.CheckedChanged += new System.EventHandler(this.checkBoxMinBitrate_CheckedChanged);
-            // 
-            // checkBoxMaxBitrate
-            // 
-            resources.ApplyResources(this.checkBoxMaxBitrate, "checkBoxMaxBitrate");
-            this.checkBoxMaxBitrate.Name = "checkBoxMaxBitrate";
-            this.checkBoxMaxBitrate.UseVisualStyleBackColor = true;
-            this.checkBoxMaxBitrate.CheckedChanged += new System.EventHandler(this.checkBoxMaxBitrate_CheckedChanged);
-            // 
-            // checkBoxMinHeight
-            // 
-            resources.ApplyResources(this.checkBoxMinHeight, "checkBoxMinHeight");
-            this.checkBoxMinHeight.Name = "checkBoxMinHeight";
-            this.checkBoxMinHeight.UseVisualStyleBackColor = true;
-            this.checkBoxMinHeight.CheckedChanged += new System.EventHandler(this.checkBoxMinHeight_CheckedChanged);
-            // 
-            // checkBoxMaxHeight
-            // 
-            resources.ApplyResources(this.checkBoxMaxHeight, "checkBoxMaxHeight");
-            this.checkBoxMaxHeight.Name = "checkBoxMaxHeight";
-            this.checkBoxMaxHeight.UseVisualStyleBackColor = true;
-            this.checkBoxMaxHeight.CheckedChanged += new System.EventHandler(this.checkBoxMaxHeight_CheckedChanged);
-            // 
-            // checkBoxMaxLayers
-            // 
-            resources.ApplyResources(this.checkBoxMaxLayers, "checkBoxMaxLayers");
-            this.checkBoxMaxLayers.Name = "checkBoxMaxLayers";
-            this.checkBoxMaxLayers.UseVisualStyleBackColor = true;
-            this.checkBoxMaxLayers.CheckedChanged += new System.EventHandler(this.checkBoxMaxLayers_CheckedChanged);
-            // 
-            // checkBoxKeyFrame
-            // 
-            resources.ApplyResources(this.checkBoxKeyFrame, "checkBoxKeyFrame");
-            this.checkBoxKeyFrame.Name = "checkBoxKeyFrame";
-            this.checkBoxKeyFrame.UseVisualStyleBackColor = true;
-            this.checkBoxKeyFrame.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrame_CheckedChanged);
-            // 
-            // checkBoxComplexity
-            // 
-            resources.ApplyResources(this.checkBoxComplexity, "checkBoxComplexity");
-            this.checkBoxComplexity.Name = "checkBoxComplexity";
-            this.checkBoxComplexity.UseVisualStyleBackColor = true;
-            this.checkBoxComplexity.CheckedChanged += new System.EventHandler(this.checkBoxComplexity_CheckedChanged);
-            // 
-            // checkBoxInterleave
-            // 
-            resources.ApplyResources(this.checkBoxInterleave, "checkBoxInterleave");
-            this.checkBoxInterleave.Name = "checkBoxInterleave";
-            this.checkBoxInterleave.UseVisualStyleBackColor = true;
-            this.checkBoxInterleave.CheckedChanged += new System.EventHandler(this.checkBoxInterleave_CheckedChanged);
             // 
             // PresetStandardEncoderCAEConstrained
             // 
