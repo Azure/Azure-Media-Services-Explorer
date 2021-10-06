@@ -31,6 +31,7 @@ namespace AMSExplorer
     public partial class LiveEventCreation : Form
     {
         private bool EncodingTabDisplayed = false;
+        private bool LiveTranscriptTabDisplayed = true;
         private bool InitPhase = true;
         private readonly string defaultLanguageString = "und";
         private readonly AMSClientV3 _client;
@@ -85,7 +86,7 @@ namespace AMSExplorer
 
         public bool LiveTranscript
         {
-            get => checkBoxEnableLiveTranscript.Checked;
+            get => !radioButtonPassThroughBasic.Checked && checkBoxEnableLiveTranscript.Checked;
             set => checkBoxEnableLiveTranscript.Checked = value;
         }
 
@@ -110,7 +111,7 @@ namespace AMSExplorer
                 {
                     type = LiveEventEncodingType.PassthroughBasic;
                 }
-                else if(radioButtonTranscodingStd.Checked)
+                else if (radioButtonTranscodingStd.Checked)
                 {
                     type = LiveEventEncodingType.Standard;
                 }
@@ -262,8 +263,7 @@ namespace AMSExplorer
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
             tabControlLiveChannel.TabPages.Remove(tabPageAdvEncoding);
-            moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
-            moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
+            moreinfoLiveEventTypes.Links.Add(new LinkLabel.Link(0, moreinfoLiveEventTypes.Text.Length, Constants.LinkMoreInfoLiveEventTypes));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
             linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
             linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
@@ -534,10 +534,7 @@ namespace AMSExplorer
         {
             if (!InitPhase && radio.Checked)
             {
-                moreinfoLiveEncodingProfilelink.Visible = Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic;
-                moreinfoLiveStreamingProfilelink.Visible = (Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic);
-
-                // let's display the encoding tab if encoding has been choosen
+                // let's display the encoding tab if encoding has been choosen, otherwise, let's remove it
                 if (Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
                     if (EncodingTabDisplayed)
@@ -558,6 +555,23 @@ namespace AMSExplorer
                     }
                     FillComboProtocols();
                     UpdateProfileGrids();
+                }
+
+                if (Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+                {
+                    if (LiveTranscriptTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Remove(tabPageLiveTranscript);
+                        LiveTranscriptTabDisplayed = false;
+                    }
+                }
+                else
+                {
+                    if (!LiveTranscriptTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Add(tabPageLiveTranscript);
+                        LiveTranscriptTabDisplayed = true;
+                    }
                 }
             }
         }
