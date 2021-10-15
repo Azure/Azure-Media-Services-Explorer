@@ -1136,7 +1136,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="labelLEName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1145,10 +1145,10 @@
     <value>Segoe UI Semibold, 12pt, style=Bold</value>
   </data>
   <data name="labelLEName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 10</value>
+    <value>36, 10</value>
   </data>
   <data name="labelLEName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>868, 23</value>
+    <value>853, 23</value>
   </data>
   <data name="labelLEName.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -1166,7 +1166,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelLEName.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1274,7 +1274,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="openFileDialogSlate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>769, 17</value>
@@ -1293,6 +1293,33 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>915, 647</value>
+  </data>
+  <data name="pictureBoxLE.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBoxLE.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 14</value>
+  </data>
+  <data name="pictureBoxLE.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBoxLE.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBoxLE.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLE.Name" xml:space="preserve">
+    <value>pictureBoxLE</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLE.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLE.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLE.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>

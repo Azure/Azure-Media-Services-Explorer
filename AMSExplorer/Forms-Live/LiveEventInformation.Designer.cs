@@ -79,6 +79,7 @@
             this.labelLiveEventStoppedOrStartedSettings = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pictureBoxLE = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -96,6 +97,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.webBrowserPreview)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLE)).BeginInit();
             this.SuspendLayout();
             // 
             // DGLiveEvent
@@ -484,6 +486,13 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // pictureBoxLE
+            // 
+            this.pictureBoxLE.Image = global::AMSExplorer.Bitmaps.encoding;
+            resources.ApplyResources(this.pictureBoxLE, "pictureBoxLE");
+            this.pictureBoxLE.Name = "pictureBoxLE";
+            this.pictureBoxLE.TabStop = false;
+            // 
             // LiveEventInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -491,6 +500,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
+            this.Controls.Add(this.pictureBoxLE);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelLEName);
             this.Controls.Add(this.tabControl1);
@@ -522,7 +532,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.webBrowserPreview)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLE)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -577,5 +589,6 @@
         private System.Windows.Forms.CheckBox checkBoxEncodingKeyFrameInterval;
         private System.Windows.Forms.TextBox textBoxEncodingKeyFrameInterval;
         private Microsoft.Web.WebView2.WinForms.WebView2 webBrowserPreview;
+        private System.Windows.Forms.PictureBox pictureBoxLE;
     }
 }

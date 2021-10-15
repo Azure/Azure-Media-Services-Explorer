@@ -40,6 +40,7 @@ namespace AMSExplorer
         private readonly string defaultEncodingPreset = null;
         private readonly BindingList<ExplorerAudioStream> audiostreams = new();
         private string _radioButtonDefaultPreset;
+              
 
         public IPAccessControl GetInputAllowList
         {
@@ -160,9 +161,11 @@ namespace AMSExplorer
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Description, MyLiveEvent.Description);
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_InputProtocol, MyLiveEvent.Input.StreamingProtocol);
 
+                pictureBoxLE.Image = LiveEventUtil.ReturnChannelBitmap(MyLiveEvent);
+
                 if (MyLiveEvent.Encoding != null)
                 {
-                    DGLiveEvent.Rows.Add("Encoding Type", MyLiveEvent.Encoding.EncodingType);
+                    DGLiveEvent.Rows.Add("Live event type", MyLiveEvent.Encoding.EncodingType);
                     DGLiveEvent.Rows.Add("Preset Name", MyLiveEvent.Encoding.PresetName);
 
                     if (MyLiveEvent.Encoding.KeyFrameInterval != null)
@@ -240,6 +243,8 @@ namespace AMSExplorer
             else // multiselect
             {
                 labelLEName.Text = AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_MultipleChannelsHaveBeenSelected;
+
+                pictureBoxLE.Visible = false;
 
                 tabControl1.TabPages.Remove(tabPageLiveEventInfo); // no channel info page
                 tabControl1.TabPages.Remove(tabPagePreview); // no channel info page

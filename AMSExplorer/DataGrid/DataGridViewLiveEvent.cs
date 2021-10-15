@@ -76,27 +76,11 @@ namespace AMSExplorer
         private static SearchObject _searchinname = new() { SearchType = SearchIn.LiveEventName, Text = string.Empty };
         private static string _timefilter = FilterTime.LastWeek;
         private static TimeRangeValue _timefilterTimeRange = new(DateTime.Now.ToLocalTime().AddDays(-7).Date, null);
-        private static readonly Bitmap EncodingImage = Bitmaps.encoding;
-        private static readonly Bitmap StandardEncodingImage = Bitmaps.encoding;
-        private static readonly Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
 
         public string _encoded = "Encoding";
         public string _encodedPreset = "EncodingPreset";
         public int totalLiveEvents = 0;
-
-        private Bitmap ReturnChannelBitmap(LiveEvent channel)
-        {
-
-            return (string)channel.Encoding.EncodingType switch
-            {
-                nameof(LiveEventEncodingType.PassthroughBasic) => null,
-                nameof(LiveEventEncodingType.PassthroughStandard) => null,
-                nameof(LiveEventEncodingType.Standard) => StandardEncodingImage,
-                nameof(LiveEventEncodingType.Premium1080p) => PremiumEncodingImage,
-                _ => null,
-            };
-        }
-
+      
         public async Task InitAsync(AMSClientV3 amsClient)
         {
             IEnumerable<LiveEventEntry> channelquery;
@@ -126,7 +110,7 @@ namespace AMSExplorer
                                Name = c.Name,
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
-                               Encoding = ReturnChannelBitmap(c),
+                               Encoding = LiveEventUtil.ReturnChannelBitmap(c),
                                EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic) ? c.Encoding.PresetName : string.Empty,
                                InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
                                PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
@@ -160,7 +144,7 @@ namespace AMSExplorer
 
             Columns[_encoded].DisplayIndex = ColumnCount - 4;
             Columns[_encoded].DefaultCellStyle.NullValue = null;
-            Columns[_encoded].HeaderText = "Cloud Encoding";
+            Columns[_encoded].HeaderText = "Type";
             Columns[_encoded].Width = 100;
 
             Columns[_encodedPreset].DisplayIndex = ColumnCount - 3;
@@ -173,7 +157,6 @@ namespace AMSExplorer
 
             Columns["State"].Width = 75;
             Columns["Description"].Width = 110;
-
 
             _initialized = true;
         }
@@ -260,7 +243,7 @@ namespace AMSExplorer
                            Name = c.Name,
                            Description = c.Description,
                            InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString(), c.Input.Endpoints.Count),
-                           Encoding = ReturnChannelBitmap(c),
+                           Encoding = LiveEventUtil.ReturnChannelBitmap(c),
                            EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic) ? c.Encoding.PresetName : string.Empty,
                            InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
                            PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
