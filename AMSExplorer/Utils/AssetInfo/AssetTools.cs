@@ -829,12 +829,12 @@ namespace AMSExplorer
 
             infoStr.Add("Size", FormatByteSize(MyAssetTypeInfo.Size));
 
-
             infoStr.Add("Container", MyAsset.Container);
-            infoStr.Add("Created (UTC)", MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
-            infoStr.Add("Last Modified (UTC)", MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
             infoStr.Add("Storage account", MyAsset.StorageAccountName);
             infoStr.Add("Storage Encryption", MyAsset.StorageEncryptionFormat);
+
+            infoStr.Add("Created (UTC)", MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
+            infoStr.Add("Last Modified (UTC)", MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
 
             infoStr.Add(string.Empty);
 

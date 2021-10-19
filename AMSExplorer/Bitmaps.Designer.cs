@@ -103,16 +103,6 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _05_stabilization {
-            get {
-                object obj = ResourceManager.GetObject("_05_stabilization", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _06_emotion {
             get {
                 object obj = ResourceManager.GetObject("_06_emotion", resourceCulture);
@@ -616,6 +606,26 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap packaging {
             get {
                 object obj = ResourceManager.GetObject("packaging", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap passthrough_basic {
+            get {
+                object obj = ResourceManager.GetObject("passthrough_basic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap passthrough_std {
+            get {
+                object obj = ResourceManager.GetObject("passthrough_std", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

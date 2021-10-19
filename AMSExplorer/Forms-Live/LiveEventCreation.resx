@@ -375,6 +375,144 @@
   <data name="tabControlLiveChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="pictureBox4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBox4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 103</value>
+  </data>
+  <data name="pictureBox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox4.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox4.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="&gt;&gt;pictureBox4.Name" xml:space="preserve">
+    <value>pictureBox4</value>
+  </data>
+  <data name="&gt;&gt;pictureBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox4.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pictureBox3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBox3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 78</value>
+  </data>
+  <data name="pictureBox3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox3.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox3.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="&gt;&gt;pictureBox3.Name" xml:space="preserve">
+    <value>pictureBox3</value>
+  </data>
+  <data name="&gt;&gt;pictureBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox3.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 53</value>
+  </data>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
+    <value>pictureBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pictureBox2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 28</value>
+  </data>
+  <data name="pictureBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox2.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Name" xml:space="preserve">
+    <value>pictureBox2</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButtonPassThroughBasic.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonPassThroughBasic.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonPassThroughBasic.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 25</value>
+  </data>
+  <data name="radioButtonPassThroughBasic.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 19</value>
+  </data>
+  <data name="radioButtonPassThroughBasic.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="radioButtonPassThroughBasic.Text" xml:space="preserve">
+    <value>Basic Pass-through (no transcoding)</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPassThroughBasic.Name" xml:space="preserve">
+    <value>radioButtonPassThroughBasic</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPassThroughBasic.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPassThroughBasic.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPassThroughBasic.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="radioButtonTranscodingPremium.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -382,16 +520,16 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonTranscodingPremium.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 82</value>
+    <value>42, 100</value>
   </data>
   <data name="radioButtonTranscodingPremium.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 19</value>
+    <value>161, 19</value>
   </data>
   <data name="radioButtonTranscodingPremium.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="radioButtonTranscodingPremium.Text" xml:space="preserve">
-    <value>Premium (live encoding up to 1080p)</value>
+    <value>Premium 1080p encoding</value>
   </data>
   <data name="&gt;&gt;radioButtonTranscodingPremium.Name" xml:space="preserve">
     <value>radioButtonTranscodingPremium</value>
@@ -403,64 +541,34 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonTranscodingPremium.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>5</value>
   </data>
-  <data name="moreinfoLiveEncodingProfilelink.AutoSize" type="System.Boolean, mscorlib">
+  <data name="moreinfoLiveEventTypes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="moreinfoLiveEncodingProfilelink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>274, 123</value>
+  <data name="moreinfoLiveEventTypes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>373, 19</value>
   </data>
-  <data name="moreinfoLiveEncodingProfilelink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 15</value>
+  <data name="moreinfoLiveEventTypes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 15</value>
   </data>
-  <data name="moreinfoLiveEncodingProfilelink.TabIndex" type="System.Int32, mscorlib">
+  <data name="moreinfoLiveEventTypes.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
   </data>
-  <data name="moreinfoLiveEncodingProfilelink.Text" xml:space="preserve">
-    <value>More information on live encoding</value>
+  <data name="moreinfoLiveEventTypes.Text" xml:space="preserve">
+    <value>Live event types</value>
   </data>
-  <data name="moreinfoLiveEncodingProfilelink.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;moreinfoLiveEventTypes.Name" xml:space="preserve">
+    <value>moreinfoLiveEventTypes</value>
   </data>
-  <data name="&gt;&gt;moreinfoLiveEncodingProfilelink.Name" xml:space="preserve">
-    <value>moreinfoLiveEncodingProfilelink</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveEncodingProfilelink.Type" xml:space="preserve">
+  <data name="&gt;&gt;moreinfoLiveEventTypes.Type" xml:space="preserve">
     <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;moreinfoLiveEncodingProfilelink.Parent" xml:space="preserve">
+  <data name="&gt;&gt;moreinfoLiveEventTypes.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;moreinfoLiveEncodingProfilelink.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>236, 123</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 15</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="moreinfoLiveStreamingProfilelink.Text" xml:space="preserve">
-    <value>Live streaming with on-premises encoders</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Name" xml:space="preserve">
-    <value>moreinfoLiveStreamingProfilelink</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;moreinfoLiveStreamingProfilelink.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;moreinfoLiveEventTypes.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="radioButtonTranscodingStd.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -469,16 +577,16 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonTranscodingStd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 57</value>
+    <value>42, 75</value>
   </data>
   <data name="radioButtonTranscodingStd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 19</value>
+    <value>153, 19</value>
   </data>
   <data name="radioButtonTranscodingStd.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="radioButtonTranscodingStd.Text" xml:space="preserve">
-    <value>Standard (live encoding up to 720p)</value>
+    <value>Standard 720p encoding</value>
   </data>
   <data name="&gt;&gt;radioButtonTranscodingStd.Name" xml:space="preserve">
     <value>radioButtonTranscodingStd</value>
@@ -490,34 +598,34 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButtonTranscodingStd.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>7</value>
   </data>
-  <data name="radioButtonTranscodingNone.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButtonPassThroughStandard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="radioButtonTranscodingNone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 32</value>
+  <data name="radioButtonPassThroughStandard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 50</value>
   </data>
-  <data name="radioButtonTranscodingNone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 19</value>
+  <data name="radioButtonPassThroughStandard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 19</value>
   </data>
-  <data name="radioButtonTranscodingNone.TabIndex" type="System.Int32, mscorlib">
+  <data name="radioButtonPassThroughStandard.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="radioButtonTranscodingNone.Text" xml:space="preserve">
-    <value>Pass-through (no transcoding)</value>
+  <data name="radioButtonPassThroughStandard.Text" xml:space="preserve">
+    <value>Standard Pass-through (no transcoding)</value>
   </data>
-  <data name="&gt;&gt;radioButtonTranscodingNone.Name" xml:space="preserve">
-    <value>radioButtonTranscodingNone</value>
+  <data name="&gt;&gt;radioButtonPassThroughStandard.Name" xml:space="preserve">
+    <value>radioButtonPassThroughStandard</value>
   </data>
-  <data name="&gt;&gt;radioButtonTranscodingNone.Type" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonPassThroughStandard.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioButtonTranscodingNone.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonPassThroughStandard.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;radioButtonTranscodingNone.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;radioButtonPassThroughStandard.ZOrder" xml:space="preserve">
+    <value>8</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 75</value>
@@ -529,7 +637,7 @@
     <value>63</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Mode</value>
+    <value>Type</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>

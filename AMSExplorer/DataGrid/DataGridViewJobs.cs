@@ -158,13 +158,17 @@ namespace AMSExplorer
             {
                 string tName = Row.Cells[Columns["TransformName"].Index].Value.ToString();
                 // sometimes, the transform can be null (if just deleted)
-                Job job = Task.Run(() =>
-            amsClient.GetJobAsync(tName, Row.Cells[Columns["Name"].Index].Value.ToString())
-            ).GetAwaiter().GetResult();
-
-                if (job != null)
+                Job job;
+                try
                 {
+                    job = Task.Run(() =>
+                        amsClient.GetJobAsync(tName, Row.Cells[Columns["Name"].Index].Value.ToString())
+                        ).GetAwaiter().GetResult();
                     SelectedJobs.Add(new JobExtension() { Job = job, TransformName = tName });
+                }
+                catch
+                {
+
                 }
             }
             SelectedJobs.Reverse();
@@ -430,10 +434,11 @@ namespace AMSExplorer
 
                       do
                       {
-                          myJob = Task.Run(() =>
-              amsClient.GetJobAsync(job.TransformName, job.Job.Name)
-              ).GetAwaiter().GetResult();
-
+                         
+                              myJob = Task.Run(() =>
+                  amsClient.GetJobAsync(job.TransformName, job.Job.Name)
+                  ).GetAwaiter().GetResult();
+                         
                           if (token.IsCancellationRequested == true)
                           {
                               return;
@@ -504,7 +509,7 @@ namespace AMSExplorer
                               }
                           }
 
-                          if (myJob != null && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Finished && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Error && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled)
+                          if (myJob.State != JobState.Finished && myJob.State != JobState.Error && myJob.State != JobState.Canceled)
                           {
                               Debug.WriteLine("wait for status : " + myJob.Name);
                               Task.Delay(JobRefreshIntervalInMilliseconds).Wait();
@@ -514,15 +519,16 @@ namespace AMSExplorer
                               break;
                           }
                       }
-                      while (myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Finished
-                      && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Error
-                      && myJob.State != Microsoft.Azure.Management.Media.Models.JobState.Canceled);
+                      while (myJob.State != JobState.Finished
+                      && myJob.State != JobState.Error
+                      && myJob.State != JobState.Canceled);
 
                       // job finished
-                      myJob = Task.Run(() =>
-                                             amsClient.GetJobAsync(job.TransformName, job.Job.Name)
-                                             ).GetAwaiter().GetResult();
-
+                     
+                          myJob = Task.Run(() =>
+                                                 amsClient.GetJobAsync(job.TransformName, job.Job.Name)
+                                                 ).GetAwaiter().GetResult();
+                     
                       int index2 = -1;
                       foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
                       {

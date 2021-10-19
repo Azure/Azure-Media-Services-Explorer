@@ -312,8 +312,6 @@ namespace AMSExplorer
             dataGridViewKeys.ColumnCount = 2;
             dataGridViewKeys.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
-            long size = -1;
-
             // asset info
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _asset.Name);
@@ -324,11 +322,12 @@ namespace AMSExplorer
             DGAsset.Rows.Add("Container", _asset.Container);
             DGAsset.Rows.Add("StorageAccountName", _asset.StorageAccountName);
             DGAsset.Rows.Add("StorageEncryptionFormat", _asset.StorageEncryptionFormat);
-            DGAsset.Rows.Add("Type", _asset.Type);
 
-            if (size != -1)
+            AssetInfoData MyAssetTypeInfo = await AssetTools.GetAssetTypeAsync(_asset.Name, _amsClient);
+            if (MyAssetTypeInfo != null)
             {
-                DGAsset.Rows.Add("Size", AssetTools.FormatByteSize(size));
+                DGAsset.Rows.Add("Type", MyAssetTypeInfo.Type);
+                DGAsset.Rows.Add("Size", AssetTools.FormatByteSize(MyAssetTypeInfo.Size));
             }
 
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _asset.Created.ToLocalTime().ToString("G"));
@@ -2029,13 +2028,19 @@ namespace AMSExplorer
 
             // let's find active key policy
             ContentKeyPolicy ckpolicy = null;
-            if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+            try
             {
-                ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
+                if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+                {
+                    ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
+                }
+                else if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+                {
+                    ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
+                }
             }
-            else if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+            catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
             }
 
             if (ckpolicy == null || (ckpolicy.Options.First().Restriction.GetType() != typeof(ContentKeyPolicyTokenRestriction)))
@@ -2139,16 +2144,21 @@ namespace AMSExplorer
 
             // let's find active key policy
             ContentKeyPolicyProperties ckpolicy = null;
-            if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+            try
             {
-                ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecretsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
+                if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+                {
+                    ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecretsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.DefaultContentKeyPolicyName);
+                }
+                else if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+                {
+                    ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecretsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
+                }
             }
-            else if (!string.IsNullOrEmpty(locator.DefaultContentKeyPolicyName))
+            catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                ckpolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetPolicyPropertiesWithSecretsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, spolicy.DefaultContentKeyPolicyName);
+                return;
             }
-
-            if (ckpolicy == null) return;
 
             Guid optionId = Guid.Parse((comboBoxOptions.SelectedItem as Item).Value);
 

@@ -45,11 +45,11 @@
             this.tabControlLiveChannel = new System.Windows.Forms.TabControl();
             this.TabSettings = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonPassThroughBasic = new System.Windows.Forms.RadioButton();
             this.radioButtonTranscodingPremium = new System.Windows.Forms.RadioButton();
-            this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
-            this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
+            this.moreinfoLiveEventTypes = new System.Windows.Forms.LinkLabel();
             this.radioButtonTranscodingStd = new System.Windows.Forms.RadioButton();
-            this.radioButtonTranscodingNone = new System.Windows.Forms.RadioButton();
+            this.radioButtonPassThroughStandard = new System.Windows.Forms.RadioButton();
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
             this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
@@ -89,6 +89,10 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -102,6 +106,10 @@
             this.tabPageAdv.SuspendLayout();
             this.tabPageAdvEncoding.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -205,14 +213,25 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pictureBox4);
+            this.groupBox1.Controls.Add(this.pictureBox3);
+            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.pictureBox2);
+            this.groupBox1.Controls.Add(this.radioButtonPassThroughBasic);
             this.groupBox1.Controls.Add(this.radioButtonTranscodingPremium);
-            this.groupBox1.Controls.Add(this.moreinfoLiveEncodingProfilelink);
-            this.groupBox1.Controls.Add(this.moreinfoLiveStreamingProfilelink);
+            this.groupBox1.Controls.Add(this.moreinfoLiveEventTypes);
             this.groupBox1.Controls.Add(this.radioButtonTranscodingStd);
-            this.groupBox1.Controls.Add(this.radioButtonTranscodingNone);
+            this.groupBox1.Controls.Add(this.radioButtonPassThroughStandard);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // radioButtonPassThroughBasic
+            // 
+            resources.ApplyResources(this.radioButtonPassThroughBasic, "radioButtonPassThroughBasic");
+            this.radioButtonPassThroughBasic.Name = "radioButtonPassThroughBasic";
+            this.radioButtonPassThroughBasic.UseVisualStyleBackColor = true;
+            this.radioButtonPassThroughBasic.CheckedChanged += new System.EventHandler(this.RadioButtonTranscodingNone_CheckedChanged);
             // 
             // radioButtonTranscodingPremium
             // 
@@ -221,19 +240,12 @@
             this.radioButtonTranscodingPremium.UseVisualStyleBackColor = true;
             this.radioButtonTranscodingPremium.CheckedChanged += new System.EventHandler(this.RadioButtonTranscodingNone_CheckedChanged);
             // 
-            // moreinfoLiveEncodingProfilelink
+            // moreinfoLiveEventTypes
             // 
-            resources.ApplyResources(this.moreinfoLiveEncodingProfilelink, "moreinfoLiveEncodingProfilelink");
-            this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
-            this.moreinfoLiveEncodingProfilelink.TabStop = true;
-            this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.MoreinfoLiveEncodingProfilelink_LinkClicked);
-            // 
-            // moreinfoLiveStreamingProfilelink
-            // 
-            resources.ApplyResources(this.moreinfoLiveStreamingProfilelink, "moreinfoLiveStreamingProfilelink");
-            this.moreinfoLiveStreamingProfilelink.Name = "moreinfoLiveStreamingProfilelink";
-            this.moreinfoLiveStreamingProfilelink.TabStop = true;
-            this.moreinfoLiveStreamingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.MoreinfoLiveEncodingProfilelink_LinkClicked);
+            resources.ApplyResources(this.moreinfoLiveEventTypes, "moreinfoLiveEventTypes");
+            this.moreinfoLiveEventTypes.Name = "moreinfoLiveEventTypes";
+            this.moreinfoLiveEventTypes.TabStop = true;
+            this.moreinfoLiveEventTypes.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.MoreinfoLiveEncodingProfilelink_LinkClicked);
             // 
             // radioButtonTranscodingStd
             // 
@@ -242,14 +254,14 @@
             this.radioButtonTranscodingStd.UseVisualStyleBackColor = true;
             this.radioButtonTranscodingStd.CheckedChanged += new System.EventHandler(this.RadioButtonTranscodingNone_CheckedChanged);
             // 
-            // radioButtonTranscodingNone
+            // radioButtonPassThroughStandard
             // 
-            resources.ApplyResources(this.radioButtonTranscodingNone, "radioButtonTranscodingNone");
-            this.radioButtonTranscodingNone.Checked = true;
-            this.radioButtonTranscodingNone.Name = "radioButtonTranscodingNone";
-            this.radioButtonTranscodingNone.TabStop = true;
-            this.radioButtonTranscodingNone.UseVisualStyleBackColor = true;
-            this.radioButtonTranscodingNone.CheckedChanged += new System.EventHandler(this.RadioButtonTranscodingNone_CheckedChanged);
+            resources.ApplyResources(this.radioButtonPassThroughStandard, "radioButtonPassThroughStandard");
+            this.radioButtonPassThroughStandard.Checked = true;
+            this.radioButtonPassThroughStandard.Name = "radioButtonPassThroughStandard";
+            this.radioButtonPassThroughStandard.TabStop = true;
+            this.radioButtonPassThroughStandard.UseVisualStyleBackColor = true;
+            this.radioButtonPassThroughStandard.CheckedChanged += new System.EventHandler(this.RadioButtonTranscodingNone_CheckedChanged);
             // 
             // checkBoxRestrictPreviewIP
             // 
@@ -527,6 +539,34 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.passthrough_basic;
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.passthrough_std;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.encoding;
+            resources.ApplyResources(this.pictureBox3, "pictureBox3");
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.encodingPremium;
+            resources.ApplyResources(this.pictureBox4, "pictureBox4");
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.TabStop = false;
+            // 
             // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
@@ -566,6 +606,10 @@
             this.tabPageAdvEncoding.ResumeLayout(false);
             this.tabPageAdvEncoding.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -600,8 +644,7 @@
         private System.Windows.Forms.TextBox textBoxCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonDefaultPreset;
-        private System.Windows.Forms.LinkLabel moreinfoLiveEncodingProfilelink;
-        private System.Windows.Forms.LinkLabel moreinfoLiveStreamingProfilelink;
+        private System.Windows.Forms.LinkLabel moreinfoLiveEventTypes;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoPrice;
         private System.Windows.Forms.Label label6;
@@ -616,7 +659,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonTranscodingPremium;
         private System.Windows.Forms.RadioButton radioButtonTranscodingStd;
-        private System.Windows.Forms.RadioButton radioButtonTranscodingNone;
+        private System.Windows.Forms.RadioButton radioButtonPassThroughStandard;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelUrlSyntax;
         private System.Windows.Forms.TableLayoutPanel panelPresetLiveEncoding;
@@ -632,5 +675,10 @@
         private System.Windows.Forms.TabPage tabPageAdvEncoding;
         private System.Windows.Forms.CheckBox checkBoxEncodingKeyFrameInterval;
         private System.Windows.Forms.TextBox textBoxEncodingKeyFrameInterval;
+        private System.Windows.Forms.RadioButton radioButtonPassThroughBasic;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

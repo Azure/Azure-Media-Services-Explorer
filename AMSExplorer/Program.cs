@@ -114,7 +114,7 @@ namespace AMSExplorer
 
             while (e != null)
             {
-                if (e is ApiErrorException eApi)
+                if (e is ErrorResponseException eApi)
                 {
                     s = eApi.Body?.Error?.Message;
                 }

@@ -118,6 +118,15 @@ namespace AMSExplorer
 
         public string StorageSelected => ((Item)comboBoxStorage.SelectedItem).Value;
 
+        public int MaxArchiveHours
+        {
+            set
+            {
+                labelExplainArch.Text = string.Format(labelExplainArch.Text, value);
+                numericUpDownArchiveHours.Maximum = value;
+            }
+        }
+
         public LiveOutputCreation(AMSClientV3 client)
         {
             InitializeComponent();

@@ -191,20 +191,18 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
 
-                liveOutput = await amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Name); //refresh
-                if (liveOutput != null)
+                try
                 {
-                    try // sometimes, index could be wrong id program has been deleted
-                    {
-                        _MyObservLiveOutputs[index].State = liveOutput.ResourceState;
-                        _MyObservLiveOutputs[index].Description = liveOutput.Description;
-                        _MyObservLiveOutputs[index].ArchiveWindowLength = liveOutput.ArchiveWindowLength;
-                        _MyObservLiveOutputs[index].LastModified = liveOutput.LastModified != null ? (DateTime?)((DateTime)liveOutput.LastModified).ToLocalTime() : null;
-                        RefreshGridView();
-                    }
-                    catch
-                    {
-                    }
+                    liveOutput = await amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Name); //refresh
+                    _MyObservLiveOutputs[index].State = liveOutput.ResourceState;
+                    _MyObservLiveOutputs[index].Description = liveOutput.Description;
+                    _MyObservLiveOutputs[index].ArchiveWindowLength = liveOutput.ArchiveWindowLength;
+                    _MyObservLiveOutputs[index].LastModified = liveOutput.LastModified != null ? (DateTime?)((DateTime)liveOutput.LastModified).ToLocalTime() : null;
+                    RefreshGridView();
+                }
+                catch
+                {
+                  
                 }
             }
         }
@@ -243,9 +241,16 @@ namespace AMSExplorer
 
             foreach (LiveEvent le in ListEvents)
             {
-                List<LiveOutput> plist = (await amsClient.AMSclient.LiveOutputs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, le.Name))
-                    .ToList();
-                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+                try
+                {
+                    List<LiveOutput> plist = (await amsClient.AMSclient.LiveOutputs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, le.Name))
+                       .ToList();
+                    plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+                }
+                catch
+                {
+
+                }
             }
 
             float scale = DeviceDpi / 96f;

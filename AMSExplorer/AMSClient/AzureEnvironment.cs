@@ -67,7 +67,7 @@ namespace AMSExplorer
 
                 case AzureEnvType.AzureGermany:
                     DisplayName = "Azure Germany";
-                    ArmEndpoint = new Uri("https://management.cloudapi.de/");
+                    ArmEndpoint = new Uri("https://management.microsoftazure.de/");
                     ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = ActiveDirectoryServiceSettings.AzureGermany;
                     MediaServicesV2Resource = "https://rest.media.cloudapi.de";

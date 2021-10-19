@@ -30,6 +30,8 @@ namespace AMSExplorer
         public static readonly string CopyVideoAudioTransformName = "StandardEncoder-AMSE-CopyVideoAudio";
         public static readonly string CopyAllBitrateNonInterleavedTransformName = "StandardEncoder-AMSE-CopyAllBitrateNonInterleaved";
         public static readonly string ThumbnailTransformName = "StandardEncoder-AMSE-Thumbnails";
+        public static readonly string ConstrainedCAETransformName = "StandardEncoder-AMSE-ConstrainedCAE";
+
 
         private readonly string _existingTransformName;
         private readonly string _existingTransformDesc;
@@ -55,6 +57,9 @@ namespace AMSExplorer
         private readonly PresetStandardEncoderThumbnail formThumbnail = new();
         private StandardEncoderPreset encoderPresetThumbnail;
 
+        private PresetConfigurations presetConfigurations = null;
+
+
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
 
 
@@ -66,13 +71,23 @@ namespace AMSExplorer
                 {
                     return MESPresetTypeUI.builtin;
                 }
-                else
+                else // (radioButtonThumbnail.Checked || radioButtonCustomCopy.Checked)
                 {
                     return MESPresetTypeUI.custom;
                 }
             }
         }
 
+        public PresetConfigurations CAEConfigurations
+        {
+            get
+            {
+                if (checkBoxCAEConstrained.Checked)
+                    return presetConfigurations;
+                else
+                    return null;
+            }
+        }
 
         public StandardEncoderPreset CustomCopyPreset
         {
@@ -180,12 +195,24 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();
+                    if (checkBoxCAEConstrained.Checked)
+                    {
+                        textBoxTransformName.Text = ConstrainedCAETransformName;
+                    }
+                    else
+                    {
+                        textBoxTransformName.Text = "StandardEncoder-" + BuiltInPreset.ToString();
+                    }
                 }
             }
         }
 
         private void listboxPresets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateUIWhenPresetSelected();
+        }
+
+        private void UpdateUIWhenPresetSelected()
         {
             UpdateTransformLabel();
 
@@ -200,11 +227,12 @@ namespace AMSExplorer
                 richTextBoxDesc.Text = string.Empty;
                 labelCodec.Text = string.Empty;
             }
+            panelConfigureConstrained.Enabled = profile != null && profile.Prof.Contains("ContentAwareEncoding");
         }
 
         private void RadioButtonCustom_CheckedChanged(object sender, EventArgs e)
         {
-            listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonBuiltin.Checked;
+            listboxPresets.Enabled = richTextBoxDesc.Enabled = panelConfigureConstrained.Enabled = radioButtonBuiltin.Checked;
             UpdateTransformLabel();
         }
 
@@ -222,13 +250,38 @@ namespace AMSExplorer
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            buttonCustomPresetThumbnail.Enabled = listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonThumbnail.Checked;
+            listboxPresets.Enabled = richTextBoxDesc.Enabled = panelConfigureConstrained.Enabled = radioButtonBuiltin.Checked;
+            buttonCustomPresetThumbnail.Enabled = radioButtonThumbnail.Checked;
             UpdateTransformLabel();
         }
 
         private void PresetStandardEncoder_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+        }
+
+        private void buttonConstrainedCAE_Click(object sender, EventArgs e)
+        {
+            PresetStandardEncoderCAEConstrained presetStandardEncoderCAEConstrained = new() { presetConfigurations = presetConfigurations };
+
+            if (presetStandardEncoderCAEConstrained.ShowDialog() == DialogResult.OK)
+            {
+                presetConfigurations = presetStandardEncoderCAEConstrained.presetConfigurations;
+            }
+        }
+
+        private void checkBoxCAEConstrained_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonConstrainedCAE.Enabled = richTextBoxDesc.Enabled = checkBoxCAEConstrained.Checked;
+            UpdateTransformLabel();
+        }
+
+        private void radioButtonBuiltin_CheckedChanged(object sender, EventArgs e)
+        {
+            listboxPresets.Enabled = richTextBoxDesc.Enabled = radioButtonBuiltin.Checked;
+            buttonCustomPresetThumbnail.Enabled = radioButtonThumbnail.Checked;
+
+            if (radioButtonBuiltin.Checked) UpdateUIWhenPresetSelected();
         }
     }
 

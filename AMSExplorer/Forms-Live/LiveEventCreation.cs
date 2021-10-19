@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -31,6 +32,7 @@ namespace AMSExplorer
     public partial class LiveEventCreation : Form
     {
         private bool EncodingTabDisplayed = false;
+        private bool LiveTranscriptTabDisplayed = true;
         private bool InitPhase = true;
         private readonly string defaultLanguageString = "und";
         private readonly AMSClientV3 _client;
@@ -85,7 +87,7 @@ namespace AMSExplorer
 
         public bool LiveTranscript
         {
-            get => checkBoxEnableLiveTranscript.Checked;
+            get => !radioButtonPassThroughBasic.Checked && checkBoxEnableLiveTranscript.Checked;
             set => checkBoxEnableLiveTranscript.Checked = value;
         }
 
@@ -93,7 +95,6 @@ namespace AMSExplorer
         {
             get
             {
-
                 IList<LiveEventTranscription> transcriptionList = new List<LiveEventTranscription>
                 {
                     new LiveEventTranscription(language: ((Item)comboBoxLanguage.SelectedItem).Value)
@@ -106,8 +107,12 @@ namespace AMSExplorer
         {
             get
             {
-                LiveEventEncodingType type = LiveEventEncodingType.None;
-                if (radioButtonTranscodingStd.Checked)
+                LiveEventEncodingType type = LiveEventEncodingType.PassthroughStandard;
+                if (radioButtonPassThroughBasic.Checked)
+                {
+                    type = LiveEventEncodingType.PassthroughBasic;
+                }
+                else if (radioButtonTranscodingStd.Checked)
                 {
                     type = LiveEventEncodingType.Standard;
                 }
@@ -259,8 +264,7 @@ namespace AMSExplorer
 
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
             tabControlLiveChannel.TabPages.Remove(tabPageAdvEncoding);
-            moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
-            moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
+            moreinfoLiveEventTypes.Links.Add(new LinkLabel.Link(0, moreinfoLiveEventTypes.Text.Length, Constants.LinkMoreInfoLiveEventTypes));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
             linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
             linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
@@ -394,7 +398,7 @@ namespace AMSExplorer
         {
             bool displayEncProfile = false;
             LiveEventEncoding myEncoding = Encoding;
-            if (radioButtonDefaultPreset.Checked && myEncoding.EncodingType != LiveEventEncodingType.None)
+            if (radioButtonDefaultPreset.Checked && myEncoding.EncodingType != LiveEventEncodingType.PassthroughStandard && myEncoding.EncodingType != LiveEventEncodingType.PassthroughBasic)
             {
                 AMSEXPlorerLiveProfile.LiveProfile profileliveselected = AMSEXPlorerLiveProfile.Profiles.Where(p => p.Type == myEncoding.EncodingType).FirstOrDefault();
                 if (profileliveselected != null)
@@ -531,11 +535,8 @@ namespace AMSExplorer
         {
             if (!InitPhase && radio.Checked)
             {
-                moreinfoLiveEncodingProfilelink.Visible = !(Encoding.EncodingType == LiveEventEncodingType.None);
-                moreinfoLiveStreamingProfilelink.Visible = (Encoding.EncodingType == LiveEventEncodingType.None);
-
-                // let's display the encoding tab if encoding has been choosen
-                if (Encoding.EncodingType == LiveEventEncodingType.None)
+                // let's display the encoding tab if encoding has been choosen, otherwise, let's remove it
+                if (Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
                     if (EncodingTabDisplayed)
                     {
@@ -555,6 +556,23 @@ namespace AMSExplorer
                     }
                     FillComboProtocols();
                     UpdateProfileGrids();
+                }
+
+                if (Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+                {
+                    if (LiveTranscriptTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Remove(tabPageLiveTranscript);
+                        LiveTranscriptTabDisplayed = false;
+                    }
+                }
+                else
+                {
+                    if (!LiveTranscriptTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Add(tabPageLiveTranscript);
+                        LiveTranscriptTabDisplayed = true;
+                    }
                 }
             }
         }

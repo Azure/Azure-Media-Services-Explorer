@@ -127,10 +127,9 @@ namespace AMSExplorer
                     DGChannel.Rows[i].Cells[1].Style.ForeColor = Color.Red;
                 }
                 */
-
-                _relatedAsset = await _amsClient.GetAssetAsync(_liveOutput.AssetName);
-                if (_relatedAsset != null)
+                try
                 {
+                    _relatedAsset = await _amsClient.GetAssetAsync(_liveOutput.AssetName);
                     var result = await AssetTools.GetValidOnDemandSmoothURIAsync(_relatedAsset, _amsClient, null, _liveOutput);
                     if (result.Item1 != null)
                     {
@@ -142,6 +141,11 @@ namespace AMSExplorer
                         DGLiveEvent.Rows.Add(text, result.Item1);
                     }
                 }
+                catch
+                {
+
+                }
+                
             }
             else
             {

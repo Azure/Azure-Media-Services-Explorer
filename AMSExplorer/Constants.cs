@@ -25,7 +25,7 @@ namespace AMSExplorer
         public const string Webview2Installer = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
         public const string Webview2RegPath64 = "SOFTWARE\\WOW6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
         public const string Webview2RegPath32 = "SOFTWARE\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
-        public const string Webview2MinVersion = "91.0.864.37";
+        public const string Webview2MinVersion = "94.0.992.38";
 
         public const string GitHubAMSEVersionPrimaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
@@ -122,8 +122,7 @@ namespace AMSExplorer
         public const string LinkHowIMoreInfoDynamicManifest = "https://docs.microsoft.com/en-us/azure/media-services/latest/filters-dynamic-manifest-concept";
         public const string LinkHowIMoreInfoSubclipping = "https://azure.microsoft.com/en-us/blog/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
-        public const string LinkMoreInfoLiveEncoding = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-live-streaming-concept#live-encoding";
-        public const string LinkMoreInfoLiveStreaming = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-live-streaming-concept";
+        public const string LinkMoreInfoLiveEventTypes = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-event-types-comparison-reference";
         public const string LinkMoreInfoPricing = "https://azure.microsoft.com/en-us/pricing/details/media-services/";
         public const string LinkMoreInfoStorageVersioning = "https://docs.microsoft.com/en-us/rest/api/storageservices/Versioning-for-the-Azure-Storage-Services";
         public const string LinkMoreInfoStorageAnalytics = "https://docs.microsoft.com/en-us/azure/storage/blobs/monitor-blob-storage";

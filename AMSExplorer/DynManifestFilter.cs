@@ -70,7 +70,6 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
-
             if (asset != null)
             {
                 // asset filters
