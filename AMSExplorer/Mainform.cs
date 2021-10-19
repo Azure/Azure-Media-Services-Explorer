@@ -5502,6 +5502,8 @@ namespace AMSExplorer
             {
                 string uniqueness = Program.GetUniqueness();
 
+                bool isBasic = liveEvent.Encoding.EncodingType != null ? liveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic : false;
+
                 LiveOutputCreation form = new(_amsClient)
                 {
                     LiveEventName = liveEvent.Name,
@@ -5510,7 +5512,8 @@ namespace AMSExplorer
                     AssetName = Constants.NameconvLiveEvent + "-" + Constants.NameconvLiveOutput,
                     LiveOutputName = "LiveOutput-" + uniqueness,
                     HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
-                    ManifestName = uniqueness
+                    ManifestName = uniqueness,
+                    MaxArchiveHours = isBasic ? 8 : 25
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
