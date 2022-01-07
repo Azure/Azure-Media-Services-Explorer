@@ -8,7 +8,7 @@
     <Version>5.5.0.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
-    <Copyright>Copyright © 2021</Copyright>
+    <Copyright>Copyright © 2022</Copyright>
     <Company>$(Authors)Microsoft</Company>
     <AssemblyVersion>5.5.0.0</AssemblyVersion>
     <FileVersion>5.5.0.0</FileVersion>
