@@ -471,7 +471,6 @@ namespace AMSExplorer
                 var asset = _listAssets.Where(a => a.Name == assetName).FirstOrDefault();
                 if (asset != null)
                 {
-
                     textBoxAssetDescription.Text = _listAssets.Where(a => a.Name == assetName).First()?.Description;
                 }
             }

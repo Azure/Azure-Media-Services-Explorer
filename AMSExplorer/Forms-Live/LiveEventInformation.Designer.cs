@@ -33,7 +33,7 @@
             this.DGLiveEvent = new System.Windows.Forms.DataGridView();
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlLiveEvent = new System.Windows.Forms.TabControl();
             this.tabPageLiveEventInfo = new System.Windows.Forms.TabPage();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.checkBoxEncodingKeyFrameInterval = new System.Windows.Forms.CheckBox();
@@ -52,6 +52,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
+            this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
+            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
+            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
+            this.checkBoxEnableLiveTranscript = new System.Windows.Forms.CheckBox();
             this.tabPageEncoding = new System.Windows.Forms.TabPage();
             this.checkBoxIgnore708 = new System.Windows.Forms.CheckBox();
             this.labelLiveEventMustBeStopped = new System.Windows.Forms.Label();
@@ -80,13 +86,15 @@
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pictureBoxLE = new System.Windows.Forms.PictureBox();
+            this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabControlLiveEvent.SuspendLayout();
             this.tabPageLiveEventInfo.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
+            this.tabPageLiveTranscript.SuspendLayout();
             this.tabPageEncoding.SuspendLayout();
             this.groupBoxEncoding.SuspendLayout();
             this.panelDisplayEncProfile.SuspendLayout();
@@ -131,16 +139,17 @@
             resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
             this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
             // 
-            // tabControl1
+            // tabControlLiveEvent
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
-            this.tabControl1.Controls.Add(this.tabPageLiveEventInfo);
-            this.tabControl1.Controls.Add(this.tabPageSettings);
-            this.tabControl1.Controls.Add(this.tabPageEncoding);
-            this.tabControl1.Controls.Add(this.tabPagePolicies);
-            this.tabControl1.Controls.Add(this.tabPagePreview);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
+            resources.ApplyResources(this.tabControlLiveEvent, "tabControlLiveEvent");
+            this.tabControlLiveEvent.Controls.Add(this.tabPageLiveEventInfo);
+            this.tabControlLiveEvent.Controls.Add(this.tabPageSettings);
+            this.tabControlLiveEvent.Controls.Add(this.tabPageLiveTranscript);
+            this.tabControlLiveEvent.Controls.Add(this.tabPageEncoding);
+            this.tabControlLiveEvent.Controls.Add(this.tabPagePolicies);
+            this.tabControlLiveEvent.Controls.Add(this.tabPagePreview);
+            this.tabControlLiveEvent.Name = "tabControlLiveEvent";
+            this.tabControlLiveEvent.SelectedIndex = 0;
             // 
             // tabPageLiveEventInfo
             // 
@@ -151,6 +160,7 @@
             // 
             // tabPageSettings
             // 
+            this.tabPageSettings.Controls.Add(this.checkBoxLowLatency);
             this.tabPageSettings.Controls.Add(this.checkBoxEncodingKeyFrameInterval);
             this.tabPageSettings.Controls.Add(this.textBoxEncodingKeyFrameInterval);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllPreviewIP);
@@ -203,6 +213,7 @@
             resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
             this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
             this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
+            this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged_1);
             this.checkBoxKeyFrameIntDefined.TextChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_TextChanged);
             // 
             // textBoxKeyFrame
@@ -288,6 +299,49 @@
             resources.ApplyResources(this.textboxchannedesc, "textboxchannedesc");
             this.textboxchannedesc.Name = "textboxchannedesc";
             this.textboxchannedesc.TextChanged += new System.EventHandler(this.textboxchannedesc_TextChanged);
+            // 
+            // tabPageLiveTranscript
+            // 
+            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscriptRegions);
+            this.tabPageLiveTranscript.Controls.Add(this.comboBoxLanguage);
+            this.tabPageLiveTranscript.Controls.Add(this.label1);
+            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
+            this.tabPageLiveTranscript.Controls.Add(this.checkBoxEnableLiveTranscript);
+            resources.ApplyResources(this.tabPageLiveTranscript, "tabPageLiveTranscript");
+            this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
+            this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelLiveTranscriptRegions
+            // 
+            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
+            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
+            this.linkLabelLiveTranscriptRegions.TabStop = true;
+            // 
+            // comboBoxLanguage
+            // 
+            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
+            this.comboBoxLanguage.FormattingEnabled = true;
+            this.comboBoxLanguage.Name = "comboBoxLanguage";
+            this.comboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.comboBoxLanguage_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // linkLabelLiveTranscript
+            // 
+            resources.ApplyResources(this.linkLabelLiveTranscript, "linkLabelLiveTranscript");
+            this.linkLabelLiveTranscript.Name = "linkLabelLiveTranscript";
+            this.linkLabelLiveTranscript.TabStop = true;
+            // 
+            // checkBoxEnableLiveTranscript
+            // 
+            resources.ApplyResources(this.checkBoxEnableLiveTranscript, "checkBoxEnableLiveTranscript");
+            this.checkBoxEnableLiveTranscript.Name = "checkBoxEnableLiveTranscript";
+            this.checkBoxEnableLiveTranscript.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLiveTranscript.CheckedChanged += new System.EventHandler(this.checkBoxEnableLiveTranscript_CheckedChanged);
             // 
             // tabPageEncoding
             // 
@@ -493,6 +547,13 @@
             this.pictureBoxLE.Name = "pictureBoxLE";
             this.pictureBoxLE.TabStop = false;
             // 
+            // checkBoxLowLatency
+            // 
+            resources.ApplyResources(this.checkBoxLowLatency, "checkBoxLowLatency");
+            this.checkBoxLowLatency.Name = "checkBoxLowLatency";
+            this.checkBoxLowLatency.UseVisualStyleBackColor = true;
+            this.checkBoxLowLatency.CheckedChanged += new System.EventHandler(this.checkBoxLowLatency_CheckedChanged);
+            // 
             // LiveEventInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -503,7 +564,7 @@
             this.Controls.Add(this.pictureBoxLE);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelLEName);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControlLiveEvent);
             this.Name = "LiveEventInformation";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LiveEventInformation_FormClosed);
@@ -512,12 +573,14 @@
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.LiveEventInformation_DpiChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).EndInit();
             this.contextMenuStripDG.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlLiveEvent.ResumeLayout(false);
             this.tabPageLiveEventInfo.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
             this.tabPageSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
+            this.tabPageLiveTranscript.ResumeLayout(false);
+            this.tabPageLiveTranscript.PerformLayout();
             this.tabPageEncoding.ResumeLayout(false);
             this.tabPageEncoding.PerformLayout();
             this.groupBoxEncoding.ResumeLayout(false);
@@ -543,7 +606,7 @@
         private System.Windows.Forms.DataGridView DGLiveEvent;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlLiveEvent;
         private System.Windows.Forms.TabPage tabPageLiveEventInfo;
         private System.Windows.Forms.Label labelLEName;
         private System.Windows.Forms.TabPage tabPageSettings;
@@ -590,5 +653,12 @@
         private System.Windows.Forms.TextBox textBoxEncodingKeyFrameInterval;
         private Microsoft.Web.WebView2.WinForms.WebView2 webBrowserPreview;
         private System.Windows.Forms.PictureBox pictureBoxLE;
+        private System.Windows.Forms.TabPage tabPageLiveTranscript;
+        private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
+        private System.Windows.Forms.ComboBox comboBoxLanguage;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;
+        private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
+        private System.Windows.Forms.CheckBox checkBoxLowLatency;
     }
 }

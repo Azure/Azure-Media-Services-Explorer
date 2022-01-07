@@ -4986,6 +4986,19 @@ namespace AMSExplorer
                             }
                         }
 
+                        if (modifications.LiveTranscription)
+                        {
+                            liveEvent.Transcriptions = form.LiveTranscript ? form.LiveTranscriptionList : null;
+                        }
+
+                        if (modifications.LowLatency)
+                        {
+                            liveEvent.StreamOptions = new List<StreamOptionsFlag?>()
+                                                                             {
+                                                // Set this to Default or Low Latency
+                                               form.LiveEventLowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
+                                                                             };
+                        }
 
                         try
                         {
@@ -5083,8 +5096,6 @@ namespace AMSExplorer
 
             if (deleteLiveEvents)
             {
-
-
                 // delete the live events
                 try
                 {
@@ -5102,7 +5113,7 @@ namespace AMSExplorer
                         {
                             try
                             {
-                                LiveEvent loitemR = Task.Run(async () => await _amsClient.GetLiveEventAsync(loitem.Name)).Result;
+                                LiveEvent loitemR = await _amsClient.GetLiveEventAsync(loitem.Name);
                                 if (states[ListEvents.IndexOf(loitem)] != loitemR.ResourceState)
                                 {
                                     states[ListEvents.IndexOf(loitem)] = loitemR.ResourceState;
@@ -5112,6 +5123,10 @@ namespace AMSExplorer
                                 {
                                     await DoRefreshGridLiveEventVAsync(false);
                                 }
+                            }
+                            catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                            {
+                                // live event not found
                             }
                             catch (Exception ex)
                             {
@@ -5239,12 +5254,16 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            LiveOutput loitemR = Task.Run(async () => await _amsClient.GetLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name)).Result;
+                            LiveOutput loitemR = await _amsClient.GetLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name);
                             if (states[ListOutputs.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListOutputs.IndexOf(loitem)] = loitemR.ResourceState;
                                 dataGridViewLiveOutputV.BeginInvoke(new Action(async () => await dataGridViewLiveOutputV.RefreshLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitemR), loitemR, _amsClient)), null);
                             }
+                        }
+                        catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        {
+                            // live output not found
                         }
                         catch (Exception ex)
                         {
@@ -5448,7 +5467,38 @@ namespace AMSExplorer
                     string names2 = string.Join(", ", ListStreamingEndpoints.Select(le => le.Name).ToArray());
                     TextBoxLogWriteLine("Deleting streaming endpoints(s) : {0}...", names2);
 
+                    List<StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
                     Task[] taskSEdel = ListStreamingEndpoints.Select(c => _amsClient.AMSclient.StreamingEndpoints.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
+
+                    while (!taskSEdel.All(t => t.IsCompleted))
+                    {
+                        // refresh
+                        foreach (StreamingEndpoint loitem in ListStreamingEndpoints)
+                        {
+                            try
+                            {
+                                StreamingEndpoint loitemR = await _amsClient.GetStreamingEndpointAsync(loitem.Name);
+                                if (states[ListStreamingEndpoints.IndexOf(loitem)] != loitemR.ResourceState)
+                                {
+                                    states[ListStreamingEndpoints.IndexOf(loitem)] = loitemR.ResourceState;
+                                    await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, _amsClient);
+                                }
+                                else
+                                {
+                                    await DoRefreshGridStreamingEndpointVAsync(false);
+                                }
+                            }
+                            catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                            {
+                                // streaming endpoint not found
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine(ex);
+                            }
+                        }
+                        await Task.Delay(2000);
+                    }
                     await Task.WhenAll(taskSEdel);
                     TextBoxLogWriteLine("Streaming endpoint(s) deleted : {0}.", names2);
                     Telemetry.TrackEvent("Streaming endpoint(s) deleted");

@@ -14,12 +14,12 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSExplorer.Forms_Live;
 using Microsoft.Azure.Management.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -42,9 +42,7 @@ namespace AMSExplorer
         private bool previewIpOk = true;
         private bool inputKeyFrameOk = true;
         private bool encodingKeyFrameOk = true;
-
-        public readonly List<string> LanguagesLiveTranscript = new() { "ca-ES", "da-DK", "de-DE", "en-AU", "en-CA", "en-GB", "en-IN", "en-NZ", "en-US", "es-ES", "es-MX", "fi-FI", "fr-CA", "fr-FR", "it-IT", "nl-NL", "pt-BR", "pt-PT", "sv-SE" };
-
+         
         public string LiveEventName
         {
             get => textboxchannelname.Text;
@@ -269,7 +267,7 @@ namespace AMSExplorer
             linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
             linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
 
-            LanguagesLiveTranscript.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
+            LiveTranscriptLanguages.Languages.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
 
             GenerateNewInputId();
