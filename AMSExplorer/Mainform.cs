@@ -5448,34 +5448,7 @@ namespace AMSExplorer
                     string names2 = string.Join(", ", ListStreamingEndpoints.Select(le => le.Name).ToArray());
                     TextBoxLogWriteLine("Deleting streaming endpoints(s) : {0}...", names2);
 
-                    List<StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.ResourceState).ToList();
                     Task[] taskSEdel = ListStreamingEndpoints.Select(c => _amsClient.AMSclient.StreamingEndpoints.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, c.Name)).ToArray();
-
-                    while (!taskSEdel.All(t => t.IsCompleted))
-                    {
-                        // refresh
-                        foreach (StreamingEndpoint loitem in ListStreamingEndpoints)
-                        {
-                            try
-                            {
-                                StreamingEndpoint loitemR = await _amsClient.GetStreamingEndpointAsync(loitem.Name);
-                                if (states[ListStreamingEndpoints.IndexOf(loitem)] != loitemR.ResourceState)
-                                {
-                                    states[ListStreamingEndpoints.IndexOf(loitem)] = loitemR.ResourceState;
-                                    await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, _amsClient);
-                                }
-                                else
-                                {
-                                    await DoRefreshGridStreamingEndpointVAsync(false);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                TextBoxLogWriteLine(ex);
-                            }
-                        }
-                        await Task.Delay(2000);
-                    }
                     await Task.WhenAll(taskSEdel);
                     TextBoxLogWriteLine("Streaming endpoint(s) deleted : {0}.", names2);
                     Telemetry.TrackEvent("Streaming endpoint(s) deleted");
