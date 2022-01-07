@@ -37,6 +37,7 @@ namespace AMSExplorer
         private AzureMediaServicesClient _mediaServicesClient;
         private TokenCredentials _tokenCredentials;
         private List<string> _listRegionWithAvailabilityZone;
+
         private string _questionMark;
         private string _checkedMark;
 
@@ -79,14 +80,19 @@ namespace AMSExplorer
             linkLabelCustomerManagedKeys.Links.Add(new LinkLabel.Link(0, linkLabelCustomerManagedKeys.Text.Length, Constants.LinkAMSCustomerManagedKeys));
             linkLabelManagedIdentities.Links.Add(new LinkLabel.Link(0, linkLabelManagedIdentities.Text.Length, Constants.LinkAMSManagedIdentities));
 
+            int index = 0;
             foreach (var loc in _locations)
             {
                 comboBoxAzureLocations.Items.Add(new Item(loc.RegionalDisplayName, loc.DisplayName));
+                if (loc.DisplayName == "East US")
+                {
+                    index = comboBoxAzureLocations.Items.Count - 1;
+                }
             }
-            comboBoxAzureLocations.SelectedIndex = 0;
+            comboBoxAzureLocations.SelectedIndex = index;
+            //comboBoxAzureLocations.SelectedIndex = _locations.IndexOf();
 
             _uniqueness = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 13); // Create a GUID for uniqueness.
-
 
             _typingAMSAccountTimer = new Timer();
             _typingAMSAccountTimer.Interval = 1000;
@@ -148,22 +154,33 @@ namespace AMSExplorer
             if (string.IsNullOrEmpty(AccountName)) return;
             if (string.IsNullOrEmpty(SelectedLocationName)) return;
 
-            var availability = _mediaServicesClient.Locations.CheckNameAvailability(
-                                          type: "Microsoft.Media/mediaservices",
-                                          locationName: SelectedLocationName,
-                                          name: AccountName);
+            try
+            {
+                var availability = _mediaServicesClient.Locations.CheckNameAvailability(
+                                        type: "Microsoft.Media/mediaservices",
+                                        locationName: SelectedLocationName,
+                                        name: AccountName);
 
-            if (!availability.NameAvailable)
-            {
-                errorProvider1.SetError(textBoxAccountName, availability.Message);
-                labelOkAMSAccount.Text = string.Empty;
-                OkAMSAccount = false;
+                if (!availability.NameAvailable)
+                {
+                    errorProvider1.SetError(textBoxAccountName, availability.Message);
+                    labelOkAMSAccount.Text = string.Empty;
+                    OkAMSAccount = false;
+                }
+                else
+                {
+                    errorProvider1.SetError(textBoxAccountName, string.Empty);
+                    labelOkAMSAccount.Text = _checkedMark;
+                    OkAMSAccount = true;
+                }
+                errorProvider1.SetError(comboBoxAzureLocations, string.Empty);
             }
-            else
+            catch
             {
+                errorProvider1.SetError(comboBoxAzureLocations, "Error. Please check that Media Services is available in that location.");
+                labelOkAMSAccount.Text = string.Empty;
                 errorProvider1.SetError(textBoxAccountName, string.Empty);
-                labelOkAMSAccount.Text = _checkedMark;
-                OkAMSAccount = true;
+                OkAMSAccount = true; // let's not block the user to use this location but not sure it will work
             }
 
             UpdateButtonCreate();

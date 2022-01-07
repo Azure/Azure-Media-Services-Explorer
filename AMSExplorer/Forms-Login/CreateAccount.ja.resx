@@ -60,6 +60,9 @@
   <data name="$this.Text" xml:space="preserve">
     <value>アセットの公開</value>
   </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="buttonCreate.Error" xml:space="preserve">
     <value />
   </data>
@@ -70,6 +73,9 @@
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonCreate.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="buttonCreate.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonCancel.Error" xml:space="preserve">
     <value />
@@ -83,6 +89,9 @@
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="panel1.Error" xml:space="preserve">
     <value />
   </data>
@@ -92,6 +101,9 @@
   <data name="panel1.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="comboBoxAzureLocations.Error" xml:space="preserve">
     <value />
   </data>
@@ -100,6 +112,9 @@
   </data>
   <data name="comboBoxAzureLocations.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="comboBoxAzureLocations.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label1.Error" xml:space="preserve">
     <value />
@@ -117,6 +132,9 @@
   <data name="label1.Text" xml:space="preserve">
     <value>ロケーターの URL はクリップボードにコピーされます。また、アセット情報からも参照可能です。</value>
   </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="textBoxAccountName.Error" xml:space="preserve">
     <value />
   </data>
@@ -125,6 +143,9 @@
   </data>
   <data name="textBoxAccountName.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="textBoxAccountName.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label2.Error" xml:space="preserve">
     <value />
@@ -135,6 +156,9 @@
   <data name="label2.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label3.Error" xml:space="preserve">
     <value />
   </data>
@@ -143,6 +167,9 @@
   </data>
   <data name="label3.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="textBoxStorageId.Error" xml:space="preserve">
     <value />
@@ -153,14 +180,8 @@
   <data name="textBoxStorageId.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="buttonCheckAvailAMS.Error" xml:space="preserve">
+  <data name="textBoxStorageId.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="buttonCheckAvailAMS.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonCheckAvailAMS.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="groupBox1.Error" xml:space="preserve">
     <value />
@@ -174,6 +195,42 @@
   <data name="groupBox1.Text" xml:space="preserve">
     <value>終了日時</value>
   </data>
+  <data name="groupBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelManagedIdentities.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelManagedIdentities.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="linkLabelManagedIdentities.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="linkLabelManagedIdentities.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelCustomerManagedKeys.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelCustomerManagedKeys.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="linkLabelCustomerManagedKeys.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxManagedIdentity.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxManagedIdentity.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxManagedIdentity.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="labelOkAMSAccount.Error" xml:space="preserve">
     <value />
   </data>
@@ -182,6 +239,9 @@
   </data>
   <data name="labelOkAMSAccount.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="labelOkAMSAccount.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label4.Error" xml:space="preserve">
     <value />
@@ -192,6 +252,9 @@
   <data name="label4.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="textBoxRG.Error" xml:space="preserve">
     <value />
   </data>
@@ -200,6 +263,9 @@
   </data>
   <data name="textBoxRG.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="textBoxRG.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="progressBarCreation.Error" xml:space="preserve">
     <value />
@@ -210,6 +276,9 @@
   <data name="progressBarCreation.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="progressBarCreation.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBoxCreateRG.Error" xml:space="preserve">
     <value />
   </data>
@@ -218,6 +287,9 @@
   </data>
   <data name="checkBoxCreateRG.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="checkBoxCreateRG.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBoxCreateStorage.Error" xml:space="preserve">
     <value />
@@ -228,6 +300,9 @@
   <data name="checkBoxCreateStorage.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="checkBoxCreateStorage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="textBoxNewStorageName.Error" xml:space="preserve">
     <value />
   </data>
@@ -236,6 +311,9 @@
   </data>
   <data name="textBoxNewStorageName.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="textBoxNewStorageName.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="groupBox2.Error" xml:space="preserve">
     <value />
@@ -246,6 +324,9 @@
   <data name="groupBox2.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="groupBox2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label5.Error" xml:space="preserve">
     <value />
   </data>
@@ -254,6 +335,9 @@
   </data>
   <data name="label5.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comboBoxStorageType.Error" xml:space="preserve">
     <value />
@@ -264,6 +348,9 @@
   <data name="comboBoxStorageType.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="comboBoxStorageType.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labelOkStorageAccount.Error" xml:space="preserve">
     <value />
   </data>
@@ -273,14 +360,8 @@
   <data name="labelOkStorageAccount.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="buttonCheckAvailStorage.Error" xml:space="preserve">
+  <data name="labelOkStorageAccount.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="buttonCheckAvailStorage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonCheckAvailStorage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="label6.Error" xml:space="preserve">
     <value />
@@ -291,6 +372,9 @@
   <data name="label6.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="linkLabelAvailZone.Error" xml:space="preserve">
     <value />
   </data>
@@ -299,5 +383,8 @@
   </data>
   <data name="linkLabelAvailZone.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="linkLabelAvailZone.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

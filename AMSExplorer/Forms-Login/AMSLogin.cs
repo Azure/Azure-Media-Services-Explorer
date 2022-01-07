@@ -547,7 +547,7 @@ namespace AMSExplorer
                         }
                         else // creation mode
                         {
-                            var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").ToList();
+                            var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").OrderBy(l => l.RegionalDisplayName);
 
                             // Getting Media Services accounts...
                             var MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
@@ -557,6 +557,7 @@ namespace AMSExplorer
 
                             // let's get the list of avaibility zones
                             AzureProviders aP = new AzureProviders(environment.ArmEndpoint);
+                            
                             var list = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.SubscriptionId, "Microsoft.Network", accessToken.AccessToken);
                             var listNatGateways = list.ResourceTypes.Where(r => r.ResourceType == "natGateways").FirstOrDefault();
                             List<string> listRegionWithAvailabilityZone = new();
@@ -565,7 +566,13 @@ namespace AMSExplorer
                                 listRegionWithAvailabilityZone = listNatGateways.ZoneMappings.Where(z => z.Zones.Count >= 3).Select(z => z.Location).ToList();
                             }
 
-                            CreateAccount createAccount = new(myLocations, MediaServicesClient, credentials, listRegionWithAvailabilityZone);
+                            // let's get the list of Media Services
+                            var listMedia = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.SubscriptionId, "Microsoft.Media", accessToken.AccessToken);
+                            var listMediaServices = listMedia.ResourceTypes.Where(r => r.ResourceType == "mediaservices").FirstOrDefault().Locations;
+
+                            var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
+
+                            CreateAccount createAccount = new(myLocationsWithMS, MediaServicesClient, credentials, listRegionWithAvailabilityZone);
 
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {
