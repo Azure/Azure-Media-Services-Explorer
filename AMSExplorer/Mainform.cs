@@ -4896,10 +4896,12 @@ namespace AMSExplorer
                                     liveEvent.Encoding.KeyFrameInterval = form.EncodingKeyframeInterval;
                                 }
                             }
+                            /*
                             else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && liveEvent.ResourceState != LiveEventResourceState.Stopped && liveEvent.ResourceState != LiveEventResourceState.StandBy)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : must be stopped or in standbye to update the encoding settings", liveEvent.Name);
                             }
+                            */
                             else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && liveEvent.Encoding == null)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", liveEvent.Name, true);

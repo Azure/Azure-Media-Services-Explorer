@@ -76,6 +76,8 @@
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
+            this.tabPageAdvanced = new System.Windows.Forms.TabPage();
+            this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
             this.tabPagePreview = new System.Windows.Forms.TabPage();
             this.webBrowserPreview = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.labelLEName = new System.Windows.Forms.Label();
@@ -86,7 +88,7 @@
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pictureBoxLE = new System.Windows.Forms.PictureBox();
-            this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
+            this.panelAdvanced = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControlLiveEvent.SuspendLayout();
@@ -101,11 +103,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVideoProf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
             this.tabPagePolicies.SuspendLayout();
+            this.tabPageAdvanced.SuspendLayout();
             this.tabPagePreview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webBrowserPreview)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLE)).BeginInit();
+            this.panelAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGLiveEvent
@@ -147,6 +151,7 @@
             this.tabControlLiveEvent.Controls.Add(this.tabPageLiveTranscript);
             this.tabControlLiveEvent.Controls.Add(this.tabPageEncoding);
             this.tabControlLiveEvent.Controls.Add(this.tabPagePolicies);
+            this.tabControlLiveEvent.Controls.Add(this.tabPageAdvanced);
             this.tabControlLiveEvent.Controls.Add(this.tabPagePreview);
             this.tabControlLiveEvent.Name = "tabControlLiveEvent";
             this.tabControlLiveEvent.SelectedIndex = 0;
@@ -160,13 +165,8 @@
             // 
             // tabPageSettings
             // 
-            this.tabPageSettings.Controls.Add(this.checkBoxLowLatency);
-            this.tabPageSettings.Controls.Add(this.checkBoxEncodingKeyFrameInterval);
-            this.tabPageSettings.Controls.Add(this.textBoxEncodingKeyFrameInterval);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllPreviewIP);
             this.tabPageSettings.Controls.Add(this.buttonAllowAllInputIP);
-            this.tabPageSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
-            this.tabPageSettings.Controls.Add(this.textBoxKeyFrame);
             this.tabPageSettings.Controls.Add(this.checkBoxInputSet);
             this.tabPageSettings.Controls.Add(this.checkBoxPreviewSet);
             this.tabPageSettings.Controls.Add(this.dataGridViewInputIP);
@@ -482,6 +482,20 @@
             this.textBoxClientPolicy.Name = "textBoxClientPolicy";
             this.textBoxClientPolicy.TextChanged += new System.EventHandler(this.textBoxClientPolicy_TextChanged);
             // 
+            // tabPageAdvanced
+            // 
+            this.tabPageAdvanced.Controls.Add(this.panelAdvanced);
+            resources.ApplyResources(this.tabPageAdvanced, "tabPageAdvanced");
+            this.tabPageAdvanced.Name = "tabPageAdvanced";
+            this.tabPageAdvanced.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxLowLatency
+            // 
+            resources.ApplyResources(this.checkBoxLowLatency, "checkBoxLowLatency");
+            this.checkBoxLowLatency.Name = "checkBoxLowLatency";
+            this.checkBoxLowLatency.UseVisualStyleBackColor = true;
+            this.checkBoxLowLatency.CheckedChanged += new System.EventHandler(this.checkBoxLowLatency_CheckedChanged);
+            // 
             // tabPagePreview
             // 
             this.tabPagePreview.Controls.Add(this.webBrowserPreview);
@@ -547,12 +561,15 @@
             this.pictureBoxLE.Name = "pictureBoxLE";
             this.pictureBoxLE.TabStop = false;
             // 
-            // checkBoxLowLatency
+            // panelAdvanced
             // 
-            resources.ApplyResources(this.checkBoxLowLatency, "checkBoxLowLatency");
-            this.checkBoxLowLatency.Name = "checkBoxLowLatency";
-            this.checkBoxLowLatency.UseVisualStyleBackColor = true;
-            this.checkBoxLowLatency.CheckedChanged += new System.EventHandler(this.checkBoxLowLatency_CheckedChanged);
+            this.panelAdvanced.Controls.Add(this.checkBoxLowLatency);
+            this.panelAdvanced.Controls.Add(this.checkBoxEncodingKeyFrameInterval);
+            this.panelAdvanced.Controls.Add(this.textBoxKeyFrame);
+            this.panelAdvanced.Controls.Add(this.checkBoxKeyFrameIntDefined);
+            this.panelAdvanced.Controls.Add(this.textBoxEncodingKeyFrameInterval);
+            resources.ApplyResources(this.panelAdvanced, "panelAdvanced");
+            this.panelAdvanced.Name = "panelAdvanced";
             // 
             // LiveEventInformation
             // 
@@ -591,11 +608,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).EndInit();
             this.tabPagePolicies.ResumeLayout(false);
             this.tabPagePolicies.PerformLayout();
+            this.tabPageAdvanced.ResumeLayout(false);
             this.tabPagePreview.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.webBrowserPreview)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLE)).EndInit();
+            this.panelAdvanced.ResumeLayout(false);
+            this.panelAdvanced.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -660,5 +680,7 @@
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;
         private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
         private System.Windows.Forms.CheckBox checkBoxLowLatency;
+        private System.Windows.Forms.TabPage tabPageAdvanced;
+        private System.Windows.Forms.Panel panelAdvanced;
     }
 }

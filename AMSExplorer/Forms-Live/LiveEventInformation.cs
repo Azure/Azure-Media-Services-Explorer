@@ -202,11 +202,7 @@ namespace AMSExplorer
                         textBoxEncodingKeyFrameInterval.Text = ((TimeSpan)MyLiveEvent.Encoding.KeyFrameInterval).TotalSeconds.ToString();
                     }
 
-                    if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
-                    {
-                        textBoxEncodingKeyFrameInterval.Enabled = false;
-                        checkBoxEncodingKeyFrameInterval.Enabled = false;
-                    }
+
 
                     //  DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
                 }
@@ -249,7 +245,7 @@ namespace AMSExplorer
                 {
                     checkBoxLowLatency.Checked = true;
                 }
-        
+
                 if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
                     tabControlLiveEvent.TabPages.Remove(tabPageLiveTranscript);
@@ -300,8 +296,13 @@ namespace AMSExplorer
             }
 
             // comon code - multiselect or only one channel selected
-            tabControlLiveEvent.TabPages.Remove(tabPageEncoding); // no encoding channel
 
+            if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+            {
+                textBoxEncodingKeyFrameInterval.Enabled = false;
+                checkBoxEncodingKeyFrameInterval.Enabled = false;
+                tabControlLiveEvent.TabPages.Remove(tabPageEncoding); // no encoding channel
+            }
 
             if (MyLiveEvent.Input != null && MyLiveEvent.Input.AccessControl != null && MyLiveEvent.Input.AccessControl.Ip != null)
             {
@@ -343,12 +344,30 @@ namespace AMSExplorer
             }
             textboxchannedesc.Text = MyLiveEvent.Description;
 
-            // Channel is not stopped or running. We cannot update settings
-            if (MyLiveEvent.ResourceState != LiveEventResourceState.Stopped && MyLiveEvent.ResourceState != LiveEventResourceState.Running)
+
+            // Channel is stopped We can update some settings
+            if (MyLiveEvent.ResourceState == LiveEventResourceState.Stopped)
+            {
+                tabControlLiveEvent.Text += " (editable)";
+                tabPageEncoding.Text += " (editable)";
+                tabPageAdvanced.Text += " (editable)";
+            }
+            else if (MyLiveEvent.ResourceState == LiveEventResourceState.Running)
+            {
+                groupBoxEncoding.Enabled = false;
+                checkBoxIgnore708.Enabled = false;
+                panelAdvanced.Enabled = false;
+            }
+            else // Channel is not stopped or running
             {
                 labelLiveEventStoppedOrStartedSettings.Visible = true;
                 buttonUpdateClose.Enabled = false;
+
+                groupBoxEncoding.Enabled = false;
+                checkBoxIgnore708.Enabled = false;
+                panelAdvanced.Enabled = false;
             }
+
 
             // let's track when user edit a setting
             Modifications = new ExplorerLiveEventModifications
