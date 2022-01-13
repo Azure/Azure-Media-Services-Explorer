@@ -223,20 +223,14 @@
   <data name="tabPage1.Text" xml:space="preserve">
     <value>設定</value>
   </data>
-  <data name="label9.Error" xml:space="preserve">
+  <data name="labelExplainArch.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="label9.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="labelExplainArch.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="label9.IconPadding" type="System.Int32, mscorlib">
+  <data name="labelExplainArch.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 15</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>5分 から 25 時間 (最大) まで</value>
   </data>
   <data name="label33.Error" xml:space="preserve">
     <value />

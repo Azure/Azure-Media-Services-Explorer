@@ -198,20 +198,13 @@ namespace AMSExplorer
                     if (MyLiveEvent.Encoding.KeyFrameInterval != null)
                     {
                         DGLiveEvent.Rows.Add("Encoding Key Frame Interval Duration", MyLiveEvent.Encoding.KeyFrameInterval);
-                        checkBoxEncodingKeyFrameInterval.Checked = true;
-                        textBoxEncodingKeyFrameInterval.Text = ((TimeSpan)MyLiveEvent.Encoding.KeyFrameInterval).TotalSeconds.ToString();
+
                     }
-
-
-
-                    //  DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
                 }
 
                 if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
                 {
                     DGLiveEvent.Rows.Add("Input Key Frame Interval Duration", MyLiveEvent.Input.KeyFrameIntervalDuration);
-                    checkBoxKeyFrameIntDefined.Checked = true;
-                    textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
                 }
 
                 string[] stringnameurl = new string[] { AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Primary, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Secondary };
@@ -241,41 +234,19 @@ namespace AMSExplorer
                     }
                 }
 
-                if (MyLiveEvent.StreamOptions != null && MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency))
-                {
-                    checkBoxLowLatency.Checked = true;
-                }
 
+                // live transcript
                 if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
-                    tabControlLiveEvent.TabPages.Remove(tabPageLiveTranscript);
+
                 }
                 else if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
                 {
                     DGLiveEvent.Rows.Add("Live Transcription", "Enabled");
-                    checkBoxEnableLiveTranscript.Checked = true;
-
-                    foreach (LiveEventTranscription transcript in MyLiveEvent.Transcriptions)
-                    {
-                        DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
-                    }
-
-
-                    int index = 0;
-                    foreach (var c in comboBoxLanguage.Items)
-                    {
-                        if (((Item)c).Value == MyLiveEvent.Transcriptions.First().Language)
-                        {
-                            index = comboBoxLanguage.Items.IndexOf(c);
-                        }
-                    }
-                    comboBoxLanguage.SelectedIndex = index;
-
                 }
                 else
                 {
                     DGLiveEvent.Rows.Add("Live Transcription", "Disabled");
-                    checkBoxEnableLiveTranscript.Checked = false;
                 }
 
             }
@@ -297,6 +268,62 @@ namespace AMSExplorer
 
             // comon code - multiselect or only one channel selected
 
+            if (MyLiveEvent.Encoding != null)
+            {
+
+                if (MyLiveEvent.Encoding.KeyFrameInterval != null)
+                {
+                    checkBoxEncodingKeyFrameInterval.Checked = true;
+                    textBoxEncodingKeyFrameInterval.Text = ((TimeSpan)MyLiveEvent.Encoding.KeyFrameInterval).TotalSeconds.ToString();
+                }
+                //  DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
+            }
+
+            if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
+            {
+                checkBoxKeyFrameIntDefined.Checked = true;
+                textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
+            }
+
+
+            // live transcript
+            if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+            {
+                tabControlLiveEvent.TabPages.Remove(tabPageLiveTranscript);
+            }
+            else if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
+            {
+                checkBoxEnableLiveTranscript.Checked = true;
+
+                foreach (LiveEventTranscription transcript in MyLiveEvent.Transcriptions)
+                {
+                    DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
+                }
+
+
+                int index = 0;
+                foreach (var c in comboBoxLanguage.Items)
+                {
+                    if (((Item)c).Value == MyLiveEvent.Transcriptions.First().Language)
+                    {
+                        index = comboBoxLanguage.Items.IndexOf(c);
+                    }
+                }
+                comboBoxLanguage.SelectedIndex = index;
+            }
+            else
+            {
+                checkBoxEnableLiveTranscript.Checked = false;
+            }
+
+
+            // low latency
+            if (MyLiveEvent.StreamOptions != null && MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency))
+            {
+                checkBoxLowLatency.Checked = true;
+            }
+
+            // encoding settings
             if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
             {
                 textBoxEncodingKeyFrameInterval.Enabled = false;
