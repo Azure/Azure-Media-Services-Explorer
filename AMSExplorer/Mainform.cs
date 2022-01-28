@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2021 Microsoft Corporation
+//    Copyright 2022 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -4896,10 +4896,12 @@ namespace AMSExplorer
                                     liveEvent.Encoding.KeyFrameInterval = form.EncodingKeyframeInterval;
                                 }
                             }
+                            /*
                             else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && liveEvent.ResourceState != LiveEventResourceState.Stopped && liveEvent.ResourceState != LiveEventResourceState.StandBy)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : must be stopped or in standbye to update the encoding settings", liveEvent.Name);
                             }
+                            */
                             else if (liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && liveEvent.Encoding == null)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", liveEvent.Name, true);
@@ -4986,6 +4988,19 @@ namespace AMSExplorer
                             }
                         }
 
+                        if (modifications.LiveTranscription)
+                        {
+                            liveEvent.Transcriptions = form.LiveTranscript ? form.LiveTranscriptionList : null;
+                        }
+
+                        if (modifications.LowLatency)
+                        {
+                            liveEvent.StreamOptions = new List<StreamOptionsFlag?>()
+                                                                             {
+                                                // Set this to Default or Low Latency
+                                               form.LiveEventLowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
+                                                                             };
+                        }
 
                         try
                         {
@@ -5083,8 +5098,6 @@ namespace AMSExplorer
 
             if (deleteLiveEvents)
             {
-
-
                 // delete the live events
                 try
                 {
@@ -5102,7 +5115,7 @@ namespace AMSExplorer
                         {
                             try
                             {
-                                LiveEvent loitemR = Task.Run(async () => await _amsClient.GetLiveEventAsync(loitem.Name)).Result;
+                                LiveEvent loitemR = await _amsClient.GetLiveEventAsync(loitem.Name);
                                 if (states[ListEvents.IndexOf(loitem)] != loitemR.ResourceState)
                                 {
                                     states[ListEvents.IndexOf(loitem)] = loitemR.ResourceState;
@@ -5112,6 +5125,10 @@ namespace AMSExplorer
                                 {
                                     await DoRefreshGridLiveEventVAsync(false);
                                 }
+                            }
+                            catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                            {
+                                // live event not found
                             }
                             catch (Exception ex)
                             {
@@ -5239,12 +5256,16 @@ namespace AMSExplorer
                     {
                         try
                         {
-                            LiveOutput loitemR = Task.Run(async () => await _amsClient.GetLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name)).Result;
+                            LiveOutput loitemR = await _amsClient.GetLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitem), loitem.Name);
                             if (states[ListOutputs.IndexOf(loitem)] != loitemR.ResourceState)
                             {
                                 states[ListOutputs.IndexOf(loitem)] = loitemR.ResourceState;
                                 dataGridViewLiveOutputV.BeginInvoke(new Action(async () => await dataGridViewLiveOutputV.RefreshLiveOutputAsync(LiveOutputUtil.ReturnLiveEventFromOutput(loitemR), loitemR, _amsClient)), null);
                             }
+                        }
+                        catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        {
+                            // live output not found
                         }
                         catch (Exception ex)
                         {
@@ -5468,6 +5489,10 @@ namespace AMSExplorer
                                 {
                                     await DoRefreshGridStreamingEndpointVAsync(false);
                                 }
+                            }
+                            catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                            {
+                                // streaming endpoint not found
                             }
                             catch (Exception ex)
                             {

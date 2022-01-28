@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2021 Microsoft Corporation
+//    Copyright 2022 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSExplorer.Forms_Live;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Web.WebView2.Core;
 using System;
@@ -21,6 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
@@ -40,7 +42,6 @@ namespace AMSExplorer
         private readonly string defaultEncodingPreset = null;
         private readonly BindingList<ExplorerAudioStream> audiostreams = new();
         private string _radioButtonDefaultPreset;
-              
 
         public IPAccessControl GetInputAllowList
         {
@@ -104,12 +105,33 @@ namespace AMSExplorer
             }
         }
 
-
         public string PresetName => radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
 
         public bool Ignore708Captions => checkBoxIgnore708.Checked;
 
+        public bool LiveTranscript
+        {
+            get => checkBoxEnableLiveTranscript.Checked;
+            set => checkBoxEnableLiveTranscript.Checked = value;
+        }
 
+        public IList<LiveEventTranscription> LiveTranscriptionList
+        {
+            get
+            {
+                IList<LiveEventTranscription> transcriptionList = new List<LiveEventTranscription>
+                {
+                    new LiveEventTranscription(language: ((Item)comboBoxLanguage.SelectedItem).Value)
+                };
+                return transcriptionList;
+            }
+        }
+
+        public bool LiveEventLowLatencyMode
+        {
+            get => checkBoxLowLatency.Checked;
+            set => checkBoxLowLatency.Checked = value;
+        }
 
         public LiveEventInformation(Mainform mainform, AMSClientV3 client)
         {
@@ -137,10 +159,15 @@ namespace AMSExplorer
             }
         }
 
-
         private void LiveEventInformation_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
+
+            linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
+            linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
+
+            LiveTranscriptLanguages.Languages.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
+            comboBoxLanguage.SelectedIndex = 0;
 
             _radioButtonDefaultPreset = radioButtonDefaultPreset.Text;
 
@@ -171,24 +198,13 @@ namespace AMSExplorer
                     if (MyLiveEvent.Encoding.KeyFrameInterval != null)
                     {
                         DGLiveEvent.Rows.Add("Encoding Key Frame Interval Duration", MyLiveEvent.Encoding.KeyFrameInterval);
-                        checkBoxEncodingKeyFrameInterval.Checked = true;
-                        textBoxEncodingKeyFrameInterval.Text = ((TimeSpan)MyLiveEvent.Encoding.KeyFrameInterval).TotalSeconds.ToString();
-                    }
 
-                    if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
-                    {
-                        textBoxEncodingKeyFrameInterval.Enabled = false;
-                        checkBoxEncodingKeyFrameInterval.Enabled = false;
                     }
-
-                    //  DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
                 }
 
                 if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
                 {
                     DGLiveEvent.Rows.Add("Input Key Frame Interval Duration", MyLiveEvent.Input.KeyFrameIntervalDuration);
-                    checkBoxKeyFrameIntDefined.Checked = true;
-                    textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
                 }
 
                 string[] stringnameurl = new string[] { AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Primary, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Secondary };
@@ -218,27 +234,21 @@ namespace AMSExplorer
                     }
                 }
 
-                string mode = "Default";
-                if (MyLiveEvent.StreamOptions != null && MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency))
+
+                // live transcript
+                if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
-                    mode = "Low latency";
+
                 }
-                DGLiveEvent.Rows.Add("Latency mode", mode);
-
-
-                if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
+                else if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
                 {
                     DGLiveEvent.Rows.Add("Live Transcription", "Enabled");
-
-                    foreach (LiveEventTranscription transcript in MyLiveEvent.Transcriptions)
-                    {
-                        DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
-                    }
                 }
                 else
                 {
                     DGLiveEvent.Rows.Add("Live Transcription", "Disabled");
                 }
+
             }
             else // multiselect
             {
@@ -246,8 +256,8 @@ namespace AMSExplorer
 
                 pictureBoxLE.Visible = false;
 
-                tabControl1.TabPages.Remove(tabPageLiveEventInfo); // no channel info page
-                tabControl1.TabPages.Remove(tabPagePreview); // no channel info page
+                tabControlLiveEvent.TabPages.Remove(tabPageLiveEventInfo); // no channel info page
+                tabControlLiveEvent.TabPages.Remove(tabPagePreview); // no channel info page
 
                 if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
                 {
@@ -257,8 +267,69 @@ namespace AMSExplorer
             }
 
             // comon code - multiselect or only one channel selected
-            tabControl1.TabPages.Remove(tabPageEncoding); // no encoding channel
 
+            if (MyLiveEvent.Encoding != null)
+            {
+
+                if (MyLiveEvent.Encoding.KeyFrameInterval != null)
+                {
+                    checkBoxEncodingKeyFrameInterval.Checked = true;
+                    textBoxEncodingKeyFrameInterval.Text = ((TimeSpan)MyLiveEvent.Encoding.KeyFrameInterval).TotalSeconds.ToString();
+                }
+                //  DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
+            }
+
+            if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
+            {
+                checkBoxKeyFrameIntDefined.Checked = true;
+                textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
+            }
+
+
+            // live transcript
+            if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+            {
+                tabControlLiveEvent.TabPages.Remove(tabPageLiveTranscript);
+            }
+            else if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
+            {
+                checkBoxEnableLiveTranscript.Checked = true;
+
+                foreach (LiveEventTranscription transcript in MyLiveEvent.Transcriptions)
+                {
+                    DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
+                }
+
+
+                int index = 0;
+                foreach (var c in comboBoxLanguage.Items)
+                {
+                    if (((Item)c).Value == MyLiveEvent.Transcriptions.First().Language)
+                    {
+                        index = comboBoxLanguage.Items.IndexOf(c);
+                    }
+                }
+                comboBoxLanguage.SelectedIndex = index;
+            }
+            else
+            {
+                checkBoxEnableLiveTranscript.Checked = false;
+            }
+
+
+            // low latency
+            if (MyLiveEvent.StreamOptions != null && MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency))
+            {
+                checkBoxLowLatency.Checked = true;
+            }
+
+            // encoding settings
+            if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+            {
+                textBoxEncodingKeyFrameInterval.Enabled = false;
+                checkBoxEncodingKeyFrameInterval.Enabled = false;
+                tabControlLiveEvent.TabPages.Remove(tabPageEncoding); // no encoding channel
+            }
 
             if (MyLiveEvent.Input != null && MyLiveEvent.Input.AccessControl != null && MyLiveEvent.Input.AccessControl.Ip != null)
             {
@@ -300,12 +371,30 @@ namespace AMSExplorer
             }
             textboxchannedesc.Text = MyLiveEvent.Description;
 
-            // Channel is not stopped or running. We cannot update settings
-            if (MyLiveEvent.ResourceState != LiveEventResourceState.Stopped && MyLiveEvent.ResourceState != LiveEventResourceState.Running)
+
+            // Channel is stopped We can update some settings
+            if (MyLiveEvent.ResourceState == LiveEventResourceState.Stopped)
+            {
+                tabControlLiveEvent.Text += " (editable)";
+                tabPageEncoding.Text += " (editable)";
+                tabPageAdvanced.Text += " (editable)";
+            }
+            else if (MyLiveEvent.ResourceState == LiveEventResourceState.Running)
+            {
+                groupBoxEncoding.Enabled = false;
+                checkBoxIgnore708.Enabled = false;
+                panelAdvanced.Enabled = false;
+            }
+            else // Channel is not stopped or running
             {
                 labelLiveEventStoppedOrStartedSettings.Visible = true;
                 buttonUpdateClose.Enabled = false;
+
+                groupBoxEncoding.Enabled = false;
+                checkBoxIgnore708.Enabled = false;
+                panelAdvanced.Enabled = false;
             }
+
 
             // let's track when user edit a setting
             Modifications = new ExplorerLiveEventModifications
@@ -317,7 +406,9 @@ namespace AMSExplorer
                 InputKeyFrameInterval = false,
                 PreviewIPAllowList = false,
                 SystemPreset = false,
-                Ignore708Captions = false
+                Ignore708Captions = false,
+                LiveTranscription = false,
+                LowLatency = false
             };
         }
 
@@ -332,16 +423,12 @@ namespace AMSExplorer
 
         }
 
-
         private void LiveEventInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
             // let's sure we dispose the webbrowser control
             //webBrowserPreview. = null;
             webBrowserPreview.Dispose();
         }
-
-
-
         private void toolStripMenuItemFilesCopyClipboard_Click(object sender, EventArgs e)
         {
 
@@ -376,8 +463,6 @@ namespace AMSExplorer
                 Modifications.PreviewIPAllowList = true;
             }
         }
-
-
         private async void LiveEventInformation_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
@@ -386,7 +471,6 @@ namespace AMSExplorer
             var env = await CoreWebView2Environment.CreateAsync(null, Constants.webViewCachePath);
             await webBrowserPreview.EnsureCoreWebView2Async(env);
         }
-
         private void checkBoxPreviewSet_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewPreviewIP.Enabled = checkBoxPreviewSet.Checked;
@@ -394,25 +478,20 @@ namespace AMSExplorer
             buttonDelPreviewIP.Enabled = checkBoxPreviewSet.Checked;
             Modifications.PreviewIPAllowList = true;
         }
-
-
         private void checkBoxclientpolicy_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxClientPolicy.Enabled = checkBoxclientpolicy.Checked;
             Modifications.ClientAccessPolicy = true;
         }
-
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxCrossDomPolicy.Enabled = checkBoxcrossdomains.Checked;
             Modifications.CrossDomainPolicy = true;
         }
-
         private void dataGridViewInputIP_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
 
         }
-
         private void checkBoxInputSet_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewInputIP.Enabled = checkBoxInputSet.Checked;
@@ -427,7 +506,6 @@ namespace AMSExplorer
             checkInputKeyFrameValue();
             Modifications.InputKeyFrameInterval = true;
         }
-
 
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
         {
@@ -551,8 +629,6 @@ namespace AMSExplorer
             }
         }
 
-
-
         private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
         {
             UpdateProfileGrids();
@@ -573,7 +649,6 @@ namespace AMSExplorer
         {
             Modifications.ClientAccessPolicy = true;
         }
-
         private void textBoxCrossDomPolicy_TextChanged(object sender, EventArgs e)
         {
             Modifications.CrossDomainPolicy = true;
@@ -606,6 +681,27 @@ namespace AMSExplorer
         {
 
         }
+
+        private void checkBoxEnableLiveTranscript_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxLanguage.Enabled = checkBoxEnableLiveTranscript.Checked;
+            Modifications.LiveTranscription = true;
+        }
+
+        private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Modifications.LiveTranscription = true;
+        }
+
+        private void checkBoxKeyFrameIntDefined_CheckedChanged_1(object sender, EventArgs e)
+        {
+            Modifications.InputKeyFrameInterval = true;
+        }
+
+        private void checkBoxLowLatency_CheckedChanged(object sender, EventArgs e)
+        {
+            Modifications.LowLatency = true;
+        }
     }
 
     public class ExplorerAudioStream
@@ -626,5 +722,8 @@ namespace AMSExplorer
         public bool ClientAccessPolicy { get; set; }
         public bool CrossDomainPolicy { get; set; }
         public bool Ignore708Captions { get; set; }
+        public bool LiveTranscription { get; set; }
+
+        public bool LowLatency { get; set; }
     }
 }

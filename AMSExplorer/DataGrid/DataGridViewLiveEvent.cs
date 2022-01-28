@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2021 Microsoft Corporation
+//    Copyright 2022 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -80,7 +80,7 @@ namespace AMSExplorer
         public string _encoded = "Encoding";
         public string _encodedPreset = "EncodingPreset";
         public int totalLiveEvents = 0;
-      
+
         public async Task InitAsync(AMSClientV3 amsClient)
         {
             IEnumerable<LiveEventEntry> channelquery;
@@ -196,13 +196,17 @@ namespace AMSExplorer
             if (index >= 0) // we found it
             { // we update the observation collection
 
-                liveEventItem = await amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
-                if (liveEventItem != null)
+                try
                 {
+                    liveEventItem = await amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
                     _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
                     _MyObservLiveEvent[index].Description = liveEventItem.Description;
                     _MyObservLiveEvent[index].LastModified = liveEventItem.LastModified != null ? (DateTime?)((DateTime)liveEventItem.LastModified).ToLocalTime() : null;
                     RefreshGridView();
+                }
+                catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    // live event not found
                 }
             }
         }

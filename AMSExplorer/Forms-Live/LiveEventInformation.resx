@@ -102,7 +102,7 @@
   <data name="&gt;&gt;DGLiveEvent.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="tabControlLiveEvent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="tabPageLiveEventInfo.Location" type="System.Drawing.Point, System.Drawing">
@@ -128,64 +128,10 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageLiveEventInfo.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+    <value>tabControlLiveEvent</value>
   </data>
   <data name="&gt;&gt;tabPageLiveEventInfo.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 414</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 19</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.Text" xml:space="preserve">
-    <value>Key frame interval of encoding (s) :</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Name" xml:space="preserve">
-    <value>checkBoxEncodingKeyFrameInterval</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="textBoxEncodingKeyFrameInterval.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxEncodingKeyFrameInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 437</value>
-  </data>
-  <data name="textBoxEncodingKeyFrameInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
-  </data>
-  <data name="textBoxEncodingKeyFrameInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Name" xml:space="preserve">
-    <value>textBoxEncodingKeyFrameInterval</value>
-  </data>
-  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="buttonAllowAllPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>677, 261</value>
@@ -209,7 +155,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonAllowAllPreviewIP.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="buttonAllowAllInputIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>260, 261</value>
@@ -233,58 +179,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonAllowAllInputIP.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 339</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 19</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
-    <value>Key frame interval of input (s) :</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
-    <value>checkBoxKeyFrameIntDefined</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxKeyFrame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 362</value>
-  </data>
-  <data name="textBoxKeyFrame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
-  </data>
-  <data name="textBoxKeyFrame.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;textBoxKeyFrame.Name" xml:space="preserve">
-    <value>textBoxKeyFrame</value>
-  </data>
-  <data name="&gt;&gt;textBoxKeyFrame.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxKeyFrame.Parent" xml:space="preserve">
-    <value>tabPageSettings</value>
-  </data>
-  <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>1</value>
   </data>
   <data name="checkBoxInputSet.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -311,7 +206,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxInputSet.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>2</value>
   </data>
   <data name="checkBoxPreviewSet.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -338,7 +233,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;checkBoxPreviewSet.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>3</value>
   </data>
   <data name="dataGridViewInputIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -362,7 +257,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;dataGridViewInputIP.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>4</value>
   </data>
   <data name="dataGridViewPreviewIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -386,7 +281,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;dataGridViewPreviewIP.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>5</value>
   </data>
   <data name="buttonDelPreviewIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -413,7 +308,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonDelPreviewIP.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>6</value>
   </data>
   <data name="buttonDelInputIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -440,7 +335,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonDelInputIP.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>7</value>
   </data>
   <data name="buttonAddPreviewIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -467,7 +362,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonAddPreviewIP.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>8</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -494,7 +389,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>9</value>
   </data>
   <data name="buttonAddInputIP.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -521,7 +416,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;buttonAddInputIP.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>10</value>
   </data>
   <data name="textboxchannedesc.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 42</value>
@@ -542,7 +437,7 @@
     <value>tabPageSettings</value>
   </data>
   <data name="&gt;&gt;textboxchannedesc.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>11</value>
   </data>
   <data name="tabPageSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -557,7 +452,7 @@
     <value>1</value>
   </data>
   <data name="tabPageSettings.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Settings (editable)</value>
   </data>
   <data name="&gt;&gt;tabPageSettings.Name" xml:space="preserve">
     <value>tabPageSettings</value>
@@ -566,10 +461,181 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageSettings.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+    <value>tabControlLiveEvent</value>
   </data>
   <data name="&gt;&gt;tabPageSettings.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>350, 33</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 15</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="linkLabelLiveTranscriptRegions.Text" xml:space="preserve">
+    <value>Regions availability</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Name" xml:space="preserve">
+    <value>linkLabelLiveTranscriptRegions</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="comboBoxLanguage.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 124</value>
+  </data>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 23</value>
+  </data>
+  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
+    <value>comboBoxLanguage</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 106</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Language :</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="linkLabelLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelLiveTranscript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>275, 18</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 15</value>
+  </data>
+  <data name="linkLabelLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Text" xml:space="preserve">
+    <value>Live transcription documentation</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscript.Name" xml:space="preserve">
+    <value>linkLabelLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscript.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscript.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLiveTranscript.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 68</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>354, 19</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Text" xml:space="preserve">
+    <value>Enable live transcription (available as preview in some regions)</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Name" xml:space="preserve">
+    <value>checkBoxEnableLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Parent" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEnableLiveTranscript.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tabPageLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPageLiveTranscript.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="tabPageLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="tabPageLiveTranscript.Text" xml:space="preserve">
+    <value>Live transcription (editable)</value>
+  </data>
+  <data name="&gt;&gt;tabPageLiveTranscript.Name" xml:space="preserve">
+    <value>tabPageLiveTranscript</value>
+  </data>
+  <data name="&gt;&gt;tabPageLiveTranscript.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageLiveTranscript.Parent" xml:space="preserve">
+    <value>tabControlLiveEvent</value>
+  </data>
+  <data name="&gt;&gt;tabPageLiveTranscript.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="checkBoxIgnore708.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -917,10 +983,10 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageEncoding.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+    <value>tabControlLiveEvent</value>
   </data>
   <data name="&gt;&gt;tabPageEncoding.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="checkBoxcrossdomains.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1055,7 +1121,7 @@
     <value>2</value>
   </data>
   <data name="tabPagePolicies.Text" xml:space="preserve">
-    <value>Policies</value>
+    <value>Policies (editable)</value>
   </data>
   <data name="&gt;&gt;tabPagePolicies.Name" xml:space="preserve">
     <value>tabPagePolicies</value>
@@ -1064,10 +1130,193 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPagePolicies.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+    <value>tabControlLiveEvent</value>
   </data>
   <data name="&gt;&gt;tabPagePolicies.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="checkBoxLowLatency.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxLowLatency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxLowLatency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 19</value>
+  </data>
+  <data name="checkBoxLowLatency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 19</value>
+  </data>
+  <data name="checkBoxLowLatency.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="checkBoxLowLatency.Text" xml:space="preserve">
+    <value>Low latency mode</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Name" xml:space="preserve">
+    <value>checkBoxLowLatency</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Parent" xml:space="preserve">
+    <value>panelAdvanced</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 164</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 19</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.Text" xml:space="preserve">
+    <value>Key frame interval of encoding (s) :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Name" xml:space="preserve">
+    <value>checkBoxEncodingKeyFrameInterval</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.Parent" xml:space="preserve">
+    <value>panelAdvanced</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEncodingKeyFrameInterval.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBoxKeyFrame.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxKeyFrame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 100</value>
+  </data>
+  <data name="textBoxKeyFrame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="textBoxKeyFrame.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Name" xml:space="preserve">
+    <value>textBoxKeyFrame</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.Parent" xml:space="preserve">
+    <value>panelAdvanced</value>
+  </data>
+  <data name="&gt;&gt;textBoxKeyFrame.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 77</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 19</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
+    <value>Key frame interval of input (s) :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
+    <value>checkBoxKeyFrameIntDefined</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Parent" xml:space="preserve">
+    <value>panelAdvanced</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 187</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Name" xml:space="preserve">
+    <value>textBoxEncodingKeyFrameInterval</value>
+  </data>
+  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.Parent" xml:space="preserve">
+    <value>panelAdvanced</value>
+  </data>
+  <data name="&gt;&gt;textBoxEncodingKeyFrameInterval.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panelAdvanced.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="panelAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 306</value>
+  </data>
+  <data name="panelAdvanced.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="&gt;&gt;panelAdvanced.Name" xml:space="preserve">
+    <value>panelAdvanced</value>
+  </data>
+  <data name="&gt;&gt;panelAdvanced.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelAdvanced.Parent" xml:space="preserve">
+    <value>tabPageAdvanced</value>
+  </data>
+  <data name="&gt;&gt;panelAdvanced.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabPageAdvanced.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPageAdvanced.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 511</value>
+  </data>
+  <data name="tabPageAdvanced.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="tabPageAdvanced.Text" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="&gt;&gt;tabPageAdvanced.Name" xml:space="preserve">
+    <value>tabPageAdvanced</value>
+  </data>
+  <data name="&gt;&gt;tabPageAdvanced.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageAdvanced.Parent" xml:space="preserve">
+    <value>tabControlLiveEvent</value>
+  </data>
+  <data name="&gt;&gt;tabPageAdvanced.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="webBrowserPreview.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1112,30 +1361,30 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPagePreview.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+    <value>tabControlLiveEvent</value>
   </data>
   <data name="&gt;&gt;tabPagePreview.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabControlLiveEvent.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 50</value>
   </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabControlLiveEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>887, 539</value>
   </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+  <data name="tabControlLiveEvent.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;tabControlLiveEvent.Name" xml:space="preserve">
+    <value>tabControlLiveEvent</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabControlLiveEvent.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabControlLiveEvent.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tabControlLiveEvent.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="labelLEName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -1319,7 +1568,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBoxLE.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>

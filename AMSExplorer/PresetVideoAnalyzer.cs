@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2021 Microsoft Corporation
+//    Copyright 2022 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -30,7 +31,7 @@ namespace AMSExplorer
         private readonly string _existingTransformDesc;
 
         // langage codes supported : https://go.microsoft.com/fwlink/?linkid=2109463
-        public readonly List<string> LanguagesIndexV2s = new() { "en-US", "en-GB", "en-AU", "es-ES", "es-MX", "fr-FR", "fr-CA", "it-IT", "ja-JP", "pt-BR", "zh-CN", "de-DE", "ar-BH", "ar-EG", "ar-IQ", "ar-JO", "ar-KW", "ar-LB", "ar-OM", "ar-QA", "ar-SA", "ar-SY", "ru-RU", "hi-IN", "ko-KR", "da-DK", "nb-NO", "sv-SE", "fi-FI", "th-TH", "tr-TR" };
+        public readonly List<string> LanguagesIndexV2s = new() { "ar-BH", "ar-EG", "ar-IQ", "ar-JO", "ar-KW", "ar-LB", "ar-OM", "ar-QA", "ar-SA", "ar-SY", "zh-CN", "da-DK", "en-US", "en-GB", "en-AU", "fi-FI", "fr-FR", "fr-CA", "de-DE", "he-IL", "hi-IN", "it-IT", "ko-KR", "ja-JP", "nb-NO", "fa-IR", "pt-BR", "pt-PT", "ru-RU", "es-ES", "es-MX", "sv-SE", "th-TH", "tr-TR" };
 
         public string Language => checkBoxAutoLanguage.Checked ? null : ((Item)comboBoxLanguage.SelectedItem).Value;
 
@@ -57,7 +58,7 @@ namespace AMSExplorer
             // DpiUtils.InitPerMonitorDpi(this);
 
             LanguagesIndexV2s.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
-            comboBoxLanguage.SelectedIndex = 0;
+            comboBoxLanguage.SelectedIndex = LanguagesIndexV2s.IndexOf("en-US");
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
 
             textBoxDescription.Text = _existingTransformDesc;
