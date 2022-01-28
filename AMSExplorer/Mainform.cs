@@ -5317,8 +5317,6 @@ namespace AMSExplorer
             string names = string.Join(", ", streamingendpointsstopped.Select(le => le.Name).ToArray());
             if (streamingendpointsstopped.Count > 0)
             {
-
-
                 try
                 {
                     TextBoxLogWriteLine("Starting streaming endpoint(s) : {0}...", names);
@@ -5376,8 +5374,6 @@ namespace AMSExplorer
 
         private async Task DoUpdateAndScaleStreamingEndpointEngineAsync(StreamingEndpoint se, int? units = null)
         {
-
-
             try
             {
                 TextBoxLogWriteLine("Updating streaming endpoint '{0}'...", se.Name);
@@ -5412,8 +5408,6 @@ namespace AMSExplorer
 
             if (sesrunning.Count > 0)
             {
-
-
                 try
                 {
                     TextBoxLogWriteLine("Stopping streaming endpoints(s) : {0}...", names);
@@ -6972,6 +6966,7 @@ namespace AMSExplorer
             List<LiveEvent> liveEvents = await ReturnSelectedLiveEventsAsync();
             bool single = liveEvents.Count == 1;
             bool oneOrMore = liveEvents.Count > 0;
+            bool several = liveEvents.Count > 1;
 
             // live event info
             ContextMenuItemLiveEventDisplayInfomation.Enabled = oneOrMore;
@@ -6986,13 +6981,13 @@ namespace AMSExplorer
             ContextMenuItemLiveEventCopyPreviewURLToClipboard.Enabled = single && liveEvents.FirstOrDefault().Preview != null;
 
             // start, stop, reset, delete, clone live event
-            ContextMenuItemLiveEventStart.Enabled = oneOrMore;
-            ContextMenuItemLiveEventStop.Enabled = oneOrMore;
-            ContextMenuItemLiveEventReset.Enabled = oneOrMore;
+            ContextMenuItemLiveEventStart.Enabled = (single && liveEvents.FirstOrDefault().ResourceState == LiveEventResourceState.Stopped) || several;
+            ContextMenuItemLiveEventStop.Enabled = (single && liveEvents.FirstOrDefault().ResourceState == LiveEventResourceState.Running) || several;
+            ContextMenuItemLiveEventReset.Enabled = (single && liveEvents.FirstOrDefault().ResourceState == LiveEventResourceState.Running) || several;
             ContextMenuItemLiveEventDelete.Enabled = oneOrMore;
 
             // playback preview
-            playbackTheProgramToolStripMenuItem.Enabled = oneOrMore;
+            playbackTheProgramToolStripMenuItem.Enabled = (single && liveEvents.FirstOrDefault().ResourceState == LiveEventResourceState.Running) || several;
         }
 
         private void liveLiveEventToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
