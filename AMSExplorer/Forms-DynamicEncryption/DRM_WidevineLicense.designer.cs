@@ -35,7 +35,6 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelstep = new System.Windows.Forms.Label();
-            this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -77,10 +76,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelstep
@@ -88,11 +87,6 @@
             resources.ApplyResources(this.labelstep, "labelstep");
             this.labelstep.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelstep.Name = "labelstep";
-            // 
-            // openFileDialogPreset
-            // 
-            this.openFileDialogPreset.DefaultExt = "xml";
-            resources.ApplyResources(this.openFileDialogPreset, "openFileDialogPreset");
             // 
             // labelWarningJSON
             // 
@@ -160,7 +154,6 @@
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelstep;
-        private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
         private System.Windows.Forms.RadioButton radioButtonAdvanced;
         private System.Windows.Forms.RadioButton radioButtonBasic;
         private System.Windows.Forms.Label labelWarningJSON;

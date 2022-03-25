@@ -87,60 +87,6 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="radioButtonAdvanced.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 172</value>
-  </data>
-  <data name="radioButtonAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 19</value>
-  </data>
-  <data name="radioButtonAdvanced.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="radioButtonAdvanced.Text" xml:space="preserve">
-    <value>Advanced license</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAdvanced.Name" xml:space="preserve">
-    <value>radioButtonAdvanced</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAdvanced.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAdvanced.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAdvanced.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="radioButtonBasic.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonBasic.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 147</value>
-  </data>
-  <data name="radioButtonBasic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 19</value>
-  </data>
-  <data name="radioButtonBasic.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="radioButtonBasic.Text" xml:space="preserve">
-    <value>Basic license</value>
-  </data>
-  <data name="&gt;&gt;radioButtonBasic.Name" xml:space="preserve">
-    <value>radioButtonBasic</value>
-  </data>
-  <data name="&gt;&gt;radioButtonBasic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonBasic.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;radioButtonBasic.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
   <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -148,10 +94,10 @@
     <value>MiddleLeft</value>
   </data>
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 13</value>
+    <value>439, 13</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 27</value>
+    <value>118, 27</value>
   </data>
   <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -193,26 +139,25 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>5</value>
   </data>
   <data name="labelstep.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labelstep.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 12pt, style=Bold</value>
+    <value>Segoe UI, 11.25pt</value>
   </data>
   <data name="labelstep.Location" type="System.Drawing.Point, System.Drawing">
     <value>26, 21</value>
   </data>
   <data name="labelstep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>396, 42</value>
+    <value>131, 20</value>
   </data>
   <data name="labelstep.TabIndex" type="System.Int32, mscorlib">
     <value>85</value>
   </data>
   <data name="labelstep.Text" xml:space="preserve">
-    <value>Step {0}
-Specify the Widevine license template for option #{1}</value>
+    <value>Content Key Policy</value>
   </data>
   <data name="&gt;&gt;labelstep.Name" xml:space="preserve">
     <value>labelstep</value>
@@ -224,142 +169,100 @@ Specify the Widevine license template for option #{1}</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelstep.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="labelWarningJSON.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="labelWarningJSON.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 632</value>
-  </data>
-  <data name="labelWarningJSON.Size" type="System.Drawing.Size, System.Drawing">
-    <value>628, 41</value>
-  </data>
-  <data name="labelWarningJSON.TabIndex" type="System.Int32, mscorlib">
-    <value>88</value>
-  </data>
-  <data name="labelWarningJSON.Text" xml:space="preserve">
-    <value>JSON Syntax error. {0}</value>
-  </data>
-  <data name="labelWarningJSON.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="labelWarningJSON.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;labelWarningJSON.Name" xml:space="preserve">
-    <value>labelWarningJSON</value>
-  </data>
-  <data name="&gt;&gt;labelWarningJSON.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelWarningJSON.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelWarningJSON.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="textBoxConfiguration.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="textBoxConfiguration.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 8.25pt</value>
-  </data>
-  <data name="textBoxConfiguration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 250</value>
-  </data>
-  <data name="textBoxConfiguration.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBoxConfiguration.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Both</value>
-  </data>
-  <data name="textBoxConfiguration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>627, 379</value>
-  </data>
-  <data name="textBoxConfiguration.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="&gt;&gt;textBoxConfiguration.Name" xml:space="preserve">
-    <value>textBoxConfiguration</value>
-  </data>
-  <data name="&gt;&gt;textBoxConfiguration.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxConfiguration.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBoxConfiguration.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="listViewContentKeyPolicies.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 232</value>
+  <data name="listViewContentKeyPolicies.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 15</value>
+  <data name="listViewContentKeyPolicies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>44, 160</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
+  <data name="listViewContentKeyPolicies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>593, 459</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>JSON (editable) :</value>
+  <data name="listViewContentKeyPolicies.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="&gt;&gt;listViewContentKeyPolicies.Name" xml:space="preserve">
+    <value>listViewContentKeyPolicies</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;listViewContentKeyPolicies.Type" xml:space="preserve">
+    <value>AMSExplorer.ListViewContentKeyPolicies, AMSExplorer, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;listViewContentKeyPolicies.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;listViewContentKeyPolicies.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="linkLabelWidevinePolicy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="linkLabelWidevinePolicy.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButtonCreate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="linkLabelWidevinePolicy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>598, 48</value>
+  <data name="radioButtonCreate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 72</value>
   </data>
-  <data name="linkLabelWidevinePolicy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 15</value>
+  <data name="radioButtonCreate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 19</value>
   </data>
-  <data name="linkLabelWidevinePolicy.TabIndex" type="System.Int32, mscorlib">
-    <value>89</value>
+  <data name="radioButtonCreate.TabIndex" type="System.Int32, mscorlib">
+    <value>92</value>
   </data>
-  <data name="linkLabelWidevinePolicy.Text" xml:space="preserve">
-    <value>More info</value>
+  <data name="radioButtonCreate.Text" xml:space="preserve">
+    <value>Create a new policy</value>
   </data>
-  <data name="&gt;&gt;linkLabelWidevinePolicy.Name" xml:space="preserve">
-    <value>linkLabelWidevinePolicy</value>
+  <data name="&gt;&gt;radioButtonCreate.Name" xml:space="preserve">
+    <value>radioButtonCreate</value>
   </data>
-  <data name="&gt;&gt;linkLabelWidevinePolicy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;radioButtonCreate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;linkLabelWidevinePolicy.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCreate.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;linkLabelWidevinePolicy.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButtonCreate.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="textBoxPolicyName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="radioButtonSelect.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonSelect.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonSelect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 109</value>
+  </data>
+  <data name="radioButtonSelect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 19</value>
+  </data>
+  <data name="radioButtonSelect.TabIndex" type="System.Int32, mscorlib">
+    <value>93</value>
+  </data>
+  <data name="radioButtonSelect.Text" xml:space="preserve">
+    <value>Select an existing policy :</value>
+  </data>
+  <data name="&gt;&gt;radioButtonSelect.Name" xml:space="preserve">
+    <value>radioButtonSelect</value>
+  </data>
+  <data name="&gt;&gt;radioButtonSelect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonSelect.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButtonSelect.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="textBoxPolicyName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 100</value>
+    <value>160, 68</value>
   </data>
   <data name="textBoxPolicyName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 23</value>
+    <value>477, 23</value>
   </data>
   <data name="textBoxPolicyName.TabIndex" type="System.Int32, mscorlib">
-    <value>91</value>
+    <value>94</value>
   </data>
   <data name="&gt;&gt;textBoxPolicyName.Name" xml:space="preserve">
     <value>textBoxPolicyName</value>
@@ -372,33 +275,6 @@ Specify the Widevine license template for option #{1}</value>
   </data>
   <data name="&gt;&gt;textBoxPolicyName.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 82</value>
-  </data>
-  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 15</value>
-  </data>
-  <data name="label13.TabIndex" type="System.Int32, mscorlib">
-    <value>90</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>Option name :</value>
-  </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
-  </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -413,13 +289,13 @@ Specify the Widevine license template for option #{1}</value>
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>Manual</value>
+    <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Dynamic Encryption - Step {0}</value>
+    <value>Content Key Policy</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>DRM_WidevineLicense</value>
+    <value>DRM_CreateOrSelectCKPolicy</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

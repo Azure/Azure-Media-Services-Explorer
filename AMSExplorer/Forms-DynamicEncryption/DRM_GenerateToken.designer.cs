@@ -33,7 +33,6 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelstep = new System.Windows.Forms.Label();
-            this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownTokenDuration = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -60,10 +59,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelstep
@@ -71,11 +70,6 @@
             resources.ApplyResources(this.labelstep, "labelstep");
             this.labelstep.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelstep.Name = "labelstep";
-            // 
-            // openFileDialogPreset
-            // 
-            this.openFileDialogPreset.DefaultExt = "xml";
-            resources.ApplyResources(this.openFileDialogPreset, "openFileDialogPreset");
             // 
             // label8
             // 
@@ -160,7 +154,6 @@
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelstep;
-        private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownTokenDuration;
         private System.Windows.Forms.Label label2;

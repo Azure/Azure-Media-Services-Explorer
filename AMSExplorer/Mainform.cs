@@ -472,7 +472,6 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                //dataGridViewTransformsV.Init(_amsClient);
                 Task.Run(() => dataGridViewTransformsV.InitAsync(_amsClient, SynchronizationContext.Current)).GetAwaiter().GetResult();
 
             }
@@ -2239,175 +2238,199 @@ namespace AMSExplorer
 
                     if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey || formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                     {
-                        string tokenSymKey = Properties.Settings.Default.DynEncTokenSymKeyv3;
-                        if (string.IsNullOrWhiteSpace(tokenSymKey))
+                        DRM_CreateOrSelectCKPolicy formCreatePolicy = new DRM_CreateOrSelectCKPolicy(_amsClient);
+                        if (formCreatePolicy.ShowDialog() != DialogResult.OK)
                         {
-                            tokenSymKey = null;
+                            return;
                         }
-
-                        if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
+                        if (formCreatePolicy.CreateNewPolicy)
                         {
-                            DRM_CENCCBSCDelivery formCencDelivery = new(
-                                                                    true,
-                                                                    true,
-                                                                    formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming
-                                                                    )
-                            { Left = left, Top = top };
-                            if (formCencDelivery.ShowDialog() != DialogResult.OK)
+                            string tokenSymKey = Properties.Settings.Default.DynEncTokenSymKeyv3;
+                            if (string.IsNullOrWhiteSpace(tokenSymKey))
                             {
-                                return;
+                                tokenSymKey = null;
                             }
 
-                            int step = 1;
-                            SavePositionOfForm(formCencDelivery, out left, out top);
-
-                            // for each PlayReady option
-                            List<DRM_PlayReadyLicense> formPlayready = new();
-                            dictionaryM.Add("AuthorizationPolicyOptionsPlayReady", formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady);
-                            for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
+                            if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming || formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming)
                             {
-                                bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1) && (formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine == 0);
-
-                                formPlayreadyTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, false)
-                                { Left = left, Top = top });
-
-                                if (formPlayreadyTokenClaims[i].ShowDialog() != DialogResult.OK)
+                                DRM_CENCCBSCDelivery formCencDelivery = new(
+                                                                        true,
+                                                                        true,
+                                                                        formLocator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming
+                                                                        )
+                                { Left = left, Top = top };
+                                if (formCencDelivery.ShowDialog() != DialogResult.OK)
                                 {
                                     return;
                                 }
 
-                                tokenSymKey = formPlayreadyTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
-                                SavePositionOfForm(formPlayreadyTokenClaims[i], out left, out top);
+                                int step = 1;
+                                SavePositionOfForm(formCencDelivery, out left, out top);
 
-                                formPlayready.Add(new DRM_PlayReadyLicense(step++, i + 1, laststep) { Left = left, Top = top });
-                                if (formPlayready[i].ShowDialog() != DialogResult.OK)
+                                // for each PlayReady option
+                                List<DRM_PlayReadyLicense> formPlayready = new();
+                                dictionaryM.Add("AuthorizationPolicyOptionsPlayReady", formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady);
+                                for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
+                                {
+                                    bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1) && (formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine == 0);
+
+                                    formPlayreadyTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, false)
+                                    { Left = left, Top = top });
+
+                                    if (formPlayreadyTokenClaims[i].ShowDialog() != DialogResult.OK)
+                                    {
+                                        return;
+                                    }
+
+                                    tokenSymKey = formPlayreadyTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
+                                    SavePositionOfForm(formPlayreadyTokenClaims[i], out left, out top);
+
+                                    formPlayready.Add(new DRM_PlayReadyLicense(step++, i + 1, laststep) { Left = left, Top = top });
+                                    if (formPlayready[i].ShowDialog() != DialogResult.OK)
+                                    {
+                                        return;
+                                    }
+
+                                    SavePositionOfForm(formPlayready[i], out left, out top);
+
+                                    options.Add(
+                                                   new ContentKeyPolicyOption()
+                                                   {
+                                                       Configuration = formPlayready[i].GetPlayReadyConfiguration,
+                                                       Restriction = formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction,
+                                                       Name = formPlayready[i].PlayReadOptionName
+                                                   });
+                                }
+
+                                // for each Widevine option
+                                List<DRM_WidevineLicense> formWidevine = new();
+                                dictionaryM.Add("AuthorizationPolicyOptionsWidevine", formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine);
+                                for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
+                                {
+                                    bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine - 1);
+
+                                    formWidevineTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, false) { Left = left, Top = top });
+                                    if (formWidevineTokenClaims[i].ShowDialog() != DialogResult.OK)
+                                    {
+                                        return;
+                                    }
+
+                                    tokenSymKey = formWidevineTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
+                                    SavePositionOfForm(formWidevineTokenClaims[i], out left, out top);
+
+                                    formWidevine.Add(new DRM_WidevineLicense(step++, i + 1, laststep) { Left = left, Top = top });
+                                    if (formWidevine[i].ShowDialog() != DialogResult.OK)
+                                    {
+                                        return;
+                                    }
+
+                                    SavePositionOfForm(formWidevine[i], out left, out top);
+
+                                    options.Add(
+                                                new ContentKeyPolicyOption()
+                                                {
+                                                    Configuration = formWidevine[i].GetWidevineConfiguration,
+                                                    Restriction = formWidevineTokenClaims[i].GetContentKeyPolicyRestriction,
+                                                    Name = formWidevine[i].WidevinePolicyName
+                                                });
+                                }
+
+
+                                // for each FairPlay option
+                                List<DRM_FairPlayLicense> formFairPlay = new();
+                                dictionaryM.Add("AuthorizationPolicyOptionsFairPlay", formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay);
+                                for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay; i++)
+                                {
+                                    bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay - 1);
+
+                                    formFairPlayTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "FairPlay", tokenSymKey, false) { Left = left, Top = top });
+                                    if (formFairPlayTokenClaims[i].ShowDialog() != DialogResult.OK)
+                                    {
+                                        return;
+                                    }
+
+                                    tokenSymKey = formFairPlayTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
+                                    SavePositionOfForm(formFairPlayTokenClaims[i], out left, out top);
+
+                                    formFairPlay.Add(new DRM_FairPlayLicense(step++, i + 1, laststep) { Left = left, Top = top });
+                                    if (formFairPlay[i].ShowDialog() != DialogResult.OK)
+                                    {
+                                        return;
+                                    }
+
+                                    SavePositionOfForm(formFairPlay[i], out left, out top);
+
+                                    options.Add(
+                                                new ContentKeyPolicyOption()
+                                                {
+                                                    Configuration = new ContentKeyPolicyFairPlayConfiguration()
+                                                    {
+                                                        RentalAndLeaseKeyType = formFairPlay[i].FairPlayRentalAndLeaseKeyType,
+                                                        RentalDuration = formFairPlay[i].RentalDuration,
+                                                        Ask = formCencDelivery.FairPlayASK,
+                                                        FairPlayPfxPassword = formCencDelivery.FairPlayCertificate.Password,
+                                                        FairPlayPfx = Convert.ToBase64String(formCencDelivery.FairPlayCertificate.Certificate.Export(X509ContentType.Pfx, formCencDelivery.FairPlayCertificate.Password)),
+                                                        OfflineRentalConfiguration = formFairPlay[i].FairPlayOfflineRentalConfig
+                                                    },
+                                                    Restriction = formFairPlayTokenClaims[i].GetContentKeyPolicyRestriction,
+                                                    Name = formFairPlay[i].FairPlayPolicyName
+                                                });
+                                }
+
+                            }
+                            else if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
+                            {
+                                dictionaryM.Add("AuthorizationPolicyOptionsClearKey", 1);
+
+                                formClearKeyTokenClaims.Add(new form_DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
+                                if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK)
                                 {
                                     return;
                                 }
-
-                                SavePositionOfForm(formPlayready[i], out left, out top);
 
                                 options.Add(
                                                new ContentKeyPolicyOption()
                                                {
-                                                   Configuration = formPlayready[i].GetPlayReadyConfiguration,
-                                                   Restriction = formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction,
-                                                   Name = formPlayready[i].PlayReadOptionName
+                                                   Configuration = new ContentKeyPolicyClearKeyConfiguration(),
+                                                   Restriction = formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
                                                });
+
                             }
 
-                            // for each Widevine option
-                            List<DRM_WidevineLicense> formWidevine = new();
-                            dictionaryM.Add("AuthorizationPolicyOptionsWidevine", formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine);
-                            for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
+                            Properties.Settings.Default.DynEncTokenSymKeyv3 = tokenSymKey;
+                            Program.SaveAndProtectUserConfig();
+
+                            try
                             {
-                                bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine - 1);
-
-                                formWidevineTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, false) { Left = left, Top = top });
-                                if (formWidevineTokenClaims[i].ShowDialog() != DialogResult.OK)
-                                {
-                                    return;
-                                }
-
-                                tokenSymKey = formWidevineTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
-                                SavePositionOfForm(formWidevineTokenClaims[i], out left, out top);
-
-                                formWidevine.Add(new DRM_WidevineLicense(step++, i + 1, laststep) { Left = left, Top = top });
-                                if (formWidevine[i].ShowDialog() != DialogResult.OK)
-                                {
-                                    return;
-                                }
-
-                                SavePositionOfForm(formWidevine[i], out left, out top);
-
-                                options.Add(
-                                            new ContentKeyPolicyOption()
-                                            {
-                                                Configuration = formWidevine[i].GetWidevineConfiguration,
-                                                Restriction = formWidevineTokenClaims[i].GetContentKeyPolicyRestriction,
-                                                Name = formWidevine[i].WidevinePolicyName
-                                            });
+                                keyPolicy = await _amsClient.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup,
+                            _amsClient.credentialsEntry.AccountName,
+                            formCreatePolicy.PolicyNameToUse,
+                            options);
+                                Telemetry.TrackEvent("ContentKeyPolicy created or updated", null, dictionaryM);
                             }
-
-
-                            // for each FairPlay option
-                            List<DRM_FairPlayLicense> formFairPlay = new();
-                            dictionaryM.Add("AuthorizationPolicyOptionsFairPlay", formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay);
-                            for (int i = 0; i < formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay; i++)
+                            catch (Exception ex)
                             {
-                                bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay - 1);
-
-                                formFairPlayTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "FairPlay", tokenSymKey, false) { Left = left, Top = top });
-                                if (formFairPlayTokenClaims[i].ShowDialog() != DialogResult.OK)
-                                {
-                                    return;
-                                }
-
-                                tokenSymKey = formFairPlayTokenClaims[i].textBoxSymKey.Text; // let's reuse the same key if the user wants
-                                SavePositionOfForm(formFairPlayTokenClaims[i], out left, out top);
-
-                                formFairPlay.Add(new DRM_FairPlayLicense(step++, i + 1, laststep) { Left = left, Top = top });
-                                if (formFairPlay[i].ShowDialog() != DialogResult.OK)
-                                {
-                                    return;
-                                }
-
-                                SavePositionOfForm(formFairPlay[i], out left, out top);
-
-                                options.Add(
-                                            new ContentKeyPolicyOption()
-                                            {
-                                                Configuration = new ContentKeyPolicyFairPlayConfiguration()
-                                                {
-                                                    RentalAndLeaseKeyType = formFairPlay[i].FairPlayRentalAndLeaseKeyType,
-                                                    RentalDuration = formFairPlay[i].RentalDuration,
-                                                    Ask = formCencDelivery.FairPlayASK,
-                                                    FairPlayPfxPassword = formCencDelivery.FairPlayCertificate.Password,
-                                                    FairPlayPfx = Convert.ToBase64String(formCencDelivery.FairPlayCertificate.Certificate.Export(X509ContentType.Pfx, formCencDelivery.FairPlayCertificate.Password)),
-                                                    OfflineRentalConfiguration = formFairPlay[i].FairPlayOfflineRentalConfig
-                                                },
-                                                Restriction = formFairPlayTokenClaims[i].GetContentKeyPolicyRestriction,
-                                                Name = formFairPlay[i].FairPlayPolicyName
-                                            });
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when creating the content key policy.", true);
+                                TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
-
                         }
-                        else if (formLocator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey)
+                        else // we use existing CK policy
                         {
-                            dictionaryM.Add("AuthorizationPolicyOptionsClearKey", 1);
-
-                            formClearKeyTokenClaims.Add(new form_DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
-                            if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK)
+                            try
                             {
-                                return;
+                                keyPolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, formCreatePolicy.PolicyNameToUse);
+                                Telemetry.TrackEvent("ContentKeyPolicy retrieved", null, dictionaryM);
+                            }
+                            catch (Exception ex)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when getting the content key policy.", true);
+                                TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
 
-                            options.Add(
-                                           new ContentKeyPolicyOption()
-                                           {
-                                               Configuration = new ContentKeyPolicyClearKeyConfiguration(),
-                                               Restriction = formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
-                                           });
-
-                        }
-
-                        Properties.Settings.Default.DynEncTokenSymKeyv3 = tokenSymKey;
-                        Program.SaveAndProtectUserConfig();
-
-                        try
-                        {
-                            keyPolicy = await _amsClient.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup,
-                        _amsClient.credentialsEntry.AccountName,
-                        "keypolicy-" + Program.GetUniqueness(),
-                        options);
-                            Telemetry.TrackEvent("ContentKeyPolicy created or updated", null, dictionaryM);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when creating the content key policy.", true);
-                            TextBoxLogWriteLine(ex);
-                            Telemetry.TrackException(ex);
                         }
                     }
 
@@ -2477,7 +2500,6 @@ namespace AMSExplorer
                                             }
                                             sbuilder.AppendLine("https://" + se.HostName + p + appendExtension);
                                         }
-
                                     }
                                 }
                                 sbuilder.AppendLine(string.Empty);
@@ -2494,7 +2516,6 @@ namespace AMSExplorer
                             }
                             sbuilder.AppendLine(string.Empty);
                         }
-
 
                         // need test token ?
                         if (formPlayreadyTokenClaims.Any(t => t.NeedToken) || formWidevineTokenClaims.Any(t => t.NeedToken) || formFairPlayTokenClaims.Any(t => t.NeedToken) || formClearKeyTokenClaims.Any(t => t.NeedToken))

@@ -151,7 +151,6 @@ namespace AMSExplorer
         private void UpdateStatusButtonOk(bool additionalCondition = true)
         {
             buttonOk.Enabled = listViewTransforms.SelectedItems.Count > 0 && additionalCondition;
-
         }
 
         private async void JobSubmitFromTransform_Load(object sender, EventArgs e)

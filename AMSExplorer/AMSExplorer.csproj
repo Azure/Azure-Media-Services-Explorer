@@ -103,6 +103,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms-DynamicEncryption\DRM_CreateOrSelectCKPolicy.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms-Login\CreateAccount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +116,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Bitmaps.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ListViews\ListViewContentKeyPolicies.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
