@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_824DCE5B18ED488E80C05119F0833023"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9D5CE24C90C9470491CE1D865EE7EFA4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -28,12 +34,6 @@
         "Entry"
         {
         "MsmKey" = "8:_9D68868F5A12419DA86FA0D880BCE7F1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DEBE73D2234841BF8DF7BF732FC33504"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -159,10 +159,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9D68868F5A12419DA86FA0D880BCE7F1"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_824DCE5B18ED488E80C05119F0833023"
             {
-            "SourcePath" = "8:..\\AMSExplorer\\BitmapsPNG\\Azure Explorer_ico.ico"
-            "TargetName" = "8:Azure Explorer_ico.ico"
+            "SourcePath" = "8:..\\AMSExplorer\\bin\\Release\\net6.0-windows\\win-x64\\WebView2Loader.dll"
+            "TargetName" = "8:WebView2Loader.dll"
             "Tag" = "8:"
             "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
             "Condition" = "8:"
@@ -179,10 +179,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DEBE73D2234841BF8DF7BF732FC33504"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9D68868F5A12419DA86FA0D880BCE7F1"
             {
-            "SourcePath" = "8:..\\AMSExplorer\\bin\\Release\\net5.0-windows\\win-x64\\WebView2Loader.dll"
-            "TargetName" = "8:WebView2Loader.dll"
+            "SourcePath" = "8:..\\AMSExplorer\\BitmapsPNG\\Azure Explorer_ico.ico"
+            "TargetName" = "8:Azure Explorer_ico.ico"
             "Tag" = "8:"
             "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
             "Condition" = "8:"
@@ -838,7 +838,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9D5CE24C90C9470491CE1D865EE7EFA4"
             {
-            "SourcePath" = "8:..\\AMSExplorer\\obj\\Debug\\net5.0-windows\\win-x64\\apphost.exe"
+            "SourcePath" = "8:..\\AMSExplorer\\obj\\Release\\net6.0-windows\\win-x64\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
