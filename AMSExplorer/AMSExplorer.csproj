@@ -95,11 +95,11 @@
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.15.1-preview" />
     <PackageReference Include="Microsoft.Azure.Management.Storage" Version="23.1.0" />
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.42.1" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.43.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1072.54" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1150.38" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
   </ItemGroup>
 
   <ItemGroup>
