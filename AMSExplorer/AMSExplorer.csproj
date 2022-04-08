@@ -93,7 +93,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.20.0" />
     <PackageReference Include="Microsoft.Azure.Management.Media" Version="6.0.0" />
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.15.1-preview" />
-    <PackageReference Include="Microsoft.Azure.Management.Storage" Version="23.1.0" />
+    <PackageReference Include="Microsoft.Azure.Management.Storage" Version="24.0.0" />
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.43.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
