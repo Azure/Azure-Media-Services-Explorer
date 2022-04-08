@@ -113,7 +113,7 @@ namespace AMSExplorer
             EndUpdate();
         }
 
-        public async Task DeleteSelectedPoliciyAsync()
+        public async Task DeleteSelectedPolicyAsync()
         {
             ContentKeyPolicy policy = GetSelectedContentKeyPolicy;
             if (policy != null)
