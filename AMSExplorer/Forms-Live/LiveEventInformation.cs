@@ -127,10 +127,15 @@ namespace AMSExplorer
             }
         }
 
-        public bool LiveEventLowLatencyMode
+        public bool LiveEventLowLatencyV1orV2Mode
         {
             get => checkBoxLowLatency.Checked;
             set => checkBoxLowLatency.Checked = value;
+        }
+
+        public bool LiveEventLowLatencyV2
+        {
+            get => radioButtonLowLatencyV2.Checked;
         }
 
         public LiveEventInformation(Mainform mainform, AMSClientV3 client)
@@ -318,9 +323,10 @@ namespace AMSExplorer
 
 
             // low latency
-            if (MyLiveEvent.StreamOptions != null && MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency))
+            if (MyLiveEvent.StreamOptions != null && (MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency) || MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2)))
             {
                 checkBoxLowLatency.Checked = true;
+                radioButtonLowLatencyV2.Checked = MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2);
             }
 
             // encoding settings
@@ -699,6 +705,12 @@ namespace AMSExplorer
         }
 
         private void checkBoxLowLatency_CheckedChanged(object sender, EventArgs e)
+        {
+            Modifications.LowLatency = true;
+            radioButtonLowLatencyV1.Enabled = radioButtonLowLatencyV2.Enabled = checkBoxLowLatency.Checked;
+        }
+
+        private void radioButtonLowLatencyV2_CheckedChanged(object sender, EventArgs e)
         {
             Modifications.LowLatency = true;
         }

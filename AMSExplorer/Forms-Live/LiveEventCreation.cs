@@ -77,10 +77,14 @@ namespace AMSExplorer
             set => textBoxStaticHostname.Text = value;
         }
 
-        public bool LiveEventLowLatencyMode
+        public bool LiveEventLowLatencyV1orV2Mode
         {
             get => checkBoxLowLatency.Checked;
-            set => checkBoxLowLatency.Checked = value;
+        }
+
+        public bool LiveEventLowLatencyV2
+        {
+            get =>  radioButtonLowLatencyV2.Checked;
         }
 
         public bool LiveTranscript
@@ -629,6 +633,11 @@ namespace AMSExplorer
         {
             CheckEncodingKeyFrameValue();
             EnableOrDisableCreateButton();
+        }
+
+        private void checkBoxLowLatency_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonLowLatencyV1.Enabled = radioButtonLowLatencyV2.Enabled = checkBoxLowLatency.Checked;
         }
     }
 }
