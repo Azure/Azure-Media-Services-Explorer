@@ -165,7 +165,6 @@ namespace AMSExplorer
                                                          .ConfigureAwait(false);
 
             }
-
             credentials = new TokenCredentials(authResult.AccessToken, "Bearer");
 
             // Getting Media Services account...

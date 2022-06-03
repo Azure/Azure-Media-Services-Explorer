@@ -57,791 +57,668 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;panelGrace.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="moreinfocompliance.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="panelEndDateRelative.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="radioButtonEndDateRelative.Text" xml:space="preserve">
-    <value>Relative :</value>
-  </data>
-  <data name="groupBoxFirstPlay.Text" xml:space="preserve">
-    <value>First play expiration</value>
+  <data name="moreinfocompliance.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="radioButtonEndDateAbsolute.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 48</value>
+  <data name="moreinfocompliance.Location" type="System.Drawing.Point, System.Drawing">
+    <value>429, 75</value>
   </data>
-  <data name="&gt;&gt;groupBoxStartDate.Parent" xml:space="preserve">
-    <value>tabPage3</value>
+  <data name="moreinfocompliance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 15</value>
   </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxUncompressedDigitalVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 278</value>
-  </data>
-  <data name="numericUpDownFPExpHours.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="&gt;&gt;labelstep.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAllowPassingVideoContentUnknownOutput.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="comboBoxAllowPassingVideoContentUnknownOutput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 45</value>
-  </data>
-  <data name="radioButtonStartDateRelative.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 19</value>
-  </data>
-  <data name="&gt;&gt;comboBoxContentType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownEndDateHours.Name" xml:space="preserve">
-    <value>numericUpDownEndDateHours</value>
-  </data>
-  <data name="&gt;&gt;radioButtonEndDateRelative.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxStartDate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 22</value>
-  </data>
-  <data name="&gt;&gt;groupBoxEndDate.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;comboBoxContentType.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxStartDate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;radioButtonStartDateRelative.Parent" xml:space="preserve">
-    <value>groupBoxStartDate</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerStartDate.Name" xml:space="preserve">
-    <value>dateTimePickerStartDate</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="radioButtonEndDateAbsolute.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonStartDateRelative.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 145</value>
-  </data>
-  <data name="textBoxPolicyName.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="dateTimePickerEndDate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 10</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="textBoxPolicyName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;panelEndDateAbsolute.Name" xml:space="preserve">
-    <value>panelEndDateAbsolute</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpHours.Name" xml:space="preserve">
-    <value>numericUpDownFPExpHours</value>
-  </data>
-  <data name="numericUpDownCompressedDigitalVideoOPL.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;panelFirstPlayExpiration.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicyName.Name" xml:space="preserve">
-    <value>textBoxPolicyName</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panelStartDateAbsolute.Name" xml:space="preserve">
-    <value>panelStartDateAbsolute</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpDays.Parent" xml:space="preserve">
-    <value>panelFirstPlayExpiration</value>
-  </data>
-  <data name="numericUpDownGraceDays.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="&gt;&gt;radioButtonEndDateAbsolute.Parent" xml:space="preserve">
-    <value>groupBoxEndDate</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComponentVideoRestriction.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownGraceMin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>139, 25</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownCompressedDigitalVideoOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
-    <value>tabControlPlayReadySettings</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownStartDateHours.Name" xml:space="preserve">
-    <value>numericUpDownStartDateHours</value>
-  </data>
-  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 7</value>
-  </data>
-  <data name="numericUpDownAnalogVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 307</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStartDate.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="comboBoxContentType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 23</value>
-  </data>
-  <data name="groupBoxStartDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 252</value>
-  </data>
-  <data name="radioButtonEndDateAbsolute.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
-    <value>tabControlPlayReadySettings</value>
-  </data>
-  <data name="dateTimePickerEndTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 40</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicyName.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceMin.Parent" xml:space="preserve">
-    <value>panelGrace</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUncompressedDigitalAudioOPL.Name" xml:space="preserve">
-    <value>checkBoxUncompressedDigitalAudioOPL</value>
-  </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>panelFirstPlayExpiration</value>
-  </data>
-  <data name="numericUpDownCompressedDigitalVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 217</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownEndDateHours.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panelStartDateAbsolute.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 69</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComputerMonitorRestriction.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownCompressedDigitalAudioOPL.Name" xml:space="preserve">
-    <value>numericUpDownCompressedDigitalAudioOPL</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="dateTimePickerEndDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 23</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>132, 5</value>
-  </data>
-  <data name="checkBoxEndDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 19</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 15</value>
-  </data>
-  <data name="radioButtonStartDateAbsolute.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
+  <data name="moreinfocompliance.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
   </data>
   <data name="moreinfocompliance.Text" xml:space="preserve">
     <value>PlayReady compliance and robustness rules</value>
   </data>
-  <data name="numericUpDownStartDateMinutes.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
+  <data name="&gt;&gt;moreinfocompliance.Name" xml:space="preserve">
+    <value>moreinfocompliance</value>
   </data>
-  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 7</value>
+  <data name="&gt;&gt;moreinfocompliance.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dateTimePickerEndDate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelEndDateRelative.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownStartDateDays.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDigitalVideoOnlyContentRestriction.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+  <data name="&gt;&gt;moreinfocompliance.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;numericUpDownStartDateHours.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownFPExpHours.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 25</value>
-  </data>
-  <data name="&gt;&gt;groupBoxEndDate.Name" xml:space="preserve">
-    <value>groupBoxEndDate</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownCompressedDigitalAudioOPL.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxCompressedDigitalVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 19</value>
-  </data>
-  <data name="checkBoxAllowTestDevices.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;groupBoxEndDate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonStartDateAbsolute.Parent" xml:space="preserve">
-    <value>groupBoxStartDate</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComputerMonitorRestriction.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownStartDateHours.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>panelFirstPlayExpiration</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonStartDateRelative.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxStartDate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelStartDateRelative.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 5</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radioButtonStartDateRelative.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>DRM_PlayReadyLicense</value>
-  </data>
-  <data name="&gt;&gt;labelstep.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEndDate.Parent" xml:space="preserve">
-    <value>groupBoxEndDate</value>
-  </data>
-  <data name="numericUpDownAnalogVideoOPL.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 15</value>
-  </data>
-  <data name="labelAllowPassingVideoContentToUnknownOuput.Text" xml:space="preserve">
-    <value>Allow passing Video content to unknow output</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownStartDateHours.Parent" xml:space="preserve">
-    <value>panelStartDateRelative</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>panelEndDateRelative</value>
-  </data>
-  <data name="&gt;&gt;panelEndDateRelative.Parent" xml:space="preserve">
-    <value>groupBoxEndDate</value>
-  </data>
-  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="dateTimePickerStartTime.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="checkBoxCompressedDigitalAudioOPL.Text" xml:space="preserve">
-    <value>Compressed Digital Audio OPL :</value>
-  </data>
-  <data name="comboBoxLicenseType.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="&gt;&gt;radioButtonEndDateAbsolute.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="numericUpDownFPExpMinutes.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;moreinfocompliance.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>License type :</value>
+  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="labelAllowPassingVideoContentToUnknownOuput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 15</value>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>564, 13</value>
   </data>
-  <data name="&gt;&gt;label9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 27</value>
+  </data>
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 7</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 15</value>
+  </data>
+  <data name="label12.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
   </data>
   <data name="&gt;&gt;label12.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>panelGrace</value>
   </data>
-  <data name="numericUpDownFPExpMinutes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="checkBoxCompressedDigitalAudioOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 19</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceDays.Name" xml:space="preserve">
-    <value>numericUpDownGraceDays</value>
-  </data>
-  <data name="&gt;&gt;comboBoxContentType.Name" xml:space="preserve">
-    <value>comboBoxContentType</value>
-  </data>
-  <data name="comboBoxContentType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>318, 40</value>
-  </data>
-  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="radioButtonEndDateAbsolute.Text" xml:space="preserve">
-    <value>Absolute :</value>
+  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="radioButtonStartDateRelative.Text" xml:space="preserve">
-    <value>Relative :</value>
+  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>73, 7</value>
   </data>
-  <data name="&gt;&gt;numericUpDownCompressedDigitalAudioOPL.Type" xml:space="preserve">
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label14.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>panelGrace</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 7</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 15</value>
+  </data>
+  <data name="label15.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>panelGrace</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="numericUpDownGraceMin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 25</value>
+  </data>
+  <data name="numericUpDownGraceMin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="numericUpDownGraceMin.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceMin.Name" xml:space="preserve">
+    <value>numericUpDownGraceMin</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceMin.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceMin.Parent" xml:space="preserve">
+    <value>panelGrace</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceMin.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="numericUpDownGraceHours.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 25</value>
+  </data>
+  <data name="numericUpDownGraceHours.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
   </data>
   <data name="numericUpDownGraceHours.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
   </data>
-  <data name="&gt;&gt;checkBoxCompressedDigitalAudioOPL.Type" xml:space="preserve">
+  <data name="&gt;&gt;numericUpDownGraceHours.Name" xml:space="preserve">
+    <value>numericUpDownGraceHours</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceHours.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceHours.Parent" xml:space="preserve">
+    <value>panelGrace</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceHours.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="numericUpDownGraceDays.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 25</value>
+  </data>
+  <data name="numericUpDownGraceDays.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="numericUpDownGraceDays.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceDays.Name" xml:space="preserve">
+    <value>numericUpDownGraceDays</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceDays.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceDays.Parent" xml:space="preserve">
+    <value>panelGrace</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownGraceDays.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="panelGrace.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panelGrace.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 42</value>
+  </data>
+  <data name="panelGrace.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 57</value>
+  </data>
+  <data name="panelGrace.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="&gt;&gt;panelGrace.Name" xml:space="preserve">
+    <value>panelGrace</value>
+  </data>
+  <data name="&gt;&gt;panelGrace.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelGrace.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;panelGrace.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxGrace.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxGrace.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxGrace.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 22</value>
+  </data>
+  <data name="checkBoxGrace.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 19</value>
+  </data>
+  <data name="checkBoxGrace.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="checkBoxGrace.Text" xml:space="preserve">
+    <value>Specify a value</value>
+  </data>
+  <data name="&gt;&gt;checkBoxGrace.Name" xml:space="preserve">
+    <value>checkBoxGrace</value>
+  </data>
+  <data name="&gt;&gt;checkBoxGrace.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="dateTimePickerEndTime.CustomFormat" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;checkBoxGrace.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxGrace.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>321, 358</value>
   </data>
-  <data name="&gt;&gt;checkBoxStartDate.Name" xml:space="preserve">
-    <value>checkBoxStartDate</value>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 105</value>
   </data>
-  <data name="&gt;&gt;checkBoxEndDate.Name" xml:space="preserve">
-    <value>checkBoxEndDate</value>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
   </data>
-  <data name="&gt;&gt;numericUpDownCompressedDigitalVideoOPL.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Grace period</value>
   </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
-  <data name="checkBoxEndDate.Text" xml:space="preserve">
-    <value>Specify a value</value>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>panelStartDateRelative</value>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>tabPage3</value>
   </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 15</value>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="numericUpDownEndDateHours.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;checkBoxStartDate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComputerMonitorRestriction.Name" xml:space="preserve">
-    <value>checkBoxImageConstraintForAnalogComputerMonitorRestriction</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>317, 22</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Content type :</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxContentType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>318, 40</value>
+  </data>
+  <data name="comboBoxContentType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 23</value>
   </data>
   <data name="comboBoxContentType.TabIndex" type="System.Int32, mscorlib">
     <value>59</value>
   </data>
-  <data name="checkBoxFPExp.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
+  <data name="&gt;&gt;comboBoxContentType.Name" xml:space="preserve">
+    <value>comboBoxContentType</value>
   </data>
-  <data name="&gt;&gt;numericUpDownStartDateMinutes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;comboBoxContentType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 15</value>
+  <data name="&gt;&gt;comboBoxContentType.Parent" xml:space="preserve">
+    <value>tabPage3</value>
   </data>
-  <data name="&gt;&gt;numericUpDownUncompressedDigitalVideoOPL.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;comboBoxContentType.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;numericUpDownEndDateHours.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="dateTimePickerEndDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 10</value>
   </data>
-  <data name="&gt;&gt;panelStartDateAbsolute.Parent" xml:space="preserve">
-    <value>groupBoxStartDate</value>
+  <data name="dateTimePickerEndDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>272, 23</value>
   </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
+  <data name="dateTimePickerEndDate.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
   </data>
-  <data name="&gt;&gt;dateTimePickerStartTime.Parent" xml:space="preserve">
-    <value>panelStartDateAbsolute</value>
+  <data name="&gt;&gt;dateTimePickerEndDate.Name" xml:space="preserve">
+    <value>dateTimePickerEndDate</value>
   </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Hours</value>
+  <data name="&gt;&gt;dateTimePickerEndDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBoxAnalogVideoOPL.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;dateTimePickerEndDate.Parent" xml:space="preserve">
+    <value>panelEndDateAbsolute</value>
   </data>
-  <data name="&gt;&gt;labelAllowPassingVideoContentToUnknownOuput.ZOrder" xml:space="preserve">
-    <value>14</value>
+  <data name="&gt;&gt;dateTimePickerEndDate.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;moreinfocompliance.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="dateTimePickerEndTime.CustomFormat" xml:space="preserve">
+    <value />
   </data>
-  <data name="numericUpDownGraceDays.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 25</value>
+  <data name="dateTimePickerEndTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 40</value>
   </data>
-  <data name="&gt;&gt;groupBoxStartDate.Name" xml:space="preserve">
-    <value>groupBoxStartDate</value>
+  <data name="dateTimePickerEndTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>272, 23</value>
   </data>
-  <data name="&gt;&gt;openFileDialogPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 667</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;radioButtonStartDateRelative.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpMinutes.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="buttonOk.Text" xml:space="preserve">
-    <value>Ok</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 7</value>
-  </data>
-  <data name="tabControlPlayReadySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>640, 510</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>Days</value>
-  </data>
-  <data name="&gt;&gt;label11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAllowTestDevices.Name" xml:space="preserve">
-    <value>checkBoxAllowTestDevices</value>
-  </data>
-  <data name="&gt;&gt;panelGrace.Name" xml:space="preserve">
-    <value>panelGrace</value>
-  </data>
-  <data name="radioButtonEndDateRelative.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 19</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxCompressedDigitalVideoOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpMinutes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerStartDate.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabControlPlayReadySettings.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="numericUpDownGraceMin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 15</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAnalogVideoOPL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panelEndDateAbsolute.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 69</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAnalogVideoOPL.Name" xml:space="preserve">
-    <value>numericUpDownAnalogVideoOPL</value>
-  </data>
-  <data name="groupBoxEndDate.Text" xml:space="preserve">
-    <value>End date/time</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCompressedDigitalAudioOPL.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUncompressedDigitalVideoOPL.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="groupBoxFirstPlay.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="groupBoxEndDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 252</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownUncompressedDigitalVideoOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Days</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radioButtonStartDateRelative.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="numericUpDownStartDateHours.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 27</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownUncompressedDigitalVideoOPL.Name" xml:space="preserve">
-    <value>numericUpDownUncompressedDigitalVideoOPL</value>
-  </data>
-  <data name="labelstep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 21</value>
-  </data>
-  <data name="numericUpDownStartDateDays.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="&gt;&gt;openFileDialogPreset.Name" xml:space="preserve">
-    <value>openFileDialogPreset</value>
-  </data>
-  <data name="panelFirstPlayExpiration.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBoxStartDate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 85</value>
-  </data>
-  <data name="&gt;&gt;radioButtonStartDateRelative.Name" xml:space="preserve">
-    <value>radioButtonStartDateRelative</value>
-  </data>
-  <data name="checkBoxEndDate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;panelFirstPlayExpiration.Name" xml:space="preserve">
-    <value>panelFirstPlayExpiration</value>
-  </data>
-  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 22</value>
-  </data>
-  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 128</value>
-  </data>
-  <data name="moreinfocompliance.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="panelFirstPlayExpiration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 57</value>
-  </data>
-  <data name="&gt;&gt;labelWarning.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxCompressedDigitalAudioOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownCompressedDigitalVideoOPL.Name" xml:space="preserve">
-    <value>numericUpDownCompressedDigitalVideoOPL</value>
-  </data>
-  <data name="checkBoxAllowTestDevices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 19</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>681, 741</value>
-  </data>
-  <data name="&gt;&gt;label14.Name" xml:space="preserve">
-    <value>label14</value>
-  </data>
-  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="&gt;&gt;textBoxPolicyName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownUncompressedDigitalAudioOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="labelAllowPassingVideoContentToUnknownOuput.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="numericUpDownStartDateDays.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="numericUpDownGraceMin.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
-  </data>
-  <data name="textBoxPolicyName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 115</value>
-  </data>
-  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>632, 482</value>
+  <data name="dateTimePickerEndTime.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
   </data>
   <data name="&gt;&gt;dateTimePickerEndTime.Name" xml:space="preserve">
     <value>dateTimePickerEndTime</value>
   </data>
-  <data name="numericUpDownUncompressedDigitalVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 277</value>
+  <data name="&gt;&gt;dateTimePickerEndTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;numericUpDownStartDateMinutes.Name" xml:space="preserve">
-    <value>numericUpDownStartDateMinutes</value>
+  <data name="&gt;&gt;dateTimePickerEndTime.Parent" xml:space="preserve">
+    <value>panelEndDateAbsolute</value>
   </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
+  <data name="&gt;&gt;dateTimePickerEndTime.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="checkBoxGrace.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 19</value>
+  <data name="panelEndDateAbsolute.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
+  <data name="panelEndDateAbsolute.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 69</value>
   </data>
-  <data name="checkBoxAnalogVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 308</value>
+  <data name="panelEndDateAbsolute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 74</value>
   </data>
-  <data name="&gt;&gt;comboBoxAllowPassingVideoContentUnknownOutput.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="panelEndDateAbsolute.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
   </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
+  <data name="&gt;&gt;panelEndDateAbsolute.Name" xml:space="preserve">
+    <value>panelEndDateAbsolute</value>
   </data>
-  <data name="numericUpDownCompressedDigitalAudioOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
+  <data name="&gt;&gt;panelEndDateAbsolute.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="checkBoxEndDate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 22</value>
+  <data name="&gt;&gt;panelEndDateAbsolute.Parent" xml:space="preserve">
+    <value>groupBoxEndDate</value>
+  </data>
+  <data name="&gt;&gt;panelEndDateAbsolute.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.Text" xml:space="preserve">
-    <value>Image Constraint For Analog Computer Monitor Restriction</value>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 5</value>
   </data>
-  <data name="&gt;&gt;checkBoxAnalogVideoOPL.Name" xml:space="preserve">
-    <value>checkBoxAnalogVideoOPL</value>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 15</value>
   </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>tabPage3</value>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
   </data>
-  <data name="&gt;&gt;radioButtonEndDateAbsolute.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Days</value>
   </data>
-  <data name="radioButtonEndDateRelative.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
   </data>
-  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
-    <value>panelFirstPlayExpiration</value>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>Option name :</value>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>panelEndDateRelative</value>
   </data>
-  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 5</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>panelEndDateRelative</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;numericUpDownUncompressedDigitalAudioOPL.Type" xml:space="preserve">
+  <data name="numericUpDownEndDateHours.Location" type="System.Drawing.Point, System.Drawing">
+    <value>73, 23</value>
+  </data>
+  <data name="numericUpDownEndDateHours.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="numericUpDownEndDateHours.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateHours.Name" xml:space="preserve">
+    <value>numericUpDownEndDateHours</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateHours.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateHours.Parent" xml:space="preserve">
+    <value>panelEndDateRelative</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateHours.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="numericUpDownEndDateMinutes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 23</value>
   </data>
   <data name="numericUpDownEndDateMinutes.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 23</value>
   </data>
+  <data name="numericUpDownEndDateMinutes.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateMinutes.Name" xml:space="preserve">
+    <value>numericUpDownEndDateMinutes</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateMinutes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateMinutes.Parent" xml:space="preserve">
+    <value>panelEndDateRelative</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateMinutes.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>70, 5</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>panelEndDateRelative</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="numericUpDownEndDateDays.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 23</value>
+  </data>
   <data name="numericUpDownEndDateDays.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 23</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Content type :</value>
+  <data name="numericUpDownEndDateDays.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateDays.Name" xml:space="preserve">
+    <value>numericUpDownEndDateDays</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateDays.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateDays.Parent" xml:space="preserve">
+    <value>panelEndDateRelative</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownEndDateDays.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="panelEndDateRelative.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panelEndDateRelative.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 166</value>
+  </data>
+  <data name="panelEndDateRelative.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 52</value>
+  </data>
+  <data name="panelEndDateRelative.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="&gt;&gt;panelEndDateRelative.Name" xml:space="preserve">
+    <value>panelEndDateRelative</value>
+  </data>
+  <data name="&gt;&gt;panelEndDateRelative.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelEndDateRelative.Parent" xml:space="preserve">
+    <value>groupBoxEndDate</value>
+  </data>
+  <data name="&gt;&gt;panelEndDateRelative.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonEndDateRelative.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonEndDateRelative.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radioButtonEndDateRelative.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 145</value>
+  </data>
+  <data name="radioButtonEndDateRelative.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 19</value>
+  </data>
+  <data name="radioButtonEndDateRelative.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="radioButtonEndDateRelative.Text" xml:space="preserve">
+    <value>Relative :</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndDateRelative.Name" xml:space="preserve">
+    <value>radioButtonEndDateRelative</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndDateRelative.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndDateRelative.Parent" xml:space="preserve">
+    <value>groupBoxEndDate</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndDateRelative.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonEndDateAbsolute.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonEndDateAbsolute.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radioButtonEndDateAbsolute.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 48</value>
+  </data>
+  <data name="radioButtonEndDateAbsolute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 19</value>
+  </data>
+  <data name="radioButtonEndDateAbsolute.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="radioButtonEndDateAbsolute.Text" xml:space="preserve">
+    <value>Absolute :</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndDateAbsolute.Name" xml:space="preserve">
+    <value>radioButtonEndDateAbsolute</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndDateAbsolute.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndDateAbsolute.Parent" xml:space="preserve">
+    <value>groupBoxEndDate</value>
+  </data>
+  <data name="&gt;&gt;radioButtonEndDateAbsolute.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxEndDate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxEndDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 22</value>
+  </data>
+  <data name="checkBoxEndDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 19</value>
+  </data>
+  <data name="checkBoxEndDate.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="checkBoxEndDate.Text" xml:space="preserve">
+    <value>Specify a value</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEndDate.Name" xml:space="preserve">
+    <value>checkBoxEndDate</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEndDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxEndDate.Parent" xml:space="preserve">
+    <value>groupBoxEndDate</value>
   </data>
   <data name="&gt;&gt;checkBoxEndDate.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -849,1203 +726,1314 @@
   <data name="groupBoxEndDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>321, 85</value>
   </data>
-  <data name="checkBoxUncompressedDigitalAudioOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 19</value>
+  <data name="groupBoxEndDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 252</value>
   </data>
-  <data name="radioButtonStartDateAbsolute.AutoSize" type="System.Boolean, mscorlib">
+  <data name="groupBoxEndDate.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="groupBoxEndDate.Text" xml:space="preserve">
+    <value>End date/time</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEndDate.Name" xml:space="preserve">
+    <value>groupBoxEndDate</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEndDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEndDate.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;groupBoxEndDate.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxStartDate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="checkBoxStartDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 22</value>
   </data>
-  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
+  <data name="checkBoxStartDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 19</value>
   </data>
-  <data name="&gt;&gt;numericUpDownEndDateHours.Parent" xml:space="preserve">
-    <value>panelEndDateRelative</value>
+  <data name="checkBoxStartDate.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
   </data>
-  <data name="labelstep.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
-  </data>
-  <data name="checkBoxGrace.Text" xml:space="preserve">
+  <data name="checkBoxStartDate.Text" xml:space="preserve">
     <value>Specify a value</value>
   </data>
-  <data name="checkBoxAllowTestDevices.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
+  <data name="&gt;&gt;checkBoxStartDate.Name" xml:space="preserve">
+    <value>checkBoxStartDate</value>
   </data>
-  <data name="&gt;&gt;numericUpDownStartDateMinutes.Parent" xml:space="preserve">
-    <value>panelStartDateRelative</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>panelEndDateRelative</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Minutes</value>
-  </data>
-  <data name="panelStartDateAbsolute.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComponentVideoRestriction.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComponentVideoRestriction.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>564, 13</value>
-  </data>
-  <data name="groupBoxFirstPlay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 105</value>
-  </data>
-  <data name="numericUpDownStartDateMinutes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>135, 23</value>
-  </data>
-  <data name="checkBoxUncompressedDigitalVideoOPL.Text" xml:space="preserve">
-    <value>Uncompressed Digital Video OPL :</value>
-  </data>
-  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="numericUpDownCompressedDigitalAudioOPL.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownAnalogVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 23</value>
-  </data>
-  <data name="dateTimePickerStartTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 23</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerStartTime.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="numericUpDownEndDateDays.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>panelEndDateRelative</value>
-  </data>
-  <data name="&gt;&gt;checkBoxGrace.Type" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxStartDate.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;labelAllowPassingVideoContentToUnknownOuput.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpDays.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="checkBoxUncompressedDigitalVideoOPL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxCompressedDigitalVideoOPL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="groupBoxFirstPlay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 358</value>
-  </data>
-  <data name="numericUpDownFPExpDays.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 25</value>
-  </data>
-  <data name="panelGrace.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="numericUpDownGraceDays.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownStartDateDays.Name" xml:space="preserve">
-    <value>numericUpDownStartDateDays</value>
-  </data>
-  <data name="label12.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;tabControlPlayReadySettings.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label13.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="checkBoxDigitalVideoOnlyContentRestriction.Text" xml:space="preserve">
-    <value>Digital Video Only Content Restriction</value>
-  </data>
-  <data name="labelWarning.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="labelAllowPassingVideoContentToUnknownOuput.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="numericUpDownUncompressedDigitalAudioOPL.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAllowPassingVideoContentUnknownOutput.Name" xml:space="preserve">
-    <value>comboBoxAllowPassingVideoContentUnknownOutput</value>
-  </data>
-  <data name="checkBoxCompressedDigitalVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 218</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownStartDateDays.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceMin.Name" xml:space="preserve">
-    <value>numericUpDownGraceMin</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownEndDateMinutes.Parent" xml:space="preserve">
-    <value>panelEndDateRelative</value>
-  </data>
-  <data name="&gt;&gt;label12.Name" xml:space="preserve">
-    <value>label12</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerStartDate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panelStartDateAbsolute.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 75</value>
-  </data>
-  <data name="numericUpDownAnalogVideoOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 27</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="checkBoxGrace.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>Common settings</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="&gt;&gt;checkBoxStartDate.Parent" xml:space="preserve">
+    <value>groupBoxStartDate</value>
   </data>
   <data name="&gt;&gt;checkBoxStartDate.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 15</value>
+  <data name="dateTimePickerStartTime.CustomFormat" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+  <data name="dateTimePickerStartTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 40</value>
+  </data>
+  <data name="dateTimePickerStartTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>272, 23</value>
+  </data>
+  <data name="dateTimePickerStartTime.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Name" xml:space="preserve">
+    <value>dateTimePickerStartTime</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.Parent" xml:space="preserve">
+    <value>panelStartDateAbsolute</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerStartTime.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;dateTimePickerEndDate.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="dateTimePickerStartDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 10</value>
   </data>
-  <data name="&gt;&gt;numericUpDownEndDateDays.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="dateTimePickerStartDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>272, 23</value>
   </data>
-  <data name="&gt;&gt;checkBoxFPExp.Name" xml:space="preserve">
-    <value>checkBoxFPExp</value>
+  <data name="dateTimePickerStartDate.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
   </data>
-  <data name="&gt;&gt;checkBoxAllowTestDevices.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;dateTimePickerStartDate.Name" xml:space="preserve">
+    <value>dateTimePickerStartDate</value>
   </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
+  <data name="&gt;&gt;dateTimePickerStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label10.Name" xml:space="preserve">
-    <value>label10</value>
+  <data name="&gt;&gt;dateTimePickerStartDate.Parent" xml:space="preserve">
+    <value>panelStartDateAbsolute</value>
   </data>
-  <data name="numericUpDownUncompressedDigitalAudioOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 247</value>
-  </data>
-  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAnalogVideoOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="&gt;&gt;dateTimePickerStartDate.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="panelStartDateAbsolute.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;groupBoxFirstPlay.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="panelStartDateAbsolute.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 69</value>
   </data>
-  <data name="labelWarning.AutoSize" type="System.Boolean, mscorlib">
+  <data name="panelStartDateAbsolute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 75</value>
+  </data>
+  <data name="panelStartDateAbsolute.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="&gt;&gt;panelStartDateAbsolute.Name" xml:space="preserve">
+    <value>panelStartDateAbsolute</value>
+  </data>
+  <data name="&gt;&gt;panelStartDateAbsolute.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelStartDateAbsolute.Parent" xml:space="preserve">
+    <value>groupBoxStartDate</value>
+  </data>
+  <data name="&gt;&gt;panelStartDateAbsolute.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonStartDateAbsolute.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonStartDateAbsolute.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radioButtonStartDateAbsolute.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 48</value>
+  </data>
+  <data name="radioButtonStartDateAbsolute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 19</value>
+  </data>
+  <data name="radioButtonStartDateAbsolute.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="radioButtonStartDateAbsolute.Text" xml:space="preserve">
+    <value>Absolute :</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStartDateAbsolute.Name" xml:space="preserve">
+    <value>radioButtonStartDateAbsolute</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStartDateAbsolute.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStartDateAbsolute.Parent" xml:space="preserve">
+    <value>groupBoxStartDate</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStartDateAbsolute.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 5</value>
   </data>
-  <data name="&gt;&gt;numericUpDownUncompressedDigitalAudioOPL.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 15</value>
   </data>
-  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
   </data>
-  <data name="&gt;&gt;label9.Name" xml:space="preserve">
-    <value>label9</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Days</value>
   </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
   </data>
-  <data name="groupBoxStartDate.Text" xml:space="preserve">
-    <value>Start date/time</value>
-  </data>
-  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>632, 482</value>
-  </data>
-  <data name="&gt;&gt;labelWarning.Type" xml:space="preserve">
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>panelStartDateRelative</value>
   </data>
-  <data name="&gt;&gt;panelFirstPlayExpiration.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownUncompressedDigitalAudioOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 23</value>
-  </data>
-  <data name="panelStartDateRelative.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>135, 7</value>
-  </data>
-  <data name="numericUpDownCompressedDigitalAudioOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 23</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Minutes</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUncompressedDigitalAudioOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceHours.Parent" xml:space="preserve">
-    <value>panelGrace</value>
-  </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="numericUpDownGraceHours.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="moreinfocompliance.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpDays.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panelStartDateRelative.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="checkBoxStartDate.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="&gt;&gt;radioButtonStartDateAbsolute.Name" xml:space="preserve">
-    <value>radioButtonStartDateAbsolute</value>
-  </data>
-  <data name="dateTimePickerStartTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 40</value>
-  </data>
-  <data name="radioButtonEndDateAbsolute.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 19</value>
-  </data>
-  <data name="&gt;&gt;moreinfocompliance.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBoxAllowTestDevices.Text" xml:space="preserve">
-    <value>Allow test devices</value>
-  </data>
-  <data name="radioButtonStartDateAbsolute.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 19</value>
-  </data>
-  <data name="checkBoxDigitalVideoOnlyContentRestriction.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="checkBoxAnalogVideoOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="checkBoxCompressedDigitalVideoOPL.Text" xml:space="preserve">
-    <value>Compressed Digital Video OPL :</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLicenseType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonEndDateRelative.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFPExp.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panelStartDateRelative.Name" xml:space="preserve">
-    <value>panelStartDateRelative</value>
-  </data>
-  <data name="checkBoxGrace.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 22</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownStartDateDays.Parent" xml:space="preserve">
-    <value>panelStartDateRelative</value>
-  </data>
-  <data name="dateTimePickerEndDate.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDigitalVideoOnlyContentRestriction.Name" xml:space="preserve">
-    <value>checkBoxDigitalVideoOnlyContentRestriction</value>
-  </data>
-  <data name="&gt;&gt;radioButtonEndDateRelative.Name" xml:space="preserve">
-    <value>radioButtonEndDateRelative</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Minutes</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceDays.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="panelEndDateAbsolute.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 74</value>
-  </data>
-  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>135, 7</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpHours.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 5</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="checkBoxGrace.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 158</value>
-  </data>
-  <data name="numericUpDownUncompressedDigitalVideoOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="checkBoxFPExp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 19</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>panelStartDateRelative</value>
-  </data>
-  <data name="radioButtonStartDateAbsolute.Text" xml:space="preserve">
-    <value>Absolute :</value>
-  </data>
-  <data name="radioButtonEndDateRelative.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 145</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceHours.Name" xml:space="preserve">
-    <value>numericUpDownGraceHours</value>
-  </data>
-  <data name="panelGrace.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="numericUpDownFPExpDays.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>681, 55</value>
-  </data>
-  <data name="&gt;&gt;tabControlPlayReadySettings.Name" xml:space="preserve">
-    <value>tabControlPlayReadySettings</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpMinutes.Name" xml:space="preserve">
-    <value>numericUpDownFPExpMinutes</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCompressedDigitalVideoOPL.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceDays.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxUncompressedDigitalAudioOPL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAllowTestDevices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 362</value>
-  </data>
-  <data name="panelEndDateRelative.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="panelEndDateRelative.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 52</value>
-  </data>
-  <data name="labelstep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>402, 42</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonStartDateRelative.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>Advanced settings</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpMinutes.Parent" xml:space="preserve">
-    <value>panelFirstPlayExpiration</value>
-  </data>
-  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 19</value>
-  </data>
-  <data name="&gt;&gt;panelStartDateRelative.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownAnalogVideoOPL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>Manual</value>
-  </data>
-  <data name="numericUpDownEndDateMinutes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>135, 23</value>
-  </data>
-  <data name="checkBoxDigitalVideoOnlyContentRestriction.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 19</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownEndDateMinutes.Name" xml:space="preserve">
-    <value>numericUpDownEndDateMinutes</value>
-  </data>
-  <data name="&gt;&gt;checkBoxEndDate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownCompressedDigitalVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 23</value>
-  </data>
-  <data name="label10.TabIndex" type="System.Int32, mscorlib">
-    <value>48</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="checkBoxCompressedDigitalAudioOPL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="panelStartDateRelative.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 166</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="label15.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="panelEndDateRelative.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 166</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>132, 5</value>
   </data>
-  <data name="&gt;&gt;tabControlPlayReadySettings.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 15</value>
   </data>
-  <data name="checkBoxStartDate.Text" xml:space="preserve">
-    <value>Specify a value</value>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
   </data>
-  <data name="numericUpDownUncompressedDigitalVideoOPL.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Minutes</value>
   </data>
-  <data name="&gt;&gt;numericUpDownGraceMin.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
   </data>
-  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panelStartDateAbsolute.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxAnalogVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 19</value>
-  </data>
-  <data name="textBoxPolicyName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 23</value>
-  </data>
-  <data name="numericUpDownUncompressedDigitalAudioOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceHours.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownFPExpMinutes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>139, 25</value>
-  </data>
-  <data name="numericUpDownEndDateMinutes.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="&gt;&gt;tabControlPlayReadySettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonStartDateAbsolute.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 48</value>
-  </data>
-  <data name="&gt;&gt;panelStartDateRelative.Parent" xml:space="preserve">
-    <value>groupBoxStartDate</value>
-  </data>
-  <data name="&gt;&gt;labelAllowPassingVideoContentToUnknownOuput.Name" xml:space="preserve">
-    <value>labelAllowPassingVideoContentToUnknownOuput</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerStartTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Grace period</value>
-  </data>
-  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 15</value>
-  </data>
-  <data name="checkBoxUncompressedDigitalVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 19</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDigitalVideoOnlyContentRestriction.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownEndDateMinutes.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerStartTime.Name" xml:space="preserve">
-    <value>dateTimePickerStartTime</value>
-  </data>
-  <data name="labelWarning.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="panelGrace.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 42</value>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
     <value>panelStartDateRelative</value>
   </data>
-  <data name="&gt;&gt;radioButtonEndDateRelative.Parent" xml:space="preserve">
-    <value>groupBoxEndDate</value>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="openFileDialogPreset.Filter" xml:space="preserve">
-    <value>XML files|*.xml|All files|*.*</value>
+  <data name="numericUpDownStartDateHours.Location" type="System.Drawing.Point, System.Drawing">
+    <value>73, 23</value>
   </data>
-  <data name="&gt;&gt;dateTimePickerEndDate.Parent" xml:space="preserve">
-    <value>panelEndDateAbsolute</value>
+  <data name="numericUpDownStartDateHours.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
   </data>
-  <data name="&gt;&gt;radioButtonEndDateRelative.ZOrder" xml:space="preserve">
+  <data name="numericUpDownStartDateHours.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateHours.Name" xml:space="preserve">
+    <value>numericUpDownStartDateHours</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateHours.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateHours.Parent" xml:space="preserve">
+    <value>panelStartDateRelative</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateHours.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="labelAllowPassingVideoContentToUnknownOuput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 27</value>
+  <data name="numericUpDownStartDateMinutes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 23</value>
   </data>
-  <data name="&gt;&gt;checkBoxDigitalVideoOnlyContentRestriction.ZOrder" xml:space="preserve">
-    <value>13</value>
+  <data name="numericUpDownStartDateMinutes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
   </data>
-  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="numericUpDownStartDateMinutes.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateMinutes.Name" xml:space="preserve">
+    <value>numericUpDownStartDateMinutes</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateMinutes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateMinutes.Parent" xml:space="preserve">
+    <value>panelStartDateRelative</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateMinutes.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>70, 5</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>panelStartDateRelative</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="numericUpDownStartDateDays.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 23</value>
+  </data>
+  <data name="numericUpDownStartDateDays.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="numericUpDownStartDateDays.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateDays.Name" xml:space="preserve">
+    <value>numericUpDownStartDateDays</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateDays.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateDays.Parent" xml:space="preserve">
+    <value>panelStartDateRelative</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownStartDateDays.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="panelStartDateRelative.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panelStartDateRelative.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 166</value>
+  </data>
+  <data name="panelStartDateRelative.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 52</value>
+  </data>
+  <data name="panelStartDateRelative.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="&gt;&gt;panelStartDateRelative.Name" xml:space="preserve">
+    <value>panelStartDateRelative</value>
+  </data>
+  <data name="&gt;&gt;panelStartDateRelative.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelStartDateRelative.Parent" xml:space="preserve">
+    <value>groupBoxStartDate</value>
+  </data>
+  <data name="&gt;&gt;panelStartDateRelative.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButtonStartDateRelative.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonStartDateRelative.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radioButtonStartDateRelative.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 145</value>
+  </data>
+  <data name="radioButtonStartDateRelative.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 19</value>
+  </data>
+  <data name="radioButtonStartDateRelative.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="radioButtonStartDateRelative.Text" xml:space="preserve">
+    <value>Relative :</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStartDateRelative.Name" xml:space="preserve">
+    <value>radioButtonStartDateRelative</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStartDateRelative.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStartDateRelative.Parent" xml:space="preserve">
+    <value>groupBoxStartDate</value>
+  </data>
+  <data name="&gt;&gt;radioButtonStartDateRelative.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBoxStartDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 85</value>
+  </data>
+  <data name="groupBoxStartDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 252</value>
+  </data>
+  <data name="groupBoxStartDate.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="groupBoxStartDate.Text" xml:space="preserve">
+    <value>Start date/time</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStartDate.Name" xml:space="preserve">
+    <value>groupBoxStartDate</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStartDate.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;groupBoxStartDate.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 7</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 15</value>
   </data>
-  <data name="&gt;&gt;checkBoxCompressedDigitalVideoOPL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
   </data>
-  <data name="panelFirstPlayExpiration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 42</value>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Minutes</value>
   </data>
-  <data name="label14.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>panelFirstPlayExpiration</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>73, 7</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 15</value>
+  </data>
+  <data name="label10.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
     <value>Hours</value>
   </data>
-  <data name="&gt;&gt;numericUpDownAnalogVideoOPL.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="checkBoxCompressedDigitalAudioOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 188</value>
-  </data>
-  <data name="moreinfocompliance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>429, 75</value>
-  </data>
-  <data name="labelstep.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 12pt, style=Bold</value>
-  </data>
-  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 7</value>
-  </data>
-  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.Text" xml:space="preserve">
-    <value>Image Constraint For Analog Component Video Restriction</value>
-  </data>
-  <data name="numericUpDownStartDateDays.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 23</value>
-  </data>
-  <data name="comboBoxLicenseType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 23</value>
-  </data>
-  <data name="dateTimePickerEndTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 23</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUncompressedDigitalVideoOPL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownEndDateDays.Name" xml:space="preserve">
-    <value>numericUpDownEndDateDays</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Hours</value>
-  </data>
-  <data name="numericUpDownGraceHours.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 25</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownFPExpHours.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
     <value>panelFirstPlayExpiration</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 15</value>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="labelstep.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;groupBoxEndDate.Parent" xml:space="preserve">
-    <value>tabPage3</value>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 7</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 15</value>
   </data>
-  <data name="&gt;&gt;checkBoxStartDate.Parent" xml:space="preserve">
-    <value>groupBoxStartDate</value>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
   </data>
-  <data name="&gt;&gt;labelWarning.Name" xml:space="preserve">
-    <value>labelWarning</value>
-  </data>
-  <data name="numericUpDownEndDateDays.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 23</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;labelAllowPassingVideoContentToUnknownOuput.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelstep.Name" xml:space="preserve">
-    <value>labelstep</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownUncompressedDigitalAudioOPL.Name" xml:space="preserve">
-    <value>numericUpDownUncompressedDigitalAudioOPL</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radioButtonEndDateAbsolute.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;panelEndDateAbsolute.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panelEndDateAbsolute.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
-    <value>panelGrace</value>
-  </data>
-  <data name="tabControlPlayReadySettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 153</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUncompressedDigitalAudioOPL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDownEndDateHours.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="groupBoxStartDate.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="&gt;&gt;radioButtonStartDateAbsolute.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="numericUpDownStartDateHours.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 23</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerEndTime.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="comboBoxAllowPassingVideoContentUnknownOutput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 23</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>317, 22</value>
-  </data>
-  <data name="checkBoxEndDate.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerStartDate.Parent" xml:space="preserve">
-    <value>panelStartDateAbsolute</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLicenseType.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="checkBoxGrace.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownStartDateMinutes.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="panelEndDateAbsolute.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="dateTimePickerStartDate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 10</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerEndTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 19</value>
-  </data>
-  <data name="&gt;&gt;radioButtonEndDateAbsolute.Name" xml:space="preserve">
-    <value>radioButtonEndDateAbsolute</value>
-  </data>
-  <data name="moreinfocompliance.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 15</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 15</value>
-  </data>
-  <data name="labelWarning.Text" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="checkBoxUncompressedDigitalVideoOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Minutes</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="moreinfocompliance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 15</value>
-  </data>
-  <data name="radioButtonEndDateRelative.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="comboBoxLicenseType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 40</value>
-  </data>
-  <data name="&gt;&gt;panelStartDateAbsolute.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerEndDate.Name" xml:space="preserve">
-    <value>dateTimePickerEndDate</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownEndDateDays.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAllowTestDevices.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
-    <value>panelGrace</value>
-  </data>
-  <data name="panelGrace.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 57</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
+  <data name="label9.Text" xml:space="preserve">
     <value>Days</value>
   </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 686</value>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>panelFirstPlayExpiration</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="numericUpDownFPExpMinutes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 25</value>
+  </data>
+  <data name="numericUpDownFPExpMinutes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="numericUpDownFPExpMinutes.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownFPExpMinutes.Name" xml:space="preserve">
+    <value>numericUpDownFPExpMinutes</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownFPExpMinutes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownFPExpMinutes.Parent" xml:space="preserve">
+    <value>panelFirstPlayExpiration</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownFPExpMinutes.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="numericUpDownFPExpHours.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 25</value>
+  </data>
+  <data name="numericUpDownFPExpHours.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="numericUpDownFPExpHours.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownFPExpHours.Name" xml:space="preserve">
+    <value>numericUpDownFPExpHours</value>
   </data>
   <data name="&gt;&gt;numericUpDownFPExpHours.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxPolicyName.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;numericUpDownFPExpHours.Parent" xml:space="preserve">
+    <value>panelFirstPlayExpiration</value>
   </data>
-  <data name="&gt;&gt;panelEndDateRelative.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;numericUpDownFPExpHours.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Dynamic Encryption - Step {0}</value>
+  <data name="numericUpDownFPExpDays.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 25</value>
   </data>
-  <data name="&gt;&gt;radioButtonStartDateAbsolute.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFPExp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxDigitalVideoOnlyContentRestriction.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="numericUpDownStartDateMinutes.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="numericUpDownFPExpDays.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 23</value>
   </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="checkBoxUncompressedDigitalAudioOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 248</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownEndDateDays.Parent" xml:space="preserve">
-    <value>panelEndDateRelative</value>
-  </data>
-  <data name="checkBoxDigitalVideoOnlyContentRestriction.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 98</value>
-  </data>
-  <data name="&gt;&gt;panelEndDateAbsolute.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUncompressedDigitalVideoOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="checkBoxUncompressedDigitalAudioOPL.Text" xml:space="preserve">
-    <value>Uncompressed Digital Audio OPL :</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceMin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 5</value>
-  </data>
-  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComponentVideoRestriction.Name" xml:space="preserve">
-    <value>checkBoxImageConstraintForAnalogComponentVideoRestriction</value>
-  </data>
-  <data name="comboBoxAllowPassingVideoContentUnknownOutput.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCompressedDigitalAudioOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="numericUpDownUncompressedDigitalVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 23</value>
-  </data>
-  <data name="dateTimePickerStartDate.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
+  <data name="numericUpDownFPExpDays.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
   </data>
   <data name="&gt;&gt;numericUpDownFPExpDays.Name" xml:space="preserve">
     <value>numericUpDownFPExpDays</value>
   </data>
-  <data name="&gt;&gt;groupBoxFirstPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;numericUpDownFPExpDays.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panelFirstPlayExpiration.Parent" xml:space="preserve">
-    <value>groupBoxFirstPlay</value>
+  <data name="&gt;&gt;numericUpDownFPExpDays.Parent" xml:space="preserve">
+    <value>panelFirstPlayExpiration</value>
   </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 105</value>
+  <data name="&gt;&gt;numericUpDownFPExpDays.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <data name="checkBoxFPExp.Text" xml:space="preserve">
-    <value>Specify a value</value>
+  <data name="panelFirstPlayExpiration.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;checkBoxGrace.Name" xml:space="preserve">
-    <value>checkBoxGrace</value>
+  <data name="panelFirstPlayExpiration.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 42</value>
   </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="numericUpDownCompressedDigitalVideoOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUncompressedDigitalAudioOPL.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 97</value>
-  </data>
-  <data name="&gt;&gt;moreinfocompliance.Name" xml:space="preserve">
-    <value>moreinfocompliance</value>
-  </data>
-  <data name="dateTimePickerEndTime.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="&gt;&gt;panelEndDateAbsolute.Parent" xml:space="preserve">
-    <value>groupBoxEndDate</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCompressedDigitalVideoOPL.Name" xml:space="preserve">
-    <value>checkBoxCompressedDigitalVideoOPL</value>
-  </data>
-  <data name="checkBoxFPExp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 22</value>
-  </data>
-  <data name="checkBoxAnalogVideoOPL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="panelFirstPlayExpiration.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 57</value>
   </data>
   <data name="panelFirstPlayExpiration.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
+  <data name="&gt;&gt;panelFirstPlayExpiration.Name" xml:space="preserve">
+    <value>panelFirstPlayExpiration</value>
+  </data>
+  <data name="&gt;&gt;panelFirstPlayExpiration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelFirstPlayExpiration.Parent" xml:space="preserve">
+    <value>groupBoxFirstPlay</value>
+  </data>
+  <data name="&gt;&gt;panelFirstPlayExpiration.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxFPExp.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxFPExp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 22</value>
+  </data>
+  <data name="checkBoxFPExp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 19</value>
+  </data>
+  <data name="checkBoxFPExp.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="checkBoxFPExp.Text" xml:space="preserve">
+    <value>Specify a value</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFPExp.Name" xml:space="preserve">
+    <value>checkBoxFPExp</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFPExp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFPExp.Parent" xml:space="preserve">
+    <value>groupBoxFirstPlay</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFPExp.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBoxFirstPlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 358</value>
+  </data>
+  <data name="groupBoxFirstPlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 105</value>
+  </data>
+  <data name="groupBoxFirstPlay.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="groupBoxFirstPlay.Text" xml:space="preserve">
+    <value>First play expiration</value>
+  </data>
+  <data name="&gt;&gt;groupBoxFirstPlay.Name" xml:space="preserve">
+    <value>groupBoxFirstPlay</value>
+  </data>
+  <data name="&gt;&gt;groupBoxFirstPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxFirstPlay.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;groupBoxFirstPlay.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 22</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>License type :</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="comboBoxLicenseType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 40</value>
+  </data>
+  <data name="comboBoxLicenseType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 23</value>
+  </data>
+  <data name="comboBoxLicenseType.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLicenseType.Name" xml:space="preserve">
+    <value>comboBoxLicenseType</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLicenseType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLicenseType.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLicenseType.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>632, 482</value>
+  </data>
+  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>Common settings</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
+    <value>tabControlPlayReadySettings</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="numericUpDownAnalogVideoOPL.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="numericUpDownAnalogVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 307</value>
+  </data>
+  <data name="numericUpDownAnalogVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 23</value>
+  </data>
+  <data name="numericUpDownAnalogVideoOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAnalogVideoOPL.Name" xml:space="preserve">
+    <value>numericUpDownAnalogVideoOPL</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAnalogVideoOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAnalogVideoOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownAnalogVideoOPL.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxAnalogVideoOPL.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAnalogVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 308</value>
+  </data>
+  <data name="checkBoxAnalogVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 19</value>
+  </data>
+  <data name="checkBoxAnalogVideoOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="checkBoxAnalogVideoOPL.Text" xml:space="preserve">
+    <value>Analog Video OPL :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAnalogVideoOPL.Name" xml:space="preserve">
+    <value>checkBoxAnalogVideoOPL</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAnalogVideoOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAnalogVideoOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAnalogVideoOPL.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numericUpDownUncompressedDigitalVideoOPL.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="numericUpDownUncompressedDigitalVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 277</value>
+  </data>
+  <data name="numericUpDownUncompressedDigitalVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 23</value>
+  </data>
+  <data name="numericUpDownUncompressedDigitalVideoOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownUncompressedDigitalVideoOPL.Name" xml:space="preserve">
+    <value>numericUpDownUncompressedDigitalVideoOPL</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownUncompressedDigitalVideoOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownUncompressedDigitalVideoOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownUncompressedDigitalVideoOPL.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="numericUpDownUncompressedDigitalAudioOPL.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="numericUpDownUncompressedDigitalAudioOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 247</value>
+  </data>
+  <data name="numericUpDownUncompressedDigitalAudioOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 23</value>
+  </data>
+  <data name="numericUpDownUncompressedDigitalAudioOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownUncompressedDigitalAudioOPL.Name" xml:space="preserve">
+    <value>numericUpDownUncompressedDigitalAudioOPL</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownUncompressedDigitalAudioOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownUncompressedDigitalAudioOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownUncompressedDigitalAudioOPL.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="numericUpDownCompressedDigitalVideoOPL.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="numericUpDownCompressedDigitalVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 217</value>
+  </data>
+  <data name="numericUpDownCompressedDigitalVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 23</value>
+  </data>
+  <data name="numericUpDownCompressedDigitalVideoOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCompressedDigitalVideoOPL.Name" xml:space="preserve">
+    <value>numericUpDownCompressedDigitalVideoOPL</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCompressedDigitalVideoOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCompressedDigitalVideoOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCompressedDigitalVideoOPL.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="numericUpDownCompressedDigitalAudioOPL.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="numericUpDownCompressedDigitalAudioOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 187</value>
+  </data>
+  <data name="numericUpDownCompressedDigitalAudioOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 23</value>
+  </data>
+  <data name="numericUpDownCompressedDigitalAudioOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCompressedDigitalAudioOPL.Name" xml:space="preserve">
+    <value>numericUpDownCompressedDigitalAudioOPL</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCompressedDigitalAudioOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;numericUpDownCompressedDigitalAudioOPL.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
-  <data name="checkBoxUncompressedDigitalAudioOPL.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
+  <data name="&gt;&gt;numericUpDownCompressedDigitalAudioOPL.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <data name="&gt;&gt;numericUpDownEndDateMinutes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="checkBoxAllowTestDevices.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAllowTestDevices.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 362</value>
+  </data>
+  <data name="checkBoxAllowTestDevices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 19</value>
+  </data>
+  <data name="checkBoxAllowTestDevices.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="checkBoxAllowTestDevices.Text" xml:space="preserve">
+    <value>Allow test devices</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAllowTestDevices.Name" xml:space="preserve">
+    <value>checkBoxAllowTestDevices</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAllowTestDevices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAllowTestDevices.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAllowTestDevices.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalVideoOPL.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 278</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 19</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalVideoOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalVideoOPL.Text" xml:space="preserve">
+    <value>Uncompressed Digital Video OPL :</value>
   </data>
   <data name="&gt;&gt;checkBoxUncompressedDigitalVideoOPL.Name" xml:space="preserve">
     <value>checkBoxUncompressedDigitalVideoOPL</value>
   </data>
-  <data name="&gt;&gt;panelGrace.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;checkBoxUncompressedDigitalVideoOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUncompressedDigitalVideoOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUncompressedDigitalVideoOPL.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalAudioOPL.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalAudioOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 248</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalAudioOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 19</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalAudioOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="checkBoxUncompressedDigitalAudioOPL.Text" xml:space="preserve">
+    <value>Uncompressed Digital Audio OPL :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUncompressedDigitalAudioOPL.Name" xml:space="preserve">
+    <value>checkBoxUncompressedDigitalAudioOPL</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUncompressedDigitalAudioOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUncompressedDigitalAudioOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUncompressedDigitalAudioOPL.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="checkBoxCompressedDigitalVideoOPL.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxCompressedDigitalVideoOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 218</value>
+  </data>
+  <data name="checkBoxCompressedDigitalVideoOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 19</value>
+  </data>
+  <data name="checkBoxCompressedDigitalVideoOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="checkBoxCompressedDigitalVideoOPL.Text" xml:space="preserve">
+    <value>Compressed Digital Video OPL :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressedDigitalVideoOPL.Name" xml:space="preserve">
+    <value>checkBoxCompressedDigitalVideoOPL</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressedDigitalVideoOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressedDigitalVideoOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressedDigitalVideoOPL.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="checkBoxCompressedDigitalAudioOPL.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxCompressedDigitalAudioOPL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 188</value>
+  </data>
+  <data name="checkBoxCompressedDigitalAudioOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 19</value>
+  </data>
+  <data name="checkBoxCompressedDigitalAudioOPL.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="checkBoxCompressedDigitalAudioOPL.Text" xml:space="preserve">
+    <value>Compressed Digital Audio OPL :</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressedDigitalAudioOPL.Name" xml:space="preserve">
+    <value>checkBoxCompressedDigitalAudioOPL</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressedDigitalAudioOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressedDigitalAudioOPL.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressedDigitalAudioOPL.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 158</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 19</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.Text" xml:space="preserve">
+    <value>Image Constraint For Analog Computer Monitor Restriction</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComputerMonitorRestriction.Name" xml:space="preserve">
+    <value>checkBoxImageConstraintForAnalogComputerMonitorRestriction</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComputerMonitorRestriction.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComputerMonitorRestriction.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComputerMonitorRestriction.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 128</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.Size" type="System.Drawing.Size, System.Drawing">
+    <value>337, 19</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.Text" xml:space="preserve">
+    <value>Image Constraint For Analog Component Video Restriction</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComponentVideoRestriction.Name" xml:space="preserve">
+    <value>checkBoxImageConstraintForAnalogComponentVideoRestriction</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComponentVideoRestriction.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComponentVideoRestriction.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComponentVideoRestriction.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="checkBoxDigitalVideoOnlyContentRestriction.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxDigitalVideoOnlyContentRestriction.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 98</value>
+  </data>
+  <data name="checkBoxDigitalVideoOnlyContentRestriction.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 19</value>
+  </data>
+  <data name="checkBoxDigitalVideoOnlyContentRestriction.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="checkBoxDigitalVideoOnlyContentRestriction.Text" xml:space="preserve">
+    <value>Digital Video Only Content Restriction</value>
+  </data>
+  <data name="&gt;&gt;checkBoxDigitalVideoOnlyContentRestriction.Name" xml:space="preserve">
+    <value>checkBoxDigitalVideoOnlyContentRestriction</value>
+  </data>
+  <data name="&gt;&gt;checkBoxDigitalVideoOnlyContentRestriction.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxDigitalVideoOnlyContentRestriction.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;checkBoxDigitalVideoOnlyContentRestriction.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="labelAllowPassingVideoContentToUnknownOuput.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelAllowPassingVideoContentToUnknownOuput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 27</value>
+  </data>
+  <data name="labelAllowPassingVideoContentToUnknownOuput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 15</value>
+  </data>
+  <data name="labelAllowPassingVideoContentToUnknownOuput.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="labelAllowPassingVideoContentToUnknownOuput.Text" xml:space="preserve">
+    <value>Allow passing Video content to unknow output</value>
+  </data>
+  <data name="&gt;&gt;labelAllowPassingVideoContentToUnknownOuput.Name" xml:space="preserve">
+    <value>labelAllowPassingVideoContentToUnknownOuput</value>
+  </data>
+  <data name="&gt;&gt;labelAllowPassingVideoContentToUnknownOuput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAllowPassingVideoContentToUnknownOuput.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;labelAllowPassingVideoContentToUnknownOuput.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="comboBoxAllowPassingVideoContentUnknownOutput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 45</value>
+  </data>
+  <data name="comboBoxAllowPassingVideoContentUnknownOutput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 23</value>
+  </data>
+  <data name="comboBoxAllowPassingVideoContentUnknownOutput.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAllowPassingVideoContentUnknownOutput.Name" xml:space="preserve">
+    <value>comboBoxAllowPassingVideoContentUnknownOutput</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAllowPassingVideoContentUnknownOutput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAllowPassingVideoContentUnknownOutput.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAllowPassingVideoContentUnknownOutput.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>632, 482</value>
+  </data>
+  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Advanced settings</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
+    <value>tabControlPlayReadySettings</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabControlPlayReadySettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 153</value>
+  </data>
+  <data name="tabControlPlayReadySettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>640, 510</value>
+  </data>
+  <data name="tabControlPlayReadySettings.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;tabControlPlayReadySettings.Name" xml:space="preserve">
+    <value>tabControlPlayReadySettings</value>
+  </data>
+  <data name="&gt;&gt;tabControlPlayReadySettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControlPlayReadySettings.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControlPlayReadySettings.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="textBoxPolicyName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxPolicyName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 115</value>
+  </data>
+  <data name="textBoxPolicyName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>262, 23</value>
+  </data>
+  <data name="textBoxPolicyName.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="&gt;&gt;textBoxPolicyName.Name" xml:space="preserve">
+    <value>textBoxPolicyName</value>
+  </data>
+  <data name="&gt;&gt;textBoxPolicyName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxPolicyName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxPolicyName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 97</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 15</value>
+  </data>
+  <data name="label13.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>Option name :</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonOk.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>381, 13</value>
+  </data>
+  <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 27</value>
+  </data>
+  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
+    <value>buttonOk</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelWarning.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="labelWarning.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 667</value>
+  </data>
+  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 15</value>
+  </data>
+  <data name="labelWarning.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="labelWarning.Text" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="&gt;&gt;labelWarning.Name" xml:space="preserve">
+    <value>labelWarning</value>
+  </data>
+  <data name="&gt;&gt;labelWarning.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelWarning.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="dateTimePickerStartTime.CustomFormat" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;labelWarning.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;checkBoxImageConstraintForAnalogComputerMonitorRestriction.ZOrder" xml:space="preserve">
-    <value>11</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 686</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>681, 55</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelstep.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelstep.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Semibold, 12pt, style=Bold</value>
+  </data>
+  <data name="labelstep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 21</value>
+  </data>
+  <data name="labelstep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>402, 42</value>
+  </data>
+  <data name="labelstep.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
   </data>
   <data name="labelstep.Text" xml:space="preserve">
     <value>Step {0}
 Specify the PlayReady license template for option #{1}</value>
   </data>
-  <data name="&gt;&gt;comboBoxAllowPassingVideoContentUnknownOutput.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="&gt;&gt;labelstep.Name" xml:space="preserve">
+    <value>labelstep</value>
   </data>
-  <data name="&gt;&gt;checkBoxCompressedDigitalAudioOPL.Name" xml:space="preserve">
-    <value>checkBoxCompressedDigitalAudioOPL</value>
-  </data>
-  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBoxEndDate.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFPExp.Parent" xml:space="preserve">
-    <value>groupBoxFirstPlay</value>
-  </data>
-  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;checkBoxGrace.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxFPExp.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBoxGrace.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownCompressedDigitalVideoOPL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>Days</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAllowTestDevices.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;label11.Name" xml:space="preserve">
-    <value>label11</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceDays.Parent" xml:space="preserve">
-    <value>panelGrace</value>
-  </data>
-  <data name="dateTimePickerStartDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 23</value>
-  </data>
-  <data name="numericUpDownCompressedDigitalAudioOPL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 187</value>
-  </data>
-  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 13</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCompressedDigitalVideoOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
-    <value>panelGrace</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownGraceHours.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;moreinfocompliance.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelstep.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label15.Name" xml:space="preserve">
-    <value>label15</value>
-  </data>
-  <data name="checkBoxStartDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 19</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerEndTime.Parent" xml:space="preserve">
-    <value>panelEndDateAbsolute</value>
-  </data>
-  <data name="panelStartDateRelative.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 52</value>
-  </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>Hours</value>
-  </data>
-  <data name="&gt;&gt;comboBoxContentType.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 15</value>
-  </data>
-  <data name="numericUpDownFPExpHours.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
-  </data>
-  <data name="&gt;&gt;numericUpDownUncompressedDigitalVideoOPL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxFirstPlay.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="checkBoxImageConstraintForAnalogComputerMonitorRestriction.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="checkBoxImageConstraintForAnalogComponentVideoRestriction.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAnalogVideoOPL.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
-  <data name="numericUpDownFPExpDays.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="numericUpDownStartDateHours.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLicenseType.Name" xml:space="preserve">
-    <value>comboBoxLicenseType</value>
-  </data>
-  <data name="buttonOk.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;labelstep.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="radioButtonStartDateAbsolute.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelEndDateRelative.Name" xml:space="preserve">
-    <value>panelEndDateRelative</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLicenseType.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;groupBoxFirstPlay.Name" xml:space="preserve">
-    <value>groupBoxFirstPlay</value>
-  </data>
-  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
-    <value>buttonOk</value>
-  </data>
-  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 15</value>
-  </data>
-  <data name="numericUpDownEndDateHours.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 23</value>
-  </data>
-  <data name="&gt;&gt;panelGrace.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="checkBoxAnalogVideoOPL.Text" xml:space="preserve">
-    <value>Analog Video OPL :</value>
+  <data name="&gt;&gt;labelstep.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="openFileDialogPreset.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>681, 741</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>Manual</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Dynamic Encryption - Step {0}</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DRM_PlayReadyLicense</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

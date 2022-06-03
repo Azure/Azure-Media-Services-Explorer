@@ -36,12 +36,8 @@
             this.tabControlLiveEvent = new System.Windows.Forms.TabControl();
             this.tabPageLiveEventInfo = new System.Windows.Forms.TabPage();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
-            this.checkBoxEncodingKeyFrameInterval = new System.Windows.Forms.CheckBox();
-            this.textBoxEncodingKeyFrameInterval = new System.Windows.Forms.TextBox();
             this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
             this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
-            this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
-            this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
             this.checkBoxInputSet = new System.Windows.Forms.CheckBox();
             this.checkBoxPreviewSet = new System.Windows.Forms.CheckBox();
             this.dataGridViewInputIP = new System.Windows.Forms.DataGridView();
@@ -77,7 +73,14 @@
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
             this.tabPageAdvanced = new System.Windows.Forms.TabPage();
+            this.panelAdvanced = new System.Windows.Forms.Panel();
+            this.radioButtonLowLatencyV2 = new System.Windows.Forms.RadioButton();
+            this.radioButtonLowLatencyV1 = new System.Windows.Forms.RadioButton();
             this.checkBoxLowLatency = new System.Windows.Forms.CheckBox();
+            this.checkBoxEncodingKeyFrameInterval = new System.Windows.Forms.CheckBox();
+            this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
+            this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
+            this.textBoxEncodingKeyFrameInterval = new System.Windows.Forms.TextBox();
             this.tabPagePreview = new System.Windows.Forms.TabPage();
             this.webBrowserPreview = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.labelLEName = new System.Windows.Forms.Label();
@@ -88,7 +91,6 @@
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pictureBoxLE = new System.Windows.Forms.PictureBox();
-            this.panelAdvanced = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGLiveEvent)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControlLiveEvent.SuspendLayout();
@@ -104,12 +106,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioProf)).BeginInit();
             this.tabPagePolicies.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
+            this.panelAdvanced.SuspendLayout();
             this.tabPagePreview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webBrowserPreview)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLE)).BeginInit();
-            this.panelAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGLiveEvent
@@ -130,6 +132,7 @@
             // 
             // contextMenuStripDG
             // 
+            this.contextMenuStripDG.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
@@ -181,19 +184,6 @@
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
             // 
-            // checkBoxEncodingKeyFrameInterval
-            // 
-            resources.ApplyResources(this.checkBoxEncodingKeyFrameInterval, "checkBoxEncodingKeyFrameInterval");
-            this.checkBoxEncodingKeyFrameInterval.Name = "checkBoxEncodingKeyFrameInterval";
-            this.checkBoxEncodingKeyFrameInterval.UseVisualStyleBackColor = true;
-            this.checkBoxEncodingKeyFrameInterval.CheckedChanged += new System.EventHandler(this.checkBoxEncodingKeyFrameInterval_CheckedChanged);
-            // 
-            // textBoxEncodingKeyFrameInterval
-            // 
-            resources.ApplyResources(this.textBoxEncodingKeyFrameInterval, "textBoxEncodingKeyFrameInterval");
-            this.textBoxEncodingKeyFrameInterval.Name = "textBoxEncodingKeyFrameInterval";
-            this.textBoxEncodingKeyFrameInterval.TextChanged += new System.EventHandler(this.textBoxEncodingKeyFrameInterval_TextChanged);
-            // 
             // buttonAllowAllPreviewIP
             // 
             resources.ApplyResources(this.buttonAllowAllPreviewIP, "buttonAllowAllPreviewIP");
@@ -207,20 +197,6 @@
             this.buttonAllowAllInputIP.Name = "buttonAllowAllInputIP";
             this.buttonAllowAllInputIP.UseVisualStyleBackColor = true;
             this.buttonAllowAllInputIP.Click += new System.EventHandler(this.buttonAllowAllInputIP_Click);
-            // 
-            // checkBoxKeyFrameIntDefined
-            // 
-            resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
-            this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
-            this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
-            this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged_1);
-            this.checkBoxKeyFrameIntDefined.TextChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_TextChanged);
-            // 
-            // textBoxKeyFrame
-            // 
-            resources.ApplyResources(this.textBoxKeyFrame, "textBoxKeyFrame");
-            this.textBoxKeyFrame.Name = "textBoxKeyFrame";
-            this.textBoxKeyFrame.TextChanged += new System.EventHandler(this.textBoxKeyFrame_TextChanged);
             // 
             // checkBoxInputSet
             // 
@@ -489,12 +465,66 @@
             this.tabPageAdvanced.Name = "tabPageAdvanced";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
             // 
+            // panelAdvanced
+            // 
+            this.panelAdvanced.Controls.Add(this.radioButtonLowLatencyV2);
+            this.panelAdvanced.Controls.Add(this.radioButtonLowLatencyV1);
+            this.panelAdvanced.Controls.Add(this.checkBoxLowLatency);
+            this.panelAdvanced.Controls.Add(this.checkBoxEncodingKeyFrameInterval);
+            this.panelAdvanced.Controls.Add(this.textBoxKeyFrame);
+            this.panelAdvanced.Controls.Add(this.checkBoxKeyFrameIntDefined);
+            this.panelAdvanced.Controls.Add(this.textBoxEncodingKeyFrameInterval);
+            resources.ApplyResources(this.panelAdvanced, "panelAdvanced");
+            this.panelAdvanced.Name = "panelAdvanced";
+            // 
+            // radioButtonLowLatencyV2
+            // 
+            resources.ApplyResources(this.radioButtonLowLatencyV2, "radioButtonLowLatencyV2");
+            this.radioButtonLowLatencyV2.Name = "radioButtonLowLatencyV2";
+            this.radioButtonLowLatencyV2.UseVisualStyleBackColor = true;
+            this.radioButtonLowLatencyV2.CheckedChanged += new System.EventHandler(this.radioButtonLowLatencyV2_CheckedChanged);
+            // 
+            // radioButtonLowLatencyV1
+            // 
+            resources.ApplyResources(this.radioButtonLowLatencyV1, "radioButtonLowLatencyV1");
+            this.radioButtonLowLatencyV1.Checked = true;
+            this.radioButtonLowLatencyV1.Name = "radioButtonLowLatencyV1";
+            this.radioButtonLowLatencyV1.TabStop = true;
+            this.radioButtonLowLatencyV1.UseVisualStyleBackColor = true;
+            // 
             // checkBoxLowLatency
             // 
             resources.ApplyResources(this.checkBoxLowLatency, "checkBoxLowLatency");
             this.checkBoxLowLatency.Name = "checkBoxLowLatency";
             this.checkBoxLowLatency.UseVisualStyleBackColor = true;
             this.checkBoxLowLatency.CheckedChanged += new System.EventHandler(this.checkBoxLowLatency_CheckedChanged);
+            // 
+            // checkBoxEncodingKeyFrameInterval
+            // 
+            resources.ApplyResources(this.checkBoxEncodingKeyFrameInterval, "checkBoxEncodingKeyFrameInterval");
+            this.checkBoxEncodingKeyFrameInterval.Name = "checkBoxEncodingKeyFrameInterval";
+            this.checkBoxEncodingKeyFrameInterval.UseVisualStyleBackColor = true;
+            this.checkBoxEncodingKeyFrameInterval.CheckedChanged += new System.EventHandler(this.checkBoxEncodingKeyFrameInterval_CheckedChanged);
+            // 
+            // textBoxKeyFrame
+            // 
+            resources.ApplyResources(this.textBoxKeyFrame, "textBoxKeyFrame");
+            this.textBoxKeyFrame.Name = "textBoxKeyFrame";
+            this.textBoxKeyFrame.TextChanged += new System.EventHandler(this.textBoxKeyFrame_TextChanged);
+            // 
+            // checkBoxKeyFrameIntDefined
+            // 
+            resources.ApplyResources(this.checkBoxKeyFrameIntDefined, "checkBoxKeyFrameIntDefined");
+            this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
+            this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
+            this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged_1);
+            this.checkBoxKeyFrameIntDefined.TextChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_TextChanged);
+            // 
+            // textBoxEncodingKeyFrameInterval
+            // 
+            resources.ApplyResources(this.textBoxEncodingKeyFrameInterval, "textBoxEncodingKeyFrameInterval");
+            this.textBoxEncodingKeyFrameInterval.Name = "textBoxEncodingKeyFrameInterval";
+            this.textBoxEncodingKeyFrameInterval.TextChanged += new System.EventHandler(this.textBoxEncodingKeyFrameInterval_TextChanged);
             // 
             // tabPagePreview
             // 
@@ -507,6 +537,7 @@
             // 
             // webBrowserPreview
             // 
+            this.webBrowserPreview.AllowExternalDrop = true;
             this.webBrowserPreview.CreationProperties = null;
             this.webBrowserPreview.DefaultBackgroundColor = System.Drawing.Color.White;
             resources.ApplyResources(this.webBrowserPreview, "webBrowserPreview");
@@ -561,16 +592,6 @@
             this.pictureBoxLE.Name = "pictureBoxLE";
             this.pictureBoxLE.TabStop = false;
             // 
-            // panelAdvanced
-            // 
-            this.panelAdvanced.Controls.Add(this.checkBoxLowLatency);
-            this.panelAdvanced.Controls.Add(this.checkBoxEncodingKeyFrameInterval);
-            this.panelAdvanced.Controls.Add(this.textBoxKeyFrame);
-            this.panelAdvanced.Controls.Add(this.checkBoxKeyFrameIntDefined);
-            this.panelAdvanced.Controls.Add(this.textBoxEncodingKeyFrameInterval);
-            resources.ApplyResources(this.panelAdvanced, "panelAdvanced");
-            this.panelAdvanced.Name = "panelAdvanced";
-            // 
             // LiveEventInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -609,13 +630,13 @@
             this.tabPagePolicies.ResumeLayout(false);
             this.tabPagePolicies.PerformLayout();
             this.tabPageAdvanced.ResumeLayout(false);
+            this.panelAdvanced.ResumeLayout(false);
+            this.panelAdvanced.PerformLayout();
             this.tabPagePreview.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.webBrowserPreview)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLE)).EndInit();
-            this.panelAdvanced.ResumeLayout(false);
-            this.panelAdvanced.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -682,5 +703,7 @@
         private System.Windows.Forms.CheckBox checkBoxLowLatency;
         private System.Windows.Forms.TabPage tabPageAdvanced;
         private System.Windows.Forms.Panel panelAdvanced;
+        private System.Windows.Forms.RadioButton radioButtonLowLatencyV2;
+        private System.Windows.Forms.RadioButton radioButtonLowLatencyV1;
     }
 }
