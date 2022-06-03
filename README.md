@@ -17,7 +17,7 @@ See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managin
 
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
 
-This application requires the installlation of
+This application requires the installation of
 - [.NET **Desktop** Runtime 6.0](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [Microsoft Edge Webview2 runtime](https://developer.microsoft.com/microsoft-edge/webview2/)
 
