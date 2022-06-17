@@ -1583,6 +1583,21 @@ namespace AMSExplorer
                             }
 
                             string filePath = Path.Combine(outputFolderName, blob.Name.Replace('/', '\\'));
+
+                            if (File.Exists(filePath))
+                            {
+                                try
+                                {
+                                    TextBoxLogWriteLine($"File {filePath} already exists. It will be overwritten.");
+                                    File.Delete(filePath);
+                                }
+                                catch (Exception ex)
+                                {
+                                    TextBoxLogWriteLine(ex);
+                                    Telemetry.TrackException(ex);
+                                }
+                            }
+
                             await blob.FetchAttributesAsync();
 
                             var downloadOptionsCopy = dataMovementDownloadOptions;
@@ -4809,10 +4824,11 @@ namespace AMSExplorer
                                                                  streamOptions: new List<StreamOptionsFlag?>()
                                                                              {
                                                 // Set this to Default or Low Latency
-                                               form.LiveEventLowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
+                                               form.LiveEventLowLatencyV1orV2Mode?
+                                               form.LiveEventLowLatencyV2 ? StreamOptionsFlag.LowLatencyV2 : StreamOptionsFlag.LowLatency
+                                               : StreamOptionsFlag.Default
                                                                              }
                                                                                );
-
                 }
 
                 catch (Exception ex)
@@ -5019,7 +5035,7 @@ namespace AMSExplorer
                             liveEvent.StreamOptions = new List<StreamOptionsFlag?>()
                                                                              {
                                                 // Set this to Default or Low Latency
-                                               form.LiveEventLowLatencyMode? StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
+                                               form.LiveEventLowLatencyV1orV2Mode?  form.LiveEventLowLatencyV2? StreamOptionsFlag.LowLatencyV2 :  StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
                                                                              };
                         }
 

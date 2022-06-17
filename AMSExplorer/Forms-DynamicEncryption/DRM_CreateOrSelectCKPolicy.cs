@@ -29,7 +29,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (CreateNewPolicy)
+                if (!CreateNewPolicy)
                     return listViewContentKeyPolicies.GetSelectedContentKeyPolicy.Name;
                 else
                     return textBoxPolicyName.Text;

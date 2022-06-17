@@ -9,7 +9,7 @@ products:
 
 # Azure Media Services Explorer (for AMS v3)
 
-Azure Media Services Explorer (AMSE) is a .NET 5.0 (C#) application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services v3](https://azure.microsoft.com/en-us/services/media-services/).
+Azure Media Services Explorer (AMSE) is a .NET 6.0 (C#) application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services v3](https://azure.microsoft.com/en-us/services/media-services/).
 
 See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool).
 
@@ -17,17 +17,17 @@ See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managin
 
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
 
-This application requires the installlation of
-- [.NET **Desktop** Runtime 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
-- [Microsoft Edge Webview2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
+This application requires the installation of
+- [.NET **Desktop** Runtime 6.0](https://dotnet.microsoft.com/download/dotnet/6.0)
+- [Microsoft Edge Webview2 runtime](https://developer.microsoft.com/microsoft-edge/webview2/)
 
 ## Prerequisites to compile the solution from source
 
-This solution has been developed using [Visual Studio 2019 16.11.5](https://visualstudio.microsoft.com/vs/). It contains two projects: "AMSExplorer", the main application, and "Setup", a project that creates a Setup executable (EXE/MSI).
+This solution has been developed using [Visual Studio 2022](https://visualstudio.microsoft.com/vs/). It contains two projects: "AMSExplorer", the main application, and "Setup", a project that creates a Setup executable (EXE/MSI).
 
-You need to install the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects) in order to open and build the Setup project in Visual Studio.
+You need to install the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects) in order to open and build the Setup project in Visual Studio.
 
-This solution requires [.NET SDK 5.0](https://dotnet.microsoft.com/download/dotnet/5.0) to compile.
+This solution requires [.NET SDK 6.0](https://dotnet.microsoft.com/download/dotnet/6.0) to compile.
 
 ## Notes
 
@@ -52,3 +52,6 @@ This project has adopted the [Microsoft Open Source Code of Conduct](CODE_OF_CON
 ## Data Collection
 
 The software may collect information about you and your use of the software and send it to Microsoft. Microsoft may use this information to provide services and improve our products and services. You may turn off the telemetry as described in the repository. There are also some features in the software that may enable you and Microsoft to collect data from users of your applications. If you use these features, you must comply with applicable law, including providing appropriate notices to users of your applications together with a copy of Microsoft's privacy statement. Our privacy statement is located at <https://go.microsoft.com/fwlink/?LinkID=824704>. You can learn more about data collection and use in the help documentation and our privacy statement. Your use of the software operates as your consent to these practices.
+
+## Security
+Please read our [security policy](SECURITY.md) to learn how to report security issues.
