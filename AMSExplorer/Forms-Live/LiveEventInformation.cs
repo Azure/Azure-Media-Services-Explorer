@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -713,6 +714,20 @@ namespace AMSExplorer
         private void radioButtonLowLatencyV2_CheckedChanged(object sender, EventArgs e)
         {
             Modifications.LowLatency = true;
+        }
+
+        private void linkLabelLiveTranscript_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Send the URL to the operating system.
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
         }
     }
 

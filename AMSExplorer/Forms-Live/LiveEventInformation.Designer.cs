@@ -292,6 +292,7 @@
             resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
             this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
             this.linkLabelLiveTranscriptRegions.TabStop = true;
+            this.linkLabelLiveTranscriptRegions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLiveTranscript_LinkClicked);
             // 
             // comboBoxLanguage
             // 
@@ -311,6 +312,7 @@
             resources.ApplyResources(this.linkLabelLiveTranscript, "linkLabelLiveTranscript");
             this.linkLabelLiveTranscript.Name = "linkLabelLiveTranscript";
             this.linkLabelLiveTranscript.TabStop = true;
+            this.linkLabelLiveTranscript.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLiveTranscript_LinkClicked);
             // 
             // checkBoxEnableLiveTranscript
             // 
