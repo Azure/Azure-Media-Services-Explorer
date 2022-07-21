@@ -41,6 +41,9 @@ namespace AMSExplorer
 {
     public partial class AssetInformation : Form
     {
+        private const string texttrack = "Text track";
+        private const string videotrack = "Video track";
+        private const string audiotrack = "Audio track";
         private Asset _asset;
         private readonly AMSClientV3 _amsClient;
         private IEnumerable<StreamingEndpoint> _streamingEndpoints;
@@ -295,6 +298,47 @@ namespace AMSExplorer
         }
 
 
+        private async Task ListAssetTracksAsync()
+        {
+
+            IEnumerable<AssetTrack> response;
+            try
+            {
+                response = await _amsClient.AMSclient.Tracks.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            listViewTracks.Items.Clear();
+            dGTracks.Rows.Clear();
+            listViewTracks.BeginUpdate();
+
+            foreach (var track in response)
+            {
+                ListViewItem item = new(track.Name, 0);
+                var tbase = track.Track;
+                if (tbase is AudioTrack at)
+                {
+                    item.SubItems.Add(audiotrack);
+                }
+                else if (tbase is VideoTrack vt)
+                {
+                    item.SubItems.Add(videotrack);
+                }
+                else if (tbase is TextTrack tt)
+                {
+                    item.SubItems.Add(texttrack);
+                }
+                listViewTracks.Items.Add(item);
+            }
+            listViewTracks.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            listViewTracks.EndUpdate();
+        }
+
         private async void AssetInformation_Load(object sender, EventArgs e)
         {
             await LoadAsync();
@@ -309,6 +353,8 @@ namespace AMSExplorer
             DGAsset.ColumnCount = 2;
             DGFiles.ColumnCount = 2;
             DGFiles.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            dGTracks.ColumnCount = 2;
+            dGTracks.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             dataGridViewKeys.ColumnCount = 2;
             dataGridViewKeys.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
@@ -719,6 +765,42 @@ namespace AMSExplorer
             }
         }
 
+        private async Task DoDisplayTrackPropertiesAsync()
+        {
+            List<Tuple<string, string>> SelectedTracks = ReturnSelectedTracksNamesAndTypes();
+
+            dGTracks.Rows.Clear();
+
+            if (SelectedTracks.Count > 0)
+            {
+                var track = await _amsClient.AMSclient.Tracks.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, SelectedTracks.FirstOrDefault().Item1);
+
+                dGTracks.Rows.Add("Name", track.Name);
+
+                if (track.Track is TextTrack tt)
+                {
+                    dGTracks.Rows.Add("Type", texttrack);
+                    dGTracks.Rows.Add("Display name", tt.DisplayName);
+                    dGTracks.Rows.Add("Language code", tt.LanguageCode);
+                    dGTracks.Rows.Add("Player visibility", tt.PlayerVisibility);
+                    if (tt.HlsSettings != null)
+                    {
+                        dGTracks.Rows.Add("HLS forced", tt.HlsSettings.Forced);
+                        dGTracks.Rows.Add("HLS characteristics", tt.HlsSettings.Characteristics);
+                        dGTracks.Rows.Add("HLS default property", tt.HlsSettings.DefaultProperty);
+                    }
+                }
+                else if (track.Track is AudioTrack at)
+                {
+                    dGTracks.Rows.Add("Type", audiotrack);
+                }
+                else if (track.Track is VideoTrack vt)
+                {
+                    dGTracks.Rows.Add("Type", videotrack);
+                }
+            }
+        }
+
 
         private void AssetInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -930,13 +1012,8 @@ namespace AMSExplorer
             bool bSelect = listViewBlobs.SelectedItems.Count > 0;
             bool bMultiSelect = listViewBlobs.SelectedItems.Count > 1;
 
-            buttonDeleteFile.Enabled = bSelect;
             buttonDeleteAll.Enabled = true;
-            buttonDownloadFile.Enabled = bSelect;
-            buttonOpenFile.Enabled = bSelect;
-            buttonDuplicate.Enabled = bSelect && !bMultiSelect;
             buttonUpload.Enabled = bSelect;
-            buttonEditOnline.Enabled = bSelect && !bMultiSelect;
             DoDisplayFileProperties();
         }
 
@@ -945,10 +1022,6 @@ namespace AMSExplorer
             await DoDASHIFPlayerAsync();
         }
 
-        private async void ButtonHTML_Click(object sender, EventArgs e)
-        {
-            await DoAdvcTestPlayerAsync();
-        }
 
         private void TreeViewLocators_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -1045,11 +1118,6 @@ namespace AMSExplorer
             await DoAzureMediaPlayerAsync();
         }
 
-        private async void button1_Click_1(object sender, EventArgs e)
-        {
-            await DoDuplicateAsync();
-        }
-
         private async Task DoDuplicateAsync()
         {
             Telemetry.TrackEvent("AssetInformation DoDuplicateAsync");
@@ -1066,9 +1134,7 @@ namespace AMSExplorer
                         progressBarUpload.Maximum = 100;
                         progressBarUpload.Value = 0;
                         progressBarUpload.Visible = true;
-
                         buttonClose.Enabled = false;
-                        buttonDuplicate.Enabled = false;
 
                         CloudBlockBlob sourceCloudBlob, destinationBlob;
 
@@ -1099,7 +1165,6 @@ namespace AMSExplorer
                 }
 
                 buttonClose.Enabled = true;
-                buttonDuplicate.Enabled = true;
                 progressBarUpload.Visible = false;
 
                 await ListAssetBlobsAsync();
@@ -1340,11 +1405,6 @@ namespace AMSExplorer
         }
         */
 
-        private void buttonFileMetadata_Click(object sender, EventArgs e)
-        {
-            ShowFileMetadata();
-        }
-
 
         private List<IListBlobItem> ReturnSelectedBlobs(bool returnAlsoDirectory = true)
         {
@@ -1363,6 +1423,18 @@ namespace AMSExplorer
                 {
                     Selection.Add(AF);
                 }
+            }
+            return Selection;
+        }
+
+        private List<Tuple<string, string>> ReturnSelectedTracksNamesAndTypes()
+        {
+            List<Tuple<string, string>> Selection = new();
+
+            foreach (int selectedindex in listViewTracks.SelectedIndices)
+            {
+                Selection.Add(Tuple.Create(listViewTracks.Items[selectedindex].Text, listViewTracks.Items[selectedindex].SubItems[1].Text));
+
             }
             return Selection;
         }
@@ -1429,11 +1501,6 @@ namespace AMSExplorer
             }
         }
 
-        private void showMetadataToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowFileMetadata();
-        }
-
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1447,8 +1514,15 @@ namespace AMSExplorer
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
         {
-            bool selected = listViewBlobs.SelectedItems.Count > 0;
-            bool bMultiSelect = listViewBlobs.SelectedItems.Count > 1;
+            // bool selected = listViewBlobs.SelectedItems.Count > 0;
+            // bool bMultiSelect = listViewBlobs.SelectedItems.Count > 1;
+
+            var blobs = ReturnSelectedBlobs();
+
+            bool selected = blobs.Count > 0;
+            bool bMultiSelect = blobs.Count > 1;
+
+            bool subtitle = blobs.All(b => b is CloudBlob && (((CloudBlob)b).Name.EndsWith(".vtt", StringComparison.CurrentCultureIgnoreCase) || ((CloudBlob)b).Name.EndsWith(".ttml", StringComparison.CurrentCultureIgnoreCase)));
 
             toolStripMenuItemOpenFile.Enabled = selected;
             editToolStripMenuItem.Enabled = selected && !bMultiSelect;
@@ -1456,6 +1530,7 @@ namespace AMSExplorer
             deleteBlobToolStripMenuItem.Enabled = selected;
             duplicateBlobToolStripMenuItem.Enabled = selected && !bMultiSelect;
             deleteAllBlobsToolStripMenuItem.Enabled = selected;
+            createTextTrackFromThisBlobToolStripMenuItem.Enabled = selected && subtitle;
         }
 
         private async void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1684,10 +1759,6 @@ namespace AMSExplorer
             await DoFilterInfoAsync();
         }
 
-        private async void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            await BuildLocatorsTreeAsync();
-        }
 
         private async void button1_Click_3(object sender, EventArgs e)
         {
@@ -1732,10 +1803,6 @@ namespace AMSExplorer
             await DoDeleteAllBlobsAsync();
         }
 
-        private void buttonEditOnline_Click(object sender, EventArgs e)
-        {
-            DoEditFile();
-        }
 
         /// <summary>
         /// 
@@ -1792,10 +1859,6 @@ namespace AMSExplorer
 
         }
 
-        private void buttonSeeClearKey_Click_5(object sender, EventArgs e)
-        {
-
-        }
 
         private void SeeClearKey(string key)
         {
@@ -2408,6 +2471,161 @@ namespace AMSExplorer
         {
             TabControl tabcontrol = (TabControl)sender;
             Telemetry.TrackPageView(this.Name + " tab " + tabcontrol.SelectedTab.Name);
+        }
+
+        private async void tabPage8_Enter(object sender, EventArgs e)
+        {
+            await ListAssetTracksAsync();
+
+        }
+
+        private async void ButtonDeleteTrack_Click(object sender, EventArgs e)
+        {
+            await DoDeleteTracksAsync();
+        }
+
+        private async Task DoDeleteTracksAsync()
+        {
+            Telemetry.TrackEvent("AssetInformation DoDeleteTracksAsync");
+
+            var SelectedTracks = ReturnSelectedTracksNamesAndTypes();
+
+            if (SelectedTracks.Any())
+            {
+                string question = SelectedTracks.Count() == 1 ? string.Format("Delete the '{0}' track ?", SelectedTracks.FirstOrDefault()) : string.Format("Delete these {0} tracks ?", SelectedTracks.Count());
+
+                if (System.Windows.Forms.MessageBox.Show(question, "Tracks deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    try
+                    {
+                        Task[] deleteTasks = SelectedTracks.Select(b => _amsClient.AMSclient.Tracks.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, b.Item1)).ToArray();
+                        await Task.WhenAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error when deleting track(s).");
+                    }
+                    await ListAssetTracksAsync();
+                }
+            }
+        }
+
+
+        private async Task DoHideTracksFromPlayerAsync()
+        {
+            Telemetry.TrackEvent("AssetInformation DoHideTracksFromPlayerAsync");
+
+            var SelectedTracks = ReturnSelectedTracksNamesAndTypes();
+
+            if (SelectedTracks.Any())
+            {
+                string question = SelectedTracks.Count() == 1 ? string.Format("Hide the '{0}' track ?", SelectedTracks.FirstOrDefault()) : string.Format("Hide these {0} tracks ?", SelectedTracks.Count());
+
+                if (System.Windows.Forms.MessageBox.Show(question, "Tracks hide", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    foreach (var trackname in SelectedTracks)
+                    {
+                        try
+                        {
+                            var track = await _amsClient.AMSclient.Tracks.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, trackname.Item1);
+
+                            var tbase = track.Track;
+                            if (tbase is AudioTrack at)
+                            {
+
+                            }
+                            else if (tbase is VideoTrack vt)
+                            {
+
+                            }
+                            else if (tbase is TextTrack tt)
+                            {
+                                tt.PlayerVisibility = Visibility.Hidden;
+                                await _amsClient.AMSclient.Tracks.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, trackname.Item1, tt);
+
+                            }
+
+                            //Task[] deleteTasks = SelectedTracks.Select(b => _amsClient.AMSclient.Tracks.Hide.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, b)).ToArray();
+                            // await Task.WhenAll(deleteTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error when hidding track(s).");
+                        }
+
+                    }
+
+                    await ListAssetTracksAsync();
+                }
+            }
+        }
+
+        private async Task DoCreateTexttrackFromBlobAsync()
+        {
+            Telemetry.TrackEvent("AssetInformation DoCreateTexttrackFromBlobAsync");
+
+            var SelectedBlobs = ReturnSelectedBlobs();
+
+            if (SelectedBlobs.Any())
+            {
+                foreach (var blob in SelectedBlobs)
+                {
+                    if (blob is CloudBlockBlob bl)
+                    {
+                        AssetInfoTextTrackCreation form = new AssetInfoTextTrackCreation(bl.Name);
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            Cursor = Cursors.WaitCursor;
+                            try
+                            {
+                                TextTrack tt = new TextTrack(bl.Name, form.LanguageDisplayName, form.LanguageCode);
+                                var track = await _amsClient.AMSclient.Tracks.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, bl.Name, tt);
+
+                                //Task[] deleteTasks = SelectedTracks.Select(b => _amsClient.AMSclient.Tracks.Hide.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, b)).ToArray();
+                                // await Task.WhenAll(deleteTasks);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error when creating text track(s)." + Constants.endline + Program.GetErrorMessage(ex));
+                            }
+                            Cursor = Cursors.Arrow;
+                        }
+                    }
+                }
+                await ListAssetTracksAsync();
+            }
+        }
+
+        private async void listViewTracks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool bSelect = listViewTracks.SelectedItems.Count > 0;
+            bool bMultiSelect = listViewTracks.SelectedItems.Count > 1;
+            deleteTrackToolStripMenuItem.Enabled =
+                hideFromPlayerToolStripMenuItem.Enabled =
+                showInPlayerToolStripMenuItem.Enabled = bSelect;
+            await DoDisplayTrackPropertiesAsync();
+        }
+
+        private async void deleteTrackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoDeleteTracksAsync();
+        }
+
+        private async void hideFromPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoHideTracksFromPlayerAsync();
+        }
+
+        private async void createTextTrackFromThisBlobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoCreateTexttrackFromBlobAsync();
+        }
+
+        private void contextMenuStripTracks_Opening(object sender, CancelEventArgs e)
+        {
+            var names = ReturnSelectedTracksNamesAndTypes();
+            bool subtitle = names.All(b => b.Item2 == texttrack);
+            showInPlayerToolStripMenuItem.Enabled = hideFromPlayerToolStripMenuItem.Enabled = deleteTrackToolStripMenuItem.Enabled = subtitle;
         }
     }
 }
