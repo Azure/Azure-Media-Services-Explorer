@@ -256,13 +256,21 @@
     <value>17, 17</value>
   </metadata>
   <data name="toolStripMenuItemCopy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 38</value>
+    <value>322, 22</value>
   </data>
   <data name="toolStripMenuItemCopy.Text" xml:space="preserve">
     <value>Copy to clipboard</value>
   </data>
+  <data name="deleteLocatorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="deleteLocatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 38</value>
+    <value>322, 22</value>
   </data>
   <data name="deleteLocatorToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete locator</value>
@@ -270,8 +278,16 @@
   <data name="toolStripMenuItemOpen.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="toolStripMenuItemOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB/SURBVDhPzZBLDoAgDEThCrryhi48kS70RK69TZ1G
+        SJVvNSyc5BGSMo+AISJTiQUL4IMxThAPBA5LZhDPlQIOS1bwnAeCUjqwAykzSsG9fIDN7VWCsDwA+ZOK
+        IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItemOpen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 38</value>
+    <value>322, 22</value>
   </data>
   <data name="toolStripMenuItemOpen.Text" xml:space="preserve">
     <value>Open the file</value>
@@ -279,8 +295,18 @@
   <data name="toolStripMenuItemAzureMediaPlayer.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="toolStripMenuItemAzureMediaPlayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
+        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
+        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
+        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
+        o+4AAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="toolStripMenuItemAzureMediaPlayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 38</value>
+    <value>322, 22</value>
   </data>
   <data name="toolStripMenuItemAzureMediaPlayer.Text" xml:space="preserve">
     <value>Playback with Azure Media Player</value>
@@ -288,8 +314,18 @@
   <data name="toolStripMenuItemAdvPlayer.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="toolStripMenuItemAdvPlayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
+        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
+        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
+        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
+        o+4AAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="toolStripMenuItemAdvPlayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 38</value>
+    <value>322, 22</value>
   </data>
   <data name="toolStripMenuItemAdvPlayer.Text" xml:space="preserve">
     <value>Playback with Advanced Test Player</value>
@@ -297,14 +333,24 @@
   <data name="toolStripMenuItemDASHIF.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="toolStripMenuItemDASHIF.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
+        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
+        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
+        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
+        o+4AAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="toolStripMenuItemDASHIF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 38</value>
+    <value>322, 22</value>
   </data>
   <data name="toolStripMenuItemDASHIF.Text" xml:space="preserve">
     <value>Playback with MPEG-DASH-IF Reference Player</value>
   </data>
   <data name="contextMenuStripLocators.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 232</value>
+    <value>323, 136</value>
   </data>
   <data name="&gt;&gt;contextMenuStripLocators.Name" xml:space="preserve">
     <value>contextMenuStripLocators</value>
@@ -366,56 +412,119 @@
   <metadata name="contextMenuStripBlobs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>378, 17</value>
   </metadata>
+  <data name="toolStripMenuItemOpenFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB/SURBVDhPzZBLDoAgDEThCrryhi48kS70RK69TZ1G
+        SJVvNSyc5BGSMo+AISJTiQUL4IMxThAPBA5LZhDPlQIOS1bwnAeCUjqwAykzSsG9fIDN7VWCsDwA+ZOK
+        IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItemOpenFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 38</value>
+    <value>238, 22</value>
   </data>
   <data name="toolStripMenuItemOpenFile.Text" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="editToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
+        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 38</value>
+    <value>238, 22</value>
   </data>
   <data name="editToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="deleteBlobToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="deleteBlobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 38</value>
+    <value>238, 22</value>
   </data>
   <data name="deleteBlobToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete blob</value>
   </data>
+  <data name="deleteAllBlobsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="deleteAllBlobsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 38</value>
+    <value>238, 22</value>
   </data>
   <data name="deleteAllBlobsToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete all blobs</value>
   </data>
+  <data name="duplicateBlobToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="duplicateBlobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 38</value>
+    <value>238, 22</value>
   </data>
   <data name="duplicateBlobToolStripMenuItem.Text" xml:space="preserve">
     <value>Duplicate blob</value>
   </data>
+  <data name="uploadASmallFileInTheAssetToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
+        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
+        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
+        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="uploadASmallFileInTheAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 38</value>
+    <value>238, 22</value>
   </data>
   <data name="uploadASmallFileInTheAssetToolStripMenuItem.Text" xml:space="preserve">
     <value>Upload a small file to the asset</value>
   </data>
+  <data name="toolStripMenuItemDownloadFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACfSURBVDhP1YwxEsIwEAP9lZRQU8PHCPDZdDQ0tEaK
+        7TgbJzNu0YzG0vn2Qoxx8Y48bD7AoLT6wwPDvFG1d2AAgxLCJJ8dsrYHTvIEBiUtv+WLi7Q+4Jn/tHp8
+        4O4F+SPfcraveeY8gkFJGmWXb37X2X9kUKoecoGLPZsFBoV6ygV2XgQGpZXBV4pVYFA6BQalU2BQVHsM
+        BmWzeOTKxPADcVNelJtINcsAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="toolStripMenuItemDownloadFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 38</value>
+    <value>238, 22</value>
   </data>
   <data name="toolStripMenuItemDownloadFile.Text" xml:space="preserve">
     <value>Download file to a local folder</value>
   </data>
+  <data name="createTextTrackFromThisBlobToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="createTextTrackFromThisBlobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 38</value>
+    <value>238, 22</value>
   </data>
   <data name="createTextTrackFromThisBlobToolStripMenuItem.Text" xml:space="preserve">
     <value>Create text track from this blob</value>
   </data>
   <data name="contextMenuStripBlobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 308</value>
+    <value>239, 180</value>
   </data>
   <data name="&gt;&gt;contextMenuStripBlobs.Name" xml:space="preserve">
     <value>contextMenuStripBlobs</value>
@@ -824,7 +933,7 @@
     <value>Hide track on player</value>
   </data>
   <data name="contextMenuStripTracks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 92</value>
+    <value>185, 70</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTracks.Name" xml:space="preserve">
     <value>contextMenuStripTracks</value>
@@ -1021,38 +1130,70 @@
   <metadata name="contextMenuStripFilter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
   </metadata>
+  <data name="filterInfoupdateToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
+        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="filterInfoupdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 38</value>
+    <value>171, 22</value>
   </data>
   <data name="filterInfoupdateToolStripMenuItem.Text" xml:space="preserve">
     <value>Filter info/update</value>
   </data>
+  <data name="createAnAssetFilterToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="createAnAssetFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 38</value>
+    <value>171, 22</value>
   </data>
   <data name="createAnAssetFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Create...</value>
   </data>
+  <data name="deleteToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 38</value>
+    <value>171, 22</value>
   </data>
   <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="duplicateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 38</value>
+    <value>171, 22</value>
   </data>
   <data name="duplicateToolStripMenuItem.Text" xml:space="preserve">
     <value>Duplicate</value>
   </data>
+  <data name="playWithThisFilterToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
+        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
+        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
+        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
+        o+4AAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="playWithThisFilterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 38</value>
+    <value>171, 22</value>
   </data>
   <data name="playWithThisFilterToolStripMenuItem.Text" xml:space="preserve">
     <value>Play with this filter</value>
   </data>
   <data name="contextMenuStripFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 194</value>
+    <value>172, 114</value>
   </data>
   <data name="&gt;&gt;contextMenuStripFilter.Name" xml:space="preserve">
     <value>contextMenuStripFilter</value>
@@ -2192,13 +2333,13 @@
     <value>866, 17</value>
   </metadata>
   <data name="removeKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="removeKeyToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove key...</value>
   </data>
   <data name="contextMenuStripKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 26</value>
+    <value>181, 48</value>
   </data>
   <data name="&gt;&gt;contextMenuStripKey.Name" xml:space="preserve">
     <value>contextMenuStripKey</value>
@@ -2266,11 +2407,26 @@
   <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>378, 17</value>
   </metadata>
+  <data name="toolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB/SURBVDhPzZBLDoAgDEThCrryhi48kS70RK69TZ1G
+        SJVvNSyc5BGSMo+AISJTiQUL4IMxThAPBA5LZhDPlQIOS1bwnAeCUjqwAykzSsG9fIDN7VWCsDwA+ZOK
+        IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
   </data>
   <data name="toolStripMenuItem1.Text" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <data name="toolStripMenuItem2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
+        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
+</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
@@ -2278,11 +2434,27 @@
   <data name="toolStripMenuItem2.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="toolStripMenuItem3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
   </data>
   <data name="toolStripMenuItem3.Text" xml:space="preserve">
     <value>Delete blob</value>
+  </data>
+  <data name="toolStripMenuItem4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
@@ -2290,17 +2462,42 @@
   <data name="toolStripMenuItem4.Text" xml:space="preserve">
     <value>Delete all blobs</value>
   </data>
+  <data name="toolStripMenuItem5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
   </data>
   <data name="toolStripMenuItem5.Text" xml:space="preserve">
     <value>Duplicate blob</value>
   </data>
+  <data name="toolStripMenuItem6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
+        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
+        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
+        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
   </data>
   <data name="toolStripMenuItem6.Text" xml:space="preserve">
     <value>Upload a small file to the asset</value>
+  </data>
+  <data name="toolStripMenuItem7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACfSURBVDhP1YwxEsIwEAP9lZRQU8PHCPDZdDQ0tEaK
+        7TgbJzNu0YzG0vn2Qoxx8Y48bD7AoLT6wwPDvFG1d2AAgxLCJJ8dsrYHTvIEBiUtv+WLi7Q+4Jn/tHp8
+        4O4F+SPfcraveeY8gkFJGmWXb37X2X9kUKoecoGLPZsFBoV6ygV2XgQGpZXBV4pVYFA6BQalU2BQVHsM
+        BmWzeOTKxPADcVNelJtINcsAAAAASUVORK5CYII=
+</value>
   </data>
   <data name="toolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
@@ -2320,11 +2517,26 @@
   <metadata name="contextMenuStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>378, 17</value>
   </metadata>
+  <data name="toolStripMenuItem8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB/SURBVDhPzZBLDoAgDEThCrryhi48kS70RK69TZ1G
+        SJVvNSyc5BGSMo+AISJTiQUL4IMxThAPBA5LZhDPlQIOS1bwnAeCUjqwAykzSsG9fIDN7VWCsDwA+ZOK
+        IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
   </data>
   <data name="toolStripMenuItem8.Text" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <data name="toolStripMenuItem9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
+        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
+</value>
   </data>
   <data name="toolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
@@ -2332,11 +2544,27 @@
   <data name="toolStripMenuItem9.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="toolStripMenuItem10.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="toolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
   </data>
   <data name="toolStripMenuItem10.Text" xml:space="preserve">
     <value>Delete blob</value>
+  </data>
+  <data name="toolStripMenuItem11.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
+        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
+        RFdqjgLw5gAAAABJRU5ErkJggg==
+</value>
   </data>
   <data name="toolStripMenuItem11.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
@@ -2344,17 +2572,42 @@
   <data name="toolStripMenuItem11.Text" xml:space="preserve">
     <value>Delete all blobs</value>
   </data>
+  <data name="toolStripMenuItem12.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
   </data>
   <data name="toolStripMenuItem12.Text" xml:space="preserve">
     <value>Duplicate blob</value>
   </data>
+  <data name="toolStripMenuItem13.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
+        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
+        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
+        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItem13.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>
   </data>
   <data name="toolStripMenuItem13.Text" xml:space="preserve">
     <value>Upload a small file to the asset</value>
+  </data>
+  <data name="toolStripMenuItem14.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACfSURBVDhP1YwxEsIwEAP9lZRQU8PHCPDZdDQ0tEaK
+        7TgbJzNu0YzG0vn2Qoxx8Y48bD7AoLT6wwPDvFG1d2AAgxLCJJ8dsrYHTvIEBiUtv+WLi7Q+4Jn/tHp8
+        4O4F+SPfcraveeY8gkFJGmWXb37X2X9kUKoecoGLPZsFBoV6ygV2XgQGpZXBV4pVYFA6BQalU2BQVHsM
+        BmWzeOTKxPADcVNelJtINcsAAAAASUVORK5CYII=
+</value>
   </data>
   <data name="toolStripMenuItem14.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 38</value>

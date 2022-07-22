@@ -131,7 +131,6 @@
             // 
             // contextMenuStripDG
             // 
-            this.contextMenuStripDG.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
