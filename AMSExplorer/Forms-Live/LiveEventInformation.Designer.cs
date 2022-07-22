@@ -589,7 +589,6 @@
             // 
             // pictureBoxLE
             // 
-            this.pictureBoxLE.Image = global::AMSExplorer.Bitmaps.encoding;
             resources.ApplyResources(this.pictureBoxLE, "pictureBoxLE");
             this.pictureBoxLE.Name = "pictureBoxLE";
             this.pictureBoxLE.TabStop = false;
