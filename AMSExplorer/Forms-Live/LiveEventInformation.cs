@@ -170,7 +170,6 @@ namespace AMSExplorer
             // DpiUtils.InitPerMonitorDpi(this);
 
             linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
-            linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
 
             LiveTranscriptLanguages.Languages.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;

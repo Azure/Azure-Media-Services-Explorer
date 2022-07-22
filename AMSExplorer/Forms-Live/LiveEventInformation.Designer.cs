@@ -49,7 +49,6 @@
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
             this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
-            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
@@ -278,7 +277,6 @@
             // 
             // tabPageLiveTranscript
             // 
-            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscriptRegions);
             this.tabPageLiveTranscript.Controls.Add(this.comboBoxLanguage);
             this.tabPageLiveTranscript.Controls.Add(this.label1);
             this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
@@ -286,13 +284,6 @@
             resources.ApplyResources(this.tabPageLiveTranscript, "tabPageLiveTranscript");
             this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
             this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelLiveTranscriptRegions
-            // 
-            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
-            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
-            this.linkLabelLiveTranscriptRegions.TabStop = true;
-            this.linkLabelLiveTranscriptRegions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLiveTranscript_LinkClicked);
             // 
             // comboBoxLanguage
             // 
@@ -696,7 +687,6 @@
         private Microsoft.Web.WebView2.WinForms.WebView2 webBrowserPreview;
         private System.Windows.Forms.PictureBox pictureBoxLE;
         private System.Windows.Forms.TabPage tabPageLiveTranscript;
-        private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;

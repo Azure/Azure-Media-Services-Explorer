@@ -68,7 +68,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
-            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
@@ -392,7 +391,6 @@
             // 
             // tabPageLiveTranscript
             // 
-            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscriptRegions);
             this.tabPageLiveTranscript.Controls.Add(this.comboBoxLanguage);
             this.tabPageLiveTranscript.Controls.Add(this.label2);
             this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
@@ -400,13 +398,6 @@
             resources.ApplyResources(this.tabPageLiveTranscript, "tabPageLiveTranscript");
             this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
             this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelLiveTranscriptRegions
-            // 
-            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
-            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
-            this.linkLabelLiveTranscriptRegions.TabStop = true;
-            this.linkLabelLiveTranscriptRegions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.MoreinfoLiveEncodingProfilelink_LinkClicked);
             // 
             // comboBoxLanguage
             // 
@@ -684,7 +675,6 @@
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;
         private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
-        private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
         private System.Windows.Forms.Label labelStaticHostnamePrefix;
         private System.Windows.Forms.TextBox textBoxStaticHostname;
         private System.Windows.Forms.TabPage tabPageAdvEncoding;
