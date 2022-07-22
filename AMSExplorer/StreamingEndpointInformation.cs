@@ -115,6 +115,7 @@ namespace AMSExplorer
             // DpiUtils.InitPerMonitorDpi(this);
 
             moreinfoSE.Links.Add(new LinkLabel.Link(0, moreinfoSE.Text.Length, Constants.LinkMoreInfoSE));
+            linkLabelAutoscale.Links.Add(new LinkLabel.Link(0, linkLabelAutoscale.Text.Length, Constants.LinkAutoscalePremiumSE));
 
             if (!MultipleSelection) // one SE
             {

@@ -277,6 +277,10 @@ namespace AMSExplorer
             GenerateNewInputId();
 
             CheckLiveEventName();
+
+            // Low latency v2 should be removed for pass through event
+            radioButtonLowLatencyV2.Visible = false;
+
             InitPhase = false;
         }
 
@@ -540,6 +544,10 @@ namespace AMSExplorer
                 // let's display the encoding tab if encoding has been choosen, otherwise, let's remove it
                 if (Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
+                    // Low latency v2 should be removed for pass through event
+                    radioButtonLowLatencyV2.Visible = false;
+                    radioButtonLowLatencyV1.Checked = true;
+
                     if (EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
@@ -550,6 +558,9 @@ namespace AMSExplorer
                 }
                 else
                 {
+                    // Low latency v2 should be enabled for encoding event
+                    radioButtonLowLatencyV2.Visible = true;
+
                     if (!EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);

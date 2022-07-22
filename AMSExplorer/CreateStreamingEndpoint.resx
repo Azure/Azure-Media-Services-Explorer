@@ -120,6 +120,36 @@
   <data name="groupBox4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="linkLabelAutoscale.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelAutoscale.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelAutoscale.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 69</value>
+  </data>
+  <data name="linkLabelAutoscale.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 15</value>
+  </data>
+  <data name="linkLabelAutoscale.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="linkLabelAutoscale.Text" xml:space="preserve">
+    <value>autoscale</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAutoscale.Name" xml:space="preserve">
+    <value>linkLabelAutoscale</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAutoscale.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAutoscale.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAutoscale.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -148,7 +178,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -178,7 +208,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="radioButtonPremium.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -214,7 +244,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonPremium.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="radioButtonStandard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -247,7 +277,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;radioButtonStandard.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="labelCloneFilters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -274,7 +304,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;labelCloneFilters.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="checkBoxEnableAzureCDN.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -301,7 +331,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;checkBoxEnableAzureCDN.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="numericUpDownUnits.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -325,7 +355,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;numericUpDownUnits.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 152</value>

@@ -113,6 +113,8 @@ namespace AMSExplorer
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
 
         public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-streaming-endpoint-concept";
+        public const string LinkAutoscalePremiumSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/streaming-endpoint-autoscaling-how-to";
+
         public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10";
 
         public const string LinkMoreInfoVideoAnalyzer = "https://docs.microsoft.com/en-us/azure/media-services/latest/analyzing-video-audio-files-concept";

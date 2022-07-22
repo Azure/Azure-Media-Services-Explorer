@@ -33,6 +33,7 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.linkLabelAutoscale = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButtonPremium = new System.Windows.Forms.RadioButton();
@@ -73,6 +74,7 @@
             // groupBox4
             // 
             resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Controls.Add(this.linkLabelAutoscale);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.radioButtonPremium);
@@ -82,6 +84,13 @@
             this.groupBox4.Controls.Add(this.numericUpDownUnits);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
+            // 
+            // linkLabelAutoscale
+            // 
+            resources.ApplyResources(this.linkLabelAutoscale, "linkLabelAutoscale");
+            this.linkLabelAutoscale.Name = "linkLabelAutoscale";
+            this.linkLabelAutoscale.TabStop = true;
+            this.linkLabelAutoscale.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
             // 
             // label4
             // 
@@ -227,5 +236,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel moreinfoSE;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.LinkLabel linkLabelAutoscale;
     }
 }

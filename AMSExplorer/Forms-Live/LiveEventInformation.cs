@@ -322,7 +322,6 @@ namespace AMSExplorer
                 checkBoxEnableLiveTranscript.Checked = false;
             }
 
-
             // low latency
             if (MyLiveEvent.StreamOptions != null && (MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency) || MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2)))
             {
@@ -333,6 +332,10 @@ namespace AMSExplorer
             // encoding settings
             if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
             {
+                // Low latency v2 should be removed for pass through event
+                radioButtonLowLatencyV2.Visible = false;
+                radioButtonLowLatencyV1.Checked = true;
+
                 textBoxEncodingKeyFrameInterval.Enabled = false;
                 checkBoxEncodingKeyFrameInterval.Enabled = false;
                 tabControlLiveEvent.TabPages.Remove(tabPageEncoding); // no encoding channel
