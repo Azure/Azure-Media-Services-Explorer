@@ -125,7 +125,7 @@ namespace AMSExplorer
             }
         }
 
-        public static async Task<(Uri, bool)> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null, LiveOutput liveOutput = null)
+        public static async Task<(Uri, bool)> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null, LiveOutput liveOutput = null, bool https = false)
         {
             bool emptyLiveOutput = false; // used to signal the live output is empty (do not use ListPathsAsync)
 
@@ -153,6 +153,10 @@ namespace AMSExplorer
                         Host = runningSes.HostName,
                         Path = smoothPath.FirstOrDefault().Paths.FirstOrDefault()
                     };
+                    if (https)
+                    {
+                        uribuilder.Scheme = "https";
+                    }
                     return (uribuilder.Uri, emptyLiveOutput);
                 }
                 else if (smoothPath.Any() && liveOutput != null) // A live output with no data in it as live event not started. But we can determine the output URLs
@@ -162,6 +166,10 @@ namespace AMSExplorer
                         Host = runningSes.HostName,
                         Path = locatorToUse.StreamingLocatorId.ToString() + "/" + liveOutput.ManifestName + ".ism/manifest"
                     };
+                    if (https)
+                    {
+                        uribuilder.Scheme = "https";
+                    }
                     emptyLiveOutput = true;
                     return (uribuilder.Uri, emptyLiveOutput);
                 }
@@ -432,11 +440,11 @@ namespace AMSExplorer
 
         public static async Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
         {
-            Uri myuri = (await GetValidOnDemandSmoothURIAsync(asset, _amsClient, preferredLocatorName)).Item1;
+            Uri myuri = (await GetValidOnDemandSmoothURIAsync(asset, _amsClient, preferredLocatorName, null, true)).Item1;
 
             if (myuri == null)
             {
-                myuri = (await GetValidOnDemandSmoothURIAsync(asset, _amsClient)).Item1;
+                myuri = (await GetValidOnDemandSmoothURIAsync(asset, _amsClient, null, null, true)).Item1;
             }
             if (myuri != null)
             {
