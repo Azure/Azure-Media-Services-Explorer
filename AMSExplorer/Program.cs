@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -46,9 +47,15 @@ namespace AMSExplorer
         [STAThread]
         private static void Main(string[] args)
         {
-            if (Properties.Settings.Default.Telemetry)
+
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", true, true)
+                .Build();
+
+
+            if (Properties.Settings.Default.Telemetry && configuration.GetConnectionString("appInsightsRelease") != null && configuration.GetConnectionString("appInsightsDev") != null)
             {
-                Telemetry.StartTelemetry();
+                Telemetry.StartTelemetry(configuration);
             }
 
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
