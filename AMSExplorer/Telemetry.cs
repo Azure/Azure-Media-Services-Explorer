@@ -25,12 +25,12 @@ namespace AMSExplorer
         {
             var config = new TelemetryConfiguration()
             {
-                InstrumentationKey = TelemetryKeyProd,
+                ConnectionString = "InstrumentationKey=" + TelemetryKeyProd,
                 TelemetryChannel = new Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.ServerTelemetryChannel(),
             };
             config.TelemetryChannel.DeveloperMode = Debugger.IsAttached;
 #if DEBUG
-            config.InstrumentationKey = TelemetryKeyDev;
+            config.ConnectionString = "InstrumentationKey=" + TelemetryKeyDev;
             config.TelemetryChannel.DeveloperMode = true;
 #endif
             TelemetryClient client = new(config);

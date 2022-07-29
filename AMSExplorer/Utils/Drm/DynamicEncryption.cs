@@ -29,7 +29,7 @@ namespace AMSExplorer
         public static byte[] GetRandomBuffer(int size)
         {
             byte[] randomBytes = new byte[size];
-            using (RNGCryptoServiceProvider rng = new())
+            using (var rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(randomBytes);
             }
@@ -116,7 +116,7 @@ namespace AMSExplorer
             //
             // Create sha_A_Output buffer. It is the SHA of the truncatedKeySeed and the keyIdAsBytes
             //
-            SHA256Managed sha_A = new();
+            var sha_A = SHA256.Create();
             sha_A.TransformBlock(truncatedKeySeed, 0, truncatedKeySeed.Length, truncatedKeySeed, 0);
             sha_A.TransformFinalBlock(keyIdAsBytes, 0, keyIdAsBytes.Length);
             byte[] sha_A_Output = sha_A.Hash;
@@ -124,7 +124,7 @@ namespace AMSExplorer
             // Create sha_B_Output buffer. It is the SHA of the truncatedKeySeed, the keyIdAsBytes, and
             // the truncatedKeySeed again.
             //
-            SHA256Managed sha_B = new();
+            var sha_B = SHA256.Create();
             sha_B.TransformBlock(truncatedKeySeed, 0, truncatedKeySeed.Length, truncatedKeySeed, 0);
             sha_B.TransformBlock(keyIdAsBytes, 0, keyIdAsBytes.Length, keyIdAsBytes, 0);
             sha_B.TransformFinalBlock(truncatedKeySeed, 0, truncatedKeySeed.Length);
@@ -133,7 +133,7 @@ namespace AMSExplorer
             // Create sha_C_Output buffer. It is the SHA of the truncatedKeySeed, the keyIdAsBytes,
             // the truncatedKeySeed again, and the keyIdAsBytes again.
             //
-            SHA256Managed sha_C = new();
+            var sha_C = SHA256.Create();
             sha_C.TransformBlock(truncatedKeySeed, 0, truncatedKeySeed.Length, truncatedKeySeed, 0);
             sha_C.TransformBlock(keyIdAsBytes, 0, keyIdAsBytes.Length, keyIdAsBytes, 0);
             sha_C.TransformBlock(truncatedKeySeed, 0, truncatedKeySeed.Length, truncatedKeySeed, 0);
