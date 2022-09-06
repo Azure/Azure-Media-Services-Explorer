@@ -576,6 +576,7 @@
             // 
             this.showInPlayerToolStripMenuItem.Name = "showInPlayerToolStripMenuItem";
             resources.ApplyResources(this.showInPlayerToolStripMenuItem, "showInPlayerToolStripMenuItem");
+            this.showInPlayerToolStripMenuItem.Click += new System.EventHandler(this.showInPlayerToolStripMenuItem_Click);
             // 
             // hideFromPlayerToolStripMenuItem
             // 

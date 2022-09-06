@@ -28,17 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetInfoTextTrackCreation));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxTexttrackLanguage = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxDisplayName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.labelBlobName = new System.Windows.Forms.Label();
+            this.checkBoxLanguage = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxTrackName = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +58,6 @@
             // 
             resources.ApplyResources(this.buttonUpdate, "buttonUpdate");
             this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdate.Image = global::AMSExplorer.Bitmaps.create;
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.UseVisualStyleBackColor = true;
             // 
@@ -75,14 +78,9 @@
             // comboBoxTexttrackLanguage
             // 
             this.comboBoxTexttrackLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTexttrackLanguage.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxTexttrackLanguage, "comboBoxTexttrackLanguage");
+            this.comboBoxTexttrackLanguage.FormattingEnabled = true;
             this.comboBoxTexttrackLanguage.Name = "comboBoxTexttrackLanguage";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
             // 
             // label3
             // 
@@ -104,6 +102,24 @@
             resources.ApplyResources(this.labelBlobName, "labelBlobName");
             this.labelBlobName.Name = "labelBlobName";
             // 
+            // checkBoxLanguage
+            // 
+            resources.ApplyResources(this.checkBoxLanguage, "checkBoxLanguage");
+            this.checkBoxLanguage.Name = "checkBoxLanguage";
+            this.toolTip1.SetToolTip(this.checkBoxLanguage, resources.GetString("checkBoxLanguage.ToolTip"));
+            this.checkBoxLanguage.UseVisualStyleBackColor = true;
+            this.checkBoxLanguage.CheckedChanged += new System.EventHandler(this.checkBoxLanguage_CheckedChanged);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // textBoxTrackName
+            // 
+            resources.ApplyResources(this.textBoxTrackName, "textBoxTrackName");
+            this.textBoxTrackName.Name = "textBoxTrackName";
+            // 
             // AssetInfoTextTrackCreation
             // 
             this.AcceptButton = this.buttonUpdate;
@@ -111,11 +127,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.textBoxTrackName);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.checkBoxLanguage);
             this.Controls.Add(this.labelBlobName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxDisplayName);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxTexttrackLanguage);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
@@ -135,10 +153,13 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxTexttrackLanguage;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxDisplayName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelBlobName;
+        private System.Windows.Forms.CheckBox checkBoxLanguage;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxTrackName;
     }
 }

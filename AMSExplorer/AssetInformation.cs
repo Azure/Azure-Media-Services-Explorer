@@ -1,4 +1,4 @@
-﻿//----------------------------------------------------------------------------------------------
+﻿// ----------------------------------------------------------------------------------------------
 //    Copyright 2022 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,7 @@
 
 
 using AMSExplorer.ManifestGeneration;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;
@@ -338,6 +339,32 @@ namespace AMSExplorer
 
             listViewTracks.EndUpdate();
         }
+
+        private async Task<List<string>> ReturnTexttracksNamesAsync()
+        {
+            List<string> listTracks = new();
+            IEnumerable<AssetTrack> response;
+            try
+            {
+                response = await _amsClient.AMSclient.Tracks.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name);
+
+                foreach (var track in response)
+                {
+                    var tbase = track.Track;
+                    if (tbase is TextTrack tt)
+                    {
+                        listTracks.Add(track.Name);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return listTracks;
+        }
+
 
         private async void AssetInformation_Load(object sender, EventArgs e)
         {
@@ -781,6 +808,7 @@ namespace AMSExplorer
                 {
                     dGTracks.Rows.Add("Type", texttrack);
                     dGTracks.Rows.Add("Display name", tt.DisplayName);
+                    dGTracks.Rows.Add("File name", tt.FileName);
                     dGTracks.Rows.Add("Language code", tt.LanguageCode);
                     dGTracks.Rows.Add("Player visibility", tt.PlayerVisibility);
                     if (tt.HlsSettings != null)
@@ -2475,10 +2503,11 @@ namespace AMSExplorer
 
             if (SelectedTracks.Any())
             {
-                string question = SelectedTracks.Count() == 1 ? string.Format("Delete the '{0}' track ?", SelectedTracks.FirstOrDefault()) : string.Format("Delete these {0} tracks ?", SelectedTracks.Count());
+                string question = SelectedTracks.Count() == 1 ? string.Format("Delete the '{0}' track ?", SelectedTracks.FirstOrDefault().Item1) : string.Format("Delete these {0} tracks ?", SelectedTracks.Count());
 
                 if (System.Windows.Forms.MessageBox.Show(question, "Tracks deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
+                    Cursor = Cursors.WaitCursor;
                     try
                     {
                         Task[] deleteTasks = SelectedTracks.Select(b => _amsClient.AMSclient.Tracks.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, b.Item1)).ToArray();
@@ -2486,26 +2515,29 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error when deleting track(s).");
+                        MessageBox.Show("Error when deleting track(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     await ListAssetTracksAsync();
+                    Cursor = Cursors.Arrow;
                 }
             }
         }
 
 
-        private async Task DoHideTracksFromPlayerAsync()
+        private async Task DoChangeVisibilityTracksFromPlayerAsync(bool visible)
         {
-            Telemetry.TrackEvent("AssetInformation DoHideTracksFromPlayerAsync");
+            Telemetry.TrackEvent("AssetInformation DoChangeVisibilityTracksFromPlayerAsync");
 
             var SelectedTracks = ReturnSelectedTracksNamesAndTypes();
 
             if (SelectedTracks.Any())
             {
-                string question = SelectedTracks.Count() == 1 ? string.Format("Hide the '{0}' track ?", SelectedTracks.FirstOrDefault()) : string.Format("Hide these {0} tracks ?", SelectedTracks.Count());
+                string verb = visible ? "Show" : "Hide";
+                string question = SelectedTracks.Count() == 1 ? string.Format("{0} the '{1}' track ?", verb, SelectedTracks.FirstOrDefault().Item1) : string.Format("{0} these {1} tracks ?", verb, SelectedTracks.Count());
 
-                if (System.Windows.Forms.MessageBox.Show(question, "Tracks hide", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(question, $"{verb} track(s)", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
+                    Cursor = Cursors.WaitCursor;
                     foreach (var trackname in SelectedTracks)
                     {
                         try
@@ -2515,15 +2547,15 @@ namespace AMSExplorer
                             var tbase = track.Track;
                             if (tbase is AudioTrack at)
                             {
-
+                                MessageBox.Show("Track is an audio track and visibility cannot be changed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             else if (tbase is VideoTrack vt)
                             {
-
+                                MessageBox.Show("Track is an video track and visibility cannot be changed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             else if (tbase is TextTrack tt)
                             {
-                                tt.PlayerVisibility = Visibility.Hidden;
+                                tt.PlayerVisibility = visible ? Visibility.Visible : Visibility.Hidden;
                                 await _amsClient.AMSclient.Tracks.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, trackname.Item1, tt);
 
                             }
@@ -2533,10 +2565,10 @@ namespace AMSExplorer
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error when hidding track(s).");
+                            MessageBox.Show("Error when changing the visibility of the track(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-
                     }
+                    Cursor = Cursors.Arrow;
 
                     await ListAssetTracksAsync();
                 }
@@ -2555,27 +2587,39 @@ namespace AMSExplorer
                 {
                     if (blob is CloudBlockBlob bl)
                     {
-                        AssetInfoTextTrackCreation form = new AssetInfoTextTrackCreation(bl.Name);
+                        var texttracksnames = await ReturnTexttracksNamesAsync();
+
+                        // let's find a name not used
+                        int i = 1;
+                        string trackname;
+
+                        do
+                        {
+                            trackname = "text" + i;
+                            i++;
+
+                        } while (texttracksnames.Contains(trackname));
+
+                        AssetInfoTextTrackCreation form = new AssetInfoTextTrackCreation(bl.Name, trackname);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             Cursor = Cursors.WaitCursor;
                             try
                             {
                                 TextTrack tt = new TextTrack(bl.Name, form.LanguageDisplayName, form.LanguageCode);
-                                var track = await _amsClient.AMSclient.Tracks.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, bl.Name, tt);
-
+                                var track = await _amsClient.AMSclient.Tracks.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, form.TrackName, tt);
                                 //Task[] deleteTasks = SelectedTracks.Select(b => _amsClient.AMSclient.Tracks.Hide.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, b)).ToArray();
                                 // await Task.WhenAll(deleteTasks);
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Error when creating text track(s)." + Constants.endline + Program.GetErrorMessage(ex));
+                                MessageBox.Show("Error when creating text track(s)." + Constants.endline + Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             Cursor = Cursors.Arrow;
                         }
                     }
                 }
-                await ListAssetTracksAsync();
+                await ListAssetBlobsAsync();
             }
         }
 
@@ -2596,7 +2640,7 @@ namespace AMSExplorer
 
         private async void hideFromPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await DoHideTracksFromPlayerAsync();
+            await DoChangeVisibilityTracksFromPlayerAsync(false);
         }
 
         private async void createTextTrackFromThisBlobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2609,6 +2653,11 @@ namespace AMSExplorer
             var names = ReturnSelectedTracksNamesAndTypes();
             bool subtitle = names.All(b => b.Item2 == texttrack);
             showInPlayerToolStripMenuItem.Enabled = hideFromPlayerToolStripMenuItem.Enabled = deleteTrackToolStripMenuItem.Enabled = subtitle;
+        }
+
+        private async void showInPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoChangeVisibilityTracksFromPlayerAsync(true);
         }
     }
 }

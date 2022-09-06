@@ -32,25 +32,30 @@ namespace AMSExplorer
             {
                 return textBoxDisplayName.Text;
             }
-
-           
         }
 
         public string LanguageCode
         {
             get
             {
-                return ((Item)comboBoxTexttrackLanguage.SelectedItem).Value;
+                return checkBoxLanguage.Checked ? ((Item)comboBoxTexttrackLanguage.SelectedItem).Value : null;
             }
-
         }
 
-        public AssetInfoTextTrackCreation(string blobName)
+        public string TrackName
+        {
+            get
+            {
+                return textBoxTrackName.Text;
+            }
+        }
+
+        public AssetInfoTextTrackCreation(string blobName, string trackName)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
 
-             List<CultureInfo> cultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
+            List<CultureInfo> cultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
             foreach (CultureInfo culture in cultures)
             {
@@ -62,6 +67,7 @@ namespace AMSExplorer
             }
 
             labelBlobName.Text = blobName;
+            textBoxTrackName.Text = trackName;
         }
 
         private void AssetInfoTextTrackCreation_Load(object sender, EventArgs e)
@@ -81,6 +87,12 @@ namespace AMSExplorer
         private void AssetInfoTextTrackCreation_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+        }
+
+
+        private void checkBoxLanguage_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxTexttrackLanguage.Enabled = checkBoxLanguage.Checked;
         }
     }
 }
