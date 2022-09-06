@@ -58,9 +58,13 @@ namespace AMSExplorer
                 Telemetry.StartTelemetry(configuration);
             }
 
-            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            //Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+
+            // New bootstrap https://devblogs.microsoft.com/dotnet/whats-new-in-windows-forms-in-net-6-0/#application-bootstrap
+            // Parameters can be added to project file https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props-desktop#windows-forms-settings
+            ApplicationConfiguration.Initialize();
 
             // BUG
             // fix a crash on non english version of Windows with some shortcut keys.
