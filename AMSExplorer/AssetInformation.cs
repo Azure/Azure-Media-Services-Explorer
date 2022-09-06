@@ -1475,7 +1475,6 @@ namespace AMSExplorer
             */
         }
 
-
         private void contextMenuStripDG_MouseClick_1(object sender, MouseEventArgs e)
         {
             ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
@@ -1501,7 +1500,6 @@ namespace AMSExplorer
             }
         }
 
-
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
@@ -1514,9 +1512,6 @@ namespace AMSExplorer
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
         {
-            // bool selected = listViewBlobs.SelectedItems.Count > 0;
-            // bool bMultiSelect = listViewBlobs.SelectedItems.Count > 1;
-
             var blobs = ReturnSelectedBlobs();
 
             bool selected = blobs.Count > 0;
@@ -1529,7 +1524,6 @@ namespace AMSExplorer
             toolStripMenuItemDownloadFile.Enabled = selected;
             deleteBlobToolStripMenuItem.Enabled = selected;
             duplicateBlobToolStripMenuItem.Enabled = selected && !bMultiSelect;
-            deleteAllBlobsToolStripMenuItem.Enabled = selected;
             createTextTrackFromThisBlobToolStripMenuItem.Enabled = selected && subtitle;
         }
 
@@ -1537,6 +1531,7 @@ namespace AMSExplorer
         {
             await DoFilterInfoAsync();
         }
+
         private async Task<List<AssetFilter>> ReturnSelectedFiltersAsync()
         {
             List<AssetFilter> SelectedFilters = new();
@@ -1568,6 +1563,7 @@ namespace AMSExplorer
             }
             return SelectedFilters;
         }
+
         private async Task DoFilterInfoAsync(AssetFilter filter = null)
         {
             Telemetry.TrackEvent("AssetInformation DoFilterInfoAsync");
@@ -1798,11 +1794,6 @@ namespace AMSExplorer
             await DoDeleteAllBlobsAsync();
         }
 
-        private async void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await DoDeleteAllBlobsAsync();
-        }
-
 
         /// <summary>
         /// 
@@ -1950,7 +1941,6 @@ namespace AMSExplorer
             await BuildLocatorsTreeAsync();
         }
 
-
         private async void tabPageBlobs_Enter(object sender, EventArgs e)
         {
             await ListAssetBlobsAsync();
@@ -2008,7 +1998,6 @@ namespace AMSExplorer
 
             comboBoxPolicyLocators.EndUpdate();
         }
-
 
 
         private async Task DisplayStreamingPolicyAndContentKeyPolicyOfLocatorAsync(string locatorName)
@@ -2464,7 +2453,6 @@ namespace AMSExplorer
         {
             Telemetry.TrackPageView(this.Name);
             Telemetry.TrackPageView(this.Name + " tab " + tabControl1.SelectedTab.Name);
-
         }
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -2477,11 +2465,6 @@ namespace AMSExplorer
         {
             await ListAssetTracksAsync();
 
-        }
-
-        private async void ButtonDeleteTrack_Click(object sender, EventArgs e)
-        {
-            await DoDeleteTracksAsync();
         }
 
         private async Task DoDeleteTracksAsync()
