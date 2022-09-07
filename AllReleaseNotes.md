@@ -1,5 +1,16 @@
 # AMSE release notes history
 
+## Version 5.5.2.0 (September 7th, 2022) brings the following features and improvements
+
+* Support for the [new API](https://docs.microsoft.com/en-us/rest/api/media/tracks) for asset tracks management in the asset information UI
+  * List the tracks of the asset
+  * Create a text track from a .vtt blob
+  * Text track player visibility management and deletion
+* Live transcription is GA, support for more languages
+* Using default SystemAware mode for High DPI, as there are issues with PerMonitor and PerMonitorV2 modes
+* Bug fixes
+* Nugget packages and documentation update
+
 ## Version 5.5.0.0 (June 03, 2022) brings the following features and improvements
 
 * Support for low latency v2 parameter (LL-HLS) for live events
