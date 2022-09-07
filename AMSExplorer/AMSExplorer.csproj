@@ -5,13 +5,13 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AMSExplorer.Program</StartupObject>
-    <Version>5.5.0.0</Version>
+    <Version>5.5.2.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
     <Copyright>Copyright © 2022</Copyright>
     <Company>$(Authors)Microsoft</Company>
-    <AssemblyVersion>5.5.1.0</AssemblyVersion>
-    <FileVersion>5.5.1.0</FileVersion>
+    <AssemblyVersion>5.5.2.0</AssemblyVersion>
+    <FileVersion>5.5.2.0</FileVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <PackageIcon>Azure Explorer.png</PackageIcon>
     <PackageIconUrl />

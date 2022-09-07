@@ -910,7 +910,7 @@
     <value>Hide track on player</value>
   </data>
   <data name="contextMenuStripTracks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 92</value>
+    <value>185, 70</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTracks.Name" xml:space="preserve">
     <value>contextMenuStripTracks</value>
