@@ -67,14 +67,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>640, 28</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonOk.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>320, 14</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 54</value>
+    <value>114, 27</value>
   </data>
   <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -98,13 +94,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>884, 28</value>
-  </data>
-  <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>442, 14</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 54</value>
+    <value>114, 27</value>
   </data>
   <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -128,13 +121,10 @@
     <value>False</value>
   </data>
   <data name="textBoxRestrictIngestIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 552</value>
-  </data>
-  <data name="textBoxRestrictIngestIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>21, 276</value>
   </data>
   <data name="textBoxRestrictIngestIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>552, 39</value>
+    <value>278, 23</value>
   </data>
   <data name="textBoxRestrictIngestIP.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -155,13 +145,10 @@
     <value>True</value>
   </data>
   <data name="checkBoxRestrictIngestIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 500</value>
-  </data>
-  <data name="checkBoxRestrictIngestIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>21, 250</value>
   </data>
   <data name="checkBoxRestrictIngestIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>386, 36</value>
+    <value>194, 19</value>
   </data>
   <data name="checkBoxRestrictIngestIP.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -185,13 +172,10 @@
     <value>True</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 50</value>
-  </data>
-  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>31, 25</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 32</value>
+    <value>99, 15</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>45</value>
@@ -215,13 +199,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textboxchannelname.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 88</value>
-  </data>
-  <data name="textboxchannelname.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>35, 44</value>
   </data>
   <data name="textboxchannelname.Size" type="System.Drawing.Size, System.Drawing">
-    <value>996, 39</value>
+    <value>500, 23</value>
   </data>
   <data name="textboxchannelname.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -242,13 +223,10 @@
     <value>True</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 32</value>
-  </data>
-  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>18, 16</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 32</value>
+    <value>89, 15</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -269,13 +247,10 @@
     <value>3</value>
   </data>
   <data name="comboBoxProtocolInput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 70</value>
-  </data>
-  <data name="comboBoxProtocolInput.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>18, 35</value>
   </data>
   <data name="comboBoxProtocolInput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>422, 40</value>
+    <value>213, 23</value>
   </data>
   <data name="comboBoxProtocolInput.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -296,13 +271,10 @@
     <value>True</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 158</value>
-  </data>
-  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>31, 79</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 32</value>
+    <value>73, 15</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -326,13 +298,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 194</value>
-  </data>
-  <data name="textBoxDescription.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>35, 97</value>
   </data>
   <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
-    <value>996, 39</value>
+    <value>500, 23</value>
   </data>
   <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -356,13 +325,10 @@
     <value>True</value>
   </data>
   <data name="checkBoxStartChannel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 1108</value>
-  </data>
-  <data name="checkBoxStartChannel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>35, 553</value>
   </data>
   <data name="checkBoxStartChannel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 36</value>
+    <value>174, 19</value>
   </data>
   <data name="checkBoxStartChannel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -386,13 +352,10 @@
     <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 1184</value>
-  </data>
-  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>0, 592</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1144, 110</value>
+    <value>572, 55</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>59</value>
@@ -449,16 +412,14 @@
     <value>2</value>
   </data>
   <data name="TabSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 46</value>
+    <value>4, 24</value>
   </data>
-  <data name="TabSettings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="TabSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="TabSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>984, 758</value>
+    <value>492, 378</value>
   </data>
   <data name="TabSettings.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -491,19 +452,16 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="textBoxCustomPreset" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="panelPresetLiveEncoding" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonDefaultPreset" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonCustomPreset" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,40" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="textBoxCustomPreset" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="panelPresetLiveEncoding" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonDefaultPreset" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonCustomPreset" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabPageLiveEncoding.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 46</value>
-  </data>
-  <data name="tabPageLiveEncoding.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 24</value>
   </data>
   <data name="tabPageLiveEncoding.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageLiveEncoding.Size" type="System.Drawing.Size, System.Drawing">
-    <value>984, 758</value>
+    <value>492, 378</value>
   </data>
   <data name="tabPageLiveEncoding.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -523,17 +481,23 @@
   <data name="&gt;&gt;tabPageLiveEncoding.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Name" xml:space="preserve">
-    <value>linkLabelLiveTranscriptRegions</value>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="comboBoxLanguage.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 119</value>
   </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 23</value>
   </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value>The natural language to be recognized in the multimedia file. If you know the language of your content, it is recommended that you specify it.</value>
   </data>
   <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
     <value>comboBoxLanguage</value>
@@ -545,7 +509,25 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 101</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Language :</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -557,7 +539,25 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
+  </data>
+  <data name="linkLabelLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelLiveTranscript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>294, 13</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 15</value>
+  </data>
+  <data name="linkLabelLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Text" xml:space="preserve">
+    <value>Live transcription documentation</value>
   </data>
   <data name="&gt;&gt;linkLabelLiveTranscript.Name" xml:space="preserve">
     <value>linkLabelLiveTranscript</value>
@@ -569,7 +569,22 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;linkLabelLiveTranscript.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 63</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 19</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Text" xml:space="preserve">
+    <value>Enable live transcription</value>
   </data>
   <data name="&gt;&gt;checkBoxEnableLiveTranscript.Name" xml:space="preserve">
     <value>checkBoxEnableLiveTranscript</value>
@@ -581,19 +596,16 @@
     <value>tabPageLiveTranscript</value>
   </data>
   <data name="&gt;&gt;checkBoxEnableLiveTranscript.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="tabPageLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 46</value>
-  </data>
-  <data name="tabPageLiveTranscript.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 24</value>
   </data>
   <data name="tabPageLiveTranscript.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>984, 758</value>
+    <value>492, 378</value>
   </data>
   <data name="tabPageLiveTranscript.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -613,27 +625,6 @@
   <data name="&gt;&gt;tabPageLiveTranscript.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="radioButtonLowLatencyV2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonLowLatencyV2.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="radioButtonLowLatencyV2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radioButtonLowLatencyV2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>355, 62</value>
-  </data>
-  <data name="radioButtonLowLatencyV2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 36</value>
-  </data>
-  <data name="radioButtonLowLatencyV2.TabIndex" type="System.Int32, mscorlib">
-    <value>88</value>
-  </data>
-  <data name="radioButtonLowLatencyV2.Text" xml:space="preserve">
-    <value>v2 (Low Latency HLS)</value>
-  </data>
   <data name="&gt;&gt;radioButtonLowLatencyV2.Name" xml:space="preserve">
     <value>radioButtonLowLatencyV2</value>
   </data>
@@ -645,24 +636,6 @@
   </data>
   <data name="&gt;&gt;radioButtonLowLatencyV2.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="radioButtonLowLatencyV1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButtonLowLatencyV1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="radioButtonLowLatencyV1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 61</value>
-  </data>
-  <data name="radioButtonLowLatencyV1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 36</value>
-  </data>
-  <data name="radioButtonLowLatencyV1.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
-  </data>
-  <data name="radioButtonLowLatencyV1.Text" xml:space="preserve">
-    <value>v1</value>
   </data>
   <data name="&gt;&gt;radioButtonLowLatencyV1.Name" xml:space="preserve">
     <value>radioButtonLowLatencyV1</value>
@@ -676,30 +649,6 @@
   <data name="&gt;&gt;radioButtonLowLatencyV1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="labelStaticHostnamePrefix.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelStaticHostnamePrefix.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="labelStaticHostnamePrefix.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelStaticHostnamePrefix.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 198</value>
-  </data>
-  <data name="labelStaticHostnamePrefix.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
-  </data>
-  <data name="labelStaticHostnamePrefix.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 32</value>
-  </data>
-  <data name="labelStaticHostnamePrefix.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
-  </data>
-  <data name="labelStaticHostnamePrefix.Text" xml:space="preserve">
-    <value>Custom prefix :</value>
-  </data>
   <data name="&gt;&gt;labelStaticHostnamePrefix.Name" xml:space="preserve">
     <value>labelStaticHostnamePrefix</value>
   </data>
@@ -711,21 +660,6 @@
   </data>
   <data name="&gt;&gt;labelStaticHostnamePrefix.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="textBoxStaticHostname.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxStaticHostname.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 234</value>
-  </data>
-  <data name="textBoxStaticHostname.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="textBoxStaticHostname.Size" type="System.Drawing.Size, System.Drawing">
-    <value>552, 39</value>
-  </data>
-  <data name="textBoxStaticHostname.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
   </data>
   <data name="&gt;&gt;textBoxStaticHostname.Name" xml:space="preserve">
     <value>textBoxStaticHostname</value>
@@ -739,24 +673,6 @@
   <data name="&gt;&gt;textBoxStaticHostname.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 598</value>
-  </data>
-  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>908, 36</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>84</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Input URL syntax :</value>
-  </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
   </data>
@@ -768,24 +684,6 @@
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="labelUrlSyntax.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelUrlSyntax.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 634</value>
-  </data>
-  <data name="labelUrlSyntax.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
-  </data>
-  <data name="labelUrlSyntax.Size" type="System.Drawing.Size, System.Drawing">
-    <value>908, 122</value>
-  </data>
-  <data name="labelUrlSyntax.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="labelUrlSyntax.Text" xml:space="preserve">
-    <value>rtmp://&lt;hostname prefix&gt;-&lt;ams account name&gt;-&lt;region abbrev name&gt;.channel.media.azure.net:1935/live/&lt;input id&gt;/&lt;stream name&gt;</value>
   </data>
   <data name="&gt;&gt;labelUrlSyntax.Name" xml:space="preserve">
     <value>labelUrlSyntax</value>
@@ -799,21 +697,6 @@
   <data name="&gt;&gt;labelUrlSyntax.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="buttonGenerateToken.Location" type="System.Drawing.Point, System.Drawing">
-    <value>600, 364</value>
-  </data>
-  <data name="buttonGenerateToken.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="buttonGenerateToken.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 46</value>
-  </data>
-  <data name="buttonGenerateToken.TabIndex" type="System.Int32, mscorlib">
-    <value>82</value>
-  </data>
-  <data name="buttonGenerateToken.Text" xml:space="preserve">
-    <value>Generate new</value>
-  </data>
   <data name="&gt;&gt;buttonGenerateToken.Name" xml:space="preserve">
     <value>buttonGenerateToken</value>
   </data>
@@ -825,30 +708,6 @@
   </data>
   <data name="&gt;&gt;buttonGenerateToken.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 458</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
-    <value>417, 36</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
-    <value>Key frame interval of the input (s) :</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.ToolTip" xml:space="preserve">
-    <value>Gets or sets the time duration of the key frame interval duration of the input. This value sets the EXT-X-TARGETDURATION property in the HLS output. Leave the value empty for encoding live events.</value>
   </data>
   <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
     <value>checkBoxKeyFrameIntDefined</value>
@@ -862,24 +721,6 @@
   <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="textBoxInputKeyFrame.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxInputKeyFrame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 512</value>
-  </data>
-  <data name="textBoxInputKeyFrame.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="textBoxInputKeyFrame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 39</value>
-  </data>
-  <data name="textBoxInputKeyFrame.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
-  </data>
-  <data name="textBoxInputKeyFrame.ToolTip" xml:space="preserve">
-    <value>Gets or sets the time duration of the key frame interval duration of the input. This value sets the EXT-X-TARGETDURATION property in the HLS output. Leave the value empty for encoding live events.</value>
-  </data>
   <data name="&gt;&gt;textBoxInputKeyFrame.Name" xml:space="preserve">
     <value>textBoxInputKeyFrame</value>
   </data>
@@ -891,27 +732,6 @@
   </data>
   <data name="&gt;&gt;textBoxInputKeyFrame.ZOrder" xml:space="preserve">
     <value>8</value>
-  </data>
-  <data name="checkBoxLowLatency.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxLowLatency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxLowLatency.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 62</value>
-  </data>
-  <data name="checkBoxLowLatency.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="checkBoxLowLatency.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 36</value>
-  </data>
-  <data name="checkBoxLowLatency.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="checkBoxLowLatency.Text" xml:space="preserve">
-    <value>Low latency mode</value>
   </data>
   <data name="&gt;&gt;checkBoxLowLatency.Name" xml:space="preserve">
     <value>checkBoxLowLatency</value>
@@ -925,27 +745,6 @@
   <data name="&gt;&gt;checkBoxLowLatency.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="checkBoxVanityUrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxVanityUrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxVanityUrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 146</value>
-  </data>
-  <data name="checkBoxVanityUrl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="checkBoxVanityUrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 36</value>
-  </data>
-  <data name="checkBoxVanityUrl.TabIndex" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="checkBoxVanityUrl.Text" xml:space="preserve">
-    <value>Use static hostname for Input Url</value>
-  </data>
   <data name="&gt;&gt;checkBoxVanityUrl.Name" xml:space="preserve">
     <value>checkBoxVanityUrl</value>
   </data>
@@ -958,27 +757,6 @@
   <data name="&gt;&gt;checkBoxVanityUrl.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 330</value>
-  </data>
-  <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 32</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Input ID :</value>
-  </data>
   <data name="&gt;&gt;label7.Name" xml:space="preserve">
     <value>label7</value>
   </data>
@@ -990,18 +768,6 @@
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>11</value>
-  </data>
-  <data name="textBoxInputId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 366</value>
-  </data>
-  <data name="textBoxInputId.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="textBoxInputId.Size" type="System.Drawing.Size, System.Drawing">
-    <value>552, 39</value>
-  </data>
-  <data name="textBoxInputId.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
   </data>
   <data name="&gt;&gt;textBoxInputId.Name" xml:space="preserve">
     <value>textBoxInputId</value>
@@ -1016,13 +782,10 @@
     <value>12</value>
   </data>
   <data name="tabPageAdv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 46</value>
-  </data>
-  <data name="tabPageAdv.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 24</value>
   </data>
   <data name="tabPageAdv.Size" type="System.Drawing.Size, System.Drawing">
-    <value>984, 758</value>
+    <value>492, 378</value>
   </data>
   <data name="tabPageAdv.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1067,16 +830,13 @@
     <value>1</value>
   </data>
   <data name="tabPageAdvEncoding.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 46</value>
-  </data>
-  <data name="tabPageAdvEncoding.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 24</value>
   </data>
   <data name="tabPageAdvEncoding.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageAdvEncoding.Size" type="System.Drawing.Size, System.Drawing">
-    <value>984, 758</value>
+    <value>492, 378</value>
   </data>
   <data name="tabPageAdvEncoding.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1097,13 +857,10 @@
     <value>4</value>
   </data>
   <data name="tabControlLiveChannel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 276</value>
-  </data>
-  <data name="tabControlLiveChannel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>35, 138</value>
   </data>
   <data name="tabControlLiveChannel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1000, 812</value>
+    <value>500, 406</value>
   </data>
   <data name="tabControlLiveChannel.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -1229,16 +986,10 @@
     <value>8</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 150</value>
-  </data>
-  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>16, 75</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>940, 306</value>
+    <value>470, 153</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -1262,10 +1013,7 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 206</value>
-  </data>
-  <data name="pictureBox4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>16, 103</value>
   </data>
   <data name="pictureBox4.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1292,10 +1040,7 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 156</value>
-  </data>
-  <data name="pictureBox3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>16, 78</value>
   </data>
   <data name="pictureBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1322,10 +1067,7 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 106</value>
-  </data>
-  <data name="pictureBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>16, 53</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1352,10 +1094,7 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 56</value>
-  </data>
-  <data name="pictureBox2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>16, 28</value>
   </data>
   <data name="pictureBox2.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1385,13 +1124,10 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonPassThroughBasic.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 50</value>
-  </data>
-  <data name="radioButtonPassThroughBasic.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>42, 25</value>
   </data>
   <data name="radioButtonPassThroughBasic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>426, 36</value>
+    <value>217, 19</value>
   </data>
   <data name="radioButtonPassThroughBasic.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -1418,13 +1154,10 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonTranscodingPremium.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 200</value>
-  </data>
-  <data name="radioButtonTranscodingPremium.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>42, 100</value>
   </data>
   <data name="radioButtonTranscodingPremium.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 36</value>
+    <value>161, 19</value>
   </data>
   <data name="radioButtonTranscodingPremium.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1448,13 +1181,10 @@
     <value>True</value>
   </data>
   <data name="moreinfoLiveEventTypes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>746, 38</value>
-  </data>
-  <data name="moreinfoLiveEventTypes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>373, 19</value>
   </data>
   <data name="moreinfoLiveEventTypes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 32</value>
+    <value>91, 15</value>
   </data>
   <data name="moreinfoLiveEventTypes.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -1481,13 +1211,10 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonTranscodingStd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 150</value>
-  </data>
-  <data name="radioButtonTranscodingStd.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>42, 75</value>
   </data>
   <data name="radioButtonTranscodingStd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 36</value>
+    <value>153, 19</value>
   </data>
   <data name="radioButtonTranscodingStd.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1511,13 +1238,10 @@
     <value>True</value>
   </data>
   <data name="radioButtonPassThroughStandard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 100</value>
-  </data>
-  <data name="radioButtonPassThroughStandard.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>42, 50</value>
   </data>
   <data name="radioButtonPassThroughStandard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 36</value>
+    <value>237, 19</value>
   </data>
   <data name="radioButtonPassThroughStandard.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1541,13 +1265,10 @@
     <value>True</value>
   </data>
   <data name="checkBoxRestrictPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 622</value>
-  </data>
-  <data name="checkBoxRestrictPreviewIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>21, 311</value>
   </data>
   <data name="checkBoxRestrictPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 36</value>
+    <value>207, 19</value>
   </data>
   <data name="checkBoxRestrictPreviewIP.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -1571,13 +1292,10 @@
     <value>False</value>
   </data>
   <data name="textBoxRestrictPreviewIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 676</value>
-  </data>
-  <data name="textBoxRestrictPreviewIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>21, 338</value>
   </data>
   <data name="textBoxRestrictPreviewIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>552, 39</value>
+    <value>278, 23</value>
   </data>
   <data name="textBoxRestrictPreviewIP.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
@@ -1664,16 +1382,13 @@
     <value>4</value>
   </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 6</value>
-  </data>
-  <data name="tableLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>6, 3</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>960, 744</value>
+    <value>480, 372</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
@@ -1691,7 +1406,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="textBoxCustomPreset" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="panelPresetLiveEncoding" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonDefaultPreset" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonCustomPreset" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,40" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="textBoxCustomPreset" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="panelPresetLiveEncoding" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonDefaultPreset" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label6" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="radioButtonCustomPreset" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="textBoxCustomPreset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -1700,13 +1415,10 @@
     <value>False</value>
   </data>
   <data name="textBoxCustomPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 6</value>
-  </data>
-  <data name="textBoxCustomPreset.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>137, 3</value>
   </data>
   <data name="textBoxCustomPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>682, 39</value>
+    <value>340, 23</value>
   </data>
   <data name="textBoxCustomPreset.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -1778,16 +1490,13 @@
     <value>3</value>
   </data>
   <data name="panelPresetLiveEncoding.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 137</value>
-  </data>
-  <data name="panelPresetLiveEncoding.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>137, 73</value>
   </data>
   <data name="panelPresetLiveEncoding.RowCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="panelPresetLiveEncoding.Size" type="System.Drawing.Size, System.Drawing">
-    <value>682, 601</value>
+    <value>340, 296</value>
   </data>
   <data name="panelPresetLiveEncoding.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
@@ -1811,16 +1520,13 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="dataGridViewAudioProf.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 445</value>
-  </data>
-  <data name="dataGridViewAudioProf.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 219</value>
   </data>
   <data name="dataGridViewAudioProf.RowHeadersWidth" type="System.Int32, mscorlib">
     <value>82</value>
   </data>
   <data name="dataGridViewAudioProf.Size" type="System.Drawing.Size, System.Drawing">
-    <value>670, 150</value>
+    <value>334, 74</value>
   </data>
   <data name="dataGridViewAudioProf.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
@@ -1841,16 +1547,13 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="dataGridViewVideoProf.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 38</value>
-  </data>
-  <data name="dataGridViewVideoProf.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 18</value>
   </data>
   <data name="dataGridViewVideoProf.RowHeadersWidth" type="System.Int32, mscorlib">
     <value>82</value>
   </data>
   <data name="dataGridViewVideoProf.Size" type="System.Drawing.Size, System.Drawing">
-    <value>670, 363</value>
+    <value>334, 180</value>
   </data>
   <data name="dataGridViewVideoProf.TabIndex" type="System.Int32, mscorlib">
     <value>71</value>
@@ -1874,13 +1577,10 @@
     <value>True</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 0</value>
-  </data>
-  <data name="label16.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>3, 0</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 32</value>
+    <value>142, 15</value>
   </data>
   <data name="label16.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
@@ -1907,13 +1607,10 @@
     <value>True</value>
   </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 407</value>
-  </data>
-  <data name="label17.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>3, 201</value>
   </data>
   <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 32</value>
+    <value>144, 15</value>
   </data>
   <data name="label17.TabIndex" type="System.Int32, mscorlib">
     <value>74</value>
@@ -1940,13 +1637,10 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonDefaultPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 89</value>
-  </data>
-  <data name="radioButtonDefaultPreset.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 48</value>
   </data>
   <data name="radioButtonDefaultPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 36</value>
+    <value>119, 19</value>
   </data>
   <data name="radioButtonDefaultPreset.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
@@ -1973,13 +1667,10 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 51</value>
-  </data>
-  <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>137, 29</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>428, 32</value>
+    <value>214, 16</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>
@@ -2009,13 +1700,10 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonCustomPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="radioButtonCustomPreset.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3</value>
   </data>
   <data name="radioButtonCustomPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 36</value>
+    <value>128, 19</value>
   </data>
   <data name="radioButtonCustomPreset.TabIndex" type="System.Int32, mscorlib">
     <value>76</value>
@@ -2035,167 +1723,380 @@
   <data name="&gt;&gt;radioButtonCustomPreset.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="linkLabelLiveTranscriptRegions.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButtonLowLatencyV2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="linkLabelLiveTranscriptRegions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>738, 56</value>
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 32</value>
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.TabIndex" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.Text" xml:space="preserve">
-    <value>Regions availability</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Name" xml:space="preserve">
-    <value>linkLabelLiveTranscriptRegions</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscriptRegions.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="comboBoxLanguage.Enabled" type="System.Boolean, mscorlib">
+  <data name="radioButtonLowLatencyV2.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 238</value>
-  </data>
-  <data name="comboBoxLanguage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>368, 40</value>
-  </data>
-  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value>The natural language to be recognized in the multimedia file. If you know the language of your content, it is recommended that you specify it.</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
-    <value>comboBoxLanguage</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="radioButtonLowLatencyV2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 202</value>
+  <data name="radioButtonLowLatencyV2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 31</value>
   </data>
-  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+  <data name="radioButtonLowLatencyV2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 32</value>
+  <data name="radioButtonLowLatencyV2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 19</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
+  <data name="radioButtonLowLatencyV2.TabIndex" type="System.Int32, mscorlib">
+    <value>88</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Language :</value>
+  <data name="radioButtonLowLatencyV2.Text" xml:space="preserve">
+    <value>v2 (Low Latency HLS)</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="&gt;&gt;radioButtonLowLatencyV2.Name" xml:space="preserve">
+    <value>radioButtonLowLatencyV2</value>
   </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;radioButtonLowLatencyV2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
+  <data name="&gt;&gt;radioButtonLowLatencyV2.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
   </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="linkLabelLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="linkLabelLiveTranscript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="linkLabelLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>588, 26</value>
-  </data>
-  <data name="linkLabelLiveTranscript.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
-  </data>
-  <data name="linkLabelLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 32</value>
-  </data>
-  <data name="linkLabelLiveTranscript.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="linkLabelLiveTranscript.Text" xml:space="preserve">
-    <value>Live transcription documentation</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscript.Name" xml:space="preserve">
-    <value>linkLabelLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscript.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscript.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLiveTranscript.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 126</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>712, 36</value>
-  </data>
-  <data name="checkBoxEnableLiveTranscript.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;radioButtonLowLatencyV2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBoxEnableLiveTranscript.Text" xml:space="preserve">
-    <value>Enable live transcription (available as preview in some regions)</value>
+  <data name="radioButtonLowLatencyV1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Name" xml:space="preserve">
-    <value>checkBoxEnableLiveTranscript</value>
+  <data name="radioButtonLowLatencyV1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Type" xml:space="preserve">
+  <data name="radioButtonLowLatencyV1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 30</value>
+  </data>
+  <data name="radioButtonLowLatencyV1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="radioButtonLowLatencyV1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 19</value>
+  </data>
+  <data name="radioButtonLowLatencyV1.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="radioButtonLowLatencyV1.Text" xml:space="preserve">
+    <value>v1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonLowLatencyV1.Name" xml:space="preserve">
+    <value>radioButtonLowLatencyV1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonLowLatencyV1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonLowLatencyV1.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;radioButtonLowLatencyV1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelStaticHostnamePrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelStaticHostnamePrefix.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelStaticHostnamePrefix.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelStaticHostnamePrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 99</value>
+  </data>
+  <data name="labelStaticHostnamePrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 15</value>
+  </data>
+  <data name="labelStaticHostnamePrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="labelStaticHostnamePrefix.Text" xml:space="preserve">
+    <value>Custom prefix :</value>
+  </data>
+  <data name="&gt;&gt;labelStaticHostnamePrefix.Name" xml:space="preserve">
+    <value>labelStaticHostnamePrefix</value>
+  </data>
+  <data name="&gt;&gt;labelStaticHostnamePrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelStaticHostnamePrefix.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;labelStaticHostnamePrefix.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="textBoxStaticHostname.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxStaticHostname.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 117</value>
+  </data>
+  <data name="textBoxStaticHostname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 23</value>
+  </data>
+  <data name="textBoxStaticHostname.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="&gt;&gt;textBoxStaticHostname.Name" xml:space="preserve">
+    <value>textBoxStaticHostname</value>
+  </data>
+  <data name="&gt;&gt;textBoxStaticHostname.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxStaticHostname.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;textBoxStaticHostname.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 299</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 18</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Input URL syntax :</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelUrlSyntax.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelUrlSyntax.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 317</value>
+  </data>
+  <data name="labelUrlSyntax.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 61</value>
+  </data>
+  <data name="labelUrlSyntax.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="labelUrlSyntax.Text" xml:space="preserve">
+    <value>rtmp://&lt;hostname prefix&gt;-&lt;ams account name&gt;-&lt;region abbrev name&gt;.channel.media.azure.net:1935/live/&lt;input id&gt;/&lt;stream name&gt;</value>
+  </data>
+  <data name="&gt;&gt;labelUrlSyntax.Name" xml:space="preserve">
+    <value>labelUrlSyntax</value>
+  </data>
+  <data name="&gt;&gt;labelUrlSyntax.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelUrlSyntax.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;labelUrlSyntax.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="buttonGenerateToken.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 182</value>
+  </data>
+  <data name="buttonGenerateToken.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 23</value>
+  </data>
+  <data name="buttonGenerateToken.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="buttonGenerateToken.Text" xml:space="preserve">
+    <value>Generate new</value>
+  </data>
+  <data name="&gt;&gt;buttonGenerateToken.Name" xml:space="preserve">
+    <value>buttonGenerateToken</value>
+  </data>
+  <data name="&gt;&gt;buttonGenerateToken.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonGenerateToken.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;buttonGenerateToken.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 229</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 19</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
+    <value>Key frame interval of the input (s) :</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.ToolTip" xml:space="preserve">
+    <value>Gets or sets the time duration of the key frame interval duration of the input. This value sets the EXT-X-TARGETDURATION property in the HLS output. Leave the value empty for encoding live events.</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Name" xml:space="preserve">
+    <value>checkBoxKeyFrameIntDefined</value>
+  </data>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBoxEnableLiveTranscript.Parent" xml:space="preserve">
-    <value>tabPageLiveTranscript</value>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
   </data>
-  <data name="&gt;&gt;checkBoxEnableLiveTranscript.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;checkBoxKeyFrameIntDefined.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="textBoxInputKeyFrame.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxInputKeyFrame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 256</value>
+  </data>
+  <data name="textBoxInputKeyFrame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="textBoxInputKeyFrame.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="textBoxInputKeyFrame.ToolTip" xml:space="preserve">
+    <value>Gets or sets the time duration of the key frame interval duration of the input. This value sets the EXT-X-TARGETDURATION property in the HLS output. Leave the value empty for encoding live events.</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputKeyFrame.Name" xml:space="preserve">
+    <value>textBoxInputKeyFrame</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputKeyFrame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputKeyFrame.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputKeyFrame.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="checkBoxLowLatency.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxLowLatency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxLowLatency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 31</value>
+  </data>
+  <data name="checkBoxLowLatency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 19</value>
+  </data>
+  <data name="checkBoxLowLatency.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="checkBoxLowLatency.Text" xml:space="preserve">
+    <value>Low latency mode</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Name" xml:space="preserve">
+    <value>checkBoxLowLatency</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLowLatency.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="checkBoxVanityUrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxVanityUrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxVanityUrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 73</value>
+  </data>
+  <data name="checkBoxVanityUrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 19</value>
+  </data>
+  <data name="checkBoxVanityUrl.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="checkBoxVanityUrl.Text" xml:space="preserve">
+    <value>Use static hostname for Input Url</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Name" xml:space="preserve">
+    <value>checkBoxVanityUrl</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;checkBoxVanityUrl.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 165</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 15</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Input ID :</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="textBoxInputId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 183</value>
+  </data>
+  <data name="textBoxInputId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 23</value>
+  </data>
+  <data name="textBoxInputId.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputId.Name" xml:space="preserve">
+    <value>textBoxInputId</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputId.Parent" xml:space="preserve">
+    <value>tabPageAdv</value>
+  </data>
+  <data name="&gt;&gt;textBoxInputId.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="checkBoxEncodingKeyFrameInterval.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2204,13 +2105,10 @@
     <value>NoControl</value>
   </data>
   <data name="checkBoxEncodingKeyFrameInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 66</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>27, 33</value>
   </data>
   <data name="checkBoxEncodingKeyFrameInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>283, 36</value>
+    <value>143, 19</value>
   </data>
   <data name="checkBoxEncodingKeyFrameInterval.TabIndex" type="System.Int32, mscorlib">
     <value>82</value>
@@ -2237,13 +2135,10 @@
     <value>False</value>
   </data>
   <data name="textBoxEncodingKeyFrameInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 120</value>
-  </data>
-  <data name="textBoxEncodingKeyFrameInterval.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>27, 60</value>
   </data>
   <data name="textBoxEncodingKeyFrameInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 39</value>
+    <value>140, 23</value>
   </data>
   <data name="textBoxEncodingKeyFrameInterval.TabIndex" type="System.Int32, mscorlib">
     <value>83</value>
@@ -2273,13 +2168,10 @@
     <value>True</value>
   </data>
   <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>414, 1108</value>
-  </data>
-  <data name="labelWarning.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>207, 554</value>
   </data>
   <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>452, 32</value>
+    <value>223, 15</value>
   </data>
   <data name="labelWarning.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -2306,13 +2198,10 @@
     <value>True</value>
   </data>
   <data name="linkLabelMoreInfoPrice.Location" type="System.Drawing.Point, System.Drawing">
-    <value>856, 1108</value>
-  </data>
-  <data name="linkLabelMoreInfoPrice.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>428, 554</value>
   </data>
   <data name="linkLabelMoreInfoPrice.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 32</value>
+    <value>101, 15</value>
   </data>
   <data name="linkLabelMoreInfoPrice.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -2345,16 +2234,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>192, 192</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1144, 1294</value>
+    <value>572, 647</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

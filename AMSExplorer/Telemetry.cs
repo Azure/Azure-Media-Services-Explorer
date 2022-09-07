@@ -1,6 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,8 @@ namespace AMSExplorer
     /// </summary>
     public static class Telemetry
     {
-        private static string TelemetryKeyDev = "2c258d64-b2e4-4219-8108-e938f2f4fc02";
-        private static string TelemetryKeyProd = "5fb7cbe4-882c-4df8-ad29-df9733248597";
         private static TelemetryClient _telemetry;
+        private static IConfiguration _configuration;
 
         public static bool Enabled { get; set; } = false;
 
@@ -25,12 +25,12 @@ namespace AMSExplorer
         {
             var config = new TelemetryConfiguration()
             {
-                InstrumentationKey = TelemetryKeyProd,
+                ConnectionString = _configuration.GetConnectionString("appInsightsRelease"),
                 TelemetryChannel = new Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.ServerTelemetryChannel(),
             };
             config.TelemetryChannel.DeveloperMode = Debugger.IsAttached;
 #if DEBUG
-            config.InstrumentationKey = TelemetryKeyDev;
+            config.ConnectionString = _configuration.GetConnectionString("appInsightsDev");
             config.TelemetryChannel.DeveloperMode = true;
 #endif
             TelemetryClient client = new(config);
@@ -119,8 +119,9 @@ namespace AMSExplorer
             Telemetry.TrackEvent("Application exited");
         }
 
-        public static void StartTelemetry()
+        public static void StartTelemetry(IConfiguration configuration)
         {
+            _configuration = configuration;
             _telemetry = GetAppInsightsClient();
             Enabled = true;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;

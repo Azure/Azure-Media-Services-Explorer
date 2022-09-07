@@ -68,12 +68,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
             this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
-            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
             this.checkBoxEnableLiveTranscript = new System.Windows.Forms.CheckBox();
             this.tabPageAdv = new System.Windows.Forms.TabPage();
+            this.radioButtonLowLatencyV2 = new System.Windows.Forms.RadioButton();
+            this.radioButtonLowLatencyV1 = new System.Windows.Forms.RadioButton();
             this.labelStaticHostnamePrefix = new System.Windows.Forms.Label();
             this.textBoxStaticHostname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -93,8 +94,6 @@
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.radioButtonLowLatencyV1 = new System.Windows.Forms.RadioButton();
-            this.radioButtonLowLatencyV2 = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
             this.TabSettings.SuspendLayout();
@@ -230,28 +229,24 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.encodingPremium;
             resources.ApplyResources(this.pictureBox4, "pictureBox4");
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.encoding;
             resources.ApplyResources(this.pictureBox3, "pictureBox3");
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.TabStop = false;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.passthrough_std;
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.passthrough_basic;
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
@@ -396,7 +391,6 @@
             // 
             // tabPageLiveTranscript
             // 
-            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscriptRegions);
             this.tabPageLiveTranscript.Controls.Add(this.comboBoxLanguage);
             this.tabPageLiveTranscript.Controls.Add(this.label2);
             this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
@@ -404,13 +398,6 @@
             resources.ApplyResources(this.tabPageLiveTranscript, "tabPageLiveTranscript");
             this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
             this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelLiveTranscriptRegions
-            // 
-            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
-            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
-            this.linkLabelLiveTranscriptRegions.TabStop = true;
-            this.linkLabelLiveTranscriptRegions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.MoreinfoLiveEncodingProfilelink_LinkClicked);
             // 
             // comboBoxLanguage
             // 
@@ -457,6 +444,20 @@
             resources.ApplyResources(this.tabPageAdv, "tabPageAdv");
             this.tabPageAdv.Name = "tabPageAdv";
             this.tabPageAdv.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonLowLatencyV2
+            // 
+            resources.ApplyResources(this.radioButtonLowLatencyV2, "radioButtonLowLatencyV2");
+            this.radioButtonLowLatencyV2.Name = "radioButtonLowLatencyV2";
+            this.radioButtonLowLatencyV2.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonLowLatencyV1
+            // 
+            resources.ApplyResources(this.radioButtonLowLatencyV1, "radioButtonLowLatencyV1");
+            this.radioButtonLowLatencyV1.Checked = true;
+            this.radioButtonLowLatencyV1.Name = "radioButtonLowLatencyV1";
+            this.radioButtonLowLatencyV1.TabStop = true;
+            this.radioButtonLowLatencyV1.UseVisualStyleBackColor = true;
             // 
             // labelStaticHostnamePrefix
             // 
@@ -572,19 +573,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // radioButtonLowLatencyV1
-            // 
-            resources.ApplyResources(this.radioButtonLowLatencyV1, "radioButtonLowLatencyV1");
-            this.radioButtonLowLatencyV1.Checked = true;
-            this.radioButtonLowLatencyV1.Name = "radioButtonLowLatencyV1";
-            this.radioButtonLowLatencyV1.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonLowLatencyV2
-            // 
-            resources.ApplyResources(this.radioButtonLowLatencyV2, "radioButtonLowLatencyV2");
-            this.radioButtonLowLatencyV2.Name = "radioButtonLowLatencyV2";
-            this.radioButtonLowLatencyV2.UseVisualStyleBackColor = true;
-            // 
             // LiveEventCreation
             // 
             this.AcceptButton = this.buttonOk;
@@ -687,7 +675,6 @@
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;
         private System.Windows.Forms.CheckBox checkBoxEnableLiveTranscript;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
-        private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
         private System.Windows.Forms.Label labelStaticHostnamePrefix;
         private System.Windows.Forms.TextBox textBoxStaticHostname;
         private System.Windows.Forms.TabPage tabPageAdvEncoding;

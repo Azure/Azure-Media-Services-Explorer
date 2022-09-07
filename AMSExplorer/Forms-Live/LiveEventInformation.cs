@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -169,7 +170,6 @@ namespace AMSExplorer
             // DpiUtils.InitPerMonitorDpi(this);
 
             linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
-            linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
 
             LiveTranscriptLanguages.Languages.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
@@ -321,7 +321,6 @@ namespace AMSExplorer
                 checkBoxEnableLiveTranscript.Checked = false;
             }
 
-
             // low latency
             if (MyLiveEvent.StreamOptions != null && (MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency) || MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2)))
             {
@@ -332,6 +331,10 @@ namespace AMSExplorer
             // encoding settings
             if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
             {
+                // Low latency v2 should be removed for pass through event
+                radioButtonLowLatencyV2.Visible = false;
+                radioButtonLowLatencyV1.Checked = true;
+
                 textBoxEncodingKeyFrameInterval.Enabled = false;
                 checkBoxEncodingKeyFrameInterval.Enabled = false;
                 tabControlLiveEvent.TabPages.Remove(tabPageEncoding); // no encoding channel
@@ -713,6 +716,20 @@ namespace AMSExplorer
         private void radioButtonLowLatencyV2_CheckedChanged(object sender, EventArgs e)
         {
             Modifications.LowLatency = true;
+        }
+
+        private void linkLabelLiveTranscript_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Send the URL to the operating system.
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
         }
     }
 

@@ -338,7 +338,7 @@ namespace AMSExplorer
             radioButtonContentKeyBase64.Checked = true;
 
             byte[] TokenSigningKey = new byte[40];
-            RNGCryptoServiceProvider rng = new();
+            var rng = RandomNumberGenerator.Create();
             rng.GetBytes(TokenSigningKey);
             textBoxSymKey.Text = Convert.ToBase64String(new ContentKeyPolicySymmetricTokenKey(TokenSigningKey).KeyValue);
         }

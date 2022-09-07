@@ -25,7 +25,7 @@ namespace AMSExplorer
         public const string Webview2Installer = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
         public const string Webview2RegPath64 = "SOFTWARE\\WOW6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
         public const string Webview2RegPath32 = "SOFTWARE\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
-        public const string Webview2MinVersion = "101.0.1210.39";
+        public const string Webview2MinVersion = "104.0.1293.44";
 
         public const string GitHubAMSEVersionPrimaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
@@ -80,20 +80,20 @@ namespace AMSExplorer
         public const string AMPAesToken = "&aestoken={0}";
         public const string AMPSubtitles = "&subtitles={0}";
 
-        public const string PlayerDASHIFList = @"http://reference.dashif.org/dash.js/";
-        public const string PlayerDASHIFToLaunch = @"http://reference.dashif.org/dash.js/latest/samples/dash-if-reference-player/index.html?url={0}";
+        public const string PlayerDASHIFList = @"https://reference.dashif.org/dash.js/";
+        public const string PlayerDASHIFToLaunch = @"https://reference.dashif.org/dash.js/latest/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
         public const string AdvancedTestPlayerRoot = @"https://openidconnectweb.azurewebsites.net/AMTestPlayer";
         public const string AdvancedTestPlayer = AdvancedTestPlayerRoot + @"?url={0}";
 
-        public const string PlayerInfoHTML5Video = @"http://www.w3schools.com/html/html5_video.asp";
+        public const string PlayerInfoHTML5Video = @"https://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"https://www.jwplayer.com/";
         public const string PlayerTHEOplayerPartnership = @"https://www.theoplayer.com/partners/azure";
 
         public const string DemoCaptionMaker = @"https://testdrive-archive.azurewebsites.net/Graphics/CaptionMaker/Default.html";
 
-        public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
+        public const string LinkFeedbackAMS = "https://aka.ms/amsvoice";
 
         public const string TemporaryWidevineLicenseServer = "https://thiswillbereplacedbytheAMSwidevineurl/?KID=00000000-0000-0000-0000-000000000000";
 
@@ -113,6 +113,8 @@ namespace AMSExplorer
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
 
         public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-streaming-endpoint-concept";
+        public const string LinkAutoscalePremiumSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/streaming-endpoint-autoscaling-how-to";
+
         public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10";
 
         public const string LinkMoreInfoVideoAnalyzer = "https://docs.microsoft.com/en-us/azure/media-services/latest/analyzing-video-audio-files-concept";
@@ -129,7 +131,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-fairplay-license-overview";
 
         public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-playready-license-template-concept";
-        public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
+        public const string LinkPlayReadyCompliance = "https://www.microsoft.com/playready/licensing/compliance/";
         public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-widevine-license-template-concept";
 
         public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/latest/account-create-how-to";
@@ -138,7 +140,7 @@ namespace AMSExplorer
         public const string LinkAMSManagedIdentities = "https://docs.microsoft.com/en-us/azure/media-services/latest/concept-managed-identities";
         public const string LinkAMSCustomerManagedKeys = "https://docs.microsoft.com/en-us/azure/media-services/latest/concept-use-customer-managed-keys-byok";
 
-        public const string LinkAMSE = "http://aka.ms/amse";
+        public const string LinkAMSE = "https://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
         public const string LinkReportBugAMSE = @"https://github.com/Azure/Azure-Media-Services-Explorer/issues";
         public const string LinkAMSEReleaseNotes = @"https://github.com/Azure/Azure-Media-Services-Explorer/blob/main/AllReleaseNotes.md";
@@ -155,7 +157,5 @@ namespace AMSExplorer
         public const string strTransfers = "{0} concurrent transfer{1}";
 
         public const string LinkMoreInfoLiveTranscript = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-event-live-transcription-how-to";
-        public const string LinkMoreInfoLiveTranscriptRegions = "https://docs.microsoft.com/en-us/azure/media-services/latest/azure-clouds-regions#feature-availability-in-preview";
     }
-
 }

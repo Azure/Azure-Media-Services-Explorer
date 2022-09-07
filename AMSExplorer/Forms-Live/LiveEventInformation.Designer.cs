@@ -49,7 +49,6 @@
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
             this.tabPageLiveTranscript = new System.Windows.Forms.TabPage();
-            this.linkLabelLiveTranscriptRegions = new System.Windows.Forms.LinkLabel();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabelLiveTranscript = new System.Windows.Forms.LinkLabel();
@@ -132,7 +131,6 @@
             // 
             // contextMenuStripDG
             // 
-            this.contextMenuStripDG.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
@@ -278,7 +276,6 @@
             // 
             // tabPageLiveTranscript
             // 
-            this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscriptRegions);
             this.tabPageLiveTranscript.Controls.Add(this.comboBoxLanguage);
             this.tabPageLiveTranscript.Controls.Add(this.label1);
             this.tabPageLiveTranscript.Controls.Add(this.linkLabelLiveTranscript);
@@ -286,12 +283,6 @@
             resources.ApplyResources(this.tabPageLiveTranscript, "tabPageLiveTranscript");
             this.tabPageLiveTranscript.Name = "tabPageLiveTranscript";
             this.tabPageLiveTranscript.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelLiveTranscriptRegions
-            // 
-            resources.ApplyResources(this.linkLabelLiveTranscriptRegions, "linkLabelLiveTranscriptRegions");
-            this.linkLabelLiveTranscriptRegions.Name = "linkLabelLiveTranscriptRegions";
-            this.linkLabelLiveTranscriptRegions.TabStop = true;
             // 
             // comboBoxLanguage
             // 
@@ -311,6 +302,7 @@
             resources.ApplyResources(this.linkLabelLiveTranscript, "linkLabelLiveTranscript");
             this.linkLabelLiveTranscript.Name = "linkLabelLiveTranscript";
             this.linkLabelLiveTranscript.TabStop = true;
+            this.linkLabelLiveTranscript.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLiveTranscript_LinkClicked);
             // 
             // checkBoxEnableLiveTranscript
             // 
@@ -587,7 +579,6 @@
             // 
             // pictureBoxLE
             // 
-            this.pictureBoxLE.Image = global::AMSExplorer.Bitmaps.encoding;
             resources.ApplyResources(this.pictureBoxLE, "pictureBoxLE");
             this.pictureBoxLE.Name = "pictureBoxLE";
             this.pictureBoxLE.TabStop = false;
@@ -695,7 +686,6 @@
         private Microsoft.Web.WebView2.WinForms.WebView2 webBrowserPreview;
         private System.Windows.Forms.PictureBox pictureBoxLE;
         private System.Windows.Forms.TabPage tabPageLiveTranscript;
-        private System.Windows.Forms.LinkLabel linkLabelLiveTranscriptRegions;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabelLiveTranscript;

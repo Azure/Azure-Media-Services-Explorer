@@ -5,13 +5,13 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AMSExplorer.Program</StartupObject>
-    <Version>5.5.0.0</Version>
+    <Version>5.5.2.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
     <Copyright>Copyright © 2022</Copyright>
     <Company>$(Authors)Microsoft</Company>
-    <AssemblyVersion>5.5.0.0</AssemblyVersion>
-    <FileVersion>5.5.0.0</FileVersion>
+    <AssemblyVersion>5.5.2.0</AssemblyVersion>
+    <FileVersion>5.5.2.0</FileVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <PackageIcon>Azure Explorer.png</PackageIcon>
     <PackageIconUrl />
@@ -88,18 +88,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.20.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.17.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.21.0" />
     <PackageReference Include="Microsoft.Azure.Management.Media" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.15.1-preview" />
-    <PackageReference Include="Microsoft.Azure.Management.Storage" Version="24.0.0" />
+    <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.17.4-preview" />
+    <PackageReference Include="Microsoft.Azure.Management.Storage" Version="25.0.0" />
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.44.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.46.2" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1210.39" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1293.44" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.22.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -119,6 +121,9 @@
     </Compile>
     <Compile Update="ListViews\ListViewContentKeyPolicies.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="AssetInfoTextTrackCreation.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -144,6 +149,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

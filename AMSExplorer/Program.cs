@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.Media.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -46,14 +47,24 @@ namespace AMSExplorer
         [STAThread]
         private static void Main(string[] args)
         {
-            if (Properties.Settings.Default.Telemetry)
+
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", true, true)
+                .Build();
+
+
+            if (Properties.Settings.Default.Telemetry && configuration.GetConnectionString("appInsightsRelease") != null && configuration.GetConnectionString("appInsightsDev") != null)
             {
-                Telemetry.StartTelemetry();
+                Telemetry.StartTelemetry(configuration);
             }
 
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            //Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+
+            // New bootstrap https://devblogs.microsoft.com/dotnet/whats-new-in-windows-forms-in-net-6-0/#application-bootstrap
+            // Parameters can be added to project file https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props-desktop#windows-forms-settings
+            ApplicationConfiguration.Initialize();
 
             // BUG
             // fix a crash on non english version of Windows with some shortcut keys.

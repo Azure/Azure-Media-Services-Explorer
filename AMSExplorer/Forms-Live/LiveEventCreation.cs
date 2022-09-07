@@ -269,7 +269,6 @@ namespace AMSExplorer
             moreinfoLiveEventTypes.Links.Add(new LinkLabel.Link(0, moreinfoLiveEventTypes.Text.Length, Constants.LinkMoreInfoLiveEventTypes));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
             linkLabelLiveTranscript.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscript.Text.Length, Constants.LinkMoreInfoLiveTranscript));
-            linkLabelLiveTranscriptRegions.Links.Add(new LinkLabel.Link(0, linkLabelLiveTranscriptRegions.Text.Length, Constants.LinkMoreInfoLiveTranscriptRegions));
 
             LiveTranscriptLanguages.Languages.ForEach(c => comboBoxLanguage.Items.Add(new Item((new CultureInfo(c)).DisplayName, c)));
             comboBoxLanguage.SelectedIndex = 0;
@@ -277,6 +276,10 @@ namespace AMSExplorer
             GenerateNewInputId();
 
             CheckLiveEventName();
+
+            // Low latency v2 should be removed for pass through event
+            radioButtonLowLatencyV2.Visible = false;
+
             InitPhase = false;
         }
 
@@ -540,6 +543,10 @@ namespace AMSExplorer
                 // let's display the encoding tab if encoding has been choosen, otherwise, let's remove it
                 if (Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
+                    // Low latency v2 should be removed for pass through event
+                    radioButtonLowLatencyV2.Visible = false;
+                    radioButtonLowLatencyV1.Checked = true;
+
                     if (EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
@@ -550,6 +557,9 @@ namespace AMSExplorer
                 }
                 else
                 {
+                    // Low latency v2 should be enabled for encoding event
+                    radioButtonLowLatencyV2.Visible = true;
+
                     if (!EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);

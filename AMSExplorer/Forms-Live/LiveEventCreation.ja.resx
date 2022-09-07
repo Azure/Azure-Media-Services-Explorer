@@ -285,6 +285,54 @@
   <data name="groupBox1.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="pictureBox4.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox4.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBox4.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBox4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox3.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBox3.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBox3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBox1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBox2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBox2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="radioButtonPassThroughBasic.Error" xml:space="preserve">
     <value />
   </data>
@@ -646,6 +694,30 @@
     <value>0</value>
   </data>
   <data name="tabPageAdv.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonLowLatencyV2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonLowLatencyV2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonLowLatencyV2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonLowLatencyV2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonLowLatencyV1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonLowLatencyV1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonLowLatencyV1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonLowLatencyV1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="labelStaticHostnamePrefix.Error" xml:space="preserve">
