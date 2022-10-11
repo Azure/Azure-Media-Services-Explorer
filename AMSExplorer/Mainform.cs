@@ -3047,7 +3047,6 @@ namespace AMSExplorer
                     foreach (var transform in SelectedTransforms)
                     {
                         TextBoxLogWriteLine("Deleting transform '{0}'...", transform.Name);
-                        Task[] deleteTasks = SelectedTransforms.ToList().Select(t => _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, t.Name)).ToArray();
                         try
                         {
                             await _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
