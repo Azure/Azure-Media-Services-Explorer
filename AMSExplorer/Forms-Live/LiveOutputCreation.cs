@@ -170,10 +170,12 @@ namespace AMSExplorer
             if (!IsLiveOutputNameValid(tb.Text))
             {
                 errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateProgram_checkProgramName_ProgramNameIsNotValid);
+                buttonOk.Enabled = false;
             }
             else
             {
                 errorProvider1.SetError(tb, string.Empty);
+                buttonOk.Enabled = true;
             }
         }
 
