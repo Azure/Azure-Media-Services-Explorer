@@ -15,7 +15,7 @@ See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managin
 
 ## Installing the tool with Winget
 
-Run the following commands to install the prerequisites and AMSE :
+Run the following commands in a command prompt to install the prerequisites and AMSE :
 
 ```console
 winget install Microsoft.DotNet.DesktopRuntime.6
