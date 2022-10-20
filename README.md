@@ -13,7 +13,17 @@ Azure Media Services Explorer (AMSE) is a .NET 6.0 (C#) application for Windows 
 
 See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool).
 
-## Prerequisites to run the application
+## Installing the tool with Winget
+
+Run the following commands to install the prerequisites and AMSE :
+
+```console
+winget install Microsoft.DotNet.DesktopRuntime.6
+winget install Microsoft.EdgeWebView2Runtime
+winget install Microsoft.AzureMediaServicesExplorer
+```
+
+## Manual installation
 
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
 
