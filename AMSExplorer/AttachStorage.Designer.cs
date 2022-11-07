@@ -88,7 +88,6 @@
             this.listViewDetachStorage.CheckBoxes = true;
             this.listViewDetachStorage.FullRowSelect = true;
             this.listViewDetachStorage.GridLines = true;
-            this.listViewDetachStorage.HideSelection = false;
             this.listViewDetachStorage.Name = "listViewDetachStorage";
             this.listViewDetachStorage.ShowItemToolTips = true;
             this.listViewDetachStorage.UseCompatibleStateImageBehavior = false;
@@ -111,7 +110,6 @@
             this.listViewAttachStorage.CheckBoxes = true;
             this.listViewAttachStorage.FullRowSelect = true;
             this.listViewAttachStorage.GridLines = true;
-            this.listViewAttachStorage.HideSelection = false;
             this.listViewAttachStorage.Name = "listViewAttachStorage";
             this.listViewAttachStorage.ShowItemToolTips = true;
             this.listViewAttachStorage.UseCompatibleStateImageBehavior = false;

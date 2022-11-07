@@ -15,9 +15,11 @@
 //---------------------------------------------------------------------------------------------
 
 
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.Storage;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.Storage;
 using System;
 using System.Collections.Generic;
@@ -111,29 +113,31 @@ namespace AMSExplorer
             );
 
             // list locations in order to be able the long name of location 
-            SubscriptionClient subscriptionClient = new(_amsClient.environment.ArmEndpoint, _amsClient.credentials);
-            var myLocations = subscriptionClient.Subscriptions.ListLocations(_amsClient.AMSclient.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").ToList();
-            var shortLocationName = myLocations.Where(l => l.DisplayName == _amsClient.credentialsEntry.MediaService.Location).FirstOrDefault()?.Name;
+          
+            ArmClient armClient = new ArmClient(_amsClient.credentialForArmClient);
+
+            // Subcriptions listing
+            var subscriptions = armClient.GetSubscriptions().ToList();
+
+            SubscriptionResource subscription = subscriptions.Where(s => s.Data.SubscriptionId == _amsClient.AMSclient.SubscriptionId).First();
+            var myLocations = subscription.GetLocations().AsEnumerable();
+                       
+            string shortLocationName = myLocations.Where(l => l.DisplayName == _amsClient.credentialsEntry.MediaService.Location).FirstOrDefault()?.Name;
 
             // List storage accounts in subscription
-            StorageManagementClient storageManagementClient = new(_amsClient.credentials)
-            {
-                SubscriptionId = _amsClient.AMSclient.SubscriptionId
-            };
+            var storageaccounts = subscription.GetStorageAccounts();
+            var storageAccountsInLoc = storageaccounts.Where(s => s.Data.Location == shortLocationName).ToList();
 
-            var storageAccountsInSub2 = storageManagementClient.StorageAccounts.List().ToList();
-            var storageAccountsInSub = storageManagementClient.StorageAccounts.List().Where(s => s.Location == shortLocationName).ToList();
-
-            storageAccountsInSub.ForEach(s =>
+            storageAccountsInLoc.ForEach(s =>
             {
-                ListViewItem lvitem = new(new string[] { s.Name, s.Id })
+                ListViewItem lvitem = new(new string[] { s.Data.Name, s.Id })
                 {
-                    ToolTipText = string.Format("Resource Group : {0} (Replication : {1})", AMSClientV3.GetStorageResourceName(s.Id), s.Sku.Name)
+                    ToolTipText = string.Format("Resource Group : {0} (Replication : {1})", AMSClientV3.GetStorageResourceName(s.Id), s.Data.Sku.Name)
                 };
                 listViewAttachStorage.Items.Add(lvitem);
 
             }
-           );
+          );
 
             labelAttachFromList.Text = string.Format(labelAttachFromList.Text, _amsClient.credentialsEntry.MediaService.Location);
             buttonAttach.Enabled = true;
