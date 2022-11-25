@@ -229,24 +229,28 @@
             // 
             // pictureBox4
             // 
+            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.encodingPremium;
             resources.ApplyResources(this.pictureBox4, "pictureBox4");
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
+            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.encoding;
             resources.ApplyResources(this.pictureBox3, "pictureBox3");
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.TabStop = false;
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.passthrough_std;
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.passthrough_basic;
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
