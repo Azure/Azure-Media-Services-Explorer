@@ -8790,7 +8790,7 @@ namespace AMSExplorer
         {
             StringBuilder sb = new();
             sb.AppendLine("All API operations :");
-            sb.AppendLine("See https://docs.microsoft.com/en-us/azure/media-services/latest/rbac-overview for more info");
+            sb.AppendLine("See https://learn.microsoft.com/en-us/azure/media-services/latest/security-rbac-concept for more info");
             sb.AppendLine("============================================================================================");
             TextBoxLogWriteLine("Listing operations....");
 

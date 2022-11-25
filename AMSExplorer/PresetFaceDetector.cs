@@ -62,7 +62,7 @@ namespace AMSExplorer
         private void PresetFaceDetector_Load(object sender, EventArgs e)
         {
 
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoFaceDetector));
 
             textBoxDescription.Text = _existingTransformDesc;
 

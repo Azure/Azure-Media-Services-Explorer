@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------------------------
 //    Copyright 2022 Microsoft Corporation
-//
+//https://learn.microsoft.com/en-us
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
@@ -21,7 +21,7 @@ namespace AMSExplorer.Rest
 {
     /// <summary>
     /// Rest call for live transcription preview
-    /// https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription
+    /// https://learn.microsoft.com/en-us/azure/media-services/latest/live-event-live-transcription-how-to
     /// 
     /// </summary>
     public partial class AmsClientRest

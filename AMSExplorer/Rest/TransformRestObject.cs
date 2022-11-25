@@ -21,7 +21,7 @@ namespace AMSExplorer.Rest
 {
     /// <summary>
     /// Rest call for transforms
-    /// https://docs.microsoft.com/en-us/rest/api/media/transforms
+    /// https://learn.microsoft.com/en-us/rest/api/media/transforms
     /// 
     /// </summary>
 

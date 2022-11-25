@@ -63,7 +63,7 @@ namespace AMSExplorer
             //Application.SetCompatibleTextRenderingDefault(false);
 
             // New bootstrap https://devblogs.microsoft.com/dotnet/whats-new-in-windows-forms-in-net-6-0/#application-bootstrap
-            // Parameters can be added to project file https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props-desktop#windows-forms-settings
+            // Parameters can be added to project file https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props-desktop#windows-forms-settings
             ApplicationConfiguration.Initialize();
 
             // BUG
@@ -244,7 +244,7 @@ namespace AMSExplorer
 
         public static async Task CheckWebView2VersionAsync()
         {
-            // https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution
+            // https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution
             // HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}
             // HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}
 
