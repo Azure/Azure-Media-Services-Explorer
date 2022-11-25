@@ -14,10 +14,14 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Azure;
+using Azure.Core;
+using Azure.Identity;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.Resources.Models;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.ResourceManager;
-using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.Rest;
@@ -33,11 +37,11 @@ namespace AMSExplorer
 {
     public partial class CreateAccount : Form
     {
-        private List<Microsoft.Azure.Management.ResourceManager.Models.Location> _locations;
+        private List<LocationExpanded> _locations;
         private AzureMediaServicesClient _mediaServicesClient;
         private TokenCredentials _tokenCredentials;
         private List<string> _listRegionWithAvailabilityZone;
-
+        private SubscriptionResource _subscription;
         private string _questionMark;
         private string _checkedMark;
 
@@ -51,6 +55,7 @@ namespace AMSExplorer
         public string SelectedLocationDisplayName => (comboBoxAzureLocations.SelectedItem as Item).Value;
 
         public string SelectedLocationName => _locations.Where(l => l.DisplayName == (comboBoxAzureLocations.SelectedItem as Item).Value).First().Name;
+        public AzureLocation SelectedLocation => _locations.Where(l => l.DisplayName == (comboBoxAzureLocations.SelectedItem as Item).Value).First();
 
 
         public string AccountName => textBoxAccountName.Text;
@@ -60,7 +65,7 @@ namespace AMSExplorer
         public MediaService MediaServiceCreated { get; private set; }
 
 
-        public CreateAccount(List<Microsoft.Azure.Management.ResourceManager.Models.Location> locations, AzureMediaServicesClient mediaServicesClient, TokenCredentials tokenCredentials, List<string> listRegionWithAvailabilityZone)
+        public CreateAccount(List<LocationExpanded> locations, AzureMediaServicesClient mediaServicesClient, TokenCredentials tokenCredentials, List<string> listRegionWithAvailabilityZone, SubscriptionResource subscription)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -68,6 +73,7 @@ namespace AMSExplorer
             _mediaServicesClient = mediaServicesClient;
             _tokenCredentials = tokenCredentials;
             _listRegionWithAvailabilityZone = listRegionWithAvailabilityZone;
+            _subscription = subscription;
 
             _questionMark = labelOkAMSAccount.Text;
             _checkedMark = (string)labelOkAMSAccount.Tag;
@@ -83,7 +89,8 @@ namespace AMSExplorer
             int index = 0;
             foreach (var loc in _locations)
             {
-                comboBoxAzureLocations.Items.Add(new Item(loc.RegionalDisplayName, loc.DisplayName));
+                comboBoxAzureLocations.Items.Add(new Item(loc.DisplayName, loc.DisplayName));
+                //    comboBoxAzureLocations.Items.Add(new Item(loc.RegionalDisplayName, loc.DisplayName));
                 if (loc.DisplayName == "East US")
                 {
                     index = comboBoxAzureLocations.Items.Count - 1;
@@ -254,10 +261,16 @@ namespace AMSExplorer
                 if (checkBoxCreateRG.Checked)
                 {
                     // create resource group if needed
-                    var resourceClient = new ResourceManagementClient(_tokenCredentials) { SubscriptionId = _mediaServicesClient.SubscriptionId };
-                    var resourceGroupsClient = resourceClient.ResourceGroups;
-                    var resourceGroup = new ResourceGroup(SelectedLocationName);
-                    resourceGroup = await resourceGroupsClient.CreateOrUpdateAsync(ResourceGroupName, resourceGroup);
+
+                    //var resourceClient = new ResourceManagementClient(_tokenCredentials) { SubscriptionId = _mediaServicesClient.SubscriptionId };
+                    //var resourceGroupsClient = resourceClient.ResourceGroups;
+                    //var resourceGroup = new ResourceGroup(SelectedLocationName);
+                    //resourceGroup = await resourceGroupsClient.CreateOrUpdateAsync(ResourceGroupName, resourceGroup);
+
+                    ResourceGroupCollection resourceGroups = _subscription.GetResourceGroups();
+                    ResourceGroupData resourceGroupData = new ResourceGroupData(SelectedLocationName);
+                    ArmOperation<ResourceGroupResource> operation = await resourceGroups.CreateOrUpdateAsync(WaitUntil.Completed, ResourceGroupName, resourceGroupData);
+                    ResourceGroupResource resourceGroup = operation.Value;
                 }
 
                 string storageId;

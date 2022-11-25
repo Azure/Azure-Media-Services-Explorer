@@ -388,8 +388,8 @@
     <value />
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>Or provide the Resource Id (one per line).
-It can be found in the Azure portal, in the 'endpoints' section of the storage account.</value>
+    <value>Or provide the Resource ID (one per line).
+It can be found in the Azure portal, in the 'Settings/Endpoints' section of the storage account.</value>
   </data>
   <data name="labelAttachFromList.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 29</value>
