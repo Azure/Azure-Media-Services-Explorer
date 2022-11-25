@@ -115,7 +115,6 @@
             // pictureBox1
             // 
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.archive;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
@@ -143,7 +142,6 @@
             // buttonDisplayRelatedAsset
             // 
             resources.ApplyResources(this.buttonDisplayRelatedAsset, "buttonDisplayRelatedAsset");
-            this.buttonDisplayRelatedAsset.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.buttonDisplayRelatedAsset.Name = "buttonDisplayRelatedAsset";
             this.buttonDisplayRelatedAsset.UseVisualStyleBackColor = true;
             this.buttonDisplayRelatedAsset.Click += new System.EventHandler(this.buttonOpenAsset_Click);

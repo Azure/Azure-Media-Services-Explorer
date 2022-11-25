@@ -56,10 +56,10 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelstep
@@ -72,7 +72,6 @@
             // 
             resources.ApplyResources(this.listViewContentKeyPolicies, "listViewContentKeyPolicies");
             this.listViewContentKeyPolicies.FullRowSelect = true;
-            this.listViewContentKeyPolicies.HideSelection = false;
             this.listViewContentKeyPolicies.MultiSelect = false;
             this.listViewContentKeyPolicies.Name = "listViewContentKeyPolicies";
             this.listViewContentKeyPolicies.Tag = -1;

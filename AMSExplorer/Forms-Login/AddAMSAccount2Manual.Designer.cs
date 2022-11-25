@@ -53,6 +53,7 @@
             resources.ApplyResources(this.buttonNext, "buttonNext");
             this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonNext.Name = "buttonNext";
+            this.toolTip1.SetToolTip(this.buttonNext, resources.GetString("buttonNext.ToolTip"));
             this.buttonNext.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
@@ -60,15 +61,17 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonNext);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // textBoxAMSResourceId
             // 
@@ -78,16 +81,18 @@
             // 
             // groupBoxAADAutMode
             // 
+            resources.ApplyResources(this.groupBoxAADAutMode, "groupBoxAADAutMode");
             this.groupBoxAADAutMode.Controls.Add(this.radioButtonAADServicePrincipal);
             this.groupBoxAADAutMode.Controls.Add(this.radioButtonAADInteractive);
-            resources.ApplyResources(this.groupBoxAADAutMode, "groupBoxAADAutMode");
             this.groupBoxAADAutMode.Name = "groupBoxAADAutMode";
             this.groupBoxAADAutMode.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBoxAADAutMode, resources.GetString("groupBoxAADAutMode.ToolTip"));
             // 
             // radioButtonAADServicePrincipal
             // 
             resources.ApplyResources(this.radioButtonAADServicePrincipal, "radioButtonAADServicePrincipal");
             this.radioButtonAADServicePrincipal.Name = "radioButtonAADServicePrincipal";
+            this.toolTip1.SetToolTip(this.radioButtonAADServicePrincipal, resources.GetString("radioButtonAADServicePrincipal.ToolTip"));
             this.radioButtonAADServicePrincipal.UseVisualStyleBackColor = true;
             // 
             // radioButtonAADInteractive
@@ -96,40 +101,47 @@
             this.radioButtonAADInteractive.Checked = true;
             this.radioButtonAADInteractive.Name = "radioButtonAADInteractive";
             this.radioButtonAADInteractive.TabStop = true;
+            this.toolTip1.SetToolTip(this.radioButtonAADInteractive, resources.GetString("radioButtonAADInteractive.ToolTip"));
             this.radioButtonAADInteractive.UseVisualStyleBackColor = true;
             // 
             // textBoxAADtenantId
             // 
             resources.ApplyResources(this.textBoxAADtenantId, "textBoxAADtenantId");
             this.textBoxAADtenantId.Name = "textBoxAADtenantId";
+            this.toolTip1.SetToolTip(this.textBoxAADtenantId, resources.GetString("textBoxAADtenantId.ToolTip"));
             // 
             // labelADTenant
             // 
             resources.ApplyResources(this.labelADTenant, "labelADTenant");
             this.labelADTenant.Name = "labelADTenant";
+            this.toolTip1.SetToolTip(this.labelADTenant, resources.GetString("labelADTenant.ToolTip"));
             // 
             // labelE2
             // 
             resources.ApplyResources(this.labelE2, "labelE2");
             this.labelE2.Name = "labelE2";
+            this.toolTip1.SetToolTip(this.labelE2, resources.GetString("labelE2.ToolTip"));
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label2.Name = "label2";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.ForeColor = System.Drawing.Color.DarkBlue;
             this.label6.Name = "label6";
+            this.toolTip1.SetToolTip(this.label6, resources.GetString("label6.ToolTip"));
             // 
             // AddAMSAccount2Manual
             // 
@@ -148,6 +160,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "AddAMSAccount2Manual";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.AddAMSAccount2_Load);
             this.Shown += new System.EventHandler(this.AddAMSAccount2Manual_Shown);
             this.panel1.ResumeLayout(false);

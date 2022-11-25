@@ -69,19 +69,13 @@
   <data name="button1.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="labelAttachFromList.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="listViewDetachStorage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 15</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>名前 :</value>
-  </data>
-  <data name="label3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="listViewStorage.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 15</value>
   </data>
@@ -92,6 +86,18 @@
     <value />
   </data>
   <data name="labelAssetCopy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="listViewAttachStorage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox2.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="$this.Text" xml:space="preserve">

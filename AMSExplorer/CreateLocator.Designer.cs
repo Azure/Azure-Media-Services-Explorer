@@ -242,7 +242,6 @@
             // pictureBox9
             // 
             resources.ApplyResources(this.pictureBox9, "pictureBox9");
-            this.pictureBox9.Image = global::AMSExplorer.Bitmaps.DRM_protection_Cbcs;
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox9, resources.GetString("pictureBox9.ToolTip"));
@@ -251,7 +250,6 @@
             // pictureBox8
             // 
             resources.ApplyResources(this.pictureBox8, "pictureBox8");
-            this.pictureBox8.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox8, resources.GetString("pictureBox8.ToolTip"));
@@ -260,7 +258,6 @@
             // pictureBox7
             // 
             resources.ApplyResources(this.pictureBox7, "pictureBox7");
-            this.pictureBox7.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox7, resources.GetString("pictureBox7.ToolTip"));
@@ -269,7 +266,6 @@
             // pictureBox6
             // 
             resources.ApplyResources(this.pictureBox6, "pictureBox6");
-            this.pictureBox6.Image = global::AMSExplorer.Bitmaps.envelope_encryption;
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox6, resources.GetString("pictureBox6.ToolTip"));
@@ -278,7 +274,6 @@
             // pictureBox5
             // 
             resources.ApplyResources(this.pictureBox5, "pictureBox5");
-            this.pictureBox5.Image = global::AMSExplorer.Bitmaps.download;
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox5, resources.GetString("pictureBox5.ToolTip"));
@@ -286,7 +281,6 @@
             // pictureBox4
             // 
             resources.ApplyResources(this.pictureBox4, "pictureBox4");
-            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.download;
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox4, resources.GetString("pictureBox4.ToolTip"));
@@ -294,7 +288,6 @@
             // pictureBox3
             // 
             resources.ApplyResources(this.pictureBox3, "pictureBox3");
-            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.clear;
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox3, resources.GetString("pictureBox3.ToolTip"));
@@ -302,7 +295,6 @@
             // pictureBox2
             // 
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.clear;
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox2, resources.GetString("pictureBox2.ToolTip"));
@@ -363,7 +355,6 @@
             // pictureBox1
             // 
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
@@ -440,7 +431,6 @@
             this.listViewFilters.CheckBoxes = true;
             this.listViewFilters.FullRowSelect = true;
             this.listViewFilters.GridLines = true;
-            this.listViewFilters.HideSelection = false;
             this.listViewFilters.Name = "listViewFilters";
             this.toolTip1.SetToolTip(this.listViewFilters, resources.GetString("listViewFilters.ToolTip"));
             this.listViewFilters.UseCompatibleStateImageBehavior = false;

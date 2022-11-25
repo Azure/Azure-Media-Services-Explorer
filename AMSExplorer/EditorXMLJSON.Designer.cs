@@ -88,7 +88,6 @@
             // buttonCopyClipboard
             // 
             resources.ApplyResources(this.buttonCopyClipboard, "buttonCopyClipboard");
-            this.buttonCopyClipboard.Image = global::AMSExplorer.Bitmaps.copy_to_clipboard;
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);

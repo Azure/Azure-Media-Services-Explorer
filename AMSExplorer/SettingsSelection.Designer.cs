@@ -81,7 +81,6 @@
             this.listViewSettings.CheckBoxes = true;
             this.listViewSettings.FullRowSelect = true;
             this.listViewSettings.GridLines = true;
-            this.listViewSettings.HideSelection = false;
             this.listViewSettings.Name = "listViewSettings";
             this.listViewSettings.UseCompatibleStateImageBehavior = false;
             this.listViewSettings.View = System.Windows.Forms.View.List;

@@ -84,6 +84,14 @@
     <value>0</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonOk.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB5SURBVDhPlYyBCkAhCAP7/5/2YXQyfVZ0MJW2NTbY
+        2kr3tuXpAzdUyuktPAJsR2/o/Ll9INAbqh8dDA3cSB0fCPSG6kcHQwM3UscHAr2h+tHB0MCN1PGBQG+o
+        fnQwaqDS+XP7UCmnt84LOqMPm1nSYvvBL18f3mTjA3dRm2WR4mMYAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
     <value>630, 14</value>
   </data>
@@ -508,6 +516,30 @@
     <value>サブクリッピング モード</value>
   </data>
   <data name="groupBox2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonArchiveAllBitrates.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonArchiveAllBitrates.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonArchiveAllBitrates.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonArchiveAllBitrates.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label2.Error" xml:space="preserve">

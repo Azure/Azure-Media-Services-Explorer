@@ -71,15 +71,6 @@
     <value>ステップ {0}
 Widevine ライセンス テンプレートの構成 (ポリシーオプション #{1})</value>
   </data>
-  <data name="openFileDialogPreset.Filter" xml:space="preserve">
-    <value>XML ファイル|*.xml|すべてのファイル|*.*</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 15</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Required Output Protection: </value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>動的暗号化 - ステップ {0}</value>
   </data>

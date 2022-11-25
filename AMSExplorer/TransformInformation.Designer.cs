@@ -37,6 +37,8 @@
             this.listBoxOutputs = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.buttonCopyStats = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DGOutputs = new System.Windows.Forms.DataGridView();
@@ -48,8 +50,6 @@
             this.assetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelJobNameTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.buttonCopyStats = new System.Windows.Forms.Button();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGTransform)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -64,16 +64,16 @@
             // 
             // contextMenuStrip
             // 
+            resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemCopyClipboard});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
             this.contextMenuStrip.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ContextMenuStrip_MouseClick);
             // 
             // toolStripMenuItemCopyClipboard
             // 
-            this.toolStripMenuItemCopyClipboard.Name = "toolStripMenuItemCopyClipboard";
             resources.ApplyResources(this.toolStripMenuItemCopyClipboard, "toolStripMenuItemCopyClipboard");
+            this.toolStripMenuItemCopyClipboard.Name = "toolStripMenuItemCopyClipboard";
             // 
             // buttonClose
             // 
@@ -84,10 +84,10 @@
             // 
             // DGTransform
             // 
+            resources.ApplyResources(this.DGTransform, "DGTransform");
             this.DGTransform.AllowUserToAddRows = false;
             this.DGTransform.AllowUserToDeleteRows = false;
             this.DGTransform.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.DGTransform, "DGTransform");
             this.DGTransform.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGTransform.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGTransform.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -115,17 +115,29 @@
             // 
             // tabPage1
             // 
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.buttonCopyStats);
             this.tabPage1.Controls.Add(this.DGTransform);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // buttonCopyStats
+            // 
+            resources.ApplyResources(this.buttonCopyStats, "buttonCopyStats");
+            this.buttonCopyStats.Name = "buttonCopyStats";
+            this.buttonCopyStats.UseVisualStyleBackColor = true;
+            this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
+            // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.tableLayoutPanel1);
             resources.ApplyResources(this.tabPage2, "tabPage2");
+            this.tabPage2.Controls.Add(this.tableLayoutPanel1);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
@@ -140,6 +152,7 @@
             // 
             // DGOutputs
             // 
+            resources.ApplyResources(this.DGOutputs, "DGOutputs");
             this.DGOutputs.AllowUserToAddRows = false;
             this.DGOutputs.AllowUserToDeleteRows = false;
             this.DGOutputs.AllowUserToResizeRows = false;
@@ -148,7 +161,6 @@
             this.DGOutputs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGOutputs.ColumnHeadersVisible = false;
             this.DGOutputs.ContextMenuStrip = this.contextMenuStrip;
-            resources.ApplyResources(this.DGOutputs, "DGOutputs");
             this.DGOutputs.MultiSelect = false;
             this.DGOutputs.Name = "DGOutputs";
             this.DGOutputs.ReadOnly = true;
@@ -168,30 +180,28 @@
             // 
             // contextMenuStripOutputAsset
             // 
+            resources.ApplyResources(this.contextMenuStripOutputAsset, "contextMenuStripOutputAsset");
             this.contextMenuStripOutputAsset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.contextMenuStripOutputAsset.Name = "contextMenuStripAsset";
-            resources.ApplyResources(this.contextMenuStripOutputAsset, "contextMenuStripOutputAsset");
             // 
             // toolStripMenuItem1
             // 
-            this.toolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
             // contextMenuStripInputAsset
             // 
+            resources.ApplyResources(this.contextMenuStripInputAsset, "contextMenuStripInputAsset");
             this.contextMenuStripInputAsset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assetInformationToolStripMenuItem});
             this.contextMenuStripInputAsset.Name = "contextMenuStripInputAsset";
-            resources.ApplyResources(this.contextMenuStripInputAsset, "contextMenuStripInputAsset");
             // 
             // assetInformationToolStripMenuItem
             // 
-            this.assetInformationToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.assetInformationToolStripMenuItem.Name = "assetInformationToolStripMenuItem";
             resources.ApplyResources(this.assetInformationToolStripMenuItem, "assetInformationToolStripMenuItem");
+            this.assetInformationToolStripMenuItem.Name = "assetInformationToolStripMenuItem";
             this.assetInformationToolStripMenuItem.Click += new System.EventHandler(this.AssetInformationToolStripMenuItem_Click);
             // 
             // labelJobNameTitle
@@ -201,22 +211,10 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonClose);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
-            // buttonCopyStats
-            // 
-            resources.ApplyResources(this.buttonCopyStats, "buttonCopyStats");
-            this.buttonCopyStats.Name = "buttonCopyStats";
-            this.buttonCopyStats.UseVisualStyleBackColor = true;
-            this.buttonCopyStats.Click += new System.EventHandler(this.buttonCopyStats_Click);
             // 
             // TransformInformation
             // 

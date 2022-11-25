@@ -51,6 +51,7 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
+            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
@@ -59,48 +60,56 @@
             resources.ApplyResources(this.buttonUpdate, "buttonUpdate");
             this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonUpdate.Name = "buttonUpdate";
+            this.toolTip1.SetToolTip(this.buttonUpdate, resources.GetString("buttonUpdate.ToolTip"));
             this.buttonUpdate.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonUpdate);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
             this.label2.Name = "label2";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // comboBoxTexttrackLanguage
             // 
-            this.comboBoxTexttrackLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             resources.ApplyResources(this.comboBoxTexttrackLanguage, "comboBoxTexttrackLanguage");
+            this.comboBoxTexttrackLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTexttrackLanguage.FormattingEnabled = true;
             this.comboBoxTexttrackLanguage.Name = "comboBoxTexttrackLanguage";
+            this.toolTip1.SetToolTip(this.comboBoxTexttrackLanguage, resources.GetString("comboBoxTexttrackLanguage.ToolTip"));
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
+            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
             // 
             // textBoxDisplayName
             // 
             resources.ApplyResources(this.textBoxDisplayName, "textBoxDisplayName");
             this.textBoxDisplayName.Name = "textBoxDisplayName";
+            this.toolTip1.SetToolTip(this.textBoxDisplayName, resources.GetString("textBoxDisplayName.ToolTip"));
             // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
+            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
             // 
             // labelBlobName
             // 
             resources.ApplyResources(this.labelBlobName, "labelBlobName");
             this.labelBlobName.Name = "labelBlobName";
+            this.toolTip1.SetToolTip(this.labelBlobName, resources.GetString("labelBlobName.ToolTip"));
             // 
             // checkBoxLanguage
             // 
@@ -114,11 +123,13 @@
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // textBoxTrackName
             // 
             resources.ApplyResources(this.textBoxTrackName, "textBoxTrackName");
             this.textBoxTrackName.Name = "textBoxTrackName";
+            this.toolTip1.SetToolTip(this.textBoxTrackName, resources.GetString("textBoxTrackName.ToolTip"));
             // 
             // AssetInfoTextTrackCreation
             // 
@@ -138,6 +149,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Name = "AssetInfoTextTrackCreation";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.AssetInfoTextTrackCreation_Load);
             this.Shown += new System.EventHandler(this.AssetInfoTextTrackCreation_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AssetInfoTextTrackCreation_DpiChanged);

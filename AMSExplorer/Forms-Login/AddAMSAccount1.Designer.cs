@@ -64,10 +64,10 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonNext);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // radioButtonAddAMSAccount
@@ -99,20 +99,20 @@
             // 
             // comboBoxAADMappingList
             // 
+            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
             this.comboBoxAADMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAADMappingList.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
             this.comboBoxAADMappingList.Name = "comboBoxAADMappingList";
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.linkLabelAzCliDoc);
             this.groupBox1.Controls.Add(this.radioButtonAddAMSAccount);
             this.groupBox1.Controls.Add(this.checkBoxSelectUser);
             this.groupBox1.Controls.Add(this.radioButtonJsonCliOutput);
             this.groupBox1.Controls.Add(this.radioButtonAddManual);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -135,9 +135,9 @@
             // 
             // panelEnv
             // 
+            resources.ApplyResources(this.panelEnv, "panelEnv");
             this.panelEnv.Controls.Add(this.label1);
             this.panelEnv.Controls.Add(this.comboBoxAADMappingList);
-            resources.ApplyResources(this.panelEnv, "panelEnv");
             this.panelEnv.Name = "panelEnv";
             // 
             // label6

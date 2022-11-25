@@ -134,7 +134,6 @@
             this.errorProvider1.SetError(this.pictureBox2, resources.GetString("pictureBox2.Error"));
             this.errorProvider1.SetIconAlignment(this.pictureBox2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox2.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.pictureBox2, ((int)(resources.GetObject("pictureBox2.IconPadding"))));
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.encoding;
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
             // 
@@ -144,7 +143,6 @@
             this.errorProvider1.SetError(this.pictureBox1, resources.GetString("pictureBox1.Error"));
             this.errorProvider1.SetIconAlignment(this.pictureBox1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox1.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.pictureBox1, ((int)(resources.GetObject("pictureBox1.IconPadding"))));
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.face_detector;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
@@ -154,7 +152,6 @@
             this.errorProvider1.SetError(this.pictureBox3, resources.GetString("pictureBox3.Error"));
             this.errorProvider1.SetIconAlignment(this.pictureBox3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox3.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.pictureBox3, ((int)(resources.GetObject("pictureBox3.IconPadding"))));
-            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.index;
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.TabStop = false;
             // 
@@ -183,7 +180,6 @@
             this.errorProvider1.SetError(this.pictureBox4, resources.GetString("pictureBox4.Error"));
             this.errorProvider1.SetIconAlignment(this.pictureBox4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox4.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.pictureBox4, ((int)(resources.GetObject("pictureBox4.IconPadding"))));
-            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.rename;
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.TabStop = false;
             // 

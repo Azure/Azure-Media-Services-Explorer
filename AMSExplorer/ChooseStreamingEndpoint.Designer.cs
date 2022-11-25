@@ -133,7 +133,6 @@
             this.listViewFilters.CheckBoxes = true;
             this.listViewFilters.FullRowSelect = true;
             this.listViewFilters.GridLines = true;
-            this.listViewFilters.HideSelection = false;
             this.listViewFilters.Name = "listViewFilters";
             this.listViewFilters.UseCompatibleStateImageBehavior = false;
             this.listViewFilters.View = System.Windows.Forms.View.List;

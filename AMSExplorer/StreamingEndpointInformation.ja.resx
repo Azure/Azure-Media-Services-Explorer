@@ -189,6 +189,18 @@
   <data name="groupBoxTypeScale.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="linkLabelAutoscale.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelAutoscale.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="linkLabelAutoscale.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="linkLabelAutoscale.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="radioButtonPremium.Error" xml:space="preserve">
     <value />
   </data>

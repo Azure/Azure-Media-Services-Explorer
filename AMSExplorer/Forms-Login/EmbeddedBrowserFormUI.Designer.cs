@@ -37,6 +37,7 @@ namespace AMSExplorer.AMSLogin
             // webBrowser
             // 
             resources.ApplyResources(this.webBrowser, "webBrowser");
+            this.webBrowser.AllowExternalDrop = true;
             this.webBrowser.CreationProperties = null;
             this.webBrowser.DefaultBackgroundColor = System.Drawing.Color.White;
             this.webBrowser.Name = "webBrowser";

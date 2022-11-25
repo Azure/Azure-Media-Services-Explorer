@@ -53,21 +53,24 @@
             resources.ApplyResources(this.buttonAttach, "buttonAttach");
             this.buttonAttach.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonAttach.Name = "buttonAttach";
+            this.toolTip1.SetToolTip(this.buttonAttach, resources.GetString("buttonAttach.ToolTip"));
             this.buttonAttach.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.buttonAttach);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Name = "button1";
+            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
             this.button1.UseVisualStyleBackColor = true;
             // 
             // textBoxAttachStorage
@@ -81,6 +84,7 @@
             // 
             resources.ApplyResources(this.labelAttachFromList, "labelAttachFromList");
             this.labelAttachFromList.Name = "labelAttachFromList";
+            this.toolTip1.SetToolTip(this.labelAttachFromList, resources.GetString("labelAttachFromList.ToolTip"));
             // 
             // listViewDetachStorage
             // 
@@ -88,9 +92,9 @@
             this.listViewDetachStorage.CheckBoxes = true;
             this.listViewDetachStorage.FullRowSelect = true;
             this.listViewDetachStorage.GridLines = true;
-            this.listViewDetachStorage.HideSelection = false;
             this.listViewDetachStorage.Name = "listViewDetachStorage";
             this.listViewDetachStorage.ShowItemToolTips = true;
+            this.toolTip1.SetToolTip(this.listViewDetachStorage, resources.GetString("listViewDetachStorage.ToolTip"));
             this.listViewDetachStorage.UseCompatibleStateImageBehavior = false;
             this.listViewDetachStorage.View = System.Windows.Forms.View.List;
             // 
@@ -98,12 +102,14 @@
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
+            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // labelAssetCopy
             // 
             resources.ApplyResources(this.labelAssetCopy, "labelAssetCopy");
             this.labelAssetCopy.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelAssetCopy.Name = "labelAssetCopy";
+            this.toolTip1.SetToolTip(this.labelAssetCopy, resources.GetString("labelAssetCopy.ToolTip"));
             // 
             // listViewAttachStorage
             // 
@@ -111,9 +117,9 @@
             this.listViewAttachStorage.CheckBoxes = true;
             this.listViewAttachStorage.FullRowSelect = true;
             this.listViewAttachStorage.GridLines = true;
-            this.listViewAttachStorage.HideSelection = false;
             this.listViewAttachStorage.Name = "listViewAttachStorage";
             this.listViewAttachStorage.ShowItemToolTips = true;
+            this.toolTip1.SetToolTip(this.listViewAttachStorage, resources.GetString("listViewAttachStorage.ToolTip"));
             this.listViewAttachStorage.UseCompatibleStateImageBehavior = false;
             this.listViewAttachStorage.View = System.Windows.Forms.View.List;
             // 
@@ -121,6 +127,7 @@
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
             // groupBox1
             // 
@@ -129,6 +136,7 @@
             this.groupBox1.Controls.Add(this.listViewDetachStorage);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
             // 
             // groupBox2
             // 
@@ -139,6 +147,7 @@
             this.groupBox2.Controls.Add(this.textBoxAttachStorage);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.groupBox2, resources.GetString("groupBox2.ToolTip"));
             // 
             // AttachStorage
             // 
@@ -151,6 +160,7 @@
             this.Controls.Add(this.labelAssetCopy);
             this.Controls.Add(this.panel1);
             this.Name = "AttachStorage";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.AttachStorage_Load);
             this.Shown += new System.EventHandler(this.AttachStorage_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AttachStorage_DpiChanged);

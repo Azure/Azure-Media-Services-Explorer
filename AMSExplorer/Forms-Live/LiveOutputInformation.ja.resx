@@ -76,6 +76,14 @@
   <data name="label2.Text" xml:space="preserve">
     <value>説明 :</value>
   </data>
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABSSURBVDhPtYxRCgAhCAU9uje3tAw/NLRwYLaHCwNE
+        9KV7rOgeK7rHiuszny2jO5KR3RbIcA3ojmRktwUyXAO6IxnZbYEMYaCkDaD9kRRP4F2CAcgXn3DvYVqw
+        AAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="buttonDisplayRelatedAsset.Text" xml:space="preserve">
     <value>関連するアセット情報の表示</value>
   </data>

@@ -80,7 +80,6 @@
             // 
             resources.ApplyResources(this.checkedListBoxFolders, "checkedListBoxFolders");
             this.checkedListBoxFolders.CheckBoxes = true;
-            this.checkedListBoxFolders.HideSelection = false;
             this.checkedListBoxFolders.Name = "checkedListBoxFolders";
             this.checkedListBoxFolders.UseCompatibleStateImageBehavior = false;
             this.checkedListBoxFolders.View = System.Windows.Forms.View.List;
@@ -109,7 +108,6 @@
             resources.ApplyResources(this.checkedListBoxFiles, "checkedListBoxFiles");
             this.checkedListBoxFiles.CheckBoxes = true;
             this.checkedListBoxFiles.GridLines = true;
-            this.checkedListBoxFiles.HideSelection = false;
             this.checkedListBoxFiles.Name = "checkedListBoxFiles";
             this.checkedListBoxFiles.UseCompatibleStateImageBehavior = false;
             this.checkedListBoxFiles.View = System.Windows.Forms.View.List;
@@ -137,7 +135,6 @@
             // 
             resources.ApplyResources(this.buttonUpload, "buttonUpload");
             this.buttonUpload.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpload.Image = global::AMSExplorer.Bitmaps.upload;
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.UseVisualStyleBackColor = true;
             // 

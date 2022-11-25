@@ -90,13 +90,13 @@
   <data name="toolStripMenuItemFilesCopyClipboard.Text" xml:space="preserve">
     <value>クリップボードへコピー</value>
   </data>
-  <data name="tabControl1.Error" xml:space="preserve">
+  <data name="tabControlLiveEvent.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="tabControlLiveEvent.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
+  <data name="tabControlLiveEvent.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="tabPageLiveEventInfo.Error" xml:space="preserve">
@@ -119,24 +119,6 @@
   </data>
   <data name="tabPageSettings.Text" xml:space="preserve">
     <value>設定</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxEncodingKeyFrameInterval.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="textBoxEncodingKeyFrameInterval.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxEncodingKeyFrameInterval.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxEncodingKeyFrameInterval.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="buttonAllowAllPreviewIP.Error" xml:space="preserve">
     <value />
@@ -161,30 +143,6 @@
   </data>
   <data name="buttonAllowAllInputIP.Text" xml:space="preserve">
     <value>すべての IP アドレスを許可</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 19</value>
-  </data>
-  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
-    <value>キーフレームの間隔 :</value>
-  </data>
-  <data name="textBoxKeyFrame.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxKeyFrame.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="textBoxKeyFrame.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="checkBoxInputSet.Error" xml:space="preserve">
     <value />
@@ -304,6 +262,51 @@
     <value>MiddleRight</value>
   </data>
   <data name="textboxchannedesc.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageLiveTranscript.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPageLiveTranscript.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPageLiveTranscript.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="comboBoxLanguage.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxLanguage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="comboBoxLanguage.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="linkLabelLiveTranscript.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelLiveTranscript.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="linkLabelLiveTranscript.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxEnableLiveTranscript.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxEnableLiveTranscript.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="tabPageEncoding.Error" xml:space="preserve">
@@ -534,6 +537,93 @@
   <data name="textBoxClientPolicy.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="tabPageAdvanced.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPageAdvanced.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="tabPageAdvanced.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panelAdvanced.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelAdvanced.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="panelAdvanced.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonLowLatencyV2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonLowLatencyV2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonLowLatencyV2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonLowLatencyV1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radioButtonLowLatencyV1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonLowLatencyV1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxLowLatency.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxLowLatency.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxLowLatency.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxEncodingKeyFrameInterval.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxKeyFrame.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxKeyFrame.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxKeyFrame.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 19</value>
+  </data>
+  <data name="checkBoxKeyFrameIntDefined.Text" xml:space="preserve">
+    <value>キーフレームの間隔 :</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxEncodingKeyFrameInterval.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="tabPagePreview.Error" xml:space="preserve">
     <value />
   </data>
@@ -608,5 +698,23 @@
   </data>
   <data name="openFileDialogSlate.Filter" xml:space="preserve">
     <value>JPEGファイル|*.jpg|すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="pictureBoxLE.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBoxLE.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBoxLE.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBoxLE.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACXSURBVDhPpZKxDYNQDEQZAokZIjFTYITUaRmA4VJk
+        Azo6Uv/cKTY4xkGxeNL7pzuZjqqUcspwzBiOGcMxI+Fr7aGF3d9Yd8MLtpAw2f2N9fMId8j+hI3kevgr
+        tSg3yG2WJIepRRkht0mSHKYWMkD2B6wl2b8+8KkH6gIvkDDZ/Y11N3TQcoX+ZjP6OTKGY8ZwzBiO/1uq
+        N49Q04/9++YPAAAAAElFTkSuQmCC
+</value>
   </data>
 </root>
