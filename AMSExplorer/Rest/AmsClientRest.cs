@@ -31,7 +31,7 @@ namespace AMSExplorer.Rest
         // live transcript part
         //
 
-        private const string liveEventApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2020-05-01";
+        private const string liveEventApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2021-11-01";
 
         public async Task<string> CreateLiveEventAsync(LiveEventRestObject liveEventSettings, bool startLiveEventNow)
         {
@@ -63,7 +63,7 @@ namespace AMSExplorer.Rest
         // Transform part
         //
 
-        private const string transformApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/transforms/{3}?api-version=2020-05-01";
+        private const string transformApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/transforms/{3}?api-version=2021-11-01";
 
         public async Task<string> CreateTransformAsync(string transformName, TransformRestObject transformContent)
         {

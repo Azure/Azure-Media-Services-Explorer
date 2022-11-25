@@ -8,45 +8,46 @@
             "bitrate": 128000,
             "profile": "AacLc"
         },
-        {
-            "@odata.type": "#Microsoft.Media.H264Video",
-            "keyFrameInterval": "PT2S",
-            "stretchMode": "AutoSize",
-            "sceneChangeDetection": false,
-            "complexity": "Balanced",
-            "layers": [
-                {
-                    "width": "1280",
-                    "height": "720",
-                    "label": "HD",
-                    "bitrate": 3400000,
-                    "maxBitrate": 3400000,
-                    "bFrames": 3,
-                    "slices": 0,
-                    "adaptiveBFrame": true,
-                    "profile": "Auto",
-                    "level": "auto",
-                    "bufferWindow": "PT5S",
-                    "referenceFrames": 3,
-                    "entropyMode": "Cabac"
-                },
-                {
-                    "width": "640",
-                    "height": "360",
-                    "label": "SD",
-                    "bitrate": 1000000,
-                    "maxBitrate": 1000000,
-                    "bFrames": 3,
-                    "slices": 0,
-                    "adaptiveBFrame": true,
-                    "profile": "Auto",
-                    "level": "auto",
-                    "bufferWindow": "PT5S",
-                    "referenceFrames": 3,
-                    "entropyMode": "Cabac"
-                }
-            ]
-        },
+      {
+        "@odata.type": "#Microsoft.Media.H264Video",
+        "keyFrameInterval": "PT2S",
+        "stretchMode": "AutoSize",
+        "sceneChangeDetection": false,
+        "complexity": "Balanced",
+        "rateControlMode": "ABR",
+        "layers": [
+          {
+            "width": "1280",
+            "height": "720",
+            "label": "HD",
+            "bitrate": 3400000,
+            "maxBitrate": 3400000,
+            "bFrames": 3,
+            "slices": 0,
+            "adaptiveBFrame": true,
+            "profile": "Auto",
+            "level": "auto",
+            "bufferWindow": "PT5S",
+            "referenceFrames": 3,
+            "entropyMode": "Cabac"
+          },
+          {
+            "width": "640",
+            "height": "360",
+            "label": "SD",
+            "bitrate": 1000000,
+            "maxBitrate": 1000000,
+            "bFrames": 3,
+            "slices": 0,
+            "adaptiveBFrame": true,
+            "profile": "Auto",
+            "level": "auto",
+            "bufferWindow": "PT5S",
+            "referenceFrames": 3,
+            "entropyMode": "Cabac"
+          }
+        ]
+      },
         {
             "@odata.type": "#Microsoft.Media.PngImage",
             "stretchMode": "AutoSize",
