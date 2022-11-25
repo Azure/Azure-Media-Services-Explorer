@@ -134,7 +134,7 @@ namespace AMSExplorer
                     _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : streamingEndpoint.ScaleUnits.ToString();
                     BeginInvoke(new Action(() => Refresh()));
                 }
-               catch
+                catch
                 {
 
                 }

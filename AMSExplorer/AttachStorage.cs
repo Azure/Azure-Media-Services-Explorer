@@ -113,7 +113,7 @@ namespace AMSExplorer
             );
 
             // list locations in order to be able the long name of location 
-          
+
             ArmClient armClient = new ArmClient(_amsClient.credentialForArmClient);
 
             // Subcriptions listing
@@ -121,7 +121,7 @@ namespace AMSExplorer
 
             SubscriptionResource subscription = subscriptions.Where(s => s.Data.SubscriptionId == _amsClient.AMSclient.SubscriptionId).First();
             var myLocations = subscription.GetLocations().AsEnumerable();
-                       
+
             string shortLocationName = myLocations.Where(l => l.DisplayName == _amsClient.credentialsEntry.MediaService.Location).FirstOrDefault()?.Name;
 
             // List storage accounts in subscription

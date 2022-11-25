@@ -491,7 +491,7 @@ namespace AMSExplorer
 
                     TokenCredentials credentials = new(accessToken.AccessToken, "Bearer");
                     var credentialForArmClient = new BearerTokenCredential(accessToken.AccessToken);
-              
+
                     ArmClient armClient = new ArmClient(credentialForArmClient);
 
 
@@ -561,8 +561,8 @@ namespace AMSExplorer
                         else // creation mode
                         {
                             SubscriptionResource subscription = subscriptions.Where(s => s.Data.SubscriptionId == addaccount2.SelectedSubscription.Data.SubscriptionId).First();
-                            var myLocations =  subscription.GetLocations().AsEnumerable();
-                            
+                            var myLocations = subscription.GetLocations().AsEnumerable();
+
                             //var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").OrderBy(l => l.RegionalDisplayName);
 
                             // Getting Media Services accounts...

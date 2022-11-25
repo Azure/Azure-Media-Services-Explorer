@@ -434,11 +434,11 @@ namespace AMSExplorer
 
                       do
                       {
-                         
-                              myJob = Task.Run(() =>
-                  amsClient.GetJobAsync(job.TransformName, job.Job.Name)
-                  ).GetAwaiter().GetResult();
-                         
+
+                          myJob = Task.Run(() =>
+              amsClient.GetJobAsync(job.TransformName, job.Job.Name)
+              ).GetAwaiter().GetResult();
+
                           if (token.IsCancellationRequested == true)
                           {
                               return;
@@ -524,11 +524,11 @@ namespace AMSExplorer
                       && myJob.State != JobState.Canceled);
 
                       // job finished
-                     
-                          myJob = Task.Run(() =>
-                                                 amsClient.GetJobAsync(job.TransformName, job.Job.Name)
-                                                 ).GetAwaiter().GetResult();
-                     
+
+                      myJob = Task.Run(() =>
+                                             amsClient.GetJobAsync(job.TransformName, job.Job.Name)
+                                             ).GetAwaiter().GetResult();
+
                       int index2 = -1;
                       foreach (JobEntryV3 je in _MyObservJobV3) // let's search for index
                       {
