@@ -86,7 +86,7 @@ namespace AMSExplorer
         private List<(Guid, string, IListBlobItem, DownloadOptions)> listTransferDownloadOperations = new(); // used to resume download if needed
         private List<(Guid, TransferCheckpoint, long, string)> listTransferDownloadCheckpoints = new(); // used to resume download if needed
 
-       
+
         public Mainform(string[] args)
         {
             Font = new Font("Segoe UI", 9);
