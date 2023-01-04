@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;

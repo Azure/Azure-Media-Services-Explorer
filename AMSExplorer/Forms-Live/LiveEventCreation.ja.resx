@@ -294,6 +294,15 @@
   <data name="pictureBox4.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wAAADsABataJCQAAAKhJREFUOE+ljsENgzAMRRmiEjMgMRN0BM5cGaDDcegGvfXWnsM3+rYsJ42iYun5
+        x/Z3ki6l1AQCUlBJrSDusihqPW+owUUcw1lSK4hrPyiqpCucNwXsezTot3+RNb5g5PLIOno88pC9trL5
+        BD31NHKeqRUKYuHgrbOaWqEgHhy8dFZTK9jY2NzBjSq1LUTV5PmAgYaBdfR4ssYsywpicrMcb/6HYrOd
+        1B2qbBDihqVZHwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="pictureBox4.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -305,6 +314,15 @@
   </data>
   <data name="pictureBox3.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACXSURBVDhPpZKxDYNQDEQZAokZIjFTYITUaRmA4VJk
+        Azo6Uv/cKTY4xkGxeNL7pzuZjqqUcspwzBiOGcMxI+Fr7aGF3d9Yd8MLtpAw2f2N9fMId8j+hI3kevgr
+        tSg3yG2WJIepRRkht0mSHKYWMkD2B6wl2b8+8KkH6gIvkDDZ/Y11N3TQcoX+ZjP6OTKGY8ZwzBiO/1uq
+        N49Q04/9++YPAAAAAElFTkSuQmCC
+</value>
   </data>
   <data name="pictureBox3.ToolTip" xml:space="preserve">
     <value />
@@ -318,6 +336,15 @@
   <data name="pictureBox1.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wAAADsABataJCQAAAJhJREFUOE+lj0EKg0AMRT2E0DMMeKbqEVy77QE8XBe9gRtxp+tpAl+Jf4I0VnjO
+        5P0vwSrn/BeujODKCK6M4MoI+ujb0lGhM5lHITahwccNZu5YdNGxbYD8CA9hxjzsHQsyvZ9kj2DhjEFP
+        7yc5Ipg4Y9DT+yFekG+hxqnz9S8Qq5BQSJi5YylES1ueJiux5Tu4MoIrfydXX5+5RjRZxw1eAAAAAElF
+        TkSuQmCC
+</value>
+  </data>
   <data name="pictureBox1.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -329,6 +356,15 @@
   </data>
   <data name="pictureBox2.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wAAADsABataJCQAAAJpJREFUOE+lkNENgzAMRDMEUmeIxExtRuA7vwzQ4frRIfpbvoONDnQ4VlW3SI+L
+        7w4sSK21v3DNCK4ZwTUjuGYEvfReSIspcOZpZy7CiIdHzLbDqouObRXmU7gIL8x17zDI9HwyJwTbBs4s
+        6On5ZN4RxF8g1wzzIQxQnT9/gsA/5i1kFDJm22HtzJvZcqWsVy7/gmtGcM3vaWkFx1k4tZMqJscAAAAA
+        SUVORK5CYII=
+</value>
   </data>
   <data name="pictureBox2.ToolTip" xml:space="preserve">
     <value />
@@ -619,18 +655,6 @@
     <value>0</value>
   </data>
   <data name="tabPageLiveTranscript.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="linkLabelLiveTranscriptRegions.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="comboBoxLanguage.Error" xml:space="preserve">

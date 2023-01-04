@@ -57,38 +57,327 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Text track properties</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>213, 15</value>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 27</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
+  <data name="comboBoxTexttrackLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="&gt;&gt;buttonUpdate.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 15</value>
   </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 162</value>
+  </data>
+  <data name="buttonUpdate.Text" xml:space="preserve">
+    <value>Create text track</value>
+  </data>
+  <data name="&gt;&gt;textBoxTrackName.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="&gt;&gt;textBoxDisplayName.Name" xml:space="preserve">
+    <value>textBoxDisplayName</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="checkBoxLanguage.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="checkBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 19</value>
+  </data>
+  <data name="labelBlobName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 15</value>
+  </data>
+  <data name="textBoxDisplayName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 15</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Display name</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;buttonUpdate.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>345, 271</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;checkBoxLanguage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelBlobName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTexttrackLanguage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTexttrackLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelBlobName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="comboBoxTexttrackLanguage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelBlobName.Text" xml:space="preserve">
+    <value>blobname</value>
+  </data>
+  <data name="textBoxTrackName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 159</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelBlobName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 56</value>
+  </data>
+  <data name="&gt;&gt;textBoxTrackName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdate.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="checkBoxLanguage.ToolTip" xml:space="preserve">
+    <value>You should declare a language if no language is defined in the subtitle file</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 11.25pt</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AssetInfoTextTrackCreation</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Text track creation</value>
+  </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxDisplayName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTexttrackLanguage.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="labelBlobName.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="&gt;&gt;textBoxDisplayName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelBlobName.Name" xml:space="preserve">
+    <value>labelBlobName</value>
+  </data>
+  <data name="&gt;&gt;textBoxDisplayName.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdate.Name" xml:space="preserve">
+    <value>buttonUpdate</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 20</value>
+  </data>
+  <data name="textBoxDisplayName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 125</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="buttonUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;checkBoxLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Blob</value>
+  </data>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 27</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="checkBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 90</value>
+  </data>
+  <data name="comboBoxTexttrackLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 88</value>
+  </data>
+  <data name="textBoxTrackName.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="labelBlobName.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>345, 55</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 11</value>
+  </data>
+  <data name="&gt;&gt;labelBlobName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="textBoxTrackName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="checkBoxLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;labelBlobName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="buttonUpdate.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTexttrackLanguage.Name" xml:space="preserve">
+    <value>comboBoxTexttrackLanguage</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 128</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;checkBoxLanguage.Name" xml:space="preserve">
+    <value>checkBoxLanguage</value>
+  </data>
+  <data name="textBoxDisplayName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 216</value>
+  </data>
+  <data name="buttonUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 27</value>
+  </data>
+  <data name="textBoxTrackName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonUpdate.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -97,350 +386,97 @@
         rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="buttonUpdate.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
+  <data name="textBoxDisplayName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 23</value>
   </data>
-  <data name="buttonUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 15</value>
+  <data name="labelBlobName.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 27</value>
-  </data>
-  <data name="buttonUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="buttonUpdate.Text" xml:space="preserve">
-    <value>Create text track</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdate.Name" xml:space="preserve">
-    <value>buttonUpdate</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdate.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdate.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 216</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>345, 55</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
   </data>
   <data name="&gt;&gt;panel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 11.25pt</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 11</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 20</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>76</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Text track properties</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="comboBoxTexttrackLanguage.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBoxTexttrackLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 88</value>
-  </data>
-  <data name="comboBoxTexttrackLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 23</value>
-  </data>
-  <data name="comboBoxTexttrackLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="&gt;&gt;comboBoxTexttrackLanguage.Name" xml:space="preserve">
-    <value>comboBoxTexttrackLanguage</value>
-  </data>
-  <data name="&gt;&gt;comboBoxTexttrackLanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxTexttrackLanguage.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;comboBoxTexttrackLanguage.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 128</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Display name</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="textBoxDisplayName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 125</value>
-  </data>
-  <data name="textBoxDisplayName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="textBoxDisplayName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 23</value>
+  <data name="buttonUpdate.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="textBoxDisplayName.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
   </data>
-  <data name="&gt;&gt;textBoxDisplayName.Name" xml:space="preserve">
-    <value>textBoxDisplayName</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Track name</value>
   </data>
-  <data name="&gt;&gt;textBoxDisplayName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
   </data>
-  <data name="&gt;&gt;textBoxDisplayName.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBoxDisplayName.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 56</value>
-  </data>
-  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>81</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Blob</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="labelBlobName.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelBlobName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 56</value>
-  </data>
-  <data name="labelBlobName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="labelBlobName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 15</value>
-  </data>
-  <data name="labelBlobName.TabIndex" type="System.Int32, mscorlib">
-    <value>82</value>
-  </data>
-  <data name="labelBlobName.Text" xml:space="preserve">
-    <value>blobname</value>
-  </data>
-  <data name="&gt;&gt;labelBlobName.Name" xml:space="preserve">
-    <value>labelBlobName</value>
-  </data>
-  <data name="&gt;&gt;labelBlobName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelBlobName.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelBlobName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="checkBoxLanguage.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 90</value>
-  </data>
-  <data name="checkBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 19</value>
-  </data>
-  <data name="checkBoxLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="checkBoxLanguage.Text" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="checkBoxLanguage.ToolTip" xml:space="preserve">
-    <value>You should declare a language if no language is defined in the subtitle file</value>
-  </data>
-  <data name="&gt;&gt;checkBoxLanguage.Name" xml:space="preserve">
-    <value>checkBoxLanguage</value>
-  </data>
-  <data name="&gt;&gt;checkBoxLanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxLanguage.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxLanguage.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 162</value>
-  </data>
-  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>84</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Track name</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="textBoxTrackName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 159</value>
-  </data>
-  <data name="textBoxTrackName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="textBoxTrackName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 23</value>
-  </data>
-  <data name="textBoxTrackName.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
-  </data>
   <data name="&gt;&gt;textBoxTrackName.Name" xml:space="preserve">
     <value>textBoxTrackName</value>
-  </data>
-  <data name="&gt;&gt;textBoxTrackName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxTrackName.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;textBoxTrackName.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>345, 271</value>
+  <data name="comboBoxTexttrackLanguage.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
+  <data name="&gt;&gt;checkBoxLanguage.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>213, 15</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Text track creation</value>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 56</value>
   </data>
-  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
-    <value>toolTip1</value>
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
   </data>
   <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AssetInfoTextTrackCreation</value>
+  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="comboBoxTexttrackLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 23</value>
   </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="checkBoxLanguage.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxTrackName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 23</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

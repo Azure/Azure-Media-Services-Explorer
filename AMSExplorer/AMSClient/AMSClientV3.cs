@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSClient;
 using AMSExplorer.AMSLogin;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
@@ -38,6 +39,7 @@ namespace AMSExplorer
         public CredentialsEntryV3 credentialsEntry;
         private Form _form;
         public TokenCredentials credentials;
+        public BearerTokenCredential credentialForArmClient;
         public AzureEnvironment environment;
         private readonly string _azureSubscriptionId;
         private readonly IPublicClientApplication _appInteract;
@@ -166,6 +168,7 @@ namespace AMSExplorer
 
             }
             credentials = new TokenCredentials(authResult.AccessToken, "Bearer");
+            credentialForArmClient = new BearerTokenCredential(authResult.AccessToken);
 
             // Getting Media Services account...
             AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)

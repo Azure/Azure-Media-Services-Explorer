@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
-//
+//    Copyright 2023 Microsoft Corporation
+//https://learn.microsoft.com/en-us
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
@@ -21,7 +21,7 @@ namespace AMSExplorer.Rest
 {
     /// <summary>
     /// Rest call for live transcription preview
-    /// https://docs.microsoft.com/en-us/azure/media-services/latest/live-transcription
+    /// https://learn.microsoft.com/en-us/azure/media-services/latest/live-event-live-transcription-how-to
     /// 
     /// </summary>
     public partial class AmsClientRest
@@ -31,7 +31,7 @@ namespace AMSExplorer.Rest
         // live transcript part
         //
 
-        private const string liveEventApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2020-05-01";
+        private const string liveEventApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/liveEvents/{3}?api-version=2021-11-01";
 
         public async Task<string> CreateLiveEventAsync(LiveEventRestObject liveEventSettings, bool startLiveEventNow)
         {
@@ -63,7 +63,7 @@ namespace AMSExplorer.Rest
         // Transform part
         //
 
-        private const string transformApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/transforms/{3}?api-version=2020-05-01";
+        private const string transformApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/transforms/{3}?api-version=2021-11-01";
 
         public async Task<string> CreateTransformAsync(string transformName, TransformRestObject transformContent)
         {

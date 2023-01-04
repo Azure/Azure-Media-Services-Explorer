@@ -103,7 +103,6 @@
             resources.ApplyResources(this.listViewAccounts, "listViewAccounts");
             this.listViewAccounts.FullRowSelect = true;
             this.listViewAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewAccounts.HideSelection = false;
             this.listViewAccounts.Name = "listViewAccounts";
             this.listViewAccounts.ShowItemToolTips = true;
             this.toolTip1.SetToolTip(this.listViewAccounts, resources.GetString("listViewAccounts.ToolTip"));

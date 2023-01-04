@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -15,16 +15,16 @@
 //---------------------------------------------------------------------------------------------
 
 
+using AMSClient;
 using AMSExplorer.AMSLogin;
 using AMSExplorer.Rest;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.ResourceManager;
-using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
-using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.Authentication;
 using Newtonsoft.Json;
 using System;
@@ -442,7 +442,7 @@ namespace AMSExplorer
                     Telemetry.TrackEvent("AMSLogin buttonPickupAccount_Click BrowseSubscriptions");
 
                     Cursor = Cursors.WaitCursor;
-                    Prompt prompt = addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount;
+                    Prompt prompt = addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.NoPrompt;
 
                     environment = addaccount1.GetEnvironment();
                     var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
@@ -490,8 +490,15 @@ namespace AMSExplorer
                     }
 
                     TokenCredentials credentials = new(accessToken.AccessToken, "Bearer");
-                    SubscriptionClient subscriptionClient = new(environment.ArmEndpoint, credentials);
+                    var credentialForArmClient = new BearerTokenCredential(accessToken.AccessToken);
+
+                    ArmClient armClient = new ArmClient(credentialForArmClient);
+
+
                     // Subcriptions listing
+                    var subscriptions = armClient.GetSubscriptions().ToList();
+
+                    /*
                     List<Subscription> subscriptions = new();
                     IPage<Subscription> subscriptionsPage = subscriptionClient.Subscriptions.List();
                     while (subscriptionsPage != null)
@@ -506,8 +513,13 @@ namespace AMSExplorer
                             subscriptionsPage = null;
                         }
                     }
+                    */
 
                     // Tenants listing
+
+                    var tenants = armClient.GetTenants().ToList();
+
+                    /*
                     List<TenantIdDescription> tenants = new();
                     IPage<TenantIdDescription> tenantsPage = subscriptionClient.Tenants.List();
                     while (tenantsPage != null)
@@ -522,6 +534,7 @@ namespace AMSExplorer
                             tenantsPage = null;
                         }
                     }
+                    */
 
                     Cursor = Cursors.Default;
 
@@ -547,18 +560,21 @@ namespace AMSExplorer
                         }
                         else // creation mode
                         {
-                            var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").OrderBy(l => l.RegionalDisplayName);
+                            SubscriptionResource subscription = subscriptions.Where(s => s.Data.SubscriptionId == addaccount2.SelectedSubscription.Data.SubscriptionId).First();
+                            var myLocations = subscription.GetLocations().AsEnumerable();
+
+                            //var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").OrderBy(l => l.RegionalDisplayName);
 
                             // Getting Media Services accounts...
                             var MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
                             {
-                                SubscriptionId = addaccount2.SelectedSubscription.SubscriptionId
+                                SubscriptionId = addaccount2.SelectedSubscription.Data.SubscriptionId
                             };
 
                             // let's get the list of avaibility zones
                             AzureProviders aP = new AzureProviders(environment.ArmEndpoint);
-                            
-                            var list = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.SubscriptionId, "Microsoft.Network", accessToken.AccessToken);
+
+                            var list = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Network", accessToken.AccessToken);
                             var listNatGateways = list.ResourceTypes.Where(r => r.ResourceType == "natGateways").FirstOrDefault();
                             List<string> listRegionWithAvailabilityZone = new();
                             if (listNatGateways != null)
@@ -567,12 +583,13 @@ namespace AMSExplorer
                             }
 
                             // let's get the list of Media Services
-                            var listMedia = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.SubscriptionId, "Microsoft.Media", accessToken.AccessToken);
+                            var listMedia = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Media", accessToken.AccessToken);
                             var listMediaServices = listMedia.ResourceTypes.Where(r => r.ResourceType == "mediaservices").FirstOrDefault().Locations;
 
+                            // var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
                             var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
 
-                            CreateAccount createAccount = new(myLocationsWithMS, MediaServicesClient, credentials, listRegionWithAvailabilityZone);
+                            CreateAccount createAccount = new(myLocationsWithMS, MediaServicesClient, credentials, listRegionWithAvailabilityZone, subscription);
 
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {

@@ -102,7 +102,6 @@
             // 
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
@@ -113,17 +112,16 @@
             // buttonDeleteTemplate
             // 
             resources.ApplyResources(this.buttonDeleteTemplate, "buttonDeleteTemplate");
-            this.buttonDeleteTemplate.Image = global::AMSExplorer.Bitmaps.delete;
             this.buttonDeleteTemplate.Name = "buttonDeleteTemplate";
             this.buttonDeleteTemplate.UseVisualStyleBackColor = true;
             this.buttonDeleteTemplate.Click += new System.EventHandler(this.ButtonDeleteTemplate_Click);
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelTitle
@@ -148,19 +146,18 @@
             // 
             // tabPage1
             // 
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.buttonCreateNewTransform);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.listViewTransforms);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonDeleteTemplate);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // buttonCreateNewTransform
             // 
             resources.ApplyResources(this.buttonCreateNewTransform, "buttonCreateNewTransform");
-            this.buttonCreateNewTransform.Image = global::AMSExplorer.Bitmaps.create;
             this.buttonCreateNewTransform.Name = "buttonCreateNewTransform";
             this.buttonCreateNewTransform.UseVisualStyleBackColor = true;
             this.buttonCreateNewTransform.Click += new System.EventHandler(this.ButtonCreateNewTransform_Click);
@@ -206,7 +203,6 @@
             // 
             resources.ApplyResources(this.listViewTransforms, "listViewTransforms");
             this.listViewTransforms.FullRowSelect = true;
-            this.listViewTransforms.HideSelection = false;
             this.listViewTransforms.MultiSelect = false;
             this.listViewTransforms.Name = "listViewTransforms";
             this.listViewTransforms.Tag = -1;
@@ -216,6 +212,7 @@
             // 
             // tabPage2
             // 
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.buttonImportEDL);
             this.tabPage2.Controls.Add(this.buttonExportEDL);
             this.tabPage2.Controls.Add(this.labelAssetDescription);
@@ -234,13 +231,11 @@
             this.tabPage2.Controls.Add(this.checkBoxSourceTrimmingStart);
             this.tabPage2.Controls.Add(this.timeControlEndTime);
             this.tabPage2.Controls.Add(this.timeControlStartTime);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // buttonImportEDL
             // 
-            this.buttonImportEDL.Image = global::AMSExplorer.Bitmaps.import;
             resources.ApplyResources(this.buttonImportEDL, "buttonImportEDL");
             this.buttonImportEDL.Name = "buttonImportEDL";
             this.buttonImportEDL.UseVisualStyleBackColor = true;
@@ -248,7 +243,6 @@
             // 
             // buttonExportEDL
             // 
-            this.buttonExportEDL.Image = global::AMSExplorer.Bitmaps.export;
             resources.ApplyResources(this.buttonExportEDL, "buttonExportEDL");
             this.buttonExportEDL.Name = "buttonExportEDL";
             this.buttonExportEDL.UseVisualStyleBackColor = true;
@@ -267,9 +261,9 @@
             // 
             // dataGridViewEDL
             // 
+            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
             this.dataGridViewEDL.AllowUserToAddRows = false;
             this.dataGridViewEDL.AllowUserToDeleteRows = false;
-            resources.ApplyResources(this.dataGridViewEDL, "dataGridViewEDL");
             this.dataGridViewEDL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEDL.Name = "dataGridViewEDL";
             this.dataGridViewEDL.ReadOnly = true;
@@ -280,7 +274,6 @@
             // buttonDelEntry
             // 
             resources.ApplyResources(this.buttonDelEntry, "buttonDelEntry");
-            this.buttonDelEntry.Image = global::AMSExplorer.Bitmaps.cancel;
             this.buttonDelEntry.Name = "buttonDelEntry";
             this.buttonDelEntry.UseVisualStyleBackColor = true;
             this.buttonDelEntry.Click += new System.EventHandler(this.buttonDelEntry_Click);
@@ -383,6 +376,7 @@
             // 
             // tabPage3
             // 
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.listViewAssets1);
             this.tabPage3.Controls.Add(this.labelSelectAsset);
             this.tabPage3.Controls.Add(this.buttonSearchExactAssetName);
@@ -391,7 +385,6 @@
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.radioButtonExistingAsset);
             this.tabPage3.Controls.Add(this.radioButtonNewAsset);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -399,7 +392,6 @@
             // 
             resources.ApplyResources(this.listViewAssets1, "listViewAssets1");
             this.listViewAssets1.FullRowSelect = true;
-            this.listViewAssets1.HideSelection = false;
             this.listViewAssets1.MultiSelect = false;
             this.listViewAssets1.Name = "listViewAssets1";
             this.listViewAssets1.Tag = -1;

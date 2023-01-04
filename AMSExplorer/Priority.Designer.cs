@@ -49,7 +49,6 @@
             // 
             resources.ApplyResources(this.buttonUpdate, "buttonUpdate");
             this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdate.Image = global::AMSExplorer.Bitmaps.change_priority;
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.UseVisualStyleBackColor = true;
             // 

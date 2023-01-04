@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ namespace AMSExplorer
         private void PresetFaceDetector_Load(object sender, EventArgs e)
         {
 
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoVideoAnalyzer));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoFaceDetector));
 
             textBoxDescription.Text = _existingTransformDesc;
 

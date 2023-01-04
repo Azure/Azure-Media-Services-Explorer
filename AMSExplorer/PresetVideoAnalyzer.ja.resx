@@ -63,6 +63,14 @@
   <data name="buttonCancel.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonOk.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA6SURBVDhPrYxBCgAgDMP2/09Xi+BlIFYTSHtLSfpy
+        zbxUPBCDBzw3bvBADB7wROKBGDzgOdlgA++qBvkFNNoUvR4jAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="buttonOk.Text" xml:space="preserve">
     <value>インデックス作成</value>
   </data>
@@ -78,7 +86,6 @@
   <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
     <value>マルチメディアファイル内で認識される自然言語</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="moreinfoprofilelink.Location" type="System.Drawing.Point, System.Drawing">
     <value>572, 95</value>
   </data>
@@ -90,6 +97,65 @@
   </data>
   <data name="moreinfoprofilelink.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        IYQQgjx79j/ynNCjsScyygAAAABJRU5ErkJggg==
+</value>
   </data>
   <data name="pictureBox1.ToolTip" xml:space="preserve">
     <value />

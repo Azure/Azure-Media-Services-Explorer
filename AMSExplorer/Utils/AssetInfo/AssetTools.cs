@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Win32;

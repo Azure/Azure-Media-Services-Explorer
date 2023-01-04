@@ -70,16 +70,15 @@
             // 
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelstep

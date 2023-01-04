@@ -43,12 +43,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelExplainArch = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.numericUpDownArchiveMinutes = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownArchiveHours = new System.Windows.Forms.NumericUpDown();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -62,8 +62,8 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
@@ -180,6 +180,7 @@
             // tabPage1
             // 
             resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.labelExplainArch);
             this.tabPage1.Controls.Add(this.label33);
             this.tabPage1.Controls.Add(this.comboBoxStorage);
@@ -188,7 +189,6 @@
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.numericUpDownArchiveHours);
             this.errorProvider1.SetError(this.tabPage1, resources.GetString("tabPage1.Error"));
@@ -196,6 +196,15 @@
             this.errorProvider1.SetIconPadding(this.tabPage1, ((int)(resources.GetObject("tabPage1.IconPadding"))));
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.errorProvider1.SetError(this.pictureBox1, resources.GetString("pictureBox1.Error"));
+            this.errorProvider1.SetIconAlignment(this.pictureBox1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.pictureBox1, ((int)(resources.GetObject("pictureBox1.IconPadding"))));
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
             // 
             // labelExplainArch
             // 
@@ -245,16 +254,6 @@
             this.errorProvider1.SetIconAlignment(this.label11, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label11.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.label11, ((int)(resources.GetObject("label11.IconPadding"))));
             this.label11.Name = "label11";
-            // 
-            // pictureBox1
-            // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.errorProvider1.SetError(this.pictureBox1, resources.GetString("pictureBox1.Error"));
-            this.errorProvider1.SetIconAlignment(this.pictureBox1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("pictureBox1.IconAlignment"))));
-            this.errorProvider1.SetIconPadding(this.pictureBox1, ((int)(resources.GetObject("pictureBox1.IconPadding"))));
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.archive;
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
             // 
             // label10
             // 
@@ -382,8 +381,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -402,7 +401,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textboxprogramname;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.CheckBox checkBoxCreateLocator;
@@ -427,5 +425,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
         private System.Windows.Forms.TextBox textBoxStartRecordTimestamp;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

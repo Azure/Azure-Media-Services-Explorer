@@ -47,6 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -57,16 +58,13 @@
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
-            this.toolTip1.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
             // 
             resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.face_detector;
             this.buttonOk.Name = "buttonOk";
-            this.toolTip1.SetToolTip(this.buttonOk, resources.GetString("buttonOk.ToolTip"));
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // labelTitle
@@ -74,67 +72,57 @@
             resources.ApplyResources(this.labelTitle, "labelTitle");
             this.labelTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
             this.labelTitle.Name = "labelTitle";
-            this.toolTip1.SetToolTip(this.labelTitle, resources.GetString("labelTitle.ToolTip"));
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // moreinfoprofilelink
             // 
             resources.ApplyResources(this.moreinfoprofilelink, "moreinfoprofilelink");
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.TabStop = true;
-            this.toolTip1.SetToolTip(this.moreinfoprofilelink, resources.GetString("moreinfoprofilelink.ToolTip"));
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // pictureBox1
             // 
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps._04_face_detection;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox1, resources.GetString("pictureBox1.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // textBoxTransformName
             // 
             resources.ApplyResources(this.textBoxTransformName, "textBoxTransformName");
             this.textBoxTransformName.Name = "textBoxTransformName";
-            this.toolTip1.SetToolTip(this.textBoxTransformName, resources.GetString("textBoxTransformName.ToolTip"));
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.radioButtonStandard);
             this.groupBox1.Controls.Add(this.radioButtonSource);
             this.groupBox1.Controls.Add(this.radioButtonUnspecified);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
             // 
             // radioButtonStandard
             // 
             resources.ApplyResources(this.radioButtonStandard, "radioButtonStandard");
             this.radioButtonStandard.Name = "radioButtonStandard";
-            this.toolTip1.SetToolTip(this.radioButtonStandard, resources.GetString("radioButtonStandard.ToolTip"));
             this.radioButtonStandard.UseVisualStyleBackColor = true;
             // 
             // radioButtonSource
             // 
             resources.ApplyResources(this.radioButtonSource, "radioButtonSource");
             this.radioButtonSource.Name = "radioButtonSource";
-            this.toolTip1.SetToolTip(this.radioButtonSource, resources.GetString("radioButtonSource.ToolTip"));
             this.radioButtonSource.UseVisualStyleBackColor = true;
             this.radioButtonSource.CheckedChanged += new System.EventHandler(this.radioButtonAudioAndVideo_CheckedChanged);
             // 
@@ -144,20 +132,17 @@
             this.radioButtonUnspecified.Checked = true;
             this.radioButtonUnspecified.Name = "radioButtonUnspecified";
             this.radioButtonUnspecified.TabStop = true;
-            this.toolTip1.SetToolTip(this.radioButtonUnspecified, resources.GetString("radioButtonUnspecified.ToolTip"));
             this.radioButtonUnspecified.UseVisualStyleBackColor = true;
             // 
             // textBoxDescription
             // 
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
             this.textBoxDescription.Name = "textBoxDescription";
-            this.toolTip1.SetToolTip(this.textBoxDescription, resources.GetString("textBoxDescription.ToolTip"));
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -169,12 +154,19 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Name = "label3";
+            // 
             // PresetFaceDetector
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
@@ -185,7 +177,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelTitle);
             this.Name = "PresetFaceDetector";
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.PresetFaceDetector_Load);
             this.Shown += new System.EventHandler(this.PresetFaceDetector_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.PresetFaceDetector_DpiChanged);
@@ -216,5 +207,6 @@
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioButtonStandard;
+        private System.Windows.Forms.Label label3;
     }
 }

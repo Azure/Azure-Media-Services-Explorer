@@ -85,6 +85,13 @@
   <data name="contextMenuStripOutputAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 26</value>
   </data>
+  <data name="toolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
+        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 22</value>
   </data>
@@ -102,6 +109,13 @@
   </data>
   <data name="contextMenuStripInputAsset.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 26</value>
+  </data>
+  <data name="assetInformationToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABDSURBVDhPY/j//z9FGKsgKRgEjgAxiEUqPgwzAF2C
+        aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
+</value>
   </data>
   <data name="assetInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 22</value>

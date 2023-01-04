@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -2811,14 +2811,11 @@ namespace AMSExplorer
 
                 if (MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-
-
                     bool Error = false;
                     try
                     {
                         TextBoxLogWriteLine("Deleting asset(s)...");
                         Task[] deleteTasks = SelectedAssets.Select(a => _amsClient.AMSclient.Assets.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Name)).ToArray();
-
                         //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                         await Task.WhenAll(deleteTasks);
                     }
@@ -3047,7 +3044,6 @@ namespace AMSExplorer
                     foreach (var transform in SelectedTransforms)
                     {
                         TextBoxLogWriteLine("Deleting transform '{0}'...", transform.Name);
-                        Task[] deleteTasks = SelectedTransforms.ToList().Select(t => _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, t.Name)).ToArray();
                         try
                         {
                             await _amsClient.AMSclient.Transforms.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, transform.Name);
@@ -8794,7 +8790,7 @@ namespace AMSExplorer
         {
             StringBuilder sb = new();
             sb.AppendLine("All API operations :");
-            sb.AppendLine("See https://docs.microsoft.com/en-us/azure/media-services/latest/rbac-overview for more info");
+            sb.AppendLine("See https://learn.microsoft.com/en-us/azure/media-services/latest/security-rbac-concept for more info");
             sb.AppendLine("============================================================================================");
             TextBoxLogWriteLine("Listing operations....");
 

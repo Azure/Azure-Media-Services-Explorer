@@ -63,6 +63,14 @@
   <data name="buttonCancel.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonOk.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA6SURBVDhPrYxBCgAgDMP2/09Xi+BlIFYTSHtLSfpy
+        zbxUPBCDBzw3bvBADB7wROKBGDzgOdlgA++qBvkFNNoUvR4jAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="buttonOk.Text" xml:space="preserve">
     <value>インデックス作成</value>
   </data>
@@ -75,7 +83,6 @@
   <data name="panel1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="moreinfoprofilelink.Location" type="System.Drawing.Point, System.Drawing">
     <value>572, 95</value>
   </data>
@@ -87,6 +94,21 @@
   </data>
   <data name="moreinfoprofilelink.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAAhFJREFUaEPt
+        mc1tAjEUhCkhJaQE7vylhFyjXHLiTAlUEEqgBC65pwSuyYkSKIHMSGNpY72FxX42IPmTRizh6c2b9WZD
+        vKMUFovFeD6fb2ez2RGvJy+h3wH6xvFmMpm8yK4MCPHkHaBPCvYha1/QeGWZlhRXSfZ+oPEuNqohhNnz
+        atAY+aDpJjapJdeV4VmxTGoJYdYaJR/dtW51iR3h/6xR/OAKBdGo+/5aTafTVwx68WbCGtmXgSY6zAKh
+        xjzzcYAgfqbSMtBEh9lwdeIAXXEFVerDcrk89UklyZxbFa6aynywAgSpJBkE4dcVM0jSV5i3r9+Tl9Ry
+        EOeC8NJT2XCsgVKlloNoQfqwBkqVWg6iBenDGihVajmIFqQPa6BUqeUgsoK8f/6cakq2Ji0IscxKSrYm
+        LQixzEpKtiYtCLHMSkq2Ji1ICtY/VEEqSaYFScEKEKSSZBDkYIWgiu7W00CH2XCXJB6+K3zuv0kXoIEO
+        s0Gv3j1mrNT972tpJS5tlO9Ung+vUZyZFbQOokn3/bXigHjddwY25faLLlPTpLTg7fNogWfDMqghhDi6
+        3a3QcBsb1BKC+O3Co2H1J1ZcCdcQpPalhQAH97/iARgUXxUE2HMV3B8fxHBbH0bx7ZMD/PvZleLt/IO9
+        ZXMbGESHj00Lcm88RBAO6SW1vA3WQKlSy/vCGjRIJY+BFSBIJRUYjf4AydIzoWUfvyAAAAAASUVORK5C
+        YII=
+</value>
   </data>
   <data name="pictureBox1.ToolTip" xml:space="preserve">
     <value />

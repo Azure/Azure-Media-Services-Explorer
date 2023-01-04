@@ -223,6 +223,23 @@
   <data name="tabPage1.Text" xml:space="preserve">
     <value>設定</value>
   </data>
+  <data name="pictureBox1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBox1.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABSSURBVDhPtYxRCgAhCAU9uje3tAw/NLRwYLaHCwNE
+        9KV7rOgeK7rHiuszny2jO5KR3RbIcA3ojmRktwUyXAO6IxnZbYEMYaCkDaD9kRRP4F2CAcgXn3DvYVqw
+        AAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="labelExplainArch.Error" xml:space="preserve">
     <value />
   </data>
@@ -279,15 +296,6 @@
   </data>
   <data name="label11.Text" xml:space="preserve">
     <value>分</value>
-  </data>
-  <data name="pictureBox1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBox1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="pictureBox1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="label10.Error" xml:space="preserve">
     <value />

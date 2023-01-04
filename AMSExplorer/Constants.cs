@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace AMSExplorer
         public const string Webview2Installer = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
         public const string Webview2RegPath64 = "SOFTWARE\\WOW6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
         public const string Webview2RegPath32 = "SOFTWARE\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
-        public const string Webview2MinVersion = "104.0.1293.44";
+        public const string Webview2MinVersion = "108.0.1462.37";
 
         public const string GitHubAMSEVersionPrimaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
@@ -107,38 +107,39 @@ namespace AMSExplorer
         public const string strUnits = "{0} unit{1}";
 
         public const string LinkAzureUpdates = @"https://azure.microsoft.com/en-us/updates/?product=cdn,media-services";
-        public const string LinkMoreInfoAMSReleaseNotes = @"https://docs.microsoft.com/en-us/azure/media-services/latest/release-notes";
-        public const string LinkMoreInfoDocAMS = @"https://docs.microsoft.com/en-us/azure/media-services/";
-        public const string LinkQAAMS = @"https://docs.microsoft.com/en-us/answers/topics/azure-media-services.html";
+        public const string LinkMoreInfoAMSReleaseNotes = @"https://learn.microsoft.com/en-us/azure/media-services/latest/release-notes";
+        public const string LinkMoreInfoDocAMS = @"https://learn.microsoft.com/en-us/azure/media-services/";
+        public const string LinkQAAMS = @"https://learn.microsoft.com/en-us/answers/topics/azure-media-services.html";
         public const string LinkBlogAMS = @"https://azure.microsoft.com/en-us/blog/topics/media-services/";
 
-        public const string LinkMoreInfoSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/stream-streaming-endpoint-concept";
-        public const string LinkAutoscalePremiumSE = "https://docs.microsoft.com/en-us/azure/media-services/latest/streaming-endpoint-autoscaling-how-to";
+        public const string LinkMoreInfoSE = "https://learn.microsoft.com/en-us/azure/media-services/latest/stream-streaming-endpoint-concept";
+        public const string LinkAutoscalePremiumSE = "https://learn.microsoft.com/en-us/azure/media-services/latest/streaming-endpoint-autoscaling-how-to";
 
-        public const string LinkMoreInfoAzCopy = "https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10";
+        public const string LinkMoreInfoAzCopy = "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10";
 
-        public const string LinkMoreInfoVideoAnalyzer = "https://docs.microsoft.com/en-us/azure/media-services/latest/analyzing-video-audio-files-concept";
-        public const string LinkMoreInfoMediaEncoderBuiltIn = "https://docs.microsoft.com/en-us/azure/media-services/latest/encoding-concept";
-        public const string LinkMoreInfoMediaEncoderThumbnail = "https://docs.microsoft.com/en-us/azure/media-services/latest/transform-generate-thumbnails-dotnet-how-to";
+        public const string LinkMoreInfoVideoAnalyzer = "https://learn.microsoft.com/en-us/azure/media-services/latest/analyze-video-audio-files-concept";
+        public const string LinkMoreInfoFaceDetector = "https://learn.microsoft.com/en-us/azure/media-services/latest/analyze-face-retirement-migration-overview";
+        public const string LinkMoreInfoMediaEncoderBuiltIn = "https://learn.microsoft.com/en-us/azure/media-services/latest/encoding-concept";
+        public const string LinkMoreInfoMediaEncoderThumbnail = "https://learn.microsoft.com/en-us/azure/media-services/latest/transform-generate-thumbnails-dotnet-how-to";
 
-        public const string LinkHowIMoreInfoDynamicManifest = "https://docs.microsoft.com/en-us/azure/media-services/latest/filters-dynamic-manifest-concept";
+        public const string LinkHowIMoreInfoDynamicManifest = "https://learn.microsoft.com/en-us/azure/media-services/latest/filters-dynamic-manifest-concept";
         public const string LinkHowIMoreInfoSubclipping = "https://azure.microsoft.com/en-us/blog/dynamic-manifests-and-rendered-sub-clips/";
         public const string LinkMoreInfoSubClipAMSE = "https://azure.microsoft.com/en-us/blog/sub-clipping-and-live-archive-extraction-with-media-encoder-standard/";
-        public const string LinkMoreInfoLiveEventTypes = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-event-types-comparison-reference";
+        public const string LinkMoreInfoLiveEventTypes = "https://learn.microsoft.com/en-us/azure/media-services/latest/live-event-types-comparison-reference";
         public const string LinkMoreInfoPricing = "https://azure.microsoft.com/en-us/pricing/details/media-services/";
-        public const string LinkMoreInfoStorageVersioning = "https://docs.microsoft.com/en-us/rest/api/storageservices/Versioning-for-the-Azure-Storage-Services";
-        public const string LinkMoreInfoStorageAnalytics = "https://docs.microsoft.com/en-us/azure/storage/blobs/monitor-blob-storage";
-        public const string LinkMoreInfoFairPlay = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-fairplay-license-overview";
+        public const string LinkMoreInfoStorageVersioning = "https://learn.microsoft.com/en-us/rest/api/storageservices/Versioning-for-the-Azure-Storage-Services";
+        public const string LinkMoreInfoStorageAnalytics = "https://learn.microsoft.com/en-us/azure/storage/blobs/monitor-blob-storage";
+        public const string LinkMoreInfoFairPlay = "https://learn.microsoft.com/en-us/azure/media-services/latest/drm-fairplay-license-overview";
 
-        public const string LinkPlayReadyTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-playready-license-template-concept";
+        public const string LinkPlayReadyTemplateInfo = "https://learn.microsoft.com/en-us/azure/media-services/latest/drm-playready-license-template-concept";
         public const string LinkPlayReadyCompliance = "https://www.microsoft.com/playready/licensing/compliance/";
-        public const string LinkWidevineTemplateInfo = "https://docs.microsoft.com/en-us/azure/media-services/latest/drm-widevine-license-template-concept";
+        public const string LinkWidevineTemplateInfo = "https://learn.microsoft.com/en-us/azure/media-services/latest/drm-widevine-license-template-concept";
 
-        public const string LinkAMSCreateAccount = "https://docs.microsoft.com/en-us/azure/media-services/latest/account-create-how-to";
-        public const string LinkAMSAzCli = "https://docs.microsoft.com/en-us/azure/media-services/latest/access-api-howto";
-        public const string LinkAMSAvailabilityZones = "https://docs.microsoft.com/en-us/azure/media-services/latest/concept-availability-zones";
-        public const string LinkAMSManagedIdentities = "https://docs.microsoft.com/en-us/azure/media-services/latest/concept-managed-identities";
-        public const string LinkAMSCustomerManagedKeys = "https://docs.microsoft.com/en-us/azure/media-services/latest/concept-use-customer-managed-keys-byok";
+        public const string LinkAMSCreateAccount = "https://learn.microsoft.com/en-us/azure/media-services/latest/account-create-how-to";
+        public const string LinkAMSAzCli = "https://learn.microsoft.com/en-us/azure/media-services/latest/access-api-howto";
+        public const string LinkAMSAvailabilityZones = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-availability-zones";
+        public const string LinkAMSManagedIdentities = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-managed-identities";
+        public const string LinkAMSCustomerManagedKeys = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-use-customer-managed-keys-byok";
 
         public const string LinkAMSE = "https://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
@@ -156,6 +157,6 @@ namespace AMSExplorer
         public const int MaxTransfersAsUnlimited = 5;
         public const string strTransfers = "{0} concurrent transfer{1}";
 
-        public const string LinkMoreInfoLiveTranscript = "https://docs.microsoft.com/en-us/azure/media-services/latest/live-event-live-transcription-how-to";
+        public const string LinkMoreInfoLiveTranscript = "https://learn.microsoft.com/en-us/azure/media-services/latest/live-event-live-transcription-how-to";
     }
 }

@@ -173,6 +173,9 @@
   <data name="DGFiles.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="contextMenuStripBlobs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 136</value>
+  </data>
   <data name="contextMenuStripBlobs.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -184,6 +187,9 @@
         IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="toolStripMenuItemOpenFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
+  </data>
   <data name="toolStripMenuItemOpenFile.Text" xml:space="preserve">
     <value>開く</value>
   </data>
@@ -194,6 +200,9 @@
         aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
+  </data>
   <data name="deleteBlobToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -202,13 +211,8 @@
         RFdqjgLw5gAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="deleteAllBlobsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABZSURBVDhP7Y1BCsAwCAT9//9661+sLihB6ra5BAJZ
-        GCMhOxFVBSV+UclEB71GQNMJfPwiOujlUh4xooNeLhNhAvzwwRqB5+3EfgQ2thAwqOA2xseVyxgEKg+6
-        RFdqjgLw5gAAAABJRU5ErkJggg==
-</value>
+  <data name="deleteBlobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
   </data>
   <data name="duplicateBlobToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -217,17 +221,8 @@
         rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="uploadASmallFileInTheAssetToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
-        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
-        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
-        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="uploadASmallFileInTheAssetToolStripMenuItem.Text" xml:space="preserve">
-    <value>アセットへアップロード</value>
+  <data name="duplicateBlobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
   </data>
   <data name="toolStripMenuItemDownloadFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -238,6 +233,9 @@
         BmWzeOTKxPADcVNelJtINcsAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="toolStripMenuItemDownloadFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
+  </data>
   <data name="toolStripMenuItemDownloadFile.Text" xml:space="preserve">
     <value>ダウンロード</value>
   </data>
@@ -247,6 +245,9 @@
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
         rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
 </value>
+  </data>
+  <data name="createTextTrackFromThisBlobToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 15</value>

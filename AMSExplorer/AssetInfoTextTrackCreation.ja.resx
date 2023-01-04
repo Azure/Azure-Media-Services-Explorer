@@ -60,17 +60,60 @@
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonUpdate.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA0SURBVDhPY/j//z9FGKsgKRhCYAcgCRjGAKMGYBqA
+        rJgoPPgMwAaQNWCAUQPQDCAf/2cAAPWXSMZeEajdAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="buttonUpdate.Text" xml:space="preserve">
     <value>ジョブの優先度を更新</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonUpdate.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 20</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>ジョブ優先度</value>
   </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBoxTexttrackLanguage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxDisplayName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelBlobName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxTrackName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>ジョブの優先度を変更</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

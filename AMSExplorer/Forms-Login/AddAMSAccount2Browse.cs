@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -14,11 +14,12 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSClient;
 using AMSExplorer.AMSLogin;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Azure.Management.ResourceManager;
-using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
@@ -36,12 +37,12 @@ namespace AMSExplorer
     {
         private TokenCredentials credentials;
         private readonly AzureEnvironment environment;
-        private readonly List<TenantIdDescription> _myTenants;
+        private readonly List<TenantResource> _myTenants;
         private Dictionary<string, IPublicClientApplication> _clientApplications = new();
         private readonly Prompt _prompt;
         private readonly IPublicClientApplication _app;
         private readonly AuthenticationResult _accessToken;
-        private List<Subscription> subscriptions;
+        private List<SubscriptionResource> subscriptions;
         private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new();
         public MediaService selectedAccount = null;
         public string selectedTenantId = null;
@@ -49,10 +50,10 @@ namespace AMSExplorer
         private string _createText;
 
         public bool SelectMode;
-        public Subscription SelectedSubscription;
+        public SubscriptionResource SelectedSubscription;
         public AzureMediaServicesClient MediaServicesClient;
 
-        public AddAMSAccount2Browse(TokenCredentials credentials, List<Subscription> subscriptions, AzureEnvironment environment, List<TenantIdDescription> myTenants, Prompt prompt, IPublicClientApplication app, AuthenticationResult accessToken)
+        public AddAMSAccount2Browse(TokenCredentials credentials, List<SubscriptionResource> subscriptions, AzureEnvironment environment, List<TenantResource> myTenants, Prompt prompt, IPublicClientApplication app, AuthenticationResult accessToken)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -74,7 +75,7 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-            _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(string.Format("{0} ({1})", t.DisplayName, t.TenantId), t.TenantId)));
+            _myTenants.ToList().ForEach(t => comboBoxTenants.Items.Add(new Item(string.Format("{0} ({1})", t.Data.DisplayName, t.Data.TenantId), t.Data.TenantId.ToString())));
 
             if (_myTenants.Count > 0)
             {
@@ -146,34 +147,24 @@ namespace AMSExplorer
                 return;
             }
 
+            // used later by the form for AMS listing
             credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
-            SubscriptionClient subscriptionClient = new(environment.ArmEndpoint, credentials);
 
-            // Subcriptions listing
-            subscriptions = new List<Subscription>();
-            IPage<Subscription> subscriptionsPage = subscriptionClient.Subscriptions.List();
-            while (subscriptionsPage != null)
-            {
-                subscriptions.AddRange(subscriptionsPage);
-                if (subscriptionsPage.NextPageLink != null)
-                {
-                    subscriptionsPage = subscriptionClient.Subscriptions.ListNext(subscriptionsPage.NextPageLink);
-                }
-                else
-                {
-                    subscriptionsPage = null;
-                }
-            }
+            var autoCode = new BearerTokenCredential(accessToken.AccessToken);
+
+            ArmClient armClient = new ArmClient(autoCode);
+
+            subscriptions = armClient.GetSubscriptions().ToList();
 
             treeViewAzureSub.BeginUpdate();
             treeViewAzureSub.Nodes.Clear();
             int indexSub = -1;
 
-            foreach (Subscription sub in subscriptions)
+            foreach (SubscriptionResource sub in subscriptions)
             {
                 indexSub++;
-                TreeNode mySubNode = new(sub.DisplayName);
-                mySubNode.Tag = mySubNode.ToolTipText = sub.SubscriptionId;
+                TreeNode mySubNode = new(sub.Data.DisplayName);
+                mySubNode.Tag = mySubNode.ToolTipText = sub.Data.SubscriptionId;
                 treeViewAzureSub.Nodes.Add(mySubNode);
                 treeViewAzureSub.Nodes[indexSub].Nodes.Add("");
 
@@ -206,6 +197,24 @@ namespace AMSExplorer
                 DGAcct.Rows.Add($"Storage account #{i}" + add, GetStorageNameFromId(stor.Id));
                 i++;
             }
+        }
+
+        /// <summary>
+        /// Display the subscription info on the right.
+        /// </summary>
+        /// <param name="sub"></param>
+        private void DisplaySubscriptionInfo(SubscriptionResource sub)
+        {
+            DGAcct.Rows.Clear();
+            DGAcct.ColumnCount = 2;
+            DGAcct.ColumnCount = 2;
+            DGAcct.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+
+            // sub info
+            DGAcct.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            DGAcct.Rows.Add("Subscription Name", sub.Data.DisplayName);
+            DGAcct.Rows.Add("Subscription Id", sub.Data.SubscriptionId);
+
         }
 
         private static string GetResourceGroupNameFromId(string Id)
@@ -249,12 +258,12 @@ namespace AMSExplorer
 
             Cursor = Cursors.WaitCursor;
 
-            SelectedSubscription = subscriptions.Where(s => s.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
+            SelectedSubscription = subscriptions.Where(s => s.Data.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
 
             // Getting Media Services accounts...
             MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
             {
-                SubscriptionId = SelectedSubscription.SubscriptionId
+                SubscriptionId = SelectedSubscription.Data.SubscriptionId
             };
 
             List<MediaService> mediaServicesAccounts = new();
@@ -306,9 +315,10 @@ namespace AMSExplorer
             }
             else if (e.Node.Level == 0) // Subscription selected
             {
-                SelectedSubscription = subscriptions.Where(s => s.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
+                SelectedSubscription = subscriptions.Where(s => s.Data.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
 
-                ClearDisplayInfoAccount();
+                //ClearDisplayInfoAccount();
+                DisplaySubscriptionInfo(SelectedSubscription);
                 selectedAccount = null;
                 buttonNext.Enabled = true;
                 buttonNext.Text = _createText;

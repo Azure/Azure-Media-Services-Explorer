@@ -1,5 +1,5 @@
 ﻿// ----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 
 using AMSExplorer.ManifestGeneration;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using Microsoft.Azure.Management.Media;
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Storage.Blob;

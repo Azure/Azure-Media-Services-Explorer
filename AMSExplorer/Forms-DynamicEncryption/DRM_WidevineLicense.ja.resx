@@ -73,6 +73,15 @@
   <data name="radioButtonBasic.Text" xml:space="preserve">
     <value>基本ライセンス</value>
   </data>
+  <data name="buttonOk.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACESURBVDhPY/j//z8YowEXIN4IxI+hGMR2BmI4gOvD
+        YkATEIMEQPg+EN9F4tcBMRjgMiAIiEGch0BsDBKAAiMgBhkGkgO7BJcBB4AYxAF5AR2ANILkNoM4uAz4
+        BsVMYB4qAIl9BeKXIA4uA0CMDxAmVgDyGlh+cBoAIojGowYMIwP+MwAApPlBFd+7ywkAAAAASUVORK5C
+        YII=
+</value>
+  </data>
   <data name="buttonOk.Text" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -82,9 +91,6 @@
   <data name="labelstep.Text" xml:space="preserve">
     <value>ステップ {0}
 Widevine ライセンス テンプレートの構成 (ポリシーオプション #{1})</value>
-  </data>
-  <data name="openFileDialogPreset.Filter" xml:space="preserve">
-    <value>XML ファイル|*.xml|すべてのファイル|*.*</value>
   </data>
   <data name="labelWarningJSON.Text" xml:space="preserve">
     <value>JSON シンタックスエラー: {0}</value>

@@ -142,26 +142,96 @@
   <data name="groupBox4.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="pictureBox9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAAKlJREFUOE/Nj0EKwlAMRItHqkfQE3ggF95IvEAvUkS6cudGt9+Z9Hf4hgTdCB14
+        JZkkQ39XSjGc9uAMpgrrHZB0FwScAA1yBWPTH4EpCzgANjewpVHVA4ZxZn+SBQyADZ/gxUPOLmyygFdl
+        Y92n6D3BnU0WwOIxl6H4NJuvM4Cfn/l/wOJHM6JZthR5LbpTkS04f0HzbDHyWnSnIljwXovuVLiFb8x3
+        pXsDLWBRBawVNjoAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="pictureBox9.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="pictureBox8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACESURBVDhPY/j//z8YowEXIN4IxI+hGMR2BmI4gOvD
+        YkATEIMEQPg+EN9F4tcBMRjgMiAIiEGch0BsDBKAAiMgBhkGkgO7BJcBB4AYxAF5AR2ANILkNoM4uAz4
+        BsVMYB4qAIl9BeKXIA4uA0CMDxAmVgDyGlh+cBoAIojGowYMIwP+MwAApPlBFd+7ywkAAAAASUVORK5C
+        YII=
+</value>
   </data>
   <data name="pictureBox8.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="pictureBox7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACESURBVDhPY/j//z8YowEXIN4IxI+hGMR2BmI4gOvD
+        YkATEIMEQPg+EN9F4tcBMRjgMiAIiEGch0BsDBKAAiMgBhkGkgO7BJcBB4AYxAF5AR2ANILkNoM4uAz4
+        BsVMYB4qAIl9BeKXIA4uA0CMDxAmVgDyGlh+cBoAIojGowYMIwP+MwAApPlBFd+7ywkAAAAASUVORK5C
+        YII=
+</value>
+  </data>
   <data name="pictureBox7.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="pictureBox6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC2SURBVDhPnY8xCgIxEEW38Ah2Vlp6AA9lJfYew6to
+        ZWFhJdh5CNFCsBMk/pnkS8zMxuCDRya78z+7HQh/+uHr0ogp2MKp3urIjuyagiW8wjUcwhJ5Ju9kZwFN
+        gcClC5zDQVLmstwtIPzMc9L7vWoBmSV/0ldQMoE7+IB7OIZKa8EBnuAKHuEGKq0FLziKo563OMaCmuSZ
+        TnJPZxNecTSEfjNskHpBmmGD1AvSDBukXpBm2KDahTfET7Jaus0jgAAAAABJRU5ErkJggg==
+</value>
   </data>
   <data name="pictureBox6.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="pictureBox5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACfSURBVDhP1YwxEsIwEAP9lZRQU8PHCPDZdDQ0tEaK
+        7TgbJzNu0YzG0vn2Qoxx8Y48bD7AoLT6wwPDvFG1d2AAgxLCJJ8dsrYHTvIEBiUtv+WLi7Q+4Jn/tHp8
+        4O4F+SPfcraveeY8gkFJGmWXb37X2X9kUKoecoGLPZsFBoV6ygV2XgQGpZXBV4pVYFA6BQalU2BQVHsM
+        BmWzeOTKxPADcVNelJtINcsAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="pictureBox5.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACfSURBVDhP1YwxEsIwEAP9lZRQU8PHCPDZdDQ0tEaK
+        7TgbJzNu0YzG0vn2Qoxx8Y48bD7AoLT6wwPDvFG1d2AAgxLCJJ8dsrYHTvIEBiUtv+WLi7Q+4Jn/tHp8
+        4O4F+SPfcraveeY8gkFJGmWXb37X2X9kUKoecoGLPZsFBoV6ygV2XgQGpZXBV4pVYFA6BQalU2BQVHsM
+        BmWzeOTKxPADcVNelJtINcsAAAAASUVORK5CYII=
+</value>
   </data>
   <data name="pictureBox4.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAAIBJREFUOE/tj8sJgDAQRCUlaQlagQV5sCM7sBERsQFPXuNMNq7rD7wJ4oMXZkNm
+        IYn3PniggA0co8w5VLR3saCGvKA97MxcwcDdghJyGGDGi0gK+/WtdQtCCznwC4otHN2CMEddmPY4W9Se
+        BoFhknjGFrWnQXh3AY/H/gs+tMAnC5x+clEOwq9KAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="pictureBox3.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAAIBJREFUOE/tj8sJgDAQRCUlaQlagQV5sCM7sBERsQFPXuNMNq7rD7wJ4oMXZkNm
+        IYn3PniggA0co8w5VLR3saCGvKA97MxcwcDdghJyGGDGi0gK+/WtdQtCCznwC4otHN2CMEddmPY4W9Se
+        BoFhknjGFrWnQXh3AY/H/gs+tMAnC5x+clEOwq9KAAAAAElFTkSuQmCC
+</value>
   </data>
   <data name="pictureBox2.ToolTip" xml:space="preserve">
     <value />
@@ -174,6 +244,17 @@
   </data>
   <data name="radioButtonClearStream.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAEPSURBVDhPpZM/agJhEMUn2EQRQu5gJQQ9gUIgJNjm
+        ACkkp5BgZUpbO8EjpM0RcgOxCBEU2wQiWOjmvfl255sFN7Dsgx8783jvg/0nSZLk+Ecv4D6MEvO+rMZ5
+        tcER7MA1Dcv7shrFegUMTLlY3pfVyGsEemGUOtiCX9C0vC+rEXUDTmANLmlAY8DQo+V9WY28ZoDmUDeR
+        LuA+t7wvqyGyBHccoBag+aabSA0cwIflfVmNUPjkkOoH8NBMvKUvy/uyGuGAFYdU36DUAZVvwSt7iM+6
+        iXQA94XlfVmNqFtQ9BqfLO/LakQ1wDvo6xY/pD24srwvq5HXRXqlJoCBUp9ypgGo9DPxbWzAg25QyCfy
+        B9SiUuvT0d4BAAAAAElFTkSuQmCC
+</value>
   </data>
   <data name="pictureBox1.ToolTip" xml:space="preserve">
     <value />

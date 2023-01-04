@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -170,10 +170,12 @@ namespace AMSExplorer
             if (!IsLiveOutputNameValid(tb.Text))
             {
                 errorProvider1.SetError(tb, AMSExplorer.Properties.Resources.CreateProgram_checkProgramName_ProgramNameIsNotValid);
+                buttonOk.Enabled = false;
             }
             else
             {
                 errorProvider1.SetError(tb, string.Empty);
+                buttonOk.Enabled = true;
             }
         }
 

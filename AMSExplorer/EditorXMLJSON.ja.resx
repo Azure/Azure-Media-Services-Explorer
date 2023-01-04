@@ -69,6 +69,16 @@
   <data name="buttonInsertSample.Text" xml:space="preserve">
     <value>サンプルを挿入</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonCopyClipboard.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC7SURBVDhPtVIxDsJADLv5tkr3NHgFrAy8p59jRWJi
+        OeI0RokuPVhqyZc4djJULb33kuAshAGiD8AOGYQOSrkjIzwZ0WM2ZDWPp7V2syC5Cgn03rsMB5z5gCDM
+        I57LsmDwgtg78C93D0xRa0Xmjf64AzS+gfEjkqv6FuIwO6BPArHFcqGtccvOyyC2WC60NW7ZeelcK4Ux
+        hJyXzrVSGEPIeelcK8UPhmXuaDVxxWDCsGw7UqSamGHyH/TyAf2eb3qpmEjFAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="buttonCopyClipboard.Text" xml:space="preserve">
     <value>クリップボードへコピー</value>
   </data>

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2022 Microsoft Corporation
+//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ namespace AMSExplorer
         private bool previewIpOk = true;
         private bool inputKeyFrameOk = true;
         private bool encodingKeyFrameOk = true;
-         
+
         public string LiveEventName
         {
             get => textboxchannelname.Text;
@@ -84,7 +84,7 @@ namespace AMSExplorer
 
         public bool LiveEventLowLatencyV2
         {
-            get =>  radioButtonLowLatencyV2.Checked;
+            get => radioButtonLowLatencyV2.Checked;
         }
 
         public bool LiveTranscript

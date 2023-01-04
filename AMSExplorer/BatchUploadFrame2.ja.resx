@@ -74,10 +74,10 @@
     <value>複数ファイルのアセットとしてアップロードされるフォルダ : </value>
   </data>
   <data name="checkedListBoxFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>587, 38</value>
+    <value>587, 37</value>
   </data>
   <data name="buttonFileDeselAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 159</value>
+    <value>101, 158</value>
   </data>
   <data name="buttonFileDeselAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 27</value>
@@ -86,7 +86,7 @@
     <value>すべて選択解除</value>
   </data>
   <data name="buttonFileSelAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 159</value>
+    <value>7, 158</value>
   </data>
   <data name="buttonFileSelAll.Text" xml:space="preserve">
     <value>すべて選択</value>
@@ -96,6 +96,15 @@
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>単一ファイルのアセットとしてアップロードされるファイル :</value>
+  </data>
+  <data name="buttonUpload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACjSURBVDhPzYw5EsIwEAT3K45JeQD/MsdrISKBgFTM
+        SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
+        HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
+        A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
+</value>
   </data>
   <data name="buttonUpload.Text" xml:space="preserve">
     <value>アップロード</value>
