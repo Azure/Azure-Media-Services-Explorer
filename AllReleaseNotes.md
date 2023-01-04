@@ -1,5 +1,12 @@
 # AMSE release notes history
 
+## Version 5.6.1.0 (January 4th, 2023) brings the following features and improvements
+
+* Application has been upgraded to .NET 7.0
+* Code refactoring to use new Azure.ResourceManager nugget
+* Bug fixes, REST version update
+* Nugget packages and documentation update
+
 ## Version 5.5.2.0 (September 7th, 2022) brings the following features and improvements
 
 * Support for the [new API](https://docs.microsoft.com/en-us/rest/api/media/tracks) for asset tracks management in the asset information UI
