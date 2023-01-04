@@ -28,6 +28,7 @@ using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Azure.Storage.Shared.Protocol;
 using Microsoft.Rest.Azure;
+using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -86,7 +87,7 @@ namespace AMSExplorer
         private List<(Guid, string, IListBlobItem, DownloadOptions)> listTransferDownloadOperations = new(); // used to resume download if needed
         private List<(Guid, TransferCheckpoint, long, string)> listTransferDownloadCheckpoints = new(); // used to resume download if needed
 
-
+       
         public Mainform(string[] args)
         {
             Font = new Font("Segoe UI", 9);

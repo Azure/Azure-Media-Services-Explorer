@@ -16,6 +16,7 @@
 
 using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -86,6 +87,16 @@ namespace AMSExplorer
                 }
             }
 
+            catch (Exception ex)
+            {
+                Telemetry.TrackException(ex);
+            }
+
+            // let's set the folder for the webview dll
+            try
+            {
+                CoreWebView2Environment.SetLoaderDllFolderPath(AMSExplorer.WebView2.TryGetWebView2LoaderFolder());
+            }
             catch (Exception ex)
             {
                 Telemetry.TrackException(ex);
