@@ -18,7 +18,7 @@ See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managin
 Run the following commands in a command prompt to install the prerequisites and AMSE :
 
 ```console
-winget install Microsoft.DotNet.DesktopRuntime.6
+winget install Microsoft.DotNet.DesktopRuntime.7
 winget install Microsoft.EdgeWebView2Runtime
 winget install Microsoft.AzureMediaServicesExplorer
 ```
