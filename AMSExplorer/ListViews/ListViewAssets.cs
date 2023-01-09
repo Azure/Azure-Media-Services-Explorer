@@ -14,8 +14,9 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
 using System.Linq;
@@ -28,19 +29,19 @@ namespace AMSExplorer
     {
         private AMSClientV3 _client;
         private string _searchExactAssetName;
-        private IPage<Asset> _assets;
+        private AsyncPageable<MediaAssetResource> _assets;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderAssetName;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderAssetDate;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderAssetDescription;
 
-        public Asset GetSelectedAsset
+        public MediaAssetResource GetSelectedAsset
         {
             get
             {
                 if (SelectedItems.Count > 0)
                 {
                     int indexName = columnHeaderAssetName.Index;
-                    return _assets.Where(t => t.Name == SelectedItems[0].SubItems[indexName].Text).FirstOrDefault();
+                    return _client.AMSclient.GetMediaAsset(SelectedItems[0].SubItems[indexName].Text);
                 }
                 else
                 {
@@ -94,7 +95,7 @@ namespace AMSExplorer
         }
         private async Task LoadAssetsAsync()
         {
-            ODataQuery<Asset> odataQuery = new();
+            ODataQuery<MediaAssetResource> odataQuery = new();
 
             if (_searchExactAssetName != null)
             {
@@ -104,21 +105,20 @@ namespace AMSExplorer
             {
                 odataQuery.OrderBy = "Properties/Created desc";
             }
-            _assets = await _client.AMSclient.Assets.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, odataQuery);
+            _assets = _client.AMSclient.GetMediaAssets().GetAllAsync(filter: odataQuery.Filter, orderby: odataQuery.OrderBy);
 
             BeginUpdate();
             Items.Clear();
 
-            foreach (Asset asset in _assets)
+            await foreach (var asset in _assets)
             {
-                ListViewItem item = new(asset.Name);
-                item.SubItems.Add(asset.Description);
-                item.SubItems.Add(asset.LastModified.ToLocalTime().ToString("G"));
-                if (_searchExactAssetName == asset.Name)
+                ListViewItem item = new(asset.Data.Name);
+                item.SubItems.Add(asset.Data.Description);
+                item.SubItems.Add(asset.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+                if (_searchExactAssetName == asset.Data.Name)
                 {
                     item.Selected = true;
                 }
-
                 Items.Add(item);
             }
 

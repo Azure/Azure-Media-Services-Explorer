@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -24,6 +24,6 @@ namespace AMSExplorer
     {
         public Bitmap bitmap;
         public string MouseOverDesc;
-        public IList<AssetStreamingLocator> Locators;
+        public IList<MediaAssetStreamingLocator> Locators;
     }
 }

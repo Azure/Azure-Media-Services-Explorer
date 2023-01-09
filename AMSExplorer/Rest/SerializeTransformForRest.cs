@@ -14,14 +14,15 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Newtonsoft.Json;
 
 namespace AMSExplorer.Rest
 {
     public static class SerializeTransformForRest
     {
-        public static string ToJson(this Transform self)
+        public static string ToJson(this MediaTransformData self)
         {
             return JsonConvert.SerializeObject(self, ConverterLE.Settings);
         }

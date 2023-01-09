@@ -14,8 +14,9 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace AMSExplorer
         private DataTable dataOperator;
         private ManifestTimingData _parentassetmanifestdata;
         private long _timescale = 10000000;
-        private readonly Asset _parentAsset;
+        private readonly MediaAssetResource _parentAsset;
         private readonly SubClipConfiguration _subclipconfig;
         private readonly AMSClientV3 _amsClient;
         private string _labelStartTimeDefault;
@@ -52,7 +53,7 @@ namespace AMSExplorer
         private string _labelDefaultBakckoff;
         private readonly object _filterToDisplay;
 
-        public DynManifestFilter(AMSClientV3 amsClient, object filterToDisplay = null, Asset parentAsset = null, SubClipConfiguration subclipconfig = null)
+        public DynManifestFilter(AMSClientV3 amsClient, object filterToDisplay = null, MediaAssetResource parentAsset = null, SubClipConfiguration subclipconfig = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -62,53 +63,35 @@ namespace AMSExplorer
             _subclipconfig = subclipconfig;
         }
 
-        private async void FillComboBoxImportFilters(Asset asset)
+        private async void FillComboBoxImportFilters(MediaAssetResource asset)
         {
             // combobox for filters
 
             comboBoxLocatorsFilters.BeginUpdate();
-
             comboBoxLocatorsFilters.Items.Add(new Item(AMSExplorer.Properties.Resources.DynManifestFilter_FillComboBoxImportFilters_ImportTrackFilteringFrom, null));
 
             if (asset != null)
             {
                 // asset filters
-                List<AssetFilter> filters = new();
-                IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name);
-                while (assetFiltersPage != null)
+                var filters = asset.GetMediaAssetFilters().GetAllAsync();
+                await foreach (var filter in filters)
                 {
-                    filters.AddRange(assetFiltersPage);
-                    if (assetFiltersPage.NextPageLink != null)
+                    if (filter.Data.Tracks.Count > 0)
                     {
-                        assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
-                    }
-                    else
-                    {
-                        assetFiltersPage = null;
+                        comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + filter.Data.Name, filter.Data.Id));
                     }
                 }
-
-                filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
             }
-            // account filters
 
             // account filters
-            List<AccountFilter> acctFilters = new();
-            IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
-            while (acctFiltersPage != null)
+            var acctFilters = _amsClient.AMSclient.GetMediaServicesAccountFilters().GetAllAsync();
+            await foreach (var filter in acctFilters)
             {
-                acctFilters.AddRange(acctFiltersPage);
-                if (acctFiltersPage.NextPageLink != null)
+                if (filter.Data.Tracks.Count > 0)
                 {
-                    acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
-                }
-                else
-                {
-                    acctFiltersPage = null;
+                    comboBoxLocatorsFilters.Items.Add(new Item("Account filter : " + filter.Data.Name, filter.Data.Name));
                 }
             }
-
-            acctFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Account filter : " + g.Name, g.Name)));
 
             if (comboBoxLocatorsFilters.Items.Count > 1)
             {
@@ -633,23 +616,25 @@ namespace AMSExplorer
         {
             get
             {
-                FilterCreationInfo filterinfo = new()
+                FilterCreationInfo filterinfo = new FilterCreationInfo
                 {
                     Name = newfilter ? textBoxFilterName.Text : _filter_name,
-                    Firstquality = checkBoxFirstQualityBitrate.Checked ? new FirstQuality((int)numericUpDownFirstQualityBitrate.Value) : null
+                    Firstquality = checkBoxFirstQualityBitrate.Checked ? (int)numericUpDownFirstQualityBitrate.Value : null
                 };
                 if (checkBoxRawMode.Checked) // RAW Mode
                 {
                     try
                     {
-                        filterinfo.Presentationtimerange = new PresentationTimeRange(
-                                               string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? (long?)null : long.Parse(textBoxRawStart.Text),
-                                               string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? (long?)null : long.Parse(textBoxRawEnd.Text),
-                                               string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? (long?)null : long.Parse(textBoxRawDVR.Text),
-                                               string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? (long?)null : long.Parse(textBoxRawBackoff.Text),
-                                               string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? (long?)null : long.Parse(textBoxRawTimescale.Text),
-                                               checkBoxForValueLiveRaw.Checked ? true : (bool?)null
-                                               );
+                        filterinfo.Presentationtimerange = new PresentationTimeRange()
+                        {
+                            StartTimestamp = string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? (long?)null : long.Parse(textBoxRawStart.Text),
+                            EndTimestamp = string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? (long?)null : long.Parse(textBoxRawEnd.Text),
+                            PresentationWindowDuration = string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? (long?)null : long.Parse(textBoxRawDVR.Text),
+                            LiveBackoffDuration = string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? (long?)null : long.Parse(textBoxRawBackoff.Text),
+                            Timescale = string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? (long?)null : long.Parse(textBoxRawTimescale.Text),
+                            ForceEndTimestamp = checkBoxForValueLiveRaw.Checked ? true : (bool?)null
+                        };
+
                     }
                     catch
                     {
@@ -668,14 +653,16 @@ namespace AMSExplorer
             }
         }
 
-        private PresentationTimeRange GetFilterPresenTationTRDefaultMode => new(
-                     startTimestamp: checkBoxStartTime.Checked ? timeControlStart.ScaledTimeStampWithOffset : (long?)null,
-                     endTimestamp: checkBoxEndTime.Checked ? timeControlEnd.ScaledTimeStampWithOffset : (long?)null,
-                     presentationWindowDuration: checkBoxPresentationWindowDuration.Checked ? timeControlDVR.TimeStampWithoutOffset.Ticks : (long?)null,
-                     liveBackoffDuration: checkBoxLiveBackoff.Checked ? (long)numericUpDownBackoffSeconds.Value : (long?)null,
-                     timescale: _timescale,
-                    forceEndTimestamp: checkBoxForValueForLive.Checked ? true : (bool?)null
-                 );
+        private PresentationTimeRange GetFilterPresenTationTRDefaultMode => new()
+        {
+            StartTimestamp = checkBoxStartTime.Checked ? timeControlStart.ScaledTimeStampWithOffset : (long?)null,
+            EndTimestamp = checkBoxEndTime.Checked ? timeControlEnd.ScaledTimeStampWithOffset : (long?)null,
+            PresentationWindowDuration = checkBoxPresentationWindowDuration.Checked ? timeControlDVR.TimeStampWithoutOffset.Ticks : (long?)null,
+            LiveBackoffDuration = checkBoxLiveBackoff.Checked ? (long)numericUpDownBackoffSeconds.Value : (long?)null,
+            Timescale = _timescale,
+            ForceEndTimestamp = checkBoxForValueForLive.Checked ? true : (bool?)null
+        };
+
 
 
         private void listBoxTracks_SelectedIndexChanged(object sender, EventArgs e)
@@ -1073,60 +1060,33 @@ namespace AMSExplorer
 
             if (filtername != null)
             {
-                object importfilter = null;
+               
                 if (filtername.StartsWith(Constants.AssetIdPrefix)) // asset filter
                 {
-                    List<AssetFilter> assetFilters = new();
-                    IPage<AssetFilter> assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _parentAsset.Name);
-                    while (assetFiltersPage != null)
+                    var assetFilters = _parentAsset.GetMediaAssetFilters().GetAllAsync();
+                    await foreach (var filter in assetFilters)
                     {
-                        assetFilters.AddRange(assetFiltersPage);
-                        if (assetFiltersPage.NextPageLink != null)
+                        if (filter.Data.Id == filtername)
                         {
-                            assetFiltersPage = await _amsClient.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
+                            filtertracks = ConvertFilterTracksToInternalVar(filter.Data.Tracks);
+                            RefreshTracks();
+                            RefreshTracksConditions();
+                            break;
                         }
-                        else
-                        {
-                            assetFiltersPage = null;
-                        }
-                    }
-
-
-                    importfilter = assetFilters.Where(f => f.Id == filtername).FirstOrDefault();
-
-                    if (importfilter != null)
-                    {
-                        filtertracks = ConvertFilterTracksToInternalVar(((AssetFilter)importfilter).Tracks);
-                        RefreshTracks();
-                        RefreshTracksConditions();
-
                     }
                 }
                 else // global filter
                 {
                     // account filters
-                    List<AccountFilter> acctFilters = new();
-                    IPage<AccountFilter> acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
-                    while (acctFiltersPage != null)
+                    try
                     {
-                        acctFilters.AddRange(acctFiltersPage);
-                        if (acctFiltersPage.NextPageLink != null)
-                        {
-                            acctFiltersPage = await _amsClient.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
-                        }
-                        else
-                        {
-                            acctFiltersPage = null;
-                        }
-                    }
-
-                    importfilter = acctFilters.Where(f => f.Name == filtername).FirstOrDefault();
-
-                    if (importfilter != null)
-                    {
-                        filtertracks = ConvertFilterTracksToInternalVar(((AccountFilter)importfilter).Tracks);
+                        var acctFilter = await _amsClient.AMSclient.GetMediaServicesAccountFilterAsync(filtername);
+                        filtertracks = ConvertFilterTracksToInternalVar(acctFilter.Value.Data.Tracks);
                         RefreshTracks();
                         RefreshTracksConditions();
+                    }
+                    catch
+                    {
 
                     }
                 }

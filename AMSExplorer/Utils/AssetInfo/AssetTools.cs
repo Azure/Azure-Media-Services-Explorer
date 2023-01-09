@@ -15,8 +15,10 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+using DocumentFormat.OpenXml.Office2010.CustomUI;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Win32;
@@ -40,7 +42,7 @@ namespace AMSExplorer
 {
     public class AssetTools
     {
-        private readonly List<Asset> SelectedAssetsV3;
+        private readonly List<MediaAssetResource> SelectedAssetsV3;
         private readonly AMSClientV3 _amsClient;
         public const string Type_Empty = "(empty)";
         public const string Type_Workflow = "Workflow";
@@ -78,30 +80,30 @@ namespace AMSExplorer
         private const string ManifestFileExtension = ".ism";
 
 
-        public AssetTools(Asset myAsset, AMSClientV3 amsClient)
+        public AssetTools(MediaAssetResource myAsset, AMSClientV3 amsClient)
         {
-            SelectedAssetsV3 = new List<Asset>() { myAsset };
+            SelectedAssetsV3 = new List<MediaAssetResource>() { myAsset };
             _amsClient = amsClient;
         }
 
 
-        public static async Task<StreamingLocator> CreateTemporaryOnDemandLocatorAsync(Asset asset, AMSClientV3 _amsClientV3)
+        public static async Task<StreamingLocatorResource> CreateTemporaryOnDemandLocatorAsync(MediaAssetResource asset, AMSClientV3 _amsClientV3)
         {
-            StreamingLocator tempLocator;
+            StreamingLocatorResource tempLocator;
             try
             {
                 string streamingLocatorName = "templocator-" + Program.GetUniqueness();
 
-                tempLocator = new StreamingLocator(
-                    assetName: asset.Name,
-                    streamingPolicyName: PredefinedStreamingPolicy.ClearStreamingOnly,
-                    streamingLocatorId: null,
-                    startTime: DateTime.UtcNow.AddMinutes(-5),
-                    endTime: DateTime.UtcNow.AddHours(1)
-                    );
+                var tempLocatorData = new StreamingLocatorData
+                {
+                    AssetName = asset.Data.Name,
+                    StreamingPolicyName = "Predefined_ClearStreamingOnly",
+                    StartOn = DateTime.UtcNow.AddMinutes(-5),
+                    EndOn = DateTime.UtcNow.AddHours(1)
+                };
 
+                tempLocator = (await _amsClientV3.AMSclient.GetStreamingLocators().CreateOrUpdateAsync(WaitUntil.Completed, streamingLocatorName, tempLocatorData)).WaitForCompletion();
 
-                tempLocator = await _amsClientV3.AMSclient.StreamingLocators.CreateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName, tempLocator);
             }
 
             catch
@@ -116,7 +118,7 @@ namespace AMSExplorer
         {
             try
             {
-                await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, streamingLocatorName);
+                await _amsClientV3.AMSclient.GetStreamingLocator(streamingLocatorName).Value.DeleteAsync(WaitUntil.Completed);
             }
             catch
             {
@@ -124,32 +126,33 @@ namespace AMSExplorer
             }
         }
 
-        public static async Task<(Uri, bool)> GetValidOnDemandSmoothURIAsync(Asset asset, AMSClientV3 _amsClient, string useThisLocatorName = null, LiveOutput liveOutput = null, bool https = false)
+        public static async Task<(Uri, bool)> GetValidOnDemandSmoothURIAsync(MediaAssetResource asset, AMSClientV3 _amsClient, string useThisLocatorName = null, MediaLiveOutputResource liveOutput = null, bool https = false)
         {
             bool emptyLiveOutput = false; // used to signal the live output is empty (do not use ListPathsAsync)
 
-            IList<AssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
+            var locators = asset.GetStreamingLocators().Select(l => _amsClient.AMSclient.GetStreamingLocator(l.Name).Value);
 
-            Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = await _amsClient.AMSclient.StreamingEndpoints.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            var ses = await _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync();
 
-            StreamingEndpoint runningSes = ses.Where(s => s.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
+            var runningSes = ses.Where(s => s.Data.ResourceState == StreamingEndpointResourceState.Running).FirstOrDefault();
+
             if (runningSes == null)
             {
                 runningSes = ses.FirstOrDefault();
             }
 
-            if (locators.Count > 0 && runningSes != null)
+            if (locators.Count() > 0 && runningSes != null)
             {
-                string locatorName = useThisLocatorName ?? locators.First().Name;
-                AssetStreamingLocator locatorToUse = locators.Where(l => l.Name == locatorName).First();
+                string locatorName = useThisLocatorName ?? locators.First().Data.Name;
+                var locatorToUse = locators.Where(l => l.Data.Name == locatorName).First();
 
-                IList<StreamingPath> streamingPaths = (await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorName)).StreamingPaths;
+                var streamingPaths = locatorToUse.GetStreamingPaths().Value.StreamingPaths;
                 IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
                 if (smoothPath.Any(s => s.Paths.Count != 0))
                 {
                     UriBuilder uribuilder = new()
                     {
-                        Host = runningSes.HostName,
+                        Host = runningSes.Data.HostName,
                         Path = smoothPath.FirstOrDefault().Paths.FirstOrDefault()
                     };
                     if (https)
@@ -162,8 +165,8 @@ namespace AMSExplorer
                 {
                     UriBuilder uribuilder = new()
                     {
-                        Host = runningSes.HostName,
-                        Path = locatorToUse.StreamingLocatorId.ToString() + "/" + liveOutput.ManifestName + ".ism/manifest"
+                        Host = runningSes.Data.HostName,
+                        Path = locatorToUse.Data.StreamingLocatorId.ToString() + "/" + liveOutput.Data.ManifestName + ".ism/manifest"
                     };
                     if (https)
                     {
@@ -185,16 +188,17 @@ namespace AMSExplorer
 
 
 
-        public static async Task<AssetStreamingLocator> IsThereALocatorValidAsync(Asset asset, AMSClientV3 amsClient)
+        public static async Task<MediaAssetStreamingLocator> IsThereALocatorValidAsync(MediaAssetResource asset, AMSClientV3 amsClient)
         {
             if (asset == null) return null;
 
-            IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, asset.Name))
-                                                    .StreamingLocators;
-
-            if (locators.Count > 0)
+            var locators = asset.GetStreamingLocators().ToList();
+            /*  IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, asset.Name))
+                                                      .StreamingLocators;
+            */
+            if (locators.Count() > 0)
             {
-                AssetStreamingLocator LocatorQuery = locators.Where(l => l.StartTime < DateTime.UtcNow && (l.EndTime > DateTime.UtcNow)).FirstOrDefault();
+                var LocatorQuery = locators.Where(l => l.StartOn < DateTime.UtcNow && (l.EndOn > DateTime.UtcNow)).FirstOrDefault();
                 if (LocatorQuery != null)
                 {
                     return LocatorQuery;
@@ -284,13 +288,13 @@ namespace AMSExplorer
             return urlstr + streamExtension; // we restore the extension
         }
 
-        public static Uri RW(string path, StreamingEndpoint se, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
+        public static Uri RW(string path, StreamingEndpointResource se, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
         {
-            return RW(new Uri("https://" + se.HostName + path), se, filters, https, customHostName, protocol, audiotrackname, HLSNoAudioOnly);
+            return RW(new Uri("https://" + se.Data.HostName + path), se, filters, https, customHostName, protocol, audiotrackname, HLSNoAudioOnly);
         }
 
         // return the URL with hostname from streaming endpoint
-        public static Uri RW(Uri url, StreamingEndpoint se = null, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
+        public static Uri RW(Uri url, StreamingEndpointResource se = null, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
         {
             if (url != null)
             {
@@ -313,7 +317,7 @@ namespace AMSExplorer
                 }
                 else if (se != null)
                 {
-                    hostname = se.HostName;
+                    hostname = se.Data.HostName;
                 }
 
                 UriBuilder urib = new()
@@ -331,39 +335,20 @@ namespace AMSExplorer
         }
 
 
-        public static string RW(string path, StreamingEndpoint se, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null)
+        public static string RW(string path, StreamingEndpointResource se, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null)
         {
             return RW(new Uri(path), se, filter, https, customhostname, protocol, audiotrackname).AbsoluteUri;
         }
 
-
-
-        public static PublishStatus GetPublishedStatusForLocator(AssetStreamingLocator Locator)
+        public static PublishStatus GetPublishedStatusForLocator(StreamingLocatorResource Locator)
         {
             PublishStatus LocPubStatus;
-            if (!(Locator.EndTime < DateTime.UtcNow))
-            {
-                // not in the past
-                // if  locator is not valid today but will be in the future
-                LocPubStatus = (Locator.StartTime > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
-            }
-            else
-            {
-                // if locator is in the past
-                LocPubStatus = PublishStatus.PublishedExpired;
-            }
-            return LocPubStatus;
-        }
-
-        public static PublishStatus GetPublishedStatusForLocator(StreamingLocator Locator)
-        {
-            PublishStatus LocPubStatus;
-            if (!(Locator.EndTime < DateTime.UtcNow))
+            if (!(Locator.Data.EndOn < DateTime.UtcNow))
             {// not in the past
              // if  locator is not valid today but will be in the future
-                if (Locator.StartTime != null)
+                if (Locator.Data.StartOn != null)
                 {
-                    LocPubStatus = (Locator.StartTime > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
+                    LocPubStatus = (Locator.Data.StartOn > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
                 }
                 else
                 {
@@ -396,22 +381,32 @@ namespace AMSExplorer
         }
 
 
-        public static async Task<XDocument> TryToGetClientManifestContentAsABlobAsync(Asset asset, AMSClientV3 _amsClient)
+        public static async Task<XDocument> TryToGetClientManifestContentAsABlobAsync(MediaAssetResource asset, AMSClientV3 _amsClient)
         {
             // get the manifest
+
+            /*
             ListContainerSasInput input = new()
             {
                 Permissions = AssetContainerPermission.Read,
                 ExpiryTime = DateTime.Now.AddMinutes(5).ToUniversalTime()
             };
+            */
 
+            MediaAssetStorageContainerSasContent content = new()
+            {
+                Permissions = MediaAssetContainerPermission.Read,
+                ExpireOn = DateTime.Now.AddMinutes(5).ToUniversalTime()
+            };
 
-            AssetContainerSas responseSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name, input.Permissions, input.ExpiryTime);
+            var response = asset.GetStorageContainerUris(content);
 
-            string uploadSasUrl = responseSas.AssetContainerSasUrls.First();
+            // AssetContainerSas responseSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name, input.Permissions, input.ExpiryTime);
 
-            Uri sasUri = new(uploadSasUrl);
-            CloudBlobContainer container = new(sasUri);
+            //string uploadSasUrl = response.First();
+
+            //Uri sasUri = response.First();
+            CloudBlobContainer container = new(response.First());
 
 
             BlobContinuationToken continuationToken = null;
@@ -432,12 +427,12 @@ namespace AMSExplorer
                 throw new Exception("No ISMC file in asset.");
             }
 
-            string content = await ismc.First().DownloadTextAsync();
+            string contentismc = await ismc.First().DownloadTextAsync();
 
-            return XDocument.Parse(content);
+            return XDocument.Parse(contentismc);
         }
 
-        public static async Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(Asset asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
+        public static async Task<XDocument> TryToGetClientManifestContentUsingStreamingLocatorAsync(MediaAssetResource asset, AMSClientV3 _amsClient, string preferredLocatorName = null)
         {
             Uri myuri = (await GetValidOnDemandSmoothURIAsync(asset, _amsClient, preferredLocatorName, null, true)).Item1;
 
@@ -596,28 +591,35 @@ namespace AMSExplorer
         }
 
 
-        public static async Task<AssetInfoData> GetAssetTypeAsync(string assetName, AMSClientV3 _amsClient)
+        public static async Task<AssetInfoData> GetAssetTypeAsync(MediaAssetResource asset, AMSClientV3 _amsClient)
         {
-            ListContainerSasInput input = new()
-            {
-                Permissions = AssetContainerPermission.ReadWriteDelete,
-                ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
-            };
-
             string type = string.Empty;
             long size = 0;
 
-            AssetContainerSas response = null;
+            AsyncPageable<Uri> response;
             try
             {
-                response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName, input.Permissions, input.ExpiryTime);
+                response = asset.GetStorageContainerUrisAsync(
+                    new MediaAssetStorageContainerSasContent
+                    {
+                        ExpireOn = DateTime.Now.AddHours(2).ToUniversalTime(),
+                        Permissions = MediaAssetContainerPermission.ReadWriteDelete
+                    }
+                    );
             }
             catch
             {
                 return null;
             }
 
-            string uploadSasUrl = response.AssetContainerSasUrls.First();
+            string uploadSasUrl = "";
+            await foreach (var l in response)
+            {
+                uploadSasUrl = l.AbsoluteUri;
+                break;
+            }
+
+            //string uploadSasUrl = response.f..AssetContainerSasUrls.First();
 
             Uri sasUri = new(uploadSasUrl);
             CloudBlobContainer container = new(sasUri);
@@ -773,21 +775,21 @@ namespace AMSExplorer
         }
 
 
-        public static AssetProtectionType GetAssetProtection(AssetStreamingLocator locator)
+        public static AssetProtectionType GetAssetProtection(MediaAssetStreamingLocator locator)
         {
             AssetProtectionType type = AssetProtectionType.None;
 
             if (locator != null)
             {
-                if (locator.StreamingPolicyName == PredefinedStreamingPolicy.ClearKey.ToString())
+                if (locator.StreamingPolicyName == "Predefined_ClearKey")
                 {
                     type = AssetProtectionType.AES;
                 }
-                else if (locator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmCencStreaming.ToString())
+                else if (locator.StreamingPolicyName == "Predefined_MultiDrmCencStreaming")
                 {
                     type = AssetProtectionType.PlayReadyAndWidevine;
                 }
-                else if (locator.StreamingPolicyName == PredefinedStreamingPolicy.MultiDrmStreaming.ToString())
+                else if (locator.StreamingPolicyName == "Predefined_MultiDrmStreaming")
                 {
                     type = AssetProtectionType.PlayReadyAndWidevineAndFairplay;
                 }
@@ -797,11 +799,11 @@ namespace AMSExplorer
         }
 
 
-        public static async Task<StringBuilder> GetStatAsync(Asset MyAsset, AMSClientV3 _amsClient)
+        public static async Task<StringBuilder> GetStatAsync(MediaAssetResource MyAsset, AMSClientV3 _amsClient)
         {
             ListRepData infoStr = new();
 
-            AssetInfoData MyAssetTypeInfo = await AssetTools.GetAssetTypeAsync(MyAsset.Name, _amsClient);
+            AssetInfoData MyAssetTypeInfo = await AssetTools.GetAssetTypeAsync(MyAsset, _amsClient);
             if (MyAssetTypeInfo == null)
             {
                 StringBuilder sb = new();
@@ -826,22 +828,22 @@ namespace AMSExplorer
             infoStr.Add("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             infoStr.Add(string.Empty);
 
-            infoStr.Add("Asset Name", MyAsset.Name);
-            infoStr.Add("Description", MyAsset.Description);
+            infoStr.Add("Asset Name", MyAsset.Data.Name);
+            infoStr.Add("Description", MyAsset.Data.Description);
 
             infoStr.Add("Type", MyAssetTypeInfo.Type);
-            infoStr.Add("Id", MyAsset.Id);
-            infoStr.Add("Asset Id", MyAsset.AssetId.ToString());
-            infoStr.Add("Alternate ID", MyAsset.AlternateId);
+            infoStr.Add("Id", MyAsset.Data.Id);
+            infoStr.Add("Asset Id", MyAsset.Data.AssetId.ToString());
+            infoStr.Add("Alternate ID", MyAsset.Data.AlternateId);
 
             infoStr.Add("Size", FormatByteSize(MyAssetTypeInfo.Size));
 
-            infoStr.Add("Container", MyAsset.Container);
-            infoStr.Add("Storage account", MyAsset.StorageAccountName);
-            infoStr.Add("Storage Encryption", MyAsset.StorageEncryptionFormat);
+            infoStr.Add("Container", MyAsset.Data.Container);
+            infoStr.Add("Storage account", MyAsset.Data.StorageAccountName);
+            infoStr.Add("Storage Encryption", MyAsset.Data.StorageEncryptionFormat.ToString());
 
-            infoStr.Add("Created (UTC)", MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
-            infoStr.Add("Last Modified (UTC)", MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
+            infoStr.Add("Created (UTC)", MyAsset.Data.CreatedOn.ToString());
+            infoStr.Add("Last Modified (UTC)", MyAsset.Data.LastModifiedOn.ToString());
 
             infoStr.Add(string.Empty);
 
@@ -919,36 +921,44 @@ namespace AMSExplorer
 
 
 
-        public static async Task<ListRepData> GetDescriptionLocatorsAsync(Asset MyAsset, AMSClientV3 amsClient)
+        public static async Task<ListRepData> GetDescriptionLocatorsAsync(MediaAssetResource MyAsset, AMSClientV3 amsClient)
         {
-            IList<AssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name))
-                                                    .StreamingLocators;
+            /*
+             IList<MediaAssetStreamingLocator> locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, MyAsset.Name))
+                                                     .StreamingLocators;
+            */
+            var locators = MyAsset.GetStreamingLocatorsAsync();
 
             ListRepData infoStr = new();
 
-            if (locators.Count == 0)
+            /*
+            if (locators.Count() == 0)
             {
                 infoStr.Add("No streaming locator created for this asset.", null);
             }
+            */
 
-            foreach (AssetStreamingLocator locatorbase in locators)
+            await foreach (var locatorbase in locators)
             {
-                StreamingLocator locator = await amsClient.AMSclient.StreamingLocators.GetAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
+                //StreamingLocator locator = await amsClient.AMSclient.StreamingLocators.GetAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locatorbase.Name);
+                var locator = amsClient.AMSclient.GetStreamingLocator(locatorbase.Name).Value;
+
 
                 infoStr.Add("   --- Locator --------------------------------------------------");
 
-                infoStr.Add("   Locator Name", locator.Name);
-                infoStr.Add("   Id", locator.StreamingLocatorId.ToString());
-                infoStr.Add("   Start Time", locator.StartTime?.ToLongDateString() + " " + locator.StartTime?.ToLongTimeString());
-                infoStr.Add("   End Time", locator.EndTime?.ToLongDateString() + " " + locator.EndTime?.ToLongTimeString());
-                infoStr.Add("   Streaming Policy Name", locator.StreamingPolicyName);
-                infoStr.Add("   Default Content Key Policy Name", locator.DefaultContentKeyPolicyName);
-                infoStr.Add("   Associated filters", string.Join(", ", locator.Filters.ToArray()));
+                infoStr.Add("   Locator Name", locator.Data.Name);
+                infoStr.Add("   Id", locator.Data.StreamingLocatorId.ToString());
+                infoStr.Add("   Start Time", locator.Data.StartOn?.ToString());
+                infoStr.Add("   End Time", locator.Data.EndOn?.ToString());
+                infoStr.Add("   Streaming Policy Name", locator.Data.StreamingPolicyName);
+                infoStr.Add("   Default Content Key Policy Name", locator.Data.DefaultContentKeyPolicyName);
+                infoStr.Add("   Associated filters", string.Join(", ", locator.Data.Filters.ToArray()));
 
-                var listPaths = await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name);
+                var listPaths = locator.GetStreamingPaths().Value;
+                //var listPaths = await amsClient.AMSclient.StreamingLocators.ListPathsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, locator.Name);
 
-                IList<StreamingPath> streamingPaths = listPaths.StreamingPaths;
-                IList<string> downloadPaths = listPaths.DownloadPaths;
+                var streamingPaths = listPaths.StreamingPaths;
+                var downloadPaths = listPaths.DownloadPaths;
 
                 foreach (StreamingPath path in streamingPaths)
                 {
@@ -975,7 +985,7 @@ namespace AMSExplorer
             string path,
             AMSClientV3 client,
             Mainform mainForm,
-            Asset myasset = null,
+            MediaAssetResource myasset = null,
             bool DoNotRewriteURL = false,
             string filter = null,
             AssetProtectionType keytype = AssetProtectionType.None,
@@ -984,7 +994,7 @@ namespace AMSExplorer
             bool launchbrowser = true,
             bool UISelectSEFiltersAndProtocols = true,
             string selectedBrowser = "",
-            AssetStreamingLocator locator = null,
+            MediaAssetStreamingLocator locator = null,
             string subtitleLanguageCode = null,
             bool emptyLiveOutput = false)
         {
@@ -992,7 +1002,7 @@ namespace AMSExplorer
 
             if (!string.IsNullOrEmpty(path))
             {
-                StreamingEndpoint choosenSE = await AssetTools.GetBestStreamingEndpointAsync(client);
+                var choosenSE = await AssetTools.GetBestStreamingEndpointAsync(client);
 
                 if (choosenSE == null)
                 {
@@ -1307,10 +1317,12 @@ namespace AMSExplorer
         }
 
 
-        internal static async Task<StreamingEndpoint> GetBestStreamingEndpointAsync(AMSClientV3 client)
+        internal static async Task<StreamingEndpointResource> GetBestStreamingEndpointAsync(AMSClientV3 client)
         {
-            IEnumerable<StreamingEndpoint> SEList = (await client.AMSclient.StreamingEndpoints.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)).AsEnumerable();
-            StreamingEndpoint SESelected = SEList.Where(se => se.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
+            var SEList = client.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync().Result;
+
+            // IEnumerable<StreamingEndpoint>
+            var SESelected = SEList.Where(se => se.Data.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.Data.IsCdnEnabled).OrderBy(se => se.Data.ScaleUnits).LastOrDefault();
             if (SESelected == null)
             {
                 SESelected = await client.GetStreamingEndpointAsync("default");

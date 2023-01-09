@@ -14,7 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,9 @@ namespace AMSExplorer
     public partial class JobSubmitFromTransform : Form
     {
         private readonly AMSClientV3 _client;
-        private readonly List<Transform> _listPreSelectedTransforms;
+        private readonly List<MediaTransformResource> _listPreSelectedTransforms;
         private readonly int _numberselectedassets = 0;
-        private List<Asset> _listAssets;
+        private List<MediaAssetResource> _listAssets;
         private readonly AMSExplorer.Mainform _myMainform;
         private readonly TimeSpan? _start;
         private readonly TimeSpan? _end;
@@ -38,7 +39,7 @@ namespace AMSExplorer
         private BindingList<EDLEntryInOut> TimeCodeList = new();
         public delegate void ChangedEventHandler(object sender, EventArgs e);
 
-        public Transform SelectedTransform => listViewTransforms.GetSelectedTransform;
+        public MediaTransformResource SelectedTransform => listViewTransforms.GetSelectedTransform;
 
         public bool SelectedAssetsMode => radioButtonSelectedAssets.Checked;
 
@@ -52,56 +53,48 @@ namespace AMSExplorer
         }
 
         public ClipTime StartClipTime => checkBoxSourceTrimmingStart.Checked ?
-
-                    new AbsoluteClipTime()
-                    {
-                        Time = timeControlStartTime.TimeStampWithoutOffset
-                    }
+                    new AbsoluteClipTime(timeControlStartTime.TimeStampWithoutOffset)
                     :
                     null;
 
         public ClipTime EndClipTime => checkBoxSourceTrimmingEnd.Checked ?
-
-                   new AbsoluteClipTime()
-                   {
-                       Time = timeControlEndTime.TimeStampWithoutOffset
-                   }
+                   new AbsoluteClipTime(timeControlEndTime.TimeStampWithoutOffset)
                    :
                    null;
 
         /// <summary>
         /// Return the selected asset object. Null if no asset.
         /// </summary>
-        public Asset ExistingOutputAsset  // null if no asset
+        public MediaAssetResource ExistingOutputAsset  // null if no asset
 => radioButtonExistingAsset.Checked ? listViewAssets1.GetSelectedAsset : null;
 
         public string OutputAssetNameSyntax  // null if no asset
 => !radioButtonExistingAsset.Checked ? textBoxNewAssetNameSyntax.Text : null;
 
 
-        public JobInputSequence InputSequence
+        public MediaJobInputSequence InputSequence
         {
             get
             {
                 if (GetEDLEntries().Count == 0) return null; // maybe several assets, but not multiple assets for one job
-
-                var myJobInputAsset = new List<JobInputAsset>();
+                var inputSeq = new MediaJobInputSequence();
                 foreach (var entry in GetEDLEntries())
                 {
-                    var input = new JobInputAsset(
-                        assetName: entry.AssetName,
-                        start: entry.Start != null ? new AbsoluteClipTime((TimeSpan)entry.Start) : null,
-                        end: entry.End != null ? new AbsoluteClipTime((TimeSpan)entry.End) : null
-                        );
-                    myJobInputAsset.Add(input);
+                    var input = new MediaJobInputAsset(entry.AssetName)
+                    {
+                        AssetName = entry.AssetName,
+                        Start = entry.Start != null ? new AbsoluteClipTime((TimeSpan)entry.Start) : null,
+                        End = entry.End != null ? new AbsoluteClipTime((TimeSpan)entry.End) : null
+                    };
 
+                    inputSeq.Inputs.Add(input);
                 }
-                return new JobInputSequence(inputs: myJobInputAsset.ToArray());
+                return inputSeq;
             }
         }
 
 
-        public JobSubmitFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<Asset> listAssets = null, List<Transform> listPreSelectedTransforms = null, TimeSpan? absoluteStart = null, TimeSpan? absoluteEnd = null, bool noHttpSourceMode = false, bool multipleInputAssets = false)
+        public JobSubmitFromTransform(AMSClientV3 client, AMSExplorer.Mainform myMainForm, List<MediaAssetResource> listAssets = null, List<MediaTransformResource> listPreSelectedTransforms = null, TimeSpan? absoluteStart = null, TimeSpan? absoluteEnd = null, bool noHttpSourceMode = false, bool multipleInputAssets = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -157,7 +150,7 @@ namespace AMSExplorer
         {
             dataGridViewEDL.DataSource = TimeCodeList;
 
-            await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault()?.Name);
+            await listViewTransforms.LoadTransformsAsync(_client, _listPreSelectedTransforms?.FirstOrDefault()?.Data.Name);
             UpdateLabeltext();
             labelURLFileNameWarning.Text = string.Empty;
             UpdateStatusButtonOk();
@@ -174,13 +167,13 @@ namespace AMSExplorer
                 {
                     foreach (var a in _listAssets)
                     {
-                        comboBoxSourceAsset.Items.Add(a.Name);
+                        comboBoxSourceAsset.Items.Add(a.Data.Name);
                         AddEDLEntry(new EDLEntryInOut()
                         {
-                            AssetName = a.Name,
+                            AssetName = a.Data.Name,
                             Start = _start,
                             End = _end,
-                            Description = a.Description
+                            Description = a.Data.Description
                         });
                     }
                 }
@@ -281,11 +274,11 @@ namespace AMSExplorer
             {
                 if (_multipleInputAssets)
                 {
-                    label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Name);
+                    label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Data.Name);
                 }
                 else
                 {
-                    label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. {0} jobs will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Name);
+                    label.Text = (_listAssets.Count > 1) ? string.Format("{0} assets have been selected. {0} jobs will be submitted.", _listAssets.Count) : string.Format("Asset '{0}' will be encoded.", _listAssets.FirstOrDefault().Data.Name);
                 }
             }
             else // http source mode
@@ -362,7 +355,7 @@ namespace AMSExplorer
                 Start = (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked) ? timeControlStartTime.TimeStampWithoutOffset : (TimeSpan?)null,
                 End = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
                 AssetName = assetName,
-                Description = _listAssets.Where(a => a.Name == assetName).First().Description
+                Description = _listAssets.Where(a => a.Data.Name == assetName).First().Data.Description
             });
             return;
 
@@ -467,10 +460,10 @@ namespace AMSExplorer
 
             if (assetName != null)
             {
-                var asset = _listAssets.Where(a => a.Name == assetName).FirstOrDefault();
+                var asset = _listAssets.Where(a => a.Data.Name == assetName).FirstOrDefault();
                 if (asset != null)
                 {
-                    textBoxAssetDescription.Text = _listAssets.Where(a => a.Name == assetName).First()?.Description;
+                    textBoxAssetDescription.Text = _listAssets.Where(a => a.Data.Name == assetName).First()?.Data.Description;
                 }
             }
         }
@@ -487,14 +480,14 @@ namespace AMSExplorer
 
             if (assetName != null)
             {
-                var asset = _listAssets.Where(a => a.Name == assetName).FirstOrDefault();
+                var asset = _listAssets.Where(a => a.Data.Name == assetName).FirstOrDefault();
                 if (asset == null)
                 {
                     try
                     {
                         asset = await _client.GetAssetAsync(assetName).ConfigureAwait(false);
                         _listAssets.Add(asset);
-                        updateAssetDescription(asset.Description);
+                        updateAssetDescription(asset.Data.Description);
                     }
                     catch
                     {
@@ -503,7 +496,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    updateAssetDescription(_listAssets.Where(a => a.Name == assetName).First()?.Description);
+                    updateAssetDescription(_listAssets.Where(a => a.Data.Name == assetName).First()?.Data.Description);
                 }
 
             }

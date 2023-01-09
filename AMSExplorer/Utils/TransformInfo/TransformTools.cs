@@ -1,5 +1,6 @@
 ﻿using AMSExplorer.Rest;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace AMSExplorer.Utils.TransformInfo
 {
     public class TransformTools
     {
-        public static StringBuilder GetStat(Transform transform, TransformRestObject transformRest)
+        public static StringBuilder GetStat(MediaTransformData transform, TransformRestObject transformRest)
         {
             ListRepData infoStr = new();
 
@@ -17,14 +18,14 @@ namespace AMSExplorer.Utils.TransformInfo
             infoStr.Add("Transform name", transform.Name);
             infoStr.Add("Description", transform.Description);
             infoStr.Add("Id", transform.Id);
-            infoStr.Add("Created (UTC)", transform.Created.ToLongDateString() + " " + transform.Created.ToLongTimeString());
-            infoStr.Add("Last Modified (UTC)", transform.LastModified.ToLongDateString() + " " + transform.LastModified.ToLongTimeString());
+            infoStr.Add("Created (UTC)", transform.CreatedOn?.ToString() + " " + transform.CreatedOn?.ToString());
+            infoStr.Add("Last Modified (UTC)", transform.LastModifiedOn.ToString() + " " + transform.LastModifiedOn.ToString());
             infoStr.Add(string.Empty);
 
             if (transform.Outputs.Count > 0)
             {
                 int indexO = 0;
-                foreach (TransformOutput output in transform.Outputs)
+                foreach (var output in transform.Outputs)
                 {
                     infoStr.Add("   --- Transform Output -----------------------------------------");
 

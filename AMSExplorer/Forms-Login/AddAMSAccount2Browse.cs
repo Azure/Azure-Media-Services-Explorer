@@ -18,8 +18,6 @@ using AMSClient;
 using AMSExplorer.AMSLogin;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
@@ -30,6 +28,8 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 
 namespace AMSExplorer
 {
@@ -176,7 +176,7 @@ namespace AMSExplorer
         /// Display the AMS account info on the right.
         /// </summary>
         /// <param name="account"></param>
-        private void DisplayInfoAccount(MediaService account)
+        private void DisplayInfoAccount(MediaServicesAccountData account)
         {
             DGAcct.Rows.Clear();
             DGAcct.ColumnCount = 2;
@@ -188,12 +188,12 @@ namespace AMSExplorer
             DGAcct.Rows.Add("AMS Account Name", account.Name);
             DGAcct.Rows.Add("Location", account.Location);
             DGAcct.Rows.Add("Resource Group", GetResourceGroupNameFromId(account.Id));
-            DGAcct.Rows.Add("MediaServiceId", account.MediaServiceId);
+            DGAcct.Rows.Add("MediaServiceId", account.Id);
 
             int i = 1;
-            foreach (StorageAccount stor in account.StorageAccounts)
+            foreach (var stor in account.StorageAccounts)
             {
-                string add = stor.Type == StorageAccountType.Primary ? " (primary)" : string.Empty;
+                string add = stor.AccountType == MediaServicesStorageAccountType.Primary ? " (primary)" : string.Empty;
                 DGAcct.Rows.Add($"Storage account #{i}" + add, GetStorageNameFromId(stor.Id));
                 i++;
             }

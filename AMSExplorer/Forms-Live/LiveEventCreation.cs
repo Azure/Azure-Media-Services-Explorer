@@ -15,7 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSExplorer.Forms_Live;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -99,7 +99,10 @@ namespace AMSExplorer
             {
                 IList<LiveEventTranscription> transcriptionList = new List<LiveEventTranscription>
                 {
-                    new LiveEventTranscription(language: ((Item)comboBoxLanguage.SelectedItem).Value)
+                    new LiveEventTranscription()
+                    {
+                        Language= ((Item)comboBoxLanguage.SelectedItem).Value
+                    }
                 };
                 return transcriptionList;
             }
@@ -120,7 +123,7 @@ namespace AMSExplorer
                 }
                 else if (radioButtonTranscodingPremium.Checked)
                 {
-                    type = LiveEventEncodingType.Premium1080p;
+                    type = LiveEventEncodingType.Premium1080P;
                 }
 
                 LiveEventEncoding encodingoption = new()
@@ -137,7 +140,7 @@ namespace AMSExplorer
 
         public LiveEventInputProtocol Protocol => (comboBoxProtocolInput.SelectedItem as Item).Value;
 
-        public string InputKeyframeIntervalSerialized
+        public TimeSpan? InputKeyframeIntervalSerialized
         {
             get
             {
@@ -147,7 +150,7 @@ namespace AMSExplorer
                     try
                     {
                         ts = TimeSpan.FromSeconds(double.Parse(textBoxInputKeyFrame.Text));
-                        return XmlConvert.ToString(ts);
+                        return ts;
                     }
                     catch
                     {
@@ -159,7 +162,7 @@ namespace AMSExplorer
                     return null;
                 }
             }
-            set => textBoxInputKeyFrame.Text = (XmlConvert.ToTimeSpan(value)).TotalSeconds.ToString();
+            set => textBoxInputKeyFrame.Text = value?.TotalSeconds.ToString();
         }
 
         public TimeSpan? EncodingKeyframeInterval
@@ -186,22 +189,22 @@ namespace AMSExplorer
         }
 
 
-        public List<Microsoft.Azure.Management.Media.Models.IPRange> InputIPAllow
+        public List<IPRange> InputIPAllow
         {
             get
             {
-                List<Microsoft.Azure.Management.Media.Models.IPRange> ips = new();
-                Microsoft.Azure.Management.Media.Models.IPRange ip;
+                List<IPRange> ips = new();
+                IPRange ip;
 
                 try
                 {
                     if (checkBoxRestrictIngestIP.Checked)
                     {
-                        ip = new Microsoft.Azure.Management.Media.Models.IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictIngestIP.Text).ToString() };
+                        ip = new IPRange() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
                     }
                     else
                     {
-                        ip = new Microsoft.Azure.Management.Media.Models.IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0").ToString(), SubnetPrefixLength = 0 };
+                        ip = new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
                     }
                     ips.Add(ip);
                     return ips;
@@ -213,17 +216,17 @@ namespace AMSExplorer
             }
         }
 
-        public List<Microsoft.Azure.Management.Media.Models.IPRange> PreviewIPAllow
+        public List<IPRange> PreviewIPAllow
         {
             get
             {
-                List<Microsoft.Azure.Management.Media.Models.IPRange> ips = new();
+                List<IPRange> ips = new();
 
                 if (checkBoxRestrictPreviewIP.Checked)
                 {
                     try
                     {
-                        Microsoft.Azure.Management.Media.Models.IPRange ip = new() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text).ToString() };
+                        IPRange ip = new() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
                         ips.Add(ip);
                     }
                     catch
@@ -308,7 +311,7 @@ namespace AMSExplorer
         private void UpdateLabelSyntax()
         {
             string url;
-            if (Protocol == LiveEventInputProtocol.RTMP)
+            if (Protocol == LiveEventInputProtocol.Rtmp)
             {
                 if (checkBoxVanityUrl.Checked)
                 {
@@ -345,8 +348,8 @@ namespace AMSExplorer
         private void FillComboProtocols()
         {
             comboBoxProtocolInput.Items.Clear();
-            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.FragmentedMP4), nameof(LiveEventInputProtocol.FragmentedMP4)));
-            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.RTMP), nameof(LiveEventInputProtocol.RTMP)));
+            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.FragmentedMp4), nameof(LiveEventInputProtocol.FragmentedMp4)));
+            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.Rtmp), nameof(LiveEventInputProtocol.Rtmp)));
             comboBoxProtocolInput.SelectedIndex = 1;
         }
 
@@ -384,7 +387,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                Microsoft.Azure.Management.Media.Models.IPRange ip = new() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(tb.Text).ToString() };
+                IPRange ip = new() { Name = AMSExplorer.Properties.Resources.CreateLiveChannel_inputIPAllow_Default, Address = IPAddress.Parse(tb.Text) };
             }
             catch
             {

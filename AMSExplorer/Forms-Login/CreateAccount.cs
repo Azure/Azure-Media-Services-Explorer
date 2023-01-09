@@ -19,8 +19,8 @@ using Azure.Core;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
 using Azure.ResourceManager.Resources.Models;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.Rest;
@@ -301,7 +301,7 @@ namespace AMSExplorer
                     location: SelectedLocationName, // This is the location for the account to be created. 
                     storageAccounts: new List<Microsoft.Azure.Management.Media.Models.StorageAccount>(){
                         new Microsoft.Azure.Management.Media.Models.StorageAccount(
-                            type: StorageAccountType.Primary,
+                            type: MediaServicesStorageAccountType.Primary,
                             // set this to the name of a storage account in your subscription using the full resource path formatting for Microsoft.Storage
                             id: storageId
                         )

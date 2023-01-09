@@ -14,7 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using System.Drawing;
 
 
@@ -29,14 +30,14 @@ namespace AMSExplorer
         private static readonly Bitmap StandardPassThroughImage = Bitmaps.passthrough_std;
         private static readonly Bitmap BasicPassThroughImage = Bitmaps.passthrough_basic;
 
-        public static Bitmap ReturnChannelBitmap(LiveEvent channel)
+        public static Bitmap ReturnChannelBitmap(MediaLiveEventResource levent)
         {
-            return (string)channel.Encoding.EncodingType switch
+            return levent.Data.Encoding.EncodingType.ToString() switch
             {
                 nameof(LiveEventEncodingType.PassthroughBasic) => BasicPassThroughImage,
                 nameof(LiveEventEncodingType.PassthroughStandard) => StandardPassThroughImage,
                 nameof(LiveEventEncodingType.Standard) => StandardEncodingImage,
-                nameof(LiveEventEncodingType.Premium1080p) => PremiumEncodingImage,
+                nameof(LiveEventEncodingType.Premium1080P) => PremiumEncodingImage,
                 _ => null,
             };
         }

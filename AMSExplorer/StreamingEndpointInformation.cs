@@ -14,7 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +30,7 @@ namespace AMSExplorer
 {
     public partial class StreamingEndpointInformation : Form
     {
-        public StreamingEndpoint MySE;
+        public StreamingEndpointResource MySE;
         public bool MultipleSelection = false;
         public ExplorerSEModifications Modifications = new();
 
@@ -102,7 +103,7 @@ namespace AMSExplorer
 
         public string GetOriginCrossdomaintPolicy => (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null;
 
-        public StreamingEndpointInformation(StreamingEndpoint streamingEndpoint)
+        public StreamingEndpointInformation(StreamingEndpointResource streamingEndpoint)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -119,25 +120,25 @@ namespace AMSExplorer
 
             if (!MultipleSelection) // one SE
             {
-                labelSEName.Text = string.Format(labelSEName.Text, MySE.Name);
+                labelSEName.Text = string.Format(labelSEName.Text, MySE.Data.Name);
                 hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
                 DGOrigin.ColumnCount = 2;
 
                 // se info
                 DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-                DGOrigin.Rows.Add("Name", MySE.Name);
-                DGOrigin.Rows.Add("ResourceState", MySE.ResourceState);
-                DGOrigin.Rows.Add("Description", MySE.Description);
-                DGOrigin.Rows.Add("HostName", MySE.HostName);
-                DGOrigin.Rows.Add("CDNEnabled", MySE.CdnEnabled);
-                DGOrigin.Rows.Add("CDNProfile", MySE.CdnProfile ?? Constants.stringNull);
-                DGOrigin.Rows.Add("CDNProvider", MySE.CdnProvider ?? Constants.stringNull);
-                DGOrigin.Rows.Add("FreeTrialEndtime", ((DateTime)MySE.FreeTrialEndTime).ToLocalTime().ToString("G"));
-                DGOrigin.Rows.Add("Created", ((DateTime)MySE.Created).ToLocalTime().ToString("G"));
-                DGOrigin.Rows.Add("LastModified", ((DateTime)MySE.LastModified).ToLocalTime().ToString("G"));
-                DGOrigin.Rows.Add("Id", MySE.Id);
-                DGOrigin.Rows.Add("Location", MySE.Location);
-                DGOrigin.Rows.Add("ProvisioningState", MySE.ProvisioningState);
+                DGOrigin.Rows.Add("Name", MySE.Data.Name);
+                DGOrigin.Rows.Add("ResourceState", MySE.Data.ResourceState);
+                DGOrigin.Rows.Add("Description", MySE.Data.Description);
+                DGOrigin.Rows.Add("HostName", MySE.Data.HostName);
+                DGOrigin.Rows.Add("IsCdnEnabled", MySE.Data.IsCdnEnabled);
+                DGOrigin.Rows.Add("CDNProfile", MySE.Data.CdnProfile ?? Constants.stringNull);
+                DGOrigin.Rows.Add("CDNProvider", MySE.Data.CdnProvider ?? Constants.stringNull);
+                DGOrigin.Rows.Add("FreeTrialEndOn", MySE.Data.FreeTrialEndOn?.ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("CreatedOn", MySE.Data.CreatedOn?.ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("LastModifiedOn", MySE.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("Id", MySE.Data.Id);
+                DGOrigin.Rows.Add("Location", MySE.Data.Location);
+                DGOrigin.Rows.Add("ProvisioningState", MySE.Data.ProvisioningState);
             }
             else
             {
@@ -147,9 +148,9 @@ namespace AMSExplorer
 
 
             // Custom Hostnames binding to control
-            if (MySE.CustomHostNames != null)
+            if (MySE.Data.CustomHostNames != null)
             {
-                foreach (string hostname in MySE.CustomHostNames)
+                foreach (string hostname in MySE.Data.CustomHostNames)
                 {
                     CustomHostNamesList.Add(new HostNameClass() { HostName = hostname });
                 }
@@ -157,9 +158,8 @@ namespace AMSExplorer
             dataGridViewCustomHostname.DataSource = CustomHostNamesList;
 
             // AZURE CDN
-            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !(bool)MySE.CdnEnabled;
-            labelcdn.Visible = (bool)MySE.CdnEnabled;
-            // numericUpDownRU.Minimum = (bool)MySE.CdnEnabled ? 1 : 0;
+            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !(bool)MySE.Data.IsCdnEnabled;
+            labelcdn.Visible = (bool)MySE.Data.IsCdnEnabled;
 
             // Streaming units
 
@@ -167,7 +167,7 @@ namespace AMSExplorer
             {
                 StreamEndpointType type = ReturnTypeSE(MySE);
                 DGOrigin.Rows.Add("Type", type);
-                DGOrigin.Rows.Add("ScaleUnits", MySE.ScaleUnits);
+                DGOrigin.Rows.Add("ScaleUnits", MySE.Data.ScaleUnits);
 
 
                 if (type == StreamEndpointType.Standard)
@@ -177,7 +177,7 @@ namespace AMSExplorer
                 else // Premium
                 {
                     radioButtonPremium.Checked = true;
-                    numericUpDownRU.Value = MySE.ScaleUnits;
+                    numericUpDownRU.Value = (int)MySE.Data.ScaleUnits;
                 }
             }
             else
@@ -187,9 +187,9 @@ namespace AMSExplorer
             // if (numericUpDownRU.Maximum < MySE.ScaleUnits) numericUpDownRU.Maximum = (int)MySE.ScaleUnits * 2;
 
 
-            if (MySE.MaxCacheAge != null)
+            if (MySE.Data.MaxCacheAge != null)
             {
-                textBoxMaxCacheAge.Text = ((long)MySE.MaxCacheAge).ToString();
+                textBoxMaxCacheAge.Text = ((long)MySE.Data.MaxCacheAge).ToString();
             }
             else
             {
@@ -198,20 +198,20 @@ namespace AMSExplorer
             MaxCacheAgeInitial = textBoxMaxCacheAge.Text;
 
 
-            if (MySE.AccessControl != null)
+            if (MySE.Data.AccessControl != null)
             {
-                if (MySE.AccessControl.Ip != null)
+                if (MySE.Data.AccessControl.AllowedIPs != null)
                 {
                     checkBoxStreamingIPlistSet.Checked = true;
-                    foreach (IPRange endpoint in MySE.AccessControl.Ip.Allow)
+                    foreach (IPRange endpoint in MySE.Data.AccessControl.AllowedIPs)
                     {
                         endpointSettingList.Add(endpoint);
                     }
                 }
-                if (MySE.AccessControl.Akamai != null)
+                if (MySE.Data.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList != null)
                 {
                     checkBoxAkamai.Checked = true;
-                    foreach (AkamaiSignatureHeaderAuthenticationKey setting in MySE.AccessControl.Akamai.AkamaiSignatureHeaderAuthenticationKeyList)
+                    foreach (AkamaiSignatureHeaderAuthenticationKey setting in MySE.Data.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList)
                     {
                         AkamaiSettingList.Add(setting);
                     }
@@ -222,20 +222,20 @@ namespace AMSExplorer
             dataGridViewIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
             dataGridViewAkamai.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
-            if (MySE.CrossSiteAccessPolicies != null)
+            if (MySE.Data.CrossSiteAccessPolicies != null)
             {
-                if (MySE.CrossSiteAccessPolicies.ClientAccessPolicy != null)
+                if (MySE.Data.CrossSiteAccessPolicies.ClientAccessPolicy != null)
                 {
                     checkBoxclientpolicy.Checked = true;
-                    textBoxClientPolicy.Text = MySE.CrossSiteAccessPolicies.ClientAccessPolicy;
+                    textBoxClientPolicy.Text = MySE.Data.CrossSiteAccessPolicies.ClientAccessPolicy;
                 }
-                if (MySE.CrossSiteAccessPolicies.CrossDomainPolicy != null)
+                if (MySE.Data.CrossSiteAccessPolicies.CrossDomainPolicy != null)
                 {
                     checkBoxcrossdomain.Checked = true;
-                    textBoxCrossDomPolicy.Text = MySE.CrossSiteAccessPolicies.CrossDomainPolicy;
+                    textBoxCrossDomPolicy.Text = MySE.Data.CrossSiteAccessPolicies.CrossDomainPolicy;
                 }
             }
-            textboxorigindesc.Text = MySE.Description;
+            textboxorigindesc.Text = MySE.Data.Description;
 
             checkMaxCacheAgeValue();
 
@@ -253,9 +253,9 @@ namespace AMSExplorer
             };
         }
 
-        public static StreamEndpointType ReturnTypeSE(StreamingEndpoint mySE)
+        public static StreamEndpointType ReturnTypeSE(StreamingEndpointResource mySE)
         {
-            if (mySE.ScaleUnits > 0)
+            if (mySE.Data.ScaleUnits > 0)
             {
                 return StreamEndpointType.Premium;
             }

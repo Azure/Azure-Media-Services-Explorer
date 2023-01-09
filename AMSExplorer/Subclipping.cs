@@ -14,8 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json.Linq;
 using System;
@@ -31,7 +31,7 @@ namespace AMSExplorer
     public partial class Subclipping : Form
     {
         private readonly AMSClientV3 _amsClientV3;
-        private readonly List<Asset> _selectedAssets;
+        private readonly List<MediaAssetResource> _selectedAssets;
         private readonly ManifestTimingData _parentAssetManifestData;
         private readonly long? _timescale = TimeSpan.TicksPerSecond;
         private readonly Mainform _mainform;
@@ -53,7 +53,7 @@ namespace AMSExplorer
             set => textboxoutputassetname.Text = value;
         }
 
-        public Subclipping(AMSClientV3 context, List<Asset> assetlist, Mainform mainform)
+        public Subclipping(AMSClientV3 context, List<MediaAssetResource> assetlist, Mainform mainform)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -81,7 +81,7 @@ namespace AMSExplorer
 
             if (_selectedAssets.Count == 1 && _selectedAssets.FirstOrDefault() != null)  // one asset only
             {
-                Asset myAsset = assetlist.FirstOrDefault();
+                MediaAssetResource myAsset = assetlist.FirstOrDefault();
                 textBoxAssetName.Text = myAsset.Name;
 
                 // let's try to read asset timing
@@ -463,7 +463,7 @@ namespace AMSExplorer
         {
             if (checkBoxPreviewStream.Checked && checkBoxTrimming.Checked && _tempStreamingLocator != null)
             {
-                Asset myAsset = _selectedAssets.FirstOrDefault();
+                MediaAssetResource myAsset = _selectedAssets.FirstOrDefault();
 
                 Uri myuri = (await AssetTools.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name)).Item1;
 
@@ -509,7 +509,7 @@ namespace AMSExplorer
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, jobInput: form.InputSequence, MultipleInputAssets: true);
+                        await _mainform.CreateAndSubmitJobsAsync(new List<MediaTransformResource>() { form.SelectedTransform }, _selectedAssets, jobInput: form.InputSequence, MultipleInputAssets: true);
                     }
                 }
                 else if (_selectedAssets.Count > 1)
@@ -518,7 +518,7 @@ namespace AMSExplorer
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { form.SelectedTransform }, _selectedAssets, form.StartClipTime, form.EndClipTime, MultipleInputAssets: false);
+                        await _mainform.CreateAndSubmitJobsAsync(new List<MediaTransformResource>() { form.SelectedTransform }, _selectedAssets, form.StartClipTime, form.EndClipTime, MultipleInputAssets: false);
                     }
                 }
 
@@ -559,7 +559,7 @@ namespace AMSExplorer
             }
             else if (subclipConfig.Mode == SubclipMode.CreateAssetFilter) // create a asset filter
             {
-                Asset selasset = _selectedAssets.FirstOrDefault();
+                MediaAssetResource selasset = _selectedAssets.FirstOrDefault();
                 DynManifestFilter formAF = new(_amsClientV3, null, selasset, subclipConfig);
                 if (formAF.ShowDialog() == DialogResult.OK)
                 {
@@ -612,7 +612,7 @@ namespace AMSExplorer
                     transform = await _mainform.CreateAndGetCopyAllBitrateNonInterleavedTransformIfNeededAsync();
                 }
 
-                await _mainform.CreateAndSubmitJobsAsync(new List<Transform>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, null);
+                await _mainform.CreateAndSubmitJobsAsync(new List<MediaTransformResource>() { transform }, _selectedAssets, startTime, endTime, EncodingJobName, null);
 
                 MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

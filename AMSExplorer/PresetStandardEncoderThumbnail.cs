@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,78 +22,68 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-
     public partial class PresetStandardEncoderThumbnail : Form
     {
         public StandardEncoderPreset CustomSpritePreset
         {
             get
             {
-                IList<Codec> listCodec;
-                IList<Format> listFormat;
+                IList<MediaCodecBase> listCodec = new List<MediaCodecBase>();
+                IList<MediaFormatBase> listFormat = new List<MediaFormatBase>();
 
                 string step = string.IsNullOrWhiteSpace(textBoxThTimeStepJPG.Text) ? null : textBoxThTimeStepJPG.Text;
                 string range = string.IsNullOrWhiteSpace(textBoxThTimeRangeJPG.Text) ? null : textBoxThTimeRangeJPG.Text;
 
-
                 if (radioButtonPNG.Checked) // PNG
                 {
-                    listCodec = new Codec[]
-                    {
+                    listCodec.Add(
                         // Generate a set of PNG thumbnails
-                        new PngImage(
-                            start: textBoxThTimeStartJPG.Text,
-                            step: step,
-                            range: range,
-                            layers: new PngLayer[]{
-                                new PngLayer(
-                                    width: widthSize,
-                                    height: heightSize
-                                )
-                            }
-                        )
-                    };
-
-                    listFormat =
-                      new Format[]
+                        new PngImage(textBoxThTimeStartJPG.Text)
                         {
-                        new PngFormat(
-                            filenamePattern: textBoxThFileNameJPG.Text
-                        )
-                        };
+                            Step = step,
+                            Range = range,
+                            Layers = {
+                                new PngLayer()
+                                {
+                                    Width= widthSize,
+                                    Height= heightSize
+                                }
+                                    }
+                        }
+                        );
+
+                    listFormat.Add(
+                        new PngFormat(filenamePattern: textBoxThFileNameJPG.Text)
+                        );
                 }
                 else // JPG or Sprite JPG
                 {
                     int? spriteC = radioButtonSprite.Checked ? (int?)numericUpDownSpriteColumn.Value : null;
 
-                    listCodec = new Codec[]
-                        {
+                    listCodec.Add(
                         // Generate a set of PNG thumbnails
-                        new JpgImage(spriteColumn:spriteC,
-                            start: textBoxThTimeStartJPG.Text,
-                            step: step,
-                            range: range,
-                            layers: new JpgLayer[]{
-                                new JpgLayer(
-                                    width: widthSize,
-                                    height: heightSize
-                                )
-                            }
-                        )
-                        };
-
-                    listFormat =
-                      new Format[]
+                        new JpgImage(textBoxThTimeStartJPG.Text)
                         {
-                        new JpgFormat(
-                            filenamePattern: textBoxThFileNameJPG.Text
-                        )
-                        };
+                            SpriteColumn = spriteC,
+                            Start = textBoxThTimeStartJPG.Text,
+                            Step = step,
+                            Range = range,
+                            Layers =
+                            {
+                                new JpgLayer
+                                {
+                                    Width= widthSize,
+                                    Height= heightSize
+                                }
+                            }
+                        }
+                        );
 
+                    listFormat.Add(
+                        new JpgFormat(textBoxThFileNameJPG.Text)
+                        );
                 }
-
                 return new StandardEncoderPreset(codecs: listCodec, formats: listFormat);
-
             }
         }
 

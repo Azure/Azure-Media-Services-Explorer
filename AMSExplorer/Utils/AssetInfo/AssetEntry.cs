@@ -254,7 +254,7 @@ namespace AMSExplorer
         }
 
         private string _Created;
-        public string Created
+        public string CreatedOn
         {
             get => _Created;
             set
@@ -268,7 +268,7 @@ namespace AMSExplorer
         }
 
         private string _LastModified;
-        public string LastModified
+        public string LastModifiedOn
         {
             get => _LastModified;
             set

@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System.Collections.Generic;
 
 namespace AMSExplorer
@@ -47,7 +47,7 @@ namespace AMSExplorer
             },
             new LiveProfile()
             {
-                Type = LiveEventEncodingType.Premium1080p,
+                Type = LiveEventEncodingType.Premium1080P,
                 Name = "default1080p",
                 Video = new List<LiveVideoProfile>()
                 {

@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System.Collections.Generic;
 
 namespace AMSExplorer
@@ -22,8 +22,8 @@ namespace AMSExplorer
     public class FilterCreationInfo
     {
         public string Name { get; set; }  // contains the full configuration for subclipping
-        public Microsoft.Azure.Management.Media.Models.FirstQuality Firstquality { get; set; }
-        public Microsoft.Azure.Management.Media.Models.PresentationTimeRange Presentationtimerange { get; set; }
+        public int? Firstquality { get; set; }
+        public PresentationTimeRange Presentationtimerange { get; set; }
         public IList<FilterTrackSelection> Tracks { get; set; }
     }
 

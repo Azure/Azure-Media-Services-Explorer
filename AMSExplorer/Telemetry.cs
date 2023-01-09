@@ -1,6 +1,6 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;

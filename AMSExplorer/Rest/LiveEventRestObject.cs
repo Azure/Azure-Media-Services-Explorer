@@ -15,7 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 

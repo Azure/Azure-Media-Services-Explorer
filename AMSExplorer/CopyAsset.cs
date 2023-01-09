@@ -14,8 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Newtonsoft.Json;
 using System;
 using System.Drawing;
@@ -170,7 +170,7 @@ namespace AMSExplorer
 
             DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.AzureSubscriptionId, DestinationLoginInfo, this);
 
-            AzureMediaServicesClient response;
+            MediaServicesAccountResource response;
             try
             {
                 response = await DestinationAmsClient.ConnectAndGetNewClientV3Async(this);
@@ -197,14 +197,14 @@ namespace AMSExplorer
 
             try
             {   // let's refresh storage accounts
-                DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts = (await DestinationAmsClient.AMSclient.Mediaservices.GetAsync(DestinationAmsClient.credentialsEntry.ResourceGroup, DestinationAmsClient.credentialsEntry.AccountName)).StorageAccounts;
+                DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts = DestinationAmsClient.AMSclient.Data.StorageAccounts;
 
-                foreach (StorageAccount storage in DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts)
+                foreach (var storage in DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts)
                 {
                     string storageName = AMSClientV3.GetStorageName(storage.Id);
 
-                    int index = listBoxStorage.Items.Add(new Item(storageName + ((storage.Type == StorageAccountType.Primary) ? AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_Default : string.Empty), storageName));
-                    if (storage.Type == StorageAccountType.Primary)
+                    int index = listBoxStorage.Items.Add(new Item(storageName + ((storage.AccountType == MediaServicesStorageAccountType.Primary) ? AMSExplorer.Properties.Resources.CopyAsset_listBoxAcounts_SelectedIndexChanged_Default : string.Empty), storageName));
+                    if (storage.AccountType == MediaServicesStorageAccountType.Primary)
                     {
                         listBoxStorage.SelectedIndex = index;
                     }

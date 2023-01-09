@@ -14,8 +14,8 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -100,24 +100,27 @@ namespace AMSExplorer
         {
             IEnumerable<LiveOutputEntry> programquery;
 
-            List<LiveEvent> ListEvents = amsClient.AMSclient.LiveEvents.List(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName).ToList();
+            //List<MediaLiveEventResource> ListEvents = amsClient.AMSclient.LiveEvents.List(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName).ToList();
+            var ListEvents = amsClient.AMSclient.GetMediaLiveEvents().GetAll();
+
             List<Program.LiveOutputExt> LOList = new();
 
-            foreach (LiveEvent le in ListEvents)
+            foreach (MediaLiveEventResource le in ListEvents)
             {
-                List<LiveOutput> plist = amsClient.AMSclient.LiveOutputs.List(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, le.Name).ToList();
-                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+
+                List<MediaLiveOutputResource> plist = le.GetMediaLiveOutputs().GetAll().ToList();
+                plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Data.Name }));
             }
 
             programquery = from c in (LOList.Take(0))
                                //orderby c.LastModified descending
                            select new LiveOutputEntry
                            {
-                               Name = c.LiveOutputItem.Name,
-                               State = c.LiveOutputItem.ResourceState,
-                               Description = c.LiveOutputItem.Description,
-                               ArchiveWindowLength = c.LiveOutputItem.ArchiveWindowLength,
-                               LastModified = c.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LiveOutputItem.LastModified).ToLocalTime() : null,
+                               Name = c.LiveOutputItem.Data.Name,
+                               State = c.LiveOutputItem.Data.ResourceState,
+                               Description = c.LiveOutputItem.Data.Description,
+                               ArchiveWindowLength = c.LiveOutputItem.Data.ArchiveWindowLength,
+                               LastModifiedOn = c.LiveOutputItem.Data.LastModifiedOn != null ? c.LiveOutputItem.Data.LastModifiedOn?.ToLocalTime() : null,
                                Published = null,
                                LiveEventName = c.LiveEventName
                            };
@@ -172,7 +175,7 @@ namespace AMSExplorer
             }
         }
 
-        public async Task RefreshLiveOutputAsync(string liveeventName, LiveOutput liveOutput, AMSClientV3 amsClient)
+        public async Task RefreshLiveOutputAsync(string liveeventName, MediaLiveOutputResource liveOutput, AMSClientV3 amsClient)
         {
             int index = -1;
 
@@ -180,7 +183,7 @@ namespace AMSExplorer
             {
                 foreach (LiveOutputEntry CE in _MyObservLiveOutputs) // let's search for index
                 {
-                    if (CE.Name == liveOutput.Name)
+                    if (CE.Name == liveOutput.Data.Name)
                     {
                         index = _MyObservLiveOutputs.IndexOf(CE);
                         break;
@@ -193,11 +196,11 @@ namespace AMSExplorer
 
                 try
                 {
-                    liveOutput = await amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Name); //refresh
-                    _MyObservLiveOutputs[index].State = liveOutput.ResourceState;
-                    _MyObservLiveOutputs[index].Description = liveOutput.Description;
-                    _MyObservLiveOutputs[index].ArchiveWindowLength = liveOutput.ArchiveWindowLength;
-                    _MyObservLiveOutputs[index].LastModified = liveOutput.LastModified != null ? (DateTime?)((DateTime)liveOutput.LastModified).ToLocalTime() : null;
+                    liveOutput = await amsClient.GetLiveOutputAsync(liveeventName, liveOutput.Data.Name); //refresh
+                    _MyObservLiveOutputs[index].State = liveOutput.Data.ResourceState;
+                    _MyObservLiveOutputs[index].Description = liveOutput.Data.Description;
+                    _MyObservLiveOutputs[index].ArchiveWindowLength = liveOutput.Data.ArchiveWindowLength;
+                    _MyObservLiveOutputs[index].LastModifiedOn = liveOutput.Data.LastModifiedOn != null ? liveOutput.Data.LastModifiedOn?.ToLocalTime() : null;
                     RefreshGridView();
                 }
                 catch
@@ -224,28 +227,27 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
-            IEnumerable<LiveEvent> ListEvents;
+            IEnumerable<MediaLiveEventResource> ListEvents;
             if (_anyChannel == enumDisplayProgram.None)
             {
-                ListEvents = new List<LiveEvent>();
+                ListEvents = new List<MediaLiveEventResource>();
             }
             else
             {
-                ListEvents = (await amsClient.AMSclient.LiveEvents.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName))
+                ListEvents = amsClient.AMSclient.GetMediaLiveEvents().GetAll()
                     .ToList()
-                    .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && GetLiveEventSourceNames().Contains(l.Name)));
+                    .Where(l => _anyChannel == enumDisplayProgram.Any || (_anyChannel == enumDisplayProgram.Selected && GetLiveEventSourceNames().Contains(l.Data.Name)));
             }
 
 
             List<Program.LiveOutputExt> LOList = new();
 
-            foreach (LiveEvent le in ListEvents)
+            foreach (MediaLiveEventResource le in ListEvents)
             {
                 try
                 {
-                    List<LiveOutput> plist = (await amsClient.AMSclient.LiveOutputs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, le.Name))
-                       .ToList();
-                    plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Name }));
+                    var plist = le.GetMediaLiveOutputs().GetAll().ToList();
+                    plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Data.Name }));
                 }
                 catch
                 {
@@ -259,18 +261,18 @@ namespace AMSExplorer
                                         async item => new
                                         {
                                             LOExt = item,
-                                            LOBitmap = await DataGridViewAssets.BuildBitmapPublicationAsync(item.LiveOutputItem.AssetName, amsClient)
+                                            LOBitmap = await DataGridViewAssets.BuildBitmapPublicationAsync(item.LiveOutputItem.Data.AssetName, amsClient)
                                         });
 
             IEnumerable<LiveOutputEntry> programquery = (await Task.WhenAll(tasksBuildBitmaps))
                                             .Select(c =>
                                                           new LiveOutputEntry
                                                           {
-                                                              Name = c.LOExt.LiveOutputItem.Name,
-                                                              State = c.LOExt.LiveOutputItem.ResourceState,
-                                                              Description = c.LOExt.LiveOutputItem.Description,
-                                                              ArchiveWindowLength = c.LOExt.LiveOutputItem.ArchiveWindowLength,
-                                                              LastModified = c.LOExt.LiveOutputItem.LastModified != null ? (DateTime?)((DateTime)c.LOExt.LiveOutputItem.LastModified).ToLocalTime() : null,
+                                                              Name = c.LOExt.LiveOutputItem.Data.Name,
+                                                              State = c.LOExt.LiveOutputItem.Data.ResourceState,
+                                                              Description = c.LOExt.LiveOutputItem.Data.Description,
+                                                              ArchiveWindowLength = c.LOExt.LiveOutputItem.Data.ArchiveWindowLength,
+                                                              LastModifiedOn = c.LOExt.LiveOutputItem.Data.LastModifiedOn != null ? c.LOExt.LiveOutputItem.Data.LastModifiedOn?.ToLocalTime() : null,
                                                               Published = c.LOBitmap.bitmap,
                                                               LiveEventName = c.LOExt.LiveEventName
                                                           });

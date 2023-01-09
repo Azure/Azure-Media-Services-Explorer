@@ -14,8 +14,9 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+using Microsoft.Azure.Management.Storage.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -60,13 +61,15 @@ namespace AMSExplorer
 
         private void ControlsResetToDefault()
         {
-            IList<StorageAccount> storAccounts = Task.Run(() => _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).GetAwaiter().GetResult().StorageAccounts;
+            IList<MediaServicesStorageAccount> storAccounts = _amsClientV3.AMSclient.Data.StorageAccounts;
+
+            // IList<StorageAccount> storAccounts = Task.Run(() => _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).GetAwaiter().GetResult().StorageAccounts;
 
             comboBoxStorage.Items.Clear();
-            foreach (Microsoft.Azure.Management.Media.Models.StorageAccount storage in storAccounts)
+            foreach (var storage in storAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
-                bool primary = (storage.Type == StorageAccountType.Primary);
+                bool primary = (storage.AccountType == MediaServicesStorageAccountType.Primary);
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname));
                 if (primary)
                 {

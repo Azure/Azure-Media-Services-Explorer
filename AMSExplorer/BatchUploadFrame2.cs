@@ -15,8 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -132,10 +132,10 @@ namespace AMSExplorer
             }
 
 
-            foreach (StorageAccount storage in (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts)
+            foreach (var storage in _client.AMSclient.Data.StorageAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
-                bool primary = (storage.Type == StorageAccountType.Primary);
+                bool primary = (storage.AccountType == MediaServicesStorageAccountType.Primary);
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : ""), sname));
                 if (primary)
                 {

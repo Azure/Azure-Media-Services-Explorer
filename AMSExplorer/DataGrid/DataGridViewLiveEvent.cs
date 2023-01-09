@@ -15,8 +15,9 @@
 //--------------------------------------------------------------------------------------------- 
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
@@ -87,34 +88,23 @@ namespace AMSExplorer
             float scale = DeviceDpi / 96f;
 
             // Listing live events
-            List<LiveEvent> liveevents = new();
-            IPage<LiveEvent> liveeventsPage = await amsClient.AMSclient.LiveEvents.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
-            while (liveeventsPage != null)
-            {
-                liveevents.AddRange(liveeventsPage);
-                if (liveeventsPage.NextPageLink != null)
-                {
-                    liveeventsPage = await amsClient.AMSclient.LiveEvents.ListNextAsync(liveeventsPage.NextPageLink);
-                }
-                else
-                {
-                    liveeventsPage = null;
-                }
-            }
+            //List<MediaLiveEventResource> liveevents = new();
 
-            channelquery = from c in liveevents.Take(0)
-                           orderby c.LastModified descending
+            var liveevents = amsClient.AMSclient.GetMediaLiveEvents().GetAllAsync();
+
+            channelquery = from c in (await liveevents.AsPages(null).FirstAsync()).Values.Take(0)
+                           orderby c.Data.LastModifiedOn descending
                            select new LiveEventEntry
                            {
-                               Name = c.Name,
-                               Description = c.Description,
-                               InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Input.Endpoints.Count),
+                               Name = c.Data.Name,
+                               Description = c.Data.Description,
+                               InputProtocol = string.Format("{0} ({1})", c.Data.Input.StreamingProtocol.ToString() /*Program.ReturnNameForProtocol(c.Input.StreamingProtocol)*/, c.Data.Input.Endpoints.Count),
                                Encoding = LiveEventUtil.ReturnChannelBitmap(c),
-                               EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic) ? c.Encoding.PresetName : string.Empty,
-                               InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
-                               PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
-                               State = c.ResourceState,
-                               LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
+                               EncodingPreset = (c.Data.Encoding != null && c.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && c.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic) ? c.Data.Encoding.PresetName : string.Empty,
+                               InputUrl = c.Data.Input.Endpoints.Count > 0 ? c.Data.Input.Endpoints.FirstOrDefault().Uri : null,
+                               PreviewUrl = c.Data.Preview.Endpoints.Count > 0 ? c.Data.Preview.Endpoints.FirstOrDefault().Uri : null,
+                               State = c.Data.ResourceState,
+                               LastModifiedOn = c.Data.LastModifiedOn != null ? c.Data.LastModifiedOn?.ToLocalTime() : null
                            };
 
 
@@ -180,12 +170,12 @@ namespace AMSExplorer
             }
         }
 
-        public async Task RefreshLiveEventAsync(LiveEvent liveEventItem, AMSClientV3 amsClient)
+        public async Task RefreshLiveEventAsync(MediaLiveEventResource liveEventItem, AMSClientV3 amsClient)
         {
             int index = -1;
             foreach (LiveEventEntry CE in _MyObservLiveEvent) // let's search for index
             {
-                if (CE.Name == liveEventItem.Name)
+                if (CE.Name == liveEventItem.Data.Name)
                 {
                     index = _MyObservLiveEvent.IndexOf(CE);
                     break;
@@ -197,13 +187,13 @@ namespace AMSExplorer
 
                 try
                 {
-                    liveEventItem = await amsClient.GetLiveEventAsync(liveEventItem.Name); //refresh
-                    _MyObservLiveEvent[index].State = liveEventItem.ResourceState;
-                    _MyObservLiveEvent[index].Description = liveEventItem.Description;
-                    _MyObservLiveEvent[index].LastModified = liveEventItem.LastModified != null ? (DateTime?)((DateTime)liveEventItem.LastModified).ToLocalTime() : null;
+                    liveEventItem = await amsClient.GetLiveEventAsync(liveEventItem.Data.Name); //refresh
+                    _MyObservLiveEvent[index].State = liveEventItem.Data.ResourceState;
+                    _MyObservLiveEvent[index].Description = liveEventItem.Data.Description;
+                    _MyObservLiveEvent[index].LastModifiedOn = liveEventItem.Data.LastModifiedOn != null ? liveEventItem.Data.LastModifiedOn?.ToLocalTime() : null;
                     RefreshGridView();
                 }
-                catch (ErrorResponseException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                catch (RequestFailedException ex) when (ex.Status == ((int)System.Net.HttpStatusCode.NotFound))
                 {
                     // live event not found
                 }
@@ -221,8 +211,12 @@ namespace AMSExplorer
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
             // Listing live events
-            List<LiveEvent> liveevents = new();
-            IPage<LiveEvent> liveeventsPage = await amsClient.AMSclient.LiveEvents.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
+            //List<MediaLiveEventResource> liveevents = new();
+
+            var liveevents = amsClient.AMSclient.GetMediaLiveEvents().GetAllAsync();
+
+            /*
+            IPage<MediaLiveEventResource> liveeventsPage = await amsClient.AMSclient.LiveEvents.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
             while (liveeventsPage != null)
             {
                 liveevents.AddRange(liveeventsPage);
@@ -235,27 +229,33 @@ namespace AMSExplorer
                     liveeventsPage = null;
                 }
             }
+            */
+            int totalLiveEvents = 0;
+            List<LiveEventEntry> channelquery = new();
 
+            await foreach (var c in liveevents)
+            {
+                totalLiveEvents++;
+                channelquery.Add(
+                     new LiveEventEntry
+                     {
+                         Name = c.Data.Name,
+                         Description = c.Data.Description,
+                         InputProtocol = string.Format("{0} ({1})", c.Data.Input.StreamingProtocol.ToString(), c.Data.Input.Endpoints.Count),
+                         Encoding = LiveEventUtil.ReturnChannelBitmap(c),
+                         EncodingPreset = (c.Data.Encoding != null && c.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && c.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic) ? c.Data.Encoding.PresetName : string.Empty,
+                         InputUrl = c.Data.Input.Endpoints.Count > 0 ? c.Data.Input.Endpoints.FirstOrDefault().Uri : null,
+                         PreviewUrl = c.Data.Preview.Endpoints.Count > 0 ? c.Data.Preview.Endpoints.FirstOrDefault().Uri : null,
+                         State = c.Data.ResourceState,
+                         LastModifiedOn = c.Data.LastModifiedOn
+                     }
+                    );
 
-            totalLiveEvents = liveevents.Count;
+            }
+                       
             float scale = DeviceDpi / 96f;
 
-            IEnumerable<LiveEventEntry> channelquery = liveevents.Select(c =>
-                       new LiveEventEntry
-                       {
-                           Name = c.Name,
-                           Description = c.Description,
-                           InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString(), c.Input.Endpoints.Count),
-                           Encoding = LiveEventUtil.ReturnChannelBitmap(c),
-                           EncodingPreset = (c.Encoding != null && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && c.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic) ? c.Encoding.PresetName : string.Empty,
-                           InputUrl = c.Input.Endpoints.Count > 0 ? c.Input.Endpoints.FirstOrDefault().Url : string.Empty,
-                           PreviewUrl = c.Preview.Endpoints.Count > 0 ? c.Preview.Endpoints.FirstOrDefault().Url : string.Empty,
-                           State = c.ResourceState,
-                           LastModified = c.LastModified != null ? (DateTime?)((DateTime)c.LastModified).ToLocalTime() : null
-                       }
-            );
-
-            _MyObservLiveEvent = new SortableBindingList<LiveEventEntry>(channelquery.ToList());
+            _MyObservLiveEvent = new SortableBindingList<LiveEventEntry>(channelquery);
             BeginInvoke(new Action(() => DataSource = _MyObservLiveEvent));
             _refreshedatleastonetime = true;
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));

@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -57,7 +57,7 @@ namespace AMSExplorer
         private readonly PresetStandardEncoderThumbnail formThumbnail = new();
         private StandardEncoderPreset encoderPresetThumbnail;
 
-        private PresetConfigurations presetConfigurations = null;
+        private EncoderPresetConfigurations presetConfigurations = null;
 
 
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
@@ -78,7 +78,7 @@ namespace AMSExplorer
             }
         }
 
-        public PresetConfigurations CAEConfigurations
+        public EncoderPresetConfigurations CAEConfigurations
         {
             get
             {
@@ -107,20 +107,19 @@ namespace AMSExplorer
         public static StandardEncoderPreset CopyOnlyPreset()
         {
             return new StandardEncoderPreset(
-       codecs: new Codec[]
-       {
-                        // Add an Audio layer for the audio copy
-                        new CopyAudio(),                 
-                        // Next, add a Video for the video copy
-                       new CopyVideo()
-        },
-         // Specify the format for the output files - one for video+audio, and another for the thumbnails
-         formats: new Format[]
-         {
-                        new Mp4Format(
-                            filenamePattern:"Archive-{Basename}{Extension}"
-                        )
-         });
+                codecs: new List<MediaCodecBase>()
+                {
+                    // Add an Audio layer for the audio copy
+                    new CodecCopyAudio(),                 
+                    // Next, add a Video for the video copy
+                    new CodecCopyVideo()
+                },
+                // Specify the format for the output files - one for video+audio, and another for the thumbnails
+                formats: new List<MediaFormatBase>()
+                {
+                    new Mp4Format("Archive-{Basename}{Extension}")
+                }
+                );
         }
 
         public string TransformName => textBoxTransformName.Text;
@@ -139,21 +138,21 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming, EncoderNamedPreset.AdaptiveStreaming));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.ContentAwareEncoding, EncoderNamedPreset.ContentAwareEncoding));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.CopyAllBitrateNonInterleaved, EncoderNamedPreset.CopyAllBitrateNonInterleaved));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate1080p, EncoderNamedPreset.H264MultipleBitrate1080p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate720p, EncoderNamedPreset.H264MultipleBitrate720p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrateSD, EncoderNamedPreset.H264MultipleBitrateSD));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate1080p, EncoderNamedPreset.H264SingleBitrate1080p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate720p, EncoderNamedPreset.H264SingleBitrate720p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrateSD, EncoderNamedPreset.H264SingleBitrateSD));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AACGoodQualityAudio, EncoderNamedPreset.AACGoodQualityAudio));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265AdaptiveStreaming, EncoderNamedPreset.H265AdaptiveStreaming));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265ContentAwareEncoding, EncoderNamedPreset.H265ContentAwareEncoding));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate4K, EncoderNamedPreset.H265SingleBitrate4K));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate1080p, EncoderNamedPreset.H265SingleBitrate1080p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate720p, EncoderNamedPreset.H265SingleBitrate720p));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming.ToString(), EncoderNamedPreset.AdaptiveStreaming.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.ContentAwareEncoding.ToString(), EncoderNamedPreset.ContentAwareEncoding.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.CopyAllBitrateNonInterleaved.ToString(), EncoderNamedPreset.CopyAllBitrateNonInterleaved.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate1080P.ToString(), EncoderNamedPreset.H264MultipleBitrate1080P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate720P.ToString(), EncoderNamedPreset.H264MultipleBitrate720P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrateSD.ToString(), EncoderNamedPreset.H264MultipleBitrateSD.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate1080P.ToString(), EncoderNamedPreset.H264SingleBitrate1080P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate720P.ToString(), EncoderNamedPreset.H264SingleBitrate720P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrateSD.ToString(), EncoderNamedPreset.H264SingleBitrateSD.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AacGoodQualityAudio.ToString(), EncoderNamedPreset.AacGoodQualityAudio.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265AdaptiveStreaming.ToString(), EncoderNamedPreset.H265AdaptiveStreaming.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265ContentAwareEncoding.ToString(), EncoderNamedPreset.H265ContentAwareEncoding.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate4K.ToString(), EncoderNamedPreset.H265SingleBitrate4K.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate1080P.ToString(), EncoderNamedPreset.H265SingleBitrate1080P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate720P.ToString(), EncoderNamedPreset.H265SingleBitrate720P.ToString()));
 
             listboxPresets.SelectedIndex = 0;
 

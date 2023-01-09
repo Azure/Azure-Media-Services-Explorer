@@ -14,7 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -23,7 +24,7 @@ namespace AMSExplorer
 {
     public class CredentialsEntryV3 : IEquatable<CredentialsEntryV3>
     {
-        public MediaService MediaService;
+        public MediaServicesAccountData MediaService;
 
         public string ADSPClientId;
 
@@ -37,7 +38,7 @@ namespace AMSExplorer
         public bool UseSPAuth = false;
         public string Description;
 
-        public CredentialsEntryV3(MediaService mediaService, AzureEnvironment environment, bool promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
+        public CredentialsEntryV3(MediaServicesAccountData mediaService, AzureEnvironment environment, bool promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
         {
             MediaService = mediaService;
             Environment = environment;
@@ -58,7 +59,7 @@ namespace AMSExplorer
         {
             get
             {
-                string[] idParts = MediaService.Id.Split('/');
+                string[] idParts = MediaService.Id.ToString().Split('/');
                 return idParts[4];
             }
         }
@@ -67,7 +68,7 @@ namespace AMSExplorer
         {
             get
             {
-                string[] idParts = MediaService.Id.Split('/');
+                string[] idParts = MediaService.Id.ToString().Split('/');
                 return idParts[2];
             }
         }

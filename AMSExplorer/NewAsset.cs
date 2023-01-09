@@ -15,8 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Azure.Storage;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -76,15 +76,15 @@ namespace AMSExplorer
 
         private async Task ControlsResetToDefaultAsync()
         {
-            IList<StorageAccount> storAccounts = (await _amsClientV3.AMSclient.Mediaservices.GetAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName)).StorageAccounts;
+            IList<MediaServicesStorageAccount> storAccounts = _amsClientV3.AMSclient.Data.StorageAccounts;
 
             comboBoxStorage.Invoke(c => c.Items.Clear());
 
             //comboBoxStorage.Items.Clear();
-            foreach (StorageAccount storage in storAccounts)
+            foreach (var storage in storAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
-                bool primary = (storage.Type == StorageAccountType.Primary);
+                bool primary = (storage.AccountType == MediaServicesStorageAccountType.Primary);
                 comboBoxStorage.Invoke(c => c.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname)));
                 //comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname));
                 if (primary)

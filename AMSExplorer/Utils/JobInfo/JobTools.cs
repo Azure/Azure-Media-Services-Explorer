@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.Management.Media.Models;
+﻿using Azure.ResourceManager.Media.Models;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +27,7 @@ namespace AMSExplorer.Utils.JobInfo
 
             infoStr.Add(string.Empty);
 
-            if (MyJob.Input is JobInputSequence dd) // multiple inputs
+            if (MyJob.Input is MediaJobInputSequence dd) // multiple inputs
             {
                 foreach (var input in dd.Inputs)
                 {
@@ -67,7 +67,7 @@ namespace AMSExplorer.Utils.JobInfo
                 infoStr.Add("   --- Job Input (Single asset) ---------------------------------");
 
                 infoStr.Add("   Asset name", inputA.AssetName);
-                infoStr.Add("   Asset type", (await AssetTools.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
+                infoStr.Add("   Asset type", (await AssetTools.GetAssetTypeAsync(inputA, _amsClient))?.Type);
 
                 if (inputA.Start != null && inputA.Start is AbsoluteClipTime startA)
                 {

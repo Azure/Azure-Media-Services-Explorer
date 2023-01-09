@@ -1,1 +1,0 @@
-wingetcreate -update --urls https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.5.2.msi --version 5.5.2

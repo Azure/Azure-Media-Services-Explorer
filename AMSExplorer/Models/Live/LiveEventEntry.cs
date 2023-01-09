@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Drawing;
 
@@ -25,12 +25,12 @@ namespace AMSExplorer
         //   select new { j.Name, j.Id, j.State, j.StartTime, j.EndTime, j.Tasks[0].PerfMessage, Progress=j.GetOverallProgress() };
         public string Name { get; set; }
         public LiveEventResourceState? State { get; set; }
-        public DateTime? LastModified { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; set; }
         public string Description { get; set; }
         public string InputProtocol { get; set; }
         public Bitmap Encoding { get; set; }
         public string EncodingPreset { get; set; }
-        public string InputUrl { get; set; }
-        public string PreviewUrl { get; set; }
+        public Uri InputUrl { get; set; }
+        public Uri PreviewUrl { get; set; }
     }
 }

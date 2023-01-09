@@ -16,7 +16,9 @@
 
 
 using AMSExplorer.Utils.JobInfo;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -30,11 +32,11 @@ namespace AMSExplorer
 {
     public partial class JobInformation : Form
     {
-        private readonly Job _job;
+        private readonly MediaJobResource _job;
         private readonly AMSClientV3 _amsClient;
         private readonly Mainform _mainform;
         private readonly JobExtension _jobExt;
-        public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
+        public IEnumerable<StreamingEndpointResource> MyStreamingEndpoints;
 
         public JobInformation(Mainform mainform, AMSClientV3 client, JobExtension jobExt)
         {
@@ -82,7 +84,7 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-            labelJobNameTitle.Text += _job.Name;
+            labelJobNameTitle.Text += _job.Data.Name;
 
             DGJob.ColumnCount = 2;
             DGOutputs.ColumnCount = 2;
@@ -97,24 +99,24 @@ namespace AMSExplorer
             DGErrors.Columns[2].HeaderText = AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Code;
 
             DGJob.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _job.Name);
-            DGJob.Rows.Add("Description", _job.Description);
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _job.Data.Name);
+            DGJob.Rows.Add("Description", _job.Data.Description);
             DGJob.Rows.Add("Id", _job.Id);
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, _job.State);
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Priority, _job.Priority);
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, _job.Data.State);
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Priority, _job.Data.Priority);
             //DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_OverallProgress, MyJob.GetOverallProgress());
 
-            if (_job.StartTime.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, ((DateTime)_job.StartTime).ToLocalTime().ToString("G"));
-            if (_job.EndTime.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, ((DateTime)_job.EndTime).ToLocalTime().ToString("G"));
+            if (_job.Data.StartOn.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, _job.Data.StartOn?.ToLocalTime().ToString("G"));
+            if (_job.Data.EndOn.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, _job.Data.EndOn?.ToLocalTime().ToString("G"));
 
-            if ((_job.StartTime.HasValue) && (_job.EndTime.HasValue))
+            if ((_job.Data.StartOn.HasValue) && (_job.Data.EndOn.HasValue))
             {
-                DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_JobDuration, ((DateTime)_job.EndTime).Subtract((DateTime)_job.StartTime));
+                DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_JobDuration, _job.Data.EndOn?.Subtract((DateTimeOffset)_job.Data.StartOn));
             }
 
             // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_CPUDuration, MyJob.RunningDuration);
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _job.Created.ToLocalTime().ToString("G"));
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _job.LastModified.ToLocalTime().ToString("G"));
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _job.Data.CreatedOn?.ToLocalTime().ToString("G"));
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _job.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
             // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
 
             /*
@@ -137,7 +139,7 @@ namespace AMSExplorer
             // input assets
 
 
-            if (_job.Input is JobInputSequence dd) // multiple inputs
+            if (_job.Data.Input is MediaJobInputSequence dd) // multiple inputs
             {
                 int index1 = 1;
                 foreach (var input in dd.Inputs)
@@ -157,12 +159,12 @@ namespace AMSExplorer
 
             // output assets
 
-            bool boutoutsinjobs = (_job.Outputs.Count > 0);
+            bool boutoutsinjobs = (_job.Data.Outputs.Count > 0);
 
             int index = 1;
             if (boutoutsinjobs)
             {
-                foreach (JobOutput output in _job.Outputs)
+                foreach (var output in _job.Data.Outputs)
                 {
                     // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
                     string outputLabel = "output #" + index;
@@ -185,7 +187,7 @@ namespace AMSExplorer
 
         private async void listBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            JobOutput output = _job.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
+            var output = _job.Data.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
 
             DGOutputs.Rows.Clear();
 
@@ -210,10 +212,10 @@ namespace AMSExplorer
             DGOutputs.Rows.Add("Progress", output.Progress);
             DGOutputs.Rows.Add("State", output.State);
 
-            if (output is JobOutputAsset outputA)
+            if (output is MediaJobOutputAsset outputA)
             {
                 DGOutputs.Rows.Add("Asset name", outputA.AssetName);
-                DGOutputs.Rows.Add("Asset type", (await AssetTools.GetAssetTypeAsync(outputA.AssetName, _amsClient))?.Type);
+                DGOutputs.Rows.Add("Asset type", (await AssetTools.GetAssetTypeAsync(outputA, _amsClient))?.Type);
             }
 
 
@@ -253,7 +255,7 @@ namespace AMSExplorer
 
             if (input)
             {
-                if (_job.Input is JobInputAsset inputAsset)
+                if (_job.Data.Input is MediaJobInputAsset inputAsset)
                 {
                     assetName = inputAsset.AssetName;
                 }
@@ -263,7 +265,7 @@ namespace AMSExplorer
             {
                 int index = listBoxOutputs.SelectedIndices[0];
 
-                if (_job.Outputs[index] is JobOutputAsset outputAsset)
+                if (_job.Data.Outputs[index] is MediaJobOutputAsset outputAsset)
                 {
                     assetName = outputAsset.AssetName;
                 }
@@ -272,7 +274,7 @@ namespace AMSExplorer
             if (assetName != null)
             {
 
-                Asset asset = Task.Run(() =>
+                MediaAssetResource asset = Task.Run(() =>
                                        _amsClient.GetAssetAsync(assetName))
                                         .GetAwaiter().GetResult();
 
@@ -298,11 +300,14 @@ namespace AMSExplorer
         {
             dataGridInput.Rows.Clear();
 
-            if (_job.Input is JobInputAsset inputA)
+            if (_job.Data.Input is MediaJobInputAsset inputA)
             {
                 dataGridInput.Rows.Add("Input type", "asset");
                 dataGridInput.Rows.Add("Asset name", inputA.AssetName);
-                dataGridInput.Rows.Add("Asset type", (await AssetTools.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
+
+                var inputAasset = await _amsClient.AMSclient.GetMediaAssetAsync(inputA.AssetName);
+
+                dataGridInput.Rows.Add("Asset type", (await AssetTools.GetAssetTypeAsync(inputAasset, _amsClient))?.Type);
                 if (inputA.Start != null && inputA.Start is AbsoluteClipTime startA)
                 {
                     dataGridInput.Rows.Add("Absolute Clip Time Start", startA.Time.ToString());
@@ -314,7 +319,7 @@ namespace AMSExplorer
                 dataGridInput.Rows.Add("Label", inputA.Label);
                 dataGridInput.Rows.Add("Files", string.Join(Constants.endline, inputA.Files));
             }
-            else if (_job.Input is JobInputSequence inputS)
+            else if (_job.Data.Input is MediaJobInputSequence inputS)
             {
                 JobInputClip clip = inputS.Inputs[listBoxInput.SelectedIndex];
 
