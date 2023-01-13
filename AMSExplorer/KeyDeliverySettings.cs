@@ -52,7 +52,8 @@ namespace AMSExplorer
                 //mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
                 // The default value is 30 seconds for the .NET client SDK
-                mediaClient.LongRunningOperationRetryTimeout = 2;
+                //TODO2023
+                //mediaClient.LongRunningOperationRetryTimeout = 2;
 
                 //mediaService =  mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }

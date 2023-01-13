@@ -26,13 +26,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Azure;
+using Azure.Core;
 
 namespace AMSExplorer
 {
     public partial class AttachStorage : Form
     {
-        private IAzureMediaServicesClient mediaClient;
-        private MediaService mediaService;
+        private MediaServicesAccountResource mediaClient;
         private readonly AMSClientV3 _amsClient;
 
         public List<string> StorageResourceIdToDetach
@@ -42,26 +43,26 @@ namespace AMSExplorer
                 List<string> storages = new();
                 foreach (object stor in listViewDetachStorage.CheckedItems)
                 {
-                    string storeId = (stor as ListViewItem).SubItems[1].Text;
+                    ResourceIdentifier storeId = new((stor as ListViewItem).SubItems[1].Text);
                     storages.Add(storeId);
                 }
                 return storages;
             }
         }
 
-        public List<string> StorageResourceIdToAttach
+        public List<ResourceIdentifier> StorageResourceIdToAttach
 
         {
             get
             {
-                List<string> storages = new();
+                List<ResourceIdentifier> storages = new();
                 foreach (object stor in listViewAttachStorage.CheckedItems)
                 {
-                    string storeId = (stor as ListViewItem).SubItems[1].Text;
+                    ResourceIdentifier storeId = new((stor as ListViewItem).SubItems[1].Text);
                     storages.Add(storeId);
                 }
-
-                storages.AddRange(textBoxAttachStorage.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList());
+                var liststr = textBoxAttachStorage.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                storages.AddRange(liststr.Select(s => new ResourceIdentifier(s)));
 
                 return storages;
             }
@@ -84,9 +85,8 @@ namespace AMSExplorer
                 mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
                 // The default value is 30 seconds for the .NET client SDK
-                mediaClient.LongRunningOperationRetryTimeout = 2;
+                //mediaClient.LongRunningOperationRetryTimeout = 2;
 
-                mediaService = mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }
             catch (Exception ex)
             {
@@ -95,14 +95,14 @@ namespace AMSExplorer
                 return;
             }
 
-            List<StorageAccount> storages = mediaService.StorageAccounts.ToList();
+            var storages = mediaClient.Data.StorageAccounts.ToList();
             listViewDetachStorage.Items.Clear();
 
             storages.ForEach(s =>
             {
-                if (s.Type == StorageAccountType.Secondary)
+                if (s.AccountType == MediaServicesStorageAccountType.Secondary)
                 {
-                    string[] names = s.Id.Split('/');
+                    string[] names = s.Id.ToString().Split('/');
                     ListViewItem lvitem = new(new string[] { names.Last(), s.Id })
                     {
                         ToolTipText = string.Format("Resource Group : {0}", AMSClientV3.GetStorageResourceName(s.Id))
@@ -119,7 +119,7 @@ namespace AMSExplorer
             // Subcriptions listing
             var subscriptions = armClient.GetSubscriptions().ToList();
 
-            SubscriptionResource subscription = subscriptions.Where(s => s.Data.SubscriptionId == _amsClient.AMSclient.SubscriptionId).First();
+            SubscriptionResource subscription = subscriptions.Where(s => s.Data.SubscriptionId == _amsClient.AMSclient.Data.Id.SubscriptionId).First();
             var myLocations = subscription.GetLocations().AsEnumerable();
 
             string shortLocationName = myLocations.Where(l => l.DisplayName == _amsClient.credentialsEntry.MediaService.Location).FirstOrDefault()?.Name;
@@ -146,10 +146,10 @@ namespace AMSExplorer
 
         public async Task UpdateStorageAccountsAsync()
         {
-            List<StorageAccount> listStorage = new List<StorageAccount>();
+            List<MediaServicesStorageAccount> listStorage = new();
 
             // storage to detach
-            foreach (StorageAccount stor in mediaService.StorageAccounts.ToList())
+            foreach (var stor in mediaClient.Data.StorageAccounts.ToList())
             {
                 if (!StorageResourceIdToDetach.Contains(stor.Id))
                 {
@@ -158,13 +158,15 @@ namespace AMSExplorer
             }
 
             // storage to attach
-            foreach (string storId in StorageResourceIdToAttach)
+            foreach (var storId in StorageResourceIdToAttach)
             {
-                listStorage.Add(new StorageAccount(StorageAccountType.Secondary, storId));
+                listStorage.Add(new MediaServicesStorageAccount(MediaServicesStorageAccountType.Secondary) { Id = storId });
             }
 
-            MediaServiceUpdate msUpdate = new() { StorageAccounts = listStorage };
-            await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, msUpdate);
+            MediaServicesAccountPatch msUpdate = new();
+            listStorage.ForEach(s => msUpdate.StorageAccounts.Add(s));
+
+            await mediaClient.UpdateAsync(WaitUntil.Completed, msUpdate);
         }
 
         private void AttachStorage_DpiChanged(object sender, DpiChangedEventArgs e)

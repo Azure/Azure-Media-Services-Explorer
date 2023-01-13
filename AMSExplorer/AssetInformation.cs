@@ -2132,7 +2132,7 @@ namespace AMSExplorer
             comboBoxOptions.Enabled = true;
             buttonGetDRMToken.Enabled = true;
 
-            foreach (ContentKeyPolicyOption o in ckpolicy.Options)
+            foreach (ContentKeyPolicyOption o in ckpolicy.Data.Options)
             {
                 if (o.Restriction.GetType() == typeof(ContentKeyPolicyTokenRestriction))
                 {
