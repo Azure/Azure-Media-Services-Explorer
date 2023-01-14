@@ -282,7 +282,6 @@ namespace AMSExplorer
                         continuationToken = item.ContinuationToken;
                         currentPage = item.Values;
                     }
-
                 }
                 while (continuationToken != null && pagetodisplay > _currentPageNumber);
 

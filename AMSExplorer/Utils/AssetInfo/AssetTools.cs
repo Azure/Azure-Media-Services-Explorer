@@ -362,6 +362,28 @@ namespace AMSExplorer
             return LocPubStatus;
         }
 
+        public static PublishStatus GetPublishedStatusForLocator(MediaAssetStreamingLocator Locator)
+        {
+            PublishStatus LocPubStatus;
+            if (!(Locator.EndOn < DateTime.UtcNow))
+            {// not in the past
+             // if  locator is not valid today but will be in the future
+                if (Locator.StartOn != null)
+                {
+                    LocPubStatus = (Locator.StartOn > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
+                }
+                else
+                {
+                    LocPubStatus = PublishStatus.PublishedActive;
+                }
+            }
+            else      // if locator is in the past
+            {
+                LocPubStatus = PublishStatus.PublishedExpired;
+            }
+            return LocPubStatus;
+        }
+
         public static TimeSpan ReturnTimeSpanOnGOP(ManifestTimingData data, TimeSpan ts)
         {
             TimeSpan response = ts;

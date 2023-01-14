@@ -74,7 +74,7 @@ namespace AMSExplorer
             }
         }
 
-        public Guid AssetId { get; set; }
+        public Guid? AssetId { get; set; }
 
         public string _AlternateId;
         public string AlternateId

@@ -55,7 +55,7 @@ namespace AMSExplorer
         private CloudBlobContainer container = null;
         private List<IListBlobItem> blobs = null;
         private List<StreamingLocatorContentKey> contentKeysForCurrentLocator;
-        private AssetContainerSas _assetContainerSas = null;
+        private Uri _containerSasUrl = null;
         private string _serverManifestName = null;
 
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient, MediaAssetResource asset, IEnumerable<StreamingEndpointResource> streamingEndpoints)
@@ -844,7 +844,7 @@ namespace AMSExplorer
 
             try
             {
-                Uri containerSasUrl = GetTemporaryAssetContainerSas();
+                _containerSasUrl = GetTemporaryAssetContainerSas();
                 // Uri containerSasUrl = new(assetContainerSas.AssetContainerSasUrls.FirstOrDefault());
 
                 foreach (IListBlobItem blob in SelectedBlobs)
@@ -856,7 +856,7 @@ namespace AMSExplorer
                         {
                             StartInfo = new ProcessStartInfo
                             {
-                                FileName = blobtoopen.Uri + containerSasUrl.Query,
+                                FileName = blobtoopen.Uri + _containerSasUrl.Query,
                                 UseShellExecute = true
                             }
                         };
@@ -873,7 +873,7 @@ namespace AMSExplorer
         private Uri GetTemporaryAssetContainerSas()
         {
             Uri url = null;
-            if (_assetContainerSas == null)
+            if (_containerSasUrl == null)
             {
                 try
                 {
@@ -885,7 +885,7 @@ namespace AMSExplorer
 
                     var response = _asset.GetStorageContainerUris(content);
                     url = response.First();
-
+                    _containerSasUrl = url;
                     /*
                         _assetContainerSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(
                                                                                                          _amsClient.credentialsEntry.ResourceGroup,
@@ -2272,9 +2272,10 @@ namespace AMSExplorer
 
                     foreach (ContentKeyPolicyTokenClaim claim in ckrestriction.RequiredClaims)
                     {
-                        if (claim.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType)
+                        if (claim.ClaimType == "urn:microsoft:azure:mediaservices:contentkeyidentifier")
                         {
-                            claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
+                            //claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
+                            claims.Add(new Claim("urn:microsoft:azure:mediaservices:contentkeyidentifier", keyIdentifier));
                         }
                         else
                         {

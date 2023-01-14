@@ -35,6 +35,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -132,17 +133,17 @@ namespace AMSExplorer
 
                 }
             }
-            _configurationXMLFiles = Path.Combine(Application.StartupPath, Constants.PathConfigFiles);
+            _configurationXMLFiles = System.IO.Path.Combine(Application.StartupPath, Constants.PathConfigFiles);
 
             // Default Slate Image
             if ((Properties.Settings.Default.DefaultSlateCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder)))
             {
-                Properties.Settings.Default.DefaultSlateCurrentFolder = Path.Combine(Application.StartupPath, Constants.PathDefaultSlateJPG);
+                Properties.Settings.Default.DefaultSlateCurrentFolder = System.IO.Path.Combine(Application.StartupPath, Constants.PathDefaultSlateJPG);
             }
 
             Program.SaveAndProtectUserConfig(); // to save settings 
 
-            _HelpFiles = Path.Combine(Application.StartupPath, Constants.PathHelpFiles);
+            _HelpFiles = System.IO.Path.Combine(Application.StartupPath, Constants.PathHelpFiles);
 
             AmsLogin formLogin = new();
 
@@ -305,11 +306,15 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine(Program.GetErrorMessage(e), true);
             }
+           
+            // TODO2023. Is it still needed ?
+            /*
             if (e is ErrorResponseException eApi)
             {
                 dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
                 TextBoxLogWriteLine((string)error?.error?.message, true);
             }
+            */
         }
 
         public void TextBoxLogWriteLine()
@@ -569,7 +574,7 @@ namespace AMSExplorer
                 foreach (string file in FileNames)
                 {
                     i++;
-                    TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
+                    TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + System.IO.Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
                     // Start a worker thread that does uploading.
                     Task myTask = ProcessUploadFileAndMoreV3Async(new List<string>() { file }, response.Id, response.token, form.StorageSelected, blocksize: Properties.Settings.Default.DataMovementBlockSize * 1024 * 1024);
                     MyTasks.Add(myTask);
@@ -619,21 +624,9 @@ namespace AMSExplorer
                 return;
             }
 
-            IList<StorageAccount> storAccounts = null;
-            try
-            {
-                //à fixer
-                MediaService response2 = await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);//.ConfigureAwait(false);
-                storAccounts = response2.StorageAccounts;
-            }
-            catch
-            {
-
-            }
-
             if (storageaccount == null)
             {
-                storageaccount = AMSClientV3.GetStorageName(storAccounts.Where(s => s.AccountType == MediaServicesStorageAccountType.Primary).First().Id);
+                storageaccount = AMSClientV3.GetStorageName(_amsClient.AMSclient.Data.StorageAccounts.Where(s => s.AccountType == MediaServicesStorageAccountType.Primary).First().Id);
                 // no storage account or null, then let's take the default one
             }
 
@@ -665,15 +658,15 @@ namespace AMSExplorer
                         if (newAssetCreationSettings != null)
                         {
                             destAssetName = newAssetCreationSettings.AssetName.Replace(Constants.NameconvShortUniqueness, Program.GetUniqueness());
-                            assetToCreateSettings.AlternateId = newAssetCreationSettings.AssetAltId?.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0]));
+                            assetToCreateSettings.AlternateId = newAssetCreationSettings.AssetAltId?.Replace(Constants.NameconvFileName, System.IO.Path.GetFileName(filenames[0]));
                             assetToCreateSettings.Container = newAssetCreationSettings.AssetContainer;
-                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription?.Replace(Constants.NameconvFileName, Path.GetFileName(filenames[0]));
+                            assetToCreateSettings.Description = newAssetCreationSettings.AssetDescription?.Replace(Constants.NameconvFileName, System.IO.Path.GetFileName(filenames[0]));
                         }
                         else
                         {
                             destAssetName = "uploaded-" + Program.GetUniqueness();
-                            assetToCreateSettings.Description = Path.GetFileName(filenames[0]);
-                            assetToCreateSettings.AlternateId = Path.GetFileName(filenames[0]);
+                            assetToCreateSettings.Description = System.IO.Path.GetFileName(filenames[0]);
+                            assetToCreateSettings.AlternateId = System.IO.Path.GetFileName(filenames[0]);
                         }
 
                         // asset = await _amsClient.AMSclient.Assets.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, destAssetName, assetToCreateSettings, token);
@@ -731,7 +724,7 @@ namespace AMSExplorer
                             return;
                         }
 
-                        string filename = Path.GetFileName(fileWithPath);
+                        string filename = System.IO.Path.GetFileName(fileWithPath);
                         TextBoxLogWriteLine("Starting upload of file '{0}'", fileWithPath);
 
                         CloudBlockBlob blob = container.GetBlockBlobReference(filename);
@@ -990,7 +983,7 @@ namespace AMSExplorer
 
             try
             {
-                string fileName = Path.GetFileName(new Uri(source.AbsoluteUri).AbsolutePath);
+                string fileName = System.IO.Path.GetFileName(new Uri(source.AbsoluteUri).AbsolutePath);
                 MediaAssetData assetSettings = new()
                 {
                     StorageAccountName = storageaccount,
@@ -1028,7 +1021,7 @@ namespace AMSExplorer
                     return;
                 }
 
-                string filename = Path.GetFileName(source.LocalPath);
+                string filename = System.IO.Path.GetFileName(source.LocalPath);
 
                 CloudBlockBlob blob = container.GetBlockBlobReference(filename);
                 if (filename.ToLower().EndsWith(".mp4"))
@@ -1208,13 +1201,13 @@ namespace AMSExplorer
                 foreach (IListBlobItem blob in blobsblock)
                 {
                     nbblob++;
-                    string fileName = Path.GetFileName(blob.Uri.ToString());
+                    string fileName = System.IO.Path.GetFileName(blob.Uri.ToString());
 
                     blockBlob = destinationContainer.GetBlockBlobReference(fileName);
                     TextBoxLogWriteLine("Copying file '{0}'....", fileName);
 
                     UriBuilder urib = new(ObjectUrl);
-                    urib.Path = urib.Path + "/" + Path.GetFileName(blob.Uri.ToString());
+                    urib.Path = urib.Path + "/" + System.IO.Path.GetFileName(blob.Uri.ToString());
 
                     copyOperationsDict.Add(blockBlob, await blockBlob.StartCopyAsync(urib.Uri, token));
                 }
@@ -1612,7 +1605,7 @@ namespace AMSExplorer
                                 Directory.CreateDirectory(pathString);
                             }
 
-                            string filePath = Path.Combine(outputFolderName, blob.Name.Replace('/', '\\'));
+                            string filePath = System.IO.Path.Combine(outputFolderName, blob.Name.Replace('/', '\\'));
 
                             if (File.Exists(filePath))
                             {
@@ -1746,7 +1739,7 @@ namespace AMSExplorer
                 DotabControlMainSwitch(AMSExplorer.Properties.Resources.TabTransfers);
                 if (form.SingleAsset)
                 {
-                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
+                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", System.IO.Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, true);
                     await ProcessUploadFileAndMoreV3Async(
                                                           filePaths.ToList(),
                                                           response.Id,
@@ -1763,7 +1756,7 @@ namespace AMSExplorer
                     foreach (string f in filePaths.ToList())
                     {
                         i++;
-                        TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
+                        TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + System.IO.Path.GetFileName(f) + "'", TransferType.UploadFromFile, true);
                         // Start a worker thread that does uploading.
                         Task myTask = ProcessUploadFileAndMoreV3Async(
                                                                       new List<string>() { f },
@@ -1814,7 +1807,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", Path.GetFileName(form.GetURL.LocalPath)), TransferType.ImportFromHttp, false);
+                    TransferEntryResponse response = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", System.IO.Path.GetFileName(form.GetURL.LocalPath)), TransferType.ImportFromHttp, false);
                     // Start a worker thread that does uploading.
                     // ProcessHttpSourceV3
                     Task.Factory.StartNew(() => ProcessHttpSourceV3(form.GetURL, response.Id, response.token, form.StorageSelected, form.assetCreationSetting), response.token);
@@ -2092,7 +2085,7 @@ namespace AMSExplorer
                         string path = form.FolderPath;
                         if (form.FolderOption == DownloadToFolderOption.SubfolderAssetName)
                         {
-                            path = Path.Combine(path, asset.Data.Name);
+                            path = System.IO.Path.Combine(path, asset.Data.Name);
                         }
 
                         //listfiles.AddRange(asset.AssetFiles.ToList().Where(f => File.Exists(path + @"\\" + f.Name)).Select(f => path + @"\\" + f.Name).ToList());
@@ -2262,7 +2255,6 @@ namespace AMSExplorer
 
                 if (formLocator.ShowDialog() == DialogResult.OK)
                 {
-
                     // The duration for the locator's access policy.
                     TimeSpan accessPolicyDuration = formLocator.LocatorEndDate.Subtract(DateTime.UtcNow);
                     if (formLocator.LocatorStartDate != null)
@@ -2271,12 +2263,14 @@ namespace AMSExplorer
                     }
 
                     // DRM
-                    ContentKeyPolicy keyPolicy = null;
+                    ContentKeyPolicyResource keyPolicy = null;
                     List<form_DRM_Config_TokenClaims> formPlayreadyTokenClaims = new();
                     List<form_DRM_Config_TokenClaims> formWidevineTokenClaims = new();
                     List<form_DRM_Config_TokenClaims> formFairPlayTokenClaims = new();
                     List<form_DRM_Config_TokenClaims> formClearKeyTokenClaims = new();
-                    List<ContentKeyPolicyOption> options = new();
+
+                    var contentKeyPolicyData = new ContentKeyPolicyData();
+                    //List<ContentKeyPolicyOption> options = new();
 
                     // let's preserve location of windows
                     int left = formLocator.Left;
@@ -2341,11 +2335,12 @@ namespace AMSExplorer
 
                                     SavePositionOfForm(formPlayready[i], out left, out top);
 
-                                    options.Add(
-                                                   new ContentKeyPolicyOption()
+                                    contentKeyPolicyData.Options.Add(
+                                                   new ContentKeyPolicyOption(
+                                                       configuration: formPlayready[i].GetPlayReadyConfiguration,
+                                                       restriction: formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction
+                                                       )
                                                    {
-                                                       Configuration = formPlayready[i].GetPlayReadyConfiguration,
-                                                       Restriction = formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction,
                                                        Name = formPlayready[i].PlayReadOptionName
                                                    });
                                 }
@@ -2374,11 +2369,12 @@ namespace AMSExplorer
 
                                     SavePositionOfForm(formWidevine[i], out left, out top);
 
-                                    options.Add(
-                                                new ContentKeyPolicyOption()
+                                    contentKeyPolicyData.Options.Add(
+                                                new ContentKeyPolicyOption(
+                                                    configuration: formWidevine[i].GetWidevineConfiguration,
+                                                    restriction: formWidevineTokenClaims[i].GetContentKeyPolicyRestriction
+                                                    )
                                                 {
-                                                    Configuration = formWidevine[i].GetWidevineConfiguration,
-                                                    Restriction = formWidevineTokenClaims[i].GetContentKeyPolicyRestriction,
                                                     Name = formWidevine[i].WidevinePolicyName
                                                 });
                                 }
@@ -2408,23 +2404,27 @@ namespace AMSExplorer
 
                                     SavePositionOfForm(formFairPlay[i], out left, out top);
 
-                                    options.Add(
-                                                new ContentKeyPolicyOption()
+                                    contentKeyPolicyData.Options.Add(
+                                                new ContentKeyPolicyOption(
+                                                configuration: new ContentKeyPolicyFairPlayConfiguration
+                                                (
+                                                    applicationSecretKey: formCencDelivery.FairPlayASK,
+                                                    fairPlayPfxPassword: formCencDelivery.FairPlayCertificate.Password,
+                                                    fairPlayPfx: Convert.ToBase64String(formCencDelivery.FairPlayCertificate.Certificate.Export(X509ContentType.Pfx, formCencDelivery.FairPlayCertificate.Password)),
+                                                    rentalAndLeaseKeyType: formFairPlay[i].FairPlayRentalAndLeaseKeyType,
+                                                    rentalDuration: formFairPlay[i].RentalDuration
+                                                )
                                                 {
-                                                    Configuration = new ContentKeyPolicyFairPlayConfiguration()
-                                                    {
-                                                        RentalAndLeaseKeyType = formFairPlay[i].FairPlayRentalAndLeaseKeyType,
-                                                        RentalDuration = formFairPlay[i].RentalDuration,
-                                                        Ask = formCencDelivery.FairPlayASK,
-                                                        FairPlayPfxPassword = formCencDelivery.FairPlayCertificate.Password,
-                                                        FairPlayPfx = Convert.ToBase64String(formCencDelivery.FairPlayCertificate.Certificate.Export(X509ContentType.Pfx, formCencDelivery.FairPlayCertificate.Password)),
-                                                        OfflineRentalConfiguration = formFairPlay[i].FairPlayOfflineRentalConfig
-                                                    },
-                                                    Restriction = formFairPlayTokenClaims[i].GetContentKeyPolicyRestriction,
+                                                    RentalDuration = formFairPlay[i].RentalDuration,
+                                                    OfflineRentalConfiguration = formFairPlay[i].FairPlayOfflineRentalConfig
+                                                }
+                                                ,
+                                                restriction: formFairPlayTokenClaims[i].GetContentKeyPolicyRestriction
+                                                )
+                                                {
                                                     Name = formFairPlay[i].FairPlayPolicyName
                                                 });
                                 }
-
                             }
                             else if (formLocator.StreamingPolicyName == "Predefined_ClearKey")
                             {
@@ -2436,13 +2436,12 @@ namespace AMSExplorer
                                     return;
                                 }
 
-                                options.Add(
-                                               new ContentKeyPolicyOption()
-                                               {
-                                                   Configuration = new ContentKeyPolicyClearKeyConfiguration(),
-                                                   Restriction = formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
-                                               });
-
+                                contentKeyPolicyData.Options.Add(new ContentKeyPolicyOption
+                                    (
+                                    configuration: new ContentKeyPolicyClearKeyConfiguration(),
+                                    restriction: formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
+                                    )
+                                    );
                             }
 
                             Properties.Settings.Default.DynEncTokenSymKeyv3 = tokenSymKey;
@@ -2450,10 +2449,11 @@ namespace AMSExplorer
 
                             try
                             {
-                                keyPolicy = await _amsClient.AMSclient.ContentKeyPolicies.CreateOrUpdateAsync(_amsClient.credentialsEntry.ResourceGroup,
-                            _amsClient.credentialsEntry.AccountName,
-                            formCreatePolicy.PolicyNameToUse,
-                            options);
+
+                                keyPolicy = (await _amsClient.AMSclient.GetContentKeyPolicies().CreateOrUpdateAsync(
+                                    WaitUntil.Completed,
+                                    formCreatePolicy.PolicyNameToUse,
+                                    contentKeyPolicyData)).Value;
                                 Telemetry.TrackEvent("ContentKeyPolicy created or updated", null, dictionaryM);
                             }
                             catch (Exception ex)
@@ -2468,7 +2468,7 @@ namespace AMSExplorer
                         {
                             try
                             {
-                                keyPolicy = await _amsClient.AMSclient.ContentKeyPolicies.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, formCreatePolicy.PolicyNameToUse);
+                                keyPolicy = await _amsClient.AMSclient.GetContentKeyPolicyAsync(formCreatePolicy.PolicyNameToUse);
                                 Telemetry.TrackEvent("ContentKeyPolicy retrieved", null, dictionaryM);
                             }
                             catch (Exception ex)
@@ -2478,7 +2478,6 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(ex);
                                 Telemetry.TrackException(ex);
                             }
-
                         }
                     }
 
@@ -2612,9 +2611,8 @@ namespace AMSExplorer
                     // to the Key Delivery Component must have the identifier of the content key in it.  Since we didn't specify
                     // a content key when creating the StreamingLocator, the system created a random one for us.  In order to 
                     // generate our test token we must get the ContentKeyId to put in the ContentKeyIdentifierClaim claim.
-                    ListContentKeysResponse response = await _amsClient.AMSclient.StreamingLocators.ListContentKeysAsync(_amsClient.credentialsEntry.ResourceGroup,
-                            _amsClient.credentialsEntry.AccountName, myLocator.LocatorName);
-                    string keyIdentifier = response.ContentKeys.First().Id.ToString();
+                    var response = myLocator.Locator.GetContentKeysAsync().ToListAsync();
+                    string keyIdentifier = response.Result.First().Id.ToString();
 
                     sbuilder.AppendLine(string.Format("Test token for {0}, Option {1} (valid {2} min) :",
                         DRMTechnology,
@@ -2810,12 +2808,12 @@ namespace AMSExplorer
 
                 if (System.Windows.Forms.MessageBox.Show(question, "Locators deletion", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    foreach (Asset AssetToProcess in SelectedAssets)
+                    foreach (var AssetToProcess in SelectedAssets)
                     {
                         if (AssetToProcess != null)
                         {
                             //delete locators
-                            TextBoxLogWriteLine("Deleting locators of asset '{0}'", AssetToProcess.Name);
+                            TextBoxLogWriteLine("Deleting locators of asset '{0}'", AssetToProcess.Data.Name);
                             try
                             {
                                 await DeleteLocatorsForAssetAsync(AssetToProcess);
@@ -2825,7 +2823,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting locators of the asset {0}.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine("There is a problem when deleting locators of the asset {0}.", AssetToProcess.Data.Name, true);
                                 TextBoxLogWriteLine(ex);
                                 Telemetry.TrackException(ex);
                             }
@@ -2868,7 +2866,7 @@ namespace AMSExplorer
                     try
                     {
                         TextBoxLogWriteLine("Deleting asset(s)...");
-                        Task[] deleteTasks = SelectedAssets.Select(a => _amsClient.AMSclient.Assets.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, a.Data.Name)).ToArray();
+                        Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync(WaitUntil.Completed)).ToArray();
                         //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                         await Task.WhenAll(deleteTasks);
                     }
@@ -3268,7 +3266,7 @@ namespace AMSExplorer
         private void AddButtonsToSearchTextBox()
         {
             // let's add a button to asset textbox search
-            Button btna = new()
+            System.Windows.Forms.Button btna = new()
             {
                 Size = new Size(18, textBoxAssetSearch.ClientSize.Height + 2),
             };
@@ -3276,18 +3274,18 @@ namespace AMSExplorer
             btna.Cursor = Cursors.Default;
             btna.Text = "X";
             btna.BackColor = SystemColors.Window;
-            btna.Location = new Point(textBoxAssetSearch.ClientSize.Width - btna.Width, -1);
+            btna.Location = new System.Drawing.Point(textBoxAssetSearch.ClientSize.Width - btna.Width, -1);
             btna.Click += Btna_Click;
             textBoxAssetSearch.Controls.Add(btna);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             SendMessage(textBoxAssetSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btna.Width << 16));
 
             // let's add a button to job textbox search
-            Button btnj = new()
+            System.Windows.Forms.Button btnj = new()
             {
                 Size = new Size(18, textBoxJobSearch.ClientSize.Height + 2)
             };
-            btnj.Location = new Point(textBoxJobSearch.ClientSize.Width - btnj.Width, -1);
+            btnj.Location = new System.Drawing.Point(textBoxJobSearch.ClientSize.Width - btnj.Width, -1);
             btnj.Anchor = AnchorStyles.Right;
             btnj.Cursor = Cursors.Default;
             btnj.Text = "X";
@@ -3298,11 +3296,11 @@ namespace AMSExplorer
             SendMessage(textBoxJobSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnj.Width << 16));
 
             // let's add a button to live event textbox search
-            Button btnc = new()
+            System.Windows.Forms.Button btnc = new()
             {
                 Size = new Size(18, textBoxSearchNameLiveEvent.ClientSize.Height + 2)
             };
-            btnc.Location = new Point(textBoxSearchNameLiveEvent.ClientSize.Width - btnc.Width, -1);
+            btnc.Location = new System.Drawing.Point(textBoxSearchNameLiveEvent.ClientSize.Width - btnc.Width, -1);
             btnc.Anchor = AnchorStyles.Right;
             btnc.Cursor = Cursors.Default;
             btnc.Text = "X";
@@ -3461,7 +3459,7 @@ namespace AMSExplorer
 
         private void comboBoxOrderAssets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridViewAssetsV.OrderAssetsInGrid = ((ComboBox)sender).SelectedItem.ToString();
+            dataGridViewAssetsV.OrderAssetsInGrid = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString();
 
             if (dataGridViewAssetsV.Initialized)
             {
@@ -3574,7 +3572,7 @@ namespace AMSExplorer
             if (dataGridViewJobsV.Initialized)
             {
                 Debug.WriteLine("comboBoxOrderJobs_SelectedIndexChanged");
-                dataGridViewJobsV.OrderJobsInGrid = ((ComboBox)sender).SelectedItem.ToString();
+                dataGridViewJobsV.OrderJobsInGrid = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString();
                 DoRefreshGridJobV(false);
             }
         }
@@ -3704,7 +3702,7 @@ namespace AMSExplorer
             {
                 Debug.WriteLine("comboBoxStateJobs_SelectedIndexChanged");
                 const string p = "  (";
-                string filter = ((ComboBox)sender).SelectedItem.ToString();
+                string filter = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString();
                 if (filter.Contains(p))
                 {
                     filter = filter.Substring(0, filter.IndexOf(p));
@@ -3953,7 +3951,7 @@ namespace AMSExplorer
 
         private void comboBoxFilterTime_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridViewAssetsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+            dataGridViewAssetsV.TimeFilter = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString();
 
             if (dataGridViewAssetsV.TimeFilter == FilterTime.TimeRange)
             {
@@ -3981,7 +3979,7 @@ namespace AMSExplorer
 
         private void comboBoxFilterJobsTime_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridViewJobsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+            dataGridViewJobsV.TimeFilter = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString();
 
             if (dataGridViewJobsV.TimeFilter == FilterTime.TimeRange)
             {
@@ -4400,7 +4398,7 @@ namespace AMSExplorer
         private async Task DoRefreshGridStorageVAsync(bool firstime)
         {
 
-            MediaServicesAccountData amsaccount = await _amsClient.AMSclient.Mediaservices.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            MediaServicesAccountData amsaccount = _amsClient.AMSclient.Data;
 
             if (firstime)
             {
@@ -4701,7 +4699,7 @@ namespace AMSExplorer
 
             foreach (MediaLiveEventResource le in ListEvents)
             {
-                List<MediaLiveOutputResource> plist = (await _amsClient.AMSclient.LiveOutputs.ListAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, le.Data.Name)).ToList();
+                List<MediaLiveOutputResource> plist = (await le.GetMediaLiveOutputs().GetAllAsync().ToListAsync());
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Data.Name }));
             }
 
@@ -4933,7 +4931,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine("Live event '{0}' : must be stopped or in standbye to update the encoding settings", liveEvent.Name);
                             }
                             */
-                            else if (data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && data.Encoding == null)
+                            else if (data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && data.Encoding == null)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", data.Name, true);
                             }
@@ -5019,7 +5017,7 @@ namespace AMSExplorer
 
                         if (modifications.LowLatency)
                         {
-                            var dataOptions = new List<StreamOptionsFlag?>()
+                            var dataOptions = new List<StreamOptionsFlag>()
                                                                              {
                                                 // Set this to Default or Low Latency
                                                form.LiveEventLowLatencyV1orV2Mode?  form.LiveEventLowLatencyV2? StreamOptionsFlag.LowLatencyV2 :  StreamOptionsFlag.LowLatency: StreamOptionsFlag.Default
@@ -5973,7 +5971,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    LiveOutput liveoutput = await _amsClient.GetLiveOutputAsync(liveEventName, liveOutputName);
+                    var liveoutput = await _amsClient.GetLiveOutputAsync(liveEventName, liveOutputName);
                     DoDisplayLiveOutputInfo(new List<MediaLiveOutputResource>() { liveoutput });
                 }
                 catch (RequestFailedException ex) when (ex.Status == ((int)System.Net.HttpStatusCode.NotFound))
@@ -6121,7 +6119,7 @@ namespace AMSExplorer
                     foreach (string folder in form2.BatchSelectedFolders)
                     {
                         i++;
-                        TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
+                        TransferEntryResponse response = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", System.IO.Path.GetFileName(folder)), TransferType.UploadFromFolder, true);
 
                         IEnumerable<string> filePaths = Directory.EnumerateFiles(folder);
 
@@ -6160,7 +6158,7 @@ namespace AMSExplorer
                     foreach (string file in form2.BatchSelectedFiles)
                     {
                         i++;
-                        TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
+                        TransferEntryResponse response = DoGridTransferAddItem("Upload of file '" + System.IO.Path.GetFileName(file) + "'", TransferType.UploadFromFile, true);
 
                         Task myTask = ProcessUploadFileAndMoreV3Async(
                                   new List<string>() { file },
@@ -6227,7 +6225,7 @@ namespace AMSExplorer
 
         private void comboBoxTimeProgram_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridViewLiveOutputV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+            dataGridViewLiveOutputV.TimeFilter = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString();
 
             if (dataGridViewLiveOutputV.TimeFilter == FilterTime.TimeRange)
             {
@@ -7050,7 +7048,7 @@ namespace AMSExplorer
 
         private async void comboBoxFilterTimeLiveEvent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridViewLiveEventsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+            dataGridViewLiveEventsV.TimeFilter = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString();
 
             if (dataGridViewLiveEventsV.TimeFilter == FilterTime.TimeRange)
             {
@@ -7080,7 +7078,7 @@ namespace AMSExplorer
         {
             if (dataGridViewLiveEventsV.Initialized)
             {
-                dataGridViewLiveEventsV.FilterState = ((ComboBox)sender).SelectedItem.ToString();
+                dataGridViewLiveEventsV.FilterState = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString();
                 await DoRefreshGridLiveEventVAsync(false);
             }
         }
@@ -7202,7 +7200,7 @@ namespace AMSExplorer
                         data.Tracks.Add(t);
                     }
 
-                    TextBoxLogWriteLine("Creating acount filter '{0}'...", filterinfo.Name);
+                    TextBoxLogWriteLine("Creating acount filter '{0}'...", filter.Data.Name);
                     await _amsClient.AMSclient.GetMediaServicesAccountFilters().CreateOrUpdateAsync(
                         WaitUntil.Completed,
                          filter.Data.Name,
@@ -7303,7 +7301,7 @@ namespace AMSExplorer
             {
                 var sourcefilter = filters.FirstOrDefault();
 
-                string newfiltername = sourcefilter.Name + "Copy";
+                string newfiltername = sourcefilter.Data.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
 
@@ -7686,9 +7684,9 @@ namespace AMSExplorer
                 List<Task> myTasks = new();
                 if (!copyAssetForm.SingleDestinationAsset) // standard mode: 1:1 asset copy
                 {
-                    foreach (Asset asset in selectedAssets)
+                    foreach (var asset in selectedAssets)
                     {
-                        string assetName = copyAssetForm.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name);
+                        string assetName = copyAssetForm.CopyAssetName.Replace(Constants.NameconvAsset, asset.Data.Name);
 
                         TextBoxLogWriteLine($"Creating empty asset '{assetName}' in '{copyAssetForm.DestinationStorageAccount}' account...");
 
@@ -7705,7 +7703,7 @@ namespace AMSExplorer
                     TransferEntryResponse response = DoGridTransferAddItem($"Copy several assets to account '{copyAssetForm.DestinationStorageAccount}'", TransferType.ExportToOtherAMSAccount, false);
                     // Start a worker thread that does asset copy.
                     myTasks.Add(
-                        ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, selectedAssets, copyAssetForm.CopyAssetName.Replace(Constants.NameconvAsset, selectedAssets.FirstOrDefault().Name), response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset)
+                        ProcessExportAssetToAnotherAMSAccount(_amsClient, copyAssetForm.DestinationStorageAccount, selectedAssets, copyAssetForm.CopyAssetName.Replace(Constants.NameconvAsset, selectedAssets.FirstOrDefault().Data.Name), response, copyAssetForm.DestinationAmsClient, copyAssetForm.DeleteSourceAsset)
                         );
 
                 }
@@ -7987,13 +7985,13 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        TextBoxLogWriteLine($"Deleting asset '{asset.Name}'...");
-                        await SourceAmsClient.AMSclient.Assets.DeleteAsync(SourceAmsClient.credentialsEntry.ResourceGroup, SourceAmsClient.credentialsEntry.AccountName, asset.Name);
-                        TextBoxLogWriteLine($"Asset '{asset.Name}' deleted.");
+                        TextBoxLogWriteLine($"Deleting asset '{asset.Data.Name}'...");
+                        await asset.DeleteAsync(WaitUntil.Completed);
+                        TextBoxLogWriteLine($"Asset '{asset.Data.Name}' deleted.");
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine($"Error when deleting asset '{asset.Name}'.", true);
+                        TextBoxLogWriteLine($"Error when deleting asset '{asset.Data.Name}'.", true);
                         TextBoxLogWriteLine(ex);
                         Telemetry.TrackException(ex);
                     }
@@ -8008,7 +8006,7 @@ namespace AMSExplorer
                 //if (DeleteSourceAssets) SourceAssets.ForEach(a => a.Delete());
                 //TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", AMSLogin.ReturnAccountName(DestinationCredentialsEntry));
                 //TextBoxLogWriteLine(TargetAsset.Id);
-                DoGridTransferDeclareCompleted(transferResponse.Id, destSasUrl);
+                DoGridTransferDeclareCompleted(transferResponse.Id, destSasUri.ToString());
             }
             else if (transferResponse.token.IsCancellationRequested)
             {

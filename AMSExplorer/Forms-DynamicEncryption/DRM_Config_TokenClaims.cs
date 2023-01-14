@@ -191,7 +191,7 @@ namespace AMSExplorer
 
             List<Claim> claims = new();
 
-            if (requiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
+            if (requiredClaims.Any(c => c.ClaimType == "urn:microsoft:azure:mediaservices:contentkeyidentifier"))
             {
                 claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
             }
