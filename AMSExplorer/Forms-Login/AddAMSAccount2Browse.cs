@@ -43,15 +43,14 @@ namespace AMSExplorer
         private readonly IPublicClientApplication _app;
         private readonly AuthenticationResult _accessToken;
         private List<SubscriptionResource> subscriptions;
-        private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new();
-        public MediaService selectedAccount = null;
+        private readonly Dictionary<string, List<MediaServicesAccountResource>> allAMSAccountsPerSub = new();
+        public MediaServicesAccountResource selectedAccount = null;
         public string selectedTenantId = null;
         private string _selectText;
         private string _createText;
 
         public bool SelectMode;
         public SubscriptionResource SelectedSubscription;
-        public AzureMediaServicesClient MediaServicesClient;
 
         public AddAMSAccount2Browse(TokenCredentials credentials, List<SubscriptionResource> subscriptions, AzureEnvironment environment, List<TenantResource> myTenants, Prompt prompt, IPublicClientApplication app, AuthenticationResult accessToken)
         {
@@ -260,6 +259,10 @@ namespace AMSExplorer
 
             SelectedSubscription = subscriptions.Where(s => s.Data.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
 
+
+            var mediaServicesAccounts = SelectedSubscription.GetMediaServicesAccounts();
+
+            /*
             // Getting Media Services accounts...
             MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
             {
@@ -280,15 +283,16 @@ namespace AMSExplorer
                     mediaServicesAccountsPage = null;
                 }
             }
+            */
 
             // let's save the data
-            allAMSAccountsPerSub[MediaServicesClient.SubscriptionId] = mediaServicesAccounts;
+            allAMSAccountsPerSub[SelectedSubscription.Data.Id.ToString()] = mediaServicesAccounts.ToList();
 
             treeViewAzureSub.BeginUpdate();
             e.Node.Nodes.Clear();
-            foreach (MediaService mediaAcct in mediaServicesAccounts)
+            foreach (var mediaAcct in mediaServicesAccounts)
             {
-                TreeNode node = new(mediaAcct.Name)
+                TreeNode node = new(mediaAcct.Data.Name)
                 {
                     Tag = mediaAcct.Id
                 };
@@ -303,11 +307,11 @@ namespace AMSExplorer
         {
             if (e.Node.Level == 1) // AMS Account selected
             {
-                List<MediaService> accounts = allAMSAccountsPerSub[(string)e.Node.Parent.Tag];
-                MediaService account = accounts.Where(a => a.Id == (string)e.Node.Tag).FirstOrDefault();
+                List<MediaServicesAccountResource> accounts = allAMSAccountsPerSub[(string)e.Node.Parent.Tag];
+                var account = accounts.Where(a => a.Id == (string)e.Node.Tag).FirstOrDefault();
 
                 // let's display account info
-                DisplayInfoAccount(account);
+                DisplayInfoAccount(account.Data);
                 selectedAccount = account;
                 buttonNext.Text = _selectText;
                 buttonNext.Enabled = true;

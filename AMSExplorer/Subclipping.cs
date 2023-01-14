@@ -14,6 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using Microsoft.Web.WebView2.Core;
@@ -39,7 +40,7 @@ namespace AMSExplorer
         private string _buttonOk;
         private string _labelAccurate;
         private string _labeloutoutputasset;
-        private readonly StreamingLocator _tempStreamingLocator = null;
+        private readonly StreamingLocatorResource _tempStreamingLocator = null;
 
         public string EncodingJobName
         {
@@ -82,7 +83,7 @@ namespace AMSExplorer
             if (_selectedAssets.Count == 1 && _selectedAssets.FirstOrDefault() != null)  // one asset only
             {
                 MediaAssetResource myAsset = assetlist.FirstOrDefault();
-                textBoxAssetName.Text = myAsset.Name;
+                textBoxAssetName.Text = myAsset.Data.Name;
 
                 // let's try to read asset timing
                 XDocument manifest = null;
@@ -98,7 +99,7 @@ namespace AMSExplorer
                 {
                     try
                     {
-                        manifest = Task.Run(() => AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClientV3, _tempStreamingLocator?.Name)).GetAwaiter().GetResult();
+                        manifest = Task.Run(() => AssetTools.TryToGetClientManifestContentUsingStreamingLocatorAsync(myAsset, _amsClientV3, _tempStreamingLocator.Data.Name)).GetAwaiter().GetResult();
                     }
                     catch
                     {
@@ -436,7 +437,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    await _amsClientV3.AMSclient.StreamingLocators.DeleteAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, _tempStreamingLocator.Name);
+                    await _tempStreamingLocator.DeleteAsync(WaitUntil.Completed);
                 }
                 catch
                 {
@@ -465,7 +466,7 @@ namespace AMSExplorer
             {
                 MediaAssetResource myAsset = _selectedAssets.FirstOrDefault();
 
-                Uri myuri = (await AssetTools.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Name)).Item1;
+                Uri myuri = (await AssetTools.GetValidOnDemandSmoothURIAsync(myAsset, _amsClientV3, _tempStreamingLocator.Data.Name)).Item1;
 
                 if (myuri != null)
                 {
@@ -567,9 +568,9 @@ namespace AMSExplorer
                     try
                     {
                         filterinfo = formAF.GetFilterInfo;
-                        AssetFilter assetFilter = new() { PresentationTimeRange = filterinfo.Presentationtimerange };
+                        MediaAssetFilterData assetFilter = new() { PresentationTimeRange = filterinfo.Presentationtimerange };
 
-                        await _amsClientV3.AMSclient.AssetFilters.CreateOrUpdateAsync(_amsClientV3.credentialsEntry.ResourceGroup, _amsClientV3.credentialsEntry.AccountName, selasset.Name, filterinfo.Name, assetFilter);
+                        await selasset.GetMediaAssetFilters().CreateOrUpdateAsync(Azure.WaitUntil.Completed, filterinfo.Name, assetFilter);
 
                         _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                     }
@@ -591,18 +592,11 @@ namespace AMSExplorer
 
                 if (checkBoxTrimming.Checked)
                 {
-                    startTime = new AbsoluteClipTime()
-                    {
-                        Time = subclipConfig.AbsoluteStartTime
-                    };
-
-                    endTime = new AbsoluteClipTime()
-                    {
-                        Time = subclipConfig.AbsoluteEndTime
-                    };
+                    startTime = new AbsoluteClipTime(subclipConfig.AbsoluteStartTime);
+                    endTime = new AbsoluteClipTime(subclipConfig.AbsoluteEndTime);
                 }
 
-                Transform transform;
+                MediaTransformResource transform;
                 if (subclipConfig.Mode == SubclipMode.ArchiveTopBitrate)
                 {
                     transform = await _mainform.CreateAndGetCopyCodecTransformIfNeededAsync();

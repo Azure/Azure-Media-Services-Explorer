@@ -123,7 +123,7 @@ namespace AMSExplorer.ManifestGeneration
                     }
                     else if (dialog == DialogResult.Cancel)
                     {
-                        cancel = true;
+                        //cancel = true;
                         break;
                     }
                 }

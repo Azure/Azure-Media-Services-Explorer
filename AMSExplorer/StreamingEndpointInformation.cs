@@ -57,9 +57,9 @@ namespace AMSExplorer
             }
         }
 
-        public IPAccessControl GetStreamingAllowList => (checkBoxStreamingIPlistSet.Checked) ? new IPAccessControl(endpointSettingList) : null;
+        public IList<IPRange> GetStreamingAllowList => (checkBoxStreamingIPlistSet.Checked) ? endpointSettingList : null;
 
-        public AkamaiAccessControl GetStreamingAkamaiList => (checkBoxAkamai.Checked) ? new AkamaiAccessControl(AkamaiSettingList) : null;
+        public IList<AkamaiSignatureHeaderAuthenticationKey> GetStreamingAkamaiList => (checkBoxAkamai.Checked) ? AkamaiSettingList : null;
 
         public IList<string> GetStreamingCustomHostnames
         {

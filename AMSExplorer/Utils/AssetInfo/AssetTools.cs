@@ -1,5 +1,4 @@
-﻿//----------------------------------------------------------------------------------------------
-//    Copyright 2023 Microsoft Corporation
+﻿//    Copyright 2023 Microsoft Corporation
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -362,6 +361,28 @@ namespace AMSExplorer
             return LocPubStatus;
         }
 
+        public static PublishStatus GetPublishedStatusForLocator(MediaAssetStreamingLocator Locator)
+        {
+            PublishStatus LocPubStatus;
+            if (!(Locator.EndOn < DateTime.UtcNow))
+            {// not in the past
+             // if  locator is not valid today but will be in the future
+                if (Locator.StartOn != null)
+                {
+                    LocPubStatus = (Locator.StartOn > DateTime.UtcNow) ? PublishStatus.PublishedFuture : PublishStatus.PublishedActive;
+                }
+                else
+                {
+                    LocPubStatus = PublishStatus.PublishedActive;
+                }
+            }
+            else      // if locator is in the past
+            {
+                LocPubStatus = PublishStatus.PublishedExpired;
+            }
+            return LocPubStatus;
+        }
+
         public static TimeSpan ReturnTimeSpanOnGOP(ManifestTimingData data, TimeSpan ts)
         {
             TimeSpan response = ts;
@@ -590,6 +611,21 @@ namespace AMSExplorer
             return (long)(timestamp * (double)TimeSpan.TicksPerSecond / timescale2);
         }
 
+        public static async Task<AssetInfoData> GetAssetTypeAsync(MediaJobInputAsset asset, AMSClientV3 _amsClient)
+        {
+            return await GetAssetTypeAsync(asset.AssetName, _amsClient);
+        }
+
+        public static async Task<AssetInfoData> GetAssetTypeAsync(MediaJobOutputAsset asset, AMSClientV3 _amsClient)
+        {
+            return await GetAssetTypeAsync(asset.AssetName, _amsClient);
+        }
+
+        public static async Task<AssetInfoData> GetAssetTypeAsync(string assetName, AMSClientV3 _amsClient)
+        {
+            var assetResource = await _amsClient.AMSclient.GetMediaAssetAsync(assetName);
+            return await GetAssetTypeAsync(assetResource.Value, _amsClient);
+        }
 
         public static async Task<AssetInfoData> GetAssetTypeAsync(MediaAssetResource asset, AMSClientV3 _amsClient)
         {

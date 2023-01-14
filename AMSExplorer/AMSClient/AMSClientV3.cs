@@ -37,7 +37,6 @@ namespace AMSExplorer
 {
     public class AMSClientV3
     {
-        private ArmClient ArmClient;
         public MediaServicesAccountResource AMSclient;
         public AuthenticationResult authResult;
         public CredentialsEntryV3 credentialsEntry;

@@ -50,17 +50,16 @@ namespace AMSExplorer
                 */
 
 
-                objContentKeyPolicyPlayReadyLicense = new ContentKeyPolicyPlayReadyLicense()
-                {
-                    AllowTestDevices = checkBoxAllowTestDevices.Checked,
-                    ContentKeyLocation = new ContentKeyPolicyPlayReadyContentEncryptionKeyFromHeader(),
+                objContentKeyPolicyPlayReadyLicense = new ContentKeyPolicyPlayReadyLicense(
+                    allowTestDevices: checkBoxAllowTestDevices.Checked,
+                    licenseType: ContentKeyPolicyPlayReadyLicenseType.Unknown,
+                    contentKeyLocation: new ContentKeyPolicyPlayReadyContentEncryptionKeyFromHeader(),
+                    contentType: ContentKeyPolicyPlayReadyContentType.Unknown
+                );
 
-                };
-
-                ContentKeyPolicyPlayReadyConfiguration objContentKeyPolicyPlayReadyConfiguration = new()
-                {
-                    Licenses = new List<ContentKeyPolicyPlayReadyLicense> { objContentKeyPolicyPlayReadyLicense }
-                };
+                ContentKeyPolicyPlayReadyConfiguration objContentKeyPolicyPlayReadyConfiguration = new(
+                    new List<ContentKeyPolicyPlayReadyLicense> { objContentKeyPolicyPlayReadyLicense }
+                );
 
                 if (comboBoxLicenseType.SelectedItem != null)
                 {
@@ -82,7 +81,7 @@ namespace AMSExplorer
                 {
                     if (radioButtonStartDateAbsolute.Checked)
                     {
-                        objContentKeyPolicyPlayReadyLicense.BeginDate = dateTimePickerStartDate.Value.ToUniversalTime();
+                        objContentKeyPolicyPlayReadyLicense.BeginOn = dateTimePickerStartDate.Value.ToUniversalTime();
                     }
                     else // Relative
                     {
@@ -94,7 +93,7 @@ namespace AMSExplorer
                 {
                     if (radioButtonEndDateAbsolute.Checked)
                     {
-                        objContentKeyPolicyPlayReadyLicense.ExpirationDate = dateTimePickerEndDate.Value.ToUniversalTime();
+                        objContentKeyPolicyPlayReadyLicense.ExpireOn = dateTimePickerEndDate.Value.ToUniversalTime();
                     }
                     else // Relative
                     {
@@ -105,7 +104,12 @@ namespace AMSExplorer
                 // Generate PlayRight
                 if (objContentKeyPolicyPlayReadyLicense.PlayRight == null)
                 {
-                    objContentKeyPolicyPlayReadyLicense.PlayRight = new ContentKeyPolicyPlayReadyPlayRight();
+                    objContentKeyPolicyPlayReadyLicense.PlayRight = new ContentKeyPolicyPlayReadyPlayRight(
+                        hasDigitalVideoOnlyContentRestriction: checkBoxDigitalVideoOnlyContentRestriction.Checked,
+                        hasImageConstraintForAnalogComponentVideoRestriction: checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked,
+                        hasImageConstraintForAnalogComputerMonitorRestriction: checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked,
+                        allowPassingVideoContentToUnknownOutput: ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown
+                        );
                 }
 
                 if (checkBoxFPExp.Checked)
@@ -120,32 +124,28 @@ namespace AMSExplorer
 
                 if (checkBoxCompressedDigitalAudioOPL.Checked)
                 {
-                    objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalAudioOpl = (int)numericUpDownCompressedDigitalAudioOPL.Value;
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalAudioOutputProtectionLevel = (int)numericUpDownCompressedDigitalAudioOPL.Value;
                 }
 
                 if (checkBoxCompressedDigitalVideoOPL.Checked)
                 {
-                    objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalVideoOpl = (int)numericUpDownCompressedDigitalVideoOPL.Value;
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.CompressedDigitalVideoOutputProtectionLevel = (int)numericUpDownCompressedDigitalVideoOPL.Value;
                 }
 
                 if (checkBoxUncompressedDigitalAudioOPL.Checked)
                 {
-                    objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalAudioOpl = (int)numericUpDownUncompressedDigitalAudioOPL.Value;
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalAudioOutputProtectionLevel = (int)numericUpDownUncompressedDigitalAudioOPL.Value;
                 }
 
                 if (checkBoxUncompressedDigitalVideoOPL.Checked)
                 {
-                    objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalVideoOpl = (int)numericUpDownUncompressedDigitalVideoOPL.Value;
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.UncompressedDigitalVideoOutputProtectionLevel = (int)numericUpDownUncompressedDigitalVideoOPL.Value;
                 }
 
                 if (checkBoxAnalogVideoOPL.Checked)
                 {
-                    objContentKeyPolicyPlayReadyLicense.PlayRight.AnalogVideoOpl = (int)numericUpDownAnalogVideoOPL.Value;
+                    objContentKeyPolicyPlayReadyLicense.PlayRight.AnalogVideoOutputProtectionLevel = (int)numericUpDownAnalogVideoOPL.Value;
                 }
-
-                objContentKeyPolicyPlayReadyLicense.PlayRight.DigitalVideoOnlyContentRestriction = checkBoxDigitalVideoOnlyContentRestriction.Checked;
-                objContentKeyPolicyPlayReadyLicense.PlayRight.ImageConstraintForAnalogComponentVideoRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
-                objContentKeyPolicyPlayReadyLicense.PlayRight.ImageConstraintForAnalogComputerMonitorRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
 
                 if (comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem?.ToString() == ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed.ToString())
                 {

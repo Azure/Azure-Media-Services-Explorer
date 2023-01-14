@@ -37,6 +37,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Azure.Core;
 
 namespace AMSExplorer
 {
@@ -140,7 +141,7 @@ namespace AMSExplorer
 
             AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo, this);
 
-            AzureMediaServicesClient response;
+            MediaServicesAccountResource response;
             try
             {
                 response = await AmsClient.ConnectAndGetNewClientV3Async(this);
@@ -163,7 +164,9 @@ namespace AMSExplorer
 
             try
             {   // let's refresh storage accounts
-                AmsClient.credentialsEntry.MediaService.StorageAccounts = (await AmsClient.AMSclient.Mediaservices.GetAsync(AmsClient.credentialsEntry.ResourceGroup, AmsClient.credentialsEntry.AccountName)).StorageAccounts;
+                // TODO2023 : to check if storing storage accounts is needed
+                //AmsClient.credentialsEntry.MediaService.StorageAccounts = response.Data.StorageAccounts;
+
                 Cursor = Cursors.Default;
             }
             catch (Exception ex)
@@ -546,12 +549,15 @@ namespace AMSExplorer
                         {
                             // Getting Media Services accounts...
 
-                            CredentialsEntryV3 entry = new(addaccount2.selectedAccount,
-                               environment,
-                               addaccount1.SelectUser,
-                               false,
-                               addaccount2.selectedTenantId,
-                               false
+                            CredentialsEntryV3 entry = new(
+                                addaccount2.selectedAccount.Data.Name,
+                                addaccount2.selectedAccount.Data.Id.SubscriptionId,
+                                addaccount2.selectedAccount.Data.Id.ResourceGroupName,
+                                environment,
+                                addaccount1.SelectUser,
+                                false,
+                                addaccount2.selectedTenantId,
+                                false
                                );
 
                             CredentialList.MediaServicesAccounts.Add(entry);
@@ -566,10 +572,15 @@ namespace AMSExplorer
                             //var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").OrderBy(l => l.RegionalDisplayName);
 
                             // Getting Media Services accounts...
+
+                            var listMediaServices = subscription.GetMediaServicesAccounts().ToList();
+
+                            /*
                             var MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
                             {
                                 SubscriptionId = addaccount2.SelectedSubscription.Data.SubscriptionId
                             };
+                            */
 
                             // let's get the list of avaibility zones
                             AzureProviders aP = new AzureProviders(environment.ArmEndpoint);
@@ -583,19 +594,22 @@ namespace AMSExplorer
                             }
 
                             // let's get the list of Media Services
-                            var listMedia = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Media", accessToken.AccessToken);
-                            var listMediaServices = listMedia.ResourceTypes.Where(r => r.ResourceType == "mediaservices").FirstOrDefault().Locations;
+                            //var listMedia = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Media", accessToken.AccessToken);
+                            //var listMediaServices = listMedia.ResourceTypes.Where(r => r.ResourceType == "mediaservices").FirstOrDefault().Locations;
+                            var listMediaServicesLocations = listMediaServices.FirstOrDefault().GetAvailableLocations().Value;
 
                             // var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
-                            var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
+                            var myLocationsWithMS = myLocations.Where(l => listMediaServicesLocations.Contains(l.DisplayName)).ToList();
 
-                            CreateAccount createAccount = new(myLocationsWithMS, MediaServicesClient, credentials, listRegionWithAvailabilityZone, subscription);
+                            CreateAccount createAccount = new(myLocationsWithMS, credentials, listRegionWithAvailabilityZone, subscription);
 
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {
                                 // Add account to list
                                 CredentialsEntryV3 entry = new(
-                                  createAccount.MediaServiceCreated,
+                                  createAccount.MediaServiceCreated.Data.Id.Name,
+                                  createAccount.MediaServiceCreated.Data.Id.SubscriptionId,
+                                  createAccount.MediaServiceCreated.Data.Id.ResourceGroupName,
                                   environment,
                                   addaccount1.SelectUser,
                                   false,
@@ -625,6 +639,7 @@ namespace AMSExplorer
                 {
                     Telemetry.TrackEvent("AMSLogin buttonPickupAccount_Click FromAzureCliOrPortalJson");
 
+                    //TODO2023 : upmdae the format as the portal use different names now
                     string example = @"{
   ""AadClientId"": ""00000000-0000-0000-0000-000000000000"",
   ""AadSecret"": ""00000000-0000-0000-0000-000000000000"",
@@ -664,7 +679,9 @@ namespace AMSExplorer
                         AzureEnvironment env = new(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
 
                         CredentialsEntryV3 entry = new(
-                                                        new MediaService(null, resourceId, json.AccountName),
+                                                        json.AccountName,
+                                                        json.SubscriptionId,
+                                                        json.ResourceGroup,
                                                         env,
                                                         true,
                                                         true,
@@ -692,16 +709,20 @@ namespace AMSExplorer
                     AddAMSAccount2Manual form = new();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
+                        var res = new ResourceIdentifier(form.textBoxAMSResourceId.Text);
+
                         string accountnamecc = form.textBoxAMSResourceId.Text.Split('/').Last();
 
                         CredentialsEntryV3 entry = new(
-                                                        new MediaService(null, form.textBoxAMSResourceId.Text, accountnamecc),
-                                                        addaccount1.GetEnvironment(),
-                                                        true,
-                                                        form.radioButtonAADServicePrincipal.Checked,
-                                                        form.textBoxAADtenantId.Text,
-                                                        true
-                                                        );
+                            res.Name,
+                            res.SubscriptionId,
+                            res.ResourceGroupName,
+                            addaccount1.GetEnvironment(),
+                            true,
+                            form.radioButtonAADServicePrincipal.Checked,
+                            form.textBoxAADtenantId.Text,
+                            true
+                            );
 
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);

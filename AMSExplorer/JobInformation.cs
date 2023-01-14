@@ -321,9 +321,9 @@ namespace AMSExplorer
             }
             else if (_job.Data.Input is MediaJobInputSequence inputS)
             {
-                JobInputClip clip = inputS.Inputs[listBoxInput.SelectedIndex];
+                MediaJobInputClip clip = inputS.Inputs[listBoxInput.SelectedIndex];
 
-                if (clip is JobInputAsset iAsset)
+                if (clip is MediaJobInputAsset iAsset)
                 {
                     dataGridInput.Rows.Add("Input type", "asset");
                     dataGridInput.Rows.Add("Asset name", iAsset.AssetName);
@@ -348,7 +348,7 @@ namespace AMSExplorer
                     dataGridInput.Rows.Add("Input definition", idef.ToString());
                 }
             }
-            else if (_job.Input is JobInputHttp inputH)
+            else if (_job.Data.Input is MediaJobInputHttp inputH)
             {
                 dataGridInput.Rows.Add("Input type", "https");
                 dataGridInput.Rows.Add("Base Url", inputH.BaseUri);

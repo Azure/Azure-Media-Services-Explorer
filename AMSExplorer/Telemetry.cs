@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
+using Azure.ResourceManager.Media;
 
 namespace AMSExplorer
 {
@@ -47,7 +48,7 @@ namespace AMSExplorer
             client.Context.Cloud.RoleInstance = Environment.MachineName.GetDeterministicHashCode().ToString();
 
             // let's log the version of the Media SDK
-            var mediaAssembly = System.Reflection.Assembly.GetAssembly(typeof(MediaService)).GetName();
+            var mediaAssembly = System.Reflection.Assembly.GetAssembly(typeof(MediaServicesAccountResource)).GetName();
             client.Context.GlobalProperties.Add(mediaAssembly.Name, mediaAssembly.Version.ToString());
 
             return client;
@@ -83,11 +84,14 @@ namespace AMSExplorer
                 {
                     dic.Add("InnerExceptionMessage", Program.GetErrorMessage(ex));
                 }
+                // TODO2023 translate to other AMS exception
+                /*
                 if (ex is ErrorResponseException eApi)
                 {
                     dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
                     dic.Add("ApiErrorExceptionMessage", (string)error?.error?.message);
                 }
+                */
 
                 //var telex = new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(ex);
                 //_telemetry.TrackException(telex);

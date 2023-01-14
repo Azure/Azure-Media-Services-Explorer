@@ -121,12 +121,12 @@ namespace AMSExplorer
         }
 
 
-        private async Task<(int?, Row)> ExportAssetExcelAsync(Asset asset, uint row, bool detailed, bool localtime, List<StreamingEndpointResource> seList)
+        private async Task<(int?, Row)> ExportAssetExcelAsync(MediaAssetResource asset, uint row, bool detailed, bool localtime, List<StreamingEndpointResource> seList)
         {
             int? nbLocators = null;
 
 
-            var listContent = new List<object>() { asset.Name, asset.Description, asset.AlternateId, asset.AssetId.ToString(), returnDate(localtime, asset.Created), returnDate(localtime, asset.LastModified), asset.StorageAccountName, asset.Container };
+            var listContent = new List<object>() { asset.Data.Name, asset.Data.Description, asset.Data.AlternateId, asset.Data.AssetId.ToString(), returnDate(localtime, asset.Data.CreatedOn), returnDate(localtime, asset.Data.LastModifiedOn), asset.Data.StorageAccountName, asset.Data.Container };
             if (detailed)
             {
                 var assetType = await AssetTools.GetAssetTypeAsync(asset, _amsClient);
@@ -134,7 +134,7 @@ namespace AMSExplorer
                 listContent.Add((decimal)assetType.Size);
             }
 
-            IList<MediaAssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
+            IList<MediaAssetStreamingLocator> locators = asset.GetStreamingLocators().ToList();
             nbLocators = locators.Count();
             listContent.Add((decimal)nbLocators);
 
@@ -142,16 +142,16 @@ namespace AMSExplorer
             {
                 foreach (var locator in locators)
                 {
-                    var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
-                    listContent.AddRange(new List<object>() { locator.Name, returnDate(localtime, locator.Created), returnDate(localtime, locator.Data.StartOn), returnDate(localtime, locator.Data.EndOn) });
-
+                    var loc = (await _amsClient.AMSclient.GetStreamingLocatorAsync(locator.Name)).Value;
+                    var paths = (await loc.GetStreamingPathsAsync()).Value;
+                    listContent.AddRange(new List<object>() { locator.Name, returnDate(localtime, locator.CreatedOn), returnDate(localtime, locator.StartOn), returnDate(localtime, locator.EndOn) });
 
                     foreach (var se in seList)
                     {
                         var listPaths = new List<string>();
                         foreach (var spath in paths.StreamingPaths)
                         {
-                            listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
+                            listPaths.AddRange(spath.Paths.Select(p => "https://" + se.Data.HostName + p));
                         }
                         listContent.Add(string.Join("\n", listPaths));
                     }
@@ -166,20 +166,25 @@ namespace AMSExplorer
             return localtime ? time.ToLocalTime() : time;
         }
 
+        private static DateTimeOffset returnDate(bool localtime, DateTimeOffset? time)
+        {
+            return localtime ? (DateTimeOffset)time?.ToLocalTime() : (DateTimeOffset)time;
+        }
+
         private async Task<CsvLineResult> ExportAssetCSVLineAsync(MediaAssetResource asset, bool detailed, bool localtime, List<StreamingEndpointResource> seList)
         {
             int? nbLocators = null;
 
             List<string> linec = new List<string>
             {
-                asset.Name,
-                asset.Description,
-                asset.AlternateId,
-                asset.AssetId.ToString(),
-                returnDate(localtime, asset.Created).ToString(),
-                returnDate(localtime, asset.LastModified).ToString(),
-                asset.StorageAccountName,
-                asset.Container
+                asset.Data.Name,
+                asset.Data.Description,
+                asset.Data.AlternateId,
+                asset.Data.AssetId.ToString(),
+                returnDate(localtime, asset.Data.CreatedOn).ToString(),
+                returnDate(localtime, asset.Data.LastModifiedOn).ToString(),
+                asset.Data.StorageAccountName,
+                asset.Data.Container
             };
 
             if (detailed)
@@ -189,7 +194,7 @@ namespace AMSExplorer
                 linec.Add(assetType.Size.ToString());
             }
 
-            IList<MediaAssetStreamingLocator> locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, asset.Name)).StreamingLocators;
+            IList<MediaAssetStreamingLocator> locators = asset.GetStreamingLocators().ToList();
             nbLocators = locators.Count();
             linec.Add(nbLocators.ToString());
 
@@ -197,18 +202,19 @@ namespace AMSExplorer
             {
                 foreach (var locator in locators)
                 {
-                    var paths = _amsClient.AMSclient.StreamingLocators.ListPaths(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
+                    var loc = (await _amsClient.AMSclient.GetStreamingLocatorAsync(locator.Name)).Value;
+                    var paths = (await loc.GetStreamingPathsAsync()).Value;
                     linec.Add(locator.Name);
-                    linec.Add(returnDate(localtime, locator.Created).ToString());
-                    linec.Add(returnDate(localtime, locator.Data.StartOn).ToString());
-                    linec.Add(returnDate(localtime, locator.EndTime).ToString());
+                    linec.Add(returnDate(localtime, locator.CreatedOn).ToString());
+                    linec.Add(returnDate(localtime, locator.StartOn).ToString());
+                    linec.Add(returnDate(localtime, locator.EndOn).ToString());
 
                     foreach (var se in seList)
                     {
                         var listPaths = new List<string>();
                         foreach (var spath in paths.StreamingPaths)
                         {
-                            listPaths.AddRange(spath.Paths.Select(p => "https://" + se.HostName + p));
+                            listPaths.AddRange(spath.Paths.Select(p => "https://" + se.Data.HostName + p));
                         }
                         linec.Add(string.Join(", ", listPaths));
                     }
@@ -232,8 +238,8 @@ namespace AMSExplorer
             try
             {
                 // Streaming endpoints
-                Microsoft.Rest.Azure.IPage<StreamingEndpointResource> streamingEndpoints = _amsClient.AMSclient.StreamingEndpoints.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
-                var selist = streamingEndpoints.ToList();
+                var streamingEndpoints = _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync();
+                var selist = streamingEndpoints.ToListAsync().Result;
 
                 int numberMaxLocators = 0;
                 var csvheader = new StringBuilder();
@@ -274,8 +280,6 @@ namespace AMSExplorer
                 SheetData sheetData = new SheetData();
 
                 //// END INIT
-
-
                 string title;
                 if (radioButtonAllAssets.Checked)
                 {
@@ -289,14 +293,12 @@ namespace AMSExplorer
                 Row rowTitle = CreateNewRow(title, 3U);
                 uint index = 1;
 
-
                 string AMSENote = string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
                    Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                    checkBoxLocalTime.Checked ? DateTime.Now.ToString() : DateTime.UtcNow.ToString(),
                    checkBoxLocalTime.Checked ? "local" : "UTC based"
                    );
                 Row rowAMSENote = CreateNewRow(AMSENote);
-
 
                 // ASSET ROWS
 
@@ -305,54 +307,39 @@ namespace AMSExplorer
 
                 if (radioButtonAllAssets.Checked)
                 {
-                    IPage<MediaAssetResource> currentPage = null;
-                    currentPage = _amsClient.AMSclient.Assets.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+                    var allAssets = _amsClient.AMSclient.GetMediaAssets().GetAll();
 
-                    while (true)
+                    foreach (MediaAssetResource asset in allAssets)
                     {
-                        foreach (Asset asset in currentPage)
+                        var output = Task.Run(async () => await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                        if (output.Item1 != null)
+                            numberMaxLocators = Math.Max(numberMaxLocators, (int)output.Item1);
+                        Rows.Add(output.Item2);
+
+                        backgroundWorkerCSV.ReportProgress((int)index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                      //if cancellation is pending, cancel work.  
+                        if (backgroundWorkerExcel.CancellationPending)
                         {
-                            var output = Task.Run(async () => await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
-                            if (output.Item1 != null)
-                                numberMaxLocators = Math.Max(numberMaxLocators, (int)output.Item1);
-                            Rows.Add(output.Item2);
+                            ////////
+                            worksheet.Append(sheetData);
+                            worksheetPart.Worksheet = worksheet;
+                            workbookpart.Workbook.Save();
 
-                            backgroundWorkerCSV.ReportProgress((int)index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                          //if cancellation is pending, cancel work.  
-                            if (backgroundWorkerExcel.CancellationPending)
-                            {
-                                ////////
+                            // Close the document.  
+                            spreadsheetDocument.Close();
 
-                                worksheet.Append(sheetData);
-                                worksheetPart.Worksheet = worksheet;
-                                workbookpart.Workbook.Save();
-
-                                // Close the document.  
-                                spreadsheetDocument.Close();
-
-
-                                e.Cancel = true;
-                                return;
-                            }
-                            index++;
-                            row++;
+                            e.Cancel = true;
+                            return;
                         }
-
-                        if (currentPage.NextPageLink != null)
-                        {
-                            currentPage = _amsClient.AMSclient.Assets.ListNext(currentPage.NextPageLink);
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        index++;
+                        row++;
                     }
                 }
                 else // Selected assets
                 {
                     int total = _selassets.Count();
 
-                    foreach (Asset asset in _selassets)
+                    foreach (var asset in _selassets)
                     {
                         var output = Task.Run(async () => await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
                         if (output.Item1 != null)
@@ -381,7 +368,6 @@ namespace AMSExplorer
 
 
                 // HEADER
-
                 var listHeader = new List<object>() { "Asset name", "Description", "Alternate Id", "Asset Id", "Created time", "Last modified time", "Storage account", "Storage container" };
                 if (detailed)
                 {
@@ -404,11 +390,9 @@ namespace AMSExplorer
 
                 // END HEADER
 
-
                 // Empty row
                 var listEmpty = new List<object>();
                 Row rowEmpty = CreateNewRow(listEmpty);
-
 
                 // Let's build the sheet with the rows
                 sheetData.Append(rowTitle);
@@ -416,10 +400,7 @@ namespace AMSExplorer
                 sheetData.Append(rowEmpty);
                 sheetData.Append(rowHeader);
                 sheetData.Append(Rows);
-
-
                 worksheet.Append(sheetData);
-
                 worksheetPart.Worksheet = worksheet;
                 workbookpart.Workbook.Save();
 
@@ -444,8 +425,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Error + ex.Message);
             }
-
-
         }
 
         private static Row CreateNewRow(string cellValue, UInt32Value styleIndex = null)

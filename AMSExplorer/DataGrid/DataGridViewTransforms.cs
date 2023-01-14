@@ -167,7 +167,7 @@ namespace AMSExplorer
             ClearSelection();
             foreach (DataGridViewRow Row in Rows)
             {
-                if ((string)Row.Cells[0].Value == transform.Name)
+                if ((string)Row.Cells[0].Value == transform.Data.Name)
                 {
 
                     Row.Selected = true;

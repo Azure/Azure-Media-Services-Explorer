@@ -83,7 +83,7 @@ namespace AMSExplorer
                 {
                     if (!string.IsNullOrEmpty(j.Type))
                     {
-                        mylist.Add(new ContentKeyPolicyTokenClaim(j.Type, j.Value));
+                        mylist.Add(new ContentKeyPolicyTokenClaim() { ClaimType = j.Type, ClaimValue = j.Value });
                     }
                 }
                 if (checkBoxRequiresContentKeyIdentifierClaim.Checked)
@@ -191,7 +191,7 @@ namespace AMSExplorer
 
             List<Claim> claims = new();
 
-            if (requiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
+            if (requiredClaims.Any(c => c.ClaimType == "urn:microsoft:azure:mediaservices:contentkeyidentifier"))
             {
                 claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
             }

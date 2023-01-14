@@ -16,6 +16,7 @@
 
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
+using Azure.ResourceManager.Storage.Models;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -37,10 +38,15 @@ namespace AMSExplorer
         public bool ManualConfig = false;
         public bool UseSPAuth = false;
         public string Description;
+        public string AccountName;
+        public string SubscriptionId;
+        public string ResourceGroupName;
 
-        public CredentialsEntryV3(MediaServicesAccountData mediaService, AzureEnvironment environment, bool promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
+        public CredentialsEntryV3(string accountName, string subscriptionId, string resourceGroupName, AzureEnvironment environment, bool promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
         {
-            MediaService = mediaService;
+            AccountName = accountName;
+            SubscriptionId = subscriptionId;
+            ResourceGroupName = resourceGroupName;
             Environment = environment;
             UseSPAuth = useSPAuth;
             PromptUser = promptUser;
@@ -52,8 +58,6 @@ namespace AMSExplorer
                 ClearADSPClientSecret = clearADSPClientSecret;
             }
         }
-
-        public string AccountName => MediaService.Name;
 
         public string ResourceGroup
         {

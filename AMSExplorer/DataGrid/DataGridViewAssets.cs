@@ -108,18 +108,18 @@ namespace AMSExplorer
 
             _syncontext = syncontext;
 
-            IPage<MediaAssetResource> assetsList = Task.Run(() =>
-                                        client.AMSclient.Assets.ListAsync(client.credentialsEntry.ResourceGroup, client.credentialsEntry.AccountName)
+            Pageable<MediaAssetResource> assetsList = Task.Run(() =>
+                                        client.AMSclient.GetMediaAssets().GetAll()
                                         ).GetAwaiter().GetResult();
 
             IEnumerable<AssetEntry> assets = assetsList.Select(a => new AssetEntry(_syncontext)
             {
-                Name = a.Name,
-                AssetId = a.AssetId,
-                Type = a.Type,
-                AlternateId = a.AlternateId,
-                CreatedOn = a.Created.ToLocalTime().ToString("G"),
-                StorageAccountName = a.StorageAccountName,
+                Name = a.Data.Name,
+                AssetId = a.Data.AssetId,
+                //Type = a.Data.Type, //TODO2023
+                AlternateId = a.Data.AlternateId,
+                CreatedOn = a.Data.CreatedOn?.ToLocalTime().ToString("G"),
+                StorageAccountName = a.Data.StorageAccountName,
                 Filters = null
             }
             );
@@ -267,7 +267,7 @@ namespace AMSExplorer
 
                     if (existAsset)
                     {
-                        Debug.WriteLine("analyze : " + asset.Name);
+                        Debug.WriteLine("analyze : " + asset.Data.Name);
 
                         AE.AlternateId = asset.Data.AlternateId;
                         AE.Description = asset.Data.Description;
@@ -284,7 +284,7 @@ namespace AMSExplorer
                         {
                         }
 
-                        AssetBitmapAndText assetBitmapAndText = await DataGridViewAssets.BuildBitmapPublicationAsync(asset.Name, amsClient, locators);
+                        AssetBitmapAndText assetBitmapAndText = await DataGridViewAssets.BuildBitmapPublicationAsync(asset.Data.Name, amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.Publication = assetBitmapAndText.bitmap;
@@ -300,7 +300,7 @@ namespace AMSExplorer
                             AE.AssetWarning = (AE.SizeLong == 0);
                         }
 
-                        assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset.Name, amsClient, locators);
+                        assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset, amsClient, locators);
                         if (assetBitmapAndText.bitmap != null)
                         {
                             AE.DynamicEncryption = assetBitmapAndText.bitmap;
@@ -308,17 +308,17 @@ namespace AMSExplorer
 
                         if (assetBitmapAndText.Locators != null)
                         {
-                            DateTime? LocDate = assetBitmapAndText.Locators.Any() ? (DateTime?)assetBitmapAndText.Locators.Min(l => l.Data.EndOn).ToLocalTime() : null;
-                            AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString() : null;
+                            DateTimeOffset? LocDate = assetBitmapAndText.Locators.Any() ?((DateTimeOffset) assetBitmapAndText.Locators.Min(l => l.EndOn)).ToLocalTime() : null;
+                            AE.LocatorExpirationDate = LocDate.HasValue ? LocDate?.ToLocalTime().ToString() : null;
                             AE.LocatorExpirationDateWarning = LocDate.HasValue && (LocDate < DateTime.Now.ToLocalTime());
                         }
 
-                        int? afcount = await ReturnNumberAssetFiltersAsync(asset.Name, amsClient);
+                        int? afcount = await ReturnNumberAssetFiltersAsync(asset, amsClient);
                         AE.Filters = afcount > 0 ? afcount : null;
 
                         lock (cacheAssetentriesV3)
                         {
-                            cacheAssetentriesV3[asset.Name] = AE; // let's put it in cache (or update the cache)
+                            cacheAssetentriesV3[asset.Data.Name] = AE; // let's put it in cache (or update the cache)
                         }
                     }
                 }
@@ -361,7 +361,7 @@ namespace AMSExplorer
         {
             lock (cacheAssetentriesV3)
             {
-                assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Name));
+                assets.ToList().ForEach(a => cacheAssetentriesV3.Remove(a.Data.Name));
             }
         }
 
@@ -569,23 +569,33 @@ Properties/StorageId
                 odataQuery.Filter += $"properties/created lt {dateTimeRangeEnd:o}";
             }
 
-            IPage<MediaAssetResource> currentPage = null;
+            // Paging
+                      
+            IReadOnlyList<MediaAssetResource> currentPage = null;
+            var assetsQuery = amsClient.AMSclient.GetMediaAssets().GetAllAsync(filter: odataQuery.Filter, orderby: odataQuery.OrderBy);
 
             if (pagetodisplay == 1)
             {
-                firstpage = await amsClient.AMSclient.Assets.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, odataQuery);
-                currentPage = firstpage;
+                //firstpage = await amsClient.AMSclient.Assets.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, odataQuery);
+                currentPage = (await assetsQuery.AsPages(null).FirstAsync()).Values;
             }
             else
             {
-                currentPage = firstpage;
+                string continuationToken = null;
+
                 _currentPageNumber = 1;
-                while (currentPage.NextPageLink != null && pagetodisplay > _currentPageNumber)
+                do
                 {
                     _currentPageNumber++;
-                    currentPage = await amsClient.AMSclient.Assets.ListNextAsync(currentPage.NextPageLink);
+                    await foreach (var item in assetsQuery.AsPages(continuationToken))
+                    {
+                        continuationToken = item.ContinuationToken;
+                        currentPage = item.Values;
+                    }
                 }
-                if (currentPage.NextPageLink == null)
+                while (continuationToken != null && pagetodisplay > _currentPageNumber);
+
+                if (continuationToken == null)
                 {
                     _currentPageNumberIsMax = true; // we reached max
                 }
@@ -595,19 +605,19 @@ Properties/StorageId
             lock (cacheAssetentriesV3)
             {
                 assets = currentPage.Select(a =>
-           (cacheAssetentriesV3.ContainsKey(a.Name)
-              && cacheAssetentriesV3[a.Name].LastModifiedOn != null
-              && (cacheAssetentriesV3[a.Name].LastModifiedOn == a.LastModified.ToLocalTime().ToString("G")) ?
-              cacheAssetentriesV3[a.Name] :
+           (cacheAssetentriesV3.ContainsKey(a.Data.Name)
+              && cacheAssetentriesV3[a.Data.Name].LastModifiedOn != null
+              && (cacheAssetentriesV3[a.Data.Name].LastModifiedOn == a.Data.LastModifiedOn?.ToLocalTime().ToString("G")) ?
+              cacheAssetentriesV3[a.Data.Name] :
            new AssetEntry(_syncontext)
            {
-               Name = a.Name,
-               Description = a.Description,
-               AssetId = a.AssetId,
-               AlternateId = a.AlternateId,
-               CreatedOn = a.Created.ToLocalTime().ToString("G"),
-               LastModifiedOn = a.LastModified.ToLocalTime().ToString("G"),
-               StorageAccountName = a.StorageAccountName
+               Name = a.Data.Name,
+               Description = a.Data.Description,
+               AssetId = a.Data.AssetId,
+               AlternateId = a.Data.AlternateId,
+               CreatedOn = a.Data.CreatedOn?.ToLocalTime().ToString("G"),
+               LastModifiedOn = a.Data.LastModifiedOn?.ToLocalTime().ToString("G"),
+               StorageAccountName = a.Data.StorageAccountName
            }
         ));
             }
@@ -640,8 +650,8 @@ Properties/StorageId
             {
                 try
                 {
-                    locators = (await _amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, assetName))
-                               .StreamingLocators;
+                    var asset = (await _amsClient.AMSclient.GetMediaAssetAsync(assetName)).Value;
+                    locators = await asset.GetStreamingLocatorsAsync().ToListAsync();
                 }
                 catch
                 {
@@ -653,14 +663,12 @@ Properties/StorageId
                 }
             }
 
-            foreach (AssetStreamingLocator locator in locators)
+            foreach (var locator in locators)
             {
                 Bitmap newbitmap = null;
                 string newtext = null;
                 PublishStatus Status = AssetTools.GetPublishedStatusForLocator(locator);
-
                 {
-
                     switch (Status)
                     {
                         case PublishStatus.PublishedActive:
@@ -682,7 +690,6 @@ Properties/StorageId
                         default:
                             break;
                     }
-
                 }
 
                 returnedImage = AddBitmap(returnedImage, newbitmap);
@@ -703,14 +710,13 @@ Properties/StorageId
         /// <param name="amsClient"></param>
         /// <param name="locators"></param>If specified, avoid the function to list again them (optimization)
         /// <returns></returns>
-        public static async Task<AssetBitmapAndText> BuildBitmapDynEncryptionAsync(string assetName, AMSClientV3 amsClient, IList<MediaAssetStreamingLocator> locators = null)
+        public static async Task<AssetBitmapAndText> BuildBitmapDynEncryptionAsync(MediaAssetResource asset, AMSClientV3 amsClient, IList<MediaAssetStreamingLocator> locators = null)
         {
             if (locators == null)
             {
                 try
                 {
-                    locators = (await amsClient.AMSclient.Assets.ListStreamingLocatorsAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, assetName))
-                        .StreamingLocators;
+                    locators = asset.GetStreamingLocators().ToList();
                 }
                 catch
                 {
@@ -769,14 +775,14 @@ Properties/StorageId
         }
 
 
-        public static async Task<int?> ReturnNumberAssetFiltersAsync(string assetName, AMSClientV3 client)
+        public static async Task<int?> ReturnNumberAssetFiltersAsync(MediaAssetResource asset, AMSClientV3 client)
         {
             // asset filters
             int count = 0;
             try
             {
-                var asset = await client.AMSclient.GetMediaAssetAsync(assetName);
-                var filters = asset.Value.GetMediaAssetFilters().GetAllAsync();
+                //var asset = await client.AMSclient.GetMediaAssetAsync(assetName);
+                var filters = asset.GetMediaAssetFilters().GetAllAsync();
                 await foreach (var filter in filters)
                 {
                     count++;

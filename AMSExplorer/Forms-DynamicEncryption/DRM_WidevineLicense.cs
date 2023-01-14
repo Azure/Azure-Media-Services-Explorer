@@ -34,10 +34,7 @@ namespace AMSExplorer
         }
 
 
-        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration => new()
-        {
-            WidevineTemplate = textBoxConfiguration.Text
-        };
+        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration => new(textBoxConfiguration.Text);
 
         public DRM_WidevineLicense(int step = -1, int option = -1, bool laststep = true)
         {
