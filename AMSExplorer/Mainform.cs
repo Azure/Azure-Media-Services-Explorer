@@ -157,8 +157,8 @@ namespace AMSExplorer
             _amsClient = formLogin.AmsClient;
 
 
-           // _amsClient.AMSclient.Data =  _amsClient.AMSclient.Get().Value;
-            
+            // _amsClient.AMSclient.Data =  _amsClient.AMSclient.Get().Value;
+
 
             // Telemetry. Type of auth.
             Dictionary<string, string> dictionary = new()
@@ -311,7 +311,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine(Program.GetErrorMessage(e), true);
             }
-           
+
             // TODO2023. Is it still needed ?
             /*
             if (e is ErrorResponseException eApi)
@@ -2678,7 +2678,7 @@ namespace AMSExplorer
                         EndOn = endTime,
                         DefaultContentKeyPolicyName = keyPolicyName,
                     };
-                    if (listFilters!=null)
+                    if (listFilters != null)
                     {
                         listFilters.ForEach(f => locatorData.Filters.Add(f));
                     }
@@ -8317,7 +8317,7 @@ namespace AMSExplorer
             }
             return new Tuple<string, MediaTransformData>(null, null);
         }
-              
+
 
         /// <summary>
         /// Create a MES Transform
@@ -8832,7 +8832,7 @@ namespace AMSExplorer
 
             // TODO2023
             // restore the operations list ?
-            
+
             /*
             _amsClient.AMSclient.Operations.List();
 
@@ -9281,34 +9281,39 @@ namespace AMSExplorer
                     }
                     else if (transformInfo != null) // We use the SDK
                     {
+                        var data = new MediaTransformData()
+                        {
+                            Description = transformInfo.Item2.Description
+                        };
+
                         if (existingTransform != null) // user wants to add a task to an existing transform
                         {
                             //var listOutputs = existingTransform.Data.Outputs.Concat(transformInfo.Item2.Outputs);
-
-                            var data = new MediaTransformData()
-                            {
-                                Description = transformInfo.Item2.Description
-                            };
-
                             foreach (var o in existingTransform.Data.Outputs)
                             {
                                 data.Outputs.Add(o);
                             }
-                            foreach (var o in transformInfo.Item2.Outputs)
-                            {
-                                data.Outputs.Add(o);
-                            }
-
-                            var datat = new Tuple<string, MediaTransformData>
-                                (
-                                existingTransform.Data.Name,
-                                data
-                            );
-                            await CreateOrUpdateTransformAsync(datat);
                             transformName = existingTransform.Data.Name;
                         }
+                        else
+                        {
+                            transformName = transformInfo.Item1;
+                        }
+
+                        foreach (var o in transformInfo.Item2.Outputs)
+                        {
+                            data.Outputs.Add(o);
+                        }
+
+                        var datat = new Tuple<string, MediaTransformData>
+                            (
+                            transformName,
+                            data
+                        );
+                        await CreateOrUpdateTransformAsync(datat);
                     }
                 }
+
             }
             catch (Exception ex)
             {

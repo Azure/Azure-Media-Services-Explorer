@@ -15,12 +15,16 @@
 //---------------------------------------------------------------------------------------------
 
 
+using DocumentFormat.OpenXml.Presentation;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AMSExplorer.Rest
 {
@@ -86,6 +90,10 @@ namespace AMSExplorer.Rest
         {
             HttpClient client = GetHttpClient();
 
+            // Request headers
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
+
             HttpResponseMessage amsRequestResult = await client.GetAsync(url).ConfigureAwait(false);
 
             string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -102,6 +110,10 @@ namespace AMSExplorer.Rest
         private async Task<string> CreateObjectAsync(string url, string amsJSONObject)
         {
             HttpClient client = GetHttpClient();
+
+            // Request headers
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
 
             string _requestContent = amsJSONObject;
             StringContent httpContent = new(_requestContent, System.Text.Encoding.UTF8);
