@@ -314,40 +314,43 @@ namespace AMSExplorer
 
             // IEnumerable<AssetTrack> response;
 
-            var response = _asset.GetMediaAssetTracks().GetAllAsync();
-            /*
-             catch (Exception ex)
-             {
-                 MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                 return;
-             }
-            */
-
-            listViewTracks.Items.Clear();
-            dGTracks.Rows.Clear();
-            listViewTracks.BeginUpdate();
-
-            await foreach (var track in response)
+            try
             {
-                ListViewItem item = new(track.Data.Name, 0);
-                var tbase = track.Data.Track;
-                if (tbase is AudioTrack at)
-                {
-                    item.SubItems.Add(audiotrack);
-                }
-                else if (tbase is VideoTrack vt)
-                {
-                    item.SubItems.Add(videotrack);
-                }
-                else if (tbase is TextTrack tt)
-                {
-                    item.SubItems.Add(texttrack);
-                }
-                listViewTracks.Items.Add(item);
-            }
-            listViewTracks.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                var response = _asset.GetMediaAssetTracks().GetAllAsync();
 
-            listViewTracks.EndUpdate();
+                listViewTracks.Items.Clear();
+                dGTracks.Rows.Clear();
+                listViewTracks.BeginUpdate();
+
+                await foreach (var track in response)
+                {
+                    ListViewItem item = new(track.Data.Name, 0);
+                    var tbase = track.Data.Track;
+                    if (tbase is AudioTrack at)
+                    {
+                        item.SubItems.Add(audiotrack);
+                    }
+                    else if (tbase is VideoTrack vt)
+                    {
+                        item.SubItems.Add(videotrack);
+                    }
+                    else if (tbase is TextTrack tt)
+                    {
+                        item.SubItems.Add(texttrack);
+                    }
+                    listViewTracks.Items.Add(item);
+                }
+                listViewTracks.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               
+            }
+            finally
+            {
+                listViewTracks.EndUpdate();
+            }
         }
 
         private async Task<List<string>> ReturnTexttracksNamesAsync()

@@ -30,7 +30,7 @@ namespace AMSExplorer
     {
         private readonly List<StatusInfo> ListStatus = new();
         private static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
-        private static IEnumerable<StreamingEndpointResource> streamingendpoints;
+        //private static IEnumerable<StreamingEndpointResource> streamingendpoints;
         private static bool _initialized = false;
         private static string _filterstreamingendpointsstate = "All";
         private static string _searchinname = string.Empty;
@@ -167,7 +167,7 @@ namespace AMSExplorer
 
             try
             {
-                int c = streamingendpoints.Count();
+                int c = streamingEndpointResources.Count();
             }
             catch (Exception e)
             {

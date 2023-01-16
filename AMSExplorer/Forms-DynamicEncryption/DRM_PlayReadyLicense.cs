@@ -229,23 +229,30 @@ namespace AMSExplorer
         {
             moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, Constants.LinkPlayReadyCompliance));
 
+            comboBoxLicenseType.BeginUpdate();
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.NonPersistent);
             comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Persistent);
+            comboBoxLicenseType.SelectedIndex = 0;
+            comboBoxLicenseType.EndUpdate();
             //comboBoxLicenseType.Items.Add(ContentKeyPolicyPlayReadyLicenseType.Unknown);
 
+            comboBoxAllowPassingVideoContentUnknownOutput.BeginUpdate();
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed);
             //comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown);
+            comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndex = 0;
+            comboBoxAllowPassingVideoContentUnknownOutput.EndUpdate();
 
+            comboBoxContentType.BeginUpdate();
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unspecified);
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.UltraVioletDownload);
             comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.UltraVioletStreaming);
             //comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unknown);
-
-            comboBoxLicenseType.SelectedIndex = 0;
-            comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndex = 0;
             comboBoxContentType.SelectedIndex = 0;
+            comboBoxContentType.EndUpdate();
+            
+            labelWarning.Text = string.Empty;
 
         }
 

@@ -588,7 +588,7 @@ namespace AMSExplorer
                 filterTrackSelectStatements.Add(filterTrackSelectStatement);
             }
 
-            return filtertracks.Count > 0 ? filterTrackSelectStatements : null;
+            return filterTrackSelectStatements;
         }
 
         private void RefreshTracks()

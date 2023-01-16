@@ -258,11 +258,21 @@ namespace AMSExplorer
 
             // Paging
             string transformName = _transformName.First();
-            var transformResource = await amsClient.AMSclient.GetMediaTransformAsync(transformName);
+            MediaTransformResource transformResource;
+            try
+            {
+                 transformResource = (await amsClient.AMSclient.GetMediaTransformAsync(transformName)).Value;
+            }
+            catch(Exception ex)
+            {
+                // transform no there anymore
+                return;
+            }
+           
 
             IReadOnlyList<MediaJobResource> currentPage = null;
 
-            var jobsQuery = transformResource.Value.GetMediaJobs().GetAllAsync(filter: odataQuery.Filter, orderby: odataQuery.OrderBy);
+            var jobsQuery = transformResource.GetMediaJobs().GetAllAsync(filter: odataQuery.Filter, orderby: odataQuery.OrderBy);
            
             if (pagetodisplay == 1)
             {

@@ -2678,7 +2678,10 @@ namespace AMSExplorer
                         EndOn = endTime,
                         DefaultContentKeyPolicyName = keyPolicyName,
                     };
-                    listFilters.ForEach(f => locatorData.Filters.Add(f));
+                    if (listFilters!=null)
+                    {
+                        listFilters.ForEach(f => locatorData.Filters.Add(f));
+                    }
 
                     locator = (await _amsClient.AMSclient.GetStreamingLocators().CreateOrUpdateAsync(WaitUntil.Completed, streamingLocatorName, locatorData)).Value;
 

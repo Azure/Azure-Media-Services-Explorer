@@ -197,7 +197,7 @@ namespace AMSExplorer
             */
             if (locators.Count() > 0)
             {
-                var LocatorQuery = locators.Where(l => l.StartOn < DateTime.UtcNow && (l.EndOn > DateTime.UtcNow)).FirstOrDefault();
+                var LocatorQuery = locators.Where(l => ((l.StartOn == null) || (l.StartOn < DateTime.UtcNow)) && (l.EndOn > DateTime.UtcNow)).FirstOrDefault();
                 if (LocatorQuery != null)
                 {
                     return LocatorQuery;
