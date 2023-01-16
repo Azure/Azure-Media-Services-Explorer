@@ -21,6 +21,7 @@ using AMSExplorer.Rest;
 using AMSExplorer.Utils.JobInfo;
 using AMSExplorer.Utils.TransformInfo;
 using Azure;
+using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using DocumentFormat.OpenXml.Drawing;
@@ -116,7 +117,7 @@ namespace AMSExplorer
             if (args.Length > 0 && args.Any(a => a.ToLower() == resetcredentials))
             {
                 // let's clean the list
-                Properties.Settings.Default.LoginListRPv3JSON = string.Empty;
+                Properties.Settings.Default.LoginListRPv4JSON = string.Empty;
             }
 
             // if installation file has been downloaded, let's delete it now
@@ -155,12 +156,16 @@ namespace AMSExplorer
             // Get the service context.
             _amsClient = formLogin.AmsClient;
 
+
+           // _amsClient.AMSclient.Data =  _amsClient.AMSclient.Get().Value;
+            
+
             // Telemetry. Type of auth.
             Dictionary<string, string> dictionary = new()
             {
                 { "UseSPAuth", _amsClient.credentialsEntry.UseSPAuth.ToString() },
                 { "ManualConfig", _amsClient.credentialsEntry.ManualConfig.ToString() },
-                { "Region", _amsClient.credentialsEntry.MediaService.Location },
+                { "Region", _amsClient.AMSclient.Get().Value.Data.Location.Name },
                 { "ArmEndpoint", _amsClient.environment.ArmEndpoint.ToString() }
             };
 
@@ -183,7 +188,7 @@ namespace AMSExplorer
             });
 
             // mainform title
-            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.credentialsEntry.MediaService.Location);
+            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
 
             // notification title
             notifyIcon1.Text = string.Format(notifyIcon1.Text, _accountname);
@@ -197,7 +202,7 @@ namespace AMSExplorer
 
             Dictionary<string, double> dictionaryM = new()
             {
-                { "StorageAccountsCount", _amsClient.credentialsEntry.MediaService.StorageAccounts.Count }
+                { "StorageAccountsCount", _amsClient.AMSclient.Data.StorageAccounts.Count }
             };
 
             // Let's check if there is one streaming unit running
@@ -228,7 +233,7 @@ namespace AMSExplorer
             }
 
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";
-            TextBoxLogWriteLine(mes, _amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            TextBoxLogWriteLine(mes, _amsClient.credentialsEntry.ResourceGroupName, _amsClient.credentialsEntry.AccountName);
 
             Telemetry.TrackEvent("Account connected", dictionary, dictionaryM);
         }
@@ -3231,7 +3236,7 @@ namespace AMSExplorer
 
             comboBoxStatusLiveEvent.Items.AddRange(
               typeof(LiveEventResourceState)
-              .GetFields()
+              .GetProperties()//.GetFields()
               .Select(i => i.Name)
               .ToArray()
               );
@@ -4786,11 +4791,12 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Creating live event '{0}'...", form.LiveEventName);
 
                 bool Error = false;
-                MediaLiveEventData liveEventData = new(_amsClient.credentialsEntry.MediaService.Location);
+                // TODO2023 : verify value is location (string)
+                MediaLiveEventData liveEventData = new(_amsClient.AMSclient.Data.Id.Location.Value);
 
                 try
                 {
-                    liveEventData = new MediaLiveEventData(_amsClient.credentialsEntry.MediaService.Location)
+                    liveEventData = new MediaLiveEventData(_amsClient.AMSclient.Data.Location.Name)
                     {
                         Description = form.LiveEventDescription,
                         UseStaticHostname = form.LiveEventUseStaticHostname,
@@ -5893,7 +5899,7 @@ namespace AMSExplorer
                 }
                 TextBoxLogWriteLine("Creating streaming endpoint {0}...", form.StreamingEndpointName);
 
-                StreamingEndpointData newStreamingEndpointData = new(_amsClient.AMSclient.Data.Location)
+                StreamingEndpointData newStreamingEndpointData = new(_amsClient.AMSclient.Data.Location.Name)
                 {
                     ScaleUnits = form.scaleUnits,
                     Description = form.StreamingEndpointDescription,
@@ -6549,7 +6555,7 @@ namespace AMSExplorer
             }
 
             string path = @"#@{0}/resource/subscriptions/{1}/resourceGroups/{2}/providers/microsoft.media/mediaservices/{3}";
-            linkPortal += string.Format(path, _amsClient.credentialsEntry.AadTenantId, _amsClient.credentialsEntry.AzureSubscriptionId, _amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+            linkPortal += string.Format(path, _amsClient.credentialsEntry.AadTenantId, _amsClient.credentialsEntry.SubscriptionId, _amsClient.credentialsEntry.ResourceGroupName, _amsClient.credentialsEntry.AccountName);
 
             var p = new Process
             {
@@ -8821,8 +8827,11 @@ namespace AMSExplorer
             sb.AppendLine("============================================================================================");
             TextBoxLogWriteLine("Listing operations....");
 
-
-            var list = _amsClient.AMSclient.Operations.List();
+            // TODO2023
+            // restore the operations list ?
+            
+            /*
+            _amsClient.AMSclient.Operations.List();
 
             foreach (var a in list.Value)
             {
@@ -8832,6 +8841,7 @@ namespace AMSExplorer
 
             EditorXMLJSON form = new("API operations (RBAC)", sb.ToString(), false, ShowSampleMode.None, false);
             form.ShowDialog();
+            */
         }
 
         private async void ContextMenuItemLiveEventCopyIngestURLToClipboard_Click(object sender, EventArgs e)

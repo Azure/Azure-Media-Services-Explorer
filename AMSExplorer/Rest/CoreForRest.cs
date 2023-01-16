@@ -37,8 +37,8 @@ namespace AMSExplorer.Rest
         {
             return _amsClient.environment.ArmEndpoint
                                        + string.Format(url,
-                                                          _amsClient.credentialsEntry.AzureSubscriptionId,
-                                                          _amsClient.credentialsEntry.ResourceGroup,
+                                                          _amsClient.credentialsEntry.SubscriptionId,
+                                                          _amsClient.credentialsEntry.ResourceGroupName,
                                                           _amsClient.credentialsEntry.AccountName,
                                                           objectName
                                                   );
@@ -55,10 +55,31 @@ namespace AMSExplorer.Rest
 
         private HttpClient GetHttpClient()
         {
+            return new HttpClient();
+            // TODO2023
+            /* 
+            The transport is configured with a delegating handler that adds the product name to the UserAgent header:
+
+            class RequestHeaderHandler : DelegatingHandler
+            {
+            public RequestHeaderHandler(HttpMessageHandler innerHandler) : base(innerHandler)
+            {
+            }
+
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+            request.Headers.UserAgent.Add(new ProductInfoHeaderValue("MySuperApp", "v1"));
+            return base.SendAsync(request, cancellationToken);
+            }
+            }
+            */
+
+            /*
             HttpClient client = _amsClient.AMSclient.HttpClient;
             client.DefaultRequestHeaders.Remove("Authorization");
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetToken());
             return client;
+            */
         }
 
         private async Task<string> GetObjectContentAsync(string url)

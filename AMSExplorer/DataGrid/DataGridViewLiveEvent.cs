@@ -141,8 +141,8 @@ namespace AMSExplorer
             Columns[_encodedPreset].HeaderText = "Preset";
             Columns[_encodedPreset].Width = 100;
 
-            Columns["LastModified"].Width = 140;
-            Columns["LastModified"].HeaderText = "Last Modified";
+            Columns["LastModifiedOn"].Width = 140;
+            Columns["LastModifiedOn"].HeaderText = "Last Modified On";
 
             Columns["State"].Width = 75;
             Columns["Description"].Width = 110;

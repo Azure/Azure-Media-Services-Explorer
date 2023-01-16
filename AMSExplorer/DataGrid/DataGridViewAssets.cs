@@ -169,13 +169,13 @@ namespace AMSExplorer
             Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
             Columns[_assetwarning].Visible = false; // used to store warning and put color in red
             Columns["Type"].HeaderText = "Type (streams nb)";
-            Columns["Created"].HeaderText = "Created";
+            Columns["CreatedOn"].HeaderText = "CreatedOn";
             Columns["AssetId"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
             Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             Columns["StorageAccountName"].HeaderText = "Storage account";
             Columns["SizeLong"].Visible = false;
-            Columns["LastModified"].Visible = false;
+            Columns["LastModifiedOn"].Visible = false;
             Columns[_filter].DisplayIndex = lastColumn_sIndex;
             Columns[_filter].DefaultCellStyle.NullValue = null;
             Columns[_publication].DisplayIndex = lastColumn_sIndex - 1;
@@ -202,7 +202,7 @@ namespace AMSExplorer
             Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
             Columns[_locatorexpirationdate].DisplayIndex = Columns.Count - 3;
             Columns[_locatorexpirationdate].Width = 130;
-            Columns["Created"].DisplayIndex = Columns.Count - 1;
+            Columns["CreatedOn"].DisplayIndex = Columns.Count - 1;
             //Columns["Created"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             //Columns["Created"].Width = 140;
             //Columns["AlternateId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;

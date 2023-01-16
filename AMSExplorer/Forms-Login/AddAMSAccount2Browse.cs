@@ -185,7 +185,7 @@ namespace AMSExplorer
             // account info
             DGAcct.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGAcct.Rows.Add("AMS Account Name", account.Name);
-            DGAcct.Rows.Add("Location", account.Location);
+            DGAcct.Rows.Add("Location", account.Location.DisplayName);
             DGAcct.Rows.Add("Resource Group", GetResourceGroupNameFromId(account.Id));
             DGAcct.Rows.Add("MediaServiceId", account.Id);
 
@@ -286,7 +286,7 @@ namespace AMSExplorer
             */
 
             // let's save the data
-            allAMSAccountsPerSub[SelectedSubscription.Data.Id.ToString()] = mediaServicesAccounts.ToList();
+            allAMSAccountsPerSub[SelectedSubscription.Data.SubscriptionId] = mediaServicesAccounts.ToList();
 
             treeViewAzureSub.BeginUpdate();
             e.Node.Nodes.Clear();
@@ -308,7 +308,7 @@ namespace AMSExplorer
             if (e.Node.Level == 1) // AMS Account selected
             {
                 List<MediaServicesAccountResource> accounts = allAMSAccountsPerSub[(string)e.Node.Parent.Tag];
-                var account = accounts.Where(a => a.Id == (string)e.Node.Tag).FirstOrDefault();
+                var account = accounts.Where(a => a.Id.ToString() == e.Node.Tag.ToString()).FirstOrDefault();
 
                 // let's display account info
                 DisplayInfoAccount(account.Data);

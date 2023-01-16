@@ -145,8 +145,8 @@ namespace AMSExplorer
             Columns[_published].DisplayIndex = ColumnCount - 3;
             Columns[_published].DefaultCellStyle.NullValue = null;
             Columns[_published].HeaderText = _published;
-            Columns["LastModified"].Width = 130;
-            Columns["LastModified"].HeaderText = "Last Modified";
+            Columns["LastModifiedOn"].Width = 130;
+            Columns["LastModifiedOn"].HeaderText = "Last Modified On";
             Columns["Description"].Width = 150;
             Columns["ArchiveWindowLength"].Width = 130;
             Columns["ArchiveWindowLength"].HeaderText = "Archive window";

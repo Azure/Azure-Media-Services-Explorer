@@ -38,16 +38,18 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Azure.Core;
+using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace AMSExplorer
 {
     public partial class AmsLogin : Form
     {
-        private ListCredentialsRPv3 CredentialList = new();
+        private ListCredentialsRPv4 CredentialList = new();
 
         public string accountName;
 
-        private CredentialsEntryV3 LoginInfo;
+        private CredentialsEntryV4 LoginInfo;
         private AzureEnvironment environment;
 
         public AMSClientV3 AmsClient { get; private set; }
@@ -73,19 +75,27 @@ namespace AMSExplorer
             listViewAccounts.Columns.Add(header);
             // Then
             listViewAccounts.Scrollable = true;
-            listViewAccounts.View = System.Windows.Forms.View.Details;
+            listViewAccounts.View = View.Details;
 
 
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv3JSON))
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv4JSON))
             {
-                // JSon deserialize
-                CredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv3JSON, typeof(ListCredentialsRPv3));
+
+                var obj = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
+
+                if (obj.Version >= 4)
+                {  // new list v4
 
 
-                // Display accounts in the list
-                CredentialList.MediaServicesAccounts.ForEach(c =>
-                    AddItemToListviewAccounts(c)
-                );
+                    // JSon deserialize
+                    CredentialList = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
+
+
+                    // Display accounts in the list
+                    CredentialList.MediaServicesAccounts.ForEach(c =>
+                        AddItemToListviewAccounts(c)
+                    );
+                }
             }
 
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
@@ -98,9 +108,9 @@ namespace AMSExplorer
             DoEnableManualFields(false);
         }
 
-        private void AddItemToListviewAccounts(CredentialsEntryV3 c)
+        private void AddItemToListviewAccounts(CredentialsEntryV4 c)
         {
-            ListViewItem item = listViewAccounts.Items.Add(c.MediaService.Name);
+            ListViewItem item = listViewAccounts.Items.Add(c.AccountName);
             listViewAccounts.Items[item.Index].ForeColor = Color.Black;
             listViewAccounts.Items[item.Index].ToolTipText = null;
         }
@@ -139,7 +149,7 @@ namespace AMSExplorer
                 return;
             }
 
-            AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo, this);
+            AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.SubscriptionId, LoginInfo, this);
 
             MediaServicesAccountResource response;
             try
@@ -192,7 +202,7 @@ namespace AMSExplorer
                 LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
 
                 textBoxDescription.Text = LoginInfo.Description;
-                textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
+                //textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
                 textBoxAADtenantId.Text = LoginInfo.AadTenantId;
 
                 DoEnableManualFields(false);
@@ -236,7 +246,7 @@ namespace AMSExplorer
                     properties.Add("ClearADSPClientSecret");
                 }
 
-                jsonResolver.IgnoreProperty(typeof(CredentialsEntryV3), properties.ToArray()); // let's not export encrypted secret and may be clear secret
+                jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), properties.ToArray()); // let's not export encrypted secret and may be clear secret
 
                 JsonSerializerSettings settings = new()
                 {
@@ -256,7 +266,7 @@ namespace AMSExplorer
                         }
                         else
                         {
-                            ListCredentialsRPv3 copyEntry = new();
+                            ListCredentialsRPv4 copyEntry = new();
 
                             for (int i = 0; i < listViewAccounts.SelectedIndices.Count; i++)
                             {
@@ -301,10 +311,10 @@ namespace AMSExplorer
                         // let's purge entries if user does not want to keep them
                     }
 
-                    ListCredentialsRPv3 ImportedCredentialList = null;
+                    ListCredentialsRPv4 ImportedCredentialList = null;
                     try
                     {
-                        ImportedCredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(json, typeof(ListCredentialsRPv3));
+                        ImportedCredentialList = (ListCredentialsRPv4)JsonConvert.DeserializeObject(json, typeof(ListCredentialsRPv4));
                     }
                     catch (Exception ex)
                     {
@@ -312,7 +322,7 @@ namespace AMSExplorer
                         return;
                     }
 
-                    if (ImportedCredentialList.Version < (new ListCredentialsRPv3()).Version)
+                    if (ImportedCredentialList.Version < (new ListCredentialsRPv4()).Version)
                     {
                         MessageBox.Show("This file was created with an older version of AMSE. Import is not possible.", "Wrong version", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -333,9 +343,9 @@ namespace AMSExplorer
         private void SaveCredentialsToSettings()
         {
             PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
-            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV3), "ClearADSPClientSecret"); // let's not save the clear SP secret
+            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "ClearADSPClientSecret"); // let's not save the clear SP secret
             JsonSerializerSettings settings = new() { ContractResolver = jsonResolver };
-            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList, settings);
+            Properties.Settings.Default.LoginListRPv4JSON = JsonConvert.SerializeObject(CredentialList, settings);
             Program.SaveAndProtectUserConfig();
         }
 
@@ -549,7 +559,7 @@ namespace AMSExplorer
                         {
                             // Getting Media Services accounts...
 
-                            CredentialsEntryV3 entry = new(
+                            CredentialsEntryV4 entry = new(
                                 addaccount2.selectedAccount.Data.Name,
                                 addaccount2.selectedAccount.Data.Id.SubscriptionId,
                                 addaccount2.selectedAccount.Data.Id.ResourceGroupName,
@@ -606,7 +616,7 @@ namespace AMSExplorer
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {
                                 // Add account to list
-                                CredentialsEntryV3 entry = new(
+                                CredentialsEntryV4 entry = new(
                                   createAccount.MediaServiceCreated.Data.Id.Name,
                                   createAccount.MediaServiceCreated.Data.Id.SubscriptionId,
                                   createAccount.MediaServiceCreated.Data.Id.ResourceGroupName,
@@ -678,7 +688,7 @@ namespace AMSExplorer
 
                         AzureEnvironment env = new(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
 
-                        CredentialsEntryV3 entry = new(
+                        CredentialsEntryV4 entry = new(
                                                         json.AccountName,
                                                         json.SubscriptionId,
                                                         json.ResourceGroup,
@@ -713,7 +723,7 @@ namespace AMSExplorer
 
                         string accountnamecc = form.textBoxAMSResourceId.Text.Split('/').Last();
 
-                        CredentialsEntryV3 entry = new(
+                        CredentialsEntryV4 entry = new(
                             res.Name,
                             res.SubscriptionId,
                             res.ResourceGroupName,

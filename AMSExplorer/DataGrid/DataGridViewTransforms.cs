@@ -83,7 +83,7 @@ namespace AMSExplorer
                     Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                     Columns["Name"].Width = 200;
                     Columns["Description"].Width = 200;
-                    Columns["LastModified"].Width = 130;
+                    Columns["LastModifiedOn"].Width = 130;
                 }));
             });
 

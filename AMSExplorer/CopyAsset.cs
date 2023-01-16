@@ -25,7 +25,7 @@ namespace AMSExplorer
 {
     public partial class CopyAsset : Form
     {
-        private ListCredentialsRPv3 CredentialList = new();
+        private ListCredentialsRPv4 CredentialList = new();
         private readonly CopyAssetBoxMode Mode;
         private bool ErrorConnectingAMS = false;
         private bool ErrorConnectingStorage = false;
@@ -58,7 +58,7 @@ namespace AMSExplorer
 
 
         public AMSClientV3 DestinationAmsClient { get; private set; }
-        public CredentialsEntryV3 DestinationLoginInfo { get; private set; }
+        public CredentialsEntryV4 DestinationLoginInfo { get; private set; }
 
         public CopyAsset(int numberofobjectselected, CopyAssetBoxMode mode)
         {
@@ -124,10 +124,10 @@ namespace AMSExplorer
             listViewAccounts.View = System.Windows.Forms.View.Details;
 
 
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv3JSON))
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv4JSON))
             {
                 // JSon deserialize
-                CredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv3JSON, typeof(ListCredentialsRPv3));
+                CredentialList = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
 
 
                 // Display accounts in the list
@@ -137,9 +137,9 @@ namespace AMSExplorer
             }
         }
 
-        private void AddItemToListviewAccounts(CredentialsEntryV3 c)
+        private void AddItemToListviewAccounts(CredentialsEntryV4 c)
         {
-            ListViewItem item = listViewAccounts.Items.Add(c.MediaService.Name);
+            ListViewItem item = listViewAccounts.Items.Add(c.AccountName);
             listViewAccounts.Items[item.Index].ForeColor = Color.Black;
             listViewAccounts.Items[item.Index].ToolTipText = null;
         }
@@ -168,7 +168,7 @@ namespace AMSExplorer
 
             Cursor = Cursors.WaitCursor;
 
-            DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.AzureSubscriptionId, DestinationLoginInfo, this);
+            DestinationAmsClient = new AMSClientV3(DestinationLoginInfo.Environment, DestinationLoginInfo.SubscriptionId, DestinationLoginInfo, this);
 
             MediaServicesAccountResource response;
             try
@@ -197,9 +197,10 @@ namespace AMSExplorer
 
             try
             {   // let's refresh storage accounts
-                DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts = DestinationAmsClient.AMSclient.Data.StorageAccounts;
+                // TODO2023 . Restore may be this line
+                // DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts = DestinationAmsClient.AMSclient.Data.StorageAccounts;
 
-                foreach (var storage in DestinationAmsClient.credentialsEntry.MediaService.StorageAccounts)
+                foreach (var storage in DestinationAmsClient.AMSclient.Data.StorageAccounts)
                 {
                     string storageName = AMSClientV3.GetStorageName(storage.Id);
 

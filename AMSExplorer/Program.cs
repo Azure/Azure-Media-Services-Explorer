@@ -137,11 +137,14 @@ namespace AMSExplorer
 
             while (e != null)
             {
+                // TODO2023 updater this code
+                /*
                 if (e is ErrorResponseException eApi)
                 {
                     s = eApi.Body?.Error?.Message;
                 }
                 else
+                */
                 {
                     s = e.Message;
                 }

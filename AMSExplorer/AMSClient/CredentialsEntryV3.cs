@@ -23,9 +23,9 @@ using System.Text;
 
 namespace AMSExplorer
 {
-    public class CredentialsEntryV3 : IEquatable<CredentialsEntryV3>
+    public class CredentialsEntryV4 : IEquatable<CredentialsEntryV4>
     {
-        public MediaServicesAccountData MediaService;
+        // public MediaServicesAccountData MediaService;
 
         public string ADSPClientId;
 
@@ -42,7 +42,8 @@ namespace AMSExplorer
         public string SubscriptionId;
         public string ResourceGroupName;
 
-        public CredentialsEntryV3(string accountName, string subscriptionId, string resourceGroupName, AzureEnvironment environment, bool promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
+
+        public CredentialsEntryV4(string accountName, string subscriptionId, string resourceGroupName, AzureEnvironment environment, bool promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
         {
             AccountName = accountName;
             SubscriptionId = subscriptionId;
@@ -59,24 +60,6 @@ namespace AMSExplorer
             }
         }
 
-        public string ResourceGroup
-        {
-            get
-            {
-                string[] idParts = MediaService.Id.ToString().Split('/');
-                return idParts[4];
-            }
-        }
-
-        public string AzureSubscriptionId
-        {
-            get
-            {
-                string[] idParts = MediaService.Id.ToString().Split('/');
-                return idParts[2];
-            }
-        }
-
         //  A contract is used to ignore this property when saveing settings to disk
         public string ClearADSPClientSecret
         {
@@ -84,7 +67,7 @@ namespace AMSExplorer
             set => EncryptedADSPClientSecret = (value != null) ? EncryptSecret(value) : null;
         }
 
-        public bool Equals(CredentialsEntryV3 other)
+        public bool Equals(CredentialsEntryV4 other)
         {
             return false;
             /* To implement

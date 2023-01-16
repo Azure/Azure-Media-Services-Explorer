@@ -191,7 +191,7 @@ namespace AMSExplorer
                 DGLiveEvent.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, MyLiveEvent.Data.Name);
                 DGLiveEvent.Rows.Add("Id", MyLiveEvent.Data.Id);
-                DGLiveEvent.Rows.Add("Location", MyLiveEvent.Data.Location);
+                DGLiveEvent.Rows.Add("Location", MyLiveEvent.Data.Location.DisplayName);
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (LiveEventResourceState)MyLiveEvent.Data.ResourceState);
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, MyLiveEvent.Data.CreatedOn.Value.ToLocalTime().ToString("G"));
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, MyLiveEvent.Data.LastModifiedOn.Value.ToLocalTime().ToString("G"));

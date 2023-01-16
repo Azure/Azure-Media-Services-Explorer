@@ -104,8 +104,8 @@ namespace AMSExplorer
             Columns["Description"].Width = 230;
             Columns["ScaleUnits"].Width = 100;
             Columns["ScaleUnits"].HeaderText = "Streaming Units";
-            Columns["LastModified"].Width = 150;
-            Columns["LastModified"].HeaderText = "Last Modified";
+            Columns["LastModifiedOn"].Width = 150;
+            Columns["LastModifiedOn"].HeaderText = "Last Modified On";
 
             _initialized = true;
         }

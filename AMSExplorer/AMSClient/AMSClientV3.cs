@@ -16,6 +16,7 @@
 
 using AMSClient;
 using AMSExplorer.AMSLogin;
+using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
@@ -39,7 +40,7 @@ namespace AMSExplorer
     {
         public MediaServicesAccountResource AMSclient;
         public AuthenticationResult authResult;
-        public CredentialsEntryV3 credentialsEntry;
+        public CredentialsEntryV4 credentialsEntry;
         private Form _form;
         public TokenCredentials credentials;
         public BearerTokenCredential credentialForArmClient;
@@ -52,7 +53,7 @@ namespace AMSExplorer
         private readonly System.Timers.Timer TimerAutoRefreshAuthToken;
 
 
-        public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV3 myCredentialsEntry, Form form)
+        public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV4 myCredentialsEntry, Form form)
         {
             environment = myEnvironment;
             _azureSubscriptionId = azureSubscriptionId;
@@ -176,12 +177,17 @@ namespace AMSExplorer
             // new code
             var MediaServiceAccount = MediaServicesAccountResource.CreateResourceIdentifier(
                 subscriptionId: _azureSubscriptionId,
-                resourceGroupName: credentialsEntry.ResourceGroup,
+                resourceGroupName: credentialsEntry.ResourceGroupName,
                 accountName: credentialsEntry.AccountName
                 );
-            var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
-            var armClient = new ArmClient(credential);
-            AMSclient = armClient.GetMediaServicesAccountResource(MediaServiceAccount);
+            //var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
+            var armClient = new ArmClient(credentialForArmClient);
+                     
+
+            var amsClient = armClient.GetMediaServicesAccountResource(MediaServiceAccount);
+
+            AMSclient = await amsClient.GetAsync();
+                        
 
             /*
             // Getting Media Services account...

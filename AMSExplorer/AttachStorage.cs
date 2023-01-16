@@ -122,11 +122,11 @@ namespace AMSExplorer
             SubscriptionResource subscription = subscriptions.Where(s => s.Data.SubscriptionId == _amsClient.AMSclient.Data.Id.SubscriptionId).First();
             var myLocations = subscription.GetLocations().AsEnumerable();
 
-            string shortLocationName = myLocations.Where(l => l.DisplayName == _amsClient.credentialsEntry.MediaService.Location).FirstOrDefault()?.Name;
+            string shortLocationName = myLocations.Where(l => l.Name == _amsClient.AMSclient.Data.Location.Name).FirstOrDefault()?.Name;
 
             // List storage accounts in subscription
             var storageaccounts = subscription.GetStorageAccounts();
-            var storageAccountsInLoc = storageaccounts.Where(s => s.Data.Location == shortLocationName).ToList();
+            var storageAccountsInLoc = storageaccounts.Where(s => s.Data.Location.Name == shortLocationName).ToList();
 
             storageAccountsInLoc.ForEach(s =>
             {
@@ -139,7 +139,7 @@ namespace AMSExplorer
             }
           );
 
-            labelAttachFromList.Text = string.Format(labelAttachFromList.Text, _amsClient.credentialsEntry.MediaService.Location);
+            labelAttachFromList.Text = string.Format(labelAttachFromList.Text, _amsClient.AMSclient.Data.Location.DisplayName);
             buttonAttach.Enabled = true;
         }
 
