@@ -202,7 +202,7 @@ namespace AMSExplorer
                 LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
 
                 textBoxDescription.Text = LoginInfo.Description;
-                //textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
+                textBoxResourceGroup.Text = LoginInfo.ResourceGroupName;
                 textBoxAADtenantId.Text = LoginInfo.AadTenantId;
 
                 DoEnableManualFields(false);
@@ -217,7 +217,7 @@ namespace AMSExplorer
         private void DoEnableManualFields(bool enable)
         {
             textBoxAADtenantId.Enabled =
-            textBoxAMSResourceId.Enabled =
+            textBoxResourceGroup.Enabled =
                                     enable;
         }
 
