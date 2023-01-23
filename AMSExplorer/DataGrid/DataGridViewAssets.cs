@@ -118,7 +118,7 @@ namespace AMSExplorer
                 AssetId = a.Data.AssetId,
                 //Type = a.Data.Type, //TODO2023
                 AlternateId = a.Data.AlternateId,
-                CreatedOn = a.Data.CreatedOn?.ToLocalTime().ToString("G"),
+                CreatedOn = a.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"),
                 StorageAccountName = a.Data.StorageAccountName,
                 Filters = null
             }
@@ -271,8 +271,8 @@ namespace AMSExplorer
 
                         AE.AlternateId = asset.Data.AlternateId;
                         AE.Description = asset.Data.Description;
-                        AE.CreatedOn = asset.Data.CreatedOn?.ToLocalTime().ToString("G");
-                        AE.LastModifiedOn = asset.Data.LastModifiedOn?.ToLocalTime().ToString("G");
+                        AE.CreatedOn = asset.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G");
+                        AE.LastModifiedOn = asset.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G");
                         AE.Name = asset.Data.Name;
 
                         IList<MediaAssetStreamingLocator> locators = null;
@@ -607,7 +607,7 @@ Properties/StorageId
                 assets = currentPage.Select(a =>
            (cacheAssetentriesV3.ContainsKey(a.Data.Name)
               && cacheAssetentriesV3[a.Data.Name].LastModifiedOn != null
-              && (cacheAssetentriesV3[a.Data.Name].LastModifiedOn == a.Data.LastModifiedOn?.ToLocalTime().ToString("G")) ?
+              && (cacheAssetentriesV3[a.Data.Name].LastModifiedOn == a.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G")) ?
               cacheAssetentriesV3[a.Data.Name] :
            new AssetEntry(_syncontext)
            {
@@ -615,8 +615,8 @@ Properties/StorageId
                Description = a.Data.Description,
                AssetId = a.Data.AssetId,
                AlternateId = a.Data.AlternateId,
-               CreatedOn = a.Data.CreatedOn?.ToLocalTime().ToString("G"),
-               LastModifiedOn = a.Data.LastModifiedOn?.ToLocalTime().ToString("G"),
+               CreatedOn = a.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"),
+               LastModifiedOn = a.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"),
                StorageAccountName = a.Data.StorageAccountName
            }
         ));

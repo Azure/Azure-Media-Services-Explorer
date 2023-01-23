@@ -76,8 +76,8 @@ namespace AMSExplorer
             DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _transform.Data.Name);
             DGTransform.Rows.Add("Description", _transform.Data.Description);
             DGTransform.Rows.Add("Id", _transform.Data.Id);
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _transform.Data.CreatedOn?.ToLocalTime().ToString("G"));
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _transform.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _transform.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _transform.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
 
             bool boutoutsintransform = (_transform.Data.Outputs.Count > 0);
 

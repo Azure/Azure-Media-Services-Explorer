@@ -878,8 +878,8 @@ namespace AMSExplorer
             infoStr.Add("Storage account", MyAsset.Data.StorageAccountName);
             infoStr.Add("Storage Encryption", MyAsset.Data.StorageEncryptionFormat.ToString());
 
-            infoStr.Add("Created (UTC)", MyAsset.Data.CreatedOn.ToString());
-            infoStr.Add("Last Modified (UTC)", MyAsset.Data.LastModifiedOn.ToString());
+            infoStr.Add("Created (UTC)", MyAsset.Data.CreatedOn?.UtcDateTime.ToString());
+            infoStr.Add("Last Modified (UTC)", MyAsset.Data.LastModifiedOn?.UtcDateTime.ToString());
 
             infoStr.Add(string.Empty);
 
@@ -897,7 +897,7 @@ namespace AMSExplorer
                         infoStr.Add("   Blob length", blobc.Properties.Length + " Bytes");
                         infoStr.Add("   Content type", blobc.Properties.ContentType);
                         infoStr.Add("   Created (UTC)", blobc.Properties.Created?.ToString("G"));
-                        infoStr.Add("   Last modified (UTC)", blobc.Properties.LastModified?.ToString("G"));
+                        infoStr.Add("   Last modified (UTC)", blobc.Properties.LastModified?.UtcDateTime.ToString("G"));
                         infoStr.Add("   Server Encrypted", blobc.Properties.IsServerEncrypted.ToString());
                         infoStr.Add("   Content MD5", blobc.Properties.ContentMD5);
                         infoStr.Add(string.Empty);
@@ -984,8 +984,8 @@ namespace AMSExplorer
 
                 infoStr.Add("   Locator Name", locator.Data.Name);
                 infoStr.Add("   Id", locator.Data.StreamingLocatorId.ToString());
-                infoStr.Add("   Start Time", locator.Data.StartOn?.ToString());
-                infoStr.Add("   End Time", locator.Data.EndOn?.ToString());
+                infoStr.Add("   Start Time (UTC)", locator.Data.StartOn?.UtcDateTime.ToString());
+                infoStr.Add("   End Time (UTC)", locator.Data.EndOn?.UtcDateTime.ToString());
                 infoStr.Add("   Streaming Policy Name", locator.Data.StreamingPolicyName);
                 infoStr.Add("   Default Content Key Policy Name", locator.Data.DefaultContentKeyPolicyName);
                 infoStr.Add("   Associated filters", string.Join(", ", locator.Data.Filters.ToArray()));

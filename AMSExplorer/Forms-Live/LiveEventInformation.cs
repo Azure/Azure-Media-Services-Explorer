@@ -193,8 +193,8 @@ namespace AMSExplorer
                 DGLiveEvent.Rows.Add("Id", MyLiveEvent.Data.Id);
                 DGLiveEvent.Rows.Add("Location", MyLiveEvent.Data.Location.DisplayName);
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (LiveEventResourceState)MyLiveEvent.Data.ResourceState);
-                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, MyLiveEvent.Data.CreatedOn.Value.ToLocalTime().ToString("G"));
-                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, MyLiveEvent.Data.LastModifiedOn.Value.ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, MyLiveEvent.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, MyLiveEvent.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Description, MyLiveEvent.Data.Description);
                 DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_InputProtocol, MyLiveEvent.Data.Input.StreamingProtocol);
 

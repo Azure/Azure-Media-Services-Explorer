@@ -134,8 +134,8 @@ namespace AMSExplorer
                 DGOrigin.Rows.Add("CDNProfile", MySE.Data.CdnProfile ?? Constants.stringNull);
                 DGOrigin.Rows.Add("CDNProvider", MySE.Data.CdnProvider ?? Constants.stringNull);
                 DGOrigin.Rows.Add("FreeTrialEndOn", MySE.Data.FreeTrialEndOn?.ToLocalTime().ToString("G"));
-                DGOrigin.Rows.Add("CreatedOn", MySE.Data.CreatedOn?.ToLocalTime().ToString("G"));
-                DGOrigin.Rows.Add("LastModifiedOn", MySE.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("CreatedOn", MySE.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+                DGOrigin.Rows.Add("LastModifiedOn", MySE.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
                 DGOrigin.Rows.Add("Id", MySE.Data.Id);
                 DGOrigin.Rows.Add("Location", MySE.Data.Location.DisplayName);
                 DGOrigin.Rows.Add("ProvisioningState", MySE.Data.ProvisioningState);

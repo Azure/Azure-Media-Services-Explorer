@@ -20,8 +20,8 @@ namespace AMSExplorer.Utils.JobInfo
             infoStr.Add("Based on transform", MyJobExt.TransformName);
             infoStr.Add("Description", MyJob.Data.Description);
             infoStr.Add("Id", MyJob.Data.Id);
-            infoStr.Add("Created (UTC)", MyJob.Data.CreatedOn.ToString());
-            infoStr.Add("Last Modified (UTC)", MyJob.Data.LastModifiedOn.ToString());
+            infoStr.Add("Created (UTC)", MyJob.Data.CreatedOn?.UtcDateTime.ToString());
+            infoStr.Add("Last Modified (UTC)", MyJob.Data.LastModifiedOn?.UtcDateTime.ToString());
             infoStr.Add("Priority", MyJob.Data.Priority.ToString());
             infoStr.Add("State", MyJob.Data.State.ToString());
 
@@ -111,9 +111,9 @@ namespace AMSExplorer.Utils.JobInfo
                 infoStr.Add("   Output state", output.State.ToString());
 
                 if (output.StartOn != null)
-                    infoStr.Add("   Output start time", output.StartOn?.ToString());
+                    infoStr.Add("   Output start time (UTC)", output.StartOn?.UtcDateTime.ToString());
                 if (output.EndOn != null)
-                    infoStr.Add("   Output end time", output.EndOn?.ToString());
+                    infoStr.Add("   Output end time (UTC)", output.EndOn?.UtcDateTime.ToString());
 
                 if (output.Error != null && output.Error.Details != null)
                 {

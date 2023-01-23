@@ -106,8 +106,8 @@ namespace AMSExplorer
             DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_Priority, _job.Data.Priority);
             //DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_OverallProgress, MyJob.GetOverallProgress());
 
-            if (_job.Data.StartOn.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, _job.Data.StartOn?.ToLocalTime().ToString("G"));
-            if (_job.Data.EndOn.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, _job.Data.EndOn?.ToLocalTime().ToString("G"));
+            if (_job.Data.StartOn.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_StartTime, _job.Data.StartOn?.DateTime.ToLocalTime().ToString("G"));
+            if (_job.Data.EndOn.HasValue) DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_EndTime, _job.Data.EndOn?.DateTime.ToLocalTime().ToString("G"));
 
             if ((_job.Data.StartOn.HasValue) && (_job.Data.EndOn.HasValue))
             {
@@ -115,8 +115,8 @@ namespace AMSExplorer
             }
 
             // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_CPUDuration, MyJob.RunningDuration);
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _job.Data.CreatedOn?.ToLocalTime().ToString("G"));
-            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _job.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _job.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+            DGJob.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _job.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
             // DGJob.Rows.Add(AMSExplorer.Properties.Resources.JobInformation_JobInformation_Load_TemplateId, MyJob.TemplateId);
 
             /*

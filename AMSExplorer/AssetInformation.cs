@@ -342,6 +342,10 @@ namespace AMSExplorer
                 }
                 listViewTracks.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             }
+            catch (RequestFailedException ex) when (ex.Status == ((int)System.Net.HttpStatusCode.Conflict))
+            {
+                // No tracks
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -416,8 +420,8 @@ namespace AMSExplorer
                 DGAsset.Rows.Add("Size", AssetTools.FormatByteSize(MyAssetTypeInfo.Size));
             }
 
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _asset.Data.CreatedOn.Value.ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _asset.Data.LastModifiedOn.Value.ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _asset.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _asset.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
 
             if (_streamingEndpoints == null)
             {
@@ -698,9 +702,9 @@ namespace AMSExplorer
                     LocTreeAddTextEntryToNode(indexloc, 0, "Streaming policy name: {0}", locator.Data.StreamingPolicyName);
                     LocTreeAddTextEntryToNode(indexloc, 0, "Default content key policy name: {0}", locator.Data.DefaultContentKeyPolicyName);
                     LocTreeAddTextEntryToNode(indexloc, 0, "Alt media Id: {0}", locator.Data.AlternativeMediaId);
-                    LocTreeAddTextEntryToNode(indexloc, 0, "Created: {0}", locator.Data.CreatedOn.ToString());
-                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.Data.StartOn.ToString());
-                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, locator.Data.EndOn.ToString());
+                    LocTreeAddTextEntryToNode(indexloc, 0, "Created: {0}", locator.Data.CreatedOn?.DateTime.ToString());
+                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.Data.StartOn?.DateTime.ToString());
+                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, locator.Data.EndOn?.DateTime.ToString());
                     LocTreeAddTextEntryToNode(indexloc, 0, "Filters: {0}", string.Join(", ", locator.Data.Filters.ToArray()));
 
                     int indexn = 1;

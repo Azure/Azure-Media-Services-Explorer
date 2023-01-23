@@ -155,15 +155,14 @@
             // 
             // tabControlPlayReadySettings
             // 
-            resources.ApplyResources(this.tabControlPlayReadySettings, "tabControlPlayReadySettings");
             this.tabControlPlayReadySettings.Controls.Add(this.tabPage3);
             this.tabControlPlayReadySettings.Controls.Add(this.tabPage1);
+            resources.ApplyResources(this.tabControlPlayReadySettings, "tabControlPlayReadySettings");
             this.tabControlPlayReadySettings.Name = "tabControlPlayReadySettings";
             this.tabControlPlayReadySettings.SelectedIndex = 0;
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.comboBoxContentType);
@@ -172,26 +171,27 @@
             this.tabPage3.Controls.Add(this.groupBoxFirstPlay);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.comboBoxLicenseType);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.panelGrace);
             this.groupBox1.Controls.Add(this.checkBoxGrace);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // panelGrace
             // 
-            resources.ApplyResources(this.panelGrace, "panelGrace");
             this.panelGrace.Controls.Add(this.label12);
             this.panelGrace.Controls.Add(this.label14);
             this.panelGrace.Controls.Add(this.label15);
             this.panelGrace.Controls.Add(this.numericUpDownGraceMin);
             this.panelGrace.Controls.Add(this.numericUpDownGraceHours);
             this.panelGrace.Controls.Add(this.numericUpDownGraceDays);
+            resources.ApplyResources(this.panelGrace, "panelGrace");
             this.panelGrace.Name = "panelGrace";
             // 
             // label12
@@ -258,27 +258,27 @@
             // 
             // comboBoxContentType
             // 
-            resources.ApplyResources(this.comboBoxContentType, "comboBoxContentType");
             this.comboBoxContentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxContentType.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxContentType, "comboBoxContentType");
             this.comboBoxContentType.Name = "comboBoxContentType";
             // 
             // groupBoxEndDate
             // 
-            resources.ApplyResources(this.groupBoxEndDate, "groupBoxEndDate");
             this.groupBoxEndDate.Controls.Add(this.panelEndDateAbsolute);
             this.groupBoxEndDate.Controls.Add(this.panelEndDateRelative);
             this.groupBoxEndDate.Controls.Add(this.radioButtonEndDateRelative);
             this.groupBoxEndDate.Controls.Add(this.radioButtonEndDateAbsolute);
             this.groupBoxEndDate.Controls.Add(this.checkBoxEndDate);
+            resources.ApplyResources(this.groupBoxEndDate, "groupBoxEndDate");
             this.groupBoxEndDate.Name = "groupBoxEndDate";
             this.groupBoxEndDate.TabStop = false;
             // 
             // panelEndDateAbsolute
             // 
-            resources.ApplyResources(this.panelEndDateAbsolute, "panelEndDateAbsolute");
             this.panelEndDateAbsolute.Controls.Add(this.dateTimePickerEndDate);
             this.panelEndDateAbsolute.Controls.Add(this.dateTimePickerEndTime);
+            resources.ApplyResources(this.panelEndDateAbsolute, "panelEndDateAbsolute");
             this.panelEndDateAbsolute.Name = "panelEndDateAbsolute";
             // 
             // dateTimePickerEndDate
@@ -298,13 +298,13 @@
             // 
             // panelEndDateRelative
             // 
-            resources.ApplyResources(this.panelEndDateRelative, "panelEndDateRelative");
             this.panelEndDateRelative.Controls.Add(this.label4);
             this.panelEndDateRelative.Controls.Add(this.label2);
             this.panelEndDateRelative.Controls.Add(this.numericUpDownEndDateHours);
             this.panelEndDateRelative.Controls.Add(this.numericUpDownEndDateMinutes);
             this.panelEndDateRelative.Controls.Add(this.label3);
             this.panelEndDateRelative.Controls.Add(this.numericUpDownEndDateDays);
+            resources.ApplyResources(this.panelEndDateRelative, "panelEndDateRelative");
             this.panelEndDateRelative.Name = "panelEndDateRelative";
             // 
             // label4
@@ -382,12 +382,12 @@
             // 
             // groupBoxStartDate
             // 
-            resources.ApplyResources(this.groupBoxStartDate, "groupBoxStartDate");
             this.groupBoxStartDate.Controls.Add(this.checkBoxStartDate);
             this.groupBoxStartDate.Controls.Add(this.panelStartDateAbsolute);
             this.groupBoxStartDate.Controls.Add(this.radioButtonStartDateAbsolute);
             this.groupBoxStartDate.Controls.Add(this.panelStartDateRelative);
             this.groupBoxStartDate.Controls.Add(this.radioButtonStartDateRelative);
+            resources.ApplyResources(this.groupBoxStartDate, "groupBoxStartDate");
             this.groupBoxStartDate.Name = "groupBoxStartDate";
             this.groupBoxStartDate.TabStop = false;
             // 
@@ -400,9 +400,9 @@
             // 
             // panelStartDateAbsolute
             // 
-            resources.ApplyResources(this.panelStartDateAbsolute, "panelStartDateAbsolute");
             this.panelStartDateAbsolute.Controls.Add(this.dateTimePickerStartTime);
             this.panelStartDateAbsolute.Controls.Add(this.dateTimePickerStartDate);
+            resources.ApplyResources(this.panelStartDateAbsolute, "panelStartDateAbsolute");
             this.panelStartDateAbsolute.Name = "panelStartDateAbsolute";
             // 
             // dateTimePickerStartTime
@@ -431,13 +431,13 @@
             // 
             // panelStartDateRelative
             // 
-            resources.ApplyResources(this.panelStartDateRelative, "panelStartDateRelative");
             this.panelStartDateRelative.Controls.Add(this.label5);
             this.panelStartDateRelative.Controls.Add(this.label6);
             this.panelStartDateRelative.Controls.Add(this.numericUpDownStartDateHours);
             this.panelStartDateRelative.Controls.Add(this.numericUpDownStartDateMinutes);
             this.panelStartDateRelative.Controls.Add(this.label7);
             this.panelStartDateRelative.Controls.Add(this.numericUpDownStartDateDays);
+            resources.ApplyResources(this.panelStartDateRelative, "panelStartDateRelative");
             this.panelStartDateRelative.Name = "panelStartDateRelative";
             // 
             // label5
@@ -494,21 +494,21 @@
             // 
             // groupBoxFirstPlay
             // 
-            resources.ApplyResources(this.groupBoxFirstPlay, "groupBoxFirstPlay");
             this.groupBoxFirstPlay.Controls.Add(this.panelFirstPlayExpiration);
             this.groupBoxFirstPlay.Controls.Add(this.checkBoxFPExp);
+            resources.ApplyResources(this.groupBoxFirstPlay, "groupBoxFirstPlay");
             this.groupBoxFirstPlay.Name = "groupBoxFirstPlay";
             this.groupBoxFirstPlay.TabStop = false;
             // 
             // panelFirstPlayExpiration
             // 
-            resources.ApplyResources(this.panelFirstPlayExpiration, "panelFirstPlayExpiration");
             this.panelFirstPlayExpiration.Controls.Add(this.label11);
             this.panelFirstPlayExpiration.Controls.Add(this.label10);
             this.panelFirstPlayExpiration.Controls.Add(this.label9);
             this.panelFirstPlayExpiration.Controls.Add(this.numericUpDownFPExpMinutes);
             this.panelFirstPlayExpiration.Controls.Add(this.numericUpDownFPExpHours);
             this.panelFirstPlayExpiration.Controls.Add(this.numericUpDownFPExpDays);
+            resources.ApplyResources(this.panelFirstPlayExpiration, "panelFirstPlayExpiration");
             this.panelFirstPlayExpiration.Name = "panelFirstPlayExpiration";
             // 
             // label11
@@ -578,15 +578,14 @@
             // 
             // comboBoxLicenseType
             // 
-            resources.ApplyResources(this.comboBoxLicenseType, "comboBoxLicenseType");
             this.comboBoxLicenseType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLicenseType.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxLicenseType, "comboBoxLicenseType");
             this.comboBoxLicenseType.Name = "comboBoxLicenseType";
             this.comboBoxLicenseType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxType_SelectedIndexChanged);
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.numericUpDownAnalogVideoOPL);
             this.tabPage1.Controls.Add(this.checkBoxAnalogVideoOPL);
             this.tabPage1.Controls.Add(this.numericUpDownUncompressedDigitalVideoOPL);
@@ -603,6 +602,7 @@
             this.tabPage1.Controls.Add(this.checkBoxDigitalVideoOnlyContentRestriction);
             this.tabPage1.Controls.Add(this.labelAllowPassingVideoContentToUnknownOuput);
             this.tabPage1.Controls.Add(this.comboBoxAllowPassingVideoContentUnknownOutput);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
@@ -615,11 +615,21 @@
             0,
             0});
             this.numericUpDownAnalogVideoOPL.Maximum = new decimal(new int[] {
-            10000,
+            200,
+            0,
+            0,
+            0});
+            this.numericUpDownAnalogVideoOPL.Minimum = new decimal(new int[] {
+            100,
             0,
             0,
             0});
             this.numericUpDownAnalogVideoOPL.Name = "numericUpDownAnalogVideoOPL";
+            this.numericUpDownAnalogVideoOPL.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.numericUpDownAnalogVideoOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // checkBoxAnalogVideoOPL
@@ -633,16 +643,26 @@
             // 
             resources.ApplyResources(this.numericUpDownUncompressedDigitalVideoOPL, "numericUpDownUncompressedDigitalVideoOPL");
             this.numericUpDownUncompressedDigitalVideoOPL.Increment = new decimal(new int[] {
-            50,
+            10,
             0,
             0,
             0});
             this.numericUpDownUncompressedDigitalVideoOPL.Maximum = new decimal(new int[] {
-            10000,
+            300,
+            0,
+            0,
+            0});
+            this.numericUpDownUncompressedDigitalVideoOPL.Minimum = new decimal(new int[] {
+            100,
             0,
             0,
             0});
             this.numericUpDownUncompressedDigitalVideoOPL.Name = "numericUpDownUncompressedDigitalVideoOPL";
+            this.numericUpDownUncompressedDigitalVideoOPL.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.numericUpDownUncompressedDigitalVideoOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // numericUpDownUncompressedDigitalAudioOPL
@@ -654,27 +674,47 @@
             0,
             0});
             this.numericUpDownUncompressedDigitalAudioOPL.Maximum = new decimal(new int[] {
-            10000,
+            300,
+            0,
+            0,
+            0});
+            this.numericUpDownUncompressedDigitalAudioOPL.Minimum = new decimal(new int[] {
+            100,
             0,
             0,
             0});
             this.numericUpDownUncompressedDigitalAudioOPL.Name = "numericUpDownUncompressedDigitalAudioOPL";
+            this.numericUpDownUncompressedDigitalAudioOPL.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.numericUpDownUncompressedDigitalAudioOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // numericUpDownCompressedDigitalVideoOPL
             // 
             resources.ApplyResources(this.numericUpDownCompressedDigitalVideoOPL, "numericUpDownCompressedDigitalVideoOPL");
             this.numericUpDownCompressedDigitalVideoOPL.Increment = new decimal(new int[] {
-            50,
+            100,
             0,
             0,
             0});
             this.numericUpDownCompressedDigitalVideoOPL.Maximum = new decimal(new int[] {
-            10000,
+            500,
+            0,
+            0,
+            0});
+            this.numericUpDownCompressedDigitalVideoOPL.Minimum = new decimal(new int[] {
+            400,
             0,
             0,
             0});
             this.numericUpDownCompressedDigitalVideoOPL.Name = "numericUpDownCompressedDigitalVideoOPL";
+            this.numericUpDownCompressedDigitalVideoOPL.Value = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
             this.numericUpDownCompressedDigitalVideoOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // numericUpDownCompressedDigitalAudioOPL
@@ -686,11 +726,21 @@
             0,
             0});
             this.numericUpDownCompressedDigitalAudioOPL.Maximum = new decimal(new int[] {
-            10000,
+            300,
+            0,
+            0,
+            0});
+            this.numericUpDownCompressedDigitalAudioOPL.Minimum = new decimal(new int[] {
+            100,
             0,
             0,
             0});
             this.numericUpDownCompressedDigitalAudioOPL.Name = "numericUpDownCompressedDigitalAudioOPL";
+            this.numericUpDownCompressedDigitalAudioOPL.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.numericUpDownCompressedDigitalAudioOPL.ValueChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
             // checkBoxAllowTestDevices
@@ -756,9 +806,9 @@
             // 
             // comboBoxAllowPassingVideoContentUnknownOutput
             // 
-            resources.ApplyResources(this.comboBoxAllowPassingVideoContentUnknownOutput, "comboBoxAllowPassingVideoContentUnknownOutput");
             this.comboBoxAllowPassingVideoContentUnknownOutput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAllowPassingVideoContentUnknownOutput.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxAllowPassingVideoContentUnknownOutput, "comboBoxAllowPassingVideoContentUnknownOutput");
             this.comboBoxAllowPassingVideoContentUnknownOutput.Name = "comboBoxAllowPassingVideoContentUnknownOutput";
             this.comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndexChanged += new System.EventHandler(this.Value_SelectedIndexChanged);
             // 
@@ -788,10 +838,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelstep

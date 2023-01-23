@@ -64,7 +64,7 @@ namespace AMSExplorer
         public MediaServicesAccountResource MediaServiceCreated { get; private set; }
 
 
-        public CreateAccount(List<LocationExpanded> locations,  TokenCredentials tokenCredentials, List<string> listRegionWithAvailabilityZone, SubscriptionResource subscription)
+        public CreateAccount(List<LocationExpanded> locations, TokenCredentials tokenCredentials, List<string> listRegionWithAvailabilityZone, SubscriptionResource subscription)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -161,7 +161,7 @@ namespace AMSExplorer
 
             try
             {
-                var availability = _subscription.CheckMediaServicesNameAvailability(SelectedLocationName, new MediaServicesNameAvailabilityContent {  Name =AccountName, ResourceType = "Microsoft.Media/mediaservices" }).Value;
+                var availability = _subscription.CheckMediaServicesNameAvailability(SelectedLocationName, new MediaServicesNameAvailabilityContent { Name = AccountName, ResourceType = "Microsoft.Media/mediaservices" }).Value;
                 /*var availability = _mediaServicesClient.Locations.CheckNameAvailability(
                                         type: "Microsoft.Media/mediaservices",
                                         locationName: SelectedLocationName,
@@ -279,7 +279,7 @@ namespace AMSExplorer
                     // New storage account
                     StorageManagementClient storageManagementClient = new(_tokenCredentials)
                     {
-                        SubscriptionId = _subscription.Data.Id// _mediaServicesClient.SubscriptionId
+                        SubscriptionId = _subscription.Data.Id.SubscriptionId// _mediaServicesClient.SubscriptionId
                     };
 
                     StorageAccountCreateParameters parametersStorage = new StorageAccountCreateParameters
@@ -314,8 +314,10 @@ namespace AMSExplorer
                             Id = new ResourceIdentifier(storageId)
 
                         }
-                    }
-                    });
+                     }
+                     });
+
+                MediaServiceCreated = createAccountOperation.Value;
 
                 MessageBox.Show($"Account '{AccountName}' has been successfully created." + Constants.endline + createAccountOperation.GetRawResponse(), "Account creation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -351,7 +353,7 @@ namespace AMSExplorer
         {
             StorageManagementClient storageManagementClient = new(_tokenCredentials)
             {
-                SubscriptionId = _subscription.Data.Id//_mediaServicesClient.SubscriptionId
+                SubscriptionId = _subscription.Data.Id.SubscriptionId//_mediaServicesClient.SubscriptionId
             };
             var availability = await storageManagementClient.StorageAccounts.CheckNameAvailabilityAsync(textBoxNewStorageName.Text);
 

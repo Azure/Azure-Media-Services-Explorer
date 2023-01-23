@@ -104,8 +104,8 @@ namespace AMSExplorer
                 DGLiveEvent.Rows.Add("Name", _liveOutput.Data.Name);
                 DGLiveEvent.Rows.Add("Id", _liveOutput.Data.Id);
                 DGLiveEvent.Rows.Add("State", _liveOutput.Data.ResourceState);
-                DGLiveEvent.Rows.Add("Created", _liveOutput.Data.CreatedOn?.ToLocalTime().ToString("G"));
-                DGLiveEvent.Rows.Add("Last Modified", _liveOutput.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add("Created", _liveOutput.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add("Last Modified", _liveOutput.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
                 DGLiveEvent.Rows.Add("Description", _liveOutput.Data.Description);
                 DGLiveEvent.Rows.Add("Archive Window Length", _liveOutput.Data.ArchiveWindowLength);
                 DGLiveEvent.Rows.Add("Manifest Name", _liveOutput.Data.ManifestName);

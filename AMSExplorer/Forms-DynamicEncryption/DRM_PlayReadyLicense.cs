@@ -24,6 +24,7 @@ namespace AMSExplorer
 {
     public partial class DRM_PlayReadyLicense : Form
     {
+        private bool _initialized = false;
 
         public ContentKeyPolicyPlayReadyConfiguration GetPlayReadyConfiguration
         {
@@ -240,7 +241,7 @@ namespace AMSExplorer
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Allowed);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.AllowedWithVideoConstriction);
             comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.NotAllowed);
-            //comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown);
+            comboBoxAllowPassingVideoContentUnknownOutput.Items.Add(ContentKeyPolicyPlayReadyUnknownOutputPassingOption.Unknown);
             comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndex = 0;
             comboBoxAllowPassingVideoContentUnknownOutput.EndUpdate();
 
@@ -253,11 +254,12 @@ namespace AMSExplorer
             comboBoxContentType.EndUpdate();
             
             labelWarning.Text = string.Empty;
-
         }
 
         private void CheckBoxStartDate_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             radioButtonStartDateAbsolute.Enabled = checkBoxStartDate.Checked;
             radioButtonStartDateRelative.Enabled = checkBoxStartDate.Checked;
             panelStartDateAbsolute.Enabled = checkBoxStartDate.Checked && radioButtonStartDateAbsolute.Checked;
@@ -268,6 +270,8 @@ namespace AMSExplorer
 
         private void CheckBoxEndDate_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             radioButtonEndDateAbsolute.Enabled = checkBoxEndDate.Checked;
             radioButtonEndDateRelative.Enabled = checkBoxEndDate.Checked;
             panelEndDateAbsolute.Enabled = checkBoxStartDate.Checked && radioButtonStartDateAbsolute.Checked;
@@ -278,30 +282,40 @@ namespace AMSExplorer
 
         private void DateTimePickerStartDate_ValueChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             dateTimePickerStartTime.Value = dateTimePickerStartDate.Value;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void DateTimePickerStartTime_ValueChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             dateTimePickerStartDate.Value = dateTimePickerStartTime.Value;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void DateTimePickerEndDate_ValueChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             dateTimePickerEndTime.Value = dateTimePickerEndDate.Value;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void DateTimePickerEndTime_ValueChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             dateTimePickerEndDate.Value = dateTimePickerEndTime.Value;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void Value_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             bool Error = false;
             try
             {
@@ -321,36 +335,48 @@ namespace AMSExplorer
 
         private void CheckBoxCompressedDigitalAudioOPL_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             numericUpDownCompressedDigitalAudioOPL.Enabled = checkBoxCompressedDigitalAudioOPL.Checked;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void CheckBoxCompressedDigitalVideoOPL_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             numericUpDownCompressedDigitalVideoOPL.Enabled = checkBoxCompressedDigitalVideoOPL.Checked;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void CheckBoxUncompressedDigitalAudioOPL_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             numericUpDownUncompressedDigitalAudioOPL.Enabled = checkBoxUncompressedDigitalAudioOPL.Checked;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void CheckBoxUncompressedDigitalVideoOPL_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             numericUpDownUncompressedDigitalVideoOPL.Enabled = checkBoxUncompressedDigitalVideoOPL.Checked;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void CheckBoxAnalogVideoOPL_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             numericUpDownAnalogVideoOPL.Enabled = checkBoxAnalogVideoOPL.Checked;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void ComboBoxType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             if (comboBoxLicenseType.SelectedItem.ToString() == ContentKeyPolicyPlayReadyLicenseType.NonPersistent.ToString())  // Non persistent
             {
                 groupBoxFirstPlay.Enabled = false;
@@ -371,24 +397,32 @@ namespace AMSExplorer
 
         private void CheckBoxFPExp_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             panelFirstPlayExpiration.Enabled = checkBoxFPExp.Checked;
             Value_SelectedIndexChanged(sender, e);
         }
 
         private void RadioButtonsStartDate_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             panelStartDateAbsolute.Enabled = radioButtonStartDateAbsolute.Checked;
             panelStartDateRelative.Enabled = radioButtonStartDateRelative.Checked;
         }
 
         private void RadioButtonsEndDate_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             panelEndDateAbsolute.Enabled = radioButtonEndDateAbsolute.Checked;
             panelEndDateRelative.Enabled = radioButtonEndDateRelative.Checked;
         }
 
         private void CheckBoxGrace_CheckedChanged(object sender, EventArgs e)
         {
+            if (!_initialized) return;
+
             panelGrace.Enabled = checkBoxGrace.Checked;
             Value_SelectedIndexChanged(sender, e);
         }
@@ -400,6 +434,7 @@ namespace AMSExplorer
         private void DRM_PlayReadyLicense_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+            _initialized = true;
         }
     }
 }

@@ -18,8 +18,8 @@ namespace AMSExplorer.Utils.TransformInfo
             infoStr.Add("Transform name", transform.Name);
             infoStr.Add("Description", transform.Description);
             infoStr.Add("Id", transform.Id);
-            infoStr.Add("Created (UTC)", transform.CreatedOn?.ToString() + " " + transform.CreatedOn?.ToString());
-            infoStr.Add("Last Modified (UTC)", transform.LastModifiedOn.ToString() + " " + transform.LastModifiedOn.ToString());
+            infoStr.Add("Created (UTC)", transform.CreatedOn?.UtcDateTime.ToString());
+            infoStr.Add("Last Modified (UTC)", transform.LastModifiedOn?.UtcDateTime.ToString());
             infoStr.Add(string.Empty);
 
             if (transform.Outputs.Count > 0)
@@ -31,7 +31,6 @@ namespace AMSExplorer.Utils.TransformInfo
 
                     infoStr.Add("   Preset type", output.Preset.GetType().ToString());
                     infoStr.Add("   Relative priority", output.RelativePriority.ToString());
-
                     var presetRest = transformRest.Properties.Outputs.Skip(indexO).Take(1).FirstOrDefault().Preset;
                     string presetJson = JsonConvert.SerializeObject(presetRest, Formatting.None);
 
