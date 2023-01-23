@@ -204,6 +204,7 @@ namespace AMSExplorer
                 textBoxDescription.Text = LoginInfo.Description;
                 textBoxResourceGroup.Text = LoginInfo.ResourceGroupName;
                 textBoxAADtenantId.Text = LoginInfo.AadTenantId;
+                textBoxSubscription.Text = LoginInfo.SubscriptionId;
 
                 DoEnableManualFields(false);
                 groupBoxAADAutMode.Visible = true;

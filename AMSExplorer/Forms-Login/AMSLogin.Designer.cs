@@ -56,6 +56,8 @@
             this.listViewAccounts = new System.Windows.Forms.ListView();
             this.linkLabelAMSOfflineDoc = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxSubscription = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxAADAutMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
@@ -228,13 +230,25 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.labelE2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxResourceGroup, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelADTenant, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxAADtenantId, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxDescription, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxSubscription, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxDescription, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxResourceGroup, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.labelE2, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.labelADTenant, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxAADtenantId, 0, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // textBoxSubscription
+            // 
+            resources.ApplyResources(this.textBoxSubscription, "textBoxSubscription");
+            this.textBoxSubscription.Name = "textBoxSubscription";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
             // 
             // errorProvider1
             // 
@@ -307,5 +321,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabelAMSOfflineDoc;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox textBoxSubscription;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -126,7 +126,16 @@ namespace AMSExplorer
             int? nbLocators = null;
 
 
-            var listContent = new List<object>() { asset.Data.Name, asset.Data.Description, asset.Data.AlternateId, asset.Data.AssetId.ToString(), returnDate(localtime, asset.Data.CreatedOn), returnDate(localtime, asset.Data.LastModifiedOn), asset.Data.StorageAccountName, asset.Data.Container };
+            var listContent = new List<object>() {
+                asset.Data.Name,
+                asset.Data.Description?? "",
+                asset.Data.AlternateId?? "",
+                asset.Data.AssetId.ToString(),
+                returnDate(localtime, asset.Data.CreatedOn),
+                returnDate(localtime, asset.Data.LastModifiedOn),
+                asset.Data.StorageAccountName,
+                asset.Data.Container
+            };
             if (detailed)
             {
                 var assetType = await AssetTools.GetAssetTypeAsync(asset, _amsClient);
@@ -161,14 +170,18 @@ namespace AMSExplorer
             return (nbLocators, CreateNewRow(listContent));
         }
 
+        /*
         private static DateTime returnDate(bool localtime, DateTime time)
         {
             return localtime ? time.ToLocalTime() : time;
         }
+        */
 
-        private static DateTimeOffset returnDate(bool localtime, DateTimeOffset? time)
+        private static DateTime? returnDate(bool localtime, DateTimeOffset? time)
         {
-            return localtime ? (DateTimeOffset)time?.ToLocalTime() : (DateTimeOffset)time;
+            if (time == null) return (DateTime?) null;
+
+            return localtime ? ((DateTimeOffset)time?.ToLocalTime()).DateTime : ((DateTimeOffset)time).DateTime;
         }
 
         private async Task<CsvLineResult> ExportAssetCSVLineAsync(MediaAssetResource asset, bool detailed, bool localtime, List<StreamingEndpointResource> seList)
@@ -178,8 +191,8 @@ namespace AMSExplorer
             List<string> linec = new List<string>
             {
                 asset.Data.Name,
-                asset.Data.Description,
-                asset.Data.AlternateId,
+                asset.Data.Description??"",
+                asset.Data.AlternateId??"",
                 asset.Data.AssetId.ToString(),
                 returnDate(localtime, asset.Data.CreatedOn).ToString(),
                 returnDate(localtime, asset.Data.LastModifiedOn).ToString(),
@@ -316,8 +329,8 @@ namespace AMSExplorer
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)output.Item1);
                         Rows.Add(output.Item2);
 
-                        backgroundWorkerCSV.ReportProgress((int)index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                      //if cancellation is pending, cancel work.  
+                        backgroundWorkerExcel.ReportProgress((int)index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                        //if cancellation is pending, cancel work.  
                         if (backgroundWorkerExcel.CancellationPending)
                         {
                             ////////
@@ -347,8 +360,8 @@ namespace AMSExplorer
 
                         Rows.Add(output.Item2);
 
-                        backgroundWorkerCSV.ReportProgress((int)(100d * (double)index / total), DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                               //if cancellation is pending, cancel work.  
+                        backgroundWorkerExcel.ReportProgress((int)(100d * (double)index / total), DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                                 //if cancellation is pending, cancel work.  
                         if (backgroundWorkerExcel.CancellationPending)
                         {
                             // Save the new worksheet.
@@ -475,7 +488,7 @@ namespace AMSExplorer
                     cell = new Cell()
                     {
                         StyleIndex = 1,
-                        CellValue = new CellValue(oaValue.ToOADate().ToString(CultureInfo.InvariantCulture))
+                        CellValue = new CellValue(oaValue.ToOADate().ToString())
                     };
                 }
 
