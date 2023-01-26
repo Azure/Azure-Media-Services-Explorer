@@ -84,12 +84,10 @@ namespace AMSExplorer
                 var obj = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
 
                 if (obj.Version >= 4)
-                {  // new list v4
-
-
+                {  
+                    // new list v4
                     // JSon deserialize
                     CredentialList = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
-
 
                     // Display accounts in the list
                     CredentialList.MediaServicesAccounts.ForEach(c =>
@@ -470,9 +468,7 @@ namespace AMSExplorer
                     var accounts = await appPickUp.GetAccountsAsync();
                     try
                     {
-
                         accessToken = await appPickUp.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
-
                     }
 #pragma warning disable CS0168 // Variable is declared but never used
                     catch (MsalUiRequiredException ex)
@@ -505,51 +501,13 @@ namespace AMSExplorer
 
                     TokenCredentials credentials = new(accessToken.AccessToken, "Bearer");
                     var credentialForArmClient = new BearerTokenCredential(accessToken.AccessToken);
-
                     ArmClient armClient = new ArmClient(credentialForArmClient);
-
 
                     // Subcriptions listing
                     var subscriptions = armClient.GetSubscriptions().ToList();
 
-                    /*
-                    List<Subscription> subscriptions = new();
-                    IPage<Subscription> subscriptionsPage = subscriptionClient.Subscriptions.List();
-                    while (subscriptionsPage != null)
-                    {
-                        subscriptions.AddRange(subscriptionsPage);
-                        if (subscriptionsPage.NextPageLink != null)
-                        {
-                            subscriptionsPage = subscriptionClient.Subscriptions.ListNext(subscriptionsPage.NextPageLink);
-                        }
-                        else
-                        {
-                            subscriptionsPage = null;
-                        }
-                    }
-                    */
-
                     // Tenants listing
-
                     var tenants = armClient.GetTenants().ToList();
-
-                    /*
-                    List<TenantIdDescription> tenants = new();
-                    IPage<TenantIdDescription> tenantsPage = subscriptionClient.Tenants.List();
-                    while (tenantsPage != null)
-                    {
-                        tenants.AddRange(tenantsPage);
-                        if (tenantsPage.NextPageLink != null)
-                        {
-                            tenantsPage = subscriptionClient.Tenants.ListNext(tenantsPage.NextPageLink);
-                        }
-                        else
-                        {
-                            tenantsPage = null;
-                        }
-                    }
-                    */
-
                     Cursor = Cursors.Default;
 
                     AddAMSAccount2Browse addaccount2 = new(credentials, subscriptions, environment, tenants, prompt, appPickUp, accessToken);
@@ -583,15 +541,7 @@ namespace AMSExplorer
                             //var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").OrderBy(l => l.RegionalDisplayName);
 
                             // Getting Media Services accounts...
-
                             var listMediaServices = subscription.GetMediaServicesAccounts().ToList();
-
-                            /*
-                            var MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
-                            {
-                                SubscriptionId = addaccount2.SelectedSubscription.Data.SubscriptionId
-                            };
-                            */
 
                             // let's get the list of avaibility zones
                             AzureProviders aP = new AzureProviders(environment.ArmEndpoint);
@@ -605,8 +555,6 @@ namespace AMSExplorer
                             }
 
                             // let's get the list of Media Services
-                            //var listMedia = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Media", accessToken.AccessToken);
-                            //var listMediaServices = listMedia.ResourceTypes.Where(r => r.ResourceType == "mediaservices").FirstOrDefault().Locations;
                             var listMediaServicesLocations = listMediaServices.FirstOrDefault().GetAvailableLocations().Value;
 
                             // var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
@@ -767,12 +715,10 @@ namespace AMSExplorer
             p.Start();
         }
 
-
         private static void ScaleListViewColumns(ListView listview)
         {
             listview.Columns[0].Width = listview.Width - 4 - SystemInformation.VerticalScrollBarWidth;
         }
-
 
         private void AmsLogin_DpiChangedAfterParent(object sender, EventArgs e)
         {
