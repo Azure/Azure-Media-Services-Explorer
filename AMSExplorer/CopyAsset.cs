@@ -56,7 +56,6 @@ namespace AMSExplorer
 
         public bool DeleteSourceAsset => checkBoxDeleteSource.Checked;
 
-
         public AMSClientV3 DestinationAmsClient { get; private set; }
         public CredentialsEntryV4 DestinationLoginInfo { get; private set; }
 
@@ -226,7 +225,6 @@ namespace AMSExplorer
             // else --> form won't close...
 
             UpdateStatusButtonOk();
-
         }
 
 

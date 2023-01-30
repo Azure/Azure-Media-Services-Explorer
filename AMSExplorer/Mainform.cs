@@ -71,7 +71,6 @@ namespace AMSExplorer
 
         private bool CheckboxAnyLiveEventChangedByCode = false;
 
-        private const int maxNbJobs = 50000;
         private readonly bool enableTelemetry = true;
 
         public string _accountname;
@@ -2567,10 +2566,10 @@ namespace AMSExplorer
                             formTokenProperties.ShowDialog();
                             if (formTokenProperties.DialogResult == DialogResult.OK)
                             {
-                                sbuilder.Append(await AddTestTokenToSbuilderAsync(formPlayreadyTokenClaims, listLocators.FirstOrDefault(), "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
-                                sbuilder.Append(await AddTestTokenToSbuilderAsync(formWidevineTokenClaims, listLocators.FirstOrDefault(), "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
-                                sbuilder.Append(await AddTestTokenToSbuilderAsync(formFairPlayTokenClaims, listLocators.FirstOrDefault(), "FairPlay", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
-                                sbuilder.Append(await AddTestTokenToSbuilderAsync(formClearKeyTokenClaims, listLocators.FirstOrDefault(), "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(AddTestTokenToSbuilder(formPlayreadyTokenClaims, listLocators.FirstOrDefault(), "PlayReady", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(AddTestTokenToSbuilder(formWidevineTokenClaims, listLocators.FirstOrDefault(), "Widevine", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(AddTestTokenToSbuilder(formFairPlayTokenClaims, listLocators.FirstOrDefault(), "FairPlay", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
+                                sbuilder.Append(AddTestTokenToSbuilder(formClearKeyTokenClaims, listLocators.FirstOrDefault(), "Clear Key", formTokenProperties.TokenDuration, formTokenProperties.TokenUse));
                             }
                         }
 
@@ -2595,7 +2594,7 @@ namespace AMSExplorer
             top = myForm.Top;
         }
 
-        public static async Task<StringBuilder> AddTestTokenToSbuilderAsync(List<form_DRM_Config_TokenClaims> formTokenClaims, LocatorAndUrls myLocator, string DRMTechnology, int tokenDuration, int? tokenUse)
+        public static StringBuilder AddTestTokenToSbuilder(List<form_DRM_Config_TokenClaims> formTokenClaims, LocatorAndUrls myLocator, string DRMTechnology, int tokenDuration, int? tokenUse)
         {
             StringBuilder sbuilder = new();
             foreach (form_DRM_Config_TokenClaims tokenClaims in formTokenClaims)
@@ -2711,17 +2710,6 @@ namespace AMSExplorer
                     }
                     );
 
-
-                /*
-                    AssetContainerSas assetContainerSas = await _amsClient.AMSclient.Assets.ListContainerSasAsync(
-                                                                   _amsClient.credentialsEntry.ResourceGroup,
-                                                                   _amsClient.credentialsEntry.AccountName,
-                                                                   AssetToP.Name,
-                                                                   permissions: AssetContainerPermission.Read,
-                                                                   expiryTime: DateTime.Now.AddHours(Properties.Settings.Default.DefaultSASDurationInHours).ToUniversalTime()
-                                                                   );
-                */
-
                 string uploadSasUrl = "";
                 await foreach (var l in assetContainerSas)
                 {
@@ -2732,13 +2720,11 @@ namespace AMSExplorer
                 Uri sasUri = new(uploadSasUrl);
                 CloudBlobContainer containerSasUrl = new(sasUri);
 
-                //CloudBlobContainer container = new(containerSasUrl);
-
                 stringLines.AppendLine("Asset : " + AssetToP.Data.Name);
                 stringLines.AppendLine("========" + new string('=', AssetToP.Data.Name.Length));
                 stringLines.AppendLine(string.Empty);
                 stringLines.AppendLine("SAS Container Path");
-                stringLines.AppendLine(containerSasUrl.ToString());
+                stringLines.AppendLine(sasUri.ToString());
                 stringLines.AppendLine(string.Empty);
 
                 BlobContinuationToken continuationToken = null;
@@ -2865,7 +2851,6 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Deleting asset(s)...");
                         Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync(WaitUntil.Completed)).ToArray();
-                        //Task[] deleteTasks = SelectedAssets.Select(a => DynamicEncryption.DeleteAssetAsync(_context, a, form.DeleteDeliveryPolicies, form.DeleteKeys, form.DeleteAuthorizationPolicies)).ToArray();
                         await Task.WhenAll(deleteTasks);
                     }
                     catch (Exception ex)
@@ -6680,7 +6665,7 @@ namespace AMSExplorer
                 if (myAssetLO != null)
                 {
                     bool Error = false;
-                    PlayBackLocator = await AssetTools.IsThereALocatorValidAsync(myAssetLO.Asset, _amsClient);
+                    PlayBackLocator = AssetTools.IsThereALocatorValid(myAssetLO.Asset, _amsClient);
                     if (PlayBackLocator == null) // No streaming locator valid
                     {
                         if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one (clear streaming) ?", myAssetLO.Asset.Data.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
@@ -6721,7 +6706,7 @@ namespace AMSExplorer
                         }
                     }
 
-                    PlayBackLocator = await AssetTools.IsThereALocatorValidAsync(myAssetLO.Asset, _amsClient);
+                    PlayBackLocator = AssetTools.IsThereALocatorValid(myAssetLO.Asset, _amsClient);
 
                     if (!Error && PlayBackLocator != null) // There is a streaming locator valid
                     {
@@ -7410,10 +7395,7 @@ namespace AMSExplorer
             ServiceProperties serviceProperties = null;
             CloudBlobClient blobClient = null;
 
-            if (storageId == null)
-            {
-                storageId = (await ReturnSelectedStorageAsync()).Id;
-            }
+            storageId ??= ReturnSelectedStorage().Id;
 
             try
             {
@@ -9448,7 +9430,7 @@ namespace AMSExplorer
         }
 
 
-        private async Task<MediaServicesStorageAccount> ReturnSelectedStorageAsync()
+        private MediaServicesStorageAccount ReturnSelectedStorage()
         {
             MediaServicesStorageAccount SelectedStorage = null;
             if (dataGridViewStorage.SelectedRows.Count == 1)

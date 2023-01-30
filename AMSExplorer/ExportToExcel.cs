@@ -179,7 +179,7 @@ namespace AMSExplorer
 
         private static DateTime? returnDate(bool localtime, DateTimeOffset? time)
         {
-            if (time == null) return (DateTime?) null;
+            if (time == null) return (DateTime?)null;
 
             return localtime ? ((DateTimeOffset)time?.ToLocalTime()).DateTime : ((DateTimeOffset)time).DateTime;
         }
@@ -188,7 +188,7 @@ namespace AMSExplorer
         {
             int? nbLocators = null;
 
-            List<string> linec = new List<string>
+            List<string> linec = new()
             {
                 asset.Data.Name,
                 asset.Data.Description??"",
@@ -280,7 +280,7 @@ namespace AMSExplorer
                 Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
 
                 // Append a new worksheet and associate it with the workbook.  
-                Sheet sheet = new Sheet()
+                Sheet sheet = new()
                 {
                     Id = spreadsheetDocument.WorkbookPart.
                         GetIdOfPart(worksheetPart),
@@ -289,8 +289,8 @@ namespace AMSExplorer
                 };
 
                 sheets.Append(sheet);
-                Worksheet worksheet = new Worksheet();
-                SheetData sheetData = new SheetData();
+                Worksheet worksheet = new();
+                SheetData sheetData = new();
 
                 //// END INIT
                 string title;
@@ -316,7 +316,7 @@ namespace AMSExplorer
                 // ASSET ROWS
 
                 uint row = 4;
-                List<Row> Rows = new List<Row>();
+                List<Row> Rows = new();
 
                 if (radioButtonAllAssets.Checked)
                 {
@@ -442,8 +442,8 @@ namespace AMSExplorer
 
         private static Row CreateNewRow(string cellValue, UInt32Value styleIndex = null)
         {
-            Row row = new Row() { Spans = new ListValue<StringValue>() };
-            Cell cell = new Cell()
+            Row row = new() { Spans = new ListValue<StringValue>() };
+            Cell cell = new()
             {
                 StyleIndex = styleIndex,
                 DataType = CellValues.String,
@@ -456,7 +456,7 @@ namespace AMSExplorer
 
         private static Row CreateNewRow(List<object> cellValues, UInt32Value styleIndex = null)
         {
-            Row row = new Row() { Spans = new ListValue<StringValue>() };
+            Row row = new() { Spans = new ListValue<StringValue>() };
             foreach (var value in cellValues)
             {
                 Cell cell = null;

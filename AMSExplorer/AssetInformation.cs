@@ -824,11 +824,11 @@ namespace AMSExplorer
                         dGTracks.Rows.Add("HLS is default", tt.HlsSettings.IsDefault);
                     }
                 }
-                else if (track.Data.Track is AudioTrack at)
+                else if (track.Data.Track is AudioTrack)
                 {
                     dGTracks.Rows.Add("Type", audiotrack);
                 }
-                else if (track.Data.Track is VideoTrack vt)
+                else if (track.Data.Track is VideoTrack)
                 {
                     dGTracks.Rows.Add("Type", videotrack);
                 }
@@ -841,12 +841,12 @@ namespace AMSExplorer
 
         }
 
-        private async void ToolStripMenuItemOpenFile_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemOpenFile_Click(object sender, EventArgs e)
         {
-            await DoOpenFilesAsync();
+            DoOpenFiles();
         }
 
-        private async Task DoOpenFilesAsync()
+        private void DoOpenFiles()
         {
             Telemetry.TrackEvent("AssetInformation DoOpenFilesAsync");
 
@@ -1044,9 +1044,9 @@ namespace AMSExplorer
             await BuildLocatorsTreeAsync();
         }
 
-        private async void ButtonOpenFile_Click(object sender, EventArgs e)
+        private void ButtonOpenFile_Click(object sender, EventArgs e)
         {
-            await DoOpenFilesAsync();
+            DoOpenFiles();
         }
 
         private async void ButtonDownloadFile_Click(object sender, EventArgs e)
@@ -1251,7 +1251,7 @@ namespace AMSExplorer
             buttonClose.Enabled = false;
             buttonUpload.Enabled = false;
 
-            CloudBlobContainer container = await GetRWContainerOfAssetAsync();
+            CloudBlobContainer container = GetRWContainerOfAsset();
 
             long LengthAllFiles = 0;
             foreach (string file in filenames)
@@ -1287,7 +1287,7 @@ namespace AMSExplorer
             await ListAssetBlobsAsync();
         }
 
-        private async Task<CloudBlobContainer> GetRWContainerOfAssetAsync()
+        private CloudBlobContainer GetRWContainerOfAsset()
         {
             /*
             ListContainerSasInput input = new()
@@ -1951,7 +1951,7 @@ namespace AMSExplorer
                         progressBarUpload.Visible = true;
                         buttonClose.Enabled = false;
 
-                        CloudBlobContainer container = await GetRWContainerOfAssetAsync();
+                        CloudBlobContainer container = GetRWContainerOfAsset();
 
                         CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
 
@@ -2467,7 +2467,7 @@ namespace AMSExplorer
                         progressBarUpload.Visible = true;
                         buttonClose.Enabled = false;
 
-                        CloudBlobContainer container = await GetRWContainerOfAssetAsync();
+                        CloudBlobContainer container = GetRWContainerOfAsset();
                         CloudBlockBlob blob = container.GetBlockBlobReference(Path.GetFileName(filePath));
 
                         // await Task.Factory.StartNew(() => blob.UploadFromFile(filePath));

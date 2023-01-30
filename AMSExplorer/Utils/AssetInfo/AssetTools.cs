@@ -187,7 +187,7 @@ namespace AMSExplorer
 
 
 
-        public static async Task<MediaAssetStreamingLocator> IsThereALocatorValidAsync(MediaAssetResource asset, AMSClientV3 amsClient)
+        public static MediaAssetStreamingLocator IsThereALocatorValid(MediaAssetResource asset, AMSClientV3 amsClient)
         {
             if (asset == null) return null;
 

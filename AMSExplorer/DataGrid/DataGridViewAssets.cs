@@ -702,7 +702,7 @@ Properties/StorageId
             {
                 try
                 {
-                    locators = asset.GetStreamingLocators().ToList();
+                    locators = await asset.GetStreamingLocatorsAsync().ToListAsync();
                 }
                 catch
                 {

@@ -53,8 +53,6 @@ namespace AMSExplorer
                 }
                 else // token
                 {
-
-
                     ContentKeyPolicyRestrictionTokenKey primarykey = null;
                     if (GetDetailedTokenType == ExplorerTokenType.JWTSym)
                     {
@@ -66,7 +64,6 @@ namespace AMSExplorer
                     }
                     // if OpenID, primary key is null
 
-
                     //TODO2023 : to check this code change
                     //return new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType, alternateKeys, GetTokenRequiredClaims, GetOpenIdDiscoveryDocument);
                     var restriction = new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType)
@@ -77,7 +74,6 @@ namespace AMSExplorer
                     GetTokenRequiredClaims.ForEach(restriction.RequiredClaims.Add);
 
                     return restriction;
-
                 }
             }
         }
