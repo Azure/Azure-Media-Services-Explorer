@@ -430,10 +430,12 @@ namespace AMSExplorer
                 return;
             }
 
+            /*
             if (pagetodisplay == 1)
             {
                 _currentPageNumberIsMax = false;
             }
+            */
 
             Debug.WriteLine("RefreshAssets Start");
 
@@ -570,36 +572,20 @@ Properties/StorageId
             }
 
             // Paging
-                      
-            IReadOnlyList<MediaAssetResource> currentPage = null;
+
+            IEnumerable<MediaAssetResource> currentPage = null;
             var assetsQuery = amsClient.AMSclient.GetMediaAssets().GetAllAsync(filter: odataQuery.Filter, orderby: odataQuery.OrderBy);
 
-            if (pagetodisplay == 1)
-            {
-                //firstpage = await amsClient.AMSclient.Assets.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, odataQuery);
-                currentPage = (await assetsQuery.AsPages(null).FirstAsync()).Values;
-            }
-            else
-            {
-                string continuationToken = null;
+            const int nbItemsPerPage = 50;
+            int nSkip = (pagetodisplay - 1) * nbItemsPerPage;
 
-                _currentPageNumber = 1;
-                do
-                {
-                    _currentPageNumber++;
-                    await foreach (var item in assetsQuery.AsPages(continuationToken))
-                    {
-                        continuationToken = item.ContinuationToken;
-                        currentPage = item.Values;
-                    }
-                }
-                while (continuationToken != null && pagetodisplay > _currentPageNumber);
-
-                if (continuationToken == null)
-                {
-                    _currentPageNumberIsMax = true; // we reached max
-                }
+            _currentPageNumber++;
+            await foreach (var item in assetsQuery.AsPages())
+            {
+                currentPage = item.Values.Skip(nSkip).Take(nbItemsPerPage);
             }
+
+            _currentPageNumberIsMax = currentPage.Count() < 50;
 
             IEnumerable<AssetEntry> assets;
             lock (cacheAssetentriesV3)
