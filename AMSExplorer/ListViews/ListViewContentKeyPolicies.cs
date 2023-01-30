@@ -102,7 +102,7 @@ namespace AMSExplorer
             {
                 ListViewItem item = new(policy.Data.Name);
                 item.SubItems.Add(policy.Data.Description);
-                item.SubItems.Add(policy.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+                item.SubItems.Add(policy.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
                 if (_selectedContentKeyPolicyName == policy.Data.Name)
                 {
                     item.Selected = true;

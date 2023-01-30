@@ -120,7 +120,7 @@ namespace AMSExplorer
                                State = c.LiveOutputItem.Data.ResourceState,
                                Description = c.LiveOutputItem.Data.Description,
                                ArchiveWindowLength = c.LiveOutputItem.Data.ArchiveWindowLength,
-                               LastModifiedOn = c.LiveOutputItem.Data.LastModifiedOn != null ? c.LiveOutputItem.Data.LastModifiedOn?.ToLocalTime() : null,
+                               LastModifiedOn = c.LiveOutputItem.Data.LastModifiedOn != null ? c.LiveOutputItem.Data.LastModifiedOn?.DateTime.ToLocalTime() : null,
                                Published = null,
                                LiveEventName = c.LiveEventName
                            };
@@ -146,7 +146,7 @@ namespace AMSExplorer
             Columns[_published].DefaultCellStyle.NullValue = null;
             Columns[_published].HeaderText = _published;
             Columns["LastModifiedOn"].Width = 130;
-            Columns["LastModifiedOn"].HeaderText = "Last Modified On";
+            Columns["LastModifiedOn"].HeaderText = "Last Modified";
             Columns["Description"].Width = 150;
             Columns["ArchiveWindowLength"].Width = 130;
             Columns["ArchiveWindowLength"].HeaderText = "Archive window";
@@ -200,7 +200,7 @@ namespace AMSExplorer
                     _MyObservLiveOutputs[index].State = liveOutput.Data.ResourceState;
                     _MyObservLiveOutputs[index].Description = liveOutput.Data.Description;
                     _MyObservLiveOutputs[index].ArchiveWindowLength = liveOutput.Data.ArchiveWindowLength;
-                    _MyObservLiveOutputs[index].LastModifiedOn = liveOutput.Data.LastModifiedOn != null ? liveOutput.Data.LastModifiedOn?.ToLocalTime() : null;
+                    _MyObservLiveOutputs[index].LastModifiedOn = liveOutput.Data.LastModifiedOn != null ? liveOutput.Data.LastModifiedOn?.DateTime.ToLocalTime() : null;
                     RefreshGridView();
                 }
                 catch
@@ -272,7 +272,7 @@ namespace AMSExplorer
                                                               State = c.LOExt.LiveOutputItem.Data.ResourceState,
                                                               Description = c.LOExt.LiveOutputItem.Data.Description,
                                                               ArchiveWindowLength = c.LOExt.LiveOutputItem.Data.ArchiveWindowLength,
-                                                              LastModifiedOn = c.LOExt.LiveOutputItem.Data.LastModifiedOn != null ? c.LOExt.LiveOutputItem.Data.LastModifiedOn?.ToLocalTime() : null,
+                                                              LastModifiedOn = c.LOExt.LiveOutputItem.Data.LastModifiedOn != null ? c.LOExt.LiveOutputItem.Data.LastModifiedOn?.DateTime.ToLocalTime() : null,
                                                               Published = c.LOBitmap.bitmap,
                                                               LiveEventName = c.LOExt.LiveEventName
                                                           });

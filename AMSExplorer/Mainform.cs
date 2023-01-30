@@ -4584,7 +4584,7 @@ namespace AMSExplorer
                 try
                 {
                     int nbOptions = ckPolicy.Data.Options.Count;
-                    int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Data.Name, ckPolicy.Data.Description, typeStr, nbOptions, ckPolicy.Data.LastModifiedOn);
+                    int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Data.Name, ckPolicy.Data.Description, typeStr, nbOptions, ckPolicy.Data.LastModifiedOn?.DateTime.ToLocalTime());
                 }
                 catch
                 {

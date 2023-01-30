@@ -29,7 +29,7 @@ namespace AMSExplorer
         public string CDN { get; set; }
         public string Description { get; set; }
         public string ScaleUnits { get; set; }
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTime? LastModifiedOn { get; set; }
 
     }
 }

@@ -25,7 +25,7 @@ namespace AMSExplorer
         //   select new { j.Name, j.Id, j.State, j.StartTime, j.EndTime, j.Tasks[0].PerfMessage, Progress=j.GetOverallProgress() };
         public string Name { get; set; }
         public LiveEventResourceState? State { get; set; }
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTime? LastModifiedOn { get; set; }
         public string Description { get; set; }
         public string InputProtocol { get; set; }
         public Bitmap Encoding { get; set; }

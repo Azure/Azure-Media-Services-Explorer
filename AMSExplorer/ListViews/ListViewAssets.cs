@@ -114,7 +114,7 @@ namespace AMSExplorer
             {
                 ListViewItem item = new(asset.Data.Name);
                 item.SubItems.Add(asset.Data.Description);
-                item.SubItems.Add(asset.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+                item.SubItems.Add(asset.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
                 if (_searchExactAssetName == asset.Data.Name)
                 {
                     item.Selected = true;

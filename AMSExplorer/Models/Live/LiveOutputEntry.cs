@@ -24,7 +24,7 @@ namespace AMSExplorer
     {
         public string Name { get; set; }
         public LiveOutputResourceState? State { get; set; }
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTime? LastModifiedOn { get; set; }
         public string Description { get; set; }
         public TimeSpan? ArchiveWindowLength { get; set; }
         public Bitmap Published { get; set; }

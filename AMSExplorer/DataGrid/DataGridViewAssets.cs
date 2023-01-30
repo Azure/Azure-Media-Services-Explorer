@@ -308,9 +308,9 @@ namespace AMSExplorer
 
                         if (assetBitmapAndText.Locators != null)
                         {
-                            DateTimeOffset? LocDate = assetBitmapAndText.Locators.Any() ?((DateTimeOffset) assetBitmapAndText.Locators.Min(l => l.EndOn)).ToLocalTime() : null;
-                            AE.LocatorExpirationDate = LocDate.HasValue ? LocDate?.ToLocalTime().ToString() : null;
-                            AE.LocatorExpirationDateWarning = LocDate.HasValue && (LocDate < DateTime.Now.ToLocalTime());
+                            DateTimeOffset? LocDate = assetBitmapAndText.Locators.Any() ? assetBitmapAndText.Locators.Min(l => l.EndOn) : null;
+                            AE.LocatorExpirationDate = LocDate.HasValue ? LocDate?.DateTime.ToLocalTime().ToString() : null;
+                            AE.LocatorExpirationDateWarning = LocDate.HasValue && (LocDate < DateTimeOffset.Now);
                         }
 
                         int? afcount = await ReturnNumberAssetFiltersAsync(asset, amsClient);

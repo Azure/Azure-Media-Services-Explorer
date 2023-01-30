@@ -54,7 +54,7 @@ namespace AMSExplorer
                        Description = t.Data.Description,
                        Outputs = t.Data.Outputs.Count,
                        Jobs = count,
-                       LastModifiedOn = t.Data.LastModifiedOn?.ToLocalTime().ToString("G")
+                       LastModifiedOn = t.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G")
                    }
                    );
                 break;
@@ -116,7 +116,7 @@ namespace AMSExplorer
                         Description = t.Data.Description,
                         Outputs = t.Data.Outputs.Count,
                         Jobs = count,
-                        LastModifiedOn = t.Data.LastModifiedOn?.ToLocalTime().ToString("G")
+                        LastModifiedOn = t.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G")
                     }
                     );
             }

@@ -104,7 +104,7 @@ namespace AMSExplorer
             {
                 ListViewItem item = new(transform.Data.Name);
                 item.SubItems.Add(transform.Data.Description);
-                item.SubItems.Add(transform.Data.LastModifiedOn?.ToLocalTime().ToString("G"));
+                item.SubItems.Add(transform.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
                 if (_selectedTransformName == transform.Data.Name)
                 {
                     item.Selected = true;

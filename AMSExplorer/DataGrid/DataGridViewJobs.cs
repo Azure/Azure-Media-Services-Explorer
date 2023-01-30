@@ -306,7 +306,7 @@ namespace AMSExplorer
             {
                 Name = job.Data.Name,
                 Description = job.Data.Description,
-                LastModified = job.Data.LastModifiedOn?.ToLocalTime().ToString("G"),
+                LastModified = job.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"),
                 TransformName = transformName,
                 Outputs = job.Data.Outputs.Count,
                 Priority = job.Data.Priority,

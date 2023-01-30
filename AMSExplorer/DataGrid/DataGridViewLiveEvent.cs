@@ -104,7 +104,7 @@ namespace AMSExplorer
                                InputUrl = c.Data.Input.Endpoints.Count > 0 ? c.Data.Input.Endpoints.FirstOrDefault().Uri : null,
                                PreviewUrl = c.Data.Preview.Endpoints.Count > 0 ? c.Data.Preview.Endpoints.FirstOrDefault().Uri : null,
                                State = c.Data.ResourceState,
-                               LastModifiedOn = c.Data.LastModifiedOn != null ? c.Data.LastModifiedOn?.ToLocalTime() : null
+                               LastModifiedOn = c.Data.LastModifiedOn != null ? c.Data.LastModifiedOn?.DateTime.ToLocalTime() : null
                            };
 
 
@@ -142,7 +142,7 @@ namespace AMSExplorer
             Columns[_encodedPreset].Width = 100;
 
             Columns["LastModifiedOn"].Width = 140;
-            Columns["LastModifiedOn"].HeaderText = "Last Modified On";
+            Columns["LastModifiedOn"].HeaderText = "Last Modified";
 
             Columns["State"].Width = 75;
             Columns["Description"].Width = 110;
@@ -190,7 +190,7 @@ namespace AMSExplorer
                     liveEventItem = await amsClient.GetLiveEventAsync(liveEventItem.Data.Name); //refresh
                     _MyObservLiveEvent[index].State = liveEventItem.Data.ResourceState;
                     _MyObservLiveEvent[index].Description = liveEventItem.Data.Description;
-                    _MyObservLiveEvent[index].LastModifiedOn = liveEventItem.Data.LastModifiedOn != null ? liveEventItem.Data.LastModifiedOn?.ToLocalTime() : null;
+                    _MyObservLiveEvent[index].LastModifiedOn = liveEventItem.Data.LastModifiedOn != null ? liveEventItem.Data.LastModifiedOn?.DateTime.ToLocalTime() : null;
                     RefreshGridView();
                 }
                 catch (RequestFailedException ex) when (ex.Status == ((int)System.Net.HttpStatusCode.NotFound))
@@ -247,7 +247,7 @@ namespace AMSExplorer
                          InputUrl = c.Data.Input.Endpoints.Count > 0 ? c.Data.Input.Endpoints.FirstOrDefault().Uri : null,
                          PreviewUrl = c.Data.Preview.Endpoints.Count > 0 ? c.Data.Preview.Endpoints.FirstOrDefault().Uri : null,
                          State = c.Data.ResourceState,
-                         LastModifiedOn = c.Data.LastModifiedOn
+                         LastModifiedOn = c.Data.LastModifiedOn?.DateTime.ToLocalTime()
                      }
                     );
 
