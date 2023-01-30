@@ -21,22 +21,17 @@ using AMSExplorer.Rest;
 using AMSExplorer.Utils.JobInfo;
 using AMSExplorer.Utils.TransformInfo;
 using Azure;
-using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Office2010.CustomUI;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Auth;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Azure.Storage.Shared.Protocol;
-using Microsoft.Rest.Azure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -50,7 +45,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-using System.Xml;
 using static Azure.Core.HttpHeader;
 
 namespace AMSExplorer
@@ -155,10 +149,6 @@ namespace AMSExplorer
 
             // Get the service context.
             _amsClient = formLogin.AmsClient;
-
-
-            // _amsClient.AMSclient.Data =  _amsClient.AMSclient.Get().Value;
-
 
             // Telemetry. Type of auth.
             Dictionary<string, string> dictionary = new()

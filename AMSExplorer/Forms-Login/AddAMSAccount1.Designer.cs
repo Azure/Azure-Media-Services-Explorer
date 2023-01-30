@@ -38,11 +38,11 @@
             this.radioButtonAddManual = new System.Windows.Forms.RadioButton();
             this.comboBoxAADMappingList = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.linkLabelAzCliDoc = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelEnv = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
+            this.checkBoxSPAuth = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelEnv.SuspendLayout();
@@ -64,10 +64,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonNext);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // radioButtonAddAMSAccount
@@ -99,27 +99,22 @@
             // 
             // comboBoxAADMappingList
             // 
-            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
             this.comboBoxAADMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAADMappingList.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxAADMappingList, "comboBoxAADMappingList");
             this.comboBoxAADMappingList.Name = "comboBoxAADMappingList";
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.checkBoxSPAuth);
             this.groupBox1.Controls.Add(this.linkLabelAzCliDoc);
             this.groupBox1.Controls.Add(this.radioButtonAddAMSAccount);
             this.groupBox1.Controls.Add(this.checkBoxSelectUser);
             this.groupBox1.Controls.Add(this.radioButtonJsonCliOutput);
             this.groupBox1.Controls.Add(this.radioButtonAddManual);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
             // 
             // linkLabelAzCliDoc
             // 
@@ -135,9 +130,9 @@
             // 
             // panelEnv
             // 
-            resources.ApplyResources(this.panelEnv, "panelEnv");
             this.panelEnv.Controls.Add(this.label1);
             this.panelEnv.Controls.Add(this.comboBoxAADMappingList);
+            resources.ApplyResources(this.panelEnv, "panelEnv");
             this.panelEnv.Name = "panelEnv";
             // 
             // label6
@@ -145,6 +140,12 @@
             resources.ApplyResources(this.label6, "label6");
             this.label6.ForeColor = System.Drawing.Color.DarkBlue;
             this.label6.Name = "label6";
+            // 
+            // checkBoxSPAuth
+            // 
+            resources.ApplyResources(this.checkBoxSPAuth, "checkBoxSPAuth");
+            this.checkBoxSPAuth.Name = "checkBoxSPAuth";
+            this.checkBoxSPAuth.UseVisualStyleBackColor = true;
             // 
             // AddAMSAccount1
             // 
@@ -184,7 +185,7 @@
         private System.Windows.Forms.LinkLabel linkLabelAzCliDoc;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelEnv;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox checkBoxSPAuth;
     }
 }

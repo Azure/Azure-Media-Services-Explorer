@@ -38,6 +38,7 @@ using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using Azure;
 using DocumentFormat.OpenXml.Office2010.CustomUI;
+using AMSExplorer.Rest;
 
 namespace AMSExplorer
 {
@@ -57,6 +58,7 @@ namespace AMSExplorer
         private List<StreamingLocatorContentKey> contentKeysForCurrentLocator;
         private Uri _containerSasUrl = null;
         private string _serverManifestName = null;
+        private AmsClientRest _restClient;
 
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient, MediaAssetResource asset, IEnumerable<StreamingEndpointResource> streamingEndpoints)
         {
@@ -66,6 +68,7 @@ namespace AMSExplorer
             _amsClient = amsClient;
             _asset = asset;
             _streamingEndpoints = streamingEndpoints;
+            _restClient = new AmsClientRest(_amsClient);
         }
 
         private void ToolStripMenuItemCopy_Click(object sender, EventArgs e)
@@ -349,7 +352,7 @@ namespace AMSExplorer
             catch (Exception ex)
             {
                 MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               
+
             }
             finally
             {
@@ -2044,10 +2047,16 @@ namespace AMSExplorer
 
             var locator = await _amsClient.AMSclient.GetStreamingLocatorAsync(locatorName);
 
-            var policy = await _amsClient.AMSclient.GetStreamingPolicyAsync(locator.Value.Data.StreamingPolicyName);
+            //var policy = await _amsClient.AMSclient.GetStreamingPolicyAsync(locator.Value.Data.StreamingPolicyName);
 
+            // new code (REST)
+            var streamingPolicy = await _restClient.GetStreamingPolicyAsync(locator.Value.Data.StreamingPolicyName);
+            textBoxStreamingPolicyOfLocator.Text = Program.AnalyzeAndIndentXMLJSON(streamingPolicy);
+
+            /*
             string policyJson = JsonConvert.SerializeObject(policy.Value.Data, Newtonsoft.Json.Formatting.Indented);
             textBoxStreamingPolicyOfLocator.Text = policyJson;
+            */
 
             await DisplayContentKeyPolicyOfStreamingPolicyAsync(locator.Value.Data.StreamingPolicyName);
 
@@ -2085,10 +2094,14 @@ namespace AMSExplorer
                 return;
             }
 
-            ContentKeyPolicyResource policy = await _amsClient.AMSclient.GetContentKeyPolicyAsync(contentKeyPolicyName);
+            //ContentKeyPolicyResource policy = await _amsClient.AMSclient.GetContentKeyPolicyAsync(contentKeyPolicyName);
+            //string policyJson = JsonConvert.SerializeObject(policy.Data, Newtonsoft.Json.Formatting.Indented);
 
-            string policyJson = JsonConvert.SerializeObject(policy.Data, Newtonsoft.Json.Formatting.Indented);
-            myTextBox.Text = policyJson;
+            // new code (REST)
+            var existingCk = await _restClient.GetContentKeyPolicyAsync(contentKeyPolicyName);
+            myTextBox.Text = Program.AnalyzeAndIndentXMLJSON(existingCk);
+
+            //myTextBox.Text = policyJson;
         }
 
 

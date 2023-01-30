@@ -14,23 +14,41 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Newtonsoft.Json;
 using System;
 
 namespace AMSExplorer
 {
-    public class JsonFromAzureCliOrPortal
+    public class JsonFromAzurePortal
     {
+        [JsonProperty("AZURE_CLIENT_ID")]
         public string AadClientId { get; set; }
-        public Uri AadEndpoint { get; set; }
-        public string AadSecret { get; set; }
-        public string AadTenantId { get; set; }
-        public string AccountName { get; set; }
-        public Uri ArmAadAudience { get; set; }
-        public Uri ArmEndpoint { get; set; }
-        public string Region { get; set; }
-        public string Location { get; set; }
-        public string ResourceGroup { get; set; }
-        public string SubscriptionId { get; set; }
-    }
 
+        [JsonProperty("AZURE_CLIENT_SECRET")]
+        public string AadSecret { get; set; }
+
+        [JsonProperty("AZURE_TENANT_DOMAIN")]
+        public string AadTenantDomain { get; set; }
+
+        [JsonProperty("AZURE_TENANT_ID")]
+        public string AadTenantId { get; set; }
+
+        [JsonProperty("AZURE_MEDIA_SERVICES_ACCOUNT_NAME")]
+        public string AccountName { get; set; }
+
+        [JsonProperty("AZURE_RESOURCE_GROUP")]
+        public string ResourceGroup { get; set; }
+
+        [JsonProperty("AZURE_SUBSCRIPTION_ID")]
+        public string SubscriptionId { get; set; }
+
+        [JsonProperty("AZURE_ARM_TOKEN_AUDIENCE")]
+        public Uri ArmTokenAudience { get; set; }
+
+        [JsonProperty("AZURE_ARM_ENDPOINT")]
+        public Uri ArmEndpoint { get; set; }
+
+        [JsonProperty("AZURE_AAD_ENDPOINT")]
+        public Uri AadEndpoint { get; set; }
+    }
 }

@@ -76,7 +76,7 @@ namespace AMSExplorer
                 case AzureEnvType.Custom:
                     DisplayName = "Custom";
                     ArmEndpoint = null;
-                    ClientApplicationId = string.Empty;
+                    ClientApplicationId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
                     AADSettings = new ActiveDirectoryServiceSettings();
                     MediaServicesV2Resource = null;
                     break;

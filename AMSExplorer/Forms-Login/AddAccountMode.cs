@@ -19,7 +19,7 @@ namespace AMSExplorer
     public enum AddAccountMode
     {
         BrowseSubscriptions = 0,
-        FromAzureCliOrPortalJson,
+        FromAzurePortalJson,
         ManualEntry
     }
 }

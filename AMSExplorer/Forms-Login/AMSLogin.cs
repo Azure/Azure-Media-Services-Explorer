@@ -84,7 +84,7 @@ namespace AMSExplorer
                 var obj = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
 
                 if (obj.Version >= 4)
-                {  
+                {
                     // new list v4
                     // JSon deserialize
                     CredentialList = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
@@ -594,30 +594,38 @@ namespace AMSExplorer
 
 
                 // Get info from the Portal or Azure CLI JSON
-                else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliOrPortalJson)
+                else if (addaccount1.SelectedMode == AddAccountMode.FromAzurePortalJson)
                 {
                     Telemetry.TrackEvent("AMSLogin buttonPickupAccount_Click FromAzureCliOrPortalJson");
 
-                    //TODO2023 : upmdae the format as the portal use different names now
-                    string example = @"{
-  ""AadClientId"": ""00000000-0000-0000-0000-000000000000"",
-  ""AadSecret"": ""00000000-0000-0000-0000-000000000000"",
-  ""AadTenantId"": ""00000000-0000-0000-0000-000000000000"",
-  ""AccountName"": ""amsaccount"",
-  ""ResourceGroup"": ""amsResourceGroup"",
-  ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000"",
-  ""ArmAadAudience"": ""https://management.core.windows.net/"",
-  ""ArmEndpoint"": ""https://management.azure.com/"",
-  ""AadEndpoint"": ""https://login.microsoftonline.com""
+                    string example = @"{";
+  
+
+                    if (addaccount1.JsonWithServicePrincipal)
+                    {
+                        example += @"
+  ""AZURE_CLIENT_ID"": ""00000000-0000-0000-0000-000000000000"",
+  ""AZURE_CLIENT_SECRET"": ""00000000-0000-0000-0000-000000000000"",";
+                    }
+
+                    example += @"
+  ""AZURE_TENANT_DOMAIN"": ""microsoft.onmicrosoft.com"",
+  ""AZURE_TENANT_ID"": ""00000000-0000-0000-0000-000000000000"",
+  ""AZURE_MEDIA_SERVICES_ACCOUNT_NAME"": ""amsaccount"",
+  ""AZURE_RESOURCE_GROUP"": ""amsResourceGroup"",
+  ""AZURE_SUBSCRIPTION_ID"": ""00000000-0000-0000-0000-000000000000"",
+  ""AZURE_ARM_TOKEN_AUDIENCE"": ""https://management.core.windows.net/"",
+  ""AZURE_ARM_ENDPOINT"": ""https://management.azure.com/"",
+  ""AZURE_AAD_ENDPOINT"": ""https://login.microsoftonline.com""
 }";
                     EditorXMLJSON form = new("Enter the JSON output of the Azure Portal or Azure Cli Service Principal creation", example, true, ShowSampleMode.None, true, "The Service Principal secret is stored encrypted in the application settings.");
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        JsonFromAzureCliOrPortal json;
+                        JsonFromAzurePortal json;
                         try
                         {
-                            json = (JsonFromAzureCliOrPortal)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCliOrPortal));
+                            json = (JsonFromAzurePortal)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzurePortal));
                         }
                         catch (Exception ex)
                         {
@@ -625,13 +633,12 @@ namespace AMSExplorer
                             return;
                         }
                         string resourceId = string.Format("/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}", json.SubscriptionId, json.ResourceGroup, json.AccountName);
-                        string AADtenantId = json.AadTenantId;
 
                         // environment
                         ActiveDirectoryServiceSettings aadSettings = new()
                         {
                             AuthenticationEndpoint = json.AadEndpoint ?? addaccount1.GetEnvironment().AADSettings.AuthenticationEndpoint,
-                            TokenAudience = json.ArmAadAudience,
+                            TokenAudience = json.ArmTokenAudience,
                             ValidateAuthority = true
                         };
 
@@ -643,8 +650,8 @@ namespace AMSExplorer
                                                         json.ResourceGroup,
                                                         env,
                                                         true,
-                                                        true,
-                                                        AADtenantId,
+                                                        addaccount1.JsonWithServicePrincipal,
+                                                        json.AadTenantId,
                                                         false,
                                                         json.AadClientId,
                                                         json.AadSecret
