@@ -42,7 +42,7 @@ namespace AMSExplorer
             _context = context;
 
             var trans = amsClient.AMSclient.GetMediaTransforms().GetAllAsync();
-            
+
             List<TransformEntry> mappedItems = new();
             await foreach (var t in trans)
             {
@@ -59,19 +59,6 @@ namespace AMSExplorer
                    );
                 break;
             }
-
-            /*
-                IEnumerable<Task<TransformEntry>> transforms = transformsList.Select(async a => new TransformEntry(_context)
-            {
-                Name = a.Name,
-                Description = a.Description,
-                Jobs = (await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, a.Name)).Count(),
-                LastModifiedOn = a.LastModified.ToLocalTime().ToString("G")
-            }
-            );
-
-            TransformEntry[] mappedItems = await Task.WhenAll(transforms);
-            */
 
             BindingList<TransformEntry> MyObservTransformthisPageV3 = new(mappedItems);
             DataSource = MyObservTransformthisPageV3;
@@ -120,18 +107,6 @@ namespace AMSExplorer
                     }
                     );
             }
-            /*
-            IEnumerable<Task<TransformEntry>> transforms = (await amsClient.AMSclient.Transforms.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntry(_context)
-            {
-                Name = a.Name,
-                Description = a.Description,
-                Outputs = a.Outputs.Count,
-                Jobs = (await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, a.Name)).Count(),
-                LastModified = a.LastModified.ToLocalTime().ToString("G")
-            }
-          );
-            TransformEntry[] mappedItems = await Task.WhenAll(transforms);
-            */
 
             _MyObservTransformsV3 = new BindingList<TransformEntry>(mappedItems);
 

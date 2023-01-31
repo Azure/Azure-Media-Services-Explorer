@@ -99,7 +99,7 @@ namespace AMSExplorer
             get => _timefilterTimeRange;
             set => _timefilterTimeRange = value;
         }
-        public int DisplayedCount => _MyObservAssetV3.Count;
+        public int? DisplayedCount => _MyObservAssetV3 != null ? _MyObservAssetV3.Count : null;
 
 
         public void Init(AMSClientV3 client, SynchronizationContext syncontext)

@@ -21,6 +21,7 @@ using AMSExplorer.Rest;
 using AMSExplorer.Utils.JobInfo;
 using AMSExplorer.Utils.TransformInfo;
 using Azure;
+using Azure.Monitor.Query;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using Microsoft.Azure.Storage;
@@ -84,6 +85,9 @@ namespace AMSExplorer
 
         private List<(Guid, string, IListBlobItem, DownloadOptions)> listTransferDownloadOperations = new(); // used to resume download if needed
         private List<(Guid, TransferCheckpoint, long, string)> listTransferDownloadCheckpoints = new(); // used to resume download if needed
+
+        private record QuotaMetrics(string Name, string CountMetric, string QuotaMetric);
+        private Dictionary<string, double?> QuotasValues;
 
 
         public Mainform(string[] args)
@@ -188,6 +192,35 @@ namespace AMSExplorer
             // Timer Auto Refresh
             TimerAutoRefresh = new System.Timers.Timer(Properties.Settings.Default.AutoRefreshTime * 1000);
             TimerAutoRefresh.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+
+
+            // Quotas
+            var quotas = new QuotaMetrics[]
+            {
+                new QuotaMetrics("Assets", "AssetCount", "AssetQuota"),
+                new QuotaMetrics("Content Key Polices", "ContentKeyPolicyCount", "ContentKeyPolicyQuota"),
+                new QuotaMetrics("Streaming Policies", "StreamingPolicyCount", "StreamingPolicyQuota"),
+                new QuotaMetrics("Live Events", "ChannelsAndLiveEventsCount", "MaxChannelsAndLiveEventsCount"),
+                new QuotaMetrics("Running Live Events", "RunningChannelsAndLiveEventsCount", "MaxRunningChannelsAndLiveEventsCount"),
+                new QuotaMetrics("Transforms", null, "TransformQuota"),
+                new QuotaMetrics("Jobs", null, "JobQuota"),
+                new QuotaMetrics("Jobs Scheduled", "JobsScheduled", null),
+            };
+            var allQuotaNames = quotas
+                .Select(q => q.CountMetric)
+                .Concat(quotas.Select(q => q.QuotaMetric))
+                .Where(v => v != null);
+
+            var metricsClient = new MetricsQueryClient(_amsClient.credentialForArmClient);
+            var results = metricsClient.QueryResource(
+                _amsClient.AMSclient.Data.Id.ToString(),
+                allQuotaNames);
+
+            QuotasValues = results.Value.Metrics.ToDictionary(
+               m => m.Name,
+               m => m.TimeSeries.Last().Values.Last().Average);
+
+            // end of quotas
 
             Dictionary<string, double> dictionaryM = new()
             {
@@ -457,14 +490,9 @@ namespace AMSExplorer
 
         });
 
+            // quota is null...
+            // tabPageAssets.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, QuotasValues["AssetCount"]));
             //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, 10 /*_context.Assets.Count()*/)));
-        }
-
-        public void DoPurgeAssetInfoFromCache(MediaAssetResource asset)
-        {
-            //dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.PurgeCacheAsset(asset)));
-            dataGridViewAssetsV.Invoke(d => d.PurgeCacheAsset(asset));
-
         }
 
 
@@ -2993,8 +3021,6 @@ namespace AMSExplorer
 
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to cancel ALL the jobs from the selected transform ?", "Job cancelation", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-
-
                 bool Error = false;
 
                 // let's build the tasks list
@@ -4328,8 +4354,6 @@ namespace AMSExplorer
 
         private async Task DoRefreshGridLiveEventVAsync(bool firstime)
         {
-
-
             if (firstime)
             {
                 await dataGridViewLiveEventsV.InitAsync(_amsClient);
@@ -4338,10 +4362,10 @@ namespace AMSExplorer
             await Task.Run(async () =>
              {
                  await dataGridViewLiveEventsV.RefreshLiveEventAsync(_amsClient);
-                 //tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
-                 tabPageLive.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents));
-                 //labelLiveEvents.Invoke(new Action(() => labelLiveEvents.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents)));
-                 labelLiveEvents.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents));
+                 // tabPageLive.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents));
+                 tabPageLive.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0})", dataGridViewLiveEventsV.DisplayedCount));
+                 //labelLiveEvents.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1} max:{2})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents, QuotasValues["MaxChannelsAndLiveEventsCount"]));
+                 labelLiveEvents.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0} max:{1})", dataGridViewLiveEventsV.DisplayedCount, QuotasValues["MaxChannelsAndLiveEventsCount"]));
              });
         }
 
